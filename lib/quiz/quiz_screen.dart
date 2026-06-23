@@ -1,10 +1,11 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
 
 import '../models/perikope.dart';
-import '../models/occurrence.dart';
 import '../utils/bible_input_validator.dart';
+
+import '../services/progress_service.dart';
 import 'quiz_engine.dart';
+import 'quiz_scheduler.dart';
 
 class QuizScreen extends StatefulWidget {
   final List<Perikope> perikopen;
@@ -16,8 +17,10 @@ class QuizScreen extends StatefulWidget {
 }
 
 class _QuizScreenState extends State<QuizScreen> {
-  late List<Perikope> questions;
-  int index = 0;
+  late ProgressService progressService;
+  late QuizScheduler scheduler;
+
+  Perikope? current;
 
   final List<TextEditingController> controllers = [TextEditingController()];
   final List<bool> validStates = [false];
@@ -25,14 +28,34 @@ class _QuizScreenState extends State<QuizScreen> {
   QuizResult? result;
   bool locked = false;
 
+  Map<String, dynamic> progress = {};
+
   @override
   void initState() {
     super.initState();
-    questions =
-        widget.perikopen
-            .where((p) => p.occurrences.any((o) => o.required))
-            .toList()
-          ..shuffle(Random());
+    progressService = ProgressService();
+
+    _init();
+  }
+
+  Future<void> _init() async {
+    // ✅ FIX 1: nur required Perikopen
+    final filtered = widget.perikopen
+        .where((p) => p.occurrences.any((o) => o.required))
+        .toList();
+
+    final ids = filtered.map((e) => e.id).toList();
+
+    await progressService.initIfMissing(ids);
+    await progressService.syncWithPerikopen(ids);
+
+    progress = await progressService.loadAllProgress();
+
+    scheduler = QuizScheduler(perikopen: filtered, progress: progress);
+
+    setState(() {
+      current = scheduler.next();
+    });
   }
 
   void addField() {
@@ -52,21 +75,29 @@ class _QuizScreenState extends State<QuizScreen> {
     });
   }
 
-  void check() {
+  Future<void> check() async {
     final inputs = controllers
         .map((c) => c.text.trim())
         .where((e) => e.isNotEmpty)
         .toList();
 
+    final p = current!;
+    final result = QuizEngine.evaluate(p, inputs);
+
     setState(() {
-      result = QuizEngine.evaluate(questions[index], inputs);
+      this.result = result;
       locked = true;
     });
+
+    final correct = result.status == QuizStatus.correct;
+
+    await progressService.updateProgress(p.id, correct);
   }
 
   void next() {
     setState(() {
-      index++;
+      current = scheduler.next();
+
       locked = false;
       result = null;
 
@@ -88,7 +119,6 @@ class _QuizScreenState extends State<QuizScreen> {
 
   bool isValid(String value, String precision) {
     final v = value.trim();
-
     if (v.isEmpty) return false;
 
     final parts = v.split(" ");
@@ -113,24 +143,20 @@ class _QuizScreenState extends State<QuizScreen> {
     return true;
   }
 
-  bool get isLast => index >= questions.length - 1;
-
   @override
   Widget build(BuildContext context) {
-    final p = questions[index];
-    final requiredOccs = p.occurrences.where((o) => o.required).toList();
+    final p = current;
 
-    if (requiredOccs.isEmpty) {
-      return Scaffold(
-        appBar: AppBar(title: Text(p.title)),
-        body: const Center(child: Text("Keine Pflichtangaben für diese Frage")),
-      );
+    if (p == null) {
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));
     }
+
+    final requiredOccs = p.occurrences.where((o) => o.required).toList();
 
     final precision = requiredOccs.first.precision;
 
     return Scaffold(
-      appBar: AppBar(title: Text("${index + 1} / ${questions.length}")),
+      appBar: AppBar(title: Text(p.title)),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -140,9 +166,15 @@ class _QuizScreenState extends State<QuizScreen> {
               style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
 
-            const SizedBox(height: 12),
+            const SizedBox(height: 10),
 
-            Text(precision == "chapter" ? "Kapitelgenau" : "Versgenau"),
+            // ✅ FIX 2: Precision Hinweis
+            Text(
+              precision == "chapter"
+                  ? "Kapitelgenaue Angabe"
+                  : "Versgenaue Angabe",
+              style: const TextStyle(fontSize: 14, color: Colors.grey),
+            ),
 
             const SizedBox(height: 20),
 
@@ -201,10 +233,10 @@ class _QuizScreenState extends State<QuizScreen> {
 
               Text(
                 result!.status == QuizStatus.correct
-                    ? "✅ Richtig"
+                    ? "Richtig"
                     : result!.status == QuizStatus.partial
-                    ? "🟡 Teilweise richtig"
-                    : "❌ Falsch",
+                    ? "Teilweise richtig"
+                    : "Falsch",
                 style: const TextStyle(fontSize: 20),
               ),
 
@@ -212,16 +244,13 @@ class _QuizScreenState extends State<QuizScreen> {
 
               ...result!.fieldResults.map(
                 (r) => Text(
-                  r.isCorrect ? "✔ ${r.expected}" : "❌ fehlt: ${r.expected}",
+                  r.isCorrect ? "✔ ${r.expected}" : "✘ fehlt: ${r.expected}",
                 ),
               ),
 
               const SizedBox(height: 20),
 
-              ElevatedButton(
-                onPressed: next,
-                child: Text(isLast ? "Fertig" : "Weiter"),
-              ),
+              ElevatedButton(onPressed: next, child: const Text("Weiter")),
             ],
           ],
         ),
