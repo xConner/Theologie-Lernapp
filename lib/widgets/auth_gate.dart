@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../main.dart'; // NICHT nötig wenn HomeScreen separat ist
-
-// WICHTIG: besser HomeScreen in eigene Datei verschieben
-import '../home/home_screen.dart';
-import 'login_screen.dart';
+import '../screens/login_screen.dart';
+import '../screens/home_screen.dart';
 
 class AuthGate extends StatelessWidget {
   const AuthGate({super.key});
@@ -21,8 +18,10 @@ class AuthGate extends StatelessWidget {
           );
         }
 
-        if (snapshot.hasData) {
-          return const HomeScreen(); // 👉 dein QUIZ kommt hier
+        final user = snapshot.data;
+
+        if (user != null) {
+          return const HomeScreen();
         }
 
         return const LoginScreen();
