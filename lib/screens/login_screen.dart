@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -59,6 +60,12 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
+  Future<void> openGithub() async {
+    final uri = Uri.parse("https://github.com/xConner/Theologie-Lernapp");
+
+    await launchUrl(uri, mode: LaunchMode.externalApplication);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -92,6 +99,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 },
                 decoration: const InputDecoration(labelText: "Passwort"),
               ),
+
               const SizedBox(height: 12),
 
               if (error != null)
@@ -107,6 +115,18 @@ class _LoginScreenState extends State<LoginScreen> {
               TextButton(
                 onPressed: loading ? null : register,
                 child: const Text("Registrieren"),
+              ),
+
+              const SizedBox(height: 30),
+
+              const Text(
+                "In Entwicklung",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+
+              TextButton(
+                onPressed: openGithub,
+                child: const Text("GitHub Repository"),
               ),
             ],
           ),
