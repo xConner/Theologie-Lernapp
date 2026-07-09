@@ -70,11 +70,26 @@ class _LoginScreenState extends State<LoginScreen> {
             children: [
               TextField(
                 controller: emailController,
+                onChanged: (_) {
+                  if (error != null) {
+                    setState(() {
+                      error = null;
+                    });
+                  }
+                },
                 decoration: const InputDecoration(labelText: "Email"),
               ),
+
               TextField(
                 controller: passwordController,
                 obscureText: true,
+                onChanged: (_) {
+                  if (error != null) {
+                    setState(() {
+                      error = null;
+                    });
+                  }
+                },
                 decoration: const InputDecoration(labelText: "Passwort"),
               ),
               const SizedBox(height: 12),

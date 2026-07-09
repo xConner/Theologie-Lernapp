@@ -1,3 +1,5 @@
+import '../models/perikope.dart';
+
 class BibleReferenceValidator {
   static final RegExp _bookRegex = RegExp(r'^[A-Za-zÄÖÜäöü0-9]+$');
   static final RegExp _chapterRegex = RegExp(r'^\d+$');
@@ -146,5 +148,61 @@ class BibleReferenceValidator {
     }
 
     return _verseRegex.hasMatch(verse);
+  }
+
+  static bool matchesPerikope(String input, Perikope p) {
+    final cleaned = input.trim();
+
+    final match = RegExp(r'^([A-Za-zÄÖÜäöü0-9]+)\s+(.*)$').firstMatch(cleaned);
+
+    if (match == null) return false;
+
+    final book = match.group(1)!;
+    final ref = match.group(2)!;
+
+    if (book != p.book) return false;
+
+    if (p.precision == "chapter") {
+      final range = ref.split("-");
+
+      final start = int.tryParse(range[0].trim());
+
+      if (start == null) return false;
+
+      if (range.length == 1) {
+        return start == p.startChapter;
+      }
+
+      final end = int.tryParse(range[1].trim());
+
+      if (end == null) return false;
+
+      return start == p.startChapter && end == p.endChapter;
+    }
+
+    // Versgenau
+    final verseMatch = RegExp(
+      r'^(\d+),(\d+)(?:-(\d+),(\d+))?$',
+    ).firstMatch(ref);
+
+    if (verseMatch == null) return false;
+
+    final startChapter = int.parse(verseMatch.group(1)!);
+
+    final startVerse = int.parse(verseMatch.group(2)!);
+
+    int endChapter = startChapter;
+    int endVerse = startVerse;
+
+    if (verseMatch.group(3) != null) {
+      endChapter = int.parse(verseMatch.group(3)!);
+
+      endVerse = int.parse(verseMatch.group(4)!);
+    }
+
+    return startChapter == p.startChapter &&
+        startVerse == p.startVerse &&
+        endChapter == p.endChapter &&
+        endVerse == p.endVerse;
   }
 }
