@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 import '../services/learning_service.dart';
@@ -7,6 +9,7 @@ import '../models/perikope.dart';
 import '../models/learning_card.dart';
 
 import '../quiz/quiz_engine.dart';
+import '../quiz/quiz_question.dart';
 
 import '../utils/bible_reference_validator.dart';
 
@@ -31,21 +34,23 @@ class _QuizScreenState extends State<QuizScreen> {
 
   final LearningService learningService = LearningService();
 
-  final controller = TextEditingController();
+  final List<TextEditingController> controllers = [TextEditingController()];
 
-  String? validationHint;
+  final List<String?> validationHints = [null];
 
   String? feedback;
 
   bool checked = false;
-
-  bool isValid = false;
 
   late QuizSettings settings;
 
   bool loaded = false;
 
   final Map<String, LearningCard> learningCards = {};
+
+  List<QuizQuestion> questions = [];
+
+  final List<bool?> inputResults = [null];
 
   @override
   void initState() {
@@ -61,6 +66,8 @@ class _QuizScreenState extends State<QuizScreen> {
       selectedBooks: books.isEmpty ? {...QuizSettings.allBooks} : books,
     );
 
+    _prepareQuestions();
+
     _rebuildEngine();
 
     setState(() {
@@ -68,30 +75,70 @@ class _QuizScreenState extends State<QuizScreen> {
     });
   }
 
-  List<Perikope> _filtered() {
-    return widget.perikopen
-        .where((p) => p.required)
-        .where((p) => settings.selectedBooks.contains(p.book))
+  void _prepareQuestions() {
+    questions = QuizQuestion.fromPerikopen(widget.perikopen);
+  }
+
+  List<QuizQuestion> _filtered() {
+    return questions
+        .where((q) {
+          return q.variants.any(
+            (p) => p.required && settings.selectedBooks.contains(p.book),
+          );
+        })
+        .map((q) {
+          return QuizQuestion(
+            id: q.id,
+            variants: q.variants
+                .where(
+                  (p) => p.required && settings.selectedBooks.contains(p.book),
+                )
+                .toList(),
+          );
+        })
         .toList();
   }
 
   void _rebuildEngine() {
     engine = QuizEngine(
       _filtered(),
-
       learningCards,
-
       uid: widget.uid,
-
       learningService: learningService,
     );
 
     engine.start();
   }
 
-  Perikope? get current => engine.current;
+  QuizQuestion? get current => engine.current;
 
-  String _correctReference(Perikope p) {
+  void addInput() {
+    if (controllers.length >= 4) {
+      return;
+    }
+
+    setState(() {
+      controllers.add(TextEditingController());
+      validationHints.add(null);
+      inputResults.add(null);
+    });
+  }
+
+  void removeInput(int index) {
+    if (controllers.length <= 1) {
+      return;
+    }
+
+    setState(() {
+      controllers[index].dispose();
+
+      controllers.removeAt(index);
+      validationHints.removeAt(index);
+      inputResults.removeAt(index);
+    });
+  }
+
+  String _reference(Perikope p) {
     if (p.precision == "chapter") {
       if (p.startChapter == p.endChapter) {
         return "${p.startChapter}";
@@ -111,18 +158,22 @@ class _QuizScreenState extends State<QuizScreen> {
     return "${p.startChapter},${p.startVerse}-${p.endChapter},${p.endVerse}";
   }
 
-  void validate(String input) {
-    final text = input.trim();
+  String _fullAnswer(Perikope p) {
+    return "${p.book} ${_reference(p)}";
+  }
 
+  void validateInput(int index, String value) {
     final c = current;
 
-    if (c == null) return;
+    if (c == null) {
+      return;
+    }
+
+    final text = value.trim();
 
     if (text.isEmpty) {
       setState(() {
-        validationHint = null;
-
-        isValid = false;
+        validationHints[index] = null;
       });
 
       return;
@@ -132,59 +183,118 @@ class _QuizScreenState extends State<QuizScreen> {
 
     if (bookError != null) {
       setState(() {
-        validationHint = "✘ $bookError";
-
-        isValid = false;
+        validationHints[index] = "✘ $bookError";
       });
 
       return;
     }
 
-    final valid = BibleReferenceValidator.isValid(text, c.precision);
+    final validSyntax = c.variants.any(
+      (p) => BibleReferenceValidator.isValid(text, p.precision),
+    );
 
     setState(() {
-      isValid = valid;
-
-      validationHint = valid ? null : _formatHint(c);
+      validationHints[index] = validSyntax ? null : "✘ Ungültiges Format";
     });
   }
 
-  String _formatHint(Perikope c) {
-    final base = c.precision == "chapter"
-        ? "Kapitelgenauigkeit erforderlich."
-        : "Versgenauigkeit erforderlich.";
+  Set<String> _expectedAnswers() {
+    final c = current;
 
-    final example = c.precision == "chapter"
-        ? "Beispiel: Mk 8 oder Mk 8-10"
-        : "Beispiel: Mk 8,34 oder Mk 8,34-38";
+    if (c == null) {
+      return {};
+    }
 
-    return "$base\n$example";
+    return c.variants.map(_fullAnswer).toSet();
+  }
+
+  Set<String> _userAnswers() {
+    final result = <String>{};
+
+    for (final controller in controllers) {
+      final text = controller.text.trim();
+
+      if (text.isNotEmpty) {
+        result.add(text);
+      }
+    }
+
+    return result;
+  }
+
+  String _normalize(String input) {
+    return input.trim().replaceAll(RegExp(r'\s+'), ' ');
   }
 
   Future<void> handleButton() async {
     final c = current;
 
-    if (c == null) return;
+    if (c == null) {
+      return;
+    }
 
     if (!checked) {
-      final parsed = controller.text.trim();
+      final expected = _expectedAnswers();
 
-      final syntaxOk = BibleReferenceValidator.isValid(parsed, c.precision);
+      final given = _userAnswers().map(_normalize).toSet();
 
-      final ok = syntaxOk && BibleReferenceValidator.matchesPerikope(parsed, c);
+      final normalizedExpected = expected.map(_normalize).toSet();
 
-      await engine.answer(ok);
+      final correct =
+          given.length == normalizedExpected.length &&
+          given.containsAll(normalizedExpected);
+
+      await engine.answer(correct);
+
+      final correctGiven = given.intersection(normalizedExpected);
+
+      final missing = normalizedExpected.difference(given);
+
+      final wrong = given.difference(normalizedExpected);
+
+      final results = controllers.map((controller) {
+        final answer = _normalize(controller.text);
+
+        if (answer.isEmpty) {
+          return false;
+        }
+
+        return normalizedExpected.contains(answer);
+      }).toList();
 
       setState(() {
         checked = true;
 
-        if (ok) {
-          feedback = "✔ Richtig";
+        inputResults.clear();
+        inputResults.addAll(results);
+
+        final buffer = StringBuffer();
+
+        if (correct) {
+          buffer.writeln("✔ Richtig\n");
         } else {
-          feedback =
-              "✘ Falsch\n"
-              "Richtig wäre: ${c.book} ${_correctReference(c)}";
+          buffer.writeln("✘ Falsch\n");
         }
+
+        buffer.writeln("Deine Eingaben:");
+
+        for (final answer in given) {
+          if (normalizedExpected.contains(answer)) {
+            buffer.writeln("✓ $answer");
+          } else {
+            buffer.writeln("✗ $answer");
+          }
+        }
+
+        if (missing.isNotEmpty) {
+          buffer.writeln("\nFehlt noch:");
+
+          for (final answer in missing) {
+            buffer.writeln("• $answer");
+          }
+        }
+
+        feedback = buffer.toString();
       });
 
       return;
@@ -193,34 +303,36 @@ class _QuizScreenState extends State<QuizScreen> {
     setState(() {
       engine.next();
 
-      controller.clear();
+      for (final controller in controllers) {
+        controller.clear();
+      }
 
       checked = false;
 
       feedback = null;
 
-      validationHint = null;
+      inputResults.clear();
+      inputResults.addAll(List.filled(controllers.length, null));
 
-      isValid = false;
+      for (int i = 0; i < validationHints.length; i++) {
+        validationHints[i] = null;
+      }
     });
   }
 
   Future<void> _openSettings() async {
-    final oldBooks = {...settings.selectedBooks};
-
     final result = await showDialog<Set<String>>(
       context: context,
-
       barrierDismissible: false,
-
       builder: (_) => QuizSettingsSheet(
         selected: settings.selectedBooks,
-
-        onChanged: (v) {},
+        onChanged: (_) {},
       ),
     );
 
-    if (result == null) return;
+    if (result == null) {
+      return;
+    }
 
     final oldCurrent = current;
 
@@ -229,22 +341,33 @@ class _QuizScreenState extends State<QuizScreen> {
 
       final newItems = _filtered();
 
-      final currentStillAllowed =
-          oldCurrent != null && newItems.any((p) => p.id == oldCurrent.id);
+      final stillAvailable =
+          oldCurrent != null && newItems.any((q) => q.id == oldCurrent.id);
 
       engine.updateItems(newItems);
 
-      if (!currentStillAllowed) {
+      if (!stillAvailable) {
         engine.next();
-        controller.clear();
+
+        for (final controller in controllers) {
+          controller.clear();
+        }
+
         checked = false;
         feedback = null;
-        validationHint = null;
-        isValid = false;
       }
     });
 
     await service.saveBooks(widget.uid, settings.selectedBooks);
+  }
+
+  @override
+  void dispose() {
+    for (final controller in controllers) {
+      controller.dispose();
+    }
+
+    super.dispose();
   }
 
   @override
@@ -258,11 +381,9 @@ class _QuizScreenState extends State<QuizScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Quiz"),
-
         actions: [
           IconButton(
             icon: const Icon(Icons.settings),
-
             onPressed: _openSettings,
           ),
         ],
@@ -274,44 +395,127 @@ class _QuizScreenState extends State<QuizScreen> {
         child: c == null
             ? const Center(child: Text("Keine Perikopen verfügbar"))
             : Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
 
                 children: [
-                  Text(
-                    c.title,
-
-                    style: const TextStyle(
-                      fontSize: 20,
-
-                      fontWeight: FontWeight.bold,
+                  Center(
+                    child: Text(
+                      c.title,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
 
-                  Text(c.precision == "chapter" ? "Kapitelgenau" : "Versgenau"),
-
-                  const SizedBox(height: 12),
-
-                  TextField(
-                    controller: controller,
-
-                    onChanged: validate,
-
-                    decoration: InputDecoration(errorText: validationHint),
+                  Center(
+                    child: Text(
+                      c.variants.first.precision == "chapter"
+                          ? "Kapitelgenau"
+                          : "Versgenau",
+                    ),
                   ),
 
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 16),
 
-                  ElevatedButton(
-                    onPressed: handleButton,
+                  ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: controllers.length,
+                    itemBuilder: (_, index) {
+                      return Row(
+                        children: [
+                          Expanded(
+                            child: TextField(
+                              controller: controllers[index],
 
-                    child: Text(checked ? "Weiter" : "Prüfen"),
+                              mouseCursor: SystemMouseCursors.text,
+                              showCursor: true,
+
+                              enabled: !checked,
+
+                              onChanged: (v) => validateInput(index, v),
+
+                              decoration: InputDecoration(
+                                hintText:
+                                    c.variants.first.precision == "chapter"
+                                    ? "z.B. Mk 8 oder Mk 8-10"
+                                    : "z.B. Mk 1,9-11",
+
+                                errorText: validationHints[index],
+
+                                enabledBorder:
+                                    checked && inputResults[index] == true
+                                    ? const OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Colors.green,
+                                          width: 2,
+                                        ),
+                                      )
+                                    : checked && inputResults[index] == false
+                                    ? const OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Colors.red,
+                                          width: 2,
+                                        ),
+                                      )
+                                    : null,
+
+                                disabledBorder:
+                                    checked && inputResults[index] == true
+                                    ? const OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Colors.green,
+                                          width: 2,
+                                        ),
+                                      )
+                                    : checked && inputResults[index] == false
+                                    ? const OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Colors.red,
+                                          width: 2,
+                                        ),
+                                      )
+                                    : null,
+                              ),
+                            ),
+                          ),
+
+                          if (controllers.length > 1)
+                            IconButton(
+                              icon: const Icon(Icons.remove_circle),
+                              onPressed: checked
+                                  ? null
+                                  : () => removeInput(index),
+                            ),
+                        ],
+                      );
+                    },
+                  ),
+
+                  if (controllers.length < 4)
+                    Center(
+                      child: TextButton.icon(
+                        icon: const Icon(Icons.add),
+                        label: const Text("Weitere Eingabe"),
+                        onPressed: checked ? null : addInput,
+                      ),
+                    ),
+
+                  Center(
+                    child: ElevatedButton(
+                      onPressed: handleButton,
+                      child: Text(checked ? "Weiter" : "Prüfen"),
+                    ),
                   ),
 
                   if (feedback != null)
-                    Padding(
-                      padding: const EdgeInsets.only(top: 12),
-
-                      child: Text(feedback!),
+                    Center(
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 16),
+                        child: Text(feedback!, textAlign: TextAlign.center),
+                      ),
                     ),
                 ],
               ),

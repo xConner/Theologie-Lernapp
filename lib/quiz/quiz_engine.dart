@@ -1,12 +1,13 @@
 import 'dart:math';
 
-import '../models/perikope.dart';
 import '../models/learning_card.dart';
 import '../algorithms/spaced_repetition.dart';
 import '../services/learning_service.dart';
 
+import 'quiz_question.dart';
+
 class QuizEngine {
-  List<Perikope> _items;
+  List<QuizQuestion> _items;
 
   final Map<String, LearningCard> _cards;
 
@@ -16,10 +17,10 @@ class QuizEngine {
 
   final SpacedRepetition algorithm;
 
-  Perikope? _current;
+  QuizQuestion? _current;
 
   QuizEngine(
-    List<Perikope> items,
+    List<QuizQuestion> items,
     this._cards, {
     required this.uid,
     required this.learningService,
@@ -31,15 +32,13 @@ class QuizEngine {
 
   int get length => _items.length;
 
-  Perikope? get current => _current;
+  QuizQuestion? get current => _current;
 
   LearningCard _getCard(String id) {
     return _cards.putIfAbsent(id, () => LearningCard(id: id));
   }
 
-  /// Aktualisiert die verfügbaren Perikopen nach Änderung der Einstellungen.
-  /// Die aktuelle Perikope bleibt bestehen, solange sie noch enthalten ist.
-  void updateItems(List<Perikope> items) {
+  void updateItems(List<QuizQuestion> items) {
     _items = items;
   }
 
@@ -47,17 +46,17 @@ class QuizEngine {
     _current = _selectNext();
   }
 
-  Perikope? next() {
+  QuizQuestion? next() {
     _current = _selectNext();
     return _current;
   }
 
-  Perikope? _selectNext() {
+  QuizQuestion? _selectNext() {
     if (_items.isEmpty) {
       return null;
     }
 
-    final scores = <Perikope, double>{};
+    final scores = <QuizQuestion, double>{};
 
     double total = 0;
 

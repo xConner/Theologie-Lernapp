@@ -17,9 +17,19 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: AuthGate(),
+
+      theme: ThemeData(
+        scaffoldBackgroundColor: const Color.fromARGB(255, 255, 255, 255),
+
+        inputDecorationTheme: const InputDecorationTheme(
+          filled: true,
+          fillColor: Colors.white,
+        ),
+      ),
+
+      home: const AuthGate(),
     );
   }
 }
