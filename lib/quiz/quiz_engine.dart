@@ -6,7 +6,7 @@ import '../algorithms/spaced_repetition.dart';
 import '../services/learning_service.dart';
 
 class QuizEngine {
-  final List<Perikope> _items;
+  List<Perikope> _items;
 
   final Map<String, LearningCard> _cards;
 
@@ -35,6 +35,12 @@ class QuizEngine {
 
   LearningCard _getCard(String id) {
     return _cards.putIfAbsent(id, () => LearningCard(id: id));
+  }
+
+  /// Aktualisiert die verfügbaren Perikopen nach Änderung der Einstellungen.
+  /// Die aktuelle Perikope bleibt bestehen, solange sie noch enthalten ist.
+  void updateItems(List<Perikope> items) {
+    _items = items;
   }
 
   void start() {

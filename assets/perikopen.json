@@ -19305,7 +19305,7 @@
         "precision": "chapter"
     },
     {
-        "id": "die_heilung_eines_mondsuechtigen_jungen",
+        "id": "knabenexorzismus",
         "title": "Die Heilung eines mondsüchtigen Jungen",
         "book": "Mt",
         "startChapter": 17,
@@ -19339,7 +19339,7 @@
     },
     {
         "id": "juengerstreit",
-        "title": "Der Rangstreit der Jünger",
+        "title": "Der Größte im Reich Gottes",
         "book": "Mt",
         "startChapter": 18,
         "startVerse": 1,
@@ -19470,7 +19470,7 @@
         "precision": "chapter"
     },
     {
-        "id": "juengerstreit",
+        "id": "vom_herrschen_und_vom_dienen",
         "title": "Vom Herrschen und vom Dienen",
         "book": "Mt",
         "startChapter": 20,
@@ -20538,7 +20538,7 @@
     },
     {
         "id": "juengerstreit",
-        "title": "Der Rangstreit der Jünger",
+        "title": "Der Größte im Reich Gottes",
         "book": "Mk",
         "startChapter": 9,
         "startVerse": 33,
@@ -20625,7 +20625,7 @@
         "precision": "chapter"
     },
     {
-        "id": "juengerstreit",
+        "id": "vom_herrschen_und_vom_dienen",
         "title": "Vom Herrschen und vom Dienen",
         "book": "Mk",
         "startChapter": 10,
@@ -21616,7 +21616,7 @@
     },
     {
         "id": "juengerstreit",
-        "title": "Der Rangstreit der Jünger",
+        "title": "Der Größte im Reich Gottes",
         "book": "Lk",
         "startChapter": 9,
         "startVerse": 46,
@@ -22506,7 +22506,7 @@
         "precision": "chapter"
     },
     {
-        "id": "juengerstreit",
+        "id": "vom_herrschen_und_vom_dienen",
         "title": "Vom Herrschen und vom Dienen",
         "book": "Lk",
         "startChapter": 22,

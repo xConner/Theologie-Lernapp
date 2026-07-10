@@ -206,6 +206,8 @@ class _QuizScreenState extends State<QuizScreen> {
   }
 
   Future<void> _openSettings() async {
+    final oldBooks = {...settings.selectedBooks};
+
     final result = await showDialog<Set<String>>(
       context: context,
 
@@ -220,10 +222,26 @@ class _QuizScreenState extends State<QuizScreen> {
 
     if (result == null) return;
 
+    final oldCurrent = current;
+
     setState(() {
       settings.selectedBooks = result;
 
-      _rebuildEngine();
+      final newItems = _filtered();
+
+      final currentStillAllowed =
+          oldCurrent != null && newItems.any((p) => p.id == oldCurrent.id);
+
+      engine.updateItems(newItems);
+
+      if (!currentStillAllowed) {
+        engine.next();
+        controller.clear();
+        checked = false;
+        feedback = null;
+        validationHint = null;
+        isValid = false;
+      }
     });
 
     await service.saveBooks(widget.uid, settings.selectedBooks);
