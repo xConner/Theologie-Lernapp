@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import '../services/perikope_loader.dart';
 import '../screens/quiz_screen.dart';
+import '../screens/liturgical_calendar_screen.dart';
+
 import '../models/perikope.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -14,11 +16,13 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   List<Perikope>? perikopen;
+
   bool loading = true;
 
   @override
   void initState() {
     super.initState();
+
     _loadPerikopen();
   }
 
@@ -45,6 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(const SnackBar(content: Text("Keine Perikopen geladen")));
+
       return;
     }
 
@@ -54,6 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(const SnackBar(content: Text("Nicht eingeloggt")));
+
       return;
     }
 
@@ -65,29 +71,47 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  void _openLiturgicalCalendar() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => const LiturgicalCalendarScreen()),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Start"),
+
         actions: [
           IconButton(
             icon: const Icon(Icons.logout),
+
             onPressed: () => FirebaseAuth.instance.signOut(),
           ),
         ],
       ),
+
       body: Center(
         child: loading
             ? const CircularProgressIndicator()
             : Column(
                 mainAxisSize: MainAxisSize.min,
+
                 children: [
-                  const Text("In Entwicklung"),
-                  const SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: _openQuiz,
+
                     child: const Text("Perikopenquiz"),
+                  ),
+
+                  const SizedBox(height: 20),
+
+                  ElevatedButton(
+                    onPressed: _openLiturgicalCalendar,
+
+                    child: const Text("Liturgischer Kalender"),
                   ),
                 ],
               ),

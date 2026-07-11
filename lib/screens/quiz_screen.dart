@@ -252,12 +252,18 @@ class _QuizScreenState extends State<QuizScreen> {
 
       final wrong = given.difference(normalizedExpected);
 
+      // Leere Eingabefelder entfernen
+      for (int i = controllers.length - 1; i >= 0; i--) {
+        if (controllers[i].text.trim().isEmpty && controllers.length > 1) {
+          controllers[i].dispose();
+          controllers.removeAt(i);
+          validationHints.removeAt(i);
+          inputResults.removeAt(i);
+        }
+      }
+
       final results = controllers.map((controller) {
         final answer = _normalize(controller.text);
-
-        if (answer.isEmpty) {
-          return false;
-        }
 
         return normalizedExpected.contains(answer);
       }).toList();

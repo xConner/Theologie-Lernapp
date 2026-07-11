@@ -1,0 +1,732 @@
+[
+    {
+        "date": "2026-07-12",
+        "title": "6. Sonntag nach Trinitatis",
+        "type": "sonntag",
+        "color": "grün",
+        "spruch": {
+            "text": "So spricht der Herr, der dich geschaffen hat, Jakob, und dich gemacht hat, Israel: Fürchte dich nicht, denn ich habe dich erlöst; ich habe dich bei deinem Namen gerufen; du bist mein!",
+            "reference": "Jesaja 43,1"
+        },
+        "psalm": "Psalm 139,1-12 oder Psalm 139,13-16.23-24",
+        "songs": [
+            "EG 200: Ich bin getauft auf deinen Namen",
+            "EG.E 10: Ich sage Ja zu dem, der mich erschuf"
+        ],
+        "readings": {
+            "oldTestament": "Jesaja 43,1-7",
+            "epistle": "Römer 6,3-8 (9-11)",
+            "hallelujah": "Psalm 22,23",
+            "gospel": "Matthäus 28,16-20",
+            "sermon": "5. Mose 7,6-12"
+        }
+    },
+    {
+        "date": "2026-07-19",
+        "title": "7. Sonntag nach Trinitatis",
+        "type": "sonntag",
+        "color": "grün",
+        "spruch": {
+            "text": "So seid ihr nun nicht mehr Gäste und Fremdlinge, sondern Mitbürger der Heiligen und Gottes Hausgenossen.",
+            "reference": "Epheser 2,19"
+        },
+        "psalm": "Psalm 107,1-9",
+        "songs": [
+            "EG 320: Nun lasst uns Gott, dem Herren",
+            "EG 418: Brich dem Hungrigen dein Brot"
+        ],
+        "readings": {
+            "oldTestament": "2. Mose 16,2-3.11-18",
+            "epistle": "Apostelgeschichte 2,41-47",
+            "hallelujah": "Psalm 113,3",
+            "gospel": "Johannes 6,1-15",
+            "sermon": "Hebräer 13,1-3"
+        }
+    },
+    {
+        "date": "2026-07-22",
+        "title": "Tag der Maria Magdalena",
+        "type": "gedenktag",
+        "color": "weiß",
+        "spruch": {
+            "text": "Gehet hin in alle Welt und predigt das Evangelium aller Kreatur.",
+            "reference": "Markus 16,15b"
+        },
+        "psalm": "Psalm 30,5-13",
+        "songs": [
+            "EG 269: Christus ist König, jubelt laut",
+            "EG.E 27: Die Heiligen, uns weit voran"
+        ],
+        "readings": {
+            "oldTestament": "Hoheslied 3,1-5",
+            "epistle": "2. Korinther 5,14-18",
+            "hallelujah": "Psalm 33,1",
+            "gospel": "Johannes 20,11-18",
+            "sermon": "Johannes 20,11-18"
+        }
+    },
+    {
+        "date": "2026-07-25",
+        "title": "Tag des Apostels Jakobus des Älteren",
+        "type": "gedenktag",
+        "color": "rot",
+        "spruch": {
+            "text": "Wie lieblich sind auf den Bergen die Füße des Freudenboten, der da Frieden verkündigt, Gutes predigt, Heil verkündigt, der da sagt zu Zion: Dein Gott ist König!",
+            "reference": "Jesaja 52,7"
+        },
+        "psalm": "Psalm 116,1-9.13",
+        "songs": [
+            "EG 154: Herr, mach uns stark im Mut, der dich bekennt",
+            "EG 498: In Gottes Namen fahren wir"
+        ],
+        "readings": {
+            "oldTestament": "Jesaja 45,4-7",
+            "epistle": "Apostelgeschichte 11,27-12,5",
+            "hallelujah": "Psalm 33,1",
+            "gospel": "Matthäus 20,20-23",
+            "sermon": "Jesaja 45,4-7"
+        }
+    },
+    {
+        "date": "2026-07-26",
+        "title": "8. Sonntag nach Trinitatis",
+        "type": "sonntag",
+        "color": "grün",
+        "spruch": {
+            "text": "Wandelt als Kinder des Lichts; die Frucht des Lichts ist lauter Güte und Gerechtigkeit und Wahrheit.",
+            "reference": "Epheser 5,8b-9"
+        },
+        "psalm": "Psalm 48,2-3a.9-15",
+        "songs": [
+            "EG 262/263: Sonne der Gerechtigkeit",
+            "EG.E 25: Lass uns in deinem Namen, Herr"
+        ],
+        "readings": {
+            "oldTestament": "Jesaja 2,1-5",
+            "epistle": "Epheser 5,8b-14",
+            "hallelujah": "Psalm 115,1",
+            "gospel": "Matthäus 5,13-16",
+            "sermon": "Johannes 9,1-7"
+        }
+    },
+    {
+        "date": "2026-08-02",
+        "title": "9. Sonntag nach Trinitatis",
+        "type": "sonntag",
+        "color": "grün",
+        "spruch": {
+            "text": "Wem viel gegeben ist, bei dem wird man viel suchen; und wem viel anvertraut ist, von dem wird man umso mehr fordern.",
+            "reference": "Lukas 12,48b"
+        },
+        "psalm": "Psalm 63,2-9",
+        "songs": [
+            "EG 397: Herzlich lieb hab ich dich, o Herr",
+            "EG.E 32: Die Erde ist des Herrn"
+        ],
+        "readings": {
+            "oldTestament": "Jeremia 1,4-10",
+            "epistle": "Philipper 3,(4b-6)7-14",
+            "hallelujah": "Psalm 40,17",
+            "gospel": "Matthäus 13,44-46",
+            "sermon": "Jeremia 1,4-10"
+        }
+    },
+    {
+        "date": "2026-08-09",
+        "title": "10. Sonntag nach Trinitatis",
+        "variant": "Israelsonntag",
+        "type": "sonntag",
+        "color": "grün",
+        "spruch": {
+            "text": "Wohl dem Volk, dessen Gott der Herr ist, dem Volk, das er zum Erbe erwählt hat!",
+            "reference": "Psalm 33,12"
+        },
+        "psalm": "Psalm 122,1-9",
+        "songs": [
+            "EG 290: Nun danket Gott, erhebt und preiset",
+            "EG 429: Lobt und preist die herrlichen Taten"
+        ],
+        "readings": {
+            "oldTestament": "2. Mose 19,1-6",
+            "epistle": "Römer 11,25-32",
+            "hallelujah": "Psalm 33,12",
+            "gospel": "Markus 12,28-34",
+            "sermon": "Römer 11,25-32"
+        }
+    },
+    {
+        "date": "2026-08-09",
+        "title": "10. Sonntag nach Trinitatis",
+        "variant": "Gedenktag der Zerstörung Jerusalem",
+        "type": "gedenktag",
+        "color": "violett",
+        "spruch": {
+            "text": "Wohl dem Volk, dessen Gott der Herr ist, dem Volk, das er zum Erbe erwählt hat.",
+            "reference": "Psalm 33,12"
+        },
+        "psalm": "Psalm 74,1-3.8-11.20-21",
+        "songs": [
+            "EG 144: Aus tiefer Not lasst uns zu Gott",
+            "EG 237: Und suchst du meine Sünde"
+        ],
+        "readings": {
+            "oldTestament": "Jesaja 27,2-9",
+            "epistle": "Römer 9,1-5",
+            "hallelujah": "Psalm 33,12",
+            "gospel": "Lukas 19,41-48",
+            "sermon": "Römer 9,1-5"
+        }
+    },
+    {
+        "date": "2026-08-16",
+        "title": "11. Sonntag nach Trinitatis",
+        "type": "sonntag",
+        "color": "grün",
+        "spruch": {
+            "text": "Gott widersteht den Hochmütigen, aber den Demütigen gibt er Gnade.",
+            "reference": "1. Petrus 5,5b"
+        },
+        "psalm": "Psalm 145,1-2.14.17-21",
+        "songs": [
+            "EG 299: Aus tiefer Not schrei ich zu dir",
+            "EG.E 12: Meine engen Grenzen"
+        ],
+        "readings": {
+            "oldTestament": "2. Samuel 12,1-10.13-15a",
+            "epistle": "Epheser 2,4-10",
+            "hallelujah": "Psalm 105,1",
+            "gospel": "Lukas 18,9-14",
+            "sermon": "Lukas 18,9-14"
+        }
+    },
+    {
+        "date": "2026-08-23",
+        "title": "12. Sonntag nach Trinitatis",
+        "type": "sonntag",
+        "color": "grün",
+        "spruch": {
+            "text": "Das geknickte Rohr wird er nicht zerbrechen, und den glimmenden Docht wird er nicht auslöschen.",
+            "reference": "Jesaja 42,3a"
+        },
+        "psalm": "Psalm 147,1-6.11",
+        "songs": [
+            "EG 289: Nun lob, mein Seel, den Herren",
+            "EG.E 20: Wir haben Gottes Spuren festgestellt"
+        ],
+        "readings": {
+            "oldTestament": "Jesaja 29,17-24",
+            "epistle": "Apostelgeschichte 9,1-20",
+            "hallelujah": "Psalm 34,2",
+            "gospel": "Markus 7,31-37",
+            "sermon": "1. Korinther 3,9-17"
+        }
+    },
+    {
+        "date": "2026-08-24",
+        "title": "Tag des Apostels Bartholomäus",
+        "type": "gedenktag",
+        "color": "rot",
+        "spruch": {
+            "text": "Wie lieblich sind auf den Bergen die Füße des Freudenboten, der da Frieden verkündigt, Gutes predigt, Heil verkündigt, der da sagt zu Zion: Dein Gott ist König!",
+            "reference": "Jesaja 52,7"
+        },
+        "psalm": "Psalm 43,1-5",
+        "songs": [
+            "EG 264: Die Kirche steht gegründet",
+            "EG.E 27: Die Heiligen, uns weit voran"
+        ],
+        "readings": {
+            "oldTestament": "Jesaja 61,8-11",
+            "epistle": "2. Korinther 4,7-10",
+            "hallelujah": "Psalm 33,1",
+            "gospel": "Markus 3,13-19",
+            "sermon": "2. Korinther 4,7-10"
+        }
+    },
+    {
+        "date": "2026-08-30",
+        "title": "13. Sonntag nach Trinitatis",
+        "type": "sonntag",
+        "color": "grün",
+        "spruch": {
+            "text": "Christus spricht: Was ihr getan habt einem von diesen meinen geringsten Brüdern, das habt ihr mir getan.",
+            "reference": "Matthäus 25,40b"
+        },
+        "psalm": "Psalm 112,1-10",
+        "songs": [
+            "EG 412: So jemand spricht: Ich liebe Gott",
+            "EG.E 28: Wenn das Brot, das wir teilen, als Rose blüht"
+        ],
+        "readings": {
+            "oldTestament": "3. Mose 19,1-3.13-18.33-34",
+            "epistle": "1. Johannes 4,7-12",
+            "hallelujah": "Matthäus 5,7",
+            "gospel": "Lukas 10,25-37",
+            "sermon": "Apostelgeschichte 6,1-7"
+        }
+    },
+    {
+        "date": "2026-09-06",
+        "title": "14. Sonntag nach Trinitatis",
+        "type": "sonntag",
+        "color": "grün",
+        "spruch": {
+            "text": "Lobe den Herrn, meine Seele, und vergiss nicht, was er dir Gutes getan hat.",
+            "reference": "Psalm 103,2"
+        },
+        "psalm": "Psalm 146,1-10",
+        "songs": [
+            "EG 333: Danket dem Herrn! Wir danken dem Herrn",
+            "EG.E 14: Lobe den Herrn, meine Seele"
+        ],
+        "readings": {
+            "oldTestament": "1. Mose 28,10-19a (19b-22)",
+            "epistle": "Römer 8,14-17",
+            "hallelujah": "Psalm 103,13",
+            "gospel": "Lukas 17,11-19",
+            "sermon": "Lukas 19,1-10"
+        }
+    },
+    {
+        "date": "2026-09-13",
+        "title": "15. Sonntag nach Trinitatis",
+        "type": "sonntag",
+        "color": "grün",
+        "spruch": {
+            "text": "Alle eure Sorge werft auf ihn; denn er sorgt für euch.",
+            "reference": "1. Petrus 5,7"
+        },
+        "psalm": "Psalm 127,1-2",
+        "songs": [
+            "EG 369: Wer nur den lieben Gott lässt walten",
+            "EG 427: Solang es Menschen gibt auf Erden"
+        ],
+        "readings": {
+            "oldTestament": "1. Mose 2,4b-9 (10-14) 15 (18-25)",
+            "epistle": "1. Petrus 5,5b-11",
+            "hallelujah": "Psalm 34,9",
+            "gospel": "Matthäus 6,25-34",
+            "sermon": "1. Mose 2,4b-9 (10-14) 15 (18-25)"
+        }
+    },
+    {
+        "date": "2026-09-20",
+        "title": "16. Sonntag nach Trinitatis",
+        "type": "sonntag",
+        "color": "grün",
+        "spruch": {
+            "text": "Christus Jesus hat dem Tode die Macht genommen und das Leben und ein unvergängliches Wesen ans Licht gebracht durch das Evangelium.",
+            "reference": "2. Timotheus 1,10b"
+        },
+        "psalm": "Psalm 68,4-7.20-21.35-36",
+        "songs": [
+            "EG 115: Jesus lebt, mit ihm auch ich",
+            "EG.E 16: Gelobt sei deine Treu"
+        ],
+        "readings": {
+            "oldTestament": "Klagelieder 3,22-26.31-32",
+            "epistle": "2. Timotheus 1,7-10",
+            "hallelujah": "Psalm 68,21",
+            "gospel": "Johannes 11,1 (2) 3.17-27 (28-38a) 38b-45",
+            "sermon": "2. Timotheus 1,7-10"
+        }
+    },
+    {
+        "date": "2026-09-21",
+        "title": "Tag des Apostels und Evangelisten Matthäus",
+        "type": "gedenktag",
+        "color": "rot",
+        "spruch": {
+            "text": "Christus spricht: Geht hin in alle Welt und predigt das Evangelium aller Kreatur.",
+            "reference": "Markus 16,15b"
+        },
+        "psalm": "Psalm 34,2-11",
+        "songs": [
+            "EG 154: Herr, mach uns stark im Mut, der dich bekennt",
+            "EG.E 30: Lass uns den Weg der Gerechtigkeit gehn"
+        ],
+        "readings": {
+            "oldTestament": "Hesekiel 3,4-6 (7-9) 10-11",
+            "epistle": "1. Korinther 12,27-31a",
+            "hallelujah": "Psalm 33,1",
+            "gospel": "Matthäus 9,9-13",
+            "sermon": "Hesekiel 3,4-6 (7-9) 10-11"
+        }
+    },
+    {
+        "date": "2026-09-27",
+        "title": "17. Sonntag nach Trinitatis",
+        "type": "sonntag",
+        "color": "grün",
+        "spruch": {
+            "text": "Unser Glaube ist der Sieg, der die Welt überwunden hat.",
+            "reference": "1. Johannes 5,4c"
+        },
+        "psalm": "Psalm 138,1-8",
+        "songs": [
+            "EG 346: Such, wer da will, ein ander Ziel",
+            "EG.E 26: Mit dir, o Herr, die Grenzen überschreiten"
+        ],
+        "readings": {
+            "oldTestament": "Jesaja 49,1-6",
+            "epistle": "Römer 10,9-17 (18)",
+            "hallelujah": "Psalm 89,2",
+            "gospel": "Matthäus 15,21-28",
+            "sermon": "Matthäus 15,21-28"
+        }
+    },
+    {
+        "date": "2026-09-29",
+        "title": "Tag des Erzengels Michael und aller Engel (Michaelis)",
+        "type": "gedenktag",
+        "color": "weiß",
+        "spruch": {
+            "text": "Der Engel des Herrn lagert sich um die her, die ihn fürchten, und hilft ihnen heraus.",
+            "reference": "Psalm 34,8"
+        },
+        "psalm": "Psalm 103,19-22",
+        "songs": [
+            "EG 142: Gott, aller Schöpfung heilger Herr",
+            "EG 331: Großer Gott, wir loben dich"
+        ],
+        "readings": {
+            "oldTestament": "1. Mose 21,8-21",
+            "epistle": "Offenbarung an Johannes 12,7-12",
+            "hallelujah": "Psalm 148,2",
+            "gospel": "Lukas 10,17-20",
+            "sermon": "Offenbarung an Johannes 12,7-12"
+        }
+    },
+    {
+        "date": "2026-10-04",
+        "title": "Erntedankfest",
+        "type": "fest",
+        "color": "grün",
+        "spruch": {
+            "text": "Aller Augen warten auf dich, und du gibst ihnen ihre Speise zur rechten Zeit.",
+            "reference": "Psalm 145,15"
+        },
+        "psalm": "Psalm 104,1a.10-15.27-30.33",
+        "songs": [
+            "EG 502: Nun preiset alle Gottes Barmherzigkeit",
+            "EG.E 15: Auf, Seele, Gott zu loben"
+        ],
+        "readings": {
+            "oldTestament": "5. Mose 8,7-18",
+            "epistle": "2. Korinther 9,6-15",
+            "hallelujah": "Psalm 147,1",
+            "gospel": "Markus 8,1-9",
+            "sermon": "Markus 8,1-9"
+        }
+    },
+    {
+        "date": "2026-10-11",
+        "title": "19. Sonntag nach Trinitatis",
+        "type": "sonntag",
+        "color": "grün",
+        "spruch": {
+            "text": "Heile du mich, Herr, so werde ich heil; hilf du mir, so ist mir geholfen.",
+            "reference": "Jeremia 17,14"
+        },
+        "psalm": "Psalm 32,1-7",
+        "songs": [
+            "EG 324: Ich singe dir mit Herz und Mund",
+            "EG.E 24: Da wohnt ein Sehnen tief in uns"
+        ],
+        "readings": {
+            "oldTestament": "2. Mose 34,4-10",
+            "epistle": "Jakobus 5,13-16",
+            "hallelujah": "Psalm 138,8b",
+            "gospel": "Markus 2,1-12",
+            "sermon": "Epheser 4,22-32"
+        }
+    },
+    {
+        "date": "2026-10-18",
+        "title": "20. Sonntag nach Trinitatis",
+        "type": "sonntag",
+        "color": "grün",
+        "spruch": {
+            "text": "Es ist dir gesagt, Mensch, was gut ist und was der Herr von dir fordert; nichts als Gottes Wort halten und Liebe üben und demütig sein vor deinem Gott.",
+            "reference": "Micha 6,8"
+        },
+        "psalm": "Psalm 119,1-8.17-18",
+        "songs": [
+            "EG 295: Wohl denen, die da wandeln",
+            "EG 408: Meinem Gott gehört die Welt"
+        ],
+        "readings": {
+            "oldTestament": "1. Mose 8,18-22; 9,12-17",
+            "epistle": "2. Korinther 3,3-6 (7-9)",
+            "hallelujah": "Psalm 119,33",
+            "gospel": "Markus 10,2-9 (10-12) 13-16",
+            "sermon": "Markus 2,23-28"
+        }
+    },
+    {
+        "date": "2026-10-25",
+        "title": "21. Sonntag nach Trinitatis",
+        "type": "sonntag",
+        "color": "grün",
+        "spruch": {
+            "text": "Lass dich nicht vom Bösen überwinden, sondern überwinde das Böse mit Gutem.",
+            "reference": "Römer 12,21"
+        },
+        "psalm": "Psalm 19,8-14",
+        "songs": [
+            "EG 377: Zieh an die Macht, du Arm des Herrn",
+            "EG.E 31: Damit aus Fremden Freunde werden"
+        ],
+        "readings": {
+            "oldTestament": "Jeremia 29,1.4-7 (8-9) 10-14",
+            "epistle": "Epheser 6,10-17",
+            "hallelujah": "Psalm 101,1",
+            "gospel": "Matthäus 5,38-48",
+            "sermon": "Jeremia 29,1.4-7 (8-9) 10-14"
+        }
+    },
+    {
+        "date": "2026-10-28",
+        "title": "Tag der Apostel Simon und Judas",
+        "type": "gedenktag",
+        "color": "rot",
+        "spruch": {
+            "text": "Wie lieblich sind auf den Bergen die Füße des Freudenboten, der da Frieden verkündigt, Gutes predigt, Heil verkündigt, der da sagt zu Zion: Dein Gott ist König!",
+            "reference": "Jesaja 52,7"
+        },
+        "psalm": "Psalm 145,1-2.14-21",
+        "songs": [
+            "EG 264: Die Kirche steht gegründet",
+            "EG.E 27: Die Heiligen, uns weit voran"
+        ],
+        "readings": {
+            "oldTestament": "5. Mose 32,1-4",
+            "epistle": "Apostelgeschichte 1,12-14",
+            "hallelujah": "Psalm 33,1",
+            "gospel": "Johannes 15,17-25",
+            "sermon": "Apostelgeschichte 1,12-14"
+        }
+    },
+    {
+        "date": "2026-10-31",
+        "title": "Gedenktag der Reformation (Reformationsfest)",
+        "type": "fest",
+        "color": "rot",
+        "spruch": {
+            "text": "Einen andern Grund kann niemand legen außer dem, der gelegt ist, welcher ist Jesus Christus.",
+            "reference": "1. Korinther 3,11"
+        },
+        "psalm": "Psalm 46,2-12",
+        "songs": [
+            "EG 341: Nun freut euch, lieben Christen g’mein",
+            "EG 360: Die ganze Welt hast du uns überlassen"
+        ],
+        "readings": {
+            "oldTestament": "5. Mose 6,4-9",
+            "epistle": "Römer 3,21-28",
+            "hallelujah": "Psalm 84,12",
+            "gospel": "Matthäus 5,1-10 (11-12)",
+            "sermon": "Matthäus 10,26b-33"
+        }
+    },
+    {
+        "date": "2026-11-01",
+        "title": "22. Sonntag nach Trinitatis",
+        "type": "sonntag",
+        "color": "grün",
+        "spruch": {
+            "text": "Bei dir ist die Vergebung, dass man dich fürchte.",
+            "reference": "Psalm 130,4"
+        },
+        "psalm": "Psalm 143,1-9",
+        "songs": [
+            "EG 251: Herz und Herz vereint zusammen",
+            "EG.E 29: Wo Menschen sich vergessen"
+        ],
+        "readings": {
+            "oldTestament": "Jesaja 44,21-23",
+            "epistle": "Römer 7,14-25a",
+            "hallelujah": "Psalm 147,3",
+            "gospel": "Matthäus 18,21-35",
+            "sermon": "Römer 7,14-25a"
+        }
+    },
+    {
+        "date": "2026-11-01",
+        "title": "Gedenktag der Heiligen",
+        "type": "gedenktag",
+        "color": "weiß",
+        "spruch": {
+            "text": "Ihr seid nun nicht mehr Gäste und Fremdlinge, sondern Mitbürger der Heiligen und Gottes Hausgenossen.",
+            "reference": "Epheser 2,19"
+        },
+        "psalm": "Psalm 150,1-6",
+        "songs": [
+            "EG 253: Ich glaube, dass die Heiligen",
+            "EG.E 27: Die Heiligen, uns weit voran"
+        ],
+        "readings": {
+            "oldTestament": "Daniel 7,1-3.13-18.27",
+            "epistle": "Offenbarung an Johannes 7,9-12",
+            "hallelujah": "Psalm 149,1",
+            "gospel": "Matthäus 5,1-10",
+            "sermon": "Daniel 7,1-3.13-18.27"
+        }
+    },
+    {
+        "date": "2026-11-08",
+        "title": "Drittletzter Sonntag des Kirchenjahres",
+        "type": "sonntag",
+        "color": "grün",
+        "spruch": {
+            "text": "Selig sind die Frieden stiften; denn sie werden Gottes Kinder heißen.",
+            "reference": "Matthäus 5,9"
+        },
+        "psalm": "Psalm 85,9-14",
+        "songs": [
+            "EG 152: Wir warten dein, o Gottes Sohn",
+            "EG 426: Es wird sein in den letzten Tagen"
+        ],
+        "readings": {
+            "oldTestament": "Micha 4,1-5 (7b)",
+            "epistle": "Römer 8,18-25",
+            "hallelujah": "Psalm 85,10",
+            "gospel": "Lukas 17,20-24 (25-30)",
+            "sermon": "1. Thessalonicher 5,1-6 (7-11)"
+        }
+    },
+    {
+        "date": "2026-11-09",
+        "title": "Tag des Gedenkens an die Novemberpogrome",
+        "type": "gedenktag",
+        "color": "violett",
+        "spruch": {
+            "text": "Wer weiß, Gutes zu tun, und tut’s nicht, dem ist’s Sünde.",
+            "reference": "Jakobus 4,17"
+        },
+        "psalm": "Psalm 74,1-3.8-11.20-21",
+        "songs": [
+            "EG 146: Nimm von uns, Herr, du treuer Gott",
+            "EG 235: O Herr, nimm unsre Schuld"
+        ],
+        "readings": {
+            "oldTestament": "Sprüche Salomo 24,10-12",
+            "epistle": "1. Petrus 5,8-9 (10)",
+            "hallelujah": null,
+            "gospel": "Markus 14,66-72",
+            "sermon": "1. Petrus 5,8-9"
+        }
+    },
+    {
+        "date": "2026-11-11",
+        "title": "Martinstag (Bischof Martin von Tours)",
+        "type": "gedenktag",
+        "color": "weiß",
+        "spruch": {
+            "text": "Was ihr getan habt einem von diesen meinen geringsten Brüdern, das habt ihr mir getan.",
+            "reference": "Matthäus 25,40b"
+        },
+        "psalm": "Psalm 146,1-10",
+        "songs": [
+            "EG 154: Herr, mach uns stark im Mut, der dich bekennt",
+            "EG.E 27: Die Heiligen, uns weit voran"
+        ],
+        "readings": {
+            "oldTestament": "Jesaja 58,6-11",
+            "epistle": "2. Korinther 8,7-9",
+            "hallelujah": "Psalm 149,1",
+            "gospel": "Matthäus 25,31-40",
+            "sermon": "Matthäus 25,31-40"
+        }
+    },
+    {
+        "date": "2026-11-15",
+        "title": "Vorletzter Sonntag des Kirchenjahres",
+        "type": "sonntag",
+        "color": "grün",
+        "spruch": {
+            "text": "Wir müssen alle offenbar werden vor dem Richterstuhl Christi.",
+            "reference": "2. Korinther 5,10a"
+        },
+        "psalm": "Psalm 50,1-6.14-15.23",
+        "songs": [
+            "EG 149: Es ist gewisslich an der Zeit",
+            "EG 378: Es mag sein, dass alles fällt"
+        ],
+        "readings": {
+            "oldTestament": "Hiob 14,1-6 (7-12) 13 (14) 15-17",
+            "epistle": "Römer 14,(1-6) 7-13",
+            "hallelujah": "Psalm 50,6",
+            "gospel": "Matthäus 25,31-46",
+            "sermon": "Lukas 16,1-8 (9)"
+        }
+    },
+    {
+        "date": "2026-11-18",
+        "title": "Buß- und Bettag",
+        "type": "fest",
+        "color": "violett",
+        "spruch": {
+            "text": "Gerechtigkeit erhöht ein Volk; aber die Sünde ist der Leute Verderben.",
+            "reference": "Sprüche 14,34"
+        },
+        "psalm": "Psalm 130,1-8",
+        "songs": [
+            "EG 299: Aus tiefer Not schrei ich zu dir",
+            "EG 428: Komm in unsere stolze Welt"
+        ],
+        "readings": {
+            "oldTestament": "Jesaja 1,10-18",
+            "epistle": "Römer 2,1-11",
+            "hallelujah": null,
+            "gospel": "Lukas 13,(1-5) 6-9",
+            "sermon": "Jesaja 1,10-18"
+        }
+    },
+    {
+        "date": "2026-11-22",
+        "title": "Letzter Sonntag des Kirchenjahres",
+        "variant": "Ewigkeitssonntag",
+        "type": "sonntag",
+        "color": "weiß",
+        "spruch": {
+            "text": "Lasst eure Lenden umgürtet sein und eure Lichter brennen.",
+            "reference": "Lukas 12,35"
+        },
+        "psalm": "Psalm 126,1-6",
+        "songs": [
+            "EG 147/535: Wachet auf, ruft uns die Stimme",
+            "EG 153: Der Himmel, der ist, ist nicht der Himmel, der kommt"
+        ],
+        "readings": {
+            "oldTestament": "Jesaja 65,17-19 (20-22) 23-25",
+            "epistle": "Offenbarung an Johannes 21,1-7",
+            "hallelujah": "Psalm 16,11",
+            "gospel": "Matthäus 25,1-13",
+            "sermon": "Offenbarung an Johannes 21,1-7"
+        }
+    },
+    {
+        "date": "2026-11-22",
+        "title": "Letzter Sonntag des Kirchenjahres",
+        "variant": "Totensonntag",
+        "type": "sonntag",
+        "color": "weiß",
+        "spruch": {
+            "text": "Lehre uns bedenken, dass wir sterben müssen, auf dass wir klug werden.",
+            "reference": "Psalm 90,12"
+        },
+        "psalm": "Psalm 90,1-14",
+        "songs": [
+            "EG 526: Jesus, meine Zuversicht",
+            "EG 533: Du kannst nicht tiefer fallen"
+        ],
+        "readings": {
+            "oldTestament": "5. Mose 34,1-8",
+            "epistle": "1. Korinther 15,35-38.42-44a",
+            "hallelujah": "Psalm 16,11",
+            "gospel": "Johannes 5,24-29",
+            "sermon": "1. Korinther 15,35-38.42-44a"
+        }
+    }
+]
