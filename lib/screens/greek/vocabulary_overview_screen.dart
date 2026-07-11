@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import '../../models/greek_vocabulary_entry.dart';
 import '../../services/greek_vocabulary_loader.dart';
 
+import '../../widgets/greek_keyboard.dart';
+
 enum VocabularySort { alphabet, step, type }
 
 const Map<String, int> typeOrder = {
@@ -63,6 +65,10 @@ class _VocabularyOverviewScreenState extends State<VocabularyOverviewScreen> {
 
   String search = "";
 
+  final TextEditingController searchController = TextEditingController();
+
+  bool showGreekKeyboard = false;
+
   @override
   void initState() {
     super.initState();
@@ -83,9 +89,9 @@ class _VocabularyOverviewScreenState extends State<VocabularyOverviewScreen> {
         return true;
       }
 
-      final s = search.toLowerCase();
+      final s = normalizeGreek(search);
 
-      return entry.lemma.toLowerCase().contains(s) ||
+      return normalizeGreek(entry.lemma).contains(s) ||
           entry.translations.any((t) => t.toLowerCase().contains(s));
     }).toList();
 
@@ -190,22 +196,49 @@ class _VocabularyOverviewScreenState extends State<VocabularyOverviewScreen> {
 
       body: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+          Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
 
-            child: TextField(
-              decoration: const InputDecoration(
-                prefixIcon: Icon(Icons.search),
-                hintText: "Vokabel suchen...",
-                border: OutlineInputBorder(),
+                child: TextField(
+                  controller: searchController,
+
+                  decoration: InputDecoration(
+                    prefixIcon: const Icon(Icons.search),
+
+                    suffixIcon: IconButton(
+                      icon: const Icon(Icons.keyboard),
+
+                      onPressed: () {
+                        setState(() {
+                          showGreekKeyboard = !showGreekKeyboard;
+                        });
+                      },
+                    ),
+
+                    hintText: "Vokabel suchen...",
+                    border: const OutlineInputBorder(),
+                  ),
+
+                  onChanged: (value) {
+                    setState(() {
+                      search = value;
+                    });
+                  },
+                ),
               ),
 
-              onChanged: (value) {
-                setState(() {
-                  search = value;
-                });
-              },
-            ),
+              if (showGreekKeyboard)
+                GreekKeyboard(
+                  controller: searchController,
+                  onChanged: () {
+                    setState(() {
+                      search = searchController.text;
+                    });
+                  },
+                ),
+            ],
           ),
 
           Padding(
@@ -383,63 +416,71 @@ class _VocabularyOverviewScreenState extends State<VocabularyOverviewScreen> {
   }
 
   String normalizeGreek(String text) {
-    const Map<String, String> greekBase = {
-      'ἀ': 'α',
-      'ἁ': 'α',
-      'ἂ': 'α',
-      'ἃ': 'α',
-      'ἄ': 'α',
-      'ἅ': 'α',
-      'ἆ': 'α',
-      'ἇ': 'α',
-
-      'ἐ': 'ε',
-      'ἑ': 'ε',
-      'ἒ': 'ε',
-      'ἓ': 'ε',
-      'ἔ': 'ε',
-      'ἕ': 'ε',
-
-      'ἠ': 'η',
-      'ἡ': 'η',
-      'ἤ': 'η',
-      'ἥ': 'η',
-
-      'ἰ': 'ι',
-      'ἱ': 'ι',
-      'ἴ': 'ι',
-      'ἵ': 'ι',
-
-      'ὀ': 'ο',
-      'ὁ': 'ο',
-      'ὂ': 'ο',
-      'ὃ': 'ο',
-      'ὄ': 'ο',
-      'ὅ': 'ο',
-
-      'ὐ': 'υ',
-      'ὑ': 'υ',
-      'ὒ': 'υ',
-      'ὓ': 'υ',
-      'ὔ': 'υ',
-      'ὕ': 'υ',
-
-      'ὦ': 'ω',
-      'ὧ': 'ω',
-      'ὢ': 'ω',
-      'ὣ': 'ω',
-      'ὤ': 'ω',
-      'ὥ': 'ω',
-
-      'ῤ': 'ρ',
-      'ῥ': 'ρ',
-    };
-
     return text
         .toLowerCase()
+        // Final-Sigma vereinheitlichen
+        .replaceAll('ς', 'σ')
+        // vorkomponierte polytonische Zeichen zerlegen
         .split('')
-        .map((char) => greekBase[char] ?? char)
-        .join('')
-        .replaceAll('ς', 'σ');
+        .map((char) {
+          const greekBase = {
+            'ἀ': 'α',
+            'ἁ': 'α',
+            'ἂ': 'α',
+            'ἃ': 'α',
+            'ἄ': 'α',
+            'ἅ': 'α',
+            'ἆ': 'α',
+            'ἇ': 'α',
+
+            'ἐ': 'ε',
+            'ἑ': 'ε',
+            'ἒ': 'ε',
+            'ἓ': 'ε',
+            'ἔ': 'ε',
+            'ἕ': 'ε',
+
+            'ἠ': 'η',
+            'ἡ': 'η',
+            'ἤ': 'η',
+            'ἥ': 'η',
+
+            'ἰ': 'ι',
+            'ἱ': 'ι',
+            'ἴ': 'ι',
+            'ἵ': 'ι',
+
+            'ὀ': 'ο',
+            'ὁ': 'ο',
+            'ὂ': 'ο',
+            'ὃ': 'ο',
+            'ὄ': 'ο',
+            'ὅ': 'ο',
+
+            'ὐ': 'υ',
+            'ὑ': 'υ',
+            'ὒ': 'υ',
+            'ὓ': 'υ',
+            'ὔ': 'υ',
+            'ὕ': 'υ',
+
+            'ὠ': 'ω',
+            'ὡ': 'ω',
+            'ὢ': 'ω',
+            'ὣ': 'ω',
+            'ὤ': 'ω',
+            'ὥ': 'ω',
+            'ὦ': 'ω',
+            'ὧ': 'ω',
+
+            'ῤ': 'ρ',
+            'ῥ': 'ρ',
+          };
+
+          return greekBase[char] ?? char;
+        })
+        // kombinierte Akzente/Hauche entfernen
+        .join()
+        .replaceAll(RegExp(r'[\u0300-\u036f]'), '');
   }
 }
