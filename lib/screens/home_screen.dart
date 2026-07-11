@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../services/perikope_loader.dart';
 import '../screens/quiz_screen.dart';
 import '../screens/liturgical_calendar_screen.dart';
+import '../screens/greek/greek_home_screen.dart';
 
 import '../models/perikope.dart';
 
@@ -78,6 +79,13 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  void _openGreek() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => const GreekHomeScreen()),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -112,6 +120,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     onPressed: _openLiturgicalCalendar,
 
                     child: const Text("Liturgischer Kalender"),
+                  ),
+
+                  const SizedBox(height: 20),
+
+                  ElevatedButton(
+                    onPressed: _openGreek,
+
+                    child: const Text("Altgriechisch"),
                   ),
                 ],
               ),

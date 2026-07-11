@@ -710,18 +710,6 @@
     ]
   },
   {
-    "id": 66,
-    "step": 2,
-    "type": "article",
-    "lemma": "ὁ, ἡ, τό",
-    "translations": [
-      "der",
-      "die",
-      "das"
-    ],
-    "note": "bestimmter Artikel"
-  },
-  {
     "id": 67,
     "step": 2,
     "type": "noun",

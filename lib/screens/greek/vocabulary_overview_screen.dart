@@ -280,98 +280,61 @@ class _VocabularyOverviewScreenState extends State<VocabularyOverviewScreen> {
 
   Widget _buildCard(GreekVocabularyEntry entry) {
     return Card(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
 
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
 
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
 
           children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-
-              children: [
-                Expanded(
-                  child: Text(
-                    entry.lemma,
-
-                    style: const TextStyle(
-                      fontSize: 20,
-
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+            // Grundform
+            Expanded(
+              flex: 3,
+              child: Text(
+                entry.lemma,
+                style: const TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.bold,
                 ),
-
-                Text(
-                  _typeName(entry.type),
-
-                  style: const TextStyle(color: Colors.grey, fontSize: 14),
-                ),
-              ],
+              ),
             ),
 
-            const SizedBox(height: 8),
-
-            if (entry.article != null || entry.genitive != null)
-              Text(
+            // Zusatzinfos (Artikel/Genitiv/Aorist)
+            Expanded(
+              flex: 4,
+              child: Text(
                 [
-                  if (entry.article != null) entry.article!,
-
                   if (entry.genitive != null) entry.genitive!,
+                  if (entry.article != null) entry.article!,
+                  if (entry.aorist != null) "Aorist: ${entry.aorist}",
+                  if (entry.note != null) entry.note!,
                 ].join(" • "),
-
                 style: const TextStyle(
-                  fontSize: 16,
-
+                  fontSize: 14,
                   fontStyle: FontStyle.italic,
                 ),
               ),
-
-            if (entry.aorist != null)
-              Padding(
-                padding: const EdgeInsets.only(top: 4),
-
-                child: Text(
-                  "Aorist: ${entry.aorist}",
-
-                  style: const TextStyle(fontSize: 15),
-                ),
-              ),
-
-            const SizedBox(height: 8),
-
-            Text(
-              entry.translations.join(", "),
-
-              style: const TextStyle(fontSize: 16),
             ),
 
-            if (entry.note != null)
-              Padding(
-                padding: const EdgeInsets.only(top: 8),
-
-                child: Text(
-                  entry.note!,
-
-                  style: const TextStyle(
-                    fontSize: 14,
-
-                    fontStyle: FontStyle.italic,
-
-                    color: Colors.grey,
-                  ),
-                ),
+            // Übersetzung
+            Expanded(
+              flex: 4,
+              child: Text(
+                entry.translations.join(", "),
+                style: const TextStyle(fontSize: 15),
               ),
+            ),
 
-            const SizedBox(height: 8),
-
-            Text(
-              "Schritt ${entry.step}",
-
-              style: const TextStyle(fontSize: 13, color: Colors.grey),
+            // Typ
+            SizedBox(
+              width: 90,
+              child: Text(
+                _typeName(entry.type),
+                style: const TextStyle(fontSize: 13, color: Colors.grey),
+                textAlign: TextAlign.right,
+              ),
             ),
           ],
         ),
