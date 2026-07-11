@@ -4,6 +4,7 @@ class LiturgicalDay {
   final String? variant;
   final String type;
   final String color;
+  final String? info;
 
   final BibleVerse spruch;
 
@@ -19,6 +20,7 @@ class LiturgicalDay {
     this.variant,
     required this.type,
     required this.color,
+    this.info,
     required this.spruch,
     required this.psalm,
     required this.songs,
@@ -32,6 +34,7 @@ class LiturgicalDay {
       variant: json["variant"],
       type: json["type"],
       color: json["color"],
+      info: json["info"],
       spruch: BibleVerse.fromJson(json["spruch"]),
       psalm: json["psalm"],
       songs: List<String>.from(json["songs"]),
@@ -40,11 +43,7 @@ class LiturgicalDay {
   }
 
   String get displayTitle {
-    if (variant == null || variant!.isEmpty) {
-      return title;
-    }
-
-    return "$title – $variant";
+    return title;
   }
 }
 

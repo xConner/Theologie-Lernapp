@@ -137,6 +137,7 @@
         "variant": "Israelsonntag",
         "type": "sonntag",
         "color": "grün",
+        "info": "Für den 10. Sonntag nach Trinitatis, den Israelsonntag, werden zwei unterschiedliche Proprien angeboten.",
         "spruch": {
             "text": "Wohl dem Volk, dessen Gott der Herr ist, dem Volk, das er zum Erbe erwählt hat!",
             "reference": "Psalm 33,12"
@@ -160,6 +161,7 @@
         "variant": "Gedenktag der Zerstörung Jerusalem",
         "type": "gedenktag",
         "color": "violett",
+        "info": "Für den 10. Sonntag nach Trinitatis, den Israelsonntag, werden zwei unterschiedliche Proprien angeboten.",
         "spruch": {
             "text": "Wohl dem Volk, dessen Gott der Herr ist, dem Volk, das er zum Erbe erwählt hat.",
             "reference": "Psalm 33,12"
@@ -358,6 +360,7 @@
         "title": "17. Sonntag nach Trinitatis",
         "type": "sonntag",
         "color": "grün",
+        "info": "An diesem Sonntag kann auch der Tag des Erzengels Michael und aller Engel (Michaelis) begangen werden. Sein Proprium ersetzt dann das des Sonntags.",
         "spruch": {
             "text": "Unser Glaube ist der Sieg, der die Welt überwunden hat.",
             "reference": "1. Johannes 5,4c"
@@ -380,6 +383,7 @@
         "title": "Tag des Erzengels Michael und aller Engel (Michaelis)",
         "type": "gedenktag",
         "color": "weiß",
+        "info": "Der Tag des Erzengels Michael und aller Engel (Michaelis) kann mit seinem Proprium das des 17. Sonntags nach Trinitatis ersetzen.",
         "spruch": {
             "text": "Der Engel des Herrn lagert sich um die her, die ihn fürchten, und hilft ihnen heraus.",
             "reference": "Psalm 34,8"
@@ -402,6 +406,7 @@
         "title": "Erntedankfest",
         "type": "fest",
         "color": "grün",
+        "info": "Das Erntedankfest wird am ersten Sonntag im Oktober gefeiert. Der 18. Sonntag Trinitatis entfällt, es sei denn, es gibt eine andere Ortstradition.",
         "spruch": {
             "text": "Aller Augen warten auf dich, und du gibst ihnen ihre Speise zur rechten Zeit.",
             "reference": "Psalm 145,15"
@@ -446,6 +451,7 @@
         "title": "20. Sonntag nach Trinitatis",
         "type": "sonntag",
         "color": "grün",
+        "info": "Das Proprium des 23. Sonntags nach Trinitatis kann das dieses Sonntag ersetzen.",
         "spruch": {
             "text": "Es ist dir gesagt, Mensch, was gut ist und was der Herr von dir fordert; nichts als Gottes Wort halten und Liebe üben und demütig sein vor deinem Gott.",
             "reference": "Micha 6,8"
@@ -461,6 +467,29 @@
             "hallelujah": "Psalm 119,33",
             "gospel": "Markus 10,2-9 (10-12) 13-16",
             "sermon": "Markus 2,23-28"
+        }
+    },
+    {
+        "date": "2026-10-18",
+        "title": "Tag des Evangelisten Lukas",
+        "type": "gedenktag",
+        "color": "rot",
+        "info": "Der Tag des Evangelisten Lukas wird am Vortag oder einem Werktag der folgenden Woche begangen, nicht aber am Sonntag.",
+        "spruch": {
+            "text": "Gehet hin in alle Welt und predigt das Evangelium aller Kreatur.",
+            "reference": "Markus 16,15b"
+        },
+        "psalm": "Psalm 119,121–128",
+        "songs": [
+            "EG 154: Herr, mach uns stark im Mut, der dich bekennt",
+            "EG 250: Ich lobe dich von ganzer Seelen"
+        ],
+        "readings": {
+            "oldTestament": "Jesaja 43,8–13",
+            "epistle": "2. Timotheus 4,5–11",
+            "hallelujah": "Psalm 33,1",
+            "gospel": "Lukas 1,1–4",
+            "sermon": "Jesaja 43,8–13"
         }
     },
     {
