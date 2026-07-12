@@ -8,6 +8,7 @@ import '../../services/greek_vocabulary_loader.dart';
 import '../../services/vocabulary_answer_checker.dart';
 import '../../services/vocabulary_progress_service.dart';
 import '../../services/vocabulary_srs.dart';
+import '../../services/vocabulary_settings_service.dart';
 
 import '../../widgets/greek_keyboard.dart';
 
@@ -34,6 +35,10 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
 
   bool correct = false;
 
+  bool includeArticle = true;
+  bool includeGenitive = true;
+  bool includeAorist = true;
+
   bool? translationCorrect;
   bool? articleCorrect;
   bool? genitiveCorrect;
@@ -53,6 +58,7 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
   @override
   void initState() {
     super.initState();
+
     load();
   }
 
@@ -62,6 +68,12 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
     if (uid == null) {
       return;
     }
+
+    includeArticle = await VocabularySettingsService.getIncludeArticle();
+
+    includeGenitive = await VocabularySettingsService.getIncludeGenitive();
+
+    includeAorist = await VocabularySettingsService.getIncludeAorist();
 
     entries = await GreekVocabularyLoader.load();
 
@@ -116,11 +128,11 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
 
       aoristInput: aoristController.text,
 
-      checkArticle: q.checkArticle,
+      checkArticle: q.checkArticle && includeArticle,
 
-      checkGenitive: q.checkGenitive,
+      checkGenitive: q.checkGenitive && includeGenitive,
 
-      checkAorist: q.checkAorist,
+      checkAorist: q.checkAorist && includeAorist,
     );
 
     await progressService.saveAnswer(
@@ -130,8 +142,6 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
 
       correct: result.correct,
     );
-
-    progress = await progressService.loadProgress(uid!);
 
     setState(() {
       answered = true;
@@ -155,6 +165,7 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
   void openKeyboard(TextEditingController controller) {
     setState(() {
       activeController = controller;
+
       showKeyboard = true;
     });
   }
@@ -163,6 +174,7 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
     setState(() {
       if (showKeyboard) {
         showKeyboard = false;
+
         activeController = null;
       } else {
         showKeyboard = true;
@@ -173,6 +185,7 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
   void closeKeyboard() {
     setState(() {
       showKeyboard = false;
+
       activeController = null;
     });
   }
@@ -185,8 +198,97 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
     return OutlineInputBorder(
       borderSide: BorderSide(
         color: value ? Colors.green : Colors.red,
+
         width: 2,
       ),
+    );
+  }
+
+  void openSettings() {
+    showDialog(
+      context: context,
+
+      barrierDismissible: false,
+
+      builder: (context) {
+        return StatefulBuilder(
+          builder: (context, setDialogState) {
+            return AlertDialog(
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+                children: [
+                  const Text("Einstellungen"),
+
+                  IconButton(
+                    icon: const Icon(Icons.check),
+
+                    onPressed: () async {
+                      await VocabularySettingsService.setIncludeArticle(
+                        includeArticle,
+                      );
+
+                      await VocabularySettingsService.setIncludeGenitive(
+                        includeGenitive,
+                      );
+
+                      await VocabularySettingsService.setIncludeAorist(
+                        includeAorist,
+                      );
+
+                      Navigator.pop(context);
+
+                      setState(() {});
+                    },
+                  ),
+                ],
+              ),
+
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+
+                children: [
+                  CheckboxListTile(
+                    title: const Text("Genitiv"),
+
+                    value: includeGenitive,
+
+                    onChanged: (v) {
+                      setDialogState(() {
+                        includeGenitive = v ?? false;
+                      });
+                    },
+                  ),
+
+                  CheckboxListTile(
+                    title: const Text("Artikel"),
+
+                    value: includeArticle,
+
+                    onChanged: (v) {
+                      setDialogState(() {
+                        includeArticle = v ?? false;
+                      });
+                    },
+                  ),
+
+                  CheckboxListTile(
+                    title: const Text("Aorist"),
+
+                    value: includeAorist,
+
+                    onChanged: (v) {
+                      setDialogState(() {
+                        includeAorist = v ?? false;
+                      });
+                    },
+                  ),
+                ],
+              ),
+            );
+          },
+        );
+      },
     );
   }
 
@@ -203,7 +305,13 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
     }
 
     return Scaffold(
-      appBar: AppBar(title: const Text("Vokabeltrainer")),
+      appBar: AppBar(
+        title: const Text("Vokabeltrainer"),
+
+        actions: [
+          IconButton(icon: const Icon(Icons.settings), onPressed: openSettings),
+        ],
+      ),
 
       body: GestureDetector(
         behavior: HitTestBehavior.translucent,
@@ -229,6 +337,7 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
 
                       style: const TextStyle(
                         fontSize: 32,
+
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -238,19 +347,7 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
                     if (q.hasArticleField || q.hasGenitiveField)
                       Row(
                         children: [
-                          if (q.hasArticleField)
-                            Expanded(
-                              child: greekField(
-                                "Artikel",
-                                articleController,
-                                articleCorrect,
-                              ),
-                            ),
-
-                          if (q.hasArticleField && q.hasGenitiveField)
-                            const SizedBox(width: 10),
-
-                          if (q.hasGenitiveField)
+                          if (q.hasGenitiveField && includeGenitive)
                             Expanded(
                               child: greekField(
                                 "Genitiv",
@@ -258,10 +355,24 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
                                 genitiveCorrect,
                               ),
                             ),
+
+                          if (q.hasArticleField &&
+                              q.hasGenitiveField &&
+                              includeArticle &&
+                              includeGenitive)
+                            const SizedBox(width: 10),
+
+                          if (q.hasArticleField && includeArticle)
+                            Expanded(
+                              child: greekField(
+                                "Artikel",
+                                articleController,
+                                articleCorrect,
+                              ),
+                            ),
                         ],
                       ),
-
-                    if (q.hasAoristField)
+                    if (q.hasAoristField && includeAorist)
                       greekField("Aorist", aoristController, aoristCorrect),
 
                     const SizedBox(height: 15),
@@ -279,6 +390,8 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
                         enabledBorder: resultBorder(translationCorrect),
 
                         focusedBorder: resultBorder(translationCorrect),
+
+                        disabledBorder: resultBorder(translationCorrect),
 
                         border: const OutlineInputBorder(),
                       ),
@@ -303,7 +416,9 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
 
                             style: TextStyle(
                               fontSize: 22,
+
                               fontWeight: FontWeight.bold,
+
                               color: correct ? Colors.green : Colors.red,
                             ),
                           ),
@@ -320,15 +435,13 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
 
                                 const SizedBox(height: 8),
 
-                                if (q.hasArticleField &&
-                                    articleCorrect == false)
+                                if (articleCorrect == false)
                                   Text("Artikel: ${q.entry.article ?? "-"}"),
 
-                                if (q.hasGenitiveField &&
-                                    genitiveCorrect == false)
+                                if (genitiveCorrect == false)
                                   Text("Genitiv: ${q.entry.genitive ?? "-"}"),
 
-                                if (q.hasAoristField && aoristCorrect == false)
+                                if (aoristCorrect == false)
                                   Text("Aorist: ${q.entry.aorist ?? "-"}"),
 
                                 if (translationCorrect == false)
@@ -371,6 +484,8 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
 
       readOnly: true,
 
+      enabled: !answered,
+
       onTap: () {
         if (!answered) {
           openKeyboard(controller);
@@ -389,6 +504,8 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
         enabledBorder: resultBorder(correct),
 
         focusedBorder: resultBorder(correct),
+
+        disabledBorder: resultBorder(correct),
 
         border: const OutlineInputBorder(),
       ),
