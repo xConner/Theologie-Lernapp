@@ -18349,7 +18349,7 @@
     },
     {
         "id": "die_huldigung_der_sterndeuter",
-        "title": "Die Huldigung der Sterndeuter",
+        "title": "Huldigung der Weisen aus dem Morgenland",
         "book": "Mt",
         "startChapter": 2,
         "startVerse": 1,
@@ -19239,7 +19239,7 @@
         "precision": "chapter"
     },
     {
-        "id": "warnung_vor_den_pharisaeern_und_sadduzaeern",
+        "id": "warnung_vor_den_pharisaeern_und_vor_herodes",
         "title": "Warnung vor den Pharisäern und Sadduzäern",
         "book": "Mt",
         "startChapter": 16,
@@ -19613,11 +19613,22 @@
         "precision": "chapter"
     },
     {
-        "id": "worte_gegen_die_schriftgelehrten_und_die_pharisaeer",
+        "id": "worte_gegen_die_schriftgelehrten",
         "title": "Worte gegen die Schriftgelehrten und die Pharisäer",
         "book": "Mt",
         "startChapter": 23,
         "startVerse": 1,
+        "endChapter": 23,
+        "endVerse": 36,
+        "required": true,
+        "precision": "chapter"
+    },
+    {
+        "id": "die_ankuendigung_der_zerstoerung_jerusalems",
+        "title": "Die Ankündigung der Zerstörung Jerusalems",
+        "book": "Mt",
+        "startChapter": 23,
+        "startVerse": 37,
         "endChapter": 23,
         "endVerse": 39,
         "required": true,
@@ -19789,8 +19800,8 @@
         "precision": "chapter"
     },
     {
-        "id": "der_gang_zum_oelberg",
-        "title": "Der Gang zum Ölberg",
+        "id": "die_ankuendigung_der_verleugnung_und_der_umkehr_des_petrus",
+        "title": "Die Ankündigung der Verleugnung des Petrus",
         "book": "Mt",
         "startChapter": 26,
         "startVerse": 30,
@@ -19932,22 +19943,11 @@
         "precision": "chapter"
     },
     {
-        "id": "die_botschaft_des_engels_am_leeren_grab",
-        "title": "Die Botschaft des Engels am leeren Grab",
+        "id": "die_auferstehung_jesu_christi",
+        "title": "Die Auferstehung Jesu Christi",
         "book": "Mt",
         "startChapter": 28,
         "startVerse": 1,
-        "endChapter": 28,
-        "endVerse": 8,
-        "required": true,
-        "precision": "chapter"
-    },
-    {
-        "id": "die_erscheinung_jesu_vor_den_frauen",
-        "title": "Die Erscheinung Jesu vor den Frauen",
-        "book": "Mt",
-        "startChapter": 28,
-        "startVerse": 9,
         "endChapter": 28,
         "endVerse": 10,
         "required": true,
@@ -19965,8 +19965,8 @@
         "precision": "chapter"
     },
     {
-        "id": "der_auftrag_des_auferstandenen",
-        "title": "Der Auftrag des Auferstandenen",
+        "id": "der_auftrag_zur_verkuendigung",
+        "title": "Der Auftrag an die Jünger",
         "book": "Mt",
         "startChapter": 28,
         "startVerse": 16,
@@ -20889,8 +20889,8 @@
         "precision": "chapter"
     },
     {
-        "id": "der_gang_zum_oelberg",
-        "title": "Der Gang zum Ölberg",
+        "id": "die_ankuendigung_der_verleugnung_und_der_umkehr_des_petrus",
+        "title": "Die Ankündigung der Verleugnung des Petrus",
         "book": "Mk",
         "startChapter": 14,
         "startVerse": 26,
@@ -20999,8 +20999,8 @@
         "precision": "chapter"
     },
     {
-        "id": "auferstehung",
-        "title": "Die Botschaft des Engels im leeren Grab",
+        "id": "die_auferstehung_jesu_christi",
+        "title": "Die Auferstehung Jesu Christi",
         "book": "Mk",
         "startChapter": 16,
         "startVerse": 1,
@@ -21010,11 +21010,22 @@
         "precision": "chapter"
     },
     {
-        "id": "die_erscheinungen_des_auferstandenen",
-        "title": "[Die Erscheinungen des Auferstandenen",
+        "id": "erscheinung_juenger",
+        "title": "Jesus erscheint den Jüngern",
         "book": "Mk",
         "startChapter": 16,
         "startVerse": 9,
+        "endChapter": 16,
+        "endVerse": 14,
+        "required": true,
+        "precision": "chapter"
+    },
+    {
+        "id": "der_auftrag_zur_verkuendigung",
+        "title": "Der Auftrag zur Verkündigung des Evangeliums und die Himmelfahrt Jesu",
+        "book": "Mk",
+        "startChapter": 16,
+        "startVerse": 15,
         "endChapter": 16,
         "endVerse": 20,
         "required": true,
@@ -21043,8 +21054,8 @@
         "precision": "chapter"
     },
     {
-        "id": "die_verheissung_der_geburt_jesu",
-        "title": "Die Verheißung der Geburt Jesu",
+        "id": "die_ankuendigung_der_geburt_jesu",
+        "title": "Die Ankündigung der Geburt Jesu",
         "book": "Lk",
         "startChapter": 1,
         "startVerse": 26,
@@ -21847,7 +21858,7 @@
     },
     {
         "id": "das_beispiel_von_der_falschen_selbstsicherheit_des_reichen_mannes",
-        "title": "Das Beispiel von der falschen Selbstsicherheit des reichen Mannes",
+        "title": "Das Gleichnis vom reichen Narren",
         "book": "Lk",
         "startChapter": 12,
         "startVerse": 13,
@@ -22682,11 +22693,22 @@
         "precision": "chapter"
     },
     {
-        "id": "auferstehung",
-        "title": "Die Erscheinung des Auferstandenen in Jerusalem",
+        "id": "erscheinung_juenger",
+        "title": "Jesus erscheint den Jüngern",
         "book": "Lk",
         "startChapter": 24,
         "startVerse": 36,
+        "endChapter": 24,
+        "endVerse": 43,
+        "required": true,
+        "precision": "chapter"
+    },
+    {
+        "id": "der_auftrag_zur_verkuendigung",
+        "title": "Der Auftrag zur Verkündigung des Evangeliums und die Himmelfahrt Jesu",
+        "book": "Lk",
+        "startChapter": 24,
+        "startVerse": 44,
         "endChapter": 24,
         "endVerse": 53,
         "required": true,
@@ -23210,8 +23232,8 @@
         "precision": "chapter"
     },
     {
-        "id": "jesu_wort_an_petrus",
-        "title": "Jesu Wort an Petrus",
+        "id": "die_ankuendigung_der_verleugnung_und_der_umkehr_des_petrus",
+        "title": "Die Ankündigung der Verleugnung des Petrus",
         "book": "Joh",
         "startChapter": 13,
         "startVerse": 36,
@@ -23386,52 +23408,30 @@
         "precision": "chapter"
     },
     {
-        "id": "auferstehung",
-        "title": "Die Entdeckung des leeren Grabes",
+        "id": "die_auferstehung_jesu_christi",
+        "title": "Die Auferstehung Jesu Christi",
         "book": "Joh",
         "startChapter": 20,
         "startVerse": 1,
-        "endChapter": 20,
-        "endVerse": 10,
-        "required": true,
-        "precision": "chapter"
-    },
-    {
-        "id": "auferstehung",
-        "title": "Die Erscheinung Jesu vor Maria aus Magdala",
-        "book": "Joh",
-        "startChapter": 20,
-        "startVerse": 11,
         "endChapter": 20,
         "endVerse": 18,
         "required": true,
         "precision": "chapter"
     },
     {
-        "id": "die_beauftragung_der_juenger",
-        "title": "Die Beauftragung der Jünger",
+        "id": "erscheinung_juenger",
+        "title": "Jesus erscheint den Jüngern",
         "book": "Joh",
         "startChapter": 20,
         "startVerse": 19,
-        "endChapter": 20,
-        "endVerse": 23,
-        "required": true,
-        "precision": "chapter"
-    },
-    {
-        "id": "jesus_und_thomas",
-        "title": "Jesus und Thomas",
-        "book": "Joh",
-        "startChapter": 20,
-        "startVerse": 24,
         "endChapter": 20,
         "endVerse": 29,
         "required": true,
         "precision": "chapter"
     },
     {
-        "id": "der_epilog",
-        "title": "Der Epilog",
+        "id": "joh_zielsetzung",
+        "title": "Die Zielsetzung des Johannes-Evangeliums",
         "book": "Joh",
         "startChapter": 20,
         "startVerse": 30,

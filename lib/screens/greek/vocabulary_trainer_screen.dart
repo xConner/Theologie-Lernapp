@@ -34,12 +34,14 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
 
   bool correct = false;
 
+  bool? translationCorrect;
+  bool? articleCorrect;
+  bool? genitiveCorrect;
+  bool? aoristCorrect;
+
   final translationController = TextEditingController();
-
   final articleController = TextEditingController();
-
   final genitiveController = TextEditingController();
-
   final aoristController = TextEditingController();
 
   bool showKeyboard = false;
@@ -51,7 +53,6 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
   @override
   void initState() {
     super.initState();
-
     load();
   }
 
@@ -79,19 +80,19 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
     question = VocabularyQuestion(entry: next);
 
     translationController.clear();
-
     articleController.clear();
-
     genitiveController.clear();
-
     aoristController.clear();
 
     answered = false;
-
     correct = false;
 
-    showKeyboard = false;
+    translationCorrect = null;
+    articleCorrect = null;
+    genitiveCorrect = null;
+    aoristCorrect = null;
 
+    showKeyboard = false;
     activeController = null;
 
     setState(() {});
@@ -127,7 +128,7 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
 
       vocabularyId: q.entry.id.toString(),
 
-      correct: result,
+      correct: result.correct,
     );
 
     progress = await progressService.loadProgress(uid!);
@@ -135,16 +136,58 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
     setState(() {
       answered = true;
 
-      correct = result;
+      correct = result.correct;
+
+      translationCorrect = result.translationCorrect;
+
+      articleCorrect = result.articleCorrect;
+
+      genitiveCorrect = result.genitiveCorrect;
+
+      aoristCorrect = result.aoristCorrect;
+
+      showKeyboard = false;
+
+      activeController = null;
     });
   }
 
   void openKeyboard(TextEditingController controller) {
     setState(() {
       activeController = controller;
-
       showKeyboard = true;
     });
+  }
+
+  void toggleKeyboard() {
+    setState(() {
+      if (showKeyboard) {
+        showKeyboard = false;
+        activeController = null;
+      } else {
+        showKeyboard = true;
+      }
+    });
+  }
+
+  void closeKeyboard() {
+    setState(() {
+      showKeyboard = false;
+      activeController = null;
+    });
+  }
+
+  OutlineInputBorder resultBorder(bool? value) {
+    if (value == null) {
+      return const OutlineInputBorder();
+    }
+
+    return OutlineInputBorder(
+      borderSide: BorderSide(
+        color: value ? Colors.green : Colors.red,
+        width: 2,
+      ),
+    );
   }
 
   @override
@@ -162,96 +205,154 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
     return Scaffold(
       appBar: AppBar(title: const Text("Vokabeltrainer")),
 
-      body: Center(
-        child: SingleChildScrollView(
-          child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 500),
+      body: GestureDetector(
+        behavior: HitTestBehavior.translucent,
 
-            child: Padding(
-              padding: const EdgeInsets.all(16),
+        onTap: closeKeyboard,
 
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
+        child: Center(
+          child: SingleChildScrollView(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 500),
 
-                children: [
-                  Text(
-                    q.entry.lemma,
+              child: Padding(
+                padding: const EdgeInsets.all(16),
 
-                    style: const TextStyle(
-                      fontSize: 32,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
 
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                  children: [
+                    SelectableText(
+                      q.entry.lemma,
 
-                  const SizedBox(height: 20),
+                      textAlign: TextAlign.center,
 
-                  if (q.hasArticleField || q.hasGenitiveField)
-                    Row(
-                      children: [
-                        if (q.hasArticleField)
-                          Expanded(
-                            child: greekField("Artikel", articleController),
-                          ),
-
-                        if (q.hasArticleField && q.hasGenitiveField)
-                          const SizedBox(width: 10),
-
-                        if (q.hasGenitiveField)
-                          Expanded(
-                            child: greekField("Genitiv", genitiveController),
-                          ),
-                      ],
-                    ),
-
-                  if (q.hasAoristField) greekField("Aorist", aoristController),
-
-                  const SizedBox(height: 15),
-
-                  TextField(
-                    controller: translationController,
-
-                    decoration: const InputDecoration(
-                      labelText: "Übersetzung",
-
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-
-                  const SizedBox(height: 20),
-
-                  if (showKeyboard && activeController != null)
-                    GreekKeyboard(
-                      controller: activeController!,
-
-                      onChanged: () {
-                        setState(() {});
-                      },
-                    ),
-
-                  if (answered)
-                    Text(
-                      correct ? "Richtig" : "Falsch",
-
-                      style: TextStyle(
-                        fontSize: 22,
-
-                        color: correct ? Colors.green : Colors.red,
+                      style: const TextStyle(
+                        fontSize: 32,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
 
-                  const SizedBox(height: 20),
+                    const SizedBox(height: 20),
 
-                  SizedBox(
-                    width: double.infinity,
+                    if (q.hasArticleField || q.hasGenitiveField)
+                      Row(
+                        children: [
+                          if (q.hasArticleField)
+                            Expanded(
+                              child: greekField(
+                                "Artikel",
+                                articleController,
+                                articleCorrect,
+                              ),
+                            ),
 
-                    child: ElevatedButton(
-                      onPressed: answered ? nextQuestion : check,
+                          if (q.hasArticleField && q.hasGenitiveField)
+                            const SizedBox(width: 10),
 
-                      child: Text(answered ? "Weiter" : "Prüfen"),
+                          if (q.hasGenitiveField)
+                            Expanded(
+                              child: greekField(
+                                "Genitiv",
+                                genitiveController,
+                                genitiveCorrect,
+                              ),
+                            ),
+                        ],
+                      ),
+
+                    if (q.hasAoristField)
+                      greekField("Aorist", aoristController, aoristCorrect),
+
+                    const SizedBox(height: 15),
+
+                    TextField(
+                      controller: translationController,
+
+                      enabled: !answered,
+
+                      onTap: closeKeyboard,
+
+                      decoration: InputDecoration(
+                        labelText: "Übersetzung",
+
+                        enabledBorder: resultBorder(translationCorrect),
+
+                        focusedBorder: resultBorder(translationCorrect),
+
+                        border: const OutlineInputBorder(),
+                      ),
                     ),
-                  ),
-                ],
+
+                    const SizedBox(height: 20),
+
+                    if (showKeyboard && activeController != null)
+                      GreekKeyboard(
+                        controller: activeController!,
+
+                        onChanged: () {
+                          setState(() {});
+                        },
+                      ),
+
+                    if (answered)
+                      Column(
+                        children: [
+                          Text(
+                            correct ? "Richtig" : "Falsch",
+
+                            style: TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.bold,
+                              color: correct ? Colors.green : Colors.red,
+                            ),
+                          ),
+
+                          const SizedBox(height: 12),
+
+                          if (!correct)
+                            Column(
+                              children: [
+                                const Text(
+                                  "Korrekte Antworten:",
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+
+                                const SizedBox(height: 8),
+
+                                if (q.hasArticleField &&
+                                    articleCorrect == false)
+                                  Text("Artikel: ${q.entry.article ?? "-"}"),
+
+                                if (q.hasGenitiveField &&
+                                    genitiveCorrect == false)
+                                  Text("Genitiv: ${q.entry.genitive ?? "-"}"),
+
+                                if (q.hasAoristField && aoristCorrect == false)
+                                  Text("Aorist: ${q.entry.aorist ?? "-"}"),
+
+                                if (translationCorrect == false)
+                                  Text(
+                                    "Übersetzung: ${q.entry.translations.join(", ")}",
+                                  ),
+                              ],
+                            ),
+                        ],
+                      ),
+
+                    const SizedBox(height: 20),
+
+                    SizedBox(
+                      width: double.infinity,
+
+                      child: ElevatedButton(
+                        onPressed: answered ? nextQuestion : check,
+
+                        child: Text(answered ? "Weiter" : "Prüfen"),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -260,14 +361,20 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
     );
   }
 
-  Widget greekField(String label, TextEditingController controller) {
+  Widget greekField(
+    String label,
+    TextEditingController controller,
+    bool? correct,
+  ) {
     return TextField(
       controller: controller,
 
       readOnly: true,
 
       onTap: () {
-        openKeyboard(controller);
+        if (!answered) {
+          openKeyboard(controller);
+        }
       },
 
       decoration: InputDecoration(
@@ -276,10 +383,12 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
         suffixIcon: IconButton(
           icon: const Icon(Icons.keyboard),
 
-          onPressed: () {
-            openKeyboard(controller);
-          },
+          onPressed: answered ? null : toggleKeyboard,
         ),
+
+        enabledBorder: resultBorder(correct),
+
+        focusedBorder: resultBorder(correct),
 
         border: const OutlineInputBorder(),
       ),

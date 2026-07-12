@@ -1,7 +1,24 @@
 import '../models/greek_vocabulary_entry.dart';
 
+class VocabularyCheckResult {
+  final bool correct;
+
+  final bool translationCorrect;
+  final bool articleCorrect;
+  final bool genitiveCorrect;
+  final bool aoristCorrect;
+
+  VocabularyCheckResult({
+    required this.correct,
+    required this.translationCorrect,
+    required this.articleCorrect,
+    required this.genitiveCorrect,
+    required this.aoristCorrect,
+  });
+}
+
 class VocabularyAnswerChecker {
-  static bool check({
+  static VocabularyCheckResult check({
     required GreekVocabularyEntry entry,
 
     required String translationInput,
@@ -18,42 +35,57 @@ class VocabularyAnswerChecker {
 
     bool checkAorist = true,
   }) {
-    // Übersetzungen prüfen
+    // Übersetzungen
 
     final userTranslations = normalizeTranslations(translationInput);
 
     final correctTranslations = entry.translations.map(normalize).toList()
       ..sort();
 
-    if (!_listsEqual(userTranslations, correctTranslations)) {
-      return false;
+    final translationCorrect = _listsEqual(
+      userTranslations,
+      correctTranslations,
+    );
+
+    // Artikel
+
+    bool articleCorrect = true;
+
+    if (entry.type == "noun" && checkArticle) {
+      articleCorrect =
+          normalize(articleInput) == normalize(entry.article ?? "");
     }
 
-    // Nomen
+    // Genitiv
 
-    if (entry.type == "noun") {
-      if (checkArticle) {
-        if (normalize(articleInput) != normalize(entry.article ?? "")) {
-          return false;
-        }
-      }
+    bool genitiveCorrect = true;
 
-      if (checkGenitive) {
-        if (normalize(genitiveInput) != normalize(entry.genitive ?? "")) {
-          return false;
-        }
-      }
+    if (entry.type == "noun" && checkGenitive) {
+      genitiveCorrect =
+          normalize(genitiveInput) == normalize(entry.genitive ?? "");
     }
 
-    // Verben
+    // Aorist
+
+    bool aoristCorrect = true;
 
     if (entry.type == "verb" && checkAorist) {
-      if (normalize(aoristInput) != normalize(entry.aorist ?? "")) {
-        return false;
-      }
+      aoristCorrect = normalize(aoristInput) == normalize(entry.aorist ?? "");
     }
 
-    return true;
+    final correct =
+        translationCorrect &&
+        articleCorrect &&
+        genitiveCorrect &&
+        aoristCorrect;
+
+    return VocabularyCheckResult(
+      correct: correct,
+      translationCorrect: translationCorrect,
+      articleCorrect: articleCorrect,
+      genitiveCorrect: genitiveCorrect,
+      aoristCorrect: aoristCorrect,
+    );
   }
 
   static List<String> normalizeTranslations(String input) {
@@ -83,17 +115,96 @@ class VocabularyAnswerChecker {
   }
 
   static String normalize(String value) {
+    const Map<String, String> greekNormalization = {
+      // Alpha
+      "ά": "α",
+      "ὰ": "α",
+      "ᾶ": "α",
+      "ἀ": "α",
+      "ἁ": "α",
+      "ἂ": "α",
+      "ἃ": "α",
+      "ἄ": "α",
+      "ἅ": "α",
+      "ἆ": "α",
+      "ἇ": "α",
+
+      // Epsilon
+      "έ": "ε",
+      "ὲ": "ε",
+      "ἐ": "ε",
+      "ἑ": "ε",
+      "ἒ": "ε",
+      "ἓ": "ε",
+      "ἔ": "ε",
+      "ἕ": "ε",
+
+      // Eta
+      "ή": "η",
+      "ὴ": "η",
+      "ῆ": "η",
+      "ἠ": "η",
+      "ἡ": "η",
+      "ἤ": "η",
+      "ἥ": "η",
+
+      // Iota
+      "ί": "ι",
+      "ὶ": "ι",
+      "ῖ": "ι",
+      "ἰ": "ι",
+      "ἱ": "ι",
+      "ἴ": "ι",
+      "ἵ": "ι",
+
+      // Omikron
+      "ό": "ο",
+      "ὸ": "ο",
+      "ὀ": "ο",
+      "ὁ": "ο",
+      "ὂ": "ο",
+      "ὃ": "ο",
+      "ὄ": "ο",
+      "ὅ": "ο",
+
+      // Ypsilon
+      "ύ": "υ",
+      "ὺ": "υ",
+      "ῦ": "υ",
+      "ὐ": "υ",
+      "ὑ": "υ",
+      "ὔ": "υ",
+      "ὕ": "υ",
+
+      // Omega
+      "ώ": "ω",
+      "ὼ": "ω",
+      "ῶ": "ω",
+      "ὠ": "ω",
+      "ὡ": "ω",
+      "ὤ": "ω",
+      "ὥ": "ω",
+
+      // Rho
+      "ῤ": "ρ",
+      "ῥ": "ρ",
+
+      // Sonderzeichen
+      "ϐ": "β",
+      "ϑ": "θ",
+      "ϕ": "φ",
+      "ϖ": "π",
+    };
+
     return value
         .toLowerCase()
         .trim()
-        // Final-Sigma
-        .replaceAll("ς", "σ")
-        // Griechische Akzente entfernen
-        .replaceAll(RegExp(r'[\u0300-\u036f]'), '')
-        // häufige Varianten
-        .replaceAll("ϐ", "β")
-        .replaceAll("ϑ", "θ")
-        .replaceAll("ϕ", "φ")
-        .replaceAll("ϖ", "π");
+        .split("")
+        .map((char) => greekNormalization[char] ?? char)
+        .join()
+        // kombinierende Akzente und Hauche entfernen
+        .replaceAll(RegExp(r'[\u0300-\u036f\u1fbd-\u1fff]'), '')
+        // Final-Sigma vereinheitlichen
+        .replaceAll("ς", "σ");
   }
 }

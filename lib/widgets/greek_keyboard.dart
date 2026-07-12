@@ -203,20 +203,28 @@ class _GreekKeyboardState extends State<GreekKeyboard> {
 
       child: Column(
         children: [
-          Wrap(
-            children: letters.map((letter) {
-              return SizedBox(
-                width: MediaQuery.of(context).size.width / 8,
+          LayoutBuilder(
+            builder: (context, constraints) {
+              return Wrap(
+                spacing: 4,
+                runSpacing: 4,
+                children: letters.map((letter) {
+                  return SizedBox(
+                    width: (constraints.maxWidth - 7 * 4) / 8,
 
-                child: ElevatedButton(
-                  onPressed: () {
-                    insertLetter(letter);
-                  },
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(padding: EdgeInsets.zero),
 
-                  child: Text(letter, style: const TextStyle(fontSize: 20)),
-                ),
+                      onPressed: () {
+                        insertLetter(letter);
+                      },
+
+                      child: Text(letter, style: const TextStyle(fontSize: 20)),
+                    ),
+                  );
+                }).toList(),
               );
-            }).toList(),
+            },
           ),
 
           const SizedBox(height: 8),
@@ -244,13 +252,6 @@ class _GreekKeyboardState extends State<GreekKeyboard> {
               });
 
               modifyLastCharacter();
-            }),
-
-            keyButton("×", () {
-              setState(() {
-                roughBreathing = false;
-                smoothBreathing = false;
-              });
             }),
           ]),
 
