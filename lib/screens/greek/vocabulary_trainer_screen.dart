@@ -28,6 +28,7 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
   List<GreekVocabularyEntry> entries = [];
 
   final LearningService learningService = LearningService();
+  final VocabularySettingsService settingsService = VocabularySettingsService();
 
   final SpacedRepetition algorithm = SpacedRepetition();
 
@@ -48,6 +49,32 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
   bool includeAorist = true;
 
   bool requireOnlyOneTranslation = false;
+
+  List<int> enabledSteps = [1, 2, 3, 4, 5, 6, 7];
+
+  List<String> enabledTypes = [
+    "noun",
+    "verb",
+    "adjective",
+    "adverb",
+    "pronoun",
+    "preposition",
+    "conjunction",
+    "particle",
+    "phrase",
+  ];
+
+  final List<String> allTypes = [
+    "noun",
+    "verb",
+    "adjective",
+    "adverb",
+    "pronoun",
+    "preposition",
+    "conjunction",
+    "particle",
+    "phrase",
+  ];
 
   bool? translationCorrect;
 
@@ -80,6 +107,17 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
     load();
   }
 
+  bool currentQuestionMatchesFilters() {
+    final q = question;
+
+    if (q == null) {
+      return true;
+    }
+
+    return enabledSteps.contains(q.entry.step) &&
+        enabledTypes.contains(q.entry.type);
+  }
+
   Future<void> load() async {
     uid = FirebaseAuth.instance.currentUser?.uid;
 
@@ -87,14 +125,18 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
       return;
     }
 
-    includeArticle = await VocabularySettingsService.getIncludeArticle();
+    includeArticle = await settingsService.getIncludeArticle(uid!);
 
-    includeGenitive = await VocabularySettingsService.getIncludeGenitive();
+    includeGenitive = await settingsService.getIncludeGenitive(uid!);
 
-    includeAorist = await VocabularySettingsService.getIncludeAorist();
+    includeAorist = await settingsService.getIncludeAorist(uid!);
 
-    requireOnlyOneTranslation =
-        await VocabularySettingsService.getRequireOnlyOneTranslation();
+    requireOnlyOneTranslation = await settingsService
+        .getRequireOnlyOneTranslation(uid!);
+
+    enabledSteps = await settingsService.getEnabledSteps(uid!);
+
+    enabledTypes = await settingsService.getEnabledTypes(uid!);
 
     entries = await GreekVocabularyLoader.load();
 
@@ -108,7 +150,20 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
   }
 
   void nextQuestion() {
-    if (entries.isEmpty) {
+    if (enabledSteps.isEmpty || enabledTypes.isEmpty) {
+      return;
+    }
+
+    final availableEntries = entries.where((entry) {
+      return enabledSteps.contains(entry.step) &&
+          enabledTypes.contains(entry.type);
+    }).toList();
+
+    if (availableEntries.isEmpty) {
+      question = null;
+
+      setState(() {});
+
       return;
     }
 
@@ -116,7 +171,7 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
 
     final Map<GreekVocabularyEntry, double> scores = {};
 
-    for (final entry in entries) {
+    for (final entry in availableEntries) {
       final card =
           cards[entry.id.toString()] ?? LearningCard(id: entry.id.toString());
 
@@ -130,13 +185,13 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
     GreekVocabularyEntry next;
 
     if (total <= 0) {
-      next = entries[Random().nextInt(entries.length)];
+      next = availableEntries[Random().nextInt(availableEntries.length)];
     } else {
       double random = Random().nextDouble() * total;
 
-      next = entries.last;
+      next = availableEntries.last;
 
-      for (final entry in entries) {
+      for (final entry in availableEntries) {
         random -= scores[entry]!;
 
         if (random <= 0) {
@@ -297,82 +352,197 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
                     icon: const Icon(Icons.check),
 
                     onPressed: () async {
-                      await VocabularySettingsService.setIncludeArticle(
-                        includeArticle,
-                      );
+                      if (enabledSteps.isEmpty || enabledTypes.isEmpty) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text(
+                              "Mindestens ein Schritt und eine Wortart müssen ausgewählt sein.",
+                            ),
+                          ),
+                        );
 
-                      await VocabularySettingsService.setIncludeGenitive(
-                        includeGenitive,
-                      );
+                        return;
+                      }
 
-                      await VocabularySettingsService.setIncludeAorist(
-                        includeAorist,
-                      );
+                      final hadAnswered = answered;
 
-                      await VocabularySettingsService.setRequireOnlyOneTranslation(
-                        requireOnlyOneTranslation,
+                      await settingsService.saveSettings(
+                        uid: uid!,
+
+                        includeArticle: includeArticle,
+
+                        includeGenitive: includeGenitive,
+
+                        includeAorist: includeAorist,
+
+                        requireOnlyOneTranslation: requireOnlyOneTranslation,
+
+                        enabledSteps: enabledSteps,
+
+                        enabledTypes: enabledTypes,
                       );
 
                       Navigator.pop(context);
 
                       setState(() {});
+
+                      if (!hadAnswered && !currentQuestionMatchesFilters()) {
+                        nextQuestion();
+                      }
                     },
                   ),
                 ],
               ),
 
-              content: Column(
-                mainAxisSize: MainAxisSize.min,
+              content: SizedBox(
+                width: double.maxFinite,
+                height: MediaQuery.of(context).size.height * 0.6,
 
-                children: [
-                  CheckboxListTile(
-                    title: const Text("Genitiv"),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      CheckboxListTile(
+                        title: const Text("Genitiv"),
 
-                    value: includeGenitive,
+                        value: includeGenitive,
 
-                    onChanged: (v) {
-                      setDialogState(() {
-                        includeGenitive = v ?? false;
-                      });
-                    },
+                        onChanged: (v) {
+                          setDialogState(() {
+                            includeGenitive = v ?? false;
+                          });
+                        },
+                      ),
+
+                      CheckboxListTile(
+                        title: const Text("Artikel"),
+
+                        value: includeArticle,
+
+                        onChanged: (v) {
+                          setDialogState(() {
+                            includeArticle = v ?? false;
+                          });
+                        },
+                      ),
+
+                      CheckboxListTile(
+                        title: const Text("Aorist"),
+
+                        value: includeAorist,
+
+                        onChanged: (v) {
+                          setDialogState(() {
+                            includeAorist = v ?? false;
+                          });
+                        },
+                      ),
+
+                      CheckboxListTile(
+                        title: const Text("Eine richtige Übersetzung reicht"),
+
+                        value: requireOnlyOneTranslation,
+
+                        onChanged: (v) {
+                          setDialogState(() {
+                            requireOnlyOneTranslation = v ?? false;
+                          });
+                        },
+                      ),
+                      ExpansionTile(
+                        title: const Text("Schritte"),
+
+                        children: [
+                          CheckboxListTile(
+                            title: const Text("Alle Schritte"),
+
+                            tristate: true,
+
+                            value: enabledSteps.length == 7
+                                ? true
+                                : enabledSteps.isEmpty
+                                ? false
+                                : null,
+
+                            onChanged: (_) {
+                              setDialogState(() {
+                                if (enabledSteps.length == 7) {
+                                  enabledSteps.clear();
+                                } else {
+                                  enabledSteps = [1, 2, 3, 4, 5, 6, 7];
+                                }
+                              });
+                            },
+                          ),
+
+                          ...List.generate(7, (index) {
+                            final step = index + 1;
+
+                            return CheckboxListTile(
+                              title: Text("Schritt $step"),
+
+                              value: enabledSteps.contains(step),
+
+                              onChanged: (value) {
+                                setDialogState(() {
+                                  if (value == true) {
+                                    enabledSteps.add(step);
+                                  } else {
+                                    enabledSteps.remove(step);
+                                  }
+                                });
+                              },
+                            );
+                          }),
+                        ],
+                      ),
+                      ExpansionTile(
+                        title: const Text("Wortarten"),
+
+                        children: [
+                          CheckboxListTile(
+                            title: const Text("Alle Wortarten"),
+
+                            tristate: true,
+
+                            value: enabledTypes.length == allTypes.length
+                                ? true
+                                : enabledTypes.isEmpty
+                                ? false
+                                : null,
+
+                            onChanged: (_) {
+                              setDialogState(() {
+                                if (enabledTypes.length == allTypes.length) {
+                                  enabledTypes.clear();
+                                } else {
+                                  enabledTypes = List.from(allTypes);
+                                }
+                              });
+                            },
+                          ),
+
+                          ...allTypes.map((type) {
+                            return CheckboxListTile(
+                              title: Text(type),
+
+                              value: enabledTypes.contains(type),
+
+                              onChanged: (value) {
+                                setDialogState(() {
+                                  if (value == true) {
+                                    enabledTypes.add(type);
+                                  } else {
+                                    enabledTypes.remove(type);
+                                  }
+                                });
+                              },
+                            );
+                          }),
+                        ],
+                      ),
+                    ],
                   ),
-
-                  CheckboxListTile(
-                    title: const Text("Artikel"),
-
-                    value: includeArticle,
-
-                    onChanged: (v) {
-                      setDialogState(() {
-                        includeArticle = v ?? false;
-                      });
-                    },
-                  ),
-
-                  CheckboxListTile(
-                    title: const Text("Aorist"),
-
-                    value: includeAorist,
-
-                    onChanged: (v) {
-                      setDialogState(() {
-                        includeAorist = v ?? false;
-                      });
-                    },
-                  ),
-
-                  CheckboxListTile(
-                    title: const Text("Eine richtige Übersetzung reicht"),
-
-                    value: requireOnlyOneTranslation,
-
-                    onChanged: (v) {
-                      setDialogState(() {
-                        requireOnlyOneTranslation = v ?? false;
-                      });
-                    },
-                  ),
-                ],
+                ),
               ),
             );
           },
@@ -390,9 +560,28 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
     final q = question;
 
     if (q == null) {
-      return const Scaffold();
+      return Scaffold(
+        appBar: AppBar(
+          title: const Text("Vokabeltrainer"),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.settings),
+              onPressed: openSettings,
+            ),
+          ],
+        ),
+        body: const Center(
+          child: Text(
+            "Mit den aktuellen Filtern sind keine Vokabeln verfügbar.",
+            textAlign: TextAlign.center,
+          ),
+        ),
+      );
     }
-
+    final hasAdditionalInfo =
+        (q.entry.article != null && !includeArticle) ||
+        (q.entry.genitive != null && !includeGenitive) ||
+        (q.entry.aorist != null && !includeAorist);
     return Scaffold(
       appBar: AppBar(
         title: const Text("Vokabeltrainer"),
@@ -513,24 +702,39 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
 
                           const SizedBox(height: 12),
 
-                          if (!correct || !translationComplete)
+                          if (!correct ||
+                              !translationComplete ||
+                              (q.entry.article != null && !includeArticle) ||
+                              (q.entry.genitive != null && !includeGenitive) ||
+                              (q.entry.aorist != null && !includeAorist))
                             Column(
                               children: [
-                                const Text(
-                                  "Korrekte Antworten:",
-                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                Text(
+                                  correct &&
+                                          translationComplete &&
+                                          hasAdditionalInfo
+                                      ? "Zusätzliche Informationen:"
+                                      : "Korrekte Antworten:",
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
 
                                 const SizedBox(height: 8),
 
-                                if (articleCorrect == false)
-                                  Text("Artikel: ${q.entry.article ?? "-"}"),
+                                if (q.entry.article != null &&
+                                    (articleCorrect == false ||
+                                        !includeArticle))
+                                  Text("Artikel: ${q.entry.article}"),
 
-                                if (genitiveCorrect == false)
-                                  Text("Genitiv: ${q.entry.genitive ?? "-"}"),
+                                if (q.entry.genitive != null &&
+                                    (genitiveCorrect == false ||
+                                        !includeGenitive))
+                                  Text("Genitiv: ${q.entry.genitive}"),
 
-                                if (aoristCorrect == false)
-                                  Text("Aorist: ${q.entry.aorist ?? "-"}"),
+                                if (q.entry.aorist != null &&
+                                    (aoristCorrect == false || !includeAorist))
+                                  Text("Aorist: ${q.entry.aorist}"),
 
                                 if (translationCorrect == false ||
                                     !translationComplete)

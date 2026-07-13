@@ -293,17 +293,6 @@
   },
   {
     "id": 27,
-    "step": 1,
-    "type": "noun",
-    "lemma": "Ῥωμαῖος",
-    "genitive": "Ῥωμαίου",
-    "article": "ὁ",
-    "translations": [
-      "der Römer"
-    ]
-  },
-  {
-    "id": 28,
     "step": 2,
     "type": "adjective",
     "lemma": "ἀγαθός",
@@ -312,7 +301,7 @@
     ]
   },
   {
-    "id": 29,
+    "id": 28,
     "step": 2,
     "type": "adjective",
     "lemma": "ἅγιος",
@@ -321,7 +310,7 @@
     ]
   },
   {
-    "id": 30,
+    "id": 29,
     "step": 2,
     "type": "verb",
     "lemma": "ἀκούω",
@@ -331,7 +320,7 @@
     ]
   },
   {
-    "id": 31,
+    "id": 30,
     "step": 2,
     "type": "noun",
     "lemma": "ἀλήθεια",
@@ -342,7 +331,7 @@
     ]
   },
   {
-    "id": 32,
+    "id": 31,
     "step": 2,
     "type": "noun",
     "lemma": "ἄνθρωπος",
@@ -353,17 +342,18 @@
     ]
   },
   {
-    "id": 33,
+    "id": 32,
     "step": 2,
     "type": "adjective",
     "lemma": "ἄξιος",
     "translations": [
       "wert",
       "würdig"
-    ]
+    ],
+    "mnemonic": "Axiom"
   },
   {
-    "id": 34,
+    "id": 33,
     "step": 2,
     "type": "verb",
     "lemma": "βαίνω",
@@ -373,7 +363,7 @@
     ]
   },
   {
-    "id": 35,
+    "id": 34,
     "step": 2,
     "type": "verb",
     "lemma": "βούλομαι",
@@ -383,7 +373,7 @@
     ]
   },
   {
-    "id": 36,
+    "id": 35,
     "step": 2,
     "type": "particle",
     "lemma": "δέ",
@@ -393,7 +383,7 @@
     "note": "weiterführende Partikel"
   },
   {
-    "id": 37,
+    "id": 36,
     "step": 2,
     "type": "noun",
     "lemma": "δένδρον",
@@ -404,7 +394,7 @@
     ]
   },
   {
-    "id": 38,
+    "id": 37,
     "step": 2,
     "type": "preposition",
     "lemma": "διά + Gen.",
@@ -414,7 +404,7 @@
     ]
   },
   {
-    "id": 39,
+    "id": 38,
     "step": 2,
     "type": "verb",
     "lemma": "δύναμαι",
@@ -422,10 +412,11 @@
     "translations": [
       "können",
       "imstande sein"
-    ]
+    ],
+    "mnemonic": "Dynamit"
   },
   {
-    "id": 40,
+    "id": 39,
     "step": 2,
     "type": "conjunction",
     "lemma": "εἰ",
@@ -433,10 +424,11 @@
       "wenn",
       "falls",
       "ob"
-    ]
+    ],
+    "mnemonic": "if"
   },
   {
-    "id": 41,
+    "id": 40,
     "step": 2,
     "type": "conjunction",
     "lemma": "εἰ μή",
@@ -446,7 +438,7 @@
     ]
   },
   {
-    "id": 42,
+    "id": 41,
     "step": 2,
     "type": "verb",
     "lemma": "εἰμί",
@@ -456,7 +448,7 @@
     ]
   },
   {
-    "id": 43,
+    "id": 42,
     "step": 2,
     "type": "preposition",
     "lemma": "εἰς + Akk.",
@@ -466,7 +458,7 @@
     ]
   },
   {
-    "id": 44,
+    "id": 43,
     "step": 2,
     "type": "adjective",
     "lemma": "ἕκαστος",
@@ -476,7 +468,7 @@
     ]
   },
   {
-    "id": 45,
+    "id": 44,
     "step": 2,
     "type": "noun",
     "lemma": "Ἕλλην",
@@ -487,7 +479,7 @@
     ]
   },
   {
-    "id": 46,
+    "id": 45,
     "step": 2,
     "type": "noun",
     "lemma": "ἐλπίς",
@@ -499,7 +491,7 @@
     ]
   },
   {
-    "id": 47,
+    "id": 46,
     "step": 2,
     "type": "preposition",
     "lemma": "ἐν + Dat.",
@@ -508,7 +500,7 @@
     ]
   },
   {
-    "id": 48,
+    "id": 47,
     "step": 2,
     "type": "verb",
     "lemma": "ἔρχομαι",
@@ -519,7 +511,7 @@
     ]
   },
   {
-    "id": 49,
+    "id": 48,
     "step": 2,
     "type": "verb",
     "lemma": "ἔχω",
@@ -531,7 +523,7 @@
     ]
   },
   {
-    "id": 50,
+    "id": 49,
     "step": 2,
     "type": "noun",
     "lemma": "ζωή",
@@ -542,7 +534,7 @@
     ]
   },
   {
-    "id": 51,
+    "id": 50,
     "step": 2,
     "type": "noun",
     "lemma": "θεά",
@@ -553,7 +545,7 @@
     ]
   },
   {
-    "id": 52,
+    "id": 51,
     "step": 2,
     "type": "noun",
     "lemma": "θήρ",
@@ -564,7 +556,7 @@
     ]
   },
   {
-    "id": 53,
+    "id": 52,
     "step": 2,
     "type": "noun",
     "lemma": "θησαυρός",
@@ -573,10 +565,11 @@
     "translations": [
       "Schatz",
       "Schatzkammer"
-    ]
+    ],
+    "mnemonic": "Thesaurierung"
   },
   {
-    "id": 54,
+    "id": 53,
     "step": 2,
     "type": "noun",
     "lemma": "θύρα",
@@ -588,16 +581,17 @@
     ]
   },
   {
-    "id": 55,
+    "id": 54,
     "step": 2,
     "type": "adjective",
     "lemma": "ἴδιος",
     "translations": [
       "eigen"
-    ]
+    ],
+    "mnemonic": "Idiot"
   },
   {
-    "id": 56,
+    "id": 55,
     "step": 2,
     "type": "particle",
     "lemma": "καί",
@@ -608,7 +602,7 @@
     ]
   },
   {
-    "id": 57,
+    "id": 56,
     "step": 2,
     "type": "adjective",
     "lemma": "καλός",
@@ -618,7 +612,7 @@
     ]
   },
   {
-    "id": 58,
+    "id": 57,
     "step": 2,
     "type": "noun",
     "lemma": "καρδία",
@@ -626,10 +620,11 @@
     "article": "ἡ",
     "translations": [
       "Herz"
-    ]
+    ],
+    "mnemonic": "Herz"
   },
   {
-    "id": 59,
+    "id": 58,
     "step": 2,
     "type": "noun",
     "lemma": "καρπός",
@@ -638,10 +633,11 @@
     "translations": [
       "Frucht",
       "Nutzen"
-    ]
+    ],
+    "mnemonic": "Karpologie"
   },
   {
-    "id": 60,
+    "id": 59,
     "step": 2,
     "type": "preposition",
     "lemma": "κατά + Akk",
@@ -652,7 +648,7 @@
     ]
   },
   {
-    "id": 61,
+    "id": 60,
     "step": 2,
     "type": "noun",
     "lemma": "κόσμος",
@@ -665,22 +661,23 @@
     ]
   },
   {
-    "id": 62,
+    "id": 61,
     "step": 2,
     "type": "verb",
     "lemma": "λαλέω",
-    "aorist": null,
+    "aorist": "ἐλάλησα",
     "translations": [
       "reden",
       "sprechen"
-    ]
+    ],
+    "mnemonic": "Lallen, Laut"
   },
   {
-    "id": 63,
+    "id": 62,
     "step": 2,
     "type": "verb",
     "lemma": "λαμβάνω",
-    "aorist": null,
+    "aorist": "ἔλαβον",
     "translations": [
       "nehmen",
       "ergreifen",
@@ -688,7 +685,7 @@
     ]
   },
   {
-    "id": 64,
+    "id": 63,
     "step": 2,
     "type": "verb",
     "lemma": "λέγω",
@@ -700,17 +697,18 @@
     ]
   },
   {
-    "id": 65,
+    "id": 64,
     "step": 2,
     "type": "adjective",
     "lemma": "μέσος",
     "translations": [
       "mitten",
       "der mittlere"
-    ]
+    ],
+    "mnemonic": "Mesopotamien"
   },
   {
-    "id": 67,
+    "id": 65,
     "step": 2,
     "type": "noun",
     "lemma": "ὁδός",
@@ -719,10 +717,11 @@
     "translations": [
       "Gang",
       "Weg"
-    ]
+    ],
+    "mnemonic": "Ex-odus"
   },
   {
-    "id": 68,
+    "id": 66,
     "step": 2,
     "type": "verb",
     "lemma": "οἶδα",
@@ -732,18 +731,18 @@
     ]
   },
   {
-    "id": 69,
+    "id": 67,
     "step": 2,
     "type": "verb",
     "lemma": "οἴομαι",
-    "aorist": null,
+    "aorist": "ᾠήθην",
     "translations": [
       "glauben",
       "meinen"
     ]
   },
   {
-    "id": 70,
+    "id": 68,
     "step": 2,
     "type": "verb",
     "lemma": "ὁράω",
@@ -753,7 +752,7 @@
     ]
   },
   {
-    "id": 71,
+    "id": 69,
     "step": 2,
     "type": "conjunction",
     "lemma": "ὅτι",
@@ -764,7 +763,7 @@
     ]
   },
   {
-    "id": 72,
+    "id": 70,
     "step": 2,
     "type": "particle",
     "lemma": "οὐ / οὐκ / οὐχ",
@@ -774,17 +773,7 @@
     "note": "Form abhängig vom folgenden Laut"
   },
   {
-    "id": 73,
-    "step": 2,
-    "type": "pronoun",
-    "lemma": "οὐδείς",
-    "translations": [
-      "keiner",
-      "niemand"
-    ]
-  },
-  {
-    "id": 74,
+    "id": 71,
     "step": 2,
     "type": "adjective",
     "lemma": "πᾶς",
@@ -795,7 +784,7 @@
     ]
   },
   {
-    "id": 75,
+    "id": 72,
     "step": 2,
     "type": "noun",
     "lemma": "περίσσευμα",
@@ -806,7 +795,7 @@
     ]
   },
   {
-    "id": 76,
+    "id": 73,
     "step": 2,
     "type": "noun",
     "lemma": "πνεῦμα",
@@ -819,7 +808,7 @@
     ]
   },
   {
-    "id": 77,
+    "id": 74,
     "step": 2,
     "type": "verb",
     "lemma": "ποιέω",
@@ -828,10 +817,11 @@
       "machen",
       "herstellen",
       "tun"
-    ]
+    ],
+    "mnemonic": "Poet, "
   },
   {
-    "id": 78,
+    "id": 75,
     "step": 2,
     "type": "adjective",
     "lemma": "πονηρός",
@@ -839,10 +829,11 @@
       "schlecht",
       "untauglich",
       "niederträchtig"
-    ]
+    ],
+    "mnemonic": "Pönologie"
   },
   {
-    "id": 79,
+    "id": 76,
     "step": 2,
     "type": "noun",
     "lemma": "πρόβατον",
@@ -855,7 +846,7 @@
     ]
   },
   {
-    "id": 80,
+    "id": 77,
     "step": 2,
     "type": "preposition",
     "lemma": "πρός + Akk",
@@ -865,17 +856,18 @@
     ]
   },
   {
-    "id": 81,
+    "id": 78,
     "step": 2,
     "type": "adjective",
     "lemma": "σαπρός",
     "translations": [
       "faul",
       "morsch"
-    ]
+    ],
+    "mnemonic": "Saprobien"
   },
   {
-    "id": 82,
+    "id": 79,
     "step": 2,
     "type": "noun",
     "lemma": "στόμα",
@@ -886,7 +878,7 @@
     ]
   },
   {
-    "id": 83,
+    "id": 80,
     "step": 2,
     "type": "verb",
     "lemma": "τίθημι",
@@ -898,7 +890,7 @@
     ]
   },
   {
-    "id": 84,
+    "id": 81,
     "step": 2,
     "type": "noun",
     "lemma": "Τρωάς",
@@ -910,7 +902,7 @@
     ]
   },
   {
-    "id": 85,
+    "id": 82,
     "step": 2,
     "type": "noun",
     "lemma": "ὕδωρ",
@@ -921,7 +913,7 @@
     ]
   },
   {
-    "id": 86,
+    "id": 83,
     "step": 2,
     "type": "preposition",
     "lemma": "ὑπό + Gen",
@@ -931,7 +923,7 @@
     ]
   },
   {
-    "id": 87,
+    "id": 84,
     "step": 2,
     "type": "noun",
     "lemma": "φύλαξ",
@@ -942,7 +934,7 @@
     ]
   },
   {
-    "id": 88,
+    "id": 85,
     "step": 2,
     "type": "noun",
     "lemma": "φῶς",
@@ -953,7 +945,7 @@
     ]
   },
   {
-    "id": 89,
+    "id": 86,
     "step": 2,
     "type": "noun",
     "lemma": "ψυχή",
@@ -965,7 +957,7 @@
     ]
   },
   {
-    "id": 90,
+    "id": 87,
     "step": 3,
     "type": "noun",
     "lemma": "ἀδελφός",
@@ -976,17 +968,18 @@
     ]
   },
   {
-    "id": 91,
+    "id": 88,
     "step": 3,
     "type": "verb",
     "lemma": "ἀκολουθέω",
-    "aorist": null,
+    "aorist": "ἠκολούθησα",
     "translations": [
       "folgen"
-    ]
+    ],
+    "mnemonic": "Akolyth"
   },
   {
-    "id": 92,
+    "id": 89,
     "step": 3,
     "type": "noun",
     "lemma": "ἄμπελος",
@@ -997,18 +990,18 @@
     ]
   },
   {
-    "id": 93,
+    "id": 90,
     "step": 3,
     "type": "verb",
     "lemma": "ἀναβαίνω",
-    "aorist": null,
+    "aorist": "ἀνέβην",
     "translations": [
       "hinaufgehen",
       "hinaufziehen"
     ]
   },
   {
-    "id": 94,
+    "id": 91,
     "step": 3,
     "type": "verb",
     "lemma": "ἀναβλέπω",
@@ -1020,7 +1013,7 @@
     ]
   },
   {
-    "id": 95,
+    "id": 92,
     "step": 3,
     "type": "verb",
     "lemma": "ἀπολύω",
@@ -1031,7 +1024,7 @@
     ]
   },
   {
-    "id": 96,
+    "id": 93,
     "step": 3,
     "type": "verb",
     "lemma": "ἄρχομαι",
@@ -1042,7 +1035,7 @@
     ]
   },
   {
-    "id": 97,
+    "id": 94,
     "step": 3,
     "type": "verb",
     "lemma": "ἀσθενέω",
@@ -1053,7 +1046,7 @@
     ]
   },
   {
-    "id": 98,
+    "id": 95,
     "step": 3,
     "type": "adjective",
     "lemma": "ἄτιμος",
@@ -1064,7 +1057,7 @@
     ]
   },
   {
-    "id": 99,
+    "id": 96,
     "step": 3,
     "type": "noun",
     "lemma": "βίος",
@@ -1075,7 +1068,7 @@
     ]
   },
   {
-    "id": 100,
+    "id": 97,
     "step": 3,
     "type": "verb",
     "lemma": "βλέπω",
@@ -1086,20 +1079,21 @@
     ]
   },
   {
-    "id": 101,
+    "id": 98,
     "step": 3,
     "type": "verb",
     "lemma": "γίγνομαι",
-    "aorist": null,
+    "aorist": "ἐγενόμην",
     "translations": [
       "werden",
       "entstehen",
       "geschehen",
       "kommen"
-    ]
+    ],
+    "mnemonic": "Genesis"
   },
   {
-    "id": 102,
+    "id": 99,
     "step": 3,
     "type": "noun",
     "lemma": "γυνή",
@@ -1110,17 +1104,17 @@
     ]
   },
   {
-    "id": 103,
+    "id": 100,
     "step": 3,
     "type": "verb",
     "lemma": "διαβάλλω",
-    "aorist": null,
+    "aorist": "διέβαλον",
     "translations": [
       "verleumden"
     ]
   },
   {
-    "id": 104,
+    "id": 101,
     "step": 3,
     "type": "verb",
     "lemma": "διδάσκω",
@@ -1130,7 +1124,7 @@
     ]
   },
   {
-    "id": 105,
+    "id": 102,
     "step": 3,
     "type": "noun",
     "lemma": "δοκός",
@@ -1141,18 +1135,18 @@
     ]
   },
   {
-    "id": 106,
+    "id": 103,
     "step": 3,
     "type": "verb",
     "lemma": "ἐγείρομαι",
-    "aorist": null,
+    "aorist": "ἠγέρθην",
     "translations": [
       "aufwachen",
       "auf(er)stehen"
     ]
   },
   {
-    "id": 107,
+    "id": 104,
     "step": 3,
     "type": "noun",
     "lemma": "εἰρήνη",
@@ -1163,7 +1157,7 @@
     ]
   },
   {
-    "id": 108,
+    "id": 105,
     "step": 3,
     "type": "noun",
     "lemma": "ἐκκλησία",
@@ -1176,18 +1170,18 @@
     ]
   },
   {
-    "id": 109,
+    "id": 106,
     "step": 3,
     "type": "verb",
     "lemma": "ἐκπλήσσομαι",
-    "aorist": null,
+    "aorist": "ἐξεπλάγην",
     "translations": [
       "sich erschrecken",
       "sich entsetzen"
     ]
   },
   {
-    "id": 110,
+    "id": 107,
     "step": 3,
     "type": "adjective",
     "lemma": "ἐμός",
@@ -1196,7 +1190,7 @@
     ]
   },
   {
-    "id": 111,
+    "id": 108,
     "step": 3,
     "type": "conjunction",
     "lemma": "ἐπεί",
@@ -1207,7 +1201,7 @@
     ]
   },
   {
-    "id": 112,
+    "id": 109,
     "step": 3,
     "type": "verb",
     "lemma": "εὐαγγελίζομαι",
@@ -1219,18 +1213,7 @@
     ]
   },
   {
-    "id": 113,
-    "step": 3,
-    "type": "adjective",
-    "lemma": "εὐδαίμων",
-    "genitive": "εὐδαίμονος",
-    "translations": [
-      "glücklich",
-      "wohlhabend"
-    ]
-  },
-  {
-    "id": 114,
+    "id": 110,
     "step": 3,
     "type": "verb",
     "lemma": "εὐχαριστέω",
@@ -1238,10 +1221,11 @@
     "translations": [
       "Dank sagen",
       "danken"
-    ]
+    ],
+    "mnemonic": "Eucharistie"
   },
   {
-    "id": 115,
+    "id": 111,
     "step": 3,
     "type": "adjective",
     "lemma": "ἡμέτερος",
@@ -1250,7 +1234,7 @@
     ]
   },
   {
-    "id": 116,
+    "id": 112,
     "step": 3,
     "type": "noun",
     "lemma": "θάλαττα",
@@ -1261,27 +1245,29 @@
     ]
   },
   {
-    "id": 117,
+    "id": 113,
     "step": 3,
     "type": "verb",
     "lemma": "καθαρίζομαι",
     "translations": [
       "rein werden"
-    ]
+    ],
+    "mnemonic": "Katharina"
   },
   {
-    "id": 118,
+    "id": 114,
     "step": 3,
     "type": "verb",
     "lemma": "καλέω",
-    "aorist": null,
+    "aorist": "ἐκάλεσα",
     "translations": [
       "rufen",
       "nennen"
-    ]
+    ],
+    "mnemonic": "call"
   },
   {
-    "id": 119,
+    "id": 115,
     "step": 3,
     "type": "noun",
     "lemma": "κάρφος",
@@ -1289,10 +1275,11 @@
     "article": "τό",
     "translations": [
       "Splitter"
-    ]
+    ],
+    "mnemonic": "Kerbe"
   },
   {
-    "id": 120,
+    "id": 116,
     "step": 3,
     "type": "verb",
     "lemma": "καταβαίνω",
@@ -1301,7 +1288,7 @@
     ]
   },
   {
-    "id": 121,
+    "id": 117,
     "step": 3,
     "type": "verb",
     "lemma": "κατανοέω",
@@ -1310,10 +1297,11 @@
       "bemerken",
       "wahrnehmen",
       "verstehen"
-    ]
+    ],
+    "mnemonic": "Noetik"
   },
   {
-    "id": 122,
+    "id": 118,
     "step": 3,
     "type": "verb",
     "lemma": "κλαίω",
@@ -1321,10 +1309,11 @@
     "translations": [
       "weinen",
       "beweinen"
-    ]
+    ],
+    "mnemonic": "Klage"
   },
   {
-    "id": 123,
+    "id": 119,
     "step": 3,
     "type": "noun",
     "lemma": "κύριος",
@@ -1335,7 +1324,7 @@
     ]
   },
   {
-    "id": 124,
+    "id": 120,
     "step": 3,
     "type": "adjective",
     "lemma": "κωφός",
@@ -1344,7 +1333,7 @@
     ]
   },
   {
-    "id": 125,
+    "id": 121,
     "step": 3,
     "type": "adjective",
     "lemma": "λεπρός",
@@ -1353,7 +1342,7 @@
     ]
   },
   {
-    "id": 126,
+    "id": 122,
     "step": 3,
     "type": "noun",
     "lemma": "μαθητής",
@@ -1363,10 +1352,11 @@
       "Schüler",
       "Student",
       "Jünger"
-    ]
+    ],
+    "mnemonic": "Mathematik"
   },
   {
-    "id": 127,
+    "id": 123,
     "step": 3,
     "type": "adjective",
     "lemma": "μέγας",
@@ -1376,7 +1366,7 @@
     "note": "Femininum: μεγάλη; Neutrum: μέγα"
   },
   {
-    "id": 128,
+    "id": 124,
     "step": 3,
     "type": "verb",
     "lemma": "μεταπέμπομαι",
@@ -1388,7 +1378,7 @@
     ]
   },
   {
-    "id": 129,
+    "id": 125,
     "step": 3,
     "type": "phrase",
     "lemma": "μνείαν ποιούμενος",
@@ -1397,7 +1387,7 @@
     ]
   },
   {
-    "id": 130,
+    "id": 126,
     "step": 3,
     "type": "adjective",
     "lemma": "νεκρός",
@@ -1406,7 +1396,7 @@
     ]
   },
   {
-    "id": 131,
+    "id": 127,
     "step": 3,
     "type": "adjective",
     "lemma": "ὀλίγος",
@@ -1414,10 +1404,11 @@
       "wenig",
       "klein",
       "gering"
-    ]
+    ],
+    "mnemonic": "Oligarchie"
   },
   {
-    "id": 132,
+    "id": 128,
     "step": 3,
     "type": "noun",
     "lemma": "ὄρος",
@@ -1426,10 +1417,11 @@
     "translations": [
       "Berg",
       "Gebirge"
-    ]
+    ],
+    "mnemonic": "Orographie"
   },
   {
-    "id": 133,
+    "id": 129,
     "step": 3,
     "type": "phrase",
     "lemma": "οὐ μόνον ... ἀλλὰ καὶ",
@@ -1438,7 +1430,7 @@
     ]
   },
   {
-    "id": 134,
+    "id": 130,
     "step": 3,
     "type": "particle",
     "lemma": "οὖν",
@@ -1449,7 +1441,7 @@
     ]
   },
   {
-    "id": 135,
+    "id": 131,
     "step": 3,
     "type": "noun",
     "lemma": "ὀφθαλμός",
@@ -1460,7 +1452,7 @@
     ]
   },
   {
-    "id": 136,
+    "id": 132,
     "step": 3,
     "type": "adjective",
     "lemma": "ὀχυρός",
@@ -1470,7 +1462,7 @@
     ]
   },
   {
-    "id": 137,
+    "id": 133,
     "step": 3,
     "type": "adjective",
     "lemma": "παντοδαπός",
@@ -1480,7 +1472,7 @@
     ]
   },
   {
-    "id": 138,
+    "id": 134,
     "step": 3,
     "type": "adverb",
     "lemma": "πάντοτε",
@@ -1490,7 +1482,7 @@
     ]
   },
   {
-    "id": 139,
+    "id": 135,
     "step": 3,
     "type": "noun",
     "lemma": "πατρίς",
@@ -1502,7 +1494,7 @@
     ]
   },
   {
-    "id": 140,
+    "id": 136,
     "step": 3,
     "type": "noun",
     "lemma": "πεδίον",
@@ -1510,10 +1502,11 @@
     "article": "τό",
     "translations": [
       "Ebene"
-    ]
+    ],
+    "mnemonic": "Pedal"
   },
   {
-    "id": 141,
+    "id": 137,
     "step": 3,
     "type": "verb",
     "lemma": "πείθομαι",
@@ -1524,7 +1517,7 @@
     ]
   },
   {
-    "id": 142,
+    "id": 138,
     "step": 3,
     "type": "preposition",
     "lemma": "περί + Gen",
@@ -1535,7 +1528,7 @@
     ]
   },
   {
-    "id": 143,
+    "id": 139,
     "step": 3,
     "type": "verb",
     "lemma": "περιέχω",
@@ -1547,7 +1540,7 @@
     ]
   },
   {
-    "id": 144,
+    "id": 140,
     "step": 3,
     "type": "verb",
     "lemma": "περιπατέω",
@@ -1557,7 +1550,7 @@
     ]
   },
   {
-    "id": 145,
+    "id": 141,
     "step": 3,
     "type": "question_word",
     "lemma": "πόθεν;",
@@ -1566,7 +1559,7 @@
     ]
   },
   {
-    "id": 146,
+    "id": 142,
     "step": 3,
     "type": "noun",
     "lemma": "πόλις",
@@ -1575,20 +1568,11 @@
     "translations": [
       "Stadt",
       "Staat"
-    ]
+    ],
+    "mnemonic": "Politik"
   },
   {
-    "id": 147,
-    "step": 3,
-    "type": "preposition",
-    "lemma": "πρός + Akk",
-    "translations": [
-      "auf ... hin",
-      "gegen"
-    ]
-  },
-  {
-    "id": 148,
+    "id": 143,
     "step": 3,
     "type": "verb",
     "lemma": "προσφωνέω",
@@ -1599,7 +1583,7 @@
     ]
   },
   {
-    "id": 149,
+    "id": 144,
     "step": 3,
     "type": "noun",
     "lemma": "προφήτης",
@@ -1610,30 +1594,31 @@
     ]
   },
   {
-    "id": 150,
+    "id": 145,
     "step": 3,
     "type": "adjective",
     "lemma": "πτωχός",
     "translations": [
       "arm"
-    ]
+    ],
+    "mnemonic": "Ptochotrophium"
   },
   {
-    "id": 151,
+    "id": 146,
     "step": 3,
     "type": "verb",
     "lemma": "σκανδαλίζομαι",
-    "aorist": null,
+    "aorist": "ἐσκανδαλίσθην",
     "translations": [
       "Anstoß nehmen"
     ]
   },
   {
-    "id": 152,
+    "id": 147,
     "step": 3,
     "type": "verb",
     "lemma": "συλλαμβάνω",
-    "aorist": null,
+    "aorist": "συνέλαβον",
     "translations": [
       "jemanden verhaften",
       "etwas zusammenfassen",
@@ -1642,7 +1627,7 @@
     ]
   },
   {
-    "id": 153,
+    "id": 148,
     "step": 3,
     "type": "noun",
     "lemma": "συναγωγή",
@@ -1654,7 +1639,7 @@
     ]
   },
   {
-    "id": 154,
+    "id": 149,
     "step": 3,
     "type": "conjunction",
     "lemma": "τε ... καί",
@@ -1663,7 +1648,7 @@
     ]
   },
   {
-    "id": 155,
+    "id": 150,
     "step": 3,
     "type": "noun",
     "lemma": "τέκτων",
@@ -1672,10 +1657,11 @@
     "translations": [
       "Zimmermann",
       "Bauhandwerker"
-    ]
+    ],
+    "mnemonic": "Architekt"
   },
   {
-    "id": 156,
+    "id": 151,
     "step": 3,
     "type": "verb",
     "lemma": "τελευτάω",
@@ -1686,7 +1672,7 @@
     ]
   },
   {
-    "id": 157,
+    "id": 152,
     "step": 3,
     "type": "noun",
     "lemma": "τελευτή",
@@ -1695,10 +1681,11 @@
     "translations": [
       "Ende",
       "Tod"
-    ]
+    ],
+    "mnemonic": "Telos"
   },
   {
-    "id": 158,
+    "id": 153,
     "step": 3,
     "type": "question_word",
     "lemma": "τί",
@@ -1709,11 +1696,11 @@
     ]
   },
   {
-    "id": 159,
+    "id": 154,
     "step": 3,
     "type": "verb",
     "lemma": "τυγχάνω",
-    "aorist": null,
+    "aorist": "ἔτυχον",
     "translations": [
       "treffen",
       "erreichen",
@@ -1722,16 +1709,17 @@
     "note": "mit Genitiv"
   },
   {
-    "id": 160,
+    "id": 155,
     "step": 3,
     "type": "adjective",
     "lemma": "τυφλός",
     "translations": [
       "blind"
-    ]
+    ],
+    "mnemonic": "Typhlologie"
   },
   {
-    "id": 161,
+    "id": 156,
     "step": 3,
     "type": "noun",
     "lemma": "υἱός",
@@ -1742,7 +1730,7 @@
     ]
   },
   {
-    "id": 162,
+    "id": 157,
     "step": 3,
     "type": "verb",
     "lemma": "ὑποπτεύω",
@@ -1751,19 +1739,21 @@
       "argwöhnen",
       "vermuten",
       "ahnen"
-    ]
+    ],
+    "mnemonic": "Hypothese"
   },
   {
-    "id": 163,
+    "id": 158,
     "step": 3,
     "type": "adjective",
     "lemma": "ὑψηλός",
     "translations": [
       "hoch"
-    ]
+    ],
+    "mnemonic": "Hyps-"
   },
   {
-    "id": 164,
+    "id": 159,
     "step": 3,
     "type": "noun",
     "lemma": "χείρ",
@@ -1771,10 +1761,11 @@
     "article": "ἡ",
     "translations": [
       "Hand"
-    ]
+    ],
+    "mnemonic": "Chirurgie"
   },
   {
-    "id": 165,
+    "id": 160,
     "step": 3,
     "type": "adjective",
     "lemma": "χωλός",
@@ -1783,13 +1774,2786 @@
     ]
   },
   {
-    "id": 166,
+    "id": 161,
     "step": 3,
     "type": "adverb",
     "lemma": "ὧδε",
     "translations": [
       "hier(her)",
       "so"
+    ]
+  },
+  {
+    "id": 162,
+    "step": 4,
+    "type": "verb",
+    "lemma": "ἀγαπάω",
+    "aorist": "ἠγάπησα",
+    "translations": [
+      "lieben"
+    ]
+  },
+  {
+    "id": 163,
+    "step": 4,
+    "type": "verb",
+    "lemma": "ἀγγέλλω",
+    "aorist": "ἤγγειλα",
+    "translations": [
+      "melden",
+      "berichten"
+    ]
+  },
+  {
+    "id": 164,
+    "step": 4,
+    "type": "verb",
+    "lemma": "ἄγω",
+    "aorist": "ἤγαγον",
+    "translations": [
+      "führen",
+      "treiben",
+      "ziehen"
+    ]
+  },
+  {
+    "id": 165,
+    "step": 4,
+    "type": "adverb",
+    "lemma": "ἀεί",
+    "translations": [
+      "immer"
+    ]
+  },
+  {
+    "id": 166,
+    "step": 4,
+    "type": "adjective",
+    "lemma": "ἄλλος",
+    "translations": [
+      "ein anderer"
+    ]
+  },
+  {
+    "id": 167,
+    "step": 4,
+    "type": "verb",
+    "lemma": "ἄπειμι",
+    "translations": [
+      "entfernt sein",
+      "fehlen"
+    ]
+  },
+  {
+    "id": 168,
+    "step": 4,
+    "type": "verb",
+    "lemma": "ἀφανίζω",
+    "translations": [
+      "unsichtbar machen",
+      "vernichten"
+    ]
+  },
+  {
+    "id": 169,
+    "step": 4,
+    "type": "noun",
+    "lemma": "βρῶσις",
+    "genitive": "βρώσεως",
+    "article": "ἡ",
+    "translations": [
+      "Nahrung",
+      "Speise"
+    ]
+  },
+  {
+    "id": 170,
+    "step": 4,
+    "type": "particle",
+    "lemma": "γάρ",
+    "translations": [
+      "denn",
+      "nämlich"
+    ]
+  },
+  {
+    "id": 171,
+    "step": 4,
+    "type": "particle",
+    "lemma": "γε",
+    "translations": [
+      "wenigstens",
+      "jedenfalls"
+    ]
+  },
+  {
+    "id": 172,
+    "step": 4,
+    "type": "noun",
+    "lemma": "γένος",
+    "genitive": "γένους",
+    "article": "τό",
+    "translations": [
+      "Geschlecht",
+      "Gattung"
+    ]
+  },
+  {
+    "id": 173,
+    "step": 4,
+    "type": "verb",
+    "lemma": "ἀντάω",
+    "aorist": "κατήντησα",
+    "translations": [
+      "hinkommen nach",
+      "erreichen"
+    ]
+  },
+  {
+    "id": 174,
+    "step": 4,
+    "type": "verb",
+    "lemma": "γινώσκω",
+    "aorist": "ἔγνων",
+    "translations": [
+      "erkennen",
+      "erfahren",
+      "einsehen",
+      "kennen",
+      "wissen",
+      "beschließen"
+    ]
+  },
+  {
+    "id": 175,
+    "step": 4,
+    "type": "noun",
+    "lemma": "ἐνιαυτός",
+    "article": "ὁ",
+    "translations": [
+      "Jahr"
+    ]
+  },
+  {
+    "id": 176,
+    "step": 4,
+    "type": "preposition",
+    "lemma": "ἐκ/ἐξ",
+    "translations": [
+      "aus",
+      "seit"
+    ]
+  },
+  {
+    "id": 177,
+    "step": 4,
+    "type": "verb",
+    "lemma": "ἐλαύνω",
+    "aorist": "ἤλασα",
+    "translations": [
+      "treiben",
+      "vertreiben",
+      "ziehen",
+      "marschieren",
+      "reiten"
+    ]
+  },
+  {
+    "id": 178,
+    "step": 4,
+    "type": "adverb",
+    "lemma": "ἔτι",
+    "translations": [
+      "noch",
+      "ferner",
+      "außerdem"
+    ]
+  },
+  {
+    "id": 179,
+    "step": 4,
+    "type": "verb",
+    "lemma": "εὔχομαι",
+    "aorist": "ηὐξάμην",
+    "translations": [
+      "beten",
+      "wünschen",
+      "geloben"
+    ]
+  },
+  {
+    "id": 180,
+    "step": 4,
+    "type": "adjective",
+    "lemma": "ἐχθρός",
+    "translations": [
+      "verhasst",
+      "feindlich"
+    ]
+  },
+  {
+    "id": 181,
+    "step": 4,
+    "type": "particle",
+    "lemma": "ἤ",
+    "translations": [
+      "oder",
+      "als"
+    ]
+  },
+  {
+    "id": 182,
+    "step": 4,
+    "type": "verb",
+    "lemma": "θεάομαι",
+    "aorist": "ἐθεασάμην",
+    "translations": [
+      "anschauen"
+    ]
+  },
+  {
+    "id": 183,
+    "step": 4,
+    "type": "verb",
+    "lemma": "θέλω",
+    "aorist": "ἠθέλησα",
+    "translations": [
+      "wollen"
+    ]
+  },
+  {
+    "id": 184,
+    "step": 4,
+    "type": "verb",
+    "lemma": "θησαυρίζω",
+    "translations": [
+      "aufhäufen",
+      "sammeln"
+    ]
+  },
+  {
+    "id": 185,
+    "step": 4,
+    "type": "particle",
+    "lemma": "ἵνα",
+    "translations": [
+      "damit",
+      "dass"
+    ]
+  },
+  {
+    "id": 186,
+    "step": 4,
+    "type": "adverb",
+    "lemma": "καθώς",
+    "translations": [
+      "wie",
+      "so wie"
+    ]
+  },
+  {
+    "id": 187,
+    "step": 4,
+    "type": "adverb",
+    "lemma": "κατ’ ἐνιαυτόν",
+    "translations": [
+      "jährlich",
+      "Jahr für Jahr"
+    ]
+  },
+  {
+    "id": 188,
+    "step": 4,
+    "type": "verb",
+    "lemma": "καταλύω",
+    "aorist": "κατέλυσα",
+    "translations": [
+      "auflösen",
+      "zerstören"
+    ]
+  },
+  {
+    "id": 189,
+    "step": 4,
+    "type": "verb",
+    "lemma": "κλέπτω",
+    "aorist": "ἔκλεψα",
+    "translations": [
+      "stehlen"
+    ]
+  },
+  {
+    "id": 190,
+    "step": 4,
+    "type": "noun",
+    "lemma": "κλέπτης",
+    "article": "ὁ",
+    "translations": [
+      "Dieb"
+    ]
+  },
+  {
+    "id": 191,
+    "step": 4,
+    "type": "verb",
+    "lemma": "μένω",
+    "aorist": "ἔμεινα",
+    "translations": [
+      "bleiben",
+      "warten",
+      "erwarten"
+    ]
+  },
+  {
+    "id": 192,
+    "step": 4,
+    "type": "particle",
+    "lemma": "ναί",
+    "translations": [
+      "ja"
+    ]
+  },
+  {
+    "id": 193,
+    "step": 4,
+    "type": "verb",
+    "lemma": "νομίζω",
+    "aorist": "ἐνόμισα",
+    "translations": [
+      "glauben",
+      "meinen"
+    ]
+  },
+  {
+    "id": 194,
+    "step": 4,
+    "type": "noun",
+    "lemma": "νόμος",
+    "article": "ὁ",
+    "translations": [
+      "Gesetz",
+      "Brauch",
+      "Sitte"
+    ]
+  },
+  {
+    "id": 195,
+    "step": 4,
+    "type": "adverb",
+    "lemma": "νῦν",
+    "translations": [
+      "jetzt",
+      "nun"
+    ]
+  },
+  {
+    "id": 196,
+    "step": 4,
+    "type": "adjective",
+    "lemma": "ξένος",
+    "translations": [
+      "fremd"
+    ]
+  },
+  {
+    "id": 197,
+    "step": 4,
+    "type": "verb",
+    "lemma": "οἶμαι",
+    "translations": [
+      "glauben",
+      "meinen"
+    ]
+  },
+  {
+    "id": 198,
+    "step": 4,
+    "type": "verb",
+    "lemma": "οἴχομαι",
+    "translations": [
+      "fortgehen",
+      "fort sein"
+    ]
+  },
+  {
+    "id": 199,
+    "step": 4,
+    "type": "adverb",
+    "lemma": "ὅπου",
+    "translations": [
+      "wo",
+      "wo auch immer"
+    ]
+  },
+  {
+    "id": 200,
+    "step": 4,
+    "type": "phrase",
+    "lemma": "οὐ δῆτα",
+    "translations": [
+      "nicht wirklich",
+      "gewiss nicht"
+    ]
+  },
+  {
+    "id": 201,
+    "step": 4,
+    "type": "conjunction",
+    "lemma": "οὐδέ",
+    "translations": [
+      "und nicht",
+      "auch nicht",
+      "aber nicht",
+      "nicht einmal"
+    ]
+  },
+  {
+    "id": 202,
+    "step": 4,
+    "type": "conjunction",
+    "lemma": "οὔτε ... οὔτε",
+    "translations": [
+      "weder ... noch"
+    ]
+  },
+  {
+    "id": 203,
+    "step": 4,
+    "type": "verb",
+    "lemma": "πάρειμι",
+    "translations": [
+      "zugegen sein",
+      "jemandem beistehen"
+    ]
+  },
+  {
+    "id": 204,
+    "step": 4,
+    "type": "verb",
+    "lemma": "πέμπω",
+    "aorist": "ἔπεμψα",
+    "translations": [
+      "schicken",
+      "begleiten"
+    ]
+  },
+  {
+    "id": 205,
+    "step": 4,
+    "type": "noun",
+    "lemma": "Πλάτων",
+    "genitive": "Πλάτωνος",
+    "article": "ὁ",
+    "translations": [
+      "Platon"
+    ]
+  },
+  {
+    "id": 206,
+    "step": 4,
+    "type": "noun",
+    "lemma": "πλοῖον",
+    "article": "τό",
+    "translations": [
+      "Schiff"
+    ]
+  },
+  {
+    "id": 207,
+    "step": 4,
+    "type": "adverb",
+    "lemma": "ποτέ",
+    "translations": [
+      "irgendwann"
+    ]
+  },
+  {
+    "id": 208,
+    "step": 4,
+    "type": "noun",
+    "lemma": "προσευχή",
+    "article": "ἡ",
+    "translations": [
+      "Gebet"
+    ]
+  },
+  {
+    "id": 209,
+    "step": 4,
+    "type": "verb",
+    "lemma": "προσεύχομαι",
+    "translations": [
+      "beten"
+    ]
+  },
+  {
+    "id": 210,
+    "step": 4,
+    "type": "noun",
+    "lemma": "σής",
+    "genitive": "σεός",
+    "article": "ὁ",
+    "translations": [
+      "Motte"
+    ]
+  },
+  {
+    "id": 211,
+    "step": 4,
+    "type": "verb",
+    "lemma": "σῴζω",
+    "aorist": "ἔσωσα",
+    "translations": [
+      "retten"
+    ]
+  },
+  {
+    "id": 212,
+    "step": 4,
+    "type": "noun",
+    "lemma": "Σωκράτης",
+    "genitive": "Σωκράτους",
+    "article": "ὁ",
+    "translations": [
+      "Sokrates"
+    ]
+  },
+  {
+    "id": 213,
+    "step": 4,
+    "type": "verb",
+    "lemma": "τάττω",
+    "aorist": "ἔταξα",
+    "translations": [
+      "aufstellen",
+      "ordnen"
+    ]
+  },
+  {
+    "id": 214,
+    "step": 4,
+    "type": "verb",
+    "lemma": "τηρέω",
+    "aorist": "ἐτήρησα",
+    "translations": [
+      "behüten",
+      "bewahren",
+      "beobachten"
+    ]
+  },
+  {
+    "id": 215,
+    "step": 4,
+    "type": "verb",
+    "lemma": "ὑμνέω",
+    "aorist": "ὕμνησα",
+    "translations": [
+      "besingen",
+      "rühmen"
+    ]
+  },
+  {
+    "id": 216,
+    "step": 4,
+    "type": "preposition",
+    "lemma": "ὑπέρ",
+    "translations": [
+      "oberhalb",
+      "im Interesse von",
+      "für"
+    ]
+  },
+  {
+    "id": 217,
+    "step": 4,
+    "type": "noun",
+    "lemma": "Φαίδων",
+    "genitive": "Φαίδωνος",
+    "article": "ὁ",
+    "translations": [
+      "Phaidon"
+    ]
+  },
+  {
+    "id": 218,
+    "step": 5,
+    "type": "verb",
+    "lemma": "ἀγάλλομαι",
+    "translations": [
+      "sich über etwas freuen",
+      "auf etwas stolz sein"
+    ]
+  },
+  {
+    "id": 219,
+    "step": 5,
+    "type": "adjective",
+    "lemma": "ἀγαπητός",
+    "translations": [
+      "erwünscht",
+      "geliebt"
+    ]
+  },
+  {
+    "id": 220,
+    "step": 5,
+    "type": "adjective",
+    "lemma": "ἄδικος",
+    "translations": [
+      "ungerecht"
+    ]
+  },
+  {
+    "id": 221,
+    "step": 5,
+    "type": "adjective",
+    "lemma": "ἀδύνατος",
+    "translations": [
+      "unfähig",
+      "machtlos",
+      "unmöglich"
+    ]
+  },
+  {
+    "id": 222,
+    "step": 5,
+    "type": "adjective",
+    "lemma": "ἀθάνατος",
+    "translations": [
+      "unsterblich"
+    ]
+  },
+  {
+    "id": 223,
+    "step": 5,
+    "type": "adjective",
+    "lemma": "ἄθεος",
+    "translations": [
+      "gottlos"
+    ]
+  },
+  {
+    "id": 224,
+    "step": 5,
+    "type": "verb",
+    "lemma": "ἀτιμάζω",
+    "aorist": "ἠτίμασα",
+    "translations": [
+      "verachten",
+      "ächten"
+    ]
+  },
+  {
+    "id": 225,
+    "step": 5,
+    "type": "verb",
+    "lemma": "ἀλλά",
+    "translations": [
+      "aber",
+      "sondern"
+    ]
+  },
+  {
+    "id": 226,
+    "step": 5,
+    "type": "noun",
+    "lemma": "ἁμαρτία",
+    "article": "ἡ",
+    "translations": [
+      "Fehler",
+      "Sünde"
+    ]
+  },
+  {
+    "id": 227,
+    "step": 5,
+    "type": "adjective",
+    "lemma": "ἀνθρωπεῖος",
+    "translations": [
+      "menschlich"
+    ]
+  },
+  {
+    "id": 228,
+    "step": 5,
+    "type": "preposition",
+    "lemma": "ἀπό + Gen.",
+    "translations": [
+      "von ... her",
+      "seit"
+    ]
+  },
+  {
+    "id": 229,
+    "step": 5,
+    "type": "verb",
+    "lemma": "ἄρχω",
+    "translations": [
+      "anfangen",
+      "herrschen"
+    ]
+  },
+  {
+    "id": 230,
+    "step": 5,
+    "type": "verb",
+    "lemma": "βαπτίζω",
+    "aorist": "ἐβάπτισα",
+    "translations": [
+      "eintauchen",
+      "taufen"
+    ]
+  },
+  {
+    "id": 231,
+    "step": 5,
+    "type": "noun",
+    "lemma": "βασιλεύς",
+    "genitive": "βασιλέως",
+    "article": "ὁ",
+    "translations": [
+      "König"
+    ]
+  },
+  {
+    "id": 232,
+    "step": 5,
+    "type": "adjective",
+    "lemma": "βέβαιος",
+    "translations": [
+      "feststehend",
+      "fest",
+      "zuverlässig",
+      "sicher"
+    ]
+  },
+  {
+    "id": 233,
+    "step": 5,
+    "type": "noun",
+    "lemma": "δῆμος",
+    "article": "ὁ",
+    "translations": [
+      "Gemeinde",
+      "Volk"
+    ]
+  },
+  {
+    "id": 234,
+    "step": 5,
+    "type": "adjective",
+    "lemma": "δίκαιος",
+    "translations": [
+      "gerecht"
+    ]
+  },
+  {
+    "id": 235,
+    "step": 5,
+    "type": "verb",
+    "lemma": "ἐκκόπτω",
+    "aorist": "ἐξέκοψα",
+    "translations": [
+      "abhauen",
+      "ausrotten"
+    ]
+  },
+  {
+    "id": 236,
+    "step": 5,
+    "type": "verb",
+    "lemma": "ἐξομολογέω",
+    "aorist": "ἐξωμολόγησα",
+    "translations": [
+      "bekennen",
+      "preisen"
+    ]
+  },
+  {
+    "id": 237,
+    "step": 5,
+    "type": "adjective",
+    "lemma": "ἔνιοι",
+    "translations": [
+      "einige"
+    ]
+  },
+  {
+    "id": 238,
+    "step": 5,
+    "type": "noun",
+    "lemma": "ἔπαινος",
+    "article": "ὁ",
+    "translations": [
+      "Lob"
+    ]
+  },
+  {
+    "id": 239,
+    "step": 5,
+    "type": "noun",
+    "lemma": "ἔργον",
+    "article": "τό",
+    "translations": [
+      "Werk",
+      "Arbeit"
+    ]
+  },
+  {
+    "id": 240,
+    "step": 5,
+    "type": "verb",
+    "lemma": "ἐπερωτάω",
+    "translations": [
+      "fragen"
+    ]
+  },
+  {
+    "id": 241,
+    "step": 5,
+    "type": "verb",
+    "lemma": "εὐλογέω",
+    "aorist": "εὐλόγησα",
+    "translations": [
+      "rühmen",
+      "segnen"
+    ]
+  },
+  {
+    "id": 242,
+    "step": 5,
+    "type": "adjective",
+    "lemma": "θεῖος",
+    "translations": [
+      "göttlich"
+    ]
+  },
+  {
+    "id": 243,
+    "step": 5,
+    "type": "adjective",
+    "lemma": "κακός",
+    "translations": [
+      "schlecht",
+      "feige"
+    ]
+  },
+  {
+    "id": 244,
+    "step": 5,
+    "type": "adjective",
+    "lemma": "κοινωνός",
+    "translations": [
+      "teilnehmend"
+    ]
+  },
+  {
+    "id": 245,
+    "step": 5,
+    "type": "verb",
+    "lemma": "κόπτω",
+    "aorist": "ἔκοψα",
+    "translations": [
+      "heraushauen",
+      "abhauen",
+      "ausrotten"
+    ]
+  },
+  {
+    "id": 246,
+    "step": 5,
+    "type": "verb",
+    "lemma": "ἐκπορεύομαι",
+    "aorist": "ἐξεπορεύθην",
+    "translations": [
+      "herauskommen"
+    ]
+  },
+  {
+    "id": 247,
+    "step": 5,
+    "type": "adjective",
+    "lemma": "μάκαρ",
+    "genitive": "μάκαρος",
+    "translations": [
+      "glücklich",
+      "selig"
+    ]
+  },
+  {
+    "id": 248,
+    "step": 5,
+    "type": "adverb",
+    "lemma": "ἥκιστα",
+    "translations": [
+      "am wenigsten"
+    ]
+  },
+  {
+    "id": 249,
+    "step": 5,
+    "type": "adjective",
+    "lemma": "καλλίων",
+    "translations": [
+      "schöner",
+      "besser"
+    ]
+  },
+  {
+    "id": 250,
+    "step": 5,
+    "type": "adjective",
+    "lemma": "κάλλιστος",
+    "translations": [
+      "schönster",
+      "bester"
+    ]
+  },
+  {
+    "id": 251,
+    "step": 5,
+    "type": "adjective",
+    "lemma": "δικαιότερος",
+    "translations": [
+      "gerechter"
+    ]
+  },
+  {
+    "id": 252,
+    "step": 5,
+    "type": "adjective",
+    "lemma": "δικαιότατος",
+    "translations": [
+      "gerechtester"
+    ]
+  },
+  {
+    "id": 253,
+    "step": 5,
+    "type": "verb",
+    "lemma": "μανθάνω",
+    "aorist": "ἔμαθον",
+    "translations": [
+      "lernen",
+      "zur Kenntnis nehmen",
+      "bemerken",
+      "verstehen"
+    ]
+  },
+  {
+    "id": 254,
+    "step": 5,
+    "type": "verb",
+    "lemma": "πείθω",
+    "aorist": "ἔπεισα",
+    "translations": [
+      "überzeugen",
+      "überreden"
+    ]
+  },
+  {
+    "id": 255,
+    "step": 5,
+    "type": "verb",
+    "lemma": "πειράομαι",
+    "translations": [
+      "versuchen",
+      "erproben"
+    ]
+  },
+  {
+    "id": 256,
+    "step": 5,
+    "type": "adjective",
+    "lemma": "μικρός",
+    "translations": [
+      "klein"
+    ]
+  },
+  {
+    "id": 257,
+    "step": 5,
+    "type": "adjective",
+    "lemma": "ἐλάττων",
+    "translations": [
+      "kleiner",
+      "weniger"
+    ]
+  },
+  {
+    "id": 258,
+    "step": 5,
+    "type": "adjective",
+    "lemma": "ἐλάχιστος",
+    "translations": [
+      "kleinster",
+      "am wenigsten"
+    ]
+  },
+  {
+    "id": 259,
+    "step": 5,
+    "type": "noun",
+    "lemma": "μνήμη",
+    "article": "ἡ",
+    "translations": [
+      "Gedächtnis",
+      "Erinnerung"
+    ]
+  },
+  {
+    "id": 260,
+    "step": 5,
+    "type": "noun",
+    "lemma": "νέοι",
+    "article": "οἱ",
+    "translations": [
+      "die jungen Leute"
+    ]
+  },
+  {
+    "id": 261,
+    "step": 5,
+    "type": "adjective",
+    "lemma": "νέος",
+    "translations": [
+      "jung",
+      "neu"
+    ]
+  },
+  {
+    "id": 262,
+    "step": 5,
+    "type": "noun",
+    "lemma": "ὄνομα",
+    "article": "τό",
+    "genitive": "ὀνόματος",
+    "translations": [
+      "Name"
+    ]
+  },
+  {
+    "id": 263,
+    "step": 5,
+    "type": "adjective",
+    "lemma": "ὅσιος",
+    "translations": [
+      "heilig",
+      "fromm",
+      "recht"
+    ]
+  },
+  {
+    "id": 264,
+    "step": 5,
+    "type": "conjunction",
+    "lemma": "ὅτε",
+    "translations": [
+      "als",
+      "wenn"
+    ]
+  },
+  {
+    "id": 265,
+    "step": 5,
+    "type": "verb",
+    "lemma": "παιδεύω",
+    "aorist": "ἐπαίδευσα",
+    "translations": [
+      "erziehen",
+      "bilden"
+    ]
+  },
+  {
+    "id": 266,
+    "step": 5,
+    "type": "adverb",
+    "lemma": "πάντα",
+    "translations": [
+      "im Ganzen",
+      "in allem"
+    ]
+  },
+  {
+    "id": 267,
+    "step": 5,
+    "type": "preposition",
+    "lemma": "παρά + Dat.",
+    "translations": [
+      "bei"
+    ]
+  },
+  {
+    "id": 268,
+    "step": 5,
+    "type": "verb",
+    "lemma": "παρέρχομαι",
+    "aorist": "παρῆλθον",
+    "translations": [
+      "vorbeigehen"
+    ]
+  },
+  {
+    "id": 269,
+    "step": 5,
+    "type": "preposition",
+    "lemma": "μετά + Akk.",
+    "translations": [
+      "nach",
+      "nach (zeitlich)"
+    ]
+  },
+  {
+    "id": 270,
+    "step": 5,
+    "type": "preposition",
+    "lemma": "μετά + Gen.",
+    "translations": [
+      "mit",
+      "zusammen mit"
+    ]
+  },
+  {
+    "id": 271,
+    "step": 5,
+    "type": "noun",
+    "lemma": "πόλεμος",
+    "article": "ὁ",
+    "translations": [
+      "Krieg"
+    ]
+  },
+  {
+    "id": 272,
+    "step": 5,
+    "type": "adjective",
+    "lemma": "πολύς",
+    "genitive": "πολλοῦ",
+    "translations": [
+      "viel"
+    ]
+  },
+  {
+    "id": 273,
+    "step": 5,
+    "type": "noun",
+    "lemma": "πόνος",
+    "article": "ὁ",
+    "translations": [
+      "Arbeit",
+      "Mühe",
+      "Strapaze"
+    ]
+  },
+  {
+    "id": 274,
+    "step": 5,
+    "type": "noun",
+    "lemma": "ποταμός",
+    "article": "ὁ",
+    "genitive": "ποταμοῦ",
+    "translations": [
+      "Fluss"
+    ]
+  },
+  {
+    "id": 275,
+    "step": 5,
+    "type": "preposition",
+    "lemma": "πρός + Gen.",
+    "translations": [
+      "von ... her"
+    ]
+  },
+  {
+    "id": 276,
+    "step": 5,
+    "type": "adverb",
+    "lemma": "πρῶτον",
+    "translations": [
+      "zuerst"
+    ]
+  },
+  {
+    "id": 277,
+    "step": 5,
+    "type": "adjective",
+    "lemma": "ῥᾴδιος",
+    "translations": [
+      "leicht"
+    ]
+  },
+  {
+    "id": 278,
+    "step": 5,
+    "type": "adjective",
+    "lemma": "σαφής",
+    "genitive": "σαφοῦς",
+    "translations": [
+      "deutlich",
+      "klar",
+      "gewiss"
+    ]
+  },
+  {
+    "id": 279,
+    "step": 5,
+    "type": "adjective",
+    "lemma": "σοφός",
+    "translations": [
+      "geschickt",
+      "klug",
+      "weise"
+    ]
+  },
+  {
+    "id": 280,
+    "step": 5,
+    "type": "noun",
+    "lemma": "συλλήπτρια",
+    "article": "ἡ",
+    "translations": [
+      "Helferin"
+    ]
+  },
+  {
+    "id": 281,
+    "step": 5,
+    "type": "adjective",
+    "lemma": "σύμμαχος",
+    "translations": [
+      "verbündet"
+    ]
+  },
+  {
+    "id": 282,
+    "step": 5,
+    "type": "preposition",
+    "lemma": "σύν + Dat.",
+    "translations": [
+      "mit",
+      "zusammen mit"
+    ]
+  },
+  {
+    "id": 283,
+    "step": 5,
+    "type": "verb",
+    "lemma": "σύνειμι",
+    "translations": [
+      "mit jemandem verkehren"
+    ]
+  },
+  {
+    "id": 284,
+    "step": 5,
+    "type": "adjective",
+    "lemma": "σώφρων",
+    "translations": [
+      "besonnen",
+      "maßvoll"
+    ]
+  },
+  {
+    "id": 285,
+    "step": 5,
+    "type": "verb",
+    "lemma": "τιμάω",
+    "aorist": "ἐτίμησα",
+    "translations": [
+      "einschätzen",
+      "taxieren",
+      "schätzen",
+      "ehren"
+    ]
+  },
+  {
+    "id": 286,
+    "step": 5,
+    "type": "noun",
+    "lemma": "τιμή",
+    "article": "ἡ",
+    "translations": [
+      "Preis",
+      "Wert",
+      "Schadensersatz",
+      "Strafe",
+      "Ehre",
+      "Amt"
+    ]
+  },
+  {
+    "id": 287,
+    "step": 5,
+    "type": "adjective",
+    "lemma": "τίμιος",
+    "translations": [
+      "geehrt",
+      "wertvoll"
+    ]
+  },
+  {
+    "id": 288,
+    "step": 5,
+    "type": "verb",
+    "lemma": "ἀπόλλυμι",
+    "aorist": "ἀπώλεσα",
+    "translations": [
+      "vernichten"
+    ]
+  },
+  {
+    "id": 289,
+    "step": 5,
+    "type": "verb",
+    "lemma": "ἀπόλλυμαι",
+    "aorist": "ἀπωλόμην",
+    "translations": [
+      "zugrunde gehen",
+      "verloren gehen"
+    ]
+  },
+  {
+    "id": 290,
+    "step": 5,
+    "type": "verb",
+    "lemma": "ἀφικνέομαι",
+    "aorist": "ἀφικόμην",
+    "translations": [
+      "ankommen"
+    ]
+  },
+  {
+    "id": 291,
+    "step": 5,
+    "type": "preposition",
+    "lemma": "ὑπό + Gen.",
+    "translations": [
+      "unter",
+      "von"
+    ],
+    "mnemonic": "Hypo-, Hyper-"
+  },
+  {
+    "id": 292,
+    "step": 5,
+    "type": "verb",
+    "lemma": "φιλέω",
+    "aorist": "ἐφίλησα",
+    "translations": [
+      "lieben"
+    ]
+  },
+  {
+    "id": 293,
+    "step": 5,
+    "type": "noun",
+    "lemma": "γαλήνη",
+    "article": "ἡ",
+    "translations": [
+      "Windstille"
+    ]
+  },
+  {
+    "id": 294,
+    "step": 5,
+    "type": "verb",
+    "lemma": "γεννάω",
+    "aorist": "ἐγέννησα",
+    "translations": [
+      "zeugen",
+      "erzeugen",
+      "hervorbringen"
+    ]
+  },
+  {
+    "id": 295,
+    "step": 5,
+    "type": "noun",
+    "lemma": "φιλία",
+    "article": "ἡ",
+    "translations": [
+      "Freundschaft",
+      "Liebe"
+    ]
+  },
+  {
+    "id": 296,
+    "step": 5,
+    "type": "adjective",
+    "lemma": "φίλος",
+    "translations": [
+      "lieb",
+      "befreundet"
+    ]
+  },
+  {
+    "id": 297,
+    "step": 5,
+    "type": "verb",
+    "lemma": "φράζω",
+    "aorist": "ἔφρασα",
+    "translations": [
+      "zeigen",
+      "sagen"
+    ]
+  },
+  {
+    "id": 298,
+    "step": 5,
+    "type": "verb",
+    "lemma": "χαίρω",
+    "translations": [
+      "sich freuen"
+    ]
+  },
+  {
+    "id": 299,
+    "step": 5,
+    "type": "noun",
+    "lemma": "χρόνος",
+    "article": "ὁ",
+    "translations": [
+      "Zeit"
+    ]
+  },
+  {
+    "id": 300,
+    "step": 5,
+    "type": "preposition",
+    "lemma": "χωρίς + Gen.",
+    "translations": [
+      "getrennt von",
+      "ohne"
+    ]
+  },
+  {
+    "id": 301,
+    "step": 5,
+    "type": "conjunction",
+    "lemma": "ὥστε",
+    "translations": [
+      "sodass",
+      "deshalb"
+    ]
+  },
+  {
+    "id": 302,
+    "step": 5,
+    "type": "adjective",
+    "lemma": "δειλός",
+    "translations": [
+      "feige",
+      "elend"
+    ]
+  },
+  {
+    "id": 303,
+    "step": 5,
+    "type": "verb",
+    "lemma": "δίδωμι",
+    "aorist": "ἔδωκα",
+    "translations": [
+      "geben"
+    ]
+  },
+  {
+    "id": 304,
+    "step": 6,
+    "type": "noun",
+    "lemma": "αἷμα",
+    "article": "τό",
+    "genitive": "αἵματος",
+    "translations": [
+      "Blut"
+    ]
+  },
+  {
+    "id": 305,
+    "step": 6,
+    "type": "noun",
+    "lemma": "αἰών",
+    "article": "ὁ",
+    "genitive": "αἰῶνος",
+    "translations": [
+      "Lebenszeit",
+      "Zeitalter",
+      "Ewigkeit"
+    ]
+  },
+  {
+    "id": 306,
+    "step": "6",
+    "type": "verb",
+    "lemma": "ἐγείρω",
+    "aorist": "ἤγειρα",
+    "translations": [
+      "(aufer)wecken"
+    ]
+  },
+  {
+    "id": 307,
+    "step": 6,
+    "type": "verb",
+    "lemma": "ἐμβαίνω",
+    "aorist": "ἐνέβην",
+    "translations": [
+      "betreten",
+      "besteigen"
+    ]
+  },
+  {
+    "id": 308,
+    "step": 6,
+    "type": "verb",
+    "lemma": "ἀποδίδωμι",
+    "aorist": "ἀπέδωκα",
+    "translations": [
+      "zurückgeben",
+      "bezahlen",
+      "erfüllen",
+      "übergeben"
+    ]
+  },
+  {
+    "id": 309,
+    "step": 6,
+    "type": "adverb",
+    "lemma": "ἐνταῦθα",
+    "translations": [
+      "dort",
+      "dorthin"
+    ]
+  },
+  {
+    "id": 310,
+    "step": 6,
+    "type": "verb",
+    "lemma": "ἐπιτιμάω",
+    "translations": [
+      "jemandem etwas vorwerfen",
+      "tadeln"
+    ]
+  },
+  {
+    "id": 311,
+    "step": 6,
+    "type": "noun",
+    "lemma": "ζῷον",
+    "article": "τό",
+    "translations": [
+      "Lebewesen",
+      "Tier"
+    ]
+  },
+  {
+    "id": 312,
+    "step": 6,
+    "type": "verb",
+    "lemma": "θαυμάζω",
+    "aorist": "ἐθαύμασα",
+    "translations": [
+      "bewundern",
+      "sich wundern"
+    ]
+  },
+  {
+    "id": 313,
+    "step": 6,
+    "type": "verb",
+    "lemma": "καθεύδω",
+    "translations": [
+      "schlafen"
+    ]
+  },
+  {
+    "id": 314,
+    "step": 6,
+    "type": "verb",
+    "lemma": "καλύπτω",
+    "aorist": "ἐκάλυψα",
+    "translations": [
+      "verbergen",
+      "einhüllen",
+      "bedecken"
+    ]
+  },
+  {
+    "id": 315,
+    "step": 6,
+    "type": "adjective",
+    "lemma": "ὀλιγόπιστος",
+    "translations": [
+      "kleingläubig"
+    ]
+  },
+  {
+    "id": 316,
+    "step": 6,
+    "type": "noun",
+    "lemma": "οἱ νῦν",
+    "translations": [
+      "die jetzt lebenden Menschen"
+    ]
+  },
+  {
+    "id": 317,
+    "step": 6,
+    "type": "preposition",
+    "lemma": "παρά + Akk.",
+    "translations": [
+      "zu jemandem hin",
+      "entlang an",
+      "gegen"
+    ]
+  },
+  {
+    "id": 318,
+    "step": 6,
+    "type": "verb",
+    "lemma": "πειράζω",
+    "aorist": "ἐπείραξα",
+    "translations": [
+      "auf die Probe stellen",
+      "versuchen"
+    ]
+  },
+  {
+    "id": 319,
+    "step": 6,
+    "type": "noun",
+    "lemma": "κράτος",
+    "article": "τό",
+    "genitive": "κράτους",
+    "translations": [
+      "Stärke",
+      "Macht"
+    ]
+  },
+  {
+    "id": 320,
+    "step": 6,
+    "type": "noun",
+    "lemma": "κριθή",
+    "article": "ἡ",
+    "translations": [
+      "Gerste"
+    ]
+  },
+  {
+    "id": 321,
+    "step": 6,
+    "type": "noun",
+    "lemma": "κρῖμα",
+    "article": "τό",
+    "genitive": "κρίματος",
+    "translations": [
+      "Gericht",
+      "Urteil",
+      "Verurteilung",
+      "Verbannung"
+    ]
+  },
+  {
+    "id": 322,
+    "step": 6,
+    "type": "verb",
+    "lemma": "κρίνω",
+    "aorist": "ἔκρινα",
+    "translations": [
+      "unterscheiden",
+      "aussondern",
+      "entscheiden",
+      "urteilen",
+      "richten"
+    ]
+  },
+  {
+    "id": 323,
+    "step": 6,
+    "type": "noun",
+    "lemma": "κῦμα",
+    "article": "τό",
+    "genitive": "κύματος",
+    "translations": [
+      "Welle",
+      "Woge"
+    ]
+  },
+  {
+    "id": 324,
+    "step": 6,
+    "type": "verb",
+    "lemma": "κωλύω",
+    "aorist": "ἐκώλυσα",
+    "translations": [
+      "verhindern",
+      "abhalten"
+    ]
+  },
+  {
+    "id": 325,
+    "step": 6,
+    "type": "particle",
+    "lemma": "μέν",
+    "translations": [
+      "zwar"
+    ]
+  },
+  {
+    "id": 326,
+    "step": 6,
+    "type": "particle",
+    "lemma": "μέν ... δέ ...",
+    "translations": [
+      "zwar ... aber ..."
+    ]
+  },
+  {
+    "id": 327,
+    "step": 6,
+    "type": "verb",
+    "lemma": "μετρέω",
+    "aorist": "ἐμέτρησα",
+    "translations": [
+      "messen"
+    ]
+  },
+  {
+    "id": 328,
+    "step": 6,
+    "type": "noun",
+    "lemma": "μέτρον",
+    "article": "τό",
+    "translations": [
+      "Maß"
+    ]
+  },
+  {
+    "id": 329,
+    "step": 6,
+    "type": "noun",
+    "lemma": "μισθός",
+    "article": "ὁ",
+    "translations": [
+      "Lohn",
+      "Sold",
+      "Miete"
+    ]
+  },
+  {
+    "id": 330,
+    "step": 6,
+    "type": "adjective",
+    "lemma": "μόνος",
+    "translations": [
+      "allein",
+      "einzig"
+    ]
+  },
+  {
+    "id": 331,
+    "step": 6,
+    "type": "adverb",
+    "lemma": "μόνον",
+    "translations": [
+      "nur"
+    ]
+  },
+  {
+    "id": 332,
+    "step": 6,
+    "type": "adverb",
+    "lemma": "τῷ ὄντι",
+    "translations": [
+      "wahrhaftig",
+      "wirklich"
+    ]
+  },
+  {
+    "id": 333,
+    "step": 6,
+    "type": "adverb",
+    "lemma": "τότε",
+    "translations": [
+      "damals",
+      "dann"
+    ]
+  },
+  {
+    "id": 334,
+    "step": 6,
+    "type": "verb",
+    "lemma": "τρέφω",
+    "aorist": "ἔθρεψα",
+    "translations": [
+      "ernähren",
+      "aufziehen"
+    ]
+  },
+  {
+    "id": 335,
+    "step": 6,
+    "type": "noun",
+    "lemma": "τροφή",
+    "article": "ἡ",
+    "translations": [
+      "Ernährung"
+    ]
+  },
+  {
+    "id": 336,
+    "step": 6,
+    "type": "particle",
+    "lemma": "ὁ μέν ... ὁ δέ ...",
+    "translations": [
+      "der eine ... der andere ..."
+    ]
+  },
+  {
+    "id": 337,
+    "step": 6,
+    "type": "preposition",
+    "lemma": "περί + Akk.",
+    "translations": [
+      "um ... herum"
+    ]
+  },
+  {
+    "id": 338,
+    "step": 6,
+    "type": "verb",
+    "lemma": "πορεύομαι",
+    "aorist": "ἐπορεύθην",
+    "translations": [
+      "reisen",
+      "marschieren"
+    ]
+  },
+  {
+    "id": 339,
+    "step": 6,
+    "type": "adjective",
+    "lemma": "πρῶτος",
+    "translations": [
+      "erster"
+    ]
+  },
+  {
+    "id": 340,
+    "step": 6,
+    "type": "noun",
+    "lemma": "πυρός",
+    "article": "ὁ",
+    "translations": [
+      "Weizen"
+    ]
+  },
+  {
+    "id": 341,
+    "step": 6,
+    "type": "noun",
+    "lemma": "σεισμός",
+    "article": "ὁ",
+    "translations": [
+      "Erdbeben"
+    ]
+  },
+  {
+    "id": 342,
+    "step": 6,
+    "type": "noun",
+    "lemma": "στρατιά",
+    "article": "ἡ",
+    "translations": [
+      "Heer"
+    ]
+  },
+  {
+    "id": 343,
+    "step": 6,
+    "type": "phrase",
+    "lemma": "τεττάρων μηνῶν",
+    "translations": [
+      "von vier Monaten",
+      "für vier Monate"
+    ]
+  },
+  {
+    "id": 344,
+    "step": 6,
+    "type": "noun",
+    "lemma": "ἀρχιερεύς",
+    "article": "ὁ",
+    "genitive": "ἀρχιερέως",
+    "translations": [
+      "Hohepriester"
+    ]
+  },
+  {
+    "id": 345,
+    "step": 6,
+    "type": "noun",
+    "lemma": "ἀσθένεια",
+    "article": "ἡ",
+    "translations": [
+      "Schwäche",
+      "Krankheit"
+    ]
+  },
+  {
+    "id": 346,
+    "step": 6,
+    "type": "verb",
+    "lemma": "ὑπακούω",
+    "aorist": "ὑπήκουσα",
+    "translations": [
+      "gehorchen"
+    ]
+  },
+  {
+    "id": 347,
+    "step": 6,
+    "type": "verb",
+    "lemma": "φέρω",
+    "aorist": "ἤνεγκον",
+    "translations": [
+      "tragen",
+      "bringen"
+    ]
+  },
+  {
+    "id": 348,
+    "step": 6,
+    "type": "noun",
+    "lemma": "βλαβή",
+    "article": "ἡ",
+    "translations": [
+      "Schaden"
+    ]
+  },
+  {
+    "id": 349,
+    "step": 6,
+    "type": "verb",
+    "lemma": "φοβέομαι",
+    "aorist": "ἐφοβήθην",
+    "translations": [
+      "fürchten"
+    ]
+  },
+  {
+    "id": 350,
+    "step": 6,
+    "type": "noun",
+    "lemma": "φυλακή",
+    "article": "ἡ",
+    "translations": [
+      "Wache",
+      "Gefängnis"
+    ]
+  },
+  {
+    "id": 351,
+    "step": 6,
+    "type": "noun",
+    "lemma": "γραμματεύς",
+    "article": "ὁ",
+    "genitive": "γραμματέως",
+    "translations": [
+      "Schreiber",
+      "Schriftgelehrter"
+    ]
+  },
+  {
+    "id": 352,
+    "step": 6,
+    "type": "noun",
+    "lemma": "χάρις",
+    "article": "ἡ",
+    "genitive": "χάριτος",
+    "translations": [
+      "Gefälligkeit",
+      "Schönheit",
+      "Reiz",
+      "Charme",
+      "Dank",
+      "Gnade"
+    ]
+  },
+  {
+    "id": 353,
+    "step": 7,
+    "type": "noun",
+    "lemma": "χρήματα",
+    "translations": [
+      "Geld",
+      "Besitz"
+    ]
+  },
+  {
+    "id": 354,
+    "step": 7,
+    "type": "preposition",
+    "lemma": "διά + Akk.",
+    "translations": [
+      "wegen"
+    ]
+  },
+  {
+    "id": 355,
+    "step": 7,
+    "type": "noun",
+    "lemma": "ἀγνωσία",
+    "article": "ἡ",
+    "translations": [
+      "Unbekanntheit"
+    ]
+  },
+  {
+    "id": 356,
+    "step": 7,
+    "type": "verb",
+    "lemma": "αἱρέομαι",
+    "aorist": "εἱλόμην",
+    "translations": [
+      "sich etwas nehmen",
+      "wählen"
+    ]
+  },
+  {
+    "id": 357,
+    "step": 7,
+    "type": "adjective",
+    "lemma": "αἱρετός",
+    "translations": [
+      "wählbar"
+    ]
+  },
+  {
+    "id": 358,
+    "step": 7,
+    "type": "noun",
+    "lemma": "αἰσχύνη",
+    "article": "ἡ",
+    "translations": [
+      "Scham",
+      "Schande"
+    ]
+  },
+  {
+    "id": 359,
+    "step": 7,
+    "type": "adjective",
+    "lemma": "αἴτιος",
+    "translations": [
+      "schuld an etwas",
+      "Urheber von etwas"
+    ]
+  },
+  {
+    "id": 360,
+    "step": 7,
+    "type": "adverb",
+    "lemma": "ἀκινδύνως",
+    "translations": [
+      "gefahrlos",
+      "sicher"
+    ]
+  },
+  {
+    "id": 361,
+    "step": 7,
+    "type": "preposition",
+    "lemma": "ἀμφί + Gen.",
+    "translations": [
+      "betreffs",
+      "über",
+      "wegen"
+    ]
+  },
+  {
+    "id": 362,
+    "step": 7,
+    "type": "preposition",
+    "lemma": "ἀμφί + Dat.",
+    "translations": [
+      "um"
+    ]
+  },
+  {
+    "id": 363,
+    "step": 7,
+    "type": "preposition",
+    "lemma": "ἀμφί + Akk.",
+    "translations": [
+      "um ... herum"
+    ]
+  },
+  {
+    "id": 364,
+    "step": 7,
+    "type": "preposition",
+    "lemma": "ἀνά + Akk.",
+    "translations": [
+      "auf ... hinauf",
+      "gemäß",
+      "entsprechend"
+    ]
+  },
+  {
+    "id": 365,
+    "step": 7,
+    "type": "numeral",
+    "lemma": "εἷς, μία, ἕν",
+    "translations": [
+      "eins",
+      "einer",
+      "Mann",
+      "Mensch"
+    ]
+  },
+  {
+    "id": 366,
+    "step": 7,
+    "type": "preposition",
+    "lemma": "ἀντί + Gen.",
+    "translations": [
+      "anstelle von",
+      "statt"
+    ]
+  },
+  {
+    "id": 367,
+    "step": 7,
+    "type": "verb",
+    "lemma": "ἀπολογέομαι",
+    "translations": [
+      "sich verteidigen"
+    ]
+  },
+  {
+    "id": 368,
+    "step": 7,
+    "type": "noun",
+    "lemma": "ἀριστοκρατία",
+    "article": "ἡ",
+    "translations": [
+      "Adelsherrschaft",
+      "Aristokratie"
+    ]
+  },
+  {
+    "id": 369,
+    "step": 7,
+    "type": "preposition",
+    "lemma": "ἄνευ + Gen.",
+    "translations": [
+      "ohne"
+    ]
+  },
+  {
+    "id": 370,
+    "step": 7,
+    "type": "noun",
+    "lemma": "ἀνήρ",
+    "article": "ὁ",
+    "genitive": "ἀνδρός",
+    "translations": [
+      "Mann",
+      "Mensch"
+    ]
+  },
+  {
+    "id": 371,
+    "step": 7,
+    "type": "preposition",
+    "lemma": "ἐκ / ἐξ + Gen.",
+    "translations": [
+      "aus",
+      "infolge",
+      "seit"
+    ]
+  },
+  {
+    "id": 372,
+    "step": 7,
+    "type": "adjective",
+    "lemma": "ἐναντίος",
+    "translations": [
+      "entgegen"
+    ]
+  },
+  {
+    "id": 373,
+    "step": 7,
+    "type": "verb",
+    "lemma": "δοκέω",
+    "aorist": "ἔδοξα",
+    "translations": [
+      "meinen",
+      "scheinen"
+    ]
+  },
+  {
+    "id": 374,
+    "step": 7,
+    "type": "phrase",
+    "lemma": "δοκεῖ + Inf.",
+    "translations": [
+      "es scheint gut",
+      "es empfiehlt sich"
+    ]
+  },
+  {
+    "id": 375,
+    "step": 7,
+    "type": "phrase",
+    "lemma": "ἔδοξε",
+    "translations": [
+      "man beschließt"
+    ]
+  },
+  {
+    "id": 376,
+    "step": 7,
+    "type": "verb",
+    "lemma": "ἐάω",
+    "aorist": "εἴασα",
+    "translations": [
+      "lassen",
+      "in Ruhe lassen"
+    ]
+  },
+  {
+    "id": 377,
+    "step": 7,
+    "type": "adjective",
+    "lemma": "ἐγκρατής",
+    "translations": [
+      "Herr über",
+      "selbstbeherrscht",
+      "enthaltsam"
+    ]
+  },
+  {
+    "id": 378,
+    "step": 7,
+    "type": "adverb",
+    "lemma": "εὐθύς",
+    "translations": [
+      "geradewegs",
+      "sofort"
+    ]
+  },
+  {
+    "id": 379,
+    "step": 7,
+    "type": "particle",
+    "lemma": "ἆρα ... ἤ ...",
+    "translations": [
+      "oder ...?"
+    ]
+  },
+  {
+    "id": 380,
+    "step": 7,
+    "type": "phrase",
+    "lemma": "δεῖ + AcI",
+    "translations": [
+      "es ist nötig",
+      "es ist erforderlich"
+    ]
+  },
+  {
+    "id": 381,
+    "step": 7,
+    "type": "noun",
+    "lemma": "δημοκρατία",
+    "article": "ἡ",
+    "translations": [
+      "Volksherrschaft",
+      "Demokratie"
+    ]
+  },
+  {
+    "id": 382,
+    "step": 7,
+    "type": "noun",
+    "lemma": "ἐναντίον",
+    "article": "τό",
+    "translations": [
+      "Gegenteil"
+    ]
+  },
+  {
+    "id": 383,
+    "step": 7,
+    "type": "phrase",
+    "lemma": "ἔξεστι(ν) + Inf.",
+    "translations": [
+      "es ist erlaubt",
+      "es ist möglich"
+    ]
+  },
+  {
+    "id": 384,
+    "step": 7,
+    "type": "adverb",
+    "lemma": "οὕτως",
+    "translations": [
+      "so",
+      "auf diese Weise"
+    ]
+  },
+  {
+    "id": 385,
+    "step": 7,
+    "type": "preposition",
+    "lemma": "ἐπί + Gen.",
+    "translations": [
+      "auf ... darauf"
+    ]
+  },
+  {
+    "id": 386,
+    "step": 7,
+    "type": "preposition",
+    "lemma": "ἐπί + Dat.",
+    "translations": [
+      "auf ... darauf"
+    ]
+  },
+  {
+    "id": 387,
+    "step": 7,
+    "type": "preposition",
+    "lemma": "ἐπί + Akk.",
+    "translations": [
+      "gegen",
+      "zu ... hin"
+    ],
+    "mnemonic": "Projektion"
+  },
+  {
+    "id": 388,
+    "step": 7,
+    "type": "verb",
+    "lemma": "ἐπιβουλεύω",
+    "translations": [
+      "einen Anschlag planen",
+      "gegen jemanden intrigieren"
+    ]
+  },
+  {
+    "id": 389,
+    "step": 7,
+    "type": "noun",
+    "lemma": "εὐδοξία",
+    "article": "ἡ",
+    "translations": [
+      "guter Ruf",
+      "Ruhm"
+    ]
+  },
+  {
+    "id": 390,
+    "step": 7,
+    "type": "preposition",
+    "lemma": "κατά + Gen.",
+    "translations": [
+      "von ... herab",
+      "gegen"
+    ]
+  },
+  {
+    "id": 391,
+    "step": 7,
+    "type": "preposition",
+    "lemma": "κατά + Akk.",
+    "translations": [
+      "gemäß",
+      "in",
+      "an"
+    ]
+  },
+  {
+    "id": 392,
+    "step": 7,
+    "type": "verb",
+    "lemma": "κελεύω",
+    "translations": [
+      "bitten",
+      "auffordern",
+      "befehlen"
+    ]
+  },
+  {
+    "id": 393,
+    "step": 7,
+    "type": "noun",
+    "lemma": "πενία",
+    "article": "ἡ",
+    "translations": [
+      "Armut"
+    ]
+  },
+  {
+    "id": 394,
+    "step": 7,
+    "type": "preposition",
+    "lemma": "περί + Gen.",
+    "translations": [
+      "bezüglich",
+      "betreffs",
+      "von",
+      "über"
+    ]
+  },
+  {
+    "id": 395,
+    "step": 7,
+    "type": "preposition",
+    "lemma": "περί + Dat.",
+    "translations": [
+      "um ... herum"
+    ]
+  },
+  {
+    "id": 396,
+    "step": 7,
+    "type": "noun",
+    "lemma": "πλῆθος",
+    "article": "τό",
+    "genitive": "πλήθους",
+    "translations": [
+      "Menge"
+    ]
+  },
+  {
+    "id": 397,
+    "step": 7,
+    "type": "verb",
+    "lemma": "πολεμέω",
+    "aorist": "ἐπολέμησα",
+    "translations": [
+      "Krieg führen"
+    ]
+  },
+  {
+    "id": 398,
+    "step": 7,
+    "type": "noun",
+    "lemma": "λαός",
+    "article": "ὁ",
+    "translations": [
+      "Volk",
+      "Menge"
+    ]
+  },
+  {
+    "id": 399,
+    "step": 7,
+    "type": "verb",
+    "lemma": "πονέω",
+    "translations": [
+      "arbeiten",
+      "bearbeiten"
+    ]
+  },
+  {
+    "id": 400,
+    "step": 7,
+    "type": "preposition",
+    "lemma": "πρό + Gen.",
+    "translations": [
+      "vor",
+      "für"
+    ]
+  },
+  {
+    "id": 401,
+    "step": 7,
+    "type": "preposition",
+    "lemma": "πρός + Dat.",
+    "translations": [
+      "bei",
+      "an",
+      "zu"
+    ]
+  },
+  {
+    "id": 402,
+    "step": 7,
+    "type": "preposition",
+    "lemma": "πρός + Akk.",
+    "translations": [
+      "gegen",
+      "zu ... hin"
+    ]
+  },
+  {
+    "id": 403,
+    "step": 7,
+    "type": "noun",
+    "lemma": "νύξ",
+    "article": "ἡ",
+    "genitive": "νυκτός",
+    "translations": [
+      "Nacht"
+    ]
+  },
+  {
+    "id": 404,
+    "step": 7,
+    "type": "verb",
+    "lemma": "ὁμολογέω",
+    "translations": [
+      "übereinstimmen",
+      "zustimmen"
+    ]
+  },
+  {
+    "id": 405,
+    "step": 7,
+    "type": "noun",
+    "lemma": "ὅρος",
+    "article": "ὁ",
+    "genitive": "ὅρου",
+    "translations": [
+      "Grenze",
+      "Maßstab",
+      "Definition"
+    ]
+  },
+  {
+    "id": 406,
+    "step": 7,
+    "type": "phrase",
+    "lemma": "ὅτι + Superlativ",
+    "translations": [
+      "möglichst ..."
+    ]
+  },
+  {
+    "id": 407,
+    "step": 7,
+    "type": "verb",
+    "lemma": "παραγγέλλω",
+    "aorist": "παρήγγειλα",
+    "translations": [
+      "ankündigen",
+      "befehlen"
+    ]
+  },
+  {
+    "id": 408,
+    "step": 7,
+    "type": "preposition",
+    "lemma": "παρά + Gen.",
+    "translations": [
+      "von jemandem her"
+    ]
+  },
+  {
+    "id": 409,
+    "step": 7,
+    "type": "noun",
+    "lemma": "παραβολή",
+    "article": "ἡ",
+    "translations": [
+      "Gleichnis"
+    ]
+  },
+  {
+    "id": 410,
+    "step": 7,
+    "type": "verb",
+    "lemma": "παραγίγνομαι",
+    "aorist": "παρεγενόμην",
+    "translations": [
+      "dazukommen",
+      "dabei sein"
+    ]
+  },
+  {
+    "id": 411,
+    "step": 7,
+    "type": "verb",
+    "lemma": "πολέω",
+    "translations": [
+      "arbeiten",
+      "bearbeiten"
+    ]
+  },
+  {
+    "id": 412,
+    "step": 7,
+    "type": "verb",
+    "lemma": "μέλει μοι",
+    "translations": [
+      "etwas macht mir Sorge",
+      "mir liegt an etwas"
+    ]
+  },
+  {
+    "id": 413,
+    "step": 7,
+    "type": "verb",
+    "lemma": "ῥαθυμέω",
+    "translations": [
+      "leichtsinnig sein",
+      "sorglos sein"
+    ]
+  },
+  {
+    "id": 414,
+    "step": 7,
+    "type": "noun",
+    "lemma": "ῥόδον",
+    "article": "τό",
+    "translations": [
+      "Rose"
+    ]
+  },
+  {
+    "id": 415,
+    "step": 7,
+    "type": "verb",
+    "lemma": "στρατεύω",
+    "translations": [
+      "ins Feld ziehen",
+      "Kriegsdienst leisten"
+    ]
+  },
+  {
+    "id": 416,
+    "step": 7,
+    "type": "verb",
+    "lemma": "σύνειμι + Dat.",
+    "translations": [
+      "mit jemandem verkehren"
+    ]
+  },
+  {
+    "id": 417,
+    "step": 7,
+    "type": "phrase",
+    "lemma": "τοτέ ... τοτέ ...",
+    "translations": [
+      "bald ... bald ...",
+      "einmal ... ein andermal ..."
+    ]
+  },
+  {
+    "id": 418,
+    "step": 7,
+    "type": "verb",
+    "lemma": "αἰτέω",
+    "aorist": "ᾔτησα",
+    "translations": [
+      "bitten",
+      "fordern",
+      "verlangen"
+    ]
+  },
+  {
+    "id": 419,
+    "step": 7,
+    "type": "preposition",
+    "lemma": "ὑπέρ + Gen.",
+    "translations": [
+      "oberhalb",
+      "im Interesse von",
+      "für"
+    ]
+  },
+  {
+    "id": 420,
+    "step": 7,
+    "type": "preposition",
+    "lemma": "ὑπέρ + Akk.",
+    "translations": [
+      "über ... hinaus"
+    ]
+  },
+  {
+    "id": 421,
+    "step": 7,
+    "type": "preposition",
+    "lemma": "ὑπό + Dat.",
+    "translations": [
+      "unter"
+    ]
+  },
+  {
+    "id": 422,
+    "step": 7,
+    "type": "preposition",
+    "lemma": "ὑπό + Akk.",
+    "translations": [
+      "unter ... hinunter"
+    ]
+  },
+  {
+    "id": 423,
+    "step": 7,
+    "type": "verb",
+    "lemma": "φεύγω",
+    "translations": [
+      "fliehen",
+      "angeklagt werden",
+      "angeklagt sein"
+    ]
+  },
+  {
+    "id": 424,
+    "step": 7,
+    "type": "adjective",
+    "lemma": "φιλοπόλεμος",
+    "translations": [
+      "kriegsliebend"
+    ]
+  },
+  {
+    "id": 425,
+    "step": 7,
+    "type": "noun",
+    "lemma": "φόνος",
+    "article": "ὁ",
+    "translations": [
+      "Mord"
+    ]
+  },
+  {
+    "id": 426,
+    "step": 7,
+    "type": "noun",
+    "lemma": "φρούραρχος",
+    "article": "ὁ",
+    "translations": [
+      "Festungskommandant"
+    ]
+  },
+  {
+    "id": 427,
+    "step": 7,
+    "type": "noun",
+    "lemma": "ὥρα",
+    "article": "ἡ",
+    "translations": [
+      "Zeit",
+      "Jahreszeit",
+      "Stunde"
+    ]
+  },
+  {
+    "id": 428,
+    "step": 7,
+    "type": "adverb",
+    "lemma": "ὥσπερ",
+    "translations": [
+      "wie"
     ]
   }
 ]

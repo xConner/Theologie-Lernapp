@@ -1,62 +1,106 @@
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class VocabularySettingsService {
-  static const String includeArticleKey = "include_article";
-  static const String includeGenitiveKey = "include_genitive";
-  static const String includeAoristKey = "include_aorist";
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  static const String requireOnlyOneTranslationKey =
-      "require_only_one_translation";
-
-  static Future<SharedPreferences> _prefs() async {
-    return await SharedPreferences.getInstance();
+  DocumentReference<Map<String, dynamic>> _document(String uid) {
+    return firestore.collection("users").doc(uid);
   }
 
-  static Future<bool> getIncludeArticle() async {
-    final prefs = await _prefs();
+  Future<Map<String, dynamic>> _loadSettings(String uid) async {
+    final doc = await _document(uid).get();
 
-    return prefs.getBool(includeArticleKey) ?? true;
+    if (!doc.exists) {
+      return {};
+    }
+
+    final data = doc.data();
+
+    if (data == null) {
+      return {};
+    }
+
+    return data["vocabulary_settings"] ?? {};
   }
 
-  static Future<bool> getIncludeGenitive() async {
-    final prefs = await _prefs();
+  Future<bool> getIncludeArticle(String uid) async {
+    final data = await _loadSettings(uid);
 
-    return prefs.getBool(includeGenitiveKey) ?? true;
+    return data["includeArticle"] ?? true;
   }
 
-  static Future<bool> getIncludeAorist() async {
-    final prefs = await _prefs();
+  Future<bool> getIncludeGenitive(String uid) async {
+    final data = await _loadSettings(uid);
 
-    return prefs.getBool(includeAoristKey) ?? true;
+    return data["includeGenitive"] ?? true;
   }
 
-  static Future<bool> getRequireOnlyOneTranslation() async {
-    final prefs = await _prefs();
+  Future<bool> getIncludeAorist(String uid) async {
+    final data = await _loadSettings(uid);
 
-    return prefs.getBool(requireOnlyOneTranslationKey) ?? false;
+    return data["includeAorist"] ?? true;
   }
 
-  static Future<void> setIncludeArticle(bool value) async {
-    final prefs = await _prefs();
+  Future<bool> getRequireOnlyOneTranslation(String uid) async {
+    final data = await _loadSettings(uid);
 
-    await prefs.setBool(includeArticleKey, value);
+    return data["requireOnlyOneTranslation"] ?? false;
   }
 
-  static Future<void> setIncludeGenitive(bool value) async {
-    final prefs = await _prefs();
+  Future<List<int>> getEnabledSteps(String uid) async {
+    final data = await _loadSettings(uid);
 
-    await prefs.setBool(includeGenitiveKey, value);
+    final value = data["enabledSteps"];
+
+    if (value == null) {
+      return [1, 2, 3, 4, 5, 6, 7];
+    }
+
+    return List<int>.from(value);
   }
 
-  static Future<void> setIncludeAorist(bool value) async {
-    final prefs = await _prefs();
+  Future<List<String>> getEnabledTypes(String uid) async {
+    final data = await _loadSettings(uid);
 
-    await prefs.setBool(includeAoristKey, value);
+    final value = data["enabledTypes"];
+
+    if (value == null) {
+      return [
+        "noun",
+        "verb",
+        "adjective",
+        "adverb",
+        "pronoun",
+        "preposition",
+        "conjunction",
+        "particle",
+        "phrase",
+      ];
+    }
+
+    return List<String>.from(value);
   }
 
-  static Future<void> setRequireOnlyOneTranslation(bool value) async {
-    final prefs = await _prefs();
+  Future<void> saveSettings({
+    required String uid,
+    required bool includeArticle,
+    required bool includeGenitive,
+    required bool includeAorist,
+    required bool requireOnlyOneTranslation,
+    required List<int> enabledSteps,
+    required List<String> enabledTypes,
+  }) async {
+    await _document(uid).set({
+      "vocabulary_settings": {
+        "includeArticle": includeArticle,
+        "includeGenitive": includeGenitive,
+        "includeAorist": includeAorist,
+        "requireOnlyOneTranslation": requireOnlyOneTranslation,
 
-    await prefs.setBool(requireOnlyOneTranslationKey, value);
+        "enabledSteps": enabledSteps,
+
+        "enabledTypes": enabledTypes,
+      },
+    }, SetOptions(merge: true));
   }
 }

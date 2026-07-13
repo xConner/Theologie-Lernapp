@@ -27,7 +27,7 @@ class GreekVocabularyEntry {
   factory GreekVocabularyEntry.fromJson(Map<String, dynamic> json) {
     return GreekVocabularyEntry(
       id: json["id"],
-      step: json["step"],
+      step: int.parse(json["step"].toString()),
       type: json["type"],
       lemma: json["lemma"],
       genitive: json["genitive"],
