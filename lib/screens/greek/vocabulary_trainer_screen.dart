@@ -1,14 +1,18 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../models/greek_vocabulary_entry.dart';
 import '../../models/vocabulary_question.dart';
+import '../../models/learning_card.dart';
+
+import '../../algorithms/spaced_repetition.dart';
 
 import '../../services/greek_vocabulary_loader.dart';
 import '../../services/vocabulary_answer_checker.dart';
-import '../../services/vocabulary_progress_service.dart';
-import '../../services/vocabulary_srs.dart';
 import '../../services/vocabulary_settings_service.dart';
+import '../../services/learning_service.dart';
 
 import '../../widgets/greek_keyboard.dart';
 
@@ -21,11 +25,13 @@ class VocabularyTrainerScreen extends StatefulWidget {
 }
 
 class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
-  final VocabularyProgressService progressService = VocabularyProgressService();
-
   List<GreekVocabularyEntry> entries = [];
 
-  Map<String, Map<String, dynamic>> progress = {};
+  final LearningService learningService = LearningService();
+
+  final SpacedRepetition algorithm = SpacedRepetition();
+
+  Map<String, LearningCard> cards = {};
 
   VocabularyQuestion? question;
 
@@ -36,17 +42,29 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
   bool correct = false;
 
   bool includeArticle = true;
+
   bool includeGenitive = true;
+
   bool includeAorist = true;
 
+  bool requireOnlyOneTranslation = false;
+
   bool? translationCorrect;
+
+  bool translationComplete = true;
+
   bool? articleCorrect;
+
   bool? genitiveCorrect;
+
   bool? aoristCorrect;
 
   final translationController = TextEditingController();
+
   final articleController = TextEditingController();
+
   final genitiveController = TextEditingController();
+
   final aoristController = TextEditingController();
 
   bool showKeyboard = false;
@@ -75,9 +93,12 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
 
     includeAorist = await VocabularySettingsService.getIncludeAorist();
 
+    requireOnlyOneTranslation =
+        await VocabularySettingsService.getRequireOnlyOneTranslation();
+
     entries = await GreekVocabularyLoader.load();
 
-    progress = await progressService.loadProgress(uid!);
+    cards = await learningService.loadCards(uid!);
 
     nextQuestion();
 
@@ -87,24 +108,71 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
   }
 
   void nextQuestion() {
-    final next = VocabularySrs.chooseNext(entries: entries, progress: progress);
+    if (entries.isEmpty) {
+      return;
+    }
+
+    double total = 0;
+
+    final Map<GreekVocabularyEntry, double> scores = {};
+
+    for (final entry in entries) {
+      final card =
+          cards[entry.id.toString()] ?? LearningCard(id: entry.id.toString());
+
+      final score = algorithm.selectionScore(card);
+
+      scores[entry] = score;
+
+      total += score;
+    }
+
+    GreekVocabularyEntry next;
+
+    if (total <= 0) {
+      next = entries[Random().nextInt(entries.length)];
+    } else {
+      double random = Random().nextDouble() * total;
+
+      next = entries.last;
+
+      for (final entry in entries) {
+        random -= scores[entry]!;
+
+        if (random <= 0) {
+          next = entry;
+
+          break;
+        }
+      }
+    }
 
     question = VocabularyQuestion(entry: next);
 
     translationController.clear();
+
     articleController.clear();
+
     genitiveController.clear();
+
     aoristController.clear();
 
     answered = false;
+
     correct = false;
 
     translationCorrect = null;
+
+    translationComplete = true;
+
     articleCorrect = null;
+
     genitiveCorrect = null;
+
     aoristCorrect = null;
 
     showKeyboard = false;
+
     activeController = null;
 
     setState(() {});
@@ -133,15 +201,18 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
       checkGenitive: q.checkGenitive && includeGenitive,
 
       checkAorist: q.checkAorist && includeAorist,
+
+      requireOnlyOneTranslation: requireOnlyOneTranslation,
     );
 
-    await progressService.saveAnswer(
-      uid: uid!,
+    final card =
+        cards[q.entry.id.toString()] ?? LearningCard(id: q.entry.id.toString());
 
-      vocabularyId: q.entry.id.toString(),
+    algorithm.answer(card, result.correct);
 
-      correct: result.correct,
-    );
+    cards[q.entry.id.toString()] = card;
+
+    await learningService.saveCard(uid!, card);
 
     setState(() {
       answered = true;
@@ -149,6 +220,8 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
       correct = result.correct;
 
       translationCorrect = result.translationCorrect;
+
+      translationComplete = result.translationComplete;
 
       articleCorrect = result.articleCorrect;
 
@@ -236,6 +309,10 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
                         includeAorist,
                       );
 
+                      await VocabularySettingsService.setRequireOnlyOneTranslation(
+                        requireOnlyOneTranslation,
+                      );
+
                       Navigator.pop(context);
 
                       setState(() {});
@@ -283,6 +360,18 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
                       });
                     },
                   ),
+
+                  CheckboxListTile(
+                    title: const Text("Eine richtige Übersetzung reicht"),
+
+                    value: requireOnlyOneTranslation,
+
+                    onChanged: (v) {
+                      setDialogState(() {
+                        requireOnlyOneTranslation = v ?? false;
+                      });
+                    },
+                  ),
                 ],
               ),
             );
@@ -307,7 +396,6 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Vokabeltrainer"),
-
         actions: [
           IconButton(icon: const Icon(Icons.settings), onPressed: openSettings),
         ],
@@ -337,7 +425,6 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
 
                       style: const TextStyle(
                         fontSize: 32,
-
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -372,6 +459,7 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
                             ),
                         ],
                       ),
+
                     if (q.hasAoristField && includeAorist)
                       greekField("Aorist", aoristController, aoristCorrect),
 
@@ -425,7 +513,7 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
 
                           const SizedBox(height: 12),
 
-                          if (!correct)
+                          if (!correct || !translationComplete)
                             Column(
                               children: [
                                 const Text(
@@ -444,7 +532,8 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
                                 if (aoristCorrect == false)
                                   Text("Aorist: ${q.entry.aorist ?? "-"}"),
 
-                                if (translationCorrect == false)
+                                if (translationCorrect == false ||
+                                    !translationComplete)
                                   Text(
                                     "Übersetzung: ${q.entry.translations.join(", ")}",
                                   ),
@@ -476,7 +565,9 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
 
   Widget greekField(
     String label,
+
     TextEditingController controller,
+
     bool? correct,
   ) {
     return TextField(

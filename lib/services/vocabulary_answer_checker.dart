@@ -4,6 +4,11 @@ class VocabularyCheckResult {
   final bool correct;
 
   final bool translationCorrect;
+
+  // Zeigt an, ob die Übersetzung vollständig dem Muster entspricht.
+  // Wird nur für Feedback benutzt.
+  final bool translationComplete;
+
   final bool articleCorrect;
   final bool genitiveCorrect;
   final bool aoristCorrect;
@@ -11,6 +16,7 @@ class VocabularyCheckResult {
   VocabularyCheckResult({
     required this.correct,
     required this.translationCorrect,
+    required this.translationComplete,
     required this.articleCorrect,
     required this.genitiveCorrect,
     required this.aoristCorrect,
@@ -34,20 +40,28 @@ class VocabularyAnswerChecker {
     bool checkGenitive = true,
 
     bool checkAorist = true,
-  }) {
-    // Übersetzungen
 
+    bool requireOnlyOneTranslation = false,
+  }) {
     final userTranslations = normalizeTranslations(translationInput);
 
     final correctTranslations = entry.translations.map(normalize).toList()
       ..sort();
 
-    final translationCorrect = _listsEqual(
+    final exactTranslationMatch = _listsEqual(
       userTranslations,
       correctTranslations,
     );
 
-    // Artikel
+    final containsOneCorrectTranslation = userTranslations.any(
+      (answer) => correctTranslations.contains(answer),
+    );
+
+    final translationCorrect = requireOnlyOneTranslation
+        ? containsOneCorrectTranslation
+        : exactTranslationMatch;
+
+    final translationComplete = exactTranslationMatch;
 
     bool articleCorrect = true;
 
@@ -56,16 +70,12 @@ class VocabularyAnswerChecker {
           normalize(articleInput) == normalize(entry.article ?? "");
     }
 
-    // Genitiv
-
     bool genitiveCorrect = true;
 
     if (entry.type == "noun" && checkGenitive) {
       genitiveCorrect =
           normalize(genitiveInput) == normalize(entry.genitive ?? "");
     }
-
-    // Aorist
 
     bool aoristCorrect = true;
 
@@ -81,9 +91,15 @@ class VocabularyAnswerChecker {
 
     return VocabularyCheckResult(
       correct: correct,
+
       translationCorrect: translationCorrect,
+
+      translationComplete: translationComplete,
+
       articleCorrect: articleCorrect,
+
       genitiveCorrect: genitiveCorrect,
+
       aoristCorrect: aoristCorrect,
     );
   }
@@ -116,7 +132,6 @@ class VocabularyAnswerChecker {
 
   static String normalize(String value) {
     const Map<String, String> greekNormalization = {
-      // Alpha
       "ά": "α",
       "ὰ": "α",
       "ᾶ": "α",
@@ -129,7 +144,6 @@ class VocabularyAnswerChecker {
       "ἆ": "α",
       "ἇ": "α",
 
-      // Epsilon
       "έ": "ε",
       "ὲ": "ε",
       "ἐ": "ε",
@@ -139,7 +153,6 @@ class VocabularyAnswerChecker {
       "ἔ": "ε",
       "ἕ": "ε",
 
-      // Eta
       "ή": "η",
       "ὴ": "η",
       "ῆ": "η",
@@ -148,7 +161,6 @@ class VocabularyAnswerChecker {
       "ἤ": "η",
       "ἥ": "η",
 
-      // Iota
       "ί": "ι",
       "ὶ": "ι",
       "ῖ": "ι",
@@ -157,7 +169,6 @@ class VocabularyAnswerChecker {
       "ἴ": "ι",
       "ἵ": "ι",
 
-      // Omikron
       "ό": "ο",
       "ὸ": "ο",
       "ὀ": "ο",
@@ -167,7 +178,6 @@ class VocabularyAnswerChecker {
       "ὄ": "ο",
       "ὅ": "ο",
 
-      // Ypsilon
       "ύ": "υ",
       "ὺ": "υ",
       "ῦ": "υ",
@@ -176,7 +186,6 @@ class VocabularyAnswerChecker {
       "ὔ": "υ",
       "ὕ": "υ",
 
-      // Omega
       "ώ": "ω",
       "ὼ": "ω",
       "ῶ": "ω",
@@ -185,11 +194,9 @@ class VocabularyAnswerChecker {
       "ὤ": "ω",
       "ὥ": "ω",
 
-      // Rho
       "ῤ": "ρ",
       "ῥ": "ρ",
 
-      // Sonderzeichen
       "ϐ": "β",
       "ϑ": "θ",
       "ϕ": "φ",
@@ -202,9 +209,7 @@ class VocabularyAnswerChecker {
         .split("")
         .map((char) => greekNormalization[char] ?? char)
         .join()
-        // kombinierende Akzente und Hauche entfernen
         .replaceAll(RegExp(r'[\u0300-\u036f\u1fbd-\u1fff]'), '')
-        // Final-Sigma vereinheitlichen
         .replaceAll("ς", "σ");
   }
 }

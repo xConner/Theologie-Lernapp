@@ -6,7 +6,7 @@ class LearningService {
   final FirebaseFirestore db = FirebaseFirestore.instance;
 
   CollectionReference<Map<String, dynamic>> _collection(String uid) {
-    return db.collection("users").doc(uid).collection("learning_cards");
+    return db.collection("users").doc(uid).collection("vocabulary");
   }
 
   Future<LearningCard> loadCard(String uid, String id) async {
@@ -17,6 +17,18 @@ class LearningService {
     }
 
     return LearningCard.fromFirestore(id, doc.data()!);
+  }
+
+  Future<Map<String, LearningCard>> loadCards(String uid) async {
+    final snapshot = await _collection(uid).get();
+
+    final Map<String, LearningCard> cards = {};
+
+    for (final doc in snapshot.docs) {
+      cards[doc.id] = LearningCard.fromFirestore(doc.id, doc.data());
+    }
+
+    return cards;
   }
 
   Future<void> saveCard(String uid, LearningCard card) async {
