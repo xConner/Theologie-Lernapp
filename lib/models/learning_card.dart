@@ -4,16 +4,18 @@ class LearningCard {
   final String id;
 
   double stability;
-
   double difficulty;
 
   DateTime? lastReviewed;
+
+  String? mnemonic;
 
   LearningCard({
     required this.id,
     this.stability = 1.0,
     this.difficulty = 5.0,
     this.lastReviewed,
+    this.mnemonic,
   });
 
   factory LearningCard.fromFirestore(String id, Map<String, dynamic> data) {
@@ -27,6 +29,8 @@ class LearningCard {
       lastReviewed: data["lastReviewed"] != null
           ? (data["lastReviewed"] as Timestamp).toDate()
           : null,
+
+      mnemonic: data["mnemonic"],
     );
   }
 
@@ -39,6 +43,8 @@ class LearningCard {
       "lastReviewed": lastReviewed == null
           ? null
           : Timestamp.fromDate(lastReviewed!),
+
+      if (mnemonic != null) "mnemonic": mnemonic,
     };
   }
 }

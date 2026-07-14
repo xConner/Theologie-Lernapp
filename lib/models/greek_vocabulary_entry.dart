@@ -11,6 +11,7 @@ class GreekVocabularyEntry {
   final List<String> translations;
 
   final String? note;
+  final String? mnemonic;
 
   const GreekVocabularyEntry({
     required this.id,
@@ -22,6 +23,7 @@ class GreekVocabularyEntry {
     this.aorist,
     required this.translations,
     this.note,
+    this.mnemonic,
   });
 
   factory GreekVocabularyEntry.fromJson(Map<String, dynamic> json) {
@@ -34,6 +36,7 @@ class GreekVocabularyEntry {
       article: json["article"],
       aorist: json["aorist"],
       note: json["note"],
+      mnemonic: json["mnemonic"],
       translations: List<String>.from(json["translations"]),
     );
   }

@@ -76,6 +76,10 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
     "phrase",
   ];
 
+  bool editingMnemonic = false;
+
+  final mnemonicController = TextEditingController();
+
   bool? translationCorrect;
 
   bool translationComplete = true;
@@ -105,6 +109,12 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
     super.initState();
 
     load();
+  }
+
+  @override
+  void dispose() {
+    mnemonicController.dispose();
+    super.dispose();
   }
 
   bool currentQuestionMatchesFilters() {
@@ -139,6 +149,12 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
     enabledTypes = await settingsService.getEnabledTypes(uid!);
 
     entries = await GreekVocabularyLoader.load();
+
+    for (final e in entries) {
+      if (e.mnemonic != null) {
+        print("${e.lemma}: ${e.mnemonic}");
+      }
+    }
 
     cards = await learningService.loadCards(uid!);
 
@@ -582,6 +598,11 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
         (q.entry.article != null && !includeArticle) ||
         (q.entry.genitive != null && !includeGenitive) ||
         (q.entry.aorist != null && !includeAorist);
+    final card =
+        cards[q.entry.id.toString()] ?? LearningCard(id: q.entry.id.toString());
+
+    final currentMnemonic = card.mnemonic;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Vokabeltrainer"),
@@ -743,6 +764,107 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
                                   ),
                               ],
                             ),
+                          if (answered) ...[
+                            const SizedBox(height: 16),
+
+                            if (editingMnemonic)
+                              Card(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(12),
+                                  child: Column(
+                                    children: [
+                                      TextField(
+                                        controller: mnemonicController,
+                                        decoration: const InputDecoration(
+                                          labelText: "Lernhilfe",
+                                          border: OutlineInputBorder(),
+                                        ),
+                                      ),
+
+                                      const SizedBox(height: 10),
+
+                                      ElevatedButton.icon(
+                                        icon: const Icon(Icons.save),
+                                        label: const Text("Speichern"),
+                                        onPressed: () async {
+                                          card.mnemonic =
+                                              mnemonicController.text
+                                                  .trim()
+                                                  .isEmpty
+                                              ? null
+                                              : mnemonicController.text.trim();
+
+                                          cards[q.entry.id.toString()] = card;
+
+                                          await learningService.saveCard(
+                                            uid!,
+                                            card,
+                                          );
+
+                                          setState(() {
+                                            editingMnemonic = false;
+                                          });
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              )
+                            else if (currentMnemonic != null &&
+                                currentMnemonic.isNotEmpty)
+                              Card(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(12),
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        child: Column(
+                                          children: [
+                                            const Text(
+                                              "Lernhilfe",
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+
+                                            const SizedBox(height: 8),
+
+                                            Text(
+                                              currentMnemonic,
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+
+                                      IconButton(
+                                        icon: const Icon(Icons.edit),
+                                        onPressed: () {
+                                          mnemonicController.text =
+                                              currentMnemonic;
+
+                                          setState(() {
+                                            editingMnemonic = true;
+                                          });
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              )
+                            else
+                              OutlinedButton.icon(
+                                icon: const Icon(Icons.add),
+                                label: const Text("Lernhilfe hinzufügen"),
+                                onPressed: () {
+                                  mnemonicController.clear();
+
+                                  setState(() {
+                                    editingMnemonic = true;
+                                  });
+                                },
+                              ),
+                          ],
                         ],
                       ),
 
