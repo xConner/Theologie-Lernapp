@@ -1426,7 +1426,7 @@
     "type": "phrase",
     "lemma": "οὐ μόνον ... ἀλλὰ καὶ",
     "translations": [
-      "nicht nur ..., sondern auch ..."
+      "nicht nur ... sondern auch ..."
     ]
   },
   {
@@ -1929,6 +1929,7 @@
     "step": 4,
     "type": "noun",
     "lemma": "ἐνιαυτός",
+    "genitive": "ἐνιαυτοῦ",
     "article": "ὁ",
     "translations": [
       "Jahr"
@@ -2087,6 +2088,7 @@
     "step": 4,
     "type": "noun",
     "lemma": "κλέπτης",
+    "genitive": "κλέπτου",
     "article": "ὁ",
     "translations": [
       "Dieb"
@@ -2129,6 +2131,7 @@
     "step": 4,
     "type": "noun",
     "lemma": "νόμος",
+    "genitive": "νόμου",
     "article": "ὁ",
     "translations": [
       "Gesetz",
@@ -2253,6 +2256,7 @@
     "step": 4,
     "type": "noun",
     "lemma": "πλοῖον",
+    "genitive": "πλοίου",
     "article": "τό",
     "translations": [
       "Schiff"
@@ -2272,6 +2276,7 @@
     "step": 4,
     "type": "noun",
     "lemma": "προσευχή",
+    "genitive": "προσευχῆς",
     "article": "ἡ",
     "translations": [
       "Gebet"

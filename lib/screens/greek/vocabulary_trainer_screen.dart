@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
 
 import '../../models/greek_vocabulary_entry.dart';
 import '../../models/vocabulary_question.dart';
@@ -16,12 +17,19 @@ import '../../services/learning_service.dart';
 
 import '../../widgets/greek_keyboard.dart';
 
+import 'package:web/web.dart' as web;
+import 'dart:js_interop';
+
 class VocabularyTrainerScreen extends StatefulWidget {
   const VocabularyTrainerScreen({super.key});
 
   @override
   State<VocabularyTrainerScreen> createState() =>
       _VocabularyTrainerScreenState();
+}
+
+class SubmitIntent extends Intent {
+  const SubmitIntent();
 }
 
 class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
@@ -32,6 +40,8 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
 
   final SpacedRepetition algorithm = SpacedRepetition();
 
+  late final web.EventListener _keyListener;
+  final FocusNode translationFocusNode = FocusNode();
   Map<String, LearningCard> cards = {};
 
   VocabularyQuestion? question;
@@ -107,12 +117,28 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
   @override
   void initState() {
     super.initState();
-
     load();
+    _keyListener = ((web.Event event) {
+      final keyboardEvent = event as web.KeyboardEvent;
+
+      if (keyboardEvent.key == 'Enter') {
+        if (answered) {
+          nextQuestion();
+        } else {
+          check();
+        }
+
+        keyboardEvent.preventDefault();
+      }
+    }).toJS;
+
+    web.window.addEventListener('keydown', _keyListener);
   }
 
   @override
   void dispose() {
+    web.window.removeEventListener('keydown', _keyListener);
+    translationFocusNode.dispose();
     mnemonicController.dispose();
     super.dispose();
   }
@@ -247,6 +273,11 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
     activeController = null;
 
     setState(() {});
+
+    Future.delayed(const Duration(milliseconds: 100), () {
+      print(translationFocusNode);
+      translationFocusNode.requestFocus();
+    });
   }
 
   Future<void> check() async {
@@ -454,7 +485,9 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
                       ),
 
                       CheckboxListTile(
-                        title: const Text("Eine richtige Übersetzung reicht"),
+                        title: const Text(
+                          "Eine richtige Übersetzung reicht (empfohlen)",
+                        ),
 
                         value: requireOnlyOneTranslation,
 
@@ -680,8 +713,9 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
 
                       enabled: !answered,
 
-                      onTap: closeKeyboard,
+                      focusNode: translationFocusNode,
 
+                      //onTap: closeKeyboard,
                       decoration: InputDecoration(
                         labelText: "Übersetzung",
 
