@@ -1902,7 +1902,7 @@
     "id": 173,
     "step": 4,
     "type": "verb",
-    "lemma": "ἀντάω",
+    "lemma": "κατἀντάω",
     "aorist": "κατήντησα",
     "translations": [
       "hinkommen nach",
@@ -2384,6 +2384,7 @@
     "step": 5,
     "type": "verb",
     "lemma": "ἀγάλλομαι",
+    "aorist": "ἠγαλλιασάμην",
     "translations": [
       "sich über etwas freuen",
       "auf etwas stolz sein"
@@ -2451,7 +2452,7 @@
   {
     "id": 225,
     "step": 5,
-    "type": "verb",
+    "type": "conjunction",
     "lemma": "ἀλλά",
     "translations": [
       "aber",
@@ -2463,6 +2464,7 @@
     "step": 5,
     "type": "noun",
     "lemma": "ἁμαρτία",
+    "genitive": "ἁμαρτίας",
     "article": "ἡ",
     "translations": [
       "Fehler",
@@ -2493,6 +2495,7 @@
     "step": 5,
     "type": "verb",
     "lemma": "ἄρχω",
+    "aorist": "ἦρξα",
     "translations": [
       "anfangen",
       "herrschen"
@@ -2695,44 +2698,6 @@
     ]
   },
   {
-    "id": 249,
-    "step": 5,
-    "type": "adjective",
-    "lemma": "καλλίων",
-    "translations": [
-      "schöner",
-      "besser"
-    ]
-  },
-  {
-    "id": 250,
-    "step": 5,
-    "type": "adjective",
-    "lemma": "κάλλιστος",
-    "translations": [
-      "schönster",
-      "bester"
-    ]
-  },
-  {
-    "id": 251,
-    "step": 5,
-    "type": "adjective",
-    "lemma": "δικαιότερος",
-    "translations": [
-      "gerechter"
-    ]
-  },
-  {
-    "id": 252,
-    "step": 5,
-    "type": "adjective",
-    "lemma": "δικαιότατος",
-    "translations": [
-      "gerechtester"
-    ]
-  },
-  {
     "id": 253,
     "step": 5,
     "type": "verb",
@@ -2761,6 +2726,7 @@
     "step": 5,
     "type": "verb",
     "lemma": "πειράομαι",
+    "aorist": "ἐπειρασάμην",
     "translations": [
       "versuchen",
       "erproben"
@@ -2776,26 +2742,6 @@
     ]
   },
   {
-    "id": 257,
-    "step": 5,
-    "type": "adjective",
-    "lemma": "ἐλάττων",
-    "translations": [
-      "kleiner",
-      "weniger"
-    ]
-  },
-  {
-    "id": 258,
-    "step": 5,
-    "type": "adjective",
-    "lemma": "ἐλάχιστος",
-    "translations": [
-      "kleinster",
-      "am wenigsten"
-    ]
-  },
-  {
     "id": 259,
     "step": 5,
     "type": "noun",
@@ -2804,16 +2750,6 @@
     "translations": [
       "Gedächtnis",
       "Erinnerung"
-    ]
-  },
-  {
-    "id": 260,
-    "step": 5,
-    "type": "noun",
-    "lemma": "νέοι",
-    "article": "οἱ",
-    "translations": [
-      "die jungen Leute"
     ]
   },
   {
@@ -2867,16 +2803,6 @@
     "translations": [
       "erziehen",
       "bilden"
-    ]
-  },
-  {
-    "id": 266,
-    "step": 5,
-    "type": "adverb",
-    "lemma": "πάντα",
-    "translations": [
-      "im Ganzen",
-      "in allem"
     ]
   },
   {
@@ -3207,7 +3133,8 @@
     "id": 298,
     "step": 5,
     "type": "verb",
-    "lemma": "χαίρω",
+    "lemma": "χαίρω + Dat",
+    "aorist": "ἐχάρην",
     "translations": [
       "sich freuen"
     ]
