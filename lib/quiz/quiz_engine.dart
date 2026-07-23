@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import '../models/greek/learning_card.dart';
+import '../models/greek/vocabulary/learning_card.dart';
 import '../algorithms/spaced_repetition.dart';
 import '../services/learning_service.dart';
 

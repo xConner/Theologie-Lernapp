@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/services.dart';
 
-import '../../../models/greek/greek_vocabulary_entry.dart';
+import '../../../models/greek/vocabulary/greek_vocabulary_entry.dart';
 
 class GreekVocabularyLoader {
   static Future<List<GreekVocabularyEntry>> load() async {

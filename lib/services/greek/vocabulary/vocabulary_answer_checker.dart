@@ -1,4 +1,4 @@
-import '../../../models/greek/greek_vocabulary_entry.dart';
+import '../../../models/greek/vocabulary/greek_vocabulary_entry.dart';
 
 class VocabularyCheckResult {
   final bool correct;

@@ -1,4 +1,4 @@
-import '../models/greek/grammar_question.dart';
+import '../models/greek/grammar/grammar_question.dart';
 
 class GrammarSettings {
   final List<int> enabledSteps;

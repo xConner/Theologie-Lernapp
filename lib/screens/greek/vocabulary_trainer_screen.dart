@@ -4,15 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 
-import '../../models/greek/greek_vocabulary_entry.dart';
-import '../../models/greek/vocabulary_question.dart';
-import '../../models/greek/learning_card.dart';
+import '../../models/greek/vocabulary/greek_vocabulary_entry.dart';
+import '../../models/greek/vocabulary/vocabulary_question.dart';
+import '../../models/greek/vocabulary/learning_card.dart';
 
 import '../../algorithms/spaced_repetition.dart';
 
-import '../../services/greek/greek_vocabulary_loader.dart';
-import '../../services/greek/vocabulary_answer_checker.dart';
-import '../../services/greek/vocabulary_settings_service.dart';
+import '../../services/greek/vocabulary/greek_vocabulary_loader.dart';
+import '../../services/greek/vocabulary/vocabulary_answer_checker.dart';
+import '../../services/greek/vocabulary/vocabulary_settings_service.dart';
 import '../../services/learning_service.dart';
 
 import '../../widgets/greek_keyboard.dart';
