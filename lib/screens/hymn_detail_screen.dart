@@ -58,29 +58,35 @@ class HymnDetailScreen extends StatelessWidget {
 
             const Divider(height: 32),
 
-            ...hymn.lyrics.map(
-              (verse) => Padding(
-                padding: const EdgeInsets.only(bottom: 24),
+            if (hymn.lyrics.isEmpty)
+              Text(
+                "Liedtext aus urheberrechtlichen Gründen nicht verfügbar.",
+                style: lyricStyle,
+              )
+            else
+              ...hymn.lyrics.map(
+                (verse) => Padding(
+                  padding: const EdgeInsets.only(bottom: 24),
 
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
 
-                  children: [
-                    Text(
-                      verse.stanza.toString() == "Ref"
-                          ? "Refrain"
-                          : "Strophe ${verse.stanza}",
+                    children: [
+                      Text(
+                        verse.stanza.toString() == "Ref"
+                            ? "Refrain"
+                            : "Strophe ${verse.stanza}",
 
-                      style: headingStyle,
-                    ),
+                        style: headingStyle,
+                      ),
 
-                    const SizedBox(height: 6),
+                      const SizedBox(height: 6),
 
-                    Text(verse.text, style: lyricStyle),
-                  ],
+                      Text(verse.text, style: lyricStyle),
+                    ],
+                  ),
                 ),
               ),
-            ),
 
             if (hymn.bibleReferences.isNotEmpty) ...[
               const Divider(),

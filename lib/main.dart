@@ -23,6 +23,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         scaffoldBackgroundColor: const Color.fromARGB(255, 255, 255, 255),
 
+        cardTheme: const CardThemeData(
+          color: Color.fromARGB(255, 125, 144, 255),
+          elevation: 2,
+          margin: EdgeInsets.symmetric(vertical: 6),
+        ),
+
         inputDecorationTheme: const InputDecorationTheme(
           filled: true,
           fillColor: Colors.white,

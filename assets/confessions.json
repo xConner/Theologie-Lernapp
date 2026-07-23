@@ -1,0 +1,23 @@
+[
+    {
+        "id": "apostolicum",
+        "category": "oekumenische_symbole",
+        "title": {
+            "de": "Apostolischeswadawda Glaubensbekenntnis"
+        },
+        "languages": [
+            "de"
+        ],
+        "sections": [
+            {
+                "id": "full",
+                "title": {
+                    "de": "Gesamter Text"
+                },
+                "texts": {
+                    "de": "Ich glaube an Gott, den Vater, den Allmächtigen, den Schöpfer des Himmels und der Erde.\n\nUnd an Jesus Christus, seinen eingeborenen Sohn, unsern Herrn, empfangen durch den Heiligen Geist, geboren von der Jungfrau Maria, gelitten unter Pontius Pilatus, gekreuzigt, gestorben und begraben, hinabgestiegen in das Reich des Todes, am dritten Tage auferstanden von den Toten, aufgefahren in den Himmel; er sitzt zur Rechten Gottes, des allmächtigen Vaters; von dort wird er kommen, zu richten die Lebenden und die Toten.\n\nIch glaube an den Heiligen Geist, die heilige christliche Kirche, Gemeinschaft der Heiligen, Vergebung der Sünden, Auferstehung der Toten und das ewige Leben. Amen."
+                }
+            }
+        ]
+    }
+]
