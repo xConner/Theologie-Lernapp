@@ -21,6 +21,8 @@ class _ConfessionDetailScreenState extends State<ConfessionDetailScreen> {
 
   bool loading = false;
 
+  int selectedSectionIndex = 0;
+
   @override
   void initState() {
     super.initState();
@@ -56,6 +58,10 @@ class _ConfessionDetailScreenState extends State<ConfessionDetailScreen> {
           selectedLanguage = confession.languages.first;
         }
 
+        if (selectedSectionIndex >= confession.sections.length) {
+          selectedSectionIndex = 0;
+        }
+
         loading = false;
       });
     } catch (e) {
@@ -85,6 +91,24 @@ class _ConfessionDetailScreenState extends State<ConfessionDetailScreen> {
         return code;
     }
   }
+
+  void changeSection(int index) {
+    if (index < 0 || index >= confession.sections.length) {
+      return;
+    }
+
+    setState(() {
+      selectedSectionIndex = index;
+    });
+  }
+
+  String currentSectionTitle() {
+    return confession.sections[selectedSectionIndex].title[selectedLanguage] ??
+        confession.sections[selectedSectionIndex].title["de"] ??
+        confession.sections[selectedSectionIndex].id;
+  }
+
+  bool get hasMultipleSections => confession.sections.length > 1;
 
   @override
   Widget build(BuildContext context) {
@@ -152,6 +176,66 @@ class _ConfessionDetailScreenState extends State<ConfessionDetailScreen> {
                       },
                     ),
 
+                    // Section-Auswahl nur anzeigen,
+                    // wenn mehrere Sections vorhanden sind
+                    if (hasMultipleSections) ...[
+                      const Divider(height: 32),
+
+                      Row(
+                        children: [
+                          IconButton(
+                            icon: const Icon(Icons.arrow_back),
+
+                            onPressed: selectedSectionIndex > 0
+                                ? () => changeSection(selectedSectionIndex - 1)
+                                : null,
+                          ),
+
+                          Expanded(
+                            child: DropdownButton<int>(
+                              value: selectedSectionIndex,
+
+                              isExpanded: true,
+
+                              items: List.generate(confession.sections.length, (
+                                index,
+                              ) {
+                                final section = confession.sections[index];
+
+                                return DropdownMenuItem(
+                                  value: index,
+
+                                  child: Text(
+                                    section.title[selectedLanguage] ??
+                                        section.title["de"] ??
+                                        section.id,
+                                  ),
+                                );
+                              }),
+
+                              onChanged: (value) {
+                                if (value == null) {
+                                  return;
+                                }
+
+                                changeSection(value);
+                              },
+                            ),
+                          ),
+
+                          IconButton(
+                            icon: const Icon(Icons.arrow_forward),
+
+                            onPressed:
+                                selectedSectionIndex <
+                                    confession.sections.length - 1
+                                ? () => changeSection(selectedSectionIndex + 1)
+                                : null,
+                          ),
+                        ],
+                      ),
+                    ],
+
                     const Divider(height: 32),
                   ],
                 ),
@@ -162,7 +246,10 @@ class _ConfessionDetailScreenState extends State<ConfessionDetailScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 16),
 
                   child: SelectableText(
-                    confession.sections[0].texts[selectedLanguage] ?? "",
+                    confession
+                            .sections[selectedSectionIndex]
+                            .texts[selectedLanguage] ??
+                        "",
 
                     style: const TextStyle(fontSize: 18, height: 1.5),
 

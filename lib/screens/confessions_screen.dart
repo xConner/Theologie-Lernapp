@@ -73,7 +73,7 @@ class _ConfessionsScreenState extends State<ConfessionsScreen> {
       );
     }
 
-    final oekumenisch = getByCategory("oekumenische_symbole");
+    final altkirchlich = getByCategory("altkirchliche_symbole");
 
     final lutherisch = getByCategory("lutherische_symbole");
 
@@ -92,13 +92,13 @@ class _ConfessionsScreenState extends State<ConfessionsScreen> {
 
               children: [
                 const Text(
-                  "Ökumenische Symbole",
+                  "Altkirchliche Symbole",
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
 
                 const SizedBox(height: 8),
 
-                ...oekumenisch.map(buildButton),
+                ...altkirchlich.map(buildButton),
 
                 const SizedBox(height: 24),
 
