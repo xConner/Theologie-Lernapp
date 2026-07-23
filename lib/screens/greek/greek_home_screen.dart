@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'vocabulary_trainer_screen.dart';
 import 'vocabulary_overview_screen.dart';
+import 'grammar_overview_screen.dart';
+import 'grammar_trainer_screen.dart';
 
 class GreekHomeScreen extends StatelessWidget {
   const GreekHomeScreen({super.key});
@@ -47,6 +49,39 @@ class GreekHomeScreen extends StatelessWidget {
                       );
                     },
                     child: const Text("Vokabelübersicht"),
+                  ),
+                ),
+                const SizedBox(height: 16),
+
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const GrammarOverviewScreen(),
+                        ),
+                      );
+                    },
+                    child: const Text("Grammatikübersicht"),
+                  ),
+                ),
+
+                const SizedBox(height: 16),
+
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const GreekGrammarTrainerScreen(),
+                        ),
+                      );
+                    },
+                    child: const Text("Grammatiktrainer"),
                   ),
                 ),
               ],
