@@ -7,6 +7,7 @@ import '../screens/liturgical_calendar_screen.dart';
 import '../screens/greek/greek_home_screen.dart';
 
 import '../models/perikope.dart';
+import 'hymn_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -120,6 +121,18 @@ class _HomeScreenState extends State<HomeScreen> {
                     onPressed: _openLiturgicalCalendar,
 
                     child: const Text("Liturgischer Kalender"),
+                  ),
+
+                  const SizedBox(height: 20),
+
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => const HymnScreen()),
+                      );
+                    },
+                    child: const Text("Evangelisches Gesangbuch"),
                   ),
 
                   const SizedBox(height: 20),

@@ -349,8 +349,7 @@
     "translations": [
       "wert",
       "würdig"
-    ],
-    "mnemonic": "Axiom"
+    ]
   },
   {
     "id": 33,
@@ -412,8 +411,7 @@
     "translations": [
       "können",
       "imstande sein"
-    ],
-    "mnemonic": "Dynamit"
+    ]
   },
   {
     "id": 39,
@@ -424,8 +422,7 @@
       "wenn",
       "falls",
       "ob"
-    ],
-    "mnemonic": "if"
+    ]
   },
   {
     "id": 40,
@@ -565,8 +562,7 @@
     "translations": [
       "Schatz",
       "Schatzkammer"
-    ],
-    "mnemonic": "Thesaurierung"
+    ]
   },
   {
     "id": 53,
@@ -587,8 +583,7 @@
     "lemma": "ἴδιος",
     "translations": [
       "eigen"
-    ],
-    "mnemonic": "Idiot"
+    ]
   },
   {
     "id": 55,
@@ -620,8 +615,7 @@
     "article": "ἡ",
     "translations": [
       "Herz"
-    ],
-    "mnemonic": "Herz"
+    ]
   },
   {
     "id": 58,
@@ -633,8 +627,7 @@
     "translations": [
       "Frucht",
       "Nutzen"
-    ],
-    "mnemonic": "Karpologie"
+    ]
   },
   {
     "id": 59,
@@ -669,8 +662,7 @@
     "translations": [
       "reden",
       "sprechen"
-    ],
-    "mnemonic": "Lallen, Laut"
+    ]
   },
   {
     "id": 62,
@@ -704,8 +696,7 @@
     "translations": [
       "mitten",
       "der mittlere"
-    ],
-    "mnemonic": "Mesopotamien"
+    ]
   },
   {
     "id": 65,
@@ -717,8 +708,7 @@
     "translations": [
       "Gang",
       "Weg"
-    ],
-    "mnemonic": "Ex-odus"
+    ]
   },
   {
     "id": 66,
@@ -817,8 +807,7 @@
       "machen",
       "herstellen",
       "tun"
-    ],
-    "mnemonic": "Poet, "
+    ]
   },
   {
     "id": 75,
@@ -829,8 +818,7 @@
       "schlecht",
       "untauglich",
       "niederträchtig"
-    ],
-    "mnemonic": "Pönologie"
+    ]
   },
   {
     "id": 76,
@@ -863,8 +851,7 @@
     "translations": [
       "faul",
       "morsch"
-    ],
-    "mnemonic": "Saprobien"
+    ]
   },
   {
     "id": 79,
@@ -975,8 +962,7 @@
     "aorist": "ἠκολούθησα",
     "translations": [
       "folgen"
-    ],
-    "mnemonic": "Akolyth"
+    ]
   },
   {
     "id": 89,
@@ -1089,8 +1075,7 @@
       "entstehen",
       "geschehen",
       "kommen"
-    ],
-    "mnemonic": "Genesis"
+    ]
   },
   {
     "id": 99,
@@ -1221,8 +1206,7 @@
     "translations": [
       "Dank sagen",
       "danken"
-    ],
-    "mnemonic": "Eucharistie"
+    ]
   },
   {
     "id": 111,
@@ -1251,8 +1235,7 @@
     "lemma": "καθαρίζομαι",
     "translations": [
       "rein werden"
-    ],
-    "mnemonic": "Katharina"
+    ]
   },
   {
     "id": 114,
@@ -1263,8 +1246,7 @@
     "translations": [
       "rufen",
       "nennen"
-    ],
-    "mnemonic": "call"
+    ]
   },
   {
     "id": 115,
@@ -1275,8 +1257,7 @@
     "article": "τό",
     "translations": [
       "Splitter"
-    ],
-    "mnemonic": "Kerbe"
+    ]
   },
   {
     "id": 116,
@@ -1297,8 +1278,7 @@
       "bemerken",
       "wahrnehmen",
       "verstehen"
-    ],
-    "mnemonic": "Noetik"
+    ]
   },
   {
     "id": 118,
@@ -1309,8 +1289,7 @@
     "translations": [
       "weinen",
       "beweinen"
-    ],
-    "mnemonic": "Klage"
+    ]
   },
   {
     "id": 119,
@@ -1352,8 +1331,7 @@
       "Schüler",
       "Student",
       "Jünger"
-    ],
-    "mnemonic": "Mathematik"
+    ]
   },
   {
     "id": 123,
@@ -1404,8 +1382,7 @@
       "wenig",
       "klein",
       "gering"
-    ],
-    "mnemonic": "Oligarchie"
+    ]
   },
   {
     "id": 128,
@@ -1417,8 +1394,7 @@
     "translations": [
       "Berg",
       "Gebirge"
-    ],
-    "mnemonic": "Orographie"
+    ]
   },
   {
     "id": 129,
@@ -1502,8 +1478,7 @@
     "article": "τό",
     "translations": [
       "Ebene"
-    ],
-    "mnemonic": "Pedal"
+    ]
   },
   {
     "id": 137,
@@ -1532,6 +1507,7 @@
     "step": 3,
     "type": "verb",
     "lemma": "περιέχω",
+    "aorist": "περιέσχον",
     "translations": [
       "umgeben",
       "umfassen",
@@ -1568,8 +1544,7 @@
     "translations": [
       "Stadt",
       "Staat"
-    ],
-    "mnemonic": "Politik"
+    ]
   },
   {
     "id": 143,
@@ -1600,8 +1575,7 @@
     "lemma": "πτωχός",
     "translations": [
       "arm"
-    ],
-    "mnemonic": "Ptochotrophium"
+    ]
   },
   {
     "id": 146,
@@ -1657,8 +1631,7 @@
     "translations": [
       "Zimmermann",
       "Bauhandwerker"
-    ],
-    "mnemonic": "Architekt"
+    ]
   },
   {
     "id": 151,
@@ -1681,8 +1654,7 @@
     "translations": [
       "Ende",
       "Tod"
-    ],
-    "mnemonic": "Telos"
+    ]
   },
   {
     "id": 153,
@@ -1715,8 +1687,7 @@
     "lemma": "τυφλός",
     "translations": [
       "blind"
-    ],
-    "mnemonic": "Typhlologie"
+    ]
   },
   {
     "id": 156,
@@ -1739,8 +1710,7 @@
       "argwöhnen",
       "vermuten",
       "ahnen"
-    ],
-    "mnemonic": "Hypothese"
+    ]
   },
   {
     "id": 158,
@@ -1749,8 +1719,7 @@
     "lemma": "ὑψηλός",
     "translations": [
       "hoch"
-    ],
-    "mnemonic": "Hyps-"
+    ]
   },
   {
     "id": 159,
@@ -1761,8 +1730,7 @@
     "article": "ἡ",
     "translations": [
       "Hand"
-    ],
-    "mnemonic": "Chirurgie"
+    ]
   },
   {
     "id": 160,
@@ -2612,6 +2580,7 @@
     "step": 5,
     "type": "verb",
     "lemma": "ἐπερωτάω",
+    "aorist": "ἐπηρώτησα",
     "translations": [
       "fragen"
     ]
@@ -2849,6 +2818,7 @@
     "step": 5,
     "type": "noun",
     "lemma": "πόλεμος",
+    "genitive": "πολέμου",
     "article": "ὁ",
     "translations": [
       "Krieg"
@@ -2869,6 +2839,7 @@
     "step": 5,
     "type": "noun",
     "lemma": "πόνος",
+    "genitive": "πόνου",
     "article": "ὁ",
     "translations": [
       "Arbeit",
@@ -2942,6 +2913,7 @@
     "step": 5,
     "type": "noun",
     "lemma": "συλλήπτρια",
+    "genitive": "συλλήπτριας",
     "article": "ἡ",
     "translations": [
       "Helferin"
@@ -3062,8 +3034,7 @@
     "translations": [
       "unter",
       "von"
-    ],
-    "mnemonic": "Hypo-, Hyper-"
+    ]
   },
   {
     "id": 292,
@@ -3080,6 +3051,7 @@
     "step": 5,
     "type": "noun",
     "lemma": "γαλήνη",
+    "genitive": "γαλήνης",
     "article": "ἡ",
     "translations": [
       "Windstille"
@@ -3102,6 +3074,7 @@
     "step": 5,
     "type": "noun",
     "lemma": "φιλία",
+    "genitive": "φιλίας",
     "article": "ἡ",
     "translations": [
       "Freundschaft",
@@ -3144,6 +3117,7 @@
     "step": 5,
     "type": "noun",
     "lemma": "χρόνος",
+    "genitive": "χρόνου",
     "article": "ὁ",
     "translations": [
       "Zeit"
@@ -4064,8 +4038,7 @@
     "translations": [
       "gegen",
       "zu ... hin"
-    ],
-    "mnemonic": "Projektion"
+    ]
   },
   {
     "id": 388,

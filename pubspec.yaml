@@ -76,6 +76,7 @@ flutter:
       - assets/perikopen.json
       - assets/liturgical_calendar_2026.json
       - assets/greek_vocabulary.json
+      - assets/eg_lieder.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
