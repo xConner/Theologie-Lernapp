@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../services/perikope_loader.dart';
+import '../services/greek/perikope_loader.dart';
 import '../screens/quiz_screen.dart';
 import '../screens/liturgical_calendar_screen.dart';
 import '../screens/greek/greek_home_screen.dart';
 
-import '../models/perikope.dart';
+import '../models/greek/perikope.dart';
 import 'hymn_screen.dart';
 
 import 'confessions_screen.dart';

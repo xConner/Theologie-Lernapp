@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import '../services/learning_service.dart';
 import '../services/settings_service.dart';
 
-import '../models/perikope.dart';
-import '../models/learning_card.dart';
+import '../models/greek/perikope.dart';
+import '../models/greek/learning_card.dart';
 
 import '../quiz/quiz_engine.dart';
 import '../quiz/quiz_question.dart';

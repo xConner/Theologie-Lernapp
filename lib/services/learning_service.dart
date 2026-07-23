@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../models/learning_card.dart';
+import '../models/greek/learning_card.dart';
 
 class LearningService {
   final FirebaseFirestore db = FirebaseFirestore.instance;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../models/greek_vocabulary_entry.dart';
-import '../../services/greek_vocabulary_loader.dart';
+import '../../models/greek/greek_vocabulary_entry.dart';
+import '../../services/greek/greek_vocabulary_loader.dart';
 
 import '../../widgets/greek_keyboard.dart';
 

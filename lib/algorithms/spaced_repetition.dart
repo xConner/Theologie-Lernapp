@@ -1,6 +1,6 @@
 import 'dart:math' as Math;
 
-import 'package:theologie_lernapp/models/learning_card.dart';
+import 'package:theologie_lernapp/models/greek/learning_card.dart';
 
 class SpacedRepetition {
   final double goodMultiplier;

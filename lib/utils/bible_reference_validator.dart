@@ -1,4 +1,4 @@
-import '../models/perikope.dart';
+import '../models/greek/perikope.dart';
 
 class BibleReferenceValidator {
   static final RegExp _bookRegex = RegExp(r'^[A-Za-zÄÖÜäöü0-9]+$');

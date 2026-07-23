@@ -3,8 +3,7 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
-import '../models/perikope.dart';
+import '../../models/greek/perikope.dart';
 
 class PerikopeLoader {
   static Future<List<Perikope>> load() async {

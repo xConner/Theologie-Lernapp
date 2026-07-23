@@ -1,4 +1,4 @@
-import '../models/perikope.dart';
+import '../models/greek/perikope.dart';
 
 class BookFilter {
   final Set<String> selectedBooks;
