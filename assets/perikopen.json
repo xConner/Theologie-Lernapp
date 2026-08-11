@@ -56,18 +56,18 @@
     },
     {
         "id": "die_nachkommen_sets",
-        "title": "Die Nachkommen Sets",
+        "title": "Set und Enosch",
         "book": "Gen",
         "startChapter": 4,
         "startVerse": 25,
-        "endChapter": 5,
-        "endVerse": 32,
+        "endChapter": 4,
+        "endVerse": 26,
         "required": true,
         "precision": "chapter"
     },
     {
-        "id": "gen_5",
-        "title": "Gen 5",
+        "id": "adam_bis_noah",
+        "title": "Geschlechtsregister von Adam bis Noah",
         "book": "Gen",
         "startChapter": 5,
         "startVerse": 1,
@@ -88,13 +88,13 @@
         "precision": "chapter"
     },
     {
-        "id": "gottes_sorge_um_noach",
-        "title": "Gottes Sorge um Noach",
+        "id": "die_bosheit_der_menschen",
+        "title": "Noahs Erwählung. Bau der Arche",
         "book": "Gen",
         "startChapter": 6,
         "startVerse": 9,
-        "endChapter": 7,
-        "endVerse": 16,
+        "endChapter": 6,
+        "endVerse": 22,
         "required": true,
         "precision": "chapter"
     },
@@ -103,15 +103,15 @@
         "title": "Die große Flut",
         "book": "Gen",
         "startChapter": 7,
-        "startVerse": 17,
-        "endChapter": 8,
-        "endVerse": 22,
+        "startVerse": 1,
+        "endChapter": 7,
+        "endVerse": 24,
         "required": true,
         "precision": "chapter"
     },
     {
-        "id": "gen_8",
-        "title": "Gen 8",
+        "id": "noahs_opfer",
+        "title": "Noahs Opfer",
         "book": "Gen",
         "startChapter": 8,
         "startVerse": 1,
@@ -166,7 +166,7 @@
     },
     {
         "id": "die_vorfahren_abrahams",
-        "title": "Die Vorfahren Abrahams",
+        "title": "Geschlechtsregister Sem bis Abram",
         "book": "Gen",
         "startChapter": 11,
         "startVerse": 10,
@@ -199,7 +199,7 @@
     },
     {
         "id": "abraham_und_lot",
-        "title": "Abraham und Lot",
+        "title": "Abraham und Lot trennen sich",
         "book": "Gen",
         "startChapter": 13,
         "startVerse": 1,
@@ -210,7 +210,7 @@
     },
     {
         "id": "gottes_verheissung_an_abraham",
-        "title": "Gottes Verheißung an Abraham",
+        "title": "Gott wiederholt Verheißung an Abraham",
         "book": "Gen",
         "startChapter": 13,
         "startVerse": 14,
@@ -287,7 +287,7 @@
     },
     {
         "id": "die_stammvaeter_der_moabiter_und_ammoniter",
-        "title": "Die Stammväter der Moabiter und Ammoniter",
+        "title": "Lot und seine Töchter",
         "book": "Gen",
         "startChapter": 19,
         "startVerse": 30,
@@ -314,16 +314,16 @@
         "startChapter": 21,
         "startVerse": 1,
         "endChapter": 21,
-        "endVerse": 8,
+        "endVerse": 7,
         "required": true,
         "precision": "chapter"
     },
     {
         "id": "hagar_und_ismael",
-        "title": "Hagar und Ismael",
+        "title": "Austreibung Ismaels und seiner Mutter",
         "book": "Gen",
         "startChapter": 21,
-        "startVerse": 9,
+        "startVerse": 8,
         "endChapter": 21,
         "endVerse": 21,
         "required": true,
@@ -353,7 +353,7 @@
     },
     {
         "id": "abrahams_verwandtschaft",
-        "title": "Abrahams Verwandtschaft",
+        "title": "Die Nachkommen Nahors",
         "book": "Gen",
         "startChapter": 22,
         "startVerse": 20,
@@ -484,19 +484,8 @@
         "precision": "chapter"
     },
     {
-        "id": "gen_28",
-        "title": "Gen 28",
-        "book": "Gen",
-        "startChapter": 28,
-        "startVerse": 1,
-        "endChapter": 28,
-        "endVerse": 22,
-        "required": true,
-        "precision": "chapter"
-    },
-    {
         "id": "jakobs_frauen_und_soehne",
-        "title": "Jakobs Frauen und Söhne",
+        "title": "Jakobs Frauen und Kinder",
         "book": "Gen",
         "startChapter": 29,
         "startVerse": 1,
@@ -507,7 +496,7 @@
     },
     {
         "id": "jakobs_list_gegen_laban",
-        "title": "Jakobs List gegen Laban",
+        "title": "Jakob kommt zum Reichtum",
         "book": "Gen",
         "startChapter": 30,
         "startVerse": 25,
@@ -518,12 +507,12 @@
     },
     {
         "id": "jakobs_trennung_von_laban",
-        "title": "Jakobs Trennung von Laban",
+        "title": "Jakobs Vertrag von Laban",
         "book": "Gen",
         "startChapter": 31,
         "startVerse": 1,
-        "endChapter": 32,
-        "endVerse": 1,
+        "endChapter": 31,
+        "endVerse": 54,
         "required": true,
         "precision": "chapter"
     },
@@ -532,7 +521,7 @@
         "title": "Die Boten und Geschenke für Esau",
         "book": "Gen",
         "startChapter": 32,
-        "startVerse": 2,
+        "startVerse": 1,
         "endChapter": 32,
         "endVerse": 22,
         "required": true,
@@ -606,7 +595,7 @@
     },
     {
         "id": "die_nachkommen_esaus",
-        "title": "Die Nachkommen Esaus",
+        "title": "Das Geschlechtsregister Esaus",
         "book": "Gen",
         "startChapter": 36,
         "startVerse": 1,
@@ -660,17 +649,6 @@
         "precision": "chapter"
     },
     {
-        "id": "gen_40",
-        "title": "Gen 40",
-        "book": "Gen",
-        "startChapter": 40,
-        "startVerse": 1,
-        "endChapter": 40,
-        "endVerse": 23,
-        "required": true,
-        "precision": "chapter"
-    },
-    {
         "id": "der_traum_des_pharao_und_seine_deutung",
         "title": "Der Traum des Pharao und seine Deutung",
         "book": "Gen",
@@ -709,14 +687,14 @@
         "book": "Gen",
         "startChapter": 43,
         "startVerse": 1,
-        "endChapter": 45,
-        "endVerse": 28,
+        "endChapter": 43,
+        "endVerse": 34,
         "required": true,
         "precision": "chapter"
     },
     {
         "id": "gen_44",
-        "title": "Gen 44",
+        "title": "Josefs Brüder werden hart geängstigt",
         "book": "Gen",
         "startChapter": 44,
         "startVerse": 1,
@@ -726,8 +704,8 @@
         "precision": "chapter"
     },
     {
-        "id": "gen_45",
-        "title": "Gen 45",
+        "id": "josef_gibt_sich_seinen_bruedern_zu_erkennen",
+        "title": "Josef gibt sich seinen Brüdern zu erkennen",
         "book": "Gen",
         "startChapter": 45,
         "startVerse": 1,
@@ -764,17 +742,17 @@
         "book": "Gen",
         "startChapter": 47,
         "startVerse": 27,
-        "endChapter": 48,
-        "endVerse": 22,
+        "endChapter": 47,
+        "endVerse": 31,
         "required": true,
         "precision": "chapter"
     },
     {
-        "id": "gen_48",
-        "title": "Gen 48",
+        "id": "jakobs_segen_ueber_ephrain_und_manasse",
+        "title": "Jakobs Segen über Ephraim und Manasse",
         "book": "Gen",
         "startChapter": 48,
-        "startVerse": 1,
+        "startVerse": 27,
         "endChapter": 48,
         "endVerse": 22,
         "required": true,
@@ -19624,8 +19602,8 @@
         "precision": "chapter"
     },
     {
-        "id": "die_ankuendigung_der_zerstoerung_jerusalems",
-        "title": "Die Ankündigung der Zerstörung Jerusalems",
+        "id": "klage_über_jerusalem",
+        "title": "Klage über Jerusalem",
         "book": "Mt",
         "startChapter": 23,
         "startVerse": 37,
@@ -19888,7 +19866,7 @@
         "precision": "chapter"
     },
     {
-        "id": "die_verspottung_jesu_durch_die_soldaten",
+        "id": "die_verspottung_durch_die_waechter",
         "title": "Die Verspottung Jesu durch die Soldaten",
         "book": "Mt",
         "startChapter": 27,
@@ -20761,7 +20739,7 @@
         "title": "Worte gegen die Schriftgelehrten",
         "book": "Mk",
         "startChapter": 12,
-        "startVerse": 37,
+        "startVerse": 38,
         "endChapter": 12,
         "endVerse": 40,
         "required": true,
@@ -20955,7 +20933,7 @@
         "precision": "chapter"
     },
     {
-        "id": "die_verspottung_jesu_durch_die_soldaten",
+        "id": "die_verspottung_durch_die_waechter",
         "title": "Die Verspottung Jesu durch die Soldaten",
         "book": "Mk",
         "startChapter": 15,
@@ -21995,6 +21973,17 @@
         "startChapter": 13,
         "startVerse": 31,
         "endChapter": 13,
+        "endVerse": 33,
+        "required": true,
+        "precision": "chapter"
+    },
+    {
+        "id": "klage_über_jerusalem",
+        "title": "Klage über Jerusalem",
+        "book": "Lk",
+        "startChapter": 13,
+        "startVerse": 34,
+        "endChapter": 13,
         "endVerse": 35,
         "required": true,
         "precision": "chapter"
@@ -22847,8 +22836,8 @@
         "precision": "chapter"
     },
     {
-        "id": "ein_heilungswunder_in_galilaea",
-        "title": "Ein Heilungswunder in Galiläa",
+        "id": "der_hauptmann_von_kafarnaum",
+        "title": "Heilung des Sohnes eines königlichen Beamten",
         "book": "Joh",
         "startChapter": 4,
         "startVerse": 43,
@@ -23376,10 +23365,21 @@
     },
     {
         "id": "das_verhoer_und_die_verurteilung_durch_pilatus",
-        "title": "Das Verhör und die Verurteilung durch Pilatus",
+        "title": "Jesu Verhör vor Pilatus",
         "book": "Joh",
         "startChapter": 18,
         "startVerse": 28,
+        "endChapter": 18,
+        "endVerse": 40,
+        "required": true,
+        "precision": "chapter"
+    },
+    {
+        "id": "das_verhoer_und_die_verurteilung_durch_pilatus",
+        "title": "Jesu Verspottung und Verurteilung",
+        "book": "Joh",
+        "startChapter": 19,
+        "startVerse": 1,
         "endChapter": 19,
         "endVerse": 16,
         "required": true,

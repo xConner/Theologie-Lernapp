@@ -19,11 +19,14 @@ class QuizEngine {
 
   QuizQuestion? _current;
 
+  final bool perikopen;
+
   QuizEngine(
     List<QuizQuestion> items,
     this._cards, {
     required this.uid,
     required this.learningService,
+    this.perikopen = false,
     SpacedRepetition? algorithm,
   }) : _items = items,
        algorithm = algorithm ?? SpacedRepetition();
@@ -96,6 +99,10 @@ class QuizEngine {
 
     algorithm.answer(card, correct);
 
-    await learningService.saveCard(uid, card);
+    if (perikopen) {
+      await learningService.savePerikopeCard(uid, card);
+    } else {
+      await learningService.saveCard(uid, card);
+    }
   }
 }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../services/greek/perikope_loader.dart';
-import '../screens/quiz_screen.dart';
+import 'pericope_quiz/quiz_screen.dart';
 import '../screens/liturgical_calendar_screen.dart';
 import '../screens/greek/greek_home_screen.dart';
 
