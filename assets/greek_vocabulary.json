@@ -3576,16 +3576,6 @@
     ]
   },
   {
-    "id": 343,
-    "step": 6,
-    "type": "phrase",
-    "lemma": "τεττάρων μηνῶν",
-    "translations": [
-      "von vier Monaten",
-      "für vier Monate"
-    ]
-  },
-  {
     "id": 344,
     "step": 6,
     "type": "noun",

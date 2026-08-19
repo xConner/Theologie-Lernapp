@@ -5,7 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 
 import '../../models/greek/vocabulary/greek_vocabulary_entry.dart';
-import '../../models/greek/vocabulary/vocabulary_question.dart';
+import '../../models/greek/vocabulary/greek_vocabulary_question.dart';
 import '../../models/greek/vocabulary/learning_card.dart';
 
 import '../../algorithms/spaced_repetition.dart';
@@ -58,7 +58,7 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
 
   bool includeAorist = true;
 
-  bool requireOnlyOneTranslation = false;
+  bool requireOnlyOneTranslation = true;
 
   List<int> enabledSteps = [1, 2, 3, 4, 5, 6, 7];
 

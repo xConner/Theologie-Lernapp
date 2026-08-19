@@ -6,7 +6,7 @@ class LearningService {
   final FirebaseFirestore db = FirebaseFirestore.instance;
 
   // ==========================
-  // VOKABELN
+  // GRIECHISCH – VOKABELN
   // ==========================
 
   CollectionReference<Map<String, dynamic>> _vocabularyCollection(String uid) {
@@ -73,6 +73,44 @@ class LearningService {
 
   Future<void> savePerikopeCard(String uid, LearningCard card) async {
     await _perikopenCollection(
+      uid,
+    ).doc(card.id).set(card.toFirestore(), SetOptions(merge: true));
+  }
+
+  // ==========================
+  // LATEIN – VOKABELN
+  // ==========================
+
+  CollectionReference<Map<String, dynamic>> _latinVocabularyCollection(
+    String uid,
+  ) {
+    return db.collection("users").doc(uid).collection("latin_vocabulary");
+  }
+
+  Future<LearningCard> loadLatinCard(String uid, String id) async {
+    final doc = await _latinVocabularyCollection(uid).doc(id).get();
+
+    if (!doc.exists) {
+      return LearningCard(id: id);
+    }
+
+    return LearningCard.fromFirestore(id, doc.data()!);
+  }
+
+  Future<Map<String, LearningCard>> loadLatinCards(String uid) async {
+    final snapshot = await _latinVocabularyCollection(uid).get();
+
+    final Map<String, LearningCard> cards = {};
+
+    for (final doc in snapshot.docs) {
+      cards[doc.id] = LearningCard.fromFirestore(doc.id, doc.data());
+    }
+
+    return cards;
+  }
+
+  Future<void> saveLatinCard(String uid, LearningCard card) async {
+    await _latinVocabularyCollection(
       uid,
     ).doc(card.id).set(card.toFirestore(), SetOptions(merge: true));
   }

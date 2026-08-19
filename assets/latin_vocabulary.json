@@ -1,0 +1,418 @@
+[
+    {
+        "id": 1,
+        "step": 1,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "cōgitāre",
+        "principalForm": "cōgitat",
+        "translations": [
+            "denken",
+            "nachdenken",
+            "beabsichtigen"
+        ]
+    },
+    {
+        "id": 2,
+        "step": 1,
+        "substep": 1,
+        "type": "question_word",
+        "lemma": "ubī?",
+        "translations": [
+            "wo?"
+        ]
+    },
+    {
+        "id": 3,
+        "step": 1,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "esse",
+        "principalForm": "est",
+        "translations": [
+            "sein",
+            "sich befinden"
+        ]
+    },
+    {
+        "id": 4,
+        "step": 1,
+        "substep": 1,
+        "type": "adverb",
+        "lemma": "nōn",
+        "translations": [
+            "nicht"
+        ]
+    },
+    {
+        "id": 5,
+        "step": 1,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "venīre",
+        "principalForm": "venit",
+        "translations": [
+            "kommen"
+        ]
+    },
+    {
+        "id": 6,
+        "step": 1,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "dominus",
+        "gender": "m",
+        "translations": [
+            "der Herr"
+        ]
+    },
+    {
+        "id": 7,
+        "step": 1,
+        "substep": 1,
+        "type": "conjunction",
+        "lemma": "et",
+        "translations": [
+            "und",
+            "auch"
+        ]
+    },
+    {
+        "id": 8,
+        "step": 1,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "domina",
+        "gender": "f",
+        "translations": [
+            "die Herrin"
+        ]
+    },
+    {
+        "id": 9,
+        "step": 1,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "servus",
+        "gender": "m",
+        "translations": [
+            "der Sklave"
+        ]
+    },
+    {
+        "id": 10,
+        "step": 1,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "serva",
+        "gender": "f",
+        "translations": [
+            "die Sklavin"
+        ]
+    },
+    {
+        "id": 11,
+        "step": 1,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "stāre",
+        "principalForm": "stat",
+        "translations": [
+            "stehen",
+            "dastehen"
+        ]
+    },
+    {
+        "id": 12,
+        "step": 1,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "spectāre",
+        "principalForm": "spectat",
+        "translations": [
+            "anschauen",
+            "betrachten",
+            "zuschauen"
+        ]
+    },
+    {
+        "id": 13,
+        "step": 1,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "clāmāre",
+        "principalForm": "clāmat",
+        "translations": [
+            "laut rufen",
+            "schreien"
+        ]
+    },
+    {
+        "id": 14,
+        "step": 1,
+        "substep": 1,
+        "type": "conjunction",
+        "lemma": "sed",
+        "translations": [
+            "aber",
+            "sondern"
+        ]
+    },
+    {
+        "id": 15,
+        "step": 1,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "tacēre",
+        "principalForm": "tacet",
+        "translations": [
+            "schweigen"
+        ]
+    },
+    {
+        "id": 16,
+        "step": 1,
+        "substep": 2,
+        "type": "adverb",
+        "lemma": "nunc",
+        "translations": [
+            "jetzt",
+            "nun"
+        ]
+    },
+    {
+        "id": 17,
+        "step": 1,
+        "substep": 2,
+        "type": "noun",
+        "lemma": "equus",
+        "gender": "m",
+        "translations": [
+            "das Pferd"
+        ]
+    },
+    {
+        "id": 18,
+        "step": 1,
+        "substep": 2,
+        "type": "adverb",
+        "lemma": "etiam",
+        "translations": [
+            "auch",
+            "sogar"
+        ]
+    },
+    {
+        "id": 19,
+        "step": 1,
+        "substep": 2,
+        "type": "verb",
+        "lemma": "vidēre",
+        "principalForm": "videt",
+        "translations": [
+            "sehen"
+        ]
+    },
+    {
+        "id": 20,
+        "step": 1,
+        "substep": 2,
+        "type": "noun",
+        "lemma": "victor",
+        "gender": "m",
+        "translations": [
+            "der Sieger"
+        ]
+    },
+    {
+        "id": 21,
+        "step": 1,
+        "substep": 2,
+        "type": "verb",
+        "lemma": "gaudēre",
+        "principalForm": "gaudet",
+        "translations": [
+            "sich freuen"
+        ]
+    },
+    {
+        "id": 22,
+        "step": 1,
+        "substep": 2,
+        "type": "noun",
+        "lemma": "populus",
+        "gender": "m",
+        "translations": [
+            "das Volk"
+        ]
+    },
+    {
+        "id": 23,
+        "step": 1,
+        "substep": 2,
+        "type": "adverb",
+        "lemma": "undique",
+        "translations": [
+            "von allen Seiten",
+            "von überallher"
+        ]
+    },
+    {
+        "id": 24,
+        "step": 1,
+        "substep": 2,
+        "type": "noun",
+        "lemma": "clāmor",
+        "gender": "m",
+        "translations": [
+            "der Lärm",
+            "das Geschrei"
+        ]
+    },
+    {
+        "id": 25,
+        "step": 1,
+        "substep": 2,
+        "type": "noun",
+        "lemma": "victōria",
+        "gender": "f",
+        "translations": [
+            "der Sieg"
+        ]
+    },
+    {
+        "id": 26,
+        "step": 1,
+        "substep": 2,
+        "type": "noun",
+        "lemma": "mercātor",
+        "gender": "m",
+        "translations": [
+            "der Kaufmann",
+            "der Händler"
+        ]
+    },
+    {
+        "id": 27,
+        "step": 1,
+        "substep": 3,
+        "type": "verb",
+        "lemma": "rogāre",
+        "principalForm": "rogat",
+        "translations": [
+            "fragen",
+            "bitten (um)"
+        ]
+    },
+    {
+        "id": 28,
+        "step": 1,
+        "substep": 3,
+        "type": "adverb",
+        "lemma": "ibī",
+        "translations": [
+            "dort"
+        ]
+    },
+    {
+        "id": 29,
+        "step": 1,
+        "substep": 3,
+        "type": "noun",
+        "lemma": "frūmentum",
+        "gender": "n",
+        "translations": [
+            "das Getreide"
+        ]
+    },
+    {
+        "id": 30,
+        "step": 1,
+        "substep": 3,
+        "type": "verb",
+        "lemma": "rīdēre",
+        "principalForm": "rīdet",
+        "translations": [
+            "lachen",
+            "auslachen"
+        ]
+    },
+    {
+        "id": 31,
+        "step": 1,
+        "substep": 3,
+        "type": "verb",
+        "lemma": "amāre",
+        "principalForm": "amat",
+        "translations": [
+            "lieben",
+            "gernhaben"
+        ]
+    },
+    {
+        "id": 32,
+        "step": 1,
+        "substep": 3,
+        "type": "question_word",
+        "lemma": "quis?",
+        "translations": [
+            "wer?"
+        ]
+    },
+    {
+        "id": 33,
+        "step": 1,
+        "substep": 3,
+        "type": "adverb",
+        "lemma": "hic",
+        "translations": [
+            "hier"
+        ]
+    },
+    {
+        "id": 34,
+        "step": 1,
+        "substep": 3,
+        "type": "verb",
+        "lemma": "adesse",
+        "principalForm": "adest",
+        "translations": [
+            "da sein",
+            "helfen"
+        ]
+    },
+    {
+        "id": 35,
+        "step": 1,
+        "substep": 3,
+        "type": "verb",
+        "lemma": "dēbēre",
+        "principalForm": "dēbet",
+        "translations": [
+            "müssen",
+            "sollen",
+            "schulden"
+        ]
+    },
+    {
+        "id": 36,
+        "step": 1,
+        "substep": 3,
+        "type": "noun",
+        "lemma": "furtum",
+        "gender": "n",
+        "translations": [
+            "der Diebstahl"
+        ]
+    },
+    {
+        "id": 37,
+        "step": 1,
+        "substep": 3,
+        "type": "question_word",
+        "lemma": "cūr?",
+        "translations": [
+            "warum?"
+        ]
+    }
+]

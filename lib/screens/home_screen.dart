@@ -11,6 +11,8 @@ import 'hymn_screen.dart';
 
 import 'confessions_screen.dart';
 
+import 'latin/latin_home_screen.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -89,6 +91,13 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  void _openLatin() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => const LatinHomeScreen()),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -158,6 +167,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     onPressed: _openGreek,
 
                     child: const Text("Altgriechisch"),
+                  ),
+                  const SizedBox(height: 20),
+
+                  ElevatedButton(
+                    onPressed: _openLatin,
+                    child: const Text("Latein"),
                   ),
                 ],
               ),
