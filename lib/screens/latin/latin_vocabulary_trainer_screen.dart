@@ -34,6 +34,8 @@ class _LatinVocabularyTrainerScreenState
   final SpacedRepetition algorithm = SpacedRepetition();
 
   final FocusNode translationFocusNode = FocusNode();
+  final FocusNode formFocusNode = FocusNode();
+  final FocusNode genderFocusNode = FocusNode();
 
   Map<String, LearningCard> cards = {};
 
@@ -145,6 +147,9 @@ class _LatinVocabularyTrainerScreenState
     HardwareKeyboard.instance.removeHandler(_handleKey);
 
     translationFocusNode.dispose();
+
+    formFocusNode.dispose();
+    genderFocusNode.dispose();
 
     translationController.dispose();
     formController.dispose();
@@ -287,9 +292,34 @@ class _LatinVocabularyTrainerScreenState
 
     Future.delayed(const Duration(milliseconds: 100), () {
       if (mounted) {
-        translationFocusNode.requestFocus();
+        _focusFirstInputField();
       }
     });
+  }
+
+  void _focusFirstInputField() {
+    final q = question;
+
+    if (q == null) {
+      return;
+    }
+
+    final formFieldShown =
+        (q.hasVerbFormField && includeVerbForm) ||
+        (q.hasNounFormField && includeNounForm) ||
+        (q.hasAdjectiveFormsField && includeAdjectiveForms);
+
+    if (formFieldShown) {
+      formFocusNode.requestFocus();
+      return;
+    }
+
+    if (q.hasGenderField && includeGender) {
+      genderFocusNode.requestFocus();
+      return;
+    }
+
+    translationFocusNode.requestFocus();
   }
 
   Future<void> check() async {
@@ -767,6 +797,7 @@ class _LatinVocabularyTrainerScreenState
                       (q.hasAdjectiveFormsField && includeAdjectiveForms))
                     TextField(
                       controller: formController,
+                      focusNode: formFocusNode,
                       onSubmitted: _handleTextFieldSubmitted,
                       enabled:
                           !answered &&
@@ -792,6 +823,7 @@ class _LatinVocabularyTrainerScreenState
 
                     TextField(
                       controller: genderController,
+                      focusNode: genderFocusNode,
                       onSubmitted: _handleTextFieldSubmitted,
                       enabled: !answered,
                       decoration: InputDecoration(
