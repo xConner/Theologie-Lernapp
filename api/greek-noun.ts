@@ -165,13 +165,13 @@ function getColumnIndex(
 
     switch (normalized) {
         case 'singular':
-            return 1;
+            return 0;
 
         case 'dual':
-            return 2;
+            return 1;
 
         case 'plural':
-            return 3;
+            return 2;
 
         default:
             return null;
