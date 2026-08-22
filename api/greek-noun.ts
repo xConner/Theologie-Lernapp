@@ -12,20 +12,11 @@ function cleanText(text: string): string {
 }
 
 function extractGreekForm(
+    $: cheerio.CheerioAPI,
     cell: cheerio.Cheerio<any>,
 ): string | null {
-    // Bevorzugt den eigentlichen griechischen Text.
-    const polyt = cell.find('.Polyt').first();
-
-    if (polyt.length > 0) {
-        const text = cleanText(polyt.text());
-
-        if (text.length > 0) {
-            return text;
-        }
-    }
-
-    // Fallback: .form-of
+    // Die eigentliche flektierte Form befindet sich bei Wiktionary
+    // in einem Element mit der Klasse "form-of".
     const formOf = cell.find('.form-of').first();
 
     if (formOf.length > 0) {
@@ -36,16 +27,25 @@ function extractGreekForm(
         }
     }
 
-    // Letzter Fallback: gesamter Zelltext
-    const text = cleanText(cell.text());
+    // Fallback: letztes griechisches .Polyt-Element.
+    const polytElements = cell.find('.Polyt');
 
-    if (text.length === 0) {
-        return null;
+    if (polytElements.length > 0) {
+        let result: string | null = null;
+
+        polytElements.each((_, element) => {
+            const text = cleanText($(element).text());
+
+            if (text.length > 0) {
+                result = text;
+            }
+        });
+
+        return result;
     }
 
-    return text;
+    return null;
 }
-
 function normalizeCase(value: string): string {
     const normalized = value
         .toLowerCase()
@@ -225,6 +225,7 @@ function extractNounForm(
         }
 
         result = extractGreekForm(
+            $,
             $(cells[columnIndex]),
         );
     });
