@@ -107,66 +107,64 @@ function findTenseTable(
         return null;
     }
 
-    let result: cheerio.Cheerio<any> | null = null;
+    const candidates: {
+        table: cheerio.Cheerio<any>;
+        title: string;
+    }[] = [];
 
     $('table').each((_, element) => {
-        if (result !== null) {
-            return;
-        }
-
         const table = $(element);
         const classes = table.attr('class') ?? '';
 
         if (
-            classes.includes('grc-conj') &&
-            classes.includes(tenseClass)
+            !classes.includes('grc-conj') ||
+            !classes.includes(tenseClass)
         ) {
-            result = table;
+            return;
         }
+
+        const navFrame = table.closest('.NavFrame');
+
+        const title = cleanText(
+            navFrame
+                ?.find('.NavHead')
+                .first()
+                .text() ?? '',
+        )
+            .replace(/^show\s*▼\s*/i, '')
+            .trim();
+
+        candidates.push({
+            table,
+            title,
+        });
     });
 
-    if (result !== null) {
-        return result;
+    if (candidates.length === 0) {
+        return null;
     }
 
-    $('table').each((_, element) => {
-        if (result !== null) {
-            return;
-        }
+    // 1. Bevorzuge ausdrücklich die kontrahierte Tabelle.
+    const contracted = candidates.find(({ title }) =>
+        /\(Contracted\)$/i.test(title),
+    );
 
-        const table = $(element);
+    if (contracted) {
+        return contracted.table;
+    }
 
-        const classes = table.attr('class') ?? '';
+    // 2. Falls keine kontrahierte Tabelle existiert,
+    //    bevorzuge die normale Tabelle ohne Dialektangabe.
+    const normal = candidates.find(({ title }) =>
+        !/\((?:Epic|Ionic|Attic|Koine)[^)]*\)/i.test(title),
+    );
 
-        if (!classes.includes('grc-conj')) {
-            return;
-        }
+    if (normal) {
+        return normal.table;
+    }
 
-        const text = table.text().toLowerCase();
-
-        if (
-            tense === 'Präsens' &&
-            text.includes('present')
-        ) {
-            result = table;
-        }
-
-        if (
-            tense === 'Imperfekt' &&
-            text.includes('imperfect')
-        ) {
-            result = table;
-        }
-
-        if (
-            tense === 'Aorist' &&
-            text.includes('aorist')
-        ) {
-            result = table;
-        }
-    });
-
-    return result;
+    // 3. Letzter Fallback: erste passende Tabelle.
+    return candidates[0].table;
 }
 
 function extractIndicativeForm(
