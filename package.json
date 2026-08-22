@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "cheerio": "^1.2.0"
+  },
+  "devDependencies": {
+    "@vercel/node": "^6.0.0"
+  }
+}
