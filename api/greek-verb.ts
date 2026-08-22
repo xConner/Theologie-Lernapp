@@ -146,12 +146,10 @@ function findTenseTable(
 
         const title = cleanText(
             navFrame
-                ?.find('.NavHead')
+                .find('.NavHead')
                 .first()
                 .text() ?? '',
-        )
-            .replace(/^show\s*▼\s*/i, '')
-            .trim();
+        );
 
         candidates.push({
             table,
@@ -163,26 +161,25 @@ function findTenseTable(
         return null;
     }
 
-    // 1. Bevorzuge ausdrücklich die kontrahierte Tabelle.
-    const contracted = candidates.find(({ title }) =>
-        /\(Contracted\)$/i.test(title),
+    // 1. Attische Tabelle bevorzugen
+    const attic = candidates.find(({ title }) =>
+        /Attic/i.test(title),
     );
 
-    if (contracted) {
-        return contracted.table;
+    if (attic) {
+        return attic.table;
     }
 
-    // 2. Falls keine kontrahierte Tabelle existiert,
-    //    bevorzuge die normale Tabelle ohne Dialektangabe.
+    // 2. Normale Tabelle ohne Dialektangabe
     const normal = candidates.find(({ title }) =>
-        !/\((?:Epic|Ionic|Attic|Koine)[^)]*\)/i.test(title),
+        !/(Epic|Ionic|Koine)/i.test(title),
     );
 
     if (normal) {
         return normal.table;
     }
 
-    // 3. Letzter Fallback: erste passende Tabelle.
+    // 3. Fallback
     return candidates[0].table;
 }
 
@@ -286,17 +283,27 @@ function extractIndicativeForm(
     // ---------------------------------------------------------
 
     if (wantedVoice === 'middle/passive') {
-        // Wiktionary verwendet häufig einfach "middle",
-        // auch wenn die grammatische Kategorie Medium/Passiv ist.
+        // 1. Middle
         const middleForm = findFormInRows(isMiddleVoice);
 
         if (middleForm !== null) {
             return middleForm;
         }
 
-        // Nur wenn keine Middle-Form existiert:
-        // echte Passive-Form versuchen.
-        return findFormInRows(isPassiveVoice);
+        // 2. Echte Middle/Passive-Zeile
+        // (wird durch isMiddleVoice bereits mit abgedeckt,
+        // bleibt aber logisch Teil des Fallbacks)
+
+        // 3. Passive
+        const passiveForm = findFormInRows(isPassiveVoice);
+
+        if (passiveForm !== null) {
+            return passiveForm;
+        }
+
+        // 4. Manche Deponentien haben in einzelnen Tempora
+        // morphologisch aktive Formen, z. B. ἔρχομαι → ἦλθον.
+        return findFormInRows(isActiveVoice);
     }
 
     // ---------------------------------------------------------
