@@ -34,11 +34,27 @@ function normalizeVoice(value: string): string {
     }
 
     if (
+        normalized === 'passiv' ||
+        normalized === 'passive'
+    ) {
+        return 'passive';
+    }
+
+    if (
         normalized === 'medium/passiv' ||
         normalized === 'medium/passive' ||
-        normalized === 'middle/passive'
+        normalized === 'middle/passive' ||
+        normalized === 'middle/passiv' ||
+        normalized === 'middleorpassive'
     ) {
         return 'middle/passive';
+    }
+
+    if (
+        normalized === 'medium' ||
+        normalized === 'middle'
+    ) {
+        return 'middle';
     }
 
     if (normalized === 'deponens') {
@@ -47,6 +63,9 @@ function normalizeVoice(value: string): string {
 
     return normalized;
 }
+
+
+
 
 function getCellIndex(
     number: string,
@@ -176,63 +195,127 @@ function extractIndicativeForm(
 ): string | null {
     const wantedVoice = normalizeVoice(voice);
 
-    const index = getCellIndex(
-        number,
-        person,
-    );
+    const index = getCellIndex(number, person);
 
     if (index === null) {
         return null;
     }
 
-    let result: string | null = null;
+    function isActiveVoice(header: string): boolean {
+        return normalizeVoice(header) === 'active';
+    }
 
-    table.find('tr').each((_, element) => {
-        if (result !== null) {
-            return;
-        }
+    function isMiddleVoice(header: string): boolean {
+        const normalized = normalizeVoice(header);
 
-        const row = $(element);
-        const headers = row.find('th');
-
-        if (headers.length < 2) {
-            return;
-        }
-
-        const firstHeader = cleanText(
-            $(headers[0]).text(),
+        return (
+            normalized === 'middle' ||
+            normalized === 'middle/passive'
         );
+    }
 
-        const secondHeader = cleanText(
-            $(headers[1]).text(),
-        );
+    function isPassiveVoice(header: string): boolean {
+        return normalizeVoice(header) === 'passive';
+    }
 
-        if (
-            secondHeader.toLowerCase() !==
-            'indicative'
-        ) {
-            return;
+    const findFormInRows = (
+        voiceMatcher: (header: string) => boolean,
+    ): string | null => {
+        let result: string | null = null;
+
+        table.find('tr').each((_, element) => {
+            if (result !== null) {
+                return;
+            }
+
+            const row = $(element);
+            const headers = row.find('th');
+
+            if (headers.length < 2) {
+                return;
+            }
+
+            const firstHeader = cleanText(
+                $(headers[0]).text(),
+            );
+
+            const secondHeader = cleanText(
+                $(headers[1]).text(),
+            );
+
+            // Nur Indicative
+            if (
+                secondHeader.toLowerCase() !== 'indicative'
+            ) {
+                return;
+            }
+
+            // Richtige Voice
+            if (!voiceMatcher(firstHeader)) {
+                return;
+            }
+
+            const cells = row.find('td');
+
+            if (cells.length <= index) {
+                return;
+            }
+
+            const form = extractGreekForm(
+                $(cells[index]),
+            );
+
+            if (form !== null && form.length > 0) {
+                result = form;
+            }
+        });
+
+        return result;
+    };
+
+    // ---------------------------------------------------------
+    // AKTIV
+    // ---------------------------------------------------------
+
+    if (wantedVoice === 'active') {
+        return findFormInRows(isActiveVoice);
+    }
+
+    // ---------------------------------------------------------
+    // MEDIUM/PASSIV
+    // ---------------------------------------------------------
+
+    if (wantedVoice === 'middle/passive') {
+        // Wiktionary verwendet häufig einfach "middle",
+        // auch wenn die grammatische Kategorie Medium/Passiv ist.
+        const middleForm = findFormInRows(isMiddleVoice);
+
+        if (middleForm !== null) {
+            return middleForm;
         }
 
-        const rowVoice =
-            normalizeVoice(firstHeader);
+        // Nur wenn keine Middle-Form existiert:
+        // echte Passive-Form versuchen.
+        return findFormInRows(isPassiveVoice);
+    }
 
-        if (rowVoice !== wantedVoice) {
-            return;
-        }
+    // ---------------------------------------------------------
+    // NUR MEDIUM
+    // ---------------------------------------------------------
 
-        const cells = row.find('td');
+    if (wantedVoice === 'middle') {
+        return findFormInRows(isMiddleVoice);
+    }
 
-        if (cells.length <= index) {
-            return;
-        }
+    // ---------------------------------------------------------
+    // NUR PASSIV
+    // ---------------------------------------------------------
 
-        result = extractGreekForm(
-            $(cells[index]),
-        );
-    });
+    if (wantedVoice === 'passive') {
+        return findFormInRows(isPassiveVoice);
+    }
 
-    return result;
+    return null;
 }
 
 export default async function handler(
