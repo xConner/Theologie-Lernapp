@@ -153,35 +153,47 @@ function findTenseTable(
                 .text() ?? '',
         );
 
-        // Bewertungssystem für Tabellenpriorität
+        // --- PRIORITÄTEN SYSTEM ---
+        // 1. TABELLEN OHNE LABEL (="normal") haben Höchste Priorität
+        // 2. Unter benannten Tabeln: Attic > Epic/Ionic/Koine
+        // 3. Contracta-Verben (-άω, -έω, -όω) erhalten bonus bei Contracted-Tabellen
+
         let score = 0;
 
-        // Höchste Priorität: Attic + Contracted
-        if (/Attic/i.test(title) && /Contracted/i.test(title)) {
-            score += 100;
+        // 1. TABELLEN OHNE SPEZIELLES LABEL ("normal")
+        //    Diese haben die höchste Priorität (200 Points)
+        //    Egal ob attic-class oder nicht - wenn kein Label im Titel,
+        //    ist es die Standard-Wahl
+        if (!/Attic/i.test(title) && !/Contracted/i.test(title) &&
+            !/(Epic|Ionic|Koine)/i.test(title)) {
+            score += 200; // Höchste Priorität für "normale" Tabellen
         }
-
-        // Zweithöchste: Attic allein
+        // 2. ATTIC LABEL (unter den benannten Tabeln highest)
         else if (/Attic/i.test(title)) {
-            score += 75;
-        }
+            score += 100; // Attic ist zweit-highste unter benannten
 
-        // Dritthöchste: Contracted allein
-        else if (/Contracted/i.test(title)) {
-            score += 80; // Contracted ist wichtiger als nur Attic für contracta-Verben
-        }
-
-        // Bestrafung für nicht-attische Dialekte
-        if (/(Epic|Ionic|Koine)/i.test(title)) {
-            score -= 50;
-        }
-
-        // Special: Wenn das Verb ein contracta-Verb ist (-άω, -έω, -όω),
-        // Contracted-Tabellen bekommen extra Punkte
-        if (lemma && /Contracted/i.test(title)) {
-            if (lemma.endsWith('άω') || lemma.endsWith('έω') || lemma.endsWith('όω')) {
-                score += 60; // Extra-Bonus für contracta-Verben
+            // Bonus: Attic + Contracted kombiniert
+            if (/Contracted/i.test(title)) {
+                score += 30; // Attic+Contracted = 130 Points (sehr gut für contracta-Verben)
             }
+        }
+        // 3. CONTRACTED LABEL allein (für contracta-Verben special handling)
+        else if (/Contracted/i.test(title)) {
+            if (lemma && (/άω$/.test(lemma) || /έω$/.test(lemma) || /όω$/.test(lemma))) {
+                score += 90; // Für contracta-Verben: 90 Points (fast so hoch wie Attic=100,
+                               // aber normal=200 geht noch)
+            } else {
+                score += 20; // Nicht-contracta-Verben: 20 Points, wird normal (200) vorzuziehen
+            }
+        }
+        // 4. NICHT-ATTIC BENENNTE TABELN (Epic, Ionic, Koine etc.)
+        //    Stark bestrafen, damit sie hinter normal und attic landen
+        else if (/(Epic|Ionic|Koine)/i.test(title)) {
+            score -= 100; // Massive Bestrafung: -100 Points (landen hinter normal/attic)
+        }
+        // 5. Übrige spezielle Tabellen
+        else {
+            score += 0; // Neutral: 0 Points, landen hinter normal/attic
         }
 
         candidates.push({
@@ -198,15 +210,15 @@ function findTenseTable(
     // Sortiere nach Score (höchste zuerst)
     candidates.sort((a, b) => b.score - a.score);
 
-    // Logging für Debugging
-    if (lemma && candidates.length > 1) {
-        console.log(`Verb: ${lemma}, Tempora-Kandidaten:`);
-        candidates.forEach((c, i) => {
-            console.log(`  ${i + 1}. Score ${c.score}: ${c.title}`);
-        });
-    }
+    // Debug-Logging (optional, kann bei Bedarf aktiviert werden)
+    // if (lemma && candidates.length > 1) {
+    //     console.log(`Verb: ${lemma}, Tempora-Kandidaten:`);
+    //     candidates.forEach((c, i) => {
+    //         console.log(`  ${i + 1}. Score ${c.score}: ${c.title}`);
+    //     });
+    // }
 
-    // Nimm die beste Tabelle
+    // Nimm die beste Tabelle (höchster Score = beste Priorität)
     return candidates[0].table;
 }
 
