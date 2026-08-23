@@ -119,6 +119,7 @@ function extractGreekForm(
 function findTenseTable(
     $: cheerio.CheerioAPI,
     tense: string,
+    lemma?: string,
 ): cheerio.Cheerio<any> | null {
     const tenseClass = getTenseClass(tense);
 
@@ -129,6 +130,7 @@ function findTenseTable(
     const candidates: {
         table: cheerio.Cheerio<any>;
         title: string;
+        score: number;
     }[] = [];
 
     $('table').each((_, element) => {
@@ -151,9 +153,41 @@ function findTenseTable(
                 .text() ?? '',
         );
 
+        // Bewertungssystem für Tabellenpriorität
+        let score = 0;
+
+        // Höchste Priorität: Attic + Contracted
+        if (/Attic/i.test(title) && /Contracted/i.test(title)) {
+            score += 100;
+        }
+
+        // Zweithöchste: Attic allein
+        else if (/Attic/i.test(title)) {
+            score += 75;
+        }
+
+        // Dritthöchste: Contracted allein
+        else if (/Contracted/i.test(title)) {
+            score += 80; // Contracted ist wichtiger als nur Attic für contracta-Verben
+        }
+
+        // Bestrafung für nicht-attische Dialekte
+        if (/(Epic|Ionic|Koine)/i.test(title)) {
+            score -= 50;
+        }
+
+        // Special: Wenn das Verb ein contracta-Verb ist (-άω, -έω, -όω),
+        // Contracted-Tabellen bekommen extra Punkte
+        if (lemma && /Contracted/i.test(title)) {
+            if (lemma.endsWith('άω') || lemma.endsWith('έω') || lemma.endsWith('όω')) {
+                score += 60; // Extra-Bonus für contracta-Verben
+            }
+        }
+
         candidates.push({
             table,
             title,
+            score,
         });
     });
 
@@ -161,25 +195,18 @@ function findTenseTable(
         return null;
     }
 
-    // 1. Attische Tabelle bevorzugen
-    const attic = candidates.find(({ title }) =>
-        /Attic/i.test(title),
-    );
+    // Sortiere nach Score (höchste zuerst)
+    candidates.sort((a, b) => b.score - a.score);
 
-    if (attic) {
-        return attic.table;
+    // Logging für Debugging
+    if (lemma && candidates.length > 1) {
+        console.log(`Verb: ${lemma}, Tempora-Kandidaten:`);
+        candidates.forEach((c, i) => {
+            console.log(`  ${i + 1}. Score ${c.score}: ${c.title}`);
+        });
     }
 
-    // 2. Normale Tabelle ohne Dialektangabe
-    const normal = candidates.find(({ title }) =>
-        !/(Epic|Ionic|Koine)/i.test(title),
-    );
-
-    if (normal) {
-        return normal.table;
-    }
-
-    // 3. Fallback
+    // Nimm die beste Tabelle
     return candidates[0].table;
 }
 
@@ -416,6 +443,7 @@ export default async function handler(
         const table = findTenseTable(
             $,
             tense,
+            lemma,
         );
 
         if (table === null) {

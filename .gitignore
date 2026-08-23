@@ -50,3 +50,5 @@ app.*.map.json
 
 # Claude Code – lokale Konfiguration (enthält u. a. API-Keys)
 .claude/
+.vercel
+.env*

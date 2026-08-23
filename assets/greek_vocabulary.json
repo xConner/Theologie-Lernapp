@@ -369,7 +369,8 @@
     "aorist": "ἐβουλήθην",
     "translations": [
       "wollen"
-    ]
+    ],
+    "deponent": true
   },
   {
     "id": 35,
@@ -411,7 +412,8 @@
     "translations": [
       "können",
       "imstande sein"
-    ]
+    ],
+    "deponent": true
   },
   {
     "id": 39,
@@ -505,7 +507,8 @@
     "translations": [
       "kommen",
       "gehen"
-    ]
+    ],
+    "deponent": true
   },
   {
     "id": 48,
@@ -729,7 +732,8 @@
     "translations": [
       "glauben",
       "meinen"
-    ]
+    ],
+    "deponent": true
   },
   {
     "id": 68,
@@ -1018,7 +1022,8 @@
     "translations": [
       "anfangen",
       "beginnen"
-    ]
+    ],
+    "deponent": true
   },
   {
     "id": 94,
@@ -1075,7 +1080,8 @@
       "entstehen",
       "geschehen",
       "kommen"
-    ]
+    ],
+    "deponent": true
   },
   {
     "id": 99,
@@ -1128,7 +1134,8 @@
     "translations": [
       "aufwachen",
       "auf(er)stehen"
-    ]
+    ],
+    "deponent": true
   },
   {
     "id": 104,
@@ -1163,7 +1170,8 @@
     "translations": [
       "sich erschrecken",
       "sich entsetzen"
-    ]
+    ],
+    "deponent": true
   },
   {
     "id": 107,
@@ -1195,7 +1203,8 @@
       "eine gute Nachricht bringen",
       "etwas verkünden",
       "die gute Nachricht hören"
-    ]
+    ],
+    "deponent": true
   },
   {
     "id": 110,
@@ -1235,7 +1244,8 @@
     "lemma": "καθαρίζομαι",
     "translations": [
       "rein werden"
-    ]
+    ],
+    "deponent": true
   },
   {
     "id": 114,
@@ -1353,7 +1363,8 @@
       "nach jemandem schicken",
       "jemanden kommen lassen",
       "holen lassen"
-    ]
+    ],
+    "deponent": true
   },
   {
     "id": 125,
@@ -1489,7 +1500,8 @@
       "gehorchen",
       "vertrauen",
       "glauben"
-    ]
+    ],
+    "deponent": true
   },
   {
     "id": 138,
@@ -1585,7 +1597,8 @@
     "aorist": "ἐσκανδαλίσθην",
     "translations": [
       "Anstoß nehmen"
-    ]
+    ],
+    "deponent": true
   },
   {
     "id": 147,
@@ -1870,7 +1883,7 @@
     "id": 173,
     "step": 4,
     "type": "verb",
-    "lemma": "κατἀντάω",
+    "lemma": "καταντάω",
     "aorist": "κατήντησα",
     "translations": [
       "hinkommen nach",
@@ -1948,7 +1961,8 @@
       "beten",
       "wünschen",
       "geloben"
-    ]
+    ],
+    "deponent": true
   },
   {
     "id": 180,
@@ -1978,7 +1992,8 @@
     "aorist": "ἐθεασάμην",
     "translations": [
       "anschauen"
-    ]
+    ],
+    "deponent": true
   },
   {
     "id": 183,
@@ -2134,7 +2149,8 @@
     "translations": [
       "glauben",
       "meinen"
-    ]
+    ],
+    "deponent": true
   },
   {
     "id": 198,
@@ -2144,7 +2160,8 @@
     "translations": [
       "fortgehen",
       "fort sein"
-    ]
+    ],
+    "deponent": true
   },
   {
     "id": 199,
@@ -2257,7 +2274,8 @@
     "lemma": "προσεύχομαι",
     "translations": [
       "beten"
-    ]
+    ],
+    "deponent": true
   },
   {
     "id": 210,
@@ -2356,7 +2374,8 @@
     "translations": [
       "sich über etwas freuen",
       "auf etwas stolz sein"
-    ]
+    ],
+    "deponent": true
   },
   {
     "id": 219,
@@ -2644,7 +2663,8 @@
     "aorist": "ἐξεπορεύθην",
     "translations": [
       "herauskommen"
-    ]
+    ],
+    "deponent": true
   },
   {
     "id": 247,
@@ -2699,7 +2719,8 @@
     "translations": [
       "versuchen",
       "erproben"
-    ]
+    ],
+    "deponent": true
   },
   {
     "id": 256,
@@ -2791,7 +2812,8 @@
     "aorist": "παρῆλθον",
     "translations": [
       "vorbeigehen"
-    ]
+    ],
+    "deponent": true
   },
   {
     "id": 269,
@@ -3014,7 +3036,8 @@
     "translations": [
       "zugrunde gehen",
       "verloren gehen"
-    ]
+    ],
+    "deponent": true
   },
   {
     "id": 290,
@@ -3024,7 +3047,8 @@
     "aorist": "ἀφικόμην",
     "translations": [
       "ankommen"
-    ]
+    ],
+    "deponent": true
   },
   {
     "id": 291,
@@ -3106,7 +3130,7 @@
     "id": 298,
     "step": 5,
     "type": "verb",
-    "lemma": "χαίρω + Dat",
+    "lemma": "χαίρω",
     "aorist": "ἐχάρην",
     "translations": [
       "sich freuen"
@@ -3534,7 +3558,8 @@
     "translations": [
       "reisen",
       "marschieren"
-    ]
+    ],
+    "deponent": true
   },
   {
     "id": 339,
@@ -3636,7 +3661,8 @@
     "aorist": "ἐφοβήθην",
     "translations": [
       "fürchten"
-    ]
+    ],
+    "deponent": true
   },
   {
     "id": 350,
@@ -3715,7 +3741,8 @@
     "translations": [
       "sich etwas nehmen",
       "wählen"
-    ]
+    ],
+    "deponent": true
   },
   {
     "id": 357,
@@ -3826,7 +3853,8 @@
     "lemma": "ἀπολογέομαι",
     "translations": [
       "sich verteidigen"
-    ]
+    ],
+    "deponent": true
   },
   {
     "id": 368,
@@ -4259,7 +4287,8 @@
     "translations": [
       "dazukommen",
       "dabei sein"
-    ]
+    ],
+    "deponent": true
   },
   {
     "id": 411,
@@ -4309,15 +4338,6 @@
     "translations": [
       "ins Feld ziehen",
       "Kriegsdienst leisten"
-    ]
-  },
-  {
-    "id": 416,
-    "step": 7,
-    "type": "verb",
-    "lemma": "σύνειμι + Dat.",
-    "translations": [
-      "mit jemandem verkehren"
     ]
   },
   {

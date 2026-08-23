@@ -197,11 +197,15 @@ class _GreekKeyboardState extends State<GreekKeyboard> {
     final letters = uppercase ? upperLetters : lowerLetters;
 
     return Container(
-      padding: const EdgeInsets.all(8),
-
+      padding: EdgeInsets.only(
+        left: 8,
+        right: 8,
+        top: 8,
+        bottom: MediaQuery.of(context).padding.bottom + 8,
+      ),
       color: Theme.of(context).colorScheme.surfaceContainerHighest,
-
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           LayoutBuilder(
             builder: (context, constraints) {

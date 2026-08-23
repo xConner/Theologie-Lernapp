@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'grammar_topics/article_screen.dart';
+import 'grammar_topics/conjugations_screen.dart';
 import 'grammar_topics/declinations_screen.dart';
 
 class GrammarOverviewScreen extends StatelessWidget {
@@ -54,6 +55,25 @@ class GrammarOverviewScreen extends StatelessWidget {
                     },
 
                     child: const Text("Deklinationen"),
+                  ),
+                ),
+
+                const SizedBox(height: 16),
+
+                SizedBox(
+                  width: double.infinity,
+
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const ConjugationsScreen(),
+                        ),
+                      );
+                    },
+
+                    child: const Text("Konjugationen"),
                   ),
                 ),
               ],

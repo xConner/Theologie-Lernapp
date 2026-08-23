@@ -73,212 +73,203 @@ class DeclinationsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text("Deklinationen")),
 
-      body: Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 800),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16),
+        child: Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 800),
 
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(16),
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(16),
 
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
 
-              children: [
-                const Text(
-                  "o-Deklination",
+                children: [
+                  const Text(
+                    "o-Deklination",
 
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                ),
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  ),
 
-                const SizedBox(height: 12),
+                  const SizedBox(height: 12),
 
-                declensionTable([
-                  [
-                    tableText(""),
-                    tableText("Maskulinum", bold: true),
-                    tableText("Neutrum", bold: true),
-                  ],
+                  declensionTable([
+                    [
+                      tableText("Singular", bold: true),
+                      tableText("Maskulinum", bold: true),
+                      tableText("Neutrum", bold: true),
+                    ],
 
-                  [
-                    tableText("Singular", bold: true),
-                    const SizedBox(),
-                    const SizedBox(),
-                  ],
+                    [
+                      tableText("Nom."),
+                      greekForm("λόγ", "ὁ", "ος"),
+                      greekForm("δένδρ", "τὸ", "ον"),
+                    ],
 
-                  [
-                    tableText("Nom."),
-                    greekForm("λόγ", "ὁ", "ος"),
-                    greekForm("δένδρ", "τὸ", "ον"),
-                  ],
+                    [
+                      tableText("Gen."),
+                      greekForm("λόγ", "τοῦ", "ου"),
+                      greekForm("δένδρ", "τοῦ", "ου"),
+                    ],
 
-                  [
-                    tableText("Gen."),
-                    greekForm("λόγ", "τοῦ", "ου"),
-                    greekForm("δένδρ", "τοῦ", "ου"),
-                  ],
+                    [
+                      tableText("Dat."),
+                      greekForm("λόγ", "τῷ", "ῳ"),
+                      greekForm("δένδρ", "τῷ", "ῳ"),
+                    ],
 
-                  [
-                    tableText("Dat."),
-                    greekForm("λόγ", "τῷ", "ῳ"),
-                    greekForm("δένδρ", "τῷ", "ῳ"),
-                  ],
+                    [
+                      tableText("Akk."),
+                      greekForm("λόγ", "τὸν", "ον"),
+                      greekForm("δένδρ", "τὸ", "ον"),
+                    ],
 
-                  [
-                    tableText("Akk."),
-                    greekForm("λόγ", "τὸν", "ον"),
-                    greekForm("δένδρ", "τὸ", "ον"),
-                  ],
+                    [
+                      tableText("Plural", bold: true),
+                      const SizedBox(),
+                      const SizedBox(),
+                    ],
 
-                  [
-                    tableText("Plural", bold: true),
-                    const SizedBox(),
-                    const SizedBox(),
-                  ],
+                    [
+                      tableText("Nom."),
+                      greekForm("λόγ", "οἱ", "οι"),
+                      greekForm("δένδρ", "τὰ", "α"),
+                    ],
 
-                  [
-                    tableText("Nom."),
-                    greekForm("λόγ", "οἱ", "οι"),
-                    greekForm("δένδρ", "τὰ", "α"),
-                  ],
+                    [
+                      tableText("Gen."),
+                      greekForm("λόγ", "τῶν", "ων"),
+                      greekForm("δένδρ", "τῶν", "ων"),
+                    ],
 
-                  [
-                    tableText("Gen."),
-                    greekForm("λόγ", "τῶν", "ων"),
-                    greekForm("δένδρ", "τῶν", "ων"),
-                  ],
+                    [
+                      tableText("Dat."),
+                      greekForm("λόγ", "τοῖς", "οις"),
+                      greekForm("δένδρ", "τοῖς", "οις"),
+                    ],
 
-                  [
-                    tableText("Dat."),
-                    greekForm("λόγ", "τοῖς", "οις"),
-                    greekForm("δένδρ", "τοῖς", "οις"),
-                  ],
+                    [
+                      tableText("Akk."),
+                      greekForm("λόγ", "τοὺς", "ους"),
+                      greekForm("δένδρ", "τὰ", "α"),
+                    ],
+                  ]),
 
-                  [
-                    tableText("Akk."),
-                    greekForm("λόγ", "τοὺς", "ους"),
-                    greekForm("δένδρ", "τὰ", "α"),
-                  ],
-                ]),
+                  const SizedBox(height: 32),
 
-                const SizedBox(height: 32),
+                  const Text(
+                    "a-Deklination",
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  ),
 
-                const Text(
-                  "a-Deklination",
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                ),
+                  const SizedBox(height: 12),
 
-                const SizedBox(height: 12),
+                  declensionTable([
+                    [
+                      tableText("Singular", bold: true),
+                      tableText("-η", bold: true),
+                      tableText("-α (Stamm endet auf ε, ι, ρ) ", bold: true),
+                    ],
 
-                declensionTable([
-                  [
-                    tableText(""),
-                    tableText("-η", bold: true),
-                    tableText("-α (Stamm endet auf ε, ι, ρ) ", bold: true),
-                  ],
+                    [
+                      tableText("Nom."),
+                      greekForm("ἀρχ", "ἡ", "ή"),
+                      greekForm("καρδί", "ἡ", "α"),
+                    ],
 
-                  [
-                    tableText("Singular", bold: true),
-                    const SizedBox(),
-                    const SizedBox(),
-                  ],
+                    [
+                      tableText("Gen."),
+                      greekForm("ἀρχ", "τῆς", "ῆς"),
+                      greekForm("καρδί", "τῆς", "ας"),
+                    ],
 
-                  [
-                    tableText("Nom."),
-                    greekForm("ἀρχ", "ἡ", "ή"),
-                    greekForm("καρδί", "ἡ", "α"),
-                  ],
+                    [
+                      tableText("Dat."),
+                      greekForm("ἀρχ", "τῇ", "ῇ"),
+                      greekForm("καρδί", "τῇ", "ᾳ"),
+                    ],
 
-                  [
-                    tableText("Gen."),
-                    greekForm("ἀρχ", "τῆς", "ῆς"),
-                    greekForm("καρδί", "τῆς", "ας"),
-                  ],
+                    [
+                      tableText("Akk."),
+                      greekForm("ἀρχ", "τὴν", "ήν"),
+                      greekForm("καρδί", "τὴν", "αν"),
+                    ],
 
-                  [
-                    tableText("Dat."),
-                    greekForm("ἀρχ", "τῇ", "ῇ"),
-                    greekForm("καρδί", "τῇ", "ᾳ"),
-                  ],
+                    [
+                      tableText("Plural", bold: true),
+                      const SizedBox(),
+                      const SizedBox(),
+                    ],
 
-                  [
-                    tableText("Akk."),
-                    greekForm("ἀρχ", "τὴν", "ήν"),
-                    greekForm("καρδί", "τὴν", "αν"),
-                  ],
+                    [
+                      tableText("Nom."),
+                      greekForm("ἀρχ", "αἱ", "αί"),
+                      greekForm("καρδί", "αἱ", "αι"),
+                    ],
 
-                  [
-                    tableText("Plural", bold: true),
-                    const SizedBox(),
-                    const SizedBox(),
-                  ],
+                    [
+                      tableText("Gen."),
+                      greekForm("ἀρχ", "τῶν", "ῶν"),
+                      greekForm("καρδί", "τῶν", "ῶν"),
+                    ],
 
-                  [
-                    tableText("Nom."),
-                    greekForm("ἀρχ", "αἱ", "αί"),
-                    greekForm("καρδί", "αἱ", "αι"),
-                  ],
+                    [
+                      tableText("Dat."),
+                      greekForm("ἀρχ", "ταῖς", "αῖς"),
+                      greekForm("καρδί", "ταῖς", "αις"),
+                    ],
 
-                  [
-                    tableText("Gen."),
-                    greekForm("ἀρχ", "τῶν", "ῶν"),
-                    greekForm("καρδί", "τῶν", "ῶν"),
-                  ],
+                    [
+                      tableText("Akk."),
+                      greekForm("ἀρχ", "τὰς", "άς"),
+                      greekForm("καρδί", "τὰς", "ας"),
+                    ],
+                  ]),
 
-                  [
-                    tableText("Dat."),
-                    greekForm("ἀρχ", "ταῖς", "αῖς"),
-                    greekForm("καρδί", "ταῖς", "αις"),
-                  ],
+                  const SizedBox(height: 40),
 
-                  [
-                    tableText("Akk."),
-                    greekForm("ἀρχ", "τὰς", "άς"),
-                    greekForm("καρδί", "τὰς", "ας"),
-                  ],
-                ]),
+                  const Text(
+                    "3./Konsonantische Deklination",
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  ),
 
-                const SizedBox(height: 40),
+                  const SizedBox(height: 12),
 
-                const Text(
-                  "3./Konsonantische Deklination",
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                ),
+                  Table(
+                    border: TableBorder.all(),
 
-                const SizedBox(height: 12),
+                    defaultVerticalAlignment: TableCellVerticalAlignment.middle,
 
-                Table(
-                  border: TableBorder.all(),
+                    columnWidths: const {
+                      0: FixedColumnWidth(120),
+                      1: FixedColumnWidth(300),
+                    },
 
-                  defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+                    children: [
+                      [tableText("Singular", bold: true), const SizedBox()],
 
-                  columnWidths: const {
-                    0: FixedColumnWidth(120),
-                    1: FixedColumnWidth(300),
-                  },
+                      [tableText("Nom."), greekForm("παῖ", "ὁ", "ς")],
 
-                  children: [
-                    [tableText("Singular", bold: true), const SizedBox()],
+                      [tableText("Gen."), greekForm("παιδ", "τοῦ", "ός")],
 
-                    [tableText("Nom."), greekForm("παῖ", "ὁ", "ς")],
+                      [tableText("Dat."), greekForm("παιδ", "τῷ", "ί")],
 
-                    [tableText("Gen."), greekForm("παιδ", "τοῦ", "ός")],
+                      [tableText("Akk."), greekForm("παῖδ", "τὸν", "α")],
 
-                    [tableText("Dat."), greekForm("παιδ", "τῷ", "ί")],
+                      [tableText("Plural", bold: true), const SizedBox()],
 
-                    [tableText("Akk."), greekForm("παῖδ", "τὸν", "α")],
+                      [tableText("Nom."), greekForm("παῖδ", "οἱ", "ες")],
 
-                    [tableText("Plural", bold: true), const SizedBox()],
+                      [tableText("Gen."), greekForm("παίδ", "τῶν", "ων")],
 
-                    [tableText("Nom."), greekForm("παῖδ", "οἱ", "ες")],
+                      [tableText("Dat."), greekForm("παι", "τοῖς", "σί")],
 
-                    [tableText("Gen."), greekForm("παίδ", "τῶν", "ων")],
-
-                    [tableText("Dat."), greekForm("παι", "τοῖς", "σί")],
-
-                    [tableText("Akk."), greekForm("παῖδ", "τοὺς", "ας")],
-                  ].map((row) => TableRow(children: row)).toList(),
-                ),
-              ],
+                      [tableText("Akk."), greekForm("παῖδ", "τοὺς", "ας")],
+                    ].map((row) => TableRow(children: row)).toList(),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

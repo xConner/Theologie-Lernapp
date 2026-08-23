@@ -290,7 +290,7 @@ class _LatinVocabularyTrainerScreenState
 
     setState(() {});
 
-    Future.delayed(const Duration(milliseconds: 100), () {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) {
         _focusFirstInputField();
       }
@@ -798,6 +798,7 @@ class _LatinVocabularyTrainerScreenState
                     TextField(
                       controller: formController,
                       focusNode: formFocusNode,
+                      key: ValueKey('form-${q.entry.id}'),
                       onSubmitted: _handleTextFieldSubmitted,
                       enabled:
                           !answered &&
@@ -824,6 +825,7 @@ class _LatinVocabularyTrainerScreenState
                     TextField(
                       controller: genderController,
                       focusNode: genderFocusNode,
+                      key: ValueKey('gender-${q.entry.id}'),
                       onSubmitted: _handleTextFieldSubmitted,
                       enabled: !answered,
                       decoration: InputDecoration(
@@ -841,6 +843,7 @@ class _LatinVocabularyTrainerScreenState
 
                   TextField(
                     controller: translationController,
+                    key: ValueKey('translation-${q.entry.id}'),
                     onSubmitted: _handleTextFieldSubmitted,
                     enabled: !answered,
                     focusNode: translationFocusNode,

@@ -8,6 +8,8 @@ class GreekVocabularyEntry {
   final String? article;
   final String? aorist;
 
+  final bool deponent;
+
   final List<String> translations;
 
   final String? note;
@@ -21,6 +23,7 @@ class GreekVocabularyEntry {
     this.genitive,
     this.article,
     this.aorist,
+    this.deponent = false,
     required this.translations,
     this.note,
     this.mnemonic,
@@ -35,6 +38,7 @@ class GreekVocabularyEntry {
       genitive: json["genitive"],
       article: json["article"],
       aorist: json["aorist"],
+      deponent: json["deponent"] == true,
       note: json["note"],
       mnemonic: json["mnemonic"],
       translations: List<String>.from(json["translations"]),
