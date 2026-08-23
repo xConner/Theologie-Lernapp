@@ -47,7 +47,10 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
   String? formError;
   String? correctForm;
 
-  // Preloading für nächste Frage
+  // ---------------------------------------------------------------------------
+  // PRELOADING
+  // ---------------------------------------------------------------------------
+
   GreekVocabularyEntry? _preloadedQuestion;
   String? _preloadedForm;
   String? _preloadedCase;
@@ -58,7 +61,10 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
   String? _preloadedTense;
   String? _preloadedVoice;
 
-  // Auswertung
+  // ---------------------------------------------------------------------------
+  // AUSWERTUNG
+  // ---------------------------------------------------------------------------
+
   bool? caseCorrect;
   bool? numberCorrect;
   bool? genderCorrect;
@@ -76,6 +82,9 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
   List<String> enabledTypes = ["noun", "verb"];
 
   static const List<String> allTypes = ["noun", "verb"];
+
+  // Lemma-Feld anzeigen?
+  bool showLemmaField = true;
 
   // ---------------------------------------------------------------------------
   // NOMEN
@@ -156,13 +165,9 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
     "μένω",
     "ἐπερωτάω",
     "ἐπιτιμάω",
-    // weitere Verben hier ergänzen
   };
 
-  static const Set<String> presentOnlyVerbs = {
-    "προσεύχομαι",
-    // weitere Verben hier ergänzen
-  };
+  static const Set<String> presentOnlyVerbs = {"προσεύχομαι"};
 
   static const Set<String> noAorist = {
     "τάττω",
@@ -170,13 +175,9 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
     "ἄπειμι",
     "σύνειμι",
     "ὑποπτεύω",
-    // weitere Verben hier ergänzen
   };
 
-  static const Set<String> noImperfect = {
-    "ἐμβαίνω",
-    // weitere Verben hier ergänzen
-  };
+  static const Set<String> noImperfect = {"ἐμβαίνω"};
 
   // ---------------------------------------------------------------------------
   // INIT / DISPOSE
@@ -185,7 +186,9 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
   @override
   void initState() {
     super.initState();
+
     load();
+
     _keyListener = ((web.Event event) {
       final keyboardEvent = event as web.KeyboardEvent;
 
@@ -207,6 +210,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
   void dispose() {
     web.window.removeEventListener('keydown', _keyListener);
     answerController.dispose();
+
     super.dispose();
   }
 
@@ -237,6 +241,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
 
     final savedSteps = settings['enabledSteps'];
     final savedTypes = settings['enabledTypes'];
+    final savedShowLemmaField = settings['showLemmaField'];
 
     if (savedSteps is List) {
       enabledSteps = savedSteps
@@ -254,6 +259,10 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
           .where((type) => allTypes.contains(type))
           .toList();
     }
+
+    if (savedShowLemmaField is bool) {
+      showLemmaField = savedShowLemmaField;
+    }
   }
 
   Future<void> saveGrammarSettings() async {
@@ -267,6 +276,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
       'greek_grammar_settings': {
         'enabledSteps': enabledSteps,
         'enabledTypes': enabledTypes,
+        'showLemmaField': showLemmaField,
       },
     }, SetOptions(merge: true));
   }
@@ -314,28 +324,23 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
     return question?.type == "verb";
   }
 
+  // Prüft ausschließlich, ob ein Wort zu den aktuellen Filtern gehört.
+  bool _isEntryAvailable(GreekVocabularyEntry entry) {
+    return enabledSteps.contains(entry.step) &&
+        enabledTypes.contains(entry.type) &&
+        !grammarBlacklist.contains(entry.lemma);
+  }
+
+  List<GreekVocabularyEntry> _getAvailableEntries() {
+    return entries.where(_isEntryAvailable).toList();
+  }
+
+  // ---------------------------------------------------------------------------
+  // NÄCHSTE FRAGE
+  // ---------------------------------------------------------------------------
+
   Future<void> nextQuestion() async {
-    if (enabledSteps.isEmpty || enabledTypes.isEmpty) {
-      if (!mounted) {
-        return;
-      }
-
-      setState(() {
-        question = null;
-        correctForm = null;
-        formError = null;
-        answered = false;
-        loadingForm = false;
-      });
-
-      return;
-    }
-
-    final available = entries.where((entry) {
-      return enabledSteps.contains(entry.step) &&
-          enabledTypes.contains(entry.type) &&
-          !grammarBlacklist.contains(entry.lemma);
-    }).toList();
+    final available = _getAvailableEntries();
 
     if (available.isEmpty) {
       if (!mounted) {
@@ -353,13 +358,11 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
       return;
     }
 
-    // Prüfen, ob eine gültige vorgeladene Frage verfügbar ist
-    // - Muss nicht null sein
-    // - Muss nicht gleich der aktuellen Frage sein (falls der Nutzer zu schnell klickt)
+    // Vorgeladene Frage verwenden, wenn sie noch gültig ist.
     if (_preloadedQuestion != null &&
         _preloadedForm != null &&
+        _isEntryAvailable(_preloadedQuestion!) &&
         _preloadedQuestion != question) {
-      // Vorgeladene Frage verwenden
       final newQuestion = _preloadedQuestion!;
 
       answerController.clear();
@@ -373,7 +376,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
 
         answered = false;
         correct = false;
-        loadingForm = false; // Bereits geladen!
+        loadingForm = false;
 
         correctForm = _preloadedForm;
         formError = null;
@@ -404,78 +407,235 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
         lemmaCorrect = null;
       });
 
-      // Nächste Frage im Hintergrund vorladen
-      _preloadNextQuestion(available);
-    } else {
-      // Keine vorgeladene Frage verfügbar - normal laden
-      final newQuestion = available[_random.nextInt(available.length)];
+      _clearPreloaded();
 
-      answerController.clear();
+      _preloadNextQuestion(available);
+
+      return;
+    }
+
+    final newQuestion = available[_random.nextInt(available.length)];
+
+    answerController.clear();
+
+    if (!mounted) {
+      return;
+    }
+
+    setState(() {
+      question = newQuestion;
+
+      answered = false;
+      correct = false;
+      loadingForm = true;
+
+      correctForm = null;
+      formError = null;
+
+      selectedCase = null;
+      selectedNumber = null;
+      selectedGender = null;
+
+      selectedPerson = null;
+      selectedNumberVerb = null;
+      selectedTense = null;
+      selectedVoice = null;
+
+      userCase = null;
+      userNumber = null;
+      userGender = null;
+
+      userPersonNumber = null;
+      userTense = null;
+      userVoice = null;
+
+      caseCorrect = null;
+      numberCorrect = null;
+      genderCorrect = null;
+      personCorrect = null;
+      tenseCorrect = null;
+      voiceCorrect = null;
+      lemmaCorrect = null;
+    });
+
+    _clearPreloaded();
+
+    if (newQuestion.type == "noun") {
+      await generateNounQuestion(newQuestion);
+    } else if (newQuestion.type == "verb") {
+      await generateVerbQuestion(newQuestion);
+    }
+
+    _preloadNextQuestion(available);
+  }
+
+  // ---------------------------------------------------------------------------
+  // EINSTELLUNGEN ANGEWENDET
+  // ---------------------------------------------------------------------------
+
+  Future<void> _applySettingsAfterDialog() async {
+    final currentQuestion = question;
+
+    // Wenn überhaupt keine gültigen Filter vorhanden sind,
+    // gibt es auch keine gültige aktuelle Frage.
+    final available = _getAvailableEntries();
+
+    if (available.isEmpty) {
+      _clearPreloaded();
 
       if (!mounted) {
         return;
       }
 
       setState(() {
-        question = newQuestion;
-
-        answered = false;
-        correct = false;
-        loadingForm = true;
-
+        question = null;
         correctForm = null;
         formError = null;
-
-        selectedCase = null;
-        selectedNumber = null;
-        selectedGender = null;
-
-        selectedPerson = null;
-        selectedNumberVerb = null;
-        selectedTense = null;
-        selectedVoice = null;
-
-        userCase = null;
-        userNumber = null;
-        userGender = null;
-
-        userPersonNumber = null;
-        userTense = null;
-        userVoice = null;
-
-        caseCorrect = null;
-        numberCorrect = null;
-        genderCorrect = null;
-        personCorrect = null;
-        tenseCorrect = null;
-        voiceCorrect = null;
-        lemmaCorrect = null;
+        answered = false;
+        loadingForm = false;
       });
 
-      if (newQuestion.type == "noun") {
-        await generateNounQuestion(newQuestion);
-      } else if (newQuestion.type == "verb") {
-        await generateVerbQuestion(newQuestion);
+      return;
+    }
+
+    // WICHTIG:
+    // Die aktuelle Frage bleibt bestehen, wenn sie weiterhin
+    // den neuen Einstellungen entspricht.
+    if (currentQuestion != null && _isEntryAvailable(currentQuestion)) {
+      // Eine eventuell vorgeladene Frage muss ebenfalls zu den
+      // neuen Einstellungen passen.
+      if (_preloadedQuestion != null &&
+          !_isEntryAvailable(_preloadedQuestion!)) {
+        _clearPreloaded();
       }
 
-      // Nach dem Laden: nächste Frage im Hintergrund vorladen
-      _preloadNextQuestion(available);
+      // Falls keine gültige Preload-Frage vorhanden ist,
+      // im Hintergrund eine neue vorbereiten.
+      if (_preloadedQuestion == null || _preloadedForm == null) {
+        _preloadNextQuestion(available);
+      }
+
+      return;
     }
+
+    // Die aktuelle Frage ist durch die neuen Einstellungen
+    // nicht mehr erlaubt.
+    //
+    // Deshalb zuerst versuchen, die vorgeladene Frage zu verwenden.
+    if (_preloadedQuestion != null &&
+        _preloadedForm != null &&
+        _isEntryAvailable(_preloadedQuestion!)) {
+      await _usePreloadedQuestion();
+
+      final newAvailable = _getAvailableEntries();
+
+      if (newAvailable.isNotEmpty) {
+        _preloadNextQuestion(newAvailable);
+      }
+
+      return;
+    }
+
+    // Keine passende Preload-Frage vorhanden:
+    // eine neue Frage laden.
+    await nextQuestion();
   }
 
-  // Lädt die nächste Frage im Hintergrund vor
+  // ---------------------------------------------------------------------------
+  // VORGELADENE FRAGE VERWENDEN
+  // ---------------------------------------------------------------------------
+
+  Future<void> _usePreloadedQuestion() async {
+    final preloadedQuestion = _preloadedQuestion;
+    final preloadedForm = _preloadedForm;
+
+    if (preloadedQuestion == null || preloadedForm == null) {
+      return;
+    }
+
+    answerController.clear();
+
+    if (!mounted) {
+      return;
+    }
+
+    setState(() {
+      question = preloadedQuestion;
+
+      answered = false;
+      correct = false;
+      loadingForm = false;
+
+      correctForm = preloadedForm;
+      formError = null;
+
+      selectedCase = _preloadedCase;
+      selectedNumber = _preloadedNumber;
+      selectedGender = _preloadedGender;
+
+      selectedPerson = _preloadedPerson;
+      selectedNumberVerb = _preloadedNumberVerb;
+      selectedTense = _preloadedTense;
+      selectedVoice = _preloadedVoice;
+
+      userCase = null;
+      userNumber = null;
+      userGender = null;
+
+      userPersonNumber = null;
+      userTense = null;
+      userVoice = null;
+
+      caseCorrect = null;
+      numberCorrect = null;
+      genderCorrect = null;
+      personCorrect = null;
+      tenseCorrect = null;
+      voiceCorrect = null;
+      lemmaCorrect = null;
+    });
+
+    _clearPreloaded();
+  }
+
+  // ---------------------------------------------------------------------------
+  // PRELOAD
+  // ---------------------------------------------------------------------------
+
   Future<void> _preloadNextQuestion(
     List<GreekVocabularyEntry> available,
   ) async {
-    if (available.isEmpty) return;
-
-    final nextQuestion = available[_random.nextInt(available.length)];
-
-    if (nextQuestion.type == "noun") {
-      await _preloadNounQuestion(nextQuestion);
-    } else if (nextQuestion.type == "verb") {
-      await _preloadVerbQuestion(nextQuestion);
+    if (available.isEmpty) {
+      return;
     }
+
+    final candidates = available.where((entry) {
+      return entry != question;
+    }).toList();
+
+    if (candidates.isEmpty) {
+      return;
+    }
+
+    final next = candidates[_random.nextInt(candidates.length)];
+
+    if (next.type == "noun") {
+      await _preloadNounQuestion(next);
+    } else if (next.type == "verb") {
+      await _preloadVerbQuestion(next);
+    }
+  }
+
+  void _clearPreloaded() {
+    _preloadedQuestion = null;
+    _preloadedForm = null;
+    _preloadedCase = null;
+    _preloadedNumber = null;
+    _preloadedGender = null;
+    _preloadedPerson = null;
+    _preloadedNumberVerb = null;
+    _preloadedTense = null;
+    _preloadedVoice = null;
   }
 
   // ---------------------------------------------------------------------------
@@ -489,12 +649,18 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
     setState(() {
       answered = true;
 
-      // Lemma prüfen (ohne Akzente und diakritische Zeichen)
-      final userLemma = normalizeGreekForComparison(
-        answerController.text.trim(),
-      );
-      final correctLemma = normalizeGreekForComparison(q.lemma.trim());
-      lemmaCorrect = userLemma.toLowerCase() == correctLemma.toLowerCase();
+      // Lemma nur prüfen, wenn das Lemma-Feld aktiviert ist.
+      if (showLemmaField) {
+        final userLemma = normalizeGreekForComparison(
+          answerController.text.trim(),
+        );
+
+        final correctLemma = normalizeGreekForComparison(q.lemma.trim());
+
+        lemmaCorrect = userLemma.toLowerCase() == correctLemma.toLowerCase();
+      } else {
+        lemmaCorrect = true;
+      }
 
       if (q.type == "noun") {
         caseCorrect = userCase == selectedCase;
@@ -502,20 +668,20 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
         genderCorrect = userGender == selectedGender;
 
         correct =
-            (lemmaCorrect ?? false) &&
+            lemmaCorrect! &&
             (caseCorrect ?? false) &&
             (numberCorrect ?? false) &&
             (genderCorrect ?? false);
       } else if (q.type == "verb") {
-        // userPersonNumber ist z.B. "1. Sg." oder "3. Pl."
-        // selectedPerson ist z.B. "1.", selectedNumberVerb ist "Sg" oder "Pl"
         final correctPersonNumber = "$selectedPerson $selectedNumberVerb.";
+
         personCorrect = userPersonNumber == correctPersonNumber;
+
         tenseCorrect = userTense == selectedTense;
         voiceCorrect = userVoice == selectedVoice;
 
         correct =
-            (lemmaCorrect ?? false) &&
+            lemmaCorrect! &&
             (personCorrect ?? false) &&
             (tenseCorrect ?? false) &&
             (voiceCorrect ?? false);
@@ -533,7 +699,8 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
     final number = numbers[_random.nextInt(numbers.length)];
 
     // Genus aus dem Artikel bestimmen
-    String gender = "m"; // Fallback
+    String gender = "m";
+
     if (entry.article == "ὁ") {
       gender = "m";
     } else if (entry.article == "ἡ") {
@@ -563,11 +730,13 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
 
       setState(() {
         loadingForm = false;
+
         correctForm = form == null ? null : normalizeGreekForDisplay(form);
 
         if (form == null || form.isEmpty) {
           formError =
-              'Keine passende Nominalform gefunden.\n\nLemma: ${entry.lemma}';
+              'Keine passende Nominalform gefunden.\n\n'
+              'Lemma: ${entry.lemma}';
         }
       });
     } catch (e) {
@@ -578,8 +747,11 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
       setState(() {
         loadingForm = false;
         correctForm = null;
+
         formError =
-            'Fehler beim Laden der Nominalform\n\nLemma: ${entry.lemma}\n\nFehler: $e';
+            'Fehler beim Laden der Nominalform\n\n'
+            'Lemma: ${entry.lemma}\n\n'
+            'Fehler: $e';
       });
     }
   }
@@ -668,7 +840,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
 
           formError =
               'Verbform nicht gefunden\n\n'
-              'Lemma: ${entry.lemma}\n'
+              'Lemma: ${entry.lemma}\n\n'
               'Gesucht: $person $number · '
               '$tense · $voice';
         });
@@ -678,7 +850,9 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
 
       setState(() {
         loadingForm = false;
+
         correctForm = normalizeGreekForDisplay(form);
+
         formError = null;
       });
     } catch (e) {
@@ -692,7 +866,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
 
         formError =
             'Fehler beim Laden der Verbform\n\n'
-            'Lemma: ${entry.lemma}\n'
+            'Lemma: ${entry.lemma}\n\n'
             'Gesucht: $person $number · '
             '$tense · $voice\n\n'
             'Fehler: $e';
@@ -701,15 +875,16 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
   }
 
   // ---------------------------------------------------------------------------
-  // PRELOAD METHODEN (Im Hintergrund laden)
+  // PRELOAD NOMEN
   // ---------------------------------------------------------------------------
 
   Future<void> _preloadNounQuestion(GreekVocabularyEntry entry) async {
     final grammaticalCase = cases[_random.nextInt(cases.length)];
+
     final number = numbers[_random.nextInt(numbers.length)];
 
-    // Genus aus dem Artikel bestimmen
     String gender = "m";
+
     if (entry.article == "ὁ") {
       gender = "m";
     } else if (entry.article == "ἡ") {
@@ -726,46 +901,52 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
       );
 
       if (form != null && form.isNotEmpty) {
-        // Speichere vorgeladene Daten (kein setState!)
         _preloadedQuestion = entry;
         _preloadedForm = normalizeGreekForDisplay(form);
+
         _preloadedCase = grammaticalCase;
         _preloadedNumber = number;
         _preloadedGender = gender;
+
         _preloadedPerson = null;
         _preloadedNumberVerb = null;
         _preloadedTense = null;
         _preloadedVoice = null;
       } else {
-        // Form nicht gefunden - verwerfen
-        _preloadedQuestion = null;
-        _preloadedForm = null;
+        _clearPreloaded();
       }
     } catch (e) {
-      // Fehler beim Vorladen - verwerfen
-      _preloadedQuestion = null;
-      _preloadedForm = null;
+      _clearPreloaded();
     }
   }
 
+  // ---------------------------------------------------------------------------
+  // PRELOAD VERB
+  // ---------------------------------------------------------------------------
+
   Future<void> _preloadVerbQuestion(GreekVocabularyEntry entry) async {
     final person = ["1.", "2.", "3."][_random.nextInt(3)];
+
     final number = ["Sg", "Pl"][_random.nextInt(2)];
 
     String tense;
+
     if (presentOnlyVerbs.contains(entry.lemma)) {
       tense = "Präsens";
     } else if (noAorist.contains(entry.lemma)) {
       const noAoristTenses = ["Präsens", "Imperfekt"];
+
       tense = noAoristTenses[_random.nextInt(noAoristTenses.length)];
     } else if (noImperfect.contains(entry.lemma)) {
       const noImperfectTenses = ["Präsens", "Aorist"];
+
       tense = noImperfectTenses[_random.nextInt(noImperfectTenses.length)];
     } else {
       tense = tenses[_random.nextInt(tenses.length)];
     }
 
     String voice;
+
     if (activeOnlyVerbs.contains(entry.lemma)) {
       voice = "Aktiv";
     } else if (entry.deponent) {
@@ -775,9 +956,9 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
     }
 
     final parsedPerson = _parsePerson(person);
+
     if (parsedPerson == null) {
-      _preloadedQuestion = null;
-      _preloadedForm = null;
+      _clearPreloaded();
       return;
     }
 
@@ -791,25 +972,23 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
       );
 
       if (form != null && form.isNotEmpty) {
-        // Speichere vorgeladene Daten (kein setState!)
         _preloadedQuestion = entry;
+
         _preloadedForm = normalizeGreekForDisplay(form);
+
         _preloadedCase = null;
         _preloadedNumber = null;
         _preloadedGender = null;
+
         _preloadedPerson = person;
         _preloadedNumberVerb = number;
         _preloadedTense = tense;
         _preloadedVoice = voice;
       } else {
-        // Form nicht gefunden - verwerfen
-        _preloadedQuestion = null;
-        _preloadedForm = null;
+        _clearPreloaded();
       }
     } catch (e) {
-      // Fehler beim Vorladen - verwerfen
-      _preloadedQuestion = null;
-      _preloadedForm = null;
+      _clearPreloaded();
     }
   }
 
@@ -821,10 +1000,13 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
     switch (value) {
       case "1.":
         return 1;
+
       case "2.":
         return 2;
+
       case "3.":
         return 3;
+
       default:
         return null;
     }
@@ -860,6 +1042,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
     double? width,
   }) {
     final border = resultBorder(isCorrect);
+
     return SizedBox(
       width: width,
       child: DropdownButtonFormField<String>(
@@ -878,6 +1061,18 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
         onChanged: answered ? null : onChanged,
       ),
     );
+  }
+
+  bool _currentQuestionMatchesSettings() {
+    final q = question;
+
+    if (q == null) {
+      return false;
+    }
+
+    return enabledSteps.contains(q.step) &&
+        enabledTypes.contains(q.type) &&
+        !grammarBlacklist.contains(q.lemma);
   }
 
   // ---------------------------------------------------------------------------
@@ -938,7 +1133,14 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
 
                       Navigator.pop(context);
 
-                      await nextQuestion();
+                      // Hauptscreen sofort aktualisieren, damit das Lemma-Feld
+                      // direkt nach dem Schließen des Einstellungsdialogs
+                      // erscheint bzw. verschwindet.
+                      if (mounted) {
+                        setState(() {});
+                      }
+
+                      await _applySettingsAfterDialog();
                     },
                   ),
                 ],
@@ -949,50 +1151,46 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
+                      // -------------------------------------------------------
+                      // SCHRITTE
+                      // -------------------------------------------------------
                       ExpansionTile(
                         title: const Text("Schritte"),
                         children: [
+                          ExpansionTile(
+                            title: const Text("Schritte"),
+                            children: [
+                              // ...
+                            ],
+                          ),
+
+                          ExpansionTile(
+                            title: const Text("Wortarten"),
+                            children: [
+                              // ...
+                            ],
+                          ),
+
+                          const Divider(),
+
                           CheckboxListTile(
-                            title: const Text("Alle Schritte"),
-                            tristate: true,
-                            value: enabledSteps.length == 7
-                                ? true
-                                : enabledSteps.isEmpty
-                                ? false
-                                : null,
-                            onChanged: (_) {
+                            title: const Text("Lemma (Grundform) abfragen"),
+                            subtitle: const Text(
+                              "Wenn deaktiviert, wird die Grundform nicht eingegeben.",
+                            ),
+                            value: showLemmaField,
+                            onChanged: (value) {
                               setDialogState(() {
-                                if (enabledSteps.length == 7) {
-                                  enabledSteps.clear();
-                                } else {
-                                  enabledSteps = [1, 2, 3, 4, 5, 6, 7];
-                                }
+                                showLemmaField = value ?? true;
                               });
                             },
                           ),
-                          ...List.generate(7, (index) {
-                            final step = index + 1;
-
-                            return CheckboxListTile(
-                              title: Text("Schritt $step"),
-                              value: enabledSteps.contains(step),
-                              onChanged: (value) {
-                                setDialogState(() {
-                                  if (value == true) {
-                                    if (!enabledSteps.contains(step)) {
-                                      enabledSteps.add(step);
-                                    }
-                                  } else {
-                                    enabledSteps.remove(step);
-                                  }
-
-                                  enabledSteps.sort();
-                                });
-                              },
-                            );
-                          }),
                         ],
                       ),
+
+                      // -------------------------------------------------------
+                      // WORTARTEN
+                      // -------------------------------------------------------
                       ExpansionTile(
                         title: const Text("Wortarten"),
                         children: [
@@ -1032,6 +1230,23 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
                             );
                           }),
                         ],
+                      ),
+
+                      // -------------------------------------------------------
+                      // LEMMA
+                      // -------------------------------------------------------
+                      CheckboxListTile(
+                        title: const Text("Lemma (Grundform) abfragen"),
+                        subtitle: const Text(
+                          "Wenn deaktiviert, wird das Lemma "
+                          "nicht bewertet.",
+                        ),
+                        value: showLemmaField,
+                        onChanged: (value) {
+                          setDialogState(() {
+                            showLemmaField = value ?? true;
+                          });
+                        },
                       ),
                     ],
                   ),
@@ -1093,7 +1308,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
             child: Column(
               children: [
                 // -------------------------------------------------------------
-                // DEKLINIERTE/KONJUGIERTE FORM
+                // DEKLINIERTE / KONJUGIERTE FORM
                 // -------------------------------------------------------------
                 if (loadingForm)
                   const CircularProgressIndicator()
@@ -1133,27 +1348,30 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
                 // -------------------------------------------------------------
                 // LEMMA EINGABE
                 // -------------------------------------------------------------
-                TextField(
-                  controller: answerController,
-                  enabled: !answered && !loadingForm && correctForm != null,
-                  decoration: InputDecoration(
-                    labelText: "Lemma (Grundform)",
-                    enabledBorder: resultBorder(lemmaCorrect),
-                    focusedBorder: resultBorder(lemmaCorrect),
-                    disabledBorder: resultBorder(lemmaCorrect),
-                    border: const OutlineInputBorder(),
-                    suffixIcon: IconButton(
-                      tooltip: "Griechische Tastatur",
-                      icon: const Icon(Icons.keyboard_alt_outlined),
-                      onPressed: answered || loadingForm || correctForm == null
-                          ? null
-                          : openGreekKeyboard,
+                if (showLemmaField) ...[
+                  TextField(
+                    controller: answerController,
+                    enabled: !answered && !loadingForm && correctForm != null,
+                    decoration: InputDecoration(
+                      labelText: "Lemma (Grundform)",
+                      enabledBorder: resultBorder(lemmaCorrect),
+                      focusedBorder: resultBorder(lemmaCorrect),
+                      disabledBorder: resultBorder(lemmaCorrect),
+                      border: const OutlineInputBorder(),
+                      suffixIcon: IconButton(
+                        tooltip: "Griechische Tastatur",
+                        icon: const Icon(Icons.keyboard_alt_outlined),
+                        onPressed:
+                            answered || loadingForm || correctForm == null
+                            ? null
+                            : openGreekKeyboard,
+                      ),
                     ),
+                    textInputAction: TextInputAction.done,
                   ),
-                  textInputAction: TextInputAction.done,
-                ),
 
-                const SizedBox(height: 24),
+                  const SizedBox(height: 24),
+                ],
 
                 // -------------------------------------------------------------
                 // FEEDBACK
@@ -1172,6 +1390,22 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
 
                       const SizedBox(height: 12),
 
+                      if (!showLemmaField) ...[
+                        Text(
+                          "Grundform: ${question!.lemma}",
+                          style: const TextStyle(fontWeight: FontWeight.w500),
+                        ),
+                        const SizedBox(height: 4),
+                      ],
+
+                      if (question?.translations.isNotEmpty ?? false)
+                        Text(
+                          "Übersetzung: ${question!.translations.join(', ')}",
+                          style: const TextStyle(fontWeight: FontWeight.w500),
+                        ),
+
+                      const SizedBox(height: 12),
+
                       if (!correct)
                         Column(
                           children: [
@@ -1182,7 +1416,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
 
                             const SizedBox(height: 8),
 
-                            if (lemmaCorrect == false)
+                            if (showLemmaField && lemmaCorrect == false)
                               Text("Lemma: ${question?.lemma ?? ''}"),
 
                             if (isNoun()) ...[
@@ -1197,7 +1431,8 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
                             if (isVerb()) ...[
                               if (personCorrect == false)
                                 Text(
-                                  "Person / Numerus: $selectedPerson $selectedNumberVerb.",
+                                  "Person / Numerus: "
+                                  "$selectedPerson $selectedNumberVerb.",
                                 ),
                               if (tenseCorrect == false)
                                 Text("Tempus: $selectedTense"),
@@ -1210,7 +1445,6 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
                       const SizedBox(height: 24),
                     ],
                   ),
-
                 // -------------------------------------------------------------
                 // FEHLER
                 // -------------------------------------------------------------
@@ -1317,57 +1551,53 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
   // ---------------------------------------------------------------------------
 
   Widget _buildVerbInputs() {
-    return Column(
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              child: _dropdown(
-                value: userPersonNumber,
-                label: "Person / Numerus",
-                items: personNumbers,
-                isCorrect: personCorrect,
-                onChanged: (value) {
-                  setState(() {
-                    userPersonNumber = value;
-                  });
-                },
-              ),
-            ),
+        Expanded(
+          child: _dropdown(
+            value: userPersonNumber,
+            label: "Person / Numerus",
+            items: personNumbers,
+            isCorrect: personCorrect,
+            onChanged: (value) {
+              setState(() {
+                userPersonNumber = value;
+              });
+            },
+          ),
+        ),
 
-            const SizedBox(width: 10),
+        const SizedBox(width: 10),
 
-            Expanded(
-              child: _dropdown(
-                value: userTense,
-                label: "Tempus",
-                items: tenses,
-                isCorrect: tenseCorrect,
-                onChanged: (value) {
-                  setState(() {
-                    userTense = value;
-                  });
-                },
-              ),
-            ),
+        Expanded(
+          child: _dropdown(
+            value: userTense,
+            label: "Tempus",
+            items: tenses,
+            isCorrect: tenseCorrect,
+            onChanged: (value) {
+              setState(() {
+                userTense = value;
+              });
+            },
+          ),
+        ),
 
-            const SizedBox(width: 10),
+        const SizedBox(width: 10),
 
-            Expanded(
-              child: _dropdown(
-                value: userVoice,
-                label: "Genus Verbi",
-                items: voices,
-                isCorrect: voiceCorrect,
-                onChanged: (value) {
-                  setState(() {
-                    userVoice = value;
-                  });
-                },
-              ),
-            ),
-          ],
+        Expanded(
+          child: _dropdown(
+            value: userVoice,
+            label: "Genus Verbi",
+            items: voices,
+            isCorrect: voiceCorrect,
+            onChanged: (value) {
+              setState(() {
+                userVoice = value;
+              });
+            },
+          ),
         ),
       ],
     );
@@ -1375,11 +1605,10 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
 }
 
 // -----------------------------------------------------------------------------
-// GRIECHISCH NORMALISIEREN
+// GRIECHISCH NORMALISIEREN – DISPLAY
 // -----------------------------------------------------------------------------
 
 String normalizeGreekForDisplay(String text) {
-  // Nur spezielle Makron/Breve-Zeichen ersetzen, Akzente bleiben erhalten
   return text
       .replaceAll('ᾰ', 'α')
       .replaceAll('ᾱ', 'α')
@@ -1389,11 +1618,13 @@ String normalizeGreekForDisplay(String text) {
       .replaceAll('ῡ', 'υ');
 }
 
+// -----------------------------------------------------------------------------
+// GRIECHISCH NORMALISIEREN – VERGLEICH
+// -----------------------------------------------------------------------------
+
 String normalizeGreekForComparison(String text) {
-  // Erst spezielle Zeichen normalisieren
   String normalized = normalizeGreekForDisplay(text);
 
-  // Map für griechische Zeichen mit Akzenten/Spiritus → Basiszeichen
   const Map<String, String> greekNormalization = {
     "ά": "α",
     "ὰ": "α",
@@ -1526,7 +1757,6 @@ String normalizeGreekForComparison(String text) {
     "ϖ": "π",
   };
 
-  // Zeichen-für-Zeichen normalisieren
   normalized = normalized
       .toLowerCase()
       .trim()
@@ -1534,9 +1764,7 @@ String normalizeGreekForComparison(String text) {
       .map((char) => greekNormalization[char] ?? char)
       .join();
 
-  // Restliche kombinierende diakritische Zeichen entfernen (falls noch welche übrig sind)
   normalized = normalized.replaceAll(RegExp(r'[̀-ͯ᾽-῿]'), '');
 
-  // Finales Sigma → normales Sigma
   return normalized.replaceAll('ς', 'σ');
 }
