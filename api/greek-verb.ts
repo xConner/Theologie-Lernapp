@@ -154,7 +154,7 @@ function findTenseTable(
             if (!classes.includes('grc-conj') || !classes.includes(tenseClass)) return;
             const navFrame = table.closest('.NavFrame');
             const title = cleanText(navFrame.find('.NavHead').first().text() ?? '');
-            if (!/Attic/i.test(title) && !/Contracted/i.test(title) && !/(Epic|Ionic|Koine)/i.test(title)) {
+            if (!/Attic/i.test(title) && !/(?<!un)Contracted/i.test(title) && !/(Epic|Ionic|Koine)/i.test(title)) {
                 normalAoristTables.push(table);
             }
         });
@@ -184,20 +184,20 @@ function findTenseTable(
 
         let score = 0;
 
-        if (/Contracted/i.test(title)) {
+        if (/ (?<!un)Contracted/i.test(title)) {
             score += 150;
         }
-        if (!/Attic/i.test(title) && !/Contracted/i.test(title) &&
+        if (!/Attic/i.test(title) && !/(?<!un)Contracted/i.test(title) &&
             !/(Epic|Ionic|Koine)/i.test(title)) {
             score += 100;
         }
         else if (/Attic/i.test(title)) {
             score += 200;
-            if (/Contracted/i.test(title)) {
+            if (/ (?<!un)Contracted/i.test(title)) {
                 score += 50;
             }
         }
-        else if (/Contracted/i.test(title)) {
+        else if (/ (?<!un)Contracted/i.test(title)) {
             if (tense === 'Imperfekt') {
                 score += 50;
             }
