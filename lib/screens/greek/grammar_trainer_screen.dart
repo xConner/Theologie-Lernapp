@@ -83,8 +83,9 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
 
   static const List<String> allTypes = ["noun", "verb"];
 
-  // Lemma-Feld anzeigen?
-  bool showLemmaField = true;
+  // Grundform-Felder anzeigen?
+  bool showLemmaFieldNoun = true;
+  bool showLemmaFieldVerb = true;
 
   // ---------------------------------------------------------------------------
   // NOMEN
@@ -165,6 +166,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
     "μένω",
     "ἐπερωτάω",
     "ἐπιτιμάω",
+    "θέλω",
   };
 
   static const Set<String> presentOnlyVerbs = {"προσεύχομαι"};
@@ -241,7 +243,16 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
 
     final savedSteps = settings['enabledSteps'];
     final savedTypes = settings['enabledTypes'];
-    final savedShowLemmaField = settings['showLemmaField'];
+    final savedShowLemmaFieldNoun = settings['showLemmaFieldNoun'];
+    final savedShowLemmaFieldVerb = settings['showLemmaFieldVerb'];
+
+    if (savedShowLemmaFieldNoun is bool) {
+      showLemmaFieldNoun = savedShowLemmaFieldNoun;
+    }
+
+    if (savedShowLemmaFieldVerb is bool) {
+      showLemmaFieldVerb = savedShowLemmaFieldVerb;
+    }
 
     if (savedSteps is List) {
       enabledSteps = savedSteps
@@ -259,10 +270,6 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
           .where((type) => allTypes.contains(type))
           .toList();
     }
-
-    if (savedShowLemmaField is bool) {
-      showLemmaField = savedShowLemmaField;
-    }
   }
 
   Future<void> saveGrammarSettings() async {
@@ -276,7 +283,8 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
       'greek_grammar_settings': {
         'enabledSteps': enabledSteps,
         'enabledTypes': enabledTypes,
-        'showLemmaField': showLemmaField,
+        'showLemmaFieldNoun': showLemmaFieldNoun,
+        'showLemmaFieldVerb': showLemmaFieldVerb,
       },
     }, SetOptions(merge: true));
   }
@@ -649,7 +657,11 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
     setState(() {
       answered = true;
 
-      // Lemma nur prüfen, wenn das Lemma-Feld aktiviert ist.
+      // Grundform nur prüfen, wenn das Grundform-Feld aktiviert ist.
+      final showLemmaField = q.type == "noun"
+          ? showLemmaFieldNoun
+          : showLemmaFieldVerb;
+
       if (showLemmaField) {
         final userLemma = normalizeGreekForComparison(
           answerController.text.trim(),
@@ -736,7 +748,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
         if (form == null || form.isEmpty) {
           formError =
               'Keine passende Nominalform gefunden.\n\n'
-              'Lemma: ${entry.lemma}';
+              'Grundform: ${entry.lemma}';
         }
       });
     } catch (e) {
@@ -750,7 +762,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
 
         formError =
             'Fehler beim Laden der Nominalform\n\n'
-            'Lemma: ${entry.lemma}\n\n'
+            'Grundform: ${entry.lemma}\n\n'
             'Fehler: $e';
       });
     }
@@ -812,7 +824,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
 
         formError =
             'Fehler bei Verbform\n'
-            'Lemma: ${entry.lemma}\n'
+            'Grundform: ${entry.lemma}\n'
             'Form: $person $number · $tense · $voice\n'
             'Ungültige Personenangabe.';
       });
@@ -840,7 +852,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
 
           formError =
               'Verbform nicht gefunden\n\n'
-              'Lemma: ${entry.lemma}\n\n'
+              'Grundform: ${entry.lemma}\n\n'
               'Gesucht: $person $number · '
               '$tense · $voice';
         });
@@ -866,7 +878,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
 
         formError =
             'Fehler beim Laden der Verbform\n\n'
-            'Lemma: ${entry.lemma}\n\n'
+            'Grundform: ${entry.lemma}\n\n'
             'Gesucht: $person $number · '
             '$tense · $voice\n\n'
             'Fehler: $e';
@@ -1157,34 +1169,42 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
                       ExpansionTile(
                         title: const Text("Schritte"),
                         children: [
-                          ExpansionTile(
-                            title: const Text("Schritte"),
-                            children: [
-                              // ...
-                            ],
-                          ),
-
-                          ExpansionTile(
-                            title: const Text("Wortarten"),
-                            children: [
-                              // ...
-                            ],
-                          ),
-
-                          const Divider(),
-
                           CheckboxListTile(
-                            title: const Text("Lemma (Grundform) abfragen"),
-                            subtitle: const Text(
-                              "Wenn deaktiviert, wird die Grundform nicht eingegeben.",
-                            ),
-                            value: showLemmaField,
-                            onChanged: (value) {
+                            title: const Text("Alle Schritte"),
+                            tristate: true,
+                            value: enabledSteps.length == 7
+                                ? true
+                                : enabledSteps.isEmpty
+                                ? false
+                                : null,
+                            onChanged: (_) {
                               setDialogState(() {
-                                showLemmaField = value ?? true;
+                                if (enabledSteps.length == 7) {
+                                  enabledSteps.clear();
+                                } else {
+                                  enabledSteps = [1, 2, 3, 4, 5, 6, 7];
+                                }
                               });
                             },
                           ),
+                          ...List.generate(7, (i) {
+                            final step = i + 1;
+                            return CheckboxListTile(
+                              title: Text("Schritt $step"),
+                              value: enabledSteps.contains(step),
+                              onChanged: (value) {
+                                setDialogState(() {
+                                  if (value == true) {
+                                    if (!enabledSteps.contains(step)) {
+                                      enabledSteps.add(step);
+                                    }
+                                  } else {
+                                    enabledSteps.remove(step);
+                                  }
+                                });
+                              },
+                            );
+                          }),
                         ],
                       ),
 
@@ -1233,20 +1253,45 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
                       ),
 
                       // -------------------------------------------------------
-                      // LEMMA
+                      // NOMEN EINSTELLUNGEN
                       // -------------------------------------------------------
-                      CheckboxListTile(
-                        title: const Text("Lemma (Grundform) abfragen"),
-                        subtitle: const Text(
-                          "Wenn deaktiviert, wird das Lemma "
-                          "nicht bewertet.",
-                        ),
-                        value: showLemmaField,
-                        onChanged: (value) {
-                          setDialogState(() {
-                            showLemmaField = value ?? true;
-                          });
-                        },
+                      ExpansionTile(
+                        title: const Text("Nomen Einstellungen"),
+                        children: [
+                          CheckboxListTile(
+                            title: const Text("Grundform abfragen"),
+                            subtitle: const Text(
+                              "Wenn deaktiviert, wird die Grundform bei Nomen nicht abgefragt.",
+                            ),
+                            value: showLemmaFieldNoun,
+                            onChanged: (value) {
+                              setDialogState(() {
+                                showLemmaFieldNoun = value ?? true;
+                              });
+                            },
+                          ),
+                        ],
+                      ),
+
+                      // -------------------------------------------------------
+                      // VERBEN EINSTELLUNGEN
+                      // -------------------------------------------------------
+                      ExpansionTile(
+                        title: const Text("Verben Einstellungen"),
+                        children: [
+                          CheckboxListTile(
+                            title: const Text("Grundform abfragen"),
+                            subtitle: const Text(
+                              "Wenn deaktiviert, wird die Grundform bei Verben nicht abgefragt.",
+                            ),
+                            value: showLemmaFieldVerb,
+                            onChanged: (value) {
+                              setDialogState(() {
+                                showLemmaFieldVerb = value ?? true;
+                              });
+                            },
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -1348,12 +1393,13 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
                 // -------------------------------------------------------------
                 // LEMMA EINGABE
                 // -------------------------------------------------------------
-                if (showLemmaField) ...[
+                if ((isNoun() && showLemmaFieldNoun) ||
+                    (isVerb() && showLemmaFieldVerb)) ...[
                   TextField(
                     controller: answerController,
                     enabled: !answered && !loadingForm && correctForm != null,
                     decoration: InputDecoration(
-                      labelText: "Lemma (Grundform)",
+                      labelText: "Grundform",
                       enabledBorder: resultBorder(lemmaCorrect),
                       focusedBorder: resultBorder(lemmaCorrect),
                       disabledBorder: resultBorder(lemmaCorrect),
@@ -1390,7 +1436,8 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
 
                       const SizedBox(height: 12),
 
-                      if (!showLemmaField) ...[
+                      if (!(isNoun() && showLemmaFieldNoun) &&
+                          !(isVerb() && showLemmaFieldVerb)) ...[
                         Text(
                           "Grundform: ${question!.lemma}",
                           style: const TextStyle(fontWeight: FontWeight.w500),
@@ -1416,8 +1463,10 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
 
                             const SizedBox(height: 8),
 
-                            if (showLemmaField && lemmaCorrect == false)
-                              Text("Lemma: ${question?.lemma ?? ''}"),
+                            if (((isNoun() && showLemmaFieldNoun) ||
+                                    (isVerb() && showLemmaFieldVerb)) &&
+                                lemmaCorrect == false)
+                              Text("Grundform: ${question?.lemma ?? ''}"),
 
                             if (isNoun()) ...[
                               if (caseCorrect == false)

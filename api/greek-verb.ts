@@ -154,46 +154,47 @@ function findTenseTable(
         );
 
         // --- PRIORITÄTEN SYSTEM ---
-        // 1. TABELLEN OHNE LABEL (="normal") haben Höchste Priorität
-        // 2. Unter benannten Tabeln: Attic > Epic/Ionic/Koine
-        // 3. Contracta-Verben (-άω, -έω, -όω) erhalten bonus bei Contracted-Tabellen
+        // 1. TABELLEN OHNE LABEL ("normal") haben niedrigste Priorität
+        // 2. Contracted-Tabellen sind höher als normal für Imperfect
+        // 3. Unter benannten Tabeln: Attic > Epic/Ionic/Koine
 
         let score = 0;
 
+        // BASE SCORE für Contracted-Tabellen
+        if (/Contracted/i.test(title)) {
+            score += 150; // Contracted ist immer besser als "normal" ohne Label
+        }
         // 1. TABELLEN OHNE SPEZIELLES LABEL ("normal")
-        //    Diese haben die höchste Priorität (200 Points)
+        //    Diese haben die niedrigste Priorität (100 Points)
         //    Egal ob attic-class oder nicht - wenn kein Label im Titel,
-        //    ist es die Standard-Wahl
+        //    ist es die niedrigste Wahl
         if (!/Attic/i.test(title) && !/Contracted/i.test(title) &&
             !/(Epic|Ionic|Koine)/i.test(title)) {
-            score += 200; // Höchste Priorität für "normale" Tabellen
+            score += 100; // Niedrigste Priorität für "normale" Tabellen
         }
-        // 2. ATTIC LABEL (unter den benannten Tabeln highest)
+        // 2. ATTIC LABEL (unter den benannten Tabeln)
         else if (/Attic/i.test(title)) {
-            score += 100; // Attic ist zweit-highste unter benannten
+            score += 200; // Attic ist hoch
 
             // Bonus: Attic + Contracted kombiniert
             if (/Contracted/i.test(title)) {
-                score += 30; // Attic+Contracted = 130 Points (sehr gut für contracta-Verben)
+                score += 50; // Attic+Contracted = 250 Points
             }
         }
-        // 3. CONTRACTED LABEL allein (für contracta-Verben special handling)
+        // 3. CONTRACTED LABEL (ohne Attic)
         else if (/Contracted/i.test(title)) {
-            if (lemma && (/άω$/.test(lemma) || /έω$/.test(lemma) || /όω$/.test(lemma))) {
-                score += 90; // Für contracta-Verben: 90 Points (fast so hoch wie Attic=100,
-                               // aber normal=200 geht noch)
-            } else {
-                score += 20; // Nicht-contracta-Verben: 20 Points, wird normal (200) vorzuziehen
+            // Contracted hat Basis-Score 150, plus evtl. Bonus
+            if (tense === 'Imperfekt') {
+                score += 50; // Imperfect Contracted = 200 Points (über Attic! aber unter Attic+Contracted)
             }
         }
-        // 4. NICHT-ATTIC BENENNTE TABELN (Epic, Ionic, Koine etc.)
-        //    Stark bestrafen, damit sie hinter normal und attic landen
+        // 4. NICHT-ATTIC BENANNETE TABELN (Epic, Ionic, Koine etc.)
         else if (/(Epic|Ionic|Koine)/i.test(title)) {
-            score -= 100; // Massive Bestrafung: -100 Points (landen hinter normal/attic)
+            score -= 100; // Bestrafung: -100 Points
         }
         // 5. Übrige spezielle Tabellen
         else {
-            score += 0; // Neutral: 0 Points, landen hinter normal/attic
+            score += 0; // Neutral: 0 Points
         }
 
         candidates.push({
