@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: const Color.fromARGB(255, 255, 255, 255),
 
         cardTheme: const CardThemeData(
-          color: Color.fromARGB(255, 133, 133, 133),
+          color: Color.fromARGB(255, 180, 177, 177),
           elevation: 2,
           margin: EdgeInsets.symmetric(vertical: 6),
         ),

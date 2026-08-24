@@ -181,6 +181,37 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
 
   static const Set<String> noImperfect = {"ἐμβαίνω"};
 
+  static const Set<String> aoristSheet = {
+    "βλέπω",
+    "γράφω",
+    "πέμπω",
+    "νομίζω",
+    "πείθω",
+    "σῴζω",
+    "ἄρχω",
+    "πράττω", //Aorist anderes Lemma nehmen
+    "τάττω",
+    "φυλάττω", //Aorist anderes Lemma nehmen
+    "ἀγγέλλω",
+    "κρίνω",
+    "μένω",
+    "ἄγω",
+    "βάλλω",
+    "γίγνομαι",
+    "ἔρχομαι",
+    "εὑρίσκω", //Zweite Aorist Tabelle
+    "ἔχω",
+    "λαμβάνω",
+    "λέγω",
+    "λείπω", //Normaler statt Koine Aorist
+    "μανθάνω",
+    "ὁράω",
+    "φεύγω",
+    "φέρω", //Zweite Aorist Tabelle
+    "βαίνω",
+    "γιγνώσκω",
+  };
+
   // ---------------------------------------------------------------------------
   // INIT / DISPOSE
   // ---------------------------------------------------------------------------
@@ -422,7 +453,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
       return;
     }
 
-    final newQuestion = available[_random.nextInt(available.length)];
+    final newQuestion = _getThreeOptionRandomEntry(available);
 
     answerController.clear();
 
@@ -625,7 +656,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
       return;
     }
 
-    final next = candidates[_random.nextInt(candidates.length)];
+    final next = _getThreeOptionRandomEntry(candidates);
 
     if (next.type == "noun") {
       await _preloadNounQuestion(next);
@@ -1022,6 +1053,35 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
       default:
         return null;
     }
+  }
+
+  GreekVocabularyEntry _getThreeOptionRandomEntry(List<GreekVocabularyEntry> available) {
+    // Build the aoristSheet verbs list from available
+    List<GreekVocabularyEntry> aoristSheetVerbs = available.where((entry) {
+      return entry.type == "verb" && aoristSheet.contains(entry.lemma);
+    }).toList();
+
+    // Check for εἰ mí
+    bool eimaiAvailable = available.any((entry) => entry.lemma == "εἰμί");
+    GreekVocabularyEntry? eimaiEntry = eimaiAvailable
+        ? available.firstWhere((entry) => entry.lemma == "εἰμί")
+        : null;
+
+    // Build the list of option lists
+    List<List<GreekVocabularyEntry>> optionLists = [
+      available   // option1: vocabulary
+    ];
+    if (aoristSheetVerbs.isNotEmpty) {
+      optionLists.add(aoristSheetVerbs);
+    }
+    if (eimaiAvailable) {
+      optionLists.add([eimaiEntry!]);
+    }
+
+    // Pick a list uniformly
+    List<GreekVocabularyEntry> chosenList = optionLists[_random.nextInt(optionLists.length)];
+    // Pick an entry uniformly from the chosen list
+    return chosenList[_random.nextInt(chosenList.length)];
   }
 
   // ---------------------------------------------------------------------------

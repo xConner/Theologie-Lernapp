@@ -24,7 +24,7 @@ function normalizeVoice(value: string): string {
     const normalized = value
         .toLowerCase()
         .replace(/\s+/g, '')
-        .replace(/\u00a0/g, '');
+        .replace(/ /g, '');
 
     if (
         normalized === 'aktiv' ||
@@ -64,9 +64,6 @@ function normalizeVoice(value: string): string {
     return normalized;
 }
 
-
-
-
 function getCellIndex(
     number: string,
     person: number,
@@ -89,7 +86,7 @@ function getCellIndex(
 
 function cleanText(text: string): string {
     return text
-        .replace(/\u00a0/g, ' ')
+        .replace(/ /g, ' ')
         .replace(/\s+/g, ' ')
         .trim();
 }
@@ -109,7 +106,7 @@ function extractGreekForm(
 
     const text = cleanText(cell.text());
 
-    if (text.length === 0 || text === '\u00a0') {
+    if (text.length === 0 || text === ' ') {
         return null;
     }
 
@@ -133,6 +130,39 @@ function findTenseTable(
         score: number;
     }[] = [];
 
+    // Sonderfall-Definitionen
+    const specialCases = {
+        lemmaReplacements: new Map([
+            ['πράττω', 'πράσσω'],
+            ['φυλάττω', 'φυλάσσω']
+        ]),
+        secondAoristTable: new Set(['εὑρίσκω', 'φέρω']),
+        normalInsteadOfKoine: new Set(['λείπω'])
+    };
+
+    // Bestimme das zu verwendende Lemma (mögliche Ersetzung)
+    const effectiveLemma = lemma && specialCases.lemmaReplacements.has(lemma)
+        ? specialCases.lemmaReplacements.get(lemma)
+        : lemma;
+
+    // SONDERFALL: Für εὑρίσκω / φέρω: explizit die ZWEITE normale Aorist-Tabelle
+    if (lemma && tense === 'Aorist' && specialCases.secondAoristTable.has(lemma)) {
+        const normalAoristTables: cheerio.Cheerio<any>[] = [];
+        $('table').each((_, element) => {
+            const table = $(element);
+            const classes = table.attr('class') ?? '';
+            if (!classes.includes('grc-conj') || !classes.includes(tenseClass)) return;
+            const navFrame = table.closest('.NavFrame');
+            const title = cleanText(navFrame.find('.NavHead').first().text() ?? '');
+            if (!/Attic/i.test(title) && !/Contracted/i.test(title) && !/(Epic|Ionic|Koine)/i.test(title)) {
+                normalAoristTables.push(table);
+            }
+        });
+        if (normalAoristTables.length >= 2) {
+            return normalAoristTables[1];
+        }
+    }
+
     $('table').each((_, element) => {
         const table = $(element);
         const classes = table.attr('class') ?? '';
@@ -145,7 +175,6 @@ function findTenseTable(
         }
 
         const navFrame = table.closest('.NavFrame');
-
         const title = cleanText(
             navFrame
                 .find('.NavHead')
@@ -153,48 +182,38 @@ function findTenseTable(
                 .text() ?? '',
         );
 
-        // --- PRIORITÄTEN SYSTEM ---
-        // 1. TABELLEN OHNE LABEL ("normal") haben niedrigste Priorität
-        // 2. Contracted-Tabellen sind höher als normal für Imperfect
-        // 3. Unter benannten Tabeln: Attic > Epic/Ionic/Koine
-
         let score = 0;
 
-        // BASE SCORE für Contracted-Tabellen
         if (/Contracted/i.test(title)) {
-            score += 150; // Contracted ist immer besser als "normal" ohne Label
+            score += 150;
         }
-        // 1. TABELLEN OHNE SPEZIELLES LABEL ("normal")
-        //    Diese haben die niedrigste Priorität (100 Points)
-        //    Egal ob attic-class oder nicht - wenn kein Label im Titel,
-        //    ist es die niedrigste Wahl
         if (!/Attic/i.test(title) && !/Contracted/i.test(title) &&
             !/(Epic|Ionic|Koine)/i.test(title)) {
-            score += 100; // Niedrigste Priorität für "normale" Tabellen
+            score += 100;
         }
-        // 2. ATTIC LABEL (unter den benannten Tabeln)
         else if (/Attic/i.test(title)) {
-            score += 200; // Attic ist hoch
-
-            // Bonus: Attic + Contracted kombiniert
+            score += 200;
             if (/Contracted/i.test(title)) {
-                score += 50; // Attic+Contracted = 250 Points
+                score += 50;
             }
         }
-        // 3. CONTRACTED LABEL (ohne Attic)
         else if (/Contracted/i.test(title)) {
-            // Contracted hat Basis-Score 150, plus evtl. Bonus
             if (tense === 'Imperfekt') {
-                score += 50; // Imperfect Contracted = 200 Points (über Attic! aber unter Attic+Contracted)
+                score += 50;
             }
         }
-        // 4. NICHT-ATTIC BENANNETE TABELN (Epic, Ionic, Koine etc.)
         else if (/(Epic|Ionic|Koine)/i.test(title)) {
-            score -= 100; // Bestrafung: -100 Points
+            score -= 100;
         }
-        // 5. Übrige spezielle Tabellen
         else {
-            score += 0; // Neutral: 0 Points
+            score += 0;
+        }
+
+        if (lemma && tense === 'Aorist') {
+            if (specialCases.normalInsteadOfKoine.has(lemma) &&
+                /Koine/i.test(title)) {
+                score -= 150;
+            }
         }
 
         candidates.push({
@@ -208,18 +227,7 @@ function findTenseTable(
         return null;
     }
 
-    // Sortiere nach Score (höchste zuerst)
     candidates.sort((a, b) => b.score - a.score);
-
-    // Debug-Logging (optional, kann bei Bedarf aktiviert werden)
-    // if (lemma && candidates.length > 1) {
-    //     console.log(`Verb: ${lemma}, Tempora-Kandidaten:`);
-    //     candidates.forEach((c, i) => {
-    //         console.log(`  ${i + 1}. Score ${c.score}: ${c.title}`);
-    //     });
-    // }
-
-    // Nimm die beste Tabelle (höchster Score = beste Priorität)
     return candidates[0].table;
 }
 
@@ -280,14 +288,12 @@ function extractIndicativeForm(
                 $(headers[1]).text(),
             );
 
-            // Nur Indicative
             if (
                 secondHeader.toLowerCase() !== 'indicative'
             ) {
                 return;
             }
 
-            // Richtige Voice
             if (!voiceMatcher(firstHeader)) {
                 return;
             }
@@ -312,7 +318,6 @@ function extractIndicativeForm(
 
     // ---------------------------------------------------------
     // AKTIV
-    // ---------------------------------------------------------
 
     if (wantedVoice === 'active') {
         return findFormInRows(isActiveVoice);
@@ -320,35 +325,25 @@ function extractIndicativeForm(
 
     // ---------------------------------------------------------
     // MEDIUM/PASSIV
-    // ---------------------------------------------------------
 
     if (wantedVoice === 'middle/passive') {
-        // 1. Middle
         const middleForm = findFormInRows(isMiddleVoice);
 
         if (middleForm !== null) {
             return middleForm;
         }
 
-        // 2. Echte Middle/Passive-Zeile
-        // (wird durch isMiddleVoice bereits mit abgedeckt,
-        // bleibt aber logisch Teil des Fallbacks)
-
-        // 3. Passive
         const passiveForm = findFormInRows(isPassiveVoice);
 
         if (passiveForm !== null) {
             return passiveForm;
         }
 
-        // 4. Manche Deponentien haben in einzelnen Tempora
-        // morphologisch aktive Formen, z. B. ἔρχομαι → ἦλθον.
         return findFormInRows(isActiveVoice);
     }
 
     // ---------------------------------------------------------
     // NUR MEDIUM
-    // ---------------------------------------------------------
 
     if (wantedVoice === 'middle') {
         return findFormInRows(isMiddleVoice);
@@ -356,7 +351,6 @@ function extractIndicativeForm(
 
     // ---------------------------------------------------------
     // NUR PASSIV
-    // ---------------------------------------------------------
 
     if (wantedVoice === 'passive') {
         return findFormInRows(isPassiveVoice);
@@ -369,7 +363,6 @@ export default async function handler(
     req: VercelRequest,
     res: VercelResponse,
 ) {
-    // CORS
     res.setHeader(
         'Access-Control-Allow-Origin',
         '*',
@@ -431,9 +424,13 @@ export default async function handler(
             });
         }
 
+        const queryLemma = (lemma as string) === 'πράττω' || (lemma as string) === 'φυλάττω'
+            ? ((lemma as string) === 'πράττω' ? 'πράσσω' : 'φυλάσσω')
+            : (lemma as string);
+
         const url =
             WIKTIONARY_BASE_URL +
-            encodeURIComponent(lemma);
+            encodeURIComponent(queryLemma);
 
         const response = await fetch(url, {
             headers: {
@@ -450,7 +447,6 @@ export default async function handler(
         }
 
         const html = await response.text();
-
         const $ = cheerio.load(html);
 
         const table = findTenseTable(

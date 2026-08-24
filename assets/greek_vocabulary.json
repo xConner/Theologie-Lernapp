@@ -1894,7 +1894,7 @@
     "id": 174,
     "step": 4,
     "type": "verb",
-    "lemma": "γινώσκω",
+    "lemma": "γιγνώσκω",
     "aorist": "ἔγνων",
     "translations": [
       "erkennen",
@@ -4409,7 +4409,8 @@
       "fliehen",
       "angeklagt werden",
       "angeklagt sein"
-    ]
+    ],
+    "aorist": "ἔφῠγον"
   },
   {
     "id": 424,
@@ -4460,5 +4461,56 @@
     "translations": [
       "wie"
     ]
+  },
+  {
+    "id": 429,
+    "step": 1,
+    "type": "verb",
+    "lemma": "γράφω",
+    "translations": [
+      "schreiben"
+    ],
+    "aorist": "ἔγρᾰψᾰ"
+  },
+  {
+    "id": 430,
+    "step": 1,
+    "type": "verb",
+    "lemma": "φυλάττω",
+    "translations": [
+      "bewachen"
+    ],
+    "aorist": "ἐφῠ́λᾰξᾰ"
+  },
+  {
+    "id": 431,
+    "step": 1,
+    "type": "verb",
+    "lemma": "βάλλω",
+    "translations": [
+      "werfen",
+      "treiben"
+    ],
+    "aorist": "ἔβᾰλον"
+  },
+  {
+    "id": 432,
+    "step": 1,
+    "type": "verb",
+    "lemma": "εὑρίσκω",
+    "translations": [
+      "finden"
+    ],
+    "aorist": "ηὗρον"
+  },
+  {
+    "id": 432,
+    "step": 1,
+    "type": "verb",
+    "lemma": "λείπω",
+    "translations": [
+      "verlassen"
+    ],
+    "aorist": "ἔλῐπον"
   }
 ]
