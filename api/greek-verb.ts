@@ -184,7 +184,7 @@ function findTenseTable(
 
         let score = 0;
 
-        if (/ (?<!un)Contracted/i.test(title)) {
+        if (/(?<!un)Contracted/i.test(title)) {
             score += 150;
         }
         if (!/Attic/i.test(title) && !/(?<!un)Contracted/i.test(title) &&
@@ -193,11 +193,11 @@ function findTenseTable(
         }
         else if (/Attic/i.test(title)) {
             score += 200;
-            if (/ (?<!un)Contracted/i.test(title)) {
+            if (/(?<!un)Contracted/i.test(title)) {
                 score += 50;
             }
         }
-        else if (/ (?<!un)Contracted/i.test(title)) {
+        else if (/(?<!un)Contracted/i.test(title)) {
             if (tense === 'Imperfekt') {
                 score += 50;
             }
