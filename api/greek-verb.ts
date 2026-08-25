@@ -191,19 +191,17 @@ function findTenseTable(
             !/(Epic|Ionic|Koine)/i.test(title)) {
             score += 100;
         }
+        else if (/Koine/i.test(title)) {
+            score += 50;
+        }
+        else if (/(Epic|Ionic)/i.test(title)) {
+            score -= 100;
+        }
         else if (/Attic/i.test(title)) {
-            score += 200;
+            score -= 50;
             if (/(?<!un)Contracted/i.test(title)) {
                 score += 50;
             }
-        }
-        else if (/(?<!un)Contracted/i.test(title)) {
-            if (tense === 'Imperfekt') {
-                score += 50;
-            }
-        }
-        else if (/(Epic|Ionic|Koine)/i.test(title)) {
-            score -= 100;
         }
         else {
             score += 0;
