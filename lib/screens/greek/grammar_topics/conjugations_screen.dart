@@ -21,20 +21,24 @@ class ConjugationsScreen extends StatelessWidget {
   }
 
   Widget endingTable(List<List<Widget>> rows) {
-    return Table(
-      border: TableBorder.all(),
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
 
-      defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+      child: Table(
+        border: TableBorder.all(),
 
-      columnWidths: const {
-        0: FixedColumnWidth(120),
-        1: FixedColumnWidth(220),
-        2: FixedColumnWidth(220),
-      },
+        defaultVerticalAlignment: TableCellVerticalAlignment.middle,
 
-      children: rows.map((row) {
-        return TableRow(children: row);
-      }).toList(),
+        columnWidths: const {
+          0: FixedColumnWidth(120),
+          1: FixedColumnWidth(220),
+          2: FixedColumnWidth(220),
+        },
+
+        children: rows.map((row) {
+          return TableRow(children: row);
+        }).toList(),
+      ),
     );
   }
 

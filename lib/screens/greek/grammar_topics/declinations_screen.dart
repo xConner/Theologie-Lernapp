@@ -51,20 +51,24 @@ class DeclinationsScreen extends StatelessWidget {
   }
 
   Widget declensionTable(List<List<Widget>> rows) {
-    return Table(
-      border: TableBorder.all(),
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
 
-      defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+      child: Table(
+        border: TableBorder.all(),
 
-      columnWidths: const {
-        0: FixedColumnWidth(120),
-        1: FixedColumnWidth(300),
-        2: FixedColumnWidth(300),
-      },
+        defaultVerticalAlignment: TableCellVerticalAlignment.middle,
 
-      children: rows.map((row) {
-        return TableRow(children: row);
-      }).toList(),
+        columnWidths: const {
+          0: FixedColumnWidth(120),
+          1: FixedColumnWidth(300),
+          2: FixedColumnWidth(300),
+        },
+
+        children: rows.map((row) {
+          return TableRow(children: row);
+        }).toList(),
+      ),
     );
   }
 
@@ -236,37 +240,41 @@ class DeclinationsScreen extends StatelessWidget {
 
                   const SizedBox(height: 12),
 
-                  Table(
-                    border: TableBorder.all(),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
 
-                    defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+                    child: Table(
+                      border: TableBorder.all(),
 
-                    columnWidths: const {
-                      0: FixedColumnWidth(120),
-                      1: FixedColumnWidth(300),
-                    },
+                      defaultVerticalAlignment: TableCellVerticalAlignment.middle,
 
-                    children: [
-                      [tableText("Singular", bold: true), const SizedBox()],
+                      columnWidths: const {
+                        0: FixedColumnWidth(120),
+                        1: FixedColumnWidth(300),
+                      },
 
-                      [tableText("Nom."), greekForm("παῖ", "ὁ", "ς")],
+                      children: [
+                        [tableText("Singular", bold: true), const SizedBox()],
 
-                      [tableText("Gen."), greekForm("παιδ", "τοῦ", "ός")],
+                        [tableText("Nom."), greekForm("παῖ", "ὁ", "ς")],
 
-                      [tableText("Dat."), greekForm("παιδ", "τῷ", "ί")],
+                        [tableText("Gen."), greekForm("παιδ", "τοῦ", "ός")],
 
-                      [tableText("Akk."), greekForm("παῖδ", "τὸν", "α")],
+                        [tableText("Dat."), greekForm("παιδ", "τῷ", "ί")],
 
-                      [tableText("Plural", bold: true), const SizedBox()],
+                        [tableText("Akk."), greekForm("παῖδ", "τὸν", "α")],
 
-                      [tableText("Nom."), greekForm("παῖδ", "οἱ", "ες")],
+                        [tableText("Plural", bold: true), const SizedBox()],
 
-                      [tableText("Gen."), greekForm("παίδ", "τῶν", "ων")],
+                        [tableText("Nom."), greekForm("παῖδ", "οἱ", "ες")],
 
-                      [tableText("Dat."), greekForm("παι", "τοῖς", "σί")],
+                        [tableText("Gen."), greekForm("παίδ", "τῶν", "ων")],
 
-                      [tableText("Akk."), greekForm("παῖδ", "τοὺς", "ας")],
-                    ].map((row) => TableRow(children: row)).toList(),
+                        [tableText("Dat."), greekForm("παι", "τοῖς", "σί")],
+
+                        [tableText("Akk."), greekForm("παῖδ", "τοὺς", "ας")],
+                      ].map((row) => TableRow(children: row)).toList(),
+                    ),
                   ),
                 ],
               ),

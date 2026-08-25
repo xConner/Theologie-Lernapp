@@ -1055,7 +1055,9 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
     }
   }
 
-  GreekVocabularyEntry _getThreeOptionRandomEntry(List<GreekVocabularyEntry> available) {
+  GreekVocabularyEntry _getThreeOptionRandomEntry(
+    List<GreekVocabularyEntry> available,
+  ) {
     // Build the aoristSheet verbs list from available
     List<GreekVocabularyEntry> aoristSheetVerbs = available.where((entry) {
       return entry.type == "verb" && aoristSheet.contains(entry.lemma);
@@ -1069,7 +1071,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
 
     // Build the list of option lists
     List<List<GreekVocabularyEntry>> optionLists = [
-      available   // option1: vocabulary
+      available, // option1: vocabulary
     ];
     if (aoristSheetVerbs.isNotEmpty) {
       optionLists.add(aoristSheetVerbs);
@@ -1079,7 +1081,8 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
     }
 
     // Pick a list uniformly
-    List<GreekVocabularyEntry> chosenList = optionLists[_random.nextInt(optionLists.length)];
+    List<GreekVocabularyEntry> chosenList =
+        optionLists[_random.nextInt(optionLists.length)];
     // Pick an entry uniformly from the chosen list
     return chosenList[_random.nextInt(chosenList.length)];
   }
