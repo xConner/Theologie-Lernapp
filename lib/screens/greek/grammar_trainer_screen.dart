@@ -7,7 +7,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../../models/greek/vocabulary/greek_vocabulary_entry.dart';
 import '../../services/greek/vocabulary/greek_vocabulary_loader.dart';
 import '../../services/greek/grammar/wiktionary_inflection_service.dart';
+import '../../services/quiz_sound_player.dart';
+import '../../services/quiz_sound_settings.dart';
+import '../../theme/app_theme.dart';
+import '../../widgets/answer_feedback_badge.dart';
 import '../../widgets/greek_keyboard.dart';
+import '../../widgets/sound_volume_button.dart';
 
 import 'package:web/web.dart' as web;
 import 'dart:js_interop';
@@ -211,6 +216,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
     "βαίνω",
     "γιγνώσκω",
   };
+  //static const Set<String> aoristSheet = {"ἔρχομαι"};
 
   // ---------------------------------------------------------------------------
   // INIT / DISPOSE
@@ -730,6 +736,12 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
             (voiceCorrect ?? false);
       }
     });
+
+    if (correct) {
+      QuizSoundPlayer.instance.playCorrect(SoundModule.greekGrammar);
+    } else {
+      QuizSoundPlayer.instance.playIncorrect(SoundModule.greekGrammar);
+    }
   }
 
   // ---------------------------------------------------------------------------
@@ -1098,7 +1110,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
 
     return OutlineInputBorder(
       borderSide: BorderSide(
-        color: value ? Colors.green : Colors.red,
+        color: value ? AppColors.success : AppColors.error,
         width: 2,
       ),
     );
@@ -1356,6 +1368,41 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
                           ),
                         ],
                       ),
+
+                      // -------------------------------------------------------
+                      // SOUNDS
+                      // -------------------------------------------------------
+                      const Divider(),
+
+                      CheckboxListTile(
+                        title: const Text("Sound bei richtiger Antwort"),
+                        value: QuizSoundSettings.instance.isCorrectSoundEnabled(
+                          SoundModule.greekGrammar,
+                        ),
+                        onChanged: (value) {
+                          setDialogState(() {
+                            QuizSoundSettings.instance.setCorrectSoundEnabled(
+                              SoundModule.greekGrammar,
+                              value ?? true,
+                            );
+                          });
+                        },
+                      ),
+
+                      CheckboxListTile(
+                        title: const Text("Sound bei falscher Antwort"),
+                        value: QuizSoundSettings.instance.isWrongSoundEnabled(
+                          SoundModule.greekGrammar,
+                        ),
+                        onChanged: (value) {
+                          setDialogState(() {
+                            QuizSoundSettings.instance.setWrongSoundEnabled(
+                              SoundModule.greekGrammar,
+                              value ?? true,
+                            );
+                          });
+                        },
+                      ),
                     ],
                   ),
                 ),
@@ -1384,6 +1431,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
         appBar: AppBar(
           title: const Text("Grammatiktrainer"),
           actions: [
+            const SoundVolumeButton(),
             IconButton(
               icon: const Icon(Icons.settings),
               onPressed: openSettings,
@@ -1405,6 +1453,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
       appBar: AppBar(
         title: const Text("Grammatiktrainer"),
         actions: [
+          const SoundVolumeButton(),
           IconButton(icon: const Icon(Icons.settings), onPressed: openSettings),
         ],
       ),
@@ -1433,7 +1482,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
                   SelectableText(
                     formError!,
                     textAlign: TextAlign.center,
-                    style: const TextStyle(color: Colors.red),
+                    style: const TextStyle(color: AppColors.error),
                   )
                 else
                   const Text(
@@ -1488,13 +1537,9 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
                 if (answered)
                   Column(
                     children: [
-                      Text(
-                        correct ? "Richtig" : "Falsch",
-                        style: TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
-                          color: correct ? Colors.green : Colors.red,
-                        ),
+                      AnswerFeedbackBadge(
+                        correct: correct,
+                        label: correct ? "Richtig" : "Falsch",
                       ),
 
                       const SizedBox(height: 12),
@@ -1564,7 +1609,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
                   Text(
                     formError!,
                     textAlign: TextAlign.center,
-                    style: const TextStyle(color: Colors.red),
+                    style: const TextStyle(color: AppColors.error),
                   ),
 
                 const SizedBox(height: 24),

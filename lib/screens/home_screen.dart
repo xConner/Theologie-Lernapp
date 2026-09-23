@@ -13,6 +13,10 @@ import 'confessions_screen.dart';
 
 import 'latin/latin_home_screen.dart';
 
+import 'settings_screen.dart';
+
+import '../theme/app_theme.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -106,6 +110,17 @@ class _HomeScreenState extends State<HomeScreen> {
 
         actions: [
           IconButton(
+            icon: const Icon(Icons.settings),
+
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const SettingsScreen()),
+              );
+            },
+          ),
+
+          IconButton(
             icon: const Icon(Icons.logout),
 
             onPressed: () => FirebaseAuth.instance.signOut(),
@@ -116,65 +131,123 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Center(
         child: loading
             ? const CircularProgressIndicator()
-            : Column(
-                mainAxisSize: MainAxisSize.min,
+            : SingleChildScrollView(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 24,
+                  vertical: 32,
+                ),
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 420),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Icon(
+                        Icons.auto_stories_rounded,
+                        size: 36,
+                        color: AppColors.primary,
+                      ),
 
-                children: [
-                  ElevatedButton(
-                    onPressed: _openQuiz,
+                      const SizedBox(height: 12),
 
-                    child: const Text("Perikopenquiz"),
-                  ),
+                      Text(
+                        "Willkommen",
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.headlineSmall,
+                      ),
 
-                  const SizedBox(height: 20),
+                      const SizedBox(height: 4),
 
-                  ElevatedButton(
-                    onPressed: _openLiturgicalCalendar,
-
-                    child: const Text("Liturgischer Kalender"),
-                  ),
-
-                  const SizedBox(height: 20),
-
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (_) => const HymnScreen()),
-                      );
-                    },
-                    child: const Text("Evangelisches Gesangbuch"),
-                  ),
-
-                  const SizedBox(height: 20),
-
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => const ConfessionsScreen(),
+                      Text(
+                        "Wähle einen Lernbereich",
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: AppColors.textSecondary,
                         ),
-                      );
-                    },
+                      ),
 
-                    child: const Text("Bekenntnisse"),
+                      const SizedBox(height: 28),
+
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton.icon(
+                          onPressed: _openQuiz,
+                          icon: const Icon(Icons.quiz_rounded),
+                          label: const Text("Perikopenquiz"),
+                        ),
+                      ),
+
+                      const SizedBox(height: 16),
+
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton.icon(
+                          onPressed: _openLiturgicalCalendar,
+                          icon: const Icon(Icons.calendar_month_rounded),
+                          label: const Text("Liturgischer Kalender"),
+                        ),
+                      ),
+
+                      const SizedBox(height: 16),
+
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton.icon(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => const HymnScreen(),
+                              ),
+                            );
+                          },
+                          icon: const Icon(Icons.library_music_rounded),
+                          label: const Text("Evangelisches Gesangbuch"),
+                        ),
+                      ),
+
+                      const SizedBox(height: 16),
+
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton.icon(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => const ConfessionsScreen(),
+                              ),
+                            );
+                          },
+                          icon: const Icon(Icons.menu_book_rounded),
+                          label: const Text("Bekenntnisse"),
+                        ),
+                      ),
+
+                      const SizedBox(height: 16),
+
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton.icon(
+                          onPressed: _openGreek,
+                          icon: const Icon(Icons.translate_rounded),
+                          label: const Text("Altgriechisch"),
+                        ),
+                      ),
+
+                      const SizedBox(height: 16),
+
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton.icon(
+                          onPressed: _openLatin,
+                          icon: const Icon(Icons.translate_rounded),
+                          label: const Text("Latein"),
+                        ),
+                      ),
+                    ],
                   ),
-
-                  const SizedBox(height: 20),
-
-                  ElevatedButton(
-                    onPressed: _openGreek,
-
-                    child: const Text("Altgriechisch"),
-                  ),
-                  const SizedBox(height: 20),
-
-                  ElevatedButton(
-                    onPressed: _openLatin,
-                    child: const Text("Latein"),
-                  ),
-                ],
+                ),
               ),
       ),
     );

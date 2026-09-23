@@ -40,6 +40,7 @@ dependencies:
   firebase_core: ^4.11.0
   firebase_auth: ^6.5.4
   cloud_firestore: ^6.6.0
+  firebase_app_check: ^0.4.1+3
 
   webview_flutter: ^4.14.0
   webview_flutter_web: ^0.2.3+4
@@ -47,6 +48,7 @@ dependencies:
   shared_preferences: ^2.5.3
   web: ^1.1.0
   flutter_html: ^3.0.0
+  audioplayers: ^6.8.1
 
 dev_dependencies:
   flutter_test:
@@ -81,6 +83,8 @@ flutter:
       - assets/latin_vocabulary.json
       - assets/eg_lieder.json
       - assets/confessions.json
+      - assets/sounds/correct.wav
+      - assets/sounds/incorrect.wav
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

@@ -5,6 +5,8 @@ import 'vocabulary_overview_screen.dart';
 import 'grammar_overview_screen.dart';
 import 'grammar_trainer_screen.dart';
 
+import '../../theme/app_theme.dart';
+
 class GreekHomeScreen extends StatelessWidget {
   const GreekHomeScreen({super.key});
 
@@ -18,11 +20,15 @@ class GreekHomeScreen extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(16),
             child: Column(
+              mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                Icon(Icons.translate_rounded, size: 32, color: AppColors.primary),
+                const SizedBox(height: 20),
+
                 SizedBox(
                   width: double.infinity,
-                  child: ElevatedButton(
+                  child: ElevatedButton.icon(
                     onPressed: () {
                       Navigator.push(
                         context,
@@ -31,7 +37,8 @@ class GreekHomeScreen extends StatelessWidget {
                         ),
                       );
                     },
-                    child: const Text("Vokabeltrainer"),
+                    icon: const Icon(Icons.style_rounded),
+                    label: const Text("Vokabeltrainer"),
                   ),
                 ),
 
@@ -39,7 +46,7 @@ class GreekHomeScreen extends StatelessWidget {
 
                 SizedBox(
                   width: double.infinity,
-                  child: ElevatedButton(
+                  child: ElevatedButton.icon(
                     onPressed: () {
                       Navigator.push(
                         context,
@@ -48,14 +55,15 @@ class GreekHomeScreen extends StatelessWidget {
                         ),
                       );
                     },
-                    child: const Text("Vokabelübersicht"),
+                    icon: const Icon(Icons.list_alt_rounded),
+                    label: const Text("Vokabelübersicht"),
                   ),
                 ),
                 const SizedBox(height: 16),
 
                 SizedBox(
                   width: double.infinity,
-                  child: ElevatedButton(
+                  child: ElevatedButton.icon(
                     onPressed: () {
                       Navigator.push(
                         context,
@@ -64,7 +72,8 @@ class GreekHomeScreen extends StatelessWidget {
                         ),
                       );
                     },
-                    child: const Text("Grammatikübersicht"),
+                    icon: const Icon(Icons.rule_rounded),
+                    label: const Text("Grammatikübersicht"),
                   ),
                 ),
 
@@ -72,7 +81,7 @@ class GreekHomeScreen extends StatelessWidget {
 
                 SizedBox(
                   width: double.infinity,
-                  child: ElevatedButton(
+                  child: ElevatedButton.icon(
                     onPressed: () {
                       Navigator.push(
                         context,
@@ -81,7 +90,8 @@ class GreekHomeScreen extends StatelessWidget {
                         ),
                       );
                     },
-                    child: const Text("Grammatiktrainer"),
+                    icon: const Icon(Icons.fitness_center_rounded),
+                    label: const Text("Grammatiktrainer"),
                   ),
                 ),
               ],

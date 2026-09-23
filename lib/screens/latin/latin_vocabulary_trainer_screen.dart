@@ -14,6 +14,11 @@ import '../../services/latin/vocabulary/latin_vocabulary_loader.dart';
 import '../../services/latin/vocabulary/latin_vocabulary_answer_checker.dart';
 import '../../services/latin/vocabulary/latin_vocabulary_settings_service.dart';
 import '../../services/learning_service.dart';
+import '../../services/quiz_sound_player.dart';
+import '../../services/quiz_sound_settings.dart';
+import '../../theme/app_theme.dart';
+import '../../widgets/answer_feedback_badge.dart';
+import '../../widgets/sound_volume_button.dart';
 
 class LatinVocabularyTrainerScreen extends StatefulWidget {
   const LatinVocabularyTrainerScreen({super.key});
@@ -363,6 +368,12 @@ class _LatinVocabularyTrainerScreenState
 
       genderCorrect = result.genderCorrect;
     });
+
+    if (result.correct) {
+      QuizSoundPlayer.instance.playCorrect(SoundModule.latinVocabulary);
+    } else {
+      QuizSoundPlayer.instance.playIncorrect(SoundModule.latinVocabulary);
+    }
   }
 
   OutlineInputBorder resultBorder(bool? value) {
@@ -372,7 +383,7 @@ class _LatinVocabularyTrainerScreenState
 
     return OutlineInputBorder(
       borderSide: BorderSide(
-        color: value ? Colors.green : Colors.red,
+        color: value ? AppColors.success : AppColors.error,
         width: 2,
       ),
     );
@@ -638,6 +649,38 @@ class _LatinVocabularyTrainerScreenState
                           }),
                         ],
                       ),
+
+                      const Divider(),
+
+                      CheckboxListTile(
+                        title: const Text("Sound bei richtiger Antwort"),
+                        value: QuizSoundSettings.instance.isCorrectSoundEnabled(
+                          SoundModule.latinVocabulary,
+                        ),
+                        onChanged: (value) {
+                          setDialogState(() {
+                            QuizSoundSettings.instance.setCorrectSoundEnabled(
+                              SoundModule.latinVocabulary,
+                              value ?? true,
+                            );
+                          });
+                        },
+                      ),
+
+                      CheckboxListTile(
+                        title: const Text("Sound bei falscher Antwort"),
+                        value: QuizSoundSettings.instance.isWrongSoundEnabled(
+                          SoundModule.latinVocabulary,
+                        ),
+                        onChanged: (value) {
+                          setDialogState(() {
+                            QuizSoundSettings.instance.setWrongSoundEnabled(
+                              SoundModule.latinVocabulary,
+                              value ?? true,
+                            );
+                          });
+                        },
+                      ),
                     ],
                   ),
                 ),
@@ -744,6 +787,7 @@ class _LatinVocabularyTrainerScreenState
         appBar: AppBar(
           title: const Text("Latein – Vokabeltrainer"),
           actions: [
+            const SoundVolumeButton(),
             IconButton(
               icon: const Icon(Icons.settings),
               onPressed: openSettings,
@@ -768,6 +812,7 @@ class _LatinVocabularyTrainerScreenState
       appBar: AppBar(
         title: const Text("Latein – Vokabeltrainer"),
         actions: [
+          const SoundVolumeButton(),
           IconButton(icon: const Icon(Icons.settings), onPressed: openSettings),
         ],
       ),
@@ -862,13 +907,9 @@ class _LatinVocabularyTrainerScreenState
                   if (answered)
                     Column(
                       children: [
-                        Text(
-                          correct ? "Richtig" : "Falsch",
-                          style: TextStyle(
-                            fontSize: 22,
-                            fontWeight: FontWeight.bold,
-                            color: correct ? Colors.green : Colors.red,
-                          ),
+                        AnswerFeedbackBadge(
+                          correct: correct,
+                          label: correct ? "Richtig" : "Falsch",
                         ),
 
                         const SizedBox(height: 12),

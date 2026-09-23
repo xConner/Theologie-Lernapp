@@ -14,8 +14,13 @@ import '../../services/greek/vocabulary/greek_vocabulary_loader.dart';
 import '../../services/greek/vocabulary/vocabulary_answer_checker.dart';
 import '../../services/greek/vocabulary/vocabulary_settings_service.dart';
 import '../../services/learning_service.dart';
+import '../../services/quiz_sound_player.dart';
+import '../../services/quiz_sound_settings.dart';
 
+import '../../theme/app_theme.dart';
+import '../../widgets/answer_feedback_badge.dart';
 import '../../widgets/greek_keyboard.dart';
+import '../../widgets/sound_volume_button.dart';
 
 import 'package:web/web.dart' as web;
 import 'dart:js_interop';
@@ -335,6 +340,12 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
 
       activeController = null;
     });
+
+    if (result.correct) {
+      QuizSoundPlayer.instance.playCorrect(SoundModule.greekVocabulary);
+    } else {
+      QuizSoundPlayer.instance.playIncorrect(SoundModule.greekVocabulary);
+    }
   }
 
   void openKeyboard(TextEditingController controller) {
@@ -372,7 +383,7 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
 
     return OutlineInputBorder(
       borderSide: BorderSide(
-        color: value ? Colors.green : Colors.red,
+        color: value ? AppColors.success : AppColors.error,
 
         width: 2,
       ),
@@ -589,6 +600,38 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
                           }),
                         ],
                       ),
+
+                      const Divider(),
+
+                      CheckboxListTile(
+                        title: const Text("Sound bei richtiger Antwort"),
+                        value: QuizSoundSettings.instance.isCorrectSoundEnabled(
+                          SoundModule.greekVocabulary,
+                        ),
+                        onChanged: (v) {
+                          setDialogState(() {
+                            QuizSoundSettings.instance.setCorrectSoundEnabled(
+                              SoundModule.greekVocabulary,
+                              v ?? true,
+                            );
+                          });
+                        },
+                      ),
+
+                      CheckboxListTile(
+                        title: const Text("Sound bei falscher Antwort"),
+                        value: QuizSoundSettings.instance.isWrongSoundEnabled(
+                          SoundModule.greekVocabulary,
+                        ),
+                        onChanged: (v) {
+                          setDialogState(() {
+                            QuizSoundSettings.instance.setWrongSoundEnabled(
+                              SoundModule.greekVocabulary,
+                              v ?? true,
+                            );
+                          });
+                        },
+                      ),
                     ],
                   ),
                 ),
@@ -613,6 +656,7 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
         appBar: AppBar(
           title: const Text("Vokabeltrainer"),
           actions: [
+            const SoundVolumeButton(),
             IconButton(
               icon: const Icon(Icons.settings),
               onPressed: openSettings,
@@ -640,6 +684,7 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
       appBar: AppBar(
         title: const Text("Vokabeltrainer"),
         actions: [
+          const SoundVolumeButton(),
           IconButton(icon: const Icon(Icons.settings), onPressed: openSettings),
         ],
       ),
@@ -743,16 +788,9 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
                     if (answered)
                       Column(
                         children: [
-                          Text(
-                            correct ? "Richtig" : "Falsch",
-
-                            style: TextStyle(
-                              fontSize: 22,
-
-                              fontWeight: FontWeight.bold,
-
-                              color: correct ? Colors.green : Colors.red,
-                            ),
+                          AnswerFeedbackBadge(
+                            correct: correct,
+                            label: correct ? "Richtig" : "Falsch",
                           ),
 
                           const SizedBox(height: 12),

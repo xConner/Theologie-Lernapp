@@ -1,0 +1,29 @@
+rules_version = '2';
+
+// theologie.app – Firestore Security Rules
+//
+// Ownership-Modell: jeder Nutzer darf ausschließlich sein eigenes
+// users/{uid}-Dokument und alle Subcollections darunter lesen/schreiben.
+// Deckt die im Code verwendeten Pfade ab:
+//   users/{uid}                                (Felder: greek_grammar_settings, vocabulary_settings, ...)
+//   users/{uid}/quiz_settings/perikopen
+//   users/{uid}/vocabulary/{vocabularyId}
+//   users/{uid}/learning_cards/{cardId}
+//   users/{uid}/latin_vocabulary/{cardId}
+//   users/{uid}/grammar/{grammarId}
+//   users/{uid}/pericope_overrides/config
+//
+// Diese Datei ist die Referenz für die Regeln, die manuell in der Firebase
+// Console unter Firestore Database -> Regeln eingetragen werden müssen
+// (dieses Projekt hat kein lokales Firebase-CLI-Setup/firebase.json).
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /users/{uid} {
+      allow read, write: if request.auth != null && request.auth.uid == uid;
+
+      match /{document=**} {
+        allow read, write: if request.auth != null && request.auth.uid == uid;
+      }
+    }
+  }
+}

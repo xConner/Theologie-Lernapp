@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../services/quiz_sound_settings.dart';
+import '../../theme/app_theme.dart';
+
 class QuizSettingsSheet extends StatefulWidget {
   final Set<String> selected;
   final void Function(Set<String>) onChanged;
@@ -197,11 +200,12 @@ class _QuizSettingsSheetState extends State<QuizSettingsSheet> {
       insetPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 40),
       child: Container(
         decoration: BoxDecoration(
+          color: AppColors.surface,
           border: Border.all(
-            color: isInvalid ? Colors.red : Colors.transparent,
-            width: 2,
+            color: isInvalid ? AppColors.error : AppColors.divider,
+            width: isInvalid ? 2 : 1,
           ),
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(20),
         ),
         child: SizedBox(
           width: 750,
@@ -213,9 +217,9 @@ class _QuizSettingsSheetState extends State<QuizSettingsSheet> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
+                    Text(
                       "Quiz Einstellungen",
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: Theme.of(context).textTheme.titleLarge,
                     ),
                     IconButton(
                       icon: const Icon(Icons.check),
@@ -234,13 +238,47 @@ class _QuizSettingsSheetState extends State<QuizSettingsSheet> {
                   onChanged: (_) => toggleAll(),
                 ),
 
+                CheckboxListTile(
+                  dense: true,
+                  contentPadding: EdgeInsets.zero,
+                  title: const Text("Sound bei richtiger Antwort"),
+                  value: QuizSoundSettings.instance.isCorrectSoundEnabled(
+                    SoundModule.pericopeQuiz,
+                  ),
+                  onChanged: (value) {
+                    setState(() {
+                      QuizSoundSettings.instance.setCorrectSoundEnabled(
+                        SoundModule.pericopeQuiz,
+                        value ?? true,
+                      );
+                    });
+                  },
+                ),
+
+                CheckboxListTile(
+                  dense: true,
+                  contentPadding: EdgeInsets.zero,
+                  title: const Text("Sound bei falscher Antwort"),
+                  value: QuizSoundSettings.instance.isWrongSoundEnabled(
+                    SoundModule.pericopeQuiz,
+                  ),
+                  onChanged: (value) {
+                    setState(() {
+                      QuizSoundSettings.instance.setWrongSoundEnabled(
+                        SoundModule.pericopeQuiz,
+                        value ?? true,
+                      );
+                    });
+                  },
+                ),
+
                 if (isInvalid)
                   const Padding(
                     padding: EdgeInsets.only(bottom: 8),
                     child: Text(
                       "Mindestens 1 Buch muss ausgewählt sein",
                       style: TextStyle(
-                        color: Colors.red,
+                        color: AppColors.error,
                         fontWeight: FontWeight.bold,
                       ),
                     ),

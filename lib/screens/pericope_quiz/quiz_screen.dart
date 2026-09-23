@@ -11,6 +11,11 @@ import '../../models/greek/vocabulary/learning_card.dart';
 import '../../quiz/quiz_engine.dart';
 import '../../quiz/quiz_question.dart';
 
+import '../../services/quiz_sound_player.dart';
+import '../../services/quiz_sound_settings.dart';
+import '../../theme/app_theme.dart';
+import '../../widgets/sound_volume_button.dart';
+
 import '../../utils/bible_reference_validator.dart';
 
 import '../../settings/quiz_settings.dart';
@@ -325,6 +330,13 @@ class _QuizScreenState extends State<QuizScreen> {
 
         feedback = buffer.toString();
       });
+
+      if (correct) {
+        QuizSoundPlayer.instance.playCorrect(SoundModule.pericopeQuiz);
+      } else {
+        QuizSoundPlayer.instance.playIncorrect(SoundModule.pericopeQuiz);
+      }
+
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (mounted) {
           quizFocusNode.requestFocus();
@@ -426,6 +438,7 @@ class _QuizScreenState extends State<QuizScreen> {
       appBar: AppBar(
         title: const Text("Quiz"),
         actions: [
+          const SoundVolumeButton(),
           IconButton(
             icon: const Icon(Icons.settings),
             onPressed: _openSettings,
@@ -460,18 +473,32 @@ class _QuizScreenState extends State<QuizScreen> {
                       child: SelectableText(
                         c.title,
                         textAlign: TextAlign.center,
-                        style: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style: Theme.of(context).textTheme.titleLarge,
                       ),
                     ),
 
+                    const SizedBox(height: 6),
+
                     Center(
-                      child: Text(
-                        c.variants.first.precision == "chapter"
-                            ? "Kapitelgenau"
-                            : "Versgenau",
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 4,
+                        ),
+                        decoration: BoxDecoration(
+                          color: AppColors.surfaceMuted,
+                          borderRadius: BorderRadius.circular(999),
+                        ),
+                        child: Text(
+                          c.variants.first.precision == "chapter"
+                              ? "Kapitelgenau"
+                              : "Versgenau",
+                          style: const TextStyle(
+                            color: AppColors.textSecondary,
+                            fontSize: 12.5,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
                       ),
                     ),
 
@@ -520,7 +547,7 @@ class _QuizScreenState extends State<QuizScreen> {
                                           checked && inputResults[index] == true
                                           ? const OutlineInputBorder(
                                               borderSide: BorderSide(
-                                                color: Colors.green,
+                                                color: AppColors.success,
                                                 width: 2,
                                               ),
                                             )
@@ -528,7 +555,7 @@ class _QuizScreenState extends State<QuizScreen> {
                                                 inputResults[index] == false
                                           ? const OutlineInputBorder(
                                               borderSide: BorderSide(
-                                                color: Colors.red,
+                                                color: AppColors.error,
                                                 width: 2,
                                               ),
                                             )
@@ -538,7 +565,7 @@ class _QuizScreenState extends State<QuizScreen> {
                                           checked && inputResults[index] == true
                                           ? const OutlineInputBorder(
                                               borderSide: BorderSide(
-                                                color: Colors.green,
+                                                color: AppColors.success,
                                                 width: 2,
                                               ),
                                             )
@@ -546,7 +573,7 @@ class _QuizScreenState extends State<QuizScreen> {
                                                 inputResults[index] == false
                                           ? const OutlineInputBorder(
                                               borderSide: BorderSide(
-                                                color: Colors.red,
+                                                color: AppColors.error,
                                                 width: 2,
                                               ),
                                             )
@@ -589,9 +616,31 @@ class _QuizScreenState extends State<QuizScreen> {
                       Center(
                         child: Padding(
                           padding: const EdgeInsets.only(top: 16),
-                          child: SelectableText(
-                            feedback!,
-                            textAlign: TextAlign.center,
+                          child: ConstrainedBox(
+                            constraints: const BoxConstraints(maxWidth: 500),
+                            child: Container(
+                              width: double.infinity,
+                              padding: const EdgeInsets.all(14),
+                              decoration: BoxDecoration(
+                                color: feedback!.startsWith("✔")
+                                    ? AppColors.successBackground
+                                    : AppColors.errorBackground,
+                                borderRadius: BorderRadius.circular(
+                                  AppTheme.radiusSmall,
+                                ),
+                                border: Border.all(
+                                  color:
+                                      (feedback!.startsWith("✔")
+                                              ? AppColors.success
+                                              : AppColors.error)
+                                          .withValues(alpha: 0.35),
+                                ),
+                              ),
+                              child: SelectableText(
+                                feedback!,
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
                           ),
                         ),
                       ),
