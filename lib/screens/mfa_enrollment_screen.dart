@@ -148,7 +148,10 @@ class _MfaEnrollmentScreenState extends State<MfaEnrollmentScreen> {
           if (!mounted) return;
           setState(() {
             busy = false;
-            error = describeAuthError(e);
+            error = logAndDescribeAuthErrorForDiagnosis(
+              e,
+              context: "MfaEnrollment.verificationFailed",
+            );
           });
         },
         codeSent: (id, _) {
@@ -166,7 +169,19 @@ class _MfaEnrollmentScreenState extends State<MfaEnrollmentScreen> {
       if (!mounted) return;
       setState(() {
         busy = false;
-        error = describeAuthError(e);
+        error = logAndDescribeAuthErrorForDiagnosis(
+          e,
+          context: "MfaEnrollment.startMfaPhoneEnrollment",
+        );
+      });
+    } catch (e) {
+      if (!mounted) return;
+      setState(() {
+        busy = false;
+        error = logAndDescribeAuthErrorForDiagnosis(
+          e,
+          context: "MfaEnrollment.startMfaPhoneEnrollment.raw",
+        );
       });
     }
   }

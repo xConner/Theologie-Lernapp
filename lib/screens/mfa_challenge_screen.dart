@@ -67,7 +67,10 @@ class _MfaChallengeScreenState extends State<MfaChallengeScreen> {
           if (!mounted) return;
           setState(() {
             sendingCode = false;
-            error = describeAuthError(e);
+            error = logAndDescribeAuthErrorForDiagnosis(
+              e,
+              context: "MfaChallenge.verificationFailed",
+            );
           });
         },
         codeSent: (id, _) {
@@ -84,7 +87,19 @@ class _MfaChallengeScreenState extends State<MfaChallengeScreen> {
       if (!mounted) return;
       setState(() {
         sendingCode = false;
-        error = describeAuthError(e);
+        error = logAndDescribeAuthErrorForDiagnosis(
+          e,
+          context: "MfaChallenge.startMfaSignInChallenge",
+        );
+      });
+    } catch (e) {
+      if (!mounted) return;
+      setState(() {
+        sendingCode = false;
+        error = logAndDescribeAuthErrorForDiagnosis(
+          e,
+          context: "MfaChallenge.startMfaSignInChallenge.raw",
+        );
       });
     }
   }

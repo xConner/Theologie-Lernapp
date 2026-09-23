@@ -55,7 +55,10 @@ class _PhoneSignInScreenState extends State<PhoneSignInScreen> {
           if (!mounted) return;
           setState(() {
             sendingCode = false;
-            error = describeAuthError(e);
+            error = logAndDescribeAuthErrorForDiagnosis(
+              e,
+              context: "PhoneSignIn.verificationFailed",
+            );
           });
         },
         codeSent: (id, _) {
@@ -72,7 +75,22 @@ class _PhoneSignInScreenState extends State<PhoneSignInScreen> {
       if (!mounted) return;
       setState(() {
         sendingCode = false;
-        error = describeAuthError(e);
+        error = logAndDescribeAuthErrorForDiagnosis(
+          e,
+          context: "PhoneSignIn.startPhoneSignIn",
+        );
+      });
+    } catch (e) {
+      // Fängt auch rohe, nicht-Firebase-Fehler ab (z. B. wenn die
+      // reCAPTCHA-Initialisierung selbst mit einem generischen JS-Error
+      // fehlschlägt) - genau das wollen wir hier sichtbar machen.
+      if (!mounted) return;
+      setState(() {
+        sendingCode = false;
+        error = logAndDescribeAuthErrorForDiagnosis(
+          e,
+          context: "PhoneSignIn.startPhoneSignIn.raw",
+        );
       });
     }
   }

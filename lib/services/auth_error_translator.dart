@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 /// Übersetzt Firebase-Auth-Fehler in verständliche deutsche Meldungen,
@@ -85,6 +86,27 @@ String describeAuthError(Object error) {
     default:
       return error.message ?? "Etwas ist schiefgelaufen. Bitte versuche es erneut.";
   }
+}
+
+/// Nur zur Diagnose (Phone-Auth/MFA-Fehleranalyse): loggt den vollständigen
+/// FirebaseAuthException.code + message in die Browser-/Debug-Konsole und
+/// gibt einen kurzen Diagnosetext zurück, der zusätzlich in der UI angezeigt
+/// werden kann, solange wir die reCAPTCHA-Fehlerursache eingrenzen.
+/// Verändert keine reCAPTCHA-/App-Check-Konfiguration.
+String logAndDescribeAuthErrorForDiagnosis(Object error, {String? context}) {
+  final label = context != null ? "[$context] " : "";
+
+  if (error is FirebaseAuthException) {
+    debugPrint(
+      "${label}FirebaseAuthException: code='${error.code}' "
+      "message='${error.message}'",
+    );
+    return "${describeAuthError(error)}\n\n(Debug: code=${error.code})";
+  }
+
+  debugPrint("${label}Nicht-Firebase-Fehler: ${error.runtimeType}: $error");
+  return "Etwas ist schiefgelaufen. Bitte versuche es erneut.\n\n"
+      "(Debug: ${error.runtimeType})";
 }
 
 /// True, wenn der Fehler auf einen bewussten Nutzerabbruch (z. B. Google-
