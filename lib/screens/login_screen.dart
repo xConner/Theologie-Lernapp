@@ -6,6 +6,8 @@ import '../services/auth_service.dart';
 import '../services/auth_error_translator.dart';
 import '../theme/app_theme.dart';
 import 'forgot_password_screen.dart';
+import 'mfa_challenge_screen.dart';
+import 'phone_sign_in_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -34,6 +36,9 @@ class _LoginScreenState extends State<LoginScreen> {
         email: emailController.text.trim(),
         password: passwordController.text.trim(),
       );
+    } on FirebaseAuthMultiFactorException catch (e) {
+      if (!mounted) return;
+      await _openMfaChallenge(e.resolver);
     } on FirebaseAuthException catch (e) {
       if (!mounted) return;
       setState(() {
@@ -81,6 +86,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
     try {
       await authService.signInWithGoogle();
+    } on FirebaseAuthMultiFactorException catch (e) {
+      if (!mounted) return;
+      await _openMfaChallenge(e.resolver);
     } on FirebaseAuthException catch (e) {
       if (!mounted || isAuthCancellation(e)) return;
 
@@ -96,10 +104,24 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
+  Future<void> _openMfaChallenge(MultiFactorResolver resolver) async {
+    await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => MfaChallengeScreen(resolver: resolver)),
+    );
+  }
+
   void openForgotPassword() {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (_) => const ForgotPasswordScreen()),
+    );
+  }
+
+  void openPhoneSignIn() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => const PhoneSignInScreen()),
     );
   }
 
@@ -220,6 +242,14 @@ class _LoginScreenState extends State<LoginScreen> {
                       onPressed: loading ? null : signInWithGoogle,
                       icon: const Icon(Icons.g_mobiledata_rounded),
                       label: const Text("Mit Google anmelden"),
+                    ),
+
+                    const SizedBox(height: 10),
+
+                    OutlinedButton.icon(
+                      onPressed: loading ? null : openPhoneSignIn,
+                      icon: const Icon(Icons.phone_iphone_rounded),
+                      label: const Text("Mit Telefonnummer anmelden"),
                     ),
 
                     const SizedBox(height: 22),

@@ -47,6 +47,41 @@ String describeAuthError(Object error) {
     case "account-exists-with-different-credential":
       return "Für diese E-Mail-Adresse existiert bereits ein Konto mit einer anderen Anmeldemethode.";
 
+    case "invalid-phone-number":
+      return "Diese Telefonnummer ist ungültig. Bitte im Format +49... eingeben.";
+
+    case "missing-phone-number":
+      return "Bitte gib eine Telefonnummer ein.";
+
+    case "invalid-verification-code":
+      return "Der eingegebene Code ist falsch.";
+
+    case "invalid-verification-id":
+    case "missing-verification-id":
+    case "missing-verification-code":
+      return "Die Code-Anfrage ist abgelaufen. Bitte fordere einen neuen Code an.";
+
+    case "code-expired":
+      return "Der Code ist abgelaufen. Bitte fordere einen neuen Code an.";
+
+    case "quota-exceeded":
+      return "Das SMS-Kontingent ist derzeit ausgeschöpft. Bitte versuche es später erneut.";
+
+    case "captcha-check-failed":
+      return "Die Sicherheitsprüfung ist fehlgeschlagen. Bitte lade die Seite neu und versuche es erneut.";
+
+    case "second-factor-already-in-use":
+      return "Diese Telefonnummer ist bereits als zweiter Faktor hinterlegt.";
+
+    case "maximum-second-factor-count-exceeded":
+      return "Es sind bereits die maximal zulässigen Faktoren hinterlegt.";
+
+    case "unsupported-first-factor":
+      return "Für diese Anmeldemethode ist keine Zwei-Faktor-Authentifizierung möglich.";
+
+    case "multi-factor-auth-required":
+      return "Für dieses Konto ist eine Zwei-Faktor-Bestätigung erforderlich.";
+
     default:
       return error.message ?? "Etwas ist schiefgelaufen. Bitte versuche es erneut.";
   }

@@ -22,7 +22,9 @@ class AppCheckService {
   static Future<void> activate() async {
     await FirebaseAppCheck.instance.activate(
       // TODO: echten reCAPTCHA v3 Site-Key aus der Firebase Console eintragen.
-      providerWeb: ReCaptchaV3Provider('TODO_RECAPTCHA_V3_SITE_KEY'),
+      providerWeb: ReCaptchaV3Provider(
+        '6LeKmMstAAAAAL_0WLhnGsVgtoNLvXz1WhC9uBQ-',
+      ),
       providerAndroid: const AndroidPlayIntegrityProvider(),
       providerApple: const AppleAppAttestProvider(),
     );

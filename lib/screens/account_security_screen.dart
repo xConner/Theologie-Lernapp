@@ -4,7 +4,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../services/auth_service.dart';
 import '../services/auth_error_translator.dart';
 import '../theme/app_theme.dart';
+import '../utils/phone_number_utils.dart';
 import 'email_verification_screen.dart';
+import 'mfa_enrollment_screen.dart';
 
 class AccountSecurityScreen extends StatefulWidget {
   const AccountSecurityScreen({super.key});
@@ -15,6 +17,71 @@ class AccountSecurityScreen extends StatefulWidget {
 
 class _AccountSecurityScreenState extends State<AccountSecurityScreen> {
   final authService = AuthService();
+
+  List<MultiFactorInfo> mfaFactors = [];
+  bool loadingFactors = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadFactors();
+  }
+
+  Future<void> _loadFactors() async {
+    final factors = await authService.getEnrolledMfaFactors();
+
+    if (!mounted) return;
+    setState(() {
+      mfaFactors = factors;
+      loadingFactors = false;
+    });
+  }
+
+  Future<void> _openEnrollment() async {
+    final enrolled = await Navigator.push<bool>(
+      context,
+      MaterialPageRoute(builder: (_) => const MfaEnrollmentScreen()),
+    );
+
+    if (enrolled == true) {
+      await _loadFactors();
+    }
+  }
+
+  Future<void> _unenroll(MultiFactorInfo factor) async {
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: const Text("Faktor entfernen"),
+        content: const Text(
+          "Soll dieser zweite Faktor wirklich entfernt werden? Danach ist "
+          "für den Login nur noch die erste Anmeldemethode nötig.",
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: const Text("Abbrechen"),
+          ),
+          ElevatedButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            child: const Text("Entfernen"),
+          ),
+        ],
+      ),
+    );
+
+    if (confirmed != true) return;
+
+    try {
+      await authService.unenrollMfaFactor(factor);
+      await _loadFactors();
+    } on FirebaseAuthException catch (e) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(describeAuthError(e))));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -100,6 +167,55 @@ class _AccountSecurityScreenState extends State<AccountSecurityScreen> {
                     onTap: () => _openChangePasswordDialog(context),
                   ),
                 ],
+              ],
+            ),
+          ),
+
+          const SizedBox(height: 20),
+          _SectionTitle("Zwei-Faktor-Authentifizierung"),
+
+          Card(
+            child: Column(
+              children: [
+                if (loadingFactors)
+                  const Padding(
+                    padding: EdgeInsets.all(16),
+                    child: Center(child: CircularProgressIndicator()),
+                  )
+                else if (mfaFactors.isEmpty)
+                  const ListTile(
+                    leading: Icon(Icons.shield_outlined),
+                    title: Text("Keine Zwei-Faktor-Authentifizierung aktiv"),
+                    subtitle: Text(
+                      "Schütze dein Konto zusätzlich mit einer SMS-Bestätigung.",
+                    ),
+                  )
+                else
+                  for (final factor in mfaFactors) ...[
+                    ListTile(
+                      leading: const Icon(
+                        Icons.verified_user_rounded,
+                        color: AppColors.success,
+                      ),
+                      title: Text(
+                        factor is PhoneMultiFactorInfo
+                            ? maskPhoneNumber(factor.phoneNumber)
+                            : (factor.displayName ?? "Zweiter Faktor"),
+                      ),
+                      subtitle: const Text("Telefon (SMS)"),
+                      trailing: IconButton(
+                        icon: const Icon(Icons.delete_outline_rounded),
+                        onPressed: () => _unenroll(factor),
+                      ),
+                    ),
+                    const Divider(height: 1),
+                  ],
+
+                ListTile(
+                  leading: const Icon(Icons.add_circle_outline_rounded),
+                  title: const Text("Faktor hinzufügen"),
+                  onTap: _openEnrollment,
+                ),
               ],
             ),
           ),
