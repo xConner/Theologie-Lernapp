@@ -1,11 +1,11 @@
 {
-    "name": "bibelkunde_app",
-    "short_name": "bibelkunde_app",
+    "name": "Theologie Lernapp",
+    "short_name": "Theologie",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "Lernapp für Theologie und Bibelkunde",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
