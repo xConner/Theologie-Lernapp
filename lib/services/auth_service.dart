@@ -247,6 +247,53 @@ class AuthService {
     );
   }
 
+  // ==========================
+  // TOTP MULTI-FAKTOR-AUTHENTIFIZIERUNG (AUTHENTICATOR-APP)
+  // ==========================
+  //
+  // Unabhängig von Phone-Auth: TOTP braucht weder verifyPhoneNumber() noch
+  // reCAPTCHA. Secret-Erzeugung und Code-Prüfung erfolgen ausschließlich
+  // serverseitig durch Firebase; das Secret wird nirgends gespeichert.
+
+  /// Erzeugt ein neues TOTP-Secret für die Einrichtung. Erfordert eine
+  /// kürzliche Anmeldung (siehe [getMfaEnrollmentSession]).
+  Future<TotpSecret> generateTotpSecret() async {
+    final session = await getMfaEnrollmentSession();
+    return TotpMultiFactorGenerator.generateSecret(session);
+  }
+
+  Future<void> enrollTotpMfaFactor({
+    required TotpSecret secret,
+    required String oneTimePassword,
+    String? displayName,
+  }) async {
+    final user = auth.currentUser;
+
+    if (user == null) {
+      throw FirebaseAuthException(code: "user-not-found");
+    }
+
+    final assertion = await TotpMultiFactorGenerator.getAssertionForEnrollment(
+      secret,
+      oneTimePassword,
+    );
+
+    await user.multiFactor.enroll(assertion, displayName: displayName);
+  }
+
+  Future<UserCredential> resolveMfaSignInWithTotp({
+    required MultiFactorResolver resolver,
+    required TotpMultiFactorInfo hint,
+    required String oneTimePassword,
+  }) async {
+    final assertion = await TotpMultiFactorGenerator.getAssertionForSignIn(
+      hint.uid,
+      oneTimePassword,
+    );
+
+    return resolver.resolveSignIn(assertion);
+  }
+
   Future<UserCredential> resolveMfaSignIn({
     required MultiFactorResolver resolver,
     required String verificationId,

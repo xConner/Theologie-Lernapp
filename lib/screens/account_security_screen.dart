@@ -8,6 +8,7 @@ import '../utils/phone_number_utils.dart';
 import '../widgets/sign_out_confirmation.dart';
 import 'email_verification_screen.dart';
 import 'mfa_enrollment_screen.dart';
+import 'totp_enrollment_screen.dart';
 
 class AccountSecurityScreen extends StatefulWidget {
   const AccountSecurityScreen({super.key});
@@ -59,14 +60,31 @@ class _AccountSecurityScreenState extends State<AccountSecurityScreen> {
     }
   }
 
+  Future<void> _openTotpEnrollment() async {
+    final enrolled = await Navigator.push<bool>(
+      context,
+      MaterialPageRoute(builder: (_) => const TotpEnrollmentScreen()),
+    );
+
+    if (enrolled == true) {
+      await _loadFactors();
+    }
+  }
+
   Future<void> _unenroll(MultiFactorInfo factor) async {
+    final isLastFactor = mfaFactors.length <= 1;
+
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (_) => AlertDialog(
-        title: const Text("Faktor entfernen"),
-        content: const Text(
-          "Soll dieser zweite Faktor wirklich entfernt werden? Danach ist "
-          "für den Login nur noch die erste Anmeldemethode nötig.",
+        title: Text("${_factorTypeLabel(factor)} entfernen"),
+        content: Text(
+          isLastFactor
+              ? "Das ist dein einziger zweiter Faktor. Wenn du ihn entfernst, "
+                    "ist die Zwei-Faktor-Authentifizierung deaktiviert und für "
+                    "den Login nur noch die erste Anmeldemethode nötig."
+              : "Soll dieser zweite Faktor wirklich entfernt werden? Deine "
+                    "anderen zweiten Faktoren bleiben aktiv.",
         ),
         actions: [
           TextButton(
@@ -198,7 +216,8 @@ class _AccountSecurityScreenState extends State<AccountSecurityScreen> {
                     leading: Icon(Icons.shield_outlined),
                     title: Text("Keine Zwei-Faktor-Authentifizierung aktiv"),
                     subtitle: Text(
-                      "Schütze dein Konto zusätzlich mit einer SMS-Bestätigung.",
+                      "Schütze dein Konto zusätzlich mit einer SMS-Bestätigung "
+                      "oder einer Authenticator-App.",
                     ),
                   )
                 else
@@ -213,7 +232,7 @@ class _AccountSecurityScreenState extends State<AccountSecurityScreen> {
                             ? maskPhoneNumber(factor.phoneNumber)
                             : (factor.displayName ?? "Zweiter Faktor"),
                       ),
-                      subtitle: const Text("Telefon (SMS)"),
+                      subtitle: Text(_factorTypeLabel(factor)),
                       trailing: IconButton(
                         icon: const Icon(Icons.delete_outline_rounded),
                         onPressed: () => _unenroll(factor),
@@ -224,9 +243,21 @@ class _AccountSecurityScreenState extends State<AccountSecurityScreen> {
 
                 ListTile(
                   leading: const Icon(Icons.add_circle_outline_rounded),
-                  title: const Text("Faktor hinzufügen"),
+                  title: const Text("Telefonnummer (SMS) hinzufügen"),
                   onTap: _openEnrollment,
                 ),
+
+                if (!loadingFactors && !_hasTotpFactor) ...[
+                  const Divider(height: 1),
+                  ListTile(
+                    leading: const Icon(Icons.qr_code_2_rounded),
+                    title: const Text("Authenticator-App einrichten"),
+                    subtitle: const Text(
+                      "Code aus einer App wie Google Authenticator",
+                    ),
+                    onTap: _openTotpEnrollment,
+                  ),
+                ],
               ],
             ),
           ),
@@ -241,6 +272,15 @@ class _AccountSecurityScreenState extends State<AccountSecurityScreen> {
         ],
       ),
     );
+  }
+
+  bool get _hasTotpFactor =>
+      mfaFactors.any((factor) => factor is TotpMultiFactorInfo);
+
+  String _factorTypeLabel(MultiFactorInfo factor) {
+    if (factor is PhoneMultiFactorInfo) return "Telefon (SMS)";
+    if (factor is TotpMultiFactorInfo) return "Authenticator-App";
+    return "Zweiter Faktor";
   }
 
   String? _providerLabel(String providerId) {

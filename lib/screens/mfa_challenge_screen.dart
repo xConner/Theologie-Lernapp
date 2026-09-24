@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../services/auth_service.dart';
@@ -8,9 +9,15 @@ import '../utils/phone_number_utils.dart';
 import '../widgets/recaptcha_notice.dart';
 
 /// Wird während des Logins angezeigt, wenn Firebase eine
-/// [FirebaseAuthMultiFactorException] wirft, weil für das Konto SMS-MFA
-/// aktiviert ist. Erst nach erfolgreicher Code-Eingabe ist der Login
-/// abgeschlossen (Firebase führt vorher keinen Sign-in durch).
+/// [FirebaseAuthMultiFactorException] wirft, weil für das Konto MFA aktiviert
+/// ist. Erst nach erfolgreicher Code-Eingabe ist der Login abgeschlossen
+/// (Firebase führt vorher keinen Sign-in durch).
+///
+/// Ist eine Authenticator-App (TOTP) hinterlegt, wird sie bevorzugt und
+/// KEINE SMS automatisch angefordert: TOTP braucht kein reCAPTCHA und
+/// funktioniert daher auch in Browsern, in denen Phone-Auth scheitert. SMS
+/// bleibt als Alternative wählbar. Konten nur mit SMS verhalten sich wie
+/// bisher (Code wird sofort gesendet).
 class MfaChallengeScreen extends StatefulWidget {
   final MultiFactorResolver resolver;
 
@@ -23,8 +30,13 @@ class MfaChallengeScreen extends StatefulWidget {
 class _MfaChallengeScreenState extends State<MfaChallengeScreen> {
   final authService = AuthService();
   final codeController = TextEditingController();
+  final totpController = TextEditingController();
 
   late PhoneMultiFactorInfo? selectedHint;
+  late TotpMultiFactorInfo? totpHint;
+
+  /// true = Code aus der Authenticator-App abfragen, false = SMS.
+  late bool useTotp;
 
   bool sendingCode = false;
   bool verifying = false;
@@ -39,7 +51,12 @@ class _MfaChallengeScreenState extends State<MfaChallengeScreen> {
     final phoneHints = widget.resolver.hints.whereType<PhoneMultiFactorInfo>();
     selectedHint = phoneHints.isNotEmpty ? phoneHints.first : null;
 
-    if (selectedHint != null) {
+    final totpHints = widget.resolver.hints.whereType<TotpMultiFactorInfo>();
+    totpHint = totpHints.isNotEmpty ? totpHints.first : null;
+
+    useTotp = totpHint != null;
+
+    if (!useTotp && selectedHint != null) {
       _sendCode();
     }
   }
@@ -47,7 +64,67 @@ class _MfaChallengeScreenState extends State<MfaChallengeScreen> {
   @override
   void dispose() {
     codeController.dispose();
+    totpController.dispose();
     super.dispose();
+  }
+
+  void _switchToSms() {
+    setState(() {
+      useTotp = false;
+      error = null;
+    });
+
+    if (!codeSent && !sendingCode) {
+      _sendCode();
+    }
+  }
+
+  void _switchToTotp() {
+    setState(() {
+      useTotp = true;
+      error = null;
+    });
+  }
+
+  Future<void> _confirmTotpCode() async {
+    final hint = totpHint;
+    if (hint == null) return;
+
+    final code = totpController.text.replaceAll(RegExp(r"\s"), "");
+    if (code.isEmpty) {
+      setState(() {
+        error = "Bitte gib den Code aus deiner Authenticator-App ein.";
+      });
+      return;
+    }
+
+    setState(() {
+      verifying = true;
+      error = null;
+    });
+
+    try {
+      await authService.resolveMfaSignInWithTotp(
+        resolver: widget.resolver,
+        hint: hint,
+        oneTimePassword: code,
+      );
+
+      if (!mounted) return;
+      // Wie beim SMS-Weg: AuthGate übernimmt, übergeordnete Routen entfernen.
+      Navigator.of(context).popUntil((route) => route.isFirst);
+    } on FirebaseAuthException catch (e) {
+      if (!mounted) return;
+      setState(() {
+        error = describeAuthError(e);
+      });
+    } finally {
+      if (mounted) {
+        setState(() {
+          verifying = false;
+        });
+      }
+    }
   }
 
   Future<void> _sendCode() async {
@@ -150,9 +227,6 @@ class _MfaChallengeScreenState extends State<MfaChallengeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final hint = selectedHint;
-    final busy = sendingCode || verifying;
-
     return Scaffold(
       appBar: AppBar(title: const Text("Zwei-Faktor-Authentifizierung")),
       body: Center(
@@ -166,97 +240,9 @@ class _MfaChallengeScreenState extends State<MfaChallengeScreen> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Icon(
-                      Icons.sms_rounded,
-                      size: 40,
-                      color: AppColors.primary,
-                    ),
-
-                    const SizedBox(height: 12),
-
-                    Text(
-                      "Code bestätigen",
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.headlineSmall,
-                    ),
-
-                    const SizedBox(height: 12),
-
-                    if (hint == null)
-                      const Text(
-                        "Für dieses Konto ist kein unterstützter zweiter "
-                        "Faktor hinterlegt.",
-                        textAlign: TextAlign.center,
-                      )
-                    else
-                      Text(
-                        codeSent
-                            ? "Wir haben einen Code an ${maskPhoneNumber(hint.phoneNumber)} gesendet."
-                            : "Code wird an ${maskPhoneNumber(hint.phoneNumber)} gesendet...",
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.bodyMedium
-                            ?.copyWith(color: AppColors.textSecondary),
-                      ),
-
-                    if (codeSent) ...[
-                      const SizedBox(height: 20),
-
-                      TextField(
-                        controller: codeController,
-                        keyboardType: TextInputType.number,
-                        onChanged: (_) {
-                          if (error != null) {
-                            setState(() {
-                              error = null;
-                            });
-                          }
-                        },
-                        decoration: const InputDecoration(
-                          labelText: "SMS-Code",
-                          prefixIcon: Icon(Icons.pin_rounded),
-                        ),
-                      ),
-                    ],
-
-                    if (error != null) ...[
-                      const SizedBox(height: 14),
-                      Text(
-                        error!,
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(color: AppColors.error),
-                      ),
-                    ],
-
-                    const SizedBox(height: 20),
-
-                    if (codeSent)
-                      ElevatedButton(
-                        onPressed: busy ? null : _confirmCode,
-                        child: verifying
-                            ? const SizedBox(
-                                height: 18,
-                                width: 18,
-                                child: CircularProgressIndicator(
-                                  strokeWidth: 2,
-                                  color: Colors.white,
-                                ),
-                              )
-                            : const Text("Bestätigen"),
-                      )
-                    else if (sendingCode)
-                      const Center(child: CircularProgressIndicator()),
-
-                    if (codeSent) ...[
-                      const SizedBox(height: 4),
-                      TextButton(
-                        onPressed: busy ? null : _sendCode,
-                        child: const Text("Code erneut senden"),
-                      ),
-                    ],
-
-                    const RecaptchaNotice(),
-                  ],
+                  children: useTotp
+                      ? _totpChildren(context)
+                      : _smsChildren(context),
                 ),
               ),
             ),
@@ -264,5 +250,186 @@ class _MfaChallengeScreenState extends State<MfaChallengeScreen> {
         ),
       ),
     );
+  }
+
+  List<Widget> _smsChildren(BuildContext context) {
+    final hint = selectedHint;
+    final busy = sendingCode || verifying;
+
+    return [
+      Icon(Icons.sms_rounded, size: 40, color: AppColors.primary),
+
+      const SizedBox(height: 12),
+
+      Text(
+        "Code bestätigen",
+        textAlign: TextAlign.center,
+        style: Theme.of(context).textTheme.headlineSmall,
+      ),
+
+      const SizedBox(height: 12),
+
+      if (hint == null)
+        const Text(
+          "Für dieses Konto ist kein unterstützter zweiter "
+          "Faktor hinterlegt.",
+          textAlign: TextAlign.center,
+        )
+      else
+        Text(
+          codeSent
+              ? "Wir haben einen Code an ${maskPhoneNumber(hint.phoneNumber)} gesendet."
+              : "Code wird an ${maskPhoneNumber(hint.phoneNumber)} gesendet...",
+          textAlign: TextAlign.center,
+          style: Theme.of(
+            context,
+          ).textTheme.bodyMedium?.copyWith(color: AppColors.textSecondary),
+        ),
+
+      if (codeSent) ...[
+        const SizedBox(height: 20),
+
+        TextField(
+          controller: codeController,
+          keyboardType: TextInputType.number,
+          onChanged: (_) {
+            if (error != null) {
+              setState(() {
+                error = null;
+              });
+            }
+          },
+          decoration: const InputDecoration(
+            labelText: "SMS-Code",
+            prefixIcon: Icon(Icons.pin_rounded),
+          ),
+        ),
+      ],
+
+      if (error != null) ...[
+        const SizedBox(height: 14),
+        Text(
+          error!,
+          textAlign: TextAlign.center,
+          style: const TextStyle(color: AppColors.error),
+        ),
+      ],
+
+      const SizedBox(height: 20),
+
+      if (codeSent)
+        ElevatedButton(
+          onPressed: busy ? null : _confirmCode,
+          child: verifying
+              ? const SizedBox(
+                  height: 18,
+                  width: 18,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 2,
+                    color: Colors.white,
+                  ),
+                )
+              : const Text("Bestätigen"),
+        )
+      else if (sendingCode)
+        const Center(child: CircularProgressIndicator()),
+
+      if (codeSent) ...[
+        const SizedBox(height: 4),
+        TextButton(
+          onPressed: busy ? null : _sendCode,
+          child: const Text("Code erneut senden"),
+        ),
+      ],
+
+      if (totpHint != null)
+        TextButton(
+          onPressed: busy ? null : _switchToTotp,
+          child: const Text("Stattdessen Authenticator-App verwenden"),
+        ),
+
+      const RecaptchaNotice(),
+    ];
+  }
+
+  List<Widget> _totpChildren(BuildContext context) {
+    return [
+      Icon(Icons.phonelink_lock_rounded, size: 40, color: AppColors.primary),
+
+      const SizedBox(height: 12),
+
+      Text(
+        "Code bestätigen",
+        textAlign: TextAlign.center,
+        style: Theme.of(context).textTheme.headlineSmall,
+      ),
+
+      const SizedBox(height: 12),
+
+      Text(
+        "Gib den 6-stelligen Code aus deiner Authenticator-App ein.",
+        textAlign: TextAlign.center,
+        style: Theme.of(
+          context,
+        ).textTheme.bodyMedium?.copyWith(color: AppColors.textSecondary),
+      ),
+
+      const SizedBox(height: 20),
+
+      TextField(
+        controller: totpController,
+        keyboardType: TextInputType.number,
+        autofillHints: const [AutofillHints.oneTimeCode],
+        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+        maxLength: 6,
+        autofocus: true,
+        onChanged: (_) {
+          if (error != null) {
+            setState(() {
+              error = null;
+            });
+          }
+        },
+        onSubmitted: (_) => verifying ? null : _confirmTotpCode(),
+        decoration: const InputDecoration(
+          labelText: "Code aus der Authenticator-App",
+          prefixIcon: Icon(Icons.pin_rounded),
+          counterText: "",
+        ),
+      ),
+
+      if (error != null) ...[
+        const SizedBox(height: 14),
+        Text(
+          error!,
+          textAlign: TextAlign.center,
+          style: const TextStyle(color: AppColors.error),
+        ),
+      ],
+
+      const SizedBox(height: 20),
+
+      ElevatedButton(
+        onPressed: verifying ? null : _confirmTotpCode,
+        child: verifying
+            ? const SizedBox(
+                height: 18,
+                width: 18,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                  color: Colors.white,
+                ),
+              )
+            : const Text("Bestätigen"),
+      ),
+
+      if (selectedHint != null) ...[
+        const SizedBox(height: 4),
+        TextButton(
+          onPressed: verifying ? null : _switchToSms,
+          child: const Text("Stattdessen Code per SMS erhalten"),
+        ),
+      ],
+    ];
   }
 }

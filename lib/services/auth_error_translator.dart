@@ -74,6 +74,12 @@ String describeAuthError(Object error) {
     case "recaptcha-timeout":
       return "Die Telefonbestätigung konnte nicht gestartet werden. Bitte versuche es in einem anderen Browser (z. B. Chrome, Firefox oder Safari).";
 
+    case "totp-challenge-timeout":
+      return "Die Einrichtung ist abgelaufen. Bitte starte die Einrichtung der Authenticator-App erneut.";
+
+    case "unverified-email":
+      return "Bitte bestätige zuerst deine E-Mail-Adresse, bevor du die Zwei-Faktor-Authentifizierung einrichtest.";
+
     case "second-factor-already-in-use":
       return "Diese Telefonnummer ist bereits als zweiter Faktor hinterlegt.";
 
