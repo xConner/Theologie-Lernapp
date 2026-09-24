@@ -21,6 +21,8 @@ import '../../theme/app_theme.dart';
 import '../../widgets/answer_feedback_badge.dart';
 import '../../widgets/greek_keyboard.dart';
 import '../../widgets/sound_volume_button.dart';
+import '../../widgets/streak_widgets.dart';
+import '../../services/streak/streak_track.dart';
 
 import 'package:web/web.dart' as web;
 import 'dart:js_interop';
@@ -318,6 +320,9 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
 
     await learningService.saveCard(uid, card);
 
+    // Streak nur einmal je Frage zählen (auch bei doppeltem Enter).
+    final firstEvaluation = !answered;
+
     setState(() {
       answered = true;
 
@@ -342,6 +347,15 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
       QuizSoundPlayer.instance.playCorrect(SoundModule.greekVocabulary);
     } else {
       QuizSoundPlayer.instance.playIncorrect(SoundModule.greekVocabulary);
+    }
+
+    if (result.correct && firstEvaluation && mounted) {
+      recordStreakAnswer(
+        context,
+        uid: uid,
+        track: StreakTrack.greek,
+        source: StreakSource.vocabulary,
+      );
     }
   }
 

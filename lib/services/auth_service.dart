@@ -266,7 +266,23 @@ class AuthService {
   /// kürzliche Anmeldung (siehe [getMfaEnrollmentSession]).
   Future<TotpSecret> generateTotpSecret() async {
     final session = await getMfaEnrollmentSession();
-    return TotpMultiFactorGenerator.generateSecret(session);
+
+    try {
+      return await TotpMultiFactorGenerator.generateSecret(session);
+    } on FirebaseAuthException {
+      rethrow;
+    } catch (e) {
+      // firebase_auth_web reicht Fehler von generateSecret() als rohen
+      // JS-Fehler durch statt als FirebaseAuthException. Den Firebase-Code
+      // ("auth/...") herausziehen, damit die UI eine normale Fehlermeldung
+      // zeigen kann statt endlos zu laden.
+      throw _toFirebaseAuthException(e);
+    }
+  }
+
+  static FirebaseAuthException _toFirebaseAuthException(Object error) {
+    final match = RegExp(r"auth/([a-z0-9-]+)").firstMatch(error.toString());
+    return FirebaseAuthException(code: match?.group(1) ?? "unknown");
   }
 
   Future<void> enrollTotpMfaFactor({

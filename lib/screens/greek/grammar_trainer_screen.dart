@@ -14,6 +14,8 @@ import '../../theme/app_theme.dart';
 import '../../widgets/answer_feedback_badge.dart';
 import '../../widgets/greek_keyboard.dart';
 import '../../widgets/sound_volume_button.dart';
+import '../../widgets/streak_widgets.dart';
+import '../../services/streak/streak_track.dart';
 
 import 'package:web/web.dart' as web;
 import 'dart:js_interop';
@@ -706,6 +708,9 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
     final q = question;
     if (q == null) return;
 
+    // Streak nur einmal je Frage zählen.
+    final firstEvaluation = !answered;
+
     setState(() {
       answered = true;
 
@@ -756,6 +761,15 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
       QuizSoundPlayer.instance.playCorrect(SoundModule.greekGrammar);
     } else {
       QuizSoundPlayer.instance.playIncorrect(SoundModule.greekGrammar);
+    }
+
+    if (correct && firstEvaluation) {
+      recordStreakAnswer(
+        context,
+        uid: _auth.currentUser?.uid,
+        track: StreakTrack.greek,
+        source: StreakSource.grammar,
+      );
     }
   }
 

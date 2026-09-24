@@ -20,6 +20,7 @@ import '../services/local_learning_store.dart';
 import '../services/progress_data_service.dart';
 import '../widgets/learning_progress_dialogs.dart';
 import '../widgets/sign_out_confirmation.dart';
+import '../widgets/streak_widgets.dart';
 import 'login_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -252,6 +253,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
 
                       const SizedBox(height: 28),
+
+                      StreakSummary(uid: uid),
 
                       SizedBox(
                         width: double.infinity,

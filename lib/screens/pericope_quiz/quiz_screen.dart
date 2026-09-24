@@ -15,6 +15,8 @@ import '../../services/quiz_sound_player.dart';
 import '../../services/quiz_sound_settings.dart';
 import '../../theme/app_theme.dart';
 import '../../widgets/sound_volume_button.dart';
+import '../../widgets/streak_widgets.dart';
+import '../../services/streak/streak_track.dart';
 
 import '../../utils/bible_reference_validator.dart';
 
@@ -275,6 +277,9 @@ class _QuizScreenState extends State<QuizScreen> {
 
       await engine.answer(correct);
 
+      // Streak nur einmal je Frage zählen (auch bei doppeltem Enter).
+      final firstEvaluation = !checked;
+
       final correctGiven = given.intersection(normalizedExpected);
 
       final missing = normalizedExpected.difference(given);
@@ -336,6 +341,15 @@ class _QuizScreenState extends State<QuizScreen> {
         QuizSoundPlayer.instance.playCorrect(SoundModule.pericopeQuiz);
       } else {
         QuizSoundPlayer.instance.playIncorrect(SoundModule.pericopeQuiz);
+      }
+
+      if (correct && firstEvaluation && mounted) {
+        recordStreakAnswer(
+          context,
+          uid: widget.uid,
+          track: StreakTrack.perikope,
+          source: StreakSource.perikopenQuiz,
+        );
       }
 
       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -439,6 +453,7 @@ class _QuizScreenState extends State<QuizScreen> {
       appBar: AppBar(
         title: const Text("Quiz"),
         actions: [
+          StreakAppBarButton(uid: widget.uid, track: StreakTrack.perikope),
           const SoundVolumeButton(),
           IconButton(
             icon: const Icon(Icons.settings),

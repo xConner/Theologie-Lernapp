@@ -162,9 +162,18 @@ class _TotpEnrollmentScreenState extends State<TotpEnrollmentScreen> {
       if (!mounted) return;
       setState(() {
         error = describeAuthError(e);
-        step = _canReauthenticate
+        // Nur bei abgelaufener Anmeldung zurück zur Reauth; sonst Fehler mit
+        // "Erneut versuchen" anzeigen.
+        step = e.code == "requires-recent-login" && _canReauthenticate
             ? _TotpStep.reauthenticate
             : _TotpStep.scanAndVerify;
+      });
+    } catch (_) {
+      // Sicherheitsnetz: Der Ladezustand darf nie hängen bleiben.
+      if (!mounted) return;
+      setState(() {
+        error = describeAuthError(Object());
+        step = _TotpStep.scanAndVerify;
       });
     }
   }

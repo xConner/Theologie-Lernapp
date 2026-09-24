@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import 'latin_vocabulary_trainer_screen.dart';
 import 'latin_vocabulary_overview_screen.dart';
 
 import '../../theme/app_theme.dart';
+import '../../services/streak/streak_track.dart';
+import '../../widgets/streak_widgets.dart';
 
 class LatinHomeScreen extends StatelessWidget {
   const LatinHomeScreen({super.key});
@@ -15,13 +18,20 @@ class LatinHomeScreen extends StatelessWidget {
       body: Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 400),
-          child: Padding(
+          child: SingleChildScrollView(
             padding: const EdgeInsets.all(16),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(Icons.translate_rounded, size: 32, color: AppColors.primary),
+                const SizedBox(height: 20),
+
+                StreakDetailCard(
+                  uid: FirebaseAuth.instance.currentUser?.uid,
+                  track: StreakTrack.latin,
+                ),
+
                 const SizedBox(height: 20),
 
                 SizedBox(

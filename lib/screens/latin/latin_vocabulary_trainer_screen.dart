@@ -19,6 +19,8 @@ import '../../services/quiz_sound_settings.dart';
 import '../../theme/app_theme.dart';
 import '../../widgets/answer_feedback_badge.dart';
 import '../../widgets/sound_volume_button.dart';
+import '../../widgets/streak_widgets.dart';
+import '../../services/streak/streak_track.dart';
 
 class LatinVocabularyTrainerScreen extends StatefulWidget {
   const LatinVocabularyTrainerScreen({super.key});
@@ -352,6 +354,9 @@ class _LatinVocabularyTrainerScreenState
 
     await learningService.saveLatinCard(uid, card);
 
+    // Streak nur einmal je Frage zählen (auch bei doppeltem Enter).
+    final firstEvaluation = !answered;
+
     setState(() {
       answered = true;
 
@@ -370,6 +375,15 @@ class _LatinVocabularyTrainerScreenState
       QuizSoundPlayer.instance.playCorrect(SoundModule.latinVocabulary);
     } else {
       QuizSoundPlayer.instance.playIncorrect(SoundModule.latinVocabulary);
+    }
+
+    if (result.correct && firstEvaluation && mounted) {
+      recordStreakAnswer(
+        context,
+        uid: uid,
+        track: StreakTrack.latin,
+        source: StreakSource.vocabulary,
+      );
     }
   }
 
