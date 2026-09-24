@@ -5,6 +5,7 @@ import '../services/auth_service.dart';
 import '../services/auth_error_translator.dart';
 import '../theme/app_theme.dart';
 import '../utils/phone_number_utils.dart';
+import '../widgets/recaptcha_notice.dart';
 
 /// Wird während des Logins angezeigt, wenn Firebase eine
 /// [FirebaseAuthMultiFactorException] wirft, weil für das Konto SMS-MFA
@@ -252,6 +253,8 @@ class _MfaChallengeScreenState extends State<MfaChallengeScreen> {
                         child: const Text("Code erneut senden"),
                       ),
                     ],
+
+                    const RecaptchaNotice(),
                   ],
                 ),
               ),

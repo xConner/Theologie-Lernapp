@@ -32,6 +32,18 @@
 
   <title>Theologie Lernapp</title>
   <link rel="manifest" href="manifest.json">
+
+  <!--
+    Firebase Phone Auth rendert ein unsichtbares reCAPTCHA; FlutterFire räumt
+    es nie ab, daher bliebe das Badge dauerhaft sichtbar. Ausblenden ist
+    erlaubt, weil die SMS-Screens stattdessen den reCAPTCHA-Hinweistext zeigen
+    (lib/widgets/recaptcha_notice.dart). Wichtig: visibility, nicht display:none,
+    sonst funktioniert das unsichtbare reCAPTCHA nicht mehr. Eine eventuelle
+    Bildauswahl-Challenge liegt in einem separaten iframe und bleibt sichtbar.
+  -->
+  <style>
+    .grecaptcha-badge { visibility: hidden; }
+  </style>
 </head>
 
 <body>

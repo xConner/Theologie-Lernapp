@@ -5,6 +5,7 @@ import '../services/auth_service.dart';
 import '../services/auth_error_translator.dart';
 import '../theme/app_theme.dart';
 import '../utils/phone_number_utils.dart';
+import '../widgets/recaptcha_notice.dart';
 
 class PhoneSignInScreen extends StatefulWidget {
   const PhoneSignInScreen({super.key});
@@ -240,7 +241,8 @@ class _PhoneSignInScreenState extends State<PhoneSignInScreen> {
 
                     // Firebase rendert für Phone-Auth auf Web automatisch ein
                     // unsichtbares reCAPTCHA-Widget; kein eigener Container
-                    // nötig.
+                    // nötig. Das Badge ist ausgeblendet, daher der Hinweis.
+                    const RecaptchaNotice(),
                   ],
                 ),
               ),

@@ -5,6 +5,7 @@ import '../services/auth_service.dart';
 import '../services/auth_error_translator.dart';
 import '../theme/app_theme.dart';
 import '../utils/phone_number_utils.dart';
+import '../widgets/recaptcha_notice.dart';
 
 enum _EnrollmentStep { reauthenticate, enterPhone, enterCode }
 
@@ -371,6 +372,7 @@ class _MfaEnrollmentScreenState extends State<MfaEnrollmentScreen> {
               )
             : const Text("Code senden"),
       ),
+      const RecaptchaNotice(),
     ];
   }
 
