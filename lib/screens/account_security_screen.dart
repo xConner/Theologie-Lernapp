@@ -7,6 +7,7 @@ import '../theme/app_theme.dart';
 import '../utils/phone_number_utils.dart';
 import '../widgets/sign_out_confirmation.dart';
 import 'email_verification_screen.dart';
+import 'mfa_challenge_screen.dart';
 import 'mfa_enrollment_screen.dart';
 import 'totp_enrollment_screen.dart';
 
@@ -106,10 +107,57 @@ class _AccountSecurityScreenState extends State<AccountSecurityScreen> {
       await _loadFactors();
     } on FirebaseAuthException catch (e) {
       if (!mounted) return;
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text(describeAuthError(e))));
+
+      // Firebase verlangt zum Entfernen eine kürzliche Anmeldung. Statt nur
+      // den Fehler zu zeigen: erneut anmelden (inkl. zweitem Faktor) und das
+      // Entfernen dann wiederholen.
+      if (e.code == "requires-recent-login" && await _reauthenticate()) {
+        await _retryUnenroll(factor);
+        return;
+      }
+
+      if (!mounted) return;
+      _showError(e);
     }
+  }
+
+  Future<void> _retryUnenroll(MultiFactorInfo factor) async {
+    try {
+      await authService.unenrollMfaFactor(factor);
+      await _loadFactors();
+    } on FirebaseAuthException catch (e) {
+      if (!mounted) return;
+      _showError(e);
+    }
+  }
+
+  /// Erneute Anmeldung per Passwort bzw. Google. Hat das Konto einen zweiten
+  /// Faktor, wird anschließend dessen Bestätigung verlangt. Liefert true,
+  /// wenn die erneute Anmeldung vollständig abgeschlossen ist.
+  Future<bool> _reauthenticate() async {
+    if (!authService.isEmailPasswordUser && !authService.isGoogleUser) {
+      return false;
+    }
+
+    final result = await showDialog<_ReauthResult>(
+      context: context,
+      builder: (_) => const _ReauthDialog(),
+    );
+
+    if (!mounted || result == null) return false;
+
+    final resolver = result.mfaResolver;
+    if (resolver != null) {
+      return resolveReauthMfaChallenge(context, resolver);
+    }
+
+    return result.success;
+  }
+
+  void _showError(FirebaseAuthException e) {
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text(describeAuthError(e))));
   }
 
   @override
@@ -318,6 +366,140 @@ class _SectionTitle extends StatelessWidget {
   }
 }
 
+/// Ergebnis von [_ReauthDialog]: entweder erfolgreich angemeldet oder
+/// Firebase verlangt noch den zweiten Faktor ([mfaResolver]).
+class _ReauthResult {
+  final bool success;
+  final MultiFactorResolver? mfaResolver;
+
+  const _ReauthResult.success() : success = true, mfaResolver = null;
+
+  const _ReauthResult.mfaRequired(MultiFactorResolver resolver)
+    : success = false,
+      mfaResolver = resolver;
+}
+
+/// Fragt vor einer Sicherheitsaktion die erneute Anmeldung ab. Die Google-
+/// Anmeldung startet direkt aus dem Button-Tap, damit der Browser das Popup
+/// nicht blockiert.
+class _ReauthDialog extends StatefulWidget {
+  const _ReauthDialog();
+
+  @override
+  State<_ReauthDialog> createState() => _ReauthDialogState();
+}
+
+class _ReauthDialogState extends State<_ReauthDialog> {
+  final authService = AuthService();
+  final passwordController = TextEditingController();
+
+  bool loading = false;
+  String? error;
+
+  @override
+  void dispose() {
+    passwordController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _run(Future<void> Function() reauth) async {
+    setState(() {
+      loading = true;
+      error = null;
+    });
+
+    try {
+      await reauth();
+      if (!mounted) return;
+      Navigator.of(context).pop(const _ReauthResult.success());
+    } on FirebaseAuthMultiFactorException catch (e) {
+      if (!mounted) return;
+      Navigator.of(context).pop(_ReauthResult.mfaRequired(e.resolver));
+    } on FirebaseAuthException catch (e) {
+      if (!mounted || isAuthCancellation(e)) return;
+      setState(() {
+        error = describeAuthError(e);
+      });
+    } finally {
+      if (mounted) {
+        setState(() {
+          loading = false;
+        });
+      }
+    }
+  }
+
+  void _submitPassword() {
+    final password = passwordController.text;
+    if (password.isEmpty) {
+      setState(() {
+        error = "Bitte gib dein aktuelles Passwort ein.";
+      });
+      return;
+    }
+
+    _run(() => authService.reauthenticateWithPassword(password));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final usePassword = authService.isEmailPasswordUser;
+
+    return AlertDialog(
+      title: const Text("Erneute Anmeldung erforderlich"),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          const Text(
+            "Aus Sicherheitsgründen musst du dich erneut bestätigen, bevor "
+            "der Faktor entfernt werden kann.",
+          ),
+          if (usePassword) ...[
+            const SizedBox(height: 16),
+            TextField(
+              controller: passwordController,
+              obscureText: true,
+              autofocus: true,
+              onSubmitted: (_) => loading ? null : _submitPassword(),
+              decoration: const InputDecoration(
+                labelText: "Aktuelles Passwort",
+              ),
+            ),
+          ],
+          if (error != null) ...[
+            const SizedBox(height: 12),
+            Text(error!, style: const TextStyle(color: AppColors.error)),
+          ],
+        ],
+      ),
+      actions: [
+        TextButton(
+          onPressed: loading ? null : () => Navigator.of(context).pop(),
+          child: const Text("Abbrechen"),
+        ),
+        ElevatedButton(
+          onPressed: loading
+              ? null
+              : usePassword
+              ? _submitPassword
+              : () => _run(authService.reauthenticateWithGoogle),
+          child: loading
+              ? const SizedBox(
+                  height: 18,
+                  width: 18,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 2,
+                    color: Colors.white,
+                  ),
+                )
+              : Text(usePassword ? "Bestätigen" : "Mit Google bestätigen"),
+        ),
+      ],
+    );
+  }
+}
+
 class _ChangePasswordDialog extends StatefulWidget {
   const _ChangePasswordDialog();
 
@@ -364,11 +546,24 @@ class _ChangePasswordDialogState extends State<_ChangePasswordDialog> {
       );
 
       if (!mounted) return;
-      Navigator.of(context).pop();
+      _closeWithSuccess();
+    } on FirebaseAuthMultiFactorException catch (e) {
+      // Konto mit zweitem Faktor: erst diesen bestätigen, dann das Passwort
+      // setzen (die Reauthentifizierung ist damit abgeschlossen).
+      if (!mounted) return;
+      final resolved = await resolveReauthMfaChallenge(context, e.resolver);
+      if (!mounted || !resolved) return;
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Passwort wurde geändert")),
-      );
+      try {
+        await authService.updatePassword(newPassword);
+        if (!mounted) return;
+        _closeWithSuccess();
+      } on FirebaseAuthException catch (e) {
+        if (!mounted) return;
+        setState(() {
+          error = describeAuthError(e);
+        });
+      }
     } on FirebaseAuthException catch (e) {
       if (!mounted) return;
       setState(() {
@@ -381,6 +576,14 @@ class _ChangePasswordDialogState extends State<_ChangePasswordDialog> {
         });
       }
     }
+  }
+
+  void _closeWithSuccess() {
+    Navigator.of(context).pop();
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text("Passwort wurde geändert")),
+    );
   }
 
   @override

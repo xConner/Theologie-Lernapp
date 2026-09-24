@@ -6,6 +6,7 @@ import '../services/auth_error_translator.dart';
 import '../theme/app_theme.dart';
 import '../utils/phone_number_utils.dart';
 import '../widgets/recaptcha_notice.dart';
+import 'mfa_challenge_screen.dart';
 
 enum _EnrollmentStep { reauthenticate, enterPhone, enterCode }
 
@@ -80,6 +81,8 @@ class _MfaEnrollmentScreenState extends State<MfaEnrollmentScreen> {
       setState(() {
         step = _EnrollmentStep.enterPhone;
       });
+    } on FirebaseAuthMultiFactorException catch (e) {
+      await _resolveSecondFactor(e.resolver);
     } on FirebaseAuthException catch (e) {
       if (!mounted) return;
       setState(() {
@@ -107,6 +110,8 @@ class _MfaEnrollmentScreenState extends State<MfaEnrollmentScreen> {
       setState(() {
         step = _EnrollmentStep.enterPhone;
       });
+    } on FirebaseAuthMultiFactorException catch (e) {
+      await _resolveSecondFactor(e.resolver);
     } on FirebaseAuthException catch (e) {
       if (!mounted || isAuthCancellation(e)) return;
       setState(() {
@@ -119,6 +124,19 @@ class _MfaEnrollmentScreenState extends State<MfaEnrollmentScreen> {
         });
       }
     }
+  }
+
+  /// Bei bereits vorhandenem zweiten Faktor verlangt Firebase ihn auch bei
+  /// der erneuten Anmeldung; danach geht es mit der Telefonnummer weiter.
+  Future<void> _resolveSecondFactor(MultiFactorResolver resolver) async {
+    if (!mounted) return;
+
+    final resolved = await resolveReauthMfaChallenge(context, resolver);
+
+    if (!mounted || !resolved) return;
+    setState(() {
+      step = _EnrollmentStep.enterPhone;
+    });
   }
 
   Future<void> _sendCode() async {

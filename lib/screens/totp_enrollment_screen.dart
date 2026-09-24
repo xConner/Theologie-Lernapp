@@ -6,6 +6,7 @@ import 'package:qr_flutter/qr_flutter.dart';
 import '../services/auth_service.dart';
 import '../services/auth_error_translator.dart';
 import '../theme/app_theme.dart';
+import 'mfa_challenge_screen.dart';
 
 enum _TotpStep { reauthenticate, loadingSecret, scanAndVerify, done }
 
@@ -81,6 +82,8 @@ class _TotpEnrollmentScreenState extends State<TotpEnrollmentScreen> {
       await authService.reauthenticateWithPassword(password);
       if (!mounted) return;
       await _generateSecret();
+    } on FirebaseAuthMultiFactorException catch (e) {
+      await _resolveSecondFactor(e.resolver);
     } on FirebaseAuthException catch (e) {
       if (!mounted) return;
       setState(() {
@@ -105,6 +108,8 @@ class _TotpEnrollmentScreenState extends State<TotpEnrollmentScreen> {
       await authService.reauthenticateWithGoogle();
       if (!mounted) return;
       await _generateSecret();
+    } on FirebaseAuthMultiFactorException catch (e) {
+      await _resolveSecondFactor(e.resolver);
     } on FirebaseAuthException catch (e) {
       if (!mounted || isAuthCancellation(e)) return;
       setState(() {
@@ -117,6 +122,18 @@ class _TotpEnrollmentScreenState extends State<TotpEnrollmentScreen> {
         });
       }
     }
+  }
+
+  /// Hat das Konto bereits einen zweiten Faktor, verlangt Firebase ihn auch
+  /// bei der erneuten Anmeldung. Der bestehende MFA-Screen löst die
+  /// Challenge; danach ist die Reauthentifizierung abgeschlossen.
+  Future<void> _resolveSecondFactor(MultiFactorResolver resolver) async {
+    if (!mounted) return;
+
+    final resolved = await resolveReauthMfaChallenge(context, resolver);
+
+    if (!mounted || !resolved) return;
+    await _generateSecret();
   }
 
   Future<void> _generateSecret() async {

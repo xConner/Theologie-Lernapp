@@ -66,6 +66,13 @@ class AuthService {
     await auth.currentUser?.updatePassword(newPassword);
   }
 
+  /// Setzt ein neues Passwort, ohne erneut anzumelden. Nur nach einer
+  /// bereits abgeschlossenen Reauthentifizierung verwenden (z. B. nachdem
+  /// die MFA-Challenge von [changePassword] gelöst wurde).
+  Future<void> updatePassword(String newPassword) async {
+    await auth.currentUser?.updatePassword(newPassword);
+  }
+
   Future<void> reauthenticateWithPassword(String currentPassword) async {
     final user = auth.currentUser;
     final email = user?.email;

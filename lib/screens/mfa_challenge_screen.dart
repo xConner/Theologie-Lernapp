@@ -8,6 +8,25 @@ import '../theme/app_theme.dart';
 import '../utils/phone_number_utils.dart';
 import '../widgets/recaptcha_notice.dart';
 
+/// Löst eine MFA-Challenge, die bei einer erneuten Anmeldung (Reauth vor
+/// einer Sicherheitsaktion) auftritt: Hat das Konto einen zweiten Faktor,
+/// verlangt Firebase ihn auch dort. Liefert true, wenn der zweite Faktor
+/// bestätigt und die erneute Anmeldung damit abgeschlossen wurde.
+Future<bool> resolveReauthMfaChallenge(
+  BuildContext context,
+  MultiFactorResolver resolver,
+) async {
+  final resolved = await Navigator.push<bool>(
+    context,
+    MaterialPageRoute(
+      builder: (_) =>
+          MfaChallengeScreen(resolver: resolver, popToRootOnSuccess: false),
+    ),
+  );
+
+  return resolved == true;
+}
+
 /// Wird während des Logins angezeigt, wenn Firebase eine
 /// [FirebaseAuthMultiFactorException] wirft, weil für das Konto MFA aktiviert
 /// ist. Erst nach erfolgreicher Code-Eingabe ist der Login abgeschlossen
@@ -21,7 +40,16 @@ import '../widgets/recaptcha_notice.dart';
 class MfaChallengeScreen extends StatefulWidget {
   final MultiFactorResolver resolver;
 
-  const MfaChallengeScreen({super.key, required this.resolver});
+  /// true (Standard, Login): nach Erfolg zurück zur Root-Route, AuthGate
+  /// übernimmt. false (erneute Anmeldung vor einer Sicherheitsaktion): nur
+  /// diesen Screen mit `true` schließen, damit der Aufrufer weitermachen kann.
+  final bool popToRootOnSuccess;
+
+  const MfaChallengeScreen({
+    super.key,
+    required this.resolver,
+    this.popToRootOnSuccess = true,
+  });
 
   @override
   State<MfaChallengeScreen> createState() => _MfaChallengeScreenState();
@@ -68,6 +96,14 @@ class _MfaChallengeScreenState extends State<MfaChallengeScreen> {
     super.dispose();
   }
 
+  void _closeAfterSuccess() {
+    if (widget.popToRootOnSuccess) {
+      Navigator.of(context).popUntil((route) => route.isFirst);
+    } else {
+      Navigator.of(context).pop(true);
+    }
+  }
+
   void _switchToSms() {
     setState(() {
       useTotp = false;
@@ -112,7 +148,7 @@ class _MfaChallengeScreenState extends State<MfaChallengeScreen> {
 
       if (!mounted) return;
       // Wie beim SMS-Weg: AuthGate übernimmt, übergeordnete Routen entfernen.
-      Navigator.of(context).popUntil((route) => route.isFirst);
+      _closeAfterSuccess();
     } on FirebaseAuthException catch (e) {
       if (!mounted) return;
       setState(() {
@@ -210,7 +246,7 @@ class _MfaChallengeScreenState extends State<MfaChallengeScreen> {
       // AuthGate zeigt nach erfolgreichem Sign-in automatisch den HomeScreen;
       // dieser Screen und der LoginScreen wurden darüber gepusht und müssen
       // weg. popUntil ist idempotent, falls AuthGate schon aufgeräumt hat.
-      Navigator.of(context).popUntil((route) => route.isFirst);
+      _closeAfterSuccess();
     } on FirebaseAuthException catch (e) {
       if (!mounted) return;
       setState(() {
