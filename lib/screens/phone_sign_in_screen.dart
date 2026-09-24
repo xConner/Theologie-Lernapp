@@ -43,6 +43,11 @@ class _PhoneSignInScreenState extends State<PhoneSignInScreen> {
       return;
     }
 
+    // Tastatur schließen, bevor reCAPTCHA ggf. eine Challenge einblendet:
+    // Die Viewport-Änderung beim Schließen würde sie sonst auf Mobile
+    // verschieben.
+    FocusManager.instance.primaryFocus?.unfocus();
+
     setState(() {
       sendingCode = true;
       error = null;

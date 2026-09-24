@@ -71,6 +71,9 @@ String describeAuthError(Object error) {
     case "captcha-check-failed":
       return "Die Sicherheitsprüfung ist fehlgeschlagen. Bitte lade die Seite neu und versuche es erneut.";
 
+    case "recaptcha-timeout":
+      return "Die Sicherheitsprüfung (reCAPTCHA) wurde nicht abgeschlossen, daher wurde kein Code gesendet. Bitte versuche es erneut.";
+
     case "second-factor-already-in-use":
       return "Diese Telefonnummer ist bereits als zweiter Faktor hinterlegt.";
 

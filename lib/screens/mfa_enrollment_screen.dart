@@ -132,6 +132,11 @@ class _MfaEnrollmentScreenState extends State<MfaEnrollmentScreen> {
       return;
     }
 
+    // Tastatur schließen, bevor reCAPTCHA ggf. eine Challenge einblendet:
+    // Die Viewport-Änderung beim Schließen würde sie sonst auf Mobile
+    // verschieben.
+    FocusManager.instance.primaryFocus?.unfocus();
+
     setState(() {
       busy = true;
       error = null;

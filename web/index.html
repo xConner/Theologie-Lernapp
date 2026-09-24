@@ -43,6 +43,30 @@
   -->
   <style>
     .grecaptcha-badge { visibility: hidden; }
+
+    /*
+      Mobile: Flutter setzt auf <body> position:fixed, overflow:hidden und
+      touch-action:none. reCAPTCHA platziert seine Bild-Challenge absolut in
+      Dokument-Koordinaten - auf kleinen Viewports (und nach dem Schließen der
+      Tastatur) landet sie dadurch außerhalb des sichtbaren Bereichs und kann
+      nicht gescrollt werden. Folge: Challenge unsichtbar, verifyPhoneNumber()
+      wartet endlos, keine SMS. Daher die Challenge auf Touch-Geräten fest im
+      Viewport zentrieren. Desktop (feiner Zeiger) bleibt unverändert.
+    */
+    @media (pointer: coarse) {
+      div:has(> iframe[src*="/recaptcha/"][src*="bframe"]) {
+        position: fixed !important;
+        top: 50% !important;
+        left: 50% !important;
+        right: auto !important;
+        bottom: auto !important;
+        transform: translate(-50%, -50%) !important;
+        max-width: 100vw !important;
+        max-height: 100dvh !important;
+        overflow: auto !important;
+        touch-action: auto !important;
+      }
+    }
   </style>
 </head>
 

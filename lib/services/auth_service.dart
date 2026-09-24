@@ -3,6 +3,23 @@ import 'package:firebase_auth/firebase_auth.dart';
 class AuthService {
   final FirebaseAuth auth = FirebaseAuth.instance;
 
+  /// Obergrenze für den SMS-Versand inkl. reCAPTCHA. Auf Web wartet
+  /// verifyPhoneNumber() auf das unsichtbare reCAPTCHA; wird dessen
+  /// Bild-Challenge geschlossen, nicht angezeigt oder läuft sie ab (nach
+  /// 2 Minuten), resolved/rejected das Firebase-Promise nie. Ohne Timeout
+  /// bliebe die UI dann dauerhaft im Ladezustand.
+  static const Duration phoneVerificationTimeout = Duration(seconds: 120);
+
+  Future<void> _withPhoneVerificationTimeout(Future<void> verification) {
+    return verification.timeout(
+      phoneVerificationTimeout,
+      onTimeout: () => throw FirebaseAuthException(
+        code: "recaptcha-timeout",
+        message: "Phone verification did not complete (reCAPTCHA pending).",
+      ),
+    );
+  }
+
   Future<User> signInAnonymously() async {
     final result = await auth.signInAnonymously();
     return result.user!;
@@ -112,12 +129,14 @@ class AuthService {
     required PhoneCodeSent codeSent,
     required PhoneCodeAutoRetrievalTimeout codeAutoRetrievalTimeout,
   }) {
-    return auth.verifyPhoneNumber(
-      phoneNumber: phoneNumber,
-      verificationCompleted: verificationCompleted,
-      verificationFailed: verificationFailed,
-      codeSent: codeSent,
-      codeAutoRetrievalTimeout: codeAutoRetrievalTimeout,
+    return _withPhoneVerificationTimeout(
+      auth.verifyPhoneNumber(
+        phoneNumber: phoneNumber,
+        verificationCompleted: verificationCompleted,
+        verificationFailed: verificationFailed,
+        codeSent: codeSent,
+        codeAutoRetrievalTimeout: codeAutoRetrievalTimeout,
+      ),
     );
   }
 
@@ -163,13 +182,15 @@ class AuthService {
     required PhoneCodeSent codeSent,
     required PhoneCodeAutoRetrievalTimeout codeAutoRetrievalTimeout,
   }) {
-    return auth.verifyPhoneNumber(
-      phoneNumber: phoneNumber,
-      multiFactorSession: session,
-      verificationCompleted: verificationCompleted,
-      verificationFailed: verificationFailed,
-      codeSent: codeSent,
-      codeAutoRetrievalTimeout: codeAutoRetrievalTimeout,
+    return _withPhoneVerificationTimeout(
+      auth.verifyPhoneNumber(
+        phoneNumber: phoneNumber,
+        multiFactorSession: session,
+        verificationCompleted: verificationCompleted,
+        verificationFailed: verificationFailed,
+        codeSent: codeSent,
+        codeAutoRetrievalTimeout: codeAutoRetrievalTimeout,
+      ),
     );
   }
 
@@ -214,13 +235,15 @@ class AuthService {
     required PhoneCodeSent codeSent,
     required PhoneCodeAutoRetrievalTimeout codeAutoRetrievalTimeout,
   }) {
-    return auth.verifyPhoneNumber(
-      multiFactorInfo: hint,
-      multiFactorSession: resolver.session,
-      verificationCompleted: verificationCompleted,
-      verificationFailed: verificationFailed,
-      codeSent: codeSent,
-      codeAutoRetrievalTimeout: codeAutoRetrievalTimeout,
+    return _withPhoneVerificationTimeout(
+      auth.verifyPhoneNumber(
+        multiFactorInfo: hint,
+        multiFactorSession: resolver.session,
+        verificationCompleted: verificationCompleted,
+        verificationFailed: verificationFailed,
+        codeSent: codeSent,
+        codeAutoRetrievalTimeout: codeAutoRetrievalTimeout,
+      ),
     );
   }
 
