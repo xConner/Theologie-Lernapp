@@ -4,13 +4,19 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../services/auth_service.dart';
 import '../services/auth_error_translator.dart';
+import '../services/local_learning_store.dart';
 import '../theme/app_theme.dart';
 import 'forgot_password_screen.dart';
 import 'mfa_challenge_screen.dart';
 import 'phone_sign_in_screen.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+  /// true beim ersten Besuch (Einstieg der App): zusätzlich die Option
+  /// "Als Gast fortfahren". false, wenn der Screen aus dem Gastmodus heraus
+  /// geöffnet wird.
+  final bool showGuestOption;
+
+  const LoginScreen({super.key, this.showGuestOption = false});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -111,6 +117,11 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
+  void continueAsGuest() {
+    // AuthGate wechselt daraufhin zur Startseite im Gastmodus.
+    LocalLearningStore.instance.enterGuestMode();
+  }
+
   void openForgotPassword() {
     Navigator.push(
       context,
@@ -134,6 +145,12 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // Aus dem Gastmodus gepusht: Zurück-Leiste; nach erfolgreicher
+      // Anmeldung schließt AuthGate diese Route automatisch.
+      appBar: widget.showGuestOption
+          ? null
+          : AppBar(title: const Text("Anmelden")),
+
       body: Center(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(24),
@@ -251,6 +268,33 @@ class _LoginScreenState extends State<LoginScreen> {
                       icon: const Icon(Icons.phone_iphone_rounded),
                       label: const Text("Mit Telefonnummer anmelden"),
                     ),
+
+                    if (widget.showGuestOption) ...[
+                      const SizedBox(height: 18),
+                      const Divider(),
+                      const SizedBox(height: 10),
+
+                      OutlinedButton.icon(
+                        onPressed: loading ? null : continueAsGuest,
+                        icon: const Icon(Icons.person_outline_rounded),
+                        label: const Text("Als Gast fortfahren"),
+                      ),
+
+                      const SizedBox(height: 8),
+
+                      Text(
+                        "Ohne Konto werden deine Lernstände und Einstellungen "
+                        "nur lokal in diesem Browser gespeichert und nicht "
+                        "zwischen Geräten synchronisiert. Beim Löschen der "
+                        "Browserdaten gehen sie verloren. Du kannst dich "
+                        "später jederzeit registrieren und deine Fortschritte "
+                        "übernehmen.",
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          color: AppColors.textSecondary,
+                        ),
+                      ),
+                    ],
 
                     const SizedBox(height: 22),
 

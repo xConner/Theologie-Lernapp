@@ -47,4 +47,49 @@ class LearningCard {
       if (mnemonic != null) "mnemonic": mnemonic,
     };
   }
+
+  // Lokale Speicherung im Gastmodus: dieselben Felder wie in Firestore, der
+  // Zeitstempel als Millisekunden. Ungültige Werte fallen auf die normalen
+  // Defaults des Konstruktors zurück, damit defekte lokale Daten nicht zum
+  // Absturz führen.
+  factory LearningCard.fromJson(String id, Map<String, dynamic> data) {
+    final card = LearningCard(id: id);
+
+    final stability = data["stability"];
+    final difficulty = data["difficulty"];
+    final lastReviewed = data["lastReviewed"];
+    final mnemonic = data["mnemonic"];
+
+    if (stability is num && stability.isFinite && stability > 0) {
+      card.stability = stability.toDouble();
+    }
+
+    if (difficulty is num && difficulty.isFinite) {
+      card.difficulty = difficulty.toDouble();
+    }
+
+    if (lastReviewed is num && lastReviewed.isFinite) {
+      card.lastReviewed = DateTime.fromMillisecondsSinceEpoch(
+        lastReviewed.toInt(),
+      );
+    }
+
+    if (mnemonic is String) {
+      card.mnemonic = mnemonic;
+    }
+
+    return card;
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      "stability": stability,
+
+      "difficulty": difficulty,
+
+      "lastReviewed": lastReviewed?.millisecondsSinceEpoch,
+
+      if (mnemonic != null) "mnemonic": mnemonic,
+    };
+  }
 }

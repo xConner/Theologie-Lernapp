@@ -1,13 +1,22 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../../local_learning_store.dart';
+
+/// uid == null bedeutet Gastmodus (lokale Speicherung).
 class LatinVocabularySettingsService {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+  static const String _group = "latin_vocabulary_settings";
 
   DocumentReference<Map<String, dynamic>> _document(String uid) {
     return firestore.collection("users").doc(uid);
   }
 
-  Future<Map<String, dynamic>> _loadSettings(String uid) async {
+  Future<Map<String, dynamic>> _loadSettings(String? uid) async {
+    if (uid == null) {
+      return LocalLearningStore.instance.loadSettingsGroup(_group);
+    }
+
     final doc = await _document(uid).get();
 
     if (!doc.exists) {
@@ -23,37 +32,37 @@ class LatinVocabularySettingsService {
     return data["latin_vocabulary_settings"] ?? {};
   }
 
-  Future<bool> getIncludeVerbForm(String uid) async {
+  Future<bool> getIncludeVerbForm(String? uid) async {
     final data = await _loadSettings(uid);
 
     return data["includeVerbForm"] ?? true;
   }
 
-  Future<bool> getIncludeNounForm(String uid) async {
+  Future<bool> getIncludeNounForm(String? uid) async {
     final data = await _loadSettings(uid);
 
     return data["includeNounForm"] ?? true;
   }
 
-  Future<bool> getIncludeGender(String uid) async {
+  Future<bool> getIncludeGender(String? uid) async {
     final data = await _loadSettings(uid);
 
     return data["includeGender"] ?? true;
   }
 
-  Future<bool> getIncludeAdjectiveForms(String uid) async {
+  Future<bool> getIncludeAdjectiveForms(String? uid) async {
     final data = await _loadSettings(uid);
 
     return data["includeAdjectiveForms"] ?? true;
   }
 
-  Future<bool> getRequireOnlyOneTranslation(String uid) async {
+  Future<bool> getRequireOnlyOneTranslation(String? uid) async {
     final data = await _loadSettings(uid);
 
     return data["requireOnlyOneTranslation"] ?? true;
   }
 
-  Future<List<int>> getEnabledSteps(String uid) async {
+  Future<List<int>> getEnabledSteps(String? uid) async {
     final data = await _loadSettings(uid);
 
     final value = data["enabledSteps"];
@@ -65,7 +74,7 @@ class LatinVocabularySettingsService {
     return List<int>.from(value);
   }
 
-  Future<Map<int, List<int>>> getEnabledSubsteps(String uid) async {
+  Future<Map<int, List<int>>> getEnabledSubsteps(String? uid) async {
     final data = await _loadSettings(uid);
 
     final value = data["enabledSubsteps"];
@@ -85,7 +94,7 @@ class LatinVocabularySettingsService {
     return result;
   }
 
-  Future<Map<int, List<int>>> getAllEnabledSubsteps(String uid) async {
+  Future<Map<int, List<int>>> getAllEnabledSubsteps(String? uid) async {
     final data = await _loadSettings(uid);
 
     final value = data["enabledSubsteps"];
@@ -103,7 +112,7 @@ class LatinVocabularySettingsService {
     return result;
   }
 
-  Future<List<String>> getEnabledTypes(String uid) async {
+  Future<List<String>> getEnabledTypes(String? uid) async {
     final data = await _loadSettings(uid);
 
     final value = data["enabledTypes"];
@@ -127,7 +136,7 @@ class LatinVocabularySettingsService {
   }
 
   Future<void> saveSettings({
-    required String uid,
+    required String? uid,
     required bool includeVerbForm,
     required bool includeNounForm,
     required bool includeGender,
@@ -143,17 +152,23 @@ class LatinVocabularySettingsService {
       substeps[entry.key.toString()] = entry.value;
     }
 
+    final settings = {
+      "includeVerbForm": includeVerbForm,
+      "includeNounForm": includeNounForm,
+      "includeGender": includeGender,
+      "includeAdjectiveForms": includeAdjectiveForms,
+      "requireOnlyOneTranslation": requireOnlyOneTranslation,
+      "enabledSteps": enabledSteps,
+      "enabledSubsteps": substeps,
+      "enabledTypes": enabledTypes,
+    };
+
+    if (uid == null) {
+      return LocalLearningStore.instance.saveSettingsGroup(_group, settings);
+    }
+
     await _document(uid).set({
-      "latin_vocabulary_settings": {
-        "includeVerbForm": includeVerbForm,
-        "includeNounForm": includeNounForm,
-        "includeGender": includeGender,
-        "includeAdjectiveForms": includeAdjectiveForms,
-        "requireOnlyOneTranslation": requireOnlyOneTranslation,
-        "enabledSteps": enabledSteps,
-        "enabledSubsteps": substeps,
-        "enabledTypes": enabledTypes,
-      },
+      _group: settings,
     }, SetOptions(merge: true));
   }
 }

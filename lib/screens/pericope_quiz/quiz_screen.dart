@@ -26,7 +26,8 @@ import 'package:flutter/services.dart';
 
 class QuizScreen extends StatefulWidget {
   final List<Perikope> perikopen;
-  final String uid;
+  // null = Gastmodus (lokale Speicherung).
+  final String? uid;
 
   const QuizScreen({super.key, required this.perikopen, required this.uid});
 

@@ -1,9 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../models/greek/vocabulary/learning_card.dart';
+import 'local_learning_store.dart';
 
+/// uid == null bedeutet Gastmodus: dann wird lokal statt in Firestore
+/// gelesen/geschrieben.
 class LearningService {
   final FirebaseFirestore db = FirebaseFirestore.instance;
+
+  final LocalLearningStore local = LocalLearningStore.instance;
 
   // ==========================
   // GRIECHISCH – VOKABELN
@@ -13,7 +18,11 @@ class LearningService {
     return db.collection("users").doc(uid).collection("vocabulary");
   }
 
-  Future<LearningCard> loadCard(String uid, String id) async {
+  Future<LearningCard> loadCard(String? uid, String id) async {
+    if (uid == null) {
+      return local.loadCard(LocalLearningStore.greekVocabulary, id);
+    }
+
     final doc = await _vocabularyCollection(uid).doc(id).get();
 
     if (!doc.exists) {
@@ -23,7 +32,11 @@ class LearningService {
     return LearningCard.fromFirestore(id, doc.data()!);
   }
 
-  Future<Map<String, LearningCard>> loadCards(String uid) async {
+  Future<Map<String, LearningCard>> loadCards(String? uid) async {
+    if (uid == null) {
+      return local.loadCards(LocalLearningStore.greekVocabulary);
+    }
+
     final snapshot = await _vocabularyCollection(uid).get();
 
     final Map<String, LearningCard> cards = {};
@@ -35,7 +48,11 @@ class LearningService {
     return cards;
   }
 
-  Future<void> saveCard(String uid, LearningCard card) async {
+  Future<void> saveCard(String? uid, LearningCard card) async {
+    if (uid == null) {
+      return local.saveCard(LocalLearningStore.greekVocabulary, card);
+    }
+
     await _vocabularyCollection(
       uid,
     ).doc(card.id).set(card.toFirestore(), SetOptions(merge: true));
@@ -49,7 +66,11 @@ class LearningService {
     return db.collection("users").doc(uid).collection("learning_cards");
   }
 
-  Future<LearningCard> loadPerikopeCard(String uid, String id) async {
+  Future<LearningCard> loadPerikopeCard(String? uid, String id) async {
+    if (uid == null) {
+      return local.loadCard(LocalLearningStore.perikopen, id);
+    }
+
     final doc = await _perikopenCollection(uid).doc(id).get();
 
     if (!doc.exists) {
@@ -59,7 +80,11 @@ class LearningService {
     return LearningCard.fromFirestore(id, doc.data()!);
   }
 
-  Future<Map<String, LearningCard>> loadPerikopeCards(String uid) async {
+  Future<Map<String, LearningCard>> loadPerikopeCards(String? uid) async {
+    if (uid == null) {
+      return local.loadCards(LocalLearningStore.perikopen);
+    }
+
     final snapshot = await _perikopenCollection(uid).get();
 
     final Map<String, LearningCard> cards = {};
@@ -71,7 +96,11 @@ class LearningService {
     return cards;
   }
 
-  Future<void> savePerikopeCard(String uid, LearningCard card) async {
+  Future<void> savePerikopeCard(String? uid, LearningCard card) async {
+    if (uid == null) {
+      return local.saveCard(LocalLearningStore.perikopen, card);
+    }
+
     await _perikopenCollection(
       uid,
     ).doc(card.id).set(card.toFirestore(), SetOptions(merge: true));
@@ -87,7 +116,11 @@ class LearningService {
     return db.collection("users").doc(uid).collection("latin_vocabulary");
   }
 
-  Future<LearningCard> loadLatinCard(String uid, String id) async {
+  Future<LearningCard> loadLatinCard(String? uid, String id) async {
+    if (uid == null) {
+      return local.loadCard(LocalLearningStore.latinVocabulary, id);
+    }
+
     final doc = await _latinVocabularyCollection(uid).doc(id).get();
 
     if (!doc.exists) {
@@ -97,7 +130,11 @@ class LearningService {
     return LearningCard.fromFirestore(id, doc.data()!);
   }
 
-  Future<Map<String, LearningCard>> loadLatinCards(String uid) async {
+  Future<Map<String, LearningCard>> loadLatinCards(String? uid) async {
+    if (uid == null) {
+      return local.loadCards(LocalLearningStore.latinVocabulary);
+    }
+
     final snapshot = await _latinVocabularyCollection(uid).get();
 
     final Map<String, LearningCard> cards = {};
@@ -109,7 +146,11 @@ class LearningService {
     return cards;
   }
 
-  Future<void> saveLatinCard(String uid, LearningCard card) async {
+  Future<void> saveLatinCard(String? uid, LearningCard card) async {
+    if (uid == null) {
+      return local.saveCard(LocalLearningStore.latinVocabulary, card);
+    }
+
     await _latinVocabularyCollection(
       uid,
     ).doc(card.id).set(card.toFirestore(), SetOptions(merge: true));

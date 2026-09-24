@@ -20,15 +20,13 @@ class AuthService {
   Future<UserCredential> registerWithEmail({
     required String email,
     required String password,
-  }) async {
-    final credential = await auth.createUserWithEmailAndPassword(
+  }) {
+    // Die Bestätigungs-Mail verschickt der EmailVerificationScreen beim
+    // Öffnen, auf den AuthGate nach der Registrierung automatisch wechselt.
+    return auth.createUserWithEmailAndPassword(
       email: email,
       password: password,
     );
-
-    await credential.user?.sendEmailVerification();
-
-    return credential;
   }
 
   Future<void> sendEmailVerification() async {

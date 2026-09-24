@@ -160,24 +160,21 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
   }
 
   Future<void> load() async {
+    // uid == null: Gastmodus, die Services speichern dann lokal.
     uid = FirebaseAuth.instance.currentUser?.uid;
 
-    if (uid == null) {
-      return;
-    }
+    includeArticle = await settingsService.getIncludeArticle(uid);
 
-    includeArticle = await settingsService.getIncludeArticle(uid!);
+    includeGenitive = await settingsService.getIncludeGenitive(uid);
 
-    includeGenitive = await settingsService.getIncludeGenitive(uid!);
-
-    includeAorist = await settingsService.getIncludeAorist(uid!);
+    includeAorist = await settingsService.getIncludeAorist(uid);
 
     requireOnlyOneTranslation = await settingsService
-        .getRequireOnlyOneTranslation(uid!);
+        .getRequireOnlyOneTranslation(uid);
 
-    enabledSteps = await settingsService.getEnabledSteps(uid!);
+    enabledSteps = await settingsService.getEnabledSteps(uid);
 
-    enabledTypes = await settingsService.getEnabledTypes(uid!);
+    enabledTypes = await settingsService.getEnabledTypes(uid);
 
     entries = await GreekVocabularyLoader.load();
 
@@ -187,7 +184,7 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
       }
     }
 
-    cards = await learningService.loadCards(uid!);
+    cards = await learningService.loadCards(uid);
 
     nextQuestion();
 
@@ -288,7 +285,7 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
   Future<void> check() async {
     final q = question;
 
-    if (q == null || uid == null) {
+    if (q == null) {
       return;
     }
 
@@ -319,7 +316,7 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
 
     cards[q.entry.id.toString()] = card;
 
-    await learningService.saveCard(uid!, card);
+    await learningService.saveCard(uid, card);
 
     setState(() {
       answered = true;
@@ -425,7 +422,7 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
                       final hadAnswered = answered;
 
                       await settingsService.saveSettings(
-                        uid: uid!,
+                        uid: uid,
 
                         includeArticle: includeArticle,
 
@@ -869,7 +866,7 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
                                           cards[q.entry.id.toString()] = card;
 
                                           await learningService.saveCard(
-                                            uid!,
+                                            uid,
                                             card,
                                           );
 

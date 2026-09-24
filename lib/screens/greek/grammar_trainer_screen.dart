@@ -7,6 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../../models/greek/vocabulary/greek_vocabulary_entry.dart';
 import '../../services/greek/vocabulary/greek_vocabulary_loader.dart';
 import '../../services/greek/grammar/wiktionary_inflection_service.dart';
+import '../../services/local_learning_store.dart';
 import '../../services/quiz_sound_player.dart';
 import '../../services/quiz_sound_settings.dart';
 import '../../theme/app_theme.dart';
@@ -260,13 +261,19 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
   Future<void> loadGrammarSettings() async {
     final user = _auth.currentUser;
 
+    final Map<String, dynamic>? data;
+
     if (user == null) {
-      return;
+      // Gastmodus: lokal gespeicherte Einstellungen (gleiche Struktur).
+      data = {
+        'greek_grammar_settings': await LocalLearningStore.instance
+            .loadSettingsGroup('greek_grammar_settings'),
+      };
+    } else {
+      final doc = await _firestore.collection('users').doc(user.uid).get();
+
+      data = doc.data();
     }
-
-    final doc = await _firestore.collection('users').doc(user.uid).get();
-
-    final data = doc.data();
 
     if (data == null) {
       return;
@@ -312,17 +319,25 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
   Future<void> saveGrammarSettings() async {
     final user = _auth.currentUser;
 
+    final settings = {
+      'enabledSteps': enabledSteps,
+      'enabledTypes': enabledTypes,
+      'showLemmaFieldNoun': showLemmaFieldNoun,
+      'showLemmaFieldVerb': showLemmaFieldVerb,
+    };
+
     if (user == null) {
+      // Gastmodus: lokal speichern.
+      await LocalLearningStore.instance.saveSettingsGroup(
+        'greek_grammar_settings',
+        settings,
+      );
+
       return;
     }
 
     await _firestore.collection('users').doc(user.uid).set({
-      'greek_grammar_settings': {
-        'enabledSteps': enabledSteps,
-        'enabledTypes': enabledTypes,
-        'showLemmaFieldNoun': showLemmaFieldNoun,
-        'showLemmaFieldVerb': showLemmaFieldVerb,
-      },
+      'greek_grammar_settings': settings,
     }, SetOptions(merge: true));
   }
 

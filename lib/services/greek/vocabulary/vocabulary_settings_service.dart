@@ -1,13 +1,22 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../../local_learning_store.dart';
+
+/// uid == null bedeutet Gastmodus (lokale Speicherung).
 class VocabularySettingsService {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+  static const String _group = "vocabulary_settings";
 
   DocumentReference<Map<String, dynamic>> _document(String uid) {
     return firestore.collection("users").doc(uid);
   }
 
-  Future<Map<String, dynamic>> _loadSettings(String uid) async {
+  Future<Map<String, dynamic>> _loadSettings(String? uid) async {
+    if (uid == null) {
+      return LocalLearningStore.instance.loadSettingsGroup(_group);
+    }
+
     final doc = await _document(uid).get();
 
     if (!doc.exists) {
@@ -23,31 +32,31 @@ class VocabularySettingsService {
     return data["vocabulary_settings"] ?? {};
   }
 
-  Future<bool> getIncludeArticle(String uid) async {
+  Future<bool> getIncludeArticle(String? uid) async {
     final data = await _loadSettings(uid);
 
     return data["includeArticle"] ?? true;
   }
 
-  Future<bool> getIncludeGenitive(String uid) async {
+  Future<bool> getIncludeGenitive(String? uid) async {
     final data = await _loadSettings(uid);
 
     return data["includeGenitive"] ?? true;
   }
 
-  Future<bool> getIncludeAorist(String uid) async {
+  Future<bool> getIncludeAorist(String? uid) async {
     final data = await _loadSettings(uid);
 
     return data["includeAorist"] ?? true;
   }
 
-  Future<bool> getRequireOnlyOneTranslation(String uid) async {
+  Future<bool> getRequireOnlyOneTranslation(String? uid) async {
     final data = await _loadSettings(uid);
 
     return data["requireOnlyOneTranslation"] ?? false;
   }
 
-  Future<List<int>> getEnabledSteps(String uid) async {
+  Future<List<int>> getEnabledSteps(String? uid) async {
     final data = await _loadSettings(uid);
 
     final value = data["enabledSteps"];
@@ -59,7 +68,7 @@ class VocabularySettingsService {
     return List<int>.from(value);
   }
 
-  Future<List<String>> getEnabledTypes(String uid) async {
+  Future<List<String>> getEnabledTypes(String? uid) async {
     final data = await _loadSettings(uid);
 
     final value = data["enabledTypes"];
@@ -82,7 +91,7 @@ class VocabularySettingsService {
   }
 
   Future<void> saveSettings({
-    required String uid,
+    required String? uid,
     required bool includeArticle,
     required bool includeGenitive,
     required bool includeAorist,
@@ -90,17 +99,23 @@ class VocabularySettingsService {
     required List<int> enabledSteps,
     required List<String> enabledTypes,
   }) async {
+    final settings = {
+      "includeArticle": includeArticle,
+      "includeGenitive": includeGenitive,
+      "includeAorist": includeAorist,
+      "requireOnlyOneTranslation": requireOnlyOneTranslation,
+
+      "enabledSteps": enabledSteps,
+
+      "enabledTypes": enabledTypes,
+    };
+
+    if (uid == null) {
+      return LocalLearningStore.instance.saveSettingsGroup(_group, settings);
+    }
+
     await _document(uid).set({
-      "vocabulary_settings": {
-        "includeArticle": includeArticle,
-        "includeGenitive": includeGenitive,
-        "includeAorist": includeAorist,
-        "requireOnlyOneTranslation": requireOnlyOneTranslation,
-
-        "enabledSteps": enabledSteps,
-
-        "enabledTypes": enabledTypes,
-      },
+      _group: settings,
     }, SetOptions(merge: true));
   }
 }

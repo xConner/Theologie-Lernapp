@@ -5,6 +5,7 @@ import '../services/auth_service.dart';
 import '../services/auth_error_translator.dart';
 import '../theme/app_theme.dart';
 import '../utils/phone_number_utils.dart';
+import '../widgets/sign_out_confirmation.dart';
 import 'email_verification_screen.dart';
 import 'mfa_enrollment_screen.dart';
 
@@ -35,6 +36,16 @@ class _AccountSecurityScreenState extends State<AccountSecurityScreen> {
       mfaFactors = factors;
       loadingFactors = false;
     });
+  }
+
+  Future<void> _signOut() async {
+    // AuthGate sitzt in der Root-Route und zeigt nach dem Abmelden den
+    // Login-Screen – die darüber gepushten Routen (Einstellungen, Konto &
+    // Sicherheit) müssen daher explizit entfernt werden.
+    final navigator = Navigator.of(context);
+    if (!await confirmSignOut(context)) return;
+    await authService.signOut();
+    navigator.popUntil((route) => route.isFirst);
   }
 
   Future<void> _openEnrollment() async {
@@ -223,7 +234,7 @@ class _AccountSecurityScreenState extends State<AccountSecurityScreen> {
           const SizedBox(height: 28),
 
           OutlinedButton.icon(
-            onPressed: () => authService.signOut(),
+            onPressed: _signOut,
             icon: const Icon(Icons.logout_rounded),
             label: const Text("Abmelden"),
           ),

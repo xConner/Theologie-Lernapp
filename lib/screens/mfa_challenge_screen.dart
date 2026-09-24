@@ -131,8 +131,9 @@ class _MfaChallengeScreenState extends State<MfaChallengeScreen> {
 
       if (!mounted) return;
       // AuthGate zeigt nach erfolgreichem Sign-in automatisch den HomeScreen;
-      // dieser Screen wurde vom LoginScreen darüber gepusht und muss weg.
-      Navigator.of(context).pop();
+      // dieser Screen und der LoginScreen wurden darüber gepusht und müssen
+      // weg. popUntil ist idempotent, falls AuthGate schon aufgeräumt hat.
+      Navigator.of(context).popUntil((route) => route.isFirst);
     } on FirebaseAuthException catch (e) {
       if (!mounted) return;
       setState(() {

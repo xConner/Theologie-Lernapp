@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../services/auth_service.dart';
 import '../services/auth_error_translator.dart';
 import '../theme/app_theme.dart';
+import '../widgets/sign_out_confirmation.dart';
 
 class EmailVerificationScreen extends StatefulWidget {
   const EmailVerificationScreen({super.key});
@@ -16,12 +17,30 @@ class EmailVerificationScreen extends StatefulWidget {
 class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
   final authService = AuthService();
 
+  // Merkt sich, für welche Nutzer in dieser App-Sitzung bereits automatisch
+  // eine Bestätigungs-Mail verschickt wurde, damit AuthGate-Rebuilds oder
+  // erneutes Öffnen des Screens nicht jedes Mal eine neue Mail auslösen
+  // (Firebase drosselt sonst mit "too-many-requests").
+  static final Set<String> _autoSentFor = {};
+
   bool sending = false;
   bool checking = false;
   String? info;
   String? error;
 
-  Future<void> _resendEmail() async {
+  @override
+  void initState() {
+    super.initState();
+
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    if (uid != null && _autoSentFor.add(uid)) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) _sendEmail(isResend: false);
+      });
+    }
+  }
+
+  Future<void> _sendEmail({bool isResend = true}) async {
     setState(() {
       sending = true;
       error = null;
@@ -33,9 +52,10 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
 
       if (!mounted) return;
       setState(() {
-        info = "Bestätigungs-Mail wurde erneut gesendet.";
+        if (isResend) info = "Bestätigungs-Mail wurde erneut gesendet.";
       });
     } on FirebaseAuthException catch (e) {
+      if (!isResend) _autoSentFor.remove(FirebaseAuth.instance.currentUser?.uid);
       if (!mounted) return;
       setState(() {
         error = describeAuthError(e);
@@ -84,6 +104,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
   }
 
   Future<void> _signOut() async {
+    if (!await confirmSignOut(context)) return;
     await authService.signOut();
   }
 
@@ -167,7 +188,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                     const SizedBox(height: 4),
 
                     TextButton(
-                      onPressed: busy ? null : _resendEmail,
+                      onPressed: busy ? null : _sendEmail,
                       child: Text(
                         sending
                             ? "Wird gesendet..."

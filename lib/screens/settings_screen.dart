@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
+import '../services/progress_data_service.dart';
 import '../services/quiz_sound_player.dart';
 import '../services/quiz_sound_settings.dart';
 import '../theme/app_theme.dart';
+import '../widgets/learning_progress_dialogs.dart';
 import 'account_security_screen.dart';
+import 'login_screen.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -14,6 +18,8 @@ class SettingsScreen extends StatefulWidget {
 
 class _SettingsScreenState extends State<SettingsScreen> {
   final QuizSoundSettings soundSettings = QuizSoundSettings.instance;
+
+  bool resettingProgress = false;
 
   @override
   void initState() {
@@ -35,9 +41,44 @@ class _SettingsScreenState extends State<SettingsScreen> {
     }
   }
 
+  Future<void> _resetProgress() async {
+    if (!await confirmProgressReset(context)) return;
+    if (!mounted) return;
+
+    final messenger = ScaffoldMessenger.of(context);
+
+    setState(() {
+      resettingProgress = true;
+    });
+
+    try {
+      // uid == null → lokaler Gast-Lernstand, sonst Firestore des Kontos.
+      await ProgressDataService().resetProgress(
+        FirebaseAuth.instance.currentUser?.uid,
+      );
+
+      messenger.showSnackBar(
+        const SnackBar(content: Text("Lernfortschritte wurden zurückgesetzt.")),
+      );
+    } catch (_) {
+      messenger.showSnackBar(
+        const SnackBar(
+          content: Text("Lernfortschritte konnten nicht zurückgesetzt werden."),
+        ),
+      );
+    } finally {
+      if (mounted) {
+        setState(() {
+          resettingProgress = false;
+        });
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final muted = soundSettings.volume <= 0;
+    final isGuest = FirebaseAuth.instance.currentUser == null;
 
     return Scaffold(
       appBar: AppBar(title: const Text("Einstellungen")),
@@ -45,21 +86,40 @@ class _SettingsScreenState extends State<SettingsScreen> {
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
-          Card(
-            child: ListTile(
-              leading: const Icon(Icons.shield_rounded),
-              title: const Text("Konto & Sicherheit"),
-              trailing: const Icon(Icons.chevron_right_rounded),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => const AccountSecurityScreen(),
-                  ),
-                );
-              },
+          if (isGuest)
+            Card(
+              child: ListTile(
+                leading: const Icon(Icons.login_rounded),
+                title: const Text("Anmelden oder registrieren"),
+                subtitle: const Text(
+                  "Als Gast werden Lernstände nur lokal in diesem Browser "
+                  "gespeichert.",
+                ),
+                trailing: const Icon(Icons.chevron_right_rounded),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => const LoginScreen()),
+                  );
+                },
+              ),
+            )
+          else
+            Card(
+              child: ListTile(
+                leading: const Icon(Icons.shield_rounded),
+                title: const Text("Konto & Sicherheit"),
+                trailing: const Icon(Icons.chevron_right_rounded),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => const AccountSecurityScreen(),
+                    ),
+                  );
+                },
+              ),
             ),
-          ),
 
           const SizedBox(height: 20),
 
@@ -111,6 +171,38 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   ),
                 ],
               ),
+            ),
+          ),
+
+          const SizedBox(height: 20),
+
+          Padding(
+            padding: const EdgeInsets.fromLTRB(4, 0, 4, 12),
+            child: Text(
+              "Lernfortschritte",
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+          ),
+
+          Card(
+            child: ListTile(
+              leading: const Icon(
+                Icons.restart_alt_rounded,
+                color: AppColors.error,
+              ),
+              title: const Text("Lernfortschritte zurücksetzen"),
+              subtitle: const Text(
+                "Vokabeln, Perikopen und Grammatik. Einstellungen bleiben "
+                "erhalten.",
+              ),
+              trailing: resettingProgress
+                  ? const SizedBox(
+                      height: 18,
+                      width: 18,
+                      child: CircularProgressIndicator(strokeWidth: 2),
+                    )
+                  : null,
+              onTap: resettingProgress ? null : _resetProgress,
             ),
           ),
         ],

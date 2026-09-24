@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 import 'firebase_options.dart';
+import 'services/local_learning_store.dart';
 import 'services/quiz_sound_settings.dart';
 import 'theme/app_theme.dart';
 import 'widgets/auth_gate.dart';
@@ -12,6 +13,10 @@ void main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   await QuizSoundSettings.instance.load();
+
+  // Entscheidet, ob ohne Anmeldung der Login-Screen (erster Besuch) oder
+  // direkt die Gast-Startseite gezeigt wird.
+  await LocalLearningStore.instance.loadGuestModeState();
 
   runApp(const MyApp());
 }

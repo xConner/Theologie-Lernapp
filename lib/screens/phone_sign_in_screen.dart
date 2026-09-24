@@ -120,7 +120,8 @@ class _PhoneSignInScreenState extends State<PhoneSignInScreen> {
       );
 
       if (!mounted) return;
-      Navigator.of(context).pop();
+      // Idempotent, falls AuthGate die Login-Routen schon geschlossen hat.
+      Navigator.of(context).popUntil((route) => route.isFirst);
     } on FirebaseAuthException catch (e) {
       if (!mounted) return;
       setState(() {

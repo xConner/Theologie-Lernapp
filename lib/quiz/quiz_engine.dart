@@ -11,7 +11,8 @@ class QuizEngine {
 
   final Map<String, LearningCard> _cards;
 
-  final String uid;
+  // null = Gastmodus (lokale Speicherung).
+  final String? uid;
 
   final LearningService learningService;
 

@@ -16,6 +16,11 @@ import 'latin/latin_home_screen.dart';
 import 'settings_screen.dart';
 
 import '../theme/app_theme.dart';
+import '../services/local_learning_store.dart';
+import '../services/progress_data_service.dart';
+import '../widgets/learning_progress_dialogs.dart';
+import '../widgets/sign_out_confirmation.dart';
+import 'login_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -29,11 +34,73 @@ class _HomeScreenState extends State<HomeScreen> {
 
   bool loading = true;
 
+  // null = Gastmodus. AuthGate baut HomeScreen bei jedem Nutzerwechsel neu auf.
+  final String? uid = FirebaseAuth.instance.currentUser?.uid;
+
+  bool get isGuest => uid == null;
+
   @override
   void initState() {
     super.initState();
 
     _loadPerikopen();
+
+    if (!isGuest) {
+      WidgetsBinding.instance.addPostFrameCallback(
+        (_) => _offerGuestDataTransfer(),
+      );
+    }
+  }
+
+  /// Bietet nach Login/Registrierung an, lokale Gast-Lernstände ins Konto zu
+  /// übernehmen – nur wenn es lokale Daten gibt und das Konto selbst noch
+  /// keine Lerndaten hat (bestehende Kontodaten werden nie überschrieben).
+  Future<void> _offerGuestDataTransfer() async {
+    final accountUid = uid;
+    if (accountUid == null) return;
+
+    final local = LocalLearningStore.instance;
+    final progressData = ProgressDataService();
+
+    try {
+      if (!await local.hasGuestData()) return;
+      if (await local.isTransferDeclined(accountUid)) return;
+      if (await progressData.accountHasLearningData(accountUid)) return;
+    } catch (_) {
+      // Im Zweifel nichts anbieten und Kontodaten unverändert lassen.
+      return;
+    }
+
+    if (!mounted) return;
+
+    final accepted = await askGuestDataTransfer(context);
+
+    if (!mounted || FirebaseAuth.instance.currentUser?.uid != accountUid) {
+      return;
+    }
+
+    if (!accepted) {
+      await local.markTransferDeclined(accountUid);
+      return;
+    }
+
+    final messenger = ScaffoldMessenger.of(context);
+
+    try {
+      await progressData.transferGuestData(accountUid);
+
+      messenger.showSnackBar(
+        const SnackBar(content: Text("Lernfortschritte wurden übernommen.")),
+      );
+    } catch (_) {
+      messenger.showSnackBar(
+        const SnackBar(
+          content: Text(
+            "Die Lernfortschritte konnten nicht übernommen werden.",
+          ),
+        ),
+      );
+    }
   }
 
   Future<void> _loadPerikopen() async {
@@ -59,16 +126,6 @@ class _HomeScreenState extends State<HomeScreen> {
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(const SnackBar(content: Text("Keine Perikopen geladen")));
-
-      return;
-    }
-
-    final uid = FirebaseAuth.instance.currentUser?.uid;
-
-    if (uid == null) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text("Nicht eingeloggt")));
 
       return;
     }
@@ -120,11 +177,27 @@ class _HomeScreenState extends State<HomeScreen> {
             },
           ),
 
-          IconButton(
-            icon: const Icon(Icons.logout),
+          if (isGuest)
+            IconButton(
+              icon: const Icon(Icons.login),
+              tooltip: "Anmelden",
 
-            onPressed: () => FirebaseAuth.instance.signOut(),
-          ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const LoginScreen()),
+                );
+              },
+            )
+          else
+            IconButton(
+              icon: const Icon(Icons.logout),
+
+              onPressed: () async {
+                if (!await confirmSignOut(context)) return;
+                await FirebaseAuth.instance.signOut();
+              },
+            ),
         ],
       ),
 
@@ -165,6 +238,18 @@ class _HomeScreenState extends State<HomeScreen> {
                           color: AppColors.textSecondary,
                         ),
                       ),
+
+                      if (isGuest) ...[
+                        const SizedBox(height: 8),
+
+                        Text(
+                          "Gastmodus: Deine Lernstände werden nur lokal in "
+                          "diesem Browser gespeichert.",
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.bodySmall
+                              ?.copyWith(color: AppColors.textSecondary),
+                        ),
+                      ],
 
                       const SizedBox(height: 28),
 

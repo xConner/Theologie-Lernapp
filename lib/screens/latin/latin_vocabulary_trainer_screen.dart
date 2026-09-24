@@ -165,34 +165,31 @@ class _LatinVocabularyTrainerScreenState
   }
 
   Future<void> load() async {
+    // uid == null: Gastmodus, die Services speichern dann lokal.
     uid = FirebaseAuth.instance.currentUser?.uid;
 
-    if (uid == null) {
-      return;
-    }
+    includeVerbForm = await settingsService.getIncludeVerbForm(uid);
 
-    includeVerbForm = await settingsService.getIncludeVerbForm(uid!);
+    includeNounForm = await settingsService.getIncludeNounForm(uid);
 
-    includeNounForm = await settingsService.getIncludeNounForm(uid!);
-
-    includeGender = await settingsService.getIncludeGender(uid!);
+    includeGender = await settingsService.getIncludeGender(uid);
 
     includeAdjectiveForms = await settingsService.getIncludeAdjectiveForms(
-      uid!,
+      uid,
     );
 
     requireOnlyOneTranslation = await settingsService
-        .getRequireOnlyOneTranslation(uid!);
+        .getRequireOnlyOneTranslation(uid);
 
     entries = await LatinVocabularyLoader.load();
 
     enabledSteps = entries.map((e) => e.step).toSet().toList()..sort();
 
-    enabledSubsteps = await settingsService.getEnabledSubsteps(uid!);
+    enabledSubsteps = await settingsService.getEnabledSubsteps(uid);
 
-    enabledTypes = await settingsService.getEnabledTypes(uid!);
+    enabledTypes = await settingsService.getEnabledTypes(uid);
 
-    cards = await learningService.loadLatinCards(uid!);
+    cards = await learningService.loadLatinCards(uid);
 
     nextQuestion();
 
@@ -330,7 +327,7 @@ class _LatinVocabularyTrainerScreenState
   Future<void> check() async {
     final q = question;
 
-    if (q == null || uid == null) {
+    if (q == null) {
       return;
     }
 
@@ -353,7 +350,7 @@ class _LatinVocabularyTrainerScreenState
 
     cards[q.entry.id.toString()] = card;
 
-    await learningService.saveLatinCard(uid!, card);
+    await learningService.saveLatinCard(uid, card);
 
     setState(() {
       answered = true;
@@ -417,7 +414,7 @@ class _LatinVocabularyTrainerScreenState
                       }
 
                       await settingsService.saveSettings(
-                        uid: uid!,
+                        uid: uid,
                         includeVerbForm: includeVerbForm,
                         includeNounForm: includeNounForm,
                         includeGender: includeGender,
@@ -982,7 +979,7 @@ class _LatinVocabularyTrainerScreenState
                                       cards[q.entry.id.toString()] = card;
 
                                       await learningService.saveLatinCard(
-                                        uid!,
+                                        uid,
                                         card,
                                       );
 
