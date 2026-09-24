@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../models/confession.dart';
 import '../services/confession_service.dart';
 import 'confession_detail_screen.dart';
+import '../widgets/settings_access.dart';
 
 class ConfessionsScreen extends StatefulWidget {
   const ConfessionsScreen({super.key});
@@ -67,7 +68,10 @@ class _ConfessionsScreenState extends State<ConfessionsScreen> {
   Widget build(BuildContext context) {
     if (loading) {
       return Scaffold(
-        appBar: AppBar(title: const Text("Bekenntnisse")),
+        appBar: AppBar(
+          title: const Text("Bekenntnisse"),
+          actions: const [SettingsButton()],
+        ),
 
         body: const Center(child: CircularProgressIndicator()),
       );
@@ -78,7 +82,10 @@ class _ConfessionsScreenState extends State<ConfessionsScreen> {
     final lutherisch = getByCategory("lutherische_symbole");
 
     return Scaffold(
-      appBar: AppBar(title: const Text("Bekenntnisse")),
+      appBar: AppBar(
+        title: const Text("Bekenntnisse"),
+        actions: const [SettingsButton()],
+      ),
 
       body: Center(
         child: ConstrainedBox(

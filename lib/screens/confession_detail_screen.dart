@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../models/confession.dart';
 import '../services/confession_service.dart';
+import '../widgets/settings_access.dart';
 
 class ConfessionDetailScreen extends StatefulWidget {
   final Confession confession;
@@ -125,6 +126,8 @@ class _ConfessionDetailScreenState extends State<ConfessionDetailScreen> {
             icon: const Icon(Icons.refresh),
             onPressed: reloadConfession,
           ),
+
+          const SettingsButton(),
         ],
       ),
 

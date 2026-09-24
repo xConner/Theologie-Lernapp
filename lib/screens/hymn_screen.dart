@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../models/hymn.dart';
 import '../services/hymn_service.dart';
 import 'hymn_detail_screen.dart';
+import '../widgets/settings_access.dart';
 
 class HymnScreen extends StatefulWidget {
   const HymnScreen({super.key});
@@ -64,7 +65,10 @@ class _HymnScreenState extends State<HymnScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Gesangbuch")),
+      appBar: AppBar(
+        title: const Text("Gesangbuch"),
+        actions: const [SettingsButton()],
+      ),
 
       body: loading
           ? const Center(child: CircularProgressIndicator())

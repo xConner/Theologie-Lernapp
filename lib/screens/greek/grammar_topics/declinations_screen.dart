@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../widgets/settings_access.dart';
 
 class DeclinationsScreen extends StatelessWidget {
   const DeclinationsScreen({super.key});
@@ -75,7 +76,10 @@ class DeclinationsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Deklinationen")),
+      appBar: AppBar(
+        title: const Text("Deklinationen"),
+        actions: const [SettingsButton()],
+      ),
 
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),

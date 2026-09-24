@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../widgets/settings_access.dart';
 
 class ConjugationsScreen extends StatelessWidget {
   const ConjugationsScreen({super.key});
@@ -45,7 +46,10 @@ class ConjugationsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Konjugationen")),
+      appBar: AppBar(
+        title: const Text("Konjugationen"),
+        actions: const [SettingsButton()],
+      ),
 
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),

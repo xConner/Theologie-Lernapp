@@ -3,26 +3,54 @@ rules_version = '2';
 // theologie.app – Firestore Security Rules
 //
 // Ownership-Modell: jeder Nutzer darf ausschließlich sein eigenes
-// users/{uid}-Dokument und alle Subcollections darunter lesen/schreiben.
+// users/{uid}-Dokument und die Subcollections darunter lesen/schreiben.
 // Deckt die im Code verwendeten Pfade ab:
-//   users/{uid}                                (Felder: greek_grammar_settings, vocabulary_settings, ...)
+//   users/{uid}                                (Felder: greek_grammar_settings, vocabulary_settings,
+//                                               notification_settings, ...)
 //   users/{uid}/quiz_settings/perikopen
 //   users/{uid}/vocabulary/{vocabularyId}
 //   users/{uid}/learning_cards/{cardId}
 //   users/{uid}/latin_vocabulary/{cardId}
 //   users/{uid}/grammar/{grammarId}
 //   users/{uid}/pericope_overrides/config
+//   users/{uid}/streaks/{trackId}
+//   users/{uid}/notification_state/inbox       (Lesestatus der Glocke)
+//   users/{uid}/push_tokens/{token}            (FCM-Tokens, vorbereitet)
+//
+// Benachrichtigungen (siehe docs/notifications.md):
+//   notifications/{id}         globale Nachrichten: für alle lesbar (auch
+//                              Gäste), vom Client NICHT schreibbar –
+//                              Veröffentlichung nur über Console/Admin SDK.
+//   users/{uid}/inbox/{id}     persönliche Nachrichten (Account &
+//                              Sicherheit): nur der Nutzer darf lesen,
+//                              schreiben nur der Server (Admin SDK).
 //
 // Diese Datei ist die Referenz für die Regeln, die manuell in der Firebase
 // Console unter Firestore Database -> Regeln eingetragen werden müssen
 // (dieses Projekt hat kein lokales Firebase-CLI-Setup/firebase.json).
 service cloud.firestore {
   match /databases/{database}/documents {
-    match /users/{uid} {
-      allow read, write: if request.auth != null && request.auth.uid == uid;
+    function isOwner(uid) {
+      return request.auth != null && request.auth.uid == uid;
+    }
 
-      match /{document=**} {
-        allow read, write: if request.auth != null && request.auth.uid == uid;
+    match /notifications/{notificationId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    match /users/{uid} {
+      allow read, write: if isOwner(uid);
+
+      match /inbox/{notificationId} {
+        allow read: if isOwner(uid);
+        allow write: if false;
+      }
+
+      // Alle übrigen Subcollections (Regeln werden ODER-verknüpft, daher
+      // "inbox" hier ausdrücklich ausnehmen).
+      match /{collection}/{document=**} {
+        allow read, write: if isOwner(uid) && collection != "inbox";
       }
     }
   }

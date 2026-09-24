@@ -17,8 +17,10 @@ import 'settings_screen.dart';
 
 import '../theme/app_theme.dart';
 import '../services/local_learning_store.dart';
+import '../services/notifications/notification_service.dart';
 import '../services/progress_data_service.dart';
 import '../widgets/learning_progress_dialogs.dart';
+import '../widgets/notification_bell.dart';
 import '../widgets/sign_out_confirmation.dart';
 import '../widgets/streak_widgets.dart';
 import 'login_screen.dart';
@@ -45,6 +47,9 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
 
     _loadPerikopen();
+
+    // Glocke für den aktuellen Nutzer (bzw. Gast) beobachten.
+    NotificationService.instance.attach(uid);
 
     if (!isGuest) {
       WidgetsBinding.instance.addPostFrameCallback(
@@ -167,6 +172,8 @@ class _HomeScreenState extends State<HomeScreen> {
         title: const Text("Start"),
 
         actions: [
+          const NotificationBellButton(),
+
           IconButton(
             icon: const Icon(Icons.settings),
 

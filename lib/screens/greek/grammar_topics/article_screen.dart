@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../widgets/settings_access.dart';
 
 class ArticleScreen extends StatelessWidget {
   const ArticleScreen({super.key});
@@ -23,7 +24,10 @@ class ArticleScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Bestimmter Artikel")),
+      appBar: AppBar(
+        title: const Text("Bestimmter Artikel"),
+        actions: const [SettingsButton()],
+      ),
 
       body: Center(
         child: ConstrainedBox(

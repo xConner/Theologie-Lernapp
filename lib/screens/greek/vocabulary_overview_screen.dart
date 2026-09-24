@@ -4,6 +4,7 @@ import '../../models/greek/vocabulary/greek_vocabulary_entry.dart';
 import '../../services/greek/vocabulary/greek_vocabulary_loader.dart';
 
 import '../../widgets/greek_keyboard.dart';
+import '../../widgets/settings_access.dart';
 
 enum VocabularySort { alphabet, step, type }
 
@@ -192,7 +193,10 @@ class _VocabularyOverviewScreenState extends State<VocabularyOverviewScreen> {
     final groups = groupedEntries;
 
     return Scaffold(
-      appBar: AppBar(title: const Text("Vokabelübersicht")),
+      appBar: AppBar(
+        title: const Text("Vokabelübersicht"),
+        actions: const [SettingsButton()],
+      ),
 
       body: Column(
         children: [

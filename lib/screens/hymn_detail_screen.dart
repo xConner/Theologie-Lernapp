@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../models/hymn.dart';
+import '../widgets/settings_access.dart';
 
 class HymnDetailScreen extends StatelessWidget {
   final Hymn hymn;
@@ -23,7 +24,10 @@ class HymnDetailScreen extends StatelessWidget {
     final lyricStyle = const TextStyle(fontSize: 18, height: 1.5);
 
     return Scaffold(
-      appBar: AppBar(title: Text(hymn.title)),
+      appBar: AppBar(
+        title: Text(hymn.title),
+        actions: const [SettingsButton()],
+      ),
 
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),

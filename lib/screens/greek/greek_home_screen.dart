@@ -9,6 +9,7 @@ import 'grammar_trainer_screen.dart';
 import '../../theme/app_theme.dart';
 import '../../services/streak/streak_track.dart';
 import '../../widgets/streak_widgets.dart';
+import '../../widgets/settings_access.dart';
 
 class GreekHomeScreen extends StatelessWidget {
   const GreekHomeScreen({super.key});
@@ -16,7 +17,10 @@ class GreekHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Altgriechisch")),
+      appBar: AppBar(
+        title: const Text("Altgriechisch"),
+        actions: const [SettingsButton()],
+      ),
       body: Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 400),

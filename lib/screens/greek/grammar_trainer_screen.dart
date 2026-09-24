@@ -19,6 +19,7 @@ import '../../services/streak/streak_track.dart';
 
 import 'package:web/web.dart' as web;
 import 'dart:js_interop';
+import '../../widgets/settings_access.dart';
 
 class GreekGrammarTrainerScreen extends StatefulWidget {
   const GreekGrammarTrainerScreen({super.key});
@@ -1221,7 +1222,8 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
       builder: (context) {
         return StatefulBuilder(
           builder: (context, setDialogState) {
-            return AlertDialog(
+            return ModuleSettingsDialog(
+              moduleLabel: "Grammatiktrainer",
               title: Row(
                 children: [
                   const Expanded(child: Text("Einstellungen")),
@@ -1261,7 +1263,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
                   ),
                 ],
               ),
-              content: SizedBox(
+              moduleSettings: SizedBox(
                 width: double.maxFinite,
                 height: MediaQuery.of(context).size.height * 0.6,
                 child: SingleChildScrollView(

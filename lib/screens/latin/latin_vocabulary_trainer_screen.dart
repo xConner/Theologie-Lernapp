@@ -21,6 +21,7 @@ import '../../widgets/answer_feedback_badge.dart';
 import '../../widgets/sound_volume_button.dart';
 import '../../widgets/streak_widgets.dart';
 import '../../services/streak/streak_track.dart';
+import '../../widgets/settings_access.dart';
 
 class LatinVocabularyTrainerScreen extends StatefulWidget {
   const LatinVocabularyTrainerScreen({super.key});
@@ -407,7 +408,8 @@ class _LatinVocabularyTrainerScreenState
       builder: (context) {
         return StatefulBuilder(
           builder: (context, setDialogState) {
-            return AlertDialog(
+            return ModuleSettingsDialog(
+              moduleLabel: "Vokabeltrainer",
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -450,7 +452,7 @@ class _LatinVocabularyTrainerScreenState
                   ),
                 ],
               ),
-              content: SizedBox(
+              moduleSettings: SizedBox(
                 width: double.maxFinite,
                 height: MediaQuery.of(context).size.height * 0.65,
                 child: SingleChildScrollView(

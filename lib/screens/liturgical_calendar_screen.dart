@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../models/liturgical_event.dart';
 import '../models/liturgical_day.dart';
 import '../services/liturgical_calendar_loader.dart';
+import '../widgets/settings_access.dart';
 
 class LiturgicalCalendarScreen extends StatefulWidget {
   const LiturgicalCalendarScreen({super.key});
@@ -169,7 +170,10 @@ class _LiturgicalCalendarScreenState extends State<LiturgicalCalendarScreen> {
     final day = currentDay;
 
     return Scaffold(
-      appBar: AppBar(title: const Text("Liturgischer Kalender")),
+      appBar: AppBar(
+        title: const Text("Liturgischer Kalender"),
+        actions: const [SettingsButton()],
+      ),
 
       body: Center(
         child: ConstrainedBox(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../services/quiz_sound_settings.dart';
 import '../../theme/app_theme.dart';
+import '../../widgets/settings_access.dart';
 
 class QuizSettingsSheet extends StatefulWidget {
   final Set<String> selected;
@@ -230,69 +231,84 @@ class _QuizSettingsSheetState extends State<QuizSettingsSheet> {
                   ],
                 ),
 
-                CheckboxListTile(
-                  dense: true,
-                  contentPadding: EdgeInsets.zero,
-                  title: const Text("Alle auswählen"),
-                  value: allSelected,
-                  onChanged: (_) => toggleAll(),
-                ),
+                Expanded(
+                  // Eigenes Material, damit Hover/Ink der Listeneinträge
+                  // nicht vom farbigen Container verdeckt werden.
+                  child: Material(
+                    type: MaterialType.transparency,
+                    child: SettingsTabs(
+                      moduleLabel: "Perikopenquiz",
+                      moduleSettings: Column(
+                        children: [
+                          CheckboxListTile(
+                            dense: true,
+                            contentPadding: EdgeInsets.zero,
+                            title: const Text("Alle auswählen"),
+                            value: allSelected,
+                            onChanged: (_) => toggleAll(),
+                          ),
 
-                CheckboxListTile(
-                  dense: true,
-                  contentPadding: EdgeInsets.zero,
-                  title: const Text("Sound bei richtiger Antwort"),
-                  value: QuizSoundSettings.instance.isCorrectSoundEnabled(
-                    SoundModule.pericopeQuiz,
-                  ),
-                  onChanged: (value) {
-                    setState(() {
-                      QuizSoundSettings.instance.setCorrectSoundEnabled(
-                        SoundModule.pericopeQuiz,
-                        value ?? true,
-                      );
-                    });
-                  },
-                ),
+                          CheckboxListTile(
+                            dense: true,
+                            contentPadding: EdgeInsets.zero,
+                            title: const Text("Sound bei richtiger Antwort"),
+                            value: QuizSoundSettings.instance
+                                .isCorrectSoundEnabled(
+                                  SoundModule.pericopeQuiz,
+                                ),
+                            onChanged: (value) {
+                              setState(() {
+                                QuizSoundSettings.instance
+                                    .setCorrectSoundEnabled(
+                                      SoundModule.pericopeQuiz,
+                                      value ?? true,
+                                    );
+                              });
+                            },
+                          ),
 
-                CheckboxListTile(
-                  dense: true,
-                  contentPadding: EdgeInsets.zero,
-                  title: const Text("Sound bei falscher Antwort"),
-                  value: QuizSoundSettings.instance.isWrongSoundEnabled(
-                    SoundModule.pericopeQuiz,
-                  ),
-                  onChanged: (value) {
-                    setState(() {
-                      QuizSoundSettings.instance.setWrongSoundEnabled(
-                        SoundModule.pericopeQuiz,
-                        value ?? true,
-                      );
-                    });
-                  },
-                ),
+                          CheckboxListTile(
+                            dense: true,
+                            contentPadding: EdgeInsets.zero,
+                            title: const Text("Sound bei falscher Antwort"),
+                            value: QuizSoundSettings.instance
+                                .isWrongSoundEnabled(SoundModule.pericopeQuiz),
+                            onChanged: (value) {
+                              setState(() {
+                                QuizSoundSettings.instance.setWrongSoundEnabled(
+                                  SoundModule.pericopeQuiz,
+                                  value ?? true,
+                                );
+                              });
+                            },
+                          ),
 
-                if (isInvalid)
-                  const Padding(
-                    padding: EdgeInsets.only(bottom: 8),
-                    child: Text(
-                      "Mindestens 1 Buch muss ausgewählt sein",
-                      style: TextStyle(
-                        color: AppColors.error,
-                        fontWeight: FontWeight.bold,
+                          if (isInvalid)
+                            const Padding(
+                              padding: EdgeInsets.only(bottom: 8),
+                              child: Text(
+                                "Mindestens 1 Buch muss ausgewählt sein",
+                                style: TextStyle(
+                                  color: AppColors.error,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+
+                          const Divider(),
+
+                          Expanded(
+                            child: Row(
+                              children: [
+                                _group("Altes Testament", at),
+                                const SizedBox(width: 12),
+                                _group("Neues Testament", nt),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  ),
-
-                const Divider(),
-
-                Expanded(
-                  child: Row(
-                    children: [
-                      _group("Altes Testament", at),
-                      const SizedBox(width: 12),
-                      _group("Neues Testament", nt),
-                    ],
                   ),
                 ),
               ],

@@ -7,6 +7,7 @@ import 'latin_vocabulary_overview_screen.dart';
 import '../../theme/app_theme.dart';
 import '../../services/streak/streak_track.dart';
 import '../../widgets/streak_widgets.dart';
+import '../../widgets/settings_access.dart';
 
 class LatinHomeScreen extends StatelessWidget {
   const LatinHomeScreen({super.key});
@@ -14,7 +15,10 @@ class LatinHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Latein")),
+      appBar: AppBar(
+        title: const Text("Latein"),
+        actions: const [SettingsButton()],
+      ),
       body: Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 400),
