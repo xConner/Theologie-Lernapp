@@ -17,6 +17,9 @@ import '../../theme/app_theme.dart';
 import '../../widgets/sound_volume_button.dart';
 import '../../widgets/streak_widgets.dart';
 import '../../services/streak/streak_track.dart';
+import '../../services/statistics/learning_statistics.dart';
+import '../../services/statistics/statistics_service.dart';
+import '../../widgets/statistics_widgets.dart';
 
 import '../../utils/bible_reference_validator.dart';
 
@@ -343,6 +346,14 @@ class _QuizScreenState extends State<QuizScreen> {
         QuizSoundPlayer.instance.playIncorrect(SoundModule.pericopeQuiz);
       }
 
+      if (firstEvaluation) {
+        LearningStatisticsService.instance.recordAnswer(
+          uid: widget.uid,
+          trainer: StatisticsTrainer.perikopenQuiz,
+          correct: correct,
+        );
+      }
+
       if (correct && firstEvaluation && mounted) {
         recordStreakAnswer(
           context,
@@ -454,6 +465,10 @@ class _QuizScreenState extends State<QuizScreen> {
         title: const Text("Quiz"),
         actions: [
           StreakAppBarButton(uid: widget.uid, track: StreakTrack.perikope),
+          StatisticsButton(
+            uid: widget.uid,
+            trainer: StatisticsTrainer.perikopenQuiz,
+          ),
           const SoundVolumeButton(),
           IconButton(
             icon: const Icon(Icons.settings),

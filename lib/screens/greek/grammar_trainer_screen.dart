@@ -16,6 +16,9 @@ import '../../widgets/greek_keyboard.dart';
 import '../../widgets/sound_volume_button.dart';
 import '../../widgets/streak_widgets.dart';
 import '../../services/streak/streak_track.dart';
+import '../../services/statistics/learning_statistics.dart';
+import '../../services/statistics/statistics_service.dart';
+import '../../widgets/statistics_widgets.dart';
 
 import 'package:web/web.dart' as web;
 import 'dart:js_interop';
@@ -764,6 +767,14 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
       QuizSoundPlayer.instance.playIncorrect(SoundModule.greekGrammar);
     }
 
+    if (firstEvaluation) {
+      LearningStatisticsService.instance.recordAnswer(
+        uid: _auth.currentUser?.uid,
+        trainer: StatisticsTrainer.greekGrammar,
+        correct: correct,
+      );
+    }
+
     if (correct && firstEvaluation) {
       recordStreakAnswer(
         context,
@@ -1462,6 +1473,10 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
         appBar: AppBar(
           title: const Text("Grammatiktrainer"),
           actions: [
+            StatisticsButton(
+              uid: _auth.currentUser?.uid,
+              trainer: StatisticsTrainer.greekGrammar,
+            ),
             const SoundVolumeButton(),
             IconButton(
               icon: const Icon(Icons.settings),
@@ -1484,6 +1499,10 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
       appBar: AppBar(
         title: const Text("Grammatiktrainer"),
         actions: [
+          StatisticsButton(
+            uid: _auth.currentUser?.uid,
+            trainer: StatisticsTrainer.greekGrammar,
+          ),
           const SoundVolumeButton(),
           IconButton(icon: const Icon(Icons.settings), onPressed: openSettings),
         ],

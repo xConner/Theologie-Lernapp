@@ -23,6 +23,9 @@ import '../../widgets/greek_keyboard.dart';
 import '../../widgets/sound_volume_button.dart';
 import '../../widgets/streak_widgets.dart';
 import '../../services/streak/streak_track.dart';
+import '../../services/statistics/learning_statistics.dart';
+import '../../services/statistics/statistics_service.dart';
+import '../../widgets/statistics_widgets.dart';
 
 import 'package:web/web.dart' as web;
 import 'dart:js_interop';
@@ -350,6 +353,14 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
       QuizSoundPlayer.instance.playIncorrect(SoundModule.greekVocabulary);
     }
 
+    if (firstEvaluation) {
+      LearningStatisticsService.instance.recordAnswer(
+        uid: uid,
+        trainer: StatisticsTrainer.greekVocabulary,
+        correct: result.correct,
+      );
+    }
+
     if (result.correct && firstEvaluation && mounted) {
       recordStreakAnswer(
         context,
@@ -670,6 +681,10 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
         appBar: AppBar(
           title: const Text("Vokabeltrainer"),
           actions: [
+            StatisticsButton(
+              uid: uid,
+              trainer: StatisticsTrainer.greekVocabulary,
+            ),
             const SoundVolumeButton(),
             IconButton(
               icon: const Icon(Icons.settings),
@@ -698,6 +713,10 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
       appBar: AppBar(
         title: const Text("Vokabeltrainer"),
         actions: [
+          StatisticsButton(
+            uid: uid,
+            trainer: StatisticsTrainer.greekVocabulary,
+          ),
           const SoundVolumeButton(),
           IconButton(icon: const Icon(Icons.settings), onPressed: openSettings),
         ],

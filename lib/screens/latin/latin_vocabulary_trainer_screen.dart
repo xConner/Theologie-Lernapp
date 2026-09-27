@@ -21,6 +21,9 @@ import '../../widgets/answer_feedback_badge.dart';
 import '../../widgets/sound_volume_button.dart';
 import '../../widgets/streak_widgets.dart';
 import '../../services/streak/streak_track.dart';
+import '../../services/statistics/learning_statistics.dart';
+import '../../services/statistics/statistics_service.dart';
+import '../../widgets/statistics_widgets.dart';
 import '../../widgets/settings_access.dart';
 
 class LatinVocabularyTrainerScreen extends StatefulWidget {
@@ -376,6 +379,14 @@ class _LatinVocabularyTrainerScreenState
       QuizSoundPlayer.instance.playCorrect(SoundModule.latinVocabulary);
     } else {
       QuizSoundPlayer.instance.playIncorrect(SoundModule.latinVocabulary);
+    }
+
+    if (firstEvaluation) {
+      LearningStatisticsService.instance.recordAnswer(
+        uid: uid,
+        trainer: StatisticsTrainer.latinVocabulary,
+        correct: result.correct,
+      );
     }
 
     if (result.correct && firstEvaluation && mounted) {
@@ -800,6 +811,10 @@ class _LatinVocabularyTrainerScreenState
         appBar: AppBar(
           title: const Text("Latein – Vokabeltrainer"),
           actions: [
+            StatisticsButton(
+              uid: uid,
+              trainer: StatisticsTrainer.latinVocabulary,
+            ),
             const SoundVolumeButton(),
             IconButton(
               icon: const Icon(Icons.settings),
@@ -825,6 +840,10 @@ class _LatinVocabularyTrainerScreenState
       appBar: AppBar(
         title: const Text("Latein – Vokabeltrainer"),
         actions: [
+          StatisticsButton(
+            uid: uid,
+            trainer: StatisticsTrainer.latinVocabulary,
+          ),
           const SoundVolumeButton(),
           IconButton(icon: const Icon(Icons.settings), onPressed: openSettings),
         ],

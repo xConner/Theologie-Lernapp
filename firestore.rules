@@ -14,6 +14,7 @@ rules_version = '2';
 //   users/{uid}/grammar/{grammarId}
 //   users/{uid}/pericope_overrides/config
 //   users/{uid}/streaks/{trackId}
+//   users/{uid}/statistics/{trainerId}          (Tagesstatistik je Trainer)
 //   users/{uid}/notification_state/inbox       (Lesestatus der Glocke)
 //   users/{uid}/push_tokens/{token}            (FCM-Tokens, vorbereitet)
 //
