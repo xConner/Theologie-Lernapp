@@ -13,6 +13,7 @@ import '../screens/latin/latin_vocabulary_trainer_screen.dart';
 import '../screens/liturgical_calendar_screen.dart';
 import '../screens/notification_settings_screen.dart';
 import '../screens/pericope_quiz/quiz_screen.dart';
+import '../screens/prayers_screen.dart';
 import '../screens/settings_screen.dart';
 import '../services/greek/perikope_loader.dart';
 import '../services/notifications/app_deep_link.dart';
@@ -39,6 +40,7 @@ final Map<String, Future<Widget?> Function()> _screens = {
   AppDeepLink.calendar: () async => const LiturgicalCalendarScreen(),
   AppDeepLink.hymns: () async => const HymnScreen(),
   AppDeepLink.confessions: () async => const ConfessionsScreen(),
+  AppDeepLink.prayers: () async => const PrayersScreen(),
   AppDeepLink.settings: () async => const SettingsScreen(),
   AppDeepLink.notificationSettings: () async =>
       _signedIn(const NotificationSettingsScreen()),

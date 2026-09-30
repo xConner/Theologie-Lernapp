@@ -1,0 +1,586 @@
+[
+    {
+        "id": "vaterunser",
+        "title": {
+            "de": "Vaterunser",
+            "en": "The Lord's Prayer",
+            "la": "Pater noster",
+            "gr": "Πάτερ ἡμῶν"
+        },
+        "type": "biblisches_gebet",
+        "tradition": "biblisch",
+        "originalLanguage": "gr",
+        "source": "Matthäus 6,9–13 (kürzere Fassung: Lukas 11,2–4)",
+        "dating": "1. Jahrhundert (Evangelium nach Matthäus)",
+        "description": "Das Gebet, das Jesus seine Jünger lehrte. Die Schlussdoxologie („Denn dein ist das Reich …“) fehlt in den ältesten Handschriften von Mt 6,13, ist aber früh bezeugt (Didache 8,2) und gehört in den evangelischen Kirchen zum gottesdienstlichen Gebrauch. Luther legt das Vaterunser im dritten Hauptstück des Kleinen Katechismus aus.",
+        "tags": ["biblisch", "liturgie", "bitte"],
+        "versions": [
+            {
+                "language": "de",
+                "status": "translation",
+                "translatedFrom": "gr",
+                "source": "Ökumenische Fassung der Arbeitsgemeinschaft für liturgische Texte (ALT, 1968/1970); Wortlaut nach der Evangelischen Kirche in Deutschland (ekd.de), wie im Evangelischen Gesangbuch",
+                "text": "Vater unser im Himmel!\nGeheiligt werde dein Name.\nDein Reich komme.\nDein Wille geschehe,\nwie im Himmel, so auf Erden.\nUnser tägliches Brot gib uns heute.\nUnd vergib uns unsere Schuld,\nwie auch wir vergeben unsern Schuldigern.\nUnd führe uns nicht in Versuchung,\nsondern erlöse uns von dem Bösen.\nDenn dein ist das Reich und die Kraft und die Herrlichkeit\nin Ewigkeit. Amen."
+            },
+            {
+                "language": "en",
+                "status": "translation",
+                "translatedFrom": "gr",
+                "source": "Book of Common Prayer (1662), Order for Morning Prayer; Wortlaut nach churchofengland.org",
+                "text": "Our Father, which art in heaven,\nHallowed be thy Name,\nThy kingdom come,\nThy will be done,\nin earth as it is in heaven.\nGive us this day our daily bread;\nAnd forgive us our trespasses,\nAs we forgive them that trespass against us;\nAnd lead us not into temptation,\nBut deliver us from evil.\nFor thine is the kingdom,\nthe power, and the glory,\nFor ever and ever. Amen."
+            },
+            {
+                "language": "la",
+                "status": "liturgical",
+                "translatedFrom": "gr",
+                "source": "Missale Romanum, Ordo Missae (Betonungsakzente der Ausgabe weggelassen)",
+                "note": "Liturgische Fassung der römischen Messe: „cotidianum“ (wie Lk 11,3 in der Vulgata) statt „supersubstantialem“ in Mt 6,11. Ohne Schlussdoxologie; diese folgt in der erneuerten römischen Messe erst nach dem Embolismus.",
+                "text": "Pater noster qui es in cælis:\nsanctificetur nomen tuum;\nadveniat regnum tuum;\nfiat voluntas tua, sicut in cælo, et in terra.\nPanem nostrum cotidianum da nobis hodie;\net dimitte nobis debita nostra,\nsicut et nos dimittimus debitoribus nostris;\net ne nos inducas in tentationem;\nsed libera nos a malo."
+            },
+            {
+                "language": "gr",
+                "status": "original",
+                "source": "Neutestamentlicher Text Mt 6,9b–13 nach dem SBL Greek New Testament (SBLGNT, 2010); textkritische Zeichen entfernt",
+                "note": "Textkritischer Bibeltext, keine liturgische Fassung: Die Schlussdoxologie fehlt in den ältesten Handschriften. In der byzantinischen Liturgie spricht der Priester sie in erweiterter, trinitarischer Form.",
+                "text": "Πάτερ ἡμῶν ὁ ἐν τοῖς οὐρανοῖς· ἁγιασθήτω τὸ ὄνομά σου,\nἐλθέτω ἡ βασιλεία σου, γενηθήτω τὸ θέλημά σου, ὡς ἐν οὐρανῷ καὶ ἐπὶ γῆς·\nτὸν ἄρτον ἡμῶν τὸν ἐπιούσιον δὸς ἡμῖν σήμερον·\nκαὶ ἄφες ἡμῖν τὰ ὀφειλήματα ἡμῶν, ὡς καὶ ἡμεῖς ἀφήκαμεν τοῖς ὀφειλέταις ἡμῶν·\nκαὶ μὴ εἰσενέγκῃς ἡμᾶς εἰς πειρασμόν, ἀλλὰ ῥῦσαι ἡμᾶς ἀπὸ τοῦ πονηροῦ."
+            }
+        ]
+    },
+    {
+        "id": "jesusgebet",
+        "title": {
+            "de": "Jesusgebet",
+            "en": "The Jesus Prayer"
+        },
+        "type": "gebet",
+        "tradition": "ostkirchlich",
+        "originalLanguage": "gr",
+        "source": "Byzantinische (hesychastische) Gebetstradition; biblische Wurzeln: Lukas 18,13 (Gebet des Zöllners) und Lukas 18,38 (Ruf des Blinden bei Jericho)",
+        "dating": "Standardform ab etwa 600 bezeugt (Abba Philemon, Philokalia); Zusatz „des Sünders“ später",
+        "description": "Kurzes, oft wiederholtes Christusgebet der ostkirchlichen Tradition (Herzensgebet). Die älteste bezeugte Standardform endet mit „erbarme dich meiner“ (Κύριε Ἰησοῦ Χριστέ, Υἱὲ τοῦ Θεοῦ, ἐλέησόν με). Der Zusatz „des Sünders“ (τὸν ἁμαρτωλόν) nimmt das Gebet des Zöllners (Lk 18,13) auf und ist heute weit verbreitet.",
+        "tags": ["altkirchlich", "ostkirchlich", "christusgebet", "busse"],
+        "versions": [
+            {
+                "language": "de",
+                "status": "translation",
+                "translatedFrom": "gr",
+                "source": "Gebräuchliche deutsche Wiedergabe der griechischen Langform (keine historische Originalfassung)",
+                "text": "Herr Jesus Christus, Sohn Gottes,\nerbarme dich meiner, des Sünders."
+            },
+            {
+                "language": "en",
+                "status": "translation",
+                "translatedFrom": "gr",
+                "source": "Gebräuchliche englische Wiedergabe, so u. a. im Catechism of the Catholic Church, Nr. 435 (englische Ausgabe)",
+                "text": "Lord Jesus Christ, Son of God,\nhave mercy on me, a sinner."
+            },
+            {
+                "language": "gr",
+                "status": "original",
+                "source": "Traditionelle griechische Langform der byzantinischen Gebetstradition",
+                "note": "Ältere Kurzform ohne „τὸν ἁμαρτωλόν“: Κύριε Ἰησοῦ Χριστέ, Υἱὲ τοῦ Θεοῦ, ἐλέησόν με.",
+                "text": "Κύριε Ἰησοῦ Χριστέ, Υἱὲ τοῦ Θεοῦ,\nἐλέησόν με τὸν ἁμαρτωλόν."
+            }
+        ]
+    },
+    {
+        "id": "magnificat",
+        "title": {
+            "de": "Magnificat – Lobgesang der Maria",
+            "en": "The Magnificat",
+            "la": "Magnificat",
+            "gr": "Μεγαλύνει ἡ ψυχή μου"
+        },
+        "type": "canticum",
+        "tradition": "biblisch",
+        "originalLanguage": "gr",
+        "source": "Lukas 1,46–55",
+        "dating": "1. Jahrhundert (Evangelium nach Lukas)",
+        "description": "Lobgesang der Maria bei der Begegnung mit Elisabet. Seit alter Zeit fester Bestandteil der Vesper, des kirchlichen Abendgebets. Luther legte ihn 1521 ausführlich aus („Das Magnificat verdeutscht und ausgelegt“).",
+        "tags": ["biblisch", "lobpreis", "stundengebet", "abend"],
+        "versions": [
+            {
+                "language": "de",
+                "status": "translation",
+                "translatedFrom": "gr",
+                "source": "Lutherbibel 1912 (gemeinfrei), Lukas 1,46b–55",
+                "text": "Meine Seele erhebt den HERRN,\nund mein Geist freuet sich Gottes, meines Heilands;\ndenn er hat die Niedrigkeit seiner Magd angesehen. Siehe, von nun an werden mich selig preisen alle Kindeskinder;\ndenn er hat große Dinge an mir getan, der da mächtig ist und des Name heilig ist.\nUnd seine Barmherzigkeit währet immer für und für bei denen, die ihn fürchten.\nEr übet Gewalt mit seinem Arm und zerstreut, die hoffärtig sind in ihres Herzens Sinn.\nEr stößt die Gewaltigen vom Stuhl und erhebt die Niedrigen.\nDie Hungrigen füllt er mit Gütern und läßt die Reichen leer.\nEr denkt der Barmherzigkeit und hilft seinem Diener Israel wieder auf,\nwie er geredet hat unsern Vätern, Abraham und seinem Samen ewiglich."
+            },
+            {
+                "language": "en",
+                "status": "translation",
+                "translatedFrom": "gr",
+                "source": "King James Version (1611), Luke 1:46b–55",
+                "text": "My soul doth magnify the Lord,\nAnd my spirit hath rejoiced in God my Saviour.\nFor he hath regarded the low estate of his handmaiden: for, behold, from henceforth all generations shall call me blessed.\nFor he that is mighty hath done to me great things; and holy is his name.\nAnd his mercy is on them that fear him from generation to generation.\nHe hath shewed strength with his arm; he hath scattered the proud in the imagination of their hearts.\nHe hath put down the mighty from their seats, and exalted them of low degree.\nHe hath filled the hungry with good things; and the rich he hath sent empty away.\nHe hath holpen his servant Israel, in remembrance of his mercy;\nAs he spake to our fathers, to Abraham, and to his seed for ever."
+            },
+            {
+                "language": "la",
+                "status": "translation",
+                "translatedFrom": "gr",
+                "source": "Vulgata (Clementina, 1592), Lucas 1,46b–55",
+                "text": "Magnificat anima mea Dominum:\net exsultavit spiritus meus in Deo salutari meo.\nQuia respexit humilitatem ancillæ suæ: ecce enim ex hoc beatam me dicent omnes generationes,\nquia fecit mihi magna qui potens est: et sanctum nomen ejus,\net misericordia ejus a progenie in progenies timentibus eum.\nFecit potentiam in brachio suo: dispersit superbos mente cordis sui.\nDeposuit potentes de sede, et exaltavit humiles.\nEsurientes implevit bonis: et divites dimisit inanes.\nSuscepit Israël puerum suum, recordatus misericordiæ suæ:\nsicut locutus est ad patres nostros, Abraham et semini ejus in sæcula."
+            },
+            {
+                "language": "gr",
+                "status": "original",
+                "source": "SBL Greek New Testament (SBLGNT, 2010), Lk 1,46b–55; textkritische Zeichen entfernt",
+                "text": "Μεγαλύνει ἡ ψυχή μου τὸν κύριον,\nκαὶ ἠγαλλίασεν τὸ πνεῦμά μου ἐπὶ τῷ θεῷ τῷ σωτῆρί μου·\nὅτι ἐπέβλεψεν ἐπὶ τὴν ταπείνωσιν τῆς δούλης αὐτοῦ, ἰδοὺ γὰρ ἀπὸ τοῦ νῦν μακαριοῦσίν με πᾶσαι αἱ γενεαί·\nὅτι ἐποίησέν μοι μεγάλα ὁ δυνατός, καὶ ἅγιον τὸ ὄνομα αὐτοῦ,\nκαὶ τὸ ἔλεος αὐτοῦ εἰς γενεὰς καὶ γενεὰς τοῖς φοβουμένοις αὐτόν.\nἘποίησεν κράτος ἐν βραχίονι αὐτοῦ, διεσκόρπισεν ὑπερηφάνους διανοίᾳ καρδίας αὐτῶν·\nκαθεῖλεν δυνάστας ἀπὸ θρόνων καὶ ὕψωσεν ταπεινούς,\nπεινῶντας ἐνέπλησεν ἀγαθῶν καὶ πλουτοῦντας ἐξαπέστειλεν κενούς.\nἀντελάβετο Ἰσραὴλ παιδὸς αὐτοῦ, μνησθῆναι ἐλέους,\nκαθὼς ἐλάλησεν πρὸς τοὺς πατέρας ἡμῶν, τῷ Ἀβραὰμ καὶ τῷ σπέρματι αὐτοῦ εἰς τὸν αἰῶνα."
+            }
+        ]
+    },
+    {
+        "id": "benedictus",
+        "title": {
+            "de": "Benedictus – Lobgesang des Zacharias",
+            "en": "The Benedictus",
+            "la": "Benedictus",
+            "gr": "Εὐλογητὸς κύριος"
+        },
+        "type": "canticum",
+        "tradition": "biblisch",
+        "originalLanguage": "gr",
+        "source": "Lukas 1,68–79",
+        "dating": "1. Jahrhundert (Evangelium nach Lukas)",
+        "description": "Lobgesang des Zacharias nach der Geburt Johannes des Täufers. Seit alter Zeit fester Bestandteil der Laudes, des kirchlichen Morgengebets.",
+        "tags": ["biblisch", "lobpreis", "stundengebet", "morgen"],
+        "versions": [
+            {
+                "language": "de",
+                "status": "translation",
+                "translatedFrom": "gr",
+                "source": "Lutherbibel 1912 (gemeinfrei), Lukas 1,68–79; Fußnote der Ausgabe zu V. 78 weggelassen",
+                "text": "Gelobet sei der HERR, der Gott Israels! denn er hat besucht und erlöst sein Volk\nund hat uns aufgerichtet ein Horn des Heils in dem Hause seines Dieners David,\nwie er vorzeiten geredet hat durch den Mund des Propheten:\ndaß er uns errettete von unseren Feinden und von der Hand aller, die uns hassen,\nund Barmherzigkeit erzeigte unsern Vätern und gedächte an seinen heiligen Bund\nund an den Eid, den er geschworen hat unserm Vater Abraham, uns zu geben,\ndaß wir, erlöst aus der Hand unserer Feinde, ihm dienten ohne Furcht unser Leben lang\nin Heiligkeit und Gerechtigkeit, die ihm gefällig ist.\nUnd du, Kindlein, wirst ein Prophet des Höchsten heißen. Du wirst vor dem HERRN her gehen, daß du seinen Weg bereitest\nund Erkenntnis des Heils gebest seinem Volk, das da ist in Vergebung ihrer Sünden;\ndurch die herzliche Barmherzigkeit unsers Gottes, durch welche uns besucht hat der Aufgang aus der Höhe,\nauf daß er erscheine denen, die da sitzen in Finsternis und Schatten des Todes, und richte unsere Füße auf den Weg des Friedens."
+            },
+            {
+                "language": "en",
+                "status": "translation",
+                "translatedFrom": "gr",
+                "source": "King James Version (1611), Luke 1:68–79",
+                "text": "Blessed be the Lord God of Israel; for he hath visited and redeemed his people,\nAnd hath raised up an horn of salvation for us in the house of his servant David;\nAs he spake by the mouth of his holy prophets, which have been since the world began:\nThat we should be saved from our enemies, and from the hand of all that hate us;\nTo perform the mercy promised to our fathers, and to remember his holy covenant;\nThe oath which he sware to our father Abraham,\nThat he would grant unto us, that we being delivered out of the hand of our enemies might serve him without fear,\nIn holiness and righteousness before him, all the days of our life.\nAnd thou, child, shalt be called the prophet of the Highest: for thou shalt go before the face of the Lord to prepare his ways;\nTo give knowledge of salvation unto his people by the remission of their sins,\nThrough the tender mercy of our God; whereby the dayspring from on high hath visited us,\nTo give light to them that sit in darkness and in the shadow of death, to guide our feet into the way of peace."
+            },
+            {
+                "language": "la",
+                "status": "translation",
+                "translatedFrom": "gr",
+                "source": "Vulgata (Clementina, 1592), Lucas 1,68–79",
+                "text": "Benedictus Dominus Deus Israël, quia visitavit, et fecit redemptionem plebis suæ:\net erexit cornu salutis nobis in domo David pueri sui,\nsicut locutus est per os sanctorum, qui a sæculo sunt, prophetarum ejus:\nsalutem ex inimicis nostris, et de manu omnium qui oderunt nos:\nad faciendam misericordiam cum patribus nostris: et memorari testamenti sui sancti:\njusjurandum, quod juravit ad Abraham patrem nostrum, daturum se nobis\nut sine timore, de manu inimicorum nostrorum liberati, serviamus illi\nin sanctitate et justitia coram ipso, omnibus diebus nostris.\nEt tu puer, propheta Altissimi vocaberis: præibis enim ante faciem Domini parare vias ejus,\nad dandam scientiam salutis plebi ejus in remissionem peccatorum eorum\nper viscera misericordiæ Dei nostri, in quibus visitavit nos, oriens ex alto:\nilluminare his qui in tenebris et in umbra mortis sedent: ad dirigendos pedes nostros in viam pacis."
+            },
+            {
+                "language": "gr",
+                "status": "original",
+                "source": "SBL Greek New Testament (SBLGNT, 2010), Lk 1,68–79; textkritische Zeichen entfernt",
+                "text": "Εὐλογητὸς κύριος ὁ θεὸς τοῦ Ἰσραήλ, ὅτι ἐπεσκέψατο καὶ ἐποίησεν λύτρωσιν τῷ λαῷ αὐτοῦ,\nκαὶ ἤγειρεν κέρας σωτηρίας ἡμῖν ἐν οἴκῳ Δαυὶδ παιδὸς αὐτοῦ,\nκαθὼς ἐλάλησεν διὰ στόματος τῶν ἁγίων ἀπʼ αἰῶνος προφητῶν αὐτοῦ,\nσωτηρίαν ἐξ ἐχθρῶν ἡμῶν καὶ ἐκ χειρὸς πάντων τῶν μισούντων ἡμᾶς,\nποιῆσαι ἔλεος μετὰ τῶν πατέρων ἡμῶν καὶ μνησθῆναι διαθήκης ἁγίας αὐτοῦ,\nὅρκον ὃν ὤμοσεν πρὸς Ἀβραὰμ τὸν πατέρα ἡμῶν, τοῦ δοῦναι ἡμῖν\nἀφόβως ἐκ χειρὸς ἐχθρῶν ῥυσθέντας λατρεύειν αὐτῷ\nἐν ὁσιότητι καὶ δικαιοσύνῃ ἐνώπιον αὐτοῦ πάσαις ταῖς ἡμέραις ἡμῶν.\nκαὶ σὺ δέ, παιδίον, προφήτης Ὑψίστου κληθήσῃ, προπορεύσῃ γὰρ ἐνώπιον κυρίου ἑτοιμάσαι ὁδοὺς αὐτοῦ,\nτοῦ δοῦναι γνῶσιν σωτηρίας τῷ λαῷ αὐτοῦ ἐν ἀφέσει ἁμαρτιῶν αὐτῶν,\nδιὰ σπλάγχνα ἐλέους θεοῦ ἡμῶν, ἐν οἷς ἐπισκέψεται ἡμᾶς ἀνατολὴ ἐξ ὕψους,\nἐπιφᾶναι τοῖς ἐν σκότει καὶ σκιᾷ θανάτου καθημένοις, τοῦ κατευθῦναι τοὺς πόδας ἡμῶν εἰς ὁδὸν εἰρήνης."
+            }
+        ]
+    },
+    {
+        "id": "nunc_dimittis",
+        "title": {
+            "de": "Nunc dimittis – Lobgesang des Simeon",
+            "en": "The Nunc Dimittis",
+            "la": "Nunc dimittis",
+            "gr": "Νῦν ἀπολύεις"
+        },
+        "type": "canticum",
+        "tradition": "biblisch",
+        "originalLanguage": "gr",
+        "source": "Lukas 2,29–32",
+        "dating": "1. Jahrhundert (Evangelium nach Lukas)",
+        "description": "Lobgesang des greisen Simeon, als er das Jesuskind im Tempel sieht. Fester Bestandteil der Komplet, des kirchlichen Nachtgebets; in lutherischen Gottesdiensten auch nach dem Abendmahl gesungen.",
+        "tags": ["biblisch", "lobpreis", "stundengebet", "abend"],
+        "versions": [
+            {
+                "language": "de",
+                "status": "translation",
+                "translatedFrom": "gr",
+                "source": "Lutherbibel 1912 (gemeinfrei), Lukas 2,29–32",
+                "text": "HERR, nun läßt du deinen Diener in Frieden fahren, wie du gesagt hast;\ndenn meine Augen haben deinen Heiland gesehen,\nwelchen du bereitest hast vor allen Völkern,\nein Licht, zu erleuchten die Heiden, und zum Preis deines Volkes Israel."
+            },
+            {
+                "language": "en",
+                "status": "translation",
+                "translatedFrom": "gr",
+                "source": "King James Version (1611), Luke 2:29–32",
+                "text": "Lord, now lettest thou thy servant depart in peace, according to thy word:\nFor mine eyes have seen thy salvation,\nWhich thou hast prepared before the face of all people;\nA light to lighten the Gentiles, and the glory of thy people Israel."
+            },
+            {
+                "language": "la",
+                "status": "translation",
+                "translatedFrom": "gr",
+                "source": "Vulgata (Clementina, 1592), Lucas 2,29–32",
+                "text": "Nunc dimittis servum tuum Domine, secundum verbum tuum in pace:\nquia viderunt oculi mei salutare tuum,\nquod parasti ante faciem omnium populorum:\nlumen ad revelationem gentium, et gloriam plebis tuæ Israël."
+            },
+            {
+                "language": "gr",
+                "status": "original",
+                "source": "SBL Greek New Testament (SBLGNT, 2010), Lk 2,29–32",
+                "text": "Νῦν ἀπολύεις τὸν δοῦλόν σου, δέσποτα, κατὰ τὸ ῥῆμά σου ἐν εἰρήνῃ·\nὅτι εἶδον οἱ ὀφθαλμοί μου τὸ σωτήριόν σου\nὃ ἡτοίμασας κατὰ πρόσωπον πάντων τῶν λαῶν,\nφῶς εἰς ἀποκάλυψιν ἐθνῶν καὶ δόξαν λαοῦ σου Ἰσραήλ."
+            }
+        ]
+    },
+    {
+        "id": "gloria_patri",
+        "title": {
+            "de": "Ehr sei dem Vater (Gloria Patri)",
+            "en": "Glory be to the Father",
+            "la": "Gloria Patri",
+            "gr": "Δόξα Πατρί"
+        },
+        "type": "doxologie",
+        "tradition": "altkirchlich",
+        "originalLanguage": "gr",
+        "source": "Altkirchliche Liturgie; trinitarische Form seit dem 4. Jahrhundert allgemein verbreitet",
+        "dating": "4. Jahrhundert; westlicher Zusatz „wie es war im Anfang“ bezeugt durch die Synode von Vaison (529)",
+        "description": "Die „kleine Doxologie“: trinitarischer Lobpreis, mit dem im Gottesdienst und im Stundengebet die Psalmen abgeschlossen werden. Die griechische Form endet mit „jetzt und immerdar und in alle Ewigkeit“; die westliche Form fügt „wie es war im Anfang“ hinzu. Beide sind eigenständige liturgische Traditionen.",
+        "tags": ["altkirchlich", "liturgie", "trinitaet", "lobpreis"],
+        "versions": [
+            {
+                "language": "de",
+                "status": "translation",
+                "translatedFrom": "la",
+                "source": "Evangelisches Gesangbuch (EG) 177.1",
+                "text": "Ehr sei dem Vater und dem Sohn\nund dem Heiligen Geist,\nwie es war im Anfang, jetzt und immerdar\nund von Ewigkeit zu Ewigkeit. Amen."
+            },
+            {
+                "language": "en",
+                "status": "translation",
+                "translatedFrom": "la",
+                "source": "Book of Common Prayer (1662), Order for Morning Prayer; Wortlaut nach churchofengland.org",
+                "text": "Glory be to the Father, and to the Son,\nand to the Holy Ghost;\nAs it was in the beginning, is now, and ever shall be,\nworld without end. Amen."
+            },
+            {
+                "language": "la",
+                "status": "liturgical",
+                "source": "Römische Liturgie (Breviarium und Missale Romanum)",
+                "note": "Westliche Form mit „sicut erat in principio“.",
+                "text": "Gloria Patri, et Filio, et Spiritui Sancto,\nsicut erat in principio, et nunc, et semper,\net in sæcula sæculorum. Amen."
+            },
+            {
+                "language": "gr",
+                "status": "original",
+                "source": "Byzantinische Liturgie",
+                "text": "Δόξα Πατρὶ καὶ Υἱῷ καὶ Ἁγίῳ Πνεύματι,\nκαὶ νῦν καὶ ἀεὶ καὶ εἰς τοὺς αἰῶνας τῶν αἰώνων. Ἀμήν."
+            }
+        ]
+    },
+    {
+        "id": "kyrie",
+        "title": {
+            "de": "Kyrie eleison",
+            "en": "Kyrie",
+            "gr": "Κύριε, ἐλέησον"
+        },
+        "type": "akklamation",
+        "tradition": "altkirchlich",
+        "originalLanguage": "gr",
+        "source": "Altkirchliche Liturgie (Gemeinderuf der ostkirchlichen Litaneien, im 4. Jahrhundert bezeugt); biblische Anklänge u. a. Matthäus 15,22; 20,30",
+        "dating": "4. Jahrhundert; in der römischen Messe spätestens um 600",
+        "description": "Ruf um Erbarmen an Christus als den Herrn (Kyrios). Die lateinische Messe hat den griechischen Wortlaut beibehalten; eine eigene lateinische Fassung gibt es daher nicht.",
+        "tags": ["altkirchlich", "liturgie", "busse", "christusgebet"],
+        "versions": [
+            {
+                "language": "de",
+                "status": "translation",
+                "translatedFrom": "gr",
+                "source": "Evangelisches Gesangbuch (EG) 178.2",
+                "note": "Im Gottesdienst Antwort der Gemeinde auf den griechischen Ruf des Liturgen („Kyrie eleison“ – „Christe eleison“ – „Kyrie eleison“).",
+                "text": "Herr, erbarme dich.\nChriste, erbarme dich.\nHerr, erbarm dich über uns."
+            },
+            {
+                "language": "en",
+                "status": "translation",
+                "translatedFrom": "gr",
+                "source": "Book of Common Prayer (1662), Order for Morning Prayer; Wortlaut nach churchofengland.org",
+                "text": "Lord, have mercy upon us.\nChrist, have mercy upon us.\nLord, have mercy upon us."
+            },
+            {
+                "language": "gr",
+                "status": "original",
+                "source": "Griechischer Wortlaut in der dreigliedrigen Form der westlichen Messe",
+                "note": "Die byzantinische Liturgie verwendet nur „Κύριε, ἐλέησον“, oft vielfach wiederholt.",
+                "text": "Κύριε, ἐλέησον.\nΧριστέ, ἐλέησον.\nΚύριε, ἐλέησον."
+            }
+        ]
+    },
+    {
+        "id": "gloria_in_excelsis",
+        "title": {
+            "de": "Großes Gloria (Gloria in excelsis)",
+            "en": "Gloria in excelsis",
+            "la": "Gloria in excelsis Deo"
+        },
+        "type": "hymnus",
+        "tradition": "altkirchlich",
+        "originalLanguage": "gr",
+        "source": "Altkirchlicher Hymnus; Eingangsvers nach Lukas 2,14",
+        "dating": "Im 4. Jahrhundert im Morgengebet bezeugt",
+        "description": "Die „große Doxologie“: ein altkirchlicher Hymnus, der mit dem Gesang der Engel (Lk 2,14) beginnt. In der Ostkirche Teil des Morgengottesdienstes, im Westen Teil der Messe. Die griechische Fassung weicht im Wortlaut deutlich ab und ist hier nicht enthalten. In lutherischen Gottesdiensten wird meist das Lied „Allein Gott in der Höh sei Ehr“ (EG 179, Nikolaus Decius) gesungen – eine Nachdichtung, die hier nicht als Übersetzung aufgeführt wird.",
+        "tags": ["altkirchlich", "liturgie", "lobpreis", "trinitaet"],
+        "versions": [
+            {
+                "language": "en",
+                "status": "translation",
+                "translatedFrom": "la",
+                "source": "Book of Common Prayer (1662), Order for Holy Communion; Wortlaut nach churchofengland.org",
+                "text": "Glory be to God on high,\nand in earth peace, good will towards men.\nWe praise thee, we bless thee,\nwe worship thee, we glorify thee,\nwe give thanks to thee for thy great glory,\nO Lord God, heavenly King,\nGod the Father Almighty.\nO Lord, the only-begotten Son, Jesu Christ;\nO Lord God, Lamb of God, Son of the Father,\nthat takest away the sins of the world,\nhave mercy upon us.\nThou that takest away the sins of the world,\nhave mercy upon us.\nThou that takest away the sins of the world,\nreceive our prayer.\nThou that sittest at the right hand of God the Father,\nhave mercy upon us.\nFor thou only art holy;\nthou only art the Lord;\nthou only, O Christ, with the Holy Ghost,\nart most high in the glory of God the Father. Amen."
+            },
+            {
+                "language": "la",
+                "status": "liturgical",
+                "translatedFrom": "gr",
+                "source": "Missale Romanum, Ordo Missae (Wortlaut der heutigen Ausgabe; Betonungsakzente weggelassen)",
+                "text": "Gloria in excelsis Deo\net in terra pax hominibus bonæ voluntatis.\nLaudamus te,\nbenedicimus te,\nadoramus te,\nglorificamus te,\ngratias agimus tibi propter magnam gloriam tuam,\nDomine Deus, Rex cælestis,\nDeus Pater omnipotens.\nDomine Fili Unigenite, Iesu Christe,\nDomine Deus, Agnus Dei, Filius Patris,\nqui tollis peccata mundi,\nmiserere nobis;\nqui tollis peccata mundi,\nsuscipe deprecationem nostram.\nQui sedes ad dexteram Patris,\nmiserere nobis.\nQuoniam tu solus Sanctus,\ntu solus Dominus,\ntu solus Altissimus,\nIesu Christe,\ncum Sancto Spiritu:\nin gloria Dei Patris.\nAmen."
+            }
+        ]
+    },
+    {
+        "id": "trishagion",
+        "title": {
+            "de": "Trishagion",
+            "la": "Trisagion",
+            "gr": "Τρισάγιον"
+        },
+        "type": "hymnus",
+        "tradition": "ostkirchlich",
+        "originalLanguage": "gr",
+        "source": "Byzantinische Liturgie",
+        "dating": "Spätestens im 5. Jahrhundert bezeugt",
+        "description": "Der „Dreimal-Heilig-Hymnus“ der Ostkirche, der im Gottesdienst in der Regel dreimal gesungen wird. Die römische Kirche übernahm ihn in die Karfreitagsliturgie (Improperien), wo er griechisch und lateinisch im Wechsel erklingt. Eine etablierte deutsche Fassung ist hier nicht hinterlegt.",
+        "tags": ["altkirchlich", "ostkirchlich", "liturgie", "lobpreis"],
+        "versions": [
+            {
+                "language": "la",
+                "status": "translation",
+                "translatedFrom": "gr",
+                "source": "Missale Romanum, Karfreitagsliturgie (Improperien)",
+                "text": "Sanctus Deus,\nSanctus Fortis,\nSanctus Immortalis,\nmiserere nobis."
+            },
+            {
+                "language": "gr",
+                "status": "original",
+                "source": "Byzantinische Liturgie",
+                "text": "Ἅγιος ὁ Θεός,\nἍγιος ἰσχυρός,\nἍγιος ἀθάνατος,\nἐλέησον ἡμᾶς."
+            }
+        ]
+    },
+    {
+        "id": "agnus_dei",
+        "title": {
+            "de": "Christe, du Lamm Gottes (Agnus Dei)",
+            "la": "Agnus Dei"
+        },
+        "type": "akklamation",
+        "tradition": "altkirchlich",
+        "originalLanguage": "la",
+        "source": "Johannes 1,29; römische Messliturgie",
+        "dating": "In der römischen Messe seit dem späten 7. Jahrhundert (nach dem Liber Pontificalis unter Papst Sergius I.); deutsche Fassung Martin Luthers 1528",
+        "description": "Ruf an Christus als das Lamm Gottes (Joh 1,29) zur Brotbrechung vor dem Abendmahl. Martin Luther schuf 1528 die deutsche Fassung „Christe, du Lamm Gottes“, die seitdem in evangelischen Gesangbüchern steht.",
+        "tags": ["altkirchlich", "liturgie", "abendmahl", "christusgebet", "luther", "lutherisch"],
+        "versions": [
+            {
+                "language": "de",
+                "status": "liturgical",
+                "translatedFrom": "la",
+                "source": "Martin Luther (1528); Evangelisches Gesangbuch (EG) 190.2",
+                "note": "Eigenständige deutsche liturgische Fassung Luthers (Anrede „Christe“), keine wörtliche Übersetzung.",
+                "text": "Christe, du Lamm Gottes,\nder du trägst die Sünd der Welt,\nerbarm dich unser.\nChriste, du Lamm Gottes,\nder du trägst die Sünd der Welt,\nerbarm dich unser.\nChriste, du Lamm Gottes,\nder du trägst die Sünd der Welt,\ngib uns deinen Frieden. Amen."
+            },
+            {
+                "language": "la",
+                "status": "original",
+                "source": "Missale Romanum, Ordo Missae",
+                "text": "Agnus Dei, qui tollis peccata mundi,\nmiserere nobis.\nAgnus Dei, qui tollis peccata mundi,\nmiserere nobis.\nAgnus Dei, qui tollis peccata mundi,\ndona nobis pacem."
+            }
+        ]
+    },
+    {
+        "id": "verleih_uns_frieden",
+        "title": {
+            "de": "Verleih uns Frieden gnädiglich (Da pacem)",
+            "en": "Give peace in our time, O Lord",
+            "la": "Da pacem, Domine"
+        },
+        "type": "antiphon",
+        "tradition": "mittelalterlich",
+        "originalLanguage": "la",
+        "source": "Antiphon „Da pacem, Domine, in diebus nostris“; deutsche Liedstrophe: Martin Luther (1529), Weimarer Ausgabe Bd. 35, S. 232–235",
+        "dating": "Antiphon 9. Jahrhundert; Luthers Strophe 1529 (älteste erhaltene Drucke 1531)",
+        "description": "Bitte um Frieden „in unseren Tagen“. Luther dichtete die mittelalterliche Antiphon 1529 als Liedstrophe nach; später wurde sie oft mit „Erhalt uns, Herr, bei deinem Wort“ verbunden. Die Fortsetzung „Gib unserm Fürsten und aller Obrigkeit …“ stammt nicht von Luther, sondern ist zuerst bei Johann Walter (1566) belegt.",
+        "tags": ["mittelalterlich", "luther", "lutherisch", "frieden", "bitte", "liturgie"],
+        "versions": [
+            {
+                "language": "de",
+                "status": "paraphrase",
+                "translatedFrom": "la",
+                "source": "Martin Luther (1529); heutige ökumenische Textfassung, Evangelisches Gesangbuch (EG) 421",
+                "text": "Verleih uns Frieden gnädiglich,\nHerr Gott, zu unsern Zeiten.\nEs ist doch ja kein andrer nicht,\nder für uns könnte streiten,\ndenn du, unser Gott, alleine."
+            },
+            {
+                "language": "en",
+                "status": "translation",
+                "translatedFrom": "la",
+                "source": "Book of Common Prayer (1662), Order for Morning Prayer (Versikel und Response); Wortlaut nach churchofengland.org",
+                "note": "Englische Wiedergabe der lateinischen Antiphon, nicht von Luthers Lied.",
+                "text": "Give peace in our time, O Lord.\nBecause there is none other that fighteth for us,\nbut only thou, O God."
+            },
+            {
+                "language": "la",
+                "status": "original",
+                "source": "Gregorianische Antiphon; Textfassung nach Gotteslob (GL) 473",
+                "text": "Da pacem, Domine,\nin diebus nostris,\nquia non est alius\nqui pugnet pro nobis,\nnisi tu Deus noster."
+            }
+        ]
+    },
+    {
+        "id": "luthers_morgensegen",
+        "title": {
+            "de": "Luthers Morgensegen",
+            "en": "Morning Prayer",
+            "la": "Benedictio mane dicenda"
+        },
+        "type": "gebet",
+        "tradition": "lutherisch",
+        "author": "Martin Luther",
+        "originalLanguage": "de",
+        "source": "Martin Luther, Kleiner Katechismus (1529), Anhang: „Wie ein Hausvater sein Gesinde soll lehren morgens und abends sich segnen“",
+        "dating": "1529",
+        "description": "Luther empfiehlt, sich morgens mit dem Kreuzzeichen zu segnen, dann Glaubensbekenntnis und Vaterunser zu beten und, wenn man will, „dies Gebetlein“ zu sprechen. „Und alsdann mit Freuden an dein Werk gegangen und etwa ein Lied gesungen, als die zehn Gebote, oder was deine Andacht gibt.“",
+        "tags": ["luther", "lutherisch", "katechismus", "morgen", "danksagung", "bitte"],
+        "versions": [
+            {
+                "language": "de",
+                "status": "original",
+                "source": "Deutscher Text nach der Concordia Triglotta (St. Louis 1921), Kleiner Katechismus, Anhang I; Orthographie der Ausgabe, „[Ge]fahr“ ohne Herausgeberklammer",
+                "text": "Das walte Gott Vater, Sohn und Heiliger Geist! Amen.\n\nIch danke dir, mein himmlischer Vater, durch Jesum Christum, deinen lieben Sohn, daß du mich diese Nacht vor allem Schaden und Gefahr behütet hast, und bitte dich, du wollest mich diesen Tag auch behüten vor Sünden und allem Übel, daß dir alle mein Tun und Leben gefalle. Denn ich befehle mich, meinen Leib und Seele, und alles in deine Hände. Dein heiliger Engel sei mit mir, daß der böse Feind keine Macht an mir finde! Amen."
+            },
+            {
+                "language": "en",
+                "status": "translation",
+                "translatedFrom": "de",
+                "source": "Englische Übersetzung der Concordia Triglotta (1921; F. Bente, W. H. T. Dau)",
+                "text": "In the name of God the Father, Son, and Holy Ghost. Amen.\n\nI thank Thee, my Heavenly Father, through Jesus Christ, Thy dear Son, that Thou hast kept me this night from all harm and danger; and I pray Thee to keep me this day also from sin and all evil, that all my doings and life may please Thee. For into Thy hands I commend myself, my body and soul, and all things. Let Thy holy angel be with me, that the Wicked Foe may have no power over me. Amen."
+            },
+            {
+                "language": "la",
+                "status": "translation",
+                "translatedFrom": "de",
+                "source": "Lateinische Übersetzung des Konkordienbuchs (Leipzig 1584), Text nach der Concordia Triglotta (1921)",
+                "text": "In nomine Patris et Filii et Spiritus Sancti. Amen.\n\nGratias ago tibi, mi Pater coelestis, per Iesum Christum, Filium tuum dilectum, quod me hac nocte ab omnibus incommodis ac periculis conservatum custodieris. Et oro te, ut me hac die quoque conservare et a peccato et omnibus malis custodire velis, ut tibi omnia mea facta atque adeo tota vita bene placeant. Quia ego me meumque corpus et animam ac omnia in manus tuas commendo. Tuus sanctus angelus sit mecum, ne diabolus quidquam in me possit. Amen."
+            }
+        ]
+    },
+    {
+        "id": "luthers_abendsegen",
+        "title": {
+            "de": "Luthers Abendsegen",
+            "en": "Evening Prayer",
+            "la": "Benedictio vesperi dicenda"
+        },
+        "type": "gebet",
+        "tradition": "lutherisch",
+        "author": "Martin Luther",
+        "originalLanguage": "de",
+        "source": "Martin Luther, Kleiner Katechismus (1529), Anhang: „Wie ein Hausvater sein Gesinde soll lehren morgens und abends sich segnen“",
+        "dating": "1529",
+        "description": "Wie am Morgen: Kreuzzeichen, Glaubensbekenntnis und Vaterunser, dann auf Wunsch „dies Gebetlein“. Luthers Anweisung schließt: „Und alsdann flugs und fröhlich geschlafen.“",
+        "tags": ["luther", "lutherisch", "katechismus", "abend", "danksagung", "busse"],
+        "versions": [
+            {
+                "language": "de",
+                "status": "original",
+                "source": "Deutscher Text nach der Concordia Triglotta (St. Louis 1921), Kleiner Katechismus, Anhang I; Orthographie der Ausgabe",
+                "text": "Das walte Gott Vater, Sohn und Heiliger Geist! Amen.\n\nIch danke dir, mein himmlischer Vater, durch Jesum Christum, deinen lieben Sohn, daß du mich diesen Tag gnädiglich behütet hast; und bitte dich, du wollest mir vergeben alle meine Sünden, wo ich unrecht getan habe, und mich diese Nacht gnädiglich behüten; denn ich befehle mich, meinen Leib und Seele, und alles in deine Hände. Dein heiliger Engel sei mit mir, daß der böse Feind keine Macht an mir finde! Amen."
+            },
+            {
+                "language": "en",
+                "status": "translation",
+                "translatedFrom": "de",
+                "source": "Englische Übersetzung der Concordia Triglotta (1921; F. Bente, W. H. T. Dau)",
+                "text": "In the name of God the Father, Son, and Holy Ghost. Amen.\n\nI thank Thee, my Heavenly Father, through Jesus Christ, Thy dear Son, that Thou hast graciously kept me this day, and I pray Thee to forgive me all my sins, where I have done wrong, and graciously keep me this night. For into Thy hands I commend myself, my body and soul, and all things. Let Thy holy angel be with me, that the Wicked Foe may have no power over me. Amen."
+            },
+            {
+                "language": "la",
+                "status": "translation",
+                "translatedFrom": "de",
+                "source": "Lateinische Übersetzung des Konkordienbuchs (Leipzig 1584), Text nach der Concordia Triglotta (1921)",
+                "text": "In nomine Patris et Filii et Spiritus Sancti. Amen.\n\nGratias ago tibi, mi Pater coelestis, per Iesum Christum, Filium tuum dilectum, quod me hac die gratuita misericordia et bonitate tua custodieris. Et oro te, ut mihi omnia peccata mea, quae perpetravi et quibus offendi te, remittere et me hac nocte tua gratia benigne conservare velis. Quia ego me meumque corpus et animam ac omnia in manus tuas commendo. Tuus sanctus angelus sit mecum, ne diabolus quidquam in me possit. Amen."
+            }
+        ]
+    },
+    {
+        "id": "tischgebet_benedicite",
+        "title": {
+            "de": "Tischgebet vor dem Essen (Benedicite)",
+            "en": "Asking a Blessing",
+            "la": "Benedictio mensae"
+        },
+        "type": "gebet",
+        "tradition": "lutherisch",
+        "author": "Martin Luther",
+        "originalLanguage": "de",
+        "source": "Martin Luther, Kleiner Katechismus (1529), Anhang: „Wie ein Hausvater sein Gesinde soll lehren das Benedicite und Gratias sprechen“; Eingangsverse nach Psalm 145,15–16",
+        "dating": "1529",
+        "description": "Vor dem Essen sollen alle „mit gefaltenen Händen und züchtig vor den Tisch treten“. Luther erklärt dazu: „Wohlgefallen heißt, daß alle Tiere so viel zu essen kriegen, daß sie fröhlich und guter Dinge darüber sind; denn Sorgen und Geiz hindern solch Wohlgefallen.“",
+        "tags": ["luther", "lutherisch", "katechismus", "tischgebet", "bitte"],
+        "versions": [
+            {
+                "language": "de",
+                "status": "original",
+                "source": "Deutscher Text nach der Concordia Triglotta (St. Louis 1921), Kleiner Katechismus, Anhang I; Orthographie der Ausgabe, „HErr“ als „Herr“ wiedergegeben",
+                "text": "Aller Augen warten auf dich, Herr, und du gibst ihnen ihre Speise zu seiner Zeit. Du tust deine milde Hand auf und sättigest alles, was lebt, mit Wohlgefallen.\n\nDanach das Vaterunser und dies folgende Gebet:\n\nHerr Gott, himmlischer Vater, segne uns und diese deine Gaben, die wir von deiner milden Güte zu uns nehmen, durch Jesum Christum, unsern Herrn. Amen."
+            },
+            {
+                "language": "en",
+                "status": "translation",
+                "translatedFrom": "de",
+                "source": "Englische Übersetzung der Concordia Triglotta (1921; F. Bente, W. H. T. Dau)",
+                "text": "The eyes of all wait upon Thee, O Lord; and Thou givest them their meat in due season; Thou openest Thine hand, and satisfiest the desire of every living thing.\n\nThen the Lord's Prayer, and the prayer here following:\n\nLord God, Heavenly Father, bless us and these Thy gifts, which we take from Thy bountiful goodness, through Jesus Christ, our Lord. Amen."
+            },
+            {
+                "language": "la",
+                "status": "translation",
+                "translatedFrom": "de",
+                "source": "Lateinische Übersetzung des Konkordienbuchs (Leipzig 1584), Text nach der Concordia Triglotta (1921)",
+                "text": "Oculi omnium in te sperant, Domine, et tu das escam illorum in tempore opportuno. Aperis tu manum tuam et imples omne animal benedictione.\n\nDeinde addant Orationem Dominicam cum oratione sequenti:\n\nDomine Deus, Pater coelestis, benedic nobis et his donis tuis, quae de tua largitate sumimus, per Iesum Christum, Dominum nostrum. Amen."
+            }
+        ]
+    },
+    {
+        "id": "tischgebet_gratias",
+        "title": {
+            "de": "Tischgebet nach dem Essen (Gratias)",
+            "en": "Returning Thanks",
+            "la": "Gratiarum actio"
+        },
+        "type": "gebet",
+        "tradition": "lutherisch",
+        "author": "Martin Luther",
+        "originalLanguage": "de",
+        "source": "Martin Luther, Kleiner Katechismus (1529), Anhang: „Wie ein Hausvater sein Gesinde soll lehren das Benedicite und Gratias sprechen“; Eingangsverse nach Psalm 106,1; 136,25; 147,9–11",
+        "dating": "1529",
+        "description": "Nach dem Essen sollen alle „gleicherweise tun, züchtig und mit gefaltenen Händen sprechen“: Psalmverse, Vaterunser und das Dankgebet.",
+        "tags": ["luther", "lutherisch", "katechismus", "tischgebet", "danksagung"],
+        "versions": [
+            {
+                "language": "de",
+                "status": "original",
+                "source": "Deutscher Text nach der Concordia Triglotta (St. Louis 1921), Kleiner Katechismus, Anhang I; Orthographie der Ausgabe, „HErr“ als „Herr“ wiedergegeben",
+                "text": "Danket dem Herrn, denn er ist freundlich, und seine Güte währet ewiglich; der allem Fleische Speise gibt, der dem Vieh sein Futter gibt, den jungen Raben, die ihn anrufen. Er hat nicht Lust an der Stärke des Rosses noch Gefallen an jemandes Beinen; der Herr hat Gefallen an denen, die ihn fürchten, und die auf seine Güte warten.\n\nDanach das Vaterunser und dies folgende Gebet:\n\nWir danken dir, Herr Gott Vater, durch Jesum Christum, unsern Herrn, für alle deine Wohltat, der du lebest und regierest in Ewigkeit! Amen."
+            },
+            {
+                "language": "en",
+                "status": "translation",
+                "translatedFrom": "de",
+                "source": "Englische Übersetzung der Concordia Triglotta (1921; F. Bente, W. H. T. Dau)",
+                "text": "O give thanks unto the Lord, for He is good; for His mercy endureth forever. He giveth food to all flesh; He giveth to the beast his food, and to the young ravens which cry. He delighteth not in the strength of the horse; He taketh not pleasure in the legs of a man. The Lord taketh pleasure in them that fear Him, in those that hope in His mercy.\n\nThen the Lord's Prayer and the prayer here following:\n\nWe thank Thee, Lord God, Father, through Jesus Christ, our Lord, for all Thy benefits, who livest and reignest forever and ever. Amen."
+            },
+            {
+                "language": "la",
+                "status": "translation",
+                "translatedFrom": "de",
+                "source": "Lateinische Übersetzung des Konkordienbuchs (Leipzig 1584), Text nach der Concordia Triglotta (1921)",
+                "text": "Confitemini Domino, quoniam bonus, quoniam in aeternum misericordia eius, qui dat escam omni carni, qui dat iumentis escam ipsorum et pullis corvorum invocantibus eum. Non in fortitudine equi voluntatem habebit, neque in tibiis viri beneplacitum erit ei. Beneplacitum est Domino super timentes eum et in eis, qui sperant super misericordia eius.\n\nDeinde addant Orationem Dominicam cum oratione sequenti:\n\nGratias agimus tibi, Domine Deus Pater, per Iesum Christum, Dominum nostrum, pro universis beneficiis tuis, qui vivis et regnas in saecula saeculorum. Amen."
+            }
+        ]
+    }
+]

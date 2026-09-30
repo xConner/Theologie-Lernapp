@@ -50,8 +50,8 @@ Gäste speichern den Lesestatus lokal.
 
 **Deep Links** (`lib/services/notifications/app_deep_link.dart`):
 `/perikopen`, `/greek`, `/greek/vocabulary`, `/greek/grammar`, `/latin`,
-`/latin/vocabulary`, `/calendar`, `/hymns`, `/confessions`, `/settings`,
-`/settings/notifications`, `/account`. Unbekannte Pfade werden nicht
+`/latin/vocabulary`, `/calendar`, `/hymns`, `/confessions`, `/prayers`,
+`/settings`, `/settings/notifications`, `/account`. Unbekannte Pfade werden nicht
 angezeigt. Derselbe Wert wird später im FCM-Datenfeld `link` verwendet.
 
 ## Nachricht veröffentlichen

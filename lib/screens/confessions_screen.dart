@@ -6,18 +6,24 @@ import 'confession_detail_screen.dart';
 import '../widgets/settings_access.dart';
 
 class ConfessionsScreen extends StatefulWidget {
-  const ConfessionsScreen({super.key});
+  /// Ermöglicht Widget-Tests mit eigenem Asset-Bundle.
+  final ConfessionService? service;
+
+  const ConfessionsScreen({super.key, this.service});
 
   @override
   State<ConfessionsScreen> createState() => _ConfessionsScreenState();
 }
 
 class _ConfessionsScreenState extends State<ConfessionsScreen> {
-  final ConfessionService service = ConfessionService();
+  late final ConfessionService service =
+      widget.service ?? ConfessionService();
 
   List<Confession> confessions = [];
 
   bool loading = true;
+
+  bool failed = false;
 
   @override
   void initState() {
@@ -25,21 +31,25 @@ class _ConfessionsScreenState extends State<ConfessionsScreen> {
     load();
   }
 
-  @override
-  void reassemble() {
-    super.reassemble();
-
-    load();
-  }
-
   Future<void> load() async {
-    final data = await service.loadConfessions();
+    try {
+      final data = await service.loadConfessions();
 
-    setState(() {
-      confessions = data;
+      if (!mounted) return;
 
-      loading = false;
-    });
+      setState(() {
+        confessions = data;
+        failed = false;
+        loading = false;
+      });
+    } catch (_) {
+      if (!mounted) return;
+
+      setState(() {
+        failed = true;
+        loading = false;
+      });
+    }
   }
 
   List<Confession> getByCategory(String category) {
@@ -74,6 +84,25 @@ class _ConfessionsScreenState extends State<ConfessionsScreen> {
         ),
 
         body: const Center(child: CircularProgressIndicator()),
+      );
+    }
+
+    if (failed) {
+      return Scaffold(
+        appBar: AppBar(
+          title: const Text("Bekenntnisse"),
+          actions: const [SettingsButton()],
+        ),
+
+        body: const Center(
+          child: Padding(
+            padding: EdgeInsets.all(24),
+            child: Text(
+              "Die Bekenntnisse konnten nicht geladen werden.",
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ),
       );
     }
 

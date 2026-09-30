@@ -1,18 +1,21 @@
 import 'dart:convert';
-import 'package:http/http.dart' as http;
+import 'package:flutter/services.dart';
 
 import '../models/confession.dart';
 
 class ConfessionService {
+  static const String assetPath = 'assets/confessions.json';
+
+  /// Standardmäßig das App-Bundle; Tests können ein eigenes Bundle übergeben.
+  final AssetBundle bundle;
+
+  ConfessionService({AssetBundle? bundle}) : bundle = bundle ?? rootBundle;
+
   Future<List<Confession>> loadConfessions() async {
-    final response = await http.get(
-      Uri.parse("http://localhost:8000/confessions.json"),
-    );
+    final String jsonString = await bundle.loadString(assetPath);
 
-    final jsonData = json.decode(response.body);
+    final List<dynamic> jsonData = json.decode(jsonString);
 
-    return jsonData
-        .map<Confession>((item) => Confession.fromJson(item))
-        .toList();
+    return jsonData.map((item) => Confession.fromJson(item)).toList();
   }
 }

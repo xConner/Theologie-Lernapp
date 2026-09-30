@@ -84,6 +84,7 @@ flutter:
       - assets/latin_vocabulary.json
       - assets/eg_lieder.json
       - assets/confessions.json
+      - assets/prayers.json
       - assets/sounds/correct.wav
       - assets/sounds/incorrect.wav
 

@@ -10,6 +10,7 @@ import '../models/greek/perikope.dart';
 import 'hymn_screen.dart';
 
 import 'confessions_screen.dart';
+import 'prayers_screen.dart';
 
 import 'latin/latin_home_screen.dart';
 
@@ -316,6 +317,24 @@ class _HomeScreenState extends State<HomeScreen> {
                           },
                           icon: const Icon(Icons.menu_book_rounded),
                           label: const Text("Bekenntnisse"),
+                        ),
+                      ),
+
+                      const SizedBox(height: 16),
+
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton.icon(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => const PrayersScreen(),
+                              ),
+                            );
+                          },
+                          icon: const Icon(Icons.volunteer_activism_rounded),
+                          label: const Text("Gebete"),
                         ),
                       ),
 

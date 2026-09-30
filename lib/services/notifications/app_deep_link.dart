@@ -18,6 +18,7 @@ class AppDeepLink {
   static const String calendar = "/calendar";
   static const String hymns = "/hymns";
   static const String confessions = "/confessions";
+  static const String prayers = "/prayers";
   static const String settings = "/settings";
   static const String notificationSettings = "/settings/notifications";
   static const String account = "/account";
@@ -33,6 +34,7 @@ class AppDeepLink {
     calendar,
     hymns,
     confessions,
+    prayers,
     settings,
     notificationSettings,
     account,

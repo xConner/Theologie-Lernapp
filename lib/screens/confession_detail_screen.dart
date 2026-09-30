@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../models/confession.dart';
-import '../services/confession_service.dart';
 import '../widgets/settings_access.dart';
 
 class ConfessionDetailScreen extends StatefulWidget {
@@ -14,13 +13,9 @@ class ConfessionDetailScreen extends StatefulWidget {
 }
 
 class _ConfessionDetailScreenState extends State<ConfessionDetailScreen> {
-  final ConfessionService service = ConfessionService();
-
-  late Confession confession;
+  Confession get confession => widget.confession;
 
   late String selectedLanguage;
-
-  bool loading = false;
 
   int selectedSectionIndex = 0;
 
@@ -28,50 +23,7 @@ class _ConfessionDetailScreenState extends State<ConfessionDetailScreen> {
   void initState() {
     super.initState();
 
-    confession = widget.confession;
     selectedLanguage = confession.languages.first;
-  }
-
-  // Wird bei Hot Reload automatisch ausgeführt
-  @override
-  void reassemble() {
-    super.reassemble();
-
-    reloadConfession();
-  }
-
-  Future<void> reloadConfession() async {
-    if (loading) return;
-
-    setState(() {
-      loading = true;
-    });
-
-    try {
-      final confessions = await service.loadConfessions();
-
-      final updated = confessions.firstWhere((c) => c.id == confession.id);
-
-      setState(() {
-        confession = updated;
-
-        if (!confession.languages.contains(selectedLanguage)) {
-          selectedLanguage = confession.languages.first;
-        }
-
-        if (selectedSectionIndex >= confession.sections.length) {
-          selectedSectionIndex = 0;
-        }
-
-        loading = false;
-      });
-    } catch (e) {
-      setState(() {
-        loading = false;
-      });
-
-      debugPrint("Fehler beim Reload: $e");
-    }
   }
 
   String languageName(String code) {
@@ -121,14 +73,7 @@ class _ConfessionDetailScreenState extends State<ConfessionDetailScreen> {
               confession.id,
         ),
 
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.refresh),
-            onPressed: reloadConfession,
-          ),
-
-          const SettingsButton(),
-        ],
+        actions: const [SettingsButton()],
       ),
 
       body: Center(
@@ -139,8 +84,6 @@ class _ConfessionDetailScreenState extends State<ConfessionDetailScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
 
             children: [
-              if (loading) const LinearProgressIndicator(),
-
               Padding(
                 padding: const EdgeInsets.all(16),
 
