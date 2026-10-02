@@ -3,6 +3,6 @@
     "cheerio": "^1.2.0"
   },
   "devDependencies": {
-    "@vercel/node": "^6.0.0"
+    "@vercel/node": "^16.0.2"
   }
 }
