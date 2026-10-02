@@ -4,6 +4,8 @@ import '../models/prayer.dart';
 import '../services/prayer_service.dart';
 import '../theme/app_theme.dart';
 import '../widgets/settings_access.dart';
+import '../info/app_info.dart';
+import '../widgets/info_report.dart';
 import 'prayer_detail_screen.dart';
 
 class PrayersScreen extends StatefulWidget {
@@ -207,7 +209,10 @@ class _PrayersScreenState extends State<PrayersScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Gebete"),
-        actions: const [SettingsButton()],
+actions: const [
+          InfoButton(module: AppModules.prayers),
+          SettingsButton(),
+        ],
       ),
 
       body: buildBody(),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../widgets/settings_access.dart';
+import '../../../info/app_info.dart';
+import '../../../widgets/info_report.dart';
 
 class ConjugationsScreen extends StatelessWidget {
   const ConjugationsScreen({super.key});
@@ -48,7 +50,10 @@ class ConjugationsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Konjugationen"),
-        actions: const [SettingsButton()],
+actions: const [
+          InfoButton(module: AppModules.greekGrammarOverview),
+          SettingsButton(),
+        ],
       ),
 
       body: SingleChildScrollView(

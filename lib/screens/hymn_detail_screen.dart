@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../models/hymn.dart';
 import '../widgets/settings_access.dart';
+import '../info/app_info.dart';
+import '../widgets/info_report.dart';
 
 class HymnDetailScreen extends StatelessWidget {
   final Hymn hymn;
@@ -26,7 +28,13 @@ class HymnDetailScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(hymn.title),
-        actions: const [SettingsButton()],
+        actions: [
+          InfoButton(
+            module: AppModules.hymns,
+            reportDetails: () => {"Lied": "EG ${hymn.id} – ${hymn.title}"},
+          ),
+          const SettingsButton(),
+        ],
       ),
 
       body: SingleChildScrollView(

@@ -4,6 +4,8 @@ import 'grammar_topics/article_screen.dart';
 import 'grammar_topics/conjugations_screen.dart';
 import 'grammar_topics/declinations_screen.dart';
 import '../../widgets/settings_access.dart';
+import '../../info/app_info.dart';
+import '../../widgets/info_report.dart';
 
 class GrammarOverviewScreen extends StatelessWidget {
   const GrammarOverviewScreen({super.key});
@@ -13,7 +15,10 @@ class GrammarOverviewScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Grammatikübersicht"),
-        actions: const [SettingsButton()],
+actions: const [
+          InfoButton(module: AppModules.greekGrammarOverview),
+          SettingsButton(),
+        ],
       ),
 
       body: Center(

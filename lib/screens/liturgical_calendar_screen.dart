@@ -4,6 +4,8 @@ import '../models/liturgical_event.dart';
 import '../models/liturgical_day.dart';
 import '../services/liturgical_calendar_loader.dart';
 import '../widgets/settings_access.dart';
+import '../info/app_info.dart';
+import '../widgets/info_report.dart';
 
 class LiturgicalCalendarScreen extends StatefulWidget {
   const LiturgicalCalendarScreen({super.key});
@@ -172,7 +174,16 @@ class _LiturgicalCalendarScreenState extends State<LiturgicalCalendarScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Liturgischer Kalender"),
-        actions: const [SettingsButton()],
+        actions: [
+          InfoButton(
+            module: AppModules.calendar,
+            reportDetails: () => {
+              "Tag": "${formatDate(day.date)} – ${day.title}",
+              if (day.variant != null) "Variante": day.variant!,
+            },
+          ),
+          const SettingsButton(),
+        ],
       ),
 
       body: Center(

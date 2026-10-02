@@ -4,6 +4,8 @@ import '../models/confession.dart';
 import '../services/confession_service.dart';
 import 'confession_detail_screen.dart';
 import '../widgets/settings_access.dart';
+import '../info/app_info.dart';
+import '../widgets/info_report.dart';
 
 class ConfessionsScreen extends StatefulWidget {
   /// Ermöglicht Widget-Tests mit eigenem Asset-Bundle.
@@ -80,7 +82,10 @@ class _ConfessionsScreenState extends State<ConfessionsScreen> {
       return Scaffold(
         appBar: AppBar(
           title: const Text("Bekenntnisse"),
-          actions: const [SettingsButton()],
+actions: const [
+            InfoButton(module: AppModules.confessions),
+            SettingsButton(),
+          ],
         ),
 
         body: const Center(child: CircularProgressIndicator()),
@@ -91,7 +96,10 @@ class _ConfessionsScreenState extends State<ConfessionsScreen> {
       return Scaffold(
         appBar: AppBar(
           title: const Text("Bekenntnisse"),
-          actions: const [SettingsButton()],
+actions: const [
+            InfoButton(module: AppModules.confessions),
+            SettingsButton(),
+          ],
         ),
 
         body: const Center(
@@ -113,7 +121,10 @@ class _ConfessionsScreenState extends State<ConfessionsScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Bekenntnisse"),
-        actions: const [SettingsButton()],
+actions: const [
+          InfoButton(module: AppModules.confessions),
+          SettingsButton(),
+        ],
       ),
 
       body: Center(

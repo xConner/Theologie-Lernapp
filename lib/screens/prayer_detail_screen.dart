@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import '../models/prayer.dart';
 import '../theme/app_theme.dart';
 import '../widgets/settings_access.dart';
+import '../info/app_info.dart';
+import '../widgets/info_report.dart';
 
 class PrayerDetailScreen extends StatefulWidget {
   final Prayer prayer;
@@ -86,7 +88,16 @@ class _PrayerDetailScreenState extends State<PrayerDetailScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(prayer.displayTitle),
-        actions: const [SettingsButton()],
+        actions: [
+          InfoButton(
+            module: AppModules.prayers,
+            reportDetails: () => {
+              "Gebet": "${prayer.displayTitle} (${prayer.id})",
+              "Fassung": PrayerLanguages.name(selectedLanguage),
+            },
+          ),
+          const SettingsButton(),
+        ],
       ),
 
       body: Center(

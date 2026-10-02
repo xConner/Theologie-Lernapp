@@ -4,6 +4,8 @@ import '../models/hymn.dart';
 import '../services/hymn_service.dart';
 import 'hymn_detail_screen.dart';
 import '../widgets/settings_access.dart';
+import '../info/app_info.dart';
+import '../widgets/info_report.dart';
 
 class HymnScreen extends StatefulWidget {
   const HymnScreen({super.key});
@@ -67,7 +69,10 @@ class _HymnScreenState extends State<HymnScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Gesangbuch"),
-        actions: const [SettingsButton()],
+actions: const [
+          InfoButton(module: AppModules.hymns),
+          SettingsButton(),
+        ],
       ),
 
       body: loading

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../models/confession.dart';
 import '../widgets/settings_access.dart';
+import '../info/app_info.dart';
+import '../widgets/info_report.dart';
 
 class ConfessionDetailScreen extends StatefulWidget {
   final Confession confession;
@@ -73,7 +75,19 @@ class _ConfessionDetailScreenState extends State<ConfessionDetailScreen> {
               confession.id,
         ),
 
-        actions: const [SettingsButton()],
+        actions: [
+          InfoButton(
+            module: AppModules.confessions,
+            reportDetails: () => {
+              "Bekenntnis":
+                  "${confession.title["de"] ?? confession.id} "
+                  "(${confession.id})",
+              "Sprache": languageName(selectedLanguage),
+              if (hasMultipleSections) "Abschnitt": currentSectionTitle(),
+            },
+          ),
+          const SettingsButton(),
+        ],
       ),
 
       body: Center(

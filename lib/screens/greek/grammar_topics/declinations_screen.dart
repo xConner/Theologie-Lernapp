@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../widgets/settings_access.dart';
+import '../../../info/app_info.dart';
+import '../../../widgets/info_report.dart';
 
 class DeclinationsScreen extends StatelessWidget {
   const DeclinationsScreen({super.key});
@@ -78,7 +80,10 @@ class DeclinationsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Deklinationen"),
-        actions: const [SettingsButton()],
+actions: const [
+          InfoButton(module: AppModules.greekGrammarOverview),
+          SettingsButton(),
+        ],
       ),
 
       body: SingleChildScrollView(

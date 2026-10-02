@@ -24,6 +24,8 @@ import 'package:web/web.dart' as web;
 import 'dart:js_interop';
 import '../../widgets/settings_access.dart';
 import '../../widgets/settings_selection.dart';
+import '../../info/app_info.dart';
+import '../../widgets/info_report.dart';
 
 class GreekGrammarTrainerScreen extends StatefulWidget {
   const GreekGrammarTrainerScreen({super.key});
@@ -247,6 +249,9 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
 
     _keyListener = ((web.Event event) {
       final keyboardEvent = event as web.KeyboardEvent;
+
+      // Enter gehört einem geöffneten Info-Blatt bzw. Meldeformular.
+      if (infoReportOverlayOpen) return;
 
       if (keyboardEvent.key == 'Enter') {
         if (answered) {
@@ -1494,6 +1499,34 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
   }
 
   // ---------------------------------------------------------------------------
+  // FEHLER MELDEN
+  // ---------------------------------------------------------------------------
+
+  /// Kontext für „Fehler melden“. Die Bestimmung erst nach dem Prüfen, damit
+  /// das Formular die Lösung nicht verrät.
+  Map<String, String> _reportDetails() {
+    final q = question;
+
+    if (q == null) {
+      return {};
+    }
+
+    return {
+      "Angezeigte Form": correctForm ?? "",
+      "Fehler beim Laden": formError ?? "",
+      if (answered || formError != null) ...{
+        "Grundform": "${q.lemma} (ID ${q.id})",
+        if (isNoun())
+          "Bestimmung": "$selectedCase $selectedNumber"
+        else if (isVerb())
+          "Bestimmung":
+              "$selectedPerson $selectedNumberVerb, $selectedTense, "
+              "$selectedVoice",
+      },
+    };
+  }
+
+  // ---------------------------------------------------------------------------
   // BUILD
   // ---------------------------------------------------------------------------
 
@@ -1724,6 +1757,11 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
                           : "Prüfen",
                     ),
                   ),
+                ),
+
+                InfoReportFooter(
+                  module: AppModules.greekGrammarTrainer,
+                  reportDetails: _reportDetails,
                 ),
               ],
             ),

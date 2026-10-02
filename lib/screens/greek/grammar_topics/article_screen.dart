@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../widgets/settings_access.dart';
+import '../../../info/app_info.dart';
+import '../../../widgets/info_report.dart';
 
 class ArticleScreen extends StatelessWidget {
   const ArticleScreen({super.key});
@@ -26,7 +28,10 @@ class ArticleScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Bestimmter Artikel"),
-        actions: const [SettingsButton()],
+actions: const [
+          InfoButton(module: AppModules.greekGrammarOverview),
+          SettingsButton(),
+        ],
       ),
 
       body: Center(

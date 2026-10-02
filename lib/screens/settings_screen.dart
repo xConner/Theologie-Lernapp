@@ -5,7 +5,9 @@ import '../services/progress_data_service.dart';
 import '../services/quiz_sound_player.dart';
 import '../services/quiz_sound_settings.dart';
 import '../theme/app_theme.dart';
+import '../widgets/info_report.dart';
 import '../widgets/learning_progress_dialogs.dart';
+import 'about_screen.dart';
 import 'account_security_screen.dart';
 import 'login_screen.dart';
 import 'notification_settings_screen.dart';
@@ -252,6 +254,40 @@ class _GeneralSettingsViewState extends State<GeneralSettingsView> {
                 : null,
             enabled: widget.allowProgressReset,
             onTap: resettingProgress ? null : _resetProgress,
+          ),
+        ),
+
+        const SizedBox(height: 20),
+
+        Padding(
+          padding: const EdgeInsets.fromLTRB(4, 0, 4, 12),
+          child: Text(
+            "Info & Hilfe",
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
+        ),
+
+        Card(
+          child: ListTile(
+            leading: const Icon(Icons.info_outline_rounded),
+            title: const Text("Über die App"),
+            subtitle: const Text("Quellen, KI-Unterstützung, Daten"),
+            trailing: const Icon(Icons.chevron_right_rounded),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const AboutScreen()),
+              );
+            },
+          ),
+        ),
+
+        Card(
+          child: ListTile(
+            leading: const Icon(Icons.flag_outlined),
+            title: const Text("Fehler melden"),
+            subtitle: const Text("Falscher Inhalt, falsche Quelle oder Bug"),
+            onTap: () => showReportDialog(context),
           ),
         ),
       ],

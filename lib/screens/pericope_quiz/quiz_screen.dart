@@ -20,6 +20,8 @@ import '../../services/streak/streak_track.dart';
 import '../../services/statistics/learning_statistics.dart';
 import '../../services/statistics/statistics_service.dart';
 import '../../widgets/statistics_widgets.dart';
+import '../../info/app_info.dart';
+import '../../widgets/info_report.dart';
 
 import '../../utils/bible_reference_validator.dart';
 
@@ -360,6 +362,22 @@ class _QuizScreenState extends State<QuizScreen> {
     }
 
     return result;
+  }
+
+  /// Kontext für „Fehler melden“. Die hinterlegte Stelle erst nach dem
+  /// Prüfen, damit das Formular die Lösung nicht verrät.
+  Map<String, String> _reportDetails() {
+    final c = current;
+
+    if (c == null) {
+      return {};
+    }
+
+    return {
+      "Perikope": "${c.title} (${c.id})",
+      if (checked) "Hinterlegte Stelle": _expectedAnswers().join("; "),
+      "Eingabe": _userAnswers().join("; "),
+    };
   }
 
   String _normalize(String input) {
@@ -997,6 +1015,13 @@ class _QuizScreenState extends State<QuizScreen> {
                           },
                         ),
                     ],
+
+                    // Die Schnelleingabe braucht den ganzen freien Platz.
+                    if (!showQuickEntry)
+                      InfoReportFooter(
+                        module: AppModules.pericopeQuiz,
+                        reportDetails: _reportDetails,
+                      ),
                   ],
                 ),
         ),

@@ -32,6 +32,8 @@ import 'dart:js_interop';
 import '../../widgets/settings_access.dart';
 import '../../widgets/settings_selection.dart';
 import '../../utils/word_type_labels.dart';
+import '../../info/app_info.dart';
+import '../../widgets/info_report.dart';
 
 class VocabularyTrainerScreen extends StatefulWidget {
   const VocabularyTrainerScreen({super.key});
@@ -137,6 +139,9 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
     load();
     _keyListener = ((web.Event event) {
       final keyboardEvent = event as web.KeyboardEvent;
+
+      // Enter gehört einem geöffneten Info-Blatt bzw. Meldeformular.
+      if (infoReportOverlayOpen) return;
 
       if (keyboardEvent.key == 'Enter') {
         if (answered) {
@@ -981,6 +986,23 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
 
                         child: Text(answered ? "Weiter" : "Prüfen"),
                       ),
+                    ),
+
+                    InfoReportFooter(
+                      module: AppModules.greekVocabulary,
+                      reportDetails: () => {
+                        "Eintrag": "${q.entry.lemma} (ID ${q.entry.id})",
+                        "Schritt": "${q.entry.step}",
+                        "Wortart": q.entry.type,
+                        // Lösung erst nach dem Prüfen, damit das Formular
+                        // sie nicht verrät.
+                        if (answered) ...{
+                          "Hinterlegte Übersetzung": q.entry.translations.join(
+                            ", ",
+                          ),
+                          "Eingabe": translationController.text,
+                        },
+                      },
                     ),
                   ],
                 ),

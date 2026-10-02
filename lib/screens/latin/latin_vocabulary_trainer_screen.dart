@@ -27,6 +27,8 @@ import '../../widgets/statistics_widgets.dart';
 import '../../widgets/settings_access.dart';
 import '../../widgets/settings_selection.dart';
 import '../../utils/word_type_labels.dart';
+import '../../info/app_info.dart';
+import '../../widgets/info_report.dart';
 
 class LatinVocabularyTrainerScreen extends StatefulWidget {
   const LatinVocabularyTrainerScreen({super.key});
@@ -135,6 +137,11 @@ class _LatinVocabularyTrainerScreenState
   bool _handleKey(KeyEvent event) {
     if (event is! KeyDownEvent ||
         event.logicalKey != LogicalKeyboardKey.enter) {
+      return false;
+    }
+
+    // Enter gehört einem geöffneten Info-Blatt bzw. Meldeformular.
+    if (infoReportOverlayOpen) {
       return false;
     }
 
@@ -1107,6 +1114,23 @@ class _LatinVocabularyTrainerScreenState
                       onPressed: answered ? nextQuestion : check,
                       child: Text(answered ? "Weiter" : "Prüfen"),
                     ),
+                  ),
+
+                  InfoReportFooter(
+                    module: AppModules.latinVocabulary,
+                    reportDetails: () => {
+                      "Eintrag": "${q.entry.lemma} (ID ${q.entry.id})",
+                      "Schritt": "${q.entry.step}.${q.entry.substep}",
+                      "Wortart": q.entry.type,
+                      // Lösung erst nach dem Prüfen, damit das Formular sie
+                      // nicht verrät.
+                      if (answered) ...{
+                        "Hinterlegte Übersetzung": q.entry.translations.join(
+                          ", ",
+                        ),
+                        "Eingabe": translationController.text,
+                      },
+                    },
                   ),
                 ],
               ),

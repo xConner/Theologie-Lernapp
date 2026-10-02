@@ -559,6 +559,41 @@ void main() {
       expect(tester.takeException(), isNull);
     });
 
+    testWidgets("Fehler melden kennt die Perikope; die hinterlegte Stelle "
+        "erscheint erst nach dem Prüfen", (tester) async {
+      await pumpQuiz(tester);
+
+      await tester.enterText(find.byType(TextField).first, "Mk 8-10");
+      await tester.pump();
+
+      await tester.tap(find.text("Fehler melden"));
+      await tester.pumpAndSettle();
+
+      expect(find.textContaining("Bereich: Perikopenquiz"), findsOneWidget);
+      expect(find.textContaining("(frage)"), findsOneWidget);
+      expect(find.textContaining("Eingabe: Mk 8-10"), findsOneWidget);
+      expect(find.textContaining("Hinterlegte Stelle"), findsNothing);
+
+      await tester.tap(find.text("Abbrechen"));
+      await tester.pumpAndSettle();
+
+      // Das Formular hat die laufende Frage nicht verändert.
+      expect(inputs(tester), ["Mk 8-10"]);
+
+      await tester.tap(find.text("Prüfen"));
+      await tester.pumpAndSettle();
+      await tester.ensureVisible(find.text("Fehler melden"));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text("Fehler melden"));
+      await tester.pumpAndSettle();
+
+      expect(
+        find.textContaining("Hinterlegte Stelle: Mk 8-10; Lk 9"),
+        findsOneWidget,
+      );
+      expect(tester.takeException(), isNull);
+    });
+
     testWidgets("Mehrere Stellen per Schnelleingabe werden von der "
         "bestehenden Prüfung als richtig gewertet", (tester) async {
       await pumpQuiz(tester);

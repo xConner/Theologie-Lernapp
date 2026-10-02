@@ -26,6 +26,11 @@ rules_version = '2';
 //                              Sicherheit): nur der Nutzer darf lesen,
 //                              schreiben nur der Server (Admin SDK).
 //
+// Fehlermeldungen (siehe docs/info-and-reports.md):
+//   reports/{id}               von jedem anlegbar (nur gültige Felder,
+//                              begrenzte Längen, ohne Nutzerbezug), vom
+//                              Client weder lesbar noch änderbar.
+//
 // Diese Datei ist die Referenz für die Regeln, die manuell in der Firebase
 // Console unter Firestore Database -> Regeln eingetragen werden müssen
 // (dieses Projekt hat kein lokales Firebase-CLI-Setup/firebase.json).
@@ -38,6 +43,35 @@ service cloud.firestore {
     match /notifications/{notificationId} {
       allow read: if true;
       allow write: if false;
+    }
+
+    // Muss zu Report.toMap() in lib/services/reports/report.dart passen.
+    function isValidReport(d) {
+      return d.keys().hasOnly(['kind', 'category', 'description', 'area',
+                               'areaTitle', 'context', 'appVersion',
+                               'platform', 'createdAt'])
+        && d.keys().hasAll(['kind', 'category', 'description', 'area',
+                            'areaTitle', 'context', 'appVersion',
+                            'platform', 'createdAt'])
+        && d.kind == 'report'
+        && d.category in ['bug', 'content', 'reference', 'translation',
+                          'source', 'display', 'other']
+        && d.description is string
+        && d.description.size() >= 3 && d.description.size() <= 2000
+        && d.area is string && d.area.size() > 0 && d.area.size() <= 60
+        && d.areaTitle is string && d.areaTitle.size() <= 80
+        && d.context is string && d.context.size() <= 1500
+        && d.appVersion is string && d.appVersion.size() <= 30
+        && d.platform is string && d.platform.size() <= 30
+        && d.createdAt == request.time;
+    }
+
+    // Fehlermeldungen: jeder (auch Gäste) darf eine gültige Meldung anlegen,
+    // niemand darf über den Client lesen, ändern oder löschen. Auswertung
+    // nur über Console/Admin SDK.
+    match /reports/{reportId} {
+      allow create: if isValidReport(request.resource.data);
+      allow read, update, delete: if false;
     }
 
     match /users/{uid} {
