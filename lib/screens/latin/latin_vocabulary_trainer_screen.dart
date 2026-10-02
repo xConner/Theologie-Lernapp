@@ -25,6 +25,8 @@ import '../../services/statistics/learning_statistics.dart';
 import '../../services/statistics/statistics_service.dart';
 import '../../widgets/statistics_widgets.dart';
 import '../../widgets/settings_access.dart';
+import '../../widgets/settings_selection.dart';
+import '../../utils/word_type_labels.dart';
 
 class LatinVocabularyTrainerScreen extends StatefulWidget {
   const LatinVocabularyTrainerScreen({super.key});
@@ -64,9 +66,14 @@ class _LatinVocabularyTrainerScreenState
 
   bool requireOnlyOneTranslation = false;
 
-  List<int> enabledSteps = [];
-
+  /// Je verfügbarem Schritt die ausgewählten Unter-Schritte.
+  /// Leere Liste = Schritt abgewählt.
   Map<int, List<int>> enabledSubsteps = {};
+
+  List<int> get enabledSteps => [
+    for (final entry in enabledSubsteps.entries)
+      if (entry.value.isNotEmpty) entry.key,
+  ]..sort();
 
   List<String> enabledTypes = [
     "noun",
@@ -189,9 +196,19 @@ class _LatinVocabularyTrainerScreenState
 
     entries = await LatinVocabularyLoader.load();
 
-    enabledSteps = entries.map((e) => e.step).toSet().toList()..sort();
+    final savedSubsteps = await settingsService.getEnabledSubsteps(uid);
 
-    enabledSubsteps = await settingsService.getEnabledSubsteps(uid);
+    // Schritte ohne gespeicherte Auswahl (Standard, neue Lektionen) sind
+    // vollständig aktiviert.
+    enabledSubsteps = {
+      for (final entry in _availableSubsteps().entries)
+        entry.key:
+            savedSubsteps[entry.key]
+                ?.where(entry.value.contains)
+                .toSet()
+                .toList() ??
+            List<int>.from(entry.value),
+    };
 
     enabledTypes = await settingsService.getEnabledTypes(uid);
 
@@ -205,17 +222,7 @@ class _LatinVocabularyTrainerScreenState
   }
 
   bool _substepEnabled(LatinVocabularyEntry entry) {
-    if (!enabledSteps.contains(entry.step)) {
-      return false;
-    }
-
-    final selected = enabledSubsteps[entry.step];
-
-    if (selected == null) {
-      return true;
-    }
-
-    return selected.contains(entry.substep);
+    return enabledSubsteps[entry.step]?.contains(entry.substep) ?? false;
   }
 
   bool _currentQuestionMatchesFilters() {
@@ -229,10 +236,6 @@ class _LatinVocabularyTrainerScreenState
   }
 
   void nextQuestion() {
-    if (enabledSteps.isEmpty || enabledTypes.isEmpty) {
-      return;
-    }
-
     final availableEntries = entries.where((entry) {
       return _substepEnabled(entry) && enabledTypes.contains(entry.type);
     }).toList();
@@ -468,242 +471,151 @@ class _LatinVocabularyTrainerScreenState
                 height: MediaQuery.of(context).size.height * 0.65,
                 child: SingleChildScrollView(
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      CheckboxListTile(
-                        title: const Text("Verbform abfragen"),
-                        value: includeVerbForm,
-                        onChanged: (value) {
+                      _buildStepSelection(setDialogState),
+
+                      MultiSelectSection<String>(
+                        title: "Wortarten",
+                        hint:
+                            "Abgefragt werden nur Vokabeln der ausgewählten "
+                            "Wortarten.",
+                        options: allTypes,
+                        isSelected: enabledTypes.contains,
+                        labelOf: wordTypeFilterLabel,
+                        emptyError:
+                            "Mindestens eine Wortart muss ausgewählt sein.",
+                        onToggleAll: () {
                           setDialogState(() {
-                            includeVerbForm = value ?? false;
-                          });
-                        },
-                      ),
-
-                      CheckboxListTile(
-                        title: const Text("Nomenform abfragen"),
-                        value: includeNounForm,
-                        onChanged: (value) {
-                          setDialogState(() {
-                            includeNounForm = value ?? false;
-                          });
-                        },
-                      ),
-
-                      CheckboxListTile(
-                        title: const Text("Genus abfragen"),
-                        value: includeGender,
-                        onChanged: (value) {
-                          setDialogState(() {
-                            includeGender = value ?? false;
-                          });
-                        },
-                      ),
-
-                      CheckboxListTile(
-                        title: const Text("Adjektivformen abfragen"),
-                        value: includeAdjectiveForms,
-                        onChanged: (value) {
-                          setDialogState(() {
-                            includeAdjectiveForms = value ?? false;
-                          });
-                        },
-                      ),
-
-                      CheckboxListTile(
-                        title: const Text(
-                          "Eine richtige Übersetzung reicht (empfohlen)",
-                        ),
-                        value: requireOnlyOneTranslation,
-                        onChanged: (value) {
-                          setDialogState(() {
-                            requireOnlyOneTranslation = value ?? false;
-                          });
-                        },
-                      ),
-
-                      const Divider(),
-
-                      ExpansionTile(
-                        title: const Text("Schritte"),
-                        children: [
-                          CheckboxListTile(
-                            title: const Text("Alle Schritte"),
-                            tristate: true,
-                            value: _allStepsCheckboxValue(),
-                            onChanged: (_) {
-                              setDialogState(() {
-                                _toggleAllSteps();
-                              });
-                            },
-                          ),
-
-                          ..._availableSubsteps().entries.map((entry) {
-                            final step = entry.key;
-                            final substeps = entry.value;
-
-                            final selectedSubsteps =
-                                enabledSubsteps[step] ?? [];
-
-                            final allSelected =
-                                selectedSubsteps.length == substeps.length &&
-                                substeps.isNotEmpty;
-
-                            final noneSelected = selectedSubsteps.isEmpty;
-
-                            bool? stepValue;
-
-                            if (allSelected) {
-                              stepValue = true;
-                            } else if (noneSelected) {
-                              stepValue = false;
+                            if (enabledTypes.length == allTypes.length) {
+                              enabledTypes.clear();
                             } else {
-                              stepValue = null;
+                              enabledTypes = List.from(allTypes);
                             }
-
-                            return ExpansionTile(
-                              title: Text("Schritt $step"),
-
-                              trailing: Checkbox(
-                                tristate: true,
-                                value: stepValue,
-                                onChanged: (_) {
-                                  setDialogState(() {
-                                    _toggleStep(step, substeps);
-                                  });
-                                },
-                              ),
-
-                              children: [
-                                CheckboxListTile(
-                                  title: const Text("Alle Unter-Schritte"),
-                                  tristate: true,
-                                  value: stepValue,
-                                  onChanged: (_) {
-                                    setDialogState(() {
-                                      _toggleStep(step, substeps);
-                                    });
-                                  },
-                                ),
-
-                                ...substeps.map((substep) {
-                                  final selected =
-                                      enabledSubsteps[step]?.contains(
-                                        substep,
-                                      ) ??
-                                      false;
-
-                                  return CheckboxListTile(
-                                    title: Text("Unter-Schritt $substep"),
-                                    value: selected,
-                                    onChanged: (value) {
-                                      setDialogState(() {
-                                        enabledSubsteps.putIfAbsent(
-                                          step,
-                                          () => [],
-                                        );
-
-                                        if (value == true) {
-                                          if (!enabledSubsteps[step]!.contains(
-                                            substep,
-                                          )) {
-                                            enabledSubsteps[step]!.add(substep);
-                                          }
-
-                                          if (!enabledSteps.contains(step)) {
-                                            enabledSteps.add(step);
-                                          }
-                                        } else {
-                                          enabledSubsteps[step]!.remove(
-                                            substep,
-                                          );
-
-                                          if (enabledSubsteps[step]!.isEmpty) {
-                                            enabledSubsteps.remove(step);
-                                            enabledSteps.remove(step);
-                                          }
-                                        }
-                                      });
-                                    },
-                                  );
-                                }),
-                              ],
-                            );
-                          }),
-                        ],
+                          });
+                        },
+                        onChanged: (type, value) {
+                          setDialogState(() {
+                            if (value) {
+                              if (!enabledTypes.contains(type)) {
+                                enabledTypes.add(type);
+                              }
+                            } else {
+                              enabledTypes.remove(type);
+                            }
+                          });
+                        },
                       ),
 
-                      ExpansionTile(
-                        title: const Text("Wortarten"),
-                        children: [
-                          CheckboxListTile(
-                            title: const Text("Alle Wortarten"),
-                            tristate: true,
-                            value: enabledTypes.length == allTypes.length
-                                ? true
-                                : enabledTypes.isEmpty
-                                ? false
-                                : null,
-                            onChanged: (_) {
-                              setDialogState(() {
-                                if (enabledTypes.length == allTypes.length) {
-                                  enabledTypes.clear();
-                                } else {
-                                  enabledTypes = List.from(allTypes);
-                                }
-                              });
-                            },
-                          ),
-
-                          ...allTypes.map((type) {
-                            return CheckboxListTile(
-                              title: Text(type),
-                              value: enabledTypes.contains(type),
+                      SettingsSection(
+                        title: "Abfrage",
+                        hint:
+                            "Legt fest, was zusätzlich zur Übersetzung "
+                            "eingegeben werden muss.",
+                        child: SettingsSwitchGroup(
+                          children: [
+                            SwitchListTile(
+                              title: const Text("Verbform abfragen"),
+                              subtitle: const Text("Bei Verben"),
+                              value: includeVerbForm,
                               onChanged: (value) {
                                 setDialogState(() {
-                                  if (value == true) {
-                                    if (!enabledTypes.contains(type)) {
-                                      enabledTypes.add(type);
-                                    }
-                                  } else {
-                                    enabledTypes.remove(type);
-                                  }
+                                  includeVerbForm = value;
                                 });
                               },
-                            );
-                          }),
-                        ],
+                            ),
+
+                            SwitchListTile(
+                              title: const Text("Nomenform abfragen"),
+                              subtitle: const Text("Bei Nomen"),
+                              value: includeNounForm,
+                              onChanged: (value) {
+                                setDialogState(() {
+                                  includeNounForm = value;
+                                });
+                              },
+                            ),
+
+                            SwitchListTile(
+                              title: const Text("Genus abfragen"),
+                              subtitle: const Text("Bei Nomen"),
+                              value: includeGender,
+                              onChanged: (value) {
+                                setDialogState(() {
+                                  includeGender = value;
+                                });
+                              },
+                            ),
+
+                            SwitchListTile(
+                              title: const Text("Adjektivformen abfragen"),
+                              subtitle: const Text("Bei Adjektiven"),
+                              value: includeAdjectiveForms,
+                              onChanged: (value) {
+                                setDialogState(() {
+                                  includeAdjectiveForms = value;
+                                });
+                              },
+                            ),
+
+                            SwitchListTile(
+                              title: const Text(
+                                "Eine richtige Übersetzung reicht (empfohlen)",
+                              ),
+                              subtitle: const Text(
+                                "Sonst müssen alle Übersetzungen genannt "
+                                "werden.",
+                              ),
+                              value: requireOnlyOneTranslation,
+                              onChanged: (value) {
+                                setDialogState(() {
+                                  requireOnlyOneTranslation = value;
+                                });
+                              },
+                            ),
+                          ],
+                        ),
                       ),
 
-                      const Divider(),
+                      SettingsSection(
+                        title: "Sounds",
+                        child: SettingsSwitchGroup(
+                          children: [
+                            SwitchListTile(
+                              title: const Text("Sound bei richtiger Antwort"),
+                              value: QuizSoundSettings.instance
+                                  .isCorrectSoundEnabled(
+                                    SoundModule.latinVocabulary,
+                                  ),
+                              onChanged: (value) {
+                                setDialogState(() {
+                                  QuizSoundSettings.instance
+                                      .setCorrectSoundEnabled(
+                                        SoundModule.latinVocabulary,
+                                        value,
+                                      );
+                                });
+                              },
+                            ),
 
-                      CheckboxListTile(
-                        title: const Text("Sound bei richtiger Antwort"),
-                        value: QuizSoundSettings.instance.isCorrectSoundEnabled(
-                          SoundModule.latinVocabulary,
+                            SwitchListTile(
+                              title: const Text("Sound bei falscher Antwort"),
+                              value: QuizSoundSettings.instance
+                                  .isWrongSoundEnabled(
+                                    SoundModule.latinVocabulary,
+                                  ),
+                              onChanged: (value) {
+                                setDialogState(() {
+                                  QuizSoundSettings.instance
+                                      .setWrongSoundEnabled(
+                                        SoundModule.latinVocabulary,
+                                        value,
+                                      );
+                                });
+                              },
+                            ),
+                          ],
                         ),
-                        onChanged: (value) {
-                          setDialogState(() {
-                            QuizSoundSettings.instance.setCorrectSoundEnabled(
-                              SoundModule.latinVocabulary,
-                              value ?? true,
-                            );
-                          });
-                        },
-                      ),
-
-                      CheckboxListTile(
-                        title: const Text("Sound bei falscher Antwort"),
-                        value: QuizSoundSettings.instance.isWrongSoundEnabled(
-                          SoundModule.latinVocabulary,
-                        ),
-                        onChanged: (value) {
-                          setDialogState(() {
-                            QuizSoundSettings.instance.setWrongSoundEnabled(
-                              SoundModule.latinVocabulary,
-                              value ?? true,
-                            );
-                          });
-                        },
                       ),
                     ],
                   ),
@@ -713,6 +625,127 @@ class _LatinVocabularyTrainerScreenState
           },
         );
       },
+    );
+  }
+
+  /// Schrittauswahl: je Schritt eine Karte mit seinen Unter-Schritten als
+  /// direkt antippbare Chips.
+  Widget _buildStepSelection(StateSetter setDialogState) {
+    final available = _availableSubsteps();
+
+    int total = 0;
+    int selected = 0;
+
+    for (final entry in available.entries) {
+      total += entry.value.length;
+      selected += enabledSubsteps[entry.key]?.length ?? 0;
+    }
+
+    return SettingsSection(
+      title: "Schritte",
+      hint:
+          "Abgefragt werden nur Vokabeln aus den ausgewählten "
+          "Unter-Schritten. Mehrere können gleichzeitig ausgewählt sein.",
+      action: TextButton(
+        onPressed: () {
+          setDialogState(_toggleAllSteps);
+        },
+        child: Text(
+          _allStepsCheckboxValue() == true ? "Alle abwählen" : "Alle auswählen",
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          for (final entry in available.entries)
+            _buildStepGroup(entry.key, entry.value, setDialogState),
+
+          SelectionStatus(
+            selectedCount: selected,
+            totalCount: total,
+            emptyError: "Mindestens ein Schritt muss ausgewählt sein.",
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildStepGroup(
+    int step,
+    List<int> substeps,
+    StateSetter setDialogState,
+  ) {
+    final selectedSubsteps = enabledSubsteps[step] ?? [];
+
+    final allSelected =
+        selectedSubsteps.length == substeps.length && substeps.isNotEmpty;
+
+    return Card(
+      margin: const EdgeInsets.only(bottom: 8),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(12, 4, 4, 4),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Expanded(
+                  child: Text.rich(
+                    TextSpan(
+                      text: "Schritt $step",
+                      style: Theme.of(context).textTheme.titleSmall,
+                      children: [
+                        TextSpan(
+                          text:
+                              "  ${selectedSubsteps.length} von "
+                              "${substeps.length}",
+                          style: const TextStyle(
+                            color: AppColors.textSecondary,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+
+                TextButton(
+                  onPressed: () {
+                    setDialogState(() {
+                      _toggleStep(step, substeps);
+                    });
+                  },
+                  child: Text(allSelected ? "Abwählen" : "Alle"),
+                ),
+              ],
+            ),
+
+            Wrap(
+              spacing: 8,
+              children: [
+                for (final substep in substeps)
+                  SelectionChip(
+                    label: "$step.$substep",
+                    selected: selectedSubsteps.contains(substep),
+                    onSelected: (value) {
+                      setDialogState(() {
+                        enabledSubsteps.putIfAbsent(step, () => []);
+
+                        if (value) {
+                          if (!enabledSubsteps[step]!.contains(substep)) {
+                            enabledSubsteps[step]!.add(substep);
+                          }
+                        } else {
+                          enabledSubsteps[step]!.remove(substep);
+                        }
+                      });
+                    },
+                  ),
+              ],
+            ),
+          ],
+        ),
+      ),
     );
   }
 
@@ -766,17 +799,9 @@ class _LatinVocabularyTrainerScreenState
 
     final allSelected = _allStepsCheckboxValue() == true;
 
-    if (allSelected) {
-      enabledSteps.clear();
-      enabledSubsteps.clear();
-      return;
-    }
-
-    enabledSteps = available.keys.toList();
-
     enabledSubsteps = {
       for (final entry in available.entries)
-        entry.key: List<int>.from(entry.value),
+        entry.key: allSelected ? [] : List<int>.from(entry.value),
     };
   }
 
@@ -786,16 +811,7 @@ class _LatinVocabularyTrainerScreenState
     final allSelected =
         current.length == substeps.length && substeps.isNotEmpty;
 
-    if (allSelected) {
-      enabledSubsteps.remove(step);
-      enabledSteps.remove(step);
-    } else {
-      enabledSubsteps[step] = List<int>.from(substeps);
-
-      if (!enabledSteps.contains(step)) {
-        enabledSteps.add(step);
-      }
-    }
+    enabledSubsteps[step] = allSelected ? [] : List<int>.from(substeps);
   }
 
   @override

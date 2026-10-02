@@ -23,6 +23,7 @@ import '../../widgets/statistics_widgets.dart';
 import 'package:web/web.dart' as web;
 import 'dart:js_interop';
 import '../../widgets/settings_access.dart';
+import '../../widgets/settings_selection.dart';
 
 class GreekGrammarTrainerScreen extends StatefulWidget {
   const GreekGrammarTrainerScreen({super.key});
@@ -1158,36 +1159,31 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
   }
 
   // ---------------------------------------------------------------------------
-  // DROPDOWN
+  // AUSWAHL (EINE OPTION JE BESTIMMUNG)
   // ---------------------------------------------------------------------------
 
-  Widget _dropdown({
+  Widget _choice({
     required String? value,
     required String label,
     required List<String> items,
-    required ValueChanged<String?> onChanged,
+    required ValueChanged<String> onChanged,
     bool? isCorrect,
-    double? width,
   }) {
-    final border = resultBorder(isCorrect);
+    return SingleSelectChips(
+      label: label,
+      options: items,
+      value: value,
+      correct: isCorrect,
+      onChanged: answered ? null : onChanged,
+    );
+  }
 
+  // Die Gruppen stehen nebeneinander, solange der Platz reicht, und
+  // brechen auf schmalen Bildschirmen untereinander um.
+  Widget _choiceGroups(List<Widget> groups) {
     return SizedBox(
-      width: width,
-      child: DropdownButtonFormField<String>(
-        value: value,
-        decoration: InputDecoration(
-          labelText: label,
-          enabledBorder: border,
-          focusedBorder: border,
-          disabledBorder: border,
-          border: const OutlineInputBorder(),
-          isDense: true,
-        ),
-        items: items.map((item) {
-          return DropdownMenuItem<String>(value: item, child: Text(item));
-        }).toList(),
-        onChanged: answered ? null : onChanged,
-      ),
+      width: double.infinity,
+      child: Wrap(spacing: 24, runSpacing: 8, children: groups),
     );
   }
 
@@ -1279,171 +1275,154 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
                 height: MediaQuery.of(context).size.height * 0.6,
                 child: SingleChildScrollView(
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       // -------------------------------------------------------
                       // SCHRITTE
                       // -------------------------------------------------------
-                      ExpansionTile(
-                        title: const Text("Schritte"),
-                        children: [
-                          CheckboxListTile(
-                            title: const Text("Alle Schritte"),
-                            tristate: true,
-                            value: enabledSteps.length == 7
-                                ? true
-                                : enabledSteps.isEmpty
-                                ? false
-                                : null,
-                            onChanged: (_) {
-                              setDialogState(() {
-                                if (enabledSteps.length == 7) {
-                                  enabledSteps.clear();
-                                } else {
-                                  enabledSteps = [1, 2, 3, 4, 5, 6, 7];
-                                }
-                              });
-                            },
-                          ),
-                          ...List.generate(7, (i) {
-                            final step = i + 1;
-                            return CheckboxListTile(
-                              title: Text("Schritt $step"),
-                              value: enabledSteps.contains(step),
-                              onChanged: (value) {
-                                setDialogState(() {
-                                  if (value == true) {
-                                    if (!enabledSteps.contains(step)) {
-                                      enabledSteps.add(step);
-                                    }
-                                  } else {
-                                    enabledSteps.remove(step);
-                                  }
-                                });
-                              },
-                            );
-                          }),
-                        ],
+                      MultiSelectSection<int>(
+                        title: "Schritte",
+                        hint:
+                            "Abgefragt werden nur Wörter aus den "
+                            "ausgewählten Schritten. Mehrere Schritte können "
+                            "gleichzeitig ausgewählt sein.",
+                        options: const [1, 2, 3, 4, 5, 6, 7],
+                        isSelected: enabledSteps.contains,
+                        labelOf: (step) => "Schritt $step",
+                        emptyError:
+                            "Mindestens ein Schritt muss ausgewählt sein.",
+                        onToggleAll: () {
+                          setDialogState(() {
+                            if (enabledSteps.length == 7) {
+                              enabledSteps.clear();
+                            } else {
+                              enabledSteps = [1, 2, 3, 4, 5, 6, 7];
+                            }
+                          });
+                        },
+                        onChanged: (step, value) {
+                          setDialogState(() {
+                            if (value) {
+                              if (!enabledSteps.contains(step)) {
+                                enabledSteps.add(step);
+                              }
+                            } else {
+                              enabledSteps.remove(step);
+                            }
+                          });
+                        },
                       ),
 
                       // -------------------------------------------------------
                       // WORTARTEN
                       // -------------------------------------------------------
-                      ExpansionTile(
-                        title: const Text("Wortarten"),
-                        children: [
-                          CheckboxListTile(
-                            title: const Text("Alle Wortarten"),
-                            tristate: true,
-                            value: enabledTypes.length == allTypes.length
-                                ? true
-                                : enabledTypes.isEmpty
-                                ? false
-                                : null,
-                            onChanged: (_) {
-                              setDialogState(() {
-                                if (enabledTypes.length == allTypes.length) {
-                                  enabledTypes.clear();
-                                } else {
-                                  enabledTypes = List.from(allTypes);
-                                }
-                              });
-                            },
-                          ),
-                          ...allTypes.map((type) {
-                            return CheckboxListTile(
-                              title: Text(type == "noun" ? "Nomen" : "Verben"),
-                              value: enabledTypes.contains(type),
+                      MultiSelectSection<String>(
+                        title: "Wortarten",
+                        hint:
+                            "Abgefragt werden nur Formen der ausgewählten "
+                            "Wortarten.",
+                        options: allTypes,
+                        isSelected: enabledTypes.contains,
+                        labelOf: (type) => type == "noun" ? "Nomen" : "Verben",
+                        emptyError:
+                            "Mindestens eine Wortart muss ausgewählt sein.",
+                        onToggleAll: () {
+                          setDialogState(() {
+                            if (enabledTypes.length == allTypes.length) {
+                              enabledTypes.clear();
+                            } else {
+                              enabledTypes = List.from(allTypes);
+                            }
+                          });
+                        },
+                        onChanged: (type, value) {
+                          setDialogState(() {
+                            if (value) {
+                              if (!enabledTypes.contains(type)) {
+                                enabledTypes.add(type);
+                              }
+                            } else {
+                              enabledTypes.remove(type);
+                            }
+                          });
+                        },
+                      ),
+
+                      // -------------------------------------------------------
+                      // GRUNDFORM
+                      // -------------------------------------------------------
+                      SettingsSection(
+                        title: "Grundform abfragen",
+                        hint:
+                            "Wenn deaktiviert, wird die Grundform nicht "
+                            "abgefragt, sondern nach der Antwort angezeigt.",
+                        child: SettingsSwitchGroup(
+                          children: [
+                            SwitchListTile(
+                              title: const Text("Bei Nomen"),
+                              value: showLemmaFieldNoun,
                               onChanged: (value) {
                                 setDialogState(() {
-                                  if (value == true) {
-                                    if (!enabledTypes.contains(type)) {
-                                      enabledTypes.add(type);
-                                    }
-                                  } else {
-                                    enabledTypes.remove(type);
-                                  }
+                                  showLemmaFieldNoun = value;
                                 });
                               },
-                            );
-                          }),
-                        ],
-                      ),
-
-                      // -------------------------------------------------------
-                      // NOMEN EINSTELLUNGEN
-                      // -------------------------------------------------------
-                      ExpansionTile(
-                        title: const Text("Nomen Einstellungen"),
-                        children: [
-                          CheckboxListTile(
-                            title: const Text("Grundform abfragen"),
-                            subtitle: const Text(
-                              "Wenn deaktiviert, wird die Grundform bei Nomen nicht abgefragt.",
                             ),
-                            value: showLemmaFieldNoun,
-                            onChanged: (value) {
-                              setDialogState(() {
-                                showLemmaFieldNoun = value ?? true;
-                              });
-                            },
-                          ),
-                        ],
-                      ),
 
-                      // -------------------------------------------------------
-                      // VERBEN EINSTELLUNGEN
-                      // -------------------------------------------------------
-                      ExpansionTile(
-                        title: const Text("Verben Einstellungen"),
-                        children: [
-                          CheckboxListTile(
-                            title: const Text("Grundform abfragen"),
-                            subtitle: const Text(
-                              "Wenn deaktiviert, wird die Grundform bei Verben nicht abgefragt.",
+                            SwitchListTile(
+                              title: const Text("Bei Verben"),
+                              value: showLemmaFieldVerb,
+                              onChanged: (value) {
+                                setDialogState(() {
+                                  showLemmaFieldVerb = value;
+                                });
+                              },
                             ),
-                            value: showLemmaFieldVerb,
-                            onChanged: (value) {
-                              setDialogState(() {
-                                showLemmaFieldVerb = value ?? true;
-                              });
-                            },
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
 
                       // -------------------------------------------------------
                       // SOUNDS
                       // -------------------------------------------------------
-                      const Divider(),
+                      SettingsSection(
+                        title: "Sounds",
+                        child: SettingsSwitchGroup(
+                          children: [
+                            SwitchListTile(
+                              title: const Text("Sound bei richtiger Antwort"),
+                              value: QuizSoundSettings.instance
+                                  .isCorrectSoundEnabled(
+                                    SoundModule.greekGrammar,
+                                  ),
+                              onChanged: (value) {
+                                setDialogState(() {
+                                  QuizSoundSettings.instance
+                                      .setCorrectSoundEnabled(
+                                        SoundModule.greekGrammar,
+                                        value,
+                                      );
+                                });
+                              },
+                            ),
 
-                      CheckboxListTile(
-                        title: const Text("Sound bei richtiger Antwort"),
-                        value: QuizSoundSettings.instance.isCorrectSoundEnabled(
-                          SoundModule.greekGrammar,
+                            SwitchListTile(
+                              title: const Text("Sound bei falscher Antwort"),
+                              value: QuizSoundSettings.instance
+                                  .isWrongSoundEnabled(
+                                    SoundModule.greekGrammar,
+                                  ),
+                              onChanged: (value) {
+                                setDialogState(() {
+                                  QuizSoundSettings.instance
+                                      .setWrongSoundEnabled(
+                                        SoundModule.greekGrammar,
+                                        value,
+                                      );
+                                });
+                              },
+                            ),
+                          ],
                         ),
-                        onChanged: (value) {
-                          setDialogState(() {
-                            QuizSoundSettings.instance.setCorrectSoundEnabled(
-                              SoundModule.greekGrammar,
-                              value ?? true,
-                            );
-                          });
-                        },
-                      ),
-
-                      CheckboxListTile(
-                        title: const Text("Sound bei falscher Antwort"),
-                        value: QuizSoundSettings.instance.isWrongSoundEnabled(
-                          SoundModule.greekGrammar,
-                        ),
-                        onChanged: (value) {
-                          setDialogState(() {
-                            QuizSoundSettings.instance.setWrongSoundEnabled(
-                              SoundModule.greekGrammar,
-                              value ?? true,
-                            );
-                          });
-                        },
                       ),
                     ],
                   ),
@@ -1701,56 +1680,43 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
   // ---------------------------------------------------------------------------
 
   Widget _buildNounInputs() {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Expanded(
-          child: _dropdown(
-            value: userCase,
-            label: "Kasus",
-            items: cases,
-            isCorrect: caseCorrect,
-            onChanged: (value) {
-              setState(() {
-                userCase = value;
-              });
-            },
-          ),
-        ),
+    return _choiceGroups([
+      _choice(
+        value: userCase,
+        label: "Kasus",
+        items: cases,
+        isCorrect: caseCorrect,
+        onChanged: (value) {
+          setState(() {
+            userCase = value;
+          });
+        },
+      ),
 
-        const SizedBox(width: 10),
+      _choice(
+        value: userNumber,
+        label: "Numerus",
+        items: numbers,
+        isCorrect: numberCorrect,
+        onChanged: (value) {
+          setState(() {
+            userNumber = value;
+          });
+        },
+      ),
 
-        Expanded(
-          child: _dropdown(
-            value: userNumber,
-            label: "Numerus",
-            items: numbers,
-            isCorrect: numberCorrect,
-            onChanged: (value) {
-              setState(() {
-                userNumber = value;
-              });
-            },
-          ),
-        ),
-
-        const SizedBox(width: 10),
-
-        Expanded(
-          child: _dropdown(
-            value: userGender,
-            label: "Genus",
-            items: genders,
-            isCorrect: genderCorrect,
-            onChanged: (value) {
-              setState(() {
-                userGender = value;
-              });
-            },
-          ),
-        ),
-      ],
-    );
+      _choice(
+        value: userGender,
+        label: "Genus",
+        items: genders,
+        isCorrect: genderCorrect,
+        onChanged: (value) {
+          setState(() {
+            userGender = value;
+          });
+        },
+      ),
+    ]);
   }
 
   // ---------------------------------------------------------------------------
@@ -1758,56 +1724,43 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
   // ---------------------------------------------------------------------------
 
   Widget _buildVerbInputs() {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Expanded(
-          child: _dropdown(
-            value: userPersonNumber,
-            label: "Person / Numerus",
-            items: personNumbers,
-            isCorrect: personCorrect,
-            onChanged: (value) {
-              setState(() {
-                userPersonNumber = value;
-              });
-            },
-          ),
-        ),
+    return _choiceGroups([
+      _choice(
+        value: userPersonNumber,
+        label: "Person / Numerus",
+        items: personNumbers,
+        isCorrect: personCorrect,
+        onChanged: (value) {
+          setState(() {
+            userPersonNumber = value;
+          });
+        },
+      ),
 
-        const SizedBox(width: 10),
+      _choice(
+        value: userTense,
+        label: "Tempus",
+        items: tenses,
+        isCorrect: tenseCorrect,
+        onChanged: (value) {
+          setState(() {
+            userTense = value;
+          });
+        },
+      ),
 
-        Expanded(
-          child: _dropdown(
-            value: userTense,
-            label: "Tempus",
-            items: tenses,
-            isCorrect: tenseCorrect,
-            onChanged: (value) {
-              setState(() {
-                userTense = value;
-              });
-            },
-          ),
-        ),
-
-        const SizedBox(width: 10),
-
-        Expanded(
-          child: _dropdown(
-            value: userVoice,
-            label: "Genus Verbi",
-            items: voices,
-            isCorrect: voiceCorrect,
-            onChanged: (value) {
-              setState(() {
-                userVoice = value;
-              });
-            },
-          ),
-        ),
-      ],
-    );
+      _choice(
+        value: userVoice,
+        label: "Genus Verbi",
+        items: voices,
+        isCorrect: voiceCorrect,
+        onChanged: (value) {
+          setState(() {
+            userVoice = value;
+          });
+        },
+      ),
+    ]);
   }
 }
 

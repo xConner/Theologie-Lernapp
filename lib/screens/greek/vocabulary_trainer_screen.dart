@@ -30,6 +30,8 @@ import '../../widgets/statistics_widgets.dart';
 import 'package:web/web.dart' as web;
 import 'dart:js_interop';
 import '../../widgets/settings_access.dart';
+import '../../widgets/settings_selection.dart';
+import '../../utils/word_type_labels.dart';
 
 class VocabularyTrainerScreen extends StatefulWidget {
   const VocabularyTrainerScreen({super.key});
@@ -82,6 +84,8 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
     "preposition",
     "conjunction",
     "particle",
+    "question_word",
+    "numeral",
     "phrase",
   ];
 
@@ -94,6 +98,8 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
     "preposition",
     "conjunction",
     "particle",
+    "question_word",
+    "numeral",
     "phrase",
   ];
 
@@ -483,179 +489,171 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
 
                 child: SingleChildScrollView(
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      CheckboxListTile(
-                        title: const Text("Genitiv"),
-
-                        value: includeGenitive,
-
-                        onChanged: (v) {
+                      MultiSelectSection<int>(
+                        title: "Schritte",
+                        hint:
+                            "Abgefragt werden nur Vokabeln aus den "
+                            "ausgewählten Schritten. Mehrere Schritte können "
+                            "gleichzeitig ausgewählt sein.",
+                        options: const [1, 2, 3, 4, 5, 6, 7],
+                        isSelected: enabledSteps.contains,
+                        labelOf: (step) => "Schritt $step",
+                        emptyError:
+                            "Mindestens ein Schritt muss ausgewählt sein.",
+                        onToggleAll: () {
                           setDialogState(() {
-                            includeGenitive = v ?? false;
+                            if (enabledSteps.length == 7) {
+                              enabledSteps.clear();
+                            } else {
+                              enabledSteps = [1, 2, 3, 4, 5, 6, 7];
+                            }
+                          });
+                        },
+                        onChanged: (step, value) {
+                          setDialogState(() {
+                            if (value) {
+                              if (!enabledSteps.contains(step)) {
+                                enabledSteps.add(step);
+                              }
+                            } else {
+                              enabledSteps.remove(step);
+                            }
                           });
                         },
                       ),
 
-                      CheckboxListTile(
-                        title: const Text("Artikel"),
-
-                        value: includeArticle,
-
-                        onChanged: (v) {
+                      MultiSelectSection<String>(
+                        title: "Wortarten",
+                        hint:
+                            "Abgefragt werden nur Vokabeln der ausgewählten "
+                            "Wortarten.",
+                        options: allTypes,
+                        isSelected: enabledTypes.contains,
+                        labelOf: wordTypeFilterLabel,
+                        emptyError:
+                            "Mindestens eine Wortart muss ausgewählt sein.",
+                        onToggleAll: () {
                           setDialogState(() {
-                            includeArticle = v ?? false;
+                            if (enabledTypes.length == allTypes.length) {
+                              enabledTypes.clear();
+                            } else {
+                              enabledTypes = List.from(allTypes);
+                            }
+                          });
+                        },
+                        onChanged: (type, value) {
+                          setDialogState(() {
+                            if (value) {
+                              if (!enabledTypes.contains(type)) {
+                                enabledTypes.add(type);
+                              }
+                            } else {
+                              enabledTypes.remove(type);
+                            }
                           });
                         },
                       ),
 
-                      CheckboxListTile(
-                        title: const Text("Aorist"),
-
-                        value: includeAorist,
-
-                        onChanged: (v) {
-                          setDialogState(() {
-                            includeAorist = v ?? false;
-                          });
-                        },
-                      ),
-
-                      CheckboxListTile(
-                        title: const Text(
-                          "Eine richtige Übersetzung reicht (empfohlen)",
-                        ),
-
-                        value: requireOnlyOneTranslation,
-
-                        onChanged: (v) {
-                          setDialogState(() {
-                            requireOnlyOneTranslation = v ?? false;
-                          });
-                        },
-                      ),
-                      ExpansionTile(
-                        title: const Text("Schritte"),
-
-                        children: [
-                          CheckboxListTile(
-                            title: const Text("Alle Schritte"),
-
-                            tristate: true,
-
-                            value: enabledSteps.length == 7
-                                ? true
-                                : enabledSteps.isEmpty
-                                ? false
-                                : null,
-
-                            onChanged: (_) {
-                              setDialogState(() {
-                                if (enabledSteps.length == 7) {
-                                  enabledSteps.clear();
-                                } else {
-                                  enabledSteps = [1, 2, 3, 4, 5, 6, 7];
-                                }
-                              });
-                            },
-                          ),
-
-                          ...List.generate(7, (index) {
-                            final step = index + 1;
-
-                            return CheckboxListTile(
-                              title: Text("Schritt $step"),
-
-                              value: enabledSteps.contains(step),
-
-                              onChanged: (value) {
+                      SettingsSection(
+                        title: "Abfrage",
+                        hint:
+                            "Legt fest, was zusätzlich zur Übersetzung "
+                            "eingegeben werden muss.",
+                        child: SettingsSwitchGroup(
+                          children: [
+                            SwitchListTile(
+                              title: const Text("Genitiv abfragen"),
+                              subtitle: const Text("Bei Nomen"),
+                              value: includeGenitive,
+                              onChanged: (v) {
                                 setDialogState(() {
-                                  if (value == true) {
-                                    enabledSteps.add(step);
-                                  } else {
-                                    enabledSteps.remove(step);
-                                  }
+                                  includeGenitive = v;
                                 });
                               },
-                            );
-                          }),
-                        ],
-                      ),
-                      ExpansionTile(
-                        title: const Text("Wortarten"),
+                            ),
 
-                        children: [
-                          CheckboxListTile(
-                            title: const Text("Alle Wortarten"),
-
-                            tristate: true,
-
-                            value: enabledTypes.length == allTypes.length
-                                ? true
-                                : enabledTypes.isEmpty
-                                ? false
-                                : null,
-
-                            onChanged: (_) {
-                              setDialogState(() {
-                                if (enabledTypes.length == allTypes.length) {
-                                  enabledTypes.clear();
-                                } else {
-                                  enabledTypes = List.from(allTypes);
-                                }
-                              });
-                            },
-                          ),
-
-                          ...allTypes.map((type) {
-                            return CheckboxListTile(
-                              title: Text(type),
-
-                              value: enabledTypes.contains(type),
-
-                              onChanged: (value) {
+                            SwitchListTile(
+                              title: const Text("Artikel abfragen"),
+                              subtitle: const Text("Bei Nomen"),
+                              value: includeArticle,
+                              onChanged: (v) {
                                 setDialogState(() {
-                                  if (value == true) {
-                                    enabledTypes.add(type);
-                                  } else {
-                                    enabledTypes.remove(type);
-                                  }
+                                  includeArticle = v;
                                 });
                               },
-                            );
-                          }),
-                        ],
+                            ),
+
+                            SwitchListTile(
+                              title: const Text("Aorist abfragen"),
+                              subtitle: const Text("Bei Verben"),
+                              value: includeAorist,
+                              onChanged: (v) {
+                                setDialogState(() {
+                                  includeAorist = v;
+                                });
+                              },
+                            ),
+
+                            SwitchListTile(
+                              title: const Text(
+                                "Eine richtige Übersetzung reicht (empfohlen)",
+                              ),
+                              subtitle: const Text(
+                                "Sonst müssen alle Übersetzungen genannt "
+                                "werden.",
+                              ),
+                              value: requireOnlyOneTranslation,
+                              onChanged: (v) {
+                                setDialogState(() {
+                                  requireOnlyOneTranslation = v;
+                                });
+                              },
+                            ),
+                          ],
+                        ),
                       ),
 
-                      const Divider(),
+                      SettingsSection(
+                        title: "Sounds",
+                        child: SettingsSwitchGroup(
+                          children: [
+                            SwitchListTile(
+                              title: const Text("Sound bei richtiger Antwort"),
+                              value: QuizSoundSettings.instance
+                                  .isCorrectSoundEnabled(
+                                    SoundModule.greekVocabulary,
+                                  ),
+                              onChanged: (v) {
+                                setDialogState(() {
+                                  QuizSoundSettings.instance
+                                      .setCorrectSoundEnabled(
+                                        SoundModule.greekVocabulary,
+                                        v,
+                                      );
+                                });
+                              },
+                            ),
 
-                      CheckboxListTile(
-                        title: const Text("Sound bei richtiger Antwort"),
-                        value: QuizSoundSettings.instance.isCorrectSoundEnabled(
-                          SoundModule.greekVocabulary,
+                            SwitchListTile(
+                              title: const Text("Sound bei falscher Antwort"),
+                              value: QuizSoundSettings.instance
+                                  .isWrongSoundEnabled(
+                                    SoundModule.greekVocabulary,
+                                  ),
+                              onChanged: (v) {
+                                setDialogState(() {
+                                  QuizSoundSettings.instance
+                                      .setWrongSoundEnabled(
+                                        SoundModule.greekVocabulary,
+                                        v,
+                                      );
+                                });
+                              },
+                            ),
+                          ],
                         ),
-                        onChanged: (v) {
-                          setDialogState(() {
-                            QuizSoundSettings.instance.setCorrectSoundEnabled(
-                              SoundModule.greekVocabulary,
-                              v ?? true,
-                            );
-                          });
-                        },
-                      ),
-
-                      CheckboxListTile(
-                        title: const Text("Sound bei falscher Antwort"),
-                        value: QuizSoundSettings.instance.isWrongSoundEnabled(
-                          SoundModule.greekVocabulary,
-                        ),
-                        onChanged: (v) {
-                          setDialogState(() {
-                            QuizSoundSettings.instance.setWrongSoundEnabled(
-                              SoundModule.greekVocabulary,
-                              v ?? true,
-                            );
-                          });
-                        },
                       ),
                     ],
                   ),

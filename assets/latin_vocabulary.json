@@ -414,5 +414,745 @@
         "translations": [
             "warum?"
         ]
+    },
+    {
+        "id": 38,
+        "step": 2,
+        "substep": 1,
+        "type": "preposition",
+        "lemma": "ad",
+        "translations": [
+            "zu",
+            "bei",
+            "nach"
+        ]
+    },
+    {
+        "id": 39,
+        "step": 2,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "properāre",
+        "principalForm": "properat",
+        "translations": [
+            "eilen",
+            "sich beeilen"
+        ]
+    },
+    {
+        "id": 40,
+        "step": 2,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "forum",
+        "principalForm": "forum",
+        "gender": "n",
+        "translations": [
+            "das Forum",
+            "der Marktplatz"
+        ]
+    },
+    {
+        "id": 41,
+        "step": 2,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "circus",
+        "principalForm": "circum",
+        "gender": "m",
+        "translations": [
+            "der Zirkus",
+            "die Rennbahn"
+        ]
+    },
+    {
+        "id": 42,
+        "step": 2,
+        "substep": 1,
+        "type": "adverb",
+        "lemma": "diū",
+        "translations": [
+            "lange",
+            "lange Zeit"
+        ]
+    },
+    {
+        "id": 43,
+        "step": 2,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "amīcus",
+        "principalForm": "amīcum",
+        "gender": "m",
+        "translations": [
+            "der Freund"
+        ]
+    },
+    {
+        "id": 44,
+        "step": 2,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "amīca",
+        "principalForm": "amīcam",
+        "gender": "f",
+        "translations": [
+            "die Freundin"
+        ]
+    },
+    {
+        "id": 45,
+        "step": 2,
+        "substep": 1,
+        "type": "preposition",
+        "lemma": "per",
+        "translations": [
+            "durch"
+        ]
+    },
+    {
+        "id": 46,
+        "step": 2,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "via",
+        "principalForm": "viam",
+        "gender": "f",
+        "translations": [
+            "der Weg",
+            "die Straße"
+        ]
+    },
+    {
+        "id": 47,
+        "step": 2,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "reperīre",
+        "principalForm": "reperit",
+        "translations": [
+            "finden",
+            "wiederfinden"
+        ]
+    },
+    {
+        "id": 48,
+        "step": 2,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "audīre",
+        "principalForm": "audit",
+        "translations": [
+            "hören"
+        ]
+    },
+    {
+        "id": 49,
+        "step": 2,
+        "substep": 2,
+        "type": "conjunction",
+        "lemma": "itaque",
+        "translations": [
+            "deshalb"
+        ]
+    },
+    {
+        "id": 50,
+        "step": 2,
+        "substep": 2,
+        "type": "adverb",
+        "lemma": "iterum",
+        "translations": [
+            "wieder(um)",
+            "zum zweiten Mal"
+        ]
+    },
+    {
+        "id": 51,
+        "step": 2,
+        "substep": 2,
+        "type": "adverb",
+        "lemma": "iam",
+        "translations": [
+            "schon",
+            "bereits",
+            "nun"
+        ]
+    },
+    {
+        "id": 52,
+        "step": 2,
+        "substep": 2,
+        "type": "verb",
+        "lemma": "exspectāre",
+        "principalForm": "exspectat",
+        "translations": [
+            "warten",
+            "erwarten"
+        ]
+    },
+    {
+        "id": 53,
+        "step": 2,
+        "substep": 2,
+        "type": "verb",
+        "lemma": "narrāre",
+        "principalForm": "narrat",
+        "translations": [
+            "erzählen"
+        ]
+    },
+    {
+        "id": 54,
+        "step": 2,
+        "substep": 2,
+        "type": "adverb",
+        "lemma": "subitō",
+        "translations": [
+            "plötzlich"
+        ]
+    },
+    {
+        "id": 55,
+        "step": 2,
+        "substep": 2,
+        "type": "phrase",
+        "lemma": "nōn iam",
+        "translations": [
+            "nicht mehr"
+        ]
+    },
+    {
+        "id": 56,
+        "step": 2,
+        "substep": 2,
+        "type": "particle",
+        "lemma": "iō!",
+        "translations": [
+            "Hurra!",
+            "Ha!",
+            "Ach!"
+        ]
+    },
+    {
+        "id": 57,
+        "step": 2,
+        "substep": 2,
+        "type": "pronoun",
+        "lemma": "nōs",
+        "translations": [
+            "uns"
+        ]
+    },
+    {
+        "id": 58,
+        "step": 2,
+        "substep": 2,
+        "type": "verb",
+        "lemma": "adiuvāre",
+        "principalForm": "adiuvat",
+        "translations": [
+            "helfen",
+            "unterstützen"
+        ]
+    },
+    {
+        "id": 59,
+        "step": 2,
+        "substep": 3,
+        "type": "verb",
+        "lemma": "vocāre",
+        "principalForm": "vocat",
+        "translations": [
+            "rufen",
+            "nennen"
+        ]
+    },
+    {
+        "id": 60,
+        "step": 2,
+        "substep": 3,
+        "type": "adverb",
+        "lemma": "statim",
+        "translations": [
+            "sofort",
+            "auf der Stelle"
+        ]
+    },
+    {
+        "id": 61,
+        "step": 2,
+        "substep": 3,
+        "type": "noun",
+        "lemma": "aedificium",
+        "principalForm": "aedificium",
+        "gender": "n",
+        "translations": [
+            "das Gebäude",
+            "das Haus"
+        ]
+    },
+    {
+        "id": 62,
+        "step": 2,
+        "substep": 3,
+        "type": "adverb",
+        "lemma": "bene",
+        "translations": [
+            "gut"
+        ]
+    },
+    {
+        "id": 63,
+        "step": 2,
+        "substep": 3,
+        "type": "noun",
+        "lemma": "taberna",
+        "principalForm": "tabernam",
+        "gender": "f",
+        "translations": [
+            "das Gasthaus",
+            "der Laden"
+        ]
+    },
+    {
+        "id": 64,
+        "step": 2,
+        "substep": 3,
+        "type": "noun",
+        "lemma": "senātor",
+        "principalForm": "senātōrem",
+        "gender": "m",
+        "translations": [
+            "der Senator"
+        ]
+    },
+    {
+        "id": 65,
+        "step": 2,
+        "substep": 3,
+        "type": "particle",
+        "lemma": "ecce!",
+        "translations": [
+            "Schau!",
+            "Schaut!",
+            "Sieh da!",
+            "Seht da!"
+        ]
+    },
+    {
+        "id": 66,
+        "step": 2,
+        "substep": 3,
+        "type": "preposition",
+        "lemma": "ante",
+        "translations": [
+            "vor"
+        ]
+    },
+    {
+        "id": 67,
+        "step": 2,
+        "substep": 3,
+        "type": "adverb",
+        "lemma": "semper",
+        "translations": [
+            "immer"
+        ]
+    },
+    {
+        "id": 68,
+        "step": 2,
+        "substep": 3,
+        "type": "noun",
+        "lemma": "bēstia",
+        "principalForm": "bēstiam",
+        "gender": "f",
+        "translations": [
+            "das Tier"
+        ]
+    },
+    {
+        "id": 69,
+        "step": 3,
+        "substep": 1,
+        "type": "pronoun",
+        "lemma": "ego",
+        "translations": [
+            "ich"
+        ]
+    },
+    {
+        "id": 70,
+        "step": 3,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "parāre",
+        "principalForm": "parō",
+        "translations": [
+            "(vor)bereiten",
+            "vorhaben",
+            "erwerben"
+        ]
+    },
+    {
+        "id": 71,
+        "step": 3,
+        "substep": 1,
+        "type": "pronoun",
+        "lemma": "tū",
+        "translations": [
+            "du"
+        ]
+    },
+    {
+        "id": 72,
+        "step": 3,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "sedēre",
+        "principalForm": "sedeō",
+        "translations": [
+            "sitzen"
+        ]
+    },
+    {
+        "id": 73,
+        "step": 3,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "scīre",
+        "principalForm": "sciō",
+        "translations": [
+            "wissen",
+            "kennen"
+        ]
+    },
+    {
+        "id": 74,
+        "step": 3,
+        "substep": 1,
+        "type": "adverb",
+        "lemma": "aliter",
+        "translations": [
+            "anders",
+            "sonst"
+        ]
+    },
+    {
+        "id": 75,
+        "step": 3,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "pārēre",
+        "principalForm": "pāreō",
+        "translations": [
+            "gehorchen"
+        ]
+    },
+    {
+        "id": 76,
+        "step": 3,
+        "substep": 1,
+        "type": "adverb",
+        "lemma": "rēctē",
+        "translations": [
+            "richtig",
+            "zu Recht"
+        ]
+    },
+    {
+        "id": 77,
+        "step": 3,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "verbum",
+        "principalForm": "verbum",
+        "gender": "n",
+        "translations": [
+            "das Wort",
+            "die Äußerung"
+        ]
+    },
+    {
+        "id": 78,
+        "step": 3,
+        "substep": 1,
+        "type": "adverb",
+        "lemma": "certē",
+        "translations": [
+            "gewiss",
+            "sicherlich"
+        ]
+    },
+    {
+        "id": 79,
+        "step": 3,
+        "substep": 2,
+        "type": "verb",
+        "lemma": "monēre",
+        "principalForm": "moneō",
+        "translations": [
+            "mahnen",
+            "ermahnen"
+        ]
+    },
+    {
+        "id": 80,
+        "step": 3,
+        "substep": 2,
+        "type": "question_word",
+        "lemma": "quīn?",
+        "translations": [
+            "warum nicht?"
+        ]
+    },
+    {
+        "id": 81,
+        "step": 3,
+        "substep": 2,
+        "type": "verb",
+        "lemma": "labōrāre",
+        "principalForm": "labōrō",
+        "translations": [
+            "arbeiten",
+            "sich anstrengen"
+        ]
+    },
+    {
+        "id": 82,
+        "step": 3,
+        "substep": 2,
+        "type": "question_word",
+        "lemma": "quid?",
+        "translations": [
+            "was?"
+        ]
+    },
+    {
+        "id": 83,
+        "step": 3,
+        "substep": 2,
+        "type": "preposition",
+        "lemma": "apud",
+        "translations": [
+            "bei"
+        ]
+    },
+    {
+        "id": 84,
+        "step": 3,
+        "substep": 2,
+        "type": "conjunction",
+        "lemma": "autem",
+        "translations": [
+            "aber",
+            "andererseits"
+        ]
+    },
+    {
+        "id": 85,
+        "step": 3,
+        "substep": 2,
+        "type": "adverb",
+        "lemma": "paulō",
+        "translations": [
+            "(um) ein wenig"
+        ]
+    },
+    {
+        "id": 86,
+        "step": 3,
+        "substep": 2,
+        "type": "adverb",
+        "lemma": "post",
+        "translations": [
+            "dann",
+            "später"
+        ]
+    },
+    {
+        "id": 87,
+        "step": 3,
+        "substep": 2,
+        "type": "phrase",
+        "lemma": "paulō post",
+        "translations": [
+            "wenig später",
+            "kurz darauf"
+        ]
+    },
+    {
+        "id": 88,
+        "step": 3,
+        "substep": 2,
+        "type": "verb",
+        "lemma": "salūtāre",
+        "principalForm": "salūtō",
+        "translations": [
+            "grüßen",
+            "begrüßen"
+        ]
+    },
+    {
+        "id": 89,
+        "step": 3,
+        "substep": 2,
+        "type": "particle",
+        "lemma": "Salvē!",
+        "translations": [
+            "Sei gegrüßt!"
+        ]
+    },
+    {
+        "id": 90,
+        "step": 3,
+        "substep": 2,
+        "type": "particle",
+        "lemma": "Salvēte!",
+        "translations": [
+            "Seid gegrüßt!"
+        ]
+    },
+    {
+        "id": 91,
+        "step": 3,
+        "substep": 2,
+        "type": "preposition",
+        "lemma": "in",
+        "translations": [
+            "in (… hinein)",
+            "nach (wohin?)",
+            "gegen"
+        ]
+    },
+    {
+        "id": 92,
+        "step": 3,
+        "substep": 2,
+        "type": "adverb",
+        "lemma": "tum",
+        "translations": [
+            "da",
+            "dann",
+            "damals"
+        ]
+    },
+    {
+        "id": 93,
+        "step": 3,
+        "substep": 2,
+        "type": "verb",
+        "lemma": "intrāre",
+        "principalForm": "intrō",
+        "translations": [
+            "betreten",
+            "hineingehen"
+        ]
+    },
+    {
+        "id": 94,
+        "step": 3,
+        "substep": 2,
+        "type": "noun",
+        "lemma": "cōnsilium",
+        "principalForm": "cōnsilium",
+        "gender": "n",
+        "translations": [
+            "die Beratung",
+            "der Beschluss",
+            "der Plan",
+            "der Rat"
+        ]
+    },
+    {
+        "id": 95,
+        "step": 3,
+        "substep": 3,
+        "type": "verb",
+        "lemma": "volō",
+        "translations": [
+            "ich will"
+        ]
+    },
+    {
+        "id": 96,
+        "step": 3,
+        "substep": 3,
+        "type": "verb",
+        "lemma": "audēre",
+        "principalForm": "audeō",
+        "translations": [
+            "wagen",
+            "sich trauen"
+        ]
+    },
+    {
+        "id": 97,
+        "step": 3,
+        "substep": 3,
+        "type": "verb",
+        "lemma": "necāre",
+        "principalForm": "necō",
+        "translations": [
+            "töten"
+        ]
+    },
+    {
+        "id": 98,
+        "step": 3,
+        "substep": 3,
+        "type": "verb",
+        "lemma": "servāre",
+        "principalForm": "servō",
+        "translations": [
+            "retten",
+            "bewahren"
+        ]
+    },
+    {
+        "id": 99,
+        "step": 3,
+        "substep": 3,
+        "type": "question_word",
+        "lemma": "quemadmodum?",
+        "translations": [
+            "wie?",
+            "auf welche Weise?"
+        ]
+    },
+    {
+        "id": 100,
+        "step": 3,
+        "substep": 3,
+        "type": "preposition",
+        "lemma": "propter",
+        "translations": [
+            "wegen"
+        ]
+    },
+    {
+        "id": 101,
+        "step": 3,
+        "substep": 3,
+        "type": "noun",
+        "lemma": "audācia",
+        "principalForm": "audāciam",
+        "gender": "f",
+        "translations": [
+            "die Frechheit",
+            "die Kühnheit"
+        ]
+    },
+    {
+        "id": 102,
+        "step": 3,
+        "substep": 3,
+        "type": "verb",
+        "lemma": "laudāre",
+        "principalForm": "laudō",
+        "translations": [
+            "loben"
+        ]
     }
 ]

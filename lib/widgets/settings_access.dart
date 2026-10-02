@@ -122,7 +122,15 @@ class ModuleSettingsDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Auf schmalen Bildschirmen weniger Außenabstand, damit Auswahlfelder und
+    // Schalter genug Platz haben.
+    final narrow = MediaQuery.of(context).size.width < 480;
+
     return AlertDialog(
+      insetPadding: EdgeInsets.symmetric(
+        horizontal: narrow ? 16 : 40,
+        vertical: 24,
+      ),
       title: title,
       content: SizedBox(
         width: double.maxFinite,

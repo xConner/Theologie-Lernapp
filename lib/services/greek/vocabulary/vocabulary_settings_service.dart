@@ -83,6 +83,8 @@ class VocabularySettingsService {
         "preposition",
         "conjunction",
         "particle",
+        "question_word",
+        "numeral",
         "phrase",
       ];
     }
