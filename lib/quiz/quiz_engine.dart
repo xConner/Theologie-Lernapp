@@ -44,6 +44,17 @@ class QuizEngine {
 
   void updateItems(List<QuizQuestion> items) {
     _items = items;
+
+    // Die laufende Frage auf den neuen Stand bringen, damit z.B. geänderte
+    // Varianten sofort gelten und nicht erst ab der nächsten Frage.
+    final id = _current?.id;
+
+    for (final item in items) {
+      if (item.id == id) {
+        _current = item;
+        break;
+      }
+    }
   }
 
   void start() {

@@ -1,7 +1,6 @@
 import '../models/greek/perikope.dart';
 
 class BibleReferenceValidator {
-  static final RegExp _bookRegex = RegExp(r'^[A-Za-zÄÖÜäöü0-9]+$');
   static final RegExp _chapterRegex = RegExp(r'^\d+$');
   static final RegExp _verseRegex = RegExp(r'^\d+$');
 
@@ -124,11 +123,14 @@ class BibleReferenceValidator {
     final range = input.split("-");
     if (range.length > 2) return false;
 
-    for (final p in range) {
-      if (!_validateSingleVerse(p.trim())) return false;
-    }
+    if (!_validateSingleVerse(range[0].trim())) return false;
 
-    return true;
+    if (range.length == 1) return true;
+
+    // Ende im selben Kapitel („1,9-11“) oder mit Kapitel („1,9-2,4“).
+    final end = range[1].trim();
+
+    return _verseRegex.hasMatch(end) || _validateSingleVerse(end);
   }
 
   static bool _validateSingleVerse(String input) {
@@ -182,7 +184,7 @@ class BibleReferenceValidator {
 
     // Versgenau
     final verseMatch = RegExp(
-      r'^(\d+),(\d+)(?:-(\d+),(\d+))?$',
+      r'^(\d+),(\d+)(?:-(?:(\d+),)?(\d+))?$',
     ).firstMatch(ref);
 
     if (verseMatch == null) return false;
@@ -194,8 +196,11 @@ class BibleReferenceValidator {
     int endChapter = startChapter;
     int endVerse = startVerse;
 
-    if (verseMatch.group(3) != null) {
-      endChapter = int.parse(verseMatch.group(3)!);
+    if (verseMatch.group(4) != null) {
+      // Ohne Kapitelangabe endet der Bereich im Startkapitel („1,9-11“).
+      if (verseMatch.group(3) != null) {
+        endChapter = int.parse(verseMatch.group(3)!);
+      }
 
       endVerse = int.parse(verseMatch.group(4)!);
     }

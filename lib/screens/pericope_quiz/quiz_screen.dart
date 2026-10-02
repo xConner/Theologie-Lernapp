@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 
 import '../../services/learning_service.dart';
@@ -8,6 +6,8 @@ import '../../services/settings_service.dart';
 import '../../models/greek/perikope.dart';
 import '../../models/greek/vocabulary/learning_card.dart';
 
+import '../../quiz/bible_structure.dart';
+import '../../quiz/pericope_reference.dart';
 import '../../quiz/quiz_engine.dart';
 import '../../quiz/quiz_question.dart';
 
@@ -25,16 +25,28 @@ import '../../utils/bible_reference_validator.dart';
 
 import '../../settings/quiz_settings.dart';
 
+import 'quick_entry_panel.dart';
 import 'quiz_settings_sheet.dart';
 
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class QuizScreen extends StatefulWidget {
   final List<Perikope> perikopen;
   // null = Gastmodus (lokale Speicherung).
   final String? uid;
 
-  const QuizScreen({super.key, required this.perikopen, required this.uid});
+  // Nur für Tests ersetzbar; standardmäßig die echten Dienste.
+  final SettingsService? settingsService;
+  final LearningService? learningService;
+
+  const QuizScreen({
+    super.key,
+    required this.perikopen,
+    required this.uid,
+    this.settingsService,
+    this.learningService,
+  });
 
   @override
   State<QuizScreen> createState() => _QuizScreenState();
@@ -43,9 +55,11 @@ class QuizScreen extends StatefulWidget {
 class _QuizScreenState extends State<QuizScreen> {
   late QuizEngine engine;
 
-  final SettingsService service = SettingsService();
+  late final SettingsService service =
+      widget.settingsService ?? SettingsService();
 
-  final LearningService learningService = LearningService();
+  late final LearningService learningService =
+      widget.learningService ?? LearningService();
 
   final List<TextEditingController> controllers = [TextEditingController()];
 
@@ -72,6 +86,21 @@ class _QuizScreenState extends State<QuizScreen> {
   final FocusNode firstInputFocusNode = FocusNode();
   final FocusNode quizFocusNode = FocusNode();
 
+  static const String _quickEntryKey = 'pericope_quiz_quick_entry';
+
+  // Schnelleingabe: schreibt in das Eingabefeld [activeInput].
+  bool quickEntry = false;
+
+  int activeInput = 0;
+
+  late BibleStructure structure;
+
+  final List<String> recentBooks = [];
+
+  // Hält den Zustand des Inhalts, wenn er zwischen scrollbarer und fester
+  // Anordnung wechselt.
+  final GlobalKey _contentKey = GlobalKey();
+
   @override
   void initState() {
     super.initState();
@@ -86,6 +115,10 @@ class _QuizScreenState extends State<QuizScreen> {
 
     learningCards.clear();
     learningCards.addAll(cards);
+
+    final prefs = await SharedPreferences.getInstance();
+
+    quickEntry = prefs.getBool(_quickEntryKey) ?? false;
 
     settings = QuizSettings(
       selectedBooks: books.isEmpty ? {...QuizSettings.allBooks} : books,
@@ -102,6 +135,8 @@ class _QuizScreenState extends State<QuizScreen> {
 
   void _prepareQuestions() {
     questions = QuizQuestion.fromPerikopen(widget.perikopen);
+
+    structure = BibleStructure.fromPerikopen(widget.perikopen);
   }
 
   List<QuizQuestion> _filtered() {
@@ -155,6 +190,8 @@ class _QuizScreenState extends State<QuizScreen> {
       controllers.add(TextEditingController());
       validationHints.add(null);
       inputResults.add(null);
+
+      activeInput = controllers.length - 1;
     });
   }
 
@@ -169,27 +206,96 @@ class _QuizScreenState extends State<QuizScreen> {
       controllers.removeAt(index);
       validationHints.removeAt(index);
       inputResults.removeAt(index);
+
+      if (activeInput > index || activeInput >= controllers.length) {
+        activeInput--;
+      }
+    });
+  }
+
+  bool get _touchPlatform {
+    final platform = Theme.of(context).platform;
+
+    return platform == TargetPlatform.android || platform == TargetPlatform.iOS;
+  }
+
+  Future<void> _toggleQuickEntry() async {
+    setState(() {
+      quickEntry = !quickEntry;
+    });
+
+    // Auf Touch-Geräten die Bildschirmtastatur schließen, damit die
+    // Schnelleingabe Platz hat.
+    if (quickEntry && _touchPlatform) {
+      quizFocusNode.requestFocus();
+    }
+
+    final prefs = await SharedPreferences.getInstance();
+
+    await prefs.setBool(_quickEntryKey, quickEntry);
+  }
+
+  /// In der Schnelleingabe auswählbare Bücher: die in den Einstellungen
+  /// aktivierten, soweit Perikopen dazu geladen sind.
+  List<String> _quickBooks() {
+    return QuizSettings.allBooks
+        .where(
+          (b) => settings.selectedBooks.contains(b) && structure.hasBook(b),
+        )
+        .toList();
+  }
+
+  /// Inhalt des aktiven Eingabefelds als Auswahl der Schnelleingabe. Was
+  /// sich dort nicht auswählen ließe, zählt als leer.
+  PericopeReference _quickValue(List<String> books) {
+    final parsed = PericopeReference.parse(controllers[activeInput].text);
+
+    if (parsed == null || !structure.allows(parsed, books)) {
+      return PericopeReference.empty;
+    }
+
+    return parsed;
+  }
+
+  void _applyQuickReference(PericopeReference reference) {
+    if (current == null || checked) {
+      return;
+    }
+
+    final text = reference.text;
+
+    controllers[activeInput].value = TextEditingValue(
+      text: text,
+      selection: TextSelection.collapsed(offset: text.length),
+    );
+
+    final book = reference.book;
+
+    if (book != null) {
+      recentBooks
+        ..remove(book)
+        ..insert(0, book);
+
+      if (recentBooks.length > 4) {
+        recentBooks.removeLast();
+      }
+    }
+
+    // Die Auswahl kann nur gültige Stellen ergeben, Zwischenschritte sind
+    // noch kein Formatfehler.
+    setState(() {
+      validationHints[activeInput] = null;
     });
   }
 
   String _reference(Perikope p) {
-    if (p.precision == "chapter") {
-      if (p.startChapter == p.endChapter) {
-        return "${p.startChapter}";
-      }
-
-      return "${p.startChapter}-${p.endChapter}";
-    }
-
-    if (p.startChapter == p.endChapter) {
-      if (p.startVerse == p.endVerse) {
-        return "${p.startChapter},${p.startVerse}";
-      }
-
-      return "${p.startChapter},${p.startVerse}-${p.endVerse}";
-    }
-
-    return "${p.startChapter},${p.startVerse}-${p.endChapter},${p.endVerse}";
+    return PericopeReference.formatRange(
+      precision: p.precision,
+      startChapter: p.startChapter,
+      startVerse: p.startVerse,
+      endChapter: p.endChapter,
+      endVerse: p.endVerse,
+    );
   }
 
   String _fullAnswer(Perikope p) {
@@ -283,11 +389,7 @@ class _QuizScreenState extends State<QuizScreen> {
       // Streak nur einmal je Frage zählen (auch bei doppeltem Enter).
       final firstEvaluation = !checked;
 
-      final correctGiven = given.intersection(normalizedExpected);
-
       final missing = normalizedExpected.difference(given);
-
-      final wrong = given.difference(normalizedExpected);
 
       // Leere Eingabefelder entfernen
       for (int i = controllers.length - 1; i >= 0; i--) {
@@ -307,6 +409,8 @@ class _QuizScreenState extends State<QuizScreen> {
 
       setState(() {
         checked = true;
+
+        activeInput = 0;
 
         inputResults.clear();
         inputResults.addAll(results);
@@ -381,6 +485,8 @@ class _QuizScreenState extends State<QuizScreen> {
 
       checked = false;
 
+      activeInput = 0;
+
       feedback = null;
 
       editingMnemonic = false;
@@ -394,7 +500,8 @@ class _QuizScreenState extends State<QuizScreen> {
       }
     });
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (mounted) {
+      // Mit Schnelleingabe auf Touch-Geräten nicht die Tastatur öffnen.
+      if (mounted && !(quickEntry && _touchPlatform)) {
         firstInputFocusNode.requestFocus();
       }
     });
@@ -435,6 +542,18 @@ class _QuizScreenState extends State<QuizScreen> {
 
         checked = false;
         feedback = null;
+        activeInput = 0;
+      } else if (!checked) {
+        // Die laufende Frage erwartet keine Stellen aus abgewählten Büchern
+        // mehr; solche Eingaben nicht stehen lassen.
+        for (int i = 0; i < controllers.length; i++) {
+          final book = PericopeReference.parse(controllers[i].text)?.book;
+
+          if (QuizSettings.allBooks.contains(book) && !result.contains(book)) {
+            controllers[i].clear();
+            validationHints[i] = null;
+          }
+        }
       }
     });
 
@@ -460,6 +579,8 @@ class _QuizScreenState extends State<QuizScreen> {
 
     final c = current;
 
+    final showQuickEntry = quickEntry && !checked;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Quiz"),
@@ -483,7 +604,11 @@ class _QuizScreenState extends State<QuizScreen> {
         onKeyEvent: (node, event) {
           if (event is KeyDownEvent &&
               event.logicalKey == LogicalKeyboardKey.enter) {
-            if (checked) {
+            // Mit Schnelleingabe gibt Enter auch ohne Fokus im Textfeld ab.
+            if (checked ||
+                (quickEntry &&
+                    node.hasPrimaryFocus &&
+                    _userAnswers().isNotEmpty)) {
               handleButton();
               return KeyEventResult.handled;
             }
@@ -496,8 +621,11 @@ class _QuizScreenState extends State<QuizScreen> {
 
           child: c == null
               ? const Center(child: Text("Keine Perikopen verfügbar"))
-              : Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
+              : _QuizContent(
+                  // Die Schnelleingabe füllt den freien Platz und scrollt
+                  // selbst; ohne sie scrollt der ganze Inhalt.
+                  scrollable: !showQuickEntry,
+                  columnKey: _contentKey,
 
                   children: [
                     Center(
@@ -557,7 +685,18 @@ class _QuizScreenState extends State<QuizScreen> {
 
                                     enabled: !checked,
 
-                                    onChanged: (v) => validateInput(index, v),
+                                    onTap: () {
+                                      if (activeInput != index) {
+                                        setState(() {
+                                          activeInput = index;
+                                        });
+                                      }
+                                    },
+
+                                    onChanged: (v) {
+                                      activeInput = index;
+                                      validateInput(index, v);
+                                    },
 
                                     onSubmitted: (_) {
                                       if (!checked) {
@@ -573,6 +712,15 @@ class _QuizScreenState extends State<QuizScreen> {
                                           : "z.B. Mk 1,9-11",
 
                                       errorText: validationHints[index],
+
+                                      // Ziel der Schnelleingabe markieren.
+                                      prefixIcon:
+                                          quickEntry &&
+                                              !checked &&
+                                              controllers.length > 1 &&
+                                              index == activeInput
+                                          ? const Icon(Icons.bolt)
+                                          : null,
 
                                       enabledBorder:
                                           checked && inputResults[index] == true
@@ -627,12 +775,67 @@ class _QuizScreenState extends State<QuizScreen> {
                       },
                     ),
 
-                    if (controllers.length < 4)
-                      Center(
-                        child: TextButton.icon(
-                          icon: const Icon(Icons.add),
-                          label: const Text("Weitere Eingabe"),
-                          onPressed: checked ? null : addInput,
+                    Center(
+                      child: Wrap(
+                        alignment: WrapAlignment.center,
+                        spacing: 8,
+                        children: [
+                          if (controllers.length < 4)
+                            TextButton.icon(
+                              icon: const Icon(Icons.add),
+                              label: const Text("Weitere Eingabe"),
+                              onPressed: checked ? null : addInput,
+                            ),
+
+                          // Nach dem Prüfen ist die Eingabe gesperrt.
+                          if (!checked)
+                            Semantics(
+                              toggled: quickEntry,
+                              child: TextButton.icon(
+                                key: const ValueKey("quick-entry-toggle"),
+                                icon: Icon(
+                                  quickEntry
+                                      ? Icons.keyboard_arrow_up
+                                      : Icons.bolt,
+                                ),
+                                label: const Text("Schnelleingabe"),
+                                style: quickEntry
+                                    ? TextButton.styleFrom(
+                                        backgroundColor: AppColors.surfaceMuted,
+                                      )
+                                    : null,
+                                onPressed: _toggleQuickEntry,
+                              ),
+                            ),
+                        ],
+                      ),
+                    ),
+
+                    if (showQuickEntry)
+                      Flexible(
+                        child: ConstrainedBox(
+                          constraints: const BoxConstraints(maxWidth: 800),
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 4, bottom: 12),
+                            child: Builder(
+                              builder: (_) {
+                                final books = _quickBooks();
+
+                                return QuickEntryPanel(
+                                  books: books,
+                                  recentBooks: recentBooks,
+                                  structure: structure,
+                                  precision: c.variants.first.precision,
+                                  value: _quickValue(books),
+                                  onChanged: _applyQuickReference,
+                                  label: controllers.length > 1
+                                      ? "Stelle ${activeInput + 1} von "
+                                            "${controllers.length}"
+                                      : null,
+                                );
+                              },
+                            ),
+                          ),
                         ),
                       ),
 
@@ -799,5 +1002,29 @@ class _QuizScreenState extends State<QuizScreen> {
         ),
       ),
     );
+  }
+}
+
+/// Inhalt des Quiz als zentrierte Spalte, bei Bedarf scrollbar.
+class _QuizContent extends StatelessWidget {
+  final bool scrollable;
+  final Key columnKey;
+  final List<Widget> children;
+
+  const _QuizContent({
+    required this.scrollable,
+    required this.columnKey,
+    required this.children,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final column = Column(
+      key: columnKey,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: children,
+    );
+
+    return scrollable ? SingleChildScrollView(child: column) : column;
   }
 }
