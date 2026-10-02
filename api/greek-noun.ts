@@ -325,6 +325,14 @@ export default async function handler(
             });
         }
 
+        // Gefundene Formen sind für dieselbe Anfrage stabil und dürfen
+        // vom Vercel-CDN zwischengespeichert werden. Fehlerantworten
+        // werden bewusst nicht gecacht.
+        res.setHeader(
+            'Cache-Control',
+            's-maxage=86400, stale-while-revalidate=604800',
+        );
+
         return res.status(200).json({
             lemma,
             case: grammaticalCase,

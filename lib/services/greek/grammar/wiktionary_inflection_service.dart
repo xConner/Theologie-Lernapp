@@ -15,6 +15,19 @@ class WiktionaryInflectionService {
   static const Map<String, String> _aoristApiLemmaOverrides = {'λέγω': 'εἶπον'};
 
   // ---------------------------------------------------------------------------
+  // CACHE
+  // ---------------------------------------------------------------------------
+
+  /// Bereits erfolgreich geladene Formen, Schlüssel ist die vollständige
+  /// Backend-URL (Lemma + alle Parameter).
+  ///
+  /// Eine Form ist für dieselbe Anfrage immer identisch. Gecacht werden nur
+  /// gefundene Formen – „nicht gefunden“ und Fehler werden bei der nächsten
+  /// Anfrage erneut versucht. Der Cache ist statisch, damit er auch beim
+  /// erneuten Öffnen des Trainers innerhalb derselben Sitzung erhalten bleibt.
+  static final Map<String, String> _formCache = {};
+
+  // ---------------------------------------------------------------------------
   // VERBEN
   // ---------------------------------------------------------------------------
 
@@ -49,6 +62,13 @@ class WiktionaryInflectionService {
       },
     );
 
+    final cacheKey = uri.toString();
+    final cached = _formCache[cacheKey];
+
+    if (cached != null) {
+      return cached;
+    }
+
     final response = await http.get(uri);
 
     if (response.statusCode == 404) {
@@ -73,6 +93,8 @@ class WiktionaryInflectionService {
     if (form is! String || form.isEmpty) {
       return null;
     }
+
+    _formCache[cacheKey] = form;
 
     return form;
   }
@@ -100,6 +122,13 @@ class WiktionaryInflectionService {
       },
     );
 
+    final cacheKey = uri.toString();
+    final cached = _formCache[cacheKey];
+
+    if (cached != null) {
+      return cached;
+    }
+
     final response = await http.get(uri);
 
     if (response.statusCode == 404) {
@@ -124,6 +153,8 @@ class WiktionaryInflectionService {
     if (form is! String || form.isEmpty) {
       return null;
     }
+
+    _formCache[cacheKey] = form;
 
     return form;
   }

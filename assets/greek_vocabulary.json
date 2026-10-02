@@ -1242,6 +1242,7 @@
     "step": 3,
     "type": "verb",
     "lemma": "καθαρίζομαι",
+    "aorist": "ἐκαθαρίσθην",
     "translations": [
       "rein werden"
     ],
@@ -1274,6 +1275,7 @@
     "step": 3,
     "type": "verb",
     "lemma": "καταβαίνω",
+    "aorist": "κατέβην",
     "translations": [
       "herabsteigen"
     ]
@@ -1830,6 +1832,7 @@
     "step": 4,
     "type": "verb",
     "lemma": "ἀφανίζω",
+    "aorist": "ἠφάνισα",
     "translations": [
       "unsichtbar machen",
       "vernichten"
@@ -2010,6 +2013,7 @@
     "step": 4,
     "type": "verb",
     "lemma": "θησαυρίζω",
+    "aorist": "ἐθησαύρισα",
     "translations": [
       "aufhäufen",
       "sammeln"
@@ -2146,6 +2150,7 @@
     "step": 4,
     "type": "verb",
     "lemma": "οἶμαι",
+    "aorist": "ᾠήθην",
     "translations": [
       "glauben",
       "meinen"
@@ -2272,6 +2277,7 @@
     "step": 4,
     "type": "verb",
     "lemma": "προσεύχομαι",
+    "aorist": "προσηυξάμην",
     "translations": [
       "beten"
     ],
@@ -2528,6 +2534,7 @@
     "type": "noun",
     "lemma": "δῆμος",
     "article": "ὁ",
+    "genitive": "δήμου",
     "translations": [
       "Gemeinde",
       "Volk"
@@ -2579,6 +2586,7 @@
     "type": "noun",
     "lemma": "ἔπαινος",
     "article": "ὁ",
+    "genitive": "ἐπαίνου",
     "translations": [
       "Lob"
     ]
@@ -2589,6 +2597,7 @@
     "type": "noun",
     "lemma": "ἔργον",
     "article": "τό",
+    "genitive": "ἔργου",
     "translations": [
       "Werk",
       "Arbeit"
@@ -2737,6 +2746,7 @@
     "type": "noun",
     "lemma": "μνήμη",
     "article": "ἡ",
+    "genitive": "μνήμης",
     "translations": [
       "Gedächtnis",
       "Erinnerung"
@@ -2998,6 +3008,7 @@
     "type": "noun",
     "lemma": "τιμή",
     "article": "ἡ",
+    "genitive": "τιμῆς",
     "translations": [
       "Preis",
       "Wert",
@@ -3260,6 +3271,7 @@
     "step": 6,
     "type": "verb",
     "lemma": "ἐπιτιμάω",
+    "aorist": "ἐπετίμησα",
     "translations": [
       "jemandem etwas vorwerfen",
       "tadeln"
@@ -3271,6 +3283,7 @@
     "type": "noun",
     "lemma": "ζῷον",
     "article": "τό",
+    "genitive": "ζῴου",
     "translations": [
       "Lebewesen",
       "Tier"
@@ -3292,6 +3305,7 @@
     "step": 6,
     "type": "verb",
     "lemma": "καθεύδω",
+    "aorist": "ἐκαθεύδησα",
     "translations": [
       "schlafen"
     ]
@@ -3366,6 +3380,7 @@
     "type": "noun",
     "lemma": "κριθή",
     "article": "ἡ",
+    "genitive": "κριθῆς",
     "translations": [
       "Gerste"
     ]
@@ -3455,6 +3470,7 @@
     "type": "noun",
     "lemma": "μέτρον",
     "article": "τό",
+    "genitive": "μέτρου",
     "translations": [
       "Maß"
     ]
@@ -3465,6 +3481,7 @@
     "type": "noun",
     "lemma": "μισθός",
     "article": "ὁ",
+    "genitive": "μισθοῦ",
     "translations": [
       "Lohn",
       "Sold",
@@ -3527,6 +3544,7 @@
     "type": "noun",
     "lemma": "τροφή",
     "article": "ἡ",
+    "genitive": "τροφῆς",
     "translations": [
       "Ernährung"
     ]
@@ -3576,6 +3594,7 @@
     "type": "noun",
     "lemma": "πυρός",
     "article": "ὁ",
+    "genitive": "πυροῦ",
     "translations": [
       "Weizen"
     ]
@@ -3586,6 +3605,7 @@
     "type": "noun",
     "lemma": "σεισμός",
     "article": "ὁ",
+    "genitive": "σεισμοῦ",
     "translations": [
       "Erdbeben"
     ]
@@ -3596,6 +3616,7 @@
     "type": "noun",
     "lemma": "στρατιά",
     "article": "ἡ",
+    "genitive": "στρατιᾶς",
     "translations": [
       "Heer"
     ]
@@ -3617,6 +3638,7 @@
     "type": "noun",
     "lemma": "ἀσθένεια",
     "article": "ἡ",
+    "genitive": "ἀσθενείας",
     "translations": [
       "Schwäche",
       "Krankheit"
@@ -3670,6 +3692,7 @@
     "type": "noun",
     "lemma": "φυλακή",
     "article": "ἡ",
+    "genitive": "φυλακῆς",
     "translations": [
       "Wache",
       "Gefängnis"
@@ -3708,6 +3731,8 @@
     "step": 7,
     "type": "noun",
     "lemma": "χρήματα",
+    "article": "τά",
+    "genitive": "χρημάτων",
     "translations": [
       "Geld",
       "Besitz"
@@ -3728,6 +3753,7 @@
     "type": "noun",
     "lemma": "ἀγνωσία",
     "article": "ἡ",
+    "genitive": "ἀγνωσίας",
     "translations": [
       "Unbekanntheit"
     ]
@@ -3759,6 +3785,7 @@
     "type": "noun",
     "lemma": "αἰσχύνη",
     "article": "ἡ",
+    "genitive": "αἰσχύνης",
     "translations": [
       "Scham",
       "Schande"
@@ -3851,6 +3878,7 @@
     "step": 7,
     "type": "verb",
     "lemma": "ἀπολογέομαι",
+    "aorist": "ἀπελογησάμην",
     "translations": [
       "sich verteidigen"
     ],
@@ -3862,6 +3890,7 @@
     "type": "noun",
     "lemma": "ἀριστοκρατία",
     "article": "ἡ",
+    "genitive": "ἀριστοκρατίας",
     "translations": [
       "Adelsherrschaft",
       "Aristokratie"
@@ -3995,6 +4024,7 @@
     "type": "noun",
     "lemma": "δημοκρατία",
     "article": "ἡ",
+    "genitive": "δημοκρατίας",
     "translations": [
       "Volksherrschaft",
       "Demokratie"
@@ -4006,6 +4036,7 @@
     "type": "noun",
     "lemma": "ἐναντίον",
     "article": "τό",
+    "genitive": "ἐναντίου",
     "translations": [
       "Gegenteil"
     ]
@@ -4063,6 +4094,7 @@
     "step": 7,
     "type": "verb",
     "lemma": "ἐπιβουλεύω",
+    "aorist": "ἐπεβούλευσα",
     "translations": [
       "einen Anschlag planen",
       "gegen jemanden intrigieren"
@@ -4074,6 +4106,7 @@
     "type": "noun",
     "lemma": "εὐδοξία",
     "article": "ἡ",
+    "genitive": "εὐδοξίας",
     "translations": [
       "guter Ruf",
       "Ruhm"
@@ -4105,6 +4138,7 @@
     "step": 7,
     "type": "verb",
     "lemma": "κελεύω",
+    "aorist": "ἐκέλευσα",
     "translations": [
       "bitten",
       "auffordern",
@@ -4117,6 +4151,7 @@
     "type": "noun",
     "lemma": "πενία",
     "article": "ἡ",
+    "genitive": "πενίας",
     "translations": [
       "Armut"
     ]
@@ -4169,6 +4204,7 @@
     "type": "noun",
     "lemma": "λαός",
     "article": "ὁ",
+    "genitive": "λαοῦ",
     "translations": [
       "Volk",
       "Menge"
@@ -4179,6 +4215,7 @@
     "step": 7,
     "type": "verb",
     "lemma": "πονέω",
+    "aorist": "ἐπόνησα",
     "translations": [
       "arbeiten",
       "bearbeiten"
@@ -4221,6 +4258,7 @@
     "step": 7,
     "type": "verb",
     "lemma": "ὁμολογέω",
+    "aorist": "ὡμολόγησα",
     "translations": [
       "übereinstimmen",
       "zustimmen"
@@ -4274,6 +4312,7 @@
     "type": "noun",
     "lemma": "παραβολή",
     "article": "ἡ",
+    "genitive": "παραβολῆς",
     "translations": [
       "Gleichnis"
     ]
@@ -4326,6 +4365,7 @@
     "type": "noun",
     "lemma": "ῥόδον",
     "article": "τό",
+    "genitive": "ῥόδου",
     "translations": [
       "Rose"
     ]
@@ -4335,6 +4375,7 @@
     "step": 7,
     "type": "verb",
     "lemma": "στρατεύω",
+    "aorist": "ἐστράτευσα",
     "translations": [
       "ins Feld ziehen",
       "Kriegsdienst leisten"
@@ -4427,6 +4468,7 @@
     "type": "noun",
     "lemma": "φόνος",
     "article": "ὁ",
+    "genitive": "φόνου",
     "translations": [
       "Mord"
     ]
@@ -4437,6 +4479,7 @@
     "type": "noun",
     "lemma": "φρούραρχος",
     "article": "ὁ",
+    "genitive": "φρουράρχου",
     "translations": [
       "Festungskommandant"
     ]
@@ -4447,6 +4490,7 @@
     "type": "noun",
     "lemma": "ὥρα",
     "article": "ἡ",
+    "genitive": "ὥρας",
     "translations": [
       "Zeit",
       "Jahreszeit",

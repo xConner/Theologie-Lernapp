@@ -74,6 +74,15 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
   String? _preloadedTense;
   String? _preloadedVoice;
 
+  // Wird bei jedem Fragenwechsel erhöht. Eine noch laufende Formabfrage
+  // erkennt daran, dass ihre Frage inzwischen ersetzt wurde, und darf ihr
+  // Ergebnis dann nicht mehr in die neuere Frage schreiben.
+  int _questionToken = 0;
+
+  // Wird bei jedem neuen Preload erhöht. Ein überholter Preload darf einen
+  // neueren weder überschreiben noch verwerfen.
+  int _preloadToken = 0;
+
   // ---------------------------------------------------------------------------
   // AUSWERTUNG
   // ---------------------------------------------------------------------------
@@ -354,9 +363,14 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
 
   Future<void> load() async {
     try {
-      entries = await GreekVocabularyLoader.load();
+      // Vokabeln und Einstellungen sind voneinander unabhängig und werden
+      // deshalb gleichzeitig statt nacheinander geladen.
+      final results = await Future.wait<Object?>([
+        GreekVocabularyLoader.load(),
+        loadGrammarSettings(),
+      ]);
 
-      await loadGrammarSettings();
+      entries = results[0] as List<GreekVocabularyEntry>;
 
       await nextQuestion();
     } catch (e) {
@@ -408,6 +422,8 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
 
   Future<void> nextQuestion() async {
     final available = _getAvailableEntries();
+
+    final token = ++_questionToken;
 
     if (available.isEmpty) {
       if (!mounted) {
@@ -533,6 +549,12 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
       await generateVerbQuestion(newQuestion);
     }
 
+    // Screen inzwischen geschlossen oder Frage bereits ersetzt:
+    // dann keinen (doppelten) Preload mehr starten.
+    if (!mounted || token != _questionToken) {
+      return;
+    }
+
     _preloadNextQuestion(available);
   }
 
@@ -553,6 +575,8 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
       if (!mounted) {
         return;
       }
+
+      _questionToken++;
 
       setState(() {
         question = null;
@@ -625,6 +649,8 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
     if (!mounted) {
       return;
     }
+
+    _questionToken++;
 
     setState(() {
       question = preloadedQuestion;
@@ -703,6 +729,18 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
     _preloadedNumberVerb = null;
     _preloadedTense = null;
     _preloadedVoice = null;
+  }
+
+  // Ein Preload-Ergebnis wird nur übernommen, wenn der Screen noch lebt, die
+  // Frage nicht ohnehin gerade angezeigt wird und kein neuerer Preload
+  // überschrieben würde. Ein überholter Preload darf lediglich einen leeren
+  // Platz füllen.
+  bool _mayStorePreloaded(int token, GreekVocabularyEntry entry) {
+    if (!mounted || entry == question) {
+      return false;
+    }
+
+    return token == _preloadToken || _preloadedQuestion == null;
   }
 
   // ---------------------------------------------------------------------------
@@ -791,6 +829,8 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
   // ---------------------------------------------------------------------------
 
   Future<void> generateNounQuestion(GreekVocabularyEntry entry) async {
+    final token = _questionToken;
+
     final grammaticalCase = cases[_random.nextInt(cases.length)];
 
     final number = numbers[_random.nextInt(numbers.length)];
@@ -821,7 +861,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
         number: number == "Sg." ? "Sg" : "Pl",
       );
 
-      if (!mounted) {
+      if (!mounted || token != _questionToken) {
         return;
       }
 
@@ -837,7 +877,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
         }
       });
     } catch (e) {
-      if (!mounted) {
+      if (!mounted || token != _questionToken) {
         return;
       }
 
@@ -858,6 +898,8 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
   // ---------------------------------------------------------------------------
 
   Future<void> generateVerbQuestion(GreekVocabularyEntry entry) async {
+    final token = _questionToken;
+
     final person = ["1.", "2.", "3."][_random.nextInt(3)];
 
     final number = ["Sg", "Pl"][_random.nextInt(2)];
@@ -900,7 +942,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
     final parsedPerson = _parsePerson(person);
 
     if (parsedPerson == null) {
-      if (!mounted) {
+      if (!mounted || token != _questionToken) {
         return;
       }
 
@@ -926,7 +968,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
         person: parsedPerson,
       );
 
-      if (!mounted) {
+      if (!mounted || token != _questionToken) {
         return;
       }
 
@@ -953,7 +995,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
         formError = null;
       });
     } catch (e) {
-      if (!mounted) {
+      if (!mounted || token != _questionToken) {
         return;
       }
 
@@ -976,6 +1018,8 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
   // ---------------------------------------------------------------------------
 
   Future<void> _preloadNounQuestion(GreekVocabularyEntry entry) async {
+    final token = ++_preloadToken;
+
     final grammaticalCase = cases[_random.nextInt(cases.length)];
 
     final number = numbers[_random.nextInt(numbers.length)];
@@ -998,6 +1042,10 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
       );
 
       if (form != null && form.isNotEmpty) {
+        if (!_mayStorePreloaded(token, entry)) {
+          return;
+        }
+
         _preloadedQuestion = entry;
         _preloadedForm = normalizeGreekForDisplay(form);
 
@@ -1009,11 +1057,13 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
         _preloadedNumberVerb = null;
         _preloadedTense = null;
         _preloadedVoice = null;
-      } else {
+      } else if (token == _preloadToken) {
         _clearPreloaded();
       }
     } catch (e) {
-      _clearPreloaded();
+      if (token == _preloadToken) {
+        _clearPreloaded();
+      }
     }
   }
 
@@ -1022,6 +1072,8 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
   // ---------------------------------------------------------------------------
 
   Future<void> _preloadVerbQuestion(GreekVocabularyEntry entry) async {
+    final token = ++_preloadToken;
+
     final person = ["1.", "2.", "3."][_random.nextInt(3)];
 
     final number = ["Sg", "Pl"][_random.nextInt(2)];
@@ -1069,6 +1121,10 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
       );
 
       if (form != null && form.isNotEmpty) {
+        if (!_mayStorePreloaded(token, entry)) {
+          return;
+        }
+
         _preloadedQuestion = entry;
 
         _preloadedForm = normalizeGreekForDisplay(form);
@@ -1081,11 +1137,13 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
         _preloadedNumberVerb = number;
         _preloadedTense = tense;
         _preloadedVoice = voice;
-      } else {
+      } else if (token == _preloadToken) {
         _clearPreloaded();
       }
     } catch (e) {
-      _clearPreloaded();
+      if (token == _preloadToken) {
+        _clearPreloaded();
+      }
     }
   }
 
@@ -1210,9 +1268,9 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
       builder: (context) {
         return GreekKeyboard(
           controller: answerController,
-          onChanged: () {
-            setState(() {});
-          },
+          // Das Textfeld aktualisiert sich über den Controller selbst;
+          // ein Rebuild des gesamten Screens pro Tastendruck ist unnötig.
+          onChanged: () {},
         );
       },
     );
