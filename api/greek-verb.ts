@@ -4,6 +4,20 @@ import * as cheerio from 'cheerio';
 const WIKTIONARY_BASE_URL =
     'https://en.wiktionary.org/wiki/';
 
+// Obergrenzen gegen Missbrauch des öffentlichen Endpunkts. Die längste
+// Grundform der Vokabelliste hat deutlich weniger als 64 Zeichen.
+const MAX_LEMMA_LENGTH = 64;
+const MAX_PARAM_LENGTH = 32;
+const UPSTREAM_TIMEOUT_MS = 8000;
+
+function isValidParam(value: string, maxLength: number): boolean {
+    return (
+        value.length > 0 &&
+        value.length <= maxLength &&
+        !/[\u0000-\u001f\u007f]/.test(value)
+    );
+}
+
 function getTenseClass(tense: string): string | null {
     switch (tense) {
         case 'Präsens':
@@ -408,6 +422,17 @@ export default async function handler(
             });
         }
 
+        if (
+            !isValidParam(lemma, MAX_LEMMA_LENGTH) ||
+            !isValidParam(tense, MAX_PARAM_LENGTH) ||
+            !isValidParam(voice, MAX_PARAM_LENGTH) ||
+            !isValidParam(number, MAX_PARAM_LENGTH)
+        ) {
+            return res.status(400).json({
+                error: 'Ungültige Parameter.',
+            });
+        }
+
         const personNumber =
             Number.parseInt(person, 10);
 
@@ -435,6 +460,7 @@ export default async function handler(
                 'User-Agent':
                     'TheologieLernapp/1.0 (Ancient Greek grammar trainer)',
             },
+            signal: AbortSignal.timeout(UPSTREAM_TIMEOUT_MS),
         });
 
         if (!response.ok) {

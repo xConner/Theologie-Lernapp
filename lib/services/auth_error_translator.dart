@@ -93,29 +93,35 @@ String describeAuthError(Object error) {
       return "Für dieses Konto ist eine Zwei-Faktor-Bestätigung erforderlich.";
 
     default:
-      return error.message ?? "Etwas ist schiefgelaufen. Bitte versuche es erneut.";
+      // Keine rohe (englische, ggf. technische) Firebase-Meldung anzeigen.
+      if (kDebugMode) {
+        debugPrint("Unbehandelter Auth-Fehler: code='${error.code}'");
+      }
+      return "Etwas ist schiefgelaufen. Bitte versuche es erneut.";
   }
 }
 
-/// Nur zur Diagnose (Phone-Auth/MFA-Fehleranalyse): loggt den vollständigen
-/// FirebaseAuthException.code + message in die Browser-/Debug-Konsole und
-/// gibt einen kurzen Diagnosetext zurück, der zusätzlich in der UI angezeigt
-/// werden kann, solange wir die reCAPTCHA-Fehlerursache eingrenzen.
-/// Verändert keine reCAPTCHA-/App-Check-Konfiguration.
+/// Wie [describeAuthError], hängt aber den Fehlercode an (Phone-Auth/MFA-
+/// Fehleranalyse rund um reCAPTCHA). Der Code ist kein Geheimnis und hilft
+/// bei Rückmeldungen; die vollständige Firebase-Meldung wird nur in
+/// Debug-Builds geloggt. Verändert keine reCAPTCHA-/App-Check-Konfiguration.
 String logAndDescribeAuthErrorForDiagnosis(Object error, {String? context}) {
   final label = context != null ? "[$context] " : "";
 
   if (error is FirebaseAuthException) {
-    debugPrint(
-      "${label}FirebaseAuthException: code='${error.code}' "
-      "message='${error.message}'",
-    );
-    return "${describeAuthError(error)}\n\n(Debug: code=${error.code})";
+    if (kDebugMode) {
+      debugPrint(
+        "${label}FirebaseAuthException: code='${error.code}' "
+        "message='${error.message}'",
+      );
+    }
+    return "${describeAuthError(error)}\n\n(Fehlercode: ${error.code})";
   }
 
-  debugPrint("${label}Nicht-Firebase-Fehler: ${error.runtimeType}: $error");
-  return "Etwas ist schiefgelaufen. Bitte versuche es erneut.\n\n"
-      "(Debug: ${error.runtimeType})";
+  if (kDebugMode) {
+    debugPrint("${label}Nicht-Firebase-Fehler: ${error.runtimeType}: $error");
+  }
+  return "Etwas ist schiefgelaufen. Bitte versuche es erneut.";
 }
 
 /// True, wenn der Fehler auf einen bewussten Nutzerabbruch (z. B. Google-

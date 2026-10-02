@@ -23,8 +23,12 @@ rules_version = '2';
 //                              Gäste), vom Client NICHT schreibbar –
 //                              Veröffentlichung nur über Console/Admin SDK.
 //   users/{uid}/inbox/{id}     persönliche Nachrichten (Account &
-//                              Sicherheit): nur der Nutzer darf lesen,
-//                              schreiben nur der Server (Admin SDK).
+//                              Sicherheit): nur der Nutzer darf lesen und
+//                              löschen (Kontolöschung), anlegen/ändern nur
+//                              der Server (Admin SDK).
+//
+// Kontolöschung (lib/services/account_deletion_service.dart) löscht alle
+// hier genannten Subcollections und das users/{uid}-Dokument.
 //
 // Fehlermeldungen (siehe docs/info-and-reports.md):
 //   reports/{id}               von jedem anlegbar (nur gültige Felder,
@@ -74,18 +78,45 @@ service cloud.firestore {
       allow read, update, delete: if false;
     }
 
-    match /users/{uid} {
-      allow read, write: if isOwner(uid);
+    // Felder, die der Client im users/{uid}-Dokument setzen darf (alle
+    // Schreibzugriffe im Code verwenden set(..., merge: true) mit genau
+    // einem dieser Felder). Geprüft werden nur die GEÄNDERTEN Felder, damit
+    // ältere, bereits vorhandene Felder bestehende Dokumente nicht sperren.
+    function userDocKeys() {
+      return ['vocabulary_settings', 'latin_vocabulary_settings',
+              'greek_grammar_settings', 'notification_settings'];
+    }
 
+    function changedKeys() {
+      return resource == null
+        ? request.resource.data.keys()
+        : request.resource.data.diff(resource.data).affectedKeys();
+    }
+
+    // Subcollections unter users/{uid}, die der Client verwendet
+    // (siehe Liste oben; "inbox" ist bewusst nicht enthalten).
+    function isUserCollection(collection) {
+      return collection in ['quiz_settings', 'vocabulary', 'learning_cards',
+                            'latin_vocabulary', 'grammar',
+                            'pericope_overrides', 'streaks', 'statistics',
+                            'notification_state', 'push_tokens'];
+    }
+
+    match /users/{uid} {
+      allow read, delete: if isOwner(uid);
+      allow create, update: if isOwner(uid)
+        && changedKeys().hasOnly(userDocKeys());
+
+      // Persönliche Nachrichten schreibt nur der Server. Löschen darf der
+      // Nutzer sie selbst (nötig für die Kontolöschung).
       match /inbox/{notificationId} {
-        allow read: if isOwner(uid);
-        allow write: if false;
+        allow read, delete: if isOwner(uid);
+        allow create, update: if false;
       }
 
-      // Alle übrigen Subcollections (Regeln werden ODER-verknüpft, daher
-      // "inbox" hier ausdrücklich ausnehmen).
-      match /{collection}/{document=**} {
-        allow read, write: if isOwner(uid) && collection != "inbox";
+      // Nur die bekannten Subcollections, je eine Dokumentebene tief.
+      match /{collection}/{documentId} {
+        allow read, write: if isOwner(uid) && isUserCollection(collection);
       }
     }
   }

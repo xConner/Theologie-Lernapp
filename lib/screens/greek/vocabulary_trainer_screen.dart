@@ -195,12 +195,6 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
 
     entries = await GreekVocabularyLoader.load();
 
-    for (final e in entries) {
-      if (e.mnemonic != null) {
-        print("${e.lemma}: ${e.mnemonic}");
-      }
-    }
-
     cards = await learningService.loadCards(uid);
 
     nextQuestion();
@@ -294,7 +288,6 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
     setState(() {});
 
     Future.delayed(const Duration(milliseconds: 100), () {
-      print(translationFocusNode);
       translationFocusNode.requestFocus();
     });
   }

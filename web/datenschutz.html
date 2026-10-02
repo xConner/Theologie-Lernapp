@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Datenschutz – Theologie Lernapp</title>
+  <meta name="description" content="Datenschutzhinweise der Theologie Lernapp">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="stylesheet" href="legal.css">
+</head>
+<body>
+<main>
+  <nav aria-label="Rechtliches">
+    <a href="./">Zur App</a>
+    <a href="impressum.html">Impressum</a>
+  </nav>
+
+  <h1>Datenschutzhinweise</h1>
+
+  <!--
+    HINWEIS FÜR DEN BETREIBER
+    Diese Seite beschreibt die Datenflüsse, die im Quellcode der App
+    tatsächlich vorhanden sind (Stand des Audits: docs/security-audit.md).
+    Sie ist KEINE geprüfte Rechtsberatung. Vor der Veröffentlichung:
+      1. alle class="todo"-Stellen ausfüllen,
+      2. Rechtsgrundlagen, Drittlandübermittlungen und Verträge zur
+         Auftragsverarbeitung (Google/Firebase, Vercel) prüfen (lassen),
+      3. die Seite bei jeder Änderung an Diensten/Datenflüssen anpassen,
+      4. diesen Kommentar und den gelben Kasten entfernen.
+  -->
+  <p class="notice" role="note">
+    Entwurf: Markierte Angaben sind Platzhalter und müssen vom Betreiber
+    ergänzt und rechtlich geprüft werden.
+  </p>
+
+  <h2>1. Verantwortlicher</h2>
+  <p>
+    <span class="todo">[Name/Betreiber ergänzen]</span><br>
+    <span class="todo">[ladungsfähige Anschrift ergänzen]</span><br>
+    E-Mail: <span class="todo">[E-Mail-Adresse ergänzen]</span>
+  </p>
+  <p class="muted">Weitere Angaben: <a href="impressum.html">Impressum</a>.</p>
+
+  <h2>2. Überblick</h2>
+  <ul>
+    <li>Die App verwendet <strong>kein Tracking, keine Analyse-Werkzeuge und keine Werbung</strong>.</li>
+    <li>Die App setzt selbst <strong>keine Cookies</strong>. Sie nutzt den lokalen Speicher des Browsers (siehe Abschnitt 5).</li>
+    <li>Ohne Konto (Gastmodus) bleiben Lernstände und Einstellungen in diesem Browser.</li>
+    <li>Mit Konto werden Lernstände, Einstellungen und Statistiken bei Google Firebase gespeichert und deinem Konto zugeordnet.</li>
+  </ul>
+
+  <h2>3. Aufruf der Website (Hosting)</h2>
+  <p>
+    Die Website und das Backend für den Grammatiktrainer werden bei
+    <strong>Vercel Inc.</strong> (USA) betrieben. Beim Aufruf verarbeitet
+    Vercel technisch notwendige Verbindungsdaten wie IP-Adresse, Zeitpunkt,
+    aufgerufene Adresse und Browserangaben, um die Seite auszuliefern und den
+    Betrieb abzusichern.
+  </p>
+  <p>
+    Rechtsgrundlage: <span class="todo">[vom Betreiber zu prüfen, z. B. Art. 6 Abs. 1 lit. f DSGVO]</span>.
+    Speicherdauer der Protokolle: <span class="todo">[gemäß Vercel-Einstellungen/Tarif ergänzen]</span>.
+    Drittlandübermittlung: <span class="todo">[Garantien ergänzen, z. B. EU-US Data Privacy Framework / Standardvertragsklauseln – bitte prüfen]</span>.
+  </p>
+
+  <h2>4. Schriftarten und Laufzeitdateien</h2>
+  <p>
+    Die App ist mit Flutter gebaut. Beim Start lädt sie von Servern von
+    Google:
+  </p>
+  <ul>
+    <li>Schriftarten (u. a. für griechische Zeichen und Symbole) von <strong>fonts.gstatic.com</strong>,</li>
+    <li>die Programmbibliotheken von Firebase (Firebase JavaScript SDK) von <strong>www.gstatic.com</strong>.</li>
+  </ul>
+  <p>
+    Dabei werden die IP-Adresse und übliche Browserangaben an Google
+    übermittelt.
+    <span class="todo">[Betreiber: Rechtsgrundlage prüfen bzw. prüfen, ob Schriftarten und SDK selbst gehostet werden sollen – siehe docs/security-audit.md]</span>
+  </p>
+
+  <h2>5. Speicherung im Browser</h2>
+  <p>
+    Die App speichert im lokalen Speicher des Browsers (localStorage bzw.
+    IndexedDB):
+  </p>
+  <ul>
+    <li>im Gastmodus: Lernstände, Lerneinstellungen, Statistiken, Streaks und den Lesestatus der Nachrichten,</li>
+    <li>Lautstärke und Sound-Einstellungen, Eingabemodus des Perikopenquiz,</li>
+    <li>ob der Gastmodus gewählt wurde und für welche Konten die Übernahme von Gastdaten abgelehnt wurde (Konto-ID),</li>
+    <li>bei Anmeldung: die Anmeldesitzung von Firebase Authentication.</li>
+  </ul>
+  <p>
+    Diese Daten verlassen den Browser nicht, außer du überträgst Gastdaten
+    bewusst in ein Konto. Du kannst sie jederzeit über die
+    Browser-Einstellungen („Websitedaten löschen“) entfernen.
+  </p>
+
+  <h2>6. Benutzerkonto (Firebase Authentication)</h2>
+  <p>
+    Für Konten nutzt die App <strong>Firebase Authentication</strong> von
+    Google. Je nach gewählter Anmeldemethode werden verarbeitet:
+  </p>
+  <ul>
+    <li>E-Mail und Passwort: E-Mail-Adresse, Passwort (bei Google nur als Hash gespeichert), Bestätigungsstatus,</li>
+    <li>„Mit Google anmelden“: die von Google übermittelten Kontodaten (u. a. E-Mail-Adresse, Name, Profilbild-Adresse),</li>
+    <li>Telefonnummer bzw. SMS als zweiter Faktor: Telefonnummer; der Code wird per SMS über Firebase versendet,</li>
+    <li>Authenticator-App als zweiter Faktor: die Zuordnung des Faktors zum Konto,</li>
+    <li>technisch: Konto-ID, Zeitpunkt von Erstellung und letzter Anmeldung, IP-Adresse bei Anmeldevorgängen.</li>
+  </ul>
+  <p>
+    E-Mails zur Bestätigung der Adresse und zum Zurücksetzen des Passworts
+    verschickt Firebase.
+  </p>
+  <p>
+    Bei der Anmeldung per Telefonnummer bzw. SMS lädt die Web-App
+    <strong>Google reCAPTCHA</strong>, um automatisierten Missbrauch des
+    SMS-Versands zu verhindern. reCAPTCHA wird nur in diesen Abläufen
+    geladen; dabei gelten zusätzlich die
+    <a href="https://policies.google.com/privacy" rel="noopener noreferrer">Datenschutzerklärung</a>
+    und die <a href="https://policies.google.com/terms" rel="noopener noreferrer">Nutzungsbedingungen</a> von Google.
+  </p>
+
+  <h2>7. Gespeicherte Lerndaten (Cloud Firestore)</h2>
+  <p>
+    Mit Konto speichert die App unter deiner Konto-ID in <strong>Cloud
+    Firestore</strong> (Google Firebase):
+  </p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Daten</th><th>Zweck</th></tr></thead>
+      <tbody>
+        <tr><td>Lernstand je Vokabel/Perikope (Werte für die Wiederholungsplanung, Zeitpunkt der letzten Wiederholung)</td><td>Wiederholung im richtigen Abstand</td></tr>
+        <tr><td>Eigene Merkhilfen (Freitext)</td><td>Anzeige beim Lernen</td></tr>
+        <tr><td>Einstellungen der Trainer, Buchauswahl des Perikopenquiz</td><td>Geräteübergreifende Einstellungen</td></tr>
+        <tr><td>Tagesstatistik je Trainer (Anzahl beantworteter, richtiger und falscher Antworten je Tag)</td><td>Statistik-Anzeige</td></tr>
+        <tr><td>Streaks (aktuelle/längste Serie, letzte Aktivität, heutige richtige Antworten)</td><td>Streak-Anzeige</td></tr>
+        <tr><td>Benachrichtigungs-Einstellungen inkl. Zeitzonen-Abstand zu UTC, Lesestatus der Nachrichten</td><td>Nachrichten-Glocke, spätere Erinnerungen</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>
+    Zugriff auf diese Daten hast nur du (abgesichert durch
+    Firestore-Sicherheitsregeln) sowie der Betreiber über die
+    Firebase-Verwaltung. Speicherort der Datenbank:
+    <span class="todo">[Firestore-Region aus der Firebase Console ergänzen]</span>.
+  </p>
+  <p>
+    Rechtsgrundlage: <span class="todo">[vom Betreiber zu prüfen, z. B. Art. 6 Abs. 1 lit. b DSGVO]</span>.
+    Auftragsverarbeitung/Drittland: <span class="todo">[Firebase-Datenverarbeitungsbedingungen akzeptiert? Garantien für Übermittlungen in die USA ergänzen]</span>.
+  </p>
+
+  <h2>8. Grammatiktrainer (Wiktionary)</h2>
+  <p>
+    Der Griechisch-Grammatiktrainer fragt beim Üben das Wort und die gesuchte
+    Form beim Backend der App (Vercel) ab. Das Backend ruft daraufhin die
+    passende Seite von <strong>Wiktionary</strong> (Wikimedia Foundation)
+    ab. Deine IP-Adresse wird dabei nicht an Wiktionary weitergegeben; es
+    werden keine Kontodaten übertragen.
+  </p>
+
+  <h2>9. Fehlermeldungen</h2>
+  <p>
+    Über „Fehler melden“ kannst du freiwillig eine Meldung senden. Sie enthält
+    Kategorie, deine Beschreibung, den Bereich der App, ggf. den angezeigten
+    Eintrag (z. B. Eintrags-ID, abgefragte Form, deine Eingabe), App-Version,
+    Betriebssystem-Familie und den Zeitpunkt. Konto-ID, Name und E-Mail-Adresse
+    werden <strong>nicht</strong> mitgesendet. Bitte schreibe keine
+    persönlichen Angaben in die Beschreibung.
+  </p>
+  <p>
+    Meldungen werden in Cloud Firestore gespeichert und nur vom Betreiber
+    gelesen. Speicherdauer: <span class="todo">[Frist festlegen, z. B. Löschung nach Bearbeitung]</span>.
+  </p>
+
+  <h2>10. Externe Links</h2>
+  <p>
+    Links zu GitHub oder Wiktionary öffnen die jeweilige Seite in einem neuen
+    Fenster. Erst dann werden Daten an diese Anbieter übertragen.
+  </p>
+
+  <h2>11. Löschung deiner Daten</h2>
+  <ul>
+    <li>Gastmodus: über die Browser-Einstellungen („Websitedaten löschen“).</li>
+    <li>Konto: in der App unter <em>Einstellungen → Konto &amp; Sicherheit → Konto löschen</em>. Dabei werden deine in Firestore gespeicherten Daten und anschließend dein Konto gelöscht.</li>
+    <li>Lernfortschritte allein lassen sich unter <em>Einstellungen → Lernfortschritte zurücksetzen</em> löschen.</li>
+  </ul>
+
+  <h2>12. Deine Rechte</h2>
+  <p>
+    Du hast nach der DSGVO das Recht auf Auskunft (Art. 15), Berichtigung
+    (Art. 16), Löschung (Art. 17), Einschränkung der Verarbeitung (Art. 18),
+    Datenübertragbarkeit (Art. 20) und Widerspruch (Art. 21). Wende dich dazu an
+    <span class="todo">[E-Mail-Adresse ergänzen]</span>. Außerdem kannst du dich
+    bei einer Datenschutz-Aufsichtsbehörde beschweren (Art. 77 DSGVO).
+  </p>
+
+  <p class="muted">Stand: <span class="todo">[Datum ergänzen]</span></p>
+</main>
+</body>
+</html>

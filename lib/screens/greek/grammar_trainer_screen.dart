@@ -385,7 +385,11 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
 
       setState(() {
         loading = false;
-        formError = e.toString();
+        // Keine rohen Firebase-/Laufzeitfehler anzeigen.
+        debugPrint("Grammatiktrainer konnte nicht geladen werden: $e");
+        formError =
+            "Der Trainer konnte nicht geladen werden. Bitte prüfe deine "
+            "Internetverbindung und versuche es erneut.";
       });
 
       return;

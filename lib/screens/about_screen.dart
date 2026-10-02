@@ -4,6 +4,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../info/app_info.dart';
 import '../theme/app_theme.dart';
 import '../widgets/info_report.dart';
+import '../widgets/legal_links.dart';
 
 /// Allgemeine Informationen zur App: Projekt, KI-Unterstützung, Inhalte und
 /// Quellen, gespeicherte Daten, Fehler melden. Erreichbar über die
@@ -179,6 +180,38 @@ class AboutScreen extends StatelessWidget {
                   icon: const Icon(Icons.flag_outlined),
                   label: const Text("Fehler melden"),
                   onPressed: () => showReportDialog(context),
+                ),
+              ]),
+
+              _section(context, "Rechtliches", [
+                Card(
+                  margin: EdgeInsets.zero,
+                  child: Column(
+                    children: [
+                      ListTile(
+                        dense: true,
+                        title: const Text("Impressum"),
+                        trailing: const Icon(Icons.open_in_new_rounded),
+                        onTap: () => LegalLinks.open(LegalLinks.impressumPage),
+                      ),
+                      ListTile(
+                        dense: true,
+                        title: const Text("Datenschutz"),
+                        trailing: const Icon(Icons.open_in_new_rounded),
+                        onTap: () => LegalLinks.open(LegalLinks.privacyPage),
+                      ),
+                      ListTile(
+                        dense: true,
+                        title: const Text("Open-Source-Lizenzen"),
+                        trailing: const Icon(Icons.chevron_right_rounded),
+                        onTap: () => showLicensePage(
+                          context: context,
+                          applicationName: AppInfo.name,
+                          applicationVersion: AppInfo.version,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ]),
             ],

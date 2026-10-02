@@ -52,3 +52,6 @@ app.*.map.json
 .claude/
 .vercel
 .env*
+
+# npm – Abhängigkeiten werden aus package-lock.json installiert, nicht versioniert
+node_modules/

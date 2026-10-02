@@ -6,6 +6,7 @@ import '../services/auth_service.dart';
 import '../services/auth_error_translator.dart';
 import '../services/local_learning_store.dart';
 import '../theme/app_theme.dart';
+import '../widgets/legal_links.dart';
 import 'forgot_password_screen.dart';
 import 'mfa_challenge_screen.dart';
 import 'phone_sign_in_screen.dart';
@@ -312,6 +313,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       onPressed: openGithub,
                       child: const Text("GitHub Repository"),
                     ),
+
+                    const LegalLinksRow(),
                   ],
                 ),
               ),

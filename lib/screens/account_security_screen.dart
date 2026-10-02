@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import '../services/account_deletion_service.dart';
 import '../services/auth_service.dart';
 import '../services/auth_error_translator.dart';
 import '../theme/app_theme.dart';
@@ -23,6 +24,7 @@ class _AccountSecurityScreenState extends State<AccountSecurityScreen> {
 
   List<MultiFactorInfo> mfaFactors = [];
   bool loadingFactors = true;
+  bool deletingAccount = false;
 
   @override
   void initState() {
@@ -134,14 +136,18 @@ class _AccountSecurityScreenState extends State<AccountSecurityScreen> {
   /// Erneute Anmeldung per Passwort bzw. Google. Hat das Konto einen zweiten
   /// Faktor, wird anschließend dessen Bestätigung verlangt. Liefert true,
   /// wenn die erneute Anmeldung vollständig abgeschlossen ist.
-  Future<bool> _reauthenticate() async {
+  Future<bool> _reauthenticate({
+    String reason =
+        "Aus Sicherheitsgründen musst du dich erneut bestätigen, bevor "
+        "der Faktor entfernt werden kann.",
+  }) async {
     if (!authService.isEmailPasswordUser && !authService.isGoogleUser) {
       return false;
     }
 
     final result = await showDialog<_ReauthResult>(
       context: context,
-      builder: (_) => const _ReauthDialog(),
+      builder: (_) => _ReauthDialog(reason: reason),
     );
 
     if (!mounted || result == null) return false;
@@ -158,6 +164,119 @@ class _AccountSecurityScreenState extends State<AccountSecurityScreen> {
     ScaffoldMessenger.of(
       context,
     ).showSnackBar(SnackBar(content: Text(describeAuthError(e))));
+  }
+
+  void _showMessage(String message) {
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text(message)));
+  }
+
+  /// Firebase verlangt zum Löschen eine Anmeldung innerhalb der letzten
+  /// Minuten. Telefon-Konten lassen sich hier nicht erneut bestätigen;
+  /// sie müssen sich dafür ab- und wieder anmelden.
+  bool get _signedInRecently {
+    final lastSignIn = FirebaseAuth.instance.currentUser?.metadata.lastSignInTime;
+
+    return lastSignIn != null &&
+        DateTime.now().difference(lastSignIn) < const Duration(minutes: 4);
+  }
+
+  Future<void> _deleteAccount() async {
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: const Text("Konto löschen?"),
+        content: const Text(
+          "Dein Konto und alle damit gespeicherten Daten (Lernstände, "
+          "Merkhilfen, Einstellungen, Statistiken, Streaks) werden "
+          "endgültig gelöscht. Das lässt sich nicht rückgängig machen.\n\n"
+          "Lokale Daten in diesem Browser (Gastmodus) bleiben erhalten.",
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(dialogContext).pop(false),
+            child: const Text("Abbrechen"),
+          ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(backgroundColor: AppColors.error),
+            onPressed: () => Navigator.of(dialogContext).pop(true),
+            child: const Text("Endgültig löschen"),
+          ),
+        ],
+      ),
+    );
+
+    if (confirmed != true || !mounted) return;
+
+    final canReauthenticate =
+        authService.isEmailPasswordUser || authService.isGoogleUser;
+
+    if (canReauthenticate) {
+      final reauthenticated = await _reauthenticate(
+        reason:
+            "Aus Sicherheitsgründen musst du dich erneut bestätigen, bevor "
+            "dein Konto gelöscht werden kann.",
+      );
+
+      if (!reauthenticated || !mounted) return;
+    } else if (!_signedInRecently) {
+      _showMessage(
+        "Bitte melde dich aus Sicherheitsgründen ab und erneut an. "
+        "Danach kannst du dein Konto direkt löschen.",
+      );
+      return;
+    }
+
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    if (uid == null) return;
+
+    final navigator = Navigator.of(context);
+    final messenger = ScaffoldMessenger.of(context);
+    final deletion = AccountDeletionService();
+
+    setState(() {
+      deletingAccount = true;
+    });
+
+    try {
+      await deletion.deleteUserData(uid);
+    } catch (_) {
+      if (!mounted) return;
+      setState(() {
+        deletingAccount = false;
+      });
+      _showMessage(
+        "Deine Daten konnten nicht gelöscht werden. Bitte prüfe deine "
+        "Internetverbindung und versuche es erneut.",
+      );
+      return;
+    }
+
+    try {
+      await deletion.deleteAuthAccount();
+    } on FirebaseAuthException catch (e) {
+      if (!mounted) return;
+      setState(() {
+        deletingAccount = false;
+      });
+      _showMessage(
+        e.code == "requires-recent-login"
+            ? "Deine Lerndaten wurden gelöscht. Um auch das Konto zu "
+                  "löschen, melde dich bitte erneut an und wiederhole den "
+                  "Vorgang."
+            : "Deine Lerndaten wurden gelöscht, das Konto selbst aber "
+                  "nicht: ${describeAuthError(e)}",
+      );
+      return;
+    }
+
+    // AuthGate wechselt nach dem Löschen (Abmeldung) zur Startseite im
+    // Gastmodus; darüber liegende Routen schließen.
+    navigator.popUntil((route) => route.isFirst);
+    messenger.showSnackBar(
+      const SnackBar(content: Text("Dein Konto wurde gelöscht.")),
+    );
   }
 
   @override
@@ -317,6 +436,31 @@ class _AccountSecurityScreenState extends State<AccountSecurityScreen> {
             icon: const Icon(Icons.logout_rounded),
             label: const Text("Abmelden"),
           ),
+
+          const SizedBox(height: 28),
+          _SectionTitle("Konto löschen"),
+
+          Card(
+            child: ListTile(
+              leading: const Icon(
+                Icons.delete_forever_rounded,
+                color: AppColors.error,
+              ),
+              title: const Text("Konto löschen"),
+              subtitle: const Text(
+                "Löscht dein Konto und alle gespeicherten Lerndaten "
+                "endgültig.",
+              ),
+              trailing: deletingAccount
+                  ? const SizedBox(
+                      height: 18,
+                      width: 18,
+                      child: CircularProgressIndicator(strokeWidth: 2),
+                    )
+                  : null,
+              onTap: deletingAccount ? null : _deleteAccount,
+            ),
+          ),
         ],
       ),
     );
@@ -383,7 +527,9 @@ class _ReauthResult {
 /// Anmeldung startet direkt aus dem Button-Tap, damit der Browser das Popup
 /// nicht blockiert.
 class _ReauthDialog extends StatefulWidget {
-  const _ReauthDialog();
+  final String reason;
+
+  const _ReauthDialog({required this.reason});
 
   @override
   State<_ReauthDialog> createState() => _ReauthDialogState();
@@ -451,10 +597,7 @@ class _ReauthDialogState extends State<_ReauthDialog> {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const Text(
-            "Aus Sicherheitsgründen musst du dich erneut bestätigen, bevor "
-            "der Faktor entfernt werden kann.",
-          ),
+          Text(widget.reason),
           if (usePassword) ...[
             const SizedBox(height: 16),
             TextField(

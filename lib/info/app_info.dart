@@ -12,6 +12,10 @@ class AppInfo {
 
   static const String repositoryUrl =
       "https://github.com/xConner/Theologie-Lernapp";
+
+  /// Öffentliche Website; Impressum und Datenschutz liegen dort als
+  /// statische Seiten (Quelle: web/impressum.html, web/datenschutz.html).
+  static const String websiteUrl = "https://www.theologie.app/";
 }
 
 /// Zentrale, deklarative Beschreibung aller inhaltlichen Bereiche.
