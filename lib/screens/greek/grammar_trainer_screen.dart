@@ -214,7 +214,6 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
   static const Set<String> presentOnlyVerbs = {"προσεύχομαι"};
 
   static const Set<String> noAorist = {
-    "τάττω",
     "εἰμί",
     "ἄπειμι",
     "σύνειμι",
@@ -232,7 +231,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
     "σῴζω",
     "ἄρχω",
     "πράττω", //Aorist anderes Lemma nehmen
-    "τάττω",
+    "τάττω", //Aorist anderes Lemma nehmen
     "φυλάττω", //Aorist anderes Lemma nehmen
     "ἀγγέλλω",
     "κρίνω",
@@ -1754,9 +1753,12 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
 
                       const SizedBox(height: 12),
 
-                      if (!(isNoun() && showLemmaFieldNoun) &&
-                          !(isVerb() && showLemmaFieldVerb)) ...[
-                        Text(
+                      // Bei falscher Grundform steht sie unten bei den
+                      // korrekten Antworten.
+                      if (lemmaCorrect != false ||
+                          (!(isNoun() && showLemmaFieldNoun) &&
+                              !(isVerb() && showLemmaFieldVerb))) ...[
+                        SelectableText(
                           "Grundform: ${question!.lemma}",
                           style: const TextStyle(fontWeight: FontWeight.w500),
                         ),
@@ -1784,7 +1786,9 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
                             if (((isNoun() && showLemmaFieldNoun) ||
                                     (isVerb() && showLemmaFieldVerb)) &&
                                 lemmaCorrect == false)
-                              Text("Grundform: ${question?.lemma ?? ''}"),
+                              SelectableText(
+                                "Grundform: ${question?.lemma ?? ''}",
+                              ),
 
                             if (isNoun()) ...[
                               if (caseCorrect == false)

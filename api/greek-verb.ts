@@ -10,6 +10,14 @@ const MAX_LEMMA_LENGTH = 64;
 const MAX_PARAM_LENGTH = 32;
 const UPSTREAM_TIMEOUT_MS = 8000;
 
+// Attische ττ-Verben, deren Wiktionary-Seite keine Aorist-Tabelle enthält.
+// Der Aorist steht nur auf der Seite der σσ-Form.
+const AORIST_LEMMA_REPLACEMENTS = new Map([
+    ['πράττω', 'πράσσω'],
+    ['τάττω', 'τάσσω'],
+    ['φυλάττω', 'φυλάσσω'],
+]);
+
 function isValidParam(value: string, maxLength: number): boolean {
     return (
         value.length > 0 &&
@@ -146,18 +154,9 @@ function findTenseTable(
 
     // Sonderfall-Definitionen
     const specialCases = {
-        lemmaReplacements: new Map([
-            ['πράττω', 'πράσσω'],
-            ['φυλάττω', 'φυλάσσω']
-        ]),
         secondAoristTable: new Set(['εὑρίσκω', 'φέρω']),
         normalInsteadOfKoine: new Set(['λείπω'])
     };
-
-    // Bestimme das zu verwendende Lemma (mögliche Ersetzung)
-    const effectiveLemma = lemma && specialCases.lemmaReplacements.has(lemma)
-        ? specialCases.lemmaReplacements.get(lemma)
-        : lemma;
 
     // SONDERFALL: Für εὑρίσκω / φέρω: explizit die ZWEITE normale Aorist-Tabelle
     if (lemma && tense === 'Aorist' && specialCases.secondAoristTable.has(lemma)) {
@@ -447,9 +446,11 @@ export default async function handler(
             });
         }
 
-        const queryLemma = (lemma as string) === 'πράττω' || (lemma as string) === 'φυλάττω'
-            ? ((lemma as string) === 'πράττω' ? 'πράσσω' : 'φυλάσσω')
-            : (lemma as string);
+        // Nur der Aorist wird über die σσ-Seite geladen; Präsens und
+        // Imperfekt stehen auf der Seite der attischen Form selbst.
+        const queryLemma = tense === 'Aorist'
+            ? (AORIST_LEMMA_REPLACEMENTS.get(lemma) ?? lemma)
+            : lemma;
 
         const url =
             WIKTIONARY_BASE_URL +
