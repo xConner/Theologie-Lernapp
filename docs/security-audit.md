@@ -46,7 +46,7 @@ Browser ──▶ localStorage / IndexedDB         Gastdaten, Einstellungen, Aut
 ```
 
 Nicht vorhanden (geprüft): Analytics/Tracking (kein `firebase_analytics`;
-die `measurementId` in `firebase_options.dart` bleibt ungenutzt), Crash
+die ungenutzte `measurementId` wurde aus `firebase_options.dart` entfernt), Crash
 Reporting, Cookies der App, Push (FCM nur vorbereitet), Datei-Uploads,
 Firebase Storage, Cloud Functions, WebViews (Pakete waren eingebunden, aber
 ungenutzt – entfernt), HTML-/Markdown-Rendering von Nutzerinhalten.
@@ -174,8 +174,8 @@ Grenze: Clientseitige Löschung. Robuster wäre die Firebase-Extension
 
 | Thema | Status |
 |---|---|
-| Impressum | `web/impressum.html` – **Platzhalter für Name, Anschrift, E-Mail** |
-| Datenschutz | `web/datenschutz.html` – aus den realen Datenflüssen abgeleitet, **Platzhalter für Verantwortlichen, Rechtsgrundlagen, Region, Fristen** |
+| Impressum | `web/impressum.html` – auf § 18 Abs. 1 MStV reduziert; **Platzhalter für Name, Anschrift, E-Mail** |
+| Datenschutz | `web/datenschutz.html` – aus den realen Datenflüssen abgeleitet, ohne Platzhalter (Verantwortlicher per Verweis aufs Impressum) |
 | Erreichbarkeit | Login-Screen (Fußzeile), „Über die App → Rechtliches“, `<noscript>` in `index.html`; Seiten funktionieren ohne JavaScript |
 | Kontakt | nur Platzhalter (OFFEN) |
 | KI-Transparenz | bereits in „Über die App“ vorhanden; im Impressum ergänzt |
