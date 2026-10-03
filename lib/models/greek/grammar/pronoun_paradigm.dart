@@ -16,11 +16,15 @@ class PronounCell {
   final String? gender;
   final List<PronounForm> forms;
 
+  /// Deutsche Wiedergabe dieser Form ("euer" für ὑμῶν).
+  final String? translation;
+
   const PronounCell({
     required this.grammaticalCase,
     required this.number,
     required this.gender,
     required this.forms,
+    this.translation,
   });
 }
 
@@ -86,6 +90,7 @@ class PronounParadigm {
             grammaticalCase: cell["case"],
             number: cell["number"],
             gender: cell["gender"],
+            translation: cell["translation"],
             forms: [
               for (final form in cell["forms"])
                 PronounForm(text: form["text"], variant: form["variant"]),

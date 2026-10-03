@@ -1555,9 +1555,9 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
                         const SizedBox(height: 4),
                       ],
 
-                      if (question?.translations.isNotEmpty ?? false)
+                      if (_feedbackTranslations().isNotEmpty)
                         Text(
-                          "Übersetzung: ${question!.translations.join(', ')}",
+                          "Übersetzung: ${_feedbackTranslations()}",
                           style: const TextStyle(fontWeight: FontWeight.w500),
                         ),
 
@@ -1761,6 +1761,26 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
   // ---------------------------------------------------------------------------
   // PRONOMEN-FEEDBACK
   // ---------------------------------------------------------------------------
+
+  // Bei Pronomen die Übersetzung der angezeigten Form (ὑμῶν: "euer"), sonst
+  // die der Grundform.
+  String _feedbackTranslations() {
+    final q = question;
+
+    if (q == null) {
+      return "";
+    }
+
+    if (q.type == "pronoun") {
+      final ofForm = pronouns.translationsOf(correctForm ?? "", first: q.id);
+
+      if (ofForm.isNotEmpty) {
+        return ofForm.join(" / ");
+      }
+    }
+
+    return q.translations.join(", ");
+  }
 
   String _describePronounAnalysis(PronounFormAnalysis analysis) {
     final label = pronouns.byId(analysis.pronounId)?.label ?? "";

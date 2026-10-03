@@ -512,6 +512,41 @@ void main() {
   // MÖGLICHE BESTIMMUNGEN
   // ---------------------------------------------------------------------------
 
+  group("Übersetzung der Form", () {
+    test("jede Zelle hat eine Übersetzung", () {
+      for (final p in pronouns.all) {
+        for (final cell in p.cells) {
+          expect(cell.translation, isNotEmpty, reason: p.lemma);
+        }
+      }
+    });
+
+    test("die Form wird übersetzt, nicht die Grundform", () {
+      expect(pronouns.translationsOf("ὑμῶν"), ["euer"]);
+      expect(pronouns.translationsOf("ἡμῖν"), ["uns"]);
+      expect(pronouns.translationsOf("με"), ["mich"]);
+      expect(pronouns.translationsOf("αὐτόν"), ["ihn"]);
+      expect(pronouns.translationsOf("τούτῳ"), ["diesem"]);
+      expect(pronouns.translationsOf("ἐκείνων"), ["jener"]);
+      expect(pronouns.translationsOf("ὑμετέροις"), ["euren"]);
+      expect(pronouns.translationsOf("οὗ"), ["dessen"]);
+      expect(pronouns.translationsOf("τί"), ["was?"]);
+      expect(pronouns.translationsOf("τινές"), isEmpty);
+    });
+
+    test("mehrdeutige Form: jede Bedeutung einmal, Zielpronomen zuerst", () {
+      expect(pronouns.translationsOf("τίνα"), ["wen?", "welche?"]);
+      expect(pronouns.translationsOf("ἐμοῦ", first: idOf("ἐγώ")), [
+        "mein",
+        "meines",
+      ]);
+      expect(pronouns.translationsOf("ἐμοῦ", first: idOf("ἐμός")), [
+        "meines",
+        "mein",
+      ]);
+    });
+  });
+
   group("Mögliche Bestimmungen einer Form", () {
     test("eindeutige Formen", () {
       expect(analyses("αὕτη"), {"οὗτος Nominativ Sg f"});

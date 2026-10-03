@@ -69,6 +69,32 @@ class PronounParadigms {
     return analyses;
   }
 
+  /// Deutsche Wiedergaben der Form, eine je unterschiedlicher Bedeutung ihrer
+  /// möglichen Bestimmungen (τίνα: "wen?" und "welche?"). Die Wiedergaben des
+  /// Pronomens [first] stehen vorn.
+  List<String> translationsOf(String form, {int? first}) {
+    final result = <String>[];
+
+    void collect(bool Function(PronounParadigm) include) {
+      for (final paradigm in all.where(include)) {
+        for (final cell in paradigm.cells) {
+          final translation = cell.translation;
+
+          if (translation != null &&
+              !result.contains(translation) &&
+              cell.forms.any((f) => f.text == form)) {
+            result.add(translation);
+          }
+        }
+      }
+    }
+
+    collect((paradigm) => paradigm.id == first);
+    collect((paradigm) => paradigm.id != first);
+
+    return result;
+  }
+
   /// Bezeichnung der Formvariante ("enklitisch"), falls die Form eine ist.
   String? variantOf(String form) {
     for (final paradigm in all) {
