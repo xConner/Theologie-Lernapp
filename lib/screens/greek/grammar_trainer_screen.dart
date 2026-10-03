@@ -4,12 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../algorithms/grammar_learning.dart';
+import '../../models/greek/grammar/pronoun_paradigm.dart';
 import '../../models/greek/vocabulary/greek_vocabulary_entry.dart';
 import '../../models/greek/vocabulary/learning_card.dart';
 import '../../services/greek/vocabulary/greek_vocabulary_loader.dart';
 import '../../services/greek/grammar/grammar_answer_check.dart';
+import '../../services/greek/grammar/grammar_form_analysis.dart';
 import '../../services/greek/grammar/grammar_question_picker.dart';
 import '../../services/greek/grammar/grammar_settings_service.dart';
+import '../../services/greek/grammar/pronoun_paradigms.dart';
 import '../../services/greek/grammar/wiktionary_inflection_service.dart';
 import '../../services/learning_service.dart';
 import '../../services/quiz_sound_settings.dart';
@@ -28,7 +31,9 @@ import '../../widgets/settings_selection.dart';
 import '../../info/app_info.dart';
 import '../../widgets/info_report.dart';
 import '../../widgets/trainer_widgets.dart';
+import '../../widgets/pronoun_paradigm_view.dart';
 import '../../utils/greek_normalization.dart';
+import '../../utils/word_type_labels.dart';
 
 class GreekGrammarTrainerScreen extends StatefulWidget {
   const GreekGrammarTrainerScreen({super.key});
@@ -57,6 +62,9 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
   late final web.EventListener _keyListener;
 
   List<GreekVocabularyEntry> entries = [];
+
+  // Lokale Paradigmen der Pronomen (Formen und mögliche Bestimmungen).
+  PronounParadigms pronouns = PronounParadigms.empty;
 
   GreekVocabularyEntry? question;
 
@@ -116,6 +124,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
   // Grundform-Felder anzeigen?
   bool showLemmaFieldNoun = true;
   bool showLemmaFieldVerb = true;
+  bool showLemmaFieldPronoun = true;
 
   // ---------------------------------------------------------------------------
   // NOMEN
@@ -143,6 +152,22 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
   String? userVoice;
 
   // ---------------------------------------------------------------------------
+  // PRONOMEN
+  // ---------------------------------------------------------------------------
+
+  // Kasus, Numerus und Genus verwenden die Felder der Nomen. Das Pronomen
+  // selbst wird ausgewählt statt getippt: Die Grundformprüfung ignoriert
+  // Akzente und könnte τίς und τις nicht unterscheiden.
+  String? userPronoun;
+
+  // Bestimmung, an der die Antwort gemessen wurde (siehe checkPronounAnswer).
+  PronounFormAnalysis? _pronounReference;
+
+  // Solange Formen und Gebrauch eines Pronomens geöffnet sind, gehört Enter
+  // nicht dem Trainer.
+  bool _pronounInfoOpen = false;
+
+  // ---------------------------------------------------------------------------
   // INIT / DISPOSE
   // ---------------------------------------------------------------------------
 
@@ -156,7 +181,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
       final keyboardEvent = event as web.KeyboardEvent;
 
       // Enter gehört einem geöffneten Info-Blatt bzw. Meldeformular.
-      if (infoReportOverlayOpen) return;
+      if (infoReportOverlayOpen || _pronounInfoOpen) return;
 
       if (keyboardEvent.key == 'Enter') {
         if (answered) {
@@ -191,6 +216,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
     enabledTypes = settings.enabledTypes;
     showLemmaFieldNoun = settings.showLemmaFieldNoun;
     showLemmaFieldVerb = settings.showLemmaFieldVerb;
+    showLemmaFieldPronoun = settings.showLemmaFieldPronoun;
   }
 
   Future<void> saveGrammarSettings() {
@@ -201,6 +227,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
         enabledTypes: enabledTypes,
         showLemmaFieldNoun: showLemmaFieldNoun,
         showLemmaFieldVerb: showLemmaFieldVerb,
+        showLemmaFieldPronoun: showLemmaFieldPronoun,
       ),
     );
   }
@@ -217,9 +244,12 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
         GreekVocabularyLoader.load(),
         loadGrammarSettings(),
         _loadGrammarCards(),
+        _loadPronouns(),
       ]);
 
       entries = results[0] as List<GreekVocabularyEntry>;
+
+      pronouns = results[3] as PronounParadigms;
 
       grammar = GrammarLearning(
         cards: results[2] as Map<String, LearningCard>,
@@ -262,6 +292,17 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
     }
   }
 
+  // Ohne Paradigmen läuft der Trainer ohne Pronomen weiter.
+  Future<PronounParadigms> _loadPronouns() async {
+    try {
+      return await PronounParadigms.load();
+    } catch (e) {
+      debugPrint("Pronomen-Paradigmen konnten nicht geladen werden: $e");
+
+      return PronounParadigms.empty;
+    }
+  }
+
   // ---------------------------------------------------------------------------
   // FRAGE
   // ---------------------------------------------------------------------------
@@ -274,11 +315,18 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
     return question?.type == "verb";
   }
 
+  bool isPronoun() {
+    return question?.type == "pronoun";
+  }
+
   // Prüft ausschließlich, ob ein Wort zu den aktuellen Filtern gehört.
   bool _isEntryAvailable(GreekVocabularyEntry entry) {
-    return enabledSteps.contains(entry.step) &&
-        enabledTypes.contains(entry.type) &&
-        !GrammarQuestionPicker.blacklist.contains(entry.lemma);
+    return GrammarQuestionPicker.isAvailable(
+      entry,
+      enabledSteps: enabledSteps,
+      enabledTypes: enabledTypes,
+      pronounIds: {for (final paradigm in pronouns.all) paradigm.id},
+    );
   }
 
   List<GreekVocabularyEntry> _getAvailableEntries() {
@@ -360,6 +408,8 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
       await generateNounQuestion(newQuestion);
     } else if (newQuestion.type == "verb") {
       await generateVerbQuestion(newQuestion);
+    } else if (newQuestion.type == "pronoun") {
+      generatePronounQuestion(newQuestion);
     }
 
     // Screen inzwischen geschlossen oder Frage bereits ersetzt:
@@ -502,6 +552,9 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
     userTense = null;
     userVoice = null;
 
+    userPronoun = null;
+    _pronounReference = null;
+
     caseCorrect = null;
     numberCorrect = null;
     genderCorrect = null;
@@ -536,6 +589,8 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
       await _preloadNounQuestion(next);
     } else if (next.type == "verb") {
       await _preloadVerbQuestion(next);
+    } else if (next.type == "pronoun") {
+      _preloadPronounQuestion(next);
     }
   }
 
@@ -585,7 +640,37 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
       lemmaCorrect =
           !showLemmaField || lemmaAnswerMatches(answerController.text, q.lemma);
 
-      if (q.type == "noun") {
+      if (q.type == "pronoun") {
+        final result = checkPronounAnswer(
+          target: (
+            pronounId: q.id,
+            grammaticalCase: selectedCase ?? "",
+            number: GrammarQuestionPicker.nounRequestNumber(selectedNumber),
+            gender: selectedGender == GrammarQuestionPicker.noGender
+                ? null
+                : selectedGender,
+          ),
+          analyses: pronouns.analysesOf(correctForm ?? ""),
+          pronounAsked: showLemmaFieldPronoun,
+          userPronoun: pronouns.byLabel(userPronoun)?.id,
+          userCase: userCase,
+          userNumber: userNumber,
+          userGender: userGender,
+        );
+
+        _pronounReference = result.reference;
+
+        lemmaCorrect = result.pronounCorrect;
+        caseCorrect = result.caseCorrect;
+        numberCorrect = result.numberCorrect;
+        genderCorrect = result.genderCorrect;
+
+        correct =
+            result.pronounCorrect &&
+            result.caseCorrect &&
+            result.numberCorrect &&
+            result.genderCorrect;
+      } else if (q.type == "noun") {
         final result = checkNounAnswer(
           targetCase: selectedCase,
           targetNumber: selectedNumber,
@@ -671,7 +756,38 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
 
     final lemmaId = GrammarLearning.lemmaId(q.id);
 
-    if (q.type == "noun") {
+    final reference = _pronounReference;
+
+    if (q.type == "pronoun" && reference != null) {
+      // Gewertet wird die Bestimmung, an der die Antwort gemessen wurde –
+      // bei einer mehrdeutigen Form also die, die der Nutzer erkannt hat.
+      results[GrammarLearning.dimensionId(
+            "pronoun",
+            "case",
+            reference.grammaticalCase,
+          )] =
+          caseCorrect ?? false;
+      results[GrammarLearning.dimensionId(
+            "pronoun",
+            "number",
+            reference.number,
+          )] =
+          numberCorrect ?? false;
+
+      final gender = reference.gender;
+
+      if (gender != null) {
+        results[GrammarLearning.dimensionId("pronoun", "gender", gender)] =
+            genderCorrect ?? false;
+      }
+
+      // Die Karte des Pronomens verbindet alle seine Formen. "Kein Genus"
+      // ist eine Eigenschaft des Pronomens und zählt deshalb hier.
+      if (showLemmaFieldPronoun || gender == null) {
+        results[lemmaId] =
+            lemmaCorrect == true && (gender != null || genderCorrect == true);
+      }
+    } else if (q.type == "noun") {
       results[GrammarLearning.dimensionId("noun", "case", selectedCase!)] =
           caseCorrect ?? false;
       results[GrammarLearning.dimensionId("noun", "number", selectedNumber!)] =
@@ -854,6 +970,82 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
             'Fehler: $e';
       });
     }
+  }
+
+  // ---------------------------------------------------------------------------
+  // PRONOMEN-FRAGE GENERIEREN
+  // ---------------------------------------------------------------------------
+
+  PronounTarget? _pickPronounTarget(GreekVocabularyEntry entry) {
+    final paradigm = pronouns.byId(entry.id);
+
+    if (paradigm == null) {
+      return null;
+    }
+
+    return GrammarQuestionPicker.pickPronounTarget(grammar, paradigm, _random);
+  }
+
+  // Die Formen liegen lokal vor; es gibt keine Netzwerkabfrage und damit
+  // auch keine überholte Antwort.
+  void generatePronounQuestion(GreekVocabularyEntry entry) {
+    final target = _pickPronounTarget(entry);
+
+    if (!mounted) {
+      return;
+    }
+
+    setState(() {
+      loadingForm = false;
+
+      if (target == null) {
+        correctForm = null;
+
+        formError =
+            'Keine passende Pronominalform gefunden.\n\n'
+            'Grundform: ${entry.lemma}';
+
+        return;
+      }
+
+      selectedCase = target.grammaticalCase;
+      selectedNumber = target.number;
+      selectedGender = target.gender;
+
+      correctForm = target.form;
+      formError = null;
+    });
+  }
+
+  // ---------------------------------------------------------------------------
+  // PRELOAD PRONOMEN
+  // ---------------------------------------------------------------------------
+
+  void _preloadPronounQuestion(GreekVocabularyEntry entry) {
+    final token = ++_preloadToken;
+
+    final target = _pickPronounTarget(entry);
+
+    if (target == null) {
+      _clearPreloaded();
+      return;
+    }
+
+    if (!_mayStorePreloaded(token, entry)) {
+      return;
+    }
+
+    _preloadedQuestion = entry;
+    _preloadedForm = target.form;
+
+    _preloadedCase = target.grammaticalCase;
+    _preloadedNumber = target.number;
+    _preloadedGender = target.gender;
+
+    _preloadedPerson = null;
+    _preloadedNumberVerb = null;
+    _preloadedTense = null;
+    _preloadedVoice = null;
   }
 
   // ---------------------------------------------------------------------------
@@ -1067,7 +1259,9 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
                         hint:
                             "Abgefragt werden nur Wörter aus den "
                             "ausgewählten Schritten. Mehrere Schritte können "
-                            "gleichzeitig ausgewählt sein.",
+                            "gleichzeitig ausgewählt sein. Pronomen gehören "
+                            "zu keinem Schritt und werden nur über die "
+                            "Wortart ein- oder ausgeschaltet.",
                         options: const [1, 2, 3, 4, 5, 6, 7],
                         isSelected: enabledSteps.contains,
                         labelOf: (step) => "Schritt $step",
@@ -1105,7 +1299,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
                             "Wortarten.",
                         options: allTypes,
                         isSelected: enabledTypes.contains,
-                        labelOf: (type) => type == "noun" ? "Nomen" : "Verben",
+                        labelOf: wordTypeFilterLabel,
                         emptyError:
                             "Mindestens eine Wortart muss ausgewählt sein.",
                         onToggleAll: () {
@@ -1159,6 +1353,19 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
                                 });
                               },
                             ),
+
+                            SwitchListTile(
+                              title: const Text("Bei Pronomen"),
+                              subtitle: const Text(
+                                "Das Pronomen wird ausgewählt statt getippt.",
+                              ),
+                              value: showLemmaFieldPronoun,
+                              onChanged: (value) {
+                                setDialogState(() {
+                                  showLemmaFieldPronoun = value;
+                                });
+                              },
+                            ),
                           ],
                         ),
                       ),
@@ -1197,6 +1404,8 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
         "Grundform": "${q.lemma} (ID ${q.id})",
         if (isNoun())
           "Bestimmung": "$selectedCase $selectedNumber"
+        else if (isPronoun())
+          "Bestimmung": "$selectedCase $selectedNumber $selectedGender"
         else if (isVerb())
           "Bestimmung":
               "$selectedPerson $selectedNumberVerb, $selectedTense, "
@@ -1286,7 +1495,9 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
                 if (isVerb())
                   _buildVerbInputs()
                 else if (isNoun())
-                  _buildNounInputs(),
+                  _buildNounInputs()
+                else if (isPronoun())
+                  _buildPronounInputs(),
 
                 const SizedBox(height: 16),
 
@@ -1352,7 +1563,9 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
 
                       const SizedBox(height: 12),
 
-                      if (!correct)
+                      if (isPronoun())
+                        _buildPronounFeedback()
+                      else if (!correct)
                         Column(
                           children: [
                             const Text(
@@ -1486,6 +1699,159 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
         },
       ),
     ]);
+  }
+
+  // ---------------------------------------------------------------------------
+  // PRONOMEN-EINGABEN
+  // ---------------------------------------------------------------------------
+
+  Widget _buildPronounInputs() {
+    return _choiceGroups([
+      _choice(
+        value: userCase,
+        label: "Kasus",
+        items: GrammarQuestionPicker.cases,
+        isCorrect: caseCorrect,
+        onChanged: (value) {
+          setState(() {
+            userCase = value;
+          });
+        },
+      ),
+
+      _choice(
+        value: userNumber,
+        label: "Numerus",
+        items: GrammarQuestionPicker.numbers,
+        isCorrect: numberCorrect,
+        onChanged: (value) {
+          setState(() {
+            userNumber = value;
+          });
+        },
+      ),
+
+      _choice(
+        value: userGender,
+        label: "Genus (– = ohne)",
+        items: GrammarQuestionPicker.pronounGenders,
+        isCorrect: genderCorrect,
+        onChanged: (value) {
+          setState(() {
+            userGender = value;
+          });
+        },
+      ),
+
+      if (showLemmaFieldPronoun)
+        _choice(
+          value: userPronoun,
+          label: "Pronomen",
+          items: [for (final paradigm in pronouns.all) paradigm.label],
+          isCorrect: lemmaCorrect,
+          onChanged: (value) {
+            setState(() {
+              userPronoun = value;
+            });
+          },
+        ),
+    ]);
+  }
+
+  // ---------------------------------------------------------------------------
+  // PRONOMEN-FEEDBACK
+  // ---------------------------------------------------------------------------
+
+  String _describePronounAnalysis(PronounFormAnalysis analysis) {
+    final label = pronouns.byId(analysis.pronounId)?.label ?? "";
+    final gender = analysis.gender == null ? "" : " ${analysis.gender}";
+
+    return "$label · ${analysis.grammaticalCase} ${analysis.number}.$gender";
+  }
+
+  // Pronomenart, alle möglichen Bestimmungen der Form, Verwechslungsgefahren
+  // und der Zugang zu Formentabelle und Gebrauchshinweisen.
+  Widget _buildPronounFeedback() {
+    final q = question;
+    final form = correctForm;
+    final paradigm = q == null ? null : pronouns.byId(q.id);
+
+    if (paradigm == null || form == null) {
+      return const SizedBox();
+    }
+
+    final analyses = pronouns.analysesOf(form);
+    final variant = pronouns.variantOf(form);
+    final lookalikes = pronouns.lookalikesOf(form);
+
+    return Column(
+      children: [
+        Text(
+          variant == null
+              ? paradigm.kindLabel
+              : "${paradigm.kindLabel} · Form: $variant",
+        ),
+
+        if (!correct || analyses.length > 1) ...[
+          const SizedBox(height: 12),
+
+          Text(
+            analyses.length > 1
+                ? "Mögliche Bestimmungen:"
+                : "Korrekte Antwort:",
+            style: const TextStyle(fontWeight: FontWeight.bold),
+          ),
+
+          const SizedBox(height: 4),
+
+          for (final analysis in analyses)
+            Text(_describePronounAnalysis(analysis)),
+        ],
+
+        if (lookalikes.isNotEmpty) ...[
+          const SizedBox(height: 12),
+
+          Text(
+            "Nicht verwechseln mit: ${lookalikes.join(', ')}",
+            textAlign: TextAlign.center,
+          ),
+        ],
+
+        const SizedBox(height: 8),
+
+        TextButton(
+          onPressed: () => _openPronounInfo(paradigm),
+          child: Text("Formen und Gebrauch von ${paradigm.lemma}"),
+        ),
+      ],
+    );
+  }
+
+  Future<void> _openPronounInfo(PronounParadigm paradigm) async {
+    _pronounInfoOpen = true;
+
+    await showDialog<void>(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(paradigm.label),
+          content: SizedBox(
+            width: 600,
+            child: SingleChildScrollView(
+              child: PronounParadigmView(paradigm: paradigm),
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text("Schließen"),
+            ),
+          ],
+        );
+      },
+    );
+
+    _pronounInfoOpen = false;
   }
 
   // ---------------------------------------------------------------------------

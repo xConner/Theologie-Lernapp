@@ -17,16 +17,22 @@ class GrammarTrainerSettings {
   final bool showLemmaFieldNoun;
   final bool showLemmaFieldVerb;
 
+  /// Bei Pronomen eine Auswahl des Pronomens statt eines Textfelds.
+  final bool showLemmaFieldPronoun;
+
   const GrammarTrainerSettings({
     this.enabledSteps = allSteps,
     this.enabledTypes = allTypes,
     this.showLemmaFieldNoun = true,
     this.showLemmaFieldVerb = true,
+    this.showLemmaFieldPronoun = true,
   });
 
   /// Liest das gespeicherte Feld `greek_grammar_settings`. Unbekannte
   /// Schritte und Wortarten werden verworfen; die Listen sind eigene,
-  /// veränderbare Kopien.
+  /// veränderbare Kopien. Eine gespeicherte Wortartenliste gilt unverändert:
+  /// später hinzugekommene Wortarten (Pronomen) bleiben dort ausgeschaltet,
+  /// bis sie ausgewählt werden.
   factory GrammarTrainerSettings.fromMap(Object? data) {
     if (data is! Map<String, dynamic>) {
       return GrammarTrainerSettings(
@@ -39,6 +45,7 @@ class GrammarTrainerSettings {
     final types = data['enabledTypes'];
     final lemmaNoun = data['showLemmaFieldNoun'];
     final lemmaVerb = data['showLemmaFieldVerb'];
+    final lemmaPronoun = data['showLemmaFieldPronoun'];
 
     return GrammarTrainerSettings(
       enabledSteps: steps is List
@@ -54,6 +61,7 @@ class GrammarTrainerSettings {
           : List.of(allTypes),
       showLemmaFieldNoun: lemmaNoun is bool ? lemmaNoun : true,
       showLemmaFieldVerb: lemmaVerb is bool ? lemmaVerb : true,
+      showLemmaFieldPronoun: lemmaPronoun is bool ? lemmaPronoun : true,
     );
   }
 
@@ -63,6 +71,7 @@ class GrammarTrainerSettings {
       'enabledTypes': enabledTypes,
       'showLemmaFieldNoun': showLemmaFieldNoun,
       'showLemmaFieldVerb': showLemmaFieldVerb,
+      'showLemmaFieldPronoun': showLemmaFieldPronoun,
     };
   }
 }

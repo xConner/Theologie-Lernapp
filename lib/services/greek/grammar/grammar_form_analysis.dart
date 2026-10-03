@@ -15,6 +15,18 @@ typedef VerbFormAnalysis = ({
   String voice,
 });
 
+/// Eine grammatisch mögliche Bestimmung einer konkreten Pronominalform.
+///
+/// Kasus und Numerus wie bei [NounFormAnalysis]; [pronounId] ist die ID des
+/// Vokabeleintrags, [gender] ist `null` bei Pronomen ohne Genus (ἐγώ, σύ).
+/// Anders als beim Nomen gehört das Genus hier zur Form, nicht zum Wort.
+typedef PronounFormAnalysis = ({
+  int pronounId,
+  String grammaticalCase,
+  String number,
+  String? gender,
+});
+
 /// Liest die vom Nomen-Backend gelieferten Bestimmungen der Form.
 ///
 /// Fehlende oder ungültige Daten ergeben eine leere Liste; dann gilt

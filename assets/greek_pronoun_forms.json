@@ -1,0 +1,657 @@
+[
+  {
+    "id": 435,
+    "lemma": "ἐγώ",
+    "label": "ἐγώ",
+    "kind": "personal",
+    "usage": [
+      "Personalpronomen der 1. Person: ἐγώ – ich, Plural ἡμεῖς – wir. Kein Genus.",
+      "Im Nominativ steht das Personalpronomen meist zur besonderen Betonung.",
+      "Im Singular gibt es im Genitiv, Dativ und Akkusativ eine betonte Form (ἐμοῦ, ἐμοί, ἐμέ) und eine enklitische Form (μου, μοι, με).",
+      "Der Genitiv bezeichnet auch den Besitzer: ὁ φίλος μου – mein Freund."
+    ],
+    "examples": [
+      {
+        "greek": "Ἐγώ εἰμι ἡ ὁδὸς καὶ ἡ ἀλήθεια καὶ ἡ ζωή.",
+        "german": "Ich bin der Weg, die Wahrheit und das Leben."
+      },
+      {
+        "greek": "οὐδεὶς ἔρχεται πρὸς τὸν πατέρα εἰ μὴ δι’ ἐμοῦ.",
+        "german": "Niemand kommt zum Vater außer durch mich."
+      },
+      {
+        "greek": "ἐγὼ καὶ σὺ φίλοι ἐσμέν.",
+        "german": "Ich und du sind Freunde."
+      },
+      {
+        "greek": "τοῦτο τὸ βιβλίον μοι ἀρέσκει.",
+        "german": "Dieses Buch gefällt mir."
+      }
+    ],
+    "cells": [
+      {"case": "Nominativ", "number": "Sg", "forms": [{"text": "ἐγώ"}]},
+      {"case": "Genitiv", "number": "Sg", "forms": [{"text": "ἐμοῦ", "variant": "betont"}, {"text": "μου", "variant": "enklitisch"}]},
+      {"case": "Dativ", "number": "Sg", "forms": [{"text": "ἐμοί", "variant": "betont"}, {"text": "μοι", "variant": "enklitisch"}]},
+      {"case": "Akkusativ", "number": "Sg", "forms": [{"text": "ἐμέ", "variant": "betont"}, {"text": "με", "variant": "enklitisch"}]},
+      {"case": "Nominativ", "number": "Pl", "forms": [{"text": "ἡμεῖς"}]},
+      {"case": "Genitiv", "number": "Pl", "forms": [{"text": "ἡμῶν"}]},
+      {"case": "Dativ", "number": "Pl", "forms": [{"text": "ἡμῖν"}]},
+      {"case": "Akkusativ", "number": "Pl", "forms": [{"text": "ἡμᾶς"}]}
+    ]
+  },
+  {
+    "id": 436,
+    "lemma": "σύ",
+    "label": "σύ",
+    "kind": "personal",
+    "usage": [
+      "Personalpronomen der 2. Person: σύ – du, Plural ὑμεῖς – ihr. Kein Genus.",
+      "Im Nominativ steht das Personalpronomen meist zur besonderen Betonung.",
+      "Im Singular gibt es im Genitiv, Dativ und Akkusativ eine betonte Form (σοῦ, σοί, σέ) und eine enklitische Form (σου, σοι, σε).",
+      "Der Genitiv bezeichnet auch den Besitzer: οἱ λόγοι ὑμῶν – eure Worte."
+    ],
+    "examples": [
+      {
+        "greek": "ἐγὼ καὶ σὺ φίλοι ἐσμέν.",
+        "german": "Ich und du sind Freunde."
+      },
+      {
+        "greek": "πιστεύω σοι.",
+        "german": "Ich glaube dir."
+      },
+      {
+        "greek": "πιστεύω τοῖς λόγοις ὑμῶν.",
+        "german": "Ich glaube euren Worten."
+      },
+      {
+        "greek": "τὴν αὐτὴν γνώμην ἔχω ὡς σύ.",
+        "german": "Ich habe dieselbe Meinung wie du."
+      }
+    ],
+    "cells": [
+      {"case": "Nominativ", "number": "Sg", "forms": [{"text": "σύ"}]},
+      {"case": "Genitiv", "number": "Sg", "forms": [{"text": "σοῦ", "variant": "betont"}, {"text": "σου", "variant": "enklitisch"}]},
+      {"case": "Dativ", "number": "Sg", "forms": [{"text": "σοί", "variant": "betont"}, {"text": "σοι", "variant": "enklitisch"}]},
+      {"case": "Akkusativ", "number": "Sg", "forms": [{"text": "σέ", "variant": "betont"}, {"text": "σε", "variant": "enklitisch"}]},
+      {"case": "Nominativ", "number": "Pl", "forms": [{"text": "ὑμεῖς"}]},
+      {"case": "Genitiv", "number": "Pl", "forms": [{"text": "ὑμῶν"}]},
+      {"case": "Dativ", "number": "Pl", "forms": [{"text": "ὑμῖν"}]},
+      {"case": "Akkusativ", "number": "Pl", "forms": [{"text": "ὑμᾶς"}]}
+    ]
+  },
+  {
+    "id": 437,
+    "lemma": "αὐτός",
+    "label": "αὐτός",
+    "kind": "personal",
+    "usage": [
+      "Als Personalpronomen der 3. Person: ἔχω αὐτόν – ich halte ihn.",
+      "Der Genitiv ersetzt das Possessivpronomen der 3. Person: ὁ φίλος αὐτοῦ – sein Freund.",
+      "Attributiv, zwischen Artikel und Substantiv: ὁ αὐτὸς φίλος – derselbe Freund.",
+      "Nachgestellt: ὁ φίλος αὐτός – der Freund selbst.",
+      "Substantiviert mit Artikel: ὁ αὐτός – derselbe, τὸ αὐτό – dasselbe.",
+      "Das Neutrum endet im Nominativ und Akkusativ Singular auf -ο (αὐτό), nicht auf -ον."
+    ],
+    "examples": [
+      {
+        "greek": "Παῦλος αὐτὸς ἔρχεται εἰς Κόρινθον.",
+        "german": "Paulus selbst kommt nach Korinth."
+      },
+      {
+        "greek": "ὁ γὰρ Χριστὸς πέμπει αὐτόν.",
+        "german": "Denn Christus schickt ihn."
+      },
+      {
+        "greek": "πιστεύομεν τοῖς λόγοις αὐτοῦ.",
+        "german": "Wir glauben seinen Worten."
+      },
+      {
+        "greek": "τὴν αὐτὴν γνώμην ἔχω ὡς σύ.",
+        "german": "Ich habe dieselbe Meinung wie du."
+      }
+    ],
+    "cells": [
+      {"case": "Nominativ", "number": "Sg", "gender": "m", "forms": [{"text": "αὐτός"}]},
+      {"case": "Genitiv", "number": "Sg", "gender": "m", "forms": [{"text": "αὐτοῦ"}]},
+      {"case": "Dativ", "number": "Sg", "gender": "m", "forms": [{"text": "αὐτῷ"}]},
+      {"case": "Akkusativ", "number": "Sg", "gender": "m", "forms": [{"text": "αὐτόν"}]},
+      {"case": "Nominativ", "number": "Pl", "gender": "m", "forms": [{"text": "αὐτοί"}]},
+      {"case": "Genitiv", "number": "Pl", "gender": "m", "forms": [{"text": "αὐτῶν"}]},
+      {"case": "Dativ", "number": "Pl", "gender": "m", "forms": [{"text": "αὐτοῖς"}]},
+      {"case": "Akkusativ", "number": "Pl", "gender": "m", "forms": [{"text": "αὐτούς"}]},
+      {"case": "Nominativ", "number": "Sg", "gender": "f", "forms": [{"text": "αὐτή"}]},
+      {"case": "Genitiv", "number": "Sg", "gender": "f", "forms": [{"text": "αὐτῆς"}]},
+      {"case": "Dativ", "number": "Sg", "gender": "f", "forms": [{"text": "αὐτῇ"}]},
+      {"case": "Akkusativ", "number": "Sg", "gender": "f", "forms": [{"text": "αὐτήν"}]},
+      {"case": "Nominativ", "number": "Pl", "gender": "f", "forms": [{"text": "αὐταί"}]},
+      {"case": "Genitiv", "number": "Pl", "gender": "f", "forms": [{"text": "αὐτῶν"}]},
+      {"case": "Dativ", "number": "Pl", "gender": "f", "forms": [{"text": "αὐταῖς"}]},
+      {"case": "Akkusativ", "number": "Pl", "gender": "f", "forms": [{"text": "αὐτάς"}]},
+      {"case": "Nominativ", "number": "Sg", "gender": "n", "forms": [{"text": "αὐτό"}]},
+      {"case": "Genitiv", "number": "Sg", "gender": "n", "forms": [{"text": "αὐτοῦ"}]},
+      {"case": "Dativ", "number": "Sg", "gender": "n", "forms": [{"text": "αὐτῷ"}]},
+      {"case": "Akkusativ", "number": "Sg", "gender": "n", "forms": [{"text": "αὐτό"}]},
+      {"case": "Nominativ", "number": "Pl", "gender": "n", "forms": [{"text": "αὐτά"}]},
+      {"case": "Genitiv", "number": "Pl", "gender": "n", "forms": [{"text": "αὐτῶν"}]},
+      {"case": "Dativ", "number": "Pl", "gender": "n", "forms": [{"text": "αὐτοῖς"}]},
+      {"case": "Akkusativ", "number": "Pl", "gender": "n", "forms": [{"text": "αὐτά"}]}
+    ]
+  },
+  {
+    "id": 107,
+    "lemma": "ἐμός",
+    "label": "ἐμός",
+    "kind": "possessive",
+    "usage": [
+      "Possessivpronomen der 1. Person Singular: ἐμός, ἐμή, ἐμόν – mein.",
+      "Wird wie ein Adjektiv der a-/o-Deklination flektiert und richtet sich nach dem Bezugswort.",
+      "Betont, mit Artikel: ὁ ἐμὸς φίλος – mein eigener Freund.",
+      "Unbetont steht stattdessen der enklitische Genitiv des Personalpronomens: ὁ φίλος μου – mein Freund."
+    ],
+    "examples": [
+      {
+        "greek": "ὁ ἐμὸς φίλος",
+        "german": "mein eigener Freund (betont)"
+      },
+      {
+        "greek": "ὁ φίλος μου",
+        "german": "mein Freund (enklitisch)"
+      }
+    ],
+    "cells": [
+      {"case": "Nominativ", "number": "Sg", "gender": "m", "forms": [{"text": "ἐμός"}]},
+      {"case": "Genitiv", "number": "Sg", "gender": "m", "forms": [{"text": "ἐμοῦ"}]},
+      {"case": "Dativ", "number": "Sg", "gender": "m", "forms": [{"text": "ἐμῷ"}]},
+      {"case": "Akkusativ", "number": "Sg", "gender": "m", "forms": [{"text": "ἐμόν"}]},
+      {"case": "Nominativ", "number": "Pl", "gender": "m", "forms": [{"text": "ἐμοί"}]},
+      {"case": "Genitiv", "number": "Pl", "gender": "m", "forms": [{"text": "ἐμῶν"}]},
+      {"case": "Dativ", "number": "Pl", "gender": "m", "forms": [{"text": "ἐμοῖς"}]},
+      {"case": "Akkusativ", "number": "Pl", "gender": "m", "forms": [{"text": "ἐμούς"}]},
+      {"case": "Nominativ", "number": "Sg", "gender": "f", "forms": [{"text": "ἐμή"}]},
+      {"case": "Genitiv", "number": "Sg", "gender": "f", "forms": [{"text": "ἐμῆς"}]},
+      {"case": "Dativ", "number": "Sg", "gender": "f", "forms": [{"text": "ἐμῇ"}]},
+      {"case": "Akkusativ", "number": "Sg", "gender": "f", "forms": [{"text": "ἐμήν"}]},
+      {"case": "Nominativ", "number": "Pl", "gender": "f", "forms": [{"text": "ἐμαί"}]},
+      {"case": "Genitiv", "number": "Pl", "gender": "f", "forms": [{"text": "ἐμῶν"}]},
+      {"case": "Dativ", "number": "Pl", "gender": "f", "forms": [{"text": "ἐμαῖς"}]},
+      {"case": "Akkusativ", "number": "Pl", "gender": "f", "forms": [{"text": "ἐμάς"}]},
+      {"case": "Nominativ", "number": "Sg", "gender": "n", "forms": [{"text": "ἐμόν"}]},
+      {"case": "Genitiv", "number": "Sg", "gender": "n", "forms": [{"text": "ἐμοῦ"}]},
+      {"case": "Dativ", "number": "Sg", "gender": "n", "forms": [{"text": "ἐμῷ"}]},
+      {"case": "Akkusativ", "number": "Sg", "gender": "n", "forms": [{"text": "ἐμόν"}]},
+      {"case": "Nominativ", "number": "Pl", "gender": "n", "forms": [{"text": "ἐμά"}]},
+      {"case": "Genitiv", "number": "Pl", "gender": "n", "forms": [{"text": "ἐμῶν"}]},
+      {"case": "Dativ", "number": "Pl", "gender": "n", "forms": [{"text": "ἐμοῖς"}]},
+      {"case": "Akkusativ", "number": "Pl", "gender": "n", "forms": [{"text": "ἐμά"}]}
+    ]
+  },
+  {
+    "id": 438,
+    "lemma": "σός",
+    "label": "σός",
+    "kind": "possessive",
+    "usage": [
+      "Possessivpronomen der 2. Person Singular: σός, σή, σόν – dein.",
+      "Wird wie ein Adjektiv der a-/o-Deklination flektiert und richtet sich nach dem Bezugswort.",
+      "Betont, mit Artikel: ὁ ἐμὸς φίλος – mein eigener Freund.",
+      "Unbetont steht stattdessen der enklitische Genitiv des Personalpronomens: ὁ φίλος μου – mein Freund."
+    ],
+    "examples": [
+      {
+        "greek": "ὁ ἐμὸς φίλος",
+        "german": "mein eigener Freund (betont)"
+      },
+      {
+        "greek": "ὁ φίλος μου",
+        "german": "mein Freund (enklitisch)"
+      }
+    ],
+    "cells": [
+      {"case": "Nominativ", "number": "Sg", "gender": "m", "forms": [{"text": "σός"}]},
+      {"case": "Genitiv", "number": "Sg", "gender": "m", "forms": [{"text": "σοῦ"}]},
+      {"case": "Dativ", "number": "Sg", "gender": "m", "forms": [{"text": "σῷ"}]},
+      {"case": "Akkusativ", "number": "Sg", "gender": "m", "forms": [{"text": "σόν"}]},
+      {"case": "Nominativ", "number": "Pl", "gender": "m", "forms": [{"text": "σοί"}]},
+      {"case": "Genitiv", "number": "Pl", "gender": "m", "forms": [{"text": "σῶν"}]},
+      {"case": "Dativ", "number": "Pl", "gender": "m", "forms": [{"text": "σοῖς"}]},
+      {"case": "Akkusativ", "number": "Pl", "gender": "m", "forms": [{"text": "σούς"}]},
+      {"case": "Nominativ", "number": "Sg", "gender": "f", "forms": [{"text": "σή"}]},
+      {"case": "Genitiv", "number": "Sg", "gender": "f", "forms": [{"text": "σῆς"}]},
+      {"case": "Dativ", "number": "Sg", "gender": "f", "forms": [{"text": "σῇ"}]},
+      {"case": "Akkusativ", "number": "Sg", "gender": "f", "forms": [{"text": "σήν"}]},
+      {"case": "Nominativ", "number": "Pl", "gender": "f", "forms": [{"text": "σαί"}]},
+      {"case": "Genitiv", "number": "Pl", "gender": "f", "forms": [{"text": "σῶν"}]},
+      {"case": "Dativ", "number": "Pl", "gender": "f", "forms": [{"text": "σαῖς"}]},
+      {"case": "Akkusativ", "number": "Pl", "gender": "f", "forms": [{"text": "σάς"}]},
+      {"case": "Nominativ", "number": "Sg", "gender": "n", "forms": [{"text": "σόν"}]},
+      {"case": "Genitiv", "number": "Sg", "gender": "n", "forms": [{"text": "σοῦ"}]},
+      {"case": "Dativ", "number": "Sg", "gender": "n", "forms": [{"text": "σῷ"}]},
+      {"case": "Akkusativ", "number": "Sg", "gender": "n", "forms": [{"text": "σόν"}]},
+      {"case": "Nominativ", "number": "Pl", "gender": "n", "forms": [{"text": "σά"}]},
+      {"case": "Genitiv", "number": "Pl", "gender": "n", "forms": [{"text": "σῶν"}]},
+      {"case": "Dativ", "number": "Pl", "gender": "n", "forms": [{"text": "σοῖς"}]},
+      {"case": "Akkusativ", "number": "Pl", "gender": "n", "forms": [{"text": "σά"}]}
+    ]
+  },
+  {
+    "id": 111,
+    "lemma": "ἡμέτερος",
+    "label": "ἡμέτερος",
+    "kind": "possessive",
+    "usage": [
+      "Possessivpronomen der 1. Person Plural: ἡμέτερος, ἡμετέρα, ἡμέτερον – unser.",
+      "Wird wie ein Adjektiv der a-/o-Deklination flektiert und richtet sich nach dem Bezugswort.",
+      "Betont, mit Artikel: ὁ ἐμὸς φίλος – mein eigener Freund.",
+      "Unbetont steht stattdessen der enklitische Genitiv des Personalpronomens: ὁ φίλος μου – mein Freund."
+    ],
+    "examples": [
+      {
+        "greek": "ὁ ἐμὸς φίλος",
+        "german": "mein eigener Freund (betont)"
+      },
+      {
+        "greek": "ὁ φίλος μου",
+        "german": "mein Freund (enklitisch)"
+      }
+    ],
+    "cells": [
+      {"case": "Nominativ", "number": "Sg", "gender": "m", "forms": [{"text": "ἡμέτερος"}]},
+      {"case": "Genitiv", "number": "Sg", "gender": "m", "forms": [{"text": "ἡμετέρου"}]},
+      {"case": "Dativ", "number": "Sg", "gender": "m", "forms": [{"text": "ἡμετέρῳ"}]},
+      {"case": "Akkusativ", "number": "Sg", "gender": "m", "forms": [{"text": "ἡμέτερον"}]},
+      {"case": "Nominativ", "number": "Pl", "gender": "m", "forms": [{"text": "ἡμέτεροι"}]},
+      {"case": "Genitiv", "number": "Pl", "gender": "m", "forms": [{"text": "ἡμετέρων"}]},
+      {"case": "Dativ", "number": "Pl", "gender": "m", "forms": [{"text": "ἡμετέροις"}]},
+      {"case": "Akkusativ", "number": "Pl", "gender": "m", "forms": [{"text": "ἡμετέρους"}]},
+      {"case": "Nominativ", "number": "Sg", "gender": "f", "forms": [{"text": "ἡμετέρα"}]},
+      {"case": "Genitiv", "number": "Sg", "gender": "f", "forms": [{"text": "ἡμετέρας"}]},
+      {"case": "Dativ", "number": "Sg", "gender": "f", "forms": [{"text": "ἡμετέρᾳ"}]},
+      {"case": "Akkusativ", "number": "Sg", "gender": "f", "forms": [{"text": "ἡμετέραν"}]},
+      {"case": "Nominativ", "number": "Pl", "gender": "f", "forms": [{"text": "ἡμέτεραι"}]},
+      {"case": "Genitiv", "number": "Pl", "gender": "f", "forms": [{"text": "ἡμετέρων"}]},
+      {"case": "Dativ", "number": "Pl", "gender": "f", "forms": [{"text": "ἡμετέραις"}]},
+      {"case": "Akkusativ", "number": "Pl", "gender": "f", "forms": [{"text": "ἡμετέρας"}]},
+      {"case": "Nominativ", "number": "Sg", "gender": "n", "forms": [{"text": "ἡμέτερον"}]},
+      {"case": "Genitiv", "number": "Sg", "gender": "n", "forms": [{"text": "ἡμετέρου"}]},
+      {"case": "Dativ", "number": "Sg", "gender": "n", "forms": [{"text": "ἡμετέρῳ"}]},
+      {"case": "Akkusativ", "number": "Sg", "gender": "n", "forms": [{"text": "ἡμέτερον"}]},
+      {"case": "Nominativ", "number": "Pl", "gender": "n", "forms": [{"text": "ἡμέτερα"}]},
+      {"case": "Genitiv", "number": "Pl", "gender": "n", "forms": [{"text": "ἡμετέρων"}]},
+      {"case": "Dativ", "number": "Pl", "gender": "n", "forms": [{"text": "ἡμετέροις"}]},
+      {"case": "Akkusativ", "number": "Pl", "gender": "n", "forms": [{"text": "ἡμέτερα"}]}
+    ]
+  },
+  {
+    "id": 439,
+    "lemma": "ὑμέτερος",
+    "label": "ὑμέτερος",
+    "kind": "possessive",
+    "usage": [
+      "Possessivpronomen der 2. Person Plural: ὑμέτερος, ὑμετέρα, ὑμέτερον – euer.",
+      "Wird wie ein Adjektiv der a-/o-Deklination flektiert und richtet sich nach dem Bezugswort.",
+      "Betont, mit Artikel: ὁ ἐμὸς φίλος – mein eigener Freund.",
+      "Unbetont steht stattdessen der enklitische Genitiv des Personalpronomens: ὁ φίλος μου – mein Freund."
+    ],
+    "examples": [
+      {
+        "greek": "ὁ ἐμὸς φίλος",
+        "german": "mein eigener Freund (betont)"
+      },
+      {
+        "greek": "ὁ φίλος μου",
+        "german": "mein Freund (enklitisch)"
+      }
+    ],
+    "cells": [
+      {"case": "Nominativ", "number": "Sg", "gender": "m", "forms": [{"text": "ὑμέτερος"}]},
+      {"case": "Genitiv", "number": "Sg", "gender": "m", "forms": [{"text": "ὑμετέρου"}]},
+      {"case": "Dativ", "number": "Sg", "gender": "m", "forms": [{"text": "ὑμετέρῳ"}]},
+      {"case": "Akkusativ", "number": "Sg", "gender": "m", "forms": [{"text": "ὑμέτερον"}]},
+      {"case": "Nominativ", "number": "Pl", "gender": "m", "forms": [{"text": "ὑμέτεροι"}]},
+      {"case": "Genitiv", "number": "Pl", "gender": "m", "forms": [{"text": "ὑμετέρων"}]},
+      {"case": "Dativ", "number": "Pl", "gender": "m", "forms": [{"text": "ὑμετέροις"}]},
+      {"case": "Akkusativ", "number": "Pl", "gender": "m", "forms": [{"text": "ὑμετέρους"}]},
+      {"case": "Nominativ", "number": "Sg", "gender": "f", "forms": [{"text": "ὑμετέρα"}]},
+      {"case": "Genitiv", "number": "Sg", "gender": "f", "forms": [{"text": "ὑμετέρας"}]},
+      {"case": "Dativ", "number": "Sg", "gender": "f", "forms": [{"text": "ὑμετέρᾳ"}]},
+      {"case": "Akkusativ", "number": "Sg", "gender": "f", "forms": [{"text": "ὑμετέραν"}]},
+      {"case": "Nominativ", "number": "Pl", "gender": "f", "forms": [{"text": "ὑμέτεραι"}]},
+      {"case": "Genitiv", "number": "Pl", "gender": "f", "forms": [{"text": "ὑμετέρων"}]},
+      {"case": "Dativ", "number": "Pl", "gender": "f", "forms": [{"text": "ὑμετέραις"}]},
+      {"case": "Akkusativ", "number": "Pl", "gender": "f", "forms": [{"text": "ὑμετέρας"}]},
+      {"case": "Nominativ", "number": "Sg", "gender": "n", "forms": [{"text": "ὑμέτερον"}]},
+      {"case": "Genitiv", "number": "Sg", "gender": "n", "forms": [{"text": "ὑμετέρου"}]},
+      {"case": "Dativ", "number": "Sg", "gender": "n", "forms": [{"text": "ὑμετέρῳ"}]},
+      {"case": "Akkusativ", "number": "Sg", "gender": "n", "forms": [{"text": "ὑμέτερον"}]},
+      {"case": "Nominativ", "number": "Pl", "gender": "n", "forms": [{"text": "ὑμέτερα"}]},
+      {"case": "Genitiv", "number": "Pl", "gender": "n", "forms": [{"text": "ὑμετέρων"}]},
+      {"case": "Dativ", "number": "Pl", "gender": "n", "forms": [{"text": "ὑμετέροις"}]},
+      {"case": "Akkusativ", "number": "Pl", "gender": "n", "forms": [{"text": "ὑμέτερα"}]}
+    ]
+  },
+  {
+    "id": 440,
+    "lemma": "ὅδε",
+    "label": "ὅδε",
+    "kind": "demonstrative",
+    "usage": [
+      "ὅδε, ἥδε, τόδε – dieser, diese, dieses (hier): der bestimmte Artikel mit angehängtem -δε.",
+      "Verweist auf das Nächstliegende oder das Folgende: ὁ Χριστὸς λέγει τάδε – Christus sagt Folgendes (Anfang einer Rede).",
+      "In Verbindung mit einem Substantiv steht das Demonstrativpronomen zusammen mit dem bestimmten Artikel: ὅδε ὁ θεός – dieser Gott."
+    ],
+    "examples": [
+      {
+        "greek": "ὅδε ὁ ἄνθρωπος πιστός ἐστιν.",
+        "german": "Dieser Mensch (hier) ist treu."
+      },
+      {
+        "greek": "τῷδε τῷ ἀνθρώπῳ πιστεύω.",
+        "german": "Diesem Menschen vertraue ich."
+      },
+      {
+        "greek": "ὁ Χριστὸς λέγει τάδε.",
+        "german": "Christus sagt Folgendes."
+      }
+    ],
+    "cells": [
+      {"case": "Nominativ", "number": "Sg", "gender": "m", "forms": [{"text": "ὅδε"}]},
+      {"case": "Genitiv", "number": "Sg", "gender": "m", "forms": [{"text": "τοῦδε"}]},
+      {"case": "Dativ", "number": "Sg", "gender": "m", "forms": [{"text": "τῷδε"}]},
+      {"case": "Akkusativ", "number": "Sg", "gender": "m", "forms": [{"text": "τόνδε"}]},
+      {"case": "Nominativ", "number": "Pl", "gender": "m", "forms": [{"text": "οἵδε"}]},
+      {"case": "Genitiv", "number": "Pl", "gender": "m", "forms": [{"text": "τῶνδε"}]},
+      {"case": "Dativ", "number": "Pl", "gender": "m", "forms": [{"text": "τοῖσδε"}]},
+      {"case": "Akkusativ", "number": "Pl", "gender": "m", "forms": [{"text": "τούσδε"}]},
+      {"case": "Nominativ", "number": "Sg", "gender": "f", "forms": [{"text": "ἥδε"}]},
+      {"case": "Genitiv", "number": "Sg", "gender": "f", "forms": [{"text": "τῆσδε"}]},
+      {"case": "Dativ", "number": "Sg", "gender": "f", "forms": [{"text": "τῇδε"}]},
+      {"case": "Akkusativ", "number": "Sg", "gender": "f", "forms": [{"text": "τήνδε"}]},
+      {"case": "Nominativ", "number": "Pl", "gender": "f", "forms": [{"text": "αἵδε"}]},
+      {"case": "Genitiv", "number": "Pl", "gender": "f", "forms": [{"text": "τῶνδε"}]},
+      {"case": "Dativ", "number": "Pl", "gender": "f", "forms": [{"text": "ταῖσδε"}]},
+      {"case": "Akkusativ", "number": "Pl", "gender": "f", "forms": [{"text": "τάσδε"}]},
+      {"case": "Nominativ", "number": "Sg", "gender": "n", "forms": [{"text": "τόδε"}]},
+      {"case": "Genitiv", "number": "Sg", "gender": "n", "forms": [{"text": "τοῦδε"}]},
+      {"case": "Dativ", "number": "Sg", "gender": "n", "forms": [{"text": "τῷδε"}]},
+      {"case": "Akkusativ", "number": "Sg", "gender": "n", "forms": [{"text": "τόδε"}]},
+      {"case": "Nominativ", "number": "Pl", "gender": "n", "forms": [{"text": "τάδε"}]},
+      {"case": "Genitiv", "number": "Pl", "gender": "n", "forms": [{"text": "τῶνδε"}]},
+      {"case": "Dativ", "number": "Pl", "gender": "n", "forms": [{"text": "τοῖσδε"}]},
+      {"case": "Akkusativ", "number": "Pl", "gender": "n", "forms": [{"text": "τάδε"}]}
+    ]
+  },
+  {
+    "id": 441,
+    "lemma": "οὗτος",
+    "label": "οὗτος",
+    "kind": "demonstrative",
+    "usage": [
+      "οὗτος, αὕτη, τοῦτο – dieser, diese, dieses.",
+      "Verweist auf schon Genanntes oder Vorhergehendes: ταῦτα λέγει ὁ Χριστός – Dies sagt Christus (Ende einer Rede).",
+      "In Verbindung mit einem Substantiv steht das Demonstrativpronomen zusammen mit dem bestimmten Artikel: αὕτη ἡ θεά – diese Göttin.",
+      "Der Stamm wechselt: οὑ-/αὑ- nur im Nominativ Maskulinum und Femininum, sonst τουτ- bzw. ταυτ-."
+    ],
+    "examples": [
+      {
+        "greek": "αὕτη ἡ νῆσος καλή ἐστιν.",
+        "german": "Diese Insel ist schön."
+      },
+      {
+        "greek": "τοῦτο τὸ βιβλίον μοι ἀρέσκει.",
+        "german": "Dieses Buch gefällt mir."
+      },
+      {
+        "greek": "τοῦτο τὸ βιβλίον γιγνώσκω, ἐκεῖνο δ’ οὔ.",
+        "german": "Dieses Buch kenne ich, jenes aber nicht."
+      },
+      {
+        "greek": "ταῦτα λέγει ὁ Χριστός.",
+        "german": "Dies sagt Christus."
+      }
+    ],
+    "cells": [
+      {"case": "Nominativ", "number": "Sg", "gender": "m", "forms": [{"text": "οὗτος"}]},
+      {"case": "Genitiv", "number": "Sg", "gender": "m", "forms": [{"text": "τούτου"}]},
+      {"case": "Dativ", "number": "Sg", "gender": "m", "forms": [{"text": "τούτῳ"}]},
+      {"case": "Akkusativ", "number": "Sg", "gender": "m", "forms": [{"text": "τοῦτον"}]},
+      {"case": "Nominativ", "number": "Pl", "gender": "m", "forms": [{"text": "οὗτοι"}]},
+      {"case": "Genitiv", "number": "Pl", "gender": "m", "forms": [{"text": "τούτων"}]},
+      {"case": "Dativ", "number": "Pl", "gender": "m", "forms": [{"text": "τούτοις"}]},
+      {"case": "Akkusativ", "number": "Pl", "gender": "m", "forms": [{"text": "τούτους"}]},
+      {"case": "Nominativ", "number": "Sg", "gender": "f", "forms": [{"text": "αὕτη"}]},
+      {"case": "Genitiv", "number": "Sg", "gender": "f", "forms": [{"text": "ταύτης"}]},
+      {"case": "Dativ", "number": "Sg", "gender": "f", "forms": [{"text": "ταύτῃ"}]},
+      {"case": "Akkusativ", "number": "Sg", "gender": "f", "forms": [{"text": "ταύτην"}]},
+      {"case": "Nominativ", "number": "Pl", "gender": "f", "forms": [{"text": "αὗται"}]},
+      {"case": "Genitiv", "number": "Pl", "gender": "f", "forms": [{"text": "τούτων"}]},
+      {"case": "Dativ", "number": "Pl", "gender": "f", "forms": [{"text": "ταύταις"}]},
+      {"case": "Akkusativ", "number": "Pl", "gender": "f", "forms": [{"text": "ταύτας"}]},
+      {"case": "Nominativ", "number": "Sg", "gender": "n", "forms": [{"text": "τοῦτο"}]},
+      {"case": "Genitiv", "number": "Sg", "gender": "n", "forms": [{"text": "τούτου"}]},
+      {"case": "Dativ", "number": "Sg", "gender": "n", "forms": [{"text": "τούτῳ"}]},
+      {"case": "Akkusativ", "number": "Sg", "gender": "n", "forms": [{"text": "τοῦτο"}]},
+      {"case": "Nominativ", "number": "Pl", "gender": "n", "forms": [{"text": "ταῦτα"}]},
+      {"case": "Genitiv", "number": "Pl", "gender": "n", "forms": [{"text": "τούτων"}]},
+      {"case": "Dativ", "number": "Pl", "gender": "n", "forms": [{"text": "τούτοις"}]},
+      {"case": "Akkusativ", "number": "Pl", "gender": "n", "forms": [{"text": "ταῦτα"}]}
+    ]
+  },
+  {
+    "id": 442,
+    "lemma": "ἐκεῖνος",
+    "label": "ἐκεῖνος",
+    "kind": "demonstrative",
+    "usage": [
+      "ἐκεῖνος, ἐκείνη, ἐκεῖνο – jener, jene, jenes: wird wie ein Adjektiv der a-/o-Deklination flektiert.",
+      "Das Neutrum endet im Nominativ und Akkusativ Singular auf -ο (ἐκεῖνο), nicht auf -ον.",
+      "In Verbindung mit einem Substantiv steht das Demonstrativpronomen zusammen mit dem bestimmten Artikel: ἐκεῖνο τὸ δένδρον – jener Baum."
+    ],
+    "examples": [
+      {
+        "greek": "ἐκεῖνο τὸ δένδρον",
+        "german": "jener Baum"
+      },
+      {
+        "greek": "τοῦτο τὸ βιβλίον γιγνώσκω, ἐκεῖνο δ’ οὔ.",
+        "german": "Dieses Buch kenne ich, jenes aber nicht."
+      }
+    ],
+    "cells": [
+      {"case": "Nominativ", "number": "Sg", "gender": "m", "forms": [{"text": "ἐκεῖνος"}]},
+      {"case": "Genitiv", "number": "Sg", "gender": "m", "forms": [{"text": "ἐκείνου"}]},
+      {"case": "Dativ", "number": "Sg", "gender": "m", "forms": [{"text": "ἐκείνῳ"}]},
+      {"case": "Akkusativ", "number": "Sg", "gender": "m", "forms": [{"text": "ἐκεῖνον"}]},
+      {"case": "Nominativ", "number": "Pl", "gender": "m", "forms": [{"text": "ἐκεῖνοι"}]},
+      {"case": "Genitiv", "number": "Pl", "gender": "m", "forms": [{"text": "ἐκείνων"}]},
+      {"case": "Dativ", "number": "Pl", "gender": "m", "forms": [{"text": "ἐκείνοις"}]},
+      {"case": "Akkusativ", "number": "Pl", "gender": "m", "forms": [{"text": "ἐκείνους"}]},
+      {"case": "Nominativ", "number": "Sg", "gender": "f", "forms": [{"text": "ἐκείνη"}]},
+      {"case": "Genitiv", "number": "Sg", "gender": "f", "forms": [{"text": "ἐκείνης"}]},
+      {"case": "Dativ", "number": "Sg", "gender": "f", "forms": [{"text": "ἐκείνῃ"}]},
+      {"case": "Akkusativ", "number": "Sg", "gender": "f", "forms": [{"text": "ἐκείνην"}]},
+      {"case": "Nominativ", "number": "Pl", "gender": "f", "forms": [{"text": "ἐκεῖναι"}]},
+      {"case": "Genitiv", "number": "Pl", "gender": "f", "forms": [{"text": "ἐκείνων"}]},
+      {"case": "Dativ", "number": "Pl", "gender": "f", "forms": [{"text": "ἐκείναις"}]},
+      {"case": "Akkusativ", "number": "Pl", "gender": "f", "forms": [{"text": "ἐκείνας"}]},
+      {"case": "Nominativ", "number": "Sg", "gender": "n", "forms": [{"text": "ἐκεῖνο"}]},
+      {"case": "Genitiv", "number": "Sg", "gender": "n", "forms": [{"text": "ἐκείνου"}]},
+      {"case": "Dativ", "number": "Sg", "gender": "n", "forms": [{"text": "ἐκείνῳ"}]},
+      {"case": "Akkusativ", "number": "Sg", "gender": "n", "forms": [{"text": "ἐκεῖνο"}]},
+      {"case": "Nominativ", "number": "Pl", "gender": "n", "forms": [{"text": "ἐκεῖνα"}]},
+      {"case": "Genitiv", "number": "Pl", "gender": "n", "forms": [{"text": "ἐκείνων"}]},
+      {"case": "Dativ", "number": "Pl", "gender": "n", "forms": [{"text": "ἐκείνοις"}]},
+      {"case": "Akkusativ", "number": "Pl", "gender": "n", "forms": [{"text": "ἐκεῖνα"}]}
+    ]
+  },
+  {
+    "id": 443,
+    "lemma": "ὅς",
+    "label": "ὅς",
+    "kind": "relative",
+    "usage": [
+      "ὅς, ἥ, ὅ – der, die, das; welcher, welche, welches.",
+      "Das Relativpronomen richtet sich in Numerus und Genus nach dem Bezugswort im übergeordneten Satz; der Kasus hängt von der Funktion des Pronomens im Relativsatz ab.",
+      "Alle Formen tragen Spiritus asper und einen Akzent. Daran unterscheiden sie sich vom Artikel (ὁ, ἡ, οἱ, αἱ) und von anderen kurzen Wörtern."
+    ],
+    "examples": [
+      {
+        "greek": "Χριστός, ὃς τοὺς ἀνθρώπους διδάσκει",
+        "german": "Christus, der die Menschen lehrt (Relativpronomen als Subjekt)"
+      },
+      {
+        "greek": "οἱ λόγοι, οὓς ὁ Χριστὸς λέγει",
+        "german": "die Worte, die Christus spricht (Relativpronomen als Objekt)"
+      },
+      {
+        "greek": "ἡ ἐκκλησία, περὶ ἧς εὐχαριστῶ",
+        "german": "die Gemeinde, für die ich danke (Relativpronomen mit Präposition)"
+      },
+      {
+        "greek": "ὁ ποιητής, ὃς τὴν Ὀδύσσειαν ἔγραψεν, Ὅμηρος ὀνομάζεται.",
+        "german": "Der Dichter, der die Odyssee schrieb, heißt Homer."
+      },
+      {
+        "greek": "ἡ γυνή, ἣ τῷ Ἀλεξάνδρῳ εἵπετο εἰς Τροίαν, Ἑλένη ὠνομάζετο.",
+        "german": "Die Frau, die Alexander nach Troja folgte, hieß Helena."
+      },
+      {
+        "greek": "ἡ νῆσος, ἣν ἐκεῖ βλέπεις, Σάμος ὀνομάζεται.",
+        "german": "Die Insel, die du dort siehst, heißt Samos."
+      }
+    ],
+    "lookalikes": {
+      "ὅ": [
+        "ὁ (Artikel)"
+      ],
+      "ἥ": [
+        "ἡ (Artikel)",
+        "ἤ (oder)"
+      ],
+      "οἵ": [
+        "οἱ (Artikel)"
+      ],
+      "αἵ": [
+        "αἱ (Artikel)"
+      ],
+      "οὗ": [
+        "οὐ (nicht)"
+      ],
+      "ὅν": [
+        "ὄν (Partizip von εἰμί)"
+      ],
+      "ὧν": [
+        "ὤν (Partizip von εἰμί)"
+      ],
+      "ἥν": [
+        "ἦν (er war)"
+      ],
+      "ἧς": [
+        "ἦς (du warst)"
+      ]
+    },
+    "cells": [
+      {"case": "Nominativ", "number": "Sg", "gender": "m", "forms": [{"text": "ὅς"}]},
+      {"case": "Genitiv", "number": "Sg", "gender": "m", "forms": [{"text": "οὗ"}]},
+      {"case": "Dativ", "number": "Sg", "gender": "m", "forms": [{"text": "ᾧ"}]},
+      {"case": "Akkusativ", "number": "Sg", "gender": "m", "forms": [{"text": "ὅν"}]},
+      {"case": "Nominativ", "number": "Pl", "gender": "m", "forms": [{"text": "οἵ"}]},
+      {"case": "Genitiv", "number": "Pl", "gender": "m", "forms": [{"text": "ὧν"}]},
+      {"case": "Dativ", "number": "Pl", "gender": "m", "forms": [{"text": "οἷς"}]},
+      {"case": "Akkusativ", "number": "Pl", "gender": "m", "forms": [{"text": "οὕς"}]},
+      {"case": "Nominativ", "number": "Sg", "gender": "f", "forms": [{"text": "ἥ"}]},
+      {"case": "Genitiv", "number": "Sg", "gender": "f", "forms": [{"text": "ἧς"}]},
+      {"case": "Dativ", "number": "Sg", "gender": "f", "forms": [{"text": "ᾗ"}]},
+      {"case": "Akkusativ", "number": "Sg", "gender": "f", "forms": [{"text": "ἥν"}]},
+      {"case": "Nominativ", "number": "Pl", "gender": "f", "forms": [{"text": "αἵ"}]},
+      {"case": "Genitiv", "number": "Pl", "gender": "f", "forms": [{"text": "ὧν"}]},
+      {"case": "Dativ", "number": "Pl", "gender": "f", "forms": [{"text": "αἷς"}]},
+      {"case": "Akkusativ", "number": "Pl", "gender": "f", "forms": [{"text": "ἅς"}]},
+      {"case": "Nominativ", "number": "Sg", "gender": "n", "forms": [{"text": "ὅ"}]},
+      {"case": "Genitiv", "number": "Sg", "gender": "n", "forms": [{"text": "οὗ"}]},
+      {"case": "Dativ", "number": "Sg", "gender": "n", "forms": [{"text": "ᾧ"}]},
+      {"case": "Akkusativ", "number": "Sg", "gender": "n", "forms": [{"text": "ὅ"}]},
+      {"case": "Nominativ", "number": "Pl", "gender": "n", "forms": [{"text": "ἅ"}]},
+      {"case": "Genitiv", "number": "Pl", "gender": "n", "forms": [{"text": "ὧν"}]},
+      {"case": "Dativ", "number": "Pl", "gender": "n", "forms": [{"text": "οἷς"}]},
+      {"case": "Akkusativ", "number": "Pl", "gender": "n", "forms": [{"text": "ἅ"}]}
+    ]
+  },
+  {
+    "id": 444,
+    "lemma": "τίς",
+    "label": "τίς (Frage)",
+    "kind": "interrogative",
+    "usage": [
+      "Interrogativpronomen: τίς – wer?, τί – was?",
+      "Trägt immer einen Akut auf der ersten Silbe. Daran unterscheidet es sich vom Indefinitpronomen τις.",
+      "Maskulinum und Femininum haben dieselben Formen.",
+      "Dativ Plural mit oder ohne bewegliches ν: τίσι, τίσιν."
+    ],
+    "examples": [],
+    "cells": [
+      {"case": "Nominativ", "number": "Sg", "gender": "m", "forms": [{"text": "τίς"}]},
+      {"case": "Genitiv", "number": "Sg", "gender": "m", "forms": [{"text": "τίνος"}]},
+      {"case": "Dativ", "number": "Sg", "gender": "m", "forms": [{"text": "τίνι"}]},
+      {"case": "Akkusativ", "number": "Sg", "gender": "m", "forms": [{"text": "τίνα"}]},
+      {"case": "Nominativ", "number": "Pl", "gender": "m", "forms": [{"text": "τίνες"}]},
+      {"case": "Genitiv", "number": "Pl", "gender": "m", "forms": [{"text": "τίνων"}]},
+      {"case": "Dativ", "number": "Pl", "gender": "m", "forms": [{"text": "τίσι"}, {"text": "τίσιν", "variant": "mit beweglichem ν"}]},
+      {"case": "Akkusativ", "number": "Pl", "gender": "m", "forms": [{"text": "τίνας"}]},
+      {"case": "Nominativ", "number": "Sg", "gender": "f", "forms": [{"text": "τίς"}]},
+      {"case": "Genitiv", "number": "Sg", "gender": "f", "forms": [{"text": "τίνος"}]},
+      {"case": "Dativ", "number": "Sg", "gender": "f", "forms": [{"text": "τίνι"}]},
+      {"case": "Akkusativ", "number": "Sg", "gender": "f", "forms": [{"text": "τίνα"}]},
+      {"case": "Nominativ", "number": "Pl", "gender": "f", "forms": [{"text": "τίνες"}]},
+      {"case": "Genitiv", "number": "Pl", "gender": "f", "forms": [{"text": "τίνων"}]},
+      {"case": "Dativ", "number": "Pl", "gender": "f", "forms": [{"text": "τίσι"}, {"text": "τίσιν", "variant": "mit beweglichem ν"}]},
+      {"case": "Akkusativ", "number": "Pl", "gender": "f", "forms": [{"text": "τίνας"}]},
+      {"case": "Nominativ", "number": "Sg", "gender": "n", "forms": [{"text": "τί"}]},
+      {"case": "Genitiv", "number": "Sg", "gender": "n", "forms": [{"text": "τίνος"}]},
+      {"case": "Dativ", "number": "Sg", "gender": "n", "forms": [{"text": "τίνι"}]},
+      {"case": "Akkusativ", "number": "Sg", "gender": "n", "forms": [{"text": "τί"}]},
+      {"case": "Nominativ", "number": "Pl", "gender": "n", "forms": [{"text": "τίνα"}]},
+      {"case": "Genitiv", "number": "Pl", "gender": "n", "forms": [{"text": "τίνων"}]},
+      {"case": "Dativ", "number": "Pl", "gender": "n", "forms": [{"text": "τίσι"}, {"text": "τίσιν", "variant": "mit beweglichem ν"}]},
+      {"case": "Akkusativ", "number": "Pl", "gender": "n", "forms": [{"text": "τίνα"}]}
+    ]
+  },
+  {
+    "id": 445,
+    "lemma": "τις",
+    "label": "τις (unbestimmt)",
+    "kind": "indefinite",
+    "usage": [
+      "Indefinitpronomen: τις – irgendjemand, τι – irgendetwas.",
+      "Enklitisch: Es lehnt sich an das vorangehende Wort an und trägt keinen Akzent auf der ersten Silbe. Daran unterscheidet es sich vom Interrogativpronomen τίς.",
+      "Maskulinum und Femininum haben dieselben Formen.",
+      "Dativ Plural mit oder ohne bewegliches ν: τισί, τισίν."
+    ],
+    "examples": [],
+    "cells": [
+      {"case": "Nominativ", "number": "Sg", "gender": "m", "forms": [{"text": "τις"}]},
+      {"case": "Genitiv", "number": "Sg", "gender": "m", "forms": [{"text": "τινός"}]},
+      {"case": "Dativ", "number": "Sg", "gender": "m", "forms": [{"text": "τινί"}]},
+      {"case": "Akkusativ", "number": "Sg", "gender": "m", "forms": [{"text": "τινα"}]},
+      {"case": "Nominativ", "number": "Pl", "gender": "m", "forms": [{"text": "τινες"}]},
+      {"case": "Genitiv", "number": "Pl", "gender": "m", "forms": [{"text": "τινῶν"}]},
+      {"case": "Dativ", "number": "Pl", "gender": "m", "forms": [{"text": "τισί"}, {"text": "τισίν", "variant": "mit beweglichem ν"}]},
+      {"case": "Akkusativ", "number": "Pl", "gender": "m", "forms": [{"text": "τινας"}]},
+      {"case": "Nominativ", "number": "Sg", "gender": "f", "forms": [{"text": "τις"}]},
+      {"case": "Genitiv", "number": "Sg", "gender": "f", "forms": [{"text": "τινός"}]},
+      {"case": "Dativ", "number": "Sg", "gender": "f", "forms": [{"text": "τινί"}]},
+      {"case": "Akkusativ", "number": "Sg", "gender": "f", "forms": [{"text": "τινα"}]},
+      {"case": "Nominativ", "number": "Pl", "gender": "f", "forms": [{"text": "τινες"}]},
+      {"case": "Genitiv", "number": "Pl", "gender": "f", "forms": [{"text": "τινῶν"}]},
+      {"case": "Dativ", "number": "Pl", "gender": "f", "forms": [{"text": "τισί"}, {"text": "τισίν", "variant": "mit beweglichem ν"}]},
+      {"case": "Akkusativ", "number": "Pl", "gender": "f", "forms": [{"text": "τινας"}]},
+      {"case": "Nominativ", "number": "Sg", "gender": "n", "forms": [{"text": "τι"}]},
+      {"case": "Genitiv", "number": "Sg", "gender": "n", "forms": [{"text": "τινός"}]},
+      {"case": "Dativ", "number": "Sg", "gender": "n", "forms": [{"text": "τινί"}]},
+      {"case": "Akkusativ", "number": "Sg", "gender": "n", "forms": [{"text": "τι"}]},
+      {"case": "Nominativ", "number": "Pl", "gender": "n", "forms": [{"text": "τινα"}]},
+      {"case": "Genitiv", "number": "Pl", "gender": "n", "forms": [{"text": "τινῶν"}]},
+      {"case": "Dativ", "number": "Pl", "gender": "n", "forms": [{"text": "τισί"}, {"text": "τισίν", "variant": "mit beweglichem ν"}]},
+      {"case": "Akkusativ", "number": "Pl", "gender": "n", "forms": [{"text": "τινα"}]}
+    ]
+  }
+]

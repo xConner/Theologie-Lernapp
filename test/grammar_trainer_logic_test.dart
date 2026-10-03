@@ -473,9 +473,10 @@ void main() {
         final settings = GrammarTrainerSettings.fromMap(data);
 
         expect(settings.enabledSteps, [1, 2, 3, 4, 5, 6, 7]);
-        expect(settings.enabledTypes, ["noun", "verb"]);
+        expect(settings.enabledTypes, ["noun", "verb", "pronoun"]);
         expect(settings.showLemmaFieldNoun, isTrue);
         expect(settings.showLemmaFieldVerb, isTrue);
+        expect(settings.showLemmaFieldPronoun, isTrue);
       }
     });
 
@@ -500,10 +501,10 @@ void main() {
       settings.enabledTypes.clear();
 
       expect(GrammarTrainerSettings.allSteps.length, 7);
-      expect(GrammarTrainerSettings.allTypes.length, 2);
+      expect(GrammarTrainerSettings.allTypes.length, 3);
     });
 
-    test("Speicherformat bleibt unverändert", () {
+    test("Speicherformat: bestehende Felder unverändert, Pronomen ergänzt", () {
       const settings = GrammarTrainerSettings(
         enabledSteps: [1, 2],
         enabledTypes: ["noun"],
@@ -515,7 +516,32 @@ void main() {
         'enabledTypes': ["noun"],
         'showLemmaFieldNoun': false,
         'showLemmaFieldVerb': true,
+        'showLemmaFieldPronoun': true,
       });
+    });
+
+    test("Einstellungen von vor den Pronomen bleiben, wie sie waren", () {
+      final settings = GrammarTrainerSettings.fromMap(<String, dynamic>{
+        'enabledSteps': [1, 2],
+        'enabledTypes': ["noun", "verb"],
+        'showLemmaFieldNoun': true,
+        'showLemmaFieldVerb': false,
+      });
+
+      expect(settings.enabledSteps, [1, 2]);
+      expect(settings.enabledTypes, ["noun", "verb"]);
+      expect(settings.showLemmaFieldVerb, isFalse);
+      expect(settings.showLemmaFieldPronoun, isTrue);
+    });
+
+    test("Pronomen lassen sich ein- und ausschalten", () {
+      final on = GrammarTrainerSettings.fromMap(<String, dynamic>{
+        'enabledTypes': ["pronoun"],
+        'showLemmaFieldPronoun': false,
+      });
+
+      expect(on.enabledTypes, ["pronoun"]);
+      expect(on.showLemmaFieldPronoun, isFalse);
     });
   });
 }

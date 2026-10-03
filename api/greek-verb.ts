@@ -155,7 +155,8 @@ function findTenseTable(
     // Sonderfall-Definitionen
     const specialCases = {
         secondAoristTable: new Set(['εὑρίσκω', 'φέρω']),
-        normalInsteadOfKoine: new Set(['λείπω'])
+        normalInsteadOfKoine: new Set(['λείπω']),
+        atticInsteadOfKoine: new Set(['ἀγγέλλω'])
     };
 
     // SONDERFALL: Für εὑρίσκω / φέρω: explizit die ZWEITE normale Aorist-Tabelle
@@ -224,6 +225,12 @@ function findTenseTable(
             if (specialCases.normalInsteadOfKoine.has(lemma) &&
                 /Koine/i.test(title)) {
                 score -= 150;
+            }
+            // Alle Tabellen tragen eine Dialektangabe; ohne Aufwertung
+            // gewänne der seltene Koine-Aorist (ἤγγελον statt ἤγγειλα).
+            if (specialCases.atticInsteadOfKoine.has(lemma) &&
+                /Attic/i.test(title)) {
+                score += 150;
             }
         }
 
@@ -590,7 +597,9 @@ export default async function handler(
             voice,
             number,
             person: personNumber,
-            form,
+            // Ohne Längenzeichen und in NFC ausliefern, sonst bleibt z. B.
+            // bei ἐφῠ́λᾰξᾰ ein υ mit kombinierendem Akut statt ύ zurück.
+            form: comparableForm(form),
             analyses: findVerbAnalyses($, lemma, queryLemma, form),
         });
     } catch (error) {

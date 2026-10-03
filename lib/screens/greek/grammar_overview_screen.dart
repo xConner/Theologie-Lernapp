@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'grammar_topics/article_screen.dart';
 import 'grammar_topics/conjugations_screen.dart';
 import 'grammar_topics/declinations_screen.dart';
+import 'grammar_topics/pronouns_screen.dart';
 import '../../widgets/settings_access.dart';
 import '../../info/app_info.dart';
 import '../../widgets/info_report.dart';
@@ -64,6 +65,25 @@ actions: const [
                     },
 
                     child: const Text("Deklinationen"),
+                  ),
+                ),
+
+                const SizedBox(height: 16),
+
+                SizedBox(
+                  width: double.infinity,
+
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const PronounsScreen(),
+                        ),
+                      );
+                    },
+
+                    child: const Text("Pronomen"),
                   ),
                 ),
 

@@ -1,4 +1,7 @@
+import 'dart:math';
+
 import '../../../algorithms/grammar_learning.dart';
+import '../../../models/greek/grammar/pronoun_paradigm.dart';
 import '../../../models/greek/vocabulary/greek_vocabulary_entry.dart';
 
 /// Zielbestimmung einer Nomen-Aufgabe in der Schreibweise des Trainers
@@ -15,6 +18,16 @@ typedef VerbTarget = ({
   String voice,
 });
 
+/// Zielbestimmung einer Pronomen-Aufgabe in der Schreibweise des Trainers
+/// ("Akkusativ", "Sg.", "m" bzw. [GrammarQuestionPicker.noGender]) samt der
+/// anzuzeigenden Form.
+typedef PronounTarget = ({
+  String grammaticalCase,
+  String number,
+  String gender,
+  String form,
+});
+
 /// Fachliche Regeln der Fragegenerierung im Grammatiktrainer: welche Wörter
 /// und welche Bestimmungen überhaupt gefragt werden dürfen.
 ///
@@ -25,7 +38,7 @@ typedef VerbTarget = ({
 class GrammarQuestionPicker {
   GrammarQuestionPicker._();
 
-  static const List<String> types = ["noun", "verb"];
+  static const List<String> types = ["noun", "verb", "pronoun"];
 
   static const List<String> cases = [
     "Nominativ",
@@ -37,6 +50,13 @@ class GrammarQuestionPicker {
   static const List<String> numbers = ["Sg.", "Pl."];
 
   static const List<String> genders = ["m", "f", "n"];
+
+  /// Auswahl für Pronomen ohne Genus (ἐγώ, σύ).
+  static const String noGender = "–";
+
+  /// Genus-Auswahl bei Pronomen. Sie ist bei jedem Pronomen dieselbe, damit
+  /// die Auswahl nicht schon verrät, um welches Pronomen es geht.
+  static const List<String> pronounGenders = ["m", "f", "n", noGender];
 
   /// Person und Numerus, wie der Nutzer sie auswählt.
   static const List<String> personNumbers = [
@@ -116,7 +136,7 @@ class GrammarQuestionPicker {
     "πράττω", //Aorist anderes Lemma nehmen
     "τάττω", //Aorist anderes Lemma nehmen
     "φυλάττω", //Aorist anderes Lemma nehmen
-    "ἀγγέλλω",
+    "ἀγγέλλω", //Attischer statt Koine Aorist
     "κρίνω",
     "μένω",
     "ἄγω",
@@ -138,10 +158,31 @@ class GrammarQuestionPicker {
 
   static const String _eimi = "εἰμί";
 
+  /// Ob ein Wort zu den Filtern des Trainers gehört. Pronomen sind eine
+  /// eigene Inhaltsgruppe und hängen nicht an den Schritten; gefragt werden
+  /// kann nur ein Pronomen, für das ein Paradigma vorliegt
+  /// ([pronounIds]).
+  static bool isAvailable(
+    GreekVocabularyEntry entry, {
+    required List<int> enabledSteps,
+    required List<String> enabledTypes,
+    required Set<int> pronounIds,
+  }) {
+    if (!enabledTypes.contains(entry.type) || blacklist.contains(entry.lemma)) {
+      return false;
+    }
+
+    if (entry.type == "pronoun") {
+      return pronounIds.contains(entry.id);
+    }
+
+    return enabledSteps.contains(entry.step);
+  }
+
   /// Wählt die Grundform der nächsten Frage aus den bereits gefilterten
-  /// Wörtern. Drei Gruppen mit demselben Grundgewicht: alle Wörter, die
-  /// Verben des Aoristblatts und εἰμί (jeweils soweit verfügbar). Der
-  /// Lernbedarf verschiebt die Auswahl zwischen den Gruppen und innerhalb
+  /// Wörtern. Vier Gruppen mit demselben Grundgewicht: alle Wörter, die
+  /// Verben des Aoristblatts, εἰμί und die Pronomen (jeweils soweit
+  /// verfügbar). Der Lernbedarf verschiebt die Auswahl zwischen den Gruppen und innerhalb
   /// der gewählten Gruppe.
   static GreekVocabularyEntry pickEntry(
     GrammarLearning grammar,
@@ -153,10 +194,15 @@ class GrammarQuestionPicker {
 
     final eimi = available.where((entry) => entry.lemma == _eimi).firstOrNull;
 
+    final pronouns = available.where((entry) {
+      return entry.type == "pronoun";
+    }).toList();
+
     return grammar.pickFromGroups([
       available,
       if (aoristSheetVerbs.isNotEmpty) aoristSheetVerbs,
       if (eimi != null) [eimi],
+      if (pronouns.isNotEmpty) pronouns,
     ], (entry) => GrammarLearning.lemmaId(entry.id));
   }
 
@@ -186,6 +232,43 @@ class GrammarQuestionPicker {
       grammaticalCase: grammaticalCase,
       number: number,
       gender: genderOf(entry),
+    );
+  }
+
+  /// Kasus, Numerus und – soweit das Pronomen eines hat – Genus werden nach
+  /// Lernbedarf gewählt; unter mehreren Formvarianten der Zelle (ἐμοῦ / μου,
+  /// τίσι / τίσιν) entscheidet der Zufall. `null`, wenn das Paradigma die
+  /// Zelle nicht enthält.
+  static PronounTarget? pickPronounTarget(
+    GrammarLearning grammar,
+    PronounParadigm paradigm,
+    Random random,
+  ) {
+    final grammaticalCase = grammar.pickValue("pronoun", "case", cases);
+
+    final number = grammar.pickValue("pronoun", "number", numbers);
+
+    final paradigmGenders = paradigm.genders;
+
+    final gender = paradigmGenders.isEmpty
+        ? null
+        : grammar.pickValue("pronoun", "gender", paradigmGenders);
+
+    final cell = paradigm.cell(
+      grammaticalCase,
+      nounRequestNumber(number),
+      gender,
+    );
+
+    if (cell == null || cell.forms.isEmpty) {
+      return null;
+    }
+
+    return (
+      grammaticalCase: grammaticalCase,
+      number: number,
+      gender: gender ?? noGender,
+      form: cell.forms[random.nextInt(cell.forms.length)].text,
     );
   }
 

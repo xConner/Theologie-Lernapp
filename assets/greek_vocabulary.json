@@ -453,6 +453,8 @@
     "lemma": "εἰς + Akk.",
     "translations": [
       "in ... hinein",
+      "nach",
+      "auf ... zu",
       "gegen"
     ]
   },
@@ -495,7 +497,9 @@
     "type": "preposition",
     "lemma": "ἐν + Dat.",
     "translations": [
-      "in"
+      "in",
+      "an",
+      "auf"
     ]
   },
   {
@@ -1066,7 +1070,8 @@
     "aorist": "ἔβλεψα",
     "translations": [
       "blicken",
-      "sehen"
+      "sehen",
+      "schauen"
     ]
   },
   {
@@ -1176,7 +1181,7 @@
   {
     "id": 107,
     "step": 3,
-    "type": "adjective",
+    "type": "pronoun",
     "lemma": "ἐμός",
     "translations": [
       "mein"
@@ -1220,7 +1225,7 @@
   {
     "id": 111,
     "step": 3,
-    "type": "adjective",
+    "type": "pronoun",
     "lemma": "ἡμέτερος",
     "translations": [
       "unser"
@@ -1784,7 +1789,8 @@
     "aorist": "ἤγγειλα",
     "translations": [
       "melden",
-      "berichten"
+      "berichten",
+      "verkünden"
     ]
   },
   {
@@ -2480,6 +2486,7 @@
     "lemma": "ἀπό + Gen.",
     "translations": [
       "von ... her",
+      "von ... weg",
       "seit"
     ]
   },
@@ -2811,7 +2818,8 @@
     "type": "preposition",
     "lemma": "παρά + Dat.",
     "translations": [
-      "bei"
+      "bei",
+      "neben"
     ]
   },
   {
@@ -3870,7 +3878,8 @@
     "lemma": "ἀντί + Gen.",
     "translations": [
       "anstelle von",
-      "statt"
+      "statt",
+      "für"
     ]
   },
   {
@@ -4076,7 +4085,8 @@
     "type": "preposition",
     "lemma": "ἐπί + Dat.",
     "translations": [
-      "auf ... darauf"
+      "auf ... darauf",
+      "wegen"
     ]
   },
   {
@@ -4129,6 +4139,7 @@
     "lemma": "κατά + Akk.",
     "translations": [
       "gemäß",
+      "nach",
       "in",
       "an"
     ]
@@ -4239,7 +4250,8 @@
     "translations": [
       "bei",
       "an",
-      "zu"
+      "zu",
+      "zusätzlich zu"
     ]
   },
   {
@@ -4451,7 +4463,7 @@
       "angeklagt werden",
       "angeklagt sein"
     ],
-    "aorist": "ἔφῠγον"
+    "aorist": "ἔφυγον"
   },
   {
     "id": 424,
@@ -4514,7 +4526,7 @@
     "translations": [
       "schreiben"
     ],
-    "aorist": "ἔγρᾰψᾰ"
+    "aorist": "ἔγραψα"
   },
   {
     "id": 430,
@@ -4524,7 +4536,7 @@
     "translations": [
       "bewachen"
     ],
-    "aorist": "ἐφῠ́λᾰξᾰ"
+    "aorist": "ἐφύλαξα"
   },
   {
     "id": 431,
@@ -4533,9 +4545,10 @@
     "lemma": "βάλλω",
     "translations": [
       "werfen",
+      "treffen",
       "treiben"
     ],
-    "aorist": "ἔβᾰλον"
+    "aorist": "ἔβαλον"
   },
   {
     "id": 432,
@@ -4555,6 +4568,132 @@
     "translations": [
       "verlassen"
     ],
-    "aorist": "ἔλῐπον"
+    "aorist": "ἔλιπον"
+  },
+  {
+    "id": 434,
+    "step": 1,
+    "type": "verb",
+    "lemma": "πράττω",
+    "translations": [
+      "tun",
+      "machen"
+    ],
+    "aorist": "ἔπραξα"
+  },
+  {
+    "id": 435,
+    "step": 3,
+    "type": "pronoun",
+    "lemma": "ἐγώ",
+    "translations": [
+      "ich"
+    ],
+    "note": "Personalpronomen der 1. Person; Plural: ἡμεῖς (wir)"
+  },
+  {
+    "id": 436,
+    "step": 3,
+    "type": "pronoun",
+    "lemma": "σύ",
+    "translations": [
+      "du"
+    ],
+    "note": "Personalpronomen der 2. Person; Plural: ὑμεῖς (ihr)"
+  },
+  {
+    "id": 437,
+    "step": 3,
+    "type": "pronoun",
+    "lemma": "αὐτός",
+    "translations": [
+      "er",
+      "selbst",
+      "derselbe"
+    ],
+    "note": "αὐτή, αὐτό; Personalpronomen der 3. Person; ὁ αὐτός: derselbe; nachgestellt: selbst"
+  },
+  {
+    "id": 438,
+    "step": 3,
+    "type": "pronoun",
+    "lemma": "σός",
+    "translations": [
+      "dein"
+    ]
+  },
+  {
+    "id": 439,
+    "step": 3,
+    "type": "pronoun",
+    "lemma": "ὑμέτερος",
+    "translations": [
+      "euer"
+    ]
+  },
+  {
+    "id": 440,
+    "step": 3,
+    "type": "pronoun",
+    "lemma": "ὅδε",
+    "translations": [
+      "dieser",
+      "dieser hier"
+    ],
+    "note": "ἥδε, τόδε; verweist auf das Folgende"
+  },
+  {
+    "id": 441,
+    "step": 3,
+    "type": "pronoun",
+    "lemma": "οὗτος",
+    "translations": [
+      "dieser"
+    ],
+    "note": "αὕτη, τοῦτο; verweist auf das Vorhergehende"
+  },
+  {
+    "id": 442,
+    "step": 3,
+    "type": "pronoun",
+    "lemma": "ἐκεῖνος",
+    "translations": [
+      "jener"
+    ],
+    "note": "ἐκείνη, ἐκεῖνο"
+  },
+  {
+    "id": 443,
+    "step": 3,
+    "type": "pronoun",
+    "lemma": "ὅς",
+    "translations": [
+      "der",
+      "welcher"
+    ],
+    "note": "ἥ, ὅ; Relativpronomen"
+  },
+  {
+    "id": 444,
+    "step": 3,
+    "type": "pronoun",
+    "lemma": "τίς",
+    "translations": [
+      "wer?",
+      "welcher?"
+    ],
+    "note": "Neutrum: τί (was?); Interrogativpronomen, immer mit Akut"
+  },
+  {
+    "id": 445,
+    "step": 3,
+    "type": "pronoun",
+    "lemma": "τις",
+    "translations": [
+      "irgendjemand",
+      "jemand",
+      "irgendeiner"
+    ],
+    "note": "Neutrum: τι (irgendetwas); Indefinitpronomen, enklitisch"
   }
 ]

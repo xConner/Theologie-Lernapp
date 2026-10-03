@@ -82,8 +82,9 @@ class AppModules {
     id: "greek_grammar_trainer",
     title: "Griechisch – Grammatiktrainer",
     description:
-        "Zu einer flektierten Form von Nomen und Verben aus der Vokabelliste "
-        "werden die grammatischen Bestimmungen und die Grundform abgefragt.",
+        "Zu einer flektierten Form von Nomen, Verben und Pronomen aus der "
+        "Vokabelliste werden die grammatischen Bestimmungen und die Grundform "
+        "abgefragt.",
     sources: [
       SourceInfo(
         title: "Flektierte Formen",
@@ -100,6 +101,20 @@ class AppModules {
         url: "https://en.wiktionary.org",
       ),
       SourceInfo(
+        title: "Pronomen",
+        origin:
+            "Paradigmen, Gebrauchshinweise und Beispielsätze nach den "
+            "Unterlagen des Sprachkurses Griechisch 1",
+        processing:
+            "Die Formen der Pronomen sind fest in der App hinterlegt und "
+            "werden nicht aus Wiktionary geladen. Formal gleiche Formen "
+            "werden anhand dieser Tabellen erkannt.",
+        aiNote:
+            "Die Tabellen wurden mit KI-Unterstützung aus den Unterlagen "
+            "übertragen; die deutschen Übersetzungen der Beispielsätze "
+            "stammen teilweise von einer KI.",
+      ),
+      SourceInfo(
         title: "Wörter und Übersetzungen",
         origin: "Vokabelliste der App (siehe „Griechisch – Vokabeln“)",
       ),
@@ -109,7 +124,7 @@ class AppModules {
           "abweichende Dialektformen enthalten. Auch die automatische "
           "Auswahl der Form aus der Tabelle kann im Einzelfall danebenliegen.",
       "Einzelne Wörter und Formen sind vom Training ausgenommen.",
-      "Der Trainer benötigt eine Internetverbindung.",
+      "Für Nomen und Verben benötigt der Trainer eine Internetverbindung.",
     ],
   );
 
@@ -117,8 +132,8 @@ class AppModules {
     id: "greek_grammar_overview",
     title: "Griechisch – Grammatikübersicht",
     description:
-        "Übersichtstabellen zum bestimmten Artikel, zu Deklinationen und "
-        "Konjugationen.",
+        "Übersichtstabellen zum bestimmten Artikel, zu Deklinationen, "
+        "Pronomen und Konjugationen.",
     sources: [
       SourceInfo(
         title: "Tabellen",
