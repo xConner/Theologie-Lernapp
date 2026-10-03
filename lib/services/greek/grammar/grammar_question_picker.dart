@@ -51,6 +51,16 @@ class GrammarQuestionPicker {
 
   static const List<String> genders = ["m", "f", "n"];
 
+  /// Pronomenarten (`kind` der Paradigmen), einzeln wählbar.
+  static const List<String> pronounKinds = [
+    "personal",
+    "possessive",
+    "demonstrative",
+    "relative",
+    "interrogative",
+    "indefinite",
+  ];
+
   /// Auswahl für Pronomen ohne Genus (ἐγώ, σύ).
   static const String noGender = "–";
 

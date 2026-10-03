@@ -517,7 +517,42 @@ void main() {
         'showLemmaFieldNoun': false,
         'showLemmaFieldVerb': true,
         'showLemmaFieldPronoun': true,
+        'enabledPronounKinds': GrammarQuestionPicker.pronounKinds,
       });
+    });
+
+    test("Pronomenarten: ohne gespeicherte Unterauswahl gelten alle", () {
+      for (final data in [
+        null,
+        <String, dynamic>{
+          'enabledTypes': ["noun", "verb", "pronoun"],
+        },
+      ]) {
+        final settings = GrammarTrainerSettings.fromMap(data);
+
+        expect(settings.enabledPronounKinds, [
+          "personal",
+          "possessive",
+          "demonstrative",
+          "relative",
+          "interrogative",
+          "indefinite",
+        ]);
+      }
+    });
+
+    test("Pronomenarten: Unterauswahl wird gelesen, gespeichert, geprüft", () {
+      final settings = GrammarTrainerSettings.fromMap(<String, dynamic>{
+        'enabledPronounKinds': ["relative", "reflexive", 3, "personal"],
+      });
+
+      expect(settings.enabledPronounKinds, ["relative", "personal"]);
+      expect(settings.toMap()['enabledPronounKinds'], ["relative", "personal"]);
+
+      // Veränderbare Kopie für den Einstellungsdialog.
+      GrammarTrainerSettings.fromMap(null).enabledPronounKinds.clear();
+
+      expect(GrammarTrainerSettings.allPronounKinds.length, 6);
     });
 
     test("Einstellungen von vor den Pronomen bleiben, wie sie waren", () {

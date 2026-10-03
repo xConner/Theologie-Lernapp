@@ -126,6 +126,12 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
   bool showLemmaFieldVerb = true;
   bool showLemmaFieldPronoun = true;
 
+  // Unterauswahl der Wortart Pronomen.
+  static const List<String> allPronounKinds =
+      GrammarQuestionPicker.pronounKinds;
+
+  List<String> enabledPronounKinds = List.of(allPronounKinds);
+
   // ---------------------------------------------------------------------------
   // NOMEN
   // ---------------------------------------------------------------------------
@@ -217,6 +223,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
     showLemmaFieldNoun = settings.showLemmaFieldNoun;
     showLemmaFieldVerb = settings.showLemmaFieldVerb;
     showLemmaFieldPronoun = settings.showLemmaFieldPronoun;
+    enabledPronounKinds = settings.enabledPronounKinds;
   }
 
   Future<void> saveGrammarSettings() {
@@ -228,6 +235,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
         showLemmaFieldNoun: showLemmaFieldNoun,
         showLemmaFieldVerb: showLemmaFieldVerb,
         showLemmaFieldPronoun: showLemmaFieldPronoun,
+        enabledPronounKinds: enabledPronounKinds,
       ),
     );
   }
@@ -325,8 +333,15 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
       entry,
       enabledSteps: enabledSteps,
       enabledTypes: enabledTypes,
-      pronounIds: {for (final paradigm in pronouns.all) paradigm.id},
+      pronounIds: {for (final paradigm in _enabledPronouns()) paradigm.id},
     );
+  }
+
+  // Die Pronomen der ausgewählten Pronomenarten.
+  List<PronounParadigm> _enabledPronouns() {
+    return pronouns.all.where((paradigm) {
+      return enabledPronounKinds.contains(paradigm.kind);
+    }).toList();
   }
 
   List<GreekVocabularyEntry> _getAvailableEntries() {
@@ -1224,6 +1239,20 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
                         return;
                       }
 
+                      if (enabledTypes.contains("pronoun") &&
+                          enabledPronounKinds.isEmpty) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text(
+                              "Mindestens eine Pronomenart muss ausgewählt "
+                              "sein.",
+                            ),
+                          ),
+                        );
+
+                        return;
+                      }
+
                       await saveGrammarSettings();
 
                       if (!context.mounted) {
@@ -1323,6 +1352,44 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
                           });
                         },
                       ),
+
+                      // -------------------------------------------------------
+                      // PRONOMENARTEN (UNTERAUSWAHL)
+                      // -------------------------------------------------------
+                      if (enabledTypes.contains("pronoun"))
+                        MultiSelectSection<String>(
+                          title: "Pronomenarten",
+                          hint:
+                              "Unterauswahl der Wortart Pronomen: Abgefragt "
+                              "werden nur Pronomen der ausgewählten Arten.",
+                          options: allPronounKinds,
+                          isSelected: enabledPronounKinds.contains,
+                          labelOf: PronounParadigm.kindLabelOf,
+                          emptyError:
+                              "Mindestens eine Pronomenart muss ausgewählt "
+                              "sein.",
+                          onToggleAll: () {
+                            setDialogState(() {
+                              if (enabledPronounKinds.length ==
+                                  allPronounKinds.length) {
+                                enabledPronounKinds.clear();
+                              } else {
+                                enabledPronounKinds = List.of(allPronounKinds);
+                              }
+                            });
+                          },
+                          onChanged: (kind, value) {
+                            setDialogState(() {
+                              if (value) {
+                                if (!enabledPronounKinds.contains(kind)) {
+                                  enabledPronounKinds.add(kind);
+                                }
+                              } else {
+                                enabledPronounKinds.remove(kind);
+                              }
+                            });
+                          },
+                        ),
 
                       // -------------------------------------------------------
                       // GRUNDFORM
@@ -1747,7 +1814,8 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
         _choice(
           value: userPronoun,
           label: "Pronomen",
-          items: [for (final paradigm in pronouns.all) paradigm.label],
+          // Zur Wahl stehen die Pronomen der ausgewählten Pronomenarten.
+          items: [for (final paradigm in _enabledPronouns()) paradigm.label],
           isCorrect: lemmaCorrect,
           onChanged: (value) {
             setState(() {

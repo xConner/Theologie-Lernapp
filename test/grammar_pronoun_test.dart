@@ -1203,6 +1203,49 @@ void main() {
       expect(available(["pronoun"], steps: [7]), isTrue);
     });
 
+    test("jedes Paradigma gehört zu einer wählbaren Pronomenart", () {
+      for (final p in pronouns.all) {
+        expect(GrammarQuestionPicker.pronounKinds, contains(p.kind));
+      }
+
+      for (final kind in GrammarQuestionPicker.pronounKinds) {
+        expect(pronouns.all.any((p) => p.kind == kind), isTrue, reason: kind);
+        expect(PronounParadigm.kindLabelOf(kind), isNot("Pronomen"));
+      }
+    });
+
+    test("Unterauswahl der Pronomenarten begrenzt die gefragten Pronomen", () {
+      List<String> available(List<String> kinds) {
+        final ids = {
+          for (final p in pronouns.all)
+            if (kinds.contains(p.kind)) p.id,
+        };
+
+        return [
+          for (final e in vocabulary)
+            if (GrammarQuestionPicker.isAvailable(
+              e,
+              enabledSteps: const [],
+              enabledTypes: const ["pronoun"],
+              pronounIds: ids,
+            ))
+              e.lemma,
+        ];
+      }
+
+      expect(
+        available(["demonstrative"]),
+        unorderedEquals(["ὅδε", "οὗτος", "ἐκεῖνος"]),
+      );
+      expect(
+        available(["relative", "indefinite"]),
+        unorderedEquals(["ὅς", "τις"]),
+      );
+      expect(available(["personal"]), unorderedEquals(["ἐγώ", "σύ", "αὐτός"]));
+      expect(available([]), isEmpty);
+      expect(available(GrammarQuestionPicker.pronounKinds).length, 13);
+    });
+
     test("ohne Paradigma wird ein Pronomen nicht gefragt", () {
       expect(
         GrammarQuestionPicker.isAvailable(

@@ -10,6 +10,9 @@ class GrammarTrainerSettings {
 
   static const List<String> allTypes = GrammarQuestionPicker.types;
 
+  static const List<String> allPronounKinds =
+      GrammarQuestionPicker.pronounKinds;
+
   final List<int> enabledSteps;
   final List<String> enabledTypes;
 
@@ -20,9 +23,13 @@ class GrammarTrainerSettings {
   /// Bei Pronomen eine Auswahl des Pronomens statt eines Textfelds.
   final bool showLemmaFieldPronoun;
 
+  /// Unterauswahl der Wortart Pronomen: welche Pronomenarten gefragt werden.
+  final List<String> enabledPronounKinds;
+
   const GrammarTrainerSettings({
     this.enabledSteps = allSteps,
     this.enabledTypes = allTypes,
+    this.enabledPronounKinds = allPronounKinds,
     this.showLemmaFieldNoun = true,
     this.showLemmaFieldVerb = true,
     this.showLemmaFieldPronoun = true,
@@ -38,8 +45,11 @@ class GrammarTrainerSettings {
       return GrammarTrainerSettings(
         enabledSteps: List.of(allSteps),
         enabledTypes: List.of(allTypes),
+        enabledPronounKinds: List.of(allPronounKinds),
       );
     }
+
+    final kinds = data['enabledPronounKinds'];
 
     final steps = data['enabledSteps'];
     final types = data['enabledTypes'];
@@ -59,6 +69,10 @@ class GrammarTrainerSettings {
       enabledTypes: types is List
           ? types.whereType<String>().where(allTypes.contains).toList()
           : List.of(allTypes),
+      // Ohne gespeicherte Unterauswahl gelten alle Pronomenarten.
+      enabledPronounKinds: kinds is List
+          ? kinds.whereType<String>().where(allPronounKinds.contains).toList()
+          : List.of(allPronounKinds),
       showLemmaFieldNoun: lemmaNoun is bool ? lemmaNoun : true,
       showLemmaFieldVerb: lemmaVerb is bool ? lemmaVerb : true,
       showLemmaFieldPronoun: lemmaPronoun is bool ? lemmaPronoun : true,
@@ -72,6 +86,7 @@ class GrammarTrainerSettings {
       'showLemmaFieldNoun': showLemmaFieldNoun,
       'showLemmaFieldVerb': showLemmaFieldVerb,
       'showLemmaFieldPronoun': showLemmaFieldPronoun,
+      'enabledPronounKinds': enabledPronounKinds,
     };
   }
 }

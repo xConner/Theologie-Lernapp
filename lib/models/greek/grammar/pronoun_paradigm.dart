@@ -128,7 +128,9 @@ class PronounParadigm {
   }
 
   /// Deutsche Bezeichnung der Pronomenart.
-  String get kindLabel {
+  String get kindLabel => kindLabelOf(kind);
+
+  static String kindLabelOf(String kind) {
     switch (kind) {
       case "personal":
         return "Personalpronomen";
