@@ -114,11 +114,15 @@ class _HomeScreenState extends State<HomeScreen> {
     try {
       final data = await PerikopeLoader.load();
 
+      if (!mounted) return;
+
       setState(() {
         perikopen = data;
         loading = false;
       });
     } catch (_) {
+      if (!mounted) return;
+
       setState(() {
         perikopen = [];
         loading = false;

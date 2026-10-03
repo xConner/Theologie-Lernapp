@@ -1,0 +1,52 @@
+# Architektur der Trainer
+
+Kurzer Überblick, wo welche Verantwortung liegt. Grundsatz: gemeinsame
+Infrastruktur + trainer-spezifische Fachlogik – kein „Universaltrainer“.
+
+## Gemeinsame Infrastruktur
+
+| Aufgabe | Ort |
+|---|---|
+| Lernstand je Karte (`stability`, `difficulty`, `lastReviewed`, Lernhilfe) | `models/greek/vocabulary/learning_card.dart` |
+| Laden/Speichern der Lernstände, Konto (Firestore) oder Gast (lokal) | `services/learning_service.dart`, `services/local_learning_store.dart` |
+| Auswahl der nächsten Frage (Vokabeln, Perikopen) | `algorithms/learning_selector.dart`, `algorithms/spaced_repetition.dart` |
+| Auswahl nach grammatischer Bestimmung | `algorithms/grammar_learning.dart` |
+| Sound, Tagesstatistik, Streak nach einer Antwort | `reportTrainerAnswer` in `widgets/trainer_widgets.dart` |
+| Lernhilfe, Sound-Schalter, Ergebnis-Rahmen | `widgets/trainer_widgets.dart` |
+| Auswahl-Bausteine der Einstellungsdialoge | `widgets/settings_selection.dart`, `widgets/settings_access.dart` |
+
+`uid == null` bedeutet überall Gastmodus: dieselben Datenstrukturen, lokal
+über `LocalLearningStore` statt in Firestore. Die Collection-Namen stehen
+einmal in `LocalLearningStore.cardCollections`.
+
+## Je Trainer
+
+Jeder Trainer besitzt einen Screen (Sitzungszustand, Dialoge), einen
+Einstellungs-Service (ein Lesezugriff je Öffnen) und seine Antwortprüfung.
+
+| Trainer | Einstellungen | Antwortprüfung |
+|---|---|---|
+| Griechisch-Vokabeln | `services/greek/vocabulary/vocabulary_settings_service.dart` | `vocabulary_answer_checker.dart` |
+| Latein-Vokabeln | `services/latin/vocabulary/latin_vocabulary_settings_service.dart` | `latin_vocabulary_answer_checker.dart` |
+| Griechisch-Grammatik | `services/greek/grammar/grammar_settings_service.dart` | `grammar_answer_check.dart` |
+| Perikopenquiz | `services/settings_service.dart` | im `quiz_screen.dart` (Vergleich der Stellen) |
+
+### Grammatiktrainer
+
+* `grammar_question_picker.dart` – fachliche Regeln: Blacklist, Aoristblatt,
+  εἰμί, zulässige Tempora und Genera Verbi je Verb, Auswahl der Grundform
+  und der Zielbestimmung. Reine Funktionen, ohne UI und Netzwerk.
+* `grammar_answer_check.dart` – Bewertung inklusive formal identischer
+  Formen (Ambiguitäten) und Deponentien.
+* `wiktionary_inflection_service.dart` – lädt Formen über `/api/greek-*`
+  und merkt sich Formen samt möglicher Bestimmungen für die Sitzung.
+* `utils/greek_normalization.dart` – Normalisierung für Anzeige und
+  Vergleich der Grundform.
+* `grammar_trainer_screen.dart` – Sitzungszustand, Preloading der nächsten
+  Frage (`_preloadedQuestion`, Tokens gegen überholte Antworten) und UI.
+
+Ein neuer Trainer (z. B. Latein-Grammatik) braucht eigene Regeln und eine
+eigene Antwortprüfung, kann aber `LearningService`, `GrammarLearning`,
+`reportTrainerAnswer` und die Widgets unverändert verwenden. Für den
+Lernstand kommt eine Collection in `LocalLearningStore.cardCollections`,
+in `firestore.rules` und in `AccountDeletionService.userCollections` hinzu.

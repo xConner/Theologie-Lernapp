@@ -81,6 +81,8 @@ class _VocabularyOverviewScreenState extends State<VocabularyOverviewScreen> {
   Future<void> _load() async {
     entries = await GreekVocabularyLoader.load();
 
+    if (!mounted) return;
+
     setState(() {
       loading = false;
     });

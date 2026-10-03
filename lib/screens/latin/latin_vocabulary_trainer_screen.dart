@@ -12,21 +12,19 @@ import '../../services/latin/vocabulary/latin_vocabulary_loader.dart';
 import '../../services/latin/vocabulary/latin_vocabulary_answer_checker.dart';
 import '../../services/latin/vocabulary/latin_vocabulary_settings_service.dart';
 import '../../services/learning_service.dart';
-import '../../services/quiz_sound_player.dart';
 import '../../services/quiz_sound_settings.dart';
 import '../../theme/app_theme.dart';
 import '../../widgets/answer_feedback_badge.dart';
 import '../../widgets/sound_volume_button.dart';
-import '../../widgets/streak_widgets.dart';
 import '../../services/streak/streak_track.dart';
 import '../../services/statistics/learning_statistics.dart';
-import '../../services/statistics/statistics_service.dart';
 import '../../widgets/statistics_widgets.dart';
 import '../../widgets/settings_access.dart';
 import '../../widgets/settings_selection.dart';
 import '../../utils/word_type_labels.dart';
 import '../../info/app_info.dart';
 import '../../widgets/info_report.dart';
+import '../../widgets/trainer_widgets.dart';
 
 class LatinVocabularyTrainerScreen extends StatefulWidget {
   const LatinVocabularyTrainerScreen({super.key});
@@ -75,35 +73,12 @@ class _LatinVocabularyTrainerScreenState
       if (entry.value.isNotEmpty) entry.key,
   ]..sort();
 
-  List<String> enabledTypes = [
-    "noun",
-    "verb",
-    "adjective",
-    "adverb",
-    "pronoun",
-    "preposition",
-    "conjunction",
-    "particle",
-    "question_word",
-    "phrase",
-  ];
+  List<String> enabledTypes = List.of(LatinVocabularySettings.allTypes);
 
-  final List<String> allTypes = [
-    "noun",
-    "verb",
-    "adjective",
-    "adverb",
-    "pronoun",
-    "preposition",
-    "conjunction",
-    "particle",
-    "question_word",
-    "phrase",
-  ];
+  static const List<String> allTypes = LatinVocabularySettings.allTypes;
 
-  final mnemonicController = TextEditingController();
-
-  bool editingMnemonic = false;
+  // Gesetzt, wenn Vokabeln, Einstellungen oder Lernstand nicht ladbar waren.
+  String? loadError;
 
   bool? translationCorrect;
   bool translationComplete = true;
@@ -177,7 +152,6 @@ class _LatinVocabularyTrainerScreenState
     translationController.dispose();
     formController.dispose();
     genderController.dispose();
-    mnemonicController.dispose();
 
     super.dispose();
   }
@@ -186,38 +160,54 @@ class _LatinVocabularyTrainerScreenState
     // uid == null: Gastmodus, die Services speichern dann lokal.
     uid = FirebaseAuth.instance.currentUser?.uid;
 
-    includeVerbForm = await settingsService.getIncludeVerbForm(uid);
+    try {
+      // Einstellungen, Vokabeln und Lernstand sind voneinander unabhängig.
+      final results = await Future.wait<Object>([
+        settingsService.load(uid),
+        LatinVocabularyLoader.load(),
+        learningService.loadLatinCards(uid),
+      ]);
 
-    includeNounForm = await settingsService.getIncludeNounForm(uid);
+      final settings = results[0] as LatinVocabularySettings;
 
-    includeGender = await settingsService.getIncludeGender(uid);
+      includeVerbForm = settings.includeVerbForm;
+      includeNounForm = settings.includeNounForm;
+      includeGender = settings.includeGender;
+      includeAdjectiveForms = settings.includeAdjectiveForms;
+      requireOnlyOneTranslation = settings.requireOnlyOneTranslation;
+      enabledTypes = settings.enabledTypes;
 
-    includeAdjectiveForms = await settingsService.getIncludeAdjectiveForms(uid);
+      entries = results[1] as List<LatinVocabularyEntry>;
 
-    requireOnlyOneTranslation = await settingsService
-        .getRequireOnlyOneTranslation(uid);
+      // Schritte ohne gespeicherte Auswahl (Standard, neue Lektionen) sind
+      // vollständig aktiviert.
+      enabledSubsteps = {
+        for (final entry in _availableSubsteps().entries)
+          entry.key:
+              settings.enabledSubsteps[entry.key]
+                  ?.where(entry.value.contains)
+                  .toSet()
+                  .toList() ??
+              List<int>.from(entry.value),
+      };
 
-    entries = await LatinVocabularyLoader.load();
+      cards = results[2] as Map<String, LearningCard>;
+    } catch (e) {
+      // Keine rohen Firebase-/Laufzeitfehler anzeigen.
+      debugPrint("Vokabeltrainer konnte nicht geladen werden: $e");
 
-    final savedSubsteps = await settingsService.getEnabledSubsteps(uid);
+      loadError =
+          "Der Trainer konnte nicht geladen werden. Bitte prüfe deine "
+          "Internetverbindung und versuche es erneut.";
+    }
 
-    // Schritte ohne gespeicherte Auswahl (Standard, neue Lektionen) sind
-    // vollständig aktiviert.
-    enabledSubsteps = {
-      for (final entry in _availableSubsteps().entries)
-        entry.key:
-            savedSubsteps[entry.key]
-                ?.where(entry.value.contains)
-                .toSet()
-                .toList() ??
-            List<int>.from(entry.value),
-    };
+    if (!mounted) {
+      return;
+    }
 
-    enabledTypes = await settingsService.getEnabledTypes(uid);
-
-    cards = await learningService.loadLatinCards(uid);
-
-    nextQuestion();
+    if (loadError == null) {
+      nextQuestion();
+    }
 
     setState(() {
       loading = false;
@@ -273,8 +263,6 @@ class _LatinVocabularyTrainerScreenState
 
     formCorrect = null;
     genderCorrect = null;
-
-    editingMnemonic = false;
 
     setState(() {});
 
@@ -359,40 +347,15 @@ class _LatinVocabularyTrainerScreenState
       genderCorrect = result.genderCorrect;
     });
 
-    if (result.correct) {
-      QuizSoundPlayer.instance.playCorrect(SoundModule.latinVocabulary);
-    } else {
-      QuizSoundPlayer.instance.playIncorrect(SoundModule.latinVocabulary);
-    }
-
-    if (firstEvaluation) {
-      LearningStatisticsService.instance.recordAnswer(
-        uid: uid,
-        trainer: StatisticsTrainer.latinVocabulary,
-        correct: result.correct,
-      );
-    }
-
-    if (result.correct && firstEvaluation && mounted) {
-      recordStreakAnswer(
-        context,
-        uid: uid,
-        track: StreakTrack.latin,
-        source: StreakSource.vocabulary,
-      );
-    }
-  }
-
-  OutlineInputBorder resultBorder(bool? value) {
-    if (value == null) {
-      return const OutlineInputBorder();
-    }
-
-    return OutlineInputBorder(
-      borderSide: BorderSide(
-        color: value ? AppColors.success : AppColors.error,
-        width: 2,
-      ),
+    reportTrainerAnswer(
+      context,
+      uid: uid,
+      correct: result.correct,
+      firstEvaluation: firstEvaluation,
+      sound: SoundModule.latinVocabulary,
+      trainer: StatisticsTrainer.latinVocabulary,
+      track: StreakTrack.latin,
+      source: StreakSource.vocabulary,
     );
   }
 
@@ -562,45 +525,8 @@ class _LatinVocabularyTrainerScreenState
                         ),
                       ),
 
-                      SettingsSection(
-                        title: "Sounds",
-                        child: SettingsSwitchGroup(
-                          children: [
-                            SwitchListTile(
-                              title: const Text("Sound bei richtiger Antwort"),
-                              value: QuizSoundSettings.instance
-                                  .isCorrectSoundEnabled(
-                                    SoundModule.latinVocabulary,
-                                  ),
-                              onChanged: (value) {
-                                setDialogState(() {
-                                  QuizSoundSettings.instance
-                                      .setCorrectSoundEnabled(
-                                        SoundModule.latinVocabulary,
-                                        value,
-                                      );
-                                });
-                              },
-                            ),
-
-                            SwitchListTile(
-                              title: const Text("Sound bei falscher Antwort"),
-                              value: QuizSoundSettings.instance
-                                  .isWrongSoundEnabled(
-                                    SoundModule.latinVocabulary,
-                                  ),
-                              onChanged: (value) {
-                                setDialogState(() {
-                                  QuizSoundSettings.instance
-                                      .setWrongSoundEnabled(
-                                        SoundModule.latinVocabulary,
-                                        value,
-                                      );
-                                });
-                              },
-                            ),
-                          ],
-                        ),
+                      const SoundSettingsSection(
+                        module: SoundModule.latinVocabulary,
                       ),
                     ],
                   ),
@@ -807,25 +733,22 @@ class _LatinVocabularyTrainerScreenState
 
     final q = question;
 
+    final appBar = AppBar(
+      title: const Text("Latein – Vokabeltrainer"),
+      actions: [
+        StatisticsButton(uid: uid, trainer: StatisticsTrainer.latinVocabulary),
+        const SoundVolumeButton(),
+        IconButton(icon: const Icon(Icons.settings), onPressed: openSettings),
+      ],
+    );
+
     if (q == null) {
       return Scaffold(
-        appBar: AppBar(
-          title: const Text("Latein – Vokabeltrainer"),
-          actions: [
-            StatisticsButton(
-              uid: uid,
-              trainer: StatisticsTrainer.latinVocabulary,
-            ),
-            const SoundVolumeButton(),
-            IconButton(
-              icon: const Icon(Icons.settings),
-              onPressed: openSettings,
-            ),
-          ],
-        ),
-        body: const Center(
+        appBar: appBar,
+        body: Center(
           child: Text(
-            "Mit den aktuellen Filtern sind keine Vokabeln verfügbar.",
+            loadError ??
+                "Mit den aktuellen Filtern sind keine Vokabeln verfügbar.",
             textAlign: TextAlign.center,
           ),
         ),
@@ -835,20 +758,8 @@ class _LatinVocabularyTrainerScreenState
     final card =
         cards[q.entry.id.toString()] ?? LearningCard(id: q.entry.id.toString());
 
-    final currentMnemonic = card.mnemonic;
-
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Latein – Vokabeltrainer"),
-        actions: [
-          StatisticsButton(
-            uid: uid,
-            trainer: StatisticsTrainer.latinVocabulary,
-          ),
-          const SoundVolumeButton(),
-          IconButton(icon: const Icon(Icons.settings), onPressed: openSettings),
-        ],
-      ),
+      appBar: appBar,
 
       body: Center(
         child: SingleChildScrollView(
@@ -890,9 +801,9 @@ class _LatinVocabularyTrainerScreenState
                             : q.entry.type == "noun"
                             ? "Zusatzform"
                             : "Formen",
-                        enabledBorder: resultBorder(formCorrect),
-                        focusedBorder: resultBorder(formCorrect),
-                        disabledBorder: resultBorder(formCorrect),
+                        enabledBorder: answerResultBorder(formCorrect),
+                        focusedBorder: answerResultBorder(formCorrect),
+                        disabledBorder: answerResultBorder(formCorrect),
                         border: const OutlineInputBorder(),
                       ),
                     ),
@@ -909,9 +820,9 @@ class _LatinVocabularyTrainerScreenState
                       decoration: InputDecoration(
                         labelText: "Genus",
                         hintText: "z. B. m, f, n",
-                        enabledBorder: resultBorder(genderCorrect),
-                        focusedBorder: resultBorder(genderCorrect),
-                        disabledBorder: resultBorder(genderCorrect),
+                        enabledBorder: answerResultBorder(genderCorrect),
+                        focusedBorder: answerResultBorder(genderCorrect),
+                        disabledBorder: answerResultBorder(genderCorrect),
                         border: const OutlineInputBorder(),
                       ),
                     ),
@@ -928,9 +839,9 @@ class _LatinVocabularyTrainerScreenState
                     decoration: InputDecoration(
                       labelText: "Übersetzung",
                       hintText: "Mehrere Übersetzungen mit Komma trennen",
-                      enabledBorder: resultBorder(translationCorrect),
-                      focusedBorder: resultBorder(translationCorrect),
-                      disabledBorder: resultBorder(translationCorrect),
+                      enabledBorder: answerResultBorder(translationCorrect),
+                      focusedBorder: answerResultBorder(translationCorrect),
+                      disabledBorder: answerResultBorder(translationCorrect),
                       border: const OutlineInputBorder(),
                     ),
                   ),
@@ -987,100 +898,21 @@ class _LatinVocabularyTrainerScreenState
 
                         const SizedBox(height: 16),
 
-                        if (editingMnemonic)
-                          Card(
-                            child: Padding(
-                              padding: const EdgeInsets.all(12),
-                              child: Column(
-                                children: [
-                                  TextField(
-                                    controller: mnemonicController,
-                                    decoration: const InputDecoration(
-                                      labelText: "Lernhilfe",
-                                      border: OutlineInputBorder(),
-                                    ),
-                                  ),
+                        MnemonicSection(
+                          key: ValueKey(q.entry.id),
+                          mnemonic: card.mnemonic,
+                          onSave: (mnemonic) async {
+                            card.mnemonic = mnemonic;
 
-                                  const SizedBox(height: 10),
+                            cards[q.entry.id.toString()] = card;
 
-                                  ElevatedButton.icon(
-                                    icon: const Icon(Icons.save),
-                                    label: const Text("Speichern"),
-                                    onPressed: () async {
-                                      card.mnemonic =
-                                          mnemonicController.text.trim().isEmpty
-                                          ? null
-                                          : mnemonicController.text.trim();
+                            await learningService.saveLatinCard(uid, card);
 
-                                      cards[q.entry.id.toString()] = card;
-
-                                      await learningService.saveLatinCard(
-                                        uid,
-                                        card,
-                                      );
-
-                                      setState(() {
-                                        editingMnemonic = false;
-                                      });
-                                    },
-                                  ),
-                                ],
-                              ),
-                            ),
-                          )
-                        else if (currentMnemonic != null &&
-                            currentMnemonic.isNotEmpty)
-                          Card(
-                            child: Padding(
-                              padding: const EdgeInsets.all(12),
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: Column(
-                                      children: [
-                                        const Text(
-                                          "Lernhilfe",
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-
-                                        const SizedBox(height: 8),
-
-                                        Text(
-                                          currentMnemonic,
-                                          textAlign: TextAlign.center,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-
-                                  IconButton(
-                                    icon: const Icon(Icons.edit),
-                                    onPressed: () {
-                                      mnemonicController.text = currentMnemonic;
-
-                                      setState(() {
-                                        editingMnemonic = true;
-                                      });
-                                    },
-                                  ),
-                                ],
-                              ),
-                            ),
-                          )
-                        else
-                          OutlinedButton.icon(
-                            icon: const Icon(Icons.add),
-                            label: const Text("Lernhilfe hinzufügen"),
-                            onPressed: () {
-                              mnemonicController.clear();
-
-                              setState(() {
-                                editingMnemonic = true;
-                              });
-                            },
-                          ),
+                            if (mounted) {
+                              setState(() {});
+                            }
+                          },
+                        ),
                       ],
                     ),
 

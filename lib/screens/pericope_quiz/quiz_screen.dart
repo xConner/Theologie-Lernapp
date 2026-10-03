@@ -11,14 +11,12 @@ import '../../quiz/pericope_reference.dart';
 import '../../quiz/quiz_engine.dart';
 import '../../quiz/quiz_question.dart';
 
-import '../../services/quiz_sound_player.dart';
 import '../../services/quiz_sound_settings.dart';
 import '../../theme/app_theme.dart';
 import '../../widgets/sound_volume_button.dart';
 import '../../widgets/streak_widgets.dart';
 import '../../services/streak/streak_track.dart';
 import '../../services/statistics/learning_statistics.dart';
-import '../../services/statistics/statistics_service.dart';
 import '../../widgets/statistics_widgets.dart';
 import '../../info/app_info.dart';
 import '../../widgets/info_report.dart';
@@ -26,6 +24,8 @@ import '../../widgets/info_report.dart';
 import '../../utils/bible_reference_validator.dart';
 
 import '../../settings/quiz_settings.dart';
+
+import '../../widgets/trainer_widgets.dart';
 
 import 'quick_entry_panel.dart';
 import 'quiz_settings_sheet.dart';
@@ -125,6 +125,8 @@ class _QuizScreenState extends State<QuizScreen> {
     settings = QuizSettings(
       selectedBooks: books.isEmpty ? {...QuizSettings.allBooks} : books,
     );
+
+    if (!mounted) return;
 
     _prepareQuestions();
 
@@ -404,6 +406,8 @@ class _QuizScreenState extends State<QuizScreen> {
 
       await engine.answer(correct);
 
+      if (!mounted) return;
+
       // Streak nur einmal je Frage zählen (auch bei doppeltem Enter).
       final firstEvaluation = !checked;
 
@@ -462,28 +466,16 @@ class _QuizScreenState extends State<QuizScreen> {
         feedback = buffer.toString();
       });
 
-      if (correct) {
-        QuizSoundPlayer.instance.playCorrect(SoundModule.pericopeQuiz);
-      } else {
-        QuizSoundPlayer.instance.playIncorrect(SoundModule.pericopeQuiz);
-      }
-
-      if (firstEvaluation) {
-        LearningStatisticsService.instance.recordAnswer(
-          uid: widget.uid,
-          trainer: StatisticsTrainer.perikopenQuiz,
-          correct: correct,
-        );
-      }
-
-      if (correct && firstEvaluation && mounted) {
-        recordStreakAnswer(
-          context,
-          uid: widget.uid,
-          track: StreakTrack.perikope,
-          source: StreakSource.perikopenQuiz,
-        );
-      }
+      reportTrainerAnswer(
+        context,
+        uid: widget.uid,
+        correct: correct,
+        firstEvaluation: firstEvaluation,
+        sound: SoundModule.pericopeQuiz,
+        trainer: StatisticsTrainer.perikopenQuiz,
+        track: StreakTrack.perikope,
+        source: StreakSource.perikopenQuiz,
+      );
 
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (mounted) {
@@ -943,6 +935,8 @@ class _QuizScreenState extends State<QuizScreen> {
                                           widget.uid,
                                           card,
                                         );
+
+                                        if (!mounted) return;
 
                                         setState(() {
                                           editingMnemonic = false;

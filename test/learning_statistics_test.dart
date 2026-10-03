@@ -19,7 +19,9 @@ class MemoryRepository implements StatisticsRepository {
   @override
   Future<Map<String, TrainerDays>> loadAll() async {
     if (failLoad) throw Exception("offline");
-    return {for (final e in data.entries) e.key: {...e.value}};
+    return {
+      for (final e in data.entries) e.key: {...e.value},
+    };
   }
 
   @override
@@ -211,28 +213,31 @@ void main() {
   });
 
   group("Trainertrennung", () {
-    test("jede Antwort erscheint nur in der Statistik ihres Trainers", () async {
-      await answer(3, 1, trainer: vocab);
-      await answer(2, 2, trainer: grammar);
-      await answer(1, 0, trainer: perikopen);
-      await answer(0, 3, trainer: latin);
+    test(
+      "jede Antwort erscheint nur in der Statistik ihres Trainers",
+      () async {
+        await answer(3, 1, trainer: vocab);
+        await answer(2, 2, trainer: grammar);
+        await answer(1, 0, trainer: perikopen);
+        await answer(0, 3, trainer: latin);
 
-      expect(today(trainer: vocab).answered, 4);
-      expect(today(trainer: vocab).correct, 3);
-      expect(today(trainer: grammar).answered, 4);
-      expect(today(trainer: grammar).correct, 2);
-      expect(today(trainer: perikopen).answered, 1);
-      expect(today(trainer: perikopen).correct, 1);
-      expect(today(trainer: latin).answered, 3);
-      expect(today(trainer: latin).wrong, 3);
+        expect(today(trainer: vocab).answered, 4);
+        expect(today(trainer: vocab).correct, 3);
+        expect(today(trainer: grammar).answered, 4);
+        expect(today(trainer: grammar).correct, 2);
+        expect(today(trainer: perikopen).answered, 1);
+        expect(today(trainer: perikopen).correct, 1);
+        expect(today(trainer: latin).answered, 3);
+        expect(today(trainer: latin).wrong, 3);
 
-      expect(repos["u1"]!.data.keys, {
-        vocab.id,
-        grammar.id,
-        latin.id,
-        perikopen.id,
-      });
-    });
+        expect(repos["u1"]!.data.keys, {
+          vocab.id,
+          grammar.id,
+          latin.id,
+          perikopen.id,
+        });
+      },
+    );
 
     test("Trainer-IDs sind eindeutig", () {
       final ids = StatisticsTrainer.all.map((t) => t.id).toSet();
@@ -420,7 +425,10 @@ void main() {
         if (width < 400) {
           // Kompakte Darstellung.
           expect(find.text("0 Fragen · 0 richtig · 0 falsch"), findsOneWidget);
-          expect(find.text("24 Fragen · 18 richtig · 6 falsch"), findsOneWidget);
+          expect(
+            find.text("24 Fragen · 18 richtig · 6 falsch"),
+            findsOneWidget,
+          );
           expect(find.text("Quote"), findsNothing);
         } else {
           expect(find.text("Quote"), findsOneWidget);
@@ -504,12 +512,18 @@ void main() {
           appBars,
           reason: "$path: Statistikbutton in jeder AppBar",
         );
+        // Gezählt wird über reportTrainerAnswer (widgets/trainer_widgets.dart).
         expect(
           RegExp(
-            r"recordAnswer\(\s*uid: [^,]+,\s*trainer: " + RegExp.escape(trainer),
+            r"reportTrainerAnswer\([^;]*?trainer: " + RegExp.escape(trainer),
           ).allMatches(source).length,
           1,
           reason: "$path: genau eine Zählstelle",
+        );
+        expect(
+          source.contains("LearningStatisticsService"),
+          isFalse,
+          reason: "$path: keine zweite, direkte Zählstelle",
         );
       }
     });

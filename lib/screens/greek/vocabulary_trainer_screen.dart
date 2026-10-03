@@ -11,17 +11,13 @@ import '../../services/greek/vocabulary/greek_vocabulary_loader.dart';
 import '../../services/greek/vocabulary/vocabulary_answer_checker.dart';
 import '../../services/greek/vocabulary/vocabulary_settings_service.dart';
 import '../../services/learning_service.dart';
-import '../../services/quiz_sound_player.dart';
 import '../../services/quiz_sound_settings.dart';
 
-import '../../theme/app_theme.dart';
 import '../../widgets/answer_feedback_badge.dart';
 import '../../widgets/greek_keyboard.dart';
 import '../../widgets/sound_volume_button.dart';
-import '../../widgets/streak_widgets.dart';
 import '../../services/streak/streak_track.dart';
 import '../../services/statistics/learning_statistics.dart';
-import '../../services/statistics/statistics_service.dart';
 import '../../widgets/statistics_widgets.dart';
 
 import 'package:web/web.dart' as web;
@@ -31,6 +27,7 @@ import '../../widgets/settings_selection.dart';
 import '../../utils/word_type_labels.dart';
 import '../../info/app_info.dart';
 import '../../widgets/info_report.dart';
+import '../../widgets/trainer_widgets.dart';
 
 class VocabularyTrainerScreen extends StatefulWidget {
   const VocabularyTrainerScreen({super.key});
@@ -38,10 +35,6 @@ class VocabularyTrainerScreen extends StatefulWidget {
   @override
   State<VocabularyTrainerScreen> createState() =>
       _VocabularyTrainerScreenState();
-}
-
-class SubmitIntent extends Intent {
-  const SubmitIntent();
 }
 
 class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
@@ -72,39 +65,14 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
 
   bool requireOnlyOneTranslation = true;
 
-  List<int> enabledSteps = [1, 2, 3, 4, 5, 6, 7];
+  List<int> enabledSteps = List.of(VocabularySettings.allSteps);
 
-  List<String> enabledTypes = [
-    "noun",
-    "verb",
-    "adjective",
-    "adverb",
-    "pronoun",
-    "preposition",
-    "conjunction",
-    "particle",
-    "question_word",
-    "numeral",
-    "phrase",
-  ];
+  List<String> enabledTypes = List.of(VocabularySettings.allTypes);
 
-  final List<String> allTypes = [
-    "noun",
-    "verb",
-    "adjective",
-    "adverb",
-    "pronoun",
-    "preposition",
-    "conjunction",
-    "particle",
-    "question_word",
-    "numeral",
-    "phrase",
-  ];
+  static const List<String> allTypes = VocabularySettings.allTypes;
 
-  bool editingMnemonic = false;
-
-  final mnemonicController = TextEditingController();
+  // Gesetzt, wenn Vokabeln, Einstellungen oder Lernstand nicht ladbar waren.
+  String? loadError;
 
   bool? translationCorrect;
 
@@ -158,7 +126,10 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
   void dispose() {
     web.window.removeEventListener('keydown', _keyListener);
     translationFocusNode.dispose();
-    mnemonicController.dispose();
+    translationController.dispose();
+    articleController.dispose();
+    genitiveController.dispose();
+    aoristController.dispose();
     super.dispose();
   }
 
@@ -177,24 +148,42 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
     // uid == null: Gastmodus, die Services speichern dann lokal.
     uid = FirebaseAuth.instance.currentUser?.uid;
 
-    includeArticle = await settingsService.getIncludeArticle(uid);
+    try {
+      // Einstellungen, Vokabeln und Lernstand sind voneinander unabhängig.
+      final results = await Future.wait<Object>([
+        settingsService.load(uid),
+        GreekVocabularyLoader.load(),
+        learningService.loadCards(uid),
+      ]);
 
-    includeGenitive = await settingsService.getIncludeGenitive(uid);
+      final settings = results[0] as VocabularySettings;
 
-    includeAorist = await settingsService.getIncludeAorist(uid);
+      includeArticle = settings.includeArticle;
+      includeGenitive = settings.includeGenitive;
+      includeAorist = settings.includeAorist;
+      requireOnlyOneTranslation = settings.requireOnlyOneTranslation;
+      enabledSteps = settings.enabledSteps;
+      enabledTypes = settings.enabledTypes;
 
-    requireOnlyOneTranslation = await settingsService
-        .getRequireOnlyOneTranslation(uid);
+      entries = results[1] as List<GreekVocabularyEntry>;
 
-    enabledSteps = await settingsService.getEnabledSteps(uid);
+      cards = results[2] as Map<String, LearningCard>;
+    } catch (e) {
+      // Keine rohen Firebase-/Laufzeitfehler anzeigen.
+      debugPrint("Vokabeltrainer konnte nicht geladen werden: $e");
 
-    enabledTypes = await settingsService.getEnabledTypes(uid);
+      loadError =
+          "Der Trainer konnte nicht geladen werden. Bitte prüfe deine "
+          "Internetverbindung und versuche es erneut.";
+    }
 
-    entries = await GreekVocabularyLoader.load();
+    if (!mounted) {
+      return;
+    }
 
-    cards = await learningService.loadCards(uid);
-
-    nextQuestion();
+    if (loadError == null) {
+      nextQuestion();
+    }
 
     setState(() {
       loading = false;
@@ -258,7 +247,9 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
     setState(() {});
 
     Future.delayed(const Duration(milliseconds: 100), () {
-      translationFocusNode.requestFocus();
+      if (mounted) {
+        translationFocusNode.requestFocus();
+      }
     });
   }
 
@@ -325,28 +316,16 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
       activeController = null;
     });
 
-    if (result.correct) {
-      QuizSoundPlayer.instance.playCorrect(SoundModule.greekVocabulary);
-    } else {
-      QuizSoundPlayer.instance.playIncorrect(SoundModule.greekVocabulary);
-    }
-
-    if (firstEvaluation) {
-      LearningStatisticsService.instance.recordAnswer(
-        uid: uid,
-        trainer: StatisticsTrainer.greekVocabulary,
-        correct: result.correct,
-      );
-    }
-
-    if (result.correct && firstEvaluation && mounted) {
-      recordStreakAnswer(
-        context,
-        uid: uid,
-        track: StreakTrack.greek,
-        source: StreakSource.vocabulary,
-      );
-    }
+    reportTrainerAnswer(
+      context,
+      uid: uid,
+      correct: result.correct,
+      firstEvaluation: firstEvaluation,
+      sound: SoundModule.greekVocabulary,
+      trainer: StatisticsTrainer.greekVocabulary,
+      track: StreakTrack.greek,
+      source: StreakSource.vocabulary,
+    );
   }
 
   void openKeyboard(TextEditingController controller) {
@@ -375,20 +354,6 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
 
       activeController = null;
     });
-  }
-
-  OutlineInputBorder resultBorder(bool? value) {
-    if (value == null) {
-      return const OutlineInputBorder();
-    }
-
-    return OutlineInputBorder(
-      borderSide: BorderSide(
-        color: value ? AppColors.success : AppColors.error,
-
-        width: 2,
-      ),
-    );
   }
 
   void openSettings() {
@@ -591,45 +556,8 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
                         ),
                       ),
 
-                      SettingsSection(
-                        title: "Sounds",
-                        child: SettingsSwitchGroup(
-                          children: [
-                            SwitchListTile(
-                              title: const Text("Sound bei richtiger Antwort"),
-                              value: QuizSoundSettings.instance
-                                  .isCorrectSoundEnabled(
-                                    SoundModule.greekVocabulary,
-                                  ),
-                              onChanged: (v) {
-                                setDialogState(() {
-                                  QuizSoundSettings.instance
-                                      .setCorrectSoundEnabled(
-                                        SoundModule.greekVocabulary,
-                                        v,
-                                      );
-                                });
-                              },
-                            ),
-
-                            SwitchListTile(
-                              title: const Text("Sound bei falscher Antwort"),
-                              value: QuizSoundSettings.instance
-                                  .isWrongSoundEnabled(
-                                    SoundModule.greekVocabulary,
-                                  ),
-                              onChanged: (v) {
-                                setDialogState(() {
-                                  QuizSoundSettings.instance
-                                      .setWrongSoundEnabled(
-                                        SoundModule.greekVocabulary,
-                                        v,
-                                      );
-                                });
-                              },
-                            ),
-                          ],
-                        ),
+                      const SoundSettingsSection(
+                        module: SoundModule.greekVocabulary,
                       ),
                     ],
                   ),
@@ -650,30 +578,28 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
 
     final q = question;
 
+    final appBar = AppBar(
+      title: const Text("Vokabeltrainer"),
+      actions: [
+        StatisticsButton(uid: uid, trainer: StatisticsTrainer.greekVocabulary),
+        const SoundVolumeButton(),
+        IconButton(icon: const Icon(Icons.settings), onPressed: openSettings),
+      ],
+    );
+
     if (q == null) {
       return Scaffold(
-        appBar: AppBar(
-          title: const Text("Vokabeltrainer"),
-          actions: [
-            StatisticsButton(
-              uid: uid,
-              trainer: StatisticsTrainer.greekVocabulary,
-            ),
-            const SoundVolumeButton(),
-            IconButton(
-              icon: const Icon(Icons.settings),
-              onPressed: openSettings,
-            ),
-          ],
-        ),
-        body: const Center(
+        appBar: appBar,
+        body: Center(
           child: Text(
-            "Mit den aktuellen Filtern sind keine Vokabeln verfügbar.",
+            loadError ??
+                "Mit den aktuellen Filtern sind keine Vokabeln verfügbar.",
             textAlign: TextAlign.center,
           ),
         ),
       );
     }
+
     final hasAdditionalInfo =
         (q.entry.article != null && !includeArticle) ||
         (q.entry.genitive != null && !includeGenitive) ||
@@ -681,20 +607,8 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
     final card =
         cards[q.entry.id.toString()] ?? LearningCard(id: q.entry.id.toString());
 
-    final currentMnemonic = card.mnemonic;
-
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Vokabeltrainer"),
-        actions: [
-          StatisticsButton(
-            uid: uid,
-            trainer: StatisticsTrainer.greekVocabulary,
-          ),
-          const SoundVolumeButton(),
-          IconButton(icon: const Icon(Icons.settings), onPressed: openSettings),
-        ],
-      ),
+      appBar: appBar,
 
       body: GestureDetector(
         behavior: HitTestBehavior.translucent,
@@ -771,11 +685,11 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
                       decoration: InputDecoration(
                         labelText: "Übersetzung",
 
-                        enabledBorder: resultBorder(translationCorrect),
+                        enabledBorder: answerResultBorder(translationCorrect),
 
-                        focusedBorder: resultBorder(translationCorrect),
+                        focusedBorder: answerResultBorder(translationCorrect),
 
-                        disabledBorder: resultBorder(translationCorrect),
+                        disabledBorder: answerResultBorder(translationCorrect),
 
                         border: const OutlineInputBorder(),
                       ),
@@ -843,107 +757,23 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
                                   ),
                               ],
                             ),
-                          if (answered) ...[
-                            const SizedBox(height: 16),
+                          const SizedBox(height: 16),
 
-                            if (editingMnemonic)
-                              Card(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(12),
-                                  child: Column(
-                                    children: [
-                                      TextField(
-                                        controller: mnemonicController,
-                                        decoration: const InputDecoration(
-                                          labelText: "Lernhilfe",
-                                          border: OutlineInputBorder(),
-                                        ),
-                                      ),
+                          MnemonicSection(
+                            key: ValueKey(q.entry.id),
+                            mnemonic: card.mnemonic,
+                            onSave: (mnemonic) async {
+                              card.mnemonic = mnemonic;
 
-                                      const SizedBox(height: 10),
+                              cards[q.entry.id.toString()] = card;
 
-                                      ElevatedButton.icon(
-                                        icon: const Icon(Icons.save),
-                                        label: const Text("Speichern"),
-                                        onPressed: () async {
-                                          card.mnemonic =
-                                              mnemonicController.text
-                                                  .trim()
-                                                  .isEmpty
-                                              ? null
-                                              : mnemonicController.text.trim();
+                              await learningService.saveCard(uid, card);
 
-                                          cards[q.entry.id.toString()] = card;
-
-                                          await learningService.saveCard(
-                                            uid,
-                                            card,
-                                          );
-
-                                          setState(() {
-                                            editingMnemonic = false;
-                                          });
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              )
-                            else if (currentMnemonic != null &&
-                                currentMnemonic.isNotEmpty)
-                              Card(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(12),
-                                  child: Row(
-                                    children: [
-                                      Expanded(
-                                        child: Column(
-                                          children: [
-                                            const Text(
-                                              "Lernhilfe",
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-
-                                            const SizedBox(height: 8),
-
-                                            Text(
-                                              currentMnemonic,
-                                              textAlign: TextAlign.center,
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-
-                                      IconButton(
-                                        icon: const Icon(Icons.edit),
-                                        onPressed: () {
-                                          mnemonicController.text =
-                                              currentMnemonic;
-
-                                          setState(() {
-                                            editingMnemonic = true;
-                                          });
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              )
-                            else
-                              OutlinedButton.icon(
-                                icon: const Icon(Icons.add),
-                                label: const Text("Lernhilfe hinzufügen"),
-                                onPressed: () {
-                                  mnemonicController.clear();
-
-                                  setState(() {
-                                    editingMnemonic = true;
-                                  });
-                                },
-                              ),
-                          ],
+                              if (mounted) {
+                                setState(() {});
+                              }
+                            },
+                          ),
                         ],
                       ),
 
@@ -1014,11 +844,11 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
           onPressed: answered ? null : toggleKeyboard,
         ),
 
-        enabledBorder: resultBorder(correct),
+        enabledBorder: answerResultBorder(correct),
 
-        focusedBorder: resultBorder(correct),
+        focusedBorder: answerResultBorder(correct),
 
-        disabledBorder: resultBorder(correct),
+        disabledBorder: answerResultBorder(correct),
 
         border: const OutlineInputBorder(),
       ),

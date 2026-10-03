@@ -35,6 +35,8 @@ class _HymnScreenState extends State<HymnScreen> {
   Future<void> load() async {
     final data = await service.loadHymns();
 
+    if (!mounted) return;
+
     setState(() {
       hymns = data;
 

@@ -2,9 +2,73 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../local_learning_store.dart';
 
+/// Einstellungen des lateinischen Vokabeltrainers. Ohne gespeicherte Werte
+/// gelten die Defaults des Konstruktors.
+class LatinVocabularySettings {
+  static const List<String> allTypes = [
+    "noun",
+    "verb",
+    "adjective",
+    "adverb",
+    "pronoun",
+    "preposition",
+    "conjunction",
+    "particle",
+    "question_word",
+    "phrase",
+  ];
+
+  final bool includeVerbForm;
+  final bool includeNounForm;
+  final bool includeGender;
+  final bool includeAdjectiveForms;
+  final bool requireOnlyOneTranslation;
+
+  /// Je Schritt die ausgewählten Unter-Schritte. Schritte ohne Eintrag
+  /// haben keine gespeicherte Auswahl.
+  final Map<int, List<int>> enabledSubsteps;
+
+  final List<String> enabledTypes;
+
+  const LatinVocabularySettings({
+    this.includeVerbForm = true,
+    this.includeNounForm = true,
+    this.includeGender = true,
+    this.includeAdjectiveForms = true,
+    this.requireOnlyOneTranslation = true,
+    this.enabledSubsteps = const {},
+    this.enabledTypes = allTypes,
+  });
+
+  /// Liest das gespeicherte Feld `latin_vocabulary_settings`. Die Listen
+  /// sind eigene, veränderbare Kopien.
+  factory LatinVocabularySettings.fromMap(Map<String, dynamic> data) {
+    final substeps = <int, List<int>>{};
+
+    final savedSubsteps = data["enabledSubsteps"];
+
+    if (savedSubsteps != null) {
+      for (final entry in Map<String, dynamic>.from(savedSubsteps).entries) {
+        substeps[int.parse(entry.key)] = List<int>.from(entry.value);
+      }
+    }
+
+    return LatinVocabularySettings(
+      includeVerbForm: data["includeVerbForm"] ?? true,
+      includeNounForm: data["includeNounForm"] ?? true,
+      includeGender: data["includeGender"] ?? true,
+      includeAdjectiveForms: data["includeAdjectiveForms"] ?? true,
+      requireOnlyOneTranslation: data["requireOnlyOneTranslation"] ?? true,
+      enabledSubsteps: substeps,
+      enabledTypes: List<String>.from(data["enabledTypes"] ?? allTypes),
+    );
+  }
+}
+
 /// uid == null bedeutet Gastmodus (lokale Speicherung).
 class LatinVocabularySettingsService {
-  final FirebaseFirestore firestore = FirebaseFirestore.instance;
+  // Getter statt Feld: Im Gastmodus (und in Tests) wird Firestore nie berührt.
+  FirebaseFirestore get firestore => FirebaseFirestore.instance;
 
   static const String _group = "latin_vocabulary_settings";
 
@@ -12,127 +76,17 @@ class LatinVocabularySettingsService {
     return firestore.collection("users").doc(uid);
   }
 
-  Future<Map<String, dynamic>> _loadSettings(String? uid) async {
+  /// Lädt alle Einstellungen mit einem einzigen Lesezugriff.
+  Future<LatinVocabularySettings> load(String? uid) async {
     if (uid == null) {
-      return LocalLearningStore.instance.loadSettingsGroup(_group);
+      return LatinVocabularySettings.fromMap(
+        await LocalLearningStore.instance.loadSettingsGroup(_group),
+      );
     }
 
-    final doc = await _document(uid).get();
+    final data = (await _document(uid).get()).data();
 
-    if (!doc.exists) {
-      return {};
-    }
-
-    final data = doc.data();
-
-    if (data == null) {
-      return {};
-    }
-
-    return data["latin_vocabulary_settings"] ?? {};
-  }
-
-  Future<bool> getIncludeVerbForm(String? uid) async {
-    final data = await _loadSettings(uid);
-
-    return data["includeVerbForm"] ?? true;
-  }
-
-  Future<bool> getIncludeNounForm(String? uid) async {
-    final data = await _loadSettings(uid);
-
-    return data["includeNounForm"] ?? true;
-  }
-
-  Future<bool> getIncludeGender(String? uid) async {
-    final data = await _loadSettings(uid);
-
-    return data["includeGender"] ?? true;
-  }
-
-  Future<bool> getIncludeAdjectiveForms(String? uid) async {
-    final data = await _loadSettings(uid);
-
-    return data["includeAdjectiveForms"] ?? true;
-  }
-
-  Future<bool> getRequireOnlyOneTranslation(String? uid) async {
-    final data = await _loadSettings(uid);
-
-    return data["requireOnlyOneTranslation"] ?? true;
-  }
-
-  Future<List<int>> getEnabledSteps(String? uid) async {
-    final data = await _loadSettings(uid);
-
-    final value = data["enabledSteps"];
-
-    if (value == null) {
-      return [1, 2, 3, 4, 5, 6, 7];
-    }
-
-    return List<int>.from(value);
-  }
-
-  Future<Map<int, List<int>>> getEnabledSubsteps(String? uid) async {
-    final data = await _loadSettings(uid);
-
-    final value = data["enabledSubsteps"];
-
-    if (value == null) {
-      return {};
-    }
-
-    final result = <int, List<int>>{};
-
-    final map = Map<String, dynamic>.from(value);
-
-    for (final entry in map.entries) {
-      result[int.parse(entry.key)] = List<int>.from(entry.value);
-    }
-
-    return result;
-  }
-
-  Future<Map<int, List<int>>> getAllEnabledSubsteps(String? uid) async {
-    final data = await _loadSettings(uid);
-
-    final value = data["enabledSubsteps"];
-
-    if (value == null) {
-      return {};
-    }
-
-    final result = <int, List<int>>{};
-
-    for (final entry in value.entries) {
-      result[int.parse(entry.key)] = List<int>.from(entry.value);
-    }
-
-    return result;
-  }
-
-  Future<List<String>> getEnabledTypes(String? uid) async {
-    final data = await _loadSettings(uid);
-
-    final value = data["enabledTypes"];
-
-    if (value == null) {
-      return [
-        "noun",
-        "verb",
-        "adjective",
-        "adverb",
-        "pronoun",
-        "question_word",
-        "preposition",
-        "conjunction",
-        "particle",
-        "phrase",
-      ];
-    }
-
-    return List<String>.from(value);
+    return LatinVocabularySettings.fromMap(data?[_group] ?? {});
   }
 
   Future<void> saveSettings({
@@ -158,6 +112,7 @@ class LatinVocabularySettingsService {
       "includeGender": includeGender,
       "includeAdjectiveForms": includeAdjectiveForms,
       "requireOnlyOneTranslation": requireOnlyOneTranslation,
+
       "enabledSteps": enabledSteps,
       "enabledSubsteps": substeps,
       "enabledTypes": enabledTypes,
@@ -167,8 +122,6 @@ class LatinVocabularySettingsService {
       return LocalLearningStore.instance.saveSettingsGroup(_group, settings);
     }
 
-    await _document(uid).set({
-      _group: settings,
-    }, SetOptions(merge: true));
+    await _document(uid).set({_group: settings}, SetOptions(merge: true));
   }
 }

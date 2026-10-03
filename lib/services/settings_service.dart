@@ -4,7 +4,8 @@ import 'local_learning_store.dart';
 
 /// uid == null bedeutet Gastmodus (lokale Speicherung).
 class SettingsService {
-  final FirebaseFirestore db = FirebaseFirestore.instance;
+  // Getter statt Feld: Im Gastmodus (und in Tests) wird Firestore nie berührt.
+  FirebaseFirestore get db => FirebaseFirestore.instance;
 
   Future<void> saveBooks(String? uid, Set<String> books) async {
     if (uid == null) {

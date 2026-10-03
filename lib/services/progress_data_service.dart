@@ -9,19 +9,16 @@ import 'local_learning_store.dart';
 /// Die Firestore-Pfade entsprechen exakt denen von [LearningService] und den
 /// Settings-Services; es werden keine neuen Strukturen angelegt.
 class ProgressDataService {
-  final FirebaseFirestore db = FirebaseFirestore.instance;
+  // Getter statt Feld: Im Gastmodus (und in Tests) wird Firestore nie berührt.
+  FirebaseFirestore get db => FirebaseFirestore.instance;
 
   final LocalLearningStore local = LocalLearningStore.instance;
 
   /// Firestore-Collections mit Lernstands-/SRS-Daten unter `users/{uid}`.
   /// `grammar` enthält die Lernstände des Grammatiktrainers und ggf. ältere
   /// Grammatik-Lernstände in einem früheren Format.
-  static const List<String> _progressCollections = [
-    "vocabulary",
-    "learning_cards",
-    "latin_vocabulary",
-    "grammar",
-  ];
+  static const List<String> _progressCollections =
+      LocalLearningStore.cardCollections;
 
   static const int _batchLimit = 400;
 
@@ -134,7 +131,7 @@ class ProgressDataService {
       for (final doc in snapshot.docs) {
         final mnemonic = doc.data()["mnemonic"];
 
-        if (collection != "grammar" &&
+        if (collection != LocalLearningStore.greekGrammar &&
             mnemonic is String &&
             mnemonic.isNotEmpty) {
           final reset = LearningCard(id: doc.id, mnemonic: mnemonic);

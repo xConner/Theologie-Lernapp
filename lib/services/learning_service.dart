@@ -3,188 +3,56 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../models/greek/vocabulary/learning_card.dart';
 import 'local_learning_store.dart';
 
+/// Lernstände der Trainer, je Trainer eine Collection unter `users/{uid}`
+/// (Namen siehe [LocalLearningStore.cardCollections]).
+///
 /// uid == null bedeutet Gastmodus: dann wird lokal statt in Firestore
 /// gelesen/geschrieben.
 class LearningService {
-  final FirebaseFirestore db = FirebaseFirestore.instance;
+  // Getter statt Feld: Im Gastmodus (und in Tests) wird Firestore nie berührt.
+  FirebaseFirestore get db => FirebaseFirestore.instance;
 
   final LocalLearningStore local = LocalLearningStore.instance;
 
-  // ==========================
-  // GRIECHISCH – VOKABELN
-  // ==========================
+  // Griechisch – Vokabeln
 
-  CollectionReference<Map<String, dynamic>> _vocabularyCollection(String uid) {
-    return db.collection("users").doc(uid).collection("vocabulary");
+  Future<Map<String, LearningCard>> loadCards(String? uid) {
+    return _loadCards(uid, LocalLearningStore.greekVocabulary);
   }
 
-  Future<LearningCard> loadCard(String? uid, String id) async {
-    if (uid == null) {
-      return local.loadCard(LocalLearningStore.greekVocabulary, id);
-    }
-
-    final doc = await _vocabularyCollection(uid).doc(id).get();
-
-    if (!doc.exists) {
-      return LearningCard(id: id);
-    }
-
-    return LearningCard.fromFirestore(id, doc.data()!);
+  Future<void> saveCard(String? uid, LearningCard card) {
+    return _saveCard(uid, LocalLearningStore.greekVocabulary, card);
   }
 
-  Future<Map<String, LearningCard>> loadCards(String? uid) async {
-    if (uid == null) {
-      return local.loadCards(LocalLearningStore.greekVocabulary);
-    }
+  // Perikopen
 
-    final snapshot = await _vocabularyCollection(uid).get();
-
-    final Map<String, LearningCard> cards = {};
-
-    for (final doc in snapshot.docs) {
-      cards[doc.id] = LearningCard.fromFirestore(doc.id, doc.data());
-    }
-
-    return cards;
+  Future<Map<String, LearningCard>> loadPerikopeCards(String? uid) {
+    return _loadCards(uid, LocalLearningStore.perikopen);
   }
 
-  Future<void> saveCard(String? uid, LearningCard card) async {
-    if (uid == null) {
-      return local.saveCard(LocalLearningStore.greekVocabulary, card);
-    }
+  Future<void> savePerikopeCard(String? uid, LearningCard card) {
+    return _saveCard(uid, LocalLearningStore.perikopen, card);
+  }
 
-    await _vocabularyCollection(
+  // Latein – Vokabeln
+
+  Future<Map<String, LearningCard>> loadLatinCards(String? uid) {
+    return _loadCards(uid, LocalLearningStore.latinVocabulary);
+  }
+
+  Future<void> saveLatinCard(String? uid, LearningCard card) {
+    return _saveCard(uid, LocalLearningStore.latinVocabulary, card);
+  }
+
+  // Griechisch – Grammatik
+
+  Future<Map<String, LearningCard>> loadGrammarCards(String? uid) {
+    // Ältere Grammatik-Lernstände haben ein anderes Format.
+    return _loadCards(
       uid,
-    ).doc(card.id).set(card.toFirestore(), SetOptions(merge: true));
-  }
-
-  // ==========================
-  // PERIKOPEN
-  // ==========================
-
-  CollectionReference<Map<String, dynamic>> _perikopenCollection(String uid) {
-    return db.collection("users").doc(uid).collection("learning_cards");
-  }
-
-  Future<LearningCard> loadPerikopeCard(String? uid, String id) async {
-    if (uid == null) {
-      return local.loadCard(LocalLearningStore.perikopen, id);
-    }
-
-    final doc = await _perikopenCollection(uid).doc(id).get();
-
-    if (!doc.exists) {
-      return LearningCard(id: id);
-    }
-
-    return LearningCard.fromFirestore(id, doc.data()!);
-  }
-
-  Future<Map<String, LearningCard>> loadPerikopeCards(String? uid) async {
-    if (uid == null) {
-      return local.loadCards(LocalLearningStore.perikopen);
-    }
-
-    final snapshot = await _perikopenCollection(uid).get();
-
-    final Map<String, LearningCard> cards = {};
-
-    for (final doc in snapshot.docs) {
-      cards[doc.id] = LearningCard.fromFirestore(doc.id, doc.data());
-    }
-
-    return cards;
-  }
-
-  Future<void> savePerikopeCard(String? uid, LearningCard card) async {
-    if (uid == null) {
-      return local.saveCard(LocalLearningStore.perikopen, card);
-    }
-
-    await _perikopenCollection(
-      uid,
-    ).doc(card.id).set(card.toFirestore(), SetOptions(merge: true));
-  }
-
-  // ==========================
-  // LATEIN – VOKABELN
-  // ==========================
-
-  CollectionReference<Map<String, dynamic>> _latinVocabularyCollection(
-    String uid,
-  ) {
-    return db.collection("users").doc(uid).collection("latin_vocabulary");
-  }
-
-  Future<LearningCard> loadLatinCard(String? uid, String id) async {
-    if (uid == null) {
-      return local.loadCard(LocalLearningStore.latinVocabulary, id);
-    }
-
-    final doc = await _latinVocabularyCollection(uid).doc(id).get();
-
-    if (!doc.exists) {
-      return LearningCard(id: id);
-    }
-
-    return LearningCard.fromFirestore(id, doc.data()!);
-  }
-
-  Future<Map<String, LearningCard>> loadLatinCards(String? uid) async {
-    if (uid == null) {
-      return local.loadCards(LocalLearningStore.latinVocabulary);
-    }
-
-    final snapshot = await _latinVocabularyCollection(uid).get();
-
-    final Map<String, LearningCard> cards = {};
-
-    for (final doc in snapshot.docs) {
-      cards[doc.id] = LearningCard.fromFirestore(doc.id, doc.data());
-    }
-
-    return cards;
-  }
-
-  Future<void> saveLatinCard(String? uid, LearningCard card) async {
-    if (uid == null) {
-      return local.saveCard(LocalLearningStore.latinVocabulary, card);
-    }
-
-    await _latinVocabularyCollection(
-      uid,
-    ).doc(card.id).set(card.toFirestore(), SetOptions(merge: true));
-  }
-
-  // ==========================
-  // GRIECHISCH – GRAMMATIK
-  // ==========================
-
-  CollectionReference<Map<String, dynamic>> _grammarCollection(String uid) {
-    return db.collection("users").doc(uid).collection("grammar");
-  }
-
-  Future<Map<String, LearningCard>> loadGrammarCards(String? uid) async {
-    if (uid == null) {
-      return local.loadCards(LocalLearningStore.greekGrammar);
-    }
-
-    final snapshot = await _grammarCollection(uid).get();
-
-    final Map<String, LearningCard> cards = {};
-
-    for (final doc in snapshot.docs) {
-      final data = doc.data();
-
-      // Ältere Grammatik-Lernstände haben ein anderes Format.
-      if (data["lastReviewed"] is! Timestamp) {
-        continue;
-      }
-
-      cards[doc.id] = LearningCard.fromFirestore(doc.id, data);
-    }
-
-    return cards;
+      LocalLearningStore.greekGrammar,
+      accept: (data) => data["lastReviewed"] is Timestamp,
+    );
   }
 
   /// Speichert die Karten einer Frage gemeinsam (ein Schreibvorgang).
@@ -197,16 +65,56 @@ class LearningService {
       return local.saveCards(LocalLearningStore.greekGrammar, cards);
     }
 
+    final collection = _collection(uid, LocalLearningStore.greekGrammar);
+
     final batch = db.batch();
 
     for (final card in cards) {
       batch.set(
-        _grammarCollection(uid).doc(card.id),
+        collection.doc(card.id),
         card.toFirestore(),
         SetOptions(merge: true),
       );
     }
 
     await batch.commit();
+  }
+
+  CollectionReference<Map<String, dynamic>> _collection(
+    String uid,
+    String collection,
+  ) {
+    return db.collection("users").doc(uid).collection(collection);
+  }
+
+  /// [accept] filtert nur Firestore-Dokumente; lokale Karten sind immer im
+  /// aktuellen Format.
+  Future<Map<String, LearningCard>> _loadCards(
+    String? uid,
+    String collection, {
+    bool Function(Map<String, dynamic> data)? accept,
+  }) async {
+    if (uid == null) {
+      return local.loadCards(collection);
+    }
+
+    final snapshot = await _collection(uid, collection).get();
+
+    return {
+      for (final doc in snapshot.docs)
+        if (accept == null || accept(doc.data()))
+          doc.id: LearningCard.fromFirestore(doc.id, doc.data()),
+    };
+  }
+
+  Future<void> _saveCard(String? uid, String collection, LearningCard card) {
+    if (uid == null) {
+      return local.saveCard(collection, card);
+    }
+
+    return _collection(
+      uid,
+      collection,
+    ).doc(card.id).set(card.toFirestore(), SetOptions(merge: true));
   }
 }
