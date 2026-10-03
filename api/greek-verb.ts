@@ -370,6 +370,81 @@ function extractIndicativeForm(
     return null;
 }
 
+function getQueryLemma(lemma: string, tense: string): string {
+    return tense === 'Aorist'
+        ? (AORIST_LEMMA_REPLACEMENTS.get(lemma) ?? lemma)
+        : lemma;
+}
+
+// Vom Trainer abgefragte Bestimmungen, in der Schreibweise der Anfrage.
+const TRAINER_TENSES = ['Präsens', 'Imperfekt', 'Aorist'];
+const TRAINER_VOICES = ['Aktiv', 'Medium/Passiv'];
+const TRAINER_NUMBERS = ['Sg', 'Pl'];
+
+// Längenzeichen werden im Trainer nicht angezeigt und dürfen zwei Formen
+// deshalb nicht unterscheiden.
+function comparableForm(form: string): string {
+    return form
+        .normalize('NFD')
+        .replace(/[̄̆]/g, '')
+        .normalize('NFC');
+}
+
+type VerbAnalysis = {
+    tense: string;
+    voice: string;
+    number: string;
+    person: number;
+};
+
+// Alle Bestimmungen, für die der Trainer genau dieselbe Form ausliefern
+// würde (z. B. 1. Sg. = 3. Pl. im Imperfekt Aktiv). Berücksichtigt werden nur
+// Tempora, deren Tabelle auf der bereits geladenen Seite steht.
+function findVerbAnalyses(
+    $: cheerio.CheerioAPI,
+    lemma: string,
+    queryLemma: string,
+    form: string,
+): VerbAnalysis[] {
+    const wanted = comparableForm(form);
+    const analyses: VerbAnalysis[] = [];
+
+    for (const tense of TRAINER_TENSES) {
+        if (getQueryLemma(lemma, tense) !== queryLemma) {
+            continue;
+        }
+
+        const table = findTenseTable($, tense, lemma);
+
+        if (table === null) {
+            continue;
+        }
+
+        for (const voice of TRAINER_VOICES) {
+            for (const number of TRAINER_NUMBERS) {
+                for (const person of [1, 2, 3]) {
+                    const candidate = extractIndicativeForm(
+                        $,
+                        table,
+                        voice,
+                        number,
+                        person,
+                    );
+
+                    if (
+                        candidate !== null &&
+                        comparableForm(candidate) === wanted
+                    ) {
+                        analyses.push({ tense, voice, number, person });
+                    }
+                }
+            }
+        }
+    }
+
+    return analyses;
+}
+
 export default async function handler(
     req: VercelRequest,
     res: VercelResponse,
@@ -448,9 +523,7 @@ export default async function handler(
 
         // Nur der Aorist wird über die σσ-Seite geladen; Präsens und
         // Imperfekt stehen auf der Seite der attischen Form selbst.
-        const queryLemma = tense === 'Aorist'
-            ? (AORIST_LEMMA_REPLACEMENTS.get(lemma) ?? lemma)
-            : lemma;
+        const queryLemma = getQueryLemma(lemma, tense);
 
         const url =
             WIKTIONARY_BASE_URL +
@@ -518,6 +591,7 @@ export default async function handler(
             number,
             person: personNumber,
             form,
+            analyses: findVerbAnalyses($, lemma, queryLemma, form),
         });
     } catch (error) {
         console.error(error);

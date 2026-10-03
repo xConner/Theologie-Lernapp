@@ -247,6 +247,50 @@ function extractNounForm(
     return result;
 }
 
+// Vom Trainer abgefragte Bestimmungen, in der Schreibweise der Anfrage.
+const TRAINER_CASES = ['Nominativ', 'Genitiv', 'Dativ', 'Akkusativ'];
+const TRAINER_NUMBERS = ['Sg', 'Pl'];
+
+// Längenzeichen werden im Trainer nicht angezeigt und dürfen zwei Formen
+// deshalb nicht unterscheiden.
+function comparableForm(form: string): string {
+    return form
+        .normalize('NFD')
+        .replace(/[̄̆]/g, '')
+        .normalize('NFC');
+}
+
+// Alle Bestimmungen derselben Flexionstabelle, deren Form mit der
+// ausgelieferten Form identisch ist (z. B. Nominativ = Akkusativ im Neutrum).
+function findNounAnalyses(
+    $: cheerio.CheerioAPI,
+    table: cheerio.Cheerio<any>,
+    form: string,
+): { case: string; number: string }[] {
+    const wanted = comparableForm(form);
+    const analyses: { case: string; number: string }[] = [];
+
+    for (const number of TRAINER_NUMBERS) {
+        for (const grammaticalCase of TRAINER_CASES) {
+            const candidate = extractNounForm(
+                $,
+                table,
+                grammaticalCase,
+                number,
+            );
+
+            if (
+                candidate !== null &&
+                comparableForm(candidate) === wanted
+            ) {
+                analyses.push({ case: grammaticalCase, number });
+            }
+        }
+    }
+
+    return analyses;
+}
+
 export default async function handler(
     req: VercelRequest,
     res: VercelResponse,
@@ -363,6 +407,7 @@ export default async function handler(
             case: grammaticalCase,
             number,
             form,
+            analyses: findNounAnalyses($, table, form),
         });
     } catch (error) {
         console.error(error);

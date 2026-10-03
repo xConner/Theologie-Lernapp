@@ -8,6 +8,7 @@ import '../../algorithms/grammar_learning.dart';
 import '../../models/greek/vocabulary/greek_vocabulary_entry.dart';
 import '../../models/greek/vocabulary/learning_card.dart';
 import '../../services/greek/vocabulary/greek_vocabulary_loader.dart';
+import '../../services/greek/grammar/grammar_form_analysis.dart';
 import '../../services/greek/grammar/wiktionary_inflection_service.dart';
 import '../../services/learning_service.dart';
 import '../../services/local_learning_store.dart';
@@ -176,7 +177,10 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
 
   static const List<String> tenses = ["Präsens", "Imperfekt", "Aorist"];
 
-  static const List<String> voices = ["Aktiv", "Medium/Passiv", "Deponent"];
+  // "Deponent" ist vorerst nicht wählbar, weil die Deponentien in der
+  // Vokabelliste noch nicht vollständig markiert sind. Zum Reaktivieren hier
+  // wieder aufnehmen; die Antwortprüfung wertet die Auswahl bereits aus.
+  static const List<String> voices = ["Aktiv", "Medium/Passiv"];
 
   // ---------------------------------------------------------------------------
   // BLACKLIST
@@ -200,6 +204,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
     "μεταπέμπομαι",
     "σής",
     "βλαβή",
+    "ἀββά",
   };
 
   static const Set<String> activeOnlyVerbs = {
@@ -209,16 +214,13 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
     "ἐπερωτάω",
     "ἐπιτιμάω",
     "θέλω",
+    "βαίνω",
+    "χαίρω",
   };
 
   static const Set<String> presentOnlyVerbs = {"προσεύχομαι"};
 
-  static const Set<String> noAorist = {
-    "εἰμί",
-    "ἄπειμι",
-    "σύνειμι",
-    "ὑποπτεύω",
-  };
+  static const Set<String> noAorist = {"εἰμί", "ἄπειμι", "σύνειμι", "ὑποπτεύω"};
 
   static const Set<String> noImperfect = {"ἐμβαίνω"};
 
@@ -818,8 +820,20 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
       }
 
       if (q.type == "noun") {
-        caseCorrect = userCase == selectedCase;
-        numberCorrect = userNumber == selectedNumber;
+        // Formal identische Formen (z. B. Nominativ = Akkusativ im Neutrum):
+        // jede für die angezeigte Form mögliche Bestimmung gilt als richtig.
+        final matchesForm = nounAnswerMatchesForm(
+          wiktionaryService.nounFormAnalyses(
+            lemma: q.lemma,
+            grammaticalCase: selectedCase ?? "",
+            number: selectedNumber == "Sg." ? "Sg" : "Pl",
+          ),
+          userCase: userCase,
+          userNumber: userNumber,
+        );
+
+        caseCorrect = matchesForm || userCase == selectedCase;
+        numberCorrect = matchesForm || userNumber == selectedNumber;
         genderCorrect = userGender == selectedGender;
 
         correct =
@@ -830,10 +844,35 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
       } else if (q.type == "verb") {
         final correctPersonNumber = "$selectedPerson $selectedNumberVerb.";
 
-        personCorrect = userPersonNumber == correctPersonNumber;
+        // Formal identische Formen (z. B. 1. Sg. = 3. Pl. im Imperfekt):
+        // jede für die angezeigte Form mögliche Bestimmung gilt als richtig.
+        final parsedPerson = _parsePerson(selectedPerson);
 
-        tenseCorrect = userTense == selectedTense;
-        voiceCorrect = userVoice == selectedVoice;
+        // Ein Deponens hat nur mediale/passive Formen; "Deponent" benennt
+        // bei diesen Verben also dieselbe Form wie "Medium/Passiv".
+        final answeredVoice = userVoice == "Deponent" && q.deponent
+            ? "Medium/Passiv"
+            : userVoice;
+
+        final matchesForm =
+            parsedPerson != null &&
+            verbAnswerMatchesForm(
+              wiktionaryService.verbFormAnalyses(
+                lemma: q.lemma,
+                tense: selectedTense ?? "",
+                voice: selectedVoice ?? "",
+                number: selectedNumberVerb ?? "",
+                person: parsedPerson,
+              ),
+              userPersonNumber: userPersonNumber,
+              userTense: userTense,
+              userVoice: answeredVoice,
+            );
+
+        personCorrect = matchesForm || userPersonNumber == correctPersonNumber;
+
+        tenseCorrect = matchesForm || userTense == selectedTense;
+        voiceCorrect = matchesForm || answeredVoice == selectedVoice;
 
         correct =
             lemmaCorrect! &&

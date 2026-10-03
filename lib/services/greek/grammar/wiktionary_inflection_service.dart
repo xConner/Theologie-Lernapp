@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
+import 'grammar_form_analysis.dart';
+
 class WiktionaryInflectionService {
   static const String _backendBaseUrl = 'https://www.theologie.app';
 
@@ -27,6 +29,12 @@ class WiktionaryInflectionService {
   /// erneuten Öffnen des Trainers innerhalb derselben Sitzung erhalten bleibt.
   static final Map<String, String> _formCache = {};
 
+  /// Alle grammatisch möglichen Bestimmungen der gelieferten Form, je
+  /// Anfrage. Wird zusammen mit der Form geladen, damit die Antwortprüfung
+  /// formal identische Formen ohne weitere Anfrage erkennt.
+  static final Map<String, List<NounFormAnalysis>> _nounAnalysesCache = {};
+  static final Map<String, List<VerbFormAnalysis>> _verbAnalysesCache = {};
+
   // ---------------------------------------------------------------------------
   // VERBEN
   // ---------------------------------------------------------------------------
@@ -46,20 +54,12 @@ class WiktionaryInflectionService {
     required String number,
     required int person,
   }) async {
-    // Für den Aorist können bestimmte Verben ein anderes Lemma benötigen.
-    // Beispiel: λέγω → εἶπον
-    final apiLemma = tense == 'Aorist'
-        ? (_aoristApiLemmaOverrides[lemma] ?? lemma)
-        : lemma;
-
-    final uri = Uri.parse('$_backendBaseUrl/api/greek-verb').replace(
-      queryParameters: {
-        'lemma': apiLemma,
-        'tense': tense,
-        'voice': voice,
-        'number': number,
-        'person': person.toString(),
-      },
+    final uri = _verbUri(
+      lemma: lemma,
+      tense: tense,
+      voice: voice,
+      number: number,
+      person: person,
     );
 
     final cacheKey = uri.toString();
@@ -95,8 +95,54 @@ class WiktionaryInflectionService {
     }
 
     _formCache[cacheKey] = form;
+    _verbAnalysesCache[cacheKey] = parseVerbFormAnalyses(data['analyses']);
 
     return form;
+  }
+
+  /// Bestimmungen, die für die zuvor mit [getVerbForm] geladene Form möglich
+  /// sind. Leer, wenn die Form nicht geladen wurde oder das Backend keine
+  /// Angaben liefert.
+  List<VerbFormAnalysis> verbFormAnalyses({
+    required String lemma,
+    required String tense,
+    required String voice,
+    required String number,
+    required int person,
+  }) {
+    final uri = _verbUri(
+      lemma: lemma,
+      tense: tense,
+      voice: voice,
+      number: number,
+      person: person,
+    );
+
+    return _verbAnalysesCache[uri.toString()] ?? const [];
+  }
+
+  Uri _verbUri({
+    required String lemma,
+    required String tense,
+    required String voice,
+    required String number,
+    required int person,
+  }) {
+    // Für den Aorist können bestimmte Verben ein anderes Lemma benötigen.
+    // Beispiel: λέγω → εἶπον
+    final apiLemma = tense == 'Aorist'
+        ? (_aoristApiLemmaOverrides[lemma] ?? lemma)
+        : lemma;
+
+    return Uri.parse('$_backendBaseUrl/api/greek-verb').replace(
+      queryParameters: {
+        'lemma': apiLemma,
+        'tense': tense,
+        'voice': voice,
+        'number': number,
+        'person': person.toString(),
+      },
+    );
   }
 
   // ---------------------------------------------------------------------------
@@ -114,12 +160,10 @@ class WiktionaryInflectionService {
     required String grammaticalCase,
     required String number,
   }) async {
-    final uri = Uri.parse('$_backendBaseUrl/api/greek-noun').replace(
-      queryParameters: {
-        'lemma': lemma,
-        'case': grammaticalCase,
-        'number': number,
-      },
+    final uri = _nounUri(
+      lemma: lemma,
+      grammaticalCase: grammaticalCase,
+      number: number,
     );
 
     final cacheKey = uri.toString();
@@ -155,7 +199,39 @@ class WiktionaryInflectionService {
     }
 
     _formCache[cacheKey] = form;
+    _nounAnalysesCache[cacheKey] = parseNounFormAnalyses(data['analyses']);
 
     return form;
+  }
+
+  /// Bestimmungen, die für die zuvor mit [getNounForm] geladene Form möglich
+  /// sind. Leer, wenn die Form nicht geladen wurde oder das Backend keine
+  /// Angaben liefert.
+  List<NounFormAnalysis> nounFormAnalyses({
+    required String lemma,
+    required String grammaticalCase,
+    required String number,
+  }) {
+    final uri = _nounUri(
+      lemma: lemma,
+      grammaticalCase: grammaticalCase,
+      number: number,
+    );
+
+    return _nounAnalysesCache[uri.toString()] ?? const [];
+  }
+
+  Uri _nounUri({
+    required String lemma,
+    required String grammaticalCase,
+    required String number,
+  }) {
+    return Uri.parse('$_backendBaseUrl/api/greek-noun').replace(
+      queryParameters: {
+        'lemma': lemma,
+        'case': grammaticalCase,
+        'number': number,
+      },
+    );
   }
 }
