@@ -155,4 +155,58 @@ class LearningService {
       uid,
     ).doc(card.id).set(card.toFirestore(), SetOptions(merge: true));
   }
+
+  // ==========================
+  // GRIECHISCH – GRAMMATIK
+  // ==========================
+
+  CollectionReference<Map<String, dynamic>> _grammarCollection(String uid) {
+    return db.collection("users").doc(uid).collection("grammar");
+  }
+
+  Future<Map<String, LearningCard>> loadGrammarCards(String? uid) async {
+    if (uid == null) {
+      return local.loadCards(LocalLearningStore.greekGrammar);
+    }
+
+    final snapshot = await _grammarCollection(uid).get();
+
+    final Map<String, LearningCard> cards = {};
+
+    for (final doc in snapshot.docs) {
+      final data = doc.data();
+
+      // Ältere Grammatik-Lernstände haben ein anderes Format.
+      if (data["lastReviewed"] is! Timestamp) {
+        continue;
+      }
+
+      cards[doc.id] = LearningCard.fromFirestore(doc.id, data);
+    }
+
+    return cards;
+  }
+
+  /// Speichert die Karten einer Frage gemeinsam (ein Schreibvorgang).
+  Future<void> saveGrammarCards(String? uid, List<LearningCard> cards) async {
+    if (cards.isEmpty) {
+      return;
+    }
+
+    if (uid == null) {
+      return local.saveCards(LocalLearningStore.greekGrammar, cards);
+    }
+
+    final batch = db.batch();
+
+    for (final card in cards) {
+      batch.set(
+        _grammarCollection(uid).doc(card.id),
+        card.toFirestore(),
+        SetOptions(merge: true),
+      );
+    }
+
+    await batch.commit();
+  }
 }

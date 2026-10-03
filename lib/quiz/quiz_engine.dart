@@ -1,6 +1,7 @@
-import 'dart:math';
+import 'package:flutter/foundation.dart';
 
 import '../models/greek/vocabulary/learning_card.dart';
+import '../algorithms/learning_selector.dart';
 import '../algorithms/spaced_repetition.dart';
 import '../services/learning_service.dart';
 
@@ -16,7 +17,9 @@ class QuizEngine {
 
   final LearningService learningService;
 
-  final SpacedRepetition algorithm;
+  final LearningSelector selector;
+
+  SpacedRepetition get algorithm => selector.algorithm;
 
   QuizQuestion? _current;
 
@@ -28,9 +31,9 @@ class QuizEngine {
     required this.uid,
     required this.learningService,
     this.perikopen = false,
-    SpacedRepetition? algorithm,
+    LearningSelector? selector,
   }) : _items = items,
-       algorithm = algorithm ?? SpacedRepetition();
+       selector = selector ?? LearningSelector();
 
   bool get isEmpty => _items.isEmpty;
 
@@ -67,39 +70,11 @@ class QuizEngine {
   }
 
   QuizQuestion? _selectNext() {
-    if (_items.isEmpty) {
-      return null;
-    }
-
-    final scores = <QuizQuestion, double>{};
-
-    double total = 0;
-
-    for (final item in _items) {
-      final card = _getCard(item.id);
-
-      final score = algorithm.selectionScore(card);
-
-      scores[item] = score;
-
-      total += score;
-    }
-
-    if (total <= 0) {
-      return _items[Random().nextInt(_items.length)];
-    }
-
-    double random = Random().nextDouble() * total;
-
-    for (final item in _items) {
-      random -= scores[item]!;
-
-      if (random <= 0) {
-        return item;
-      }
-    }
-
-    return _items.last;
+    return selector.select(
+      candidates: _items,
+      idOf: (item) => item.id,
+      cards: _cards,
+    );
   }
 
   Future<void> answer(bool correct) async {
@@ -111,10 +86,14 @@ class QuizEngine {
 
     algorithm.answer(card, correct);
 
-    if (perikopen) {
-      await learningService.savePerikopeCard(uid, card);
-    } else {
-      await learningService.saveCard(uid, card);
-    }
+    // Nicht auf den Server warten: Firestore bestätigt offline erst später,
+    // die Auswertung soll trotzdem sofort erscheinen.
+    final save = perikopen
+        ? learningService.savePerikopeCard(uid, card)
+        : learningService.saveCard(uid, card);
+
+    save.catchError((Object e) {
+      debugPrint("Lernstand konnte nicht gespeichert werden: $e");
+    });
   }
 }

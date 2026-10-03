@@ -15,6 +15,11 @@ class GreekVocabularyEntry {
   final String? note;
   final String? mnemonic;
 
+  /// Inhaltliche Priorität (optionales JSON-Feld `weight`, Standard 1):
+  /// Ein Wort mit Gewicht 2 wird bei gleichem Lernstand doppelt so oft
+  /// gefragt.
+  final double weight;
+
   const GreekVocabularyEntry({
     required this.id,
     required this.step,
@@ -27,6 +32,7 @@ class GreekVocabularyEntry {
     required this.translations,
     this.note,
     this.mnemonic,
+    this.weight = 1.0,
   });
 
   factory GreekVocabularyEntry.fromJson(Map<String, dynamic> json) {
@@ -41,7 +47,12 @@ class GreekVocabularyEntry {
       deponent: json["deponent"] == true,
       note: json["note"],
       mnemonic: json["mnemonic"],
+      weight: _parseWeight(json["weight"]),
       translations: List<String>.from(json["translations"]),
     );
+  }
+
+  static double _parseWeight(Object? value) {
+    return value is num && value.isFinite && value > 0 ? value.toDouble() : 1.0;
   }
 }

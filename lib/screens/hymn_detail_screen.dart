@@ -12,10 +12,6 @@ class HymnDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
-    final titleStyle = theme.textTheme.headlineSmall;
-
     final headingStyle = const TextStyle(
       fontSize: 18,
       fontWeight: FontWeight.bold,

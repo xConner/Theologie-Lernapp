@@ -1,14 +1,11 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/services.dart';
 
 import '../../models/greek/vocabulary/greek_vocabulary_entry.dart';
 import '../../models/greek/vocabulary/greek_vocabulary_question.dart';
 import '../../models/greek/vocabulary/learning_card.dart';
 
-import '../../algorithms/spaced_repetition.dart';
+import '../../algorithms/learning_selector.dart';
 
 import '../../services/greek/vocabulary/greek_vocabulary_loader.dart';
 import '../../services/greek/vocabulary/vocabulary_answer_checker.dart';
@@ -53,7 +50,7 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
   final LearningService learningService = LearningService();
   final VocabularySettingsService settingsService = VocabularySettingsService();
 
-  final SpacedRepetition algorithm = SpacedRepetition();
+  final LearningSelector selector = LearningSelector();
 
   late final web.EventListener _keyListener;
   final FocusNode translationFocusNode = FocusNode();
@@ -222,40 +219,13 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
       return;
     }
 
-    double total = 0;
-
-    final Map<GreekVocabularyEntry, double> scores = {};
-
-    for (final entry in availableEntries) {
-      final card =
-          cards[entry.id.toString()] ?? LearningCard(id: entry.id.toString());
-
-      final score = algorithm.selectionScore(card);
-
-      scores[entry] = score;
-
-      total += score;
-    }
-
-    GreekVocabularyEntry next;
-
-    if (total <= 0) {
-      next = availableEntries[Random().nextInt(availableEntries.length)];
-    } else {
-      double random = Random().nextDouble() * total;
-
-      next = availableEntries.last;
-
-      for (final entry in availableEntries) {
-        random -= scores[entry]!;
-
-        if (random <= 0) {
-          next = entry;
-
-          break;
-        }
-      }
-    }
+    // Die Filter stehen fest; gewichtet wird nur innerhalb des Pools.
+    final next = selector.select(
+      candidates: availableEntries,
+      idOf: (entry) => entry.id.toString(),
+      cards: cards,
+      baseWeightOf: (entry) => entry.weight,
+    )!;
 
     question = VocabularyQuestion(entry: next);
 
@@ -322,11 +292,15 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
     final card =
         cards[q.entry.id.toString()] ?? LearningCard(id: q.entry.id.toString());
 
-    algorithm.answer(card, result.correct);
+    selector.algorithm.answer(card, result.correct);
 
     cards[q.entry.id.toString()] = card;
 
-    await learningService.saveCard(uid, card);
+    // Nicht auf den Server warten: Firestore bestätigt offline erst später,
+    // die Auswertung soll trotzdem sofort erscheinen.
+    learningService.saveCard(uid, card).catchError((Object e) {
+      debugPrint("Lernstand konnte nicht gespeichert werden: $e");
+    });
 
     // Streak nur einmal je Frage zählen (auch bei doppeltem Enter).
     final firstEvaluation = !answered;
@@ -468,6 +442,10 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
 
                         enabledTypes: enabledTypes,
                       );
+
+                      if (!context.mounted) {
+                        return;
+                      }
 
                       Navigator.pop(context);
 

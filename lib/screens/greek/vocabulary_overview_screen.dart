@@ -254,7 +254,7 @@ actions: const [
             padding: const EdgeInsets.symmetric(horizontal: 16),
 
             child: DropdownButtonFormField<VocabularySort>(
-              value: sort,
+              initialValue: sort,
 
               decoration: const InputDecoration(
                 labelText: "Sortieren nach",

@@ -14,8 +14,8 @@ class ProgressDataService {
   final LocalLearningStore local = LocalLearningStore.instance;
 
   /// Firestore-Collections mit Lernstands-/SRS-Daten unter `users/{uid}`.
-  /// `grammar` wird aktuell von keinem Trainer beschrieben, enthält aber
-  /// ggf. ältere Grammatik-Lernstände.
+  /// `grammar` enthält die Lernstände des Grammatiktrainers und ggf. ältere
+  /// Grammatik-Lernstände in einem früheren Format.
   static const List<String> _progressCollections = [
     "vocabulary",
     "learning_cards",

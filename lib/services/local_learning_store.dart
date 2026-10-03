@@ -10,7 +10,7 @@ import '../models/greek/vocabulary/learning_card.dart';
 ///
 /// Die Struktur spiegelt die Firestore-Daten unter `users/{uid}`:
 ///   * Karten je Collection (`vocabulary`, `learning_cards`,
-///     `latin_vocabulary`) mit denselben Feldern wie in Firestore
+///     `latin_vocabulary`, `grammar`) mit denselben Feldern wie in Firestore
 ///   * die Einstellungs-Felder des `users/{uid}`-Dokuments
 ///     (`vocabulary_settings`, `latin_vocabulary_settings`,
 ///     `greek_grammar_settings`)
@@ -38,11 +38,13 @@ class LocalLearningStore {
   static const String greekVocabulary = "vocabulary";
   static const String perikopen = "learning_cards";
   static const String latinVocabulary = "latin_vocabulary";
+  static const String greekGrammar = "grammar";
 
   static const List<String> cardCollections = [
     greekVocabulary,
     perikopen,
     latinVocabulary,
+    greekGrammar,
   ];
 
   /// Erlaubte Einstellungs-Felder je Gruppe (entspricht den Feldern, die die
@@ -94,8 +96,7 @@ class LocalLearningStore {
       final prefs = await SharedPreferences.getInstance();
 
       guestModeActive.value =
-          (prefs.getBool(_guestModeChosenKey) ?? false) ||
-          await hasGuestData();
+          (prefs.getBool(_guestModeChosenKey) ?? false) || await hasGuestData();
     } catch (_) {
       guestModeActive.value = false;
     }
@@ -119,9 +120,7 @@ class LocalLearningStore {
   Future<Map<String, LearningCard>> loadCards(String collection) async {
     final raw = await _readCardMaps(collection);
 
-    return raw.map(
-      (id, data) => MapEntry(id, LearningCard.fromJson(id, data)),
-    );
+    return raw.map((id, data) => MapEntry(id, LearningCard.fromJson(id, data)));
   }
 
   Future<LearningCard> loadCard(String collection, String id) async {
@@ -137,10 +136,16 @@ class LocalLearningStore {
   /// Entspricht `set(card.toFirestore(), SetOptions(merge: true))`:
   /// vorhandene Felder, die die Karte nicht mitschickt (z. B. eine
   /// Eselsbrücke), bleiben erhalten.
-  Future<void> saveCard(String collection, LearningCard card) async {
+  Future<void> saveCard(String collection, LearningCard card) {
+    return saveCards(collection, [card]);
+  }
+
+  Future<void> saveCards(String collection, List<LearningCard> changed) async {
     final cards = await _readCardMaps(collection);
 
-    cards[card.id] = {...?cards[card.id], ...card.toJson()};
+    for (final card in changed) {
+      cards[card.id] = {...?cards[card.id], ...card.toJson()};
+    }
 
     await _writeCardMaps(collection, cards);
   }
@@ -310,7 +315,10 @@ class LocalLearningStore {
         final mnemonic = card.mnemonic;
 
         if (mnemonic != null && mnemonic.isNotEmpty) {
-          kept[card.id] = LearningCard(id: card.id, mnemonic: mnemonic).toJson();
+          kept[card.id] = LearningCard(
+            id: card.id,
+            mnemonic: mnemonic,
+          ).toJson();
         }
       }
 

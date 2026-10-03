@@ -1,3 +1,8 @@
+// Die App verwendet dart:js_interop und lässt sich nur im Browser laden:
+// flutter test --platform chrome test/widget_test.dart
+@TestOn('browser')
+library;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 

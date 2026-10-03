@@ -4,9 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import '../../algorithms/grammar_learning.dart';
 import '../../models/greek/vocabulary/greek_vocabulary_entry.dart';
+import '../../models/greek/vocabulary/learning_card.dart';
 import '../../services/greek/vocabulary/greek_vocabulary_loader.dart';
 import '../../services/greek/grammar/wiktionary_inflection_service.dart';
+import '../../services/learning_service.dart';
 import '../../services/local_learning_store.dart';
 import '../../services/quiz_sound_player.dart';
 import '../../services/quiz_sound_settings.dart';
@@ -47,6 +50,11 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
   final TextEditingController answerController = TextEditingController();
 
   final Random _random = Random();
+
+  final LearningService learningService = LearningService();
+
+  // Lernstand je grammatischer Bestimmung und Grundform.
+  late GrammarLearning grammar = GrammarLearning(random: _random);
 
   late final web.EventListener _keyListener;
 
@@ -154,6 +162,16 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
     "1. Pl.",
     "2. Pl.",
     "3. Pl.",
+  ];
+
+  // Person und Numerus so, wie die Fragegenerierung sie verwendet.
+  static const List<String> verbPersonNumbers = [
+    "1. Sg",
+    "2. Sg",
+    "3. Sg",
+    "1. Pl",
+    "2. Pl",
+    "3. Pl",
   ];
 
   static const List<String> tenses = ["Präsens", "Imperfekt", "Aorist"];
@@ -373,9 +391,15 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
       final results = await Future.wait<Object?>([
         GreekVocabularyLoader.load(),
         loadGrammarSettings(),
+        _loadGrammarCards(),
       ]);
 
       entries = results[0] as List<GreekVocabularyEntry>;
+
+      grammar = GrammarLearning(
+        cards: results[2] as Map<String, LearningCard>,
+        random: _random,
+      );
 
       await nextQuestion();
     } catch (e) {
@@ -399,6 +423,17 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
       setState(() {
         loading = false;
       });
+    }
+  }
+
+  // Ohne Lernstand läuft der Trainer mit neutralen Gewichten weiter.
+  Future<Map<String, LearningCard>> _loadGrammarCards() async {
+    try {
+      return await learningService.loadGrammarCards(_auth.currentUser?.uid);
+    } catch (e) {
+      debugPrint("Grammatik-Lernstand konnte nicht geladen werden: $e");
+
+      return {};
     }
   }
 
@@ -816,6 +851,8 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
     }
 
     if (firstEvaluation) {
+      _recordLearning(q);
+
       LearningStatisticsService.instance.recordAnswer(
         uid: _auth.currentUser?.uid,
         trainer: StatisticsTrainer.greekGrammar,
@@ -833,6 +870,52 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
     }
   }
 
+  // Verbucht jede Bestimmung einzeln, damit ein Fehler gezielt die
+  // betroffene Kategorie (z. B. Aorist) stärker gewichtet.
+  void _recordLearning(GreekVocabularyEntry q) {
+    final results = <String, bool>{};
+
+    final lemmaAsked = q.type == "noun"
+        ? showLemmaFieldNoun
+        : showLemmaFieldVerb;
+
+    final lemmaId = GrammarLearning.lemmaId(q.id);
+
+    if (q.type == "noun") {
+      results[GrammarLearning.dimensionId("noun", "case", selectedCase!)] =
+          caseCorrect ?? false;
+      results[GrammarLearning.dimensionId("noun", "number", selectedNumber!)] =
+          numberCorrect ?? false;
+
+      // Das Genus hängt am Wort, nicht an der Form.
+      results[lemmaId] =
+          (genderCorrect ?? false) && (!lemmaAsked || lemmaCorrect == true);
+    } else if (q.type == "verb") {
+      results[GrammarLearning.dimensionId(
+            "verb",
+            "person",
+            "$selectedPerson $selectedNumberVerb",
+          )] =
+          personCorrect ?? false;
+      results[GrammarLearning.dimensionId("verb", "tense", selectedTense!)] =
+          tenseCorrect ?? false;
+      results[GrammarLearning.dimensionId("verb", "voice", selectedVoice!)] =
+          voiceCorrect ?? false;
+
+      if (lemmaAsked) {
+        results[lemmaId] = lemmaCorrect == true;
+      }
+    }
+
+    // Nicht auf den Server warten; ein Speicherfehler darf den Trainer nicht
+    // beeinflussen.
+    learningService
+        .saveGrammarCards(_auth.currentUser?.uid, grammar.record(results))
+        .catchError((Object e) {
+          debugPrint("Grammatik-Lernstand konnte nicht gespeichert werden: $e");
+        });
+  }
+
   // ---------------------------------------------------------------------------
   // NOMEN-FRAGE GENERIEREN
   // ---------------------------------------------------------------------------
@@ -840,9 +923,9 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
   Future<void> generateNounQuestion(GreekVocabularyEntry entry) async {
     final token = _questionToken;
 
-    final grammaticalCase = cases[_random.nextInt(cases.length)];
+    final grammaticalCase = grammar.pickValue("noun", "case", cases);
 
-    final number = numbers[_random.nextInt(numbers.length)];
+    final number = grammar.pickValue("noun", "number", numbers);
 
     // Genus aus dem Artikel bestimmen
     String gender = "m";
@@ -909,24 +992,28 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
   Future<void> generateVerbQuestion(GreekVocabularyEntry entry) async {
     final token = _questionToken;
 
-    final person = ["1.", "2.", "3."][_random.nextInt(3)];
+    final personNumber = grammar
+        .pickValue("verb", "person", verbPersonNumbers)
+        .split(" ");
 
-    final number = ["Sg", "Pl"][_random.nextInt(2)];
+    final person = personNumber[0];
 
+    final number = personNumber[1];
+
+    // Erst die für das Verb zulässigen Werte bestimmen, dann gewichten.
     String tense;
 
     if (presentOnlyVerbs.contains(entry.lemma)) {
       tense = "Präsens";
     } else if (noAorist.contains(entry.lemma)) {
-      const noAoristTenses = ["Präsens", "Imperfekt"];
-
-      tense = noAoristTenses[_random.nextInt(noAoristTenses.length)];
+      tense = grammar.pickValue("verb", "tense", const [
+        "Präsens",
+        "Imperfekt",
+      ]);
     } else if (noImperfect.contains(entry.lemma)) {
-      const noImperfectTenses = ["Präsens", "Aorist"];
-
-      tense = noImperfectTenses[_random.nextInt(noImperfectTenses.length)];
+      tense = grammar.pickValue("verb", "tense", const ["Präsens", "Aorist"]);
     } else {
-      tense = tenses[_random.nextInt(tenses.length)];
+      tense = grammar.pickValue("verb", "tense", tenses);
     }
 
     String voice;
@@ -936,7 +1023,10 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
     } else if (entry.deponent) {
       voice = "Medium/Passiv";
     } else {
-      voice = ["Aktiv", "Medium/Passiv"][_random.nextInt(2)];
+      voice = grammar.pickValue("verb", "voice", const [
+        "Aktiv",
+        "Medium/Passiv",
+      ]);
     }
 
     if (mounted) {
@@ -1029,9 +1119,9 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
   Future<void> _preloadNounQuestion(GreekVocabularyEntry entry) async {
     final token = ++_preloadToken;
 
-    final grammaticalCase = cases[_random.nextInt(cases.length)];
+    final grammaticalCase = grammar.pickValue("noun", "case", cases);
 
-    final number = numbers[_random.nextInt(numbers.length)];
+    final number = grammar.pickValue("noun", "number", numbers);
 
     String gender = "m";
 
@@ -1083,24 +1173,28 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
   Future<void> _preloadVerbQuestion(GreekVocabularyEntry entry) async {
     final token = ++_preloadToken;
 
-    final person = ["1.", "2.", "3."][_random.nextInt(3)];
+    final personNumber = grammar
+        .pickValue("verb", "person", verbPersonNumbers)
+        .split(" ");
 
-    final number = ["Sg", "Pl"][_random.nextInt(2)];
+    final person = personNumber[0];
 
+    final number = personNumber[1];
+
+    // Erst die für das Verb zulässigen Werte bestimmen, dann gewichten.
     String tense;
 
     if (presentOnlyVerbs.contains(entry.lemma)) {
       tense = "Präsens";
     } else if (noAorist.contains(entry.lemma)) {
-      const noAoristTenses = ["Präsens", "Imperfekt"];
-
-      tense = noAoristTenses[_random.nextInt(noAoristTenses.length)];
+      tense = grammar.pickValue("verb", "tense", const [
+        "Präsens",
+        "Imperfekt",
+      ]);
     } else if (noImperfect.contains(entry.lemma)) {
-      const noImperfectTenses = ["Präsens", "Aorist"];
-
-      tense = noImperfectTenses[_random.nextInt(noImperfectTenses.length)];
+      tense = grammar.pickValue("verb", "tense", const ["Präsens", "Aorist"]);
     } else {
-      tense = tenses[_random.nextInt(tenses.length)];
+      tense = grammar.pickValue("verb", "tense", tenses);
     }
 
     String voice;
@@ -1110,7 +1204,10 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
     } else if (entry.deponent) {
       voice = "Medium/Passiv";
     } else {
-      voice = ["Aktiv", "Medium/Passiv"][_random.nextInt(2)];
+      voice = grammar.pickValue("verb", "voice", const [
+        "Aktiv",
+        "Medium/Passiv",
+      ]);
     }
 
     final parsedPerson = _parsePerson(person);
@@ -1201,11 +1298,12 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
       optionLists.add([eimaiEntry!]);
     }
 
-    // Pick a list uniformly
-    List<GreekVocabularyEntry> chosenList =
-        optionLists[_random.nextInt(optionLists.length)];
-    // Pick an entry uniformly from the chosen list
-    return chosenList[_random.nextInt(chosenList.length)];
+    // Jede Liste hat dasselbe Grundgewicht; der Lernbedarf verschiebt die
+    // Auswahl zwischen den Listen und innerhalb der gewählten Liste.
+    return grammar.pickFromGroups(
+      optionLists,
+      (entry) => GrammarLearning.lemmaId(entry.id),
+    );
   }
 
   // ---------------------------------------------------------------------------
@@ -1252,18 +1350,6 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
       width: double.infinity,
       child: Wrap(spacing: 24, runSpacing: 8, children: groups),
     );
-  }
-
-  bool _currentQuestionMatchesSettings() {
-    final q = question;
-
-    if (q == null) {
-      return false;
-    }
-
-    return enabledSteps.contains(q.step) &&
-        enabledTypes.contains(q.type) &&
-        !grammarBlacklist.contains(q.lemma);
   }
 
   // ---------------------------------------------------------------------------

@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
@@ -8,7 +6,7 @@ import '../../models/latin/vocabulary/latin_vocabulary_entry.dart';
 import '../../models/latin/vocabulary/latin_vocabulary_question.dart';
 import '../../models/greek/vocabulary/learning_card.dart';
 
-import '../../algorithms/spaced_repetition.dart';
+import '../../algorithms/learning_selector.dart';
 
 import '../../services/latin/vocabulary/latin_vocabulary_loader.dart';
 import '../../services/latin/vocabulary/latin_vocabulary_answer_checker.dart';
@@ -46,7 +44,7 @@ class _LatinVocabularyTrainerScreenState
   final LatinVocabularySettingsService settingsService =
       LatinVocabularySettingsService();
 
-  final SpacedRepetition algorithm = SpacedRepetition();
+  final LearningSelector selector = LearningSelector();
 
   final FocusNode translationFocusNode = FocusNode();
   final FocusNode formFocusNode = FocusNode();
@@ -194,9 +192,7 @@ class _LatinVocabularyTrainerScreenState
 
     includeGender = await settingsService.getIncludeGender(uid);
 
-    includeAdjectiveForms = await settingsService.getIncludeAdjectiveForms(
-      uid,
-    );
+    includeAdjectiveForms = await settingsService.getIncludeAdjectiveForms(uid);
 
     requireOnlyOneTranslation = await settingsService
         .getRequireOnlyOneTranslation(uid);
@@ -255,39 +251,13 @@ class _LatinVocabularyTrainerScreenState
       return;
     }
 
-    double total = 0;
-
-    final Map<LatinVocabularyEntry, double> scores = {};
-
-    for (final entry in availableEntries) {
-      final card =
-          cards[entry.id.toString()] ?? LearningCard(id: entry.id.toString());
-
-      final score = algorithm.selectionScore(card);
-
-      scores[entry] = score;
-
-      total += score;
-    }
-
-    LatinVocabularyEntry next;
-
-    if (total <= 0) {
-      next = availableEntries[Random().nextInt(availableEntries.length)];
-    } else {
-      double random = Random().nextDouble() * total;
-
-      next = availableEntries.last;
-
-      for (final entry in availableEntries) {
-        random -= scores[entry]!;
-
-        if (random <= 0) {
-          next = entry;
-          break;
-        }
-      }
-    }
+    // Die Filter stehen fest; gewichtet wird nur innerhalb des Pools.
+    final next = selector.select(
+      candidates: availableEntries,
+      idOf: (entry) => entry.id.toString(),
+      cards: cards,
+      baseWeightOf: (entry) => entry.weight,
+    )!;
 
     question = LatinVocabularyQuestion(entry: next);
 
@@ -362,11 +332,15 @@ class _LatinVocabularyTrainerScreenState
     final card =
         cards[q.entry.id.toString()] ?? LearningCard(id: q.entry.id.toString());
 
-    algorithm.answer(card, result.correct);
+    selector.algorithm.answer(card, result.correct);
 
     cards[q.entry.id.toString()] = card;
 
-    await learningService.saveLatinCard(uid, card);
+    // Nicht auf den Server warten: Firestore bestätigt offline erst später,
+    // die Auswertung soll trotzdem sofort erscheinen.
+    learningService.saveLatinCard(uid, card).catchError((Object e) {
+      debugPrint("Lernstand konnte nicht gespeichert werden: $e");
+    });
 
     // Streak nur einmal je Frage zählen (auch bei doppeltem Enter).
     final firstEvaluation = !answered;
@@ -461,6 +435,10 @@ class _LatinVocabularyTrainerScreenState
                         enabledSubsteps: enabledSubsteps,
                         enabledTypes: enabledTypes,
                       );
+
+                      if (!context.mounted) {
+                        return;
+                      }
 
                       Navigator.pop(context);
 
