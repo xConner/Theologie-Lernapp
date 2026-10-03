@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../models/confession.dart';
+import '../services/memorization/memorization_catalog.dart';
+import '../widgets/memorization_widgets.dart';
 import '../widgets/settings_access.dart';
 import '../info/app_info.dart';
 import '../widgets/info_report.dart';
@@ -65,6 +67,11 @@ class _ConfessionDetailScreenState extends State<ConfessionDetailScreen> {
 
   bool get hasMultipleSections => confession.sections.length > 1;
 
+  bool get hasCurrentText =>
+      (confession.sections[selectedSectionIndex].texts[selectedLanguage] ?? "")
+          .trim()
+          .isNotEmpty;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -115,25 +122,45 @@ class _ConfessionDetailScreenState extends State<ConfessionDetailScreen> {
 
                     const SizedBox(height: 16),
 
-                    DropdownButton<String>(
-                      value: selectedLanguage,
+                    Wrap(
+                      spacing: 16,
+                      runSpacing: 8,
+                      crossAxisAlignment: WrapCrossAlignment.center,
 
-                      items: confession.languages
-                          .map(
-                            (lang) => DropdownMenuItem(
-                              value: lang,
-                              child: Text(languageName(lang)),
+                      children: [
+                        DropdownButton<String>(
+                          value: selectedLanguage,
+
+                          items: confession.languages
+                              .map(
+                                (lang) => DropdownMenuItem(
+                                  value: lang,
+                                  child: Text(languageName(lang)),
+                                ),
+                              )
+                              .toList(),
+
+                          onChanged: (value) {
+                            if (value == null) return;
+
+                            setState(() {
+                              selectedLanguage = value;
+                            });
+                          },
+                        ),
+
+                        // Nur anbieten, wenn der Abschnitt in dieser Sprache
+                        // vorliegt.
+                        if (hasCurrentText)
+                          MemorizeButton(
+                            key: const Key("confession_memorize"),
+                            work: () => MemorizationCatalog.fromConfession(
+                              confession,
+                              confession.sections[selectedSectionIndex],
                             ),
-                          )
-                          .toList(),
-
-                      onChanged: (value) {
-                        if (value == null) return;
-
-                        setState(() {
-                          selectedLanguage = value;
-                        });
-                      },
+                            languageCode: selectedLanguage,
+                          ),
+                      ],
                     ),
 
                     // Section-Auswahl nur anzeigen,

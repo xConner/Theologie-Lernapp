@@ -11,6 +11,7 @@ import 'hymn_screen.dart';
 
 import 'confessions_screen.dart';
 import 'prayers_screen.dart';
+import 'memorization/memorization_home_screen.dart';
 
 import 'latin/latin_home_screen.dart';
 
@@ -339,6 +340,24 @@ class _HomeScreenState extends State<HomeScreen> {
                           },
                           icon: const Icon(Icons.volunteer_activism_rounded),
                           label: const Text("Gebete"),
+                        ),
+                      ),
+
+                      const SizedBox(height: 16),
+
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton.icon(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => const MemorizationHomeScreen(),
+                              ),
+                            );
+                          },
+                          icon: const Icon(Icons.psychology_alt_rounded),
+                          label: const Text("Auswendig lernen"),
                         ),
                       ),
 

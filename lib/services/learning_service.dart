@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../models/greek/vocabulary/learning_card.dart';
+import '../models/memorization/memorization_card.dart';
 import 'local_learning_store.dart';
 
 /// Lernstände der Trainer, je Trainer eine Collection unter `users/{uid}`
@@ -61,11 +62,56 @@ class LearningService {
       return;
     }
 
+    return _saveCards(uid, LocalLearningStore.greekGrammar, cards);
+  }
+
+  // Auswendig lernen (Abschnitte von Gebeten, Bekenntnissen …)
+
+  Future<Map<String, MemorizationCard>> loadMemorizationCards(
+    String? uid,
+  ) async {
     if (uid == null) {
-      return local.saveCards(LocalLearningStore.greekGrammar, cards);
+      final cards = await local.loadCards(LocalLearningStore.memorization);
+
+      return {
+        for (final card in cards.values)
+          if (card is MemorizationCard) card.id: card,
+      };
     }
 
-    final collection = _collection(uid, LocalLearningStore.greekGrammar);
+    final snapshot = await _collection(
+      uid,
+      LocalLearningStore.memorization,
+    ).get();
+
+    return {
+      for (final doc in snapshot.docs)
+        doc.id: MemorizationCard.fromFirestore(doc.id, doc.data()),
+    };
+  }
+
+  /// Speichert die Karten einer Übung gemeinsam (ein Schreibvorgang).
+  Future<void> saveMemorizationCards(
+    String? uid,
+    List<MemorizationCard> cards,
+  ) async {
+    if (cards.isEmpty) {
+      return;
+    }
+
+    return _saveCards(uid, LocalLearningStore.memorization, cards);
+  }
+
+  Future<void> _saveCards(
+    String? uid,
+    String name,
+    List<LearningCard> cards,
+  ) async {
+    if (uid == null) {
+      return local.saveCards(name, cards);
+    }
+
+    final collection = _collection(uid, name);
 
     final batch = db.batch();
 

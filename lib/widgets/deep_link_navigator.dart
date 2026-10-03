@@ -11,6 +11,7 @@ import '../screens/hymn_screen.dart';
 import '../screens/latin/latin_home_screen.dart';
 import '../screens/latin/latin_vocabulary_trainer_screen.dart';
 import '../screens/liturgical_calendar_screen.dart';
+import '../screens/memorization/memorization_home_screen.dart';
 import '../screens/notification_settings_screen.dart';
 import '../screens/pericope_quiz/quiz_screen.dart';
 import '../screens/prayers_screen.dart';
@@ -41,6 +42,7 @@ final Map<String, Future<Widget?> Function()> _screens = {
   AppDeepLink.hymns: () async => const HymnScreen(),
   AppDeepLink.confessions: () async => const ConfessionsScreen(),
   AppDeepLink.prayers: () async => const PrayersScreen(),
+  AppDeepLink.memorize: () async => const MemorizationHomeScreen(),
   AppDeepLink.settings: () async => const SettingsScreen(),
   AppDeepLink.notificationSettings: () async =>
       _signedIn(const NotificationSettingsScreen()),

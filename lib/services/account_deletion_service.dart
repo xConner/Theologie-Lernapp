@@ -28,6 +28,7 @@ class AccountDeletionService {
     "learning_cards",
     "latin_vocabulary",
     "grammar",
+    "memorization",
     "pericope_overrides",
     "streaks",
     "statistics",

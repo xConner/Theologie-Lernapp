@@ -6,12 +6,13 @@ rules_version = '2';
 // users/{uid}-Dokument und die Subcollections darunter lesen/schreiben.
 // Deckt die im Code verwendeten Pfade ab:
 //   users/{uid}                                (Felder: greek_grammar_settings, vocabulary_settings,
-//                                               notification_settings, ...)
+//                                               memorization_settings, notification_settings, ...)
 //   users/{uid}/quiz_settings/perikopen
 //   users/{uid}/vocabulary/{vocabularyId}
 //   users/{uid}/learning_cards/{cardId}
 //   users/{uid}/latin_vocabulary/{cardId}
 //   users/{uid}/grammar/{grammarId}
+//   users/{uid}/memorization/{cardId}           (Auswendig lernen: Lernstand je Abschnitt)
 //   users/{uid}/pericope_overrides/config
 //   users/{uid}/streaks/{trackId}
 //   users/{uid}/statistics/{trainerId}          (Tagesstatistik je Trainer)
@@ -84,7 +85,8 @@ service cloud.firestore {
     // ältere, bereits vorhandene Felder bestehende Dokumente nicht sperren.
     function userDocKeys() {
       return ['vocabulary_settings', 'latin_vocabulary_settings',
-              'greek_grammar_settings', 'notification_settings'];
+              'greek_grammar_settings', 'memorization_settings',
+              'notification_settings'];
     }
 
     function changedKeys() {
@@ -97,7 +99,7 @@ service cloud.firestore {
     // (siehe Liste oben; "inbox" ist bewusst nicht enthalten).
     function isUserCollection(collection) {
       return collection in ['quiz_settings', 'vocabulary', 'learning_cards',
-                            'latin_vocabulary', 'grammar',
+                            'latin_vocabulary', 'grammar', 'memorization',
                             'pericope_overrides', 'streaks', 'statistics',
                             'notification_state', 'push_tokens'];
     }

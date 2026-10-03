@@ -4,16 +4,18 @@ import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/greek/vocabulary/learning_card.dart';
+import '../models/memorization/memorization_card.dart';
 
 /// Lokaler Speicher für Lernstände und Lerneinstellungen im Gastmodus
 /// (auf Web: localStorage über shared_preferences).
 ///
 /// Die Struktur spiegelt die Firestore-Daten unter `users/{uid}`:
 ///   * Karten je Collection (`vocabulary`, `learning_cards`,
-///     `latin_vocabulary`, `grammar`) mit denselben Feldern wie in Firestore
+///     `latin_vocabulary`, `grammar`, `memorization`) mit denselben Feldern
+///     wie in Firestore
 ///   * die Einstellungs-Felder des `users/{uid}`-Dokuments
 ///     (`vocabulary_settings`, `latin_vocabulary_settings`,
-///     `greek_grammar_settings`)
+///     `greek_grammar_settings`, `memorization_settings`)
 ///   * `quiz_settings/perikopen`
 ///
 /// Alle Keys sind versioniert (`guest.v1.`), damit sich das Format später
@@ -39,12 +41,14 @@ class LocalLearningStore {
   static const String perikopen = "learning_cards";
   static const String latinVocabulary = "latin_vocabulary";
   static const String greekGrammar = "grammar";
+  static const String memorization = "memorization";
 
   static const List<String> cardCollections = [
     greekVocabulary,
     perikopen,
     latinVocabulary,
     greekGrammar,
+    memorization,
   ];
 
   /// Erlaubte Einstellungs-Felder je Gruppe (entspricht den Feldern, die die
@@ -74,6 +78,10 @@ class LocalLearningStore {
       "enabledTypes": _FieldType.stringList,
       "showLemmaFieldNoun": _FieldType.boolean,
       "showLemmaFieldVerb": _FieldType.boolean,
+    },
+    "memorization_settings": {
+      "texts": _FieldType.stringList,
+      "paused": _FieldType.stringList,
     },
   };
 
@@ -119,6 +127,14 @@ class LocalLearningStore {
 
   Future<Map<String, LearningCard>> loadCards(String collection) async {
     final raw = await _readCardMaps(collection);
+
+    // Memorier-Karten tragen zusätzliche Felder (Hilfestufe, Versuche), die
+    // auch bei der Übernahme in ein Konto erhalten bleiben müssen.
+    if (collection == memorization) {
+      return raw.map(
+        (id, data) => MapEntry(id, MemorizationCard.fromJson(id, data)),
+      );
+    }
 
     return raw.map((id, data) => MapEntry(id, LearningCard.fromJson(id, data)));
   }

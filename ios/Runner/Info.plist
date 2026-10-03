@@ -66,5 +66,9 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Das Mikrofon wird verwendet, um auswendig gelernte Texte aufzusagen. Es werden keine Aufnahmen gespeichert.</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>Die Spracherkennung wandelt das Aufgesagte in Text um, der auf dem Gerät mit dem Lerntext verglichen wird.</string>
 </dict>
 </plist>

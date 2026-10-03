@@ -1,4 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Auswendig lernen: Aufsagen mit der Spracherkennung des Geräts.
+         Die App speichert keine Aufnahmen. -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
     <application
         android:label="theologie_lernapp"
         android:name="${applicationName}"
@@ -40,6 +43,10 @@
         <intent>
             <action android:name="android.intent.action.PROCESS_TEXT"/>
             <data android:mimeType="text/plain"/>
+        </intent>
+        <!-- Spracherkennungsdienst des Geräts (speech_to_text). -->
+        <intent>
+            <action android:name="android.speech.RecognitionService"/>
         </intent>
     </queries>
 </manifest>

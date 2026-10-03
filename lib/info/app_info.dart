@@ -205,6 +205,53 @@ class AppModules {
     ],
   );
 
+  static const ModuleInfo memorization = ModuleInfo(
+    id: "memorization",
+    title: "Auswendig lernen",
+    description:
+        "Gebete und Bekenntnisse abschnittsweise auswendig lernen: vom "
+        "Mitlesen über Lücken und Anfangsbuchstaben bis zum freien Aufsagen "
+        "oder Schreiben. Gelernte Abschnitte werden verbunden und in "
+        "wachsenden Abständen wiederholt.",
+    sources: [
+      SourceInfo(
+        title: "Lerntexte",
+        origin:
+            "Texte der Bereiche „Gebete“ und „Bekenntnisse“ dieser App "
+            "(Quellen siehe dort)",
+        processing:
+            "Die Texte werden in der App automatisch anhand von Zeilen, "
+            "Absätzen und Satzzeichen in Abschnitte geteilt. Lücken und "
+            "Anfangsbuchstaben werden daraus auf dem Gerät erzeugt.",
+      ),
+      SourceInfo(
+        title: "Auswertung",
+        processing:
+            "Getippte oder gesprochene Wiedergaben werden auf dem Gerät Wort "
+            "für Wort mit dem Text verglichen. Groß-/Kleinschreibung, "
+            "Satzzeichen und Akzente bleiben unberücksichtigt.",
+        aiNote: "Für die Auswertung wird keine KI verwendet.",
+      ),
+      SourceInfo(
+        title: "Spracherkennung",
+        processing:
+            "Für das Aufsagen nutzt die App die Spracherkennung des Geräts "
+            "bzw. Browsers. Die App speichert keine Aufnahme und erhält nur "
+            "den erkannten Text. Je nach Gerät oder Browser kann die "
+            "Erkennung bei dessen Anbieter stattfinden.",
+      ),
+    ],
+    notes: [
+      "Die Spracherkennung steht nicht in jedem Browser und nicht für "
+          "Latein und Altgriechisch zur Verfügung; dort kann getippt oder "
+          "im Kopf aufgesagt werden.",
+      "Die Spracherkennung kann Wörter falsch verstehen. Eine gemeldete "
+          "Abweichung ist dann kein Fehler beim Aufsagen.",
+      "Die Einteilung in Abschnitte erfolgt automatisch und ist nicht "
+          "redaktionell geprüft.",
+    ],
+  );
+
   static const ModuleInfo calendar = ModuleInfo(
     id: "liturgical_calendar",
     title: "Liturgischer Kalender",
@@ -251,6 +298,7 @@ class AppModules {
     hymns,
     confessions,
     prayers,
+    memorization,
     greekVocabulary,
     greekGrammarTrainer,
     greekGrammarOverview,

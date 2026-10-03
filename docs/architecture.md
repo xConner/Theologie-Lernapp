@@ -50,3 +50,34 @@ eigene Antwortprüfung, kann aber `LearningService`, `GrammarLearning`,
 `reportTrainerAnswer` und die Widgets unverändert verwenden. Für den
 Lernstand kommt eine Collection in `LocalLearningStore.cardCollections`,
 in `firestore.rules` und in `AccountDeletionService.userCollections` hinzu.
+
+## Auswendig lernen
+
+Längere Texte (Gebete, Bekenntnisse, später z. B. Bibeltexte) werden
+abschnittsweise gelernt. Kein eigener Unterbau: Der Lernstand je Abschnitt
+ist eine `MemorizationCard` (erweitert `LearningCard`), gespeichert über
+`LearningService` in der Collection `memorization`; die Abstände führt
+`SpacedRepetition`.
+
+| Aufgabe | Ort |
+|---|---|
+| Lerntext, Abschnitt, Werk (statischer Inhalt) | `models/memorization/memorization_text.dart` |
+| Lernstand je Abschnitt (Hilfestufe, Versuche) | `models/memorization/memorization_card.dart` |
+| Gebete/Bekenntnisse → Lerntexte | `services/memorization/memorization_catalog.dart` |
+| Zerlegung in Abschnitte | `services/memorization/text_segmenter.dart` |
+| Lücken, Anfangsbuchstaben | `services/memorization/hint_generator.dart` |
+| Wortvergleich mit Alignment (lokal, ohne KI) | `services/memorization/text_evaluator.dart` |
+| Status, Tagesplan, Bewertung | `services/memorization/memorization_scheduler.dart` |
+| Ablauf einer Lernrunde (Verbinden, Wiederholen) | `services/memorization/memorization_session.dart` |
+| Lernstände und „Meine Texte“ (Konto/Gast) | `services/memorization/memorization_repository.dart` |
+| Spracherkennung (austauschbar) | `services/speech/speech_recognition_service.dart` |
+| Screens | `screens/memorization/` |
+
+Jede Sprachfassung ist ein eigener Lerntext (`prayer.vaterunser.de`,
+`prayer.vaterunser.la`) mit eigenem Lernstand. Eine neue Textquelle braucht
+nur eine Methode im Katalog, die `MemorizationWork`s liefert.
+
+Die Spracherkennung liefert ausschließlich ein Transkript; bewertet wird
+lokal durch `MemorizationTextEvaluator`. Ob die Erkennung selbst auf dem
+Gerät oder bei einem Dienst des Betriebssystems/Browsers läuft, hängt von
+der Plattform ab – die App speichert keine Audioaufnahmen.

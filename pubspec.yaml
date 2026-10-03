@@ -45,6 +45,7 @@ dependencies:
   web: ^1.1.0
   audioplayers: ^6.8.1
   qr_flutter: ^4.1.0
+  speech_to_text: ^7.5.0
 
 dev_dependencies:
   flutter_test:

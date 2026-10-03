@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../models/prayer.dart';
+import '../services/memorization/memorization_catalog.dart';
+import '../widgets/memorization_widgets.dart';
 import '../theme/app_theme.dart';
 import '../widgets/settings_access.dart';
 import '../info/app_info.dart';
@@ -134,6 +136,14 @@ class _PrayerDetailScreenState extends State<PrayerDetailScreen> {
                   version.text,
                   key: const Key("prayer_text"),
                   style: const TextStyle(fontSize: 19, height: 1.6),
+                ),
+
+                const SizedBox(height: 20),
+
+                MemorizeButton(
+                  key: const Key("prayer_memorize"),
+                  work: () => MemorizationCatalog.fromPrayer(prayer),
+                  languageCode: selectedLanguage,
                 ),
 
                 const Divider(height: 40),
