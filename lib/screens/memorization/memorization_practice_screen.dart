@@ -1001,7 +1001,10 @@ class _MemorizationPracticeScreenState
                     overflow: TextOverflow.ellipsis,
                   ),
                   subtitle: Text(
-                    scheduler.status(widget.repository.cards[segment.id]).label,
+                    segmentStatusLine(
+                      scheduler,
+                      widget.repository.cards[segment.id],
+                    ),
                   ),
                 ),
           ],

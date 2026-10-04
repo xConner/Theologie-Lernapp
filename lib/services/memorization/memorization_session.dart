@@ -8,8 +8,9 @@ import 'text_evaluator.dart';
 /// Eine Lernrunde: eine Warteschlange von Übungen, die sich aus den
 /// Ergebnissen weiterentwickelt.
 ///
-///   * Ein Abschnitt bleibt in der Runde, bis er frei wiedergegeben wurde;
-///     dazwischen liegen nach Möglichkeit andere Übungen.
+///   * Ein Abschnitt bleibt in der Runde, bis er frei wiedergegeben wurde –
+///     nach einem Fehler, bis er wieder bestätigt ist; dazwischen liegen
+///     nach Möglichkeit andere Übungen.
 ///   * Ist ein in dieser Runde erarbeiteter Abschnitt frei gelungen, folgt
 ///     die Verbindung mit den vorangehenden gelernten Abschnitten.
 ///   * Fehler in einer Verbindung bringen die betroffenen Abschnitte einzeln
@@ -94,7 +95,9 @@ class MemorizationSession {
   void _afterSegment(PracticeUnit unit, HintLevel practiced, bool mastered) {
     final id = unit.text.segments[unit.from].id;
 
-    if (!mastered) {
+    // Nach einem Fehler reicht eine einzelne gelungene Wiedergabe nicht:
+    // Der Abschnitt kommt wieder, bis er bestätigt ist.
+    if (!mastered || (cards[id]?.relearn ?? 0) > 0) {
       _worked.add(id);
 
       // Nach dem Mitlesen direkt weiter, sonst mit etwas Abstand.

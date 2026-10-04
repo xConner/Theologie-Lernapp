@@ -287,7 +287,7 @@ class _MemorizationTextScreenState extends State<MemorizationTextScreen> {
         key: Key("memorize_segment_$index"),
         leading: SegmentStatusIcon(status),
         title: Text(segment.text),
-        subtitle: Text(status.label),
+        subtitle: Text(segmentStatusLine(scheduler, card)),
         onTap: () => _practice([PracticeUnit.segment(text, index, level)]),
       ),
     );
@@ -330,7 +330,9 @@ class _MemorizationTextScreenState extends State<MemorizationTextScreen> {
         const SizedBox(height: 4),
 
         Text(
-          "Tippe einen Abschnitt an, um genau diese Stelle zu üben.",
+          "Tippe einen Abschnitt an, um genau diese Stelle zu üben. Jede "
+          "Übung zählt für den Lernstand; der Abstand bis zur nächsten "
+          "Wiederholung wächst aber nur über mehrere Tage.",
           style: Theme.of(
             context,
           ).textTheme.bodyMedium?.copyWith(color: context.colors.textSecondary),

@@ -174,9 +174,9 @@ Grenze: Clientseitige Löschung. Robuster wäre die Firebase-Extension
 
 | Thema | Status |
 |---|---|
-| Impressum | `web/impressum.html` – auf § 18 Abs. 1 MStV reduziert; **Platzhalter für Name, Anschrift, E-Mail** |
+| Impressum | `web/impressum.html` – **Platzhalter für Name, Anschrift, E-Mail** sowie – je nach Einordnung (§ 5 DDG / § 18 Abs. 2 MStV) – weiteren Kontaktweg und inhaltlich Verantwortlichen |
 | Datenschutz | `web/datenschutz.html` – aus den realen Datenflüssen abgeleitet, ohne Platzhalter (Verantwortlicher per Verweis aufs Impressum) |
-| Erreichbarkeit | Login-Screen (Fußzeile), „Über die App → Rechtliches“, `<noscript>` in `index.html`; Seiten funktionieren ohne JavaScript |
+| Erreichbarkeit | Footer (`lib/widgets/site_footer.dart`) auf Startseite und Login-Screen sowie auf beiden Rechtsseiten: Impressum und Datenschutz mit einem Klick; zusätzlich „Über die App → Rechtliches“ und `<noscript>` in `index.html`. Direkt aufrufbar unter `/impressum` und `/datenschutz` (`rewrites` in `vercel.json`) sowie `/impressum.html`, `/datenschutz.html`; Seiten funktionieren ohne JavaScript |
 | Kontakt | nur Platzhalter (OFFEN) |
 | KI-Transparenz | bereits in „Über die App“ vorhanden; im Impressum ergänzt |
 | Quellen | bereits pro Bereich (`AppModules`) – ohne erfundene Quellen |

@@ -255,7 +255,7 @@ class MemorizationScheduler {
       return 10.0 + card.relearn + card.failures / 10;
     }
 
-    var score = math.max(0, card.difficulty - 5) * 0.6;
+    var score = math.max(0.0, card.difficulty - 5) * 0.6;
 
     final lapse = card.lastLapse;
 
@@ -270,7 +270,8 @@ class MemorizationScheduler {
     }
 
     if (card.lastReviewed != null) {
-      score += (srs.timeFactor(card) - 1.5).clamp(0, 1.5);
+      // Allein reicht das nicht: Überfällige stehen ohnehin im Tagesplan.
+      score += (srs.timeFactor(card) - 1.5).clamp(0.0, 1.0).toDouble();
     }
 
     return score;
@@ -377,8 +378,10 @@ class MemorizationScheduler {
         case SegmentStatus.shaky:
         case SegmentStatus.recent:
         case SegmentStatus.stable:
-          if (card!.level < MemorizationCard.maxLevel) {
-            // Nach einem Fehler: einzeln, mit der passenden Hilfe.
+        case SegmentStatus.secure:
+          if (card!.level < MemorizationCard.maxLevel || card.relearn > 0) {
+            // Nach einem Fehler: einzeln, mit der passenden Hilfe – auch
+            // wenn der Abschnitt zeitlich noch nicht wieder fällig wäre.
             flushGroup();
             reviews.add(PracticeUnit.segment(text, i, _level(card)));
             reviewSegments++;
@@ -427,15 +430,27 @@ class MemorizationScheduler {
     );
   }
 
-  /// Unsichere Abschnitte, jeweils auf ihrer aktuellen Hilfestufe.
+  /// Abschnitte, die zusätzliche Übung am meisten brauchen ([weakness]),
+  /// die dringendsten zuerst, jeweils auf ihrer aktuellen Hilfestufe.
   List<PracticeUnit> weakUnits(
     MemorizationText text,
     Map<String, MemorizationCard> cards,
   ) {
-    return [
+    final weak = [
       for (var i = 0; i < text.segments.length; i++)
-        if (status(cards[text.segments[i].id]) == SegmentStatus.shaky)
-          PracticeUnit.segment(text, i, _level(cards[text.segments[i].id]!)),
+        (i, weakness(cards[text.segments[i].id])),
+    ].where((entry) => entry.$2 >= weakThreshold).toList();
+
+    // Bei gleichem Wert in Textreihenfolge (List.sort ist nicht stabil).
+    weak.sort((a, b) {
+      final byScore = b.$2.compareTo(a.$2);
+
+      return byScore != 0 ? byScore : a.$1.compareTo(b.$1);
+    });
+
+    return [
+      for (final (i, _) in weak)
+        PracticeUnit.segment(text, i, _level(cards[text.segments[i].id]!)),
     ];
   }
 
@@ -541,10 +556,12 @@ class MemorizationScheduler {
     if (unit.kind == UnitKind.full) {
       final card = cardOf(unit.text.fullCardId);
 
+      // Der ganze Text wird nach einem Fehler nicht mehrfach in Folge
+      // verlangt; die betroffenen Abschnitte tragen das Nachlernen.
       if (correct) {
         _success(card);
       } else {
-        _lapse(card, outcome: outcome);
+        _lapse(card, outcome: outcome, relearn: false);
       }
 
       changed.add(card);
@@ -596,29 +613,73 @@ class MemorizationScheduler {
     }
   }
 
+  /// Fehlerfreie freie Wiedergabe.
   void _success(MemorizationCard card) {
+    final wasLearned = card.learned;
+
     card.startedAt ??= clock();
     card.attempts++;
     card.successes++;
+    card.streak++;
     card.learned = true;
     card.level = MemorizationCard.maxLevel;
 
+    // Kurzfristig: ein Schritt des Nachlernens ist geschafft. Wer den
+    // Abschnitt zum ersten Mal frei kann, hat nichts nachzuholen.
+    card.relearn = wasLearned ? math.max(0, card.relearn - 1) : 0;
+
+    // Langfristig: Der Abstand wächst mit der seit der letzten Wiedergabe
+    // vergangenen Zeit – kurz hintereinander also praktisch nicht.
     srs.answer(card, true);
+
+    if (card.relearn == 0) {
+      card.stability = math.max(card.stability, minReviewHours);
+    }
   }
 
-  /// Fehler bei freier Wiedergabe: Der Abschnitt ist bald wieder fällig und
-  /// wird mit etwas mehr Hilfe neu aufgebaut.
-  void _lapse(MemorizationCard card, {required RecallOutcome outcome}) {
+  /// Fehler bei freier Wiedergabe: Der Abschnitt wird mit etwas mehr Hilfe
+  /// neu aufgebaut und ist unsicher, bis er wieder fehlerfrei gelingt.
+  ///
+  /// Eine kleine Abweichung ([RecallOutcome.almost]) kostet nur einen Teil
+  /// des Abstands und eine Bestätigung; echtes Vergessen setzt den Abstand
+  /// weit zurück und verlangt mehrere.
+  void _lapse(
+    MemorizationCard card, {
+    required RecallOutcome outcome,
+    bool relearn = true,
+  }) {
+    final slip = outcome == RecallOutcome.almost;
+    final previous = card.stability;
+
     card.startedAt ??= clock();
     card.attempts++;
     card.failures++;
+    card.streak = 0;
+    card.lastLapse = clock();
     card.level = math.min(
       card.level,
-      outcome == RecallOutcome.almost
-          ? HintLevel.minimal.index
-          : HintLevel.firstLetters.index,
+      slip ? HintLevel.minimal.index : HintLevel.firstLetters.index,
     );
 
-    srs.answer(card, false);
+    if (relearn) {
+      card.relearn = math.max(card.relearn, slip ? slipSteps : lapseSteps);
+    }
+
+    if (slip) {
+      card.difficulty = (card.difficulty + _slipDifficulty)
+          .clamp(1, 10)
+          .toDouble();
+      card.lastReviewed = clock();
+    } else {
+      srs.answer(card, false);
+    }
+
+    // Was vorher langfristig saß, ist nicht vollständig verloren.
+    if (card.learned) {
+      card.stability = math.max(
+        slip ? srs.minStability : card.stability,
+        previous * (slip ? slipRetention : lapseRetention),
+      );
+    }
   }
 }

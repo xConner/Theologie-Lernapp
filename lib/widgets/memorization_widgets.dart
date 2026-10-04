@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../models/memorization/memorization_card.dart';
 import '../models/memorization/memorization_text.dart';
 import '../screens/memorization/memorization_text_screen.dart';
 import '../services/memorization/hint_generator.dart';
@@ -72,10 +73,58 @@ class SegmentStatusIcon extends StatelessWidget {
         Icons.check_circle_rounded,
         context.colors.success,
       ),
+      SegmentStatus.secure => (Icons.verified_rounded, context.colors.success),
     };
 
     return Icon(icon, color: color, size: 22, semanticLabel: status.label);
   }
+}
+
+/// Lernstand eines Abschnitts in einer Zeile: die Stufe und was als
+/// Nächstes ansteht („Unsicher · noch 2× fehlerfrei aufsagen“,
+/// „Frisch gelernt · Wiederholung morgen“).
+String segmentStatusLine(
+  MemorizationScheduler scheduler,
+  MemorizationCard? card,
+) {
+  final status = scheduler.status(card);
+
+  switch (status) {
+    case SegmentStatus.fresh:
+    case SegmentStatus.learning:
+      return status.label;
+
+    case SegmentStatus.shaky:
+      if (card!.level < MemorizationCard.maxLevel) {
+        return "${status.label} · erst mit Hilfe, dann frei aufsagen";
+      }
+
+      return "${status.label} · noch ${card.relearn}× fehlerfrei aufsagen";
+
+    case SegmentStatus.recent:
+    case SegmentStatus.stable:
+    case SegmentStatus.secure:
+      final due = scheduler.dueAt(card!);
+
+      if (due == null) return status.label;
+
+      return "${status.label} · Wiederholung "
+          "${relativeDue(due, scheduler.clock())}";
+  }
+}
+
+/// „heute“, „morgen“, „in 4 Tagen“ – bezogen auf Kalendertage.
+String relativeDue(DateTime date, DateTime now) {
+  final days = DateTime(
+    date.year,
+    date.month,
+    date.day,
+  ).difference(DateTime(now.year, now.month, now.day)).inDays;
+
+  if (days <= 0) return "heute";
+  if (days == 1) return "morgen";
+
+  return "in $days Tagen";
 }
 
 /// „heute“, „gestern“, „vor 4 Tagen“ – bezogen auf Kalendertage.
