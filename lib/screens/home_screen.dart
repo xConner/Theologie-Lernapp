@@ -23,7 +23,7 @@ import '../services/notifications/notification_service.dart';
 import '../services/progress_data_service.dart';
 import '../widgets/learning_progress_dialogs.dart';
 import '../widgets/notification_bell.dart';
-import '../widgets/open_source_footer.dart';
+import '../widgets/site_footer.dart';
 import '../widgets/sign_out_confirmation.dart';
 import '../widgets/streak_widgets.dart';
 import 'login_screen.dart';
@@ -219,7 +219,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Center(
         child: loading
             ? const CircularProgressIndicator()
-            : SingleChildScrollView(
+            : SiteFooterScrollView(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 24,
                   vertical: 32,
@@ -383,10 +383,6 @@ class _HomeScreenState extends State<HomeScreen> {
                           label: const Text("Latein"),
                         ),
                       ),
-
-                      const SizedBox(height: 16),
-
-                      const OpenSourceFooter(),
                     ],
                   ),
                 ),

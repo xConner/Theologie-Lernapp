@@ -14,7 +14,7 @@ enum SegmentStatus {
   /// Begonnen, aber noch nie frei wiedergegeben.
   learning,
 
-  /// Gelernt, zuletzt aber mit Fehlern oder wiederholt schwierig.
+  /// Gelernt, nach einem Fehler aber noch nicht wieder bestätigt.
   shaky,
 
   /// Frei wiedergegeben; der Wiederholungsabstand liegt noch unter einem Tag.
@@ -22,6 +22,9 @@ enum SegmentStatus {
 
   /// Gelernt, mit einem Wiederholungsabstand von mindestens einem Tag.
   stable,
+
+  /// Über Wochen hinweg an verschiedenen Tagen sicher wiedergegeben.
+  secure,
 }
 
 extension SegmentStatusLabel on SegmentStatus {
@@ -36,7 +39,9 @@ extension SegmentStatusLabel on SegmentStatus {
       case SegmentStatus.recent:
         return "Frisch gelernt";
       case SegmentStatus.stable:
-        return "Stabil";
+        return "Gefestigt";
+      case SegmentStatus.secure:
+        return "Langfristig sicher";
     }
   }
 }
@@ -115,7 +120,8 @@ class TextProgress {
   int get learned =>
       count(SegmentStatus.shaky) +
       count(SegmentStatus.recent) +
-      count(SegmentStatus.stable);
+      count(SegmentStatus.stable) +
+      count(SegmentStatus.secure);
 
   double get fraction => total == 0 ? 0 : learned / total;
 
@@ -155,6 +161,20 @@ class TextPlan {
 /// Die Wiederholungsabstände führt die gemeinsame [SpacedRepetition]
 /// (`stability` in Stunden). Sie wird nur bei freier Wiedergabe angewendet:
 /// Übungen mit sichtbaren Hilfen verändern allein die Hilfestufe.
+///
+/// Jede Übung – tägliche Wiederholung, Schwachstellen, ein gezielt
+/// gewählter Abschnitt, der ganze Text – wird über [apply] verbucht. Dabei
+/// werden zwei Dinge getrennt geführt:
+///
+///   * Kurzfristig (`relearn`, `streak`): Nach einem Fehler ist der
+///     Abschnitt unsicher, bis er wieder fehlerfrei frei wiedergegeben
+///     wurde ([lapseSteps] bzw. [slipSteps] Mal). Das gelingt auch durch
+///     mehrfaches Üben in einer Sitzung.
+///   * Langfristig (`stability`): Der Abstand wächst nur mit der Zeit, die
+///     zwischen zwei Wiedergaben vergangen ist. Mehrere richtige Antworten
+///     kurz hintereinander verlängern ihn daher nicht; nach bestätigtem
+///     Lernen steht die nächste Wiederholung frühestens nach
+///     [minReviewHours] an.
 class MemorizationScheduler {
   /// Neue Abschnitte je Text und Tag in der automatischen Auswahl.
   static const int dailyNew = 2;
@@ -166,9 +186,30 @@ class MemorizationScheduler {
   /// Längste Verbindungsübung (Abschnitte).
   static const int maxChain = 4;
 
+  /// Fehlerfreie freie Wiedergaben, die nach einem Fehler nötig sind.
+  static const int lapseSteps = 2;
+
+  /// … nach einer kleinen Abweichung ([RecallOutcome.almost]).
+  static const int slipSteps = 1;
+
+  /// Kürzester Abstand (Stunden) eines gelernten, bestätigten Abschnitts:
+  /// Er kommt am nächsten Tag wieder, nicht noch am selben.
+  static const double minReviewHours = 16;
+
+  /// Anteil des bisherigen Abstands, der einen Fehler übersteht. Wer einen
+  /// lange sicheren Abschnitt vergisst, fängt nicht ganz von vorn an.
+  static const double lapseRetention = 0.1;
+
+  /// … eine kleine Abweichung.
+  static const double slipRetention = 0.5;
+
+  static const double _slipDifficulty = 0.25;
+
   static const double _stableHours = 24;
-  static const double _lapseHours = 0.5;
-  static const double _shakyDifficulty = 6;
+  static const double _secureHours = 24 * 21;
+
+  /// Ab diesem Wert ([weakness]) zählt ein Abschnitt zu den Schwachstellen.
+  static const double weakThreshold = 1.5;
 
   final SpacedRepetition srs;
   final DateTime Function() clock;
@@ -190,15 +231,49 @@ class MemorizationScheduler {
       return SegmentStatus.learning;
     }
 
-    if (card.level < MemorizationCard.maxLevel ||
-        card.difficulty >= _shakyDifficulty ||
-        (card.failures > 0 && card.stability < _lapseHours)) {
+    if (card.level < MemorizationCard.maxLevel || card.relearn > 0) {
       return SegmentStatus.shaky;
     }
+
+    if (card.stability >= _secureHours) return SegmentStatus.secure;
 
     return card.stability >= _stableHours
         ? SegmentStatus.stable
         : SegmentStatus.recent;
+  }
+
+  /// Wie dringend ein gelernter Abschnitt zusätzliche Übung braucht
+  /// (0 = gar nicht). Unsichere Abschnitte stehen immer vorn; sonst zählen
+  /// ein kürzlicher Fehler (verblasst mit der Zeit und mit jeder
+  /// fehlerfreien Wiedergabe), wiederholte Fehler und eine lange
+  /// überfällige Wiederholung. Ein einzelner, längst ausgebügelter Fehler
+  /// macht keinen Abschnitt dauerhaft zur Schwachstelle.
+  double weakness(MemorizationCard? card) {
+    if (card == null || !card.learned) return 0;
+
+    if (status(card) == SegmentStatus.shaky) {
+      return 10.0 + card.relearn + card.failures / 10;
+    }
+
+    var score = math.max(0, card.difficulty - 5) * 0.6;
+
+    final lapse = card.lastLapse;
+
+    if (lapse != null) {
+      final days = math.max(0, clock().difference(lapse).inHours) / 24;
+
+      score += 3 * math.exp(-days / 4) / (1 + card.streak);
+    }
+
+    if (card.failures >= 2) {
+      score += 2 * card.failures / (card.failures + card.successes);
+    }
+
+    if (card.lastReviewed != null) {
+      score += (srs.timeFactor(card) - 1.5).clamp(0, 1.5);
+    }
+
+    return score;
   }
 
   /// Zeitpunkt der nächsten Wiederholung; null vor der ersten freien

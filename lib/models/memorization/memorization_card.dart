@@ -26,7 +26,26 @@ class MemorizationCard extends LearningCard {
   /// Abschnitte).
   DateTime? startedAt;
 
+  // Kurzfristiger Übungsstand – getrennt von der langfristigen `stability`.
+  // Er reagiert auf jede freie Wiedergabe, auch auf mehrere kurz
+  // hintereinander; der Wiederholungsabstand wächst dagegen nur mit der
+  // Zeit zwischen den Wiedergaben.
+
+  /// Fehlerfreie freie Wiedergaben, die nach einem Fehler noch ausstehen,
+  /// bis der Abschnitt wieder als gelernt gilt (0 = nichts offen).
+  int relearn;
+
+  /// Fehlerfreie freie Wiedergaben in Folge seit dem letzten Fehler.
+  int streak;
+
+  /// Letzter Fehler bei freier Wiedergabe.
+  DateTime? lastLapse;
+
   static const int maxLevel = 5;
+
+  /// Unter diesem Abstand (Stunden) galt ein Abschnitt mit Fehlern vor der
+  /// Einführung von [relearn] als unsicher.
+  static const double _legacyLapseHours = 0.5;
 
   MemorizationCard({
     required super.id,
@@ -40,6 +59,9 @@ class MemorizationCard extends LearningCard {
     this.failures = 0,
     this.learned = false,
     this.startedAt,
+    this.relearn = 0,
+    this.streak = 0,
+    this.lastLapse,
   });
 
   bool get isStarted => startedAt != null || attempts > 0 || level > 0;
@@ -78,6 +100,21 @@ class MemorizationCard extends LearningCard {
     required DateTime? lastReviewed,
     required DateTime? startedAt,
   }) {
+    final learned = data["learned"] == true;
+    final successes = _count(data["successes"]);
+    final failures = _count(data["failures"]);
+
+    // Lernstände von vor der Einführung des Kurzzeit-Stands: Was bisher
+    // wegen eines Fehlers als unsicher galt, braucht noch eine fehlerfreie
+    // Wiedergabe; alles andere gilt als bestätigt. Der Lernfortschritt
+    // selbst bleibt unverändert.
+    final legacy = !data.containsKey("relearn");
+    final legacyShaky =
+        legacy &&
+        learned &&
+        failures > 0 &&
+        base.stability < _legacyLapseHours;
+
     return MemorizationCard(
       id: base.id,
       stability: base.stability,
@@ -86,10 +123,15 @@ class MemorizationCard extends LearningCard {
       mnemonic: base.mnemonic,
       level: _count(data["level"]).clamp(0, maxLevel),
       attempts: _count(data["attempts"]),
-      successes: _count(data["successes"]),
-      failures: _count(data["failures"]),
-      learned: data["learned"] == true,
+      successes: successes,
+      failures: failures,
+      learned: learned,
       startedAt: startedAt,
+      relearn: legacy ? (legacyShaky ? 1 : 0) : _count(data["relearn"]),
+      streak: legacy
+          ? (learned && !legacyShaky ? successes.clamp(0, 2) : 0)
+          : _count(data["streak"]),
+      lastLapse: _date(data["lastLapse"]),
     );
   }
 
@@ -99,6 +141,7 @@ class MemorizationCard extends LearningCard {
       ...super.toFirestore(),
       ..._extras,
       "startedAt": startedAt == null ? null : Timestamp.fromDate(startedAt!),
+      "lastLapse": lastLapse == null ? null : Timestamp.fromDate(lastLapse!),
     };
   }
 
@@ -108,6 +151,7 @@ class MemorizationCard extends LearningCard {
       ...super.toJson(),
       ..._extras,
       "startedAt": startedAt?.millisecondsSinceEpoch,
+      "lastLapse": lastLapse?.millisecondsSinceEpoch,
     };
   }
 
@@ -118,6 +162,8 @@ class MemorizationCard extends LearningCard {
       "successes": successes,
       "failures": failures,
       "learned": learned,
+      "relearn": relearn,
+      "streak": streak,
     };
   }
 

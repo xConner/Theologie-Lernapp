@@ -16,6 +16,9 @@ class AppInfo {
   /// Öffentliche Website; Impressum und Datenschutz liegen dort als
   /// statische Seiten (Quelle: web/impressum.html, web/datenschutz.html).
   static const String websiteUrl = "https://www.theologie.app/";
+
+  /// Name der Website, z. B. im Footer und im Copyright-Hinweis.
+  static const String websiteName = "theologie.app";
 }
 
 /// Zentrale, deklarative Beschreibung aller inhaltlichen Bereiche.

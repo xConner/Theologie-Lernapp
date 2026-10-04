@@ -175,7 +175,19 @@ class StreakDetailCard extends StatelessWidget {
   final String? uid;
   final StreakTrack track;
 
-  const StreakDetailCard({super.key, required this.uid, required this.track});
+  /// Heutiger Fortschritt für Tracks, deren Tagesziel sich aus dem Lernplan
+  /// ergibt (Auswendiglernen: erledigte und vorgesehene Wiederholungen).
+  /// Ohne Angabe gilt der Zähler richtiger Antworten des Tracks.
+  final int? todayDone;
+  final int? todayGoal;
+
+  const StreakDetailCard({
+    super.key,
+    required this.uid,
+    required this.track,
+    this.todayDone,
+    this.todayGoal,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -188,6 +200,17 @@ class StreakDetailCard extends StatelessWidget {
       uid: uid,
       builder: (context) {
         final s = StreakService.instance.snapshotFor(uid, track);
+
+        final done = todayDone ?? s.todayCorrectAnswers;
+        final goal = todayGoal ?? s.dailyGoal;
+
+        final progress = s.completedToday
+            ? 1.0
+            : todayGoal == null
+            ? s.todayProgress
+            : goal <= 0
+            ? 0.0
+            : (done / goal).clamp(0.0, 1.0);
 
         return Card(
           margin: EdgeInsets.zero,
@@ -219,7 +242,7 @@ class StreakDetailCard extends StatelessWidget {
                     Text(
                       s.completedToday
                           ? "Tagesziel erreicht"
-                          : "${s.todayCorrectAnswers}/${s.dailyGoal}",
+                          : "$done/$goal",
                       style: s.completedToday
                           ? textTheme.titleSmall?.copyWith(
                               color: context.colors.success,
@@ -234,7 +257,7 @@ class StreakDetailCard extends StatelessWidget {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(999),
                   child: LinearProgressIndicator(
-                    value: s.todayProgress,
+                    value: progress,
                     minHeight: 8,
                     backgroundColor: context.colors.surfaceMuted,
                     color: s.completedToday

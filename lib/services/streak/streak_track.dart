@@ -46,8 +46,19 @@ class StreakTrack {
     sources: [StreakSource.perikopenQuiz],
   );
 
+  /// Auswendiglernen: Das Tagesziel ist kein Zähler richtiger Antworten,
+  /// sondern der abgearbeitete Wiederholungsplan des Tages (siehe
+  /// `MemorizationDailyGoal`). Gemeldet wird genau einmal je Tag, sobald
+  /// der Plan vollständig erledigt ist.
+  static const StreakTrack memorization = StreakTrack(
+    id: "memorization",
+    label: "Auswendiglernen",
+    sources: [StreakSource.memorization],
+    dailyGoal: 1,
+  );
+
   /// Alle in der App verfügbaren Tracks (Reihenfolge = Anzeige-Reihenfolge).
-  static const List<StreakTrack> all = [greek, latin, perikope];
+  static const List<StreakTrack> all = [greek, latin, perikope, memorization];
 }
 
 /// Herkunft einer richtigen Antwort innerhalb eines Tracks.
@@ -57,11 +68,13 @@ class StreakSource {
   static const String vocabulary = "vocabulary";
   static const String grammar = "grammar";
   static const String perikopenQuiz = "perikopen_quiz";
+  static const String memorization = "memorization";
 
   static const Map<String, String> labels = {
     vocabulary: "Vokabeln",
     grammar: "Grammatik",
     perikopenQuiz: "Perikopen",
+    memorization: "Auswendiglernen",
   };
 
   static String label(String source) => labels[source] ?? source;

@@ -1,5 +1,4 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../info/app_info.dart';
@@ -23,29 +22,5 @@ class LegalLinks {
 
   static Future<void> open(String page) {
     return launchUrl(resolve(page), mode: LaunchMode.externalApplication);
-  }
-}
-
-/// Zeile „Impressum · Datenschutz“, z. B. am Ende des Login-Screens.
-class LegalLinksRow extends StatelessWidget {
-  const LegalLinksRow({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Wrap(
-      alignment: WrapAlignment.center,
-      crossAxisAlignment: WrapCrossAlignment.center,
-      children: [
-        TextButton(
-          onPressed: () => LegalLinks.open(LegalLinks.impressumPage),
-          child: const Text("Impressum"),
-        ),
-        const Text("·"),
-        TextButton(
-          onPressed: () => LegalLinks.open(LegalLinks.privacyPage),
-          child: const Text("Datenschutz"),
-        ),
-      ],
-    );
   }
 }

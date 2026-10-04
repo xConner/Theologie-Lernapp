@@ -5,12 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Impressum – Theologie Lernapp</title>
   <meta name="description" content="Impressum der Theologie Lernapp">
+  <link rel="canonical" href="https://www.theologie.app/impressum">
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="stylesheet" href="legal.css">
+  <script src="legal.js"></script>
 </head>
 <body>
 <main>
-  <nav aria-label="Rechtliches">
+  <nav aria-label="Seitennavigation">
     <a href="./">Zur App</a>
     <a href="datenschutz.html">Datenschutz</a>
   </nav>
@@ -18,21 +20,35 @@
   <h1>Impressum</h1>
 
   <!--
-    HINWEIS FÜR DEN BETREIBER
-    Bewusst minimal: Die App ist ein privates, nicht kommerzielles Projekt.
-    Grundlage der Angaben ist § 18 Abs. 1 MStV (Name und Anschrift für
-    Telemedien, die nicht ausschließlich persönlichen oder familiären Zwecken
-    dienen). Angaben nach § 5 DDG (Register, USt-ID, Aufsichtsbehörde …) und
-    ein „Verantwortlicher“ nach § 18 Abs. 2 MStV entfallen, solange das
-    Angebot nicht geschäftsmäßig bzw. journalistisch-redaktionell ist.
+    HINWEIS FÜR DEN BETREIBER (keine Rechtsberatung)
 
-    Die drei class="todo"-Stellen ausfüllen, danach diesen Kommentar und den
-    gelben Kasten entfernen.
+    Alle class="todo"-Stellen ausfüllen, danach diesen Kommentar und den
+    gelben Kasten entfernen. Nichts davon ist erfunden oder vorausgefüllt.
+
+    Immer nötig:
+      - Name: Vor- und Nachname (bei juristischen Personen: Firma, Rechtsform
+        und Vertretungsberechtigte).
       - Anschrift: muss ladungsfähig sein (kein Postfach). Es muss nicht
         zwingend die Wohnanschrift sein, aber eine Anschrift, unter der
         Zustellungen dich tatsächlich und wirksam erreichen.
-      - E-Mail: wird als Kontakt für Datenschutzanfragen gebraucht
-        (Art. 13 DSGVO); eine eigene Projektadresse genügt.
+      - E-Mail: schnelle elektronische Kontaktaufnahme; dient zugleich als
+        Kontakt für Datenschutzanfragen (Art. 13 DSGVO). Eine eigene
+        Projektadresse genügt.
+
+    Abhängig von der Einordnung des Angebots:
+      - § 18 Abs. 1 MStV (Angebot dient nicht ausschließlich persönlichen
+        oder familiären Zwecken): Name und Anschrift genügen.
+      - § 5 DDG (geschäftsmäßiges, in der Regel gegen Entgelt angebotenes
+        Angebot): zusätzlich ein zweiter schneller, unmittelbarer
+        Kontaktweg neben der E-Mail (üblich: Telefonnummer; EuGH C-298/07
+        lässt auch z. B. ein Kontaktformular mit zügiger Antwort zu).
+        Im Zweifel den Block „Weiterer Kontaktweg“ ausfüllen, sonst
+        entfernen.
+      - § 18 Abs. 2 MStV (journalistisch-redaktionell gestaltete Inhalte):
+        Block „Verantwortlich für den Inhalt“ ausfüllen, sonst entfernen.
+      - Nur falls vorhanden, dann ergänzen: Umsatzsteuer- oder
+        Wirtschafts-Identifikationsnummer, Registereintrag (Register und
+        Nummer), zuständige Aufsichtsbehörde, berufsrechtliche Angaben.
   -->
   <p class="notice" role="note">
     Entwurf: Die markierten Angaben sind Platzhalter und müssen vom Betreiber
@@ -42,11 +58,21 @@
   <div class="card">
     <h2>Anbieter</h2>
     <p>
-      <span class="todo">[Vor- und Nachname]</span><br>
-      <span class="todo">[ladungsfähige Anschrift]</span>
+      <span class="todo">[Name / Anbieter]</span><br>
+      <span class="todo">[Straße und Hausnummer]</span><br>
+      <span class="todo">[PLZ Ort]</span><br>
+      <span class="todo">[Land]</span>
     </p>
+
+    <h2>Kontakt</h2>
     <p>
-      E-Mail: <span class="todo">[E-Mail-Adresse]</span>
+      E-Mail: <span class="todo">[E-Mail-Adresse]</span><br>
+      Weiterer Kontaktweg: <span class="todo">[Telefonnummer oder anderer schneller Kontaktweg – falls erforderlich, sonst Zeile entfernen]</span>
+    </p>
+
+    <h2>Verantwortlich für den Inhalt</h2>
+    <p>
+      <span class="todo">[Name und Anschrift der verantwortlichen Person – nur bei journalistisch-redaktionellen Inhalten, sonst Abschnitt entfernen]</span>
     </p>
   </div>
 
@@ -55,5 +81,32 @@
     Einnahmen und ohne Werbung.
   </p>
 </main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-columns">
+      <div>
+        <h2>theologie.app</h2>
+        <p>Frei zugängliche Lernapp für Theologie und Bibelkunde.</p>
+      </div>
+      <div>
+        <h2>Open Source</h2>
+        <p>
+          Theologie lernen – gemeinsam weiterentwickeln. Der Quellcode ist
+          öffentlich: ansehen, verbessern, mitentwickeln.
+        </p>
+        <a class="footer-button" href="https://github.com/xConner/Theologie-Lernapp" rel="noopener noreferrer">Auf GitHub ansehen</a>
+      </div>
+      <nav aria-label="Rechtliches">
+        <h2>Rechtliches</h2>
+        <ul class="footer-links">
+          <li><a href="impressum.html" aria-current="page">Impressum</a></li>
+          <li><a href="datenschutz.html">Datenschutz</a></li>
+        </ul>
+      </nav>
+    </div>
+    <p class="copyright">© <span data-current-year>2026</span> theologie.app</p>
+  </div>
+</footer>
 </body>
 </html>

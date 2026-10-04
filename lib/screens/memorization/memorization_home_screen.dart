@@ -4,12 +4,15 @@ import '../../info/app_info.dart';
 import '../../models/memorization/memorization_text.dart';
 import '../../models/prayer.dart';
 import '../../services/memorization/memorization_catalog.dart';
+import '../../services/memorization/memorization_daily_goal.dart';
 import '../../services/memorization/memorization_repository.dart';
 import '../../services/memorization/memorization_scheduler.dart';
+import '../../services/streak/streak_track.dart';
 import '../../theme/app_theme.dart';
 import '../../widgets/info_report.dart';
 import '../../widgets/memorization_widgets.dart';
 import '../../widgets/settings_access.dart';
+import '../../widgets/streak_widgets.dart';
 import 'memorization_practice_screen.dart';
 import 'memorization_text_screen.dart';
 
@@ -256,6 +259,12 @@ class _MemorizationHomeScreenState extends State<MemorizationHomeScreen> {
           scheduler.planFor(text, repository.cards),
     ].where((plan) => !plan.isEmpty).toList();
 
+    final goal = MemorizationDailyGoal.forRepository(
+      scheduler,
+      catalog!,
+      repository,
+    );
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -276,6 +285,15 @@ class _MemorizationHomeScreenState extends State<MemorizationHomeScreen> {
             style: _secondary,
           ),
         ] else ...[
+          StreakDetailCard(
+            uid: repository.uid,
+            track: StreakTrack.memorization,
+            todayDone: goal.done,
+            todayGoal: goal.total,
+          ),
+
+          const SizedBox(height: 24),
+
           _buildToday(plans),
 
           const Divider(height: 40),

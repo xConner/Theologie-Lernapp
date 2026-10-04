@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../services/auth_service.dart';
 import '../services/auth_error_translator.dart';
 import '../services/local_learning_store.dart';
 import '../theme/app_theme.dart';
-import '../widgets/legal_links.dart';
+import '../widgets/site_footer.dart';
 import 'forgot_password_screen.dart';
 import 'mfa_challenge_screen.dart';
 import 'phone_sign_in_screen.dart';
@@ -138,12 +137,6 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Future<void> openGithub() async {
-    final uri = Uri.parse("https://github.com/xConner/Theologie-Lernapp");
-
-    await launchUrl(uri, mode: LaunchMode.externalApplication);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -154,7 +147,7 @@ class _LoginScreenState extends State<LoginScreen> {
           : AppBar(title: const Text("Anmelden")),
 
       body: Center(
-        child: SingleChildScrollView(
+        child: SiteFooterScrollView(
           padding: const EdgeInsets.all(24),
           child: ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 360),
@@ -290,25 +283,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                     ],
-
-                    const SizedBox(height: 22),
-
-                    const Divider(),
-
-                    const SizedBox(height: 6),
-
-                    Text(
-                      "In Entwicklung",
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.titleSmall,
-                    ),
-
-                    TextButton(
-                      onPressed: openGithub,
-                      child: const Text("GitHub Repository"),
-                    ),
-
-                    const LegalLinksRow(),
                   ],
                 ),
               ),

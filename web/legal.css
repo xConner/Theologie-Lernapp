@@ -1,4 +1,5 @@
 :root {
+  color-scheme: light dark;
   --bg: #F7F1E8;
   --surface: #FFFDF9;
   --text: #2B2B2B;
@@ -9,8 +10,10 @@
   --todo-text: #5C4300;
 }
 
+/* Dunkles Erscheinungsbild: nach Betriebssystem, sofern in der App nicht
+   ausdrücklich „Hell“ gewählt wurde (legal.js setzt data-theme) … */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --bg: #1C1B1A;
     --surface: #262422;
     --text: #EDE8E1;
@@ -22,16 +25,37 @@
   }
 }
 
+/* … oder wenn in der App ausdrücklich „Dunkel“ gewählt wurde. */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #1C1B1A;
+  --surface: #262422;
+  --text: #EDE8E1;
+  --muted: #B5ADA3;
+  --primary: #A9B8D6;
+  --border: #3A3734;
+  --todo-bg: #4A3D10;
+  --todo-text: #FFE8A3;
+}
+
+:root[data-theme="light"] { color-scheme: light; }
+
 * { box-sizing: border-box; }
 
 body {
   margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
   background: var(--bg);
   color: var(--text);
   font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  overflow-wrap: break-word;
 }
 
 main {
+  flex: 1 0 auto;
+  width: 100%;
   max-width: 760px;
   margin: 0 auto;
   padding: 24px 16px 64px;
@@ -44,7 +68,7 @@ h3 { font-size: 1.05rem; margin: 20px 0 4px; }
 a { color: var(--primary); }
 a:focus-visible { outline: 3px solid var(--primary); outline-offset: 2px; }
 
-nav { display: flex; flex-wrap: wrap; gap: 8px 16px; font-size: .95rem; }
+main > nav { display: flex; flex-wrap: wrap; gap: 8px 16px; font-size: .95rem; }
 
 .card {
   background: var(--surface);
@@ -53,6 +77,8 @@ nav { display: flex; flex-wrap: wrap; gap: 8px 16px; font-size: .95rem; }
   padding: 4px 20px 12px;
   margin-top: 16px;
 }
+
+.card h2 { margin-top: 16px; }
 
 .todo {
   background: var(--todo-bg);
@@ -77,3 +103,52 @@ li { margin: 4px 0; }
 table { border-collapse: collapse; width: 100%; font-size: .95rem; }
 th, td { text-align: left; vertical-align: top; padding: 6px 8px; border-bottom: 1px solid var(--border); }
 .table-wrap { overflow-x: auto; }
+
+/* Footer – entspricht dem Footer der App (lib/widgets/site_footer.dart). */
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding: 28px 24px 20px;
+  font-size: .9rem;
+}
+
+.footer-inner { max-width: 880px; margin: 0 auto; }
+
+.footer-columns { display: grid; gap: 24px; }
+
+@media (min-width: 690px) {
+  .footer-columns { grid-template-columns: 3fr 3fr 2fr; gap: 40px; }
+}
+
+.site-footer h2 { font-size: .95rem; margin: 0 0 6px; }
+.site-footer p { margin: 0; color: var(--muted); }
+.site-footer ul { list-style: none; margin: 0; padding: 0; }
+.site-footer li { margin: 0; }
+
+.footer-links a {
+  display: inline-block;
+  padding: 8px 4px;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 6px;
+}
+
+.footer-links a:hover { text-decoration: underline; }
+.footer-links a[aria-current="page"] { color: var(--text); }
+
+.footer-button {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 10px 18px;
+  border: 1.3px solid var(--primary);
+  border-radius: 10px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.footer-button:hover { background: var(--surface); }
+
+.site-footer .copyright {
+  margin-top: 24px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+}

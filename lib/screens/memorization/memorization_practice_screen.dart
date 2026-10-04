@@ -5,14 +5,18 @@ import '../../info/app_info.dart';
 import '../../models/memorization/memorization_text.dart';
 import '../../models/prayer.dart';
 import '../../services/memorization/hint_generator.dart';
+import '../../services/memorization/memorization_catalog.dart';
+import '../../services/memorization/memorization_daily_goal.dart';
 import '../../services/memorization/memorization_repository.dart';
 import '../../services/memorization/memorization_scheduler.dart';
 import '../../services/memorization/memorization_session.dart';
 import '../../services/memorization/text_evaluator.dart';
 import '../../services/speech/speech_recognition_service.dart';
+import '../../services/streak/streak_track.dart';
 import '../../theme/app_theme.dart';
 import '../../widgets/info_report.dart';
 import '../../widgets/memorization_widgets.dart';
+import '../../widgets/streak_widgets.dart';
 
 /// Wie der Nutzer einen Abschnitt wiedergibt.
 enum AnswerMode { typing, speaking, silent }
@@ -95,9 +99,18 @@ class _MemorizationPracticeScreenState
 
   bool _saveErrorShown = false;
 
+  /// Für das Tagesziel der Streak (alle aktiven Texte, nicht nur die dieser
+  /// Runde); null, solange der Katalog nicht geladen ist.
+  MemorizationCatalog? _catalog;
+
   @override
   void initState() {
     super.initState();
+
+    // Ohne Katalog wird nur die Streak nicht gemeldet; die Runde läuft.
+    MemorizationCatalog.load().then((catalog) {
+      _catalog = catalog;
+    }, onError: (_) {});
 
     _showCurrent();
   }
@@ -205,6 +218,32 @@ class _MemorizationPracticeScreenState
         ),
       );
     });
+
+    _reportDailyGoal();
+  }
+
+  /// Meldet der Streak, wenn mit dieser Übung alle heutigen Wiederholungen
+  /// erledigt sind. Der [StreakService] zählt den Tag höchstens einmal;
+  /// weitere Übungen danach ändern nichts mehr.
+  void _reportDailyGoal() {
+    final catalog = _catalog;
+
+    if (catalog == null) return;
+
+    final goal = MemorizationDailyGoal.forRepository(
+      scheduler,
+      catalog,
+      widget.repository,
+    );
+
+    if (!goal.isComplete) return;
+
+    recordStreakAnswer(
+      context,
+      uid: widget.repository.uid,
+      track: StreakTrack.memorization,
+      source: StreakSource.memorization,
+    );
   }
 
   void _confirmRead() {
