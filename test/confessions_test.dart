@@ -49,6 +49,54 @@ void main() {
       }
     });
 
+    test("jede Textfassung hat eine Quellenangabe", () async {
+      final confessions = await ConfessionService().loadConfessions();
+
+      for (final confession in confessions) {
+        final withText = {
+          for (final section in confession.sections)
+            for (final entry in section.texts.entries)
+              if (entry.value.trim().isNotEmpty) entry.key,
+        };
+
+        for (final language in withText) {
+          expect(
+            confession.sources[language],
+            isNotEmpty,
+            reason: "${confession.id}/$language",
+          );
+        }
+      }
+    });
+
+    test("Symbola stehen in der jeweils eigenen Textfassung", () async {
+      final confessions = await ConfessionService().loadConfessions();
+
+      String text(String id, String language) => confessions
+          .firstWhere((c) => c.id == id)
+          .sections
+          .first
+          .texts[language]!;
+
+      // Lateinisch (westliche Liturgie) und griechisch (byzantinische
+      // Liturgie) im Singular, die ökumenische deutsche Fassung im Plural.
+      final nicenumLa = text("nicenum", "la");
+      expect(nicenumLa, startsWith("Credo in unum Deum,"));
+      expect(nicenumLa, contains("Confiteor unum baptisma"));
+      expect(nicenumLa, contains("Et exspecto resurrectionem mortuorum"));
+      expect(nicenumLa, isNot(contains("Credimus")));
+
+      expect(text("nicenum", "gr"), startsWith("Πιστεύω εἰς ἕνα Θεόν"));
+      expect(text("nicenum", "gr"), contains("καθεζόμενον ἐκ δεξιῶν"));
+      expect(text("nicenum", "de"), startsWith("Wir glauben an den einen Gott"));
+      expect(text("nicenum", "en"), startsWith("I believe in one God"));
+
+      final apostolicumLa = text("apostolicum", "la");
+      expect(apostolicumLa, startsWith("Credo in Deum"));
+      expect(apostolicumLa, contains("descendit ad inferos"));
+      expect(apostolicumLa, contains("carnis resurrectionem,\nvitam aeternam."));
+    });
+
     test("keine Entwicklungs-Sonderlösung mehr", () {
       final service = File(
         "lib/services/confession_service.dart",

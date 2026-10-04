@@ -3,6 +3,10 @@ class Confession {
   final String category;
   final Map<String, String> title;
   final List<String> languages;
+
+  /// Verwendete Textfassung/Edition je Sprachcode.
+  final Map<String, String> sources;
+
   final List<ConfessionSection> sections;
 
   Confession({
@@ -10,6 +14,7 @@ class Confession {
     required this.category,
     required this.title,
     required this.languages,
+    this.sources = const {},
     required this.sections,
   });
 
@@ -20,6 +25,8 @@ class Confession {
       title: Map<String, String>.from(json["title"]),
 
       languages: List<String>.from(json["languages"]),
+
+      sources: Map<String, String>.from(json["sources"] ?? const {}),
 
       sections: (json["sections"] as List)
           .map((s) => ConfessionSection.fromJson(s))

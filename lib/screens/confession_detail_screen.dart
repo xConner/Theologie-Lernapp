@@ -232,15 +232,36 @@ class _ConfessionDetailScreenState extends State<ConfessionDetailScreen> {
                 child: SingleChildScrollView(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
 
-                  child: SelectableText(
-                    confession
-                            .sections[selectedSectionIndex]
-                            .texts[selectedLanguage] ??
-                        "",
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
 
-                    style: const TextStyle(fontSize: 18, height: 1.5),
+                    children: [
+                      SelectableText(
+                        confession
+                                .sections[selectedSectionIndex]
+                                .texts[selectedLanguage] ??
+                            "",
 
-                    selectionControls: MaterialTextSelectionControls(),
+                        style: const TextStyle(fontSize: 18, height: 1.5),
+
+                        selectionControls: MaterialTextSelectionControls(),
+                      ),
+
+                      // Quellenangabe der angezeigten Sprachfassung.
+                      if (hasCurrentText &&
+                          confession.sources[selectedLanguage] != null)
+                        Padding(
+                          padding: const EdgeInsets.only(top: 24, bottom: 24),
+
+                          child: Text(
+                            "Quelle: ${confession.sources[selectedLanguage]}",
+
+                            key: const Key("confession_source"),
+
+                            style: Theme.of(context).textTheme.bodySmall,
+                          ),
+                        ),
+                    ],
                   ),
                 ),
               ),

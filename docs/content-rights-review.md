@@ -152,7 +152,7 @@ Anzahl: 132 von 535 Liedern (0 Lieder zeigen bereits keinen Text).
 - `assets/perikopen.json`: Perikopenüberschriften – Herkunft (Bibelausgabe) nicht dokumentiert; Überschriften moderner Ausgaben können geschützt sein.
 - `assets/eg_lieder.json`: Felder `explanation`, `tags`, `bibleReferences` – Herkunft nicht dokumentiert (ggf. KI-erzeugt, dann in der App kennzeichnen).
 - `assets/prayers.json`: Quellenangaben je Gebet vorhanden; moderne Übersetzungen/liturgische Fassungen einzeln prüfen.
-- `assets/confessions.json`: verwendete Textausgaben/Übersetzungen nicht dokumentiert (historische Originaltexte gemeinfrei, moderne Übersetzungen ggf. geschützt).
+- `assets/confessions.json`: Textausgaben je Sprache im Feld `sources` dokumentiert (Concordia Triglotta 1921 und historische Originaltexte gemeinfrei; ökumenische deutsche Fassungen von Apostolicum und Nicänum nach ekd.de einzeln prüfen).
 - `assets/latin_vocabulary.json`: laut Code an einem nicht benannten Lehrbuch orientiert – Umfang der Übernahme prüfen.
 - `assets/*.jpeg`, `assets/logo.png`: Herkunft/Lizenz nicht dokumentiert (die JPEGs werden nicht in `pubspec.yaml` eingebunden).
 - `assets/sounds/*.wav`: laut `generate_sounds.py` selbst erzeugt.
