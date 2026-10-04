@@ -18,10 +18,10 @@ class AnswerFeedbackBadge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = correct ? AppColors.success : AppColors.error;
+    final color = correct ? context.colors.success : context.colors.error;
     final background = correct
-        ? AppColors.successBackground
-        : AppColors.errorBackground;
+        ? context.colors.successBackground
+        : context.colors.errorBackground;
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),

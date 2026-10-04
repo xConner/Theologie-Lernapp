@@ -34,11 +34,7 @@ class StatisticsButton extends StatelessWidget {
             constraints: BoxConstraints(
               maxHeight: MediaQuery.of(context).size.height * 0.85,
             ),
-            child: StatisticsView(
-              uid: uid,
-              trainer: trainer,
-              service: service,
-            ),
+            child: StatisticsView(uid: uid, trainer: trainer, service: service),
           ),
         ),
       ),
@@ -129,7 +125,7 @@ class _StatisticsViewState extends State<StatisticsView> {
           "Die Statistik konnte nicht geladen werden.",
           style: Theme.of(
             context,
-          ).textTheme.bodyMedium?.copyWith(color: AppColors.textSecondary),
+          ).textTheme.bodyMedium?.copyWith(color: context.colors.textSecondary),
         ),
       ];
     }
@@ -159,12 +155,12 @@ class StatisticsTodayCard extends StatelessWidget {
       _StatTile(
         value: "${today.correct}",
         label: "richtig",
-        color: AppColors.success,
+        color: context.colors.success,
       ),
       _StatTile(
         value: "${today.wrong}",
         label: "falsch",
-        color: AppColors.error,
+        color: context.colors.error,
       ),
       _StatTile(
         value: StatisticsCalculator.formatAccuracy(
@@ -191,9 +187,7 @@ class StatisticsTodayCard extends StatelessWidget {
                 // Schmal: 2 × 2 statt vier Kacheln nebeneinander.
                 if (constraints.maxWidth >= 360) {
                   return Row(
-                    children: [
-                      for (final tile in tiles) Expanded(child: tile),
-                    ],
+                    children: [for (final tile in tiles) Expanded(child: tile)],
                   );
                 }
 
@@ -247,7 +241,9 @@ class _StatTile extends StatelessWidget {
           label,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
-          style: textTheme.bodySmall?.copyWith(color: AppColors.textSecondary),
+          style: textTheme.bodySmall?.copyWith(
+            color: context.colors.textSecondary,
+          ),
         ),
       ],
     );
@@ -310,7 +306,7 @@ class StatisticsWeekCard extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
 
     final header = textTheme.bodySmall?.copyWith(
-      color: AppColors.textSecondary,
+      color: context.colors.textSecondary,
     );
 
     Widget cell(String text, TextStyle? style, {int flex = 2}) {
@@ -377,7 +373,7 @@ class StatisticsWeekCard extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
 
     final secondary = textTheme.bodySmall?.copyWith(
-      color: AppColors.textSecondary,
+      color: context.colors.textSecondary,
     );
 
     return Column(
@@ -435,7 +431,7 @@ class _WeekBars extends StatelessWidget {
 
     final label = Theme.of(
       context,
-    ).textTheme.bodySmall?.copyWith(color: AppColors.textSecondary);
+    ).textTheme.bodySmall?.copyWith(color: context.colors.textSecondary);
 
     return Row(
       crossAxisAlignment: CrossAxisAlignment.end,
@@ -451,8 +447,8 @@ class _WeekBars extends StatelessWidget {
                   margin: const EdgeInsets.symmetric(horizontal: 6),
                   decoration: BoxDecoration(
                     color: day.answered == 0
-                        ? AppColors.divider
-                        : AppColors.primaryLight,
+                        ? context.colors.divider
+                        : context.colors.primaryLight,
                     borderRadius: BorderRadius.circular(3),
                   ),
                 ),

@@ -337,8 +337,8 @@ class _QuickEntryPanelState extends State<QuickEntryPanel> {
           padding: const EdgeInsets.fromLTRB(4, 2, 4, 4),
           child: Text(
             label == null ? _prompt(stage) : "$label · ${_prompt(stage)}",
-            style: const TextStyle(
-              color: AppColors.textSecondary,
+            style: TextStyle(
+              color: context.colors.textSecondary,
               fontSize: 12.5,
               fontWeight: FontWeight.w600,
             ),
@@ -361,7 +361,7 @@ class _QuickEntryPanelState extends State<QuickEntryPanel> {
         padding: const EdgeInsets.all(4),
         child: Text(
           emptyText,
-          style: const TextStyle(color: AppColors.textSecondary),
+          style: TextStyle(color: context.colors.textSecondary),
         ),
       );
     }
@@ -501,9 +501,9 @@ class _QuickEntryPanelState extends State<QuickEntryPanel> {
     return Container(
       padding: const EdgeInsets.fromLTRB(10, 6, 10, 8),
       decoration: BoxDecoration(
-        color: AppColors.surface,
+        color: context.colors.surface,
         borderRadius: BorderRadius.circular(AppTheme.radiusSmall),
-        border: Border.all(color: AppColors.divider),
+        border: Border.all(color: context.colors.divider),
       ),
       // Eigenes Material, damit Hover/Ink der Chips nicht vom farbigen
       // Container verdeckt werden.

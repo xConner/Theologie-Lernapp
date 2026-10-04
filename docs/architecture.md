@@ -81,3 +81,22 @@ Die Spracherkennung liefert ausschließlich ein Transkript; bewertet wird
 lokal durch `MemorizationTextEvaluator`. Ob die Erkennung selbst auf dem
 Gerät oder bei einem Dienst des Betriebssystems/Browsers läuft, hängt von
 der Plattform ab – die App speichert keine Audioaufnahmen.
+
+## Themes und Erscheinungsbild
+
+| Aufgabe | Ort |
+| --- | --- |
+| Farbpaletten (`AppColors.light`, `AppColors.dark`) und `ThemeData` (`AppTheme`) | `theme/app_theme.dart` |
+| Gewähltes Erscheinungsbild (Hell, Dunkel, System), lokal gespeichert | `services/theme_settings.dart` |
+| Auswahl durch den Nutzer | „Erscheinungsbild“ in `GeneralSettingsView` (`screens/settings_screen.dart`) |
+| Anwenden auf die App | `MyApp` in `main.dart` |
+
+Widgets verwenden keine festen Farben und fragen auch nicht ab, ob ein
+dunkles Theme aktiv ist. Sie lesen die semantische Farbe des aktiven Themes
+über `context.colors` (z. B. `context.colors.success` für „richtig“) oder
+über `Theme.of(context)`.
+
+Ein weiteres Theme (z. B. Sepia oder hoher Kontrast) braucht eine weitere
+`AppColors`-Palette, ein daraus mit `AppTheme.fromColors` gebautes
+`ThemeData` und einen gespeicherten Wert in `ThemeSettings`, nach dem `MyApp`
+das Theme auswählt. `test/theme_test.dart` prüft die Kontraste jeder Palette.

@@ -655,15 +655,15 @@ class _QuizScreenState extends State<QuizScreen> {
                           vertical: 4,
                         ),
                         decoration: BoxDecoration(
-                          color: AppColors.surfaceMuted,
+                          color: context.colors.surfaceMuted,
                           borderRadius: BorderRadius.circular(999),
                         ),
                         child: Text(
                           c.variants.first.precision == "chapter"
                               ? "Kapitelgenau"
                               : "Versgenau",
-                          style: const TextStyle(
-                            color: AppColors.textSecondary,
+                          style: TextStyle(
+                            color: context.colors.textSecondary,
                             fontSize: 12.5,
                             fontWeight: FontWeight.w600,
                           ),
@@ -734,17 +734,17 @@ class _QuizScreenState extends State<QuizScreen> {
 
                                       enabledBorder:
                                           checked && inputResults[index] == true
-                                          ? const OutlineInputBorder(
+                                          ? OutlineInputBorder(
                                               borderSide: BorderSide(
-                                                color: AppColors.success,
+                                                color: context.colors.success,
                                                 width: 2,
                                               ),
                                             )
                                           : checked &&
                                                 inputResults[index] == false
-                                          ? const OutlineInputBorder(
+                                          ? OutlineInputBorder(
                                               borderSide: BorderSide(
-                                                color: AppColors.error,
+                                                color: context.colors.error,
                                                 width: 2,
                                               ),
                                             )
@@ -752,17 +752,17 @@ class _QuizScreenState extends State<QuizScreen> {
 
                                       disabledBorder:
                                           checked && inputResults[index] == true
-                                          ? const OutlineInputBorder(
+                                          ? OutlineInputBorder(
                                               borderSide: BorderSide(
-                                                color: AppColors.success,
+                                                color: context.colors.success,
                                                 width: 2,
                                               ),
                                             )
                                           : checked &&
                                                 inputResults[index] == false
-                                          ? const OutlineInputBorder(
+                                          ? OutlineInputBorder(
                                               borderSide: BorderSide(
-                                                color: AppColors.error,
+                                                color: context.colors.error,
                                                 width: 2,
                                               ),
                                             )
@@ -811,7 +811,8 @@ class _QuizScreenState extends State<QuizScreen> {
                                 label: const Text("Schnelleingabe"),
                                 style: quickEntry
                                     ? TextButton.styleFrom(
-                                        backgroundColor: AppColors.surfaceMuted,
+                                        backgroundColor:
+                                            context.colors.surfaceMuted,
                                       )
                                     : null,
                                 onPressed: _toggleQuickEntry,
@@ -867,16 +868,16 @@ class _QuizScreenState extends State<QuizScreen> {
                               padding: const EdgeInsets.all(14),
                               decoration: BoxDecoration(
                                 color: feedback!.startsWith("✔")
-                                    ? AppColors.successBackground
-                                    : AppColors.errorBackground,
+                                    ? context.colors.successBackground
+                                    : context.colors.errorBackground,
                                 borderRadius: BorderRadius.circular(
                                   AppTheme.radiusSmall,
                                 ),
                                 border: Border.all(
                                   color:
                                       (feedback!.startsWith("✔")
-                                              ? AppColors.success
-                                              : AppColors.error)
+                                              ? context.colors.success
+                                              : context.colors.error)
                                           .withValues(alpha: 0.35),
                                 ),
                               ),

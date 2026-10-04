@@ -5,6 +5,7 @@ import '../services/auth_service.dart';
 import '../services/auth_error_translator.dart';
 import '../theme/app_theme.dart';
 import '../widgets/sign_out_confirmation.dart';
+import '../widgets/button_progress_indicator.dart';
 
 class EmailVerificationScreen extends StatefulWidget {
   const EmailVerificationScreen({super.key});
@@ -129,7 +130,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                     Icon(
                       Icons.mark_email_unread_rounded,
                       size: 40,
-                      color: AppColors.primary,
+                      color: context.colors.primary,
                     ),
 
                     const SizedBox(height: 12),
@@ -147,7 +148,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                       "Bitte bestätige deine E-Mail-Adresse, um fortzufahren.",
                       textAlign: TextAlign.center,
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: AppColors.textSecondary,
+                        color: context.colors.textSecondary,
                       ),
                     ),
 
@@ -156,7 +157,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                       Text(
                         info!,
                         textAlign: TextAlign.center,
-                        style: const TextStyle(color: AppColors.success),
+                        style: TextStyle(color: context.colors.success),
                       ),
                     ],
 
@@ -165,7 +166,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                       Text(
                         error!,
                         textAlign: TextAlign.center,
-                        style: const TextStyle(color: AppColors.error),
+                        style: TextStyle(color: context.colors.error),
                       ),
                     ],
 
@@ -174,14 +175,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                     ElevatedButton(
                       onPressed: busy ? null : _checkVerified,
                       child: checking
-                          ? const SizedBox(
-                              height: 18,
-                              width: 18,
-                              child: CircularProgressIndicator(
-                                strokeWidth: 2,
-                                color: Colors.white,
-                              ),
-                            )
+                          ? const ButtonProgressIndicator()
                           : const Text("Ich habe meine E-Mail bestätigt"),
                     ),
 

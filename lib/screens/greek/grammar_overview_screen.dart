@@ -16,7 +16,7 @@ class GrammarOverviewScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Grammatikübersicht"),
-actions: const [
+        actions: const [
           InfoButton(module: AppModules.greekGrammarOverview),
           SettingsButton(),
         ],

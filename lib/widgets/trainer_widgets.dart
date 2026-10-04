@@ -16,14 +16,16 @@ import 'streak_widgets.dart';
 
 /// Rahmen eines Eingabefelds nach der Auswertung: grün bzw. rot, vor der
 /// Auswertung (`null`) der normale Rahmen.
-OutlineInputBorder answerResultBorder(bool? correct) {
+OutlineInputBorder answerResultBorder(BuildContext context, bool? correct) {
   if (correct == null) {
-    return const OutlineInputBorder();
+    return OutlineInputBorder(
+      borderSide: BorderSide(color: context.colors.textPrimary),
+    );
   }
 
   return OutlineInputBorder(
     borderSide: BorderSide(
-      color: correct ? AppColors.success : AppColors.error,
+      color: correct ? context.colors.success : context.colors.error,
       width: 2,
     ),
   );

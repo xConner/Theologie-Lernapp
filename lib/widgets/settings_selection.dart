@@ -56,7 +56,7 @@ class SettingsSection extends StatelessWidget {
               padding: const EdgeInsets.fromLTRB(4, 0, 4, 8),
               child: Text(
                 hint!,
-                style: const TextStyle(color: AppColors.textSecondary),
+                style: TextStyle(color: context.colors.textSecondary),
               ),
             ),
 
@@ -95,20 +95,21 @@ class SelectionChip extends StatelessWidget {
     final Color foreground;
     final Color border;
 
+    final colors = context.colors;
+
     if (selected) {
-      background = correct == null
-          ? AppColors.primary
-          : correct!
-          ? AppColors.success
-          : AppColors.error;
-      foreground = Colors.white;
+      (background, foreground) = switch (correct) {
+        null => (colors.primary, colors.onPrimary),
+        true => (colors.success, colors.onSuccess),
+        false => (colors.error, colors.onError),
+      };
       border = background;
     } else {
-      background = AppColors.surfaceMuted;
+      background = colors.surfaceMuted;
       foreground = onSelected == null
-          ? AppColors.textSecondary
-          : AppColors.textPrimary;
-      border = AppColors.divider;
+          ? colors.textSecondary
+          : colors.textPrimary;
+      border = colors.divider;
     }
 
     // Mindestbreite, damit auch kurze Bezeichnungen wie „m“ gut treffbar sind.
@@ -179,7 +180,7 @@ class SelectionStatus extends StatelessWidget {
       child: Text(
         empty ? emptyError : "$selectedCount von $totalCount ausgewählt",
         style: TextStyle(
-          color: empty ? AppColors.error : AppColors.textSecondary,
+          color: empty ? context.colors.error : context.colors.textSecondary,
           fontWeight: empty ? FontWeight.w600 : null,
         ),
       ),
@@ -277,8 +278,8 @@ class SingleSelectChips extends StatelessWidget {
     final resultColor = correct == null
         ? null
         : correct!
-        ? AppColors.success
-        : AppColors.error;
+        ? context.colors.success
+        : context.colors.error;
 
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -291,7 +292,7 @@ class SingleSelectChips extends StatelessWidget {
               child: Text(
                 label,
                 style: TextStyle(
-                  color: resultColor ?? AppColors.textSecondary,
+                  color: resultColor ?? context.colors.textSecondary,
                   fontWeight: FontWeight.w600,
                 ),
               ),

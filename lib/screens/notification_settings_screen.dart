@@ -227,7 +227,7 @@ class _SectionHint extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(4, 0, 4, 12),
-      child: Text(text, style: const TextStyle(color: AppColors.textSecondary)),
+      child: Text(text, style: TextStyle(color: context.colors.textSecondary)),
     );
   }
 }
@@ -249,7 +249,7 @@ class _Message extends StatelessWidget {
             Text(
               text,
               textAlign: TextAlign.center,
-              style: const TextStyle(color: AppColors.textSecondary),
+              style: TextStyle(color: context.colors.textSecondary),
             ),
             if (action != null) ...[const SizedBox(height: 8), action!],
           ],

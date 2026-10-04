@@ -8,6 +8,7 @@ import '../screens/about_screen.dart';
 import '../services/reports/report.dart';
 import '../services/reports/report_service.dart';
 import '../theme/app_theme.dart';
+import 'button_progress_indicator.dart';
 
 /// Einheitlicher Zugang zu Informationen, Quellen und Fehlermeldungen:
 ///
@@ -157,7 +158,7 @@ class InfoReportFooter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final style = TextButton.styleFrom(
-      foregroundColor: AppColors.textSecondary,
+      foregroundColor: context.colors.textSecondary,
       textStyle: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
       visualDensity: VisualDensity.compact,
     );
@@ -203,7 +204,7 @@ class _ModuleInfoView extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final secondary = textTheme.bodySmall?.copyWith(
-      color: AppColors.textSecondary,
+      color: context.colors.textSecondary,
     );
 
     return SingleChildScrollView(
@@ -464,7 +465,7 @@ class _ReportDialogState extends State<ReportDialog> {
 
     final secondary = Theme.of(
       context,
-    ).textTheme.bodySmall?.copyWith(color: AppColors.textSecondary);
+    ).textTheme.bodySmall?.copyWith(color: context.colors.textSecondary);
 
     final narrow = MediaQuery.of(context).size.width < 480;
 
@@ -529,7 +530,7 @@ class _ReportDialogState extends State<ReportDialog> {
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: AppColors.surfaceMuted,
+                color: context.colors.surfaceMuted,
                 borderRadius: BorderRadius.circular(AppTheme.radiusSmall),
               ),
               child: Column(
@@ -566,10 +567,7 @@ class _ReportDialogState extends State<ReportDialog> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      error!,
-                      style: const TextStyle(color: AppColors.error),
-                    ),
+                    Text(error!, style: TextStyle(color: context.colors.error)),
 
                     if (failedReport != null)
                       TextButton.icon(
@@ -596,14 +594,7 @@ class _ReportDialogState extends State<ReportDialog> {
         ElevatedButton(
           onPressed: sending ? null : _submit,
           child: sending
-              ? const SizedBox(
-                  height: 18,
-                  width: 18,
-                  child: CircularProgressIndicator(
-                    strokeWidth: 2,
-                    color: Colors.white,
-                  ),
-                )
+              ? const ButtonProgressIndicator()
               : const Text("Senden"),
         ),
       ],

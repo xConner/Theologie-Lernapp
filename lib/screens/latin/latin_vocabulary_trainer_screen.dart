@@ -610,8 +610,8 @@ class _LatinVocabularyTrainerScreenState
                           text:
                               "  ${selectedSubsteps.length} von "
                               "${substeps.length}",
-                          style: const TextStyle(
-                            color: AppColors.textSecondary,
+                          style: TextStyle(
+                            color: context.colors.textSecondary,
                             fontWeight: FontWeight.normal,
                           ),
                         ),
@@ -801,9 +801,12 @@ class _LatinVocabularyTrainerScreenState
                             : q.entry.type == "noun"
                             ? "Zusatzform"
                             : "Formen",
-                        enabledBorder: answerResultBorder(formCorrect),
-                        focusedBorder: answerResultBorder(formCorrect),
-                        disabledBorder: answerResultBorder(formCorrect),
+                        enabledBorder: answerResultBorder(context, formCorrect),
+                        focusedBorder: answerResultBorder(context, formCorrect),
+                        disabledBorder: answerResultBorder(
+                          context,
+                          formCorrect,
+                        ),
                         border: const OutlineInputBorder(),
                       ),
                     ),
@@ -820,9 +823,18 @@ class _LatinVocabularyTrainerScreenState
                       decoration: InputDecoration(
                         labelText: "Genus",
                         hintText: "z. B. m, f, n",
-                        enabledBorder: answerResultBorder(genderCorrect),
-                        focusedBorder: answerResultBorder(genderCorrect),
-                        disabledBorder: answerResultBorder(genderCorrect),
+                        enabledBorder: answerResultBorder(
+                          context,
+                          genderCorrect,
+                        ),
+                        focusedBorder: answerResultBorder(
+                          context,
+                          genderCorrect,
+                        ),
+                        disabledBorder: answerResultBorder(
+                          context,
+                          genderCorrect,
+                        ),
                         border: const OutlineInputBorder(),
                       ),
                     ),
@@ -839,9 +851,18 @@ class _LatinVocabularyTrainerScreenState
                     decoration: InputDecoration(
                       labelText: "Übersetzung",
                       hintText: "Mehrere Übersetzungen mit Komma trennen",
-                      enabledBorder: answerResultBorder(translationCorrect),
-                      focusedBorder: answerResultBorder(translationCorrect),
-                      disabledBorder: answerResultBorder(translationCorrect),
+                      enabledBorder: answerResultBorder(
+                        context,
+                        translationCorrect,
+                      ),
+                      focusedBorder: answerResultBorder(
+                        context,
+                        translationCorrect,
+                      ),
+                      disabledBorder: answerResultBorder(
+                        context,
+                        translationCorrect,
+                      ),
                       border: const OutlineInputBorder(),
                     ),
                   ),

@@ -26,8 +26,8 @@ class NotificationBellButton extends StatelessWidget {
           icon: Badge(
             isLabelVisible: label != null,
             label: Text(label ?? ""),
-            backgroundColor: AppColors.accent,
-            textColor: Colors.white,
+            backgroundColor: context.colors.accent,
+            textColor: context.colors.onAccent,
             child: Icon(
               label == null
                   ? Icons.notifications_none_rounded

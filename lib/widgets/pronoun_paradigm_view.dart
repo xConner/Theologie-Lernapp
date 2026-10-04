@@ -46,14 +46,14 @@ class PronounParadigmView extends StatelessWidget {
     return cell.forms.map((form) => form.text).join(" / ");
   }
 
-  Widget _table() {
+  Widget _table(BuildContext context) {
     final genders = paradigm.genders;
 
     // Ohne Genus (ἐγώ, σύ) eine einzige Formenspalte.
     final List<String?> columns = genders.isEmpty ? [null] : genders;
 
     return Table(
-      border: TableBorder.all(color: AppColors.textSecondary),
+      border: TableBorder.all(color: context.colors.textSecondary),
       defaultVerticalAlignment: TableCellVerticalAlignment.middle,
       columnWidths: const {0: IntrinsicColumnWidth()},
       children: [
@@ -90,15 +90,15 @@ class PronounParadigmView extends StatelessWidget {
       children: [
         Text(
           paradigm.kindLabel,
-          style: const TextStyle(
-            color: AppColors.textSecondary,
+          style: TextStyle(
+            color: context.colors.textSecondary,
             fontWeight: FontWeight.w600,
           ),
         ),
 
         const SizedBox(height: 8),
 
-        SizedBox(width: double.infinity, child: _table()),
+        SizedBox(width: double.infinity, child: _table(context)),
 
         if (paradigm.usage.isNotEmpty) ...[
           const SizedBox(height: 16),
@@ -136,7 +136,7 @@ class PronounParadigmView extends StatelessWidget {
                   ),
                   Text(
                     example.german,
-                    style: const TextStyle(color: AppColors.textSecondary),
+                    style: TextStyle(color: context.colors.textSecondary),
                   ),
                 ],
               ),

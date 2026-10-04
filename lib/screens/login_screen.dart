@@ -10,6 +10,7 @@ import '../widgets/legal_links.dart';
 import 'forgot_password_screen.dart';
 import 'mfa_challenge_screen.dart';
 import 'phone_sign_in_screen.dart';
+import '../widgets/button_progress_indicator.dart';
 
 class LoginScreen extends StatefulWidget {
   /// true beim ersten Besuch (Einstieg der App): zusätzlich die Option
@@ -167,7 +168,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     Icon(
                       Icons.auto_stories_rounded,
                       size: 40,
-                      color: AppColors.primary,
+                      color: context.colors.primary,
                     ),
 
                     const SizedBox(height: 12),
@@ -225,7 +226,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       const SizedBox(height: 6),
                       Text(
                         error!,
-                        style: const TextStyle(color: AppColors.error),
+                        style: TextStyle(color: context.colors.error),
                       ),
                     ],
 
@@ -234,14 +235,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ElevatedButton(
                       onPressed: loading ? null : login,
                       child: loading
-                          ? const SizedBox(
-                              height: 18,
-                              width: 18,
-                              child: CircularProgressIndicator(
-                                strokeWidth: 2,
-                                color: Colors.white,
-                              ),
-                            )
+                          ? const ButtonProgressIndicator()
                           : const Text("Login"),
                     ),
 
@@ -292,7 +286,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         "übernehmen.",
                         textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          color: AppColors.textSecondary,
+                          color: context.colors.textSecondary,
                         ),
                       ),
                     ],

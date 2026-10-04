@@ -11,6 +11,7 @@ import 'email_verification_screen.dart';
 import 'mfa_challenge_screen.dart';
 import 'mfa_enrollment_screen.dart';
 import 'totp_enrollment_screen.dart';
+import '../widgets/button_progress_indicator.dart';
 
 class AccountSecurityScreen extends StatefulWidget {
   const AccountSecurityScreen({super.key});
@@ -176,7 +177,8 @@ class _AccountSecurityScreenState extends State<AccountSecurityScreen> {
   /// Minuten. Telefon-Konten lassen sich hier nicht erneut bestätigen;
   /// sie müssen sich dafür ab- und wieder anmelden.
   bool get _signedInRecently {
-    final lastSignIn = FirebaseAuth.instance.currentUser?.metadata.lastSignInTime;
+    final lastSignIn =
+        FirebaseAuth.instance.currentUser?.metadata.lastSignInTime;
 
     return lastSignIn != null &&
         DateTime.now().difference(lastSignIn) < const Duration(minutes: 4);
@@ -199,7 +201,9 @@ class _AccountSecurityScreenState extends State<AccountSecurityScreen> {
             child: const Text("Abbrechen"),
           ),
           ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: AppColors.error),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: context.colors.error,
+            ),
             onPressed: () => Navigator.of(dialogContext).pop(true),
             child: const Text("Endgültig löschen"),
           ),
@@ -334,8 +338,8 @@ class _AccountSecurityScreenState extends State<AccountSecurityScreen> {
                         ? Icons.check_circle_rounded
                         : Icons.error_outline_rounded,
                     color: user.emailVerified
-                        ? AppColors.success
-                        : AppColors.error,
+                        ? context.colors.success
+                        : context.colors.error,
                   ),
                   title: const Text("E-Mail-Verifizierung"),
                   subtitle: Text(
@@ -390,9 +394,9 @@ class _AccountSecurityScreenState extends State<AccountSecurityScreen> {
                 else
                   for (final factor in mfaFactors) ...[
                     ListTile(
-                      leading: const Icon(
+                      leading: Icon(
                         Icons.verified_user_rounded,
-                        color: AppColors.success,
+                        color: context.colors.success,
                       ),
                       title: Text(
                         factor is PhoneMultiFactorInfo
@@ -442,9 +446,9 @@ class _AccountSecurityScreenState extends State<AccountSecurityScreen> {
 
           Card(
             child: ListTile(
-              leading: const Icon(
+              leading: Icon(
                 Icons.delete_forever_rounded,
-                color: AppColors.error,
+                color: context.colors.error,
               ),
               title: const Text("Konto löschen"),
               subtitle: const Text(
@@ -612,7 +616,7 @@ class _ReauthDialogState extends State<_ReauthDialog> {
           ],
           if (error != null) ...[
             const SizedBox(height: 12),
-            Text(error!, style: const TextStyle(color: AppColors.error)),
+            Text(error!, style: TextStyle(color: context.colors.error)),
           ],
         ],
       ),
@@ -628,14 +632,7 @@ class _ReauthDialogState extends State<_ReauthDialog> {
               ? _submitPassword
               : () => _run(authService.reauthenticateWithGoogle),
           child: loading
-              ? const SizedBox(
-                  height: 18,
-                  width: 18,
-                  child: CircularProgressIndicator(
-                    strokeWidth: 2,
-                    color: Colors.white,
-                  ),
-                )
+              ? const ButtonProgressIndicator()
               : Text(usePassword ? "Bestätigen" : "Mit Google bestätigen"),
         ),
       ],
@@ -724,9 +721,9 @@ class _ChangePasswordDialogState extends State<_ChangePasswordDialog> {
   void _closeWithSuccess() {
     Navigator.of(context).pop();
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text("Passwort wurde geändert")),
-    );
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(const SnackBar(content: Text("Passwort wurde geändert")));
   }
 
   @override
@@ -750,7 +747,7 @@ class _ChangePasswordDialogState extends State<_ChangePasswordDialog> {
           ),
           if (error != null) ...[
             const SizedBox(height: 12),
-            Text(error!, style: const TextStyle(color: AppColors.error)),
+            Text(error!, style: TextStyle(color: context.colors.error)),
           ],
         ],
       ),
@@ -762,14 +759,7 @@ class _ChangePasswordDialogState extends State<_ChangePasswordDialog> {
         ElevatedButton(
           onPressed: loading ? null : _submit,
           child: loading
-              ? const SizedBox(
-                  height: 18,
-                  width: 18,
-                  child: CircularProgressIndicator(
-                    strokeWidth: 2,
-                    color: Colors.white,
-                  ),
-                )
+              ? const ButtonProgressIndicator()
               : const Text("Speichern"),
         ),
       ],

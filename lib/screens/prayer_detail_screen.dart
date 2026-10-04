@@ -38,7 +38,7 @@ class _PrayerDetailScreenState extends State<PrayerDetailScreen> {
     if (languages.length < 2) {
       return Text(
         PrayerLanguages.name(selectedLanguage),
-        style: const TextStyle(color: AppColors.textSecondary),
+        style: TextStyle(color: context.colors.textSecondary),
       );
     }
 
@@ -85,7 +85,7 @@ class _PrayerDetailScreenState extends State<PrayerDetailScreen> {
 
     final secondary = Theme.of(
       context,
-    ).textTheme.bodyMedium?.copyWith(color: AppColors.textSecondary);
+    ).textTheme.bodyMedium?.copyWith(color: context.colors.textSecondary);
 
     return Scaffold(
       appBar: AppBar(

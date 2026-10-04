@@ -7,6 +7,7 @@ import '../services/auth_error_translator.dart';
 import '../theme/app_theme.dart';
 import '../utils/phone_number_utils.dart';
 import '../widgets/recaptcha_notice.dart';
+import '../widgets/button_progress_indicator.dart';
 
 /// Löst eine MFA-Challenge, die bei einer erneuten Anmeldung (Reauth vor
 /// einer Sicherheitsaktion) auftritt: Hat das Konto einen zweiten Faktor,
@@ -293,7 +294,7 @@ class _MfaChallengeScreenState extends State<MfaChallengeScreen> {
     final busy = sendingCode || verifying;
 
     return [
-      Icon(Icons.sms_rounded, size: 40, color: AppColors.primary),
+      Icon(Icons.sms_rounded, size: 40, color: context.colors.primary),
 
       const SizedBox(height: 12),
 
@@ -319,7 +320,7 @@ class _MfaChallengeScreenState extends State<MfaChallengeScreen> {
           textAlign: TextAlign.center,
           style: Theme.of(
             context,
-          ).textTheme.bodyMedium?.copyWith(color: AppColors.textSecondary),
+          ).textTheme.bodyMedium?.copyWith(color: context.colors.textSecondary),
         ),
 
       if (codeSent) ...[
@@ -347,7 +348,7 @@ class _MfaChallengeScreenState extends State<MfaChallengeScreen> {
         Text(
           error!,
           textAlign: TextAlign.center,
-          style: const TextStyle(color: AppColors.error),
+          style: TextStyle(color: context.colors.error),
         ),
       ],
 
@@ -357,14 +358,7 @@ class _MfaChallengeScreenState extends State<MfaChallengeScreen> {
         ElevatedButton(
           onPressed: busy ? null : _confirmCode,
           child: verifying
-              ? const SizedBox(
-                  height: 18,
-                  width: 18,
-                  child: CircularProgressIndicator(
-                    strokeWidth: 2,
-                    color: Colors.white,
-                  ),
-                )
+              ? const ButtonProgressIndicator()
               : const Text("Bestätigen"),
         )
       else if (sendingCode)
@@ -390,7 +384,11 @@ class _MfaChallengeScreenState extends State<MfaChallengeScreen> {
 
   List<Widget> _totpChildren(BuildContext context) {
     return [
-      Icon(Icons.phonelink_lock_rounded, size: 40, color: AppColors.primary),
+      Icon(
+        Icons.phonelink_lock_rounded,
+        size: 40,
+        color: context.colors.primary,
+      ),
 
       const SizedBox(height: 12),
 
@@ -407,7 +405,7 @@ class _MfaChallengeScreenState extends State<MfaChallengeScreen> {
         textAlign: TextAlign.center,
         style: Theme.of(
           context,
-        ).textTheme.bodyMedium?.copyWith(color: AppColors.textSecondary),
+        ).textTheme.bodyMedium?.copyWith(color: context.colors.textSecondary),
       ),
 
       const SizedBox(height: 20),
@@ -439,7 +437,7 @@ class _MfaChallengeScreenState extends State<MfaChallengeScreen> {
         Text(
           error!,
           textAlign: TextAlign.center,
-          style: const TextStyle(color: AppColors.error),
+          style: TextStyle(color: context.colors.error),
         ),
       ],
 
@@ -448,14 +446,7 @@ class _MfaChallengeScreenState extends State<MfaChallengeScreen> {
       ElevatedButton(
         onPressed: verifying ? null : _confirmTotpCode,
         child: verifying
-            ? const SizedBox(
-                height: 18,
-                width: 18,
-                child: CircularProgressIndicator(
-                  strokeWidth: 2,
-                  color: Colors.white,
-                ),
-              )
+            ? const ButtonProgressIndicator()
             : const Text("Bestätigen"),
       ),
 

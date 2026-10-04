@@ -120,7 +120,7 @@ class _MemorizationTextScreenState extends State<MemorizationTextScreen> {
     if (versions.length < 2) {
       return Text(
         PrayerLanguages.name(text.languageCode),
-        style: const TextStyle(color: AppColors.textSecondary),
+        style: TextStyle(color: context.colors.textSecondary),
       );
     }
 
@@ -142,7 +142,7 @@ class _MemorizationTextScreenState extends State<MemorizationTextScreen> {
   Widget _buildProgress(TextProgress progress) {
     final secondary = Theme.of(
       context,
-    ).textTheme.bodyMedium?.copyWith(color: AppColors.textSecondary);
+    ).textTheme.bodyMedium?.copyWith(color: context.colors.textSecondary);
 
     final details = [
       for (final status in SegmentStatus.values)
@@ -168,7 +168,7 @@ class _MemorizationTextScreenState extends State<MemorizationTextScreen> {
           child: LinearProgressIndicator(
             value: progress.fraction,
             minHeight: 8,
-            backgroundColor: AppColors.divider,
+            backgroundColor: context.colors.divider,
             semanticsLabel: "Lernfortschritt",
           ),
         ),
@@ -194,7 +194,7 @@ class _MemorizationTextScreenState extends State<MemorizationTextScreen> {
   Widget _buildToday(TextPlan plan, TextProgress progress) {
     final secondary = Theme.of(
       context,
-    ).textTheme.bodyMedium?.copyWith(color: AppColors.textSecondary);
+    ).textTheme.bodyMedium?.copyWith(color: context.colors.textSecondary);
 
     final parts = [
       if (plan.newSegments > 0)
@@ -219,9 +219,7 @@ class _MemorizationTextScreenState extends State<MemorizationTextScreen> {
         const SizedBox(height: 4),
 
         Text(
-          parts.isEmpty
-              ? "Für heute ist hier alles getan."
-              : parts.join(" · "),
+          parts.isEmpty ? "Für heute ist hier alles getan." : parts.join(" · "),
           key: const Key("memorize_today"),
           style: secondary,
         ),
@@ -310,7 +308,7 @@ class _MemorizationTextScreenState extends State<MemorizationTextScreen> {
           widget.work.type.label,
           style: Theme.of(
             context,
-          ).textTheme.bodyMedium?.copyWith(color: AppColors.textSecondary),
+          ).textTheme.bodyMedium?.copyWith(color: context.colors.textSecondary),
         ),
 
         const SizedBox(height: 16),
@@ -335,7 +333,7 @@ class _MemorizationTextScreenState extends State<MemorizationTextScreen> {
           "Tippe einen Abschnitt an, um genau diese Stelle zu üben.",
           style: Theme.of(
             context,
-          ).textTheme.bodyMedium?.copyWith(color: AppColors.textSecondary),
+          ).textTheme.bodyMedium?.copyWith(color: context.colors.textSecondary),
         ),
 
         const SizedBox(height: 8),

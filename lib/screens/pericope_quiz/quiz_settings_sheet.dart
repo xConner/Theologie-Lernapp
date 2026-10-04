@@ -201,9 +201,9 @@ class _QuizSettingsSheetState extends State<QuizSettingsSheet> {
       insetPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 40),
       child: Container(
         decoration: BoxDecoration(
-          color: AppColors.surface,
+          color: context.colors.surface,
           border: Border.all(
-            color: isInvalid ? AppColors.error : AppColors.divider,
+            color: isInvalid ? context.colors.error : context.colors.divider,
             width: isInvalid ? 2 : 1,
           ),
           borderRadius: BorderRadius.circular(20),
@@ -284,12 +284,12 @@ class _QuizSettingsSheetState extends State<QuizSettingsSheet> {
                           ),
 
                           if (isInvalid)
-                            const Padding(
-                              padding: EdgeInsets.only(bottom: 8),
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 8),
                               child: Text(
                                 "Mindestens 1 Buch muss ausgewählt sein",
                                 style: TextStyle(
-                                  color: AppColors.error,
+                                  color: context.colors.error,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),

@@ -4,6 +4,7 @@ import '../../models/greek/vocabulary/greek_vocabulary_entry.dart';
 import '../../services/greek/vocabulary/greek_vocabulary_loader.dart';
 
 import '../../widgets/greek_keyboard.dart';
+import '../../theme/app_theme.dart';
 import '../../widgets/settings_access.dart';
 import '../../info/app_info.dart';
 import '../../widgets/info_report.dart';
@@ -199,7 +200,7 @@ class _VocabularyOverviewScreenState extends State<VocabularyOverviewScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Vokabelübersicht"),
-actions: const [
+        actions: const [
           InfoButton(module: AppModules.greekVocabulary),
           SettingsButton(),
         ],
@@ -376,7 +377,10 @@ actions: const [
               width: 90,
               child: Text(
                 _typeName(entry.type),
-                style: const TextStyle(fontSize: 13, color: Colors.grey),
+                style: TextStyle(
+                  fontSize: 13,
+                  color: context.colors.textSecondary,
+                ),
                 textAlign: TextAlign.right,
               ),
             ),

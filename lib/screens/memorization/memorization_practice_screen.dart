@@ -494,7 +494,7 @@ class _MemorizationPracticeScreenState
   Widget _buildPrompt(PracticeUnit unit) {
     final secondary = Theme.of(
       context,
-    ).textTheme.bodyMedium?.copyWith(color: AppColors.textSecondary);
+    ).textTheme.bodyMedium?.copyWith(color: context.colors.textSecondary);
 
     final cue = _cue(unit);
 
@@ -593,7 +593,7 @@ class _MemorizationPracticeScreenState
   Widget _buildSpeaking() {
     final secondary = Theme.of(
       context,
-    ).textTheme.bodyMedium?.copyWith(color: AppColors.textSecondary);
+    ).textTheme.bodyMedium?.copyWith(color: context.colors.textSecondary);
 
     if (_speechStarting) {
       return const Padding(
@@ -631,8 +631,12 @@ class _MemorizationPracticeScreenState
             padding: const EdgeInsets.all(18),
             tooltip: _listening ? "Aufsagen beenden" : "Aufsagen starten",
             style: IconButton.styleFrom(
-              backgroundColor: _listening ? AppColors.error : AppColors.primary,
-              foregroundColor: Colors.white,
+              backgroundColor: _listening
+                  ? context.colors.error
+                  : context.colors.primary,
+              foregroundColor: _listening
+                  ? context.colors.onError
+                  : context.colors.onPrimary,
             ),
             icon: Icon(_listening ? Icons.stop_rounded : Icons.mic_rounded),
             onPressed: _toggleListening,
@@ -662,7 +666,7 @@ class _MemorizationPracticeScreenState
             width: double.infinity,
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: AppColors.surfaceMuted,
+              color: context.colors.surfaceMuted,
               borderRadius: BorderRadius.circular(AppTheme.radiusSmall),
             ),
             child: Semantics(
@@ -708,9 +712,9 @@ class _MemorizationPracticeScreenState
         children: [
           Text(
             "Sage den Abschnitt für dich auf und decke ihn dann auf.",
-            style: Theme.of(
-              context,
-            ).textTheme.bodyMedium?.copyWith(color: AppColors.textSecondary),
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+              color: context.colors.textSecondary,
+            ),
           ),
           const SizedBox(height: 12),
           ElevatedButton(
@@ -762,20 +766,20 @@ class _MemorizationPracticeScreenState
     final (title, color, background, icon) = switch (outcome) {
       RecallOutcome.correct => (
         "Wortgetreu",
-        AppColors.success,
-        AppColors.successBackground,
+        context.colors.success,
+        context.colors.successBackground,
         Icons.check_circle_rounded,
       ),
       RecallOutcome.almost => (
         "Fast – kleine Abweichungen",
-        AppColors.accent,
-        AppColors.surfaceMuted,
+        context.colors.accent,
+        context.colors.surfaceMuted,
         Icons.info_rounded,
       ),
       RecallOutcome.incorrect => (
         "Noch nicht sicher",
-        AppColors.error,
-        AppColors.errorBackground,
+        context.colors.error,
+        context.colors.errorBackground,
         Icons.replay_rounded,
       ),
     };
@@ -844,7 +848,7 @@ class _MemorizationPracticeScreenState
   Widget _buildExercise(PracticeUnit unit) {
     final secondary = Theme.of(
       context,
-    ).textTheme.bodyMedium?.copyWith(color: AppColors.textSecondary);
+    ).textTheme.bodyMedium?.copyWith(color: context.colors.textSecondary);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -909,11 +913,13 @@ class _MemorizationPracticeScreenState
   }
 
   Widget _buildSummary() {
-    final texts = <MemorizationText>{for (final unit in widget.units) unit.text};
+    final texts = <MemorizationText>{
+      for (final unit in widget.units) unit.text,
+    };
 
     final secondary = Theme.of(
       context,
-    ).textTheme.bodyMedium?.copyWith(color: AppColors.textSecondary);
+    ).textTheme.bodyMedium?.copyWith(color: context.colors.textSecondary);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,

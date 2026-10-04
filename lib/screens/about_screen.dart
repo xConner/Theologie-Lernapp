@@ -55,7 +55,7 @@ class AboutScreen extends StatelessWidget {
               Text(
                 "Version ${AppInfo.version} · In Entwicklung",
                 style: textTheme.bodyMedium?.copyWith(
-                  color: AppColors.textSecondary,
+                  color: context.colors.textSecondary,
                 ),
               ),
 

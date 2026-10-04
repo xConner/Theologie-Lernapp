@@ -117,7 +117,7 @@ class _PrayersScreenState extends State<PrayersScreen> {
           prayer.languages.map((l) => l.toUpperCase()).join(" "),
           style: Theme.of(
             context,
-          ).textTheme.bodySmall?.copyWith(color: AppColors.textSecondary),
+          ).textTheme.bodySmall?.copyWith(color: context.colors.textSecondary),
         ),
 
         onTap: () {
@@ -209,7 +209,7 @@ class _PrayersScreenState extends State<PrayersScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Gebete"),
-actions: const [
+        actions: const [
           InfoButton(module: AppModules.prayers),
           SettingsButton(),
         ],

@@ -6,6 +6,7 @@ import '../services/auth_error_translator.dart';
 import '../theme/app_theme.dart';
 import '../utils/phone_number_utils.dart';
 import '../widgets/recaptcha_notice.dart';
+import '../widgets/button_progress_indicator.dart';
 
 class PhoneSignInScreen extends StatefulWidget {
   const PhoneSignInScreen({super.key});
@@ -119,10 +120,7 @@ class _PhoneSignInScreenState extends State<PhoneSignInScreen> {
     });
 
     try {
-      await authService.signInWithSmsCode(
-        verificationId: id,
-        smsCode: code,
-      );
+      await authService.signInWithSmsCode(verificationId: id, smsCode: code);
 
       if (!mounted) return;
       // Idempotent, falls AuthGate die Login-Routen schon geschlossen hat.
@@ -162,7 +160,7 @@ class _PhoneSignInScreenState extends State<PhoneSignInScreen> {
                     Icon(
                       Icons.phone_iphone_rounded,
                       size: 40,
-                      color: AppColors.primary,
+                      color: context.colors.primary,
                     ),
 
                     const SizedBox(height: 12),
@@ -215,7 +213,7 @@ class _PhoneSignInScreenState extends State<PhoneSignInScreen> {
                       const SizedBox(height: 14),
                       Text(
                         error!,
-                        style: const TextStyle(color: AppColors.error),
+                        style: TextStyle(color: context.colors.error),
                       ),
                     ],
 
@@ -226,14 +224,7 @@ class _PhoneSignInScreenState extends State<PhoneSignInScreen> {
                           ? null
                           : (codeSent ? _confirmCode : _sendCode),
                       child: busy
-                          ? const SizedBox(
-                              height: 18,
-                              width: 18,
-                              child: CircularProgressIndicator(
-                                strokeWidth: 2,
-                                color: Colors.white,
-                              ),
-                            )
+                          ? const ButtonProgressIndicator()
                           : Text(codeSent ? "Bestätigen" : "Code senden"),
                     ),
 

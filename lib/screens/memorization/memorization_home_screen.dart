@@ -149,7 +149,7 @@ class _MemorizationHomeScreenState extends State<MemorizationHomeScreen> {
 
   TextStyle? get _secondary => Theme.of(
     context,
-  ).textTheme.bodyMedium?.copyWith(color: AppColors.textSecondary);
+  ).textTheme.bodyMedium?.copyWith(color: context.colors.textSecondary);
 
   Widget _buildToday(List<TextPlan> plans) {
     return Column(
@@ -197,9 +197,8 @@ class _MemorizationHomeScreenState extends State<MemorizationHomeScreen> {
 
           ElevatedButton(
             key: const Key("memorize_today_start"),
-            onPressed: () => _practice([
-              for (final plan in plans) ...plan.units,
-            ]),
+            onPressed: () =>
+                _practice([for (final plan in plans) ...plan.units]),
             child: const Text("Heute lernen"),
           ),
         ],
@@ -453,7 +452,7 @@ class MemorizationAddTextScreen extends StatelessWidget {
                   "Wähle die Sprachfassungen, die du auswendig lernen "
                   "möchtest. Jede Sprache wird getrennt gelernt.",
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: AppColors.textSecondary,
+                    color: context.colors.textSecondary,
                   ),
                 ),
 

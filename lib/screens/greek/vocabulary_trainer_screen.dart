@@ -685,11 +685,20 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
                       decoration: InputDecoration(
                         labelText: "Übersetzung",
 
-                        enabledBorder: answerResultBorder(translationCorrect),
+                        enabledBorder: answerResultBorder(
+                          context,
+                          translationCorrect,
+                        ),
 
-                        focusedBorder: answerResultBorder(translationCorrect),
+                        focusedBorder: answerResultBorder(
+                          context,
+                          translationCorrect,
+                        ),
 
-                        disabledBorder: answerResultBorder(translationCorrect),
+                        disabledBorder: answerResultBorder(
+                          context,
+                          translationCorrect,
+                        ),
 
                         border: const OutlineInputBorder(),
                       ),
@@ -844,11 +853,11 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
           onPressed: answered ? null : toggleKeyboard,
         ),
 
-        enabledBorder: answerResultBorder(correct),
+        enabledBorder: answerResultBorder(context, correct),
 
-        focusedBorder: answerResultBorder(correct),
+        focusedBorder: answerResultBorder(context, correct),
 
-        disabledBorder: answerResultBorder(correct),
+        disabledBorder: answerResultBorder(context, correct),
 
         border: const OutlineInputBorder(),
       ),

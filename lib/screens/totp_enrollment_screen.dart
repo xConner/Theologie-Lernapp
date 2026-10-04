@@ -7,6 +7,7 @@ import '../services/auth_service.dart';
 import '../services/auth_error_translator.dart';
 import '../theme/app_theme.dart';
 import 'mfa_challenge_screen.dart';
+import '../widgets/button_progress_indicator.dart';
 
 enum _TotpStep { reauthenticate, loadingSecret, scanAndVerify, done }
 
@@ -288,16 +289,12 @@ class _TotpEnrollmentScreenState extends State<TotpEnrollmentScreen> {
   }
 
   Widget _busyIndicator() {
-    return const SizedBox(
-      height: 18,
-      width: 18,
-      child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
-    );
+    return const ButtonProgressIndicator();
   }
 
   List<Widget> _reauthStep(BuildContext context) {
     return [
-      Icon(Icons.lock_person_rounded, size: 40, color: AppColors.primary),
+      Icon(Icons.lock_person_rounded, size: 40, color: context.colors.primary),
       const SizedBox(height: 12),
       Text(
         "Erneute Anmeldung erforderlich",
@@ -311,7 +308,7 @@ class _TotpEnrollmentScreenState extends State<TotpEnrollmentScreen> {
         textAlign: TextAlign.center,
         style: Theme.of(
           context,
-        ).textTheme.bodyMedium?.copyWith(color: AppColors.textSecondary),
+        ).textTheme.bodyMedium?.copyWith(color: context.colors.textSecondary),
       ),
       const SizedBox(height: 20),
 
@@ -327,7 +324,7 @@ class _TotpEnrollmentScreenState extends State<TotpEnrollmentScreen> {
         ),
         if (error != null) ...[
           const SizedBox(height: 12),
-          Text(error!, style: const TextStyle(color: AppColors.error)),
+          Text(error!, style: TextStyle(color: context.colors.error)),
         ],
         const SizedBox(height: 16),
         ElevatedButton(
@@ -336,7 +333,7 @@ class _TotpEnrollmentScreenState extends State<TotpEnrollmentScreen> {
         ),
       ] else if (authService.isGoogleUser) ...[
         if (error != null) ...[
-          Text(error!, style: const TextStyle(color: AppColors.error)),
+          Text(error!, style: TextStyle(color: context.colors.error)),
           const SizedBox(height: 12),
         ],
         ElevatedButton.icon(
@@ -356,13 +353,13 @@ class _TotpEnrollmentScreenState extends State<TotpEnrollmentScreen> {
     if (url == null || key == null) {
       // Secret konnte nicht erzeugt werden (Fehler wird angezeigt).
       return [
-        Icon(Icons.qr_code_2_rounded, size: 40, color: AppColors.primary),
+        Icon(Icons.qr_code_2_rounded, size: 40, color: context.colors.primary),
         const SizedBox(height: 12),
         if (error != null)
           Text(
             error!,
             textAlign: TextAlign.center,
-            style: const TextStyle(color: AppColors.error),
+            style: TextStyle(color: context.colors.error),
           ),
         const SizedBox(height: 16),
         ElevatedButton(
@@ -383,7 +380,7 @@ class _TotpEnrollmentScreenState extends State<TotpEnrollmentScreen> {
         "Authenticator, Microsoft Authenticator oder 1Password.",
         style: Theme.of(
           context,
-        ).textTheme.bodyMedium?.copyWith(color: AppColors.textSecondary),
+        ).textTheme.bodyMedium?.copyWith(color: context.colors.textSecondary),
       ),
       const SizedBox(height: 16),
       Center(
@@ -413,9 +410,9 @@ class _TotpEnrollmentScreenState extends State<TotpEnrollmentScreen> {
             Text(
               "Gib diesen Schlüssel in deiner Authenticator-App manuell ein "
               "(Kontotyp: zeitbasiert).",
-              style: Theme.of(
-                context,
-              ).textTheme.bodySmall?.copyWith(color: AppColors.textSecondary),
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                color: context.colors.textSecondary,
+              ),
             ),
             const SizedBox(height: 8),
             Row(
@@ -461,7 +458,7 @@ class _TotpEnrollmentScreenState extends State<TotpEnrollmentScreen> {
       ),
       if (error != null) ...[
         const SizedBox(height: 12),
-        Text(error!, style: const TextStyle(color: AppColors.error)),
+        Text(error!, style: TextStyle(color: context.colors.error)),
       ],
       const SizedBox(height: 16),
       ElevatedButton(
@@ -478,10 +475,10 @@ class _TotpEnrollmentScreenState extends State<TotpEnrollmentScreen> {
 
   List<Widget> _doneStep(BuildContext context) {
     return [
-      const Icon(
+      Icon(
         Icons.verified_user_rounded,
         size: 48,
-        color: AppColors.success,
+        color: context.colors.success,
       ),
       const SizedBox(height: 12),
       Text(
@@ -496,7 +493,7 @@ class _TotpEnrollmentScreenState extends State<TotpEnrollmentScreen> {
         textAlign: TextAlign.center,
         style: Theme.of(
           context,
-        ).textTheme.bodyMedium?.copyWith(color: AppColors.textSecondary),
+        ).textTheme.bodyMedium?.copyWith(color: context.colors.textSecondary),
       ),
       const SizedBox(height: 20),
       ElevatedButton(

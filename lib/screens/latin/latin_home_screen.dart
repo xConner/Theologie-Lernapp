@@ -28,7 +28,11 @@ class LatinHomeScreen extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.translate_rounded, size: 32, color: AppColors.primary),
+                Icon(
+                  Icons.translate_rounded,
+                  size: 32,
+                  color: context.colors.primary,
+                ),
                 const SizedBox(height: 20),
 
                 StreakDetailCard(

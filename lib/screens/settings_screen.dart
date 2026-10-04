@@ -4,9 +4,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../services/progress_data_service.dart';
 import '../services/quiz_sound_player.dart';
 import '../services/quiz_sound_settings.dart';
+import '../services/theme_settings.dart';
 import '../theme/app_theme.dart';
 import '../widgets/info_report.dart';
 import '../widgets/learning_progress_dialogs.dart';
+import '../widgets/settings_selection.dart';
 import 'about_screen.dart';
 import 'account_security_screen.dart';
 import 'login_screen.dart';
@@ -53,6 +55,13 @@ class GeneralSettingsView extends StatefulWidget {
 
 class _GeneralSettingsViewState extends State<GeneralSettingsView> {
   final QuizSoundSettings soundSettings = QuizSoundSettings.instance;
+  final ThemeSettings themeSettings = ThemeSettings.instance;
+
+  static const Map<ThemeMode, String> _themeModeLabels = {
+    ThemeMode.light: "Hell",
+    ThemeMode.dark: "Dunkel",
+    ThemeMode.system: "System",
+  };
 
   bool resettingProgress = false;
 
@@ -60,17 +69,19 @@ class _GeneralSettingsViewState extends State<GeneralSettingsView> {
   void initState() {
     super.initState();
 
-    soundSettings.addListener(_onSoundSettingsChanged);
+    soundSettings.addListener(_onSettingsChanged);
+    themeSettings.addListener(_onSettingsChanged);
   }
 
   @override
   void dispose() {
-    soundSettings.removeListener(_onSoundSettingsChanged);
+    soundSettings.removeListener(_onSettingsChanged);
+    themeSettings.removeListener(_onSettingsChanged);
 
     super.dispose();
   }
 
-  void _onSoundSettingsChanged() {
+  void _onSettingsChanged() {
     if (mounted) {
       setState(() {});
     }
@@ -181,13 +192,13 @@ class _GeneralSettingsViewState extends State<GeneralSettingsView> {
           ),
         ),
 
-        const Padding(
-          padding: EdgeInsets.fromLTRB(4, 0, 4, 12),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(4, 0, 4, 12),
           child: Text(
             "Gilt für alle Trainer und Quizzes. Ob ein einzelner Sound "
             "abgespielt wird, lässt sich zusätzlich in den Einstellungen "
             "des jeweiligen Trainers festlegen.",
-            style: TextStyle(color: AppColors.textSecondary),
+            style: TextStyle(color: context.colors.textSecondary),
           ),
         ),
 
@@ -198,7 +209,9 @@ class _GeneralSettingsViewState extends State<GeneralSettingsView> {
               children: [
                 Icon(
                   muted ? Icons.volume_off_rounded : Icons.volume_up_rounded,
-                  color: muted ? AppColors.textSecondary : AppColors.primary,
+                  color: muted
+                      ? context.colors.textSecondary
+                      : context.colors.primary,
                 ),
 
                 const SizedBox(width: 8),
@@ -233,9 +246,9 @@ class _GeneralSettingsViewState extends State<GeneralSettingsView> {
 
         Card(
           child: ListTile(
-            leading: const Icon(
+            leading: Icon(
               Icons.restart_alt_rounded,
-              color: AppColors.error,
+              color: context.colors.error,
             ),
             title: const Text("Lernfortschritte zurücksetzen"),
             subtitle: Text(
@@ -254,6 +267,37 @@ class _GeneralSettingsViewState extends State<GeneralSettingsView> {
                 : null,
             enabled: widget.allowProgressReset,
             onTap: resettingProgress ? null : _resetProgress,
+          ),
+        ),
+
+        const SizedBox(height: 20),
+
+        Padding(
+          padding: const EdgeInsets.fromLTRB(4, 0, 4, 12),
+          child: Text(
+            "Erscheinungsbild",
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
+        ),
+
+        Card(
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: SingleSelectChips(
+                label: "Theme",
+                options: _themeModeLabels.values.toList(),
+                value: _themeModeLabels[themeSettings.themeMode],
+                onChanged: (label) {
+                  for (final entry in _themeModeLabels.entries) {
+                    if (entry.value == label) {
+                      themeSettings.setThemeMode(entry.key);
+                    }
+                  }
+                },
+              ),
+            ),
           ),
         ),
 

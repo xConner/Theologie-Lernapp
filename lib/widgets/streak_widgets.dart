@@ -83,11 +83,11 @@ class _StreakBuilderState extends State<_StreakBuilder> {
   }
 }
 
-Widget _flame(bool active, {double size = 20}) {
+Widget _flame(BuildContext context, bool active, {double size = 20}) {
   return Icon(
     Icons.local_fire_department_rounded,
     size: size,
-    color: active ? AppColors.accent : AppColors.divider,
+    color: active ? context.colors.accent : context.colors.divider,
   );
 }
 
@@ -135,7 +135,7 @@ class StreakSummary extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(vertical: 4),
                           child: Row(
                             children: [
-                              _flame(true),
+                              _flame(context, true),
                               const SizedBox(width: 10),
                               Expanded(
                                 child: Text(
@@ -144,10 +144,10 @@ class StreakSummary extends StatelessWidget {
                                 ),
                               ),
                               if (s.completedToday) ...[
-                                const Icon(
+                                Icon(
                                   Icons.check_rounded,
                                   size: 16,
-                                  color: AppColors.success,
+                                  color: context.colors.success,
                                 ),
                                 const SizedBox(width: 6),
                               ],
@@ -181,7 +181,7 @@ class StreakDetailCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final secondary = textTheme.bodyMedium?.copyWith(
-      color: AppColors.textSecondary,
+      color: context.colors.textSecondary,
     );
 
     return _StreakBuilder(
@@ -198,7 +198,7 @@ class StreakDetailCard extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    _flame(s.currentStreak > 0, size: 26),
+                    _flame(context, s.currentStreak > 0, size: 26),
                     const SizedBox(width: 8),
                     Expanded(
                       child: Text(
@@ -222,7 +222,7 @@ class StreakDetailCard extends StatelessWidget {
                           : "${s.todayCorrectAnswers}/${s.dailyGoal}",
                       style: s.completedToday
                           ? textTheme.titleSmall?.copyWith(
-                              color: AppColors.success,
+                              color: context.colors.success,
                             )
                           : textTheme.titleSmall,
                     ),
@@ -236,10 +236,10 @@ class StreakDetailCard extends StatelessWidget {
                   child: LinearProgressIndicator(
                     value: s.todayProgress,
                     minHeight: 8,
-                    backgroundColor: AppColors.surfaceMuted,
+                    backgroundColor: context.colors.surfaceMuted,
                     color: s.completedToday
-                        ? AppColors.success
-                        : AppColors.accent,
+                        ? context.colors.success
+                        : context.colors.accent,
                   ),
                 ),
 
@@ -299,7 +299,7 @@ class StreakAppBarButton extends StatelessWidget {
               ),
             ),
           ),
-          icon: _flame(s.currentStreak > 0),
+          icon: _flame(context, s.currentStreak > 0),
           label: Text("${s.currentStreak}"),
         );
       },

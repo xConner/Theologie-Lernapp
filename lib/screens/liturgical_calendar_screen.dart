@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../models/liturgical_event.dart';
 import '../models/liturgical_day.dart';
 import '../services/liturgical_calendar_loader.dart';
+import '../theme/app_theme.dart';
 import '../widgets/settings_access.dart';
 import '../info/app_info.dart';
 import '../widgets/info_report.dart';
@@ -298,7 +299,9 @@ class _LiturgicalCalendarScreenState extends State<LiturgicalCalendarScreen> {
 
                               decoration: BoxDecoration(
                                 color: liturgicalColor(day.color),
-                                border: Border.all(color: Colors.black26),
+                                border: Border.all(
+                                  color: context.colors.textSecondary,
+                                ),
                                 borderRadius: BorderRadius.circular(4),
                               ),
                             ),

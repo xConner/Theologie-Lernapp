@@ -232,7 +232,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Icon(
                         Icons.auto_stories_rounded,
                         size: 36,
-                        color: AppColors.primary,
+                        color: context.colors.primary,
                       ),
 
                       const SizedBox(height: 12),
@@ -249,7 +249,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         "Wähle einen Lernbereich",
                         textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: AppColors.textSecondary,
+                          color: context.colors.textSecondary,
                         ),
                       ),
 
@@ -261,7 +261,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           "diesem Browser gespeichert.",
                           textAlign: TextAlign.center,
                           style: Theme.of(context).textTheme.bodySmall
-                              ?.copyWith(color: AppColors.textSecondary),
+                              ?.copyWith(color: context.colors.textSecondary),
                         ),
                       ],
 

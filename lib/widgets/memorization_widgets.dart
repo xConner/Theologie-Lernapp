@@ -54,15 +54,24 @@ class SegmentStatusIcon extends StatelessWidget {
     final (icon, color) = switch (status) {
       SegmentStatus.fresh => (
         Icons.radio_button_unchecked_rounded,
-        AppColors.textSecondary,
+        context.colors.textSecondary,
       ),
-      SegmentStatus.learning => (Icons.timelapse_rounded, AppColors.primary),
-      SegmentStatus.shaky => (Icons.error_outline_rounded, AppColors.accent),
+      SegmentStatus.learning => (
+        Icons.timelapse_rounded,
+        context.colors.primary,
+      ),
+      SegmentStatus.shaky => (
+        Icons.error_outline_rounded,
+        context.colors.accent,
+      ),
       SegmentStatus.recent => (
         Icons.check_circle_outline_rounded,
-        AppColors.success,
+        context.colors.success,
       ),
-      SegmentStatus.stable => (Icons.check_circle_rounded, AppColors.success),
+      SegmentStatus.stable => (
+        Icons.check_circle_rounded,
+        context.colors.success,
+      ),
     };
 
     return Icon(icon, color: color, size: 22, semanticLabel: status.label);
@@ -106,13 +115,13 @@ class AlignmentView extends StatelessWidget {
     required this.asked,
   });
 
-  static const TextStyle _struck = TextStyle(
-    color: AppColors.textSecondary,
-    decoration: TextDecoration.lineThrough,
-  );
-
   @override
   Widget build(BuildContext context) {
+    final struck = TextStyle(
+      color: context.colors.textSecondary,
+      decoration: TextDecoration.lineThrough,
+    );
+
     final byWord = <int, WordAlignment>{};
     final extrasAfter = <int, List<String>>{};
 
@@ -129,7 +138,7 @@ class AlignmentView extends StatelessWidget {
 
     void addExtras(int anchor) {
       for (final word in extrasAfter[anchor] ?? const <String>[]) {
-        spans.add(TextSpan(text: "$word ", style: _struck));
+        spans.add(TextSpan(text: "$word ", style: struck));
       }
     }
 
@@ -147,7 +156,7 @@ class AlignmentView extends StatelessWidget {
             spans.add(
               TextSpan(
                 text: token.raw,
-                style: const TextStyle(color: AppColors.success),
+                style: TextStyle(color: context.colors.success),
               ),
             );
 
@@ -155,8 +164,8 @@ class AlignmentView extends StatelessWidget {
             spans.add(
               TextSpan(
                 text: token.raw,
-                style: const TextStyle(
-                  color: AppColors.error,
+                style: TextStyle(
+                  color: context.colors.error,
                   fontWeight: FontWeight.w600,
                   decoration: TextDecoration.underline,
                 ),
@@ -165,12 +174,14 @@ class AlignmentView extends StatelessWidget {
 
           case AlignmentType.substitution:
             spans
-              ..add(TextSpan(text: "${a.actual} ", style: _struck))
+              ..add(TextSpan(text: "${a.actual} ", style: struck))
               ..add(
                 TextSpan(
                   text: token.raw,
                   style: TextStyle(
-                    color: a.minor ? AppColors.accent : AppColors.error,
+                    color: a.minor
+                        ? context.colors.accent
+                        : context.colors.error,
                     fontWeight: FontWeight.w600,
                   ),
                 ),

@@ -214,11 +214,13 @@ class _NotificationCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final highPriority = notification.priority == NotificationPriority.high;
-    final iconColor = highPriority ? AppColors.error : AppColors.primary;
+    final iconColor = highPriority
+        ? context.colors.error
+        : context.colors.primary;
 
     return Card(
       margin: EdgeInsets.zero,
-      color: isNew ? AppColors.surface : AppColors.background,
+      color: isNew ? context.colors.surface : context.colors.background,
       clipBehavior: Clip.antiAlias,
       child: InkWell(
         onTap: onTap,
@@ -229,7 +231,7 @@ class _NotificationCard extends StatelessWidget {
             children: [
               CircleAvatar(
                 radius: 18,
-                backgroundColor: AppColors.surfaceMuted,
+                backgroundColor: context.colors.surfaceMuted,
                 child: Icon(
                   notification.category.icon,
                   size: 20,
@@ -249,7 +251,7 @@ class _NotificationCard extends StatelessWidget {
                           child: Text(
                             notification.category.label,
                             style: textTheme.bodySmall?.copyWith(
-                              color: AppColors.textSecondary,
+                              color: context.colors.textSecondary,
                             ),
                           ),
                         ),
@@ -259,7 +261,7 @@ class _NotificationCard extends StatelessWidget {
                             DateTime.now(),
                           ),
                           style: textTheme.bodySmall?.copyWith(
-                            color: AppColors.textSecondary,
+                            color: context.colors.textSecondary,
                           ),
                         ),
                         if (isNew) ...[
@@ -269,8 +271,8 @@ class _NotificationCard extends StatelessWidget {
                             child: Container(
                               width: 8,
                               height: 8,
-                              decoration: const BoxDecoration(
-                                color: AppColors.accent,
+                              decoration: BoxDecoration(
+                                color: context.colors.accent,
                                 shape: BoxShape.circle,
                               ),
                             ),
@@ -300,14 +302,14 @@ class _NotificationCard extends StatelessWidget {
                           Text(
                             "Öffnen",
                             style: textTheme.labelLarge?.copyWith(
-                              color: AppColors.primary,
+                              color: context.colors.primary,
                               fontSize: 14,
                             ),
                           ),
-                          const Icon(
+                          Icon(
                             Icons.chevron_right_rounded,
                             size: 18,
-                            color: AppColors.primary,
+                            color: context.colors.primary,
                           ),
                         ],
                       ),
@@ -338,10 +340,10 @@ class _EmptyState extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Icon(
+            Icon(
               Icons.notifications_none_rounded,
               size: 40,
-              color: AppColors.divider,
+              color: context.colors.divider,
             ),
             const SizedBox(height: 12),
             Text(
@@ -356,7 +358,7 @@ class _EmptyState extends StatelessWidget {
               "Hier erscheinen wichtige Nachrichten zu neuen Inhalten, zum "
               "System und zu deinem Konto.",
               style: textTheme.bodyMedium?.copyWith(
-                color: AppColors.textSecondary,
+                color: context.colors.textSecondary,
               ),
               textAlign: TextAlign.center,
             ),

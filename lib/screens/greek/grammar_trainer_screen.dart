@@ -1546,7 +1546,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
                   SelectableText(
                     formError!,
                     textAlign: TextAlign.center,
-                    style: const TextStyle(color: AppColors.error),
+                    style: TextStyle(color: context.colors.error),
                   )
                 else
                   const Text(
@@ -1578,9 +1578,9 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
                     enabled: !answered && !loadingForm && correctForm != null,
                     decoration: InputDecoration(
                       labelText: "Grundform",
-                      enabledBorder: answerResultBorder(lemmaCorrect),
-                      focusedBorder: answerResultBorder(lemmaCorrect),
-                      disabledBorder: answerResultBorder(lemmaCorrect),
+                      enabledBorder: answerResultBorder(context, lemmaCorrect),
+                      focusedBorder: answerResultBorder(context, lemmaCorrect),
+                      disabledBorder: answerResultBorder(context, lemmaCorrect),
                       border: const OutlineInputBorder(),
                       suffixIcon: IconButton(
                         tooltip: "Griechische Tastatur",
@@ -1682,7 +1682,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
                   Text(
                     formError!,
                     textAlign: TextAlign.center,
-                    style: const TextStyle(color: AppColors.error),
+                    style: TextStyle(color: context.colors.error),
                   ),
 
                 const SizedBox(height: 24),

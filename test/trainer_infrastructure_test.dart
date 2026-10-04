@@ -244,11 +244,39 @@ void main() {
   });
 
   group("Gemeinsame Trainer-Widgets", () {
-    test("Rahmen der Eingabefelder nach der Auswertung", () {
-      expect(answerResultBorder(null), const OutlineInputBorder());
-      expect(answerResultBorder(true).borderSide.color, AppColors.success);
-      expect(answerResultBorder(false).borderSide.color, AppColors.error);
-      expect(answerResultBorder(true).borderSide.width, 2);
+    testWidgets("Rahmen der Eingabefelder nach der Auswertung", (tester) async {
+      for (final theme in [AppTheme.light, AppTheme.dark]) {
+        late BuildContext context;
+
+        await tester.pumpWidget(
+          MaterialApp(
+            theme: theme,
+            home: Builder(
+              builder: (c) {
+                context = c;
+                return const SizedBox();
+              },
+            ),
+          ),
+        );
+        await tester.pumpAndSettle();
+
+        final colors = theme.extension<AppColors>()!;
+
+        expect(
+          answerResultBorder(context, null).borderSide.color,
+          colors.textPrimary,
+        );
+        expect(
+          answerResultBorder(context, true).borderSide.color,
+          colors.success,
+        );
+        expect(
+          answerResultBorder(context, false).borderSide.color,
+          colors.error,
+        );
+        expect(answerResultBorder(context, true).borderSide.width, 2);
+      }
     });
 
     testWidgets("Sound-Schalter wirken je Modul und sofort", (tester) async {

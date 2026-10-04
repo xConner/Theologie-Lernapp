@@ -7,6 +7,7 @@ import '../theme/app_theme.dart';
 import '../utils/phone_number_utils.dart';
 import '../widgets/recaptcha_notice.dart';
 import 'mfa_challenge_screen.dart';
+import '../widgets/button_progress_indicator.dart';
 
 enum _EnrollmentStep { reauthenticate, enterPhone, enterCode }
 
@@ -288,7 +289,7 @@ class _MfaEnrollmentScreenState extends State<MfaEnrollmentScreen> {
 
   List<Widget> _reauthStep(BuildContext context) {
     return [
-      Icon(Icons.lock_person_rounded, size: 40, color: AppColors.primary),
+      Icon(Icons.lock_person_rounded, size: 40, color: context.colors.primary),
       const SizedBox(height: 12),
       Text(
         "Erneute Anmeldung erforderlich",
@@ -302,7 +303,7 @@ class _MfaEnrollmentScreenState extends State<MfaEnrollmentScreen> {
         textAlign: TextAlign.center,
         style: Theme.of(
           context,
-        ).textTheme.bodyMedium?.copyWith(color: AppColors.textSecondary),
+        ).textTheme.bodyMedium?.copyWith(color: context.colors.textSecondary),
       ),
       const SizedBox(height: 20),
 
@@ -317,25 +318,18 @@ class _MfaEnrollmentScreenState extends State<MfaEnrollmentScreen> {
         ),
         if (error != null) ...[
           const SizedBox(height: 12),
-          Text(error!, style: const TextStyle(color: AppColors.error)),
+          Text(error!, style: TextStyle(color: context.colors.error)),
         ],
         const SizedBox(height: 16),
         ElevatedButton(
           onPressed: busy ? null : _reauthenticateWithPassword,
           child: busy
-              ? const SizedBox(
-                  height: 18,
-                  width: 18,
-                  child: CircularProgressIndicator(
-                    strokeWidth: 2,
-                    color: Colors.white,
-                  ),
-                )
+              ? const ButtonProgressIndicator()
               : const Text("Bestätigen"),
         ),
       ] else if (authService.isGoogleUser) ...[
         if (error != null) ...[
-          Text(error!, style: const TextStyle(color: AppColors.error)),
+          Text(error!, style: TextStyle(color: context.colors.error)),
           const SizedBox(height: 12),
         ],
         ElevatedButton.icon(
@@ -349,7 +343,7 @@ class _MfaEnrollmentScreenState extends State<MfaEnrollmentScreen> {
 
   List<Widget> _phoneStep(BuildContext context) {
     return [
-      Icon(Icons.phone_iphone_rounded, size: 40, color: AppColors.primary),
+      Icon(Icons.phone_iphone_rounded, size: 40, color: context.colors.primary),
       const SizedBox(height: 12),
       Text(
         "Telefonnummer hinzufügen",
@@ -363,7 +357,7 @@ class _MfaEnrollmentScreenState extends State<MfaEnrollmentScreen> {
         textAlign: TextAlign.center,
         style: Theme.of(
           context,
-        ).textTheme.bodyMedium?.copyWith(color: AppColors.textSecondary),
+        ).textTheme.bodyMedium?.copyWith(color: context.colors.textSecondary),
       ),
       const SizedBox(height: 20),
       TextField(
@@ -379,20 +373,13 @@ class _MfaEnrollmentScreenState extends State<MfaEnrollmentScreen> {
       ),
       if (error != null) ...[
         const SizedBox(height: 14),
-        Text(error!, style: const TextStyle(color: AppColors.error)),
+        Text(error!, style: TextStyle(color: context.colors.error)),
       ],
       const SizedBox(height: 20),
       ElevatedButton(
         onPressed: busy ? null : _sendCode,
         child: busy
-            ? const SizedBox(
-                height: 18,
-                width: 18,
-                child: CircularProgressIndicator(
-                  strokeWidth: 2,
-                  color: Colors.white,
-                ),
-              )
+            ? const ButtonProgressIndicator()
             : const Text("Code senden"),
       ),
       const RecaptchaNotice(),
@@ -401,7 +388,7 @@ class _MfaEnrollmentScreenState extends State<MfaEnrollmentScreen> {
 
   List<Widget> _codeStep(BuildContext context) {
     return [
-      Icon(Icons.sms_rounded, size: 40, color: AppColors.primary),
+      Icon(Icons.sms_rounded, size: 40, color: context.colors.primary),
       const SizedBox(height: 12),
       Text(
         "Code bestätigen",
@@ -414,7 +401,7 @@ class _MfaEnrollmentScreenState extends State<MfaEnrollmentScreen> {
         textAlign: TextAlign.center,
         style: Theme.of(
           context,
-        ).textTheme.bodyMedium?.copyWith(color: AppColors.textSecondary),
+        ).textTheme.bodyMedium?.copyWith(color: context.colors.textSecondary),
       ),
       const SizedBox(height: 20),
       TextField(
@@ -430,20 +417,13 @@ class _MfaEnrollmentScreenState extends State<MfaEnrollmentScreen> {
       ),
       if (error != null) ...[
         const SizedBox(height: 14),
-        Text(error!, style: const TextStyle(color: AppColors.error)),
+        Text(error!, style: TextStyle(color: context.colors.error)),
       ],
       const SizedBox(height: 20),
       ElevatedButton(
         onPressed: busy ? null : _confirmCode,
         child: busy
-            ? const SizedBox(
-                height: 18,
-                width: 18,
-                child: CircularProgressIndicator(
-                  strokeWidth: 2,
-                  color: Colors.white,
-                ),
-              )
+            ? const ButtonProgressIndicator()
             : const Text("Aktivieren"),
       ),
     ];

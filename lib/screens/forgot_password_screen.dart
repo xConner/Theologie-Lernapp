@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../services/auth_service.dart';
 import '../services/auth_error_translator.dart';
 import '../theme/app_theme.dart';
+import '../widgets/button_progress_indicator.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({super.key});
@@ -91,7 +92,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     Icon(
                       Icons.lock_reset_rounded,
                       size: 40,
-                      color: AppColors.primary,
+                      color: context.colors.primary,
                     ),
 
                     const SizedBox(height: 12),
@@ -109,19 +110,19 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       "Link zum Zurücksetzen deines Passworts.",
                       textAlign: TextAlign.center,
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: AppColors.textSecondary,
+                        color: context.colors.textSecondary,
                       ),
                     ),
 
                     const SizedBox(height: 22),
 
                     if (sent) ...[
-                      const Text(
+                      Text(
                         "Falls ein Konto mit dieser E-Mail-Adresse existiert, "
                         "wurde eine E-Mail zum Zurücksetzen des Passworts "
                         "gesendet.",
                         textAlign: TextAlign.center,
-                        style: TextStyle(color: AppColors.success),
+                        style: TextStyle(color: context.colors.success),
                       ),
                     ] else ...[
                       TextField(
@@ -144,7 +145,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                         const SizedBox(height: 14),
                         Text(
                           error!,
-                          style: const TextStyle(color: AppColors.error),
+                          style: TextStyle(color: context.colors.error),
                         ),
                       ],
 
@@ -153,14 +154,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       ElevatedButton(
                         onPressed: loading ? null : _sendResetEmail,
                         child: loading
-                            ? const SizedBox(
-                                height: 18,
-                                width: 18,
-                                child: CircularProgressIndicator(
-                                  strokeWidth: 2,
-                                  color: Colors.white,
-                                ),
-                              )
+                            ? const ButtonProgressIndicator()
                             : const Text("Link senden"),
                       ),
                     ],
