@@ -8,9 +8,11 @@ import '../services/memorization/memorization_scheduler.dart';
 import '../services/memorization/text_evaluator.dart';
 import '../theme/app_theme.dart';
 
-/// Einstieg „Auswendig lernen“ aus einer bestehenden Detailansicht (Gebet,
-/// Bekenntnis). Öffnet den Text in der gewählten Sprache als Lerntext; die
-/// Detailansicht selbst bleibt unverändert.
+/// Einstieg in „Texte auswendig lernen“ aus einer bestehenden Detailansicht
+/// (Gebet, Bekenntnis). Die Schaltfläche bezieht sich auf den einen
+/// angezeigten Text und heißt deshalb nur „Auswendig lernen“. Öffnet den
+/// Text in der gewählten Sprache als Lerntext; die Detailansicht selbst
+/// bleibt unverändert.
 class MemorizeButton extends StatelessWidget {
   /// Wird erst beim Antippen gebildet (Zerlegung in Abschnitte).
   final MemorizationWork Function() work;

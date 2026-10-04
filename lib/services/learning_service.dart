@@ -65,7 +65,7 @@ class LearningService {
     return _saveCards(uid, LocalLearningStore.greekGrammar, cards);
   }
 
-  // Auswendig lernen (Abschnitte von Gebeten, Bekenntnissen …)
+  // Texte auswendig lernen (Abschnitte von Gebeten, Bekenntnissen …)
 
   Future<Map<String, MemorizationCard>> loadMemorizationCards(
     String? uid,

@@ -45,7 +45,7 @@ class TextToken {
   }
 }
 
-/// Normalisierung für den Wortvergleich beim Auswendiglernen.
+/// Normalisierung für den Wortvergleich in „Texte auswendig lernen“.
 ///
 /// Ignoriert werden Groß-/Kleinschreibung, Satzzeichen, Leerraum sowie
 /// Akzente; ä/ö/ü/ß gelten wie ae/oe/ue/ss (alte und neue Rechtschreibung,

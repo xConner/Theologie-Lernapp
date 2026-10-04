@@ -31,7 +31,7 @@ void recordStreakAnswer(
 
 SnackBar streakSnackBar(StreakTrack track, StreakUpdate update) {
   final title = update.streakStarted
-      ? "🔥 ${track.label}-Streak gestartet!"
+      ? "🔥 ${track.streakStartedMessage ?? "${track.label}-Streak gestartet!"}"
       : "🔥 Streak fortgeführt!";
 
   return SnackBar(
@@ -176,7 +176,8 @@ class StreakDetailCard extends StatelessWidget {
   final StreakTrack track;
 
   /// Heutiger Fortschritt für Tracks, deren Tagesziel sich aus dem Lernplan
-  /// ergibt (Auswendiglernen: erledigte und vorgesehene Wiederholungen).
+  /// ergibt (Texte auswendig lernen: erledigte und vorgesehene
+  /// Wiederholungen).
   /// Ohne Angabe gilt der Zähler richtiger Antworten des Tracks.
   final int? todayDone;
   final int? todayGoal;

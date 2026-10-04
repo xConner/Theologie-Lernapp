@@ -6,7 +6,8 @@ import '../../models/memorization/memorization_card.dart';
 import '../learning_service.dart';
 import '../local_learning_store.dart';
 
-/// Lernstände und „Meine Texte“ des Auswendiglernens für einen Nutzer.
+/// Lernstände und „Meine Texte“ von „Texte auswendig lernen“ für einen
+/// Nutzer.
 ///
 /// Speicherung wie bei den Trainern: angemeldet in Firestore
 /// (`users/{uid}/memorization` und das Feld `memorization_settings`),

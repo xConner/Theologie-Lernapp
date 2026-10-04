@@ -51,7 +51,7 @@ eigene Antwortprüfung, kann aber `LearningService`, `GrammarLearning`,
 Lernstand kommt eine Collection in `LocalLearningStore.cardCollections`,
 in `firestore.rules` und in `AccountDeletionService.userCollections` hinzu.
 
-## Auswendig lernen
+## Texte auswendig lernen
 
 Längere Texte (Gebete, Bekenntnisse, später z. B. Bibeltexte) werden
 abschnittsweise gelernt. Kein eigener Unterbau: Der Lernstand je Abschnitt

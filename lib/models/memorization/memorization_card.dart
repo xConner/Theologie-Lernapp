@@ -2,7 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../greek/vocabulary/learning_card.dart';
 
-/// Lernstand eines Abschnitts (oder des ganzen Textes) beim Auswendiglernen.
+/// Lernstand eines Abschnitts (oder des ganzen Textes) im Modul
+/// „Texte auswendig lernen“.
 ///
 /// Erweitert die gemeinsame [LearningCard]: `stability`, `difficulty` und
 /// `lastReviewed` werden wie in den anderen Trainern von `SpacedRepetition`

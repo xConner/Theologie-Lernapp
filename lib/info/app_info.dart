@@ -210,7 +210,7 @@ class AppModules {
 
   static const ModuleInfo memorization = ModuleInfo(
     id: "memorization",
-    title: "Auswendig lernen",
+    title: "Texte auswendig lernen",
     description:
         "Gebete und Bekenntnisse abschnittsweise auswendig lernen: vom "
         "Mitlesen über Lücken und Anfangsbuchstaben bis zum freien Aufsagen "

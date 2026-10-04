@@ -1026,7 +1026,12 @@ class _MemorizationPracticeScreenState
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Auswendig lernen"),
+        // Der Titel ist länger als der Platz neben den Aktionen auf schmalen
+        // Geräten; verkleinern statt abschneiden.
+        title: const FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Text("Texte auswendig lernen"),
+        ),
         actions: [
           InfoButton(
             module: AppModules.memorization,

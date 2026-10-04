@@ -230,10 +230,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Icon(
-                        Icons.auto_stories_rounded,
-                        size: 36,
-                        color: context.colors.primary,
+                      Image.asset(
+                        "assets/images/lutherrose.png",
+                        height: 96,
+                        filterQuality: FilterQuality.medium,
+                        semanticLabel: "Lutherrose",
                       ),
 
                       const SizedBox(height: 12),
@@ -358,7 +359,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             );
                           },
                           icon: const Icon(Icons.psychology_alt_rounded),
-                          label: const Text("Auswendig lernen"),
+                          label: const Text("Texte auswendig lernen"),
                         ),
                       ),
 

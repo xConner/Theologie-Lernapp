@@ -447,7 +447,7 @@ void main() {
       expect(streak().completedToday, isTrue);
       expect(streak().currentStreak, 1);
       expect(
-        find.text("🔥 Auswendiglernen-Streak gestartet!"),
+        find.text("🔥 Streak für „Texte auswendig lernen“ gestartet!"),
         findsOneWidget,
       );
 
@@ -470,7 +470,7 @@ void main() {
       );
       await settle();
 
-      expect(find.text("Auswendiglernen"), findsOneWidget);
+      expect(find.text("Texte auswendig lernen"), findsOneWidget);
       expect(find.text("1 Tag"), findsOneWidget);
       expect(find.byIcon(Icons.check_rounded), findsOneWidget);
     });

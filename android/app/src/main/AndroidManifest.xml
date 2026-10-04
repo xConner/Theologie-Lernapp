@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- Auswendig lernen: Aufsagen mit der Spracherkennung des Geräts.
+    <!-- Texte auswendig lernen: Aufsagen mit der Spracherkennung des Geräts.
          Die App speichert keine Aufnahmen. -->
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
     <application

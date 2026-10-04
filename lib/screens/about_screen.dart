@@ -183,6 +183,14 @@ class AboutScreen extends StatelessWidget {
                 ),
               ]),
 
+              _section(context, "Bildnachweis", [
+                _paragraph(
+                  "Lutherrose auf der Startseite: Datei „Lutherrose.svg“ von "
+                  "Wikimedia-Commons-Nutzer „Jed“, Lizenz CC BY-SA 3.0. "
+                  "Unverändert als PNG übernommen.",
+                ),
+              ]),
+
               _section(context, "Rechtliches", [
                 Card(
                   margin: EdgeInsets.zero,

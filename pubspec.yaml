@@ -82,6 +82,7 @@ flutter:
       - assets/eg_lieder.json
       - assets/confessions.json
       - assets/prayers.json
+      - assets/images/lutherrose.png
       - assets/sounds/correct.wav
       - assets/sounds/incorrect.wav
 

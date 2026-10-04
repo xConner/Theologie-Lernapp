@@ -12,7 +12,7 @@ rules_version = '2';
 //   users/{uid}/learning_cards/{cardId}
 //   users/{uid}/latin_vocabulary/{cardId}
 //   users/{uid}/grammar/{grammarId}
-//   users/{uid}/memorization/{cardId}           (Auswendig lernen: Lernstand je Abschnitt)
+//   users/{uid}/memorization/{cardId}           (Texte auswendig lernen: Lernstand je Abschnitt)
 //   users/{uid}/pericope_overrides/config
 //   users/{uid}/streaks/{trackId}
 //   users/{uid}/statistics/{trainerId}          (Tagesstatistik je Trainer)

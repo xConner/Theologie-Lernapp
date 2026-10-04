@@ -4,7 +4,7 @@ import 'memorization_catalog.dart';
 import 'memorization_repository.dart';
 import 'memorization_scheduler.dart';
 
-/// Tagesziel des Auswendiglernens für die Streak: Stand der heutigen
+/// Tagesziel von „Texte auswendig lernen“ für die Streak: Stand der heutigen
 /// Wiederholungen über alle aktiven Texte in „Meine Texte“.
 ///
 /// Liest nur den bestehenden Plan ([MemorizationScheduler.planFor]) und die

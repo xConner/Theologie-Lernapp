@@ -16,7 +16,7 @@ import '../../widgets/streak_widgets.dart';
 import 'memorization_practice_screen.dart';
 import 'memorization_text_screen.dart';
 
-/// Zentrales Menü „Auswendig lernen“: was heute zur Wiederholung ansteht
+/// Zentrales Menü „Texte auswendig lernen“: was heute zur Wiederholung ansteht
 /// und die eigenen Lerntexte.
 class MemorizationHomeScreen extends StatefulWidget {
   /// Für Tests austauschbar.
@@ -369,7 +369,12 @@ class _MemorizationHomeScreenState extends State<MemorizationHomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Auswendig lernen"),
+        // Der Titel ist länger als der Platz neben den Aktionen auf schmalen
+        // Geräten; verkleinern statt abschneiden.
+        title: const FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Text("Texte auswendig lernen"),
+        ),
         actions: const [
           InfoButton(module: AppModules.memorization),
           SettingsButton(),

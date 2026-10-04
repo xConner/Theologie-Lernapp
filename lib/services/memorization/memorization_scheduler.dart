@@ -155,7 +155,7 @@ class TextPlan {
   int get segmentCount => newSegments + reviewSegments;
 }
 
-/// Planung und Bewertung beim Auswendiglernen – reine Logik ohne UI und
+/// Planung und Bewertung für „Texte auswendig lernen“ – reine Logik ohne UI und
 /// Speicherzugriff.
 ///
 /// Die Wiederholungsabstände führt die gemeinsame [SpacedRepetition]

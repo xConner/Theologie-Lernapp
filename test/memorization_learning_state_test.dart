@@ -11,7 +11,7 @@ import 'package:theologie_lernapp/services/memorization/memorization_session.dar
 import 'package:theologie_lernapp/services/memorization/text_evaluator.dart';
 import 'package:theologie_lernapp/widgets/memorization_widgets.dart';
 
-/// Lernzustand beim Auswendiglernen: kurzfristiger Übungsstand und
+/// Lernzustand in „Texte auswendig lernen“: kurzfristiger Übungsstand und
 /// langfristiger Wiederholungsabstand, über alle Lernwege hinweg.
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();

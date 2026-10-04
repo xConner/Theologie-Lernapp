@@ -27,7 +27,7 @@ Der Quellcode ist öffentlich, damit Inhalte und Lernlogik überprüfbar sind un
 | **Perikopenquiz** | Zu einem Perikopentitel die passende Bibelstelle nennen | Stellen und Titel prüfen, Herkunft der Liste dokumentieren |
 | **Altgriechisch** | Vokabeltrainer, Grammatiktrainer (Formen bestimmen), Grammatikübersichten, griechische Bildschirmtastatur | Vokabeln und Formen prüfen, falsche Bestimmungen melden |
 | **Latein** | Vokabeltrainer mit Zusatzformen und Genus | Vokabeln prüfen und ergänzen, Ideen für einen Grammatiktrainer |
-| **Auswendig lernen** | Gebete und Bekenntnisse abschnittsweise lernen: Mitlesen, Lücken, Anfangsbuchstaben, freies Aufsagen oder Schreiben | Lernablauf testen, Abschnittseinteilung prüfen, weitere Texte vorschlagen |
+| **Texte auswendig lernen** | Gebete und Bekenntnisse abschnittsweise lernen: Mitlesen, Lücken, Anfangsbuchstaben, freies Aufsagen oder Schreiben | Lernablauf testen, Abschnittseinteilung prüfen, weitere Texte vorschlagen |
 | **Gebete & Bekenntnisse** | Texte in mehreren Sprachfassungen zum Nachlesen | Texte, Übersetzungen und Quellenangaben prüfen |
 | **Liturgischer Kalender** | Sonn- und Feiertage mit Farbe, Wochenspruch, Lesungen und Predigttext (bisher nur ein Teil von 2026) | Daten ergänzen und kontrollieren |
 | **Evangelisches Gesangbuch** | Lieder nach EG-Nummer, mit Suche | Angaben prüfen, Schlagworte und Bibelstellen ergänzen |
