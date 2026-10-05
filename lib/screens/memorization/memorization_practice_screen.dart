@@ -604,17 +604,54 @@ class _MemorizationPracticeScreenState
               "Mikrofon.";
         }
       });
-    } catch (_) {
+    } catch (error) {
+      // Für die Fehlersuche (Browser-Konsole bzw. Log).
+      debugPrint("Spracherkennung: $error");
+
       if (!current()) return;
 
       setState(() {
         _listening = false;
         _partial = "";
-        _speechProblem =
-            "Die Spracherkennung wurde unterbrochen. Prüfe die "
-            "Mikrofon-Freigabe und versuche es erneut.";
+        _speechProblem = _describeSpeechError(error);
       });
     }
+  }
+
+  String _describeSpeechError(Object error) {
+    if (error is! SpeechRecognitionException) {
+      return "Die Spracherkennung wurde unterbrochen. Prüfe die "
+          "Mikrofon-Freigabe und versuche es erneut.";
+    }
+
+    final String message;
+
+    switch (error.failure) {
+      case SpeechFailure.microphonePermission:
+        return "Das Mikrofon ist für diese App nicht freigegeben. Erlaube "
+            "den Zugriff in den Einstellungen des Browsers bzw. des Geräts "
+            "und versuche es erneut.";
+      case SpeechFailure.microphone:
+        message =
+            "Das Mikrofon konnte nicht gestartet werden. Prüfe, ob eines "
+            "angeschlossen ist und nicht von einem anderen Programm "
+            "verwendet wird.";
+      case SpeechFailure.recognition:
+        message =
+            "Die Aufnahme konnte nicht ausgewertet werden. Versuche es "
+            "erneut; hilft das nicht, lade die Seite bzw. starte die App "
+            "neu.";
+    }
+
+    final cause = error.cause;
+
+    if (cause == null) return message;
+
+    // Kurz halten: Der Hinweis dient nur einer Fehlermeldung an uns.
+    final detail = "$cause".replaceAll(RegExp(r"\s+"), " ").trim();
+
+    return "$message\n(Technischer Hinweis: "
+        "${detail.length > 160 ? "${detail.substring(0, 160)}…" : detail})";
   }
 
   void _stopListening() {

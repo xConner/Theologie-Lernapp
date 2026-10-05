@@ -20,10 +20,18 @@ class FakeCapture implements PcmAudioCapture {
   bool permission;
   int rate;
 
+  /// Fehler beim Starten der Aufnahme (z. B. Mikrofon belegt).
+  Object? startError;
+
   bool stopped = false;
   StreamController<Uint8List>? _controller;
 
-  FakeCapture(this.pcm, {this.permission = true, this.rate = 16000});
+  FakeCapture(
+    this.pcm, {
+    this.permission = true,
+    this.rate = 16000,
+    this.startError,
+  });
 
   @override
   int get sampleRate => rate;
@@ -34,6 +42,8 @@ class FakeCapture implements PcmAudioCapture {
   @override
   Future<Stream<Uint8List>> start({required int sampleRate}) async {
     stopped = false;
+
+    if (startError != null) throw startError!;
 
     final controller = _controller = StreamController<Uint8List>();
 
@@ -60,10 +70,13 @@ class FakeTranscriber implements LatinTranscriber {
   final String text;
   final bool supported;
 
+  /// Fehler bei der Erkennung (z. B. Modell abgestürzt).
+  final Object? error;
+
   final List<int> lengths = [];
   int prepared = 0;
 
-  FakeTranscriber(this.text, {this.supported = true});
+  FakeTranscriber(this.text, {this.supported = true, this.error});
 
   @override
   bool get isSupported => supported;
@@ -80,6 +93,8 @@ class FakeTranscriber implements LatinTranscriber {
   @override
   Future<String> transcribe(Float32List samples) async {
     lengths.add(samples.length);
+
+    if (error != null) throw error!;
 
     return text;
   }
@@ -250,7 +265,16 @@ void main() {
         capture: FakeCapture(tone(1), permission: false),
       );
 
-      await expectLater(denied.listen(languageCode: "la"), throwsStateError);
+      await expectLater(
+        denied.listen(languageCode: "la"),
+        throwsA(
+          isA<SpeechRecognitionException>().having(
+            (e) => e.failure,
+            "failure",
+            SpeechFailure.microphonePermission,
+          ),
+        ),
+      );
 
       final service = LatinSpeechRecognitionService(
         transcriber: FakeTranscriber("credo"),
@@ -258,6 +282,59 @@ void main() {
       );
 
       await expectLater(service.listen(languageCode: "de"), throwsStateError);
+    });
+
+    test("Fehler nennen ihre Ursache: Mikrofon oder Erkennung", () async {
+      Matcher fails(SpeechFailure failure, Object cause) => throwsA(
+        isA<SpeechRecognitionException>()
+            .having((e) => e.failure, "failure", failure)
+            .having((e) => e.cause, "cause", cause),
+      );
+
+      // Das Mikrofon lässt sich nicht starten.
+      final busy = StateError("NotReadableError");
+      final blocked = LatinSpeechRecognitionService(
+        transcriber: FakeTranscriber("credo"),
+        capture: FakeCapture(tone(1), startError: busy),
+      );
+
+      await expectLater(
+        blocked.listen(languageCode: "la"),
+        fails(SpeechFailure.microphone, busy),
+      );
+      expect(blocked.isListening, isFalse);
+
+      // Die Aufnahme liegt vor, das Modell scheitert.
+      final crash = StateError("out of memory");
+      final service = LatinSpeechRecognitionService(
+        transcriber: FakeTranscriber("credo", error: crash),
+        capture: FakeCapture(tone(1)),
+      );
+
+      final result = service.listen(languageCode: "la");
+      final expectation = expectLater(
+        result,
+        fails(SpeechFailure.recognition, crash),
+      );
+
+      await pumpEventQueue();
+      await service.stop();
+      await expectation;
+
+      expect(service.isListening, isFalse);
+      expect(service.isProcessing.value, isFalse);
+
+      // Danach kann erneut zugehört werden.
+      final again = LatinSpeechRecognitionService(
+        transcriber: FakeTranscriber("credo"),
+        capture: FakeCapture(tone(1)),
+      );
+      final retry = again.listen(languageCode: "la");
+
+      await pumpEventQueue();
+      await again.stop();
+
+      expect(await retry, "credo");
     });
 
     test("lange Aufnahmen werden in Sprechpausen geteilt", () {

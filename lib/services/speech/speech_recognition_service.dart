@@ -1,6 +1,7 @@
 import 'dart:async';
 
-import 'package:flutter/foundation.dart' show ValueListenable, visibleForTesting;
+import 'package:flutter/foundation.dart'
+    show ValueListenable, visibleForTesting;
 import 'package:speech_to_text/speech_recognition_error.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
@@ -40,6 +41,34 @@ abstract class SpeechRecognitionService {
   Future<void> cancel();
 
   bool get isListening;
+}
+
+/// Woran ein Zuhören gescheitert ist.
+enum SpeechFailure {
+  /// Das Mikrofon wurde nicht freigegeben.
+  microphonePermission,
+
+  /// Das Mikrofon ließ sich nicht starten oder lieferte keine Daten.
+  microphone,
+
+  /// Die Aufnahme konnte nicht in Text umgewandelt werden.
+  recognition,
+}
+
+/// Fehler beim Zuhören mit benennbarer Ursache. Dienste, die die Ursache
+/// kennen, melden sie so; die Oberfläche kann dann gezielt weiterhelfen.
+class SpeechRecognitionException implements Exception {
+  final SpeechFailure failure;
+
+  /// Der auslösende Fehler der Plattform, falls es einen gibt.
+  final Object? cause;
+
+  const SpeechRecognitionException(this.failure, [this.cause]);
+
+  @override
+  String toString() =>
+      "SpeechRecognitionException(${failure.name}"
+      "${cause == null ? "" : ": $cause"})";
 }
 
 /// Zusatz für Erkennungen, die statt des Plattformdienstes ein eigenes

@@ -88,8 +88,18 @@ class LatinSpeechRecognitionService
       throw StateError("speech-language-unsupported");
     }
 
-    if (!await _capture.requestPermission()) {
-      throw StateError("speech-unavailable");
+    final bool permitted;
+
+    try {
+      permitted = await _capture.requestPermission();
+    } catch (error) {
+      throw SpeechRecognitionException(SpeechFailure.microphone, error);
+    }
+
+    if (!permitted) {
+      throw const SpeechRecognitionException(
+        SpeechFailure.microphonePermission,
+      );
     }
 
     // Ein laufendes Zuhören zuerst sauber beenden.
@@ -115,13 +125,19 @@ class LatinSpeechRecognitionService
 
           if (session.bytes.length >= limit) stop();
         },
-        onError: (Object error) => _fail(session, error),
+        onError: (Object error) => _fail(
+          session,
+          SpeechRecognitionException(SpeechFailure.microphone, error),
+        ),
         onDone: () {
           if (!session.closed.isCompleted) session.closed.complete();
         },
       );
     } catch (error) {
-      _fail(session, error);
+      _fail(
+        session,
+        SpeechRecognitionException(SpeechFailure.microphone, error),
+      );
     }
 
     return session.result.future;
@@ -134,6 +150,10 @@ class LatinSpeechRecognitionService
     if (session == null || session.stopping) return;
 
     session.stopping = true;
+
+    // Bis die Aufnahme vollständig vorliegt, liegt ein Fehler am Mikrofon,
+    // danach an der Erkennung.
+    var failure = SpeechFailure.microphone;
 
     try {
       await _capture.stop();
@@ -158,12 +178,13 @@ class LatinSpeechRecognitionService
       }
 
       _processing.value = true;
+      failure = SpeechFailure.recognition;
 
       final text = await _transcriber.transcribe(samples);
 
       _finish(session, text.trim());
     } catch (error) {
-      _fail(session, error);
+      _fail(session, SpeechRecognitionException(failure, error));
     } finally {
       if (_session == null) _processing.value = false;
     }

@@ -73,9 +73,13 @@ class FakeSpeech implements SpeechRecognitionService {
 
 /// Erkennung mit eigenem Sprachmodell (wie Latein): Das Modell muss erst
 /// geladen werden, das Zuhören endet erst mit [stop].
-class FakeLocalSpeech implements SpeechRecognitionService, LocalModelSpeechRecognition {
+class FakeLocalSpeech
+    implements SpeechRecognitionService, LocalModelSpeechRecognition {
   final String transcript;
   final bool failPrepare;
+
+  /// Fehler, mit dem das Zuhören endet.
+  final Object? listenError;
 
   int pendingBytes;
   int prepared = 0;
@@ -89,6 +93,7 @@ class FakeLocalSpeech implements SpeechRecognitionService, LocalModelSpeechRecog
     this.transcript, {
     this.pendingBytes = 375 * 1000 * 1000,
     this.failPrepare = false,
+    this.listenError,
   });
 
   @override
@@ -131,6 +136,8 @@ class FakeLocalSpeech implements SpeechRecognitionService, LocalModelSpeechRecog
   }) {
     listens++;
 
+    if (listenError != null) return Future.error(listenError!);
+
     return (_listening = Completer<String>()).future;
   }
 
@@ -165,8 +172,8 @@ void main() {
   MemorizationRepository? created;
 
   MemorizationRepository ensureRepository() {
-    return MemorizationRepository.debugOverride =
-        created ??= MemorizationRepository(null);
+    return MemorizationRepository.debugOverride = created ??=
+        MemorizationRepository(null);
   }
 
   setUpAll(() async {
@@ -199,10 +206,13 @@ void main() {
     var done = false;
     Object? failure;
 
-    future.then((_) => done = true, onError: (Object e) {
-      failure = e;
-      done = true;
-    });
+    future.then(
+      (_) => done = true,
+      onError: (Object e) {
+        failure = e;
+        done = true;
+      },
+    );
 
     for (var i = 0; i < 100 && !done; i++) {
       await tester.pump();
@@ -370,12 +380,14 @@ void main() {
       await drive(
         tester,
         ensureRepository().saveCards([
-          MemorizationScheduler().apply(
-            unit: PracticeUnit.segment(vaterunser(), 0, HintLevel.free),
-            practiced: HintLevel.free,
-            outcome: RecallOutcome.correct,
-            cards: ensureRepository().cards,
-          ).single,
+          MemorizationScheduler()
+              .apply(
+                unit: PracticeUnit.segment(vaterunser(), 0, HintLevel.free),
+                practiced: HintLevel.free,
+                outcome: RecallOutcome.correct,
+                cards: ensureRepository().cards,
+              )
+              .single,
         ]),
       );
 
@@ -424,8 +436,8 @@ void main() {
       // Die fehlenden Wörter sind die, die im Lückentext nicht mehr stehen.
       final shown = prompt.replaceAll(RegExp(r"[,.\n]"), " ").split(" ");
       final missing = [
-        for (final word in "Dein Wille geschehe wie im Himmel so auf Erden"
-            .split(" "))
+        for (final word
+            in "Dein Wille geschehe wie im Himmel so auf Erden".split(" "))
           if (!shown.contains(word)) word,
       ];
 
@@ -474,7 +486,10 @@ void main() {
     testWidgets("Sprechen: Hinweis, Transkript, lokaler Vergleich", (
       tester,
     ) async {
-      final speech = FakeSpeech(["dein Wille geschehe", "wie im Himmel auf Erden"]);
+      final speech = FakeSpeech([
+        "dein Wille geschehe",
+        "wie im Himmel auf Erden",
+      ]);
 
       await pumpPractice(tester, [
         PracticeUnit.segment(vaterunser(), 3, HintLevel.free),
@@ -679,8 +694,69 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(speech.listens, 0);
-      expect(find.textContaining("konnte nicht geladen werden"), findsOneWidget);
+      expect(
+        find.textContaining("konnte nicht geladen werden"),
+        findsOneWidget,
+      );
       expect(tester.takeException(), isNull);
+    });
+
+    testWidgets("Sprechen: Latein – Fehler nennen die Ursache", (tester) async {
+      SharedPreferences.setMockInitialValues({
+        "memorization.speechNoticeAccepted": true,
+      });
+
+      const cases = {
+        SpeechRecognitionException(SpeechFailure.microphonePermission):
+            "nicht freigegeben",
+        SpeechRecognitionException(
+          SpeechFailure.microphone,
+          "NotReadableError: Could not start audio source",
+        ): "Mikrofon konnte nicht gestartet werden",
+        SpeechRecognitionException(SpeechFailure.recognition, "worker failed"):
+            "konnte nicht ausgewertet werden",
+      };
+
+      for (final entry in cases.entries) {
+        final speech = FakeLocalSpeech(
+          "",
+          pendingBytes: 0,
+          listenError: entry.key,
+        );
+
+        await pumpPractice(tester, [
+          PracticeUnit.segment(
+            catalog.text("prayer.vaterunser.la")!,
+            0,
+            HintLevel.free,
+          ),
+        ], speech: speech);
+
+        await tester.tap(find.text("Sprechen"));
+        await tester.pumpAndSettle();
+        await tapVisible(tester, find.byKey(const Key("memorize_mic")));
+
+        expect(find.textContaining(entry.value), findsOneWidget);
+
+        // Die Ursache der Plattform steht dabei, das Mikrofon bleibt bedienbar.
+        final cause = entry.key.cause;
+
+        if (cause != null) {
+          expect(find.textContaining("$cause"), findsOneWidget);
+        }
+
+        expect(find.textContaining("Ich höre zu"), findsNothing);
+        expect(
+          tester
+              .widget<IconButton>(find.byKey(const Key("memorize_mic")))
+              .onPressed,
+          isNotNull,
+        );
+        expect(tester.takeException(), isNull);
+
+        // Nächster Fall mit frischem Bildschirm.
+        await tester.pumpWidget(const SizedBox());
+      }
     });
 
     testWidgets("Sprechen: Latein, exaktes Transkript", (tester) async {
@@ -728,7 +804,10 @@ void main() {
       await tapVisible(tester, find.byKey(const Key("memorize_knew")));
 
       expect(find.byKey(const Key("memorize_summary")), findsOneWidget);
-      expect(ensureRepository().cards[vaterunser().segments[2].id]!.learned, isTrue);
+      expect(
+        ensureRepository().cards[vaterunser().segments[2].id]!.learned,
+        isTrue,
+      );
     });
 
     testWidgets("schmale Bildschirme: kein Überlauf", (tester) async {
