@@ -2,6 +2,9 @@
     <!-- Texte auswendig lernen: Aufsagen mit der Spracherkennung des Geräts.
          Die App speichert keine Aufnahmen. -->
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <!-- Anmeldung und Lernstände; außerdem das einmalige Laden des
+         Sprachmodells für Latein. -->
+    <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:label="theologie_lernapp"
         android:name="${applicationName}"

@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -29,6 +32,7 @@ class FakeSpeech implements SpeechRecognitionService {
 
   int listens = 0;
   bool cancelled = false;
+  String? lastLanguage;
 
   FakeSpeech(
     this.transcripts, {
@@ -51,6 +55,8 @@ class FakeSpeech implements SpeechRecognitionService {
     required String languageCode,
     void Function(String text)? onPartial,
   }) async {
+    lastLanguage = languageCode;
+
     final text = transcripts[listens++];
     onPartial?.call(text);
     return text;
@@ -62,6 +68,88 @@ class FakeSpeech implements SpeechRecognitionService {
   @override
   Future<void> cancel() async {
     cancelled = true;
+  }
+}
+
+/// Erkennung mit eigenem Sprachmodell (wie Latein): Das Modell muss erst
+/// geladen werden, das Zuhören endet erst mit [stop].
+class FakeLocalSpeech implements SpeechRecognitionService, LocalModelSpeechRecognition {
+  final String transcript;
+  final bool failPrepare;
+
+  int pendingBytes;
+  int prepared = 0;
+  int listens = 0;
+
+  Completer<String>? _listening;
+
+  final ValueNotifier<bool> _processing = ValueNotifier(false);
+
+  FakeLocalSpeech(
+    this.transcript, {
+    this.pendingBytes = 375 * 1000 * 1000,
+    this.failPrepare = false,
+  });
+
+  @override
+  bool get isListening => _listening != null;
+
+  @override
+  ValueListenable<bool> get isProcessing => _processing;
+
+  @override
+  Future<bool> initialize() async => true;
+
+  @override
+  bool usesLocalModel(String languageCode) => languageCode == "la";
+
+  @override
+  Future<bool> supportsLanguage(String languageCode) async =>
+      languageCode == "la";
+
+  @override
+  Future<int> pendingDownloadBytes(String languageCode) async => pendingBytes;
+
+  @override
+  Future<void> prepareModel(
+    String languageCode, {
+    void Function(double fraction)? onProgress,
+  }) async {
+    if (failPrepare) throw StateError("latin-speech-model");
+
+    onProgress?.call(0.5);
+    onProgress?.call(1);
+
+    prepared++;
+    pendingBytes = 0;
+  }
+
+  @override
+  Future<String> listen({
+    required String languageCode,
+    void Function(String text)? onPartial,
+  }) {
+    listens++;
+
+    return (_listening = Completer<String>()).future;
+  }
+
+  @override
+  Future<void> stop() async {
+    _processing.value = true;
+    _processing.value = false;
+
+    _listening?.complete(transcript);
+    _listening = null;
+  }
+
+  @override
+  Future<void> cancel() async {
+    final listening = _listening;
+
+    _listening = null;
+
+    if (listening != null && !listening.isCompleted) listening.complete("");
   }
 }
 
@@ -449,7 +537,9 @@ void main() {
       expect(find.textContaining("nicht verfügbar"), findsOneWidget);
     });
 
-    testWidgets("Sprechen: Sprache ohne Erkennung (Latein)", (tester) async {
+    testWidgets("Sprechen: Dienst ohne Erkennung für die Sprache", (
+      tester,
+    ) async {
       SharedPreferences.setMockInitialValues({
         "memorization.speechNoticeAccepted": true,
       });
@@ -467,6 +557,159 @@ void main() {
       await tapVisible(tester, find.byKey(const Key("memorize_mic")));
 
       expect(find.textContaining("Für Latein"), findsOneWidget);
+      expect(find.byKey(const Key("memorize_transcript")), findsNothing);
+      expect(tester.takeException(), isNull);
+    });
+
+    testWidgets("Sprechen: Latein mit eigenem Modell – Laden, Zuhören, "
+        "lautlicher Abgleich", (tester) async {
+      SharedPreferences.setMockInitialValues({
+        "memorization.speechNoticeAccepted": true,
+      });
+
+      final text = catalog.text("prayer.vaterunser.la")!;
+
+      // So schreibt das Modell nach Gehör.
+      final speech = FakeLocalSpeech("Pater noster kui es in chelis");
+
+      await pumpPractice(tester, [
+        PracticeUnit.segment(text, 0, HintLevel.free),
+      ], speech: speech);
+
+      await tester.tap(find.text("Sprechen"));
+      await tester.pumpAndSettle();
+      await tapVisible(tester, find.byKey(const Key("memorize_mic")));
+
+      // Vor dem einmaligen Herunterladen wird gefragt.
+      expect(find.text("Sprachmodell für Latein laden"), findsOneWidget);
+      expect(find.textContaining("375 MB"), findsOneWidget);
+      expect(speech.prepared, 0);
+
+      await tester.tap(find.byKey(const Key("memorize_model_download")));
+      await tester.pumpAndSettle();
+
+      // Nach dem Herunterladen wird nicht unvermittelt zugehört.
+      expect(speech.prepared, 1);
+      expect(speech.listens, 0);
+      expect(find.byKey(const Key("memorize_speech_progress")), findsNothing);
+
+      await tapVisible(tester, find.byKey(const Key("memorize_mic")));
+
+      expect(speech.listens, 1);
+      expect(find.textContaining("Tippe auf Stopp"), findsOneWidget);
+      expect(find.text("Sprachmodell für Latein laden"), findsNothing);
+
+      await tapVisible(tester, find.byKey(const Key("memorize_mic")));
+
+      // Angezeigt wird, was erkannt wurde.
+      expect(
+        tester.widget<Text>(find.byKey(const Key("memorize_transcript"))).data,
+        "Pater noster kui es in chelis",
+      );
+
+      await tapVisible(tester, find.byKey(const Key("memorize_check")));
+
+      expect(find.text("Wortgetreu"), findsOneWidget);
+    });
+
+    testWidgets("Sprechen: Latein – falsches Wort bleibt eine Abweichung", (
+      tester,
+    ) async {
+      SharedPreferences.setMockInitialValues({
+        "memorization.speechNoticeAccepted": true,
+      });
+
+      final speech = FakeLocalSpeech(
+        "Mater noster kui es in chelis",
+        pendingBytes: 0,
+      );
+
+      await pumpPractice(tester, [
+        PracticeUnit.segment(
+          catalog.text("prayer.vaterunser.la")!,
+          0,
+          HintLevel.free,
+        ),
+      ], speech: speech);
+
+      await tester.tap(find.text("Sprechen"));
+      await tester.pumpAndSettle();
+
+      // Modell liegt vor: keine Rückfrage, es wird sofort zugehört.
+      await tapVisible(tester, find.byKey(const Key("memorize_mic")));
+      expect(find.text("Sprachmodell für Latein laden"), findsNothing);
+      expect(speech.listens, 1);
+
+      await tapVisible(tester, find.byKey(const Key("memorize_mic")));
+      await tapVisible(tester, find.byKey(const Key("memorize_check")));
+
+      expect(find.text("Wortgetreu"), findsNothing);
+      expect(find.text("Anderes Wort: „Mater“ statt „Pater“"), findsOneWidget);
+    });
+
+    testWidgets("Sprechen: Latein – Download abgelehnt oder fehlgeschlagen", (
+      tester,
+    ) async {
+      SharedPreferences.setMockInitialValues({
+        "memorization.speechNoticeAccepted": true,
+      });
+
+      final speech = FakeLocalSpeech("", failPrepare: true);
+
+      await pumpPractice(tester, [
+        PracticeUnit.segment(
+          catalog.text("prayer.vaterunser.la")!,
+          0,
+          HintLevel.free,
+        ),
+      ], speech: speech);
+
+      await tester.tap(find.text("Sprechen"));
+      await tester.pumpAndSettle();
+
+      await tapVisible(tester, find.byKey(const Key("memorize_mic")));
+      await tester.tap(find.text("Abbrechen"));
+      await tester.pumpAndSettle();
+
+      expect(speech.listens, 0);
+      expect(find.byKey(const Key("memorize_mic")), findsOneWidget);
+
+      await tapVisible(tester, find.byKey(const Key("memorize_mic")));
+      await tester.tap(find.byKey(const Key("memorize_model_download")));
+      await tester.pumpAndSettle();
+
+      expect(speech.listens, 0);
+      expect(find.textContaining("konnte nicht geladen werden"), findsOneWidget);
+      expect(tester.takeException(), isNull);
+    });
+
+    testWidgets("Sprechen: Latein, exaktes Transkript", (tester) async {
+      SharedPreferences.setMockInitialValues({
+        "memorization.speechNoticeAccepted": true,
+      });
+
+      final text = catalog.text("prayer.vaterunser.la")!;
+
+      // So, wie eine Erkennung es liefert: klein, ohne Satzzeichen.
+      final speech = FakeSpeech(
+        [text.segments[0].text.toLowerCase().replaceAll(RegExp(r"[,.:;]"), "")],
+        languages: const {"de", "en", "la"},
+      );
+
+      await pumpPractice(tester, [
+        PracticeUnit.segment(text, 0, HintLevel.free),
+      ], speech: speech);
+
+      await tester.tap(find.text("Sprechen"));
+      await tester.pumpAndSettle();
+      await tapVisible(tester, find.byKey(const Key("memorize_mic")));
+
+      expect(speech.lastLanguage, "la");
+      expect(find.textContaining("Für Latein"), findsNothing);
+
+      await tapVisible(tester, find.byKey(const Key("memorize_check")));
+
+      expect(find.text("Wortgetreu"), findsOneWidget);
     });
 
     testWidgets("Im Kopf: aufdecken und selbst einschätzen", (tester) async {

@@ -4,11 +4,13 @@
 
 list(APPEND FLUTTER_PLUGIN_LIST
   audioplayers_linux
+  record_linux
   url_launcher_linux
 )
 
 list(APPEND FLUTTER_FFI_PLUGIN_LIST
   jni
+  sherpa_onnx_linux
 )
 
 set(PLUGIN_BUNDLED_LIBRARIES)

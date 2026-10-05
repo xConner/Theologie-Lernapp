@@ -71,6 +71,9 @@ ist eine `MemorizationCard` (erweitert `LearningCard`), gespeichert über
 | Ablauf einer Lernrunde (Verbinden, Wiederholen) | `services/memorization/memorization_session.dart` |
 | Lernstände und „Meine Texte“ (Konto/Gast) | `services/memorization/memorization_repository.dart` |
 | Spracherkennung (austauschbar) | `services/speech/speech_recognition_service.dart` |
+| Wahl der Erkennung je Sprache (Latein → eigenes Modell) | `services/speech/routing_speech_recognition_service.dart` |
+| Lateinische Erkennung auf dem Gerät (Aufnahme, Whisper) | `services/speech/latin/`, im Web zusätzlich `web/latin_stt/` |
+| Lautlicher Abgleich lateinischer Transkripte (lokal, ohne KI) | `services/memorization/latin_speech_matcher.dart` |
 | Screens | `screens/memorization/` |
 
 Jede Sprachfassung ist ein eigener Lerntext (`prayer.vaterunser.de`,
@@ -81,6 +84,16 @@ Die Spracherkennung liefert ausschließlich ein Transkript; bewertet wird
 lokal durch `MemorizationTextEvaluator`. Ob die Erkennung selbst auf dem
 Gerät oder bei einem Dienst des Betriebssystems/Browsers läuft, hängt von
 der Plattform ab – die App speichert keine Audioaufnahmen.
+
+Latein erkennt kein Plattformdienst. Dafür nimmt die App selbst auf
+(Paket `record`) und wandelt die Aufnahme mit Whisper „small“ auf dem Gerät
+in Text um: nativ über `sherpa_onnx`, im Web über Transformers.js in einem
+Web Worker. Das Modell wird beim ersten Gebrauch nach Rückfrage von
+huggingface.co geladen (nativ ca. 375 MB, Web ca. 250 MB); die Aufnahme
+bleibt im Arbeitsspeicher und verlässt das Gerät nicht. Weil Whisper Latein
+nach Gehör schreibt, gleicht `LatinSpeechMatcher` das Transkript vor dem
+Wortvergleich lautlich mit dem Lerntext ab. Im Web braucht die Aufnahme
+`microphone=(self)` in der `Permissions-Policy` (`vercel.json`).
 
 ## Themes und Erscheinungsbild
 

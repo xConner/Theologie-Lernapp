@@ -20,8 +20,7 @@ import '../../services/streak/streak_track.dart';
 import '../../services/statistics/learning_statistics.dart';
 import '../../widgets/statistics_widgets.dart';
 
-import 'package:web/web.dart' as web;
-import 'dart:js_interop';
+import '../../utils/window_enter_listener.dart';
 import '../../widgets/settings_access.dart';
 import '../../widgets/settings_selection.dart';
 import '../../utils/word_type_labels.dart';
@@ -45,7 +44,7 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
 
   final LearningSelector selector = LearningSelector();
 
-  late final web.EventListener _keyListener;
+  late final WindowEnterListener _keyListener;
   final FocusNode translationFocusNode = FocusNode();
   Map<String, LearningCard> cards = {};
 
@@ -102,29 +101,23 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
   void initState() {
     super.initState();
     load();
-    _keyListener = ((web.Event event) {
-      final keyboardEvent = event as web.KeyboardEvent;
-
+    _keyListener = WindowEnterListener(() {
       // Enter gehört einem geöffneten Info-Blatt bzw. Meldeformular.
-      if (infoReportOverlayOpen) return;
+      if (infoReportOverlayOpen) return false;
 
-      if (keyboardEvent.key == 'Enter') {
-        if (answered) {
-          nextQuestion();
-        } else {
-          check();
-        }
-
-        keyboardEvent.preventDefault();
+      if (answered) {
+        nextQuestion();
+      } else {
+        check();
       }
-    }).toJS;
 
-    web.window.addEventListener('keydown', _keyListener);
+      return true;
+    });
   }
 
   @override
   void dispose() {
-    web.window.removeEventListener('keydown', _keyListener);
+    _keyListener.dispose();
     translationFocusNode.dispose();
     translationController.dispose();
     articleController.dispose();

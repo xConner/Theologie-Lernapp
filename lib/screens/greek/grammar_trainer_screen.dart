@@ -24,8 +24,7 @@ import '../../services/streak/streak_track.dart';
 import '../../services/statistics/learning_statistics.dart';
 import '../../widgets/statistics_widgets.dart';
 
-import 'package:web/web.dart' as web;
-import 'dart:js_interop';
+import '../../utils/window_enter_listener.dart';
 import '../../widgets/settings_access.dart';
 import '../../widgets/settings_selection.dart';
 import '../../info/app_info.dart';
@@ -59,7 +58,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
   // Lernstand je grammatischer Bestimmung und Grundform.
   late GrammarLearning grammar = GrammarLearning(random: _random);
 
-  late final web.EventListener _keyListener;
+  late final WindowEnterListener _keyListener;
 
   List<GreekVocabularyEntry> entries = [];
 
@@ -183,29 +182,23 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
 
     load();
 
-    _keyListener = ((web.Event event) {
-      final keyboardEvent = event as web.KeyboardEvent;
-
+    _keyListener = WindowEnterListener(() {
       // Enter gehört einem geöffneten Info-Blatt bzw. Meldeformular.
-      if (infoReportOverlayOpen || _pronounInfoOpen) return;
+      if (infoReportOverlayOpen || _pronounInfoOpen) return false;
 
-      if (keyboardEvent.key == 'Enter') {
-        if (answered) {
-          nextQuestion();
-        } else if (!loadingForm && correctForm != null) {
-          check();
-        }
-
-        keyboardEvent.preventDefault();
+      if (answered) {
+        nextQuestion();
+      } else if (!loadingForm && correctForm != null) {
+        check();
       }
-    }).toJS;
 
-    web.window.addEventListener('keydown', _keyListener);
+      return true;
+    });
   }
 
   @override
   void dispose() {
-    web.window.removeEventListener('keydown', _keyListener);
+    _keyListener.dispose();
     answerController.dispose();
 
     super.dispose();

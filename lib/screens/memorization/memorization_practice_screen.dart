@@ -5,12 +5,14 @@ import '../../info/app_info.dart';
 import '../../models/memorization/memorization_text.dart';
 import '../../models/prayer.dart';
 import '../../services/memorization/hint_generator.dart';
+import '../../services/memorization/latin_speech_matcher.dart';
 import '../../services/memorization/memorization_catalog.dart';
 import '../../services/memorization/memorization_daily_goal.dart';
 import '../../services/memorization/memorization_repository.dart';
 import '../../services/memorization/memorization_scheduler.dart';
 import '../../services/memorization/memorization_session.dart';
 import '../../services/memorization/text_evaluator.dart';
+import '../../services/speech/routing_speech_recognition_service.dart';
 import '../../services/speech/speech_recognition_service.dart';
 import '../../services/streak/streak_track.dart';
 import '../../theme/app_theme.dart';
@@ -58,7 +60,16 @@ class _MemorizationPracticeScreenState
       widget.scheduler ?? MemorizationScheduler();
 
   late final SpeechRecognitionService speech =
-      widget.speech ?? PlatformSpeechRecognitionService();
+      widget.speech ?? RoutingSpeechRecognitionService();
+
+  /// Eigenes Sprachmodell (Latein), falls der Dienst eines anbietet.
+  LocalModelSpeechRecognition? get _localModel {
+    final service = speech;
+
+    return service is LocalModelSpeechRecognition
+        ? service as LocalModelSpeechRecognition
+        : null;
+  }
 
   late final MemorizationSession session = MemorizationSession(
     scheduler: scheduler,
@@ -94,6 +105,12 @@ class _MemorizationPracticeScreenState
   String _transcript = "";
   String _partial = "";
 
+  // Eigenes Sprachmodell (Latein): wird geladen / hört zu / wertet aus.
+  bool _modelLoading = false;
+  double? _modelProgress;
+  bool _listeningLocal = false;
+  bool _processing = false;
+
   /// Macht Ergebnisse eines früheren Zuhörens ungültig (Übungswechsel).
   int _listenToken = 0;
 
@@ -112,16 +129,34 @@ class _MemorizationPracticeScreenState
       _catalog = catalog;
     }, onError: (_) {});
 
+    _localModel?.isProcessing.addListener(_onProcessingChanged);
+
     _showCurrent();
   }
 
   @override
   void dispose() {
     _listenToken++;
-    speech.cancel();
+    _localModel?.isProcessing.removeListener(_onProcessingChanged);
+
+    final service = speech;
+
+    // Den selbst angelegten Dienst freigeben (Mikrofon, Sprachmodell).
+    if (widget.speech == null && service is RoutingSpeechRecognitionService) {
+      service.dispose();
+    } else {
+      service.cancel();
+    }
+
     _input.dispose();
 
     super.dispose();
+  }
+
+  void _onProcessingChanged() {
+    if (!mounted) return;
+
+    setState(() => _processing = _localModel?.isProcessing.value ?? false);
   }
 
   // ==========================
@@ -266,8 +301,16 @@ class _MemorizationPracticeScreenState
         ? _prompt.hidden
         : [for (var i = 0; i < _prompt.words.length; i++) i];
 
+    final target = [for (final i in asked) _prompt.words[i].raw];
+
+    // Latein schreibt die Erkennung nach Gehör („celi“ für „caeli“): vor dem
+    // Wortvergleich lautlich mit dem Text abgleichen.
+    if (spoken && unit.text.languageCode == "la") {
+      input = LatinSpeechMatcher.reconcile(target: target, transcript: input);
+    }
+
     final result = _evaluator.evaluateWords(
-      target: [for (final i in asked) _prompt.words[i].raw],
+      target: target,
       input: input,
       spoken: spoken,
     );
@@ -379,7 +422,9 @@ class _MemorizationPracticeScreenState
             "Je nach Gerät oder Browser kann die Erkennung selbst bei "
             "dessen Anbieter stattfinden (z. B. Google oder Apple). Dabei "
             "wird das Gesprochene dorthin übertragen. Wenn du das nicht "
-            "möchtest, nutze „Tippen“ oder „Im Kopf“.",
+            "möchtest, nutze „Tippen“ oder „Im Kopf“.\n\n"
+            "Latein erkennt die App mit einem eigenen Sprachmodell direkt "
+            "auf deinem Gerät; dabei wird das Gesprochene nicht übertragen.",
           ),
         ),
         actions: [
@@ -406,24 +451,115 @@ class _MemorizationPracticeScreenState
     return true;
   }
 
+  /// Lädt das eigene Sprachmodell, falls nötig nach Rückfrage. true = es
+  /// kann sofort zugehört werden.
+  Future<bool> _prepareModel(
+    LocalModelSpeechRecognition model,
+    String languageCode,
+    bool Function() current,
+  ) async {
+    final pending = await model.pendingDownloadBytes(languageCode);
+
+    if (!current()) return false;
+
+    if (pending > 0 && !await _confirmModelDownload(pending)) return false;
+
+    if (!current()) return false;
+
+    setState(() {
+      _modelLoading = true;
+      _modelProgress = pending > 0 ? 0 : null;
+      _speechProblem = null;
+    });
+
+    try {
+      await model.prepareModel(
+        languageCode,
+        onProgress: (fraction) {
+          // Nur merkliche Schritte neu zeichnen.
+          if (!mounted || pending == 0) return;
+          if (fraction - (_modelProgress ?? 0) < 0.01 && fraction < 1) return;
+
+          setState(() => _modelProgress = fraction);
+        },
+      );
+    } catch (_) {
+      if (mounted) {
+        setState(() {
+          _modelLoading = false;
+          _speechProblem =
+              "Das Sprachmodell konnte nicht geladen werden. Prüfe die "
+              "Internetverbindung und versuche es erneut.";
+        });
+      }
+
+      return false;
+    }
+
+    if (!mounted) return false;
+
+    setState(() => _modelLoading = false);
+
+    // Nach dem Herunterladen nicht unvermittelt zuhören: Der Nutzer tippt
+    // erneut auf das Mikrofon.
+    return pending == 0 && current();
+  }
+
+  Future<bool> _confirmModelDownload(int bytes) async {
+    final megabytes = (bytes / (1000 * 1000)).round();
+
+    final accepted = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text("Sprachmodell für Latein laden"),
+        content: SingleChildScrollView(
+          child: Text(
+            "Für Latein gibt es keine Spracherkennung des Geräts. Die App "
+            "nutzt dafür ein eigenes Sprachmodell, das auf deinem Gerät "
+            "rechnet – deine Aufnahme wird weder gespeichert noch "
+            "übertragen.\n\n"
+            "Das Modell wird einmalig heruntergeladen (ca. $megabytes MB, "
+            "von huggingface.co), am besten im WLAN.",
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: const Text("Abbrechen"),
+          ),
+          ElevatedButton(
+            key: const Key("memorize_model_download"),
+            onPressed: () => Navigator.pop(context, true),
+            child: const Text("Herunterladen"),
+          ),
+        ],
+      ),
+    );
+
+    return accepted == true;
+  }
+
   Future<void> _toggleListening() async {
     if (_listening) {
       await speech.stop();
       return;
     }
 
+    if (_modelLoading) return;
+
     final unit = _unit!;
+    final languageCode = unit.text.languageCode;
     final token = ++_listenToken;
 
     bool current() => mounted && token == _listenToken;
 
     try {
-      if (!await speech.supportsLanguage(unit.text.languageCode)) {
+      if (!await speech.supportsLanguage(languageCode)) {
         if (!current()) return;
 
         setState(() {
           _speechProblem =
-              "Für ${PrayerLanguages.name(unit.text.languageCode)} bietet "
+              "Für ${PrayerLanguages.name(languageCode)} bietet "
               "dieses Gerät keine Spracherkennung. Du kannst den Abschnitt "
               "tippen oder im Kopf aufsagen.";
         });
@@ -432,14 +568,20 @@ class _MemorizationPracticeScreenState
 
       if (!current()) return;
 
+      final model = _localModel;
+      final local = model != null && model.usesLocalModel(languageCode);
+
+      if (local && !await _prepareModel(model, languageCode, current)) return;
+
       setState(() {
         _listening = true;
+        _listeningLocal = local;
         _speechProblem = null;
         _partial = "";
       });
 
       final text = await speech.listen(
-        languageCode: unit.text.languageCode,
+        languageCode: languageCode,
         onPartial: (partial) {
           if (current()) setState(() => _partial = partial);
         },
@@ -455,6 +597,12 @@ class _MemorizationPracticeScreenState
           _transcript,
           text.trim(),
         ].where((part) => part.isNotEmpty).join(" ");
+
+        if (local && text.trim().isEmpty) {
+          _speechProblem =
+              "Es wurde nichts verstanden. Sprich etwas lauter und näher am "
+              "Mikrofon.";
+        }
       });
     } catch (_) {
       if (!current()) return;
@@ -678,15 +826,32 @@ class _MemorizationPracticeScreenState
                   : context.colors.onPrimary,
             ),
             icon: Icon(_listening ? Icons.stop_rounded : Icons.mic_rounded),
-            onPressed: _toggleListening,
+            onPressed: _modelLoading || _processing ? null : _toggleListening,
           ),
         ),
 
         const SizedBox(height: 8),
 
+        if (_modelLoading || _processing) ...[
+          LinearProgressIndicator(
+            key: const Key("memorize_speech_progress"),
+            value: _modelLoading ? _modelProgress : null,
+          ),
+          const SizedBox(height: 8),
+        ],
+
         Text(
-          _listening
-              ? "Ich höre zu …"
+          _modelLoading
+              ? _modelProgress == null
+                    ? "Das Sprachmodell wird vorbereitet …"
+                    : "Das Sprachmodell wird heruntergeladen "
+                          "(${(_modelProgress! * 100).round()} %) …"
+              : _processing
+              ? "Die Aufnahme wird ausgewertet …"
+              : _listening
+              ? _listeningLocal
+                    ? "Ich höre zu … Tippe auf Stopp, wenn du fertig bist."
+                    : "Ich höre zu …"
               : _transcript.isEmpty
               ? "Tippe auf das Mikrofon und sage den Abschnitt auf."
               : "Du kannst weitersprechen oder vergleichen.",

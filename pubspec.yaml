@@ -46,6 +46,9 @@ dependencies:
   audioplayers: ^6.8.1
   qr_flutter: ^4.1.0
   speech_to_text: ^7.5.0
+  record: ^7.1.1
+  sherpa_onnx: ^1.13.8
+  path_provider: ^2.1.6
 
 dev_dependencies:
   flutter_test:

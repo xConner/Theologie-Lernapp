@@ -243,11 +243,33 @@ class AppModules {
             "den erkannten Text. Je nach Gerät oder Browser kann die "
             "Erkennung bei dessen Anbieter stattfinden.",
       ),
+      SourceInfo(
+        title: "Spracherkennung für Latein",
+        origin:
+            "Sprachmodell Whisper „small“ (OpenAI, MIT-Lizenz), ausgeführt "
+            "mit sherpa-onnx bzw. im Browser mit Transformers.js und ONNX "
+            "Runtime (Apache-2.0 / MIT)",
+        processing:
+            "Für Latein bietet kein Gerät eine Spracherkennung. Die App "
+            "nutzt dafür ein eigenes Sprachmodell, das vollständig auf dem "
+            "Gerät bzw. im Browser rechnet: Die Aufnahme wird weder "
+            "gespeichert noch übertragen. Das Modell wird beim ersten "
+            "Gebrauch nach Rückfrage einmalig von huggingface.co geladen "
+            "(ca. 250–375 MB). Weil das Modell Latein nach Gehör schreibt, "
+            "wird das Erkannte vor dem Wortvergleich nach festen Regeln "
+            "lautlich mit dem Lerntext abgeglichen.",
+        aiNote:
+            "Die Umwandlung von Sprache in Text erfolgt mit einem "
+            "KI-Sprachmodell auf dem Gerät. Der Vergleich mit dem Lerntext "
+            "erfolgt ohne KI.",
+      ),
     ],
     notes: [
       "Die Spracherkennung steht nicht in jedem Browser und nicht für "
-          "Latein und Altgriechisch zur Verfügung; dort kann getippt oder "
-          "im Kopf aufgesagt werden.",
+          "Altgriechisch zur Verfügung. Dort kann getippt oder im Kopf "
+          "aufgesagt werden.",
+      "Die lateinische Erkennung braucht ein leistungsfähiges Gerät; die "
+          "Auswertung dauert nach dem Aufsagen einige Sekunden.",
       "Die Spracherkennung kann Wörter falsch verstehen. Eine gemeldete "
           "Abweichung ist dann kein Fehler beim Aufsagen.",
       "Die Einteilung in Abschnitte erfolgt automatisch und ist nicht "

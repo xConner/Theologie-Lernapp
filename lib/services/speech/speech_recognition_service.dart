@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart' show ValueListenable, visibleForTesting;
 import 'package:speech_to_text/speech_recognition_error.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
@@ -41,6 +42,33 @@ abstract class SpeechRecognitionService {
   bool get isListening;
 }
 
+/// Zusatz für Erkennungen, die statt des Plattformdienstes ein eigenes
+/// Sprachmodell auf dem Gerät verwenden (derzeit Latein).
+///
+/// Ein solches Modell muss vor der ersten Nutzung einmalig geladen werden,
+/// hört nicht von selbst auf zuzuhören und braucht nach dem Zuhören noch
+/// einen Moment für die Auswertung. Die Oberfläche fragt diese Schnittstelle
+/// ab, wenn der Dienst sie anbietet; alle anderen Dienste verhalten sich wie
+/// bisher.
+abstract class LocalModelSpeechRecognition {
+  /// Wird [languageCode] mit einem eigenen Modell erkannt?
+  bool usesLocalModel(String languageCode);
+
+  /// Datenmenge in Bytes, die für [languageCode] noch heruntergeladen werden
+  /// muss; 0 = das Modell liegt bereits auf dem Gerät.
+  Future<int> pendingDownloadBytes(String languageCode);
+
+  /// Lädt das Modell (falls nötig) und macht es einsatzbereit. [onProgress]
+  /// erhält den Ladefortschritt von 0 bis 1.
+  Future<void> prepareModel(
+    String languageCode, {
+    void Function(double fraction)? onProgress,
+  });
+
+  /// true, solange nach dem Zuhören noch ausgewertet wird.
+  ValueListenable<bool> get isProcessing;
+}
+
 /// Erkennung über den Sprachdienst der Plattform (Paket `speech_to_text`):
 /// Android (SpeechRecognizer), iOS/macOS (Speech-Framework), Web (Web Speech
 /// API, nur in Browsern, die sie anbieten – derzeit v. a. Chrome, Edge und
@@ -54,8 +82,10 @@ abstract class SpeechRecognitionService {
 class PlatformSpeechRecognitionService implements SpeechRecognitionService {
   final SpeechToText _speech = SpeechToText();
 
-  /// Sprachen der Texte → Sprachkürzel der Erkennung. Für Latein und
-  /// Altgriechisch bietet keine Plattform eine Erkennung an.
+  /// Sprachen der Texte → Sprachkürzel der Erkennung (BCP 47). Für Latein
+  /// und Altgriechisch bietet keine Plattform eine Erkennung an (Stand
+  /// Oktober 2026: weder Google auf Android und in Chrome/Edge noch Apple
+  /// oder Windows); Latein übernimmt deshalb `LatinSpeechRecognitionService`.
   static const Map<String, List<String>> _locales = {
     "de": ["de-DE", "de-AT", "de-CH"],
     "en": ["en-GB", "en-US"],
@@ -97,9 +127,7 @@ class PlatformSpeechRecognitionService implements SpeechRecognitionService {
   }
 
   Future<String?> _localeFor(String languageCode) async {
-    final wanted = _locales[languageCode];
-
-    if (wanted == null) return null;
+    if (!_locales.containsKey(languageCode)) return null;
 
     try {
       _deviceLocales ??= await _speech.locales();
@@ -107,7 +135,18 @@ class PlatformSpeechRecognitionService implements SpeechRecognitionService {
       _deviceLocales = [];
     }
 
-    final installed = _deviceLocales!;
+    return resolveLocale(languageCode, [
+      for (final locale in _deviceLocales!) locale.localeId,
+    ]);
+  }
+
+  /// Wählt aus den vom Gerät gemeldeten Kennungen ([installed]) die für
+  /// [languageCode]; null = diese Sprache wird nicht erkannt.
+  @visibleForTesting
+  static String? resolveLocale(String languageCode, List<String> installed) {
+    final wanted = _locales[languageCode];
+
+    if (wanted == null) return null;
 
     // Manche Plattformen (Web) nennen keine Sprachen: dann die bevorzugte
     // Variante versuchen.
@@ -117,15 +156,15 @@ class PlatformSpeechRecognitionService implements SpeechRecognitionService {
 
     for (final id in wanted) {
       for (final locale in installed) {
-        if (normalize(locale.localeId) == id.toLowerCase()) {
-          return locale.localeId;
+        if (normalize(locale) == id.toLowerCase()) {
+          return locale;
         }
       }
     }
 
     for (final locale in installed) {
-      if (normalize(locale.localeId).startsWith("$languageCode-")) {
-        return locale.localeId;
+      if (normalize(locale).startsWith("$languageCode-")) {
+        return locale;
       }
     }
 

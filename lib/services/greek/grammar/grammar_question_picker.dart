@@ -119,6 +119,8 @@ class GrammarQuestionPicker {
 
   static const Set<String> activeOnlyVerbs = {
     "εἰμί",
+    "ἄπειμι",
+    "σύνειμι",
     "ἀσθενέω",
     "μένω",
     "ἐπερωτάω",
