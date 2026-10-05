@@ -754,8 +754,24 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
 
                                 if (translationCorrect == false ||
                                     !translationComplete)
-                                  Text(
-                                    "Übersetzung: ${q.entry.translations.join(", ")}",
+                                  // Nur der Übersetzungstext selbst ist
+                                  // auswähl- und kopierbar, nicht das Label.
+                                  Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      const Text("Übersetzung: "),
+
+                                      Flexible(
+                                        child: SelectableText(
+                                          q.entry.translations.join(", "),
+                                          key: const Key(
+                                            "vocabulary_translation_text",
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                               ],
                             ),
