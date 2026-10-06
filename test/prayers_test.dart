@@ -105,6 +105,27 @@ void main() {
       expect(vaterunser.versionFor("la")!.text, contains("cotidianum"));
     });
 
+    test("lutherische Gottesdienstgebete mit Agendenquelle", () {
+      expect(
+        ids(prayers),
+        containsAll(["sanctus", "dankkollekte_abendmahl", "kollekte_um_frieden"]),
+      );
+
+      final sanctus = byId(prayers, "sanctus");
+      expect(sanctus.languages, ["de", "en", "la"]);
+      expect(sanctus.versionFor("de")!.text, startsWith("Heilig, heilig, heilig"));
+      expect(sanctus.versionFor("la")!.source, contains("Missale Romanum"));
+
+      final thanks = byId(prayers, "dankkollekte_abendmahl");
+      expect(thanks.originalLanguage, "de");
+      expect(thanks.versionFor("de")!.source, contains("Kirchenbuch"));
+      expect(thanks.versionFor("en")!.source, contains("Common Service Book"));
+
+      final peace = byId(prayers, "kollekte_um_frieden");
+      expect(peace.versionFor("la")!.isOriginal, isTrue);
+      expect(peace.versionFor("la")!.text, startsWith("Deus, a quo sancta desideria"));
+    });
+
     test("nicht vorhandene Sprachfassungen werden nicht angeboten", () {
       expect(byId(prayers, "jesusgebet").languages, ["de", "en", "gr"]);
       expect(byId(prayers, "jesusgebet").versionFor("la"), isNull);
@@ -175,7 +196,7 @@ void main() {
       // „abend“ trifft auch das Tag „Abendmahl“ (Teilwortsuche).
       expect(
         ids(PrayerSearch.filter(prayers, query: "abend", tag: "lutherisch")),
-        ["agnus_dei", "luthers_abendsegen"],
+        ["agnus_dei", "luthers_abendsegen", "dankkollekte_abendmahl"],
       );
       expect(
         ids(PrayerSearch.filter(prayers, query: "abend", tag: "katechismus")),

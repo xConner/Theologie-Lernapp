@@ -151,8 +151,8 @@ Anzahl: 132 von 535 Liedern (0 Lieder zeigen bereits keinen Text).
 - `assets/liturgical_calendar_2026.json`: Wochensprüche als wörtliche Bibelzitate – Übersetzung nicht dokumentiert (moderne Übersetzungen wie Lutherbibel 2017 sind geschützt).
 - `assets/perikopen.json`: Perikopenüberschriften – Herkunft (Bibelausgabe) nicht dokumentiert; Überschriften moderner Ausgaben können geschützt sein.
 - `assets/eg_lieder.json`: Felder `explanation`, `tags`, `bibleReferences` – Herkunft nicht dokumentiert (ggf. KI-erzeugt, dann in der App kennzeichnen).
-- `assets/prayers.json`: Quellenangaben je Gebet vorhanden; moderne Übersetzungen/liturgische Fassungen einzeln prüfen.
-- `assets/confessions.json`: Textausgaben je Sprache im Feld `sources` dokumentiert (Concordia Triglotta 1921 und historische Originaltexte gemeinfrei; ökumenische deutsche Fassungen von Apostolicum und Nicänum nach ekd.de einzeln prüfen).
+- `assets/prayers.json`: Quellenangaben je Gebet vorhanden; moderne Übersetzungen/liturgische Fassungen einzeln prüfen. Sanctus, Dankkollekte und Friedenskollekte folgen gemeinfreien Agenden: Kirchenbuch für Evangelisch-Lutherische Gemeinden (Philadelphia 1877), Common Service Book of the Lutheran Church (Philadelphia 1917), Missale Romanum (Tournai 1889).
+- `assets/confessions.json`: Textausgaben je Sprache im Feld `sources` dokumentiert (Concordia Triglotta 1921 und historische Originaltexte gemeinfrei; ökumenische deutsche Fassungen von Apostolicum und Nicänum nach ekd.de einzeln prüfen). Kleiner Katechismus, Auswahltexte aus Apologie, Schmalkaldischen Artikeln, Großem Katechismus und Epitome sowie die englische CA stammen ausschließlich aus der Concordia Triglotta.
 - `assets/latin_vocabulary.json`: laut Code an einem nicht benannten Lehrbuch orientiert – Umfang der Übernahme prüfen.
 - `assets/*.jpeg`, `assets/logo.png`: Herkunft/Lizenz nicht dokumentiert (die JPEGs werden nicht in `pubspec.yaml` eingebunden).
 - `assets/sounds/*.wav`: laut `generate_sounds.py` selbst erzeugt.

@@ -172,8 +172,46 @@ void main() {
       expect(article.type, MemorizationTextType.confession);
       expect(article.title, contains("–"));
 
+      expect(catalog.text("confession.augsburger_konfession.art_4.en"), isNotNull);
+
       // Fassungen ohne Text werden nicht angeboten.
-      expect(catalog.text("confession.augsburger_konfession.art_4.en"), isNull);
+      expect(catalog.text("confession.apostolicum.full.gr"), isNull);
+    });
+
+    test("Kleiner Katechismus je Hauptstück, Auswahltexte als ein Werk", () {
+      for (var i = 1; i <= 6; i++) {
+        for (final language in ["de", "la", "en"]) {
+          final text = catalog.text(
+            "confession.kleiner_katechismus.hauptstueck_$i.$language",
+          );
+          expect(text, isNotNull, reason: "Hauptstück $i/$language");
+          expect(text!.type, MemorizationTextType.confession);
+          expect(text.segments.length, greaterThan(1));
+        }
+      }
+
+      final commandments = catalog.text(
+        "confession.kleiner_katechismus.hauptstueck_1.de",
+      )!;
+      expect(commandments.title, contains("Kleine Katechismus –"));
+      expect(commandments.segments.first.text, startsWith("Das erste Gebot."));
+
+      final chief = catalog.text(
+        "confession.schmalkaldische_artikel.teil_2_art_1.de",
+      )!;
+      // Ein einziger Abschnitt: Titel ohne Abschnittszusatz.
+      expect(chief.title, "Schmalkaldische Artikel – Teil II, Art. I: Der Hauptartikel");
+
+      for (final id in [
+        "prayer.sanctus.la",
+        "prayer.dankkollekte_abendmahl.de",
+        "prayer.kollekte_um_frieden.en",
+        "confession.apologie.art_9.la",
+        "confession.grosser_katechismus.gebot_1.de",
+        "confession.konkordienformel_epitome.regel_und_richtschnur.en",
+      ]) {
+        expect(catalog.text(id), isNotNull, reason: id);
+      }
     });
   });
 

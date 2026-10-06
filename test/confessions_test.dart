@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'package:theologie_lernapp/models/confession.dart';
 import 'package:theologie_lernapp/screens/confession_detail_screen.dart';
 import 'package:theologie_lernapp/screens/confessions_screen.dart';
 import 'package:theologie_lernapp/services/confession_service.dart';
@@ -18,35 +19,92 @@ void main() {
     test("werden aus dem App-Bundle geladen (ohne localhost)", () async {
       final confessions = await ConfessionService().loadConfessions();
 
+      // Reihenfolge des Konkordienbuchs.
       expect(confessions.map((c) => c.id), [
         "apostolicum",
         "nicenum",
         "athanasianum",
         "augsburger_konfession",
+        "apologie",
+        "schmalkaldische_artikel",
+        "kleiner_katechismus",
+        "grosser_katechismus",
+        "konkordienformel_epitome",
       ]);
+      expect(confessions.map((c) => c.id).toSet(), hasLength(9));
 
       final ca = confessions.firstWhere((c) => c.id == "augsburger_konfession");
       expect(ca.sections, hasLength(21));
-      expect(ca.languages, containsAll(["de", "la"]));
+      expect(ca.languages, containsAll(["de", "la", "en"]));
 
       final nicenum = confessions.firstWhere((c) => c.id == "nicenum");
       expect(nicenum.languages, contains("gr"));
       expect(nicenum.sections.first.texts["gr"], isNotEmpty);
 
-      // Deutsch liegt überall vor, die CA zusätzlich vollständig auf Latein.
-      // (Die englische CA ist in den Daten angelegt, aber noch ohne Text.)
+      // Deutsch liegt überall vor; jede angebotene Sprache hat in jedem
+      // Abschnitt Text (keine leeren Auswahlpunkte in der Detailansicht).
       for (final confession in confessions) {
         for (final section in confession.sections) {
-          expect(
-            section.texts["de"],
-            isNotEmpty,
-            reason: "${confession.id}/${section.id}/de",
-          );
+          for (final language in confession.languages) {
+            expect(
+              section.texts[language],
+              isNotEmpty,
+              reason: "${confession.id}/${section.id}/$language",
+            );
+          }
+          expect(section.texts.keys, everyElement(isIn(confession.languages)));
         }
       }
-      for (final section in ca.sections) {
-        expect(section.texts["la"], isNotEmpty, reason: "CA/${section.id}/la");
+    });
+
+    test("lutherische Symbole: Kleiner Katechismus und Auswahltexte", () async {
+      final confessions = await ConfessionService().loadConfessions();
+
+      Confession byId(String id) => confessions.firstWhere((c) => c.id == id);
+
+      final lutheran = confessions
+          .where((c) => c.category == "lutherische_symbole")
+          .map((c) => c.id);
+      expect(lutheran, hasLength(6));
+
+      final sc = byId("kleiner_katechismus");
+      expect(sc.languages, ["de", "la", "en"]);
+      expect(sc.sections.map((s) => s.id), [
+        for (var i = 1; i <= 6; i++) "hauptstueck_$i",
+      ]);
+
+      String sct(int part, String language) =>
+          sc.sections[part - 1].texts[language]!;
+
+      expect(sct(1, "de"), startsWith("Das erste Gebot.\nDu sollst nicht"));
+      expect(sct(1, "de"), contains("über alle Dinge fürchten, lieben und vertrauen"));
+      expect(sct(2, "de"), contains("Das ist gewißlich wahr."));
+      expect(sct(3, "la"), startsWith("Pater noster, qui es in coelis."));
+      expect(sct(4, "en"), startsWith("First.\nWhat is Baptism?"));
+      expect(sct(6, "de"), endsWith("fordert eitel gläubige Herzen."));
+
+      // Keine Absatzzähler, Herausgeberklammern oder Antwortzeilen.
+      for (final confession in confessions.where(
+        (c) => c.category == "lutherische_symbole",
+      )) {
+        for (final section in confession.sections) {
+          for (final entry in section.texts.entries) {
+            final r = "${confession.id}/${section.id}/${entry.key}";
+            expect(entry.value, isNot(contains("[")), reason: r);
+            expect(entry.value, isNot(matches(RegExp(r"\d+\]"))), reason: r);
+            expect(entry.value, isNot(matches(RegExp(r"^(Antwort|Responsio|Answer)\.?$", multiLine: true))), reason: r);
+          }
+        }
       }
+
+      // Originalsprache: Apologie lateinisch, Schmalkaldische Artikel deutsch.
+      expect(byId("apologie").sources["la"], contains("Originaltext"));
+      expect(byId("apologie").sources["de"], contains("Justus Jonas"));
+      expect(byId("schmalkaldische_artikel").sources["de"], contains("Originaltext"));
+      expect(
+        byId("schmalkaldische_artikel").sections.single.texts["de"],
+        contains("Von diesem Artikel kann man nichts weichen"),
+      );
     });
 
     test("jede Textfassung hat eine Quellenangabe", () async {

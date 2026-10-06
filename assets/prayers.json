@@ -582,5 +582,108 @@
                 "text": "Confitemini Domino, quoniam bonus, quoniam in aeternum misericordia eius, qui dat escam omni carni, qui dat iumentis escam ipsorum et pullis corvorum invocantibus eum. Non in fortitudine equi voluntatem habebit, neque in tibiis viri beneplacitum erit ei. Beneplacitum est Domino super timentes eum et in eis, qui sperant super misericordia eius.\n\nDeinde addant Orationem Dominicam cum oratione sequenti:\n\nGratias agimus tibi, Domine Deus Pater, per Iesum Christum, Dominum nostrum, pro universis beneficiis tuis, qui vivis et regnas in saecula saeculorum. Amen."
             }
         ]
+    },
+    {
+        "id": "sanctus",
+        "title": {
+            "de": "Heilig, heilig, heilig (Sanctus)",
+            "en": "Holy, Holy, Holy (Sanctus)",
+            "la": "Sanctus"
+        },
+        "type": "hymnus",
+        "tradition": "altkirchlich",
+        "originalLanguage": "la",
+        "source": "Jesaja 6,3 (Lobgesang der Seraphim) und Matthäus 21,9 (Hosianna/Benedictus); Abendmahlsliturgie der westlichen Kirche",
+        "description": "Lobgesang der Gemeinde im Abendmahlsgottesdienst nach der Präfation. Der erste Teil nimmt den Ruf der Seraphim aus Jesaja 6 auf, der zweite den Jubel beim Einzug Jesu in Jerusalem. In lutherischen Agenden steht das Sanctus zwischen Präfation und Einsetzungsworten.",
+        "tags": ["altkirchlich", "liturgie", "abendmahl", "lobpreis"],
+        "versions": [
+            {
+                "language": "de",
+                "status": "translation",
+                "translatedFrom": "la",
+                "source": "Kirchenbuch für Evangelisch-Lutherische Gemeinden, hg. von der Allgemeinen Kirchenversammlung (General Council), Philadelphia 1877; am Faksimile geprüft (archive.org, kirchenbuchfur00gene), Haupt-Gottesdienst, S. 16 („Das Sanktus“); Orthographie der Ausgabe",
+                "text": "Heilig, heilig, heilig ist Gott, der Herr Zebaoth.\nAlle Lande sind Seiner Ehre voll.\nHosianna in der Höhe.\nGelobet sei, der da kommt im Namen des Herrn.\nHosianna in der Höhe."
+            },
+            {
+                "language": "en",
+                "status": "translation",
+                "translatedFrom": "la",
+                "source": "Common Service Book of the Lutheran Church (Philadelphia: Lutheran Publication Society/General Council Publication Board, 1917); Digitalisat archive.org, commonserviceboo00phil, The Communion, S. 22 (Notensatz; Wortlaut ohne Silbentrennung)",
+                "text": "Holy, Holy, Holy, Lord God of Sabaoth;\nHeaven and earth are full of Thy glory;\nHosanna in the highest.\nBlessed is He that cometh in the Name of the Lord.\nHosanna in the highest."
+            },
+            {
+                "language": "la",
+                "status": "liturgical",
+                "source": "Missale Romanum (Tornaci: Desclée, Lefebvre et Soc., 1889), Praefationes; Digitalisat archive.org, missaleromanumex1889cath",
+                "note": "Westliche liturgische Fassung; das Sanctus ist schon in den griechischen Liturgien der Alten Kirche bezeugt, eine griechische Fassung ist hier nicht aufgenommen.",
+                "text": "Sanctus, Sanctus, Sanctus Dominus Deus Sabaoth.\nPleni sunt coeli et terra gloria tua,\nHosanna in excelsis.\nBenedictus qui venit in nomine Domini,\nHosanna in excelsis."
+            }
+        ]
+    },
+    {
+        "id": "dankkollekte_abendmahl",
+        "title": {
+            "de": "Dankkollekte nach dem Abendmahl",
+            "en": "Post-Communion Collect"
+        },
+        "type": "gebet",
+        "tradition": "lutherisch",
+        "originalLanguage": "de",
+        "source": "Dankgebet nach der Kommunion aus Martin Luthers „Deutscher Messe“ (1526); hier nach lutherischen Agenden des 19./20. Jahrhunderts",
+        "dating": "1526 (Deutsche Messe); Agendenfassungen 1877 und 1917",
+        "description": "Das Dankgebet, mit dem der lutherische Abendmahlsgottesdienst seit Luthers Deutscher Messe nach der Austeilung schließt: Dank für die „heilsame Gabe“ und Bitte um starken Glauben gegen Gott und brünstige Liebe untereinander.",
+        "tags": ["luther", "lutherisch", "liturgie", "abendmahl", "danksagung"],
+        "versions": [
+            {
+                "language": "de",
+                "status": "liturgical",
+                "source": "Kirchenbuch für Evangelisch-Lutherische Gemeinden, hg. von der Allgemeinen Kirchenversammlung (General Council), Philadelphia 1877; am Faksimile geprüft (archive.org, kirchenbuchfur00gene), Haupt-Gottesdienst, S. 20 („Die Danksagung“); Orthographie der Ausgabe",
+                "note": "Agendenfassung mit trinitarischem Schluss; nicht am Erstdruck der Deutschen Messe (1526) geprüft.",
+                "text": "Wir danken Dir, allmächtiger Herre Gott, daß Du uns durch diese heilsame Gabe hast erquicket, und bitten Deine Barmherzigkeit, daß Du uns solches gedeihen lassest zu starkem Glauben gegen Dir und zu brünstiger Liebe unter uns allen, durch unsern Herrn Jesum Christum Deinen Sohn, der mit Dir und dem Heiligen Geiste lebet und herrschet, wahrer Gott von Ewigkeit zu Ewigkeit.\nAmen."
+            },
+            {
+                "language": "en",
+                "status": "translation",
+                "translatedFrom": "de",
+                "source": "Common Service Book of the Lutheran Church (Philadelphia: Lutheran Publication Society/General Council Publication Board, 1917); Digitalisat archive.org, commonserviceboo00phil, The Communion, S. 26 („The Thanksgiving“)",
+                "text": "We give thanks to Thee, Almighty God, that Thou hast refreshed us with this Thy salutary gift; and we beseech Thee, of Thy mercy, to strengthen us through the same in faith toward Thee, and in fervent love toward one another; through Jesus Christ, Thy dear Son, our Lord, Who liveth and reigneth with Thee and the Holy Ghost, ever One God, world without end.\nAmen."
+            }
+        ]
+    },
+    {
+        "id": "kollekte_um_frieden",
+        "title": {
+            "de": "Kollekte um Frieden",
+            "en": "Collect for Peace",
+            "la": "Deus, a quo sancta desideria"
+        },
+        "type": "gebet",
+        "tradition": "mittelalterlich",
+        "originalLanguage": "la",
+        "source": "Lateinische Kollekte der römischen Liturgie (Messe um Frieden, „Missa pro pace“); in lutherischen Agenden in Vesper, Litanei und Fürbittgebet übernommen",
+        "description": "Alte lateinische Kollekte um den Frieden, „welchen die Welt nicht kann geben“ (vgl. Joh 14,27). Die lutherischen Agenden beten sie in deutscher und englischer Fassung, oft im Anschluss an „Verleih uns Frieden gnädiglich“.",
+        "tags": ["lutherisch", "liturgie", "frieden", "bitte"],
+        "versions": [
+            {
+                "language": "de",
+                "status": "translation",
+                "translatedFrom": "la",
+                "source": "Kirchenbuch für Evangelisch-Lutherische Gemeinden, hg. von der Allgemeinen Kirchenversammlung (General Council), Philadelphia 1877; am Faksimile geprüft (archive.org, kirchenbuchfur00gene), Die Preces, S. 185 („Um Frieden“); Orthographie der Ausgabe",
+                "text": "Herr Gott, himmlischer Vater, der Du heiligen Mut, guten Rat und rechte Werke schaffest: gieb Deinen Dienern Fried, welchen die Welt nicht kann geben, auf daß unsre Herzen an Deinen Geboten hangen und wir unsre Zeit durch Deinen Schutz still und sicher vor Feinden leben; durch Jesum Christum, Deinen Sohn, unsern Herrn.\nAmen."
+            },
+            {
+                "language": "en",
+                "status": "translation",
+                "translatedFrom": "la",
+                "source": "Common Service Book of the Lutheran Church (Philadelphia: Lutheran Publication Society/General Council Publication Board, 1917); Digitalisat archive.org, commonserviceboo00phil, Vespers, S. 15 („The Collect for Peace“)",
+                "text": "O God, from Whom all holy desires, all good counsels, and all just works do proceed: Give unto Thy servants that peace, which the world cannot give; that our hearts may be set to obey Thy commandments, and also that by Thee, we, being defended from the fear of our enemies, may pass our time in rest and quietness; through the merits of Jesus Christ our Saviour, Who liveth and reigneth with Thee, and the Holy Ghost, ever One God, world without end.\nAmen."
+            },
+            {
+                "language": "la",
+                "status": "original",
+                "source": "Missale Romanum (Tornaci: Desclée, Lefebvre et Soc., 1889), Missa pro pace, Oratio; Digitalisat archive.org, missaleromanumex1889cath",
+                "text": "Deus, a quo sancta desideria, recta consilia, et justa sunt opera: da servis tuis illam, quam mundus dare non potest, pacem; ut et corda nostra mandatis tuis dedita, et hostium sublata formidine, tempora sint tua protectione tranquilla. Per Dominum."
+            }
+        ]
     }
 ]
