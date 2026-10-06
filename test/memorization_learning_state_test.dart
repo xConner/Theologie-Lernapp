@@ -4,7 +4,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:theologie_lernapp/models/memorization/memorization_card.dart';
 import 'package:theologie_lernapp/models/memorization/memorization_text.dart';
 import 'package:theologie_lernapp/services/memorization/hint_generator.dart';
-import 'package:theologie_lernapp/services/memorization/memorization_daily_goal.dart';
 import 'package:theologie_lernapp/services/memorization/memorization_repository.dart';
 import 'package:theologie_lernapp/services/memorization/memorization_scheduler.dart';
 import 'package:theologie_lernapp/services/memorization/memorization_session.dart';
@@ -29,7 +28,11 @@ void main() {
     type: MemorizationTextType.other,
     segments: [
       for (var i = 0; i < 4; i++)
-        MemorizationSegment(id: "t.de.s$i", text: "Abschnitt Nummer $i.", order: i),
+        MemorizationSegment(
+          id: "t.de.s$i",
+          text: "Abschnitt Nummer $i.",
+          order: i,
+        ),
     ],
   );
 
@@ -291,16 +294,15 @@ void main() {
     });
   });
 
-  group("Tagesziel", () {
-    test("Fall 8 und 9: Intensivüben allein erfüllt das Tagesziel nicht, "
-        "die vorgesehenen Wiederholungen schon", () {
+  group("Tagesplan", () {
+    test("Fall 8 und 9: Intensivüben ersetzt die neuen Abschnitte im Plan "
+        "nicht, die vorgesehenen Übungen schon", () {
       setLearned(0, days: 8);
       setLearned(1, days: 8);
 
-      MemorizationDailyGoal goal() =>
-          MemorizationDailyGoal.of(scheduler, [text], cards);
+      TextPlan plan() => scheduler.planFor(text, cards);
 
-      expect(goal().open, 2, reason: "zwei neue Abschnitte");
+      expect(plan().newSegments, 2, reason: "zwei neue Abschnitte");
 
       // Bereits Gelerntes ausgiebig üben.
       for (var i = 0; i < 10; i++) {
@@ -308,14 +310,12 @@ void main() {
         recall(1);
       }
 
-      expect(goal().open, 2);
-      expect(goal().isComplete, isFalse);
+      expect(plan().newSegments, 2);
 
       recall(2);
       recall(3);
 
-      expect(goal().open, 1, reason: "ganzer Text steht an");
-      expect(goal().isComplete, isFalse);
+      expect(plan().fullDue, isTrue, reason: "ganzer Text steht an");
 
       scheduler.apply(
         unit: scheduler.fullUnit(text),
@@ -324,8 +324,7 @@ void main() {
         cards: cards,
       );
 
-      expect(goal().open, 0);
-      expect(goal().isComplete, isTrue);
+      expect(plan().isEmpty, isTrue);
     });
 
     test("ein im freien Üben entdeckter Fehler gehört zum Tagesplan", () {
@@ -372,10 +371,6 @@ void main() {
 
       expect(plan.reviewSegments, 2);
       expect(plan.newSegments, 2);
-
-      final goal = MemorizationDailyGoal.of(scheduler, [text], cards);
-      expect(goal.done, 0, reason: "gestrige Übungen zählen heute nicht");
-      expect(goal.open, 4);
 
       // Nach der Wiederholung am zweiten Tag: gefestigt.
       recall(0);
@@ -448,9 +443,12 @@ void main() {
       expect(stuck.relearn, 1);
       expect(scheduler.status(stuck), SegmentStatus.shaky);
 
-      cards["t.de.s0"] = MemorizationCard.fromJson("t.de.s0", stuck.toJson()
-        ..remove("relearn")
-        ..remove("streak"));
+      cards["t.de.s0"] = MemorizationCard.fromJson(
+        "t.de.s0",
+        stuck.toJson()
+          ..remove("relearn")
+          ..remove("streak"),
+      );
 
       recall(0);
 

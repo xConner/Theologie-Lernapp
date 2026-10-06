@@ -6,11 +6,10 @@ import '../../models/memorization/memorization_text.dart';
 import '../../models/prayer.dart';
 import '../../services/memorization/hint_generator.dart';
 import '../../services/memorization/latin_speech_matcher.dart';
-import '../../services/memorization/memorization_catalog.dart';
-import '../../services/memorization/memorization_daily_goal.dart';
 import '../../services/memorization/memorization_repository.dart';
 import '../../services/memorization/memorization_scheduler.dart';
 import '../../services/memorization/memorization_session.dart';
+import '../../services/memorization/memorization_streak_rule.dart';
 import '../../services/memorization/text_evaluator.dart';
 import '../../services/speech/routing_speech_recognition_service.dart';
 import '../../services/speech/speech_recognition_service.dart';
@@ -116,18 +115,9 @@ class _MemorizationPracticeScreenState
 
   bool _saveErrorShown = false;
 
-  /// Für das Tagesziel der Streak (alle aktiven Texte, nicht nur die dieser
-  /// Runde); null, solange der Katalog nicht geladen ist.
-  MemorizationCatalog? _catalog;
-
   @override
   void initState() {
     super.initState();
-
-    // Ohne Katalog wird nur die Streak nicht gemeldet; die Runde läuft.
-    MemorizationCatalog.load().then((catalog) {
-      _catalog = catalog;
-    }, onError: (_) {});
 
     _localModel?.isProcessing.addListener(_onProcessingChanged);
 
@@ -231,7 +221,15 @@ class _MemorizationPracticeScreenState
   }
 
   /// Verbucht das Ergebnis und speichert die geänderten Lernstände.
-  void _complete(RecallOutcome outcome, Set<int> errorSegments) {
+  /// [result] ist der Wortvergleich, null bei Mitlesen und
+  /// Selbsteinschätzung.
+  void _complete(
+    RecallOutcome outcome,
+    Set<int> errorSegments, {
+    EvaluationResult? result,
+  }) {
+    final practiced = _level;
+
     final changed = session.complete(
       practiced: _level,
       outcome: outcome,
@@ -254,24 +252,17 @@ class _MemorizationPracticeScreenState
       );
     });
 
-    _reportDailyGoal();
+    _reportStreak(practiced, result);
   }
 
-  /// Meldet der Streak, wenn mit dieser Übung alle heutigen Wiederholungen
-  /// erledigt sind. Der [StreakService] zählt den Tag höchstens einmal;
-  /// weitere Übungen danach ändern nichts mehr.
-  void _reportDailyGoal() {
-    final catalog = _catalog;
-
-    if (catalog == null) return;
-
-    final goal = MemorizationDailyGoal.forRepository(
-      scheduler,
-      catalog,
-      widget.repository,
-    );
-
-    if (!goal.isComplete) return;
+  /// Meldet der Streak eine Übung aus dem Gedächtnis
+  /// ([MemorizationStreakRule]); schon die erste des Tages erfüllt das
+  /// Tagesziel. Der [StreakService] zählt den Tag höchstens einmal; weitere
+  /// Übungen danach ändern nichts mehr.
+  void _reportStreak(HintLevel practiced, EvaluationResult? result) {
+    if (!MemorizationStreakRule.counts(practiced: practiced, result: result)) {
+      return;
+    }
 
     recordStreakAnswer(
       context,
@@ -320,7 +311,7 @@ class _MemorizationPracticeScreenState
         unit.from + _prompt.words[asked[index]].segment,
     };
 
-    _complete(result.outcome, errorSegments);
+    _complete(result.outcome, errorSegments, result: result);
 
     setState(() {
       _result = result;

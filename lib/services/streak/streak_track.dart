@@ -51,10 +51,9 @@ class StreakTrack {
     sources: [StreakSource.perikopenQuiz],
   );
 
-  /// Texte auswendig lernen: Das Tagesziel ist kein Zähler richtiger Antworten,
-  /// sondern der abgearbeitete Wiederholungsplan des Tages (siehe
-  /// `MemorizationDailyGoal`). Gemeldet wird genau einmal je Tag, sobald
-  /// der Plan vollständig erledigt ist.
+  /// Texte auswendig lernen: Das Tagesziel ist eine einzige Übung aus dem
+  /// Gedächtnis bei einem beliebigen Text (siehe `MemorizationStreakRule`),
+  /// unabhängig von der Zahl der Texte und vom Wiederholungsplan.
   static const StreakTrack memorization = StreakTrack(
     id: "memorization",
     label: "Texte auswendig lernen",

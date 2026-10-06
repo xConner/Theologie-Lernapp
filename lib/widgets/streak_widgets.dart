@@ -175,19 +175,16 @@ class StreakDetailCard extends StatelessWidget {
   final String? uid;
   final StreakTrack track;
 
-  /// Heutiger Fortschritt für Tracks, deren Tagesziel sich aus dem Lernplan
-  /// ergibt (Texte auswendig lernen: erledigte und vorgesehene
-  /// Wiederholungen).
+  /// Für Tracks, deren Tagesziel eine einzelne Lernaktivität ist (Texte
+  /// auswendig lernen): erklärt, was den Tag erfüllt, statt eines Zählers.
   /// Ohne Angabe gilt der Zähler richtiger Antworten des Tracks.
-  final int? todayDone;
-  final int? todayGoal;
+  final String? todayHint;
 
   const StreakDetailCard({
     super.key,
     required this.uid,
     required this.track,
-    this.todayDone,
-    this.todayGoal,
+    this.todayHint,
   });
 
   @override
@@ -202,16 +199,7 @@ class StreakDetailCard extends StatelessWidget {
       builder: (context) {
         final s = StreakService.instance.snapshotFor(uid, track);
 
-        final done = todayDone ?? s.todayCorrectAnswers;
-        final goal = todayGoal ?? s.dailyGoal;
-
-        final progress = s.completedToday
-            ? 1.0
-            : todayGoal == null
-            ? s.todayProgress
-            : goal <= 0
-            ? 0.0
-            : (done / goal).clamp(0.0, 1.0);
+        final hint = todayHint;
 
         return Card(
           margin: EdgeInsets.zero,
@@ -243,7 +231,9 @@ class StreakDetailCard extends StatelessWidget {
                     Text(
                       s.completedToday
                           ? "Tagesziel erreicht"
-                          : "$done/$goal",
+                          : hint != null
+                          ? "Noch offen"
+                          : "${s.todayCorrectAnswers}/${s.dailyGoal}",
                       style: s.completedToday
                           ? textTheme.titleSmall?.copyWith(
                               color: context.colors.success,
@@ -255,17 +245,24 @@ class StreakDetailCard extends StatelessWidget {
 
                 const SizedBox(height: 6),
 
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(999),
-                  child: LinearProgressIndicator(
-                    value: progress,
-                    minHeight: 8,
-                    backgroundColor: context.colors.surfaceMuted,
-                    color: s.completedToday
-                        ? context.colors.success
-                        : context.colors.accent,
+                if (hint != null)
+                  Text(
+                    hint,
+                    key: const Key("streak_today_hint"),
+                    style: secondary,
+                  )
+                else
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(999),
+                    child: LinearProgressIndicator(
+                      value: s.completedToday ? 1.0 : s.todayProgress,
+                      minHeight: 8,
+                      backgroundColor: context.colors.surfaceMuted,
+                      color: s.completedToday
+                          ? context.colors.success
+                          : context.colors.accent,
+                    ),
                   ),
-                ),
 
                 if (s.currentStreak > 0) ...[
                   const SizedBox(height: 14),

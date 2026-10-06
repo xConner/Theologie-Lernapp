@@ -4,7 +4,6 @@ import '../../info/app_info.dart';
 import '../../models/memorization/memorization_text.dart';
 import '../../models/prayer.dart';
 import '../../services/memorization/memorization_catalog.dart';
-import '../../services/memorization/memorization_daily_goal.dart';
 import '../../services/memorization/memorization_repository.dart';
 import '../../services/memorization/memorization_scheduler.dart';
 import '../../services/streak/streak_track.dart';
@@ -259,12 +258,6 @@ class _MemorizationHomeScreenState extends State<MemorizationHomeScreen> {
           scheduler.planFor(text, repository.cards),
     ].where((plan) => !plan.isEmpty).toList();
 
-    final goal = MemorizationDailyGoal.forRepository(
-      scheduler,
-      catalog!,
-      repository,
-    );
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -288,8 +281,10 @@ class _MemorizationHomeScreenState extends State<MemorizationHomeScreen> {
           StreakDetailCard(
             uid: repository.uid,
             track: StreakTrack.memorization,
-            todayDone: goal.done,
-            todayGoal: goal.total,
+            // Regel: MemorizationStreakRule.
+            todayHint:
+                "Für die Streak genügt eine Übung aus dem Gedächtnis – bei "
+                "einem beliebigen Text. Alles Weitere ist freiwillig.",
           ),
 
           const SizedBox(height: 24),
