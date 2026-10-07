@@ -1088,7 +1088,12 @@ void main() {
     final pronounIds = {for (final p in pronouns.all) p.id};
 
     test("Wortarten und Genus-Auswahl", () {
-      expect(GrammarQuestionPicker.types, ["noun", "verb", "pronoun"]);
+      expect(GrammarQuestionPicker.types, [
+        "noun",
+        "verb",
+        "pronoun",
+        "comparison",
+      ]);
       expect(GrammarQuestionPicker.pronounGenders, ["m", "f", "n", "–"]);
       // Die Auswahl der Nomen bleibt unverändert.
       expect(GrammarQuestionPicker.genders, ["m", "f", "n"]);

@@ -473,7 +473,13 @@ void main() {
         final settings = GrammarTrainerSettings.fromMap(data);
 
         expect(settings.enabledSteps, [1, 2, 3, 4, 5, 6, 7]);
-        expect(settings.enabledTypes, ["noun", "verb", "pronoun"]);
+        expect(settings.enabledTypes, [
+          "noun",
+          "verb",
+          "pronoun",
+          "comparison",
+        ]);
+        expect(settings.enabledComparisonKinds, ["irregular", "regular"]);
         expect(settings.showLemmaFieldNoun, isTrue);
         expect(settings.showLemmaFieldVerb, isTrue);
         expect(settings.showLemmaFieldPronoun, isTrue);
@@ -501,7 +507,7 @@ void main() {
       settings.enabledTypes.clear();
 
       expect(GrammarTrainerSettings.allSteps.length, 7);
-      expect(GrammarTrainerSettings.allTypes.length, 3);
+      expect(GrammarTrainerSettings.allTypes.length, 4);
     });
 
     test("Speicherformat: bestehende Felder unverändert, Pronomen ergänzt", () {
@@ -518,6 +524,7 @@ void main() {
         'showLemmaFieldVerb': true,
         'showLemmaFieldPronoun': true,
         'enabledPronounKinds': GrammarQuestionPicker.pronounKinds,
+        'enabledComparisonKinds': GrammarQuestionPicker.comparisonKinds,
       });
     });
 

@@ -86,15 +86,24 @@ class GrammarLearning {
   /// Wählt eine Grundform aus mehreren Gruppen. Jede Gruppe hat dasselbe
   /// Grundgewicht (die inhaltliche Priorität des Trainers), multipliziert
   /// mit dem mittleren Lernbedarf ihrer Wörter; innerhalb der Gruppe
-  /// entscheidet der Lernbedarf des einzelnen Worts.
-  T pickFromGroups<T>(List<List<T>> groups, String Function(T) idOf) {
+  /// entscheidet der Lernbedarf des einzelnen Worts, auf Wunsch
+  /// multipliziert mit seiner inhaltlichen Priorität [weightOf].
+  T pickFromGroups<T>(
+    List<List<T>> groups,
+    String Function(T) idOf, {
+    double Function(T)? weightOf,
+  }) {
     final group = pickWeighted(groups, (group) {
       final total = group.fold(0.0, (sum, item) => sum + need(idOf(item)));
 
       return total / group.length;
     }, _random);
 
-    return pickWeighted(group, (item) => need(idOf(item)), _random);
+    return pickWeighted(
+      group,
+      (item) => need(idOf(item)) * (weightOf?.call(item) ?? 1),
+      _random,
+    );
   }
 
   /// Verbucht die Einzelergebnisse einer Frage (Karten-ID → richtig?) und

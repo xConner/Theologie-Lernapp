@@ -1,4 +1,6 @@
+import '../../../models/greek/grammar/adjective_comparison.dart';
 import '../../../utils/greek_normalization.dart';
+import 'adjective_comparisons.dart';
 import 'grammar_form_analysis.dart';
 import 'grammar_question_picker.dart';
 
@@ -155,4 +157,85 @@ PronounAnswerResult checkPronounAnswer({
   }
 
   return best;
+}
+
+/// [expected] beschreibt die richtigen Antworten für das Feedback.
+typedef ComparisonAnswerResult = ({bool correct, String expected});
+
+/// Prüft eine Antwort der Adjektivsteigerung.
+///
+/// Die Eingabe darf mehrere Formen enthalten (getrennt durch Leerzeichen,
+/// Komma, Schrägstrich, Bindestrich …). Jede eingegebene Form muss zum
+/// gefragten Grad gehören – ein Superlativ auf die Frage nach dem Komparativ
+/// ist also falsch, jede der Varianten (ἀμείνων, βελτίων, κρείττων,
+/// Neutrum ἄμεινον …) dagegen richtig. Bei „Komparativ und Superlativ“ muss
+/// mindestens je eine Form beider Grade dabei sein. Verglichen wird wie bei
+/// der Grundform ([lemmaAnswerMatches]): unabhängig von Akzenten, Spiritus,
+/// Groß-/Kleinschreibung und Schluss-Sigma.
+ComparisonAnswerResult checkComparisonAnswer({
+  required AdjectiveComparison comparison,
+  required ComparisonTarget target,
+  required String input,
+}) {
+  final tokens = input
+      .split(RegExp(r'[\s,;/()\-–—→]+'))
+      .where((token) => token.isNotEmpty)
+      .toList();
+
+  bool matchesAny(String token, Iterable<String> forms) {
+    return forms.any((form) => lemmaAnswerMatches(token, form));
+  }
+
+  bool allMatch(Iterable<String> forms) {
+    return tokens.isNotEmpty &&
+        tokens.every((token) => matchesAny(token, forms));
+  }
+
+  final comparatives = AdjectiveComparison.allTexts(comparison.comparatives);
+  final superlatives = AdjectiveComparison.allTexts(comparison.superlatives);
+
+  switch (target.direction) {
+    case GrammarQuestionPicker.positiveToComparative:
+      return (
+        correct: allMatch(comparatives),
+        expected: AdjectiveComparison.describe(comparison.comparatives),
+      );
+
+    case GrammarQuestionPicker.positiveToSuperlative:
+      return (
+        correct: allMatch(superlatives),
+        expected: AdjectiveComparison.describe(comparison.superlatives),
+      );
+
+    case GrammarQuestionPicker.comparativeToPositive ||
+        GrammarQuestionPicker.superlativeToPositive:
+      // ἐλάττων gehört zu μικρός und zu ὀλίγος: beide sind richtig.
+      final positives = [
+        for (final owner in AdjectiveComparisons.ownersOf(
+          target.shown,
+          superlative:
+              target.direction == GrammarQuestionPicker.superlativeToPositive,
+        ))
+          owner.positive,
+      ];
+
+      return (correct: allMatch(positives), expected: positives.join(" / "));
+
+    case GrammarQuestionPicker.positiveToBoth:
+      return (
+        correct:
+            allMatch([...comparatives, ...superlatives]) &&
+            tokens.any((token) => matchesAny(token, comparatives)) &&
+            tokens.any((token) => matchesAny(token, superlatives)),
+        expected:
+            "${AdjectiveComparison.describe(comparison.comparatives)} – "
+            "${AdjectiveComparison.describe(comparison.superlatives)}",
+      );
+
+    default:
+      return (
+        correct: allMatch(comparison.comparativeGenitives),
+        expected: comparison.comparativeGenitives.join(" / "),
+      );
+  }
 }

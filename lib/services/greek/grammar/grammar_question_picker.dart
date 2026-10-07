@@ -1,8 +1,10 @@
 import 'dart:math';
 
 import '../../../algorithms/grammar_learning.dart';
+import '../../../models/greek/grammar/adjective_comparison.dart';
 import '../../../models/greek/grammar/pronoun_paradigm.dart';
 import '../../../models/greek/vocabulary/greek_vocabulary_entry.dart';
+import 'adjective_comparisons.dart';
 
 /// Zielbestimmung einer Nomen-Aufgabe in der Schreibweise des Trainers
 /// ("Akkusativ", "Sg.", "m").
@@ -28,6 +30,17 @@ typedef PronounTarget = ({
   String form,
 });
 
+/// Aufgabe der Adjektivsteigerung: [direction] ist einer der Werte aus
+/// [GrammarQuestionPicker.comparisonDirections], [shown] die angezeigte Form,
+/// [note] ein Hinweis darunter (Übersetzung des Positivs, "Neutrum" …),
+/// [prompt] die Frage.
+typedef ComparisonTarget = ({
+  String direction,
+  String shown,
+  String? note,
+  String prompt,
+});
+
 /// Fachliche Regeln der Fragegenerierung im Grammatiktrainer: welche Wörter
 /// und welche Bestimmungen überhaupt gefragt werden dürfen.
 ///
@@ -38,7 +51,7 @@ typedef PronounTarget = ({
 class GrammarQuestionPicker {
   GrammarQuestionPicker._();
 
-  static const List<String> types = ["noun", "verb", "pronoun"];
+  static const List<String> types = ["noun", "verb", "pronoun", "comparison"];
 
   static const List<String> cases = [
     "Nominativ",
@@ -60,6 +73,57 @@ class GrammarQuestionPicker {
     "interrogative",
     "indefinite",
   ];
+
+  /// Steigerungsarten der Adjektivsteigerung, einzeln wählbar.
+  static const List<String> comparisonKinds = ["irregular", "regular"];
+
+  static String comparisonKindLabel(String kind) {
+    return kind == "irregular" ? "Unregelmäßige" : "Regelmäßige";
+  }
+
+  static const String positiveToComparative = "positive-comparative";
+  static const String positiveToSuperlative = "positive-superlative";
+  static const String comparativeToPositive = "comparative-positive";
+  static const String superlativeToPositive = "superlative-positive";
+  static const String positiveToBoth = "positive-both";
+  static const String comparativeGenitive = "comparative-genitive";
+
+  /// Beschriftung des Eingabefelds.
+  static String comparisonAnswerLabel(String direction) {
+    switch (direction) {
+      case positiveToComparative:
+        return "Komparativ";
+
+      case positiveToSuperlative:
+        return "Superlativ";
+
+      case positiveToBoth:
+        return "Komparativ und Superlativ";
+
+      case comparativeGenitive:
+        return "Genitiv Sg. des Komparativs";
+
+      default:
+        return "Positiv";
+    }
+  }
+
+  // Mehrere Formulierungen je Frageart, damit die Fragen nicht immer gleich
+  // aussehen.
+  static const Map<String, List<String>> _comparisonPrompts = {
+    positiveToComparative: ["Komparativ?", "Wie lautet der Komparativ?"],
+    positiveToSuperlative: ["Superlativ?", "Wie lautet der Superlativ?"],
+    comparativeToPositive: [
+      "Positiv?",
+      "Welcher Positiv gehört zu diesem Komparativ?",
+    ],
+    superlativeToPositive: [
+      "Positiv?",
+      "Welcher Positiv gehört zu diesem Superlativ?",
+    ],
+    positiveToBoth: ["Komparativ und Superlativ?"],
+    comparativeGenitive: ["Genitiv Sg. des Komparativs?"],
+  };
 
   /// Auswahl für Pronomen ohne Genus (ἐγώ, σύ).
   static const String noGender = "–";
@@ -173,12 +237,14 @@ class GrammarQuestionPicker {
   /// Ob ein Wort zu den Filtern des Trainers gehört. Pronomen sind eine
   /// eigene Inhaltsgruppe und hängen nicht an den Schritten; gefragt werden
   /// kann nur ein Pronomen, für das ein Paradigma vorliegt
-  /// ([pronounIds]).
+  /// ([pronounIds]). Ebenso die Adjektivsteigerung: gefragt werden die
+  /// Adjektive der gewählten Steigerungsarten ([comparisonIds]).
   static bool isAvailable(
     GreekVocabularyEntry entry, {
     required List<int> enabledSteps,
     required List<String> enabledTypes,
     required Set<int> pronounIds,
+    Set<int> comparisonIds = const {},
   }) {
     if (!enabledTypes.contains(entry.type) || blacklist.contains(entry.lemma)) {
       return false;
@@ -188,14 +254,20 @@ class GrammarQuestionPicker {
       return pronounIds.contains(entry.id);
     }
 
+    if (entry.type == AdjectiveComparisons.type) {
+      return comparisonIds.contains(entry.id);
+    }
+
     return enabledSteps.contains(entry.step);
   }
 
   /// Wählt die Grundform der nächsten Frage aus den bereits gefilterten
-  /// Wörtern. Vier Gruppen mit demselben Grundgewicht: alle Wörter, die
-  /// Verben des Aoristblatts, εἰμί und die Pronomen (jeweils soweit
-  /// verfügbar). Der Lernbedarf verschiebt die Auswahl zwischen den Gruppen und innerhalb
-  /// der gewählten Gruppe.
+  /// Wörtern. Fünf Gruppen mit demselben Grundgewicht: alle Wörter, die
+  /// Verben des Aoristblatts, εἰμί, die Pronomen und die Adjektivsteigerung
+  /// (jeweils soweit verfügbar). Der Lernbedarf verschiebt die Auswahl
+  /// zwischen den Gruppen und innerhalb der gewählten Gruppe; bei der
+  /// Adjektivsteigerung zählt dort zusätzlich die Priorität des Adjektivs
+  /// (unregelmäßige deutlich häufiger).
   static GreekVocabularyEntry pickEntry(
     GrammarLearning grammar,
     List<GreekVocabularyEntry> available,
@@ -210,12 +282,76 @@ class GrammarQuestionPicker {
       return entry.type == "pronoun";
     }).toList();
 
-    return grammar.pickFromGroups([
-      available,
-      if (aoristSheetVerbs.isNotEmpty) aoristSheetVerbs,
-      if (eimi != null) [eimi],
-      if (pronouns.isNotEmpty) pronouns,
-    ], (entry) => GrammarLearning.lemmaId(entry.id));
+    final comparisons = available.where((entry) {
+      return entry.type == AdjectiveComparisons.type;
+    }).toList();
+
+    return grammar.pickFromGroups(
+      [
+        available,
+        if (aoristSheetVerbs.isNotEmpty) aoristSheetVerbs,
+        if (eimi != null) [eimi],
+        if (pronouns.isNotEmpty) pronouns,
+        if (comparisons.isNotEmpty) comparisons,
+      ],
+      (entry) => GrammarLearning.lemmaId(entry.id),
+      weightOf: (entry) {
+        return entry.type == AdjectiveComparisons.type ? entry.weight : 1;
+      },
+    );
+  }
+
+  /// Frageart nach Lernbedarf; bei Komparativ → Positiv bzw. Superlativ →
+  /// Positiv auch die vorgelegte Form (Maskulinum oder Neutrum, nie eine
+  /// seltene Form) nach Lernbedarf, sodass falsch beantwortete Formen
+  /// häufiger wiederkommen. Die Formulierung entscheidet der Zufall.
+  static ComparisonTarget pickComparisonTarget(
+    GrammarLearning grammar,
+    AdjectiveComparison comparison,
+    Random random,
+  ) {
+    List<ComparisonForm> shownForms(List<ComparisonForm> forms) {
+      return forms.where((form) => !form.rare).toList();
+    }
+
+    final comparatives = shownForms(comparison.comparatives);
+    final superlatives = shownForms(comparison.superlatives);
+
+    final direction = grammar.pickValue("comparison", "direction", [
+      positiveToComparative,
+      positiveToSuperlative,
+      if (comparatives.isNotEmpty) comparativeToPositive,
+      if (superlatives.isNotEmpty) superlativeToPositive,
+      positiveToBoth,
+      if (comparison.comparativeGenitives.isNotEmpty) comparativeGenitive,
+    ]);
+
+    var shown = comparison.positive;
+    String? note = comparison.translations.join(", ");
+
+    if (direction == comparativeToPositive ||
+        direction == superlativeToPositive) {
+      final forms = direction == comparativeToPositive
+          ? comparatives
+          : superlatives;
+
+      shown = grammar.pickValue("comparison", "form", [
+        for (final form in forms) ...form.texts,
+      ]);
+
+      final form = forms.firstWhere((form) => form.texts.contains(shown));
+
+      note = shown == form.neuter ? "Neutrum" : form.note;
+    }
+
+    final prompts = _comparisonPrompts[direction]!;
+
+    return (
+      direction: direction,
+      shown: shown,
+      note: note,
+      prompt: prompts[random.nextInt(prompts.length)],
+    );
   }
 
   /// Genus eines Nomens, bestimmt aus dem Artikel.

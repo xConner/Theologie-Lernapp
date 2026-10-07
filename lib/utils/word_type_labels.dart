@@ -11,6 +11,10 @@ String wordTypeFilterLabel(String type) {
     case "adjective":
       return "Adjektive";
 
+    // Nur im Grammatiktrainer.
+    case "comparison":
+      return "Adjektivsteigerung";
+
     case "adverb":
       return "Adverbien";
 

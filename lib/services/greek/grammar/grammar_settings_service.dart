@@ -13,6 +13,9 @@ class GrammarTrainerSettings {
   static const List<String> allPronounKinds =
       GrammarQuestionPicker.pronounKinds;
 
+  static const List<String> allComparisonKinds =
+      GrammarQuestionPicker.comparisonKinds;
+
   final List<int> enabledSteps;
   final List<String> enabledTypes;
 
@@ -26,10 +29,15 @@ class GrammarTrainerSettings {
   /// Unterauswahl der Wortart Pronomen: welche Pronomenarten gefragt werden.
   final List<String> enabledPronounKinds;
 
+  /// Unterauswahl der Adjektivsteigerung: unregelmäßige und/oder
+  /// regelmäßige Steigerungen.
+  final List<String> enabledComparisonKinds;
+
   const GrammarTrainerSettings({
     this.enabledSteps = allSteps,
     this.enabledTypes = allTypes,
     this.enabledPronounKinds = allPronounKinds,
+    this.enabledComparisonKinds = allComparisonKinds,
     this.showLemmaFieldNoun = true,
     this.showLemmaFieldVerb = true,
     this.showLemmaFieldPronoun = true,
@@ -46,10 +54,12 @@ class GrammarTrainerSettings {
         enabledSteps: List.of(allSteps),
         enabledTypes: List.of(allTypes),
         enabledPronounKinds: List.of(allPronounKinds),
+        enabledComparisonKinds: List.of(allComparisonKinds),
       );
     }
 
     final kinds = data['enabledPronounKinds'];
+    final comparisonKinds = data['enabledComparisonKinds'];
 
     final steps = data['enabledSteps'];
     final types = data['enabledTypes'];
@@ -73,6 +83,12 @@ class GrammarTrainerSettings {
       enabledPronounKinds: kinds is List
           ? kinds.whereType<String>().where(allPronounKinds.contains).toList()
           : List.of(allPronounKinds),
+      enabledComparisonKinds: comparisonKinds is List
+          ? comparisonKinds
+                .whereType<String>()
+                .where(allComparisonKinds.contains)
+                .toList()
+          : List.of(allComparisonKinds),
       showLemmaFieldNoun: lemmaNoun is bool ? lemmaNoun : true,
       showLemmaFieldVerb: lemmaVerb is bool ? lemmaVerb : true,
       showLemmaFieldPronoun: lemmaPronoun is bool ? lemmaPronoun : true,
@@ -87,6 +103,7 @@ class GrammarTrainerSettings {
       'showLemmaFieldVerb': showLemmaFieldVerb,
       'showLemmaFieldPronoun': showLemmaFieldPronoun,
       'enabledPronounKinds': enabledPronounKinds,
+      'enabledComparisonKinds': enabledComparisonKinds,
     };
   }
 }

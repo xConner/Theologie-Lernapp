@@ -8,6 +8,7 @@ import '../../models/greek/grammar/pronoun_paradigm.dart';
 import '../../models/greek/vocabulary/greek_vocabulary_entry.dart';
 import '../../models/greek/vocabulary/learning_card.dart';
 import '../../services/greek/vocabulary/greek_vocabulary_loader.dart';
+import '../../services/greek/grammar/adjective_comparisons.dart';
 import '../../services/greek/grammar/grammar_answer_check.dart';
 import '../../services/greek/grammar/grammar_form_analysis.dart';
 import '../../services/greek/grammar/grammar_question_picker.dart';
@@ -51,6 +52,8 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
 
   final TextEditingController answerController = TextEditingController();
 
+  final FocusNode answerFocus = FocusNode();
+
   final Random _random = Random();
 
   final LearningService learningService = LearningService();
@@ -88,6 +91,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
   String? _preloadedNumberVerb;
   String? _preloadedTense;
   String? _preloadedVoice;
+  ComparisonTarget? _preloadedComparison;
 
   // Wird bei jedem Fragenwechsel erhöht. Eine noch laufende Formabfrage
   // erkennt daran, dass ihre Frage inzwischen ersetzt wurde, und darf ihr
@@ -131,6 +135,12 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
 
   List<String> enabledPronounKinds = List.of(allPronounKinds);
 
+  // Unterauswahl der Adjektivsteigerung.
+  static const List<String> allComparisonKinds =
+      GrammarQuestionPicker.comparisonKinds;
+
+  List<String> enabledComparisonKinds = List.of(allComparisonKinds);
+
   // ---------------------------------------------------------------------------
   // NOMEN
   // ---------------------------------------------------------------------------
@@ -173,6 +183,16 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
   bool _pronounInfoOpen = false;
 
   // ---------------------------------------------------------------------------
+  // ADJEKTIVSTEIGERUNG
+  // ---------------------------------------------------------------------------
+
+  // Die Antwort wird in das Grundform-Feld getippt (answerController).
+  ComparisonTarget? comparisonTarget;
+
+  // Richtige Antworten für das Feedback (nach dem Prüfen).
+  String? comparisonExpected;
+
+  // ---------------------------------------------------------------------------
   // INIT / DISPOSE
   // ---------------------------------------------------------------------------
 
@@ -200,6 +220,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
   void dispose() {
     _keyListener.dispose();
     answerController.dispose();
+    answerFocus.dispose();
 
     super.dispose();
   }
@@ -217,6 +238,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
     showLemmaFieldVerb = settings.showLemmaFieldVerb;
     showLemmaFieldPronoun = settings.showLemmaFieldPronoun;
     enabledPronounKinds = settings.enabledPronounKinds;
+    enabledComparisonKinds = settings.enabledComparisonKinds;
   }
 
   Future<void> saveGrammarSettings() {
@@ -229,6 +251,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
         showLemmaFieldVerb: showLemmaFieldVerb,
         showLemmaFieldPronoun: showLemmaFieldPronoun,
         enabledPronounKinds: enabledPronounKinds,
+        enabledComparisonKinds: enabledComparisonKinds,
       ),
     );
   }
@@ -248,7 +271,10 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
         _loadPronouns(),
       ]);
 
-      entries = results[0] as List<GreekVocabularyEntry>;
+      entries = [
+        ...results[0] as List<GreekVocabularyEntry>,
+        ...AdjectiveComparisons.entries,
+      ];
 
       pronouns = results[3] as PronounParadigms;
 
@@ -320,6 +346,10 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
     return question?.type == "pronoun";
   }
 
+  bool isComparison() {
+    return question?.type == AdjectiveComparisons.type;
+  }
+
   // Prüft ausschließlich, ob ein Wort zu den aktuellen Filtern gehört.
   bool _isEntryAvailable(GreekVocabularyEntry entry) {
     return GrammarQuestionPicker.isAvailable(
@@ -327,6 +357,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
       enabledSteps: enabledSteps,
       enabledTypes: enabledTypes,
       pronounIds: {for (final paradigm in _enabledPronouns()) paradigm.id},
+      comparisonIds: AdjectiveComparisons.idsOfKinds(enabledComparisonKinds),
     );
   }
 
@@ -407,6 +438,8 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
       selectedTense = null;
       selectedVoice = null;
 
+      comparisonTarget = null;
+
       _resetAnswerState();
     });
 
@@ -418,6 +451,8 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
       await generateVerbQuestion(newQuestion);
     } else if (newQuestion.type == "pronoun") {
       generatePronounQuestion(newQuestion);
+    } else if (newQuestion.type == AdjectiveComparisons.type) {
+      generateComparisonQuestion(newQuestion);
     }
 
     // Screen inzwischen geschlossen oder Frage bereits ersetzt:
@@ -540,10 +575,14 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
       selectedTense = _preloadedTense;
       selectedVoice = _preloadedVoice;
 
+      comparisonTarget = _preloadedComparison;
+
       _resetAnswerState();
     });
 
     _clearPreloaded();
+
+    _focusComparisonAnswer();
   }
 
   // Setzt Eingaben und Auswertung der vorherigen Frage zurück (innerhalb
@@ -562,6 +601,8 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
 
     userPronoun = null;
     _pronounReference = null;
+
+    comparisonExpected = null;
 
     caseCorrect = null;
     numberCorrect = null;
@@ -599,6 +640,8 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
       await _preloadVerbQuestion(next);
     } else if (next.type == "pronoun") {
       _preloadPronounQuestion(next);
+    } else if (next.type == AdjectiveComparisons.type) {
+      _preloadComparisonQuestion(next);
     }
   }
 
@@ -612,6 +655,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
     _preloadedNumberVerb = null;
     _preloadedTense = null;
     _preloadedVoice = null;
+    _preloadedComparison = null;
   }
 
   // Ein Preload-Ergebnis wird nur übernommen, wenn der Screen noch lebt, die
@@ -648,7 +692,23 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
       lemmaCorrect =
           !showLemmaField || lemmaAnswerMatches(answerController.text, q.lemma);
 
-      if (q.type == "pronoun") {
+      final comparison = AdjectiveComparisons.byId(q.id);
+      final target = comparisonTarget;
+
+      if (q.type == AdjectiveComparisons.type &&
+          comparison != null &&
+          target != null) {
+        final result = checkComparisonAnswer(
+          comparison: comparison,
+          target: target,
+          input: answerController.text,
+        );
+
+        comparisonExpected = result.expected;
+
+        lemmaCorrect = result.correct;
+        correct = result.correct;
+      } else if (q.type == "pronoun") {
         final result = checkPronounAnswer(
           target: (
             pronounId: q.id,
@@ -766,7 +826,31 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
 
     final reference = _pronounReference;
 
-    if (q.type == "pronoun" && reference != null) {
+    final comparison = comparisonTarget;
+
+    if (q.type == AdjectiveComparisons.type && comparison != null) {
+      // Das Adjektiv, die Frageart und – bei Komparativ/Superlativ →
+      // Positiv – die vorgelegte Form: Fehler holen genau diese häufiger
+      // zurück.
+      final ok = correct;
+
+      results[lemmaId] = ok;
+      results[GrammarLearning.dimensionId(
+            "comparison",
+            "direction",
+            comparison.direction,
+          )] =
+          ok;
+
+      if (comparison.shown != q.lemma) {
+        results[GrammarLearning.dimensionId(
+              "comparison",
+              "form",
+              comparison.shown,
+            )] =
+            ok;
+      }
+    } else if (q.type == "pronoun" && reference != null) {
       // Gewertet wird die Bestimmung, an der die Antwort gemessen wurde –
       // bei einer mehrdeutigen Form also die, die der Nutzer erkannt hat.
       results[GrammarLearning.dimensionId(
@@ -1054,6 +1138,83 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
     _preloadedNumberVerb = null;
     _preloadedTense = null;
     _preloadedVoice = null;
+    _preloadedComparison = null;
+  }
+
+  // ---------------------------------------------------------------------------
+  // ADJEKTIVSTEIGERUNG GENERIEREN / PRELOAD
+  // ---------------------------------------------------------------------------
+
+  ComparisonTarget? _pickComparisonTarget(GreekVocabularyEntry entry) {
+    final comparison = AdjectiveComparisons.byId(entry.id);
+
+    if (comparison == null) {
+      return null;
+    }
+
+    return GrammarQuestionPicker.pickComparisonTarget(
+      grammar,
+      comparison,
+      _random,
+    );
+  }
+
+  // Die Formen liegen lokal vor; keine Netzwerkabfrage.
+  void generateComparisonQuestion(GreekVocabularyEntry entry) {
+    final target = _pickComparisonTarget(entry);
+
+    if (!mounted) {
+      return;
+    }
+
+    setState(() {
+      loadingForm = false;
+
+      comparisonTarget = target;
+
+      if (target == null) {
+        correctForm = null;
+        formError = 'Keine Steigerung gefunden.\n\nGrundform: ${entry.lemma}';
+
+        return;
+      }
+
+      correctForm = target.shown;
+      formError = null;
+    });
+
+    _focusComparisonAnswer();
+  }
+
+  // Bei der Steigerung ist die Eingabe die ganze Aufgabe: Das Feld wird nach
+  // dem Aufbau der Frage (dann wieder aktiviert) direkt fokussiert.
+  void _focusComparisonAnswer() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted && isComparison() && !answered) {
+        answerFocus.requestFocus();
+      }
+    });
+  }
+
+  void _preloadComparisonQuestion(GreekVocabularyEntry entry) {
+    final token = ++_preloadToken;
+
+    final target = _pickComparisonTarget(entry);
+
+    if (target == null) {
+      _clearPreloaded();
+      return;
+    }
+
+    if (!_mayStorePreloaded(token, entry)) {
+      return;
+    }
+
+    _clearPreloaded();
+
+    _preloadedQuestion = entry;
+    _preloadedForm = target.shown;
+    _preloadedComparison = target;
   }
 
   // ---------------------------------------------------------------------------
@@ -1089,6 +1250,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
         _preloadedNumberVerb = null;
         _preloadedTense = null;
         _preloadedVoice = null;
+        _preloadedComparison = null;
       } else if (token == _preloadToken) {
         _clearPreloaded();
       }
@@ -1142,6 +1304,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
         _preloadedNumberVerb = number;
         _preloadedTense = tense;
         _preloadedVoice = voice;
+        _preloadedComparison = null;
       } else if (token == _preloadToken) {
         _clearPreloaded();
       }
@@ -1246,6 +1409,20 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
                         return;
                       }
 
+                      if (enabledTypes.contains(AdjectiveComparisons.type) &&
+                          enabledComparisonKinds.isEmpty) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text(
+                              "Mindestens eine Steigerungsart muss "
+                              "ausgewählt sein.",
+                            ),
+                          ),
+                        );
+
+                        return;
+                      }
+
                       await saveGrammarSettings();
 
                       if (!context.mounted) {
@@ -1281,9 +1458,10 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
                         hint:
                             "Abgefragt werden nur Wörter aus den "
                             "ausgewählten Schritten. Mehrere Schritte können "
-                            "gleichzeitig ausgewählt sein. Pronomen gehören "
-                            "zu keinem Schritt und werden nur über die "
-                            "Wortart ein- oder ausgeschaltet.",
+                            "gleichzeitig ausgewählt sein. Pronomen und die "
+                            "Adjektivsteigerung gehören zu keinem Schritt "
+                            "und werden nur über die Wortart ein- oder "
+                            "ausgeschaltet.",
                         options: const [1, 2, 3, 4, 5, 6, 7],
                         isSelected: enabledSteps.contains,
                         labelOf: (step) => "Schritt $step",
@@ -1385,6 +1563,47 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
                         ),
 
                       // -------------------------------------------------------
+                      // ADJEKTIVSTEIGERUNG (UNTERAUSWAHL)
+                      // -------------------------------------------------------
+                      if (enabledTypes.contains(AdjectiveComparisons.type))
+                        MultiSelectSection<String>(
+                          title: "Adjektivsteigerung",
+                          hint:
+                              "Positiv → Komparativ → Superlativ. Die "
+                              "unregelmäßigen Steigerungen kommen deutlich "
+                              "häufiger. Beide ausgewählt = alle.",
+                          options: allComparisonKinds,
+                          isSelected: enabledComparisonKinds.contains,
+                          labelOf: GrammarQuestionPicker.comparisonKindLabel,
+                          emptyError:
+                              "Mindestens eine Steigerungsart muss "
+                              "ausgewählt sein.",
+                          onToggleAll: () {
+                            setDialogState(() {
+                              if (enabledComparisonKinds.length ==
+                                  allComparisonKinds.length) {
+                                enabledComparisonKinds.clear();
+                              } else {
+                                enabledComparisonKinds = List.of(
+                                  allComparisonKinds,
+                                );
+                              }
+                            });
+                          },
+                          onChanged: (kind, value) {
+                            setDialogState(() {
+                              if (value) {
+                                if (!enabledComparisonKinds.contains(kind)) {
+                                  enabledComparisonKinds.add(kind);
+                                }
+                              } else {
+                                enabledComparisonKinds.remove(kind);
+                              }
+                            });
+                          },
+                        ),
+
+                      // -------------------------------------------------------
                       // GRUNDFORM
                       // -------------------------------------------------------
                       SettingsSection(
@@ -1462,7 +1681,11 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
       "Fehler beim Laden": formError ?? "",
       if (answered || formError != null) ...{
         "Grundform": "${q.lemma} (ID ${q.id})",
-        if (isNoun())
+        if (isComparison())
+          "Frage":
+              "${comparisonTarget?.prompt} "
+              "(${comparisonTarget?.direction})"
+        else if (isNoun())
           "Bestimmung": "$selectedCase $selectedNumber"
         else if (isPronoun())
           "Bestimmung": "$selectedCase $selectedNumber $selectedGender"
@@ -1547,6 +1770,9 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
                     textAlign: TextAlign.center,
                   ),
 
+                if (isComparison() && correctForm != null)
+                  _buildComparisonPrompt(),
+
                 const SizedBox(height: 28),
 
                 // -------------------------------------------------------------
@@ -1565,12 +1791,24 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
                 // LEMMA EINGABE
                 // -------------------------------------------------------------
                 if ((isNoun() && showLemmaFieldNoun) ||
-                    (isVerb() && showLemmaFieldVerb)) ...[
+                    (isVerb() && showLemmaFieldVerb) ||
+                    isComparison()) ...[
                   TextField(
                     controller: answerController,
                     enabled: !answered && !loadingForm && correctForm != null,
+                    focusNode: answerFocus,
                     decoration: InputDecoration(
-                      labelText: "Grundform",
+                      labelText: isComparison()
+                          ? GrammarQuestionPicker.comparisonAnswerLabel(
+                              comparisonTarget?.direction ?? "",
+                            )
+                          : "Grundform",
+                      hintText:
+                          comparisonTarget?.direction ==
+                                  GrammarQuestionPicker.positiveToBoth &&
+                              isComparison()
+                          ? "Komparativ Superlativ (mit Leerzeichen)"
+                          : null,
                       enabledBorder: answerResultBorder(context, lemmaCorrect),
                       focusedBorder: answerResultBorder(context, lemmaCorrect),
                       disabledBorder: answerResultBorder(context, lemmaCorrect),
@@ -1604,10 +1842,12 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
                       const SizedBox(height: 12),
 
                       // Bei falscher Grundform steht sie unten bei den
-                      // korrekten Antworten.
-                      if (lemmaCorrect != false ||
-                          (!(isNoun() && showLemmaFieldNoun) &&
-                              !(isVerb() && showLemmaFieldVerb))) ...[
+                      // korrekten Antworten. Die Steigerung zeigt statt
+                      // dessen die vollständige Reihe.
+                      if (!isComparison() &&
+                          (lemmaCorrect != false ||
+                              (!(isNoun() && showLemmaFieldNoun) &&
+                                  !(isVerb() && showLemmaFieldVerb)))) ...[
                         SelectableText(
                           "Grundform: ${question!.lemma}",
                           style: const TextStyle(fontWeight: FontWeight.w500),
@@ -1615,7 +1855,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
                         const SizedBox(height: 4),
                       ],
 
-                      if (_feedbackTranslations().isNotEmpty)
+                      if (!isComparison() && _feedbackTranslations().isNotEmpty)
                         Text(
                           "Übersetzung: ${_feedbackTranslations()}",
                           style: const TextStyle(fontWeight: FontWeight.w500),
@@ -1625,6 +1865,8 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
 
                       if (isPronoun())
                         _buildPronounFeedback()
+                      else if (isComparison())
+                        _buildComparisonFeedback()
                       else if (!correct)
                         Column(
                           children: [
@@ -1933,6 +2175,111 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
     );
 
     _pronounInfoOpen = false;
+  }
+
+  // ---------------------------------------------------------------------------
+  // ADJEKTIVSTEIGERUNG: FRAGE UND FEEDBACK
+  // ---------------------------------------------------------------------------
+
+  // Hinweis zur angezeigten Form (Übersetzung des Positivs, "Neutrum") und
+  // die Frage selbst.
+  Widget _buildComparisonPrompt() {
+    final target = comparisonTarget;
+
+    if (target == null) {
+      return const SizedBox();
+    }
+
+    return Column(
+      children: [
+        if (target.note != null) ...[
+          const SizedBox(height: 4),
+          Text(
+            target.note!,
+            textAlign: TextAlign.center,
+            style: TextStyle(color: context.colors.textSecondary),
+          ),
+        ],
+
+        const SizedBox(height: 12),
+
+        Text(
+          target.prompt,
+          textAlign: TextAlign.center,
+          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+        ),
+      ],
+    );
+  }
+
+  // Nach jeder Antwort die vollständige Reihe, damit alle Varianten gelernt
+  // werden. Gehört die gefragte Form zu mehreren Adjektiven (ἐλάττων:
+  // μικρός und ὀλίγος), stehen alle Reihen da.
+  Widget _buildComparisonFeedback() {
+    final q = question;
+    final target = comparisonTarget;
+
+    if (q == null || target == null) {
+      return const SizedBox();
+    }
+
+    final toPositive =
+        target.direction == GrammarQuestionPicker.comparativeToPositive ||
+        target.direction == GrammarQuestionPicker.superlativeToPositive;
+
+    final rows = toPositive
+        ? AdjectiveComparisons.ownersOf(
+            target.shown,
+            superlative:
+                target.direction == GrammarQuestionPicker.superlativeToPositive,
+          )
+        : [?AdjectiveComparisons.byId(q.id)];
+
+    return Column(
+      children: [
+        if (!correct && comparisonExpected != null) ...[
+          const Text(
+            "Richtig wäre:",
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+
+          const SizedBox(height: 4),
+
+          SelectableText(
+            comparisonExpected!,
+            textAlign: TextAlign.center,
+            style: const TextStyle(fontSize: 18),
+          ),
+
+          const SizedBox(height: 16),
+        ],
+
+        for (final row in rows) ...[
+          SelectableText(
+            row.row,
+            textAlign: TextAlign.center,
+            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+          ),
+
+          const SizedBox(height: 2),
+
+          Text(
+            row.translations.join(", "),
+            textAlign: TextAlign.center,
+            style: TextStyle(color: context.colors.textSecondary),
+          ),
+
+          if (row.comparativeGenitives.isNotEmpty)
+            SelectableText(
+              "Gen. des Komparativs: "
+              "${row.comparativeGenitives.join(' / ')}",
+              textAlign: TextAlign.center,
+            ),
+
+          const SizedBox(height: 8),
+        ],
+      ],
+    );
   }
 
   // ---------------------------------------------------------------------------
