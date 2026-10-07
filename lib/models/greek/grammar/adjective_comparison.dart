@@ -55,6 +55,27 @@ class AdjectiveComparison {
     return [for (final form in forms) ...form.texts];
   }
 
+  /// Alle gesteigerten Formen: Komparative, Superlative (jeweils mit Neutra
+  /// und seltenen Formen) und der Genitiv des Komparativs.
+  List<String> get gradedForms => [
+    ...allTexts(comparatives),
+    ...allTexts(superlatives),
+    ...comparativeGenitives,
+  ];
+
+  /// Die gesteigerten Formen, die als Aufgabe vorgelegt werden (keine
+  /// seltenen), mit einem Hinweis zur Form ("Neutrum", "Adv.", "Gen. Sg.").
+  /// Der Grad selbst wird nicht verraten.
+  List<({String text, String? note})> get shownForms => [
+    for (final form in [...comparatives, ...superlatives])
+      if (!form.rare) ...[
+        (text: form.text, note: form.note),
+        if (form.neuter != null) (text: form.neuter!, note: "Neutrum"),
+      ],
+    for (final genitive in comparativeGenitives)
+      (text: genitive, note: "Gen. Sg."),
+  ];
+
   /// "ἀμείνων (ἄμεινον) / βελτίων (βέλτιον)", seltene Formen eingeklammert:
   /// "(ὀλείζων) / ἐλάττων (ἔλαττον)".
   static String describe(List<ComparisonForm> forms) {

@@ -4696,5 +4696,45 @@
       "irgendeiner"
     ],
     "note": "Neutrum: τι (irgendetwas); Indefinitpronomen, enklitisch"
+  },
+  {
+    "id": 446,
+    "step": 8,
+    "type": "phrase",
+    "lemma": "δεῖ",
+    "translations": [
+      "es ist nötig"
+    ],
+    "note": "unpersönlich; + Inf. bzw. AcI"
+  },
+  {
+    "id": 447,
+    "step": 8,
+    "type": "phrase",
+    "lemma": "χρή",
+    "translations": [
+      "es ist nötig"
+    ],
+    "note": "unpersönlich; + Inf. bzw. AcI"
+  },
+  {
+    "id": 448,
+    "step": 8,
+    "type": "phrase",
+    "lemma": "ἔξεστιν",
+    "translations": [
+      "es ist erlaubt"
+    ],
+    "note": "unpersönlich; + Inf. bzw. AcI"
+  },
+  {
+    "id": 449,
+    "step": 8,
+    "type": "phrase",
+    "lemma": "δοκεῖ",
+    "translations": [
+      "es scheint gut"
+    ],
+    "note": "unpersönlich; + Inf. bzw. AcI"
   }
 ]

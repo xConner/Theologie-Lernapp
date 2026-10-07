@@ -525,6 +525,8 @@ void main() {
         'showLemmaFieldPronoun': true,
         'enabledPronounKinds': GrammarQuestionPicker.pronounKinds,
         'enabledComparisonKinds': GrammarQuestionPicker.comparisonKinds,
+        'askComparisonLemma': true,
+        'askComparisonTranslation': true,
       });
     });
 

@@ -5,7 +5,12 @@ import '../../local_learning_store.dart';
 /// Einstellungen des griechischen Vokabeltrainers. Ohne gespeicherte Werte
 /// gelten die Defaults des Konstruktors.
 class VocabularySettings {
-  static const List<int> allSteps = [1, 2, 3, 4, 5, 6, 7];
+  /// Schritt 8: zusätzliche Vokabeln für die Klausur (nicht im Lehrbuch).
+  static const List<int> allSteps = [1, 2, 3, 4, 5, 6, 7, 8];
+
+  static String stepLabel(int step) {
+    return step == 8 ? "Schritt 8 (Klausur-Extra)" : "Schritt $step";
+  }
 
   static const List<String> allTypes = [
     "noun",

@@ -30,16 +30,10 @@ typedef PronounTarget = ({
   String form,
 });
 
-/// Aufgabe der Adjektivsteigerung: [direction] ist einer der Werte aus
-/// [GrammarQuestionPicker.comparisonDirections], [shown] die angezeigte Form,
-/// [note] ein Hinweis darunter (Übersetzung des Positivs, "Neutrum" …),
-/// [prompt] die Frage.
-typedef ComparisonTarget = ({
-  String direction,
-  String shown,
-  String? note,
-  String prompt,
-});
+/// Aufgabe der Adjektivsteigerung: die angezeigte gesteigerte Form [shown]
+/// und ein Hinweis darunter ([note]: "Neutrum", "Adv.", "Gen. Sg.").
+/// Gefragt werden Grundform und/oder Übersetzung des Positivs.
+typedef ComparisonTarget = ({String shown, String? note});
 
 /// Fachliche Regeln der Fragegenerierung im Grammatiktrainer: welche Wörter
 /// und welche Bestimmungen überhaupt gefragt werden dürfen.
@@ -80,50 +74,6 @@ class GrammarQuestionPicker {
   static String comparisonKindLabel(String kind) {
     return kind == "irregular" ? "Unregelmäßige" : "Regelmäßige";
   }
-
-  static const String positiveToComparative = "positive-comparative";
-  static const String positiveToSuperlative = "positive-superlative";
-  static const String comparativeToPositive = "comparative-positive";
-  static const String superlativeToPositive = "superlative-positive";
-  static const String positiveToBoth = "positive-both";
-  static const String comparativeGenitive = "comparative-genitive";
-
-  /// Beschriftung des Eingabefelds.
-  static String comparisonAnswerLabel(String direction) {
-    switch (direction) {
-      case positiveToComparative:
-        return "Komparativ";
-
-      case positiveToSuperlative:
-        return "Superlativ";
-
-      case positiveToBoth:
-        return "Komparativ und Superlativ";
-
-      case comparativeGenitive:
-        return "Genitiv Sg. des Komparativs";
-
-      default:
-        return "Positiv";
-    }
-  }
-
-  // Mehrere Formulierungen je Frageart, damit die Fragen nicht immer gleich
-  // aussehen.
-  static const Map<String, List<String>> _comparisonPrompts = {
-    positiveToComparative: ["Komparativ?", "Wie lautet der Komparativ?"],
-    positiveToSuperlative: ["Superlativ?", "Wie lautet der Superlativ?"],
-    comparativeToPositive: [
-      "Positiv?",
-      "Welcher Positiv gehört zu diesem Komparativ?",
-    ],
-    superlativeToPositive: [
-      "Positiv?",
-      "Welcher Positiv gehört zu diesem Superlativ?",
-    ],
-    positiveToBoth: ["Komparativ und Superlativ?"],
-    comparativeGenitive: ["Genitiv Sg. des Komparativs?"],
-  };
 
   /// Auswahl für Pronomen ohne Genus (ἐγώ, σύ).
   static const String noGender = "–";
@@ -301,56 +251,22 @@ class GrammarQuestionPicker {
     );
   }
 
-  /// Frageart nach Lernbedarf; bei Komparativ → Positiv bzw. Superlativ →
-  /// Positiv auch die vorgelegte Form (Maskulinum oder Neutrum, nie eine
-  /// seltene Form) nach Lernbedarf, sodass falsch beantwortete Formen
-  /// häufiger wiederkommen. Die Formulierung entscheidet der Zufall.
+  /// Eine beliebige gesteigerte Form des Adjektivs (Komparativ, Superlativ,
+  /// Neutrum, Genitiv des Komparativs – nie eine seltene Form), gewählt nach
+  /// Lernbedarf: falsch beantwortete Formen kommen häufiger wieder.
   static ComparisonTarget pickComparisonTarget(
     GrammarLearning grammar,
     AdjectiveComparison comparison,
-    Random random,
   ) {
-    List<ComparisonForm> shownForms(List<ComparisonForm> forms) {
-      return forms.where((form) => !form.rare).toList();
-    }
+    final forms = comparison.shownForms;
 
-    final comparatives = shownForms(comparison.comparatives);
-    final superlatives = shownForms(comparison.superlatives);
-
-    final direction = grammar.pickValue("comparison", "direction", [
-      positiveToComparative,
-      positiveToSuperlative,
-      if (comparatives.isNotEmpty) comparativeToPositive,
-      if (superlatives.isNotEmpty) superlativeToPositive,
-      positiveToBoth,
-      if (comparison.comparativeGenitives.isNotEmpty) comparativeGenitive,
+    final shown = grammar.pickValue("comparison", "form", [
+      for (final form in forms) form.text,
     ]);
 
-    var shown = comparison.positive;
-    String? note = comparison.translations.join(", ");
-
-    if (direction == comparativeToPositive ||
-        direction == superlativeToPositive) {
-      final forms = direction == comparativeToPositive
-          ? comparatives
-          : superlatives;
-
-      shown = grammar.pickValue("comparison", "form", [
-        for (final form in forms) ...form.texts,
-      ]);
-
-      final form = forms.firstWhere((form) => form.texts.contains(shown));
-
-      note = shown == form.neuter ? "Neutrum" : form.note;
-    }
-
-    final prompts = _comparisonPrompts[direction]!;
-
     return (
-      direction: direction,
       shown: shown,
-      note: note,
-      prompt: prompts[random.nextInt(prompts.length)],
+      note: forms.firstWhere((form) => form.text == shown).note,
     );
   }
 

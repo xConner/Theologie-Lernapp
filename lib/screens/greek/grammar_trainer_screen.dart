@@ -52,7 +52,11 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
 
   final TextEditingController answerController = TextEditingController();
 
+  // Deutsche Übersetzung der Grundform (Adjektivsteigerung).
+  final TextEditingController translationController = TextEditingController();
+
   final FocusNode answerFocus = FocusNode();
+  final FocusNode translationFocus = FocusNode();
 
   final Random _random = Random();
 
@@ -186,11 +190,16 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
   // ADJEKTIVSTEIGERUNG
   // ---------------------------------------------------------------------------
 
-  // Die Antwort wird in das Grundform-Feld getippt (answerController).
+  // Zur angezeigten gesteigerten Form wird die Grundform in das
+  // Grundform-Feld (answerController) und/oder die Übersetzung in das
+  // Übersetzungsfeld getippt.
   ComparisonTarget? comparisonTarget;
 
-  // Richtige Antworten für das Feedback (nach dem Prüfen).
-  String? comparisonExpected;
+  bool askComparisonLemma = true;
+  bool askComparisonTranslation = true;
+
+  // Auswertung der Übersetzung; die Grundform steht in lemmaCorrect.
+  bool? comparisonTranslationCorrect;
 
   // ---------------------------------------------------------------------------
   // INIT / DISPOSE
@@ -220,7 +229,9 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
   void dispose() {
     _keyListener.dispose();
     answerController.dispose();
+    translationController.dispose();
     answerFocus.dispose();
+    translationFocus.dispose();
 
     super.dispose();
   }
@@ -237,6 +248,8 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
     showLemmaFieldNoun = settings.showLemmaFieldNoun;
     showLemmaFieldVerb = settings.showLemmaFieldVerb;
     showLemmaFieldPronoun = settings.showLemmaFieldPronoun;
+    askComparisonLemma = settings.askComparisonLemma;
+    askComparisonTranslation = settings.askComparisonTranslation;
     enabledPronounKinds = settings.enabledPronounKinds;
     enabledComparisonKinds = settings.enabledComparisonKinds;
   }
@@ -250,6 +263,8 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
         showLemmaFieldNoun: showLemmaFieldNoun,
         showLemmaFieldVerb: showLemmaFieldVerb,
         showLemmaFieldPronoun: showLemmaFieldPronoun,
+        askComparisonLemma: askComparisonLemma,
+        askComparisonTranslation: askComparisonTranslation,
         enabledPronounKinds: enabledPronounKinds,
         enabledComparisonKinds: enabledComparisonKinds,
       ),
@@ -416,6 +431,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
     final newQuestion = GrammarQuestionPicker.pickEntry(grammar, available);
 
     answerController.clear();
+    translationController.clear();
 
     if (!mounted) {
       return;
@@ -551,6 +567,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
     }
 
     answerController.clear();
+    translationController.clear();
 
     if (!mounted) {
       return;
@@ -602,7 +619,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
     userPronoun = null;
     _pronounReference = null;
 
-    comparisonExpected = null;
+    comparisonTranslationCorrect = null;
 
     caseCorrect = null;
     numberCorrect = null;
@@ -692,21 +709,19 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
       lemmaCorrect =
           !showLemmaField || lemmaAnswerMatches(answerController.text, q.lemma);
 
-      final comparison = AdjectiveComparisons.byId(q.id);
       final target = comparisonTarget;
 
-      if (q.type == AdjectiveComparisons.type &&
-          comparison != null &&
-          target != null) {
+      if (q.type == AdjectiveComparisons.type && target != null) {
         final result = checkComparisonAnswer(
-          comparison: comparison,
-          target: target,
-          input: answerController.text,
+          shown: target.shown,
+          lemmaInput: askComparisonLemma ? answerController.text : null,
+          translationInput: askComparisonTranslation
+              ? translationController.text
+              : null,
         );
 
-        comparisonExpected = result.expected;
-
-        lemmaCorrect = result.correct;
+        lemmaCorrect = result.lemmaCorrect;
+        comparisonTranslationCorrect = result.translationCorrect;
         correct = result.correct;
       } else if (q.type == "pronoun") {
         final result = checkPronounAnswer(
@@ -829,27 +844,15 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
     final comparison = comparisonTarget;
 
     if (q.type == AdjectiveComparisons.type && comparison != null) {
-      // Das Adjektiv, die Frageart und – bei Komparativ/Superlativ →
-      // Positiv – die vorgelegte Form: Fehler holen genau diese häufiger
-      // zurück.
-      final ok = correct;
-
-      results[lemmaId] = ok;
+      // Das Adjektiv und die vorgelegte Form: Fehler holen genau diese
+      // häufiger zurück.
+      results[lemmaId] = correct;
       results[GrammarLearning.dimensionId(
             "comparison",
-            "direction",
-            comparison.direction,
+            "form",
+            comparison.shown,
           )] =
-          ok;
-
-      if (comparison.shown != q.lemma) {
-        results[GrammarLearning.dimensionId(
-              "comparison",
-              "form",
-              comparison.shown,
-            )] =
-            ok;
-      }
+          correct;
     } else if (q.type == "pronoun" && reference != null) {
       // Gewertet wird die Bestimmung, an der die Antwort gemessen wurde –
       // bei einer mehrdeutigen Form also die, die der Nutzer erkannt hat.
@@ -1152,11 +1155,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
       return null;
     }
 
-    return GrammarQuestionPicker.pickComparisonTarget(
-      grammar,
-      comparison,
-      _random,
-    );
+    return GrammarQuestionPicker.pickComparisonTarget(grammar, comparison);
   }
 
   // Die Formen liegen lokal vor; keine Netzwerkabfrage.
@@ -1191,7 +1190,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
   void _focusComparisonAnswer() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted && isComparison() && !answered) {
-        answerFocus.requestFocus();
+        (askComparisonLemma ? answerFocus : translationFocus).requestFocus();
       }
     });
   }
@@ -1423,6 +1422,19 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
                         return;
                       }
 
+                      if (!askComparisonLemma && !askComparisonTranslation) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text(
+                              "Adjektivsteigerung: Grundform oder "
+                              "Übersetzung muss abgefragt werden.",
+                            ),
+                          ),
+                        );
+
+                        return;
+                      }
+
                       await saveGrammarSettings();
 
                       if (!context.mounted) {
@@ -1603,6 +1615,38 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
                           },
                         ),
 
+                      if (enabledTypes.contains(AdjectiveComparisons.type))
+                        SettingsSection(
+                          title: "Adjektivsteigerung: abfragen",
+                          hint:
+                              "Angezeigt wird eine gesteigerte Form. Gefragt "
+                              "wird die Grundform, ihre Übersetzung oder "
+                              "beides – mindestens eins muss aktiv sein.",
+                          child: SettingsSwitchGroup(
+                            children: [
+                              SwitchListTile(
+                                title: const Text("Grundform (griechisch)"),
+                                value: askComparisonLemma,
+                                onChanged: (value) {
+                                  setDialogState(() {
+                                    askComparisonLemma = value;
+                                  });
+                                },
+                              ),
+
+                              SwitchListTile(
+                                title: const Text("Deutsche Übersetzung"),
+                                value: askComparisonTranslation,
+                                onChanged: (value) {
+                                  setDialogState(() {
+                                    askComparisonTranslation = value;
+                                  });
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
+
                       // -------------------------------------------------------
                       // GRUNDFORM
                       // -------------------------------------------------------
@@ -1682,9 +1726,9 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
       if (answered || formError != null) ...{
         "Grundform": "${q.lemma} (ID ${q.id})",
         if (isComparison())
-          "Frage":
-              "${comparisonTarget?.prompt} "
-              "(${comparisonTarget?.direction})"
+          "Gefragt":
+              "${askComparisonLemma ? 'Grundform ' : ''}"
+              "${askComparisonTranslation ? 'Übersetzung' : ''}"
         else if (isNoun())
           "Bestimmung": "$selectedCase $selectedNumber"
         else if (isPronoun())
@@ -1792,23 +1836,13 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
                 // -------------------------------------------------------------
                 if ((isNoun() && showLemmaFieldNoun) ||
                     (isVerb() && showLemmaFieldVerb) ||
-                    isComparison()) ...[
+                    (isComparison() && askComparisonLemma)) ...[
                   TextField(
                     controller: answerController,
                     enabled: !answered && !loadingForm && correctForm != null,
                     focusNode: answerFocus,
                     decoration: InputDecoration(
-                      labelText: isComparison()
-                          ? GrammarQuestionPicker.comparisonAnswerLabel(
-                              comparisonTarget?.direction ?? "",
-                            )
-                          : "Grundform",
-                      hintText:
-                          comparisonTarget?.direction ==
-                                  GrammarQuestionPicker.positiveToBoth &&
-                              isComparison()
-                          ? "Komparativ Superlativ (mit Leerzeichen)"
-                          : null,
+                      labelText: "Grundform",
                       enabledBorder: answerResultBorder(context, lemmaCorrect),
                       focusedBorder: answerResultBorder(context, lemmaCorrect),
                       disabledBorder: answerResultBorder(context, lemmaCorrect),
@@ -1821,6 +1855,36 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
                             ? null
                             : openGreekKeyboard,
                       ),
+                    ),
+                    textInputAction: TextInputAction.done,
+                  ),
+
+                  const SizedBox(height: 24),
+                ],
+
+                // -------------------------------------------------------------
+                // ÜBERSETZUNG (ADJEKTIVSTEIGERUNG)
+                // -------------------------------------------------------------
+                if (isComparison() && askComparisonTranslation) ...[
+                  TextField(
+                    controller: translationController,
+                    enabled: !answered && !loadingForm && correctForm != null,
+                    focusNode: translationFocus,
+                    decoration: InputDecoration(
+                      labelText: "Übersetzung der Grundform",
+                      enabledBorder: answerResultBorder(
+                        context,
+                        comparisonTranslationCorrect,
+                      ),
+                      focusedBorder: answerResultBorder(
+                        context,
+                        comparisonTranslationCorrect,
+                      ),
+                      disabledBorder: answerResultBorder(
+                        context,
+                        comparisonTranslationCorrect,
+                      ),
+                      border: const OutlineInputBorder(),
                     ),
                     textInputAction: TextInputAction.done,
                   ),
@@ -2181,14 +2245,20 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
   // ADJEKTIVSTEIGERUNG: FRAGE UND FEEDBACK
   // ---------------------------------------------------------------------------
 
-  // Hinweis zur angezeigten Form (Übersetzung des Positivs, "Neutrum") und
-  // die Frage selbst.
+  // Hinweis zur angezeigten Form ("Neutrum", "Adv.", "Gen. Sg.") und die
+  // Frage nach Grundform und/oder Übersetzung.
   Widget _buildComparisonPrompt() {
     final target = comparisonTarget;
 
     if (target == null) {
       return const SizedBox();
     }
+
+    final prompt = askComparisonLemma && askComparisonTranslation
+        ? "Grundform und Übersetzung?"
+        : askComparisonLemma
+        ? "Grundform?"
+        : "Übersetzung der Grundform?";
 
     return Column(
       children: [
@@ -2204,7 +2274,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
         const SizedBox(height: 12),
 
         Text(
-          target.prompt,
+          prompt,
           textAlign: TextAlign.center,
           style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
         ),
@@ -2216,28 +2286,17 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
   // werden. Gehört die gefragte Form zu mehreren Adjektiven (ἐλάττων:
   // μικρός und ὀλίγος), stehen alle Reihen da.
   Widget _buildComparisonFeedback() {
-    final q = question;
     final target = comparisonTarget;
 
-    if (q == null || target == null) {
+    if (target == null) {
       return const SizedBox();
     }
 
-    final toPositive =
-        target.direction == GrammarQuestionPicker.comparativeToPositive ||
-        target.direction == GrammarQuestionPicker.superlativeToPositive;
-
-    final rows = toPositive
-        ? AdjectiveComparisons.ownersOf(
-            target.shown,
-            superlative:
-                target.direction == GrammarQuestionPicker.superlativeToPositive,
-          )
-        : [?AdjectiveComparisons.byId(q.id)];
+    final rows = AdjectiveComparisons.ownersOf(target.shown);
 
     return Column(
       children: [
-        if (!correct && comparisonExpected != null) ...[
+        if (!correct) ...[
           const Text(
             "Richtig wäre:",
             style: TextStyle(fontWeight: FontWeight.bold),
@@ -2245,11 +2304,20 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
 
           const SizedBox(height: 4),
 
-          SelectableText(
-            comparisonExpected!,
-            textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 18),
-          ),
+          if (lemmaCorrect == false)
+            SelectableText(
+              "Grundform: ${rows.map((row) => row.positive).join(' / ')}",
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 18),
+            ),
+
+          if (comparisonTranslationCorrect == false)
+            SelectableText(
+              "Übersetzung: "
+              "${rows.map((row) => row.translations.join(', ')).join(' / ')}",
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 18),
+            ),
 
           const SizedBox(height: 16),
         ],

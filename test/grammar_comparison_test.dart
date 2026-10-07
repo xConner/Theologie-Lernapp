@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter_test/flutter_test.dart';
@@ -16,33 +18,27 @@ AdjectiveComparison _adjective(String positive) {
   return AdjectiveComparisons.all.firstWhere((c) => c.positive == positive);
 }
 
-ComparisonTarget _target(String direction, {String shown = ""}) {
-  return (direction: direction, shown: shown, note: null, prompt: "");
-}
-
-bool _correct(
-  String positive,
-  String direction,
-  String input, {
-  String shown = "",
+ComparisonAnswerResult _check(
+  String shown, {
+  String? lemma,
+  String? translation,
 }) {
   return checkComparisonAnswer(
-    comparison: _adjective(positive),
-    target: _target(direction, shown: shown),
-    input: input,
-  ).correct;
+    shown: shown,
+    lemmaInput: lemma,
+    translationInput: translation,
+  );
 }
 
-const _toComparative = GrammarQuestionPicker.positiveToComparative;
-const _toSuperlative = GrammarQuestionPicker.positiveToSuperlative;
-const _comparativeToPositive = GrammarQuestionPicker.comparativeToPositive;
-const _superlativeToPositive = GrammarQuestionPicker.superlativeToPositive;
-const _both = GrammarQuestionPicker.positiveToBoth;
-const _genitive = GrammarQuestionPicker.comparativeGenitive;
+bool _lemma(String shown, String input) => _check(shown, lemma: input).correct;
+
+bool _translation(String shown, String input) {
+  return _check(shown, translation: input).correct;
+}
 
 void main() {
   group("Lernstoff", () {
-    test("Klausurtabelle: unregelmäßige Formen am richtigen Grad", () {
+    test("Klausurtabelle: Formen am richtigen Grad", () {
       final agathos = _adjective("ἀγαθός");
 
       expect(AdjectiveComparison.allTexts(agathos.comparatives), [
@@ -129,7 +125,8 @@ void main() {
       }
     });
 
-    test("normalisiert fallen keine Formen verschiedener Grade zusammen", () {
+    test("normalisiert fällt keine gesteigerte Form mit einem Positiv "
+        "oder einem anderen Grad zusammen", () {
       final degreeOf = <String, String>{};
 
       void add(String form, String degree) {
@@ -152,6 +149,10 @@ void main() {
           comparison.superlatives,
         )) {
           add(form, "Superlativ");
+        }
+
+        for (final form in comparison.comparativeGenitives) {
+          add(form, "Genitiv");
         }
       }
     });
@@ -181,294 +182,253 @@ void main() {
     });
 
     test("ἐλάττων und ἐλάχιστος gehören zu μικρός und ὀλίγος", () {
-      List<String> owners(String form, {required bool superlative}) => [
-        for (final c in AdjectiveComparisons.ownersOf(
-          form,
-          superlative: superlative,
-        ))
-          c.positive,
+      List<String> owners(String form) => [
+        for (final c in AdjectiveComparisons.ownersOf(form)) c.positive,
       ];
 
-      expect(owners("ἐλάττων", superlative: false), ["μικρός", "ὀλίγος"]);
-      expect(owners("ἔλαττον", superlative: false), ["μικρός", "ὀλίγος"]);
-      expect(owners("ἐλάχιστος", superlative: true), ["μικρός", "ὀλίγος"]);
-      expect(owners("μείζων", superlative: false), ["μέγας"]);
-      // Grad wird beachtet: μείζων ist kein Superlativ.
-      expect(owners("μείζων", superlative: true), isEmpty);
+      expect(owners("ἐλάττων"), ["μικρός", "ὀλίγος"]);
+      expect(owners("ἔλαττον"), ["μικρός", "ὀλίγος"]);
+      expect(owners("ἐλάχιστος"), ["μικρός", "ὀλίγος"]);
+      expect(owners("μείζων"), ["μέγας"]);
+      expect(owners("πλέονος"), ["πολύς"]);
+      // Ein Positiv ist keine gesteigerte Form.
+      expect(owners("μέγας"), isEmpty);
+    });
+
+    test("vorgelegte Formen: alle gesteigerten, nie seltene oder Positive", () {
+      final olig = [for (final f in _adjective("ὀλίγος").shownForms) f.text];
+
+      expect(olig, ["ἐλάττων", "ἔλαττον", "ἐλάχιστος"]);
+
+      final agathos = {
+        for (final f in _adjective("ἀγαθός").shownForms) f.text: f.note,
+      };
+
+      expect(agathos.keys, [
+        "ἀμείνων",
+        "ἄμεινον",
+        "βελτίων",
+        "βέλτιον",
+        "κρείττων",
+        "κρεῖττον",
+        "ἄριστος",
+        "βέλτιστος",
+        "κράτιστος",
+      ]);
+      expect(agathos["ἄμεινον"], "Neutrum");
+      expect(agathos["ἀμείνων"], isNull);
+
+      final kakos = {
+        for (final f in _adjective("κακός").shownForms) f.text: f.note,
+      };
+
+      expect(kakos["ἥκιστα"], "Adv.");
+
+      final polys = {
+        for (final f in _adjective("πολύς").shownForms) f.text: f.note,
+      };
+
+      expect(polys, {
+        "πλείων": null,
+        "πλέον": "Neutrum",
+        "πλεῖστος": null,
+        "πλείονος": "Gen. Sg.",
+        "πλέονος": "Gen. Sg.",
+      });
+
+      for (final comparison in AdjectiveComparisons.all) {
+        for (final form in comparison.shownForms) {
+          expect(form.text, isNot(comparison.positive));
+        }
+      }
     });
   });
 
-  group("Antwortprüfung", () {
-    test("regelmäßige Steigerung mit -τερος / -τατος", () {
-      expect(_correct("σοφός", _toComparative, "σοφώτερος"), isTrue);
-      expect(_correct("σοφός", _toSuperlative, "σοφώτατος"), isTrue);
-      expect(_correct("ἄξιος", _toComparative, "ἀξιώτερος"), isTrue);
-      expect(_correct("βέβαιος", _toSuperlative, "βεβαιότατος"), isTrue);
-      expect(_correct("πονηρός", _toComparative, "πονηρότερος"), isTrue);
+  group("Antwortprüfung: Grundform", () {
+    test("regelmäßige Steigerung (-τερος / -τατος, -εσ-)", () {
+      expect(_lemma("σοφώτερος", "σοφός"), isTrue);
+      expect(_lemma("σοφώτατος", "σοφός"), isTrue);
+      expect(_lemma("ἀξιώτερος", "ἄξιος"), isTrue);
+      expect(_lemma("βεβαιότατος", "βέβαιος"), isTrue);
+      expect(_lemma("πονηρότερος", "πονηρός"), isTrue);
+      expect(_lemma("σωφρονέστερος", "σώφρων"), isTrue);
+      expect(_lemma("εὐδαιμονέστατος", "εὐδαίμων"), isTrue);
+
+      expect(_lemma("σοφώτερος", "σοφώτερος"), isFalse);
+      expect(_lemma("σωφρονέστερος", "εὐδαίμων"), isFalse);
     });
 
-    test("regelmäßige Steigerung mit -εσ-", () {
-      expect(_correct("σώφρων", _toComparative, "σωφρονέστερος"), isTrue);
-      expect(_correct("εὐδαίμων", _toSuperlative, "εὐδαιμονέστατος"), isTrue);
-      expect(_correct("σώφρων", _toComparative, "σωφρονώτερος"), isFalse);
-    });
-
-    test("Komparativ und Superlativ werden nicht vertauscht", () {
-      expect(_correct("σοφός", _toComparative, "σοφώτατος"), isFalse);
-      expect(_correct("σοφός", _toSuperlative, "σοφώτερος"), isFalse);
-      expect(_correct("ἀγαθός", _toComparative, "ἄριστος"), isFalse);
-      expect(_correct("ἀγαθός", _toSuperlative, "ἀμείνων"), isFalse);
-      expect(_correct("μέγας", _toSuperlative, "μείζων"), isFalse);
-      // Eine falsche Form neben einer richtigen bleibt falsch.
-      expect(_correct("ἀγαθός", _toComparative, "ἀμείνων ἄριστος"), isFalse);
-    });
-
-    test("alle Varianten von ἀγαθός sind richtig, auch im Neutrum", () {
+    test("unregelmäßige Steigerung, auch Neutra und ἥκιστα", () {
       for (final form in [
         "ἀμείνων",
-        "βελτίων",
-        "κρείττων",
-        "ἄμεινον",
         "βέλτιον",
+        "κρείττων",
         "κρεῖττον",
+        "ἄριστος",
+        "βέλτιστος",
+        "κράτιστος",
       ]) {
-        expect(_correct("ἀγαθός", _toComparative, form), isTrue, reason: form);
+        expect(_lemma(form, "ἀγαθός"), isTrue, reason: form);
+        expect(_lemma(form, "κακός"), isFalse, reason: form);
       }
 
-      for (final form in ["ἄριστος", "βέλτιστος", "κράτιστος"]) {
-        expect(_correct("ἀγαθός", _toSuperlative, form), isTrue, reason: form);
+      for (final form in ["χείρων", "ἧττον", "κάκιστος", "ἥκιστα"]) {
+        expect(_lemma(form, "κακός"), isTrue, reason: form);
       }
 
-      expect(
-        _correct("ἀγαθός", _toComparative, "ἀμείνων / βελτίων / κρείττων"),
-        isTrue,
-      );
+      expect(_lemma("μεῖζον", "μέγας"), isTrue);
+      expect(_lemma("μέγιστος", "μέγας"), isTrue);
+      expect(_lemma("μεῖον", "μικρός"), isTrue);
+      expect(_lemma("μεῖον", "μέγας"), isFalse);
+      expect(_lemma("θᾶττον", "ταχύς"), isTrue);
+      expect(_lemma("κάλλιστος", "καλός"), isTrue);
     });
 
-    test("κακός: χείρων, ἥττων, χεῖρον; ἥκιστα als Superlativ", () {
-      for (final form in ["κακίων", "χείρων", "ἥττων", "κάκιον", "χεῖρον"]) {
-        expect(_correct("κακός", _toComparative, form), isTrue, reason: form);
+    test("πολύς: πλείων / πλέον, πλεῖστος und der Genitiv", () {
+      for (final form in [
+        "πλείων",
+        "πλέον",
+        "πλεῖστος",
+        "πλείονος",
+        "πλέονος",
+      ]) {
+        expect(_lemma(form, "πολύς"), isTrue, reason: form);
       }
-
-      for (final form in ["κάκιστος", "χείριστος", "ἥκιστα"]) {
-        expect(_correct("κακός", _toSuperlative, form), isTrue, reason: form);
-      }
-
-      expect(_correct("κακός", _toComparative, "ἥκιστα"), isFalse);
     });
 
-    test("πολύς: πλείων / πλέον und der Genitiv πλείονος / πλέονος", () {
-      expect(_correct("πολύς", _toComparative, "πλείων"), isTrue);
-      expect(_correct("πολύς", _toComparative, "πλέον"), isTrue);
-      expect(_correct("πολύς", _toSuperlative, "πλεῖστος"), isTrue);
-      expect(_correct("πολύς", _toComparative, "πλεῖστος"), isFalse);
-
-      expect(_correct("πολύς", _genitive, "πλείονος"), isTrue);
-      expect(_correct("πολύς", _genitive, "πλέονος"), isTrue);
-      expect(_correct("πολύς", _genitive, "πλείων"), isFalse);
-    });
-
-    test("μικρός und ὀλίγος, seltene Formen werden akzeptiert", () {
-      for (final form in ["μικρότερος", "μείων", "μεῖον", "ἐλάττων"]) {
-        expect(_correct("μικρός", _toComparative, form), isTrue, reason: form);
+    test("mehrere akzeptierte Grundformen: ἐλάττων, ἐλάχιστος", () {
+      for (final form in ["ἐλάττων", "ἔλαττον", "ἐλάχιστος"]) {
+        expect(_lemma(form, "μικρός"), isTrue, reason: form);
+        expect(_lemma(form, "ὀλίγος"), isTrue, reason: form);
+        expect(_lemma(form, "μικρός / ὀλίγος"), isTrue, reason: form);
+        expect(_lemma(form, "μέγας"), isFalse, reason: form);
       }
 
-      expect(_correct("μικρός", _toSuperlative, "ἐλάχιστος"), isTrue);
-      expect(_correct("μικρός", _toSuperlative, "μικρότατος"), isTrue);
-      expect(_correct("ὀλίγος", _toComparative, "ὀλείζων"), isTrue);
-      expect(_correct("ὀλίγος", _toSuperlative, "ὀλίγιστος"), isTrue);
-      expect(_correct("ὀλίγος", _toComparative, "μείων"), isFalse);
-    });
-
-    test("Komparativ/Superlativ → Positiv", () {
-      expect(
-        _correct("μέγας", _comparativeToPositive, "μέγας", shown: "μείζων"),
-        isTrue,
-      );
-      expect(
-        _correct("μέγας", _comparativeToPositive, "μικρός", shown: "μείζων"),
-        isFalse,
-      );
-      expect(
-        _correct("κακός", _comparativeToPositive, "κακός", shown: "ἧττον"),
-        isTrue,
-      );
-      expect(
-        _correct(
-          "ἀγαθός",
-          _superlativeToPositive,
-          "ἀγαθός",
-          shown: "κράτιστος",
-        ),
-        isTrue,
-      );
-
-      // ἐλάττων / ἐλάχιστος: beide Positive sind richtig.
-      for (final positive in ["μικρός", "ὀλίγος"]) {
-        expect(
-          _correct(
-            "μικρός",
-            _comparativeToPositive,
-            positive,
-            shown: "ἐλάττων",
-          ),
-          isTrue,
-        );
-        expect(
-          _correct(
-            "ὀλίγος",
-            _superlativeToPositive,
-            positive,
-            shown: "ἐλάχιστος",
-          ),
-          isTrue,
-        );
-      }
-
-      final result = checkComparisonAnswer(
-        comparison: _adjective("μικρός"),
-        target: _target(_comparativeToPositive, shown: "ἐλάττων"),
-        input: "μέγας",
-      );
-
-      expect(result.correct, isFalse);
-      expect(result.expected, "μικρός / ὀλίγος");
-    });
-
-    test("komplette Reihe: Komparativ und Superlativ", () {
-      expect(_correct("κακός", _both, "κακίων κάκιστος"), isTrue);
-      expect(_correct("κακός", _both, "κακίων – κάκιστος"), isTrue);
-      expect(_correct("κακός", _both, "χείρων, ἥκιστα"), isTrue);
-      expect(_correct("κακός", _both, "κάκιστος κακίων"), isTrue);
-
-      expect(_correct("κακός", _both, "κακίων"), isFalse);
-      expect(_correct("κακός", _both, "κάκιστος κάκιστος"), isFalse);
-      expect(_correct("κακός", _both, "κακίων μέγιστος"), isFalse);
-
-      final result = checkComparisonAnswer(
-        comparison: _adjective("μέγας"),
-        target: _target(_both),
-        input: "",
-      );
-
-      expect(result.correct, isFalse);
-      expect(result.expected, "μείζων (μεῖζον) – μέγιστος");
+      // Eine falsche neben einer richtigen bleibt falsch.
+      expect(_lemma("ἐλάττων", "μικρός μέγας"), isFalse);
     });
 
     test("Akzente, Spiritus, Großschreibung und Schluss-Sigma", () {
-      expect(_correct("ἀγαθός", _toComparative, "αμεινων"), isTrue);
-      expect(_correct("ἀγαθός", _toComparative, "ΑΜΕΙΝΩΝ"), isTrue);
-      expect(_correct("ἀγαθός", _toComparative, "κρειττον"), isTrue);
-      expect(_correct("κακός", _toComparative, "ηττων"), isTrue);
-      expect(_correct("κακός", _toSuperlative, "ηκιστα"), isTrue);
-      expect(_correct("πολύς", _toSuperlative, "πλειστοσ"), isTrue);
-      expect(
-        _correct("μέγας", _comparativeToPositive, "μεγασ", shown: "μεῖζον"),
-        isTrue,
-      );
+      expect(_lemma("ἀμείνων", "αγαθος"), isTrue);
+      expect(_lemma("ἀμείνων", "ΑΓΑΘΟΣ"), isTrue);
+      expect(_lemma("ἥκιστα", "κακοσ"), isTrue);
+      expect(_lemma("ἐλάχιστος", "ολιγος"), isTrue);
+      expect(_lemma("εὐδαιμονέστερος", "ευδαιμων"), isTrue);
+      expect(_lemma("μείζων", " μέγας "), isTrue);
 
-      // Wirklich verschiedene Formen bleiben verschieden.
-      expect(_correct("μέγας", _toComparative, "μεῖον"), isFalse);
-      expect(_correct("μέγας", _toComparative, "μειζον"), isTrue);
-      expect(_correct("ἀγαθός", _toComparative, "αμεινος"), isFalse);
+      // Wirklich verschiedene Wörter bleiben verschieden.
+      expect(_lemma("μείζων", "μεγα"), isFalse);
+      expect(_lemma("ἀμείνων", "αγαθον"), isFalse);
     });
 
     test("leere Eingabe ist falsch", () {
-      expect(_correct("ἀγαθός", _toComparative, ""), isFalse);
-      expect(_correct("ἀγαθός", _toComparative, "  / "), isFalse);
+      expect(_lemma("ἀμείνων", ""), isFalse);
+      expect(_lemma("ἀμείνων", "  / "), isFalse);
+    });
+  });
+
+  group("Antwortprüfung: Übersetzung", () {
+    test("Übersetzung der Grundform, eine richtige genügt", () {
+      expect(_translation("ἀμείνων", "gut"), isTrue);
+      expect(_translation("ἀμείνων", "Gut"), isTrue);
+      expect(_translation("ἀμείνων", "besser"), isFalse);
+      expect(_translation("μέγιστος", "groß"), isTrue);
+      expect(_translation("πλέον", "viel"), isTrue);
+      expect(_translation("σοφώτατος", "klug, weise"), isTrue);
+      expect(_translation("σοφώτατος", "schnell"), isFalse);
+      expect(_translation("θάττων", "schnell"), isTrue);
+      expect(_translation("ἥκιστα", "schlecht"), isTrue);
+      expect(_translation("ἐλάχιστος", "wenig"), isTrue);
+      expect(_translation("ἐλάχιστος", "klein"), isTrue);
+      expect(_translation("ἐλάχιστος", ""), isFalse);
+    });
+
+    test("Grundform und Übersetzung zusammen", () {
+      final both = _check("κρείττων", lemma: "ἀγαθός", translation: "gut");
+
+      expect(both.correct, isTrue);
+      expect(both.lemmaCorrect, isTrue);
+      expect(both.translationCorrect, isTrue);
+
+      final wrongTranslation = _check(
+        "κρείττων",
+        lemma: "ἀγαθός",
+        translation: "stark",
+      );
+
+      expect(wrongTranslation.correct, isFalse);
+      expect(wrongTranslation.lemmaCorrect, isTrue);
+      expect(wrongTranslation.translationCorrect, isFalse);
+
+      final wrongLemma = _check("κρείττων", lemma: "κακός", translation: "gut");
+
+      expect(wrongLemma.correct, isFalse);
+      expect(wrongLemma.lemmaCorrect, isFalse);
+      expect(wrongLemma.translationCorrect, isTrue);
+    });
+
+    test("nicht Gefragtes wird nicht gewertet", () {
+      final onlyLemma = _check("μείζων", lemma: "μέγας");
+
+      expect(onlyLemma.translationCorrect, isNull);
+      expect(onlyLemma.correct, isTrue);
+
+      final onlyTranslation = _check("μείζων", translation: "groß");
+
+      expect(onlyTranslation.lemmaCorrect, isNull);
+      expect(onlyTranslation.correct, isTrue);
+
+      // Ohne jede Frage gibt es nichts Richtiges.
+      expect(_check("μείζων").correct, isFalse);
     });
   });
 
   group("Fragegenerierung", () {
-    test("alle Fragearten kommen vor, der Genitiv nur bei πολύς", () {
+    test("jede vorlegbare Form kommt vor, Hinweis passt", () {
       final grammar = GrammarLearning(random: Random(1));
-      final random = Random(2);
-
-      Set<String> directions(String positive) => {
-        for (var i = 0; i < 400; i++)
-          GrammarQuestionPicker.pickComparisonTarget(
-            grammar,
-            _adjective(positive),
-            random,
-          ).direction,
-      };
-
-      expect(directions("πολύς"), {
-        _toComparative,
-        _toSuperlative,
-        _comparativeToPositive,
-        _superlativeToPositive,
-        _both,
-        _genitive,
-      });
-      expect(directions("ἀγαθός").contains(_genitive), isFalse);
-      expect(directions("σοφός").length, 5);
-    });
-
-    test("angezeigte Form passt zur Frageart, seltene Formen nie", () {
-      final grammar = GrammarLearning(random: Random(3));
-      final random = Random(4);
 
       for (final comparison in AdjectiveComparisons.all) {
-        final comparatives = AdjectiveComparison.allTexts([
-          for (final f in comparison.comparatives)
-            if (!f.rare) f,
-        ]);
-        final superlatives = AdjectiveComparison.allTexts([
-          for (final f in comparison.superlatives)
-            if (!f.rare) f,
-        ]);
+        final forms = {for (final f in comparison.shownForms) f.text: f.note};
 
-        for (var i = 0; i < 100; i++) {
+        final seen = <String>{};
+
+        for (var i = 0; i < 300; i++) {
           final target = GrammarQuestionPicker.pickComparisonTarget(
             grammar,
             comparison,
-            random,
           );
 
-          switch (target.direction) {
-            case _comparativeToPositive:
-              expect(comparatives, contains(target.shown));
-            case _superlativeToPositive:
-              expect(superlatives, contains(target.shown));
-            default:
-              expect(target.shown, comparison.positive);
-              expect(target.note, comparison.translations.join(", "));
-          }
+          expect(forms.keys, contains(target.shown));
+          expect(target.note, forms[target.shown]);
 
-          expect(target.prompt, isNotEmpty);
+          seen.add(target.shown);
         }
+
+        expect(seen, forms.keys.toSet(), reason: comparison.positive);
       }
     });
 
-    test("Neutra werden ebenfalls vorgelegt und als Neutrum markiert", () {
-      final grammar = GrammarLearning(random: Random(5));
-      final random = Random(6);
+    test("falsch beantwortete Formen kommen häufiger", () {
+      final grammar = GrammarLearning(random: Random(2));
+      final megas = _adjective("μέγας");
 
-      final shown = <String, String?>{};
+      for (var i = 0; i < 5; i++) {
+        grammar.record({
+          GrammarLearning.dimensionId("comparison", "form", "μεῖζον"): false,
+        });
+      }
 
-      for (var i = 0; i < 1000; i++) {
-        final target = GrammarQuestionPicker.pickComparisonTarget(
-          grammar,
-          _adjective("ἀγαθός"),
-          random,
-        );
+      var count = 0;
 
-        if (target.direction == _comparativeToPositive) {
-          shown[target.shown] = target.note;
+      for (var i = 0; i < 9000; i++) {
+        if (GrammarQuestionPicker.pickComparisonTarget(grammar, megas).shown ==
+            "μεῖζον") {
+          count++;
         }
       }
 
-      expect(shown.keys.toSet(), {
-        "ἀμείνων",
-        "ἄμεινον",
-        "βελτίων",
-        "βέλτιον",
-        "κρείττων",
-        "κρεῖττον",
-      });
-      expect(shown["ἄμεινον"], "Neutrum");
-      expect(shown["ἀμείνων"], isNull);
+      // Neutral wäre ein Drittel (μείζων, μεῖζον, μέγιστος).
+      expect(count / 9000, greaterThan(0.45));
     });
 
     test("unregelmäßige Adjektive kommen deutlich häufiger", () {
@@ -577,6 +537,32 @@ void main() {
       );
     });
 
+    test("Grundform / Übersetzung: Defaults, Speichern, mindestens eins", () {
+      final defaults = GrammarTrainerSettings.fromMap(null);
+
+      expect(defaults.askComparisonLemma, isTrue);
+      expect(defaults.askComparisonTranslation, isTrue);
+
+      final onlyTranslation = GrammarTrainerSettings.fromMap(<String, dynamic>{
+        'askComparisonLemma': false,
+        'askComparisonTranslation': true,
+      });
+
+      expect(onlyTranslation.askComparisonLemma, isFalse);
+      expect(onlyTranslation.askComparisonTranslation, isTrue);
+      expect(onlyTranslation.toMap()['askComparisonLemma'], isFalse);
+      expect(onlyTranslation.toMap()['askComparisonTranslation'], isTrue);
+
+      // Beides aus ist ungültig: dann wird die Grundform gefragt.
+      final none = GrammarTrainerSettings.fromMap(<String, dynamic>{
+        'askComparisonLemma': false,
+        'askComparisonTranslation': false,
+      });
+
+      expect(none.askComparisonLemma, isTrue);
+      expect(none.askComparisonTranslation, isFalse);
+    });
+
     test("Beschriftung", () {
       expect(wordTypeFilterLabel("comparison"), "Adjektivsteigerung");
       expect(
@@ -587,6 +573,35 @@ void main() {
         GrammarQuestionPicker.comparisonKindLabel("regular"),
         "Regelmäßige",
       );
+    });
+  });
+
+  group("Klausur-Extra-Vokabeln (Schritt 8)", () {
+    final vocabulary = [
+      for (final item in jsonDecode(
+        File("assets/greek_vocabulary.json").readAsStringSync(),
+      ))
+        GreekVocabularyEntry.fromJson(item),
+    ];
+
+    test("δεῖ, χρή, ἔξεστιν, δοκεῖ stehen in Schritt 8", () {
+      final step8 = {
+        for (final entry in vocabulary.where((e) => e.step == 8))
+          entry.lemma: entry.translations,
+      };
+
+      expect(step8, {
+        "δεῖ": ["es ist nötig"],
+        "χρή": ["es ist nötig"],
+        "ἔξεστιν": ["es ist erlaubt"],
+        "δοκεῖ": ["es scheint gut"],
+      });
+    });
+
+    test("IDs bleiben eindeutig", () {
+      final ids = [for (final entry in vocabulary) entry.id];
+
+      expect(ids.toSet().length, ids.length);
     });
   });
 }

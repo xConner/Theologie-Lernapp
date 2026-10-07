@@ -33,6 +33,11 @@ class GrammarTrainerSettings {
   /// regelmäßige Steigerungen.
   final List<String> enabledComparisonKinds;
 
+  /// Adjektivsteigerung: Zur gesteigerten Form wird die Grundform (griechisch)
+  /// und/oder ihre deutsche Übersetzung gefragt; mindestens eins von beiden.
+  final bool askComparisonLemma;
+  final bool askComparisonTranslation;
+
   const GrammarTrainerSettings({
     this.enabledSteps = allSteps,
     this.enabledTypes = allTypes,
@@ -41,6 +46,8 @@ class GrammarTrainerSettings {
     this.showLemmaFieldNoun = true,
     this.showLemmaFieldVerb = true,
     this.showLemmaFieldPronoun = true,
+    this.askComparisonLemma = true,
+    this.askComparisonTranslation = true,
   });
 
   /// Liest das gespeicherte Feld `greek_grammar_settings`. Unbekannte
@@ -66,6 +73,12 @@ class GrammarTrainerSettings {
     final lemmaNoun = data['showLemmaFieldNoun'];
     final lemmaVerb = data['showLemmaFieldVerb'];
     final lemmaPronoun = data['showLemmaFieldPronoun'];
+    final comparisonLemma = data['askComparisonLemma'];
+    final comparisonTranslation = data['askComparisonTranslation'];
+
+    final askTranslation = comparisonTranslation is bool
+        ? comparisonTranslation
+        : true;
 
     return GrammarTrainerSettings(
       enabledSteps: steps is List
@@ -92,6 +105,10 @@ class GrammarTrainerSettings {
       showLemmaFieldNoun: lemmaNoun is bool ? lemmaNoun : true,
       showLemmaFieldVerb: lemmaVerb is bool ? lemmaVerb : true,
       showLemmaFieldPronoun: lemmaPronoun is bool ? lemmaPronoun : true,
+      askComparisonTranslation: askTranslation,
+      // Ohne Übersetzung wird immer die Grundform gefragt.
+      askComparisonLemma:
+          !askTranslation || (comparisonLemma is bool ? comparisonLemma : true),
     );
   }
 
@@ -104,6 +121,8 @@ class GrammarTrainerSettings {
       'showLemmaFieldPronoun': showLemmaFieldPronoun,
       'enabledPronounKinds': enabledPronounKinds,
       'enabledComparisonKinds': enabledComparisonKinds,
+      'askComparisonLemma': askComparisonLemma,
+      'askComparisonTranslation': askComparisonTranslation,
     };
   }
 }

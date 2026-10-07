@@ -430,18 +430,22 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
                         hint:
                             "Abgefragt werden nur Vokabeln aus den "
                             "ausgewählten Schritten. Mehrere Schritte können "
-                            "gleichzeitig ausgewählt sein.",
-                        options: const [1, 2, 3, 4, 5, 6, 7],
+                            "gleichzeitig ausgewählt sein. Schritt 8 enthält "
+                            "zusätzliche Klausurvokabeln.",
+                        options: VocabularySettings.allSteps,
                         isSelected: enabledSteps.contains,
-                        labelOf: (step) => "Schritt $step",
+                        labelOf: VocabularySettings.stepLabel,
                         emptyError:
                             "Mindestens ein Schritt muss ausgewählt sein.",
                         onToggleAll: () {
                           setDialogState(() {
-                            if (enabledSteps.length == 7) {
+                            if (enabledSteps.length ==
+                                VocabularySettings.allSteps.length) {
                               enabledSteps.clear();
                             } else {
-                              enabledSteps = [1, 2, 3, 4, 5, 6, 7];
+                              enabledSteps = List.of(
+                                VocabularySettings.allSteps,
+                              );
                             }
                           });
                         },

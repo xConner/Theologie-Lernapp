@@ -46,7 +46,7 @@ void main() {
       expect(settings.includeGenitive, isTrue);
       expect(settings.includeAorist, isTrue);
       expect(settings.requireOnlyOneTranslation, isFalse);
-      expect(settings.enabledSteps, [1, 2, 3, 4, 5, 6, 7]);
+      expect(settings.enabledSteps, [1, 2, 3, 4, 5, 6, 7, 8]);
       expect(settings.enabledTypes, VocabularySettings.allTypes);
       expect(settings.enabledTypes, contains("numeral"));
     });
@@ -57,7 +57,9 @@ void main() {
       settings.enabledSteps.clear();
       settings.enabledTypes.remove("noun");
 
-      expect(VocabularySettings.allSteps.length, 7);
+      expect(VocabularySettings.allSteps.length, 8);
+      expect(VocabularySettings.stepLabel(8), "Schritt 8 (Klausur-Extra)");
+      expect(VocabularySettings.stepLabel(3), "Schritt 3");
       expect(VocabularySettings.allTypes.length, 11);
     });
 

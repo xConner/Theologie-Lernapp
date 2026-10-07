@@ -37,7 +37,7 @@ class AdjectiveComparisons {
     AdjectiveComparison(
       id: 10002,
       positive: "κακός",
-      translations: ["schlecht"],
+      translations: ["schlecht", "feige"],
       irregular: true,
       weight: 6,
       comparatives: [
@@ -86,7 +86,7 @@ class AdjectiveComparisons {
     AdjectiveComparison(
       id: 10006,
       positive: "ὀλίγος",
-      translations: ["wenig"],
+      translations: ["wenig", "klein", "gering"],
       irregular: true,
       weight: 3,
       comparatives: [
@@ -127,7 +127,7 @@ class AdjectiveComparisons {
     AdjectiveComparison(
       id: 10009,
       positive: "βέβαιος",
-      translations: ["fest", "sicher"],
+      translations: ["feststehend", "fest", "zuverlässig", "sicher"],
       irregular: false,
       weight: 1,
       comparatives: [ComparisonForm("βεβαιότερος")],
@@ -136,7 +136,7 @@ class AdjectiveComparisons {
     AdjectiveComparison(
       id: 10010,
       positive: "πονηρός",
-      translations: ["schlecht", "niederträchtig"],
+      translations: ["schlecht", "untauglich", "niederträchtig"],
       irregular: false,
       weight: 1,
       comparatives: [ComparisonForm("πονηρότερος")],
@@ -145,7 +145,7 @@ class AdjectiveComparisons {
     AdjectiveComparison(
       id: 10011,
       positive: "σοφός",
-      translations: ["weise"],
+      translations: ["geschickt", "klug", "weise"],
       irregular: false,
       weight: 1,
       comparatives: [ComparisonForm("σοφώτερος")],
@@ -167,7 +167,7 @@ class AdjectiveComparisons {
     AdjectiveComparison(
       id: 10013,
       positive: "σώφρων",
-      translations: ["besonnen"],
+      translations: ["besonnen", "maßvoll"],
       irregular: false,
       weight: 1,
       comparatives: [ComparisonForm("σωφρονέστερος")],
@@ -176,7 +176,7 @@ class AdjectiveComparisons {
     AdjectiveComparison(
       id: 10014,
       positive: "εὐδαίμων",
-      translations: ["glücklich"],
+      translations: ["glücklich", "wohlhabend"],
       irregular: false,
       weight: 1,
       comparatives: [ComparisonForm("εὐδαιμονέστερος")],
@@ -215,19 +215,13 @@ class AdjectiveComparisons {
     };
   }
 
-  /// Alle Adjektive, zu denen [form] als Komparativ ([superlative] = false)
-  /// bzw. Superlativ gehört. ἐλάττων / ἐλάχιστος: μικρός und ὀλίγος.
-  /// Verglichen wird die exakte Schreibung der Daten.
-  static List<AdjectiveComparison> ownersOf(
-    String form, {
-    required bool superlative,
-  }) {
+  /// Alle Adjektive, zu denen die gesteigerte Form [form] gehört.
+  /// ἐλάττων / ἐλάχιστος: μικρός und ὀλίγος. Verglichen wird die exakte
+  /// Schreibung der Daten.
+  static List<AdjectiveComparison> ownersOf(String form) {
     return [
       for (final comparison in all)
-        if (AdjectiveComparison.allTexts(
-          superlative ? comparison.superlatives : comparison.comparatives,
-        ).contains(form))
-          comparison,
+        if (comparison.gradedForms.contains(form)) comparison,
     ];
   }
 }
