@@ -134,6 +134,103 @@ void main() {
     });
   });
 
+  group("Gebete: Rubriken und Liturgie", () {
+    test("jeder Eintrag steht in einer bekannten Rubrik", () {
+      for (final prayer in prayers) {
+        expect(
+          PrayerCategories.labels.keys,
+          contains(prayer.category),
+          reason: prayer.id,
+        );
+      }
+
+      // Jede Rubrik außer der Auffangrubrik ist auch belegt.
+      final used = prayers.map((p) => p.category).toSet();
+      expect(
+        used,
+        containsAll(
+          PrayerCategories.order.where((c) => c != PrayerCategories.fallback),
+        ),
+      );
+    });
+
+    test("liturgische Stücke aus Gottesdienst, Abendmahl, Taufe und Beichte",
+        () {
+      expect(
+        ids(prayers),
+        containsAll([
+          "votum_und_adjutorium",
+          "suendenbekenntnis_gottesdienst",
+          "gnadenzusage_gottesdienst",
+          "salutatio",
+          "allgemeines_kirchengebet",
+          "aaronitischer_segen",
+          "praefation",
+          "einsetzungsworte",
+          "friedensgruss",
+          "austeilungsworte",
+          "sintflutgebet",
+          "tauffragen",
+          "taufformel_und_taufsegen",
+          "beichtfragen",
+          "allgemeine_beichte",
+          "absolution",
+          "kollekte_advent",
+          "kollekte_ostern",
+          "kollekte_pfingsten",
+        ]),
+      );
+
+      // Eine Agende je Sprachfassung: keine unmarkiert gemischten Fassungen.
+      for (final id in ["praefation", "einsetzungsworte", "absolution"]) {
+        final p = byId(prayers, id);
+
+        expect(p.languages, ["de"], reason: id);
+        expect(p.versionFor("de")!.source, contains("Kirchenbuch"), reason: id);
+        expect(p.versionFor("de")!.source, contains("Faksimile"), reason: id);
+      }
+
+      expect(
+        byId(prayers, "einsetzungsworte").versionFor("de")!.text,
+        allOf(
+          startsWith("Unser Herr Jesus Christus, in der Nacht da Er verraten"),
+          endsWith("Solches thut so oft ihrs trinket, zu Meinem Gedächtnis."),
+        ),
+      );
+      expect(
+        byId(prayers, "aaronitischer_segen").versionFor("de")!.text,
+        startsWith("Der Herr segne dich und behüte dich."),
+      );
+      expect(
+        byId(prayers, "allgemeines_kirchengebet").versionFor("de")!.text,
+        allOf(
+          startsWith("Allmächtiger, barmherziger, ewiger Gott"),
+          contains("der weltlichen Obrigkeit"),
+          endsWith("gleicher Gott, hochgelobet in Ewigkeit."),
+        ),
+      );
+    });
+
+    test("Gebete zu den Anliegen des Gemeinde- und Hauslebens", () {
+      for (final tag in [
+        "kirche",
+        "obrigkeit",
+        "familie",
+        "arbeit",
+        "krankheit",
+        "not",
+        "sterben",
+        "mission",
+        "heiliger_geist",
+        "wort_gottes",
+        "busse",
+        "danksagung",
+      ]) {
+        expect(PrayerSearch.filter(prayers, tag: tag), isNotEmpty, reason: tag);
+      }
+    });
+  });
+
   group("Gebete: Suche", () {
     test("leere Suche zeigt alle Gebete in Datenreihenfolge", () {
       expect(ids(PrayerSearch.filter(prayers)), ids(prayers));
@@ -191,16 +288,28 @@ void main() {
     test("mehrere Begriffe und Tag-Filter werden kombiniert", () {
       expect(ids(PrayerSearch.filter(prayers, query: "luther morgen")), [
         "luthers_morgensegen",
+        // „luther“ trifft als Teilwort auch das Tag „Lutherisch“.
+        "kollekte_am_morgen",
+      ]);
+      expect(ids(PrayerSearch.filter(prayers, query: "luther morgensegen")), [
+        "luthers_morgensegen",
       ]);
 
       // „abend“ trifft auch das Tag „Abendmahl“ (Teilwortsuche).
       expect(
         ids(PrayerSearch.filter(prayers, query: "abend", tag: "lutherisch")),
-        ["agnus_dei", "luthers_abendsegen", "dankkollekte_abendmahl"],
+        containsAllInOrder([
+          "agnus_dei",
+          "luthers_abendsegen",
+          "dankkollekte_abendmahl",
+          "einsetzungsworte",
+          "austeilungsworte",
+          "kollekte_am_abend",
+        ]),
       );
       expect(
         ids(PrayerSearch.filter(prayers, query: "abend", tag: "katechismus")),
-        ["luthers_abendsegen"],
+        ["luthers_abendsegen", "einsetzungsworte"],
       );
 
       final tischgebete = PrayerSearch.filter(prayers, tag: "tischgebet");

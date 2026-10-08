@@ -425,7 +425,10 @@ class MemorizationAddTextScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(work.title, style: Theme.of(context).textTheme.titleSmall),
+            Text(
+              work.group == null ? work.title : work.shortTitle ?? work.title,
+              style: Theme.of(context).textTheme.titleSmall,
+            ),
 
             const SizedBox(height: 8),
 
@@ -446,6 +449,58 @@ class MemorizationAddTextScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  /// Werke einer Textart; solche mit [MemorizationWork.group] (Rubrik der
+  /// Gebete, Bekenntnisschrift eines Artikels) stehen eingeklappt unter
+  /// ihrer Gruppe, damit die Auswahl keine einzige lange Liste ist.
+  List<Widget> _buildWorks(
+    BuildContext context,
+    List<MemorizationWork> works, {
+    required bool expandFirst,
+  }) {
+    final widgets = <Widget>[];
+    final grouped = <String, List<MemorizationWork>>{};
+
+    for (final work in works) {
+      final group = work.group;
+
+      if (group == null) {
+        widgets.add(_buildWork(context, work));
+      } else {
+        grouped.putIfAbsent(group, () => []).add(work);
+      }
+    }
+
+    for (final entry in grouped.entries) {
+      final selected = entry.value
+          .expand((work) => work.versions)
+          .where((text) => repository.contains(text.id))
+          .length;
+
+      widgets.add(
+        Card(
+          clipBehavior: Clip.antiAlias,
+          child: ExpansionTile(
+            key: PageStorageKey("memorize_group_${entry.key}"),
+            initiallyExpanded: expandFirst && entry.key == grouped.keys.first,
+            title: Text(entry.key),
+            subtitle: Text(
+              selected == 0
+                  ? "${entry.value.length} Texte"
+                  : "${entry.value.length} Texte · $selected ausgewählt",
+            ),
+            shape: const Border(),
+            childrenPadding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
+            children: [
+              for (final work in entry.value) _buildWork(context, work),
+            ],
+          ),
+        ),
+      );
+    }
+
+    return widgets;
   }
 
   @override
@@ -484,7 +539,11 @@ class MemorizationAddTextScreen extends StatelessWidget {
 
                   const SizedBox(height: 4),
 
-                  for (final work in works) _buildWork(context, work),
+                  ..._buildWorks(
+                    context,
+                    works,
+                    expandFirst: type == groups.first.$1,
+                  ),
                 ],
               ],
             ),

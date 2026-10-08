@@ -182,7 +182,7 @@ void main() {
     });
 
     testWidgets("Undokumentierte Herkunft wird offen benannt", (tester) async {
-      await tester.pumpWidget(host(module: AppModules.confessions));
+      await tester.pumpWidget(host(module: AppModules.calendar));
 
       await tester.tap(find.byIcon(Icons.info_outline_rounded).first);
       await tester.pumpAndSettle();

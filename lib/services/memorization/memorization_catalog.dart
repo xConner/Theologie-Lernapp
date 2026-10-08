@@ -61,12 +61,11 @@ class MemorizationCatalog {
 
   MemorizationText? text(String id) => _texts[id];
 
-  MemorizationWork? workOf(MemorizationText text) {
-    for (final work in works) {
-      if (work.id == text.workId) return work;
-    }
-    return null;
-  }
+  late final Map<String, MemorizationWork> _works = {
+    for (final work in works) work.id: work,
+  };
+
+  MemorizationWork? workOf(MemorizationText text) => _works[text.workId];
 
   // ==========================
   // GEBETE
@@ -79,6 +78,7 @@ class MemorizationCatalog {
       id: workId,
       title: prayer.displayTitle,
       type: MemorizationTextType.prayer,
+      group: PrayerCategories.label(prayer.category),
       versions: [
         for (final language in prayer.languages)
           _text(
@@ -121,10 +121,14 @@ class MemorizationCatalog {
       return "$base – $part";
     }
 
+    final multiple = confession.sections.length > 1;
+
     return MemorizationWork(
       id: workId,
       title: title("de"),
       type: type,
+      group: multiple ? (confession.title["de"] ?? confession.id) : null,
+      shortTitle: multiple ? (section.title["de"] ?? section.id) : null,
       versions: [
         for (final language in confession.languages)
           if ((section.texts[language] ?? "").trim().isNotEmpty)
@@ -149,19 +153,24 @@ class MemorizationCatalog {
     required String content,
   }) {
     final id = "$workId.$language";
-    final parts = _segmenter.segment(content);
 
-    return MemorizationText(
+    // Erst beim ersten Zugriff zerlegen: der Katalog enthält das gesamte
+    // Konkordienbuch, gebraucht werden meist nur wenige Texte.
+    return LazyMemorizationText(
       id: id,
       workId: workId,
       title: title,
       workTitle: workTitle,
       languageCode: language,
       type: type,
-      segments: [
-        for (var i = 0; i < parts.length; i++)
-          MemorizationSegment(id: "$id.s$i", text: parts[i], order: i),
-      ],
+      build: () {
+        final parts = _segmenter.segment(content);
+
+        return [
+          for (var i = 0; i < parts.length; i++)
+            MemorizationSegment(id: "$id.s$i", text: parts[i], order: i),
+        ];
+      },
     );
   }
 }

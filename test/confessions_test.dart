@@ -24,17 +24,21 @@ void main() {
         "apostolicum",
         "nicenum",
         "athanasianum",
+        "konkordienbuch_vorrede",
         "augsburger_konfession",
         "apologie",
         "schmalkaldische_artikel",
+        "traktat",
         "kleiner_katechismus",
         "grosser_katechismus",
         "konkordienformel_epitome",
+        "konkordienformel_solida_declaratio",
       ]);
-      expect(confessions.map((c) => c.id).toSet(), hasLength(9));
+      expect(confessions.map((c) => c.id).toSet(), hasLength(12));
 
       final ca = confessions.firstWhere((c) => c.id == "augsburger_konfession");
-      expect(ca.sections, hasLength(21));
+      // Vorrede, 28 Artikel, Beschluss des ersten Teils, Beschluss.
+      expect(ca.sections, hasLength(31));
       expect(ca.languages, containsAll(["de", "la", "en"]));
 
       final nicenum = confessions.firstWhere((c) => c.id == "nicenum");
@@ -57,7 +61,7 @@ void main() {
       }
     });
 
-    test("lutherische Symbole: Kleiner Katechismus und Auswahltexte", () async {
+    test("lutherische Symbole: Kleiner Katechismus und geprüfte Texte", () async {
       final confessions = await ConfessionService().loadConfessions();
 
       Confession byId(String id) => confessions.firstWhere((c) => c.id == id);
@@ -65,16 +69,20 @@ void main() {
       final lutheran = confessions
           .where((c) => c.category == "lutherische_symbole")
           .map((c) => c.id);
-      expect(lutheran, hasLength(6));
+      expect(lutheran, hasLength(9));
 
       final sc = byId("kleiner_katechismus");
       expect(sc.languages, ["de", "la", "en"]);
       expect(sc.sections.map((s) => s.id), [
+        "vorrede",
         for (var i = 1; i <= 6; i++) "hauptstueck_$i",
+        "gebete",
+        "haustafel",
       ]);
 
-      String sct(int part, String language) =>
-          sc.sections[part - 1].texts[language]!;
+      String sct(int part, String language) => sc.sections
+          .firstWhere((s) => s.id == "hauptstueck_$part")
+          .texts[language]!;
 
       expect(sct(1, "de"), startsWith("Das erste Gebot.\nDu sollst nicht"));
       expect(sct(1, "de"), contains("über alle Dinge fürchten, lieben und vertrauen"));
@@ -102,7 +110,10 @@ void main() {
       expect(byId("apologie").sources["de"], contains("Justus Jonas"));
       expect(byId("schmalkaldische_artikel").sources["de"], contains("Originaltext"));
       expect(
-        byId("schmalkaldische_artikel").sections.single.texts["de"],
+        byId("schmalkaldische_artikel")
+            .sections
+            .firstWhere((s) => s.id == "teil_2_art_1")
+            .texts["de"],
         contains("Von diesem Artikel kann man nichts weichen"),
       );
     });

@@ -67,6 +67,56 @@ class _ConfessionDetailScreenState extends State<ConfessionDetailScreen> {
 
   bool get hasMultipleSections => confession.sections.length > 1;
 
+  String get currentText =>
+      confession.sections[selectedSectionIndex].texts[selectedLanguage] ?? "";
+
+  /// Ab dieser Länge wird der Text absatzweise und erst beim Scrollen
+  /// aufgebaut; ein einzelnes Textfeld mit einem ganzen Artikel der
+  /// Apologie oder der Konkordienformel wäre zu träge.
+  static const int _lazyFrom = 12000;
+
+  static const TextStyle _textStyle = TextStyle(fontSize: 18, height: 1.5);
+
+  Widget? _buildSource(BuildContext context) {
+    if (!hasCurrentText || confession.sources[selectedLanguage] == null) {
+      return null;
+    }
+
+    return Padding(
+      padding: const EdgeInsets.only(top: 24, bottom: 24),
+
+      child: Text(
+        "Quelle: ${confession.sources[selectedLanguage]}",
+
+        key: const Key("confession_source"),
+
+        style: Theme.of(context).textTheme.bodySmall,
+      ),
+    );
+  }
+
+  Widget _buildLongText(BuildContext context) {
+    final paragraphs = currentText.split(RegExp(r"\n\n"));
+    final source = _buildSource(context);
+
+    return SelectionArea(
+      child: ListView.builder(
+        // Neuer Abschnitt/neue Sprache beginnt wieder oben.
+        key: ValueKey("$selectedSectionIndex/$selectedLanguage"),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        itemCount: paragraphs.length + (source == null ? 0 : 1),
+        itemBuilder: (context, index) {
+          if (index == paragraphs.length) return source!;
+
+          return Padding(
+            padding: const EdgeInsets.only(bottom: 18 * 1.5),
+            child: Text(paragraphs[index], style: _textStyle),
+          );
+        },
+      ),
+    );
+  }
+
   bool get hasCurrentText =>
       (confession.sections[selectedSectionIndex].texts[selectedLanguage] ?? "")
           .trim()
@@ -229,41 +279,32 @@ class _ConfessionDetailScreenState extends State<ConfessionDetailScreen> {
               ),
 
               Expanded(
-                child: SingleChildScrollView(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-
-                    children: [
-                      SelectableText(
-                        confession
-                                .sections[selectedSectionIndex]
-                                .texts[selectedLanguage] ??
-                            "",
-
-                        style: const TextStyle(fontSize: 18, height: 1.5),
-
-                        selectionControls: MaterialTextSelectionControls(),
-                      ),
-
-                      // Quellenangabe der angezeigten Sprachfassung.
-                      if (hasCurrentText &&
-                          confession.sources[selectedLanguage] != null)
-                        Padding(
-                          padding: const EdgeInsets.only(top: 24, bottom: 24),
-
-                          child: Text(
-                            "Quelle: ${confession.sources[selectedLanguage]}",
-
-                            key: const Key("confession_source"),
-
-                            style: Theme.of(context).textTheme.bodySmall,
-                          ),
+                child: currentText.length > _lazyFrom
+                    ? _buildLongText(context)
+                    : SingleChildScrollView(
+                        key: ValueKey(
+                          "$selectedSectionIndex/$selectedLanguage",
                         ),
-                    ],
-                  ),
-                ),
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+
+                          children: [
+                            SelectableText(
+                              currentText,
+
+                              style: _textStyle,
+
+                              selectionControls:
+                                  MaterialTextSelectionControls(),
+                            ),
+
+                            // Quellenangabe der angezeigten Sprachfassung.
+                            ?_buildSource(context),
+                          ],
+                        ),
+                      ),
               ),
             ],
           ),

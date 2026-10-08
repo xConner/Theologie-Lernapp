@@ -293,6 +293,12 @@ class _MemorizationTextScreenState extends State<MemorizationTextScreen> {
     );
   }
 
+  /// Ab dieser Länge werden die Abschnitte erst beim Scrollen aufgebaut
+  /// (ganze Artikel der Bekenntnisschriften haben über tausend Abschnitte).
+  static const int _lazyFrom = 80;
+
+  bool get _lazy => text.segments.length > _lazyFrom;
+
   Widget _buildContent() {
     final progress = scheduler.progress(text, repository.cards);
     final plan = scheduler.planFor(text, repository.cards);
@@ -340,7 +346,8 @@ class _MemorizationTextScreenState extends State<MemorizationTextScreen> {
 
         const SizedBox(height: 8),
 
-        for (var i = 0; i < text.segments.length; i++) _buildSegment(i),
+        if (!_lazy)
+          for (var i = 0; i < text.segments.length; i++) _buildSegment(i),
       ],
     );
   }
@@ -377,10 +384,18 @@ class _MemorizationTextScreenState extends State<MemorizationTextScreen> {
         constraints: const BoxConstraints(maxWidth: 700),
         child: ListenableBuilder(
           listenable: repository,
-          builder: (context, _) => SingleChildScrollView(
-            padding: const EdgeInsets.all(16),
-            child: _buildContent(),
-          ),
+          builder: (context, _) => _lazy
+              ? ListView.builder(
+                  padding: const EdgeInsets.all(16),
+                  itemCount: text.segments.length + 1,
+                  itemBuilder: (context, index) => index == 0
+                      ? _buildContent()
+                      : _buildSegment(index - 1),
+                )
+              : SingleChildScrollView(
+                  padding: const EdgeInsets.all(16),
+                  child: _buildContent(),
+                ),
         ),
       ),
     );

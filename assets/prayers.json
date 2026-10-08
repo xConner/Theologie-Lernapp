@@ -9,11 +9,16 @@
         },
         "type": "biblisches_gebet",
         "tradition": "biblisch",
+        "category": "grundtexte",
         "originalLanguage": "gr",
         "source": "Matthäus 6,9–13 (kürzere Fassung: Lukas 11,2–4)",
         "dating": "1. Jahrhundert (Evangelium nach Matthäus)",
         "description": "Das Gebet, das Jesus seine Jünger lehrte. Die Schlussdoxologie („Denn dein ist das Reich …“) fehlt in den ältesten Handschriften von Mt 6,13, ist aber früh bezeugt (Didache 8,2) und gehört in den evangelischen Kirchen zum gottesdienstlichen Gebrauch. Luther legt das Vaterunser im dritten Hauptstück des Kleinen Katechismus aus.",
-        "tags": ["biblisch", "liturgie", "bitte"],
+        "tags": [
+            "biblisch",
+            "liturgie",
+            "bitte"
+        ],
         "versions": [
             {
                 "language": "de",
@@ -54,11 +59,17 @@
         },
         "type": "gebet",
         "tradition": "ostkirchlich",
+        "category": "weitere",
         "originalLanguage": "gr",
         "source": "Byzantinische (hesychastische) Gebetstradition; biblische Wurzeln: Lukas 18,13 (Gebet des Zöllners) und Lukas 18,38 (Ruf des Blinden bei Jericho)",
         "dating": "Standardform ab etwa 600 bezeugt (Abba Philemon, Philokalia); Zusatz „des Sünders“ später",
         "description": "Kurzes, oft wiederholtes Christusgebet der ostkirchlichen Tradition (Herzensgebet). Die älteste bezeugte Standardform endet mit „erbarme dich meiner“ (Κύριε Ἰησοῦ Χριστέ, Υἱὲ τοῦ Θεοῦ, ἐλέησόν με). Der Zusatz „des Sünders“ (τὸν ἁμαρτωλόν) nimmt das Gebet des Zöllners (Lk 18,13) auf und ist heute weit verbreitet.",
-        "tags": ["altkirchlich", "ostkirchlich", "christusgebet", "busse"],
+        "tags": [
+            "altkirchlich",
+            "ostkirchlich",
+            "christusgebet",
+            "busse"
+        ],
         "versions": [
             {
                 "language": "de",
@@ -93,11 +104,17 @@
         },
         "type": "canticum",
         "tradition": "biblisch",
+        "category": "lobgesaenge",
         "originalLanguage": "gr",
         "source": "Lukas 1,46–55",
         "dating": "1. Jahrhundert (Evangelium nach Lukas)",
         "description": "Lobgesang der Maria bei der Begegnung mit Elisabet. Seit alter Zeit fester Bestandteil der Vesper, des kirchlichen Abendgebets. Luther legte ihn 1521 ausführlich aus („Das Magnificat verdeutscht und ausgelegt“).",
-        "tags": ["biblisch", "lobpreis", "stundengebet", "abend"],
+        "tags": [
+            "biblisch",
+            "lobpreis",
+            "stundengebet",
+            "abend"
+        ],
         "versions": [
             {
                 "language": "de",
@@ -138,11 +155,17 @@
         },
         "type": "canticum",
         "tradition": "biblisch",
+        "category": "lobgesaenge",
         "originalLanguage": "gr",
         "source": "Lukas 1,68–79",
         "dating": "1. Jahrhundert (Evangelium nach Lukas)",
         "description": "Lobgesang des Zacharias nach der Geburt Johannes des Täufers. Seit alter Zeit fester Bestandteil der Laudes, des kirchlichen Morgengebets.",
-        "tags": ["biblisch", "lobpreis", "stundengebet", "morgen"],
+        "tags": [
+            "biblisch",
+            "lobpreis",
+            "stundengebet",
+            "morgen"
+        ],
         "versions": [
             {
                 "language": "de",
@@ -183,11 +206,17 @@
         },
         "type": "canticum",
         "tradition": "biblisch",
+        "category": "lobgesaenge",
         "originalLanguage": "gr",
         "source": "Lukas 2,29–32",
         "dating": "1. Jahrhundert (Evangelium nach Lukas)",
         "description": "Lobgesang des greisen Simeon, als er das Jesuskind im Tempel sieht. Fester Bestandteil der Komplet, des kirchlichen Nachtgebets; in lutherischen Gottesdiensten auch nach dem Abendmahl gesungen.",
-        "tags": ["biblisch", "lobpreis", "stundengebet", "abend"],
+        "tags": [
+            "biblisch",
+            "lobpreis",
+            "stundengebet",
+            "abend"
+        ],
         "versions": [
             {
                 "language": "de",
@@ -228,11 +257,17 @@
         },
         "type": "doxologie",
         "tradition": "altkirchlich",
+        "category": "lobgesaenge",
         "originalLanguage": "gr",
         "source": "Altkirchliche Liturgie; trinitarische Form seit dem 4. Jahrhundert allgemein verbreitet",
         "dating": "4. Jahrhundert; westlicher Zusatz „wie es war im Anfang“ bezeugt durch die Synode von Vaison (529)",
         "description": "Die „kleine Doxologie“: trinitarischer Lobpreis, mit dem im Gottesdienst und im Stundengebet die Psalmen abgeschlossen werden. Die griechische Form endet mit „jetzt und immerdar und in alle Ewigkeit“; die westliche Form fügt „wie es war im Anfang“ hinzu. Beide sind eigenständige liturgische Traditionen.",
-        "tags": ["altkirchlich", "liturgie", "trinitaet", "lobpreis"],
+        "tags": [
+            "altkirchlich",
+            "liturgie",
+            "trinitaet",
+            "lobpreis"
+        ],
         "versions": [
             {
                 "language": "de",
@@ -272,11 +307,17 @@
         },
         "type": "akklamation",
         "tradition": "altkirchlich",
+        "category": "gottesdienst",
         "originalLanguage": "gr",
         "source": "Altkirchliche Liturgie (Gemeinderuf der ostkirchlichen Litaneien, im 4. Jahrhundert bezeugt); biblische Anklänge u. a. Matthäus 15,22; 20,30",
         "dating": "4. Jahrhundert; in der römischen Messe spätestens um 600",
         "description": "Ruf um Erbarmen an Christus als den Herrn (Kyrios). Die lateinische Messe hat den griechischen Wortlaut beibehalten; eine eigene lateinische Fassung gibt es daher nicht.",
-        "tags": ["altkirchlich", "liturgie", "busse", "christusgebet"],
+        "tags": [
+            "altkirchlich",
+            "liturgie",
+            "busse",
+            "christusgebet"
+        ],
         "versions": [
             {
                 "language": "de",
@@ -311,11 +352,17 @@
         },
         "type": "hymnus",
         "tradition": "altkirchlich",
+        "category": "lobgesaenge",
         "originalLanguage": "gr",
         "source": "Altkirchlicher Hymnus; Eingangsvers nach Lukas 2,14",
         "dating": "Im 4. Jahrhundert im Morgengebet bezeugt",
         "description": "Die „große Doxologie“: ein altkirchlicher Hymnus, der mit dem Gesang der Engel (Lk 2,14) beginnt. In der Ostkirche Teil des Morgengottesdienstes, im Westen Teil der Messe. Die griechische Fassung weicht im Wortlaut deutlich ab und ist hier nicht enthalten. In lutherischen Gottesdiensten wird meist das Lied „Allein Gott in der Höh sei Ehr“ (EG 179, Nikolaus Decius) gesungen – eine Nachdichtung, die hier nicht als Übersetzung aufgeführt wird.",
-        "tags": ["altkirchlich", "liturgie", "lobpreis", "trinitaet"],
+        "tags": [
+            "altkirchlich",
+            "liturgie",
+            "lobpreis",
+            "trinitaet"
+        ],
         "versions": [
             {
                 "language": "en",
@@ -342,11 +389,17 @@
         },
         "type": "hymnus",
         "tradition": "ostkirchlich",
+        "category": "lobgesaenge",
         "originalLanguage": "gr",
         "source": "Byzantinische Liturgie",
         "dating": "Spätestens im 5. Jahrhundert bezeugt",
         "description": "Der „Dreimal-Heilig-Hymnus“ der Ostkirche, der im Gottesdienst in der Regel dreimal gesungen wird. Die römische Kirche übernahm ihn in die Karfreitagsliturgie (Improperien), wo er griechisch und lateinisch im Wechsel erklingt. Eine etablierte deutsche Fassung ist hier nicht hinterlegt.",
-        "tags": ["altkirchlich", "ostkirchlich", "liturgie", "lobpreis"],
+        "tags": [
+            "altkirchlich",
+            "ostkirchlich",
+            "liturgie",
+            "lobpreis"
+        ],
         "versions": [
             {
                 "language": "la",
@@ -371,11 +424,19 @@
         },
         "type": "akklamation",
         "tradition": "altkirchlich",
+        "category": "abendmahl",
         "originalLanguage": "la",
         "source": "Johannes 1,29; römische Messliturgie",
         "dating": "In der römischen Messe seit dem späten 7. Jahrhundert (nach dem Liber Pontificalis unter Papst Sergius I.); deutsche Fassung Martin Luthers 1528",
         "description": "Ruf an Christus als das Lamm Gottes (Joh 1,29) zur Brotbrechung vor dem Abendmahl. Martin Luther schuf 1528 die deutsche Fassung „Christe, du Lamm Gottes“, die seitdem in evangelischen Gesangbüchern steht.",
-        "tags": ["altkirchlich", "liturgie", "abendmahl", "christusgebet", "luther", "lutherisch"],
+        "tags": [
+            "altkirchlich",
+            "liturgie",
+            "abendmahl",
+            "christusgebet",
+            "luther",
+            "lutherisch"
+        ],
         "versions": [
             {
                 "language": "de",
@@ -402,11 +463,19 @@
         },
         "type": "antiphon",
         "tradition": "mittelalterlich",
+        "category": "anliegen",
         "originalLanguage": "la",
         "source": "Antiphon „Da pacem, Domine, in diebus nostris“; deutsche Liedstrophe: Martin Luther (1529), Weimarer Ausgabe Bd. 35, S. 232–235",
         "dating": "Antiphon 9. Jahrhundert; Luthers Strophe 1529 (älteste erhaltene Drucke 1531)",
         "description": "Bitte um Frieden „in unseren Tagen“. Luther dichtete die mittelalterliche Antiphon 1529 als Liedstrophe nach; später wurde sie oft mit „Erhalt uns, Herr, bei deinem Wort“ verbunden. Die Fortsetzung „Gib unserm Fürsten und aller Obrigkeit …“ stammt nicht von Luther, sondern ist zuerst bei Johann Walter (1566) belegt.",
-        "tags": ["mittelalterlich", "luther", "lutherisch", "frieden", "bitte", "liturgie"],
+        "tags": [
+            "mittelalterlich",
+            "luther",
+            "lutherisch",
+            "frieden",
+            "bitte",
+            "liturgie"
+        ],
         "versions": [
             {
                 "language": "de",
@@ -440,12 +509,20 @@
         },
         "type": "gebet",
         "tradition": "lutherisch",
+        "category": "tageslauf",
         "author": "Martin Luther",
         "originalLanguage": "de",
         "source": "Martin Luther, Kleiner Katechismus (1529), Anhang: „Wie ein Hausvater sein Gesinde soll lehren morgens und abends sich segnen“",
         "dating": "1529",
         "description": "Luther empfiehlt, sich morgens mit dem Kreuzzeichen zu segnen, dann Glaubensbekenntnis und Vaterunser zu beten und, wenn man will, „dies Gebetlein“ zu sprechen. „Und alsdann mit Freuden an dein Werk gegangen und etwa ein Lied gesungen, als die zehn Gebote, oder was deine Andacht gibt.“",
-        "tags": ["luther", "lutherisch", "katechismus", "morgen", "danksagung", "bitte"],
+        "tags": [
+            "luther",
+            "lutherisch",
+            "katechismus",
+            "morgen",
+            "danksagung",
+            "bitte"
+        ],
         "versions": [
             {
                 "language": "de",
@@ -478,12 +555,20 @@
         },
         "type": "gebet",
         "tradition": "lutherisch",
+        "category": "tageslauf",
         "author": "Martin Luther",
         "originalLanguage": "de",
         "source": "Martin Luther, Kleiner Katechismus (1529), Anhang: „Wie ein Hausvater sein Gesinde soll lehren morgens und abends sich segnen“",
         "dating": "1529",
         "description": "Wie am Morgen: Kreuzzeichen, Glaubensbekenntnis und Vaterunser, dann auf Wunsch „dies Gebetlein“. Luthers Anweisung schließt: „Und alsdann flugs und fröhlich geschlafen.“",
-        "tags": ["luther", "lutherisch", "katechismus", "abend", "danksagung", "busse"],
+        "tags": [
+            "luther",
+            "lutherisch",
+            "katechismus",
+            "abend",
+            "danksagung",
+            "busse"
+        ],
         "versions": [
             {
                 "language": "de",
@@ -516,12 +601,19 @@
         },
         "type": "gebet",
         "tradition": "lutherisch",
+        "category": "tageslauf",
         "author": "Martin Luther",
         "originalLanguage": "de",
         "source": "Martin Luther, Kleiner Katechismus (1529), Anhang: „Wie ein Hausvater sein Gesinde soll lehren das Benedicite und Gratias sprechen“; Eingangsverse nach Psalm 145,15–16",
         "dating": "1529",
         "description": "Vor dem Essen sollen alle „mit gefaltenen Händen und züchtig vor den Tisch treten“. Luther erklärt dazu: „Wohlgefallen heißt, daß alle Tiere so viel zu essen kriegen, daß sie fröhlich und guter Dinge darüber sind; denn Sorgen und Geiz hindern solch Wohlgefallen.“",
-        "tags": ["luther", "lutherisch", "katechismus", "tischgebet", "bitte"],
+        "tags": [
+            "luther",
+            "lutherisch",
+            "katechismus",
+            "tischgebet",
+            "bitte"
+        ],
         "versions": [
             {
                 "language": "de",
@@ -554,12 +646,19 @@
         },
         "type": "gebet",
         "tradition": "lutherisch",
+        "category": "tageslauf",
         "author": "Martin Luther",
         "originalLanguage": "de",
         "source": "Martin Luther, Kleiner Katechismus (1529), Anhang: „Wie ein Hausvater sein Gesinde soll lehren das Benedicite und Gratias sprechen“; Eingangsverse nach Psalm 106,1; 136,25; 147,9–11",
         "dating": "1529",
         "description": "Nach dem Essen sollen alle „gleicherweise tun, züchtig und mit gefaltenen Händen sprechen“: Psalmverse, Vaterunser und das Dankgebet.",
-        "tags": ["luther", "lutherisch", "katechismus", "tischgebet", "danksagung"],
+        "tags": [
+            "luther",
+            "lutherisch",
+            "katechismus",
+            "tischgebet",
+            "danksagung"
+        ],
         "versions": [
             {
                 "language": "de",
@@ -592,10 +691,16 @@
         },
         "type": "hymnus",
         "tradition": "altkirchlich",
+        "category": "abendmahl",
         "originalLanguage": "la",
         "source": "Jesaja 6,3 (Lobgesang der Seraphim) und Matthäus 21,9 (Hosianna/Benedictus); Abendmahlsliturgie der westlichen Kirche",
         "description": "Lobgesang der Gemeinde im Abendmahlsgottesdienst nach der Präfation. Der erste Teil nimmt den Ruf der Seraphim aus Jesaja 6 auf, der zweite den Jubel beim Einzug Jesu in Jerusalem. In lutherischen Agenden steht das Sanctus zwischen Präfation und Einsetzungsworten.",
-        "tags": ["altkirchlich", "liturgie", "abendmahl", "lobpreis"],
+        "tags": [
+            "altkirchlich",
+            "liturgie",
+            "abendmahl",
+            "lobpreis"
+        ],
         "versions": [
             {
                 "language": "de",
@@ -628,11 +733,18 @@
         },
         "type": "gebet",
         "tradition": "lutherisch",
+        "category": "abendmahl",
         "originalLanguage": "de",
         "source": "Dankgebet nach der Kommunion aus Martin Luthers „Deutscher Messe“ (1526); hier nach lutherischen Agenden des 19./20. Jahrhunderts",
         "dating": "1526 (Deutsche Messe); Agendenfassungen 1877 und 1917",
         "description": "Das Dankgebet, mit dem der lutherische Abendmahlsgottesdienst seit Luthers Deutscher Messe nach der Austeilung schließt: Dank für die „heilsame Gabe“ und Bitte um starken Glauben gegen Gott und brünstige Liebe untereinander.",
-        "tags": ["luther", "lutherisch", "liturgie", "abendmahl", "danksagung"],
+        "tags": [
+            "luther",
+            "lutherisch",
+            "liturgie",
+            "abendmahl",
+            "danksagung"
+        ],
         "versions": [
             {
                 "language": "de",
@@ -659,10 +771,16 @@
         },
         "type": "gebet",
         "tradition": "mittelalterlich",
+        "category": "anliegen",
         "originalLanguage": "la",
         "source": "Lateinische Kollekte der römischen Liturgie (Messe um Frieden, „Missa pro pace“); in lutherischen Agenden in Vesper, Litanei und Fürbittgebet übernommen",
         "description": "Alte lateinische Kollekte um den Frieden, „welchen die Welt nicht kann geben“ (vgl. Joh 14,27). Die lutherischen Agenden beten sie in deutscher und englischer Fassung, oft im Anschluss an „Verleih uns Frieden gnädiglich“.",
-        "tags": ["lutherisch", "liturgie", "frieden", "bitte"],
+        "tags": [
+            "lutherisch",
+            "liturgie",
+            "frieden",
+            "bitte"
+        ],
         "versions": [
             {
                 "language": "de",
@@ -683,6 +801,1375 @@
                 "status": "original",
                 "source": "Missale Romanum (Tornaci: Desclée, Lefebvre et Soc., 1889), Missa pro pace, Oratio; Digitalisat archive.org, missaleromanumex1889cath",
                 "text": "Deus, a quo sancta desideria, recta consilia, et justa sunt opera: da servis tuis illam, quam mundus dare non potest, pacem; ut et corda nostra mandatis tuis dedita, et hostium sublata formidine, tempora sint tua protectione tranquilla. Per Dominum."
+            }
+        ]
+    },
+    {
+        "id": "zehn_gebote",
+        "title": {
+            "de": "Die Zehn Gebote",
+            "la": "Decem Praecepta",
+            "en": "The Ten Commandments"
+        },
+        "category": "grundtexte",
+        "type": "katechismusstueck",
+        "tradition": "lutherisch",
+        "author": "Martin Luther",
+        "originalLanguage": "de",
+        "source": "2. Mose 20,2–17 und 5. Mose 5,6–21 in der Kurzfassung und Zählung von Luthers Kleinem Katechismus (1529)",
+        "dating": "1529",
+        "description": "Der Dekalog, wie ihn Luthers Kleiner Katechismus zum Auswendiglernen bietet. Die Auslegungen („Was ist das?“) stehen unter den Bekenntnissen im Kleinen Katechismus.",
+        "tags": [
+            "biblisch",
+            "katechismus",
+            "luther",
+            "lutherisch"
+        ],
+        "versions": [
+            {
+                "language": "de",
+                "status": "original",
+                "source": "Kleiner Katechismus, erstes Hauptstück (Wortlaut der Gebote ohne Auslegung), nach der Concordia Triglotta (St. Louis: Concordia Publishing House, 1921); Text wie unter den Bekenntnissen, dort am Faksimile des Drucks geprüft",
+                "text": "Das erste Gebot.\nDu sollst nicht andere Götter haben.\n\nDas andere Gebot.\nDu sollst den Namen deines Gottes nicht mißbrauchen.\n\nDas dritte Gebot.\nDu sollst den Feiertag heiligen.\n\nDas vierte Gebot.\nDu sollst deinen Vater und deine Mutter ehren.\n\nDas fünfte Gebot.\nDu sollst nicht töten.\n\nDas sechste Gebot.\nDu sollst nicht ehebrechen.\n\nDas siebente Gebot.\nDu sollst nicht stehlen.\n\nDas achte Gebot.\nDu sollst nicht falsch Gezeugnis reden wider deinen Nächsten.\n\nDas neunte Gebot.\nDu sollst nicht begehren deines Nächsten Haus.\n\nDas zehnte Gebot.\nDu sollst nicht begehren deines Nächsten Weib, Knecht, Magd, Vieh, oder was sein ist."
+            },
+            {
+                "language": "la",
+                "status": "translation",
+                "translatedFrom": "de",
+                "source": "Kleiner Katechismus, erstes Hauptstück (Wortlaut der Gebote ohne Auslegung), nach der Concordia Triglotta (St. Louis: Concordia Publishing House, 1921); Text wie unter den Bekenntnissen, dort am Faksimile des Drucks geprüft",
+                "text": "I. Praeceptum.\nNon habebis deos alienos.\n\nII. Praeceptum.\nNon assumes nomen Domini Dei tui in vanum; non enim habebit insontem Dominus eum, qui assumpserit nomen eius in vanum.\n\nIII. Praeceptum.\nMemento, ut diem Sabbati sanctifices.\n\nIV. Praeceptum.\nHonora patrem et matrem, ut bene sit tibi et sis longaevus super terram.\n\nV. Praeceptum.\nNon occides.\n\nVI. Praeceptum.\nNon moechaberis.\n\nVII. Praeceptum.\nNon furtum facies.\n\nVIII. Praeceptum.\nNon loqueris contra proximum tuum falsum testimonium.\n\nIX. Praeceptum.\nNon concupisces domum proximi tui.\n\nX. Praeceptum.\nNec desiderabis uxorem eius, non servum, non ancillam, non bovem, non asinum nec omnia, quae illius sunt."
+            },
+            {
+                "language": "en",
+                "status": "translation",
+                "translatedFrom": "de",
+                "source": "Kleiner Katechismus, erstes Hauptstück (Wortlaut der Gebote ohne Auslegung), nach der Concordia Triglotta (St. Louis: Concordia Publishing House, 1921); Text wie unter den Bekenntnissen, dort am Faksimile des Drucks geprüft",
+                "text": "The First Commandment.\nThou shalt have no other gods.\n\nThe Second Commandment.\nThou shalt not take the name of the Lord, thy God, in vain.\n\nThe Third Commandment.\nThou shalt sanctify the holy-day.\n\nThe Fourth Commandment.\nThou shalt honor thy father and thy mother.\n\nThe Fifth Commandment.\nThou shalt not kill.\n\nThe Sixth Commandment.\nThou shalt not commit adultery.\n\nThe Seventh Commandment.\nThou shalt not steal.\n\nThe Eighth Commandment.\nThou shalt not bear false witness against thy neighbor.\n\nThe Ninth Commandment.\nThou shalt not covet thy neighbor’s house.\n\nThe Tenth Commandment.\nThou shalt not covet thy neighbor’s wife, nor his man-servant, nor his maid-servant, nor his cattle, nor anything that is his."
+            }
+        ]
+    },
+    {
+        "id": "votum_und_adjutorium",
+        "title": {
+            "de": "Eingangsvotum und Adjutorium"
+        },
+        "category": "gottesdienst",
+        "type": "liturgisches_stueck",
+        "tradition": "lutherisch",
+        "originalLanguage": "de",
+        "source": "Trinitarisches Votum (Matthäus 28,19) mit Psalm 124,8 und Psalm 32,5; Eröffnung des lutherischen Hauptgottesdienstes",
+        "description": "Eröffnung des Gottesdienstes im Namen des dreieinigen Gottes mit den Wechselversen aus Psalm 124,8 und Psalm 32,5.",
+        "tags": [
+            "liturgie",
+            "gottesdienst",
+            "lutherisch",
+            "trinitaet"
+        ],
+        "versions": [
+            {
+                "language": "de",
+                "status": "original",
+                "source": "Kirchenbuch für Evangelisch-Lutherische Gemeinden, hg. von der Allgemeinen Kirchenversammlung (General Council), Philadelphia 1877; am Faksimile geprüft (archive.org, kirchenbuchfur00gene), Ordnung des Haupt-Gottesdienstes, S. 3; Orthographie der Ausgabe",
+                "text": "Pfarrer: Im Namen des Vaters und des Sohnes und des Heiligen Geistes.\nGemeinde: Amen.\n\nPfarrer: Unsere Hilfe steht im Namen des Herrn.\nGemeinde: Der Himmel und Erde gemacht hat.\n\nPfarrer: Ich sprach, ich will dem Herrn meine Übertretung bekennen.\nGemeinde: Da vergabst Du mir die Missethat meiner Sünde."
+            }
+        ]
+    },
+    {
+        "id": "suendenbekenntnis_gottesdienst",
+        "title": {
+            "de": "Sündenbekenntnis im Gottesdienst (Offene Schuld)"
+        },
+        "category": "gottesdienst",
+        "type": "gebet",
+        "tradition": "lutherisch",
+        "originalLanguage": "de",
+        "source": "Lutherische Agende des 19. Jahrhunderts (Kirchenbuch, Philadelphia 1877)",
+        "description": "Gemeinsames Sündenbekenntnis zu Beginn des Hauptgottesdienstes mit der Bitte der Gemeinde um Erbarmen.",
+        "tags": [
+            "liturgie",
+            "gottesdienst",
+            "busse",
+            "beichte",
+            "lutherisch"
+        ],
+        "versions": [
+            {
+                "language": "de",
+                "status": "original",
+                "source": "Kirchenbuch für Evangelisch-Lutherische Gemeinden, hg. von der Allgemeinen Kirchenversammlung (General Council), Philadelphia 1877; am Faksimile geprüft (archive.org, kirchenbuchfur00gene), Ordnung des Haupt-Gottesdienstes, S. 4; Orthographie der Ausgabe",
+                "text": "Pfarrer: Ich armer sündiger Mensch bekenne Gott dem Allmächtigen,\nmeinem Schöpfer und Erlöser,\ndaß ich nicht allein gesündigt habe mit Gedanken, Worten oder Werken,\nsondern auch in Sünden empfangen und geboren bin,\nalso daß alle meine Natur und Wesen vor Seiner Gerechtigkeit sträflich und verdammlich ist.\nDarum fliehe ich zu Seiner grundlosen Barmherzigkeit, such und bitt um Gnade.\nHerr, sei gnädig mir armen Sünder.\n\nGemeinde: Der barmherzige Gott wolle Sich unser erbarmen\nund uns unsre Sünde verzeihen\nund den Heiligen Geist geben,\ndaß wir durch Ihn Seinen göttlichen Willen vollbringen\nund das ewige Leben empfangen. Amen."
+            }
+        ]
+    },
+    {
+        "id": "gnadenzusage_gottesdienst",
+        "title": {
+            "de": "Absolution im Gottesdienst (Gnadenzusage)"
+        },
+        "category": "gottesdienst",
+        "type": "liturgisches_stueck",
+        "tradition": "lutherisch",
+        "originalLanguage": "de",
+        "source": "Lutherische Agende des 19. Jahrhunderts (Kirchenbuch, Philadelphia 1877)",
+        "description": "Zuspruch der Vergebung nach dem Sündenbekenntnis; die Gemeinde antwortet mit „Amen“.",
+        "tags": [
+            "liturgie",
+            "gottesdienst",
+            "beichte",
+            "lutherisch"
+        ],
+        "versions": [
+            {
+                "language": "de",
+                "status": "original",
+                "source": "Kirchenbuch für Evangelisch-Lutherische Gemeinden, hg. von der Allgemeinen Kirchenversammlung (General Council), Philadelphia 1877; am Faksimile geprüft (archive.org, kirchenbuchfur00gene), Ordnung des Haupt-Gottesdienstes, S. 4; Orthographie der Ausgabe",
+                "text": "Der allmächtige, barmherzige Gott hat Sich unser erbarmt,\nSeinen einigen Sohn für unsere Sünde in den Tod gegeben\nund um Seinetwillen uns verziehen,\nauch allen denen, die an Seinen heiligen Namen glauben,\nMacht gegeben, Gottes Kinder zu werden,\nund den Heiligen Geist verheißen.\nWer da glaubet und getauft wird, der wird selig werden.\nDas verleihe Gott uns allen.\nAmen."
+            }
+        ]
+    },
+    {
+        "id": "salutatio",
+        "title": {
+            "de": "Salutatio (Der Herr sei mit euch)"
+        },
+        "category": "gottesdienst",
+        "type": "liturgisches_stueck",
+        "tradition": "altkirchlich",
+        "originalLanguage": "de",
+        "source": "Altkirchlicher liturgischer Gruß (vgl. Rut 2,4; 2. Timotheus 4,22)",
+        "description": "Wechselgruß vor dem Kollektengebet.",
+        "tags": [
+            "liturgie",
+            "gottesdienst",
+            "altkirchlich",
+            "lutherisch"
+        ],
+        "versions": [
+            {
+                "language": "de",
+                "status": "original",
+                "source": "Kirchenbuch für Evangelisch-Lutherische Gemeinden, hg. von der Allgemeinen Kirchenversammlung (General Council), Philadelphia 1877; am Faksimile geprüft (archive.org, kirchenbuchfur00gene), Ordnung des Haupt-Gottesdienstes, S. 6; Orthographie der Ausgabe",
+                "text": "Pfarrer: Der Herr sei mit Euch.\nGemeinde: Und mit deinem Geiste.\nPfarrer: Lasset uns beten."
+            }
+        ]
+    },
+    {
+        "id": "kanzelsegen",
+        "title": {
+            "de": "Kanzelsegen (Der Friede Gottes)"
+        },
+        "category": "gottesdienst",
+        "type": "segen",
+        "tradition": "biblisch",
+        "originalLanguage": "de",
+        "source": "Philipper 4,7 in liturgischer Fassung",
+        "description": "Votum nach der Predigt.",
+        "tags": [
+            "liturgie",
+            "gottesdienst",
+            "segen",
+            "biblisch",
+            "frieden"
+        ],
+        "versions": [
+            {
+                "language": "de",
+                "status": "original",
+                "source": "Kirchenbuch für Evangelisch-Lutherische Gemeinden, hg. von der Allgemeinen Kirchenversammlung (General Council), Philadelphia 1877; am Faksimile geprüft (archive.org, kirchenbuchfur00gene), Ordnung des Haupt-Gottesdienstes, S. 9; Orthographie der Ausgabe",
+                "text": "Der Friede Gottes, welcher höher ist, denn alle Vernunft,\nbewahre eure Herzen und Sinne in Christo Jesu zum ewigen Leben.\nAmen."
+            }
+        ]
+    },
+    {
+        "id": "offertorium",
+        "title": {
+            "de": "Offertorium: Schaffe in mir, Gott, ein reines Herze"
+        },
+        "category": "gottesdienst",
+        "type": "biblisches_gebet",
+        "tradition": "biblisch",
+        "originalLanguage": "de",
+        "source": "Psalm 51,12–14 und 4",
+        "description": "Gesang nach der Predigt, während die Gaben gesammelt werden (erste der drei Formen des Kirchenbuchs).",
+        "tags": [
+            "liturgie",
+            "gottesdienst",
+            "biblisch",
+            "busse"
+        ],
+        "versions": [
+            {
+                "language": "de",
+                "status": "original",
+                "source": "Kirchenbuch für Evangelisch-Lutherische Gemeinden, hg. von der Allgemeinen Kirchenversammlung (General Council), Philadelphia 1877; am Faksimile geprüft (archive.org, kirchenbuchfur00gene), Ordnung des Haupt-Gottesdienstes, S. 10; Orthographie der Ausgabe",
+                "text": "Schaffe in mir, Gott, ein reines Herze\nund gieb mir einen neuen gewissen Geist.\nVerwirf mich nicht von Deinem Angesicht,\nund nimm Deinen Heiligen Geist nicht von mir.\nTröste mich wieder mit Deiner Hilfe,\nund er, der freudige Geist, enthalte mich.\nWasche mich wohl von meiner Missethat,\nund reinige mich von meiner Sünde."
+            }
+        ]
+    },
+    {
+        "id": "allgemeines_kirchengebet",
+        "title": {
+            "de": "Das allgemeine Kirchengebet"
+        },
+        "category": "gottesdienst",
+        "type": "gebet",
+        "tradition": "lutherisch",
+        "originalLanguage": "de",
+        "source": "Lutherische Agende des 19. Jahrhunderts (Kirchenbuch, Philadelphia 1877)",
+        "description": "Das große Fürbittgebet des Hauptgottesdienstes: für die Kirche und ihre Diener, die Obrigkeit, die Feinde, die Notleidenden, um Bewahrung und um das tägliche Brot. An der vorgesehenen Stelle werden die besonderen Fürbitten eingefügt; es folgt das Vaterunser.",
+        "tags": [
+            "liturgie",
+            "gottesdienst",
+            "fuerbitte",
+            "kirche",
+            "obrigkeit",
+            "not",
+            "lutherisch"
+        ],
+        "versions": [
+            {
+                "language": "de",
+                "status": "original",
+                "source": "Kirchenbuch für Evangelisch-Lutherische Gemeinden, hg. von der Allgemeinen Kirchenversammlung (General Council), Philadelphia 1877; am Faksimile geprüft (archive.org, kirchenbuchfur00gene), Ordnung des Haupt-Gottesdienstes, S. 10–12; Orthographie der Ausgabe",
+                "text": "Allmächtiger, barmherziger, ewiger Gott und Vater unseres Herrn Jesu Christi, ein Herr Himmels und der Erden, wir bitten Dich herzlich, Du wollest Deine heilige Kirche mit ihren Dienern, Wächtern und Hirten durch Deinen Heiligen Geist regieren, auf daß sie bei der rechtschaffenen Weide Deines allmächtigen und ewigen Wortes erhalten werden, dadurch der Glaube an Dich gestärket und die Liebe gegen alle Menschen in uns erwachse und zunehme.\nGemeinde: Erhöre uns, lieber Herre Gott.\n\nWollest auch der weltlichen Obrigkeit, insonderheit den Beamten unseres Volkes Gnade und Einigkeit verleihen, das Land nach Deinem göttlichen Willen und Wohlgefallen zu regieren, auf daß die Gerechtigkeit gefördert, die Bosheit verhindert und gestraft werde, damit wir in stiller Ruhe und gutem Frieden, wie Christen gebührt, unser Leben vollstrecken mögen.\nGemeinde: Erhöre uns, lieber Herre Gott.\n\nGieb auch, daß unsere Feinde und Widersacher ablassen und sich mit uns friedlich und sanftmütig zu leben begeben wollen.\nGemeinde: Erhöre uns, lieber Herre Gott.\n\nAlle die, so in Trübsal, Armut, Krankheit, Kindesbanden, Todesnöten und anderer Anfechtung sind, auch die, so um Deines heiligen Namens und der Wahrheit willen angefochten, gefangen sind oder sonst Verfolgung leiden: tröst sie, o Gott, mit Deinem Heiligen Geist, daß sie solches alles für Deinen väterlichen Willen aufnehmen und erkennen.\nGemeinde: Erhöre uns, lieber Herre Gott.\n\nUnd ob wir zwar mit unsern Sünden Deinen gerechten Zorn und allerlei Strafen wohl verdient haben; so bitten wir doch, o treuer, barmherziger Vater, von Grund unserer Seelen, daß Du nicht gedenken wollest der Sünden unserer Jugend, noch aller unserer Übertretung, sondern vielmehr eingedenk bleiben Deiner grundlosen Güte, Gnade und Barmherzigkeit und uns mit allerlei schweren Plagen des Leibes und der Seele verschonen. Behüte uns gnädig vor fremder, verderblicher Lehre, vor Krieg und Blutvergießen, vor Pestilenz und schädlicher Seuche an Menschen und Vieh, vor Feuers- und Wassersnot, vor Hagel und Ungewitter, vor Mißwachs und teurer Zeit, vor allem Herzeleid und sonderlich vor unleidlicher hoher Anfechtung der Seelen und einem bösen schnellen Tod. Hilf allenthalben aus aller Not und sei ein Heiland aller Menschen, sonderlich Deiner Gläubigen.\nGemeinde: Behüte uns, lieber Herre Gott,\nErhöre uns, lieber Herre Gott.\n\nWollest uns auch alle Früchte der Erde zur leiblichen Notdurft gehörig, mit fruchtbarem Wachstum geraten und gedeihen lassen; auch christliche Kinderzucht, alle ehrliche Nahrung und Hantierung zu Wasser und zu Lande, alle edlen Künste und Wissenschaften mit Deinem göttlichen Segen krönen.\nGemeinde: Erhöre uns, lieber Herre Gott.\n\nSolches und alles, dafür Du ewiger Gott gebeten sein willst, verleihe uns gnädiglich durch das bittere Leiden und Sterben Christi Jesu, Deines einigen Sohnes, unsres geliebten Herrn und Heilandes, welcher mit Dir und dem Heiligen Geiste lebet und regieret, gleicher Gott, hochgelobet in Ewigkeit."
+            }
+        ]
+    },
+    {
+        "id": "benedicamus",
+        "title": {
+            "de": "Dankversikel und Benedicamus"
+        },
+        "category": "gottesdienst",
+        "type": "liturgisches_stueck",
+        "tradition": "lutherisch",
+        "originalLanguage": "de",
+        "source": "Psalm 118,1 und altkirchliches „Benedicamus Domino“",
+        "description": "Wechselverse vor dem Dankgebet (Psalm 118,1) und vor dem Segen.",
+        "tags": [
+            "liturgie",
+            "gottesdienst",
+            "danksagung",
+            "lobpreis",
+            "lutherisch"
+        ],
+        "versions": [
+            {
+                "language": "de",
+                "status": "original",
+                "source": "Kirchenbuch für Evangelisch-Lutherische Gemeinden, hg. von der Allgemeinen Kirchenversammlung (General Council), Philadelphia 1877; am Faksimile geprüft (archive.org, kirchenbuchfur00gene), Ordnung des Haupt-Gottesdienstes, S. 20; Orthographie der Ausgabe",
+                "text": "Pfarrer: Danket dem Herrn, denn Er ist freundlich. Hallelujah.\nGemeinde: Und Seine Güte währet ewiglich. Hallelujah.\n\nPfarrer: Laßt uns benedeien den Herren.\nGemeinde: Gott sei ewiglich Dank."
+            }
+        ]
+    },
+    {
+        "id": "aaronitischer_segen",
+        "title": {
+            "de": "Der aaronitische Segen"
+        },
+        "category": "gottesdienst",
+        "type": "segen",
+        "tradition": "biblisch",
+        "originalLanguage": "de",
+        "source": "4. Mose 6,24–26",
+        "description": "Schlusssegen des lutherischen Gottesdienstes, von Luther in der Deutschen Messe (1526) eingeführt.",
+        "tags": [
+            "liturgie",
+            "gottesdienst",
+            "segen",
+            "biblisch",
+            "frieden"
+        ],
+        "versions": [
+            {
+                "language": "de",
+                "status": "original",
+                "source": "Kirchenbuch für Evangelisch-Lutherische Gemeinden, hg. von der Allgemeinen Kirchenversammlung (General Council), Philadelphia 1877; am Faksimile geprüft (archive.org, kirchenbuchfur00gene), Ordnung des Haupt-Gottesdienstes, S. 20; Orthographie der Ausgabe",
+                "text": "Der Herr segne dich und behüte dich.\nDer Herr lasse Sein Angesicht leuchten über dir und sei dir gnädig.\nDer Herr erhebe Sein Angesicht auf dich und gebe dir Frieden.\nAmen."
+            }
+        ]
+    },
+    {
+        "id": "praefation",
+        "title": {
+            "de": "Präfation (Sursum corda und gemeine Präfation)"
+        },
+        "category": "abendmahl",
+        "type": "liturgisches_stueck",
+        "tradition": "altkirchlich",
+        "originalLanguage": "de",
+        "source": "Altkirchlicher Eröffnungsdialog und Praefatio communis der abendländischen Messe, deutsch",
+        "description": "Eröffnung der Abendmahlsfeier; die Präfation mündet in das Sanctus. In den Festzeiten treten besondere Präfationen an ihre Stelle.",
+        "tags": [
+            "liturgie",
+            "abendmahl",
+            "altkirchlich",
+            "lobpreis",
+            "danksagung"
+        ],
+        "versions": [
+            {
+                "language": "de",
+                "status": "original",
+                "source": "Kirchenbuch für Evangelisch-Lutherische Gemeinden, hg. von der Allgemeinen Kirchenversammlung (General Council), Philadelphia 1877; am Faksimile geprüft (archive.org, kirchenbuchfur00gene), Ordnung des Haupt-Gottesdienstes, S. 13; Orthographie der Ausgabe",
+                "text": "Pfarrer: Der Herr sei mit Euch.\nGemeinde: Und mit deinem Geiste.\nPfarrer: Die Herzen in die Höhe.\nGemeinde: Erheben wir zum Herrn.\nPfarrer: Lasset uns danksagen dem Herrn, unserm Gotte.\nGemeinde: Das ist würdig und recht.\n\nPfarrer: Wahrhaft würdig und recht, billig und heilsam ists,\ndaß wir Dir, heiliger Herr, allmächtiger Vater, ewiger Gott,\nallezeit und allenthalben danksagen durch Christum, unsern Herrn,\ndurch welchen Deine Majestät loben die Engel,\nanbeten die Herrschaften,\nfürchten die Mächte,\ndie Himmel und aller Himmel Kräfte samt den seligen Seraphim mit einhelligem Jubel preisen.\nMit ihnen laß auch unsre Stimmen uns vereinen und anbetend zu Dir sprechen:"
+            }
+        ]
+    },
+    {
+        "id": "einsetzungsworte",
+        "title": {
+            "de": "Die Einsetzungsworte des Abendmahls"
+        },
+        "category": "abendmahl",
+        "type": "liturgisches_stueck",
+        "tradition": "biblisch",
+        "originalLanguage": "de",
+        "source": "Matthäus 26,26–28; Markus 14,22–24; Lukas 22,19–20; 1. Korinther 11,23–25",
+        "description": "Die Stiftungsworte Christi in der aus den vier Berichten zusammengefügten Fassung, wie sie auch Luthers Kleiner Katechismus bietet.",
+        "tags": [
+            "liturgie",
+            "abendmahl",
+            "biblisch",
+            "lutherisch",
+            "katechismus"
+        ],
+        "versions": [
+            {
+                "language": "de",
+                "status": "original",
+                "source": "Kirchenbuch für Evangelisch-Lutherische Gemeinden, hg. von der Allgemeinen Kirchenversammlung (General Council), Philadelphia 1877; am Faksimile geprüft (archive.org, kirchenbuchfur00gene), Ordnung des Haupt-Gottesdienstes, S. 18; Orthographie der Ausgabe",
+                "text": "Unser Herr Jesus Christus, in der Nacht da Er verraten ward,\nnahm Er das Brot,\ndankte und brachs und gabs Seinen Jüngern, und sprach:\nNehmet hin und esset, das ist Mein Leib, der für euch gegeben wird.\nSolches thut zu Meinem Gedächtnis.\n\nDesselben gleichen nahm Er auch den Kelch nach dem Abendmahl,\ndankte und gab ihnen den und sprach:\nNehmet hin und trinket alle daraus;\ndieser Kelch ist das Neue Testament in Meinem Blut,\ndas für euch vergossen wird zur Vergebung der Sünden.\nSolches thut so oft ihrs trinket, zu Meinem Gedächtnis."
+            }
+        ]
+    },
+    {
+        "id": "friedensgruss",
+        "title": {
+            "de": "Friedensgruß (Pax Domini)"
+        },
+        "category": "abendmahl",
+        "type": "liturgisches_stueck",
+        "tradition": "altkirchlich",
+        "originalLanguage": "de",
+        "source": "Altkirchlicher Friedensgruß der Messe („Pax Domini sit semper vobiscum“), deutsch",
+        "description": "Gruß nach dem Agnus Dei, vor der Austeilung.",
+        "tags": [
+            "liturgie",
+            "abendmahl",
+            "frieden",
+            "altkirchlich"
+        ],
+        "versions": [
+            {
+                "language": "de",
+                "status": "original",
+                "source": "Kirchenbuch für Evangelisch-Lutherische Gemeinden, hg. von der Allgemeinen Kirchenversammlung (General Council), Philadelphia 1877; am Faksimile geprüft (archive.org, kirchenbuchfur00gene), Ordnung des Haupt-Gottesdienstes, S. 18; Orthographie der Ausgabe",
+                "text": "Pfarrer: Der Friede des Herrn sei mit euch allen.\nGemeinde: Amen."
+            }
+        ]
+    },
+    {
+        "id": "austeilungsworte",
+        "title": {
+            "de": "Austeilungsworte und Entlassung"
+        },
+        "category": "abendmahl",
+        "type": "liturgisches_stueck",
+        "tradition": "lutherisch",
+        "originalLanguage": "de",
+        "source": "Lutherische Agende des 19. Jahrhunderts (Kirchenbuch, Philadelphia 1877)",
+        "description": "Spendeworte bei Brot und Kelch und das Entlasswort an die Kommunikanten.",
+        "tags": [
+            "liturgie",
+            "abendmahl",
+            "lutherisch",
+            "segen"
+        ],
+        "versions": [
+            {
+                "language": "de",
+                "status": "original",
+                "source": "Kirchenbuch für Evangelisch-Lutherische Gemeinden, hg. von der Allgemeinen Kirchenversammlung (General Council), Philadelphia 1877; am Faksimile geprüft (archive.org, kirchenbuchfur00gene), Ordnung des Haupt-Gottesdienstes, S. 19; Orthographie der Ausgabe",
+                "text": "Nimm hin und iß, das ist der Leib Christi, der für dich gegeben ist.\n\nNimm hin und trink, das ist das Blut des Neuen Testaments, das für deine Sünde vergossen ist.\n\nDer Leib unsres Herrn Jesu Christi und Sein teures Blut\nstärke und erhalte euch im wahren Glauben zum ewigen Leben.\nAmen."
+            }
+        ]
+    },
+    {
+        "id": "sintflutgebet",
+        "title": {
+            "de": "Luthers Sintflutgebet"
+        },
+        "category": "taufe",
+        "type": "gebet",
+        "tradition": "lutherisch",
+        "originalLanguage": "de",
+        "source": "Martin Luther, Taufbüchlein (1523, überarbeitet 1526); hier in der Fassung der Agende",
+        "dating": "1523",
+        "description": "Taufgebet aus Luthers Taufbüchlein (1523/1526), das Sintflut und Durchzug durchs Schilfmeer als Vorbilder der Taufe deutet.",
+        "tags": [
+            "liturgie",
+            "taufe",
+            "luther",
+            "lutherisch"
+        ],
+        "versions": [
+            {
+                "language": "de",
+                "status": "original",
+                "source": "Kirchenbuch für Evangelisch-Lutherische Gemeinden, hg. von der Allgemeinen Kirchenversammlung (General Council), Philadelphia 1877; am Faksimile geprüft (archive.org, kirchenbuchfur00gene), Ordnung der heiligen Taufe, S. 201; Orthographie der Ausgabe",
+                "text": "Allmächtiger, ewiger Gott, der Du hast durch die Sündflut, nach Deinem gestrengen Gericht, die ungläubige Welt verdammt, und den gläubigen Noah selbacht, nach Deiner großen Barmherzigkeit erhalten;\nund den verstockten Pharaoh mit all den Seinen im roten Meer ersäuft und Dein Volk Israel trocken durchhin geführet, damit dies Bad Deiner heiligen Taufe zukünftig bezeichnet;\nund durch die Taufe Deines lieben Kindes, unseres Herrn Jesu Christi, den Jordan und alle Wasser zur seligen Sündflut und reichlicher Abwaschung der Sünden geheiliget und eingesetzt:\nwir bitten durch dieselbe Deine grundlose Barmherzigkeit, Du wollest dieses Kind gnädiglich ansehen, und mit rechtem Glauben im Geist beseligen, daß durch diese heilsame Sündflut an ihm ersaufe und untergehe alles, was ihm von Adam angeboren ist und es selbst dazu gethan hat;\nund es, aus der Ungläubigen Zahl gesondert, in der heiligen Arche der Christenheit trocken und sicher behalten, allezeit brünstig im Geiste, fröhlich in Hoffnung, Deinem Namen diene,\nauf daß es mit allen Gläubigen Deiner Verheißung ewiges Leben zu erlangen würdig werde:\ndurch Jesum Christum, unsern Herrn. Amen.",
+                "note": "Agendenfassung; nicht am Erstdruck des Taufbüchleins geprüft. Im Druck steht „erlangeu“ (Druckfehler für „erlangen“)."
+            }
+        ]
+    },
+    {
+        "id": "tauffragen",
+        "title": {
+            "de": "Tauffragen: Absage und Glaubensbekenntnis"
+        },
+        "category": "taufe",
+        "type": "liturgisches_stueck",
+        "tradition": "lutherisch",
+        "originalLanguage": "de",
+        "source": "Altkirchliche Tauffragen (Abrenuntiatio und Glaubensfragen) nach Luthers Taufbüchlein",
+        "description": "Die Fragen an den Täufling (bei Kindern beantwortet von den Paten): Absage an den Teufel und Bekenntnis des Glaubens nach den drei Artikeln.",
+        "tags": [
+            "liturgie",
+            "taufe",
+            "lutherisch",
+            "altkirchlich"
+        ],
+        "versions": [
+            {
+                "language": "de",
+                "status": "original",
+                "source": "Kirchenbuch für Evangelisch-Lutherische Gemeinden, hg. von der Allgemeinen Kirchenversammlung (General Council), Philadelphia 1877; am Faksimile geprüft (archive.org, kirchenbuchfur00gene), Ordnung der heiligen Taufe, S. 202–203; Orthographie der Ausgabe",
+                "text": "Entsagest du dem Teufel, und allen seinen Werken, und allem seinem Wesen?\nJa, ich entsage.\n\nGlaubest du an Gott, den Vater allmächtigen, Schöpfer Himmels und der Erden?\nJa, ich glaube.\n\nGlaubest du an Jesum Christum, Seinen einigen Sohn, unsern Herrn;\nder empfangen ist von dem Heiligen Geist, geboren von der Jungfrau Maria;\ngelitten unter Pontio Pilato, gekreuziget, gestorben und begraben;\nniedergefahren zur Höllen;\nam dritten Tage wieder auferstanden von den Toten;\naufgefahren gen Himmel, sitzend zur Rechten Gottes, des allmächtigen Vaters;\nvon dannen Er kommen wird zu richten die Lebendigen und die Toten?\nJa, ich glaube.\n\nGlaubest du an den Heiligen Geist;\nEine heilige christliche Kirche, die Gemeine der Heiligen;\nVergebung der Sünden;\nAuferstehung des Fleisches, und ein ewiges Leben?\nJa, ich glaube.\n\nWillst du auf diesen christlichen Glauben getauft werden?\nJa, ich will."
+            }
+        ]
+    },
+    {
+        "id": "taufformel_und_taufsegen",
+        "title": {
+            "de": "Taufformel und Segen nach der Taufe"
+        },
+        "category": "taufe",
+        "type": "liturgisches_stueck",
+        "tradition": "lutherisch",
+        "originalLanguage": "de",
+        "source": "Matthäus 28,19; Martin Luther, Taufbüchlein (1526)",
+        "description": "Die Taufformel nach Matthäus 28,19 und das Segenswort unter Handauflegung aus Luthers Taufbüchlein.",
+        "tags": [
+            "liturgie",
+            "taufe",
+            "segen",
+            "lutherisch",
+            "trinitaet"
+        ],
+        "versions": [
+            {
+                "language": "de",
+                "status": "original",
+                "source": "Kirchenbuch für Evangelisch-Lutherische Gemeinden, hg. von der Allgemeinen Kirchenversammlung (General Council), Philadelphia 1877; am Faksimile geprüft (archive.org, kirchenbuchfur00gene), Ordnung der heiligen Taufe, S. 203; Orthographie der Ausgabe",
+                "text": "Ich taufe dich im Namen des Vaters, und des Sohnes, und des Heiligen Geistes.\n\nDer allmächtige Gott, und Vater unseres Herrn Jesu Christi,\nder dich wiedergeboren hat durch's Wasser und den Heiligen Geist,\nund hat dir alle deine Sünde vergeben,\nder stärke dich mit Seiner Gnade zum ewigen Leben. Amen.\n\nFriede sei mit dir. Amen."
+            }
+        ]
+    },
+    {
+        "id": "dankgebet_nach_der_taufe",
+        "title": {
+            "de": "Dankgebet nach der Taufe"
+        },
+        "category": "taufe",
+        "type": "gebet",
+        "tradition": "lutherisch",
+        "originalLanguage": "de",
+        "source": "Lutherische Agende des 19. Jahrhunderts (Kirchenbuch, Philadelphia 1877)",
+        "description": "Dank für die empfangene Taufe und Bitte um Bewahrung des Kindes in der Taufgnade.",
+        "tags": [
+            "liturgie",
+            "taufe",
+            "danksagung",
+            "lutherisch"
+        ],
+        "versions": [
+            {
+                "language": "de",
+                "status": "original",
+                "source": "Kirchenbuch für Evangelisch-Lutherische Gemeinden, hg. von der Allgemeinen Kirchenversammlung (General Council), Philadelphia 1877; am Faksimile geprüft (archive.org, kirchenbuchfur00gene), Ordnung der heiligen Taufe, S. 203; Orthographie der Ausgabe",
+                "text": "Allmächtiger, barmherziger Gott und Vater,\nwir sagen Dir Lob und Dank, daß Du Deine Kirche gnädiglich erhältst und mehrest,\nund diesem Kind verliehen hast, daß es, durch die heilige Taufe wiedergeboren und Deinem lieben Sohn, unsrem Herrn und einigen Heiland Jesu Christo, eingeleibt, Dein Kind und Erbe Deiner himmlischen Güter worden ist.\nWir bitten Dich demütiglich, daß Du dies Kind, so nunmehr Dein Kind worden ist, bei der empfangenen Gutthat gnädiglich bewahren wollest,\ndamit es nach allem Deinem Wohlgefallen zu Lob und Preis Deines heiligen Namens, treulich und gottselig auferzogen werde,\nund endlich das versprochene Erbteil im Himmel mit allen Heiligen empfahe,\ndurch Jesum Christum. Amen."
+            }
+        ]
+    },
+    {
+        "id": "beichtfragen",
+        "title": {
+            "de": "Beichtfragen der öffentlichen Beichte"
+        },
+        "category": "beichte",
+        "type": "liturgisches_stueck",
+        "tradition": "lutherisch",
+        "originalLanguage": "de",
+        "source": "Lutherische Agende des 19. Jahrhunderts (Kirchenbuch, Philadelphia 1877)",
+        "description": "Die vier Fragen an die Gemeinde vor der Beichte: Erkenntnis der Sünde, Glaube an Christus, Verlangen nach der Absolution, Vorsatz der Besserung.",
+        "tags": [
+            "liturgie",
+            "beichte",
+            "busse",
+            "lutherisch"
+        ],
+        "versions": [
+            {
+                "language": "de",
+                "status": "original",
+                "source": "Kirchenbuch für Evangelisch-Lutherische Gemeinden, hg. von der Allgemeinen Kirchenversammlung (General Council), Philadelphia 1877; am Faksimile geprüft (archive.org, kirchenbuchfur00gene), Ordnung der Beichte und Absolution, S. 220–221; Orthographie der Ausgabe",
+                "text": "Ich frage euch nun vor dem Angesicht des allwissenden Gottes:\n\n1. Ob ihr auch wahrhaftig erkennet, bekennet und darüber euch von Herzen betrübet, daß ihr nicht nur aus eurer natürlichen Geburt Sünder seid, sondern daß ihr auch wirklich mit Unterlassung des Guten und Ausübung manches Bösen in Gedanken, Begierden, Worten und Werken den Herrn, euren Gott und Wohlthäter, gar vielfältig betrübt und beleidigt habt; demnach wohl wert wäret, daß euch Gott von Seinem Angesicht verstieße und ewiglich verwürfe? — So saget: Ja.\nGemeinde: Ja.\n\n2. Glaubet ihr auch von Herzen, daß Jesus Christus kommen sei in die Welt, die Sünder selig zu machen, und daß alle, die an Seinen Namen glauben, Vergebung der Sünden empfahen sollen? Habt ihr demnach ein sehnliches Verlangen, durch Christum von euren Sünden los zu werden, und stehet ihr in der Zuversicht, daß euch euer himmlischer Vater um Jesu Christi willen gnädig sein, eure Sünden vergeben und euch von aller Unreinigkeit reinigen und heiligen wolle? — So saget: Ja.\nGemeinde: Ja.\n\n3. Begehret ihr auch die heilige Absolution, daß euch der Diener der Kirche an Christi Statt Vergebung aller eurer Sünden sprechen soll, und glaubet ihr, daß diese Absolution im Himmel gelte und vor Gott kräftig sei? — So saget: Ja.\nGemeinde: Ja.\n\n4. Habet ihr auch den festen Vorsatz gefaßt, von nun an dem Heiligen Geist gehorsam zu sein, also daß ihr künftig die Sünde hassen und lassen, vor Gottes Angesicht zu wandeln euch bestreben, euer Leben wirklich bessern und täglich frömmer werden wollet? — So saget: Ja.\nGemeinde: Ja."
+            }
+        ]
+    },
+    {
+        "id": "allgemeine_beichte",
+        "title": {
+            "de": "Allgemeine Beichte"
+        },
+        "category": "beichte",
+        "type": "gebet",
+        "tradition": "lutherisch",
+        "originalLanguage": "de",
+        "source": "Lutherische Agende des 19. Jahrhunderts (Kirchenbuch, Philadelphia 1877)",
+        "description": "Das Beichtgebet, das die Gemeinde kniend mit dem Pfarrer spricht.",
+        "tags": [
+            "liturgie",
+            "beichte",
+            "busse",
+            "lutherisch"
+        ],
+        "versions": [
+            {
+                "language": "de",
+                "status": "original",
+                "source": "Kirchenbuch für Evangelisch-Lutherische Gemeinden, hg. von der Allgemeinen Kirchenversammlung (General Council), Philadelphia 1877; am Faksimile geprüft (archive.org, kirchenbuchfur00gene), Ordnung der Beichte und Absolution, S. 221; Orthographie der Ausgabe",
+                "text": "Ich armer Sünder bekenne mich Gott, meinem himmlischen Vater,\ndaß ich leider schwer und mannigfaltig gesündigt habe,\nnicht allein mit äußerlichen, groben Sünden,\nsondern viel mehr mit innerlicher, angeborner Blindheit, Unglauben, Zweifelung, Kleinmütigkeit, Ungeduld, Hoffart, bösen Lüsten, Geiz, heimlichem Neid, Haß und Mißgunst, auch andern bösen Tücken,\nwie das mein Herr und Gott an mir erkennt\nund ich leider so vollkommen nicht erkennen kann.\nNun aber reuen sie mich und sind mir leid\nund begehre von Herzen Gnade von Gott durch Seinen Sohn Jesum Christum."
+            }
+        ]
+    },
+    {
+        "id": "absolution",
+        "title": {
+            "de": "Absolution (Lossprechung)"
+        },
+        "category": "beichte",
+        "type": "liturgisches_stueck",
+        "tradition": "lutherisch",
+        "originalLanguage": "de",
+        "source": "Lutherische Agende des 19. Jahrhunderts (Kirchenbuch, Philadelphia 1877)",
+        "description": "Die Lossprechung nach der allgemeinen Beichte, gesprochen im Auftrag Christi (Johannes 20,23).",
+        "tags": [
+            "liturgie",
+            "beichte",
+            "lutherisch",
+            "trinitaet"
+        ],
+        "versions": [
+            {
+                "language": "de",
+                "status": "original",
+                "source": "Kirchenbuch für Evangelisch-Lutherische Gemeinden, hg. von der Allgemeinen Kirchenversammlung (General Council), Philadelphia 1877; am Faksimile geprüft (archive.org, kirchenbuchfur00gene), Ordnung der Beichte und Absolution, S. 221; Orthographie der Ausgabe",
+                "text": "Der allmächtige Gott hat sich euer erbarmt\nund durch das Verdienst des allerheiligsten Leidens, Sterbens und Auferstehens unseres Herrn Jesu Christi, Seines geliebten Sohnes,\nvergiebt Er euch alle eure Sünde,\nund ich, als ein berufener Diener der christlichen Kirche,\naus dem Befehl unsres Herrn Jesu Christi,\nverkündige euch solche Vergebung aller eurer Sünden,\nim Namen des Vaters, und des Sohnes, und des Heiligen Geistes. Amen."
+            }
+        ]
+    },
+    {
+        "id": "beichtgebet_einzelbeichte",
+        "title": {
+            "de": "Sündenbekenntnis der Einzelbeichte"
+        },
+        "category": "beichte",
+        "type": "gebet",
+        "tradition": "lutherisch",
+        "originalLanguage": "de",
+        "source": "Lutherische Agende des 19. Jahrhunderts (Kirchenbuch, Philadelphia 1877)",
+        "description": "Kurze Form des Sündenbekenntnisses für die Privatbeichte („Eine andere Form des Sündenbekenntnisses“).",
+        "tags": [
+            "liturgie",
+            "beichte",
+            "busse",
+            "lutherisch"
+        ],
+        "versions": [
+            {
+                "language": "de",
+                "status": "original",
+                "source": "Kirchenbuch für Evangelisch-Lutherische Gemeinden, hg. von der Allgemeinen Kirchenversammlung (General Council), Philadelphia 1877; am Faksimile geprüft (archive.org, kirchenbuchfur00gene), Ordnung der Beichte und Absolution, S. 217; Orthographie der Ausgabe",
+                "text": "Ich armer, sündiger Mensch bekenne vor Gott, meinem Schöpfer und Erlöser,\ndaß ich viel gesündigt habe, nicht allein mit Gedanken, Worten und Werken,\nsondern daß ich auch in Sünden empfangen und geboren bin.\nIch habe aber Zuflucht zu Seiner grundlosen Barmherzigkeit,\nsuche und begehre Gnade um des Herrn Jesu Christi willen.\nHerr sei gnädig mir armen Sünder.\nIch will mit Gottes Hilfe mein Leben gerne bessern."
+            }
+        ]
+    },
+    {
+        "id": "kollekte_advent",
+        "title": {
+            "de": "Kollekte zum ersten Advent"
+        },
+        "category": "kirchenjahr",
+        "type": "kollekte",
+        "tradition": "lutherisch",
+        "originalLanguage": "de",
+        "source": "Altkirchliche Adventskollekte der abendländischen Messe, deutsch",
+        "description": "Tagesgebet des ersten Adventssonntags („Excita, quaesumus, Domine, potentiam tuam et veni“).",
+        "tags": [
+            "kirchenjahr",
+            "liturgie",
+            "altkirchlich",
+            "christusgebet"
+        ],
+        "versions": [
+            {
+                "language": "de",
+                "status": "original",
+                "source": "Kirchenbuch für Evangelisch-Lutherische Gemeinden, hg. von der Allgemeinen Kirchenversammlung (General Council), Philadelphia 1877; am Faksimile geprüft (archive.org, kirchenbuchfur00gene), Introiten, Kollekten, Episteln und Evangelien, S. 31; Orthographie der Ausgabe",
+                "text": "Erwecke Deine Gewalt, wir bitten Dich, o Herr, und komm:\nauf daß wir aus aller Not und Gefahr unsrer Sünden,\nso Du uns beschirmest, mögen errettet\nund, so Du uns frei machst, ewig selig werden,\nder Du mit dem Vater und dem Heiligen Geiste lebest und regierest in Ewigkeit."
+            }
+        ]
+    },
+    {
+        "id": "kollekte_weihnachten",
+        "title": {
+            "de": "Kollekte zum Christfest"
+        },
+        "category": "kirchenjahr",
+        "type": "kollekte",
+        "tradition": "lutherisch",
+        "originalLanguage": "de",
+        "source": "Altkirchliche Weihnachtskollekte der abendländischen Messe, deutsch",
+        "description": "Tagesgebet am heiligen Christfest.",
+        "tags": [
+            "kirchenjahr",
+            "liturgie",
+            "altkirchlich",
+            "bitte"
+        ],
+        "versions": [
+            {
+                "language": "de",
+                "status": "original",
+                "source": "Kirchenbuch für Evangelisch-Lutherische Gemeinden, hg. von der Allgemeinen Kirchenversammlung (General Council), Philadelphia 1877; am Faksimile geprüft (archive.org, kirchenbuchfur00gene), Introiten, Kollekten, Episteln und Evangelien, S. 38; Orthographie der Ausgabe",
+                "text": "Allmächtiger Gott, wir bitten Dich, verleihe,\ndaß die neue Geburt Deines eingebornen Sohns im Fleisch uns erlöse,\nwelche die alte Dienstbarkeit unterm Joch der Sünde gefangen hält;\ndurch denselben unsern Herrn Jesum Christum,\nwelcher mit Dir und dem Heiligen Geiste lebet und regieret wahrer Gott von Ewigkeit zu Ewigkeit."
+            }
+        ]
+    },
+    {
+        "id": "kollekte_epiphanias",
+        "title": {
+            "de": "Kollekte zum Erscheinungsfest (Epiphanias)"
+        },
+        "category": "kirchenjahr",
+        "type": "kollekte",
+        "tradition": "lutherisch",
+        "originalLanguage": "de",
+        "source": "Altkirchliche Epiphaniaskollekte der abendländischen Messe, deutsch",
+        "description": "Tagesgebet am Epiphaniasfest.",
+        "tags": [
+            "kirchenjahr",
+            "liturgie",
+            "altkirchlich",
+            "bitte"
+        ],
+        "versions": [
+            {
+                "language": "de",
+                "status": "original",
+                "source": "Kirchenbuch für Evangelisch-Lutherische Gemeinden, hg. von der Allgemeinen Kirchenversammlung (General Council), Philadelphia 1877; am Faksimile geprüft (archive.org, kirchenbuchfur00gene), Introiten, Kollekten, Episteln und Evangelien, S. 46; Orthographie der Ausgabe",
+                "text": "Allmächtiger, ewiger Gott, himmlischer Vater,\nder Du auf diesen heutigen Tag Deinen eingebornen Sohn Jesum Christum den Heiden durch Erscheinung und Leitung des Sternes offenbaret hast:\nverleihe uns gnädiglich, die wir Dich jetzt im Glauben erkennen,\ndaß wir zum Anschauen Deiner herrlichen Klarheit gelangen mögen;\ndurch denselbigen unsern Herrn Jesum Christum, Deinen Sohn,\nwelcher mit Dir und dem Heiligen Geiste lebet und regieret wahrer Gott von Ewigkeit zu Ewigkeit."
+            }
+        ]
+    },
+    {
+        "id": "kollekte_karfreitag",
+        "title": {
+            "de": "Kollekte zum Karfreitag"
+        },
+        "category": "kirchenjahr",
+        "type": "kollekte",
+        "tradition": "lutherisch",
+        "originalLanguage": "de",
+        "source": "Kollektengebet lutherischer Agenden (Kirchenbuch, Philadelphia 1877)",
+        "description": "Zweite der drei Karfreitagskollekten des Kirchenbuchs.",
+        "tags": [
+            "kirchenjahr",
+            "liturgie",
+            "lutherisch",
+            "christusgebet"
+        ],
+        "versions": [
+            {
+                "language": "de",
+                "status": "original",
+                "source": "Kirchenbuch für Evangelisch-Lutherische Gemeinden, hg. von der Allgemeinen Kirchenversammlung (General Council), Philadelphia 1877; am Faksimile geprüft (archive.org, kirchenbuchfur00gene), Introiten, Kollekten, Episteln und Evangelien, S. 77; Orthographie der Ausgabe",
+                "text": "Barmherziger, ewiger Gott,\nder Du Deines einigen Sohnes nicht verschonet hast,\nsondern für uns alle dahingegeben, daß Er unsre Sünd am Kreuze tragen sollte;\nverleihe uns, daß unser Herz in solchem Glauben nimmermehr erschrecke noch verzage;\ndurch denselbigen unsern Herrn Jesum Christum, Deinen Sohn,\nwelcher mit Dir und dem Heiligen Geiste lebet und regieret in Ewigkeit."
+            }
+        ]
+    },
+    {
+        "id": "kollekte_ostern",
+        "title": {
+            "de": "Kollekte zum Osterfest"
+        },
+        "category": "kirchenjahr",
+        "type": "kollekte",
+        "tradition": "lutherisch",
+        "originalLanguage": "de",
+        "source": "Altkirchliche Osterkollekte der abendländischen Messe, deutsch",
+        "description": "Tagesgebet am heiligen Osterfest.",
+        "tags": [
+            "kirchenjahr",
+            "liturgie",
+            "altkirchlich",
+            "bitte"
+        ],
+        "versions": [
+            {
+                "language": "de",
+                "status": "original",
+                "source": "Kirchenbuch für Evangelisch-Lutherische Gemeinden, hg. von der Allgemeinen Kirchenversammlung (General Council), Philadelphia 1877; am Faksimile geprüft (archive.org, kirchenbuchfur00gene), Introiten, Kollekten, Episteln und Evangelien, S. 79; Orthographie der Ausgabe",
+                "text": "Allmächtiger Gott,\nder Du am heutigen Tage durch Deinen eingebornen Sohn den Tod überwunden\nund uns den Eingang zum ewigen Leben eröffnet hast:\nwir bitten Dich, wecke in uns die Begierde zur seligen Ewigkeit\nund hilf uns dieselbe auch erlangen;\ndurch denselbigen unsern Herrn Jesum Christum, Deinen Sohn,\nwelcher mit Dir und dem Heiligen Geiste lebet und regieret wahrer Gott von Ewigkeit zu Ewigkeit."
+            }
+        ]
+    },
+    {
+        "id": "kollekte_himmelfahrt",
+        "title": {
+            "de": "Kollekte zum Himmelfahrtstag"
+        },
+        "category": "kirchenjahr",
+        "type": "kollekte",
+        "tradition": "lutherisch",
+        "originalLanguage": "de",
+        "source": "Altkirchliche Himmelfahrtskollekte der abendländischen Messe, deutsch",
+        "description": "Tagesgebet am Himmelfahrtstage.",
+        "tags": [
+            "kirchenjahr",
+            "liturgie",
+            "altkirchlich",
+            "bitte"
+        ],
+        "versions": [
+            {
+                "language": "de",
+                "status": "original",
+                "source": "Kirchenbuch für Evangelisch-Lutherische Gemeinden, hg. von der Allgemeinen Kirchenversammlung (General Council), Philadelphia 1877; am Faksimile geprüft (archive.org, kirchenbuchfur00gene), Introiten, Kollekten, Episteln und Evangelien, S. 91; Orthographie der Ausgabe",
+                "text": "Allmächtiger Gott, wir bitten Dich, verleihe uns,\ndie wir glauben, daß Dein einiger Sohn, unser Heiland, sei heute gen Himmel gefahren:\ndaß auch wir mit Ihm in einem himmlischen Wesen wandeln;\nwelcher mit Dir und dem Heiligen Geiste lebet und regieret wahrer Gott von Ewigkeit zu Ewigkeit."
+            }
+        ]
+    },
+    {
+        "id": "kollekte_pfingsten",
+        "title": {
+            "de": "Kollekte zum Pfingstfest"
+        },
+        "category": "kirchenjahr",
+        "type": "kollekte",
+        "tradition": "lutherisch",
+        "originalLanguage": "de",
+        "source": "Altkirchliche Pfingstkollekte („Deus, qui hodierna die“), deutsch",
+        "description": "Tagesgebet am heiligen Pfingstfest, in Luthers Verdeutschung der altkirchlichen Kollekte.",
+        "tags": [
+            "kirchenjahr",
+            "liturgie",
+            "altkirchlich",
+            "heiliger_geist"
+        ],
+        "versions": [
+            {
+                "language": "de",
+                "status": "original",
+                "source": "Kirchenbuch für Evangelisch-Lutherische Gemeinden, hg. von der Allgemeinen Kirchenversammlung (General Council), Philadelphia 1877; am Faksimile geprüft (archive.org, kirchenbuchfur00gene), Introiten, Kollekten, Episteln und Evangelien, S. 95; Orthographie der Ausgabe",
+                "text": "Herr Gott, lieber Vater,\nder Du an diesem Tage Deiner Gläubigen Herzen durch Deinen Heiligen Geist erleuchtet und gelehret hast:\ngieb uns, daß wir auch durch denselbigen Geist rechten Verstand haben\nund zu aller Zeit Seines Trostes und Kraft uns freuen:\ndurch unsern Herrn Jesum Christum, Deinen Sohn,\nwelcher mit Dir und dem Heiligen Geiste lebet und regieret wahrer Gott von Ewigkeit zu Ewigkeit."
+            }
+        ]
+    },
+    {
+        "id": "kollekte_trinitatis",
+        "title": {
+            "de": "Kollekte zum Fest der heiligen Dreieinigkeit (Trinitatis)"
+        },
+        "category": "kirchenjahr",
+        "type": "kollekte",
+        "tradition": "lutherisch",
+        "originalLanguage": "de",
+        "source": "Altkirchliche Trinitatiskollekte der abendländischen Messe, deutsch",
+        "description": "Tagesgebet am Trinitatisfest.",
+        "tags": [
+            "kirchenjahr",
+            "liturgie",
+            "altkirchlich",
+            "trinitaet",
+            "glaube"
+        ],
+        "versions": [
+            {
+                "language": "de",
+                "status": "original",
+                "source": "Kirchenbuch für Evangelisch-Lutherische Gemeinden, hg. von der Allgemeinen Kirchenversammlung (General Council), Philadelphia 1877; am Faksimile geprüft (archive.org, kirchenbuchfur00gene), Introiten, Kollekten, Episteln und Evangelien, S. 99; Orthographie der Ausgabe",
+                "text": "O allmächtiger, ewiger Gott,\nder Du uns Deinen Dienern aus Gnaden gegeben hast,\nim Bekenntnis des wahren Glaubens die Herrlichkeit der ewigen Dreifaltigkeit zu erkennen\nund die Einigkeit göttlicher Gewalt und Majestät anzubeten:\nwir bitten Dich, verleihe, daß wir durch Beständigkeit solches Glaubens allezeit befestiget werden in aller Widerwärtigkeit;\nder Du lebest und regierest, wahrer Gott von Ewigkeit zu Ewigkeit."
+            }
+        ]
+    },
+    {
+        "id": "kollekte_am_morgen",
+        "title": {
+            "de": "Kollekte am Morgen"
+        },
+        "category": "tageslauf",
+        "type": "kollekte",
+        "tradition": "lutherisch",
+        "originalLanguage": "de",
+        "source": "Kollektengebet lutherischer Agenden (Kirchenbuch, Philadelphia 1877)",
+        "description": "Kurzes Morgengebet um Bewahrung vor Sünde am beginnenden Tag.",
+        "tags": [
+            "morgen",
+            "bitte",
+            "lutherisch"
+        ],
+        "versions": [
+            {
+                "language": "de",
+                "status": "original",
+                "source": "Kirchenbuch für Evangelisch-Lutherische Gemeinden, hg. von der Allgemeinen Kirchenversammlung (General Council), Philadelphia 1877; am Faksimile geprüft (archive.org, kirchenbuchfur00gene), Allgemeine und besondere Kollekten, Nr. 59, S. 172; Orthographie der Ausgabe",
+                "text": "O Herr, allmächtiger Gott,\nder Du uns bis zum Anfang dieses Tages hast kommen lassen:\nhilf uns heute durch Deine Kraft,\ndaß wir an diesem Tage in keine Sünde willigen,\nsondern unser Sinnen, Thun und Reden dahin richten,\ndaß wir Dir gefallen und Deinen Willen thun;\ndurch unsern Herrn Jesum Christum. Amen."
+            }
+        ]
+    },
+    {
+        "id": "kollekte_am_abend",
+        "title": {
+            "de": "Kollekte am Abend"
+        },
+        "category": "tageslauf",
+        "type": "kollekte",
+        "tradition": "lutherisch",
+        "originalLanguage": "de",
+        "source": "Kollektengebet lutherischer Agenden (Kirchenbuch, Philadelphia 1877)",
+        "description": "Kurzes Abendgebet um Schutz in der Nacht („Illumina, quaesumus, Domine, tenebras nostras“).",
+        "tags": [
+            "abend",
+            "bitte",
+            "lutherisch"
+        ],
+        "versions": [
+            {
+                "language": "de",
+                "status": "original",
+                "source": "Kirchenbuch für Evangelisch-Lutherische Gemeinden, hg. von der Allgemeinen Kirchenversammlung (General Council), Philadelphia 1877; am Faksimile geprüft (archive.org, kirchenbuchfur00gene), Allgemeine und besondere Kollekten, Nr. 61, S. 172; Orthographie der Ausgabe",
+                "text": "Erleucht unsre Finsternis, wir bitten Dich, Herr,\nund nach Deiner großen Barmherzigkeit behüt uns diese Nacht vor allem Schaden und Gefahr;\ndurch unsern Herrn Jesum Christum. Amen."
+            }
+        ]
+    },
+    {
+        "id": "kollekte_berufsarbeit",
+        "title": {
+            "de": "Gebet um Segen zur Berufsarbeit"
+        },
+        "category": "tageslauf",
+        "type": "kollekte",
+        "tradition": "lutherisch",
+        "originalLanguage": "de",
+        "source": "Kollektengebet lutherischer Agenden (Kirchenbuch, Philadelphia 1877)",
+        "description": "Gebet für Beruf und tägliche Arbeit.",
+        "tags": [
+            "arbeit",
+            "bitte",
+            "lutherisch"
+        ],
+        "versions": [
+            {
+                "language": "de",
+                "status": "original",
+                "source": "Kirchenbuch für Evangelisch-Lutherische Gemeinden, hg. von der Allgemeinen Kirchenversammlung (General Council), Philadelphia 1877; am Faksimile geprüft (archive.org, kirchenbuchfur00gene), Allgemeine und besondere Kollekten, Nr. 60, S. 172; Orthographie der Ausgabe",
+                "text": "Allmächtiger Gott und Vater,\nohne dessen Hilfe und Segen alle Mühe und Arbeit umsonst ist:\nsiehe an Deine Güte und unsre Dürftigkeit\nund segne den Schweiß unseres Angesichts,\ndaß wir Deine Güte erfahren und preisen\nund in Deinem Namen und Vertrauen unsern Beruf in Geduld fröhlich verrichten;\ndurch unsern Herrn Jesum Christum. Amen."
+            }
+        ]
+    },
+    {
+        "id": "kollekte_fuer_die_kirche",
+        "title": {
+            "de": "Gebet für die Kirche"
+        },
+        "category": "anliegen",
+        "type": "kollekte",
+        "tradition": "lutherisch",
+        "originalLanguage": "de",
+        "source": "Kollektengebet lutherischer Agenden (Kirchenbuch, Philadelphia 1877)",
+        "description": "Bitte um den Heiligen Geist für die Gemeinde und um den Lauf des Wortes Gottes.",
+        "tags": [
+            "kirche",
+            "fuerbitte",
+            "lutherisch",
+            "wort_gottes"
+        ],
+        "versions": [
+            {
+                "language": "de",
+                "status": "original",
+                "source": "Kirchenbuch für Evangelisch-Lutherische Gemeinden, hg. von der Allgemeinen Kirchenversammlung (General Council), Philadelphia 1877; am Faksimile geprüft (archive.org, kirchenbuchfur00gene), Allgemeine und besondere Kollekten, Nr. 13, S. 160; Orthographie der Ausgabe",
+                "text": "Allmächtiger Herre Gott, wir bitten Dich,\ngieb Deiner Gemeine Deinen Geist und göttliche Weisheit,\ndaß Dein Wort unter uns laufe und wachse\nund mit aller Freudigkeit, wie sichs gebühret, gepredigt\nund Deine heilige christliche Gemeine dadurch gebessert werde,\nauf daß wir mit beständigem Glauben Dir dienen\nund im Bekenntnis Deines Namens bis an das Ende verharren;\ndurch unsern Herrn Jesum Christum, Deinen Sohn,\nwelcher mit Dir und dem Heiligen Geiste lebet und regieret in Ewigkeit. Amen."
+            }
+        ]
+    },
+    {
+        "id": "kollekte_fuer_pfarrer_und_gemeinden",
+        "title": {
+            "de": "Gebet für Pfarrer und Gemeinden"
+        },
+        "category": "anliegen",
+        "type": "kollekte",
+        "tradition": "lutherisch",
+        "originalLanguage": "de",
+        "source": "Kollektengebet lutherischer Agenden (Kirchenbuch, Philadelphia 1877)",
+        "description": "Fürbitte für die Diener der Kirche und die ihnen anvertrauten Gemeinden („Omnipotens sempiterne Deus, qui facis mirabilia magna solus“).",
+        "tags": [
+            "kirche",
+            "fuerbitte",
+            "altkirchlich",
+            "lutherisch"
+        ],
+        "versions": [
+            {
+                "language": "de",
+                "status": "original",
+                "source": "Kirchenbuch für Evangelisch-Lutherische Gemeinden, hg. von der Allgemeinen Kirchenversammlung (General Council), Philadelphia 1877; am Faksimile geprüft (archive.org, kirchenbuchfur00gene), Allgemeine und besondere Kollekten, Nr. 23, S. 162; Orthographie der Ausgabe",
+                "text": "Allmächtiger, ewiger Gott, der Du allein große Wunder thust:\ngieß aus den Geist Deiner heilsamen Gnade über Deine Diener\nund die Gemeinden, die ihnen befohlen sind,\nund damit sie Dir in der Wahrheit wohlgefällig seien,\nso tränke sie allzeit mit dem Tau Deines Segens;\ndurch unsern Herrn Jesum Christum. Amen."
+            }
+        ]
+    },
+    {
+        "id": "kollekte_um_prediger",
+        "title": {
+            "de": "Gebet um treue Prediger des Wortes"
+        },
+        "category": "anliegen",
+        "type": "kollekte",
+        "tradition": "lutherisch",
+        "originalLanguage": "de",
+        "source": "Kollektengebet lutherischer Agenden (Kirchenbuch, Philadelphia 1877)",
+        "description": "Bitte um Arbeiter in Gottes Ernte (Matthäus 9,38) und um treue Verkündigung.",
+        "tags": [
+            "kirche",
+            "fuerbitte",
+            "wort_gottes",
+            "lutherisch"
+        ],
+        "versions": [
+            {
+                "language": "de",
+                "status": "original",
+                "source": "Kirchenbuch für Evangelisch-Lutherische Gemeinden, hg. von der Allgemeinen Kirchenversammlung (General Council), Philadelphia 1877; am Faksimile geprüft (archive.org, kirchenbuchfur00gene), Allgemeine und besondere Kollekten, Nr. 24, S. 162; Orthographie der Ausgabe",
+                "text": "O allmächtiger, gütiger Gott und Vater unsers Herrn Jesu Christi,\nder uns ernstlich befohlen hast, daß wir Dich um Arbeiter in Deine Ernte bitten sollen:\nwir bitten Deine grundlose Barmherzigkeit,\nDu wollest uns rechtschaffene Lehrer und Diener Deines göttlichen Worts zuschicken\nund denselben Dein heilsames Wort in ihr Herz und Mund geben,\ndaß sie Deinen Befehl treulich ausrichten\nund nichts predigen, das Deinem heiligen Wort entgegen sei,\nauf daß wir durch Dein himmlisch, ewig Wort ermahnet, gelehrt, gespeist, getröstet und gestärkt werden\nund thun, was Dir gefällig und uns fruchtbarlich ist;\ndurch unsern Herrn Jesum Christum. Amen."
+            }
+        ]
+    },
+    {
+        "id": "kollekte_mission",
+        "title": {
+            "de": "Gebet für die Heiden (um Ausbreitung des Evangeliums)"
+        },
+        "category": "anliegen",
+        "type": "kollekte",
+        "tradition": "lutherisch",
+        "originalLanguage": "de",
+        "source": "Kollektengebet lutherischer Agenden (Kirchenbuch, Philadelphia 1877)",
+        "description": "Missionsgebet der alten Kirche aus den Karfreitagsfürbitten, in der Sprache der Agende von 1877 („Für die Heiden“).",
+        "tags": [
+            "mission",
+            "fuerbitte",
+            "altkirchlich",
+            "lutherisch"
+        ],
+        "versions": [
+            {
+                "language": "de",
+                "status": "original",
+                "source": "Kirchenbuch für Evangelisch-Lutherische Gemeinden, hg. von der Allgemeinen Kirchenversammlung (General Council), Philadelphia 1877; am Faksimile geprüft (archive.org, kirchenbuchfur00gene), Allgemeine und besondere Kollekten, Nr. 30, S. 164; Orthographie der Ausgabe",
+                "text": "Allmächtiger, ewiger Gott,\nder Du nicht willst der Sünder Tod,\nsondern daß sie sich bekehren und leben:\nnimm gnädiglich an unser Gebet für die Heiden\nund errette sie von ihrer greulichen Abgötterei\nund versammle sie zu Deiner heiligen Kirche\nzu Lob und Preis Deines göttlichen Namens;\ndurch unsern Herrn Jesum Christum. Amen."
+            }
+        ]
+    },
+    {
+        "id": "kollekte_fuer_die_obrigkeit",
+        "title": {
+            "de": "Gebet für die Obrigkeit"
+        },
+        "category": "anliegen",
+        "type": "kollekte",
+        "tradition": "lutherisch",
+        "originalLanguage": "de",
+        "source": "Kollektengebet lutherischer Agenden (Kirchenbuch, Philadelphia 1877)",
+        "description": "Fürbitte für Regierung und alle, die Verantwortung tragen (vgl. 1. Timotheus 2,1–2).",
+        "tags": [
+            "obrigkeit",
+            "fuerbitte",
+            "frieden",
+            "lutherisch"
+        ],
+        "versions": [
+            {
+                "language": "de",
+                "status": "original",
+                "source": "Kirchenbuch für Evangelisch-Lutherische Gemeinden, hg. von der Allgemeinen Kirchenversammlung (General Council), Philadelphia 1877; am Faksimile geprüft (archive.org, kirchenbuchfur00gene), Allgemeine und besondere Kollekten, Nr. 32, S. 164–165; Orthographie der Ausgabe",
+                "text": "Barmherziger, himmlischer Vater,\nin welches Hand besteht aller Menschen Gewalt und Obrigkeit,\nvon Dir gesetzt zur Straf der Bösen und Wohlfahrt der Frommen,\nin welches Hand auch stehen alle Recht und Gesetz aller Reich auf Erden;\nwir bitten Dich, siehe gnädiglich auf Deine Diener, unsre Landes-Obrigkeit und alle, die Gewalt haben,\ndamit sie das weltlich Schwert, ihnen von Dir befohlen, nach Deinem Befehl führen mögen,\nerleuchte und erhalte sie bei Deinem göttlichen Namen,\ngieb ihnen Weisheit und Verstand und ein friedlich Regiment,\nauf daß wir in Frieden, Ruhe und Einigkeit samt ihnen Deinen göttlichen Namen heiligen und preisen mögen;\ndurch unsern Herrn Jesum Christum. Amen."
+            }
+        ]
+    },
+    {
+        "id": "kollekte_fuer_eltern_und_haus",
+        "title": {
+            "de": "Gebet für Eltern und Hausstand"
+        },
+        "category": "anliegen",
+        "type": "kollekte",
+        "tradition": "lutherisch",
+        "originalLanguage": "de",
+        "source": "Kollektengebet lutherischer Agenden (Kirchenbuch, Philadelphia 1877)",
+        "description": "Gebet für alle, denen andere anvertraut sind, besonders für Eltern und ihre Kinder („Für Eltern und Herren“).",
+        "tags": [
+            "familie",
+            "fuerbitte",
+            "lutherisch"
+        ],
+        "versions": [
+            {
+                "language": "de",
+                "status": "original",
+                "source": "Kirchenbuch für Evangelisch-Lutherische Gemeinden, hg. von der Allgemeinen Kirchenversammlung (General Council), Philadelphia 1877; am Faksimile geprüft (archive.org, kirchenbuchfur00gene), Allgemeine und besondere Kollekten, Nr. 33, S. 165; Orthographie der Ausgabe",
+                "text": "Allmächtiger, ewiger Gott, wir bitten Dich,\nDu wollest allen christlichen Regenten und Hausvätern und Eltern gnädiglich verleihen,\ndaß sie mit guten Exempeln ihren Unterthanen, Gesinde und Kindern vorgehen,\nsie weder mit Worten noch mit Werken ärgern,\nsondern in der Zucht und Vermahnung zu Dir auferziehen mögen,\nund daß sie auch durch Deine Gnade in christlichem, gottseligem Gehorsam folgen mögen;\nder Du lebest und regierest, wahrer Gott, immer und ewiglich. Amen."
+            }
+        ]
+    },
+    {
+        "id": "kollekte_fuer_eheleute",
+        "title": {
+            "de": "Gebet für Eheleute"
+        },
+        "category": "anliegen",
+        "type": "kollekte",
+        "tradition": "lutherisch",
+        "originalLanguage": "de",
+        "source": "Kollektengebet lutherischer Agenden (Kirchenbuch, Philadelphia 1877)",
+        "description": "Gebet für Ehe und Familie.",
+        "tags": [
+            "familie",
+            "fuerbitte",
+            "lutherisch"
+        ],
+        "versions": [
+            {
+                "language": "de",
+                "status": "original",
+                "source": "Kirchenbuch für Evangelisch-Lutherische Gemeinden, hg. von der Allgemeinen Kirchenversammlung (General Council), Philadelphia 1877; am Faksimile geprüft (archive.org, kirchenbuchfur00gene), Allgemeine und besondere Kollekten, Nr. 34, S. 165; Orthographie der Ausgabe",
+                "text": "Herr Gott, himmlischer Vater, wir bitten Dich,\nDu wollest allen Eheleuten verleihen,\ndaß sie in Frieden und Einigkeit gottselig leben und Dir dienen mögen,\nihre Kinder nach Deinem Willen erziehen,\nDu wollest alle ihre Nahrung segnen\nund in allem Unglück, Kreuz und Anfechtungen sie trösten;\ndurch Jesum Christum unsern Herrn. Amen."
+            }
+        ]
+    },
+    {
+        "id": "kollekte_fuer_die_jugend",
+        "title": {
+            "de": "Gebet für die Jugend"
+        },
+        "category": "anliegen",
+        "type": "kollekte",
+        "tradition": "lutherisch",
+        "originalLanguage": "de",
+        "source": "Kollektengebet lutherischer Agenden (Kirchenbuch, Philadelphia 1877)",
+        "description": "Fürbitte für Kinder und junge Menschen.",
+        "tags": [
+            "familie",
+            "fuerbitte",
+            "lutherisch"
+        ],
+        "versions": [
+            {
+                "language": "de",
+                "status": "original",
+                "source": "Kirchenbuch für Evangelisch-Lutherische Gemeinden, hg. von der Allgemeinen Kirchenversammlung (General Council), Philadelphia 1877; am Faksimile geprüft (archive.org, kirchenbuchfur00gene), Allgemeine und besondere Kollekten, Nr. 22, S. 162; Orthographie der Ausgabe",
+                "text": "Allmächtiger, ewiger Gott,\ndieweil Dein Wille nicht ist, daß jemand aus diesen Geringsten verloren werde,\nsondern hast Deinen einigen Sohn gesandt, das Verlorne selig zu machen,\nund durch Desselben Mund befohlen, wir sollen die Kinder zu Dir bringen, denn solcher sei das Himmelreich:\nwir bitten Dich herzlich,\nDu wollest diese unsre Jugend mit Deinem Heiligen Geist segnen und regieren,\ndaß sie in Deinem Wort heilig wachsen und zunehmen,\nund durch den Schutz Deiner Engel wider alle Fährlichkeit behüten und bewahren;\num Jesu Christi, Deines lieben Sohnes, unsres Herrn willen. Amen."
+            }
+        ]
+    },
+    {
+        "id": "kollekte_in_kreuz_und_truebsal",
+        "title": {
+            "de": "Gebet in Kreuz und Trübsal"
+        },
+        "category": "anliegen",
+        "type": "kollekte",
+        "tradition": "lutherisch",
+        "originalLanguage": "de",
+        "source": "Kollektengebet lutherischer Agenden (Kirchenbuch, Philadelphia 1877)",
+        "description": "Gebet für alle, die in Not, Kummer und Anfechtung sind.",
+        "tags": [
+            "not",
+            "fuerbitte",
+            "lutherisch"
+        ],
+        "versions": [
+            {
+                "language": "de",
+                "status": "original",
+                "source": "Kirchenbuch für Evangelisch-Lutherische Gemeinden, hg. von der Allgemeinen Kirchenversammlung (General Council), Philadelphia 1877; am Faksimile geprüft (archive.org, kirchenbuchfur00gene), Allgemeine und besondere Kollekten, Nr. 41, S. 167; Orthographie der Ausgabe",
+                "text": "O allmächtiger, ewiger Gott,\nein Trost der Traurigen und Stärke der Schwachen,\nlaß vor Dein Angesicht gnädiglich kommen die Bitt aller derer,\nso in Kümmernis und Anfechtung zu Dir seufzen und schreien,\ndaß männiglich merke und empfinde Deine Hilfe und Beistand in Zeit der Not;\ndurch Jesum Christum Deinen Sohn, unsern Herrn. Amen."
+            }
+        ]
+    },
+    {
+        "id": "kollekte_trost_im_leid",
+        "title": {
+            "de": "Gebet um Trost im Leid"
+        },
+        "category": "anliegen",
+        "type": "kollekte",
+        "tradition": "lutherisch",
+        "originalLanguage": "de",
+        "source": "Kollektengebet lutherischer Agenden (Kirchenbuch, Philadelphia 1877)",
+        "description": "Gebet für Leidtragende und Trauernde um Geduld und um die Hoffnung der ewigen Freude.",
+        "tags": [
+            "not",
+            "sterben",
+            "lutherisch"
+        ],
+        "versions": [
+            {
+                "language": "de",
+                "status": "original",
+                "source": "Kirchenbuch für Evangelisch-Lutherische Gemeinden, hg. von der Allgemeinen Kirchenversammlung (General Council), Philadelphia 1877; am Faksimile geprüft (archive.org, kirchenbuchfur00gene), Allgemeine und besondere Kollekten, Nr. 46, S. 168; Orthographie der Ausgabe",
+                "text": "Ach Herr, getreuer Gott und Vater,\nder Du züchtigest alle, die Du lieb hast,\nauf daß sie nicht samt der gottlosen Welt verdammet werden:\nwir bitten Dein treues Vaterherz,\nDu wollest uns in unsrem Kreuz mit Deinem Geist und Worte trösten,\ndaß wir das kleine Stündlein dieses Elends in Geduld überwinden\nund feste glauben und hoffen,\nDu werdest unser Leid und Traurigkeit bald in ewige Freude und Herrlichkeit verwandeln;\ndurch unsern Herrn Jesum Christum. Amen."
+            }
+        ]
+    },
+    {
+        "id": "kollekte_fuer_kranke",
+        "title": {
+            "de": "Gebet für Kranke"
+        },
+        "category": "anliegen",
+        "type": "kollekte",
+        "tradition": "lutherisch",
+        "originalLanguage": "de",
+        "source": "Kollektengebet lutherischer Agenden (Kirchenbuch, Philadelphia 1877)",
+        "description": "Fürbitte für die Kranken („Omnipotens sempiterne Deus, salus aeterna credentium“).",
+        "tags": [
+            "krankheit",
+            "fuerbitte",
+            "lutherisch"
+        ],
+        "versions": [
+            {
+                "language": "de",
+                "status": "original",
+                "source": "Kirchenbuch für Evangelisch-Lutherische Gemeinden, hg. von der Allgemeinen Kirchenversammlung (General Council), Philadelphia 1877; am Faksimile geprüft (archive.org, kirchenbuchfur00gene), Allgemeine und besondere Kollekten, Nr. 47, S. 168; Orthographie der Ausgabe",
+                "text": "Allmächtiger, ewiger Gott,\nein Heiland aller, die an Dich glauben,\nhör unsre Bitt für Deine kranken Knechte,\nfür welche wir zu Deiner Barmherzigkeit um Hilfe flehen,\nauf daß sie wiedergenesen\nund in Deiner Gemeinde mit Wort und Werk Dir danken mögen;\ndurch unsern Herrn Jesum Christum, Deinen Sohn. Amen."
+            }
+        ]
+    },
+    {
+        "id": "kollekte_danksagung",
+        "title": {
+            "de": "Dankgebet"
+        },
+        "category": "anliegen",
+        "type": "kollekte",
+        "tradition": "lutherisch",
+        "originalLanguage": "de",
+        "source": "Kollektengebet lutherischer Agenden (Kirchenbuch, Philadelphia 1877)",
+        "description": "Dank für Gottes tägliche Wohltaten und Bewahrung.",
+        "tags": [
+            "danksagung",
+            "lobpreis",
+            "lutherisch"
+        ],
+        "versions": [
+            {
+                "language": "de",
+                "status": "original",
+                "source": "Kirchenbuch für Evangelisch-Lutherische Gemeinden, hg. von der Allgemeinen Kirchenversammlung (General Council), Philadelphia 1877; am Faksimile geprüft (archive.org, kirchenbuchfur00gene), Allgemeine und besondere Kollekten, Nr. 57, S. 171; Orthographie der Ausgabe",
+                "text": "Herr Gott, himmlischer Vater,\nvon dem wir ohn Unterlaß allerlei Gutes ganz überflüssig empfahen\nund täglich vor allem Übel gnädiglich behütet werden:\nwir bitten Dich, gieb uns durch Deinen Geist\nsolches alles mit ganzem Herzen in rechtem Glauben zu erkennen,\nauf daß wir Deiner milden Güte und Barmherzigkeit hier und dort ewiglich danken und Dich loben;\ndurch unsern Herrn Jesum Christum. Amen."
+            }
+        ]
+    },
+    {
+        "id": "kollekte_um_gottes_wort",
+        "title": {
+            "de": "Gebet um das rechte Hören des göttlichen Wortes"
+        },
+        "category": "anliegen",
+        "type": "kollekte",
+        "tradition": "lutherisch",
+        "originalLanguage": "de",
+        "source": "Kollektengebet lutherischer Agenden (Kirchenbuch, Philadelphia 1877)",
+        "description": "Dank für das Evangelium und Bitte, bei Gottes Wort erhalten zu werden; geeignet auch vor dem Gottesdienst.",
+        "tags": [
+            "wort_gottes",
+            "bitte",
+            "lutherisch"
+        ],
+        "versions": [
+            {
+                "language": "de",
+                "status": "original",
+                "source": "Kirchenbuch für Evangelisch-Lutherische Gemeinden, hg. von der Allgemeinen Kirchenversammlung (General Council), Philadelphia 1877; am Faksimile geprüft (archive.org, kirchenbuchfur00gene), Allgemeine und besondere Kollekten, Nr. 63, S. 173; Orthographie der Ausgabe",
+                "text": "Wir danken Dir, Herr Gott, himmlischer Vater, von Grund unsers Herzens,\ndaß Du uns Dein heiliges Evangelium gegeben\nund Dein väterliches Herz hast erkennen lassen:\nwir bitten Deine grundlose Barmherzigkeit,\nDu wollest solch seliges Licht Deines Worts uns gnädiglich erhalten\nund durch Deinen Heiligen Geist unsre Herzen leiten und führen,\ndaß wir nimmermehr davon abweichen,\nsondern fest daran halten und endlich dadurch selig werden;\ndurch unsern Herrn Jesum Christum. Amen."
+            }
+        ]
+    },
+    {
+        "id": "kollekte_um_den_heiligen_geist",
+        "title": {
+            "de": "Gebet um den Heiligen Geist"
+        },
+        "category": "anliegen",
+        "type": "kollekte",
+        "tradition": "lutherisch",
+        "originalLanguage": "de",
+        "source": "Kollektengebet lutherischer Agenden (Kirchenbuch, Philadelphia 1877)",
+        "description": "Bitte um den Heiligen Geist, um Erkenntnis der Wahrheit und geistliche Erneuerung.",
+        "tags": [
+            "heiliger_geist",
+            "bitte",
+            "lutherisch"
+        ],
+        "versions": [
+            {
+                "language": "de",
+                "status": "original",
+                "source": "Kirchenbuch für Evangelisch-Lutherische Gemeinden, hg. von der Allgemeinen Kirchenversammlung (General Council), Philadelphia 1877; am Faksimile geprüft (archive.org, kirchenbuchfur00gene), Allgemeine und besondere Kollekten, Nr. 3, S. 157; Orthographie der Ausgabe",
+                "text": "Allmächtiger Gott,\nder Du uns befohlen hast, daß wir um den Heiligen Geist bitten sollen:\nwir bitten Dich von Herzen,\ngieb uns durch Christum, unsern Mittler, den Heiligen Geist,\nder Gottes Wort in unsern Herzen kräftig mache,\nuns in alle Wahrheit leite, lehre, erleuchte, regiere, tröste und heilige zum ewigen Leben;\ndurch denselbigen Deinen Sohn, Jesum Christum, unsern Herrn. Amen."
+            }
+        ]
+    },
+    {
+        "id": "kollekte_um_erleuchtung",
+        "title": {
+            "de": "Gebet um die Leitung des Heiligen Geistes"
+        },
+        "category": "anliegen",
+        "type": "kollekte",
+        "tradition": "lutherisch",
+        "originalLanguage": "de",
+        "source": "Kollektengebet lutherischer Agenden (Kirchenbuch, Philadelphia 1877)",
+        "description": "Kurze Bitte um Weisheit und Erkenntnis durch den Heiligen Geist (vgl. Johannes 16,13).",
+        "tags": [
+            "heiliger_geist",
+            "bitte",
+            "altkirchlich",
+            "lutherisch"
+        ],
+        "versions": [
+            {
+                "language": "de",
+                "status": "original",
+                "source": "Kirchenbuch für Evangelisch-Lutherische Gemeinden, hg. von der Allgemeinen Kirchenversammlung (General Council), Philadelphia 1877; am Faksimile geprüft (archive.org, kirchenbuchfur00gene), Allgemeine und besondere Kollekten, Nr. 64, S. 173; Orthographie der Ausgabe",
+                "text": "Wir bitten Dich, Herr,\nlaß den Tröster, der von Dir ausgeht, unsre Sinnen erleuchten\nund uns, wie Dein Sohn verheißen, in alle Wahrheit leiten;\ndurch denselbigen, unsern Herrn Jesum Christum. Amen."
+            }
+        ]
+    },
+    {
+        "id": "kollekte_um_ein_bussfertiges_herz",
+        "title": {
+            "de": "Gebet um ein bußfertiges Herz"
+        },
+        "category": "anliegen",
+        "type": "kollekte",
+        "tradition": "lutherisch",
+        "originalLanguage": "de",
+        "source": "Kollektengebet lutherischer Agenden (Kirchenbuch, Philadelphia 1877)",
+        "description": "Bußgebet um tägliche Umkehr und um den Trost der Vergebung.",
+        "tags": [
+            "busse",
+            "bitte",
+            "lutherisch"
+        ],
+        "versions": [
+            {
+                "language": "de",
+                "status": "original",
+                "source": "Kirchenbuch für Evangelisch-Lutherische Gemeinden, hg. von der Allgemeinen Kirchenversammlung (General Council), Philadelphia 1877; am Faksimile geprüft (archive.org, kirchenbuchfur00gene), Allgemeine und besondere Kollekten, Nr. 65, S. 173; Orthographie der Ausgabe",
+                "text": "Herr Gott, himmlischer Vater, wir bitten Dich,\nDu wollest durch Deinen Heiligen Geist uns also leiten und führen,\ndaß wir unsrer Sünde nicht geringer achten und sicher werden,\nsondern in steter Buße stehn und uns von Tag zu Tag bessern,\nund dabei allein uns dessen trösten,\ndaß Du um Deines Sohnes willen uns gnädig sein, alle Sünde vergeben und selig machen wollest;\ndurch denselbigen unsern Herrn Jesum Christum. Amen."
+            }
+        ]
+    },
+    {
+        "id": "kollekte_um_vergebung",
+        "title": {
+            "de": "Gebet um Vergebung der Sünden"
+        },
+        "category": "anliegen",
+        "type": "kollekte",
+        "tradition": "lutherisch",
+        "originalLanguage": "de",
+        "source": "Kollektengebet lutherischer Agenden (Kirchenbuch, Philadelphia 1877)",
+        "description": "Kurze Bitte um Vergebung und Frieden („Exaudi, quaesumus, Domine, supplicum preces“).",
+        "tags": [
+            "busse",
+            "bitte",
+            "frieden",
+            "altkirchlich"
+        ],
+        "versions": [
+            {
+                "language": "de",
+                "status": "original",
+                "source": "Kirchenbuch für Evangelisch-Lutherische Gemeinden, hg. von der Allgemeinen Kirchenversammlung (General Council), Philadelphia 1877; am Faksimile geprüft (archive.org, kirchenbuchfur00gene), Allgemeine und besondere Kollekten, Nr. 66, S. 173; Orthographie der Ausgabe",
+                "text": "Erhöre Herr, wir bitten Dich, unser Gebet und Flehen\nund verschon unsrer Missethat, die wir Dir bekennen,\nauf daß Du nach Deiner milden Güte uns beides schenkest, Vergebung und Frieden;\ndurch unsern Herrn Jesum Christum. Amen."
+            }
+        ]
+    },
+    {
+        "id": "kollekte_um_festen_glauben",
+        "title": {
+            "de": "Gebet um festen Glauben"
+        },
+        "category": "anliegen",
+        "type": "kollekte",
+        "tradition": "lutherisch",
+        "originalLanguage": "de",
+        "source": "Kollektengebet lutherischer Agenden (Kirchenbuch, Philadelphia 1877)",
+        "description": "Bitte um Bewahrung im Glauben bis ans Ende.",
+        "tags": [
+            "glaube",
+            "bitte",
+            "lutherisch",
+            "sterben"
+        ],
+        "versions": [
+            {
+                "language": "de",
+                "status": "original",
+                "source": "Kirchenbuch für Evangelisch-Lutherische Gemeinden, hg. von der Allgemeinen Kirchenversammlung (General Council), Philadelphia 1877; am Faksimile geprüft (archive.org, kirchenbuchfur00gene), Allgemeine und besondere Kollekten, Nr. 77, S. 176; Orthographie der Ausgabe",
+                "text": "Herr Gott, himmlischer Vater,\nder Du aus sonderlicher Liebe und Barmherzigkeit Deinen Sohn für uns hast Mensch werden und am Kreuze sterben lassen:\ngieb Deinen Heiligen Geist in unsere Herzen,\ndaß wir all unser Vertrauen auf Ihn setzen\nund durch Ihn Vergebung unsrer Sünde und ewiges Leben mit ungezweifeltem Herzen glauben\nund an unserm letzten Ende fest dabei bleiben;\ndurch denselbigen unsern Herrn Jesum Christum. Amen."
+            }
+        ]
+    },
+    {
+        "id": "kollekte_um_ein_selig_ende",
+        "title": {
+            "de": "Gebet um ein seliges Ende"
+        },
+        "category": "anliegen",
+        "type": "kollekte",
+        "tradition": "lutherisch",
+        "originalLanguage": "de",
+        "source": "Kollektengebet lutherischer Agenden (Kirchenbuch, Philadelphia 1877)",
+        "description": "Bitte um Beistand in der Sterbestunde.",
+        "tags": [
+            "sterben",
+            "bitte",
+            "lutherisch"
+        ],
+        "versions": [
+            {
+                "language": "de",
+                "status": "original",
+                "source": "Kirchenbuch für Evangelisch-Lutherische Gemeinden, hg. von der Allgemeinen Kirchenversammlung (General Council), Philadelphia 1877; am Faksimile geprüft (archive.org, kirchenbuchfur00gene), Allgemeine und besondere Kollekten, Nr. 85, S. 178; Orthographie der Ausgabe",
+                "text": "Allmächtiger Gott, wir bitten Deine milde Güte,\nDu wollest uns Deine Diener mit Deiner Gnade stärken,\ndaß uns an unsrem letzten Ende der böse Feind nicht übermöge,\nsondern wir in Deiner Engel Geleite eingehen zum ewigen Leben;\ndurch unsern Herrn Jesum Christum. Amen."
             }
         ]
     }

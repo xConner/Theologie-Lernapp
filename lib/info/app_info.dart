@@ -171,13 +171,36 @@ class AppModules {
     id: "confessions",
     title: "Bekenntnisse",
     description:
-        "Altkirchliche und lutherische Bekenntnistexte, je nach Text in "
-        "mehreren Sprachen.",
-    sources: [SourceInfo(title: "Bekenntnistexte und Übersetzungen")],
+        "Die drei altkirchlichen Symbole und das vollständige "
+        "Konkordienbuch der evangelisch-lutherischen Kirche, deutsch, "
+        "lateinisch und englisch.",
+    sources: [
+      SourceInfo(
+        title: "Bekenntnistexte und Übersetzungen",
+        origin:
+            "Concordia Triglotta (St. Louis: Concordia Publishing House, "
+            "1921); die altkirchlichen Symbole zusätzlich in den "
+            "ökumenischen und liturgischen Fassungen. Die genaue Fassung "
+            "steht unter jedem Text bei „Quelle“.",
+        processing:
+            "Ein Teil der Texte ist von Hand am Faksimile des Drucks "
+            "geprüft. Die übrigen stammen aus elektronischen Textfassungen "
+            "und wurden maschinell Wort für Wort mit Texterkennungen des "
+            "Drucks abgeglichen; welcher Abschnitt wie geprüft ist, nennt "
+            "die Quellenangabe. Absatzzähler und Herausgeberzusätze in "
+            "eckigen Klammern sind weggelassen.",
+        aiNote:
+            "Zerlegung, Abgleich und Zusammenstellung der Texte erfolgten "
+            "mit KI-Unterstützung (Skripte unter tool/content_import).",
+      ),
+    ],
     notes: [
-      "Welche Textausgaben und Übersetzungen verwendet wurden, ist im "
-          "Projekt nicht dokumentiert. Für wissenschaftliches Arbeiten "
-          "bitte eine zitierfähige Ausgabe heranziehen.",
+      "Die maschinell abgeglichenen Texte können einzelne Lesefehler "
+          "enthalten. Für wissenschaftliches Arbeiten bitte eine "
+          "zitierfähige Ausgabe heranziehen; Fehler lassen sich über die "
+          "Meldefunktion mitteilen.",
+      "Nicht aufgenommen sind die Unterschriftenlisten, das Verzeichnis der "
+          "Zeugnisse (Catalogus Testimoniorum) und die Register.",
     ],
   );
 
@@ -185,8 +208,9 @@ class AppModules {
     id: "prayers",
     title: "Gebete",
     description:
-        "Biblische, liturgische und überlieferte Gebete in mehreren "
-        "Sprachfassungen.",
+        "Biblische, liturgische und überlieferte Gebete sowie die festen "
+        "Stücke von Gottesdienst, Abendmahl, Taufe und Beichte, nach "
+        "Rubriken geordnet.",
     sources: [
       SourceInfo(
         title: "Gebetstexte",
@@ -202,9 +226,13 @@ class AppModules {
       ),
     ],
     notes: [
-      "Die Quellenangaben sind Teil des Datensatzes der App. Wie sie "
-          "zusammengestellt und ob sie gegen die genannten Ausgaben geprüft "
-          "wurden, ist im Projekt nicht dokumentiert.",
+      "Die liturgischen Stücke und Kollektengebete folgen einer einzigen "
+          "Agende (Kirchenbuch für Evangelisch-Lutherische Gemeinden, "
+          "Philadelphia 1877) in deren Orthographie und sind am Faksimile "
+          "nachgelesen; andere Agenden haben abweichende Wortlaute.",
+      "Bei den älteren Einträgen sind die Quellenangaben Teil des "
+          "Datensatzes; ob sie alle gegen die genannten Ausgaben geprüft "
+          "wurden, ist nicht durchgehend dokumentiert.",
     ],
   );
 
@@ -212,7 +240,8 @@ class AppModules {
     id: "memorization",
     title: "Texte auswendig lernen",
     description:
-        "Gebete und Bekenntnisse abschnittsweise auswendig lernen: vom "
+        "Gebete, liturgische Texte und Bekenntnisse abschnittsweise "
+        "auswendig lernen: vom "
         "Mitlesen über Lücken und Anfangsbuchstaben bis zum freien Aufsagen "
         "oder Schreiben. Gelernte Abschnitte werden verbunden und in "
         "wachsenden Abständen wiederholt.",

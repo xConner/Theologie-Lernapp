@@ -199,8 +199,11 @@ void main() {
       final chief = catalog.text(
         "confession.schmalkaldische_artikel.teil_2_art_1.de",
       )!;
-      // Ein einziger Abschnitt: Titel ohne Abschnittszusatz.
-      expect(chief.title, "Schmalkaldische Artikel – Teil II, Art. I: Der Hauptartikel");
+      // Schrift und Abschnitt zusammen ergeben den Titel.
+      expect(
+        chief.title,
+        "Schmalkaldische Artikel – Teil II, Artikel I: Der Hauptartikel",
+      );
 
       for (final id in [
         "prayer.sanctus.la",

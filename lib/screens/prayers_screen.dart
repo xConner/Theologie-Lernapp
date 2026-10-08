@@ -21,9 +21,15 @@ class PrayersScreen extends StatefulWidget {
     "altkirchlich",
     "lutherisch",
     "liturgie",
+    "abendmahl",
+    "taufe",
+    "beichte",
+    "segen",
+    "kirchenjahr",
     "morgen",
     "abend",
     "tischgebet",
+    "fuerbitte",
   ];
 
   @override
@@ -132,6 +138,42 @@ class _PrayersScreenState extends State<PrayersScreen> {
     );
   }
 
+  /// Ohne Suche und Filter steht die Sammlung nach Rubriken gegliedert;
+  /// Suchergebnisse bleiben eine einfache Liste in Datenreihenfolge.
+  Widget buildList(List<Prayer> results) {
+    final grouped = query.trim().isEmpty && selectedTag == null;
+
+    final items = <Object>[
+      if (!grouped)
+        ...results
+      else
+        for (final category in PrayerCategories.order)
+          if (results.any((p) => p.category == category)) ...[
+            category,
+            ...results.where((p) => p.category == category),
+          ],
+    ];
+
+    return ListView.builder(
+      padding: const EdgeInsets.symmetric(horizontal: 12),
+      itemCount: items.length,
+      itemBuilder: (context, index) {
+        final item = items[index];
+
+        if (item is Prayer) return buildTile(item);
+
+        return Padding(
+          padding: const EdgeInsets.fromLTRB(4, 16, 4, 6),
+          child: Text(
+            PrayerCategories.label(item as String),
+            key: Key("prayer_category_$item"),
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
+        );
+      },
+    );
+  }
+
   Widget buildBody() {
     if (loading) {
       return const Center(child: CircularProgressIndicator());
@@ -191,12 +233,7 @@ class _PrayersScreenState extends State<PrayersScreen> {
                         ),
                       ),
                     )
-                  : ListView.builder(
-                      padding: const EdgeInsets.symmetric(horizontal: 12),
-                      itemCount: results.length,
-                      itemBuilder: (context, index) =>
-                          buildTile(results[index]),
-                    ),
+                  : buildList(results),
             ),
           ],
         ),

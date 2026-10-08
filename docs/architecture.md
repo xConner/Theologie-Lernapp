@@ -64,6 +64,7 @@ ist eine `MemorizationCard` (erweitert `LearningCard`), gespeichert über
 | Lerntext, Abschnitt, Werk (statischer Inhalt) | `models/memorization/memorization_text.dart` |
 | Lernstand je Abschnitt (Hilfestufe, Versuche) | `models/memorization/memorization_card.dart` |
 | Gebete/Bekenntnisse → Lerntexte | `services/memorization/memorization_catalog.dart` |
+| Erzeugung der Bekenntnis- und Liturgiedaten (nicht Teil der App) | `tool/content_import/` |
 | Zerlegung in Abschnitte | `services/memorization/text_segmenter.dart` |
 | Lücken, Anfangsbuchstaben | `services/memorization/hint_generator.dart` |
 | Wortvergleich mit Alignment (lokal, ohne KI) | `services/memorization/text_evaluator.dart` |

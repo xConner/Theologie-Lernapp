@@ -301,7 +301,19 @@ void main() {
     testWidgets("Bekenntnis ohne Text in der Sprache bietet nichts an", (
       tester,
     ) async {
-      final ca = confessions.firstWhere((c) => c.id == "augsburger_konfession");
+      final ca = Confession.fromJson({
+        "id": "test",
+        "category": "lutherische_symbole",
+        "title": {"de": "Testbekenntnis"},
+        "languages": ["de", "en"],
+        "sections": [
+          {
+            "id": "full",
+            "title": {"de": "Gesamter Text"},
+            "texts": {"de": "Erstlich wird gelehrt und gehalten.", "en": ""},
+          },
+        ],
+      });
 
       await tester.pumpWidget(app(ConfessionDetailScreen(confession: ca)));
 

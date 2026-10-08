@@ -78,6 +78,31 @@ class MemorizationText {
   }
 }
 
+/// Ein Lerntext, dessen Abschnitte erst beim ersten Zugriff gebildet werden.
+///
+/// Die Bekenntnisschriften umfassen mehrere Megabyte Text; sie beim Laden des
+/// Katalogs vollständig zu zerlegen, wäre unnötig teuer. IDs und Reihenfolge
+/// der Abschnitte sind dieselben wie bei sofortiger Zerlegung.
+class LazyMemorizationText extends MemorizationText {
+  /// Bildet die Abschnitte; wird höchstens einmal aufgerufen.
+  final List<MemorizationSegment> Function() build;
+
+  List<MemorizationSegment>? _segments;
+
+  LazyMemorizationText({
+    required super.id,
+    required super.workId,
+    required super.title,
+    required super.workTitle,
+    required super.languageCode,
+    required super.type,
+    required this.build,
+  }) : super(segments: const []);
+
+  @override
+  List<MemorizationSegment> get segments => _segments ??= build();
+}
+
 /// Ein Werk mit seinen Sprachfassungen (z. B. Vaterunser: Deutsch, Latein).
 class MemorizationWork {
   final String id;
@@ -85,10 +110,19 @@ class MemorizationWork {
   final MemorizationTextType type;
   final List<MemorizationText> versions;
 
+  /// Überschrift, unter der das Werk in der Textauswahl einsortiert wird
+  /// (z. B. die Bekenntnisschrift eines Artikels); null = ohne Untergruppe.
+  final String? group;
+
+  /// Titel innerhalb der Gruppe (z. B. nur der Artikel), sonst [title].
+  final String? shortTitle;
+
   const MemorizationWork({
     required this.id,
     required this.title,
     required this.type,
     required this.versions,
+    this.group,
+    this.shortTitle,
   });
 }

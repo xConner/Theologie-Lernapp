@@ -11,6 +11,9 @@ class Prayer {
   /// Herkunft/Epoche, siehe [PrayerTraditions].
   final String tradition;
 
+  /// Rubrik, unter der das Gebet geführt wird, siehe [PrayerCategories].
+  final String category;
+
   final String? author;
 
   /// Sprachcode der ursprünglichen Fassung.
@@ -32,6 +35,7 @@ class Prayer {
     required this.title,
     required this.type,
     required this.tradition,
+    this.category = PrayerCategories.fallback,
     this.author,
     required this.originalLanguage,
     required this.source,
@@ -47,6 +51,7 @@ class Prayer {
       title: Map<String, String>.from(json["title"]),
       type: json["type"],
       tradition: json["tradition"],
+      category: json["category"] ?? PrayerCategories.fallback,
       author: json["author"],
       originalLanguage: json["originalLanguage"],
       source: json["source"],
@@ -194,6 +199,10 @@ class PrayerTypes {
     "akklamation": "Liturgische Akklamation",
     "doxologie": "Doxologie",
     "antiphon": "Antiphon / Gebetslied",
+    "katechismusstueck": "Katechismusstück",
+    "kollekte": "Kollektengebet",
+    "liturgisches_stueck": "Liturgisches Stück",
+    "segen": "Segen",
   };
 
   static String label(String type) => labels[type] ?? type;
@@ -211,6 +220,32 @@ class PrayerTraditions {
   };
 
   static String label(String tradition) => labels[tradition] ?? tradition;
+}
+
+/// Rubriken der Sammlung in fester Reihenfolge (ID → Anzeigename). Sie
+/// gliedern die Liste der Gebete und die Textauswahl unter „Texte auswendig
+/// lernen“; liturgische Stücke stehen bei ihrem Ort im Gottesdienst.
+class PrayerCategories {
+  PrayerCategories._();
+
+  static const String fallback = "weitere";
+
+  static const Map<String, String> labels = {
+    "grundtexte": "Grundtexte des Glaubens",
+    "lobgesaenge": "Lobgesänge und Hymnen",
+    "tageslauf": "Morgen, Abend und Tisch",
+    "gottesdienst": "Liturgie: Gottesdienst",
+    "abendmahl": "Liturgie: Abendmahl",
+    "taufe": "Liturgie: Taufe",
+    "beichte": "Liturgie: Beichte",
+    "kirchenjahr": "Kirchenjahr",
+    "anliegen": "Gebete in besonderen Anliegen",
+    "weitere": "Weitere Gebete",
+  };
+
+  static List<String> get order => labels.keys.toList();
+
+  static String label(String category) => labels[category] ?? category;
 }
 
 /// Standardisiertes Tag-Vokabular (ID → Anzeigename).
@@ -238,6 +273,23 @@ class PrayerTags {
     "frieden": "Frieden",
     "christusgebet": "Christusgebet",
     "trinitaet": "Trinität",
+    "gottesdienst": "Gottesdienst",
+    "taufe": "Taufe",
+    "beichte": "Beichte",
+    "segen": "Segen",
+    "kirchenjahr": "Kirchenjahr",
+    "fuerbitte": "Fürbitte",
+    "kirche": "Kirche",
+    "obrigkeit": "Obrigkeit",
+    "familie": "Familie und Haus",
+    "arbeit": "Beruf und Arbeit",
+    "krankheit": "Krankheit",
+    "not": "Not und Trübsal",
+    "sterben": "Sterben und Trauer",
+    "glaube": "Glaube",
+    "heiliger_geist": "Heiliger Geist",
+    "wort_gottes": "Wort Gottes",
+    "mission": "Mission",
   };
 
   /// Zusätzliche Suchbegriffe je Tag (werden nicht angezeigt).
@@ -247,6 +299,16 @@ class PrayerTags {
     "lutherisch": ["reformation", "evangelisch"],
     "tischgebet": ["essen", "mahlzeit"],
     "trinitaet": ["dreieinigkeit"],
+    "fuerbitte": ["fuerbitten", "bitten fuer"],
+    "obrigkeit": ["regierung", "staat"],
+    "familie": ["eltern", "kinder", "ehe", "haus"],
+    "arbeit": ["beruf"],
+    "not": ["leid", "anfechtung", "truebsal"],
+    "sterben": ["tod", "trauer", "trauernde"],
+    "kirche": ["gemeinde", "pfarrer", "prediger"],
+    "heiliger_geist": ["weisheit", "erkenntnis", "erneuerung"],
+    "mission": ["verkuendigung", "ausbreitung"],
+    "beichte": ["absolution", "lossprechung", "suendenbekenntnis"],
   };
 
   static String label(String tag) => labels[tag] ?? tag;
