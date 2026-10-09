@@ -680,6 +680,10 @@ class _BibleReaderScreenState extends State<BibleReaderScreen> {
                         key: _chapterKey,
                         chapter: data,
                         isHighlighted: _isHighlighted,
+                        // Die Hervorhebung dient der Orientierung; beim
+                        // Weiterlesen lässt sie sich wegtippen. Die Stelle
+                        // in der Leiste des Quiz hebt sie erneut hervor.
+                        onHighlightTap: () => setState(() => highlight = null),
                         fontScale: settings.fontScale,
                         showNotes: settings.showNotes,
                         pericopeHeadings: chapterHeadings,
@@ -820,8 +824,22 @@ class _BibleReaderScreenState extends State<BibleReaderScreen> {
                       ChoiceChip(
                         key: ValueKey("bible-passage-$i"),
                         label: Text(widget.passages[i].label),
-                        selected: i == passageIndex,
-                        onSelected: (_) => _openPassage(i),
+                        // Ausgewählt, solange die Stelle aufgeschlagen
+                        // und hervorgehoben ist; erneutes Antippen blendet
+                        // die Hervorhebung aus, sonst führt es zur Stelle.
+                        selected:
+                            i == passageIndex &&
+                            highlight != null &&
+                            _resolve(highlight!.bookId) == _resolve(bookId) &&
+                            chapter >= highlight!.chapter &&
+                            chapter <= highlight!.endChapter,
+                        onSelected: (selected) {
+                          if (selected) {
+                            _openPassage(i);
+                          } else {
+                            setState(() => highlight = null);
+                          }
+                        },
                       ),
                   ],
                 ),

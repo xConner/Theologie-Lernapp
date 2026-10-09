@@ -397,6 +397,63 @@ void main() {
       expect(tester.takeException(), isNull);
     });
 
+    testWidgets("Antippen blendet die Hervorhebung aus; Text und "
+        "Überschrift bleiben, die Stelle in der Leiste holt sie zurück", (
+      tester,
+    ) async {
+      await pumpReader(
+        tester,
+        title: "Die Stillung des Sturms",
+        passages: const [storm],
+      );
+
+      final verse = find.textContaining("Laßt uns hinüberfahren");
+
+      final scroll = tester.state<ScrollableState>(
+        find.byType(Scrollable).first,
+      );
+
+      final position = scroll.position.pixels;
+
+      expect(isHighlighted(tester, "Laßt uns hinüberfahren"), isTrue);
+      expect(
+        tester.widget<ChoiceChip>(key("bible-passage-0")).selected,
+        isTrue,
+      );
+
+      // Ein nicht hervorgehobener Vers reagiert nicht.
+      await tester.tap(find.textContaining("Schlussbemerkung"));
+      await tester.pump();
+
+      expect(isHighlighted(tester, "Laßt uns hinüberfahren"), isTrue);
+
+      await tester.tap(verse);
+      await tester.pumpAndSettle();
+
+      expect(isHighlighted(tester, "Laßt uns hinüberfahren"), isFalse);
+      expect(verse, findsOneWidget);
+      expect(find.text("Der Sturm auf dem See"), findsOneWidget);
+      expect(find.text("Markus 4"), findsOneWidget);
+      expect(scroll.position.pixels, position);
+      expect(
+        tester.widget<ChoiceChip>(key("bible-passage-0")).selected,
+        isFalse,
+      );
+
+      // Über die Leiste wieder einblenden und dort auch ausblenden.
+      await tester.tap(key("bible-passage-0"));
+      await tester.pumpAndSettle();
+
+      expect(isHighlighted(tester, "Laßt uns hinüberfahren"), isTrue);
+
+      await tester.tap(key("bible-passage-0"));
+      await tester.pumpAndSettle();
+
+      expect(isHighlighted(tester, "Laßt uns hinüberfahren"), isFalse);
+      expect(verse, findsOneWidget);
+      expect(tester.takeException(), isNull);
+    });
+
     testWidgets("Die Perikope wird in jeder Ausgabe geöffnet, die das Buch "
         "enthält", (tester) async {
       for (final t in translations) {

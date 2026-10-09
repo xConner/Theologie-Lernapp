@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -15,6 +16,10 @@ class BibleChapterView extends StatefulWidget {
 
   final bool Function(int verse) isHighlighted;
 
+  /// Antippen eines hinterlegten Verses, z. B. um die Hervorhebung wieder
+  /// auszublenden.
+  final VoidCallback? onHighlightTap;
+
   final double fontScale;
 
   /// Anmerkungszeichen im Text und Liste der Anmerkungen am Kapitelende.
@@ -29,6 +34,7 @@ class BibleChapterView extends StatefulWidget {
     super.key,
     required this.chapter,
     required this.isHighlighted,
+    this.onHighlightTap,
     this.fontScale = 1,
     this.showNotes = true,
     this.pericopeHeadings = const {},
@@ -62,6 +68,16 @@ class _TextBlock {
 class BibleChapterViewState extends State<BibleChapterView> {
   // Überschriften und Absätze in Lesereihenfolge.
   List<Object> _blocks = const [];
+
+  // Ein Erkenner für alle hinterlegten Textstellen des Kapitels.
+  late final TapGestureRecognizer _highlightTap = TapGestureRecognizer()
+    ..onTap = () => widget.onHighlightTap?.call();
+
+  @override
+  void dispose() {
+    _highlightTap.dispose();
+    super.dispose();
+  }
 
   static const String _indent = "  ";
 
@@ -347,7 +363,17 @@ class BibleChapterViewState extends State<BibleChapterView> {
     void add(String text, [TextStyle? style]) {
       if (text.isEmpty) return;
 
-      spans.add(TextSpan(text: text, style: style));
+      final tappable =
+          style?.backgroundColor != null && widget.onHighlightTap != null;
+
+      spans.add(
+        TextSpan(
+          text: text,
+          style: style,
+          recognizer: tappable ? _highlightTap : null,
+          mouseCursor: tappable ? SystemMouseCursors.click : null,
+        ),
+      );
 
       offset += text.length;
     }
