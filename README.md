@@ -50,7 +50,7 @@ Die App wird zu großen Teilen mit KI-Unterstützung entwickelt; das gilt für d
 
 - **Flutter / Dart** (Dart SDK ab 3.12.2), ausgeliefert als Web-App
 - **Firebase** für Konten und Lernstände; im Gastmodus bleibt alles lokal im Browser
-- **Vercel-Funktionen** in [`api/`](api/), die griechische Flexionsformen aus Wiktionary auslesen
+- **Vercel-Funktionen** in [`api/`](api/), die griechische Flexionsformen aus Wiktionary auslesen und Push-Erinnerungen versenden ([Einrichtung](docs/notifications.md))
 - **Inhalte als JSON** in [`assets/`](assets/)
 
 ```bash

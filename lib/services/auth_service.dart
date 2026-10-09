@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
+import 'notifications/push_service.dart';
+
 class AuthService {
   final FirebaseAuth auth = FirebaseAuth.instance;
 
@@ -103,8 +105,12 @@ class AuthService {
     return auth.signInWithProvider(GoogleAuthProvider());
   }
 
-  Future<void> signOut() {
-    return auth.signOut();
+  Future<void> signOut() async {
+    // Solange das Konto noch angemeldet ist: Dieses Gerät erhält danach
+    // keine Push-Nachrichten des Kontos mehr.
+    await PushService.instance.signOut(auth.currentUser?.uid);
+
+    await auth.signOut();
   }
 
   bool get isEmailVerified => auth.currentUser?.emailVerified ?? false;

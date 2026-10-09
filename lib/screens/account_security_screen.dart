@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../services/account_deletion_service.dart';
 import '../services/auth_service.dart';
 import '../services/auth_error_translator.dart';
+import '../services/notifications/push_service.dart';
 import '../theme/app_theme.dart';
 import '../utils/phone_number_utils.dart';
 import '../widgets/sign_out_confirmation.dart';
@@ -244,6 +245,9 @@ class _AccountSecurityScreenState extends State<AccountSecurityScreen> {
     });
 
     try {
+      // Das Push-Abonnement dieses Geräts endet mit dem Konto.
+      await PushService.instance.signOut(uid);
+
       await deletion.deleteUserData(uid);
     } catch (_) {
       if (!mounted) return;

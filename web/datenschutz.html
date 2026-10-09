@@ -54,7 +54,8 @@
 
   <h2>3. Aufruf der Website (Vercel)</h2>
   <p>
-    Die Website und das Backend des Grammatiktrainers werden bei
+    Die Website und das Backend (Grammatiktrainer, Versand der
+    Push-Benachrichtigungen) werden bei
     <strong>Vercel Inc.</strong> (USA) betrieben. Beim Aufruf verarbeitet
     Vercel technisch notwendige Verbindungsdaten (IP-Adresse, Zeitpunkt,
     aufgerufene Adresse, Browserangaben), um die Seite auszuliefern und den
@@ -94,7 +95,8 @@
     <li>Einstellungen wie Erscheinungsbild, Sound, Bibel-Reader und Eingabemodus des Perikopenquiz,</li>
     <li>das Sprachmodell für Latein, falls du es heruntergeladen hast (Abschnitt 9),</li>
     <li>ob der Gastmodus gewählt wurde und für welche Konten die Übernahme von Gastdaten abgelehnt wurde (Konto-ID),</li>
-    <li>bei Anmeldung: die Anmeldesitzung von Firebase Authentication.</li>
+    <li>bei Anmeldung: die Anmeldesitzung von Firebase Authentication,</li>
+    <li>falls du Push-Benachrichtigungen einschaltest: das Push-Abonnement des Browsers und die Zuordnung zu deinem Konto (Abschnitt 7).</li>
   </ul>
   <p>
     Diese Speicherung ist für die von dir genutzten Funktionen erforderlich
@@ -149,7 +151,8 @@
         <tr><td>Einstellungen der Trainer, Buchauswahl des Perikopenquiz</td><td>Geräteübergreifende Einstellungen</td></tr>
         <tr><td>Tagesstatistik je Trainer (Anzahl beantworteter, richtiger und falscher Antworten je Tag)</td><td>Statistik-Anzeige</td></tr>
         <tr><td>Streaks (aktuelle/längste Serie, letzte Aktivität, heutige richtige Antworten)</td><td>Streak-Anzeige</td></tr>
-        <tr><td>Benachrichtigungs-Einstellungen inkl. Zeitzonen-Abstand zu UTC, Lesestatus der Nachrichten</td><td>Nachrichten-Glocke</td></tr>
+        <tr><td>Benachrichtigungs-Einstellungen (gewählte Uhrzeit und Kategorien, Zeitzone des Geräts, Zeitpunkt der nächsten und Tag der letzten Erinnerung), Lesestatus der Nachrichten</td><td>Nachrichten-Glocke, Push-Benachrichtigungen</td></tr>
+        <tr><td>Nur wenn du Push einschaltest: Push-Abonnement je Gerät (Adresse beim Push-Dienst deines Browsers, Verschlüsselungsschlüssel, Geräteart, Zeitpunkt der letzten Anmeldung)</td><td>Zustellung der Push-Benachrichtigungen</td></tr>
       </tbody>
     </table>
   </div>
@@ -159,6 +162,22 @@
     Firebase-Verwaltung. Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO
     (Synchronisierung deines Kontos). Die Daten bleiben gespeichert, bis du
     sie zurücksetzt oder dein Konto löschst (Abschnitt 12).
+  </p>
+  <p>
+    <strong>Push-Benachrichtigungen</strong> sind freiwillig und ausgeschaltet,
+    bis du sie in der App unter <em>Einstellungen → Benachrichtigungen</em>
+    einschaltest; erst dann fragt dein Browser nach der Berechtigung. Zur
+    gewählten Uhrzeit prüft das Backend bei Vercel anhand deiner Streaks und
+    deines Bibellese-Fortschritts, ob heute noch etwas offen ist, und sendet
+    höchstens eine Erinnerung am Tag. Zugestellt wird sie über den Push-Dienst
+    des Herstellers deines Browsers bzw. Geräts (z. B. Google, Mozilla, Apple
+    oder Microsoft). Dieser Dienst erhält die Adresse des Abonnements und die
+    Nachricht in verschlüsselter Form; den Inhalt kann nur dein Gerät lesen.
+    Rechtsgrundlage: Art. 6 Abs. 1 lit. a DSGVO (Einwilligung). Du kannst sie
+    jederzeit widerrufen, indem du Push in der App ausschaltest oder die
+    Berechtigung im Browser entziehst. Das Abonnement wird dann gelöscht –
+    ebenso beim Abmelden, beim Löschen des Kontos und wenn der Push-Dienst es
+    als abgelaufen meldet.
   </p>
 
   <h2>8. Fehlermeldungen</h2>
@@ -205,8 +224,10 @@
     Empfänger sind ausschließlich die genannten technischen Dienstleister:
     <strong>Google</strong> (Firebase; Google Ireland Limited bzw. Google LLC,
     USA), <strong>Vercel Inc.</strong> (USA), <strong>Cloudflare, Inc.</strong>
-    (USA; nur E-Mail und DNS) sowie beim Laden des lateinischen Sprachmodells
-    <strong>Hugging Face Inc.</strong> (USA). Dabei können Daten in die USA
+    (USA; nur E-Mail und DNS), beim Laden des lateinischen Sprachmodells
+    <strong>Hugging Face Inc.</strong> (USA) sowie – nur bei eingeschalteten
+    Push-Benachrichtigungen – der Push-Dienst des Herstellers deines Browsers
+    bzw. Geräts (Abschnitt 7). Dabei können Daten in die USA
     übermittelt werden. Google, Vercel und Cloudflare sind nach eigenen
     Angaben nach dem EU-U.S. Data Privacy Framework zertifiziert
     (Angemessenheitsbeschluss der EU-Kommission, Art. 45 DSGVO).

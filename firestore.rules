@@ -19,7 +19,7 @@ rules_version = '2';
 //   users/{uid}/bible_reading/{documentId}     (Leseverlauf, Fortschritt der
 //                                               Lesepläne, eigene Lesepläne)
 //   users/{uid}/notification_state/inbox       (Lesestatus der Glocke)
-//   users/{uid}/push_tokens/{token}            (FCM-Tokens, vorbereitet)
+//   users/{uid}/push_tokens/{id}               (Push-Abonnements je Gerät)
 //
 // Benachrichtigungen (siehe docs/notifications.md):
 //   notifications/{id}         globale Nachrichten: für alle lesbar (auch

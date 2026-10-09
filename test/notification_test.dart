@@ -323,6 +323,20 @@ void main() {
       expect(AppDeepLink.parse("/greek/vocabulary")?.path, "/greek/vocabulary");
       expect(AppDeepLink.parse(" /perikopen/ ")?.path, "/perikopen");
       expect(AppDeepLink.parse("/greek/grammar")?.isExternal, isFalse);
+      expect(AppDeepLink.parse("/")?.path, AppDeepLink.home);
+      expect(AppDeepLink.parse("/bible")?.path, AppDeepLink.bible);
+    });
+
+    test("Leseplan-Links tragen die Plan-ID", () {
+      final link = AppDeepLink.parse("/bible/plan/nt-90-days");
+
+      expect(link?.planId, "nt-90-days");
+      expect(link?.isExternal, isFalse);
+      expect(AppDeepLink.parse("/bible")?.planId, isNull);
+
+      expect(AppDeepLink.parse("/bible/plan/"), isNull);
+      expect(AppDeepLink.parse("/bible/plan/../settings"), isNull);
+      expect(AppDeepLink.parse("/bible/plan/Mit Leerzeichen"), isNull);
     });
 
     test("unbekannte oder unsichere Links werden abgelehnt", () {
@@ -347,14 +361,23 @@ void main() {
 
       expect(prefs.pushEnabled, isFalse);
       expect(prefs.emailAnnouncements, isFalse);
-      expect(prefs.streakReminders, isTrue);
       expect(prefs.systemMessages, isTrue);
       expect(prefs.newContent, isFalse);
+
+      // Die Kategorien der täglichen Erinnerung gelten erst mit Push.
+      expect(prefs.bibleReading, isTrue);
+      expect(prefs.readingPlan, isTrue);
+      expect(prefs.memorization, isTrue);
+      expect(prefs.trainers, isTrue);
+      expect(prefs.reminderMinutes, 18 * 60);
     });
 
     test("toMap/fromMap und ungültige Werte", () {
       const prefs = NotificationPreferences(
         pushEnabled: true,
+        reminderMinutes: 7 * 60 + 30,
+        readingPlan: false,
+        trainers: false,
         newContent: true,
         emailAnnouncements: true,
       );
@@ -362,33 +385,34 @@ void main() {
       expect(NotificationPreferences.fromMap(prefs.toMap()), prefs);
 
       final broken = NotificationPreferences.fromMap({
-        "push": {"enabled": "ja", "streakReminders": false},
+        "push": {"enabled": "ja", "memorization": false},
         "email": 3,
+        "reminderMinutes": 24 * 60,
       });
 
       expect(broken.pushEnabled, isFalse);
-      expect(broken.streakReminders, isFalse);
+      expect(broken.memorization, isFalse);
+      expect(broken.bibleReading, isTrue);
       expect(broken.emailAnnouncements, isFalse);
+      expect(broken.reminderMinutes, 18 * 60);
     });
 
-    test("keine Einstellungen für Lernerinnerungen", () {
-      final keys = <String>{};
-
-      void collect(Map<String, dynamic> map) {
-        for (final entry in map.entries) {
-          keys.add(entry.key.toLowerCase());
-          if (entry.value is Map<String, dynamic>) collect(entry.value);
-        }
-      }
-
-      collect(NotificationPreferences.defaults.toMap());
-
+    test("nächste Erinnerung: heute, wenn die Uhrzeit noch kommt", () {
       expect(
-        keys.any(
-          (k) =>
-              k.contains("learn") || k.contains("review") || k.contains("due"),
+        NotificationPreferences.nextReminderAfter(
+          DateTime(2026, 10, 10, 9),
+          18 * 60,
         ),
-        isFalse,
+        DateTime(2026, 10, 10, 18),
+      );
+
+      // Schon vorbei (auch genau jetzt) → morgen, auch über den Monat.
+      expect(
+        NotificationPreferences.nextReminderAfter(
+          DateTime(2026, 10, 31, 18),
+          18 * 60,
+        ),
+        DateTime(2026, 11, 1, 18),
       );
     });
   });

@@ -1,27 +1,44 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import 'push_platform.dart';
+
 /// Benachrichtigungs-Einstellungen eines Kontos, gespeichert als Feld
 /// `notification_settings` im Dokument `users/{uid}` (wie die übrigen
 /// Einstellungen). Der serverseitige Versand von Push und E-Mail liest
 /// dieses Feld; die In-App-Glocke ist davon unabhängig.
 ///
-/// Bewusst gibt es KEINE Einstellungen für allgemeine Lernerinnerungen oder
-/// fällige Wiederholungen – beides wird nicht versendet. Die einzige
-/// persönliche Lern-Erinnerung ist die Streak-Erinnerung.
-///
 /// Firestore-Format:
 ///   notification_settings: {
-///     push:  { enabled, streakReminders, newContent, systemMessages },
+///     push:  { enabled, bibleReading, readingPlan, memorization, trainers,
+///              newContent, systemMessages },
 ///     email: { announcements },
-///     utcOffsetMinutes,   // für Streak-Erinnerungen zur lokalen Tageszeit
+///     reminderMinutes,    // gewünschte Uhrzeit, Minuten ab Mitternacht
+///     timeZone,           // IANA-Zeitzone des Geräts
+///     utcOffsetMinutes,   // Ersatz, falls die Zeitzone unbekannt ist
+///     nextReminderAt,     // nächste Erinnerung; fehlt, wenn Push aus ist
+///     lastReminderDate,   // schreibt nur der Server (keine zweite am Tag)
 ///   }
 class NotificationPreferences {
   /// Hauptschalter für Push auf diesem Konto (Opt-in).
   final bool pushEnabled;
 
-  /// Höchstens eine Erinnerung je Track und Tag, nur wenn eine laufende
-  /// Streak heute noch nicht gesichert ist.
-  final bool streakReminders;
+  /// Uhrzeit der täglichen Erinnerung in Minuten ab Mitternacht (Ortszeit).
+  final int reminderMinutes;
+
+  // Kategorien der täglichen Erinnerung. Erinnert wird nur an das, was am
+  // jeweiligen Tag noch offen ist (siehe docs/notifications.md).
+
+  /// Bibellese-Streak: heute noch keine Lesung bestätigt.
+  final bool bibleReading;
+
+  /// Offene Tageslektüre eines laufenden Leseplans.
+  final bool readingPlan;
+
+  /// Texte auswendig lernen.
+  final bool memorization;
+
+  /// Sprachtrainer (Altgriechisch, Latein) und Perikopenquiz.
+  final bool trainers;
 
   final bool newContent;
 
@@ -33,7 +50,11 @@ class NotificationPreferences {
 
   const NotificationPreferences({
     this.pushEnabled = false,
-    this.streakReminders = true,
+    this.reminderMinutes = defaultReminderMinutes,
+    this.bibleReading = true,
+    this.readingPlan = true,
+    this.memorization = true,
+    this.trainers = true,
     this.newContent = false,
     this.systemMessages = true,
     this.emailAnnouncements = false,
@@ -43,16 +64,27 @@ class NotificationPreferences {
 
   static const String field = "notification_settings";
 
+  /// 18:00 Uhr.
+  static const int defaultReminderMinutes = 18 * 60;
+
   NotificationPreferences copyWith({
     bool? pushEnabled,
-    bool? streakReminders,
+    int? reminderMinutes,
+    bool? bibleReading,
+    bool? readingPlan,
+    bool? memorization,
+    bool? trainers,
     bool? newContent,
     bool? systemMessages,
     bool? emailAnnouncements,
   }) {
     return NotificationPreferences(
       pushEnabled: pushEnabled ?? this.pushEnabled,
-      streakReminders: streakReminders ?? this.streakReminders,
+      reminderMinutes: reminderMinutes ?? this.reminderMinutes,
+      bibleReading: bibleReading ?? this.bibleReading,
+      readingPlan: readingPlan ?? this.readingPlan,
+      memorization: memorization ?? this.memorization,
+      trainers: trainers ?? this.trainers,
       newContent: newContent ?? this.newContent,
       systemMessages: systemMessages ?? this.systemMessages,
       emailAnnouncements: emailAnnouncements ?? this.emailAnnouncements,
@@ -63,11 +95,15 @@ class NotificationPreferences {
     return {
       "push": {
         "enabled": pushEnabled,
-        "streakReminders": streakReminders,
+        "bibleReading": bibleReading,
+        "readingPlan": readingPlan,
+        "memorization": memorization,
+        "trainers": trainers,
         "newContent": newContent,
         "systemMessages": systemMessages,
       },
       "email": {"announcements": emailAnnouncements},
+      "reminderMinutes": reminderMinutes,
     };
   }
 
@@ -83,9 +119,17 @@ class NotificationPreferences {
       return value is bool ? value : fallback;
     }
 
+    final minutes = data["reminderMinutes"];
+
     return NotificationPreferences(
       pushEnabled: read(push, "enabled", defaults.pushEnabled),
-      streakReminders: read(push, "streakReminders", defaults.streakReminders),
+      reminderMinutes: minutes is int && minutes >= 0 && minutes < 24 * 60
+          ? minutes
+          : defaultReminderMinutes,
+      bibleReading: read(push, "bibleReading", defaults.bibleReading),
+      readingPlan: read(push, "readingPlan", defaults.readingPlan),
+      memorization: read(push, "memorization", defaults.memorization),
+      trainers: read(push, "trainers", defaults.trainers),
       newContent: read(push, "newContent", defaults.newContent),
       systemMessages: read(push, "systemMessages", defaults.systemMessages),
       emailAnnouncements: read(
@@ -96,11 +140,27 @@ class NotificationPreferences {
     );
   }
 
+  /// Der nächste Zeitpunkt nach [now], an dem es [minutes] nach Mitternacht
+  /// Ortszeit ist. Danach plant der Server selbst weiter.
+  static DateTime nextReminderAfter(DateTime now, int minutes) {
+    DateTime at(int day) {
+      return DateTime(now.year, now.month, day, minutes ~/ 60, minutes % 60);
+    }
+
+    final today = at(now.day);
+
+    return today.isAfter(now) ? today : at(now.day + 1);
+  }
+
   @override
   bool operator ==(Object other) {
     return other is NotificationPreferences &&
         other.pushEnabled == pushEnabled &&
-        other.streakReminders == streakReminders &&
+        other.reminderMinutes == reminderMinutes &&
+        other.bibleReading == bibleReading &&
+        other.readingPlan == readingPlan &&
+        other.memorization == memorization &&
+        other.trainers == trainers &&
         other.newContent == newContent &&
         other.systemMessages == systemMessages &&
         other.emailAnnouncements == emailAnnouncements;
@@ -109,7 +169,11 @@ class NotificationPreferences {
   @override
   int get hashCode => Object.hash(
     pushEnabled,
-    streakReminders,
+    reminderMinutes,
+    bibleReading,
+    readingPlan,
+    memorization,
+    trainers,
     newContent,
     systemMessages,
     emailAnnouncements,
@@ -119,16 +183,18 @@ class NotificationPreferences {
 /// Laden/Speichern der [NotificationPreferences] eines Kontos.
 class NotificationPreferencesService {
   NotificationPreferencesService({
-    FirebaseFirestore? db,
+    this._db,
     DateTime Function()? clock,
-  }) : _db = db ?? FirebaseFirestore.instance,
-       _clock = clock ?? DateTime.now;
+    String? Function()? timeZone,
+  }) : _clock = clock ?? DateTime.now,
+       _timeZone = timeZone ?? (() => PushPlatform().timeZone);
 
-  final FirebaseFirestore _db;
+  final FirebaseFirestore? _db;
   final DateTime Function() _clock;
+  final String? Function() _timeZone;
 
   DocumentReference<Map<String, dynamic>> _userDoc(String uid) {
-    return _db.collection("users").doc(uid);
+    return (_db ?? FirebaseFirestore.instance).collection("users").doc(uid);
   }
 
   Future<NotificationPreferences> load(String uid) async {
@@ -143,14 +209,25 @@ class NotificationPreferencesService {
   // Schalter nie mit einem älteren Stand endet.
   Future<void> _queue = Future.value();
 
-  /// Speichert den vollständigen Stand (inkl. aktueller UTC-Abweichung für
-  /// die zeitliche Planung von Streak-Erinnerungen).
+  /// Speichert den vollständigen Stand samt Zeitzone und dem nächsten
+  /// Erinnerungszeitpunkt, nach dem der Server die fälligen Konten findet.
   Future<void> save(String uid, NotificationPreferences preferences) {
     final result = _queue.then((_) {
+      final now = _clock();
+
       return _userDoc(uid).set({
         NotificationPreferences.field: {
           ...preferences.toMap(),
-          "utcOffsetMinutes": _clock().timeZoneOffset.inMinutes,
+          "timeZone": _timeZone(),
+          "utcOffsetMinutes": now.timeZoneOffset.inMinutes,
+          "nextReminderAt": preferences.pushEnabled
+              ? Timestamp.fromDate(
+                  NotificationPreferences.nextReminderAfter(
+                    now,
+                    preferences.reminderMinutes,
+                  ),
+                )
+              : FieldValue.delete(),
           "updatedAt": FieldValue.serverTimestamp(),
         },
       }, SetOptions(merge: true));

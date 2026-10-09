@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -20,8 +22,11 @@ import 'settings_screen.dart';
 
 import '../theme/app_theme.dart';
 import '../services/local_learning_store.dart';
+import '../services/notifications/app_deep_link.dart';
 import '../services/notifications/notification_service.dart';
+import '../services/notifications/push_service.dart';
 import '../services/progress_data_service.dart';
+import '../widgets/deep_link_navigator.dart';
 import '../widgets/learning_progress_dialogs.dart';
 import '../widgets/notification_bell.dart';
 import '../widgets/site_footer.dart';
@@ -46,6 +51,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   bool get isGuest => uid == null;
 
+  StreamSubscription<String>? _pushLinks;
+
   @override
   void initState() {
     super.initState();
@@ -55,11 +62,43 @@ class _HomeScreenState extends State<HomeScreen> {
     // Glocke für den aktuellen Nutzer (bzw. Gast) beobachten.
     NotificationService.instance.attach(uid);
 
-    if (!isGuest) {
+    // Angetippte Push-Benachrichtigungen: bei laufender App und beim Start.
+    final push = PushService.instance;
+
+    _pushLinks = push.links.listen(_openPushLink);
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final link = push.takeLaunchLink();
+
+      if (link != null) _openPushLink(link);
+    });
+
+    final accountUid = uid;
+
+    if (accountUid != null) {
+      push.sync(accountUid);
+
       WidgetsBinding.instance.addPostFrameCallback(
         (_) => _offerGuestDataTransfer(),
       );
     }
+  }
+
+  @override
+  void dispose() {
+    _pushLinks?.cancel();
+
+    super.dispose();
+  }
+
+  /// Öffnet den Bereich, auf den eine Push-Benachrichtigung verweist.
+  /// Unbekannte Links führen nirgendwohin; die App bleibt, wo sie ist.
+  void _openPushLink(String raw) {
+    final link = AppDeepLink.parse(raw);
+
+    if (!mounted || link == null || link.isExternal) return;
+
+    openDeepLink(context, link);
   }
 
   /// Bietet nach Login/Registrierung an, lokale Gast-Lernstände ins Konto zu
@@ -211,6 +250,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
               onPressed: () async {
                 if (!await confirmSignOut(context)) return;
+                await PushService.instance.signOut(uid);
                 await FirebaseAuth.instance.signOut();
               },
             ),

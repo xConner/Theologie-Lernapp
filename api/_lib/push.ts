@@ -1,0 +1,170 @@
+// Gemeinsamer Unterbau der Push-Funktionen: Firebase Admin SDK und Versand
+// über das Web-Push-Protokoll (VAPID). Dateien unter `api/_lib/` sind keine
+// eigenen Endpunkte.
+//
+// Geheimnisse kommen ausschließlich aus Umgebungsvariablen des
+// Vercel-Projekts (siehe docs/notifications.md) – nie aus dem Repository:
+//   FIREBASE_SERVICE_ACCOUNT   Dienstkonto-JSON (roh oder Base64)
+//   WEB_PUSH_PUBLIC_KEY        öffentlicher VAPID-Schlüssel
+//   WEB_PUSH_PRIVATE_KEY       privater VAPID-Schlüssel
+//   WEB_PUSH_SUBJECT           Kontakt für die Push-Dienste (mailto: oder https:)
+
+import { cert, getApps, initializeApp } from 'firebase-admin/app';
+import { getAuth, type Auth } from 'firebase-admin/auth';
+import {
+    getFirestore,
+    type DocumentReference,
+    type Firestore,
+} from 'firebase-admin/firestore';
+import { sendNotification, WebPushError } from 'web-push';
+
+import type { PushMessage } from './reminders';
+
+export class NotConfiguredError extends Error {}
+
+function env(name: string): string {
+    const value = process.env[name]?.trim();
+
+    if (!value) {
+        throw new NotConfiguredError(`${name} ist nicht gesetzt.`);
+    }
+
+    return value;
+}
+
+function app() {
+    const [existing] = getApps();
+
+    if (existing) return existing;
+
+    const raw = env('FIREBASE_SERVICE_ACCOUNT');
+
+    let account: Record<string, string>;
+
+    try {
+        account = JSON.parse(
+            raw.startsWith('{')
+                ? raw
+                : Buffer.from(raw, 'base64').toString('utf8'),
+        );
+    } catch {
+        throw new NotConfiguredError(
+            'FIREBASE_SERVICE_ACCOUNT ist kein gültiges JSON.',
+        );
+    }
+
+    return initializeApp({
+        credential: cert({
+            projectId: account.project_id,
+            clientEmail: account.client_email,
+            privateKey: account.private_key,
+        }),
+    });
+}
+
+export function firestore(): Firestore {
+    return getFirestore(app());
+}
+
+export function auth(): Auth {
+    return getAuth(app());
+}
+
+// Nur die Push-Dienste der Browser: Die Adresse eines Abonnements stammt
+// vom Client und darf den Server nicht zu beliebigen Zielen schicken.
+const PUSH_HOSTS = [
+    'fcm.googleapis.com',
+    '.push.services.mozilla.com',
+    '.notify.windows.com',
+    '.push.apple.com',
+];
+
+export function isPushEndpoint(value: unknown): value is string {
+    if (typeof value !== 'string' || value.length > 2000) return false;
+
+    let url: URL;
+
+    try {
+        url = new URL(value);
+    } catch {
+        return false;
+    }
+
+    return (
+        url.protocol === 'https:' &&
+        PUSH_HOSTS.some((host) =>
+            host.startsWith('.')
+                ? url.hostname.endsWith(host)
+                : url.hostname === host,
+        )
+    );
+}
+
+export type SendResult = { sent: number; removed: number; failed: number };
+
+/** Wie lange der Push-Dienst eine nicht zustellbare Nachricht aufbewahrt. */
+const TTL_SECONDS = 4 * 60 * 60;
+
+/**
+ * Sendet [message] an alle Geräte unter `users/{uid}/push_tokens`.
+ * Abgelaufene oder widerrufene Abonnements (404/410) werden gelöscht.
+ */
+export async function sendToUser(
+    user: DocumentReference,
+    message: PushMessage,
+): Promise<SendResult> {
+    const vapidDetails = {
+        subject: process.env.WEB_PUSH_SUBJECT?.trim() || 'https://www.theologie.app',
+        publicKey: env('WEB_PUSH_PUBLIC_KEY'),
+        privateKey: env('WEB_PUSH_PRIVATE_KEY'),
+    };
+
+    const tokens = await user.collection('push_tokens').get();
+    const result: SendResult = { sent: 0, removed: 0, failed: 0 };
+
+    const payload = JSON.stringify({
+        title: message.title.slice(0, 120),
+        body: message.body.slice(0, 300),
+        link: message.link,
+        tag: message.tag,
+    });
+
+    await Promise.all(
+        tokens.docs.map(async (doc) => {
+            const endpoint = doc.get('endpoint');
+            const keys = doc.get('keys');
+
+            if (
+                !isPushEndpoint(endpoint) ||
+                typeof keys?.p256dh !== 'string' ||
+                typeof keys?.auth !== 'string'
+            ) {
+                await doc.ref.delete();
+                result.removed++;
+                return;
+            }
+
+            try {
+                await sendNotification(
+                    { endpoint, keys: { p256dh: keys.p256dh, auth: keys.auth } },
+                    payload,
+                    { vapidDetails, TTL: TTL_SECONDS, timeout: 8000 },
+                );
+                result.sent++;
+            } catch (e) {
+                const status = e instanceof WebPushError ? e.statusCode : 0;
+
+                if (status === 404 || status === 410) {
+                    await doc.ref.delete();
+                    result.removed++;
+                } else {
+                    // Keine Adresse und keine Schlüssel ins Protokoll.
+                    console.error(`Push fehlgeschlagen (Status ${status}).`);
+                    result.failed++;
+                }
+            }
+        }),
+    );
+
+    return result;
+}

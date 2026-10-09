@@ -1,5 +1,5 @@
-/// Ziel eines Deep Links aus einer Nachricht (Glocke, später auch Push:
-/// dieselbe Zeichenkette im Feld `deepLink` bzw. in den FCM-Daten `link`).
+/// Ziel eines Deep Links aus einer Nachricht (Glocke und Push: dieselbe
+/// Zeichenkette im Feld `deepLink` bzw. im Feld `link` einer Push-Nachricht).
 ///
 /// Format: App-Pfad wie "/greek/vocabulary" oder eine https-URL.
 /// Neues Ziel → Konstante hier und in [paths] ergänzen sowie den Screen in
@@ -9,6 +9,8 @@ class AppDeepLink {
 
   const AppDeepLink._(this.path);
 
+  /// Startseite (schließt alle geöffneten Bereiche).
+  static const String home = "/";
   static const String perikopen = "/perikopen";
   static const String greek = "/greek";
   static const String greekVocabulary = "/greek/vocabulary";
@@ -20,12 +22,17 @@ class AppDeepLink {
   static const String confessions = "/confessions";
   static const String prayers = "/prayers";
   static const String memorize = "/memorize";
+  static const String bible = "/bible";
+
+  /// Ein begonnener Leseplan: `/bible/plan/<Plan-ID>`.
+  static const String biblePlanPrefix = "/bible/plan/";
   static const String settings = "/settings";
   static const String notificationSettings = "/settings/notifications";
   static const String account = "/account";
 
   /// Alle bekannten App-Pfade.
   static const Set<String> paths = {
+    home,
     perikopen,
     greek,
     greekVocabulary,
@@ -37,6 +44,7 @@ class AppDeepLink {
     confessions,
     prayers,
     memorize,
+    bible,
     settings,
     notificationSettings,
     account,
@@ -53,6 +61,12 @@ class AppDeepLink {
           ? link.substring(0, link.length - 1)
           : link;
 
+      if (path.startsWith(biblePlanPrefix)) {
+        return _planId.hasMatch(path.substring(biblePlanPrefix.length))
+            ? AppDeepLink._(path)
+            : null;
+      }
+
       return paths.contains(path) ? AppDeepLink._(path) : null;
     }
 
@@ -65,5 +79,15 @@ class AppDeepLink {
     return null;
   }
 
+  // Wie `ReadingPlanCodec.idPattern`.
+  static final RegExp _planId = RegExp(r'^[a-z0-9][a-z0-9._-]{1,62}$');
+
   bool get isExternal => !path.startsWith("/");
+
+  /// Plan-ID eines Leseplan-Links, sonst null.
+  String? get planId {
+    return path.startsWith(biblePlanPrefix)
+        ? path.substring(biblePlanPrefix.length)
+        : null;
+  }
 }

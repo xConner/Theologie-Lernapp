@@ -40,7 +40,7 @@ class BibleReadingResult {
 ///
 /// Dokumente im [BibleReadingRepository]:
 ///   `log_<Jahr>`     `{days: {"2026-10-10": [{id, text, plan?, day?, reading?}]}}`
-///   `plan_<Plan>`    [ReadingPlanProgress.toMap]
+///   `plan_<Plan>`    [ReadingPlanProgress.toMap] und `complete`
 ///   `custom_<Plan>`  `{json: <Plandatei als Text>}`
 class BibleReadingService extends ChangeNotifier {
   BibleReadingService({
@@ -490,7 +490,16 @@ class BibleReadingService extends ChangeNotifier {
     _progress[progress.planId] = progress;
     notifyListeners();
 
-    _run(_repository!.save("plan_${progress.planId}", progress.toMap()));
+    final plan = this.plan(progress.planId);
+
+    _run(
+      _repository!.save("plan_${progress.planId}", {
+        ...progress.toMap(),
+        // Für die Push-Erinnerung: Der Server kennt die Pläne nicht und
+        // liest hier ab, ob noch eine Lesung offen ist.
+        if (plan != null) "complete": progress.isComplete(plan),
+      }),
+    );
   }
 
   void _addEntry(BibleReadingEntry entry) {

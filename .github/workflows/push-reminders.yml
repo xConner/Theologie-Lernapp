@@ -1,0 +1,39 @@
+# Zeitplaner für die Push-Erinnerungen: ruft regelmäßig den Versand-Endpunkt
+# auf (api/send-reminders.ts). Vercel-Cron reicht dafür im Hobby-Tarif nicht
+# (höchstens ein Lauf am Tag). Einrichtung: docs/notifications.md.
+#
+# Benötigt das Repository-Secret CRON_SECRET (derselbe Wert wie im
+# Vercel-Projekt). GitHub startet geplante Läufe oft einige Minuten später;
+# der Endpunkt holt Versäumtes nach.
+name: Push-Erinnerungen
+
+on:
+  schedule:
+    - cron: "7,22,37,52 * * * *"
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: push-reminders
+  cancel-in-progress: false
+
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Versand anstoßen
+        env:
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}
+          REMINDER_URL: ${{ vars.PUSH_REMINDER_URL || 'https://www.theologie.app/api/send-reminders' }}
+        run: |
+          if [ -z "$CRON_SECRET" ]; then
+            echo "CRON_SECRET ist nicht gesetzt – Versand übersprungen."
+            exit 0
+          fi
+
+          curl --fail-with-body --silent --show-error --max-time 90 \
+            --retry 2 --retry-delay 10 \
+            -H "Authorization: Bearer $CRON_SECRET" \
+            "$REMINDER_URL"
