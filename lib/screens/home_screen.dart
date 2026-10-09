@@ -8,7 +8,7 @@ import '../screens/greek/greek_home_screen.dart';
 
 import '../models/greek/perikope.dart';
 import 'hymn_screen.dart';
-import 'bible/bible_reader_screen.dart';
+import 'bible/bible_home_screen.dart';
 
 import 'confessions_screen.dart';
 import 'prayers_screen.dart';
@@ -290,7 +290,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (_) => const BibleReaderScreen(),
+                                builder: (_) => BibleHomeScreen(uid: uid),
                               ),
                             );
                           },

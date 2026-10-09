@@ -7,10 +7,13 @@ import '../../models/bible/bible_text.dart';
 import '../../models/bible/bible_translation.dart';
 import '../../services/bible/bible_books.dart';
 import '../../services/bible/bible_reader_settings.dart';
+import '../../services/bible/bible_reading_service.dart';
+import '../../services/bible/bible_reference_parser.dart';
 import '../../services/bible/bible_repository.dart';
 import '../../services/bible/pericope_headings.dart';
 import '../../theme/app_theme.dart';
 import '../../widgets/bible/bible_chapter_view.dart';
+import '../../widgets/bible/bible_reading_widgets.dart';
 import '../../widgets/info_report.dart';
 import 'bible_navigation_screen.dart';
 import 'bible_search_screen.dart';
@@ -23,6 +26,11 @@ import 'bible_translation_sheet.dart';
 /// Perikopenquiz auf. Gehören mehrere Stellen zusammen, sind alle über die
 /// Leiste am oberen Rand erreichbar. Ohne [passages] setzt er an der zuletzt
 /// gelesenen Stelle fort.
+///
+/// Gelesen ist ein Text erst, wenn der Nutzer es bestätigt: Mit
+/// [trackReading] steht unter dem Kapitel „Als gelesen markieren“, mit
+/// [planDay] lässt sich dort die aufgeschlagene Lesung des Plans erledigen.
+/// Das Aufschlagen allein zählt nie.
 class BibleReaderScreen extends StatefulWidget {
   final List<BiblePassage> passages;
 
@@ -36,12 +44,33 @@ class BibleReaderScreen extends StatefulWidget {
   /// Perikopenliste; ohne Angabe gilt die ausgelieferte Liste.
   final PericopeHeadings? pericopeHeadings;
 
+  /// Welche der [passages] zuerst aufgeschlagen wird.
+  final int initialPassage;
+
+  /// Nutzer, für den Lesungen eingetragen werden (null = Gast).
+  final String? uid;
+
+  /// Freies Lesen: „Als gelesen markieren“ anbieten.
+  final bool trackReading;
+
+  /// Die [passages] sind die Lesungen dieses Plantags (in derselben
+  /// Reihenfolge) und lassen sich hier als erledigt markieren.
+  final ({String planId, int day})? planDay;
+
+  // Nur für Tests ersetzbar.
+  final BibleReadingService? readingService;
+
   const BibleReaderScreen({
     super.key,
     this.passages = const [],
     this.passageTitle,
     this.repository,
     this.pericopeHeadings,
+    this.initialPassage = 0,
+    this.uid,
+    this.trackReading = false,
+    this.planDay,
+    this.readingService,
   });
 
   @override
@@ -95,9 +124,16 @@ class _BibleReaderScreenState extends State<BibleReaderScreen> {
 
   bool get _fromPassages => widget.passages.isNotEmpty;
 
+  bool get _tracksReading => widget.trackReading || widget.planDay != null;
+
+  late final BibleReadingService _reading =
+      widget.readingService ?? BibleReadingService.instance;
+
   @override
   void initState() {
     super.initState();
+
+    if (_tracksReading) _reading.load(widget.uid);
 
     _init();
   }
@@ -143,7 +179,9 @@ class _BibleReaderScreenState extends State<BibleReaderScreen> {
     );
 
     if (_fromPassages) {
-      await _openPassage(0);
+      await _openPassage(
+        widget.initialPassage.clamp(0, widget.passages.length - 1),
+      );
     } else {
       final position = settings.position;
 
@@ -457,12 +495,89 @@ class _BibleReaderScreenState extends State<BibleReaderScreen> {
     return h.hasVerses && h.containsVerse(chapter, verse);
   }
 
+  /// Ob Lesung [index] des Plantags schon erledigt ist.
+  bool _planReadingDone(int index) {
+    final plan = widget.planDay;
+
+    if (plan == null) return false;
+
+    return _reading
+            .progressOf(widget.uid, plan.planId)
+            ?.isDone(plan.day, index) ??
+        false;
+  }
+
+  /// Die ausdrückliche Bestätigung unter dem Kapitel: beim freien Lesen
+  /// „Als gelesen markieren“, bei einem Leseplan die aufgeschlagene Lesung.
+  Widget _readButton() {
+    final plan = widget.planDay;
+
+    if (plan == null) {
+      return OutlinedButton.icon(
+        key: const ValueKey("bible-mark-read"),
+        onPressed: () => confirmBibleReading(
+          context,
+          uid: widget.uid,
+          service: _reading,
+          suggestion: BibleReferenceParser.format(
+            BibleReference.chapter(bookId, chapter),
+          ),
+        ),
+        icon: const Icon(Icons.check_rounded),
+        label: const Text("Als gelesen markieren"),
+      );
+    }
+
+    final label = widget.passages[passageIndex].label;
+    final progress = _reading.progressOf(widget.uid, plan.planId);
+
+    if (_planReadingDone(passageIndex)) {
+      return Row(
+        key: const ValueKey("bible-plan-reading-done"),
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(Icons.check_circle_rounded, color: context.colors.success),
+          const SizedBox(width: 8),
+          Flexible(child: Text("Lesung „$label“ erledigt")),
+        ],
+      );
+    }
+
+    return FilledButton.icon(
+      key: const ValueKey("bible-plan-mark-read"),
+      // Nur in einem laufenden Plan.
+      onPressed: progress == null || progress.paused
+          ? null
+          : () async {
+              final messenger = ScaffoldMessenger.maybeOf(context);
+
+              final result = await _reading.setPlanReading(
+                uid: widget.uid,
+                planId: plan.planId,
+                day: plan.day,
+                reading: passageIndex,
+                done: true,
+              );
+
+              showReadingFeedback(
+                messenger,
+                result,
+                confirmation: "Lesung erledigt.",
+              );
+            },
+      icon: const Icon(Icons.check_rounded),
+      label: Text("Lesung „$label“ als gelesen markieren"),
+    );
+  }
+
   /// Hinweis, wenn sich eine Stelle in der gewählten Ausgabe nicht sicher
   /// zuordnen lässt. Die App rechnet Zählungen nicht ineinander um.
   String? _passageHint(BiblePassage passage) {
     final t = translation;
 
-    if (t == null) return null;
+    // Lesepläne nennen Kapitel bzw. ganze Bücher; die Hinweise beziehen sich
+    // auf die Perikopenliste.
+    if (t == null || widget.planDay != null) return null;
 
     final reference = passage.reference;
 
@@ -613,7 +728,13 @@ class _BibleReaderScreenState extends State<BibleReaderScreen> {
 
           body: Column(
             children: [
-              if (_fromPassages && t != null) _passageBar(t),
+              if (_fromPassages && t != null)
+                widget.planDay == null
+                    ? _passageBar(t)
+                    : ListenableBuilder(
+                        listenable: _reading,
+                        builder: (context, _) => _passageBar(t),
+                      ),
 
               Expanded(child: _body(t, book)),
             ],
@@ -690,6 +811,15 @@ class _BibleReaderScreenState extends State<BibleReaderScreen> {
                       ),
 
                     const SizedBox(height: 20),
+
+                    if (_tracksReading)
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 20),
+                        child: ListenableBuilder(
+                          listenable: _reading,
+                          builder: (context, _) => _readButton(),
+                        ),
+                      ),
 
                     if (chapterHeadings.isNotEmpty || headingsOmitted)
                       Padding(
@@ -823,6 +953,14 @@ class _BibleReaderScreenState extends State<BibleReaderScreen> {
                     for (int i = 0; i < widget.passages.length; i++)
                       ChoiceChip(
                         key: ValueKey("bible-passage-$i"),
+                        avatar: _planReadingDone(i)
+                            ? Icon(
+                                Icons.check_rounded,
+                                size: 18,
+                                color: colors.success,
+                              )
+                            : null,
+                        showCheckmark: widget.planDay == null,
                         label: Text(widget.passages[i].label),
                         // Ausgewählt, solange die Stelle aufgeschlagen
                         // und hervorgehoben ist; erneutes Antippen blendet

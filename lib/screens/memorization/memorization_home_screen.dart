@@ -282,9 +282,11 @@ class _MemorizationHomeScreenState extends State<MemorizationHomeScreen> {
             uid: repository.uid,
             track: StreakTrack.memorization,
             // Regel: MemorizationStreakRule.
+            goalNoun: "richtigen Antworten",
             todayHint:
-                "Für die Streak genügt eine Übung aus dem Gedächtnis – bei "
-                "einem beliebigen Text. Alles Weitere ist freiwillig.",
+                "Für die Streak zählen zehn wortgetreu richtige Eingaben am "
+                "Tag – getippt oder gesprochen, bei beliebigen Texten. "
+                "„Im Kopf“ mit Selbsteinschätzung zählt dafür nicht.",
           ),
 
           const SizedBox(height: 24),

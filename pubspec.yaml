@@ -97,6 +97,9 @@ flutter:
       - assets/bible/grcsbl/
       - assets/bible/grcbrent/
       - assets/bible/latVUC/
+      # Integrierte Bibellesepläne, erzeugt von tool/reading_plans
+      # (Format: docs/reading-plans.md).
+      - assets/reading_plans/
       - assets/images/lutherrose.png
       - assets/sounds/correct.wav
       - assets/sounds/incorrect.wav

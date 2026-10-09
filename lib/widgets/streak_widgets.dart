@@ -175,16 +175,21 @@ class StreakDetailCard extends StatelessWidget {
   final String? uid;
   final StreakTrack track;
 
-  /// Für Tracks, deren Tagesziel eine einzelne Lernaktivität ist (Texte
-  /// auswendig lernen): erklärt, was den Tag erfüllt, statt eines Zählers.
-  /// Ohne Angabe gilt der Zähler richtiger Antworten des Tracks.
+  /// Erklärt, was den Tag erfüllt. Bei Tracks, deren Tagesziel eine einzelne
+  /// Aktivität ist (Bibellesen), ersetzt der Hinweis den Zähler; mit
+  /// [goalNoun] steht er zusätzlich unter dem Zähler.
   final String? todayHint;
+
+  /// Benennt, was der Zähler zählt, und schreibt den Tagesfortschritt aus:
+  /// „7 von 10 richtigen Antworten“ bei `goalNoun: "richtigen Antworten"`.
+  final String? goalNoun;
 
   const StreakDetailCard({
     super.key,
     required this.uid,
     required this.track,
     this.todayHint,
+    this.goalNoun,
   });
 
   @override
@@ -200,6 +205,10 @@ class StreakDetailCard extends StatelessWidget {
         final s = StreakService.instance.snapshotFor(uid, track);
 
         final hint = todayHint;
+        final noun = goalNoun;
+
+        // Ohne Zähler: Das Tagesziel ist eine einzelne Aktivität.
+        final counter = hint == null || noun != null;
 
         return Card(
           margin: EdgeInsets.zero,
@@ -231,9 +240,9 @@ class StreakDetailCard extends StatelessWidget {
                     Text(
                       s.completedToday
                           ? "Tagesziel erreicht"
-                          : hint != null
-                          ? "Noch offen"
-                          : "${s.todayCorrectAnswers}/${s.dailyGoal}",
+                          : counter
+                          ? "${s.todayCorrectAnswers}/${s.dailyGoal}"
+                          : "Noch offen",
                       style: s.completedToday
                           ? textTheme.titleSmall?.copyWith(
                               color: context.colors.success,
@@ -245,13 +254,7 @@ class StreakDetailCard extends StatelessWidget {
 
                 const SizedBox(height: 6),
 
-                if (hint != null)
-                  Text(
-                    hint,
-                    key: const Key("streak_today_hint"),
-                    style: secondary,
-                  )
-                else
+                if (counter)
                   ClipRRect(
                     borderRadius: BorderRadius.circular(999),
                     child: LinearProgressIndicator(
@@ -263,6 +266,26 @@ class StreakDetailCard extends StatelessWidget {
                           : context.colors.accent,
                     ),
                   ),
+
+                if (noun != null) ...[
+                  const SizedBox(height: 6),
+
+                  Text(
+                    "${s.todayCorrectAnswers} von ${s.dailyGoal} $noun",
+                    key: const Key("streak_today_count"),
+                    style: textTheme.bodyMedium,
+                  ),
+                ],
+
+                if (hint != null) ...[
+                  if (counter) const SizedBox(height: 6),
+
+                  Text(
+                    hint,
+                    key: const Key("streak_today_hint"),
+                    style: secondary,
+                  ),
+                ],
 
                 if (s.currentStreak > 0) ...[
                   const SizedBox(height: 14),

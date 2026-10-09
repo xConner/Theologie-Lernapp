@@ -1,0 +1,10 @@
+{
+  "plans": [
+    "bible-1-year.json",
+    "bible-6-months.json",
+    "bible-90-days.json",
+    "nt-90-days.json",
+    "gospels-30-days.json",
+    "bible-marathon-30-days.json"
+  ]
+}

@@ -255,10 +255,10 @@ class _MemorizationPracticeScreenState
     _reportStreak(practiced, result);
   }
 
-  /// Meldet der Streak eine Übung aus dem Gedächtnis
-  /// ([MemorizationStreakRule]); schon die erste des Tages erfüllt das
-  /// Tagesziel. Der [StreakService] zählt den Tag höchstens einmal; weitere
-  /// Übungen danach ändern nichts mehr.
+  /// Meldet der Streak eine wortgetreu richtige Eingabe
+  /// ([MemorizationStreakRule]); zehn am Tag erfüllen das Tagesziel. Jede
+  /// Auswertung wird genau einmal verbucht ([_check]); nach Erreichen des
+  /// Ziels ändert der [StreakService] an diesem Tag nichts mehr.
   void _reportStreak(HintLevel practiced, EvaluationResult? result) {
     if (!MemorizationStreakRule.counts(practiced: practiced, result: result)) {
       return;
@@ -282,6 +282,9 @@ class _MemorizationPracticeScreenState
   // ==========================
 
   void _check(String input, {required bool spoken}) {
+    // Eine Übung wird nur einmal ausgewertet (doppelter Klick, Enter).
+    if (_result != null) return;
+
     final unit = _unit!;
 
     // Getippte Lückenaufgaben fragen nur die fehlenden Wörter ab; gesprochen

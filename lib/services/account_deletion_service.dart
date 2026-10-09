@@ -32,6 +32,7 @@ class AccountDeletionService {
     "pericope_overrides",
     "streaks",
     "statistics",
+    "bible_reading",
     "notification_state",
     "push_tokens",
   ];

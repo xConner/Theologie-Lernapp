@@ -62,6 +62,7 @@ ist eine `MemorizationCard` (erweitert `LearningCard`), gespeichert über
 | Aufgabe | Ort |
 |---|---|
 | Lerntext, Abschnitt, Werk (statischer Inhalt) | `models/memorization/memorization_text.dart` |
+| Streak-Regel (zehn wortgetreu richtige Eingaben am Tag) | `services/memorization/memorization_streak_rule.dart` |
 | Lernstand je Abschnitt (Hilfestufe, Versuche) | `models/memorization/memorization_card.dart` |
 | Gebete/Bekenntnisse → Lerntexte | `services/memorization/memorization_catalog.dart` |
 | Erzeugung der Bekenntnis- und Liturgiedaten (nicht Teil der App) | `tool/content_import/` |
@@ -144,6 +145,38 @@ die gewählte Ausgabe genauso zählt wie eine deutsch gezählte Ausgabe.
 
 Ausgabe, Lesestand und Schriftgröße gehören zum Gerät und liegen wie das
 Erscheinungsbild in den `SharedPreferences`.
+
+## Bibellesen: Streak und Lesepläne
+
+Ob jemand gelesen hat, kann die App nicht feststellen. Eine Lesung zählt
+deshalb nur nach ausdrücklicher Bestätigung („Als gelesen markieren“ bzw.
+Abhaken einer Planlesung) – nie durch das Aufschlagen eines Kapitels.
+
+| Aufgabe | Ort |
+|---|---|
+| Leseplan, Lesung, täglicher Umfang | `models/bible/reading_plan.dart` |
+| Eintrag im Leseverlauf, Fortschritt eines Plans | `models/bible/bible_reading.dart` |
+| Planformat lesen, prüfen, schreiben | `services/bible/reading_plan_codec.dart` |
+| Texteingabe eigener Pläne | `services/bible/reading_plan_text.dart` |
+| Leseverlauf, Pläne, Fortschritt; Meldung an die Streak | `services/bible/bible_reading_service.dart` |
+| Speicher (Konto: `users/{uid}/bible_reading`, Gast: lokal) | `services/bible/bible_reading_repository.dart` |
+| Bestätigungsdialog, Lesungen eines Plantags | `widgets/bible/bible_reading_widgets.dart` |
+| Screens: Bibel-Startseite, Pläne, Plan, Import, Editor | `screens/bible/` |
+| Integrierte Pläne und ihre Erzeugung | `assets/reading_plans/`, `tool/reading_plans/` |
+| Format | `docs/reading-plans.md` |
+
+Zwei getrennte Dinge:
+
+* Die **Bibellese-Streak** ist der Track `bible` des `StreakService`
+  (Tagesziel 1). Jede bestätigte Lesung – frei oder aus einem Plan – wird
+  ihm gemeldet; ein lokaler Kalendertag zählt höchstens einmal.
+* Der **Planfortschritt** (`plan_<Plan>`) hält fest, welche Lesungen eines
+  Plans erledigt sind. Er ändert sich nur durch Abhaken; eine freie Lesung
+  erledigt keinen Plantag. Ein Plan folgt nicht dem Kalender: „Aktueller
+  Tag“ ist der erste Plantag mit einer offenen Lesung.
+
+Der Reader bekommt die Lesungen eines Plantags als `passages`; mit
+`planDay` lässt sich die aufgeschlagene Lesung dort erledigen.
 
 ## Themes und Erscheinungsbild
 

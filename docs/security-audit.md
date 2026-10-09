@@ -60,6 +60,7 @@ ungenutzt – entfernt), HTML-/Markdown-Rendering von Nutzerinhalten.
 | `users/{uid}/quiz_settings`, `pericope_overrides` | Buchauswahl, Overrides | nur Nutzer | Kontolöschung |
 | `users/{uid}/statistics/{trainer}` | Tageszähler je Datum (unbegrenzt wachsend) | nur Nutzer | Kontolöschung |
 | `users/{uid}/streaks/{track}` | Streak-Zustand | nur Nutzer | Kontolöschung |
+| `users/{uid}/bible_reading/{doc}` | Leseverlauf, Fortschritt der Lesepläne, eigene Lesepläne | nur Nutzer | Kontolöschung |
 | `users/{uid}/notification_state/inbox` | Lesestatus | nur Nutzer | Kontolöschung |
 | `users/{uid}/push_tokens/{token}` | vorbereitet, derzeit ungenutzt | nur Nutzer | Kontolöschung |
 | `users/{uid}/inbox/{id}` | persönliche Nachrichten (Server) | Nutzer lesen/löschen | Kontolöschung |

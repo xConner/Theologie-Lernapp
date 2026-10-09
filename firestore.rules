@@ -16,6 +16,8 @@ rules_version = '2';
 //   users/{uid}/pericope_overrides/config
 //   users/{uid}/streaks/{trackId}
 //   users/{uid}/statistics/{trainerId}          (Tagesstatistik je Trainer)
+//   users/{uid}/bible_reading/{documentId}     (Leseverlauf, Fortschritt der
+//                                               Lesepläne, eigene Lesepläne)
 //   users/{uid}/notification_state/inbox       (Lesestatus der Glocke)
 //   users/{uid}/push_tokens/{token}            (FCM-Tokens, vorbereitet)
 //
@@ -101,7 +103,8 @@ service cloud.firestore {
       return collection in ['quiz_settings', 'vocabulary', 'learning_cards',
                             'latin_vocabulary', 'grammar', 'memorization',
                             'pericope_overrides', 'streaks', 'statistics',
-                            'notification_state', 'push_tokens'];
+                            'bible_reading', 'notification_state',
+                            'push_tokens'];
     }
 
     match /users/{uid} {

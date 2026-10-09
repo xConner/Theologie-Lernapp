@@ -356,7 +356,9 @@ class AppModules {
         "Bibel-Reader mit mehreren Ausgaben in Deutsch, Englisch, Griechisch "
         "und Latein. Die Texte sind in der App enthalten und ohne "
         "Internetverbindung lesbar; gesucht wird nach Stellen und im Text "
-        "der gewählten Ausgabe.",
+        "der gewählten Ausgabe. Dazu kommen Lesepläne und eine "
+        "Bibellese-Streak: Ein Tag zählt, sobald du eine Lesung selbst als "
+        "gelesen markiert hast.",
     sources: [
       SourceInfo(
         title: "Bibeltexte",
@@ -384,6 +386,10 @@ class AppModules {
       ),
     ],
     notes: [
+      "Die integrierten Lesepläne sind eigene Einteilungen von "
+          "theologie.app nach Kapitel- und Verszahlen; sie enthalten nur "
+          "Stellenangaben. Eigene Pläne lassen sich erstellen oder als "
+          "JSON-Datei importieren.",
       "Die Ausgaben zählen Kapitel und Verse teilweise unterschiedlich, vor "
           "allem im Alten Testament und in den Psalmen. Die App rechnet "
           "Stellen nicht um; eine hervorgehobene Perikope kann deshalb in "

@@ -51,19 +51,34 @@ class StreakTrack {
     sources: [StreakSource.perikopenQuiz],
   );
 
-  /// Texte auswendig lernen: Das Tagesziel ist eine einzige Übung aus dem
-  /// Gedächtnis bei einem beliebigen Text (siehe `MemorizationStreakRule`),
-  /// unabhängig von der Zahl der Texte und vom Wiederholungsplan.
+  /// Texte auswendig lernen: Das Tagesziel sind zehn wortgetreu richtige
+  /// Eingaben (siehe `MemorizationStreakRule`), unabhängig von der Zahl der
+  /// Texte und vom Wiederholungsplan.
   static const StreakTrack memorization = StreakTrack(
     id: "memorization",
     label: "Texte auswendig lernen",
     sources: [StreakSource.memorization],
-    dailyGoal: 1,
     streakStartedMessage: "Streak für „Texte auswendig lernen“ gestartet!",
   );
 
+  /// Bibellesen: Der Tag zählt, sobald der Nutzer eine Lesung ausdrücklich
+  /// bestätigt hat – frei gewählt oder aus einem Leseplan (siehe
+  /// `BibleReadingService`). Weitere Lesungen am selben Tag ändern nichts.
+  static const StreakTrack bible = StreakTrack(
+    id: "bible",
+    label: "Bibellesen",
+    sources: [StreakSource.bibleReading, StreakSource.readingPlan],
+    dailyGoal: 1,
+  );
+
   /// Alle in der App verfügbaren Tracks (Reihenfolge = Anzeige-Reihenfolge).
-  static const List<StreakTrack> all = [greek, latin, perikope, memorization];
+  static const List<StreakTrack> all = [
+    greek,
+    latin,
+    perikope,
+    memorization,
+    bible,
+  ];
 }
 
 /// Herkunft einer richtigen Antwort innerhalb eines Tracks.
@@ -74,12 +89,16 @@ class StreakSource {
   static const String grammar = "grammar";
   static const String perikopenQuiz = "perikopen_quiz";
   static const String memorization = "memorization";
+  static const String bibleReading = "bible_reading";
+  static const String readingPlan = "reading_plan";
 
   static const Map<String, String> labels = {
     vocabulary: "Vokabeln",
     grammar: "Grammatik",
     perikopenQuiz: "Perikopen",
     memorization: "Texte auswendig lernen",
+    bibleReading: "Freie Lesung",
+    readingPlan: "Leseplan",
   };
 
   static String label(String source) => labels[source] ?? source;
