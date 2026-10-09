@@ -30,6 +30,7 @@ import '../../widgets/settings_access.dart';
 import '../../widgets/settings_selection.dart';
 import '../../info/app_info.dart';
 import '../../widgets/info_report.dart';
+import '../../widgets/self_assessment.dart';
 import '../../widgets/trainer_widgets.dart';
 import '../../widgets/pronoun_paradigm_view.dart';
 import '../../utils/greek_normalization.dart';
@@ -202,6 +203,27 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
   bool? comparisonTranslationCorrect;
 
   // ---------------------------------------------------------------------------
+  // SELBSTEINSCHÄTZUNG
+  // ---------------------------------------------------------------------------
+
+  // Eintippen/Auswählen oder Selbsteinschätzung („Im Kopf“).
+  AnswerMethod method = AnswerMethod.typing;
+
+  // Lösung der aktuellen Frage aufgedeckt.
+  bool revealed = false;
+
+  final GlobalKey<SelfAssessmentPanelState> _assessmentKey = GlobalKey();
+
+  // Einzeln bewertbare Teile der Lösung.
+  static const String _partLemma = "lemma";
+  static const String _partCase = "case";
+  static const String _partNumber = "number";
+  static const String _partGender = "gender";
+  static const String _partPerson = "person";
+  static const String _partTense = "tense";
+  static const String _partVoice = "voice";
+
+  // ---------------------------------------------------------------------------
   // INIT / DISPOSE
   // ---------------------------------------------------------------------------
 
@@ -214,6 +236,10 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
     _keyListener = WindowEnterListener(() {
       // Enter gehört einem geöffneten Info-Blatt bzw. Meldeformular.
       if (infoReportOverlayOpen || _pronounInfoOpen) return false;
+
+      if (method == AnswerMethod.recall && !answered && formError == null) {
+        return _assessmentKey.currentState?.handleEnter() ?? false;
+      }
 
       if (answered) {
         nextQuestion();
@@ -284,7 +310,10 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
         loadGrammarSettings(),
         _loadGrammarCards(),
         _loadPronouns(),
+        AnswerMethodPreference.load(AnswerMethodPreference.greekGrammar),
       ]);
+
+      method = results[4] as AnswerMethod;
 
       entries = [
         ...results[0] as List<GreekVocabularyEntry>,
@@ -606,6 +635,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
   // von setState aufrufen).
   void _resetAnswerState() {
     answered = false;
+    revealed = false;
     correct = false;
 
     userCase = null;
@@ -691,9 +721,24 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
   // ANTWORT PRÜFEN
   // ---------------------------------------------------------------------------
 
+  /// Sound, Tagesstatistik und Streak einer bewerteten Antwort – für
+  /// geprüfte Eingaben und Selbsteinschätzungen dieselbe Zählstelle.
+  void _reportAnswer(bool correct, {required bool firstEvaluation}) {
+    reportTrainerAnswer(
+      context,
+      uid: _auth.currentUser?.uid,
+      correct: correct,
+      firstEvaluation: firstEvaluation,
+      sound: SoundModule.greekGrammar,
+      trainer: StatisticsTrainer.greekGrammar,
+      track: StreakTrack.greek,
+      source: StreakSource.grammar,
+    );
+  }
+
   void check() {
     final q = question;
-    if (q == null) return;
+    if (q == null || method != AnswerMethod.typing) return;
 
     // Streak nur einmal je Frage zählen.
     final firstEvaluation = !answered;
@@ -816,15 +861,225 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
       _recordLearning(q);
     }
 
-    reportTrainerAnswer(
-      context,
-      uid: _auth.currentUser?.uid,
-      correct: correct,
-      firstEvaluation: firstEvaluation,
-      sound: SoundModule.greekGrammar,
-      trainer: StatisticsTrainer.greekGrammar,
-      track: StreakTrack.greek,
-      source: StreakSource.grammar,
+    _reportAnswer(correct, firstEvaluation: firstEvaluation);
+  }
+
+  // ---------------------------------------------------------------------------
+  // SELBSTEINSCHÄTZUNG
+  // ---------------------------------------------------------------------------
+
+  void setMethod(AnswerMethod value) {
+    if (answered || revealed || value == method) {
+      return;
+    }
+
+    setState(() {
+      method = value;
+    });
+
+    if (value == AnswerMethod.recall) {
+      FocusManager.instance.primaryFocus?.unfocus();
+    } else {
+      _focusComparisonAnswer();
+    }
+
+    AnswerMethodPreference.save(AnswerMethodPreference.greekGrammar, value);
+  }
+
+  // Die Bestimmungen der Aufgabe als einzeln bewertbare Teile. So trifft
+  // „Tempus nicht gewusst“ wie beim Prüfen nur das Tempus. Die
+  // Adjektivsteigerung wird als Ganzes gewertet.
+  List<SelfAssessmentPart> _assessmentParts() {
+    final q = question;
+
+    if (q == null || isComparison()) {
+      return const [];
+    }
+
+    if (isVerb()) {
+      return [
+        SelfAssessmentPart(
+          id: _partPerson,
+          label: "Person / Numerus",
+          value: "$selectedPerson $selectedNumberVerb.",
+        ),
+        SelfAssessmentPart(
+          id: _partTense,
+          label: "Tempus",
+          value: selectedTense ?? "",
+        ),
+        SelfAssessmentPart(
+          id: _partVoice,
+          label: "Genus Verbi",
+          value: selectedVoice ?? "",
+        ),
+        if (showLemmaFieldVerb)
+          SelfAssessmentPart(
+            id: _partLemma,
+            label: "Grundform",
+            value: q.lemma,
+          ),
+      ];
+    }
+
+    return [
+      SelfAssessmentPart(
+        id: _partCase,
+        label: "Kasus",
+        value: selectedCase ?? "",
+      ),
+      SelfAssessmentPart(
+        id: _partNumber,
+        label: "Numerus",
+        value: selectedNumber ?? "",
+      ),
+      SelfAssessmentPart(
+        id: _partGender,
+        label: "Genus",
+        value: selectedGender ?? "",
+      ),
+      if (isPronoun() && showLemmaFieldPronoun)
+        SelfAssessmentPart(
+          id: _partLemma,
+          label: "Pronomen",
+          value: pronouns.byId(q.id)?.label ?? q.lemma,
+        ),
+      if (isNoun() && showLemmaFieldNoun)
+        SelfAssessmentPart(id: _partLemma, label: "Grundform", value: q.lemma),
+    ];
+  }
+
+  // Selbsteinschätzung nach dem Aufdecken: setzt dieselben Einzelergebnisse
+  // wie check() und verbucht sie über _recordLearning.
+  void assess(SelfAssessment assessment) {
+    final q = question;
+
+    // Je aufgedeckter Lösung nur eine Bewertung.
+    if (q == null || !revealed || answered) {
+      return;
+    }
+
+    revealed = false;
+    answered = true;
+
+    bool knew(String part) => !assessment.missed.contains(part);
+
+    correct = assessment.knew;
+    lemmaCorrect = knew(_partLemma);
+
+    if (isPronoun()) {
+      // Ohne Eingabe gibt es keine „erkannte“ Bestimmung: Gewertet wird die
+      // Zielbestimmung der Aufgabe.
+      _pronounReference = (
+        pronounId: q.id,
+        grammaticalCase: selectedCase ?? "",
+        number: GrammarQuestionPicker.nounRequestNumber(selectedNumber),
+        gender: selectedGender == GrammarQuestionPicker.noGender
+            ? null
+            : selectedGender,
+      );
+    }
+
+    if (isNoun() || isPronoun()) {
+      caseCorrect = knew(_partCase);
+      numberCorrect = knew(_partNumber);
+      genderCorrect = knew(_partGender);
+    } else if (isVerb()) {
+      personCorrect = knew(_partPerson);
+      tenseCorrect = knew(_partTense);
+      voiceCorrect = knew(_partVoice);
+    }
+
+    _recordLearning(q);
+
+    _reportAnswer(assessment.knew, firstEvaluation: true);
+
+    nextQuestion();
+  }
+
+  // Weitere mögliche Bestimmungen der angezeigten Form (formal identische
+  // Formen), in der Schreibweise der Auswahl.
+  List<String> _alternativeAnalyses(GreekVocabularyEntry q) {
+    if (isNoun()) {
+      return [
+        for (final analysis in wiktionaryService.nounFormAnalyses(
+          lemma: q.lemma,
+          grammaticalCase: selectedCase ?? "",
+          number: GrammarQuestionPicker.nounRequestNumber(selectedNumber),
+        ))
+          if (analysis.grammaticalCase != selectedCase ||
+              "${analysis.number}." != selectedNumber)
+            "${analysis.grammaticalCase} ${analysis.number}.",
+      ];
+    }
+
+    final person = GrammarQuestionPicker.parsePerson(selectedPerson);
+
+    if (!isVerb() || person == null) {
+      return const [];
+    }
+
+    return [
+      for (final analysis in wiktionaryService.verbFormAnalyses(
+        lemma: q.lemma,
+        tense: selectedTense ?? "",
+        voice: selectedVoice ?? "",
+        number: selectedNumberVerb ?? "",
+        person: person,
+      ))
+        if (analysis.person != person ||
+            analysis.number != selectedNumberVerb ||
+            analysis.tense != selectedTense ||
+            analysis.voice != selectedVoice)
+          "${analysis.person}. ${analysis.number}. ${analysis.tense} "
+              "${analysis.voice}",
+    ];
+  }
+
+  // Lösung der Selbsteinschätzung. Die einzeln bewertbaren Bestimmungen
+  // stehen darunter als Auswahl (_assessmentParts).
+  Widget _buildRecallSolution(GreekVocabularyEntry q) {
+    if (isComparison()) {
+      return _buildComparisonFeedback();
+    }
+
+    final lemmaIsPart =
+        (isNoun() && showLemmaFieldNoun) ||
+        (isVerb() && showLemmaFieldVerb) ||
+        (isPronoun() && showLemmaFieldPronoun);
+
+    final alternatives = _alternativeAnalyses(q);
+
+    return Column(
+      children: [
+        if (!lemmaIsPart) ...[
+          SelectableText(
+            "Grundform: ${q.lemma}",
+            style: const TextStyle(fontWeight: FontWeight.w500),
+          ),
+          const SizedBox(height: 4),
+        ],
+
+        if (_feedbackTranslations().isNotEmpty)
+          Text(
+            "Übersetzung: ${_feedbackTranslations()}",
+            textAlign: TextAlign.center,
+            style: const TextStyle(fontWeight: FontWeight.w500),
+          ),
+
+        if (isPronoun()) ...[
+          const SizedBox(height: 8),
+          _buildPronounFeedback(),
+        ],
+
+        if (alternatives.isNotEmpty) ...[
+          const SizedBox(height: 8),
+          Text(
+            "Auch möglich: ${alternatives.join(', ')}",
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ],
     );
   }
 
@@ -1723,7 +1978,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
     return {
       "Angezeigte Form": correctForm ?? "",
       "Fehler beim Laden": formError ?? "",
-      if (answered || formError != null) ...{
+      if (answered || revealed || formError != null) ...{
         "Grundform": "${q.lemma} (ID ${q.id})",
         if (isComparison())
           "Gefragt":
@@ -1817,163 +2072,200 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
                 if (isComparison() && correctForm != null)
                   _buildComparisonPrompt(),
 
-                const SizedBox(height: 28),
-
-                // -------------------------------------------------------------
-                // GRAMMATIK-EINGABEN
-                // -------------------------------------------------------------
-                if (isVerb())
-                  _buildVerbInputs()
-                else if (isNoun())
-                  _buildNounInputs()
-                else if (isPronoun())
-                  _buildPronounInputs(),
-
                 const SizedBox(height: 16),
 
+                AnswerMethodSelector(
+                  method: method,
+                  onChanged: answered || revealed ? null : setMethod,
+                ),
+
+                const SizedBox(height: 20),
+
                 // -------------------------------------------------------------
-                // LEMMA EINGABE
+                // SELBSTEINSCHÄTZUNG
                 // -------------------------------------------------------------
-                if ((isNoun() && showLemmaFieldNoun) ||
-                    (isVerb() && showLemmaFieldVerb) ||
-                    (isComparison() && askComparisonLemma)) ...[
-                  TextField(
-                    controller: answerController,
-                    enabled: !answered && !loadingForm && correctForm != null,
-                    focusNode: answerFocus,
-                    decoration: InputDecoration(
-                      labelText: "Grundform",
-                      enabledBorder: answerResultBorder(context, lemmaCorrect),
-                      focusedBorder: answerResultBorder(context, lemmaCorrect),
-                      disabledBorder: answerResultBorder(context, lemmaCorrect),
-                      border: const OutlineInputBorder(),
-                      suffixIcon: IconButton(
-                        tooltip: "Griechische Tastatur",
-                        icon: const Icon(Icons.keyboard_alt_outlined),
-                        onPressed:
-                            answered || loadingForm || correctForm == null
-                            ? null
-                            : openGreekKeyboard,
-                      ),
+                if (method == AnswerMethod.recall) ...[
+                  if (loadingForm || correctForm != null)
+                    SelfAssessmentPanel(
+                      key: _assessmentKey,
+                      revealed: revealed,
+                      onReveal: loadingForm || correctForm == null
+                          ? null
+                          : () => setState(() => revealed = true),
+                      onAssess: assess,
+                      parts: _assessmentParts(),
+                      solutionBuilder: (_) => _buildRecallSolution(q),
+                      hint:
+                          "Bestimme die Form im Kopf und decke dann die "
+                          "Lösung auf.",
                     ),
-                    textInputAction: TextInputAction.done,
-                  ),
+                ] else ...[
+                  // -------------------------------------------------------------
+                  // GRAMMATIK-EINGABEN
+                  // -------------------------------------------------------------
+                  if (isVerb())
+                    _buildVerbInputs()
+                  else if (isNoun())
+                    _buildNounInputs()
+                  else if (isPronoun())
+                    _buildPronounInputs(),
 
-                  const SizedBox(height: 24),
-                ],
+                  const SizedBox(height: 16),
 
-                // -------------------------------------------------------------
-                // ÜBERSETZUNG (ADJEKTIVSTEIGERUNG)
-                // -------------------------------------------------------------
-                if (isComparison() && askComparisonTranslation) ...[
-                  TextField(
-                    controller: translationController,
-                    enabled: !answered && !loadingForm && correctForm != null,
-                    focusNode: translationFocus,
-                    decoration: InputDecoration(
-                      labelText: "Übersetzung der Grundform",
-                      enabledBorder: answerResultBorder(
-                        context,
-                        comparisonTranslationCorrect,
+                  // -------------------------------------------------------------
+                  // LEMMA EINGABE
+                  // -------------------------------------------------------------
+                  if ((isNoun() && showLemmaFieldNoun) ||
+                      (isVerb() && showLemmaFieldVerb) ||
+                      (isComparison() && askComparisonLemma)) ...[
+                    TextField(
+                      controller: answerController,
+                      enabled: !answered && !loadingForm && correctForm != null,
+                      focusNode: answerFocus,
+                      decoration: InputDecoration(
+                        labelText: "Grundform",
+                        enabledBorder: answerResultBorder(
+                          context,
+                          lemmaCorrect,
+                        ),
+                        focusedBorder: answerResultBorder(
+                          context,
+                          lemmaCorrect,
+                        ),
+                        disabledBorder: answerResultBorder(
+                          context,
+                          lemmaCorrect,
+                        ),
+                        border: const OutlineInputBorder(),
+                        suffixIcon: IconButton(
+                          tooltip: "Griechische Tastatur",
+                          icon: const Icon(Icons.keyboard_alt_outlined),
+                          onPressed:
+                              answered || loadingForm || correctForm == null
+                              ? null
+                              : openGreekKeyboard,
+                        ),
                       ),
-                      focusedBorder: answerResultBorder(
-                        context,
-                        comparisonTranslationCorrect,
-                      ),
-                      disabledBorder: answerResultBorder(
-                        context,
-                        comparisonTranslationCorrect,
-                      ),
-                      border: const OutlineInputBorder(),
+                      textInputAction: TextInputAction.done,
                     ),
-                    textInputAction: TextInputAction.done,
-                  ),
 
-                  const SizedBox(height: 24),
-                ],
+                    const SizedBox(height: 24),
+                  ],
 
-                // -------------------------------------------------------------
-                // FEEDBACK
-                // -------------------------------------------------------------
-                if (answered)
-                  Column(
-                    children: [
-                      AnswerFeedbackBadge(
-                        correct: correct,
-                        label: correct ? "Richtig" : "Falsch",
+                  // -------------------------------------------------------------
+                  // ÜBERSETZUNG (ADJEKTIVSTEIGERUNG)
+                  // -------------------------------------------------------------
+                  if (isComparison() && askComparisonTranslation) ...[
+                    TextField(
+                      controller: translationController,
+                      enabled: !answered && !loadingForm && correctForm != null,
+                      focusNode: translationFocus,
+                      decoration: InputDecoration(
+                        labelText: "Übersetzung der Grundform",
+                        enabledBorder: answerResultBorder(
+                          context,
+                          comparisonTranslationCorrect,
+                        ),
+                        focusedBorder: answerResultBorder(
+                          context,
+                          comparisonTranslationCorrect,
+                        ),
+                        disabledBorder: answerResultBorder(
+                          context,
+                          comparisonTranslationCorrect,
+                        ),
+                        border: const OutlineInputBorder(),
                       ),
+                      textInputAction: TextInputAction.done,
+                    ),
 
-                      const SizedBox(height: 12),
+                    const SizedBox(height: 24),
+                  ],
 
-                      // Bei falscher Grundform steht sie unten bei den
-                      // korrekten Antworten. Die Steigerung zeigt statt
-                      // dessen die vollständige Reihe.
-                      if (!isComparison() &&
-                          (lemmaCorrect != false ||
-                              (!(isNoun() && showLemmaFieldNoun) &&
-                                  !(isVerb() && showLemmaFieldVerb)))) ...[
-                        SelectableText(
-                          "Grundform: ${question!.lemma}",
-                          style: const TextStyle(fontWeight: FontWeight.w500),
-                        ),
-                        const SizedBox(height: 4),
-                      ],
-
-                      if (!isComparison() && _feedbackTranslations().isNotEmpty)
-                        Text(
-                          "Übersetzung: ${_feedbackTranslations()}",
-                          style: const TextStyle(fontWeight: FontWeight.w500),
+                  // -------------------------------------------------------------
+                  // FEEDBACK
+                  // -------------------------------------------------------------
+                  if (answered)
+                    Column(
+                      children: [
+                        AnswerFeedbackBadge(
+                          correct: correct,
+                          label: correct ? "Richtig" : "Falsch",
                         ),
 
-                      const SizedBox(height: 12),
+                        const SizedBox(height: 12),
 
-                      if (isPronoun())
-                        _buildPronounFeedback()
-                      else if (isComparison())
-                        _buildComparisonFeedback()
-                      else if (!correct)
-                        Column(
-                          children: [
-                            const Text(
-                              "Korrekte Antworten:",
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
+                        // Bei falscher Grundform steht sie unten bei den
+                        // korrekten Antworten. Die Steigerung zeigt statt
+                        // dessen die vollständige Reihe.
+                        if (!isComparison() &&
+                            (lemmaCorrect != false ||
+                                (!(isNoun() && showLemmaFieldNoun) &&
+                                    !(isVerb() && showLemmaFieldVerb)))) ...[
+                          SelectableText(
+                            "Grundform: ${question!.lemma}",
+                            style: const TextStyle(fontWeight: FontWeight.w500),
+                          ),
+                          const SizedBox(height: 4),
+                        ],
 
-                            const SizedBox(height: 8),
+                        if (!isComparison() &&
+                            _feedbackTranslations().isNotEmpty)
+                          Text(
+                            "Übersetzung: ${_feedbackTranslations()}",
+                            style: const TextStyle(fontWeight: FontWeight.w500),
+                          ),
 
-                            if (((isNoun() && showLemmaFieldNoun) ||
-                                    (isVerb() && showLemmaFieldVerb)) &&
-                                lemmaCorrect == false)
-                              SelectableText(
-                                "Grundform: ${question?.lemma ?? ''}",
+                        const SizedBox(height: 12),
+
+                        if (isPronoun())
+                          _buildPronounFeedback()
+                        else if (isComparison())
+                          _buildComparisonFeedback()
+                        else if (!correct)
+                          Column(
+                            children: [
+                              const Text(
+                                "Korrekte Antworten:",
+                                style: TextStyle(fontWeight: FontWeight.bold),
                               ),
 
-                            if (isNoun()) ...[
-                              if (caseCorrect == false)
-                                Text("Kasus: $selectedCase"),
-                              if (numberCorrect == false)
-                                Text("Numerus: $selectedNumber"),
-                              if (genderCorrect == false)
-                                Text("Genus: $selectedGender"),
-                            ],
+                              const SizedBox(height: 8),
 
-                            if (isVerb()) ...[
-                              if (personCorrect == false)
-                                Text(
-                                  "Person / Numerus: "
-                                  "$selectedPerson $selectedNumberVerb.",
+                              if (((isNoun() && showLemmaFieldNoun) ||
+                                      (isVerb() && showLemmaFieldVerb)) &&
+                                  lemmaCorrect == false)
+                                SelectableText(
+                                  "Grundform: ${question?.lemma ?? ''}",
                                 ),
-                              if (tenseCorrect == false)
-                                Text("Tempus: $selectedTense"),
-                              if (voiceCorrect == false)
-                                Text("Genus Verbi: $selectedVoice"),
-                            ],
-                          ],
-                        ),
 
-                      const SizedBox(height: 24),
-                    ],
-                  ),
+                              if (isNoun()) ...[
+                                if (caseCorrect == false)
+                                  Text("Kasus: $selectedCase"),
+                                if (numberCorrect == false)
+                                  Text("Numerus: $selectedNumber"),
+                                if (genderCorrect == false)
+                                  Text("Genus: $selectedGender"),
+                              ],
+
+                              if (isVerb()) ...[
+                                if (personCorrect == false)
+                                  Text(
+                                    "Person / Numerus: "
+                                    "$selectedPerson $selectedNumberVerb.",
+                                  ),
+                                if (tenseCorrect == false)
+                                  Text("Tempus: $selectedTense"),
+                                if (voiceCorrect == false)
+                                  Text("Genus Verbi: $selectedVoice"),
+                              ],
+                            ],
+                          ),
+
+                        const SizedBox(height: 24),
+                      ],
+                    ),
+                ],
                 // -------------------------------------------------------------
                 // FEHLER
                 // -------------------------------------------------------------
@@ -1989,27 +2281,30 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
                 // -------------------------------------------------------------
                 // BUTTON
                 // -------------------------------------------------------------
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: loadingForm
-                        ? null
-                        : () async {
-                            if (answered || formError != null) {
-                              await nextQuestion();
-                            } else {
-                              check();
-                            }
-                          },
-                    child: Text(
-                      loadingForm
-                          ? "Lädt..."
-                          : (answered || formError != null)
-                          ? "Weiter"
-                          : "Prüfen",
+                // Im Kopf bewertet das Panel; der Knopf bleibt nur, um eine
+                // nicht ladbare Form zu überspringen.
+                if (method == AnswerMethod.typing || formError != null)
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: loadingForm
+                          ? null
+                          : () async {
+                              if (answered || formError != null) {
+                                await nextQuestion();
+                              } else {
+                                check();
+                              }
+                            },
+                      child: Text(
+                        loadingForm
+                            ? "Lädt..."
+                            : (answered || formError != null)
+                            ? "Weiter"
+                            : "Prüfen",
+                      ),
                     ),
                   ),
-                ),
 
                 InfoReportFooter(
                   module: AppModules.greekGrammarTrainer,
@@ -2179,7 +2474,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
               : "${paradigm.kindLabel} · Form: $variant",
         ),
 
-        if (!correct || analyses.length > 1) ...[
+        if ((answered && !correct) || analyses.length > 1) ...[
           const SizedBox(height: 12),
 
           Text(
@@ -2296,7 +2591,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
 
     return Column(
       children: [
-        if (!correct) ...[
+        if (answered && !correct) ...[
           const Text(
             "Richtig wäre:",
             style: TextStyle(fontWeight: FontWeight.bold),

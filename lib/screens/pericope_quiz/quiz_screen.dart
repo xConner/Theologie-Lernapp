@@ -25,6 +25,7 @@ import '../../utils/bible_reference_validator.dart';
 
 import '../../settings/quiz_settings.dart';
 
+import '../../widgets/self_assessment.dart';
 import '../../widgets/trainer_widgets.dart';
 
 import 'quick_entry_panel.dart';
@@ -95,6 +96,14 @@ class _QuizScreenState extends State<QuizScreen> {
 
   int activeInput = 0;
 
+  // Eintippen oder Selbsteinschätzung („Im Kopf“).
+  AnswerMethod method = AnswerMethod.typing;
+
+  // Selbsteinschätzung: Stellen der aktuellen Frage aufgedeckt.
+  bool revealed = false;
+
+  final GlobalKey<SelfAssessmentPanelState> _assessmentKey = GlobalKey();
+
   late BibleStructure structure;
 
   final List<String> recentBooks = [];
@@ -121,6 +130,10 @@ class _QuizScreenState extends State<QuizScreen> {
     final prefs = await SharedPreferences.getInstance();
 
     quickEntry = prefs.getBool(_quickEntryKey) ?? false;
+
+    method = await AnswerMethodPreference.load(
+      AnswerMethodPreference.pericopeQuiz,
+    );
 
     settings = QuizSettings(
       selectedBooks: books.isEmpty ? {...QuizSettings.allBooks} : books,
@@ -367,7 +380,7 @@ class _QuizScreenState extends State<QuizScreen> {
   }
 
   /// Kontext für „Fehler melden“. Die hinterlegte Stelle erst nach dem
-  /// Prüfen, damit das Formular die Lösung nicht verrät.
+  /// Prüfen bzw. Aufdecken, damit das Formular die Lösung nicht verrät.
   Map<String, String> _reportDetails() {
     final c = current;
 
@@ -377,8 +390,9 @@ class _QuizScreenState extends State<QuizScreen> {
 
     return {
       "Perikope": "${c.title} (${c.id})",
-      if (checked) "Hinterlegte Stelle": _expectedAnswers().join("; "),
-      "Eingabe": _userAnswers().join("; "),
+      if (checked || revealed)
+        "Hinterlegte Stelle": _expectedAnswers().join("; "),
+      if (method == AnswerMethod.typing) "Eingabe": _userAnswers().join("; "),
     };
   }
 
@@ -386,10 +400,68 @@ class _QuizScreenState extends State<QuizScreen> {
     return input.trim().replaceAll(RegExp(r'\s+'), ' ');
   }
 
+  void _setMethod(AnswerMethod value) {
+    if (checked || revealed || value == method) {
+      return;
+    }
+
+    setState(() {
+      method = value;
+    });
+
+    // Im Kopf wird nichts getippt: Bildschirmtastatur schließen; Enter
+    // erreicht das Quiz weiterhin.
+    if (value == AnswerMethod.recall) {
+      quizFocusNode.requestFocus();
+    } else if (!(quickEntry && _touchPlatform)) {
+      firstInputFocusNode.requestFocus();
+    }
+
+    AnswerMethodPreference.save(AnswerMethodPreference.pericopeQuiz, value);
+  }
+
+  /// Selbsteinschätzung nach dem Aufdecken: zählt wie eine richtige bzw.
+  /// falsche Antwort und führt direkt zur nächsten Frage.
+  void _assess(SelfAssessment assessment) {
+    // Je aufgedeckter Lösung nur eine Bewertung.
+    if (current == null || !revealed || checked) {
+      return;
+    }
+
+    revealed = false;
+
+    // Verbucht den Lernstand sofort; gespeichert wird im Hintergrund.
+    engine.answer(assessment.knew);
+
+    _reportAnswer(assessment.knew, firstEvaluation: true);
+
+    _showNext();
+  }
+
+  /// Sound, Tagesstatistik und Streak einer bewerteten Antwort – für
+  /// geprüfte Eingaben und Selbsteinschätzungen dieselbe Zählstelle.
+  void _reportAnswer(bool correct, {required bool firstEvaluation}) {
+    reportTrainerAnswer(
+      context,
+      uid: widget.uid,
+      correct: correct,
+      firstEvaluation: firstEvaluation,
+      sound: SoundModule.pericopeQuiz,
+      trainer: StatisticsTrainer.perikopenQuiz,
+      track: StreakTrack.perikope,
+      source: StreakSource.perikopenQuiz,
+    );
+  }
+
   Future<void> handleButton() async {
     final c = current;
 
     if (c == null) {
+      return;
+    }
+
+    // Im Kopf gibt es keine Eingabe zu prüfen.
+    if (!checked && method == AnswerMethod.recall) {
       return;
     }
 
@@ -466,16 +538,7 @@ class _QuizScreenState extends State<QuizScreen> {
         feedback = buffer.toString();
       });
 
-      reportTrainerAnswer(
-        context,
-        uid: widget.uid,
-        correct: correct,
-        firstEvaluation: firstEvaluation,
-        sound: SoundModule.pericopeQuiz,
-        trainer: StatisticsTrainer.perikopenQuiz,
-        track: StreakTrack.perikope,
-        source: StreakSource.perikopenQuiz,
-      );
+      _reportAnswer(correct, firstEvaluation: firstEvaluation);
 
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (mounted) {
@@ -486,6 +549,10 @@ class _QuizScreenState extends State<QuizScreen> {
       return;
     }
 
+    _showNext();
+  }
+
+  void _showNext() {
     setState(() {
       engine.next();
 
@@ -494,6 +561,7 @@ class _QuizScreenState extends State<QuizScreen> {
       }
 
       checked = false;
+      revealed = false;
 
       activeInput = 0;
 
@@ -510,8 +578,14 @@ class _QuizScreenState extends State<QuizScreen> {
       }
     });
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      // Mit Schnelleingabe auf Touch-Geräten nicht die Tastatur öffnen.
-      if (mounted && !(quickEntry && _touchPlatform)) {
+      if (!mounted) {
+        return;
+      }
+
+      if (method == AnswerMethod.recall) {
+        quizFocusNode.requestFocus();
+      } else if (!(quickEntry && _touchPlatform)) {
+        // Mit Schnelleingabe auf Touch-Geräten nicht die Tastatur öffnen.
         firstInputFocusNode.requestFocus();
       }
     });
@@ -551,6 +625,7 @@ class _QuizScreenState extends State<QuizScreen> {
         }
 
         checked = false;
+        revealed = false;
         feedback = null;
         activeInput = 0;
       } else if (!checked) {
@@ -568,6 +643,20 @@ class _QuizScreenState extends State<QuizScreen> {
     });
 
     await service.saveBooks(widget.uid, settings.selectedBooks);
+  }
+
+  /// Die erwarteten Stellen für die Selbsteinschätzung.
+  Widget _buildSolution() {
+    return Column(
+      children: [
+        for (final answer in _expectedAnswers())
+          SelectableText(
+            answer,
+            textAlign: TextAlign.center,
+            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+          ),
+      ],
+    );
   }
 
   @override
@@ -589,7 +678,9 @@ class _QuizScreenState extends State<QuizScreen> {
 
     final c = current;
 
-    final showQuickEntry = quickEntry && !checked;
+    final recall = method == AnswerMethod.recall;
+
+    final showQuickEntry = quickEntry && !checked && !recall;
 
     return Scaffold(
       appBar: AppBar(
@@ -614,6 +705,12 @@ class _QuizScreenState extends State<QuizScreen> {
         onKeyEvent: (node, event) {
           if (event is KeyDownEvent &&
               event.logicalKey == LogicalKeyboardKey.enter) {
+            if (recall && !checked) {
+              return _assessmentKey.currentState?.handleEnter() ?? false
+                  ? KeyEventResult.handled
+                  : KeyEventResult.ignored;
+            }
+
             // Mit Schnelleingabe gibt Enter auch ohne Fokus im Textfeld ab.
             if (checked ||
                 (quickEntry &&
@@ -671,156 +768,184 @@ class _QuizScreenState extends State<QuizScreen> {
                       ),
                     ),
 
+                    const SizedBox(height: 12),
+
+                    AnswerMethodSelector(
+                      method: method,
+                      onChanged: checked || revealed ? null : _setMethod,
+                    ),
+
                     const SizedBox(height: 16),
 
-                    ListView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: controllers.length,
-                      itemBuilder: (_, index) {
-                        return Center(
-                          child: ConstrainedBox(
-                            constraints: const BoxConstraints(maxWidth: 800),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: TextField(
-                                    controller: controllers[index],
-                                    focusNode: index == 0
-                                        ? firstInputFocusNode
-                                        : null,
+                    if (recall)
+                      ConstrainedBox(
+                        constraints: const BoxConstraints(maxWidth: 500),
+                        child: SelfAssessmentPanel(
+                          key: _assessmentKey,
+                          revealed: revealed,
+                          onReveal: () => setState(() => revealed = true),
+                          onAssess: _assess,
+                          solutionBuilder: (_) => _buildSolution(),
+                          hint: c.variants.length > 1
+                              ? "Rufe alle ${c.variants.length} Stellen im "
+                                    "Kopf ab und decke dann die Lösung auf."
+                              : "Rufe die Stelle im Kopf ab und decke dann "
+                                    "die Lösung auf.",
+                        ),
+                      ),
 
-                                    mouseCursor: SystemMouseCursors.text,
-                                    showCursor: true,
-
-                                    enabled: !checked,
-
-                                    onTap: () {
-                                      if (activeInput != index) {
-                                        setState(() {
-                                          activeInput = index;
-                                        });
-                                      }
-                                    },
-
-                                    onChanged: (v) {
-                                      activeInput = index;
-                                      validateInput(index, v);
-                                    },
-
-                                    onSubmitted: (_) {
-                                      if (!checked) {
-                                        handleButton();
-                                      }
-                                    },
-
-                                    decoration: InputDecoration(
-                                      hintText:
-                                          c.variants.first.precision ==
-                                              "chapter"
-                                          ? "z.B. Mk 8 oder Mk 8-10"
-                                          : "z.B. Mk 1,9-11",
-
-                                      errorText: validationHints[index],
-
-                                      // Ziel der Schnelleingabe markieren.
-                                      prefixIcon:
-                                          quickEntry &&
-                                              !checked &&
-                                              controllers.length > 1 &&
-                                              index == activeInput
-                                          ? const Icon(Icons.bolt)
+                    if (!recall)
+                      ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: controllers.length,
+                        itemBuilder: (_, index) {
+                          return Center(
+                            child: ConstrainedBox(
+                              constraints: const BoxConstraints(maxWidth: 800),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: TextField(
+                                      controller: controllers[index],
+                                      focusNode: index == 0
+                                          ? firstInputFocusNode
                                           : null,
 
-                                      enabledBorder:
-                                          checked && inputResults[index] == true
-                                          ? OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: context.colors.success,
-                                                width: 2,
-                                              ),
-                                            )
-                                          : checked &&
-                                                inputResults[index] == false
-                                          ? OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: context.colors.error,
-                                                width: 2,
-                                              ),
-                                            )
-                                          : null,
+                                      mouseCursor: SystemMouseCursors.text,
+                                      showCursor: true,
 
-                                      disabledBorder:
-                                          checked && inputResults[index] == true
-                                          ? OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: context.colors.success,
-                                                width: 2,
-                                              ),
-                                            )
-                                          : checked &&
-                                                inputResults[index] == false
-                                          ? OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: context.colors.error,
-                                                width: 2,
-                                              ),
-                                            )
-                                          : null,
+                                      enabled: !checked,
+
+                                      onTap: () {
+                                        if (activeInput != index) {
+                                          setState(() {
+                                            activeInput = index;
+                                          });
+                                        }
+                                      },
+
+                                      onChanged: (v) {
+                                        activeInput = index;
+                                        validateInput(index, v);
+                                      },
+
+                                      onSubmitted: (_) {
+                                        if (!checked) {
+                                          handleButton();
+                                        }
+                                      },
+
+                                      decoration: InputDecoration(
+                                        hintText:
+                                            c.variants.first.precision ==
+                                                "chapter"
+                                            ? "z.B. Mk 8 oder Mk 8-10"
+                                            : "z.B. Mk 1,9-11",
+
+                                        errorText: validationHints[index],
+
+                                        // Ziel der Schnelleingabe markieren.
+                                        prefixIcon:
+                                            quickEntry &&
+                                                !checked &&
+                                                controllers.length > 1 &&
+                                                index == activeInput
+                                            ? const Icon(Icons.bolt)
+                                            : null,
+
+                                        enabledBorder:
+                                            checked &&
+                                                inputResults[index] == true
+                                            ? OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  color: context.colors.success,
+                                                  width: 2,
+                                                ),
+                                              )
+                                            : checked &&
+                                                  inputResults[index] == false
+                                            ? OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  color: context.colors.error,
+                                                  width: 2,
+                                                ),
+                                              )
+                                            : null,
+
+                                        disabledBorder:
+                                            checked &&
+                                                inputResults[index] == true
+                                            ? OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  color: context.colors.success,
+                                                  width: 2,
+                                                ),
+                                              )
+                                            : checked &&
+                                                  inputResults[index] == false
+                                            ? OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  color: context.colors.error,
+                                                  width: 2,
+                                                ),
+                                              )
+                                            : null,
+                                      ),
                                     ),
                                   ),
-                                ),
 
-                                if (controllers.length > 1)
-                                  IconButton(
-                                    icon: const Icon(Icons.remove_circle),
-                                    onPressed: checked
-                                        ? null
-                                        : () => removeInput(index),
-                                  ),
-                              ],
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-
-                    Center(
-                      child: Wrap(
-                        alignment: WrapAlignment.center,
-                        spacing: 8,
-                        children: [
-                          if (controllers.length < 4)
-                            TextButton.icon(
-                              icon: const Icon(Icons.add),
-                              label: const Text("Weitere Eingabe"),
-                              onPressed: checked ? null : addInput,
-                            ),
-
-                          // Nach dem Prüfen ist die Eingabe gesperrt.
-                          if (!checked)
-                            Semantics(
-                              toggled: quickEntry,
-                              child: TextButton.icon(
-                                key: const ValueKey("quick-entry-toggle"),
-                                icon: Icon(
-                                  quickEntry
-                                      ? Icons.keyboard_arrow_up
-                                      : Icons.bolt,
-                                ),
-                                label: const Text("Schnelleingabe"),
-                                style: quickEntry
-                                    ? TextButton.styleFrom(
-                                        backgroundColor:
-                                            context.colors.surfaceMuted,
-                                      )
-                                    : null,
-                                onPressed: _toggleQuickEntry,
+                                  if (controllers.length > 1)
+                                    IconButton(
+                                      icon: const Icon(Icons.remove_circle),
+                                      onPressed: checked
+                                          ? null
+                                          : () => removeInput(index),
+                                    ),
+                                ],
                               ),
                             ),
-                        ],
+                          );
+                        },
                       ),
-                    ),
+
+                    if (!recall)
+                      Center(
+                        child: Wrap(
+                          alignment: WrapAlignment.center,
+                          spacing: 8,
+                          children: [
+                            if (controllers.length < 4)
+                              TextButton.icon(
+                                icon: const Icon(Icons.add),
+                                label: const Text("Weitere Eingabe"),
+                                onPressed: checked ? null : addInput,
+                              ),
+
+                            // Nach dem Prüfen ist die Eingabe gesperrt.
+                            if (!checked)
+                              Semantics(
+                                toggled: quickEntry,
+                                child: TextButton.icon(
+                                  key: const ValueKey("quick-entry-toggle"),
+                                  icon: Icon(
+                                    quickEntry
+                                        ? Icons.keyboard_arrow_up
+                                        : Icons.bolt,
+                                  ),
+                                  label: const Text("Schnelleingabe"),
+                                  style: quickEntry
+                                      ? TextButton.styleFrom(
+                                          backgroundColor:
+                                              context.colors.surfaceMuted,
+                                        )
+                                      : null,
+                                  onPressed: _toggleQuickEntry,
+                                ),
+                              ),
+                          ],
+                        ),
+                      ),
 
                     if (showQuickEntry)
                       Flexible(
@@ -850,12 +975,13 @@ class _QuizScreenState extends State<QuizScreen> {
                         ),
                       ),
 
-                    Center(
-                      child: ElevatedButton(
-                        onPressed: handleButton,
-                        child: Text(checked ? "Weiter" : "Prüfen"),
+                    if (!recall)
+                      Center(
+                        child: ElevatedButton(
+                          onPressed: handleButton,
+                          child: Text(checked ? "Weiter" : "Prüfen"),
+                        ),
                       ),
-                    ),
 
                     if (feedback != null)
                       Center(
@@ -889,7 +1015,9 @@ class _QuizScreenState extends State<QuizScreen> {
                           ),
                         ),
                       ),
-                    if (checked) ...[
+                    // Die Merkhilfe gehört zur Lösung: nach dem Prüfen bzw.
+                    // Aufdecken.
+                    if (checked || revealed) ...[
                       const SizedBox(height: 16),
 
                       if (editingMnemonic)

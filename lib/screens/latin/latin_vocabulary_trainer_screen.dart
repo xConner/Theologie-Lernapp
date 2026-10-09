@@ -24,6 +24,7 @@ import '../../widgets/settings_selection.dart';
 import '../../utils/word_type_labels.dart';
 import '../../info/app_info.dart';
 import '../../widgets/info_report.dart';
+import '../../widgets/self_assessment.dart';
 import '../../widgets/trainer_widgets.dart';
 
 class LatinVocabularyTrainerScreen extends StatefulWidget {
@@ -92,6 +93,14 @@ class _LatinVocabularyTrainerScreenState
 
   String? uid;
 
+  // Eintippen oder Selbsteinschätzung („Im Kopf“).
+  AnswerMethod method = AnswerMethod.typing;
+
+  // Selbsteinschätzung: Lösung der aktuellen Frage aufgedeckt.
+  bool revealed = false;
+
+  final GlobalKey<SelfAssessmentPanelState> _assessmentKey = GlobalKey();
+
   @override
   void initState() {
     super.initState();
@@ -116,6 +125,10 @@ class _LatinVocabularyTrainerScreenState
     // Enter gehört einem geöffneten Info-Blatt bzw. Meldeformular.
     if (infoReportOverlayOpen) {
       return false;
+    }
+
+    if (method == AnswerMethod.recall && !answered) {
+      return _assessmentKey.currentState?.handleEnter() ?? false;
     }
 
     // Enter gehört dem aktuell fokussierten Eingabefeld.
@@ -166,7 +179,10 @@ class _LatinVocabularyTrainerScreenState
         settingsService.load(uid),
         LatinVocabularyLoader.load(),
         learningService.loadLatinCards(uid),
+        AnswerMethodPreference.load(AnswerMethodPreference.latinVocabulary),
       ]);
+
+      method = results[3] as AnswerMethod;
 
       final settings = results[0] as LatinVocabularySettings;
 
@@ -256,6 +272,7 @@ class _LatinVocabularyTrainerScreenState
     genderController.clear();
 
     answered = false;
+    revealed = false;
     correct = false;
 
     translationCorrect = null;
@@ -267,10 +284,69 @@ class _LatinVocabularyTrainerScreenState
     setState(() {});
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (mounted) {
+      // Im Kopf wird nichts getippt: keine Bildschirmtastatur öffnen.
+      if (mounted && method == AnswerMethod.typing) {
         _focusFirstInputField();
       }
     });
+  }
+
+  void setMethod(AnswerMethod value) {
+    if (answered || revealed || value == method) {
+      return;
+    }
+
+    setState(() {
+      method = value;
+    });
+
+    if (value == AnswerMethod.typing) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) {
+          _focusFirstInputField();
+        }
+      });
+    } else {
+      FocusManager.instance.primaryFocus?.unfocus();
+    }
+
+    AnswerMethodPreference.save(AnswerMethodPreference.latinVocabulary, value);
+  }
+
+  /// Verbucht eine Antwort im Lernstand – gleich, ob die Eingabe geprüft
+  /// oder das eigene Wissen eingeschätzt wurde.
+  void _recordAnswer(LatinVocabularyQuestion q, bool correct) {
+    final card =
+        cards[q.entry.id.toString()] ?? LearningCard(id: q.entry.id.toString());
+
+    selector.algorithm.answer(card, correct);
+
+    cards[q.entry.id.toString()] = card;
+
+    // Nicht auf den Server warten: Firestore bestätigt offline erst später,
+    // die Auswertung soll trotzdem sofort erscheinen.
+    learningService.saveLatinCard(uid, card).catchError((Object e) {
+      debugPrint("Lernstand konnte nicht gespeichert werden: $e");
+    });
+  }
+
+  /// Selbsteinschätzung nach dem Aufdecken: zählt wie eine richtige bzw.
+  /// falsche Antwort und führt direkt zur nächsten Frage.
+  void assess(SelfAssessment assessment) {
+    final q = question;
+
+    // Je aufgedeckter Lösung nur eine Bewertung.
+    if (q == null || !revealed || answered) {
+      return;
+    }
+
+    revealed = false;
+
+    _recordAnswer(q, assessment.knew);
+
+    _reportAnswer(assessment.knew, firstEvaluation: true);
+
+    nextQuestion();
   }
 
   void _focusFirstInputField() {
@@ -298,10 +374,25 @@ class _LatinVocabularyTrainerScreenState
     translationFocusNode.requestFocus();
   }
 
+  /// Sound, Tagesstatistik und Streak einer bewerteten Antwort – für
+  /// geprüfte Eingaben und Selbsteinschätzungen dieselbe Zählstelle.
+  void _reportAnswer(bool correct, {required bool firstEvaluation}) {
+    reportTrainerAnswer(
+      context,
+      uid: uid,
+      correct: correct,
+      firstEvaluation: firstEvaluation,
+      sound: SoundModule.latinVocabulary,
+      trainer: StatisticsTrainer.latinVocabulary,
+      track: StreakTrack.latin,
+      source: StreakSource.vocabulary,
+    );
+  }
+
   Future<void> check() async {
     final q = question;
 
-    if (q == null) {
+    if (q == null || method != AnswerMethod.typing) {
       return;
     }
 
@@ -317,18 +408,7 @@ class _LatinVocabularyTrainerScreenState
       requireOnlyOneTranslation: requireOnlyOneTranslation,
     );
 
-    final card =
-        cards[q.entry.id.toString()] ?? LearningCard(id: q.entry.id.toString());
-
-    selector.algorithm.answer(card, result.correct);
-
-    cards[q.entry.id.toString()] = card;
-
-    // Nicht auf den Server warten: Firestore bestätigt offline erst später,
-    // die Auswertung soll trotzdem sofort erscheinen.
-    learningService.saveLatinCard(uid, card).catchError((Object e) {
-      debugPrint("Lernstand konnte nicht gespeichert werden: $e");
-    });
+    _recordAnswer(q, result.correct);
 
     // Streak nur einmal je Frage zählen (auch bei doppeltem Enter).
     final firstEvaluation = !answered;
@@ -347,16 +427,7 @@ class _LatinVocabularyTrainerScreenState
       genderCorrect = result.genderCorrect;
     });
 
-    reportTrainerAnswer(
-      context,
-      uid: uid,
-      correct: result.correct,
-      firstEvaluation: firstEvaluation,
-      sound: SoundModule.latinVocabulary,
-      trainer: StatisticsTrainer.latinVocabulary,
-      track: StreakTrack.latin,
-      source: StreakSource.vocabulary,
-    );
+    _reportAnswer(result.correct, firstEvaluation: firstEvaluation);
   }
 
   void openSettings() {
@@ -725,6 +796,47 @@ class _LatinVocabularyTrainerScreenState
     enabledSubsteps[step] = allSelected ? [] : List<int>.from(substeps);
   }
 
+  /// Vollständige Lösung für die Selbsteinschätzung.
+  Widget _buildSolution(LatinVocabularyQuestion q) {
+    final entry = q.entry;
+
+    return Column(
+      children: [
+        SelectableText(
+          entry.translations.join(", "),
+          key: const Key("vocabulary_translation_text"),
+          textAlign: TextAlign.center,
+          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+        ),
+
+        if (entry.form != null || entry.gender != null)
+          const SizedBox(height: 8),
+
+        if (entry.form != null) Text("Form: ${entry.form}"),
+
+        if (entry.gender != null) Text("Genus: ${entry.gender}"),
+      ],
+    );
+  }
+
+  Widget _buildMnemonic(LatinVocabularyQuestion q, LearningCard card) {
+    return MnemonicSection(
+      key: ValueKey(q.entry.id),
+      mnemonic: card.mnemonic,
+      onSave: (mnemonic) async {
+        card.mnemonic = mnemonic;
+
+        cards[q.entry.id.toString()] = card;
+
+        await learningService.saveLatinCard(uid, card);
+
+        if (mounted) {
+          setState(() {});
+        }
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     if (loading) {
@@ -779,173 +891,188 @@ class _LatinVocabularyTrainerScreenState
                     ),
                   ),
 
+                  const SizedBox(height: 16),
+
+                  AnswerMethodSelector(
+                    method: method,
+                    onChanged: answered || revealed ? null : setMethod,
+                  ),
+
                   const SizedBox(height: 20),
 
-                  if ((q.hasVerbFormField && includeVerbForm) ||
-                      (q.hasNounFormField && includeNounForm) ||
-                      (q.hasAdjectiveFormsField && includeAdjectiveForms))
-                    TextField(
-                      controller: formController,
-                      focusNode: formFocusNode,
-                      key: ValueKey('form-${q.entry.id}'),
-                      onSubmitted: _handleTextFieldSubmitted,
-                      enabled:
-                          !answered &&
-                          ((q.entry.type == "verb" && includeVerbForm) ||
-                              (q.entry.type == "noun" && includeNounForm) ||
-                              (q.entry.type == "adjective" &&
-                                  includeAdjectiveForms)),
-                      decoration: InputDecoration(
-                        labelText: q.entry.type == "verb"
-                            ? "Form"
-                            : q.entry.type == "noun"
-                            ? "Zusatzform"
-                            : "Formen",
-                        enabledBorder: answerResultBorder(context, formCorrect),
-                        focusedBorder: answerResultBorder(context, formCorrect),
-                        disabledBorder: answerResultBorder(
-                          context,
-                          formCorrect,
-                        ),
-                        border: const OutlineInputBorder(),
-                      ),
+                  if (method == AnswerMethod.recall) ...[
+                    SelfAssessmentPanel(
+                      key: _assessmentKey,
+                      revealed: revealed,
+                      onReveal: () => setState(() => revealed = true),
+                      onAssess: assess,
+                      solutionBuilder: (_) => _buildSolution(q),
                     ),
 
-                  if (q.hasGenderField && includeGender) ...[
-                    const SizedBox(height: 12),
+                    if (revealed) ...[
+                      const SizedBox(height: 16),
+
+                      _buildMnemonic(q, card),
+                    ],
+                  ] else ...[
+                    if ((q.hasVerbFormField && includeVerbForm) ||
+                        (q.hasNounFormField && includeNounForm) ||
+                        (q.hasAdjectiveFormsField && includeAdjectiveForms))
+                      TextField(
+                        controller: formController,
+                        focusNode: formFocusNode,
+                        key: ValueKey('form-${q.entry.id}'),
+                        onSubmitted: _handleTextFieldSubmitted,
+                        enabled:
+                            !answered &&
+                            ((q.entry.type == "verb" && includeVerbForm) ||
+                                (q.entry.type == "noun" && includeNounForm) ||
+                                (q.entry.type == "adjective" &&
+                                    includeAdjectiveForms)),
+                        decoration: InputDecoration(
+                          labelText: q.entry.type == "verb"
+                              ? "Form"
+                              : q.entry.type == "noun"
+                              ? "Zusatzform"
+                              : "Formen",
+                          enabledBorder: answerResultBorder(
+                            context,
+                            formCorrect,
+                          ),
+                          focusedBorder: answerResultBorder(
+                            context,
+                            formCorrect,
+                          ),
+                          disabledBorder: answerResultBorder(
+                            context,
+                            formCorrect,
+                          ),
+                          border: const OutlineInputBorder(),
+                        ),
+                      ),
+
+                    if (q.hasGenderField && includeGender) ...[
+                      const SizedBox(height: 12),
+
+                      TextField(
+                        controller: genderController,
+                        focusNode: genderFocusNode,
+                        key: ValueKey('gender-${q.entry.id}'),
+                        onSubmitted: _handleTextFieldSubmitted,
+                        enabled: !answered,
+                        decoration: InputDecoration(
+                          labelText: "Genus",
+                          hintText: "z. B. m, f, n",
+                          enabledBorder: answerResultBorder(
+                            context,
+                            genderCorrect,
+                          ),
+                          focusedBorder: answerResultBorder(
+                            context,
+                            genderCorrect,
+                          ),
+                          disabledBorder: answerResultBorder(
+                            context,
+                            genderCorrect,
+                          ),
+                          border: const OutlineInputBorder(),
+                        ),
+                      ),
+                    ],
+
+                    const SizedBox(height: 15),
 
                     TextField(
-                      controller: genderController,
-                      focusNode: genderFocusNode,
-                      key: ValueKey('gender-${q.entry.id}'),
+                      controller: translationController,
+                      key: ValueKey('translation-${q.entry.id}'),
                       onSubmitted: _handleTextFieldSubmitted,
                       enabled: !answered,
+                      focusNode: translationFocusNode,
                       decoration: InputDecoration(
-                        labelText: "Genus",
-                        hintText: "z. B. m, f, n",
+                        labelText: "Übersetzung",
+                        hintText: "Mehrere Übersetzungen mit Komma trennen",
                         enabledBorder: answerResultBorder(
                           context,
-                          genderCorrect,
+                          translationCorrect,
                         ),
                         focusedBorder: answerResultBorder(
                           context,
-                          genderCorrect,
+                          translationCorrect,
                         ),
                         disabledBorder: answerResultBorder(
                           context,
-                          genderCorrect,
+                          translationCorrect,
                         ),
                         border: const OutlineInputBorder(),
                       ),
                     ),
-                  ],
 
-                  const SizedBox(height: 15),
+                    const SizedBox(height: 20),
 
-                  TextField(
-                    controller: translationController,
-                    key: ValueKey('translation-${q.entry.id}'),
-                    onSubmitted: _handleTextFieldSubmitted,
-                    enabled: !answered,
-                    focusNode: translationFocusNode,
-                    decoration: InputDecoration(
-                      labelText: "Übersetzung",
-                      hintText: "Mehrere Übersetzungen mit Komma trennen",
-                      enabledBorder: answerResultBorder(
-                        context,
-                        translationCorrect,
-                      ),
-                      focusedBorder: answerResultBorder(
-                        context,
-                        translationCorrect,
-                      ),
-                      disabledBorder: answerResultBorder(
-                        context,
-                        translationCorrect,
-                      ),
-                      border: const OutlineInputBorder(),
-                    ),
-                  ),
-
-                  const SizedBox(height: 20),
-
-                  if (answered)
-                    Column(
-                      children: [
-                        AnswerFeedbackBadge(
-                          correct: correct,
-                          label: correct ? "Richtig" : "Falsch",
-                        ),
-
-                        const SizedBox(height: 12),
-
-                        if (!correct ||
-                            !translationComplete ||
-                            !includeVerbForm ||
-                            !includeNounForm ||
-                            !includeGender ||
-                            !includeAdjectiveForms)
-                          Column(
-                            children: [
-                              const Text(
-                                "Korrekte Antworten:",
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-
-                              const SizedBox(height: 8),
-
-                              if (q.entry.form != null &&
-                                  (formCorrect == false ||
-                                      (q.entry.type == "verb" &&
-                                          !includeVerbForm) ||
-                                      (q.entry.type == "noun" &&
-                                          !includeNounForm) ||
-                                      (q.entry.type == "adjective" &&
-                                          !includeAdjectiveForms)))
-                                Text("Form: ${q.entry.form}"),
-
-                              if (q.entry.gender != null &&
-                                  (genderCorrect == false || !includeGender))
-                                Text("Genus: ${q.entry.gender}"),
-
-                              if (translationCorrect == false ||
-                                  !translationComplete)
-                                Text(
-                                  "Übersetzung: "
-                                  "${q.entry.translations.join(", ")}",
-                                ),
-                            ],
+                    if (answered)
+                      Column(
+                        children: [
+                          AnswerFeedbackBadge(
+                            correct: correct,
+                            label: correct ? "Richtig" : "Falsch",
                           ),
 
-                        const SizedBox(height: 16),
+                          const SizedBox(height: 12),
 
-                        MnemonicSection(
-                          key: ValueKey(q.entry.id),
-                          mnemonic: card.mnemonic,
-                          onSave: (mnemonic) async {
-                            card.mnemonic = mnemonic;
+                          if (!correct ||
+                              !translationComplete ||
+                              !includeVerbForm ||
+                              !includeNounForm ||
+                              !includeGender ||
+                              !includeAdjectiveForms)
+                            Column(
+                              children: [
+                                const Text(
+                                  "Korrekte Antworten:",
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
 
-                            cards[q.entry.id.toString()] = card;
+                                const SizedBox(height: 8),
 
-                            await learningService.saveLatinCard(uid, card);
+                                if (q.entry.form != null &&
+                                    (formCorrect == false ||
+                                        (q.entry.type == "verb" &&
+                                            !includeVerbForm) ||
+                                        (q.entry.type == "noun" &&
+                                            !includeNounForm) ||
+                                        (q.entry.type == "adjective" &&
+                                            !includeAdjectiveForms)))
+                                  Text("Form: ${q.entry.form}"),
 
-                            if (mounted) {
-                              setState(() {});
-                            }
-                          },
-                        ),
-                      ],
+                                if (q.entry.gender != null &&
+                                    (genderCorrect == false || !includeGender))
+                                  Text("Genus: ${q.entry.gender}"),
+
+                                if (translationCorrect == false ||
+                                    !translationComplete)
+                                  Text(
+                                    "Übersetzung: "
+                                    "${q.entry.translations.join(", ")}",
+                                  ),
+                              ],
+                            ),
+
+                          const SizedBox(height: 16),
+
+                          _buildMnemonic(q, card),
+                        ],
+                      ),
+
+                    const SizedBox(height: 20),
+
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: answered ? nextQuestion : check,
+                        child: Text(answered ? "Weiter" : "Prüfen"),
+                      ),
                     ),
-
-                  const SizedBox(height: 20),
-
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: answered ? nextQuestion : check,
-                      child: Text(answered ? "Weiter" : "Prüfen"),
-                    ),
-                  ),
+                  ],
 
                   InfoReportFooter(
                     module: AppModules.latinVocabulary,
@@ -953,14 +1080,13 @@ class _LatinVocabularyTrainerScreenState
                       "Eintrag": "${q.entry.lemma} (ID ${q.entry.id})",
                       "Schritt": "${q.entry.step}.${q.entry.substep}",
                       "Wortart": q.entry.type,
-                      // Lösung erst nach dem Prüfen, damit das Formular sie
-                      // nicht verrät.
-                      if (answered) ...{
+                      // Lösung erst nach dem Prüfen bzw. Aufdecken, damit das
+                      // Formular sie nicht verrät.
+                      if (answered || revealed)
                         "Hinterlegte Übersetzung": q.entry.translations.join(
                           ", ",
                         ),
-                        "Eingabe": translationController.text,
-                      },
+                      if (answered) "Eingabe": translationController.text,
                     },
                   ),
                 ],

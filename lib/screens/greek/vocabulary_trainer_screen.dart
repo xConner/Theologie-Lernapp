@@ -26,6 +26,7 @@ import '../../widgets/settings_selection.dart';
 import '../../utils/word_type_labels.dart';
 import '../../info/app_info.dart';
 import '../../widgets/info_report.dart';
+import '../../widgets/self_assessment.dart';
 import '../../widgets/trainer_widgets.dart';
 
 class VocabularyTrainerScreen extends StatefulWidget {
@@ -97,6 +98,14 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
 
   String? uid;
 
+  // Eintippen oder Selbsteinschätzung („Im Kopf“).
+  AnswerMethod method = AnswerMethod.typing;
+
+  // Selbsteinschätzung: Lösung der aktuellen Frage aufgedeckt.
+  bool revealed = false;
+
+  final GlobalKey<SelfAssessmentPanelState> _assessmentKey = GlobalKey();
+
   @override
   void initState() {
     super.initState();
@@ -104,6 +113,10 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
     _keyListener = WindowEnterListener(() {
       // Enter gehört einem geöffneten Info-Blatt bzw. Meldeformular.
       if (infoReportOverlayOpen) return false;
+
+      if (method == AnswerMethod.recall && !answered) {
+        return _assessmentKey.currentState?.handleEnter() ?? false;
+      }
 
       if (answered) {
         nextQuestion();
@@ -147,7 +160,10 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
         settingsService.load(uid),
         GreekVocabularyLoader.load(),
         learningService.loadCards(uid),
+        AnswerMethodPreference.load(AnswerMethodPreference.greekVocabulary),
       ]);
+
+      method = results[3] as AnswerMethod;
 
       final settings = results[0] as VocabularySettings;
 
@@ -221,6 +237,8 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
 
     answered = false;
 
+    revealed = false;
+
     correct = false;
 
     translationCorrect = null;
@@ -240,16 +258,90 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
     setState(() {});
 
     Future.delayed(const Duration(milliseconds: 100), () {
-      if (mounted) {
+      // Im Kopf wird nichts getippt: keine Bildschirmtastatur öffnen.
+      if (mounted && method == AnswerMethod.typing) {
         translationFocusNode.requestFocus();
       }
     });
   }
 
+  void setMethod(AnswerMethod value) {
+    if (answered || revealed || value == method) {
+      return;
+    }
+
+    setState(() {
+      method = value;
+
+      showKeyboard = false;
+
+      activeController = null;
+    });
+
+    if (value == AnswerMethod.typing) {
+      translationFocusNode.requestFocus();
+    } else {
+      FocusManager.instance.primaryFocus?.unfocus();
+    }
+
+    AnswerMethodPreference.save(AnswerMethodPreference.greekVocabulary, value);
+  }
+
+  /// Verbucht eine Antwort im Lernstand – gleich, ob die Eingabe geprüft
+  /// oder das eigene Wissen eingeschätzt wurde.
+  void _recordAnswer(VocabularyQuestion q, bool correct) {
+    final card =
+        cards[q.entry.id.toString()] ?? LearningCard(id: q.entry.id.toString());
+
+    selector.algorithm.answer(card, correct);
+
+    cards[q.entry.id.toString()] = card;
+
+    // Nicht auf den Server warten: Firestore bestätigt offline erst später,
+    // die Auswertung soll trotzdem sofort erscheinen.
+    learningService.saveCard(uid, card).catchError((Object e) {
+      debugPrint("Lernstand konnte nicht gespeichert werden: $e");
+    });
+  }
+
+  /// Selbsteinschätzung nach dem Aufdecken: zählt wie eine richtige bzw.
+  /// falsche Antwort und führt direkt zur nächsten Frage.
+  void assess(SelfAssessment assessment) {
+    final q = question;
+
+    // Je aufgedeckter Lösung nur eine Bewertung.
+    if (q == null || !revealed || answered) {
+      return;
+    }
+
+    revealed = false;
+
+    _recordAnswer(q, assessment.knew);
+
+    _reportAnswer(assessment.knew, firstEvaluation: true);
+
+    nextQuestion();
+  }
+
+  /// Sound, Tagesstatistik und Streak einer bewerteten Antwort – für
+  /// geprüfte Eingaben und Selbsteinschätzungen dieselbe Zählstelle.
+  void _reportAnswer(bool correct, {required bool firstEvaluation}) {
+    reportTrainerAnswer(
+      context,
+      uid: uid,
+      correct: correct,
+      firstEvaluation: firstEvaluation,
+      sound: SoundModule.greekVocabulary,
+      trainer: StatisticsTrainer.greekVocabulary,
+      track: StreakTrack.greek,
+      source: StreakSource.vocabulary,
+    );
+  }
+
   Future<void> check() async {
     final q = question;
 
-    if (q == null) {
+    if (q == null || method != AnswerMethod.typing) {
       return;
     }
 
@@ -273,18 +365,7 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
       requireOnlyOneTranslation: requireOnlyOneTranslation,
     );
 
-    final card =
-        cards[q.entry.id.toString()] ?? LearningCard(id: q.entry.id.toString());
-
-    selector.algorithm.answer(card, result.correct);
-
-    cards[q.entry.id.toString()] = card;
-
-    // Nicht auf den Server warten: Firestore bestätigt offline erst später,
-    // die Auswertung soll trotzdem sofort erscheinen.
-    learningService.saveCard(uid, card).catchError((Object e) {
-      debugPrint("Lernstand konnte nicht gespeichert werden: $e");
-    });
+    _recordAnswer(q, result.correct);
 
     // Streak nur einmal je Frage zählen (auch bei doppeltem Enter).
     final firstEvaluation = !answered;
@@ -309,16 +390,7 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
       activeController = null;
     });
 
-    reportTrainerAnswer(
-      context,
-      uid: uid,
-      correct: result.correct,
-      firstEvaluation: firstEvaluation,
-      sound: SoundModule.greekVocabulary,
-      trainer: StatisticsTrainer.greekVocabulary,
-      track: StreakTrack.greek,
-      source: StreakSource.vocabulary,
-    );
+    _reportAnswer(result.correct, firstEvaluation: firstEvaluation);
   }
 
   void openKeyboard(TextEditingController controller) {
@@ -635,181 +707,192 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
                       ),
                     ),
 
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 16),
 
-                    if (q.hasArticleField || q.hasGenitiveField)
-                      Row(
-                        children: [
-                          if (q.hasGenitiveField && includeGenitive)
-                            Expanded(
-                              child: greekField(
-                                "Genitiv",
-                                genitiveController,
-                                genitiveCorrect,
-                              ),
-                            ),
-
-                          if (q.hasArticleField &&
-                              q.hasGenitiveField &&
-                              includeArticle &&
-                              includeGenitive)
-                            const SizedBox(width: 10),
-
-                          if (q.hasArticleField && includeArticle)
-                            Expanded(
-                              child: greekField(
-                                "Artikel",
-                                articleController,
-                                articleCorrect,
-                              ),
-                            ),
-                        ],
-                      ),
-
-                    if (q.hasAoristField && includeAorist)
-                      greekField("Aorist", aoristController, aoristCorrect),
-
-                    const SizedBox(height: 15),
-
-                    TextField(
-                      controller: translationController,
-
-                      enabled: !answered,
-
-                      focusNode: translationFocusNode,
-
-                      //onTap: closeKeyboard,
-                      decoration: InputDecoration(
-                        labelText: "Übersetzung",
-
-                        enabledBorder: answerResultBorder(
-                          context,
-                          translationCorrect,
-                        ),
-
-                        focusedBorder: answerResultBorder(
-                          context,
-                          translationCorrect,
-                        ),
-
-                        disabledBorder: answerResultBorder(
-                          context,
-                          translationCorrect,
-                        ),
-
-                        border: const OutlineInputBorder(),
-                      ),
+                    AnswerMethodSelector(
+                      method: method,
+                      onChanged: answered || revealed ? null : setMethod,
                     ),
 
                     const SizedBox(height: 20),
 
-                    if (showKeyboard && activeController != null)
-                      GreekKeyboard(
-                        controller: activeController!,
-
-                        onChanged: () {
-                          setState(() {});
-                        },
+                    if (method == AnswerMethod.recall) ...[
+                      SelfAssessmentPanel(
+                        key: _assessmentKey,
+                        revealed: revealed,
+                        onReveal: () => setState(() => revealed = true),
+                        onAssess: assess,
+                        solutionBuilder: (_) => _buildSolution(q),
                       ),
 
-                    if (answered)
-                      Column(
-                        children: [
-                          AnswerFeedbackBadge(
-                            correct: correct,
-                            label: correct ? "Richtig" : "Falsch",
+                      if (revealed) ...[
+                        const SizedBox(height: 16),
+
+                        _buildMnemonic(q, card),
+                      ],
+                    ] else ...[
+                      if (q.hasArticleField || q.hasGenitiveField)
+                        Row(
+                          children: [
+                            if (q.hasGenitiveField && includeGenitive)
+                              Expanded(
+                                child: greekField(
+                                  "Genitiv",
+                                  genitiveController,
+                                  genitiveCorrect,
+                                ),
+                              ),
+
+                            if (q.hasArticleField &&
+                                q.hasGenitiveField &&
+                                includeArticle &&
+                                includeGenitive)
+                              const SizedBox(width: 10),
+
+                            if (q.hasArticleField && includeArticle)
+                              Expanded(
+                                child: greekField(
+                                  "Artikel",
+                                  articleController,
+                                  articleCorrect,
+                                ),
+                              ),
+                          ],
+                        ),
+
+                      if (q.hasAoristField && includeAorist)
+                        greekField("Aorist", aoristController, aoristCorrect),
+
+                      const SizedBox(height: 15),
+
+                      TextField(
+                        controller: translationController,
+
+                        enabled: !answered,
+
+                        focusNode: translationFocusNode,
+
+                        //onTap: closeKeyboard,
+                        decoration: InputDecoration(
+                          labelText: "Übersetzung",
+
+                          enabledBorder: answerResultBorder(
+                            context,
+                            translationCorrect,
                           ),
 
-                          const SizedBox(height: 12),
+                          focusedBorder: answerResultBorder(
+                            context,
+                            translationCorrect,
+                          ),
 
-                          if (!correct ||
-                              !translationComplete ||
-                              (q.entry.article != null && !includeArticle) ||
-                              (q.entry.genitive != null && !includeGenitive) ||
-                              (q.entry.aorist != null && !includeAorist))
-                            Column(
-                              children: [
-                                Text(
-                                  correct &&
-                                          translationComplete &&
-                                          hasAdditionalInfo
-                                      ? "Zusätzliche Informationen:"
-                                      : "Korrekte Antworten:",
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
+                          disabledBorder: answerResultBorder(
+                            context,
+                            translationCorrect,
+                          ),
+
+                          border: const OutlineInputBorder(),
+                        ),
+                      ),
+
+                      const SizedBox(height: 20),
+
+                      if (showKeyboard && activeController != null)
+                        GreekKeyboard(
+                          controller: activeController!,
+
+                          onChanged: () {
+                            setState(() {});
+                          },
+                        ),
+
+                      if (answered)
+                        Column(
+                          children: [
+                            AnswerFeedbackBadge(
+                              correct: correct,
+                              label: correct ? "Richtig" : "Falsch",
+                            ),
+
+                            const SizedBox(height: 12),
+
+                            if (!correct ||
+                                !translationComplete ||
+                                (q.entry.article != null && !includeArticle) ||
+                                (q.entry.genitive != null &&
+                                    !includeGenitive) ||
+                                (q.entry.aorist != null && !includeAorist))
+                              Column(
+                                children: [
+                                  Text(
+                                    correct &&
+                                            translationComplete &&
+                                            hasAdditionalInfo
+                                        ? "Zusätzliche Informationen:"
+                                        : "Korrekte Antworten:",
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
-                                ),
 
-                                const SizedBox(height: 8),
+                                  const SizedBox(height: 8),
 
-                                if (q.entry.article != null &&
-                                    (articleCorrect == false ||
-                                        !includeArticle))
-                                  Text("Artikel: ${q.entry.article}"),
+                                  if (q.entry.article != null &&
+                                      (articleCorrect == false ||
+                                          !includeArticle))
+                                    Text("Artikel: ${q.entry.article}"),
 
-                                if (q.entry.genitive != null &&
-                                    (genitiveCorrect == false ||
-                                        !includeGenitive))
-                                  Text("Genitiv: ${q.entry.genitive}"),
+                                  if (q.entry.genitive != null &&
+                                      (genitiveCorrect == false ||
+                                          !includeGenitive))
+                                    Text("Genitiv: ${q.entry.genitive}"),
 
-                                if (q.entry.aorist != null &&
-                                    (aoristCorrect == false || !includeAorist))
-                                  Text("Aorist: ${q.entry.aorist}"),
+                                  if (q.entry.aorist != null &&
+                                      (aoristCorrect == false ||
+                                          !includeAorist))
+                                    Text("Aorist: ${q.entry.aorist}"),
 
-                                if (translationCorrect == false ||
-                                    !translationComplete)
-                                  // Nur der Übersetzungstext selbst ist
-                                  // auswähl- und kopierbar, nicht das Label.
-                                  Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      const Text("Übersetzung: "),
+                                  if (translationCorrect == false ||
+                                      !translationComplete)
+                                    // Nur der Übersetzungstext selbst ist
+                                    // auswähl- und kopierbar, nicht das Label.
+                                    Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        const Text("Übersetzung: "),
 
-                                      Flexible(
-                                        child: SelectableText(
-                                          q.entry.translations.join(", "),
-                                          key: const Key(
-                                            "vocabulary_translation_text",
+                                        Flexible(
+                                          child: SelectableText(
+                                            q.entry.translations.join(", "),
+                                            key: const Key(
+                                              "vocabulary_translation_text",
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                              ],
-                            ),
-                          const SizedBox(height: 16),
+                                      ],
+                                    ),
+                                ],
+                              ),
+                            const SizedBox(height: 16),
 
-                          MnemonicSection(
-                            key: ValueKey(q.entry.id),
-                            mnemonic: card.mnemonic,
-                            onSave: (mnemonic) async {
-                              card.mnemonic = mnemonic;
+                            _buildMnemonic(q, card),
+                          ],
+                        ),
 
-                              cards[q.entry.id.toString()] = card;
+                      const SizedBox(height: 20),
 
-                              await learningService.saveCard(uid, card);
+                      SizedBox(
+                        width: double.infinity,
 
-                              if (mounted) {
-                                setState(() {});
-                              }
-                            },
-                          ),
-                        ],
+                        child: ElevatedButton(
+                          onPressed: answered ? nextQuestion : check,
+
+                          child: Text(answered ? "Weiter" : "Prüfen"),
+                        ),
                       ),
-
-                    const SizedBox(height: 20),
-
-                    SizedBox(
-                      width: double.infinity,
-
-                      child: ElevatedButton(
-                        onPressed: answered ? nextQuestion : check,
-
-                        child: Text(answered ? "Weiter" : "Prüfen"),
-                      ),
-                    ),
+                    ],
 
                     InfoReportFooter(
                       module: AppModules.greekVocabulary,
@@ -817,14 +900,13 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
                         "Eintrag": "${q.entry.lemma} (ID ${q.entry.id})",
                         "Schritt": "${q.entry.step}",
                         "Wortart": q.entry.type,
-                        // Lösung erst nach dem Prüfen, damit das Formular
-                        // sie nicht verrät.
-                        if (answered) ...{
+                        // Lösung erst nach dem Prüfen bzw. Aufdecken, damit
+                        // das Formular sie nicht verrät.
+                        if (answered || revealed)
                           "Hinterlegte Übersetzung": q.entry.translations.join(
                             ", ",
                           ),
-                          "Eingabe": translationController.text,
-                        },
+                        if (answered) "Eingabe": translationController.text,
                       },
                     ),
                   ],
@@ -834,6 +916,51 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  /// Vollständige Lösung für die Selbsteinschätzung.
+  Widget _buildSolution(VocabularyQuestion q) {
+    final entry = q.entry;
+
+    return Column(
+      children: [
+        SelectableText(
+          entry.translations.join(", "),
+          key: const Key("vocabulary_translation_text"),
+          textAlign: TextAlign.center,
+          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+        ),
+
+        if (entry.article != null ||
+            entry.genitive != null ||
+            entry.aorist != null)
+          const SizedBox(height: 8),
+
+        if (entry.article != null) Text("Artikel: ${entry.article}"),
+
+        if (entry.genitive != null) Text("Genitiv: ${entry.genitive}"),
+
+        if (entry.aorist != null) Text("Aorist: ${entry.aorist}"),
+      ],
+    );
+  }
+
+  Widget _buildMnemonic(VocabularyQuestion q, LearningCard card) {
+    return MnemonicSection(
+      key: ValueKey(q.entry.id),
+      mnemonic: card.mnemonic,
+      onSave: (mnemonic) async {
+        card.mnemonic = mnemonic;
+
+        cards[q.entry.id.toString()] = card;
+
+        await learningService.saveCard(uid, card);
+
+        if (mounted) {
+          setState(() {});
+        }
+      },
     );
   }
 
