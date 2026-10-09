@@ -28,6 +28,11 @@ import '../../settings/quiz_settings.dart';
 import '../../widgets/self_assessment.dart';
 import '../../widgets/trainer_widgets.dart';
 
+import '../../models/bible/bible_reference.dart';
+import '../../services/bible/bible_reference_parser.dart';
+import '../../services/bible/bible_repository.dart';
+import '../bible/bible_reader_screen.dart';
+
 import 'quick_entry_panel.dart';
 import 'quiz_settings_sheet.dart';
 
@@ -42,6 +47,7 @@ class QuizScreen extends StatefulWidget {
   // Nur für Tests ersetzbar; standardmäßig die echten Dienste.
   final SettingsService? settingsService;
   final LearningService? learningService;
+  final BibleRepository? bibleRepository;
 
   const QuizScreen({
     super.key,
@@ -49,6 +55,7 @@ class QuizScreen extends StatefulWidget {
     required this.uid,
     this.settingsService,
     this.learningService,
+    this.bibleRepository,
   });
 
   @override
@@ -645,6 +652,41 @@ class _QuizScreenState extends State<QuizScreen> {
     await service.saveBooks(widget.uid, settings.selectedBooks);
   }
 
+  /// Die Stellen der aktuellen Frage für den Bibel-Reader. Eigene
+  /// Perikopen mit unbekanntem Buch lassen sich dort nicht aufschlagen.
+  List<BiblePassage> _passages() {
+    final c = current;
+
+    if (c == null) {
+      return [];
+    }
+
+    return [for (final p in c.variants) ?BibleReferenceParser.passageOf(p)];
+  }
+
+  /// Öffnet die abgefragte Perikope im Bibel-Reader. Das Quiz bleibt
+  /// darunter unverändert stehen.
+  void _readPassage() {
+    final c = current;
+
+    final passages = _passages();
+
+    if (c == null || passages.isEmpty) {
+      return;
+    }
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => BibleReaderScreen(
+          passages: passages,
+          passageTitle: c.title,
+          repository: widget.bibleRepository,
+        ),
+      ),
+    );
+  }
+
   /// Die erwarteten Stellen für die Selbsteinschätzung.
   Widget _buildSolution() {
     return Column(
@@ -1019,6 +1061,21 @@ class _QuizScreenState extends State<QuizScreen> {
                     // Aufdecken.
                     if (checked || revealed) ...[
                       const SizedBox(height: 16),
+
+                      if (_passages().isNotEmpty) ...[
+                        OutlinedButton.icon(
+                          key: const ValueKey("read-passage"),
+                          icon: const Icon(Icons.auto_stories_rounded),
+                          label: Text(
+                            c.variants.length > 1
+                                ? "Bibelstellen lesen"
+                                : "Bibelstelle lesen",
+                          ),
+                          onPressed: _readPassage,
+                        ),
+
+                        const SizedBox(height: 12),
+                      ],
 
                       if (editingMnemonic)
                         Center(

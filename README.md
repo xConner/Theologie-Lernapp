@@ -25,6 +25,7 @@ Der Quellcode ist öffentlich, damit Inhalte und Lernlogik überprüfbar sind un
 | Bereich | Worum geht es? | Wie kannst du helfen? |
 | --- | --- | --- |
 | **Perikopenquiz** | Zu einem Perikopentitel die passende Bibelstelle nennen | Stellen und Titel prüfen, Herkunft der Liste dokumentieren |
+| **Bibel** | Reader mit mehreren Ausgaben (Deutsch, Englisch, Griechisch, Latein), Stellen- und Textsuche, offline | Wiedergabe und Stellen prüfen, weitere frei verwendbare Ausgaben vorschlagen ([Quellen](docs/bible-sources.md)) |
 | **Altgriechisch** | Vokabeltrainer, Grammatiktrainer (Formen bestimmen), Grammatikübersichten, griechische Bildschirmtastatur | Vokabeln und Formen prüfen, falsche Bestimmungen melden |
 | **Latein** | Vokabeltrainer mit Zusatzformen und Genus | Vokabeln prüfen und ergänzen, Ideen für einen Grammatiktrainer |
 | **Texte auswendig lernen** | Gebete und Bekenntnisse abschnittsweise lernen: Mitlesen, Lücken, Anfangsbuchstaben, freies Aufsagen oder Schreiben | Lernablauf testen, Abschnittseinteilung prüfen, weitere Texte vorschlagen |

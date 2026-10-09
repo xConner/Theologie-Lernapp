@@ -1,0 +1,184 @@
+{
+  "comment": "Zentrale Liste der Bibelausgaben des Readers. Reihenfolge = Reihenfolge in der Auswahl; die erste Ausgabe ist der Standard. Nach Änderungen: python fetch_sources.py && python build_bible.py – „deviations“ nennt jede Abweichung von der Quelldatei, „bookNames“ berichtigt Buchtitel der Quelldatei.",
+  "downloadUrl": "https://ebible.org/Scriptures/{ebibleId}_usfm.zip",
+  "detailsUrl": "https://ebible.org/details.php?id={ebibleId}",
+  "translations": [
+    {
+      "id": "deu1912",
+      "ebibleId": "deu1912",
+      "name": "Lutherbibel 1912",
+      "shortName": "LUT 1912",
+      "language": "de",
+      "edition": "Die Bibel nach der deutschen Übersetzung Martin Luthers, revidierte Ausgabe von 1912 (ohne Apokryphen)",
+      "licenseType": "Gemeinfrei (Public Domain)",
+      "licenseUrl": "https://ebible.org/details.php?id=deu1912",
+      "copyright": "Gemeinfrei. Digitale Textfassung: eBible.org.",
+      "restrictions": [],
+      "versification": "english",
+      "footnotes": false,
+      "bookNames": {
+        "1CH": {
+          "name": "1. Chronik",
+          "longName": "Das erste Buch der Chronik"
+        }
+      },
+      "deviations": [
+        "Im Buchtitel der Quelldatei steht „1. Chonik“; die App zeigt „1. Chronik“. Der Bibeltext ist davon nicht berührt."
+      ]
+    },
+    {
+      "id": "deu1951",
+      "ebibleId": "deu1951",
+      "name": "Schlachter-Bibel 1951",
+      "shortName": "SCH 1951",
+      "language": "de",
+      "edition": "Die Heilige Schrift des Alten und Neuen Testaments, übersetzt von Franz Eugen Schlachter, Überarbeitung 1951 der Genfer Bibelgesellschaft (nicht: Schlachter 2000)",
+      "licenseType": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "copyright": "Copyright © 1951 Genfer Bibelgesellschaft (Geneva Bible Society)",
+      "restrictions": [
+        "Namensnennung: Copyright- und Quellenangabe müssen mit dem Text weitergegeben werden.",
+        "Änderungen am Text müssen als solche gekennzeichnet werden."
+      ],
+      "versification": "english",
+      "footnotes": false,
+      "bookNames": {
+        "1CH": {
+          "name": "1. Chronik",
+          "longName": "Das erste Buch der Chronik"
+        }
+      },
+      "deviations": [
+        "Im Buchtitel der Quelldatei steht „1. Chonik“; die App zeigt „1. Chronik“. Der Bibeltext ist davon nicht berührt."
+      ]
+    },
+    {
+      "id": "deuelbbk",
+      "ebibleId": "deuelbbk",
+      "name": "Elberfelder Übersetzung (Version von bibelkommentare.de)",
+      "shortName": "ELB-BK",
+      "language": "de",
+      "edition": "Sprachlich überarbeitete Fassung der unrevidierten Elberfelder Übersetzung, Version 1.2 von bibelkommentare.de, mit Fußnoten",
+      "licenseType": "CC BY-NC-ND 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/",
+      "copyright": "Copyright © 2019 Verbreitung des christlichen Glaubens e.V.",
+      "restrictions": [
+        "Nur nichtkommerzielle Nutzung: Die Ausgabe muss entfernt werden, sobald die App kommerziell angeboten wird.",
+        "Keine Bearbeitungen: Wortlaut und Zeichensetzung dürfen nicht verändert werden; die App gibt Text und Fußnoten unverändert wieder.",
+        "Namensnennung: Copyright- und Quellenangabe müssen mit dem Text weitergegeben werden."
+      ],
+      "versification": "german",
+      "footnotes": true,
+      "deviations": []
+    },
+    {
+      "id": "deutkw",
+      "ebibleId": "deutkw",
+      "name": "Textbibel (Kautzsch/Weizsäcker)",
+      "shortName": "TB 1906",
+      "language": "de",
+      "edition": "Textbibel des Alten und Neuen Testaments, hg. von Emil Kautzsch, Neues Testament übersetzt von Carl Weizsäcker (1906; ohne Apokryphen)",
+      "licenseType": "Gemeinfrei (Public Domain)",
+      "licenseUrl": "https://ebible.org/details.php?id=deutkw",
+      "copyright": "Gemeinfrei. Digitalisierung: Textbibel.de; digitale Textfassung: eBible.org.",
+      "restrictions": [],
+      "versification": "german",
+      "footnotes": false,
+      "bookNames": {
+        "1CH": {
+          "name": "1. Chronik",
+          "longName": "Das erste Buch der Chronik"
+        }
+      },
+      "deviations": [
+        "Im Buchtitel der Quelldatei steht „1. Chonik“; die App zeigt „1. Chronik“. Der Bibeltext ist davon nicht berührt."
+      ]
+    },
+    {
+      "id": "engwebp",
+      "ebibleId": "engwebp",
+      "name": "World English Bible",
+      "shortName": "WEB",
+      "language": "en",
+      "edition": "World English Bible, amerikanische Ausgabe ohne Apokryphen (stabiler Text 2020)",
+      "licenseType": "Gemeinfrei (Public Domain)",
+      "licenseUrl": "https://ebible.org/details.php?id=engwebp",
+      "copyright": "Gemeinfrei (vom Herausgeber der Allgemeinheit gewidmet). „World English Bible“ ist eine Marke von eBible.org.",
+      "restrictions": [
+        "Ein veränderter Text darf nicht mehr „World English Bible“ genannt werden."
+      ],
+      "versification": "english",
+      "footnotes": true,
+      "deviations": [
+        "Die Querverweise der Quelldatei werden nicht übernommen; Vorwort und Glossar gehören nicht zum Bibeltext und fehlen ebenfalls."
+      ]
+    },
+    {
+      "id": "eng-asv",
+      "ebibleId": "eng-asv",
+      "name": "American Standard Version (1901)",
+      "shortName": "ASV",
+      "language": "en",
+      "edition": "American Standard Version of the Holy Bible, 1901",
+      "licenseType": "Gemeinfrei (Public Domain)",
+      "licenseUrl": "https://ebible.org/details.php?id=eng-asv",
+      "copyright": "Gemeinfrei. Digitale Textfassung: eBible.org.",
+      "restrictions": [],
+      "versification": "english",
+      "footnotes": true,
+      "deviations": []
+    },
+    {
+      "id": "grcsbl",
+      "ebibleId": "grcsbl",
+      "name": "SBL Greek New Testament (SBLGNT)",
+      "shortName": "SBLGNT",
+      "language": "grc",
+      "edition": "The Greek New Testament: SBL Edition, hg. von Michael W. Holmes (2010), mit textkritischem Apparat; nur Neues Testament",
+      "licenseType": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "copyright": "Copyright © 2010 Society of Biblical Literature and Logos Bible Software",
+      "restrictions": [
+        "Namensnennung: Copyright- und Quellenangabe müssen mit dem Text weitergegeben werden.",
+        "Änderungen am Text müssen als solche gekennzeichnet werden."
+      ],
+      "versification": "english",
+      "footnotes": true,
+      "deviations": [
+        "Einleitung und Anhänge der Quelldatei gehören nicht zum Bibeltext und werden nicht übernommen; Text und Apparat sind vollständig."
+      ]
+    },
+    {
+      "id": "grcbrent",
+      "ebibleId": "grcbrent",
+      "name": "Septuaginta (Brenton 1851)",
+      "shortName": "LXX Brenton",
+      "language": "grc",
+      "edition": "Griechischer Text der Septuaginta mit Apokryphen nach der Ausgabe von Sir Lancelot C. L. Brenton (1851); nicht der Rahlfs-Text",
+      "licenseType": "Gemeinfrei (Public Domain)",
+      "licenseUrl": "https://ebible.org/details.php?id=grcbrent",
+      "copyright": "Gemeinfrei. Digitale Textfassung: eBible.org.",
+      "restrictions": [],
+      "versification": "lxx",
+      "footnotes": false,
+      "deviations": []
+    },
+    {
+      "id": "latVUC",
+      "ebibleId": "latVUC",
+      "name": "Vulgata Clementina",
+      "shortName": "Vulgata",
+      "language": "la",
+      "edition": "Biblia Sacra Vulgata, Clementinische Ausgabe von 1598 (nicht: Nova Vulgata)",
+      "licenseType": "Gemeinfrei (Public Domain)",
+      "licenseUrl": "https://ebible.org/details.php?id=latVUC",
+      "copyright": "Gemeinfrei. Digitale Textfassung: eBible.org.",
+      "restrictions": [],
+      "versification": "vulgate",
+      "footnotes": false,
+      "deviations": [
+        "Die in der Quelldatei als Fußnoten beigegebene Glossa ordinaria (Migne 1880) wird nicht übernommen."
+      ]
+    }
+  ]
+}

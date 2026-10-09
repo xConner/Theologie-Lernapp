@@ -85,6 +85,18 @@ flutter:
       - assets/eg_lieder.json
       - assets/confessions.json
       - assets/prayers.json
+      # Bibeltexte des Readers: je Ausgabe ein Verzeichnis, erzeugt von
+      # tool/bible_import (siehe docs/bible-sources.md).
+      - assets/bible/translations.json
+      - assets/bible/deu1912/
+      - assets/bible/deu1951/
+      - assets/bible/deuelbbk/
+      - assets/bible/deutkw/
+      - assets/bible/engwebp/
+      - assets/bible/eng-asv/
+      - assets/bible/grcsbl/
+      - assets/bible/grcbrent/
+      - assets/bible/latVUC/
       - assets/images/lutherrose.png
       - assets/sounds/correct.wav
       - assets/sounds/incorrect.wav

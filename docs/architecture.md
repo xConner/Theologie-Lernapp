@@ -96,6 +96,48 @@ nach Gehör schreibt, gleicht `LatinSpeechMatcher` das Transkript vor dem
 Wortvergleich lautlich mit dem Lerntext ab. Im Web braucht die Aufnahme
 `microphone=(self)` in der `Permissions-Policy` (`vercel.json`).
 
+## Bibel-Reader
+
+Liest die mit der App ausgelieferten Bibeltexte ohne Internetverbindung.
+Datenbeschaffung (Import) und Darstellung sind getrennt; der Reader kennt
+die Texte nur über `BibleTextSource`.
+
+| Aufgabe | Ort |
+|---|---|
+| Ausgabe mit Herkunft, Lizenz, Büchern und Zählung | `models/bible/bible_translation.dart` |
+| Text eines Buchs (Verse, Überschriften, Anmerkungen) | `models/bible/bible_text.dart` |
+| Stelle bzw. hervorzuhebende Stelle | `models/bible/bible_reference.dart` |
+| Schnittstelle zu den Texten; ausgelieferte Texte aus `assets/bible/` | `services/bible/bible_text_source.dart` |
+| Verzeichnis der Ausgaben, Zwischenspeicher, Suchindex | `services/bible/bible_repository.dart` |
+| Bücher: Reihenfolge, Namen und Abkürzungen aller Sprachen | `services/bible/bible_books.dart` |
+| Stellen lesen und schreiben, Stelle einer Perikope | `services/bible/bible_reference_parser.dart` |
+| Textsuche und Vergleichsform (Akzente, Spiritus, ß) | `services/bible/bible_search.dart`, `bible_search_folding.dart` |
+| Gewählte Ausgabe, Lesestand, Darstellung (lokal) | `services/bible/bible_reader_settings.dart` |
+| Kapiteldarstellung, Position eines Verses | `widgets/bible/bible_chapter_view.dart` |
+| Screens: Reader, Stellenwahl, Suche, Übersetzungsauswahl | `screens/bible/` |
+| Erzeugung der Texte (nicht Teil der App) | `tool/bible_import/` |
+| Herkunft und Lizenzen | `docs/bible-sources.md` |
+
+Welche Ausgaben es gibt, steht allein in `assets/bible/translations.json`;
+die Übersetzungsauswahl entsteht daraus. Je Ausgabe liegt ein Verzeichnis mit
+einer Datei je Buch vor: Beim Lesen wird nur das aufgeschlagene Buch geladen,
+der App-Start bleibt unberührt. Eine Datenbank wäre für die Suche nicht
+schneller und im Web aufwendiger; die Suche baut stattdessen je Ausgabe
+einmal einen Index im Arbeitsspeicher auf (`BibleRepository.searchIndex`) und
+durchläuft danach nur noch diesen.
+
+Eine weitere Textquelle (nachladbare Ausgaben, ein Dienst) implementiert
+`BibleTextSource` und wird dem `BibleRepository` übergeben.
+
+Bücher tragen überall die USFM-Kennung (`GEN`, `MRK`). Das Perikopenquiz
+übergibt seine Stellen mit `BibleReferenceParser.passageOf`; alle Varianten
+einer Frage gehen gemeinsam an `BibleReaderScreen(passages: …)`. Der Reader
+rechnet Zählungen nicht um, sondern weist auf Abweichungen hin
+(`BibleVersification`).
+
+Ausgabe, Lesestand und Schriftgröße gehören zum Gerät und liegen wie das
+Erscheinungsbild in den `SharedPreferences`.
+
 ## Themes und Erscheinungsbild
 
 | Aufgabe | Ort |

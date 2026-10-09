@@ -8,6 +8,7 @@ import '../screens/greek/greek_home_screen.dart';
 
 import '../models/greek/perikope.dart';
 import 'hymn_screen.dart';
+import 'bible/bible_reader_screen.dart';
 
 import 'confessions_screen.dart';
 import 'prayers_screen.dart';
@@ -277,6 +278,24 @@ class _HomeScreenState extends State<HomeScreen> {
                           onPressed: _openQuiz,
                           icon: const Icon(Icons.quiz_rounded),
                           label: const Text("Perikopenquiz"),
+                        ),
+                      ),
+
+                      const SizedBox(height: 16),
+
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton.icon(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => const BibleReaderScreen(),
+                              ),
+                            );
+                          },
+                          icon: const Icon(Icons.auto_stories_rounded),
+                          label: const Text("Bibel"),
                         ),
                       ),
 

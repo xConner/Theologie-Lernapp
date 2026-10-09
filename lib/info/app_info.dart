@@ -345,9 +345,44 @@ class AppModules {
     ],
   );
 
+  static const ModuleInfo bible = ModuleInfo(
+    id: "bible",
+    title: "Bibel",
+    description:
+        "Bibel-Reader mit mehreren Ausgaben in Deutsch, Englisch, Griechisch "
+        "und Latein. Die Texte sind in der App enthalten und ohne "
+        "Internetverbindung lesbar; gesucht wird nach Stellen und im Text "
+        "der gewählten Ausgabe.",
+    sources: [
+      SourceInfo(
+        title: "Bibeltexte",
+        origin:
+            "Frei verwendbare Ausgaben von eBible.org. Edition, Copyright "
+            "und Lizenz stehen bei jeder Ausgabe in der Übersetzungsauswahl "
+            "(Symbol ⓘ).",
+        processing:
+            "Die Texte wurden aus den USFM-Dateien der Quelle übernommen. "
+            "Der Wortlaut ist unverändert; entfernt wurden nur die "
+            "Formatmarken, bei der Vulgata außerdem die beigegebene Glossa "
+            "ordinaria.",
+        url: "https://ebible.org/",
+      ),
+    ],
+    notes: [
+      "Die Ausgaben zählen Kapitel und Verse teilweise unterschiedlich, vor "
+          "allem im Alten Testament und in den Psalmen. Die App rechnet "
+          "Stellen nicht um; eine hervorgehobene Perikope kann deshalb in "
+          "manchen Ausgaben um einzelne Verse abweichen.",
+      "Nicht jede Ausgabe enthält alle Bücher: Das SBL Greek New Testament "
+          "umfasst nur das Neue Testament, Apokryphen stehen nur in "
+          "Septuaginta und Vulgata.",
+    ],
+  );
+
   /// Bereiche, die in „Über die App“ aufgelistet werden.
   static const List<ModuleInfo> all = [
     pericopeQuiz,
+    bible,
     calendar,
     hymns,
     confessions,
