@@ -21,6 +21,8 @@
 
   <!--
     HINWEIS FÜR DEN BETREIBER
+    Offen: zuständige Aufsichtsbehörde des Betreibers (richtet sich nach
+    dem Bundesland des Wohnsitzes) in Abschnitt 13 ergänzen.
     Diese Seite beschreibt nur Datenflüsse, die im Quellcode tatsächlich
     vorhanden sind. Bei jeder Änderung an Diensten oder Datenflüssen
     anpassen (z. B. wenn App Check, Push oder Analytics aktiviert würden).
@@ -29,15 +31,23 @@
 
   <h2>1. Verantwortlicher</h2>
   <p>
-    Verantwortlich für die Datenverarbeitung ist der im
-    <a href="impressum.html">Impressum</a> genannte Anbieter. Anfragen zum
-    Datenschutz bitte an die dort genannte E-Mail-Adresse.
+    Verantwortlich für die Datenverarbeitung im Sinne der
+    Datenschutz-Grundverordnung (DSGVO) ist:
+  </p>
+  <p>
+    Connor Verlinden<br>
+    E-Mail: <a href="mailto:kontakt@theologie.app">kontakt@theologie.app</a>
+  </p>
+  <p>
+    Weitere Angaben stehen im <a href="impressum.html">Impressum</a>. Ein
+    Datenschutzbeauftragter ist nicht benannt, weil dazu keine Pflicht
+    besteht.
   </p>
 
   <h2>2. Kurzfassung</h2>
   <ul>
     <li>Die App verwendet <strong>kein Tracking, keine Analyse-Werkzeuge und keine Werbung</strong>.</li>
-    <li>Die App setzt <strong>keine Cookies</strong>. Sie nutzt den lokalen Speicher des Browsers (Abschnitt 5).</li>
+    <li>Die App selbst setzt <strong>keine Cookies</strong> und braucht deshalb kein Cookie-Banner. Sie nutzt den lokalen Speicher des Browsers nur für Funktionen, die du verwendest (Abschnitt 5).</li>
     <li>Ein Konto ist freiwillig. Ohne Konto (Gastmodus) bleiben Lernstände und Einstellungen in deinem Browser.</li>
     <li>Mit Konto werden Lernstände, Einstellungen und Statistiken bei Google Firebase gespeichert und deinem Konto zugeordnet.</li>
   </ul>
@@ -51,6 +61,10 @@
     Betrieb abzusichern. Diese Protokolle werden nicht ausgewertet oder mit
     anderen Daten zusammengeführt und von Vercel nach dessen Standardfristen
     automatisch gelöscht.
+  </p>
+  <p>
+    Die Domain wird über <strong>Cloudflare</strong> verwaltet (DNS). Der
+    Abruf der Website läuft nicht über Cloudflare, sondern direkt zu Vercel.
   </p>
   <p>
     Der Griechisch-Grammatiktrainer sendet beim Üben das Wort und die gesuchte
@@ -77,7 +91,8 @@
   <p>Die App speichert im lokalen Speicher des Browsers (localStorage bzw. IndexedDB):</p>
   <ul>
     <li>im Gastmodus: Lernstände, Lerneinstellungen, Statistiken, Streaks und den Lesestatus der Nachrichten,</li>
-    <li>Sound-Einstellungen und den Eingabemodus des Perikopenquiz,</li>
+    <li>Einstellungen wie Erscheinungsbild, Sound, Bibel-Reader und Eingabemodus des Perikopenquiz,</li>
+    <li>das Sprachmodell für Latein, falls du es heruntergeladen hast (Abschnitt 9),</li>
     <li>ob der Gastmodus gewählt wurde und für welche Konten die Übernahme von Gastdaten abgelehnt wurde (Konto-ID),</li>
     <li>bei Anmeldung: die Anmeldesitzung von Firebase Authentication.</li>
   </ul>
@@ -110,14 +125,14 @@
     Bei Anmeldung per Telefonnummer bzw. SMS lädt die Web-App
     <strong>Google reCAPTCHA</strong>, um automatisierten Missbrauch des
     SMS-Versands zu verhindern. reCAPTCHA wird nur in diesen Abläufen
-    geladen; dabei gelten zusätzlich die
+    geladen und kann dabei Cookies von Google setzen; es gelten zusätzlich die
     <a href="https://policies.google.com/privacy" rel="noopener noreferrer">Datenschutzerklärung</a>
     und die <a href="https://policies.google.com/terms" rel="noopener noreferrer">Nutzungsbedingungen</a> von Google.
   </p>
   <p>
     Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO (Bereitstellung des von dir
     angelegten Kontos). Die Daten bleiben gespeichert, bis du dein Konto
-    löschst (Abschnitt 10).
+    löschst (Abschnitt 12).
   </p>
 
   <h2>7. Lerndaten im Konto (Cloud Firestore)</h2>
@@ -143,7 +158,7 @@
     Firestore-Sicherheitsregeln) sowie der Betreiber über die
     Firebase-Verwaltung. Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO
     (Synchronisierung deines Kontos). Die Daten bleiben gespeichert, bis du
-    sie zurücksetzt oder dein Konto löschst (Abschnitt 10).
+    sie zurücksetzt oder dein Konto löschst (Abschnitt 12).
   </p>
 
   <h2>8. Fehlermeldungen</h2>
@@ -161,32 +176,79 @@
     lit. f DSGVO (Korrektur von Fehlern in der App).
   </p>
 
-  <h2>9. Empfänger und Übermittlung in die USA</h2>
+  <h2>9. Spracheingabe</h2>
+  <p>
+    Beim Auswendiglernen kannst du Texte freiwillig aufsagen. Das Mikrofon
+    wird nur verwendet, wenn du die Spracheingabe startest und der Browser
+    den Zugriff erlaubt. Die App speichert keine Aufnahme.
+  </p>
+  <ul>
+    <li><strong>Deutsch und Englisch:</strong> Die App nutzt die Spracherkennung deines Browsers bzw. Geräts und erhält nur den erkannten Text. Je nach Browser sendet dieser die Aufnahme zur Erkennung an seinen Anbieter (z. B. Google bei Chrome, Apple bei Safari). Darauf hat die App keinen Einfluss; es gelten die Datenschutzhinweise des jeweiligen Anbieters.</li>
+    <li><strong>Latein:</strong> Die Erkennung läuft vollständig in deinem Browser; die Aufnahme wird nicht übertragen. Das dafür nötige Sprachmodell wird nach deiner Bestätigung einmalig von <strong>huggingface.co</strong> (Hugging Face Inc., USA) geladen. Dabei werden IP-Adresse und übliche Browserangaben an Hugging Face übermittelt.</li>
+  </ul>
+  <p>Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO (Bereitstellung der von dir gestarteten Funktion).</p>
+
+  <h2>10. Kontakt per E-Mail</h2>
+  <p>
+    Wenn du eine E-Mail an eine Adresse unter theologie.app schreibst, werden
+    deine E-Mail-Adresse und der Inhalt deiner Nachricht verarbeitet, um dir
+    zu antworten. Die Nachricht wird von <strong>Cloudflare</strong>
+    (E-Mail-Routing) angenommen und an das Postfach des Betreibers
+    weitergeleitet. Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO (Beantwortung
+    von Anfragen). Nachrichten werden gelöscht, sobald dein Anliegen erledigt
+    ist und keine gesetzlichen Aufbewahrungspflichten entgegenstehen.
+  </p>
+
+  <h2>11. Empfänger und Übermittlung in die USA</h2>
   <p>
     Deine Daten werden nicht verkauft und nicht zu Werbezwecken weitergegeben.
-    Empfänger sind ausschließlich die technischen Dienstleister
+    Empfänger sind ausschließlich die genannten technischen Dienstleister:
     <strong>Google</strong> (Firebase; Google Ireland Limited bzw. Google LLC,
-    USA) und <strong>Vercel Inc.</strong> (USA), die die Daten im Auftrag
-    verarbeiten. Dabei können Daten in die USA übermittelt werden. Beide
-    Anbieter sind nach dem EU-U.S. Data Privacy Framework zertifiziert
+    USA), <strong>Vercel Inc.</strong> (USA), <strong>Cloudflare, Inc.</strong>
+    (USA; nur E-Mail und DNS) sowie beim Laden des lateinischen Sprachmodells
+    <strong>Hugging Face Inc.</strong> (USA). Dabei können Daten in die USA
+    übermittelt werden. Google, Vercel und Cloudflare sind nach eigenen
+    Angaben nach dem EU-U.S. Data Privacy Framework zertifiziert
     (Angemessenheitsbeschluss der EU-Kommission, Art. 45 DSGVO).
   </p>
 
-  <h2>10. Löschung deiner Daten</h2>
+  <h2>12. Speicherdauer und Löschung deiner Daten</h2>
+  <p>
+    Daten werden nur so lange gespeichert, wie sie für den jeweiligen Zweck
+    nötig sind; die Fristen stehen bei den einzelnen Abschnitten. Konto- und
+    Lerndaten bleiben gespeichert, bis du sie löschst:
+  </p>
   <ul>
     <li>Gastmodus: über die Browser-Einstellungen („Websitedaten löschen“).</li>
-    <li>Konto: in der App unter <em>Einstellungen → Konto &amp; Sicherheit → Konto löschen</em>. Dabei werden deine in Firestore gespeicherten Daten und anschließend dein Konto gelöscht.</li>
+    <li>Konto: in der App unter <em>Einstellungen → Konto &amp; Sicherheit → Konto löschen</em>. Dabei werden deine in Firestore gespeicherten Daten und anschließend dein Konto gelöscht. Nach Angaben von Google kann es bis zu 180 Tage dauern, bis gelöschte Daten auch aus Sicherungskopien entfernt sind; bei Anmeldungen protokollierte IP-Adressen speichert Google einige Wochen.</li>
     <li>Lernfortschritte allein lassen sich unter <em>Einstellungen → Lernfortschritte zurücksetzen</em> löschen.</li>
   </ul>
 
-  <h2>11. Deine Rechte</h2>
+  <h2>13. Deine Rechte</h2>
   <p>
     Du hast nach der DSGVO das Recht auf Auskunft (Art. 15), Berichtigung
-    (Art. 16), Löschung (Art. 17), Einschränkung der Verarbeitung (Art. 18),
-    Datenübertragbarkeit (Art. 20) und Widerspruch (Art. 21). Wende dich dazu
-    an die im <a href="impressum.html">Impressum</a> genannte E-Mail-Adresse.
-    Außerdem kannst du dich bei einer Datenschutz-Aufsichtsbehörde beschweren
-    (Art. 77 DSGVO).
+    (Art. 16), Löschung (Art. 17), Einschränkung der Verarbeitung (Art. 18)
+    und Datenübertragbarkeit (Art. 20). Schreibe dazu an
+    <a href="mailto:kontakt@theologie.app">kontakt@theologie.app</a>.
+  </p>
+  <p>
+    <strong>Widerspruchsrecht (Art. 21 DSGVO):</strong> Soweit Daten auf
+    Grundlage von Art. 6 Abs. 1 lit. f DSGVO verarbeitet werden, kannst du
+    dem aus Gründen, die sich aus deiner besonderen Situation ergeben,
+    jederzeit widersprechen.
+  </p>
+  <p>
+    Außerdem kannst du dich bei einer Datenschutz-Aufsichtsbehörde
+    beschweren (Art. 77 DSGVO), zum Beispiel bei der Behörde an deinem
+    Wohnort. Eine
+    <a href="https://www.bfdi.bund.de/DE/Service/Anschriften/Laender/Laender-node.html" rel="noopener noreferrer">Liste der deutschen Aufsichtsbehörden</a>
+    stellt die Bundesbeauftragte für den Datenschutz und die
+    Informationsfreiheit bereit.
+  </p>
+  <p>
+    Du bist nicht verpflichtet, Daten bereitzustellen; ohne Konto lässt sich
+    die App im Gastmodus nutzen. Eine automatisierte Entscheidungsfindung
+    oder ein Profiling findet nicht statt.
   </p>
 
   <p class="muted">Stand: Oktober 2026</p>
