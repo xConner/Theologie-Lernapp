@@ -14,6 +14,7 @@ import 'package:theologie_lernapp/screens/settings_screen.dart';
 import 'package:theologie_lernapp/services/bible/bible_reference_parser.dart';
 import 'package:theologie_lernapp/services/bible/bible_repository.dart';
 import 'package:theologie_lernapp/services/bible/bible_text_source.dart';
+import 'package:theologie_lernapp/services/bible/pericope_headings.dart';
 import 'package:theologie_lernapp/services/learning_service.dart';
 import 'package:theologie_lernapp/services/settings_service.dart';
 import 'package:theologie_lernapp/theme/app_theme.dart';
@@ -76,8 +77,11 @@ void main() {
 
   BibleRepository repository() => BibleRepository(source: source);
 
+  late PericopeHeadings headings;
+
   setUpAll(() async {
     translations = await source.loadTranslations();
+    headings = await PericopeHeadings.load(bundle: FileAssetBundle());
   });
 
   setUp(() {
@@ -102,6 +106,7 @@ void main() {
           passages: passages,
           passageTitle: title,
           repository: repository(),
+          pericopeHeadings: headings,
         ),
       ),
     );
@@ -655,7 +660,8 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.byType(BibleReaderScreen), findsOneWidget);
-      expect(find.text("Die Stillung des Sturms"), findsOneWidget);
+      // In der Leiste und als Perikopenüberschrift im Text.
+      expect(find.text("Die Stillung des Sturms"), findsNWidgets(2));
       expect(find.text("Mk 4,35-41"), findsOneWidget);
       expect(find.text("Markus 4"), findsOneWidget);
       expect(isHighlighted(tester, "Laßt uns hinüberfahren"), isTrue);

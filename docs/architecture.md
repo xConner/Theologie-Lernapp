@@ -112,6 +112,7 @@ die Texte nur über `BibleTextSource`.
 | Bücher: Reihenfolge, Namen und Abkürzungen aller Sprachen | `services/bible/bible_books.dart` |
 | Stellen lesen und schreiben, Stelle einer Perikope | `services/bible/bible_reference_parser.dart` |
 | Textsuche und Vergleichsform (Akzente, Spiritus, ß) | `services/bible/bible_search.dart`, `bible_search_folding.dart` |
+| Perikopenüberschriften aus `assets/perikopen.json` je Kapitel | `services/bible/pericope_headings.dart` |
 | Gewählte Ausgabe, Lesestand, Darstellung (lokal) | `services/bible/bible_reader_settings.dart` |
 | Kapiteldarstellung, Position eines Verses | `widgets/bible/bible_chapter_view.dart` |
 | Screens: Reader, Stellenwahl, Suche, Übersetzungsauswahl | `screens/bible/` |
@@ -134,6 +135,12 @@ Bücher tragen überall die USFM-Kennung (`GEN`, `MRK`). Das Perikopenquiz
 einer Frage gehen gemeinsam an `BibleReaderScreen(passages: …)`. Der Reader
 rechnet Zählungen nicht um, sondern weist auf Abweichungen hin
 (`BibleVersification`).
+
+Die Perikopenüberschriften im Text stammen allein aus der Perikopenliste,
+nie aus einer Ausgabe; der Reader kennzeichnet sie entsprechend. Sie stehen
+am Anfangsvers jeder Perikope. Weil die Liste deutsch zählt, zeigt
+`PericopeHeadings.forChapter` sie im Alten Testament nur in Kapiteln, die
+die gewählte Ausgabe genauso zählt wie eine deutsch gezählte Ausgabe.
 
 Ausgabe, Lesestand und Schriftgröße gehören zum Gerät und liegen wie das
 Erscheinungsbild in den `SharedPreferences`.

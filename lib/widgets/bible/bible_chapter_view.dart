@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 import '../../models/bible/bible_text.dart';
+import '../../services/bible/pericope_headings.dart';
 import '../../theme/app_theme.dart';
 
 /// Der Text eines Kapitels als Fließtext in den Absätzen der Ausgabe, mit
@@ -19,16 +20,29 @@ class BibleChapterView extends StatefulWidget {
   /// Anmerkungszeichen im Text und Liste der Anmerkungen am Kapitelende.
   final bool showNotes;
 
+  /// Perikopenüberschriften der App: Vers, vor dem sie stehen → Titel. Sie
+  /// gehören nicht zum Bibeltext und werden deshalb eigens gekennzeichnet
+  /// (siehe `PericopeHeadings`).
+  final Map<int, List<String>> pericopeHeadings;
+
   const BibleChapterView({
     super.key,
     required this.chapter,
     required this.isHighlighted,
     this.fontScale = 1,
     this.showNotes = true,
+    this.pericopeHeadings = const {},
   });
 
   @override
   State<BibleChapterView> createState() => BibleChapterViewState();
+}
+
+/// Perikopenüberschriften vor einem Vers.
+class _PericopeBlock {
+  final List<String> titles;
+
+  const _PericopeBlock(this.titles);
 }
 
 /// Ein zusammenhängender Absatz aus Versen.
@@ -55,28 +69,52 @@ class BibleChapterViewState extends State<BibleChapterView> {
   void initState() {
     super.initState();
 
-    _blocks = _layout(widget.chapter);
+    _blocks = _layout(widget.chapter, widget.pericopeHeadings);
   }
 
   @override
   void didUpdateWidget(BibleChapterView oldWidget) {
     super.didUpdateWidget(oldWidget);
 
-    if (!identical(oldWidget.chapter, widget.chapter)) {
-      _blocks = _layout(widget.chapter);
+    if (!identical(oldWidget.chapter, widget.chapter) ||
+        !identical(oldWidget.pericopeHeadings, widget.pericopeHeadings)) {
+      _blocks = _layout(widget.chapter, widget.pericopeHeadings);
     }
   }
 
-  static List<Object> _layout(BibleChapter chapter) {
+  static List<Object> _layout(
+    BibleChapter chapter,
+    Map<int, List<String>> pericopeHeadings,
+  ) {
     final blocks = <Object>[];
 
     _TextBlock? current;
+
+    // Jede Überschrift steht einmal: vor dem ersten Vorkommen ihres Verses.
+    final placed = <int>{};
 
     for (final item in chapter.items) {
       if (item is! BibleVerse) {
         blocks.add(item);
         current = null;
         continue;
+      }
+
+      final titles = pericopeHeadings[item.number];
+
+      if (titles != null && titles.isNotEmpty && placed.add(item.number)) {
+        // Vor die Überschriften der Ausgabe, die unmittelbar zum Vers
+        // gehören (z. B. die Überschrift eines Psalms).
+        int index = blocks.length;
+
+        while (index > 0 &&
+            (blocks[index - 1] is BibleHeading ||
+                blocks[index - 1] is BibleDescription)) {
+          index--;
+        }
+
+        blocks.insert(index, _PericopeBlock(titles));
+        current = null;
       }
 
       final newBlock =
@@ -217,6 +255,8 @@ class BibleChapterViewState extends State<BibleChapterView> {
             ),
           ),
         );
+      } else if (block is _PericopeBlock) {
+        children.add(_pericopeHeading(block, base, colors, children.isEmpty));
       } else if (block is _TextBlock) {
         children.add(
           Padding(
@@ -237,6 +277,60 @@ class BibleChapterViewState extends State<BibleChapterView> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: children,
+    );
+  }
+
+  /// Überschriften aus dem Perikopen-Datensatz: durch Randlinie, Farbe und
+  /// Beschriftung vom Bibeltext und von den Überschriften der Ausgabe
+  /// abgesetzt. Beim Markieren und Kopieren des Textes bleiben sie außen
+  /// vor.
+  Widget _pericopeHeading(
+    _PericopeBlock block,
+    TextStyle base,
+    AppColors colors,
+    bool first,
+  ) {
+    return SelectionContainer.disabled(
+      child: Semantics(
+        header: true,
+        child: Container(
+          margin: EdgeInsets.only(
+            top: first ? 0 : 12 * widget.fontScale,
+            bottom: 8 * widget.fontScale,
+          ),
+          padding: const EdgeInsets.fromLTRB(10, 4, 8, 5),
+          decoration: BoxDecoration(
+            color: colors.surfaceMuted,
+            borderRadius: BorderRadius.circular(6),
+            border: Border(left: BorderSide(color: colors.accent, width: 3)),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                PericopeHeadings.label,
+                style: TextStyle(
+                  fontSize: 10.5 * widget.fontScale,
+                  fontWeight: FontWeight.w600,
+                  letterSpacing: 0.3,
+                  height: 1.4,
+                  color: colors.textSecondary,
+                ),
+              ),
+              for (final title in block.titles)
+                Text(
+                  title,
+                  style: base.copyWith(
+                    fontSize: 16 * widget.fontScale,
+                    fontWeight: FontWeight.w700,
+                    height: 1.3,
+                    color: colors.primary,
+                  ),
+                ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 

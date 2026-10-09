@@ -367,12 +367,26 @@ class AppModules {
             "ordinaria.",
         url: "https://ebible.org/",
       ),
+      SourceInfo(
+        title: "Perikopenüberschriften",
+        origin:
+            "Perikopen-Datensatz von theologie.app – dieselbe Liste, aus "
+            "der das Perikopenquiz seine Fragen bildet.",
+        processing:
+            "Die Überschriften stehen im Reader am ersten Vers der "
+            "jeweiligen Perikope. Sie wurden unabhängig von der "
+            "ausgewählten Bibelübersetzung erstellt und sind nicht "
+            "Bestandteil des jeweiligen Bibeltextes.",
+      ),
     ],
     notes: [
       "Die Ausgaben zählen Kapitel und Verse teilweise unterschiedlich, vor "
           "allem im Alten Testament und in den Psalmen. Die App rechnet "
           "Stellen nicht um; eine hervorgehobene Perikope kann deshalb in "
           "manchen Ausgaben um einzelne Verse abweichen.",
+      "Die Perikopenüberschriften folgen der Zählung deutscher "
+          "Bibelausgaben. In Kapiteln, die eine Ausgabe anders zählt, "
+          "werden sie nicht angezeigt.",
       "Nicht jede Ausgabe enthält alle Bücher: Das SBL Greek New Testament "
           "umfasst nur das Neue Testament, Apokryphen stehen nur in "
           "Septuaginta und Vulgata.",

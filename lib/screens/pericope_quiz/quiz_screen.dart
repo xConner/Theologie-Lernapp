@@ -31,6 +31,7 @@ import '../../widgets/trainer_widgets.dart';
 import '../../models/bible/bible_reference.dart';
 import '../../services/bible/bible_reference_parser.dart';
 import '../../services/bible/bible_repository.dart';
+import '../../services/bible/pericope_headings.dart';
 import '../bible/bible_reader_screen.dart';
 
 import 'quick_entry_panel.dart';
@@ -682,6 +683,8 @@ class _QuizScreenState extends State<QuizScreen> {
           passages: passages,
           passageTitle: c.title,
           repository: widget.bibleRepository,
+          // Dieselben Perikopen, aus denen das Quiz seine Fragen bildet.
+          pericopeHeadings: PericopeHeadings.fromPerikopen(widget.perikopen),
         ),
       ),
     );

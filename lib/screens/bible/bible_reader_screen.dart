@@ -8,6 +8,7 @@ import '../../models/bible/bible_translation.dart';
 import '../../services/bible/bible_books.dart';
 import '../../services/bible/bible_reader_settings.dart';
 import '../../services/bible/bible_repository.dart';
+import '../../services/bible/pericope_headings.dart';
 import '../../theme/app_theme.dart';
 import '../../widgets/bible/bible_chapter_view.dart';
 import '../../widgets/info_report.dart';
@@ -31,11 +32,16 @@ class BibleReaderScreen extends StatefulWidget {
   // Nur für Tests ersetzbar; standardmäßig die ausgelieferten Texte.
   final BibleRepository? repository;
 
+  /// Perikopenüberschriften für den Text. Das Quiz übergibt die seiner
+  /// Perikopenliste; ohne Angabe gilt die ausgelieferte Liste.
+  final PericopeHeadings? pericopeHeadings;
+
   const BibleReaderScreen({
     super.key,
     this.passages = const [],
     this.passageTitle,
     this.repository,
+    this.pericopeHeadings,
   });
 
   @override
@@ -58,6 +64,16 @@ class _BibleReaderScreenState extends State<BibleReaderScreen> {
   int chapter = 1;
 
   BibleChapter? chapterData;
+
+  PericopeHeadings headings = PericopeHeadings.empty;
+
+  // Perikopenüberschriften des aufgeschlagenen Kapitels (Vers → Titel).
+  // Wird je Kapitel einmal bestimmt, damit die Darstellung stabil bleibt.
+  Map<int, List<String>> chapterHeadings = const {};
+
+  /// Die Perikopenliste kennt Überschriften für dieses Kapitel, die Ausgabe
+  /// zählt es aber anders – sie werden nicht gezeigt.
+  bool headingsOmitted = false;
 
   bool loading = true;
 
@@ -99,6 +115,15 @@ class _BibleReaderScreenState extends State<BibleReaderScreen> {
       translations = await repository.translations();
     } catch (_) {
       translations = const [];
+    }
+
+    // Die Überschriften vor dem ersten Kapitel laden, damit sich der Text
+    // nach dem Sprung zu einem Vers nicht mehr verschiebt. Ohne sie bleibt
+    // der Reader benutzbar.
+    try {
+      headings = widget.pericopeHeadings ?? await PericopeHeadings.load();
+    } catch (_) {
+      headings = PericopeHeadings.empty;
     }
 
     if (!mounted) return;
@@ -196,9 +221,22 @@ class _BibleReaderScreenState extends State<BibleReaderScreen> {
 
     if (!mounted || request != _request) return;
 
+    final pericopes = headings.forChapter(
+      translation: t,
+      translations: translations,
+      bookId: resolved,
+      chapter: number,
+    );
+
     setState(() {
       chapter = number;
       chapterData = data;
+      chapterHeadings = pericopes;
+      headingsOmitted =
+          pericopes.isEmpty &&
+          data != null &&
+          !data.isEmpty &&
+          headings.hasAny(resolved, number);
       loading = false;
       failed = data == null;
     });
@@ -644,9 +682,27 @@ class _BibleReaderScreenState extends State<BibleReaderScreen> {
                         isHighlighted: _isHighlighted,
                         fontScale: settings.fontScale,
                         showNotes: settings.showNotes,
+                        pericopeHeadings: chapterHeadings,
                       ),
 
                     const SizedBox(height: 20),
+
+                    if (chapterHeadings.isNotEmpty || headingsOmitted)
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 8),
+                        child: Text(
+                          headingsOmitted
+                              ? "Diese Ausgabe zählt Kapitel oder Verse hier "
+                                    "anders als der Perikopen-Datensatz von "
+                                    "theologie.app. Die Perikopenüberschriften "
+                                    "werden deshalb in diesem Kapitel nicht "
+                                    "angezeigt."
+                              : PericopeHeadings.explanation,
+                          key: const ValueKey("bible-pericope-note"),
+                          style: Theme.of(context).textTheme.bodySmall
+                              ?.copyWith(color: context.colors.textSecondary),
+                        ),
+                      ),
 
                     // Quellenangabe beim Text, wie es die Lizenzen der
                     // Ausgaben verlangen.
