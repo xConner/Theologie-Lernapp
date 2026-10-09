@@ -63,13 +63,24 @@ class AboutScreen extends StatelessWidget {
 
               _section(context, "Über das Projekt", [
                 _paragraph(
-                  "Eine Lernapp für Theologie und Bibelkunde: Perikopen, "
-                  "Altgriechisch und Latein, dazu Bekenntnisse, Gebete, "
-                  "liturgischer Kalender und Gesangbuch zum Nachschlagen.",
+                  "Eine kostenlose, quelloffene Lernapp für Theologie und "
+                  "Bibelkunde: Perikopenquiz, Bibel in mehreren "
+                  "Übersetzungen, Altgriechisch und Latein, Texte auswendig "
+                  "lernen, dazu Bekenntnisse, Gebete, liturgischer Kalender "
+                  "und Gesangbuch zum Nachschlagen.",
                 ),
                 _paragraph(
                   "Die App befindet sich in Entwicklung. Der Quellcode ist "
-                  "öffentlich auf GitHub einsehbar.",
+                  "öffentlich auf GitHub einsehbar; Fragen, Ideen und "
+                  "Mitarbeit besprechen wir auf Discord.",
+                ),
+                TextButton.icon(
+                  icon: const Icon(Icons.discord, size: 18),
+                  label: const Text("Community auf Discord"),
+                  onPressed: () => launchUrl(
+                    Uri.parse(AppInfo.discordUrl),
+                    mode: LaunchMode.externalApplication,
+                  ),
                 ),
                 TextButton.icon(
                   icon: const Icon(Icons.open_in_new_rounded, size: 18),

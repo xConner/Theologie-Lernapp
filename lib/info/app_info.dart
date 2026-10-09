@@ -13,6 +13,10 @@ class AppInfo {
   static const String repositoryUrl =
       "https://github.com/xConner/Theologie-Lernapp";
 
+  /// Einladung zum Discord-Server: Anlaufstelle für Fragen, Ideen und
+  /// Mitarbeit.
+  static const String discordUrl = "https://discord.gg/vkk2f7RTMe";
+
   /// Öffentliche Website; Impressum und Datenschutz liegen dort als
   /// statische Seiten (Quelle: web/impressum.html, web/datenschutz.html).
   static const String websiteUrl = "https://www.theologie.app/";

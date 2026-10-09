@@ -137,7 +137,7 @@ th, td { text-align: left; vertical-align: top; padding: 6px 8px; border-bottom:
 
 .footer-button {
   display: inline-block;
-  margin-top: 12px;
+  margin: 12px 8px 0 0;
   padding: 10px 18px;
   border: 1.3px solid var(--primary);
   border-radius: 10px;

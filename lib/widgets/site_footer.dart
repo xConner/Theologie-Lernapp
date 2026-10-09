@@ -6,8 +6,8 @@ import '../theme/app_theme.dart';
 import 'legal_links.dart';
 
 /// Footer der öffentlichen Seiten (Startseite, Login): Kurzbeschreibung,
-/// Open-Source-Hinweis mit Link zum Repository, Impressum und Datenschutz
-/// sowie der Copyright-Hinweis.
+/// Open-Source-Hinweis mit Links zum Discord-Server und zum Repository,
+/// Impressum und Datenschutz sowie der Copyright-Hinweis.
 ///
 /// Impressum und Datenschutz sind hier bewusst direkt und unter genau diesen
 /// Bezeichnungen verlinkt, damit sie mit einem Klick erreichbar sind.
@@ -30,30 +30,44 @@ class SiteFooter extends StatelessWidget {
       title: AppInfo.websiteName,
       children: [
         Text(
-          "Frei zugängliche Lernapp für Theologie und Bibelkunde.",
+          "Kostenlose, quelloffene Lernapp für Theologie und Bibelkunde.",
           style: secondary,
         ),
       ],
     );
 
     final openSource = _FooterSection(
-      title: "Open Source",
+      title: "Open Source & Community",
       children: [
         Text(
-          "Theologie lernen – gemeinsam weiterentwickeln. Der Quellcode ist "
-          "öffentlich: ansehen, verbessern, mitentwickeln.",
+          "Der Quellcode ist öffentlich. Fragen, Ideen und Mitarbeit "
+          "besprechen wir auf Discord – schau gern vorbei.",
           style: secondary,
         ),
 
         const SizedBox(height: 12),
 
-        OutlinedButton.icon(
-          onPressed: () => launchUrl(
-            Uri.parse(AppInfo.repositoryUrl),
-            mode: LaunchMode.externalApplication,
-          ),
-          icon: const GithubIcon(),
-          label: const Text("Auf GitHub ansehen"),
+        Wrap(
+          spacing: 8,
+          runSpacing: 8,
+          children: [
+            OutlinedButton.icon(
+              onPressed: () => launchUrl(
+                Uri.parse(AppInfo.discordUrl),
+                mode: LaunchMode.externalApplication,
+              ),
+              icon: const Icon(Icons.discord),
+              label: const Text("Community auf Discord"),
+            ),
+            OutlinedButton.icon(
+              onPressed: () => launchUrl(
+                Uri.parse(AppInfo.repositoryUrl),
+                mode: LaunchMode.externalApplication,
+              ),
+              icon: const GithubIcon(),
+              label: const Text("Auf GitHub ansehen"),
+            ),
+          ],
         ),
       ],
     );

@@ -5,7 +5,7 @@
     "display": "standalone",
     "background_color": "#F7F1E8",
     "theme_color": "#3B4C6B",
-    "description": "Lernapp für Theologie und Bibelkunde",
+    "description": "Kostenlose Open-Source-Lernapp für Theologie und Bibelkunde",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

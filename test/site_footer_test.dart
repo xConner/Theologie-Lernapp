@@ -57,13 +57,28 @@ void main() {
   testWidgets("Ein Tipp öffnet das Repository", (tester) async {
     await tester.pumpWidget(_app(AppTheme.light));
 
-    expect(find.text("Open Source"), findsOneWidget);
+    expect(find.text("Open Source & Community"), findsOneWidget);
     expect(find.byType(GithubIcon), findsOneWidget);
 
     await tester.tap(find.text("Auf GitHub ansehen"));
     await tester.pump();
 
     expect(launched, [AppInfo.repositoryUrl]);
+  });
+
+  test("Der Discord-Link ist die Einladung zum Server", () {
+    expect(AppInfo.discordUrl, "https://discord.gg/vkk2f7RTMe");
+  });
+
+  testWidgets("Ein Tipp öffnet den Discord-Server", (tester) async {
+    await tester.pumpWidget(_app(AppTheme.light));
+
+    expect(find.byIcon(Icons.discord), findsOneWidget);
+
+    await tester.tap(find.text("Community auf Discord"));
+    await tester.pump();
+
+    expect(launched, [AppInfo.discordUrl]);
   });
 
   testWidgets("Impressum und Datenschutz sind mit einem Tipp erreichbar", (
@@ -99,7 +114,7 @@ void main() {
 
     expect(
       tester.getTopLeft(find.text("Rechtliches")).dy,
-      tester.getTopLeft(find.text("Open Source")).dy,
+      tester.getTopLeft(find.text("Open Source & Community")).dy,
     );
     expect(tester.takeException(), isNull);
 
@@ -108,7 +123,7 @@ void main() {
 
     expect(
       tester.getTopLeft(find.text("Rechtliches")).dy,
-      tester.getTopLeft(find.text("Open Source")).dy,
+      tester.getTopLeft(find.text("Open Source & Community")).dy,
     );
     expect(tester.takeException(), isNull);
 
@@ -139,10 +154,14 @@ void main() {
       // Ein Überlauf würde als Exception gemeldet.
       expect(tester.takeException(), isNull);
 
-      final button = tester.getRect(find.byType(OutlinedButton));
-      expect(button.left, greaterThanOrEqualTo(0));
-      expect(button.right, lessThanOrEqualTo(320));
-      expect(button.height, greaterThanOrEqualTo(44));
+      for (final label in ["Community auf Discord", "Auf GitHub ansehen"]) {
+        final button = tester.getRect(
+          find.widgetWithText(OutlinedButton, label),
+        );
+        expect(button.left, greaterThanOrEqualTo(0));
+        expect(button.right, lessThanOrEqualTo(320));
+        expect(button.height, greaterThanOrEqualTo(44));
+      }
 
       for (final label in ["Impressum", "Datenschutz"]) {
         final link = tester.getRect(find.text(label));
