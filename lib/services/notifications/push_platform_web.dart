@@ -60,6 +60,9 @@ class PlatformPush implements PushPlatform {
   }
 
   @override
+  bool get isBrave => (web.window.navigator as JSObject).has("brave");
+
+  @override
   PushDevice get device {
     if (_isIos) return PushDevice.ios;
 

@@ -31,6 +31,12 @@ class FakePlatform implements PushPlatform {
   PushDevice device = PushDevice.desktop;
 
   @override
+  bool isBrave = false;
+
+  /// Abonnieren scheitert (z. B. Push-Dienst im Browser ausgeschaltet).
+  bool subscribeFails = false;
+
+  @override
   String? timeZone = "Europe/Berlin";
 
   /// Antwort des Nutzers auf die Berechtigungsabfrage.
@@ -54,6 +60,8 @@ class FakePlatform implements PushPlatform {
 
   @override
   Future<PushSubscriptionInfo> subscribe(String publicKey) async {
+    if (subscribeFails) throw StateError("push service error");
+
     return subscription = next;
   }
 
@@ -358,6 +366,34 @@ void main() {
       expect(tile(tester, "Push auf diesem Gerät").onChanged, isNull);
       expect(find.textContaining("gesperrt"), findsOneWidget);
       expect(find.text("Berechtigung verwalten"), findsOneWidget);
+    });
+
+    testWidgets("Brave ohne Push-Dienst: Hinweis auf die Einstellung", (
+      tester,
+    ) async {
+      platform.isBrave = true;
+      platform.subscribeFails = true;
+
+      await open(tester);
+
+      await tester.tap(find.text("Push auf diesem Gerät"));
+      await tester.pumpAndSettle();
+
+      expect(find.textContaining("brave://settings/privacy"), findsOneWidget);
+      expect(preferences.stored.pushEnabled, isFalse);
+      expect(tile(tester, "Push auf diesem Gerät").value, isFalse);
+    });
+
+    testWidgets("anderer Browser: allgemeine Fehlermeldung", (tester) async {
+      platform.subscribeFails = true;
+
+      await open(tester);
+
+      await tester.tap(find.text("Push auf diesem Gerät"));
+      await tester.pumpAndSettle();
+
+      expect(find.textContaining("konnten nicht eingerichtet"), findsOneWidget);
+      expect(find.textContaining("brave://"), findsNothing);
     });
 
     testWidgets("iPhone ohne Home-Bildschirm: Hinweis statt Schalter", (

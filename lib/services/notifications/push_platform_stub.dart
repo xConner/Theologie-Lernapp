@@ -12,6 +12,9 @@ class PlatformPush implements PushPlatform {
   PushDevice get device => PushDevice.desktop;
 
   @override
+  bool get isBrave => false;
+
+  @override
   String? get timeZone => null;
 
   @override

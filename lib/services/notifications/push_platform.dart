@@ -49,6 +49,10 @@ abstract class PushPlatform {
 
   PushDevice get device;
 
+  /// Brave liefert Push nur aus, wenn der Nutzer dort die Google-Dienste für
+  /// Push-Nachrichten einschaltet; sonst scheitert das Abonnieren.
+  bool get isBrave;
+
   /// IANA-Zeitzone des Geräts, z. B. "Europe/Berlin".
   String? get timeZone;
 

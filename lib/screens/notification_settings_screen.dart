@@ -129,10 +129,16 @@ class _NotificationSettingsScreenState
       }
     } catch (_) {
       if (!mounted) return;
-      _showMessage(
-        "Push-Benachrichtigungen konnten nicht eingerichtet werden. Bitte "
-        "versuche es später erneut.",
-      );
+
+      if (enabled && push.isBrave) {
+        _showBraveHelp();
+      } else {
+        _showMessage(
+          "Push-Benachrichtigungen konnten nicht eingerichtet werden. Bitte "
+          "versuche es später erneut.",
+        );
+      }
+
       final state = await push.deviceState(accountUid);
       if (mounted) setState(() => deviceState = state);
     } finally {
@@ -177,6 +183,30 @@ class _NotificationSettingsScreenState
           ? "Kein Gerät erreicht. Schalte Push auf diesem Gerät aus und "
                 "wieder ein."
           : "Testbenachrichtigung gesendet. Sie sollte gleich erscheinen.",
+    );
+  }
+
+  /// Brave schaltet den Push-Dienst erst auf Wunsch des Nutzers ein; bis
+  /// dahin scheitert das Abonnieren.
+  void _showBraveHelp() {
+    showDialog<void>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text("Push in Brave einschalten"),
+        content: const Text(
+          "Brave stellt Push-Benachrichtigungen erst zu, wenn du es dort "
+          "erlaubst:\n\n"
+          "1. Öffne brave://settings/privacy.\n"
+          "2. Schalte „Google-Dienste für Push-Nachrichten verwenden“ ein.\n"
+          "3. Starte Brave neu und schalte Push hier erneut ein.",
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text("Schließen"),
+          ),
+        ],
+      ),
     );
   }
 

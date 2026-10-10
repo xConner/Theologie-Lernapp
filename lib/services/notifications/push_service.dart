@@ -72,6 +72,8 @@ class PushService {
 
   PushDevice get device => _platform.device;
 
+  bool get isBrave => _platform.isBrave;
+
   Stream<String> get links => _platform.links;
 
   String? takeLaunchLink() => _platform.takeLaunchLink();
