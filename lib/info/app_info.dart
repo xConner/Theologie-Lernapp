@@ -353,9 +353,11 @@ class AppModules {
     ],
     notes: [
       "Noten gibt es bisher nur für einen Teil der Lieder. Sie zeigen die "
-          "Melodie der ersten Strophe ohne Text, wurden automatisch aus den "
-          "Vorlagen erzeugt und nicht einzeln Korrektur gelesen; Tonart und "
-          "Notenwerte können von der Fassung im Gesangbuch abweichen.",
+          "Melodie und, wo die Zuordnung gesichert ist, die erste Strophe "
+          "Silbe für Silbe unter den Noten. Noten und Silbenzuordnung wurden "
+          "automatisch aus den Vorlagen erzeugt und nicht einzeln Korrektur "
+          "gelesen; Tonart, Notenwerte und Bindebögen können von der Fassung "
+          "im Gesangbuch abweichen.",
       "Bei einem Teil der Lieder wird der Text aus urheberrechtlichen "
           "Gründen nicht angezeigt.",
       "Erklärungen, Schlagworte und Bibelstellen sind nicht bei allen "

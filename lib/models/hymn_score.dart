@@ -21,6 +21,10 @@ class HymnScore {
 
   final HymnScoreSource source;
 
+  /// Strophe, deren Text im Bild unter den Noten steht (wie im Gesangbuch);
+  /// `null`, wenn das Bild nur die Melodie zeigt.
+  final dynamic underlayStanza;
+
   const HymnScore({
     required this.id,
     required this.asset,
@@ -28,12 +32,16 @@ class HymnScore {
     required this.kind,
     required this.label,
     required this.source,
+    this.underlayStanza,
   });
+
+  bool get hasUnderlay => underlayStanza != null;
 
   bool get isDisplayable => format == 'svg' && asset.isNotEmpty;
 
   factory HymnScore.fromJson(Map<String, dynamic> json) {
     final source = json['source'];
+    final underlay = json['underlay'];
 
     return HymnScore(
       id: json['id'] ?? '',
@@ -44,6 +52,9 @@ class HymnScore {
       source: HymnScoreSource.fromJson(
         source is Map<String, dynamic> ? source : const {},
       ),
+      underlayStanza: underlay is Map<String, dynamic>
+          ? underlay['stanza']
+          : null,
     );
   }
 

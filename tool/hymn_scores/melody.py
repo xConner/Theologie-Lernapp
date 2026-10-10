@@ -23,6 +23,7 @@ _FIFTHS_STEP = {-1: "f", 0: "c", 1: "g", 2: "d", 3: "a", 4: "e", 5: "b"}
 class Tone:
     pitch: int  # MIDI-Tonhöhe, None = Pause
     units: int  # Länge in Rastereinheiten
+    breath: bool = False  # in der Vorlage folgt hörbar Luft (Zeilenende)
 
 
 @dataclass
@@ -100,6 +101,17 @@ def _first_strophe(voice, voices, syllables):
     Strophe, wenn ihre Länge zum Text passt.
     """
     count = len(voice)
+    if not syllables:
+        # Ohne Text: der größte Einschnitt, nach dem die Melodie neu ansetzt.
+        gaps = {
+            length: voice[length][0] - voice[length - 1][0]
+            for length in range(8, count - 4)
+            if _restarts(voice, voices, length)
+        }
+        if not gaps:
+            return None
+        widest = max(gaps.values())
+        return min(length for length, gap in gaps.items() if gap >= widest * 0.95)
     lowest = max(6, int(syllables * 0.9))
     highest = min(int(syllables * 2.2), count - 1)
     gaps = {
@@ -109,10 +121,32 @@ def _first_strophe(voice, voices, syllables):
     }
     if gaps:
         widest = max(gaps.values())
-        return min(length for length, gap in gaps.items() if gap >= widest * 0.95)
+        length = min(length for length, gap in gaps.items() if gap >= widest * 0.95)
+        return _single_strophe(voice, length, lowest, syllables)
     if lowest <= count <= syllables * 1.45:
         return count
     return None
+
+
+def _single_strophe(voice, length, lowest, syllables):
+    """Kürzt auf eine Strophe, wenn `length` in Wahrheit zwei umfasst.
+
+    Ist die zweite Strophe anders gesetzt, setzt die Melodie erst nach der
+    dritten erkennbar neu an. Das zeigt sich an der Überlänge und daran, dass
+    der größte Einschnitt in Textlänge die Dauer genau halbiert.
+    """
+    if length <= syllables * 1.45:
+        return length
+    inner = {
+        cut: voice[cut][0] - voice[cut - 1][0]
+        for cut in range(lowest, int(syllables * 1.45) + 1)
+    }
+    if not inner:
+        return length
+    cut = max(inner, key=lambda c: (inner[c], -c))
+    whole = voice[length][0] - voice[0][0]
+    half = voice[cut][0] - voice[0][0]
+    return cut if abs(whole / half - 2) <= 0.08 else length
 
 
 def _singable(line):
@@ -155,7 +189,13 @@ def _quantize(line, quarter, per_quarter):
                 sounding, rest = span, 0
             elif rest and rest < eighth:
                 sounding, rest = span, 0
-        tones.append(Tone(pitch, sounding))
+        # Luft nach dem Ton: mehr als die übliche Artikulation (ein Sechstel
+        # Viertel) oder eine eingeschobene Verlängerung.
+        breath = False
+        if index + 1 < len(line):
+            silence = (line[index + 1][0] - end) / quarter
+            breath = silence >= 0.17 or gap - span > 0.1
+        tones.append(Tone(pitch, sounding, breath or bool(rest)))
         if rest:
             tones.append(Tone(None, rest))
     return tones, uneven

@@ -6,9 +6,18 @@ import '../models/hymn_score.dart';
 
 /// Breite, bis zu der ein Notenbild mitwächst. Die Bilder sind für schmale
 /// Bildschirme umbrochen; breiter gezogen würden die Noten nur riesig.
-const double _maxScoreWidth = 480;
+const double _maxScoreWidth = 520;
+
+/// Schrift des Textes in den Notenbildern (siehe `pubspec.yaml`); auch die
+/// weiteren Strophen unter den Noten stehen in ihr.
+const String scoreTextFont = "Tinos";
 
 /// Notenbilder eines Liedes mit Quellenangabe.
+///
+/// Ein Bild zeigt die Melodie und – wie im Gesangbuch – die erste Strophe
+/// Silbe für Silbe unter den Noten. Wo die Silben den Tönen noch nicht
+/// gesichert zugeordnet sind, zeigt es die Melodie allein; ein Hinweis sagt
+/// das, und der Text folgt wie gewohnt darunter.
 ///
 /// Die Bilder sind einfarbig und werden in der Textfarbe des Themes
 /// eingefärbt, damit sie im hellen wie im dunklen Design lesbar sind. Ein
@@ -17,7 +26,11 @@ const double _maxScoreWidth = 480;
 class HymnScoreView extends StatelessWidget {
   final List<HymnScore> scores;
 
-  const HymnScoreView({super.key, required this.scores});
+  /// Ob das Lied in der App einen Text hat (sonst entfällt der Hinweis auf
+  /// die fehlende Unterlegung).
+  final bool hasLyrics;
+
+  const HymnScoreView({super.key, required this.scores, this.hasLyrics = true});
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +43,7 @@ class HymnScoreView extends StatelessWidget {
             key: ValueKey("hymn_score_${score.id}"),
             score: score,
             showLabel: scores.length > 1,
+            showUnderlayHint: hasLyrics && !score.hasUnderlay,
           ),
       ],
     );
@@ -39,8 +53,14 @@ class HymnScoreView extends StatelessWidget {
 class _ScoreItem extends StatelessWidget {
   final HymnScore score;
   final bool showLabel;
+  final bool showUnderlayHint;
 
-  const _ScoreItem({super.key, required this.score, required this.showLabel});
+  const _ScoreItem({
+    super.key,
+    required this.score,
+    required this.showLabel,
+    required this.showUnderlayHint,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -61,21 +81,40 @@ class _ScoreItem extends StatelessWidget {
             ),
 
           Semantics(
-            label: "Noten der Melodie: ${score.label}",
+            label: score.hasUnderlay
+                ? "Noten mit Text der ersten Strophe: ${score.label}"
+                : "Noten der Melodie: ${score.label}",
             button: true,
-            child: InkWell(
-              onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => HymnScoreZoomScreen(score)),
-              ),
-              child: ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: _maxScoreWidth),
-                child: ScoreImage(score: score),
+            // Kein InkWell: Dessen Hover- und Druckfarbe legte sich als
+            // Schleier über das ganze Notenblatt.
+            child: MouseRegion(
+              cursor: SystemMouseCursors.zoomIn,
+              child: GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => HymnScoreZoomScreen(score)),
+                ),
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: _maxScoreWidth),
+                  child: ScoreImage(score: score),
+                ),
               ),
             ),
           ),
 
           const SizedBox(height: 4),
+
+          if (showUnderlayHint)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 2),
+              child: Text(
+                "Melodie ohne unterlegten Text – die Silben sind diesen "
+                "Noten noch nicht zugeordnet.",
+                key: const Key("hymn_score_no_underlay"),
+                style: secondary,
+              ),
+            ),
 
           _SourceLine(score: score, style: secondary),
         ],

@@ -28,7 +28,7 @@ Der Schwerpunkt liegt auf aktivem Lernen: Die Trainer fragen ab, merken sich dei
 - **Bibel** – Reader mit mehreren Ausgaben in Deutsch, Englisch, Griechisch und Latein, mit Perikopenüberschriften, Stellen- und Textsuche; ohne Internetverbindung lesbar ([Quellen](docs/bible-sources.md)).
 - **Bekenntnisse und Gebete** – die altkirchlichen Symbole, das Konkordienbuch und Gebete in mehreren Sprachfassungen.
 - **Liturgischer Kalender** – Sonn- und Feiertage mit Farbe, Wochenspruch, Lesungen und Predigttext (bisher ein Teil des Jahres 2026).
-- **Evangelisches Gesangbuch** – Lieder nach EG-Nummer, mit Suche; bei einem Teil der Lieder zusätzlich die Melodie in Noten ([Quellen](docs/hymn-scores/README.md)).
+- **Evangelisches Gesangbuch** – Lieder nach EG-Nummer, mit Suche; bei einem Teil der Lieder wie im Gesangbuch mit Noten und unterlegtem Text ([Quellen](docs/hymn-scores/README.md)).
 
 Dazu kommen Lernstatistik, Streaks sowie ein helles und ein dunkles Design. Woher die Inhalte eines Bereichs stammen, steht in der App jeweils hinter dem Info-Symbol.
 

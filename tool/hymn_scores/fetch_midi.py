@@ -1,9 +1,11 @@
-"""Lädt die MIDI-Vorlagen der vorgesehenen Lieder von Wikimedia Commons.
+"""Lädt die MIDI-Vorlagen von Wikimedia Commons.
 
-Geladen wird nur, was das Inventar als nutzbar führt (Melodie gemeinfrei,
-Datei frei oder unter CC BY / CC BY-SA). Die Dateien landen unversioniert in
-build/hymn_scores/midi/<sha1>.mid; die Prüfsumme muss zum Quellen-Schnappschuss
-passen, sonst wird die Datei verworfen.
+Geladen wird jede Datei, die das Inventar einem Lied zuordnet. Der
+Projektinhaber hat die Verwendung der recherchierten Vorlagen freigegeben;
+die Einstufung der Recherche bleibt im Inventar und in der Übersicht
+(docs/hymn-scores/integration.md) sichtbar. Die Dateien landen unversioniert
+in build/hymn_scores/midi/<sha1>.mid; die Prüfsumme muss zum
+Quellen-Schnappschuss passen, sonst wird die Datei verworfen.
 """
 
 import hashlib
@@ -18,9 +20,8 @@ MIDI_DIR = BUILD / "midi"
 
 
 def usable(row):
-    return row["nutzbarkeit"] == "frei integrierbar" or row["nutzbarkeit"].startswith(
-        "unter Bedingungen"
-    )
+    """Lied mit mindestens einer zugeordneten Vorlage."""
+    return bool(row["commons_dateien"])
 
 
 def wanted_files():

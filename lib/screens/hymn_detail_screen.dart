@@ -49,6 +49,17 @@ class _HymnDetailScreenState extends State<HymnDetailScreen> {
 
     final lyricStyle = const TextStyle(fontSize: 18, height: 1.5);
 
+    final scoresShown = showScores && hymn.scores.isNotEmpty;
+
+    // Wie im Gesangbuch steht die erste Strophe unter den Noten und wird
+    // darunter nicht wiederholt; die übrigen folgen nummeriert.
+    final underlaid = scoresShown
+        ? hymn.scores
+              .where((score) => score.hasUnderlay)
+              .map((score) => score.underlayStanza.toString())
+              .toSet()
+        : const <String>{};
+
     return Scaffold(
       appBar: AppBar(
         title: Text(hymn.title),
@@ -121,11 +132,12 @@ class _HymnDetailScreenState extends State<HymnDetailScreen> {
 
             const Divider(height: 32),
 
-            if (showScores && hymn.scores.isNotEmpty) ...[
+            if (scoresShown) ...[
               HymnScoreView(
                 // Je Lied ein eigener Zustand: nie die Noten des vorigen.
                 key: ValueKey("hymn_scores_${hymn.id}"),
                 scores: hymn.scores,
+                hasLyrics: hymn.lyrics.isNotEmpty,
               ),
 
               const SizedBox(height: 8),
@@ -136,6 +148,43 @@ class _HymnDetailScreenState extends State<HymnDetailScreen> {
                 "Liedtext aus urheberrechtlichen Gründen nicht verfügbar.",
                 style: lyricStyle,
               )
+            else if (underlaid.isNotEmpty)
+              // Buchsatz: weitere Strophen nummeriert in der Notenschrift.
+              ...hymn.lyrics
+                  .where(
+                    (verse) => !underlaid.contains(verse.stanza.toString()),
+                  )
+                  .map(
+                    (verse) => Padding(
+                      key: ValueKey("hymn_book_stanza_${verse.stanza}"),
+                      padding: const EdgeInsets.only(bottom: 20),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            width: 32,
+                            child: Text(
+                              verse.stanza.toString() == "Ref"
+                                  ? "R."
+                                  : "${verse.stanza}.",
+                              style: lyricStyle.copyWith(
+                                fontFamily: scoreTextFont,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Text(
+                              verse.text,
+                              style: lyricStyle.copyWith(
+                                fontFamily: scoreTextFont,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
             else
               ...hymn.lyrics.map(
                 (verse) => Padding(

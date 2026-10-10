@@ -234,10 +234,16 @@ gemeinfrei ist (Kategorie 1: 339 Lieder); sonst die Melodie ohne Text zeigen.
 
 ## 7. Umsetzung in der App
 
-Integriert sind die Lieder, die das Inventar als „frei integrierbar“ oder
-„unter Bedingungen nutzbar“ führt und für die eine Commons-Vorlage vorliegt.
-Lieder mit geschützter oder ungeklärter Melodie bleiben ohne Noten, auch wenn
-es eine Datei gäbe. Die Zahlen stehen in [`integration.md`](integration.md).
+Ziel ist die Ansicht eines aufgeschlagenen Gesangbuchs: Noten, darunter die
+erste Strophe Silbe für Silbe, die übrigen Strophen nummeriert darunter. Die
+Zahlen stehen in [`integration.md`](integration.md).
+
+**Welche Lieder:** alle, denen das Inventar eine Commons-Vorlage zuordnet.
+Der Projektinhaber hat die recherchierten Vorlagen freigegeben und die Rechte
+nach eigener Angabe geklärt; Lieder, deren Melodie die Recherche als
+geschützt oder ungeklärt führt, sind in `integration.md` eigens aufgelistet.
+Liedtexte wurden nicht ergänzt: Wo die App keinen Text zeigt, stehen die
+Noten ohne Text.
 
 **Vom MIDI zum Notenbild** (`tool/hymn_scores/build_scores.py`):
 
@@ -248,30 +254,67 @@ es eine Datei gäbe. Die Zahlen stehen in [`integration.md`](integration.md).
    Stelle, an der die Melodie neu ansetzt. Die Silbenzahl der ersten
    Textstrophe grenzt die Suche ein. Was sich nicht sicher abgrenzen lässt
    (Vorspiele, Oberstimmen, Wechselgesänge), wird nicht integriert.
-3. `engrave.py` setzt die Melodie mit [Verovio](https://www.verovio.org/)
-   als SVG: einstimmig, ohne Text, schmal umbrochen. Taktstriche stehen nur,
-   wo die Vorlage eine Taktart nennt und die Töne restlos in Takte passen;
-   sonst freier Rhythmus wie bei vielen Chorälen im Gesangbuch.
-4. Je Vorlage entsteht ein Bild unter `assets/hymn_scores/`; Lieder mit
-   derselben Melodie teilen es sich.
+3. `syllables.py` zerlegt die erste Strophe in Sprechsilben (regelbasiert,
+   mit einer Ausnahmeliste), `underlay.py` ordnet sie den Tönen zu.
+4. `engrave.py` setzt Melodie und Text mit [Verovio](https://www.verovio.org/)
+   als SVG: Bindebögen und Haltestriche bei Melismen, Trennstriche im Wort,
+   Umbruch an den Zeilenenden des Textes (im Takt auch mitten im Takt, wie
+   im Gesangbuch bei Auftakten), nie mitten im Wort. Taktstriche stehen nur,
+   wo die Vorlage eine Taktart nennt und die Töne restlos in Takte passen.
+
+**Silbenzuordnung – was gesichert ist und was nicht:** Die Vorlagen enthalten
+keinen Text und keine Bögen. Unterlegt wird deshalb nur, wenn die Zuordnung
+aufgeht:
+
+- gleich viele Töne wie Silben: jede Silbe ein Ton;
+- mehr Töne als Silben: nur, wenn kurze Töne die Überzahl restlos erklären
+  (zwei kurze Töne auf einem Grundschlag; ein einzelner kurzer Ton nach
+  einem längeren) oder eine gleich lange, bereits gelöste Zeile denselben
+  Silbenrhythmus vorgibt;
+- Zeilen enden, wo die Vorlage hörbar Luft lässt; in ein Wort darf keine
+  Luft fallen.
+
+Melismen aus gleich langen Tönen (etwa zwei Viertel auf einer Silbe) sind
+aus den Vorlagen nicht zu erkennen. Solche Lieder bekommen die Melodie ohne
+Text und einen Hinweis; der Liedtext steht dann wie bisher darunter. Geraten
+wird nicht. Um diese Lieder zu unterlegen, braucht es je Lied die Angabe, auf
+welchen Silben die Melismen liegen.
 
 **Daten:** Jedes Lied in `assets/eg_lieder.json` kann ein Feld `scores`
 tragen – eine Liste aus `id` (Kennung der Melodie), `asset`, `format`,
-`kind`, `label` und `source` (Datei, Adresse, Urheber, Lizenz, Prüfsumme und
-Art der Zuordnung). Lieder ohne das Feld haben keine Noten. Alle übrigen
-Felder schreibt das Skript unverändert zurück.
+`kind`, `label`, `source` (Datei, Adresse, Urheber, Lizenz, Prüfsumme, Art
+der Zuordnung) und, wenn Text unter den Noten steht, `underlay` mit der
+Nummer der Strophe. Bilder mit Text gehören zu einem Lied
+(`eg<Nr>_<Melodie>.svg`), Bilder ohne Text teilen sich Lieder gleicher
+Melodie (`<Melodie>.svg`). Alle übrigen Felder schreibt das Skript
+unverändert zurück.
 
 **App:** `HymnDetailScreen` zeigt bei Liedern mit Noten die Umschaltung
 „Nur Text“ / „Text und Noten“; die Wahl liegt in den `SharedPreferences`
 (`HymnSettings`). `HymnScoreView` zeichnet die Bilder mit `flutter_svg` in
 der Textfarbe des Themes, nennt darunter Vorlage und Lizenz und öffnet auf
-Tipp eine vergrößerbare Ansicht.
+Tipp eine vergrößerbare Ansicht. Steht eine Strophe unter den Noten, wird
+sie darunter nicht wiederholt. Der Text in den Bildern ist echter Text in
+der Schrift Tinos (`assets/fonts`, SIL OFL 1.1); Verovio hat mit ihren
+Maßen gesetzt, darum liegt sie der App bei. Das Bild wird nur als Ganzes
+skaliert, Silben und Noten können sich nicht gegeneinander verschieben.
 
-**Grenzen:** Die Noten sind automatisch erzeugt und nicht einzeln Korrektur
-gelesen. Tonart und Notenwerte folgen der Vorlage, nicht dem Gesangbuch;
-Atemzeichen und Fermaten fehlen, Schlusstöne sind auf einen einfachen
-Notenwert gekürzt. Fehler bitte über die Meldefunktion im Lied melden.
+**Geprüft:** Tests vergleichen für jedes Bild mit Text die Silben in
+Leserichtung mit der ersten Strophe (vollständig, in Reihenfolge), prüfen,
+dass kein Notensystem mitten im Wort beginnt, und lassen `flutter_svg` jedes
+Bild lesen. Die laufende Web-App wurde in Chrome an mehreren Liedern
+angesehen (schmal und breit, hell und dunkel, mit und ohne Unterlegung).
 
-**Offen:** die Lieder der Kategorien 2, 3 und 5 in `integration.md`, die
-65 Lieder mit gemeinfreier Melodie ohne Vorlage (Abschnitt 6, Stufe 3) und
-Textunterlegung.
+**Grenzen und bekannte Probleme:**
+
+- Noten und Silbenzuordnung sind automatisch erzeugt und nicht einzeln am
+  Gesangbuch Korrektur gelesen.
+- Tonart und Notenwerte folgen der Vorlage, nicht dem Gesangbuch; Fermaten
+  und Atemzeichen fehlen, Schlusstöne sind auf einen einfachen Notenwert
+  gekürzt. Die meisten Bilder stehen in freiem Rhythmus ohne Taktstriche.
+- Die Silbentrennung ist regelbasiert; die Trennstelle kann von der
+  Schreibweise im Gesangbuch abweichen (etwa „Fen-ster“).
+- Unterlegt ist nur die erste Strophe.
+- Sehr lange Textzeilen werden in der Mitte an einer Wortgrenze auf zwei
+  Notensysteme verteilt.
+- Offen: die Lieder der Kategorien 2, 4 und 5 in `integration.md`.

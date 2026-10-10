@@ -115,7 +115,29 @@
       "Advent"
     ],
     "bibleReferences": [],
-    "explanation": ""
+    "explanation": "",
+    "scores": [
+      {
+        "id": "gott_heilger_schoepfer_aller_stern",
+        "asset": "assets/hymn_scores/eg003_gott_heilger_schoepfer_aller_stern.svg",
+        "format": "svg",
+        "kind": "melody",
+        "label": "Gott, heilger Schöpfer aller Stern",
+        "source": {
+          "name": "Wikimedia Commons",
+          "file": "File:Gott, heilger Schöpfer aller Stern.mid",
+          "url": "https://commons.wikimedia.org/wiki/File:Gott,_heilger_Sch%C3%B6pfer_aller_Stern.mid",
+          "author": "Melody: Kempten, um 1000; setting & sound file: Rabanus Flavus (Peter Gerloff)",
+          "license": "CC0",
+          "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+          "sha1": "8902ed40bcc7c9a42470e26d9a796147fd05110f",
+          "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
+        }
+      }
+    ]
   },
   {
     "id": 4,
@@ -164,7 +186,7 @@
     "scores": [
       {
         "id": "nun_komm_der_heiden_heiland",
-        "asset": "assets/hymn_scores/nun_komm_der_heiden_heiland.svg",
+        "asset": "assets/hymn_scores/eg004_nun_komm_der_heiden_heiland.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Nun komm, der Heiden Heiland",
@@ -177,6 +199,9 @@
           "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
           "sha1": "21a048cb0211c4b3cc46d8c6f19520203277fb30",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -337,7 +362,7 @@
     "scores": [
       {
         "id": "steht_auf_ihr_lieben_kinderlein",
-        "asset": "assets/hymn_scores/steht_auf_ihr_lieben_kinderlein.svg",
+        "asset": "assets/hymn_scores/eg006_steht_auf_ihr_lieben_kinderlein.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Steht auf, ihr lieben Kinderlein",
@@ -350,6 +375,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "8de47137ef8d792f00602b6871d72331e933ad68",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -399,7 +427,7 @@
     "scores": [
       {
         "id": "o_heiland_reiss_die_himmel_auf",
-        "asset": "assets/hymn_scores/o_heiland_reiss_die_himmel_auf.svg",
+        "asset": "assets/hymn_scores/eg007_o_heiland_reiss_die_himmel_auf.svg",
         "format": "svg",
         "kind": "melody",
         "label": "O Heiland, reiß die Himmel auf",
@@ -412,6 +440,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "dedb2ed2476efc6f1bfb13744b90d724c16672c0",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -514,7 +545,7 @@
     "scores": [
       {
         "id": "aus_meines_herzens_grunde",
-        "asset": "assets/hymn_scores/aus_meines_herzens_grunde.svg",
+        "asset": "assets/hymn_scores/eg009_aus_meines_herzens_grunde.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Aus meines Herzens Grunde",
@@ -527,6 +558,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "a19aef0b089ce051e5f0965ccd8976127357651b",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -564,7 +598,7 @@
     "scores": [
       {
         "id": "von_gott_will_ich_nicht_lassen",
-        "asset": "assets/hymn_scores/von_gott_will_ich_nicht_lassen.svg",
+        "asset": "assets/hymn_scores/eg010_von_gott_will_ich_nicht_lassen.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Von Gott will ich nicht lassen",
@@ -577,6 +611,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "fd153d909a9870cded7abb8559c8f6e6b4f570c1",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -700,7 +737,7 @@
     "scores": [
       {
         "id": "gott_sei_dank_durch_alle_welt",
-        "asset": "assets/hymn_scores/gott_sei_dank_durch_alle_welt.svg",
+        "asset": "assets/hymn_scores/eg012_gott_sei_dank_durch_alle_welt.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Gott sei Dank durch alle Welt",
@@ -713,6 +750,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "13cd25e1e483942ecaec1d5276162e8a7b70d09b",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -920,7 +960,26 @@
       "Kanon"
     ],
     "bibleReferences": [],
-    "explanation": ""
+    "explanation": "",
+    "scores": [
+      {
+        "id": "seht_die_gute_zeit_ist_nah",
+        "asset": "assets/hymn_scores/seht_die_gute_zeit_ist_nah.svg",
+        "format": "svg",
+        "kind": "melody",
+        "label": "Seht, die gute Zeit ist nah",
+        "source": {
+          "name": "Wikimedia Commons",
+          "file": "File:Seht, die gute Zeit ist nah.mid",
+          "url": "https://commons.wikimedia.org/wiki/File:Seht,_die_gute_Zeit_ist_nah.mid",
+          "author": "Melodie: traditionelles tschechisches Weihnachtslied, von Friedrich Walz 1972 um eine Wiederholung verkürzt; Satz und Tondatei: Rabanus Flavus (Peter Gerloff)",
+          "license": "CC0",
+          "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+          "sha1": "c190a1b27c21da6892bafb76f474251389ecf656",
+          "match": "EG-Nummer in Dateibeschreibung"
+        }
+      }
+    ]
   },
   {
     "id": 19,
@@ -933,7 +992,26 @@
       "Weihnachten"
     ],
     "bibleReferences": [],
-    "explanation": ""
+    "explanation": "",
+    "scores": [
+      {
+        "id": "veni_veni_emmanuel",
+        "asset": "assets/hymn_scores/veni_veni_emmanuel.svg",
+        "format": "svg",
+        "kind": "melody",
+        "label": "Veni, veni, Emmanuel",
+        "source": {
+          "name": "Wikimedia Commons",
+          "file": "File:Veni, veni, Emmanuel.mid",
+          "url": "https://commons.wikimedia.org/wiki/File:Veni,_veni,_Emmanuel.mid",
+          "author": "Melodie: 15. Jahrhundert; Thomas Helmore 1856; Satz und Tondatei: Rabanus Flavus (Peter Gerloff)",
+          "license": "CC0",
+          "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+          "sha1": "8bea237139d3009187d2f3dc696c1769e33507f7",
+          "match": "Titelgleichheit"
+        }
+      }
+    ]
   },
   {
     "id": 20,
@@ -1131,7 +1209,7 @@
     "scores": [
       {
         "id": "vom_himmel_hoch_da_komm_ich_her_eg",
-        "asset": "assets/hymn_scores/vom_himmel_hoch_da_komm_ich_her_eg.svg",
+        "asset": "assets/hymn_scores/eg024_vom_himmel_hoch_da_komm_ich_her_eg.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Vom Himmel hoch, da komm ich her (EG)",
@@ -1144,6 +1222,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "255d7e1843004887770d7bdf89fb22d3087067e4",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -1190,7 +1271,7 @@
     "scores": [
       {
         "id": "vom_himmel_hoch_da_komm_ich_her_eg",
-        "asset": "assets/hymn_scores/vom_himmel_hoch_da_komm_ich_her_eg.svg",
+        "asset": "assets/hymn_scores/eg025_vom_himmel_hoch_da_komm_ich_her_eg.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Vom Himmel hoch, da komm ich her (EG)",
@@ -1203,6 +1284,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "255d7e1843004887770d7bdf89fb22d3087067e4",
           "match": "Melodie von EG 24"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -1225,7 +1309,26 @@
     "bibleReferences": [
       "Lukas 2,14"
     ],
-    "explanation": ""
+    "explanation": "",
+    "scores": [
+      {
+        "id": "ehre_sei_gott_in_der_hoehe_kanon_gebhardi",
+        "asset": "assets/hymn_scores/ehre_sei_gott_in_der_hoehe_kanon_gebhardi.svg",
+        "format": "svg",
+        "kind": "melody",
+        "label": "Ehre sei Gott in der Höhe (Kanon, Gebhardi)",
+        "source": {
+          "name": "Wikimedia Commons",
+          "file": "File:Ehre sei Gott in der Höhe (Kanon, Gebhardi).mid",
+          "url": "https://commons.wikimedia.org/wiki/File:Ehre_sei_Gott_in_der_H%C3%B6he_(Kanon,_Gebhardi).mid",
+          "author": "Musik: Ludwig Ernst Gebhardi; Tondatei: Rabanus Flavus",
+          "license": "CC0",
+          "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+          "sha1": "29b796b224ad4d7ba3a50a5a52106fcb435647bc",
+          "match": "Titelgleichheit"
+        }
+      }
+    ]
   },
   {
     "id": 27,
@@ -1269,7 +1372,7 @@
     "scores": [
       {
         "id": "lobt_gott_ihr_christen_alle_gleich",
-        "asset": "assets/hymn_scores/lobt_gott_ihr_christen_alle_gleich.svg",
+        "asset": "assets/hymn_scores/eg027_lobt_gott_ihr_christen_alle_gleich.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Lobt Gott, ihr Christen alle gleich",
@@ -1282,6 +1385,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "a5859b3fde9c2de24baff53d2c7e523753c857ab",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -1470,7 +1576,7 @@
     "scores": [
       {
         "id": "zu_betlehem_geboren",
-        "asset": "assets/hymn_scores/zu_betlehem_geboren.svg",
+        "asset": "assets/hymn_scores/eg032_zu_betlehem_geboren.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Zu Betlehem geboren",
@@ -1483,6 +1589,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "6d147171206425d0aadac3db8c6c7f8e02577b28",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -1514,7 +1623,7 @@
     "scores": [
       {
         "id": "brich_an_du_schoenes_morgenlicht",
-        "asset": "assets/hymn_scores/brich_an_du_schoenes_morgenlicht.svg",
+        "asset": "assets/hymn_scores/eg033_brich_an_du_schoenes_morgenlicht.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Brich an, du schönes Morgenlicht",
@@ -1527,6 +1636,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "98741eab7943228ced7b9603dc1d5f252eccdd63",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -1677,7 +1789,7 @@
     "scores": [
       {
         "id": "froehlich_soll_mein_herze_springen",
-        "asset": "assets/hymn_scores/froehlich_soll_mein_herze_springen.svg",
+        "asset": "assets/hymn_scores/eg036_froehlich_soll_mein_herze_springen.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Fröhlich soll mein Herze springen",
@@ -1690,6 +1802,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "3f15dbb750fc72f6060eeabd4dac4e2b08e7e987",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -1801,7 +1916,7 @@
     "scores": [
       {
         "id": "wunderbarer_gnadenthron",
-        "asset": "assets/hymn_scores/wunderbarer_gnadenthron.svg",
+        "asset": "assets/hymn_scores/eg038_wunderbarer_gnadenthron.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Wunderbarer Gnadenthron",
@@ -1814,6 +1929,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "7e137619b98153587eb2c9aeb7ccbd48116539d5",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -1946,7 +2064,7 @@
     "scores": [
       {
         "id": "lobe_den_herren_den_maechtigen_koenig_der_ehren",
-        "asset": "assets/hymn_scores/lobe_den_herren_den_maechtigen_koenig_der_ehren.svg",
+        "asset": "assets/hymn_scores/eg041_lobe_den_herren_den_maechtigen_koenig_der_ehren.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Lobe den Herren, den mächtigen König der Ehren",
@@ -1959,6 +2077,9 @@
           "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
           "sha1": "1b6f093bb2d8023e25af71dad5c5336c7f39f8ff",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -2014,7 +2135,7 @@
     "scores": [
       {
         "id": "vom_himmel_hoch_da_komm_ich_her_eg",
-        "asset": "assets/hymn_scores/vom_himmel_hoch_da_komm_ich_her_eg.svg",
+        "asset": "assets/hymn_scores/eg042_vom_himmel_hoch_da_komm_ich_her_eg.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Vom Himmel hoch, da komm ich her (EG)",
@@ -2027,6 +2148,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "255d7e1843004887770d7bdf89fb22d3087067e4",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -2225,7 +2349,29 @@
       "Weihnachten"
     ],
     "bibleReferences": [],
-    "explanation": ""
+    "explanation": "",
+    "scores": [
+      {
+        "id": "freu_dich_erd_und_sternenzelt",
+        "asset": "assets/hymn_scores/eg047_freu_dich_erd_und_sternenzelt.svg",
+        "format": "svg",
+        "kind": "melody",
+        "label": "Freu dich, Erd und Sternenzelt",
+        "source": {
+          "name": "Wikimedia Commons",
+          "file": "File:Freu dich, Erd und Sternenzelt.mid",
+          "url": "https://commons.wikimedia.org/wiki/File:Freu_dich,_Erd_und_Sternenzelt.mid",
+          "author": "Melodie: böhmisch (Narodil se Kristus Pán), deutsch Leitmeritz 1844; Satz und Tondatei: Rabanus Flavus (Peter Gerloff)",
+          "license": "CC0",
+          "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+          "sha1": "510ae56fa9c5bbd906d638b349ac3e7cded420d7",
+          "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
+        }
+      }
+    ]
   },
   {
     "id": 48,
@@ -2262,7 +2408,26 @@
       "Weihnachten"
     ],
     "bibleReferences": [],
-    "explanation": ""
+    "explanation": "",
+    "scores": [
+      {
+        "id": "kommet_ihr_hirten",
+        "asset": "assets/hymn_scores/kommet_ihr_hirten.svg",
+        "format": "svg",
+        "kind": "melody",
+        "label": "Kommet, ihr Hirten",
+        "source": {
+          "name": "Wikimedia Commons",
+          "file": "File:Kommet, ihr Hirten.mid",
+          "url": "https://commons.wikimedia.org/wiki/File:Kommet,_ihr_Hirten.mid",
+          "author": "Melodie: Olmütz 1847; Satz und Tondatei: Rabanus Flavus (Peter Gerloff)",
+          "license": "CC0",
+          "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+          "sha1": "6359d1d0352600e3a2f2ecf949bc9c14aea004d0",
+          "match": "EG-Nummer in Dateibeschreibung"
+        }
+      }
+    ]
   },
   {
     "id": 49,
@@ -2295,7 +2460,26 @@
       "Weihnachten"
     ],
     "bibleReferences": [],
-    "explanation": ""
+    "explanation": "",
+    "scores": [
+      {
+        "id": "der_heiland_ist_geboren",
+        "asset": "assets/hymn_scores/der_heiland_ist_geboren.svg",
+        "format": "svg",
+        "kind": "melody",
+        "label": "Der Heiland ist geboren",
+        "source": {
+          "name": "Wikimedia Commons",
+          "file": "File:Der Heiland ist geboren.mid",
+          "url": "https://commons.wikimedia.org/wiki/File:Der_Heiland_ist_geboren.mid",
+          "author": "Melodie: aus Österreich; Satz und Tondatei: Rabanus Flavus (Peter Gerloff)",
+          "license": "CC0",
+          "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+          "sha1": "88029c371d9f0abce6a337f957a7f4c75f9df23c",
+          "match": "Titelgleichheit"
+        }
+      }
+    ]
   },
   {
     "id": 50,
@@ -2364,7 +2548,26 @@
       "Weihnachten"
     ],
     "bibleReferences": [],
-    "explanation": ""
+    "explanation": "",
+    "scores": [
+      {
+        "id": "als_die_welt_verloren",
+        "asset": "assets/hymn_scores/als_die_welt_verloren.svg",
+        "format": "svg",
+        "kind": "melody",
+        "label": "Als die Welt verloren",
+        "source": {
+          "name": "Wikimedia Commons",
+          "file": "File:Als die Welt verloren.mid",
+          "url": "https://commons.wikimedia.org/wiki/File:Als_die_Welt_verloren.mid",
+          "author": "Melody: Poland, before 1852; setting & sound file: Rabanus Flavus (Peter Gerloff)",
+          "license": "CC0",
+          "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+          "sha1": "c13dd9721735d2ae7aec3a09215576cc07356ecb",
+          "match": "Titelgleichheit"
+        }
+      }
+    ]
   },
   {
     "id": 54,
@@ -2418,7 +2621,26 @@
       "Weihnachten"
     ],
     "bibleReferences": [],
-    "explanation": ""
+    "explanation": "",
+    "scores": [
+      {
+        "id": "o_bethlehem_du_kleine_stadt",
+        "asset": "assets/hymn_scores/o_bethlehem_du_kleine_stadt.svg",
+        "format": "svg",
+        "kind": "melody",
+        "label": "O Bethlehem, du kleine Stadt",
+        "source": {
+          "name": "Wikimedia Commons",
+          "file": "File:O Bethlehem, du kleine Stadt.mid",
+          "url": "https://commons.wikimedia.org/wiki/File:O_Bethlehem,_du_kleine_Stadt.mid",
+          "author": "Melodie: Ralph Vaughan Williams 1906; Satz und Tondatei: Rabanus Flavus (Peter Gerloff)",
+          "license": "CC0",
+          "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+          "sha1": "420f7dd950719c36fb25e76056fa000c6dc5906b",
+          "match": "EG-Nummer in Dateibeschreibung"
+        }
+      }
+    ]
   },
   {
     "id": 56,
@@ -2731,7 +2953,7 @@
     "scores": [
       {
         "id": "jesus_meine_zuversicht_1653",
-        "asset": "assets/hymn_scores/jesus_meine_zuversicht_1653.svg",
+        "asset": "assets/hymn_scores/eg062_jesus_meine_zuversicht_1653.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Jesus, meine Zuversicht (1653)",
@@ -2744,11 +2966,14 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "3b1ae0a9e0dc725b860ab7d534a7aeaaa660b537",
           "match": "Melodie von EG 526"
+        },
+        "underlay": {
+          "stanza": 1
         }
       },
       {
         "id": "jesus_meine_zuversicht",
-        "asset": "assets/hymn_scores/jesus_meine_zuversicht.svg",
+        "asset": "assets/hymn_scores/eg062_jesus_meine_zuversicht.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Jesus, meine Zuversicht",
@@ -2761,6 +2986,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "b73d919719b704095140241716ea8f6a149883bb",
           "match": "Melodie von EG 526"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -2811,7 +3039,7 @@
     "scores": [
       {
         "id": "befiehl_du_deine_wege",
-        "asset": "assets/hymn_scores/befiehl_du_deine_wege.svg",
+        "asset": "assets/hymn_scores/eg063_befiehl_du_deine_wege.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Befiehl du deine Wege",
@@ -2824,6 +3052,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "fedb8df5433471c1f481f9e666772be6d8e258d2",
           "match": "Melodie von EG 361"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -3027,7 +3258,7 @@
     "scores": [
       {
         "id": "jesus_ist_kommen_grund_ewiger_freude",
-        "asset": "assets/hymn_scores/jesus_ist_kommen_grund_ewiger_freude.svg",
+        "asset": "assets/hymn_scores/eg066_jesus_ist_kommen_grund_ewiger_freude.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Jesus ist kommen, Grund ewiger Freude",
@@ -3040,6 +3271,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "10067684722fad8f172e548b5f8e38f49cfc225f",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -3085,7 +3319,7 @@
     "scores": [
       {
         "id": "herr_christ_der_einig_gotts_sohn",
-        "asset": "assets/hymn_scores/herr_christ_der_einig_gotts_sohn.svg",
+        "asset": "assets/hymn_scores/eg067_herr_christ_der_einig_gotts_sohn.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Herr Christ, der einig Gotts Sohn",
@@ -3098,6 +3332,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "c227aead177bf91dde155afec7048ffcdf53261e",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -3352,7 +3589,7 @@
     "scores": [
       {
         "id": "o_jesu_christe_wahres_licht",
-        "asset": "assets/hymn_scores/o_jesu_christe_wahres_licht.svg",
+        "asset": "assets/hymn_scores/eg072_o_jesu_christe_wahres_licht.svg",
         "format": "svg",
         "kind": "melody",
         "label": "O Jesu Christe, wahres Licht",
@@ -3365,6 +3602,9 @@
           "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
           "sha1": "1932139eb5e49aa61905f135f385c69da6753046",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -3488,7 +3728,7 @@
     "scores": [
       {
         "id": "lobt_gott_ihr_christen_alle_gleich",
-        "asset": "assets/hymn_scores/lobt_gott_ihr_christen_alle_gleich.svg",
+        "asset": "assets/hymn_scores/eg073_lobt_gott_ihr_christen_alle_gleich.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Lobt Gott, ihr Christen alle gleich",
@@ -3501,6 +3741,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "a5859b3fde9c2de24baff53d2c7e523753c857ab",
           "match": "Melodie von EG 27"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -3534,7 +3777,7 @@
     "scores": [
       {
         "id": "steht_auf_ihr_lieben_kinderlein",
-        "asset": "assets/hymn_scores/steht_auf_ihr_lieben_kinderlein.svg",
+        "asset": "assets/hymn_scores/eg074_steht_auf_ihr_lieben_kinderlein.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Steht auf, ihr lieben Kinderlein",
@@ -3547,6 +3790,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "8de47137ef8d792f00602b6871d72331e933ad68",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -3624,7 +3870,7 @@
     "scores": [
       {
         "id": "o_mensch_bewein_dein_suende_gross_eg",
-        "asset": "assets/hymn_scores/o_mensch_bewein_dein_suende_gross_eg.svg",
+        "asset": "assets/hymn_scores/eg076_o_mensch_bewein_dein_suende_gross_eg.svg",
         "format": "svg",
         "kind": "melody",
         "label": "O Mensch, bewein dein Sünde groß (EG)",
@@ -3637,6 +3883,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "df1f45938ba5785d8f468d7d47a0c2f1cb8f00ef",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -3880,7 +4129,7 @@
     "scores": [
       {
         "id": "o_traurigkeit_o_herzeleid_eg",
-        "asset": "assets/hymn_scores/o_traurigkeit_o_herzeleid_eg.svg",
+        "asset": "assets/hymn_scores/eg080_o_traurigkeit_o_herzeleid_eg.svg",
         "format": "svg",
         "kind": "melody",
         "label": "O Traurigkeit, o Herzeleid (EG)",
@@ -3893,6 +4142,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "aa4c25a3d78f6e030ca1ed196faff8060bdaf6b9",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -3973,7 +4225,7 @@
     "scores": [
       {
         "id": "herzliebster_jesu",
-        "asset": "assets/hymn_scores/herzliebster_jesu.svg",
+        "asset": "assets/hymn_scores/eg081_herzliebster_jesu.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Herzliebster Jesu",
@@ -3986,6 +4238,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "96ec7d33f838e7d3aef07485b3e773b9b8509183",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -4038,7 +4293,7 @@
     "scores": [
       {
         "id": "wenn_meine_suend_mich_kraenken",
-        "asset": "assets/hymn_scores/wenn_meine_suend_mich_kraenken.svg",
+        "asset": "assets/hymn_scores/eg082_wenn_meine_suend_mich_kraenken.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Wenn meine Sünd' mich kränken",
@@ -4051,6 +4306,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "33a5d76abbbea0ea5e5a056813c09f7a2246f51d",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -4196,7 +4454,7 @@
     "scores": [
       {
         "id": "o_welt_ich_muss_dich_lassen",
-        "asset": "assets/hymn_scores/o_welt_ich_muss_dich_lassen.svg",
+        "asset": "assets/hymn_scores/eg084_o_welt_ich_muss_dich_lassen.svg",
         "format": "svg",
         "kind": "melody",
         "label": "O Welt, ich muss dich lassen",
@@ -4209,6 +4467,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "a98c4be4868e5334118beaddaf6b71393b9adde9",
           "match": "Melodie von EG 521"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -4266,7 +4527,7 @@
     "scores": [
       {
         "id": "o_haupt_voll_blut_und_wunden_eg_gl_2013",
-        "asset": "assets/hymn_scores/o_haupt_voll_blut_und_wunden_eg_gl_2013.svg",
+        "asset": "assets/hymn_scores/eg085_o_haupt_voll_blut_und_wunden_eg_gl_2013.svg",
         "format": "svg",
         "kind": "melody",
         "label": "O Haupt voll Blut und Wunden (EG-GL 2013)",
@@ -4279,6 +4540,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "367467ca1ab82333964435de94bc9e5f7e425d2b",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -4484,7 +4748,7 @@
     "scores": [
       {
         "id": "o_mensch_bewein_dein_suende_gross_eg",
-        "asset": "assets/hymn_scores/o_mensch_bewein_dein_suende_gross_eg.svg",
+        "asset": "assets/hymn_scores/eg090_o_mensch_bewein_dein_suende_gross_eg.svg",
         "format": "svg",
         "kind": "melody",
         "label": "O Mensch, bewein dein Sünde groß (EG)",
@@ -4497,6 +4761,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "df1f45938ba5785d8f468d7d47a0c2f1cb8f00ef",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -4557,7 +4824,7 @@
     "scores": [
       {
         "id": "herzliebster_jesu",
-        "asset": "assets/hymn_scores/herzliebster_jesu.svg",
+        "asset": "assets/hymn_scores/eg091_herzliebster_jesu.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Herzliebster Jesu",
@@ -4570,6 +4837,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "96ec7d33f838e7d3aef07485b3e773b9b8509183",
           "match": "Melodie von EG 81"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -4701,7 +4971,26 @@
     "lyrics": [],
     "tags": [],
     "bibleReferences": [],
-    "explanation": "Das Lied zeichnet mit dem Bild vom in die Erde sinkenden Korn, das neu austreibt, die Hoffnung auf Leben aus dem Tod. Es erzählt, wie die Welt Gottes Liebe verwarf und das Grab versiegelte – Jesus ist tot, scheinbar ohne Ausweg. Doch wie Weizen, der wieder grün wird, bricht die Liebe durch und wächst. Gottes Samenkorn wirkt selbst dort, wo es verloren scheint, während unsere Herzen in Dornen gefangen sind. Mit dem Anbruch des dritten Tages weicht die Nacht: Auferstehung bringt neues Leben und Freiheit. Immer wieder klingt die Zusage: Liebe wächst still und unbeirrbar wie ein grüner Halm."
+    "explanation": "Das Lied zeichnet mit dem Bild vom in die Erde sinkenden Korn, das neu austreibt, die Hoffnung auf Leben aus dem Tod. Es erzählt, wie die Welt Gottes Liebe verwarf und das Grab versiegelte – Jesus ist tot, scheinbar ohne Ausweg. Doch wie Weizen, der wieder grün wird, bricht die Liebe durch und wächst. Gottes Samenkorn wirkt selbst dort, wo es verloren scheint, während unsere Herzen in Dornen gefangen sind. Mit dem Anbruch des dritten Tages weicht die Nacht: Auferstehung bringt neues Leben und Freiheit. Immer wieder klingt die Zusage: Liebe wächst still und unbeirrbar wie ein grüner Halm.",
+    "scores": [
+      {
+        "id": "noel_nouvelet",
+        "asset": "assets/hymn_scores/noel_nouvelet.svg",
+        "format": "svg",
+        "kind": "melody",
+        "label": "Noël Nouvelet",
+        "source": {
+          "name": "Wikimedia Commons",
+          "file": "File:Noël Nouvelet.mid",
+          "url": "https://commons.wikimedia.org/wiki/File:No%C3%ABl_Nouvelet.mid",
+          "author": "Melody: France, 15th century; setting & sound file: Rabanus Flavus (Peter Gerloff)",
+          "license": "CC0",
+          "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+          "sha1": "65406c3f759b0e4de62cf7995bafb558451236cb",
+          "match": "im Wikipedia-Artikel eingebunden"
+        }
+      }
+    ]
   },
   {
     "id": 99,
@@ -5062,7 +5351,7 @@
     "scores": [
       {
         "id": "erstanden_ist_der_heilig_christ",
-        "asset": "assets/hymn_scores/erstanden_ist_der_heilig_christ.svg",
+        "asset": "assets/hymn_scores/eg105_erstanden_ist_der_heilig_christ.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Erstanden ist der heilig Christ",
@@ -5075,6 +5364,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "68ed00a1d3392d284ab94f567b2a94c28b97048b",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -5357,7 +5649,7 @@
     "scores": [
       {
         "id": "die_ganze_welt_herr_jesu_christ",
-        "asset": "assets/hymn_scores/die_ganze_welt_herr_jesu_christ.svg",
+        "asset": "assets/hymn_scores/eg110_die_ganze_welt_herr_jesu_christ.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Die ganze Welt, Herr Jesu Christ",
@@ -5370,6 +5662,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "a182110ae9b690cb5db08773bb26e4616c642b27",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -5498,7 +5793,7 @@
     "scores": [
       {
         "id": "auf_auf_mein_herz_mit_freuden",
-        "asset": "assets/hymn_scores/auf_auf_mein_herz_mit_freuden.svg",
+        "asset": "assets/hymn_scores/eg112_auf_auf_mein_herz_mit_freuden.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Auf, auf, mein Herz, mit Freuden",
@@ -5511,6 +5806,9 @@
           "licenseUrl": "",
           "sha1": "fffbfa9fd15dfcb08a9db406070c7a8e216be197",
           "match": "Titelgleichheit"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -5561,7 +5859,26 @@
     "bibleReferences": [
       "1. Korinther 15,55-57"
     ],
-    "explanation": ""
+    "explanation": "",
+    "scores": [
+      {
+        "id": "es_ist_das_heil_uns_kommen_her",
+        "asset": "assets/hymn_scores/es_ist_das_heil_uns_kommen_her.svg",
+        "format": "svg",
+        "kind": "melody",
+        "label": "Es ist das Heil uns kommen her",
+        "source": {
+          "name": "Wikimedia Commons",
+          "file": "File:Es ist das Heil uns kommen her.mid",
+          "url": "https://commons.wikimedia.org/wiki/File:Es_ist_das_Heil_uns_kommen_her.mid",
+          "author": "Melodie: Mainz 1390 / Nürnberg 1524; Satz + Tondatei: Rabanus Flavus (Peter Gerloff)",
+          "license": "CC0",
+          "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+          "sha1": "84e6f34b91cc2acef90063d9199a02772dc01826",
+          "match": "Melodie von EG 342"
+        }
+      }
+    ]
   },
   {
     "id": 114,
@@ -5619,7 +5936,7 @@
     "scores": [
       {
         "id": "sei_lob_und_ehr_dem_hoechsten_gut",
-        "asset": "assets/hymn_scores/sei_lob_und_ehr_dem_hoechsten_gut.svg",
+        "asset": "assets/hymn_scores/eg114_sei_lob_und_ehr_dem_hoechsten_gut.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Sei Lob und Ehr dem höchsten Gut",
@@ -5632,6 +5949,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "598386245a5d16da3eb022a385a7eb9239e721a2",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -5678,7 +5998,7 @@
     "scores": [
       {
         "id": "jesus_meine_zuversicht_1653",
-        "asset": "assets/hymn_scores/jesus_meine_zuversicht_1653.svg",
+        "asset": "assets/hymn_scores/eg115_jesus_meine_zuversicht_1653.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Jesus, meine Zuversicht (1653)",
@@ -5691,11 +6011,14 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "3b1ae0a9e0dc725b860ab7d534a7aeaaa660b537",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       },
       {
         "id": "jesus_meine_zuversicht",
-        "asset": "assets/hymn_scores/jesus_meine_zuversicht.svg",
+        "asset": "assets/hymn_scores/eg115_jesus_meine_zuversicht.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Jesus, meine Zuversicht",
@@ -5708,6 +6031,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "b73d919719b704095140241716ea8f6a149883bb",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -5739,7 +6065,26 @@
       "Auferstehung"
     ],
     "bibleReferences": [],
-    "explanation": ""
+    "explanation": "",
+    "scores": [
+      {
+        "id": "der_schoene_ostertag_hoe_groot_de_vrugten_zijn",
+        "asset": "assets/hymn_scores/der_schoene_ostertag_hoe_groot_de_vrugten_zijn.svg",
+        "format": "svg",
+        "kind": "melody",
+        "label": "Der schöne Ostertag (Hoe groot de vrugten zijn)",
+        "source": {
+          "name": "Wikimedia Commons",
+          "file": "File:Der schöne Ostertag (Hoe groot de vrugten zijn).mid",
+          "url": "https://commons.wikimedia.org/wiki/File:Der_sch%C3%B6ne_Ostertag_(Hoe_groot_de_vrugten_zijn).mid",
+          "author": "Melodie: bei Dirk Raphaelszoon Camphuysen 1624; Satz und Tondatei: Rabanus Flavus (Peter Gerloff)",
+          "license": "CC0",
+          "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+          "sha1": "252daf7bd9ad3e597b3b5c9430f1a9eb9cbfc8df",
+          "match": "Titelgleichheit"
+        }
+      }
+    ]
   },
   {
     "id": 118,
@@ -5797,7 +6142,7 @@
     "scores": [
       {
         "id": "gen_himmel_aufgefahren_ist",
-        "asset": "assets/hymn_scores/gen_himmel_aufgefahren_ist.svg",
+        "asset": "assets/hymn_scores/eg119_gen_himmel_aufgefahren_ist.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Gen Himmel aufgefahren ist",
@@ -5810,6 +6155,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "ce471f5e9b458f4f3ae987b08b3685f7ef2cf7a7",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -5974,7 +6322,7 @@
     "scores": [
       {
         "id": "es_ist_gewisslich_an_der_zeit",
-        "asset": "assets/hymn_scores/es_ist_gewisslich_an_der_zeit.svg",
+        "asset": "assets/hymn_scores/eg122_es_ist_gewisslich_an_der_zeit.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Es ist gewisslich an der Zeit",
@@ -5987,6 +6335,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "f3e449a677f7e28c080793346085dd5f50f08a8c",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -6053,7 +6404,7 @@
     "scores": [
       {
         "id": "alles_ist_an_gottes_segen",
-        "asset": "assets/hymn_scores/alles_ist_an_gottes_segen.svg",
+        "asset": "assets/hymn_scores/eg123_alles_ist_an_gottes_segen.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Alles ist an Gottes Segen",
@@ -6066,6 +6417,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "bd69eca04fcb0fe713f6cbfd8b5354373ffd1be1",
           "match": "im Wikipedia-Artikel eingebunden"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -6101,7 +6455,7 @@
     "scores": [
       {
         "id": "nun_bitten_wir_den_heiligen_geist_eg",
-        "asset": "assets/hymn_scores/nun_bitten_wir_den_heiligen_geist_eg.svg",
+        "asset": "assets/hymn_scores/eg124_nun_bitten_wir_den_heiligen_geist_eg.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Nun bitten wir den Heiligen Geist (EG)",
@@ -6114,6 +6468,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "a8c94beed3575dfa8eb1aeb9707de3137b3369a4",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -6205,7 +6562,7 @@
     "scores": [
       {
         "id": "komm_gott_schoepfer_heiliger_geist",
-        "asset": "assets/hymn_scores/komm_gott_schoepfer_heiliger_geist.svg",
+        "asset": "assets/hymn_scores/eg126_komm_gott_schoepfer_heiliger_geist.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Komm, Gott Schöpfer, Heiliger Geist",
@@ -6218,6 +6575,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "f89538fc42a4655730d1506f5f286bde214d3d41",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -6275,7 +6635,7 @@
     "scores": [
       {
         "id": "o_mensch_bewein_dein_suende_gross_eg",
-        "asset": "assets/hymn_scores/o_mensch_bewein_dein_suende_gross_eg.svg",
+        "asset": "assets/hymn_scores/eg127_o_mensch_bewein_dein_suende_gross_eg.svg",
         "format": "svg",
         "kind": "melody",
         "label": "O Mensch, bewein dein Sünde groß (EG)",
@@ -6288,6 +6648,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "df1f45938ba5785d8f468d7d47a0c2f1cb8f00ef",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -6339,7 +6702,7 @@
     "scores": [
       {
         "id": "heilger_geist_du_troester_mein",
-        "asset": "assets/hymn_scores/heilger_geist_du_troester_mein.svg",
+        "asset": "assets/hymn_scores/eg128_heilger_geist_du_troester_mein.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Heilger Geist, du Tröster mein",
@@ -6352,6 +6715,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "131f918dbab2e13087873f7d180b282fa05b1b11",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -6387,7 +6753,7 @@
     "scores": [
       {
         "id": "zieh_ein_zu_deinen_toren",
-        "asset": "assets/hymn_scores/zieh_ein_zu_deinen_toren.svg",
+        "asset": "assets/hymn_scores/eg129_zieh_ein_zu_deinen_toren.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Zieh ein zu deinen Toren",
@@ -6400,6 +6766,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "35a1e42417f271e6d6614722f6adcdb0216e6102",
           "match": "Melodie von EG 133"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -6686,7 +7055,7 @@
     "scores": [
       {
         "id": "komm_o_komm_du_geist_des_lebens",
-        "asset": "assets/hymn_scores/komm_o_komm_du_geist_des_lebens.svg",
+        "asset": "assets/hymn_scores/eg134_komm_o_komm_du_geist_des_lebens.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Komm, o komm, du Geist des Lebens",
@@ -6699,6 +7068,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "0861fec7b618d44ff6401313060c050225509913",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -6748,7 +7120,26 @@
     "bibleReferences": [
       "Psalm 118,27"
     ],
-    "explanation": ""
+    "explanation": "",
+    "scores": [
+      {
+        "id": "schmueckt_das_fest_mit_maien",
+        "asset": "assets/hymn_scores/schmueckt_das_fest_mit_maien.svg",
+        "format": "svg",
+        "kind": "melody",
+        "label": "Schmückt das Fest mit Maien",
+        "source": {
+          "name": "Wikimedia Commons",
+          "file": "File:Schmückt das Fest mit Maien.mid",
+          "url": "https://commons.wikimedia.org/wiki/File:Schm%C3%BCckt_das_Fest_mit_Maien.mid",
+          "author": "Melodie: 1715; Satz und Tondatei: Rabanus Flavus (Peter Gerloff)",
+          "license": "CC0",
+          "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+          "sha1": "e52d7ad203fccce7b427621448b6e0ff62a6a16e",
+          "match": "EG-Nummer in Dateibeschreibung"
+        }
+      }
+    ]
   },
   {
     "id": 136,
@@ -6861,7 +7252,7 @@
     "scores": [
       {
         "id": "o_durchbrecher_aller_bande",
-        "asset": "assets/hymn_scores/o_durchbrecher_aller_bande.svg",
+        "asset": "assets/hymn_scores/eg137_o_durchbrecher_aller_bande.svg",
         "format": "svg",
         "kind": "melody",
         "label": "O Durchbrecher aller Bande",
@@ -6874,6 +7265,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "220273b34ea678e186662cc0d7341fc0780eb46f",
           "match": "Melodie von EG 388"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -6957,7 +7351,7 @@
       },
       {
         "id": "nun_danket_alle_gott_oe_version",
-        "asset": "assets/hymn_scores/nun_danket_alle_gott_oe_version.svg",
+        "asset": "assets/hymn_scores/eg139_nun_danket_alle_gott_oe_version.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Nun danket alle Gott (Ö-Version)",
@@ -6970,6 +7364,9 @@
           "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
           "sha1": "fde36956f7fc48a390b1d6f6dd04896c62188212",
           "match": "Melodie von EG 321"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -7010,7 +7407,7 @@
     "scores": [
       {
         "id": "lobt_gott_den_herrn_der_herrlichkeit",
-        "asset": "assets/hymn_scores/lobt_gott_den_herrn_der_herrlichkeit.svg",
+        "asset": "assets/hymn_scores/eg140_lobt_gott_den_herrn_der_herrlichkeit.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Lobt Gott, den Herrn der Herrlichkeit",
@@ -7023,6 +7420,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "ac9f3aae6fd2da0a28b138b4895f51e2d5e0096c",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -7326,7 +7726,7 @@
     "scores": [
       {
         "id": "vater_unser_im_himmelreich",
-        "asset": "assets/hymn_scores/vater_unser_im_himmelreich.svg",
+        "asset": "assets/hymn_scores/eg146_vater_unser_im_himmelreich.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Vater unser im Himmelreich",
@@ -7339,6 +7739,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "54d2f157bed866c4bf532262ece9333db06f08c8",
           "match": "Melodie von EG 344"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -7450,7 +7853,7 @@
     "scores": [
       {
         "id": "herzlich_tut_mich_erfreuen",
-        "asset": "assets/hymn_scores/herzlich_tut_mich_erfreuen.svg",
+        "asset": "assets/hymn_scores/eg148_herzlich_tut_mich_erfreuen.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Herzlich tut mich erfreuen",
@@ -7463,6 +7866,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "6715c6ddf0814b84b00c3c805551eb1786268c72",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -7510,7 +7916,7 @@
     "scores": [
       {
         "id": "es_ist_gewisslich_an_der_zeit",
-        "asset": "assets/hymn_scores/es_ist_gewisslich_an_der_zeit.svg",
+        "asset": "assets/hymn_scores/eg149_es_ist_gewisslich_an_der_zeit.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Es ist gewisslich an der Zeit",
@@ -7523,6 +7929,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "f3e449a677f7e28c080793346085dd5f50f08a8c",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -7730,7 +8139,26 @@
     "bibleReferences": [
       "Hesekiel 37,1-10"
     ],
-    "explanation": ""
+    "explanation": "",
+    "scores": [
+      {
+        "id": "fuer_alle_heilgen",
+        "asset": "assets/hymn_scores/fuer_alle_heilgen.svg",
+        "format": "svg",
+        "kind": "melody",
+        "label": "Für alle Heilgen",
+        "source": {
+          "name": "Wikimedia Commons",
+          "file": "File:Für alle Heilgen.mid",
+          "url": "https://commons.wikimedia.org/wiki/File:F%C3%BCr_alle_Heilgen.mid",
+          "author": "Melodie: Ralph Vaughan Williams 1906; Satz u. Tondatei: Rabanus Flavus",
+          "license": "CC0",
+          "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+          "sha1": "f97c2cf0eb486b59530eda08c5f228f381ef7c70",
+          "match": "EG-Nummer in Dateibeschreibung"
+        }
+      }
+    ]
   },
   {
     "id": 155,
@@ -7764,7 +8192,7 @@
     "scores": [
       {
         "id": "herr_jesu_christ_dich_zu_uns_wend",
-        "asset": "assets/hymn_scores/herr_jesu_christ_dich_zu_uns_wend.svg",
+        "asset": "assets/hymn_scores/eg155_herr_jesu_christ_dich_zu_uns_wend.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Herr Jesu Christ, dich zu uns wend",
@@ -7777,6 +8205,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "30db21ae625a1ac82d1138048b52405d5a102163",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -7824,7 +8255,7 @@
     "scores": [
       {
         "id": "valet_will_ich_dir_geben_eg",
-        "asset": "assets/hymn_scores/valet_will_ich_dir_geben_eg.svg",
+        "asset": "assets/hymn_scores/eg157_valet_will_ich_dir_geben_eg.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Valet will ich dir geben (EG)",
@@ -7837,6 +8268,9 @@
           "licenseUrl": "",
           "sha1": "c487de062fc0e55e08f1c24240556fd5636f68e2",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -7896,7 +8330,7 @@
     "scores": [
       {
         "id": "o_christe_morgensterne",
-        "asset": "assets/hymn_scores/o_christe_morgensterne.svg",
+        "asset": "assets/hymn_scores/eg158_o_christe_morgensterne.svg",
         "format": "svg",
         "kind": "melody",
         "label": "O Christe, Morgensterne",
@@ -7909,6 +8343,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "3c08057eb0a84c4dea572bac9b55d10a80c284ae",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -8004,7 +8441,7 @@
     "scores": [
       {
         "id": "liebster_jesu_wir_sind_hier",
-        "asset": "assets/hymn_scores/liebster_jesu_wir_sind_hier.svg",
+        "asset": "assets/hymn_scores/eg161_liebster_jesu_wir_sind_hier.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Liebster Jesu, wir sind hier",
@@ -8017,6 +8454,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "3f0fb54adfc3316a7c589ba270aae6a38bf3bf4f",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -8090,7 +8530,7 @@
     "scores": [
       {
         "id": "liebster_jesu_wir_sind_hier",
-        "asset": "assets/hymn_scores/liebster_jesu_wir_sind_hier.svg",
+        "asset": "assets/hymn_scores/eg163_liebster_jesu_wir_sind_hier.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Liebster Jesu, wir sind hier",
@@ -8103,6 +8543,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "3f0fb54adfc3316a7c589ba270aae6a38bf3bf4f",
           "match": "Melodie von EG 161"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -8189,7 +8632,7 @@
     "scores": [
       {
         "id": "gott_ist_gegenwaertig",
-        "asset": "assets/hymn_scores/gott_ist_gegenwaertig.svg",
+        "asset": "assets/hymn_scores/eg165_gott_ist_gegenwaertig.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Gott ist gegenwärtig",
@@ -8202,6 +8645,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "5efc976555a7ca3626294ac3c19309dc177e26c7",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -8247,7 +8693,7 @@
     "scores": [
       {
         "id": "tut_mir_auf_die_schoene_pforte",
-        "asset": "assets/hymn_scores/tut_mir_auf_die_schoene_pforte.svg",
+        "asset": "assets/hymn_scores/eg166_tut_mir_auf_die_schoene_pforte.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Tut mir auf die schöne Pforte",
@@ -8260,6 +8706,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "8541837c3b08bbad1eb8ed90bcaa0a2b3398d47f",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -8592,7 +9041,26 @@
     "bibleReferences": [
       "Matthäus 6,32-34"
     ],
-    "explanation": ""
+    "explanation": "",
+    "scores": [
+      {
+        "id": "halleluja",
+        "asset": "assets/hymn_scores/halleluja.svg",
+        "format": "svg",
+        "kind": "melody",
+        "label": "Halleluja",
+        "source": {
+          "name": "Wikimedia Commons",
+          "file": "File:Halleluja.mid",
+          "url": "https://commons.wikimedia.org/wiki/File:Halleluja.mid",
+          "author": "Melody: unknown (USA, 20th century); setting & sound file: Rabanus Flavus (Peter Gerloff)",
+          "license": "CC BY-SA 3.0",
+          "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+          "sha1": "23939f32b9e64ada28ab8c931c6c1ffdc6f77c80",
+          "match": "EG-Nummer in Dateibeschreibung"
+        }
+      }
+    ]
   },
   {
     "id": 183,
@@ -8882,7 +9350,7 @@
     "scores": [
       {
         "id": "erhalt_uns_herr_bei_deinem_wort",
-        "asset": "assets/hymn_scores/erhalt_uns_herr_bei_deinem_wort.svg",
+        "asset": "assets/hymn_scores/eg193_erhalt_uns_herr_bei_deinem_wort.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Erhalt uns, Herr, bei deinem Wort",
@@ -8895,6 +9363,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "1c7e5bea76275e6c34e82595710b7a62899ddc57",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -9039,7 +9510,7 @@
     "scores": [
       {
         "id": "herr_fuer_dein_wort_sei_hoch_gepreist_es_spricht_der_unweisen_mund_wohl",
-        "asset": "assets/hymn_scores/herr_fuer_dein_wort_sei_hoch_gepreist_es_spricht_der_unweisen_mund_wohl.svg",
+        "asset": "assets/hymn_scores/eg196_herr_fuer_dein_wort_sei_hoch_gepreist_es_spricht_der_unweisen_mund_wohl.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Herr, für dein Wort sei hoch gepreist (Es spricht der Unweisen Mund wohl)",
@@ -9052,6 +9523,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "d01b2b96079d4d9ca6cdca9b940f13480cf80afa",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -9083,7 +9557,7 @@
     "scores": [
       {
         "id": "herr_jesu_christ_dich_zu_uns_wend",
-        "asset": "assets/hymn_scores/herr_jesu_christ_dich_zu_uns_wend.svg",
+        "asset": "assets/hymn_scores/eg197_herr_jesu_christ_dich_zu_uns_wend.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Herr Jesu Christ, dich zu uns wend",
@@ -9096,6 +9570,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "30db21ae625a1ac82d1138048b52405d5a102163",
           "match": "Melodie von EG 155"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -9176,7 +9653,7 @@
     "scores": [
       {
         "id": "o_dass_ich_tausend_zungen_haette",
-        "asset": "assets/hymn_scores/o_dass_ich_tausend_zungen_haette.svg",
+        "asset": "assets/hymn_scores/eg200_o_dass_ich_tausend_zungen_haette.svg",
         "format": "svg",
         "kind": "melody",
         "label": "O dass ich tausend Zungen hätte",
@@ -9189,6 +9666,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "feb06f4dbcca847baf7891bbd442148a473f4a67",
           "match": "Melodie von EG 330"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -9253,7 +9733,7 @@
     "scores": [
       {
         "id": "christ_unser_herr_zum_jordan_kam",
-        "asset": "assets/hymn_scores/christ_unser_herr_zum_jordan_kam.svg",
+        "asset": "assets/hymn_scores/eg202_christ_unser_herr_zum_jordan_kam.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Christ, unser Herr, zum Jordan kam",
@@ -9266,6 +9746,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "266fd8a1a79239d7fe1678717b69d8da1629fa34",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -9310,7 +9793,7 @@
     "scores": [
       {
         "id": "ach_lieber_herre_jesu_christ",
-        "asset": "assets/hymn_scores/ach_lieber_herre_jesu_christ.svg",
+        "asset": "assets/hymn_scores/eg203_ach_lieber_herre_jesu_christ.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Ach lieber Herre Jesu Christ",
@@ -9323,6 +9806,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "561e63cd8834fc12c145cb8388aebfb7509934a9",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -9443,7 +9929,7 @@
     "scores": [
       {
         "id": "liebster_jesu_wir_sind_hier",
-        "asset": "assets/hymn_scores/liebster_jesu_wir_sind_hier.svg",
+        "asset": "assets/hymn_scores/eg206_liebster_jesu_wir_sind_hier.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Liebster Jesu, wir sind hier",
@@ -9456,6 +9942,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "3f0fb54adfc3316a7c589ba270aae6a38bf3bf4f",
           "match": "Melodie von EG 161"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -9635,7 +10124,7 @@
     "scores": [
       {
         "id": "zieh_ein_zu_deinen_toren",
-        "asset": "assets/hymn_scores/zieh_ein_zu_deinen_toren.svg",
+        "asset": "assets/hymn_scores/eg213_zieh_ein_zu_deinen_toren.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Zieh ein zu deinen Toren",
@@ -9648,6 +10137,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "35a1e42417f271e6d6614722f6adcdb0216e6102",
           "match": "Melodie von EG 133"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -10130,7 +10622,26 @@
       "Gospel"
     ],
     "bibleReferences": [],
-    "explanation": ""
+    "explanation": "",
+    "scores": [
+      {
+        "id": "komm_sag_es_allen_weiter",
+        "asset": "assets/hymn_scores/komm_sag_es_allen_weiter.svg",
+        "format": "svg",
+        "kind": "melody",
+        "label": "Komm, sag es allen weiter",
+        "source": {
+          "name": "Wikimedia Commons",
+          "file": "File:Komm, sag es allen weiter.mid",
+          "url": "https://commons.wikimedia.org/wiki/File:Komm,_sag_es_allen_weiter.mid",
+          "author": "Melody: Go Tell It on the Mountain, trad.; setting & sound file: Rabanus Flavus (Peter Gerloff)",
+          "license": "CC0",
+          "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+          "sha1": "96756a270f376d868da9db4318fa2f3f7a65bffe",
+          "match": "EG-Nummer in Dateibeschreibung"
+        }
+      }
+    ]
   },
   {
     "id": 226,
@@ -10154,7 +10665,26 @@
       "Abendmahl"
     ],
     "bibleReferences": [],
-    "explanation": ""
+    "explanation": "",
+    "scores": [
+      {
+        "id": "dank_sei_dir_vater_fuer_das_ewge_leben",
+        "asset": "assets/hymn_scores/dank_sei_dir_vater_fuer_das_ewge_leben.svg",
+        "format": "svg",
+        "kind": "melody",
+        "label": "Dank sei dir, Vater, für das ewge Leben",
+        "source": {
+          "name": "Wikimedia Commons",
+          "file": "File:Dank sei dir, Vater, für das ewge Leben.mid",
+          "url": "https://commons.wikimedia.org/wiki/File:Dank_sei_dir,_Vater,_f%C3%BCr_das_ewge_Leben.mid",
+          "author": "Melody: Johann Crüger (1640); setting & sound file: Rabanus Flavus (Peter Gerloff)",
+          "license": "CC BY-SA 3.0",
+          "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+          "sha1": "86eea52abf1f6e43b4ea57bedd070bebb9d743ea",
+          "match": "EG-Nummer in Dateibeschreibung"
+        }
+      }
+    ]
   },
   {
     "id": 228,
@@ -10176,7 +10706,26 @@
     "lyrics": [],
     "tags": [],
     "bibleReferences": [],
-    "explanation": ""
+    "explanation": "",
+    "scores": [
+      {
+        "id": "let_us_talents_and_tongues_employ",
+        "asset": "assets/hymn_scores/let_us_talents_and_tongues_employ.svg",
+        "format": "svg",
+        "kind": "melody",
+        "label": "Let us talents and tongues employ",
+        "source": {
+          "name": "Wikimedia Commons",
+          "file": "File:Let us talents and tongues employ.mid",
+          "url": "https://commons.wikimedia.org/wiki/File:Let_us_talents_and_tongues_employ.mid",
+          "author": "Melody: Jamaica trad.: Let us talents and tongues employ; setting & sound file: Rabanus Flavus (Peter Gerloff)",
+          "license": "CC0",
+          "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+          "sha1": "c4e213e51f3ca31b349e7b3e396b4de39f805073",
+          "match": "EG-Nummer in Dateibeschreibung"
+        }
+      }
+    ]
   },
   {
     "id": 230,
@@ -10419,7 +10968,7 @@
     "scores": [
       {
         "id": "vater_unser_im_himmelreich",
-        "asset": "assets/hymn_scores/vater_unser_im_himmelreich.svg",
+        "asset": "assets/hymn_scores/eg234_vater_unser_im_himmelreich.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Vater unser im Himmelreich",
@@ -10432,6 +10981,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "54d2f157bed866c4bf532262ece9333db06f08c8",
           "match": "Melodie von EG 344"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -10635,7 +11187,7 @@
     "scores": [
       {
         "id": "dir_dir_o_hoechster_will_ich_singen",
-        "asset": "assets/hymn_scores/dir_dir_o_hoechster_will_ich_singen.svg",
+        "asset": "assets/hymn_scores/eg241_dir_dir_o_hoechster_will_ich_singen.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Dir, dir, o Höchster, will ich singen",
@@ -10648,6 +11200,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "22b6e7f304fc5f184337061f39b8e04b29d991bf",
           "match": "Melodie von EG 328"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -11119,7 +11674,7 @@
     "scores": [
       {
         "id": "bei_dir_jesu_will_ich_bleiben",
-        "asset": "assets/hymn_scores/bei_dir_jesu_will_ich_bleiben.svg",
+        "asset": "assets/hymn_scores/eg251_bei_dir_jesu_will_ich_bleiben.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Bei dir, Jesu, will ich bleiben",
@@ -11132,6 +11687,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "56a304b7f6596198ee931feb771cf5e217759448",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -11346,7 +11904,7 @@
     "scores": [
       {
         "id": "o_dass_doch_bald_dein_feuer_brennte",
-        "asset": "assets/hymn_scores/o_dass_doch_bald_dein_feuer_brennte.svg",
+        "asset": "assets/hymn_scores/eg255_o_dass_doch_bald_dein_feuer_brennte.svg",
         "format": "svg",
         "kind": "melody",
         "label": "O dass doch bald dein Feuer brennte",
@@ -11359,6 +11917,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "8f52d02766aa2b826c46919f805788e004f744c8",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -11450,7 +12011,7 @@
     "scores": [
       {
         "id": "valet_will_ich_dir_geben_eg",
-        "asset": "assets/hymn_scores/valet_will_ich_dir_geben_eg.svg",
+        "asset": "assets/hymn_scores/eg257_valet_will_ich_dir_geben_eg.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Valet will ich dir geben (EG)",
@@ -11463,6 +12024,9 @@
           "licenseUrl": "",
           "sha1": "c487de062fc0e55e08f1c24240556fd5636f68e2",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -12178,7 +12742,7 @@
     "scores": [
       {
         "id": "nun_saget_dank_und_lobt_den_herren_eg",
-        "asset": "assets/hymn_scores/nun_saget_dank_und_lobt_den_herren_eg.svg",
+        "asset": "assets/hymn_scores/eg279_nun_saget_dank_und_lobt_den_herren_eg.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Nun saget Dank und lobt den Herren (EG)",
@@ -12191,6 +12755,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "29074854a4b2b3743111b8ded9ecce157b958bb6",
           "match": "Melodie von EG 294"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -12274,7 +12841,7 @@
     "scores": [
       {
         "id": "o_mensch_bewein_dein_suende_gross_eg",
-        "asset": "assets/hymn_scores/o_mensch_bewein_dein_suende_gross_eg.svg",
+        "asset": "assets/hymn_scores/eg281_o_mensch_bewein_dein_suende_gross_eg.svg",
         "format": "svg",
         "kind": "melody",
         "label": "O Mensch, bewein dein Sünde groß (EG)",
@@ -12287,6 +12854,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "df1f45938ba5785d8f468d7d47a0c2f1cb8f00ef",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -12547,7 +13117,7 @@
     "scores": [
       {
         "id": "nun_jauchzt_dem_herren_alle_welt",
-        "asset": "assets/hymn_scores/nun_jauchzt_dem_herren_alle_welt.svg",
+        "asset": "assets/hymn_scores/eg288_nun_jauchzt_dem_herren_alle_welt.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Nun jauchzt dem Herren, alle Welt",
@@ -12560,6 +13130,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "78872f6c88c818d37f6c2628b5f74b3bdceb9425",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -12810,7 +13383,7 @@
     "scores": [
       {
         "id": "wohl_denen_die_da_wandeln_heinrich_schuetz",
-        "asset": "assets/hymn_scores/wohl_denen_die_da_wandeln_heinrich_schuetz.svg",
+        "asset": "assets/hymn_scores/eg295_wohl_denen_die_da_wandeln_heinrich_schuetz.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Wohl denen, die da wandeln (Heinrich Schütz)",
@@ -12823,6 +13396,9 @@
           "licenseUrl": "",
           "sha1": "3a4e4ed633538a8cd0c8515bce8052f699ef267a",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -12874,7 +13450,7 @@
     "scores": [
       {
         "id": "wenn_wir_in_hoechsten_noeten_sein",
-        "asset": "assets/hymn_scores/wenn_wir_in_hoechsten_noeten_sein.svg",
+        "asset": "assets/hymn_scores/eg296_wenn_wir_in_hoechsten_noeten_sein.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Wenn wir in höchsten Nöten sein",
@@ -12887,6 +13463,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "9a44ab0d013b54986f9addb3bef12b5f20b0c2a5",
           "match": "Melodie von EG 366"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -12930,7 +13509,7 @@
     "scores": [
       {
         "id": "wo_gott_der_herr_nicht_bei_uns_haelt",
-        "asset": "assets/hymn_scores/wo_gott_der_herr_nicht_bei_uns_haelt.svg",
+        "asset": "assets/hymn_scores/eg297_wo_gott_der_herr_nicht_bei_uns_haelt.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Wo Gott der Herr nicht bei uns hält",
@@ -12943,6 +13522,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "ec3f170bf2b515fb707102c9838e84271eecf37c",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -13068,7 +13650,7 @@
     "scores": [
       {
         "id": "lobt_gott_den_herrn_der_herrlichkeit",
-        "asset": "assets/hymn_scores/lobt_gott_den_herrn_der_herrlichkeit.svg",
+        "asset": "assets/hymn_scores/eg300_lobt_gott_den_herrn_der_herrlichkeit.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Lobt Gott, den Herrn der Herrlichkeit",
@@ -13081,6 +13663,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "ac9f3aae6fd2da0a28b138b4895f51e2d5e0096c",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -13148,7 +13733,29 @@
     "bibleReferences": [
       "Psalm 136,1"
     ],
-    "explanation": ""
+    "explanation": "",
+    "scores": [
+      {
+        "id": "danket_gott_denn_er_ist_gut",
+        "asset": "assets/hymn_scores/eg301_danket_gott_denn_er_ist_gut.svg",
+        "format": "svg",
+        "kind": "melody",
+        "label": "Danket Gott, denn er ist gut",
+        "source": {
+          "name": "Wikimedia Commons",
+          "file": "File:Danket Gott, denn er ist gut.mid",
+          "url": "https://commons.wikimedia.org/wiki/File:Danket_Gott,_denn_er_ist_gut.mid",
+          "author": "Melodie: Pierre Davantès 1562; Satz und Tondatei: Rabanus Flavus (Peter Gerloff)",
+          "license": "CC0",
+          "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+          "sha1": "9fdef9a69764d5537c9a0811646b15c396fd1deb",
+          "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
+        }
+      }
+    ]
   },
   {
     "id": 302,
@@ -13207,7 +13814,7 @@
     "scores": [
       {
         "id": "du_meine_seele_singe",
-        "asset": "assets/hymn_scores/du_meine_seele_singe.svg",
+        "asset": "assets/hymn_scores/eg302_du_meine_seele_singe.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Du meine Seele, singe",
@@ -13220,6 +13827,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "f31071ee0503febd9226b4383ad100d50e123fca",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -13327,7 +13937,7 @@
     "scores": [
       {
         "id": "lobet_den_herren_alle_die_ihn_ehren",
-        "asset": "assets/hymn_scores/lobet_den_herren_alle_die_ihn_ehren.svg",
+        "asset": "assets/hymn_scores/eg304_lobet_den_herren_alle_die_ihn_ehren.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Lobet den Herren alle, die ihn ehren",
@@ -13340,6 +13950,9 @@
           "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
           "sha1": "1c7b513ad1c796c8e895f602852ad4c6e29f4e84",
           "match": "Melodie von EG 447"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -13636,7 +14249,7 @@
     "scores": [
       {
         "id": "lobe_den_herren_den_maechtigen_koenig_der_ehren",
-        "asset": "assets/hymn_scores/lobe_den_herren_den_maechtigen_koenig_der_ehren.svg",
+        "asset": "assets/hymn_scores/eg316_lobe_den_herren_den_maechtigen_koenig_der_ehren.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Lobe den Herren, den mächtigen König der Ehren",
@@ -13649,6 +14262,9 @@
           "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
           "sha1": "1b6f093bb2d8023e25af71dad5c5336c7f39f8ff",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -13689,7 +14305,7 @@
     "scores": [
       {
         "id": "lobe_den_herren_den_maechtigen_koenig_der_ehren",
-        "asset": "assets/hymn_scores/lobe_den_herren_den_maechtigen_koenig_der_ehren.svg",
+        "asset": "assets/hymn_scores/eg317_lobe_den_herren_den_maechtigen_koenig_der_ehren.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Lobe den Herren, den mächtigen König der Ehren",
@@ -13702,6 +14318,9 @@
           "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
           "sha1": "1b6f093bb2d8023e25af71dad5c5336c7f39f8ff",
           "match": "Titelgleichheit"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -13778,7 +14397,26 @@
     ],
     "tags": [],
     "bibleReferences": [],
-    "explanation": ""
+    "explanation": "",
+    "scores": [
+      {
+        "id": "die_beste_zeit_im_jahr_ist_mein",
+        "asset": "assets/hymn_scores/die_beste_zeit_im_jahr_ist_mein.svg",
+        "format": "svg",
+        "kind": "melody",
+        "label": "Die beste Zeit im Jahr ist mein",
+        "source": {
+          "name": "Wikimedia Commons",
+          "file": "File:Die beste Zeit im Jahr ist mein.mid",
+          "url": "https://commons.wikimedia.org/wiki/File:Die_beste_Zeit_im_Jahr_ist_mein.mid",
+          "author": "Melodie: 16. Jahrhundert; Satz und Tondatei: Rabanus Flavus (Peter Gerloff)",
+          "license": "CC0",
+          "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+          "sha1": "23bfba99c511f712fab105841c0a7be3928d3459",
+          "match": "EG-Nummer in Dateibeschreibung"
+        }
+      }
+    ]
   },
   {
     "id": 320,
@@ -13817,7 +14455,7 @@
     "scores": [
       {
         "id": "nun_lasst_uns_gott_dem_herren",
-        "asset": "assets/hymn_scores/nun_lasst_uns_gott_dem_herren.svg",
+        "asset": "assets/hymn_scores/eg320_nun_lasst_uns_gott_dem_herren.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Nun lasst uns Gott dem Herren",
@@ -13830,6 +14468,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "eaeb9acf36b1223c2e9750b7b4439c0a11b40da3",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -13864,7 +14505,7 @@
     "scores": [
       {
         "id": "nun_danket_alle_gott_eg_spaetere_form",
-        "asset": "assets/hymn_scores/nun_danket_alle_gott_eg_spaetere_form.svg",
+        "asset": "assets/hymn_scores/eg321_nun_danket_alle_gott_eg_spaetere_form.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Nun danket alle Gott (EG, spätere Form)",
@@ -13877,11 +14518,14 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "c1ba0e1caff0a5cb9a573644856abee52f97cfc0",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       },
       {
         "id": "nun_danket_alle_gott_oe_version",
-        "asset": "assets/hymn_scores/nun_danket_alle_gott_oe_version.svg",
+        "asset": "assets/hymn_scores/eg321_nun_danket_alle_gott_oe_version.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Nun danket alle Gott (Ö-Version)",
@@ -13894,6 +14538,9 @@
           "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
           "sha1": "fde36956f7fc48a390b1d6f6dd04896c62188212",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -13949,7 +14596,7 @@
     "scores": [
       {
         "id": "nun_danket_all_und_bringet_ehr",
-        "asset": "assets/hymn_scores/nun_danket_all_und_bringet_ehr.svg",
+        "asset": "assets/hymn_scores/eg322_nun_danket_all_und_bringet_ehr.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Nun danket all und bringet Ehr",
@@ -13962,6 +14609,9 @@
           "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
           "sha1": "9d1a191b0bc2bde936fbe2b61769c2a2cb22b1b2",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -14077,7 +14727,7 @@
     "scores": [
       {
         "id": "nun_danket_all_und_bringet_ehr",
-        "asset": "assets/hymn_scores/nun_danket_all_und_bringet_ehr.svg",
+        "asset": "assets/hymn_scores/eg324_nun_danket_all_und_bringet_ehr.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Nun danket all und bringet Ehr",
@@ -14090,6 +14740,9 @@
           "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
           "sha1": "9d1a191b0bc2bde936fbe2b61769c2a2cb22b1b2",
           "match": "Melodie von EG 322"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -14155,7 +14808,7 @@
     "scores": [
       {
         "id": "sollt_ich_meinem_gott_nicht_singen",
-        "asset": "assets/hymn_scores/sollt_ich_meinem_gott_nicht_singen.svg",
+        "asset": "assets/hymn_scores/eg325_sollt_ich_meinem_gott_nicht_singen.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Sollt ich meinem Gott nicht singen",
@@ -14168,6 +14821,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "00c165ad038fc330ae9ec2516c8d486d24f3a44c",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -14221,7 +14877,7 @@
     "scores": [
       {
         "id": "sei_lob_und_ehr_dem_hoechsten_gut",
-        "asset": "assets/hymn_scores/sei_lob_und_ehr_dem_hoechsten_gut.svg",
+        "asset": "assets/hymn_scores/eg326_sei_lob_und_ehr_dem_hoechsten_gut.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Sei Lob und Ehr dem höchsten Gut",
@@ -14234,6 +14890,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "598386245a5d16da3eb022a385a7eb9239e721a2",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -14267,7 +14926,7 @@
     "scores": [
       {
         "id": "gott_ist_gegenwaertig",
-        "asset": "assets/hymn_scores/gott_ist_gegenwaertig.svg",
+        "asset": "assets/hymn_scores/eg327_gott_ist_gegenwaertig.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Gott ist gegenwärtig",
@@ -14280,6 +14939,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "5efc976555a7ca3626294ac3c19309dc177e26c7",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -14325,7 +14987,7 @@
     "scores": [
       {
         "id": "dir_dir_o_hoechster_will_ich_singen",
-        "asset": "assets/hymn_scores/dir_dir_o_hoechster_will_ich_singen.svg",
+        "asset": "assets/hymn_scores/eg328_dir_dir_o_hoechster_will_ich_singen.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Dir, dir, o Höchster, will ich singen",
@@ -14338,6 +15000,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "22b6e7f304fc5f184337061f39b8e04b29d991bf",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -14374,7 +15039,7 @@
     "scores": [
       {
         "id": "wenn_ich_o_schoepfer_deine_macht",
-        "asset": "assets/hymn_scores/wenn_ich_o_schoepfer_deine_macht.svg",
+        "asset": "assets/hymn_scores/eg329_wenn_ich_o_schoepfer_deine_macht.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Wenn ich, o Schöpfer, deine Macht",
@@ -14387,6 +15052,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "d216acd04a9428b9b7825b1b4c2867f9e3a8a32c",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -14460,7 +15128,7 @@
     "scores": [
       {
         "id": "o_dass_ich_tausend_zungen_haette",
-        "asset": "assets/hymn_scores/o_dass_ich_tausend_zungen_haette.svg",
+        "asset": "assets/hymn_scores/eg330_o_dass_ich_tausend_zungen_haette.svg",
         "format": "svg",
         "kind": "melody",
         "label": "O dass ich tausend Zungen hätte",
@@ -14473,6 +15141,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "feb06f4dbcca847baf7891bbd442148a473f4a67",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -14631,7 +15302,26 @@
       "Lobpreis"
     ],
     "bibleReferences": [],
-    "explanation": "Das Lied ist ein Loblied an Gott, das vor allem von Jugendlichen gemeinsam gesungen werden soll. Es preist Gottes Macht und Größe, die sich in der Schöpfung und in all seinen Werken offenbart. Die Menschen erkennen Gott als Allmächtigen und Allweisen an, dessen Name durch die gesamte Schöpfung gepriesen wird. Besonders wird auf Gottes Liebe und Fürsorge hingewiesen, die allen Geschöpfen täglich zuteilwird. Ein Schwerpunkt des Liedes liegt auf dem Opfertod und der Auferstehung Jesu Christi, wodurch den Menschen Vergebung und neues Leben geschenkt werden. Die Gläubigen drücken ihre Dankbarkeit und Freude aus, indem sie Gott mit Liedern ehren und sein Lob verkünden. Außerdem wird die Hoffnung auf eine zukünftige Zeit betont, in der sie in himmlischen Chören Gott ewig preisen werden. Insgesamt ruft das Lied dazu auf, Gott für seine Taten, seine Liebe und Erlösung zu loben und ihn für immer zu ehren."
+    "explanation": "Das Lied ist ein Loblied an Gott, das vor allem von Jugendlichen gemeinsam gesungen werden soll. Es preist Gottes Macht und Größe, die sich in der Schöpfung und in all seinen Werken offenbart. Die Menschen erkennen Gott als Allmächtigen und Allweisen an, dessen Name durch die gesamte Schöpfung gepriesen wird. Besonders wird auf Gottes Liebe und Fürsorge hingewiesen, die allen Geschöpfen täglich zuteilwird. Ein Schwerpunkt des Liedes liegt auf dem Opfertod und der Auferstehung Jesu Christi, wodurch den Menschen Vergebung und neues Leben geschenkt werden. Die Gläubigen drücken ihre Dankbarkeit und Freude aus, indem sie Gott mit Liedern ehren und sein Lob verkünden. Außerdem wird die Hoffnung auf eine zukünftige Zeit betont, in der sie in himmlischen Chören Gott ewig preisen werden. Insgesamt ruft das Lied dazu auf, Gott für seine Taten, seine Liebe und Erlösung zu loben und ihn für immer zu ehren.",
+    "scores": [
+      {
+        "id": "lobt_froh_den_herrn",
+        "asset": "assets/hymn_scores/lobt_froh_den_herrn.svg",
+        "format": "svg",
+        "kind": "melody",
+        "label": "Lobt froh den Herrn",
+        "source": {
+          "name": "Wikimedia Commons",
+          "file": "File:Lobt froh den Herrn.mid",
+          "url": "https://commons.wikimedia.org/wiki/File:Lobt_froh_den_Herrn.mid",
+          "author": "Melodie: Hans Georg Nägeli 1815; Satz und Tondatei: Rabanus Flavus",
+          "license": "CC0",
+          "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+          "sha1": "1020982f573350e74f265a44aeb8af3d52e2e767",
+          "match": "EG-Nummer in Dateibeschreibung"
+        }
+      }
+    ]
   },
   {
     "id": 333,
@@ -14674,7 +15364,7 @@
     "scores": [
       {
         "id": "danket_dem_herrn_wir_danken_dem_herrn",
-        "asset": "assets/hymn_scores/danket_dem_herrn_wir_danken_dem_herrn.svg",
+        "asset": "assets/hymn_scores/eg333_danket_dem_herrn_wir_danken_dem_herrn.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Danket dem Herrn! Wir danken dem Herrn",
@@ -14687,6 +15377,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "e8c1f625c29f47134cf42bad9aa53b67722a55fc",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -14760,7 +15453,26 @@
     "bibleReferences": [
       "Psalm 106,1; 107,1; 136,1"
     ],
-    "explanation": ""
+    "explanation": "",
+    "scores": [
+      {
+        "id": "danket_danket_dem_herrn_kanon",
+        "asset": "assets/hymn_scores/danket_danket_dem_herrn_kanon.svg",
+        "format": "svg",
+        "kind": "melody",
+        "label": "Danket, danket dem Herrn (Kanon)",
+        "source": {
+          "name": "Wikimedia Commons",
+          "file": "File:Danket, danket dem Herrn (Kanon).mid",
+          "url": "https://commons.wikimedia.org/wiki/File:Danket,_danket_dem_Herrn_(Kanon).mid",
+          "author": "anonym, 18. Jahrhundert (Tondatei: Rabanus Flavus)",
+          "license": "Public domain",
+          "licenseUrl": "",
+          "sha1": "5cf8a35852080e91cc602df41e5ace9ef995c8fa",
+          "match": "EG-Nummer in Dateibeschreibung"
+        }
+      }
+    ]
   },
   {
     "id": 337,
@@ -14968,7 +15680,26 @@
       "Glaube"
     ],
     "bibleReferences": [],
-    "explanation": ""
+    "explanation": "",
+    "scores": [
+      {
+        "id": "es_ist_das_heil_uns_kommen_her",
+        "asset": "assets/hymn_scores/es_ist_das_heil_uns_kommen_her.svg",
+        "format": "svg",
+        "kind": "melody",
+        "label": "Es ist das Heil uns kommen her",
+        "source": {
+          "name": "Wikimedia Commons",
+          "file": "File:Es ist das Heil uns kommen her.mid",
+          "url": "https://commons.wikimedia.org/wiki/File:Es_ist_das_Heil_uns_kommen_her.mid",
+          "author": "Melodie: Mainz 1390 / Nürnberg 1524; Satz + Tondatei: Rabanus Flavus (Peter Gerloff)",
+          "license": "CC0",
+          "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+          "sha1": "84e6f34b91cc2acef90063d9199a02772dc01826",
+          "match": "EG-Nummer in Dateibeschreibung"
+        }
+      }
+    ]
   },
   {
     "id": 343,
@@ -15005,7 +15736,7 @@
     "scores": [
       {
         "id": "ich_ruf_zu_dir_herr_jesu_christ",
-        "asset": "assets/hymn_scores/ich_ruf_zu_dir_herr_jesu_christ.svg",
+        "asset": "assets/hymn_scores/eg343_ich_ruf_zu_dir_herr_jesu_christ.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Ich ruf zu dir, Herr Jesu Christ",
@@ -15018,6 +15749,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "783b247e2c0123ae89420ad234b45365d1596f04",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -15073,7 +15807,7 @@
     "scores": [
       {
         "id": "vater_unser_im_himmelreich",
-        "asset": "assets/hymn_scores/vater_unser_im_himmelreich.svg",
+        "asset": "assets/hymn_scores/eg344_vater_unser_im_himmelreich.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Vater unser im Himmelreich",
@@ -15086,6 +15820,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "54d2f157bed866c4bf532262ece9333db06f08c8",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -15130,7 +15867,7 @@
     "scores": [
       {
         "id": "auf_meinen_lieben_gott",
-        "asset": "assets/hymn_scores/auf_meinen_lieben_gott.svg",
+        "asset": "assets/hymn_scores/eg345_auf_meinen_lieben_gott.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Auf meinen lieben Gott",
@@ -15143,6 +15880,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "b228179f7b9bcc99eab629870436caad1851659e",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -15496,7 +16236,7 @@
     "scores": [
       {
         "id": "ist_gott_fuer_mich",
-        "asset": "assets/hymn_scores/ist_gott_fuer_mich.svg",
+        "asset": "assets/hymn_scores/eg351_ist_gott_fuer_mich.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Ist Gott für mich",
@@ -15509,6 +16249,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "189dfb0abc951855dcfc9b496ad570f85f335aa0",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -15550,7 +16293,7 @@
     "scores": [
       {
         "id": "alles_ist_an_gottes_segen",
-        "asset": "assets/hymn_scores/alles_ist_an_gottes_segen.svg",
+        "asset": "assets/hymn_scores/eg352_alles_ist_an_gottes_segen.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Alles ist an Gottes Segen",
@@ -15563,6 +16306,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "bd69eca04fcb0fe713f6cbfd8b5354373ffd1be1",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -15619,7 +16365,7 @@
     "scores": [
       {
         "id": "meinen_jesus_lass_ich_nicht_johann_ulich",
-        "asset": "assets/hymn_scores/meinen_jesus_lass_ich_nicht_johann_ulich.svg",
+        "asset": "assets/hymn_scores/eg353_meinen_jesus_lass_ich_nicht_johann_ulich.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Meinen Jesus lass ich nicht (Johann Ulich)",
@@ -15632,6 +16378,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "01c87d3bae7f89c0acf0c364dcd09a9173a90837",
           "match": "Melodie von EG 402"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -15688,7 +16437,7 @@
     "scores": [
       {
         "id": "o_dass_ich_tausend_zungen_haette",
-        "asset": "assets/hymn_scores/o_dass_ich_tausend_zungen_haette.svg",
+        "asset": "assets/hymn_scores/eg354_o_dass_ich_tausend_zungen_haette.svg",
         "format": "svg",
         "kind": "melody",
         "label": "O dass ich tausend Zungen hätte",
@@ -15701,6 +16450,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "feb06f4dbcca847baf7891bbd442148a473f4a67",
           "match": "Melodie von EG 330"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -15805,7 +16557,7 @@
     "scores": [
       {
         "id": "ich_weiss_woran_ich_glaube",
-        "asset": "assets/hymn_scores/ich_weiss_woran_ich_glaube.svg",
+        "asset": "assets/hymn_scores/eg357_ich_weiss_woran_ich_glaube.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Ich weiß, woran ich glaube",
@@ -15818,6 +16570,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "57e7f299768a3d2ebc75ab74a2305e305b80a707",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -15859,7 +16614,7 @@
     "scores": [
       {
         "id": "ich_weiss_woran_ich_glaube",
-        "asset": "assets/hymn_scores/ich_weiss_woran_ich_glaube.svg",
+        "asset": "assets/hymn_scores/eg358_ich_weiss_woran_ich_glaube.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Ich weiß, woran ich glaube",
@@ -15872,6 +16627,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "57e7f299768a3d2ebc75ab74a2305e305b80a707",
           "match": "Melodie von EG 357"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -15969,7 +16727,7 @@
     "scores": [
       {
         "id": "befiehl_du_deine_wege",
-        "asset": "assets/hymn_scores/befiehl_du_deine_wege.svg",
+        "asset": "assets/hymn_scores/eg361_befiehl_du_deine_wege.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Befiehl du deine Wege",
@@ -15982,6 +16740,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "fedb8df5433471c1f481f9e666772be6d8e258d2",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -16209,7 +16970,7 @@
     "scores": [
       {
         "id": "von_gott_will_ich_nicht_lassen",
-        "asset": "assets/hymn_scores/von_gott_will_ich_nicht_lassen.svg",
+        "asset": "assets/hymn_scores/eg365_von_gott_will_ich_nicht_lassen.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Von Gott will ich nicht lassen",
@@ -16222,6 +16983,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "fd153d909a9870cded7abb8559c8f6e6b4f570c1",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -16270,7 +17034,7 @@
     "scores": [
       {
         "id": "wenn_wir_in_hoechsten_noeten_sein",
-        "asset": "assets/hymn_scores/wenn_wir_in_hoechsten_noeten_sein.svg",
+        "asset": "assets/hymn_scores/eg366_wenn_wir_in_hoechsten_noeten_sein.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Wenn wir in höchsten Nöten sein",
@@ -16283,6 +17047,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "9a44ab0d013b54986f9addb3bef12b5f20b0c2a5",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -16400,7 +17167,7 @@
     "scores": [
       {
         "id": "o_welt_ich_muss_dich_lassen",
-        "asset": "assets/hymn_scores/o_welt_ich_muss_dich_lassen.svg",
+        "asset": "assets/hymn_scores/eg368_o_welt_ich_muss_dich_lassen.svg",
         "format": "svg",
         "kind": "melody",
         "label": "O Welt, ich muss dich lassen",
@@ -16413,6 +17180,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "a98c4be4868e5334118beaddaf6b71393b9adde9",
           "match": "Melodie von EG 521"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -16461,7 +17231,7 @@
     "scores": [
       {
         "id": "wer_nur_den_lieben_gott_laesst_walten_eg",
-        "asset": "assets/hymn_scores/wer_nur_den_lieben_gott_laesst_walten_eg.svg",
+        "asset": "assets/hymn_scores/eg369_wer_nur_den_lieben_gott_laesst_walten_eg.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Wer nur den lieben Gott lässt walten (EG)",
@@ -16474,6 +17244,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "f397d28190ba71c819e787f1ef42fcaca14a9cc0",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -16543,7 +17316,7 @@
     "scores": [
       {
         "id": "warum_sollt_ich_mich_denn_graemen",
-        "asset": "assets/hymn_scores/warum_sollt_ich_mich_denn_graemen.svg",
+        "asset": "assets/hymn_scores/eg370_warum_sollt_ich_mich_denn_graemen.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Warum sollt ich mich denn grämen",
@@ -16556,6 +17329,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "13c17b6dc88edbebef38f960632688243970971e",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -16636,7 +17412,7 @@
     "scores": [
       {
         "id": "gib_dich_zufrieden_und_sei_stille_eg",
-        "asset": "assets/hymn_scores/gib_dich_zufrieden_und_sei_stille_eg.svg",
+        "asset": "assets/hymn_scores/eg371_gib_dich_zufrieden_und_sei_stille_eg.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Gib dich zufrieden und sei stille (EG)",
@@ -16649,6 +17425,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "d7b683425e2aed8024481b9245a455a58d596665",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -16757,7 +17536,7 @@
     "scores": [
       {
         "id": "jesus_ist_kommen_grund_ewiger_freude",
-        "asset": "assets/hymn_scores/jesus_ist_kommen_grund_ewiger_freude.svg",
+        "asset": "assets/hymn_scores/eg373_jesus_ist_kommen_grund_ewiger_freude.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Jesus ist kommen, Grund ewiger Freude",
@@ -16770,6 +17549,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "10067684722fad8f172e548b5f8e38f49cfc225f",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -16809,7 +17591,7 @@
     "scores": [
       {
         "id": "wo_gott_der_herr_nicht_bei_uns_haelt",
-        "asset": "assets/hymn_scores/wo_gott_der_herr_nicht_bei_uns_haelt.svg",
+        "asset": "assets/hymn_scores/eg374_wo_gott_der_herr_nicht_bei_uns_haelt.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Wo Gott der Herr nicht bei uns hält",
@@ -16822,6 +17604,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "ec3f170bf2b515fb707102c9838e84271eecf37c",
           "match": "Melodie von EG 297"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -17026,7 +17811,7 @@
     "scores": [
       {
         "id": "aus_meines_jammers_tiefe",
-        "asset": "assets/hymn_scores/aus_meines_jammers_tiefe.svg",
+        "asset": "assets/hymn_scores/eg379_aus_meines_jammers_tiefe.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Aus meines Jammers Tiefe",
@@ -17039,6 +17824,9 @@
           "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
           "sha1": "090d9ccc37a8b4381208ab2e6bc2d2c1bc1cd042",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -17154,7 +17942,7 @@
     "scores": [
       {
         "id": "sollt_ich_meinem_gott_nicht_singen",
-        "asset": "assets/hymn_scores/sollt_ich_meinem_gott_nicht_singen.svg",
+        "asset": "assets/hymn_scores/eg384_sollt_ich_meinem_gott_nicht_singen.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Sollt ich meinem Gott nicht singen",
@@ -17167,6 +17955,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "00c165ad038fc330ae9ec2516c8d486d24f3a44c",
           "match": "Melodie von EG 325"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -17355,7 +18146,7 @@
     "scores": [
       {
         "id": "mache_dich_mein_geist_bereit",
-        "asset": "assets/hymn_scores/mache_dich_mein_geist_bereit.svg",
+        "asset": "assets/hymn_scores/eg387_mache_dich_mein_geist_bereit.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Mache dich, mein Geist, bereit",
@@ -17368,6 +18159,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "93c323bc15f2eb0016ac341bf695e38307ab1b6d",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -17431,7 +18225,7 @@
     "scores": [
       {
         "id": "o_durchbrecher_aller_bande",
-        "asset": "assets/hymn_scores/o_durchbrecher_aller_bande.svg",
+        "asset": "assets/hymn_scores/eg388_o_durchbrecher_aller_bande.svg",
         "format": "svg",
         "kind": "melody",
         "label": "O Durchbrecher aller Bande",
@@ -17444,6 +18238,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "220273b34ea678e186662cc0d7341fc0780eb46f",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -17481,7 +18278,7 @@
     "scores": [
       {
         "id": "o_jesu_christe_wahres_licht",
-        "asset": "assets/hymn_scores/o_jesu_christe_wahres_licht.svg",
+        "asset": "assets/hymn_scores/eg389_o_jesu_christe_wahres_licht.svg",
         "format": "svg",
         "kind": "melody",
         "label": "O Jesu Christe, wahres Licht",
@@ -17494,6 +18291,9 @@
           "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
           "sha1": "1932139eb5e49aa61905f135f385c69da6753046",
           "match": "Melodie von EG 72"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -17527,7 +18327,7 @@
     "scores": [
       {
         "id": "o_jesu_christe_wahres_licht",
-        "asset": "assets/hymn_scores/o_jesu_christe_wahres_licht.svg",
+        "asset": "assets/hymn_scores/eg390_o_jesu_christe_wahres_licht.svg",
         "format": "svg",
         "kind": "melody",
         "label": "O Jesu Christe, wahres Licht",
@@ -17540,6 +18340,9 @@
           "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
           "sha1": "1932139eb5e49aa61905f135f385c69da6753046",
           "match": "Melodie von EG 72"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -17577,7 +18380,7 @@
     "scores": [
       {
         "id": "jesu_geh_voran",
-        "asset": "assets/hymn_scores/jesu_geh_voran.svg",
+        "asset": "assets/hymn_scores/eg391_jesu_geh_voran.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Jesu, geh voran",
@@ -17590,6 +18393,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "6227d802754594d10c61bc58b79daa2b32c963a7",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -17639,7 +18445,7 @@
     "scores": [
       {
         "id": "gott_rufet_noch",
-        "asset": "assets/hymn_scores/gott_rufet_noch.svg",
+        "asset": "assets/hymn_scores/eg392_gott_rufet_noch.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Gott rufet noch",
@@ -17652,6 +18458,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "feb96973023a6672eeecb5b062cd531ae69a5175",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -17750,7 +18559,7 @@
     "scores": [
       {
         "id": "nun_danket_all_und_bringet_ehr",
-        "asset": "assets/hymn_scores/nun_danket_all_und_bringet_ehr.svg",
+        "asset": "assets/hymn_scores/eg394_nun_danket_all_und_bringet_ehr.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Nun danket all und bringet Ehr",
@@ -17763,6 +18572,9 @@
           "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
           "sha1": "9d1a191b0bc2bde936fbe2b61769c2a2cb22b1b2",
           "match": "Melodie von EG 322"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -17835,7 +18647,7 @@
     "scores": [
       {
         "id": "jesu_meine_freude",
-        "asset": "assets/hymn_scores/jesu_meine_freude.svg",
+        "asset": "assets/hymn_scores/eg396_jesu_meine_freude.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Jesu, meine Freude",
@@ -17848,6 +18660,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "fdca54ff0f198cd7b3e9976150320cb4a4a9aee3",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -17942,7 +18757,7 @@
     "scores": [
       {
         "id": "o_lebensbruennlein_tief_und_gross",
-        "asset": "assets/hymn_scores/o_lebensbruennlein_tief_und_gross.svg",
+        "asset": "assets/hymn_scores/eg399_o_lebensbruennlein_tief_und_gross.svg",
         "format": "svg",
         "kind": "melody",
         "label": "O Lebensbrünnlein tief und groß",
@@ -17955,6 +18770,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "7dbb32ae601a0dbe9e30bff8656aa9ea61f8c2cf",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -17998,7 +18816,26 @@
       "Nachfolge"
     ],
     "bibleReferences": [],
-    "explanation": ""
+    "explanation": "",
+    "scores": [
+      {
+        "id": "ich_will_dich_lieben_meine_staerke_eg",
+        "asset": "assets/hymn_scores/ich_will_dich_lieben_meine_staerke_eg.svg",
+        "format": "svg",
+        "kind": "melody",
+        "label": "Ich will dich lieben, meine Stärke (EG)",
+        "source": {
+          "name": "Wikimedia Commons",
+          "file": "File:Ich will dich lieben, meine Stärke (EG).mid",
+          "url": "https://commons.wikimedia.org/wiki/File:Ich_will_dich_lieben,_meine_St%C3%A4rke_(EG).mid",
+          "author": "Melodie: J. B. König 1738; Satz und Tondatei: Rabanus Flavus (Peter Gerloff)",
+          "license": "CC0",
+          "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+          "sha1": "8f2320e3783c7b5cc9565f28ebcb79d0c5d2bcf7",
+          "match": "EG-Nummer in Dateibeschreibung"
+        }
+      }
+    ]
   },
   {
     "id": 401,
@@ -18080,7 +18917,7 @@
     "scores": [
       {
         "id": "meinen_jesus_lass_ich_nicht_johann_ulich",
-        "asset": "assets/hymn_scores/meinen_jesus_lass_ich_nicht_johann_ulich.svg",
+        "asset": "assets/hymn_scores/eg402_meinen_jesus_lass_ich_nicht_johann_ulich.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Meinen Jesus lass ich nicht (Johann Ulich)",
@@ -18093,6 +18930,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "01c87d3bae7f89c0acf0c364dcd09a9173a90837",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -18153,7 +18993,7 @@
       },
       {
         "id": "schoenster_herr_jesu_muenster",
-        "asset": "assets/hymn_scores/schoenster_herr_jesu_muenster.svg",
+        "asset": "assets/hymn_scores/eg403_schoenster_herr_jesu_muenster.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Schönster Herr Jesu (Münster)",
@@ -18166,6 +19006,9 @@
           "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
           "sha1": "6346536af0f951fc656ebfd317f8249d541f9d7f",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -18215,7 +19058,7 @@
     "scores": [
       {
         "id": "herr_christ_der_einig_gotts_sohn",
-        "asset": "assets/hymn_scores/herr_christ_der_einig_gotts_sohn.svg",
+        "asset": "assets/hymn_scores/eg404_herr_christ_der_einig_gotts_sohn.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Herr Christ, der einig Gotts Sohn",
@@ -18228,6 +19071,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "c227aead177bf91dde155afec7048ffcdf53261e",
           "match": "Melodie von EG 67"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -18395,7 +19241,26 @@
     "lyrics": [],
     "tags": [],
     "bibleReferences": [],
-    "explanation": ""
+    "explanation": "",
+    "scores": [
+      {
+        "id": "gott_liebt_diese_welt",
+        "asset": "assets/hymn_scores/gott_liebt_diese_welt.svg",
+        "format": "svg",
+        "kind": "melody",
+        "label": "Gott liebt diese Welt",
+        "source": {
+          "name": "Wikimedia Commons",
+          "file": "File:Gott liebt diese Welt.mid",
+          "url": "https://commons.wikimedia.org/wiki/File:Gott_liebt_diese_Welt.mid",
+          "author": "Melody: EG / GL; setting & sound file: Rabanus Flavus (Peter Gerloff)",
+          "license": "CC BY-SA 3.0",
+          "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+          "sha1": "a3c881068d8b4cc71e1f59f4f0deccc2bafb71e4",
+          "match": "EG-Nummer in Dateibeschreibung"
+        }
+      }
+    ]
   },
   {
     "id": 410,
@@ -18407,7 +19272,26 @@
       "Freude"
     ],
     "bibleReferences": [],
-    "explanation": ""
+    "explanation": "",
+    "scores": [
+      {
+        "id": "christus_das_licht_der_welt",
+        "asset": "assets/hymn_scores/christus_das_licht_der_welt.svg",
+        "format": "svg",
+        "kind": "melody",
+        "label": "Christus, das Licht der Welt",
+        "source": {
+          "name": "Wikimedia Commons",
+          "file": "File:Christus, das Licht der Welt.mid",
+          "url": "https://commons.wikimedia.org/wiki/File:Christus,_das_Licht_der_Welt.mid",
+          "author": "Melodie: Paris 1681; Satz und Tondatei: Rabanus Flavus (Peter Gerloff)",
+          "license": "CC0",
+          "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+          "sha1": "3a80f82b79b999bdb93082ecfa1b1ab1d4cb0b81",
+          "match": "EG-Nummer in Dateibeschreibung"
+        }
+      }
+    ]
   },
   {
     "id": 411,
@@ -18561,7 +19445,7 @@
     "scores": [
       {
         "id": "lobt_gott_den_herrn_der_herrlichkeit",
-        "asset": "assets/hymn_scores/lobt_gott_den_herrn_der_herrlichkeit.svg",
+        "asset": "assets/hymn_scores/eg413_lobt_gott_den_herrn_der_herrlichkeit.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Lobt Gott, den Herrn der Herrlichkeit",
@@ -18574,6 +19458,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "ac9f3aae6fd2da0a28b138b4895f51e2d5e0096c",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -18854,7 +19741,7 @@
     "scores": [
       {
         "id": "o_welt_ich_muss_dich_lassen",
-        "asset": "assets/hymn_scores/o_welt_ich_muss_dich_lassen.svg",
+        "asset": "assets/hymn_scores/eg423_o_welt_ich_muss_dich_lassen.svg",
         "format": "svg",
         "kind": "melody",
         "label": "O Welt, ich muss dich lassen",
@@ -18867,6 +19754,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "a98c4be4868e5334118beaddaf6b71393b9adde9",
           "match": "Melodie von EG 521"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -18913,7 +19803,26 @@
     "lyrics": [],
     "tags": [],
     "bibleReferences": [],
-    "explanation": ""
+    "explanation": "",
+    "scores": [
+      {
+        "id": "solang_es_menschen_gibt_auf_erden",
+        "asset": "assets/hymn_scores/solang_es_menschen_gibt_auf_erden.svg",
+        "format": "svg",
+        "kind": "melody",
+        "label": "Solang es Menschen gibt auf Erden",
+        "source": {
+          "name": "Wikimedia Commons",
+          "file": "File:Solang es Menschen gibt auf Erden.mid",
+          "url": "https://commons.wikimedia.org/wiki/File:Solang_es_Menschen_gibt_auf_Erden.mid",
+          "author": "Melody: Tera de Marez Oyens (1960); setting & sound file: Rabanus Flavus (Peter Gerloff)",
+          "license": "CC BY-SA 3.0",
+          "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+          "sha1": "05200b0bad58e9d0e42137529f0e45a7e07ac166",
+          "match": "EG-Nummer in Dateibeschreibung"
+        }
+      }
+    ]
   },
   {
     "id": 428,
@@ -19004,7 +19913,26 @@
       "Friede"
     ],
     "bibleReferences": [],
-    "explanation": ""
+    "explanation": "",
+    "scores": [
+      {
+        "id": "hevenu_shalom_alechem",
+        "asset": "assets/hymn_scores/hevenu_shalom_alechem.svg",
+        "format": "svg",
+        "kind": "melody",
+        "label": "Hevenu shalom alechem",
+        "source": {
+          "name": "Wikimedia Commons",
+          "file": "File:Hevenu shalom alechem.mid",
+          "url": "https://commons.wikimedia.org/wiki/File:Hevenu_shalom_alechem.mid",
+          "author": "Melody from Israel; setting & sound file: Rabanus Flavus (Peter Gerloff)",
+          "license": "CC BY 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+          "sha1": "6125c04964333ff69859cd4756b4335185f3dcda",
+          "match": "Titelgleichheit"
+        }
+      }
+    ]
   },
   {
     "id": 434,
@@ -19022,7 +19950,26 @@
       "Kanon"
     ],
     "bibleReferences": [],
-    "explanation": ""
+    "explanation": "",
+    "scores": [
+      {
+        "id": "shalom_chaverim",
+        "asset": "assets/hymn_scores/shalom_chaverim.svg",
+        "format": "svg",
+        "kind": "melody",
+        "label": "Shalom chaverim",
+        "source": {
+          "name": "Wikimedia Commons",
+          "file": "File:Shalom chaverim.mid",
+          "url": "https://commons.wikimedia.org/wiki/File:Shalom_chaverim.mid",
+          "author": "Rabanus Flavus",
+          "license": "CC0",
+          "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+          "sha1": "21bf42a16a749f367cc28f2a42c3d17d4b29a483",
+          "match": "Titelgleichheit"
+        }
+      }
+    ]
   },
   {
     "id": 435,
@@ -19039,7 +19986,26 @@
       "Kanon"
     ],
     "bibleReferences": [],
-    "explanation": ""
+    "explanation": "",
+    "scores": [
+      {
+        "id": "dona_nobis_pacem_kanon",
+        "asset": "assets/hymn_scores/dona_nobis_pacem_kanon.svg",
+        "format": "svg",
+        "kind": "melody",
+        "label": "Dona nobis pacem (Kanon)",
+        "source": {
+          "name": "Wikimedia Commons",
+          "file": "File:Dona nobis pacem (Kanon).mid",
+          "url": "https://commons.wikimedia.org/wiki/File:Dona_nobis_pacem_(Kanon).mid",
+          "author": "Music: traditional; sound file: Rabanus Flavus",
+          "license": "CC0",
+          "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+          "sha1": "145735fcd0e5a74bc249d7af6c79a638fc0b99c8",
+          "match": "Titelgleichheit"
+        }
+      }
+    ]
   },
   {
     "id": 436,
@@ -19090,7 +20056,7 @@
     "scores": [
       {
         "id": "die_helle_sonn_leucht_jetzt_herfuer",
-        "asset": "assets/hymn_scores/die_helle_sonn_leucht_jetzt_herfuer.svg",
+        "asset": "assets/hymn_scores/eg437_die_helle_sonn_leucht_jetzt_herfuer.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Die helle Sonn leucht' jetzt herfür",
@@ -19103,6 +20069,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "2178e72324195aa5f92ed22cd49d6a2973ce76f0",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -19307,7 +20276,7 @@
     "scores": [
       {
         "id": "du_hoechstes_licht_du_ewger_schein",
-        "asset": "assets/hymn_scores/du_hoechstes_licht_du_ewger_schein.svg",
+        "asset": "assets/hymn_scores/eg441_du_hoechstes_licht_du_ewger_schein.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Du höchstes Licht, du ewger Schein",
@@ -19320,6 +20289,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "ee21cd1b856f462d7f6940ce835e22d5be9fdf0a",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -19375,7 +20347,7 @@
     "scores": [
       {
         "id": "steht_auf_ihr_lieben_kinderlein",
-        "asset": "assets/hymn_scores/steht_auf_ihr_lieben_kinderlein.svg",
+        "asset": "assets/hymn_scores/eg442_steht_auf_ihr_lieben_kinderlein.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Steht auf, ihr lieben Kinderlein",
@@ -19388,6 +20360,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "8de47137ef8d792f00602b6871d72331e933ad68",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -19436,7 +20411,7 @@
     "scores": [
       {
         "id": "aus_meines_herzens_grunde",
-        "asset": "assets/hymn_scores/aus_meines_herzens_grunde.svg",
+        "asset": "assets/hymn_scores/eg443_aus_meines_herzens_grunde.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Aus meines Herzens Grunde",
@@ -19449,6 +20424,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "a19aef0b089ce051e5f0965ccd8976127357651b",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -19614,7 +20592,7 @@
     "scores": [
       {
         "id": "nun_lasst_uns_gott_dem_herren",
-        "asset": "assets/hymn_scores/nun_lasst_uns_gott_dem_herren.svg",
+        "asset": "assets/hymn_scores/eg446_nun_lasst_uns_gott_dem_herren.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Nun lasst uns Gott dem Herren",
@@ -19627,6 +20605,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "eaeb9acf36b1223c2e9750b7b4439c0a11b40da3",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -19971,7 +20952,29 @@
       "Morgenlieder"
     ],
     "bibleReferences": [],
-    "explanation": ""
+    "explanation": "",
+    "scores": [
+      {
+        "id": "schon_bricht_des_tages_glanz_hervor",
+        "asset": "assets/hymn_scores/eg453_schon_bricht_des_tages_glanz_hervor.svg",
+        "format": "svg",
+        "kind": "melody",
+        "label": "Schon bricht des Tages Glanz hervor",
+        "source": {
+          "name": "Wikimedia Commons",
+          "file": "File:Schon bricht des Tages Glanz hervor.mid",
+          "url": "https://commons.wikimedia.org/wiki/File:Schon_bricht_des_Tages_Glanz_hervor.mid",
+          "author": "Melodie: 12. Jahrhundert; Satz und Tondatei: Rabanus Flavus (Peter Gerloff)",
+          "license": "CC0",
+          "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+          "sha1": "a9018879434eb3f402f70c484a1633edfdbd5880",
+          "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
+        }
+      }
+    ]
   },
   {
     "id": 454,
@@ -19984,7 +20987,26 @@
       "Morgen"
     ],
     "bibleReferences": [],
-    "explanation": ""
+    "explanation": "",
+    "scores": [
+      {
+        "id": "auf_und_macht_die_herzen_weit",
+        "asset": "assets/hymn_scores/auf_und_macht_die_herzen_weit.svg",
+        "format": "svg",
+        "kind": "melody",
+        "label": "Auf und macht die Herzen weit",
+        "source": {
+          "name": "Wikimedia Commons",
+          "file": "File:Auf und macht die Herzen weit.mid",
+          "url": "https://commons.wikimedia.org/wiki/File:Auf_und_macht_die_Herzen_weit.mid",
+          "author": "Melodie: traditionelles chinesisches Motiv; Satz und Tondatei: Rabanus Flavus (Peter Gerloff)",
+          "license": "CC0",
+          "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+          "sha1": "5ccd60e1a1494a5bdc372f74dd5609df927058b3",
+          "match": "EG-Nummer in Dateibeschreibung"
+        }
+      }
+    ]
   },
   {
     "id": 455,
@@ -19998,7 +21020,26 @@
     "bibleReferences": [
       "1. Mose 2,15"
     ],
-    "explanation": "Das Lied besingt die Schönheit und Reinheit des Morgens als Geschenk Gottes. Es beschreibt, wie das Licht des neuen Tages und der Gesang der Vögel an den Schöpfungsbeginn erinnern. Der Text drückt Dankbarkeit für Lieder, für den neuen Morgen und für das schöpferische Wort Gottes aus, aus dem alles entspringt. Auch die Natur – der Tau auf dem Gras, die Sonne und der morgendliche Glanz – wird als sichtbare Spur und Segen Gottes gefeiert. Die Wahrnehmung des Morgens wird mit dem Paradies, dem Garten Eden, verglichen. Das Lied ermutigt dazu, Gottes Gegenwart und Schöpfung jeden Tag neu wahrzunehmen. Es ruft dazu auf, den Tag mit überschwänglichem Dank an Gott zu beginnen. Am Ende steht die Freude über das Licht und die tägliche Neuschöpfung durch Gottes Güte."
+    "explanation": "Das Lied besingt die Schönheit und Reinheit des Morgens als Geschenk Gottes. Es beschreibt, wie das Licht des neuen Tages und der Gesang der Vögel an den Schöpfungsbeginn erinnern. Der Text drückt Dankbarkeit für Lieder, für den neuen Morgen und für das schöpferische Wort Gottes aus, aus dem alles entspringt. Auch die Natur – der Tau auf dem Gras, die Sonne und der morgendliche Glanz – wird als sichtbare Spur und Segen Gottes gefeiert. Die Wahrnehmung des Morgens wird mit dem Paradies, dem Garten Eden, verglichen. Das Lied ermutigt dazu, Gottes Gegenwart und Schöpfung jeden Tag neu wahrzunehmen. Es ruft dazu auf, den Tag mit überschwänglichem Dank an Gott zu beginnen. Am Ende steht die Freude über das Licht und die tägliche Neuschöpfung durch Gottes Güte.",
+    "scores": [
+      {
+        "id": "morgenlicht_leuchtet_morning_has_broken",
+        "asset": "assets/hymn_scores/morgenlicht_leuchtet_morning_has_broken.svg",
+        "format": "svg",
+        "kind": "melody",
+        "label": "Morgenlicht leuchtet (Morning has broken)",
+        "source": {
+          "name": "Wikimedia Commons",
+          "file": "File:Morgenlicht leuchtet (Morning has broken).mid",
+          "url": "https://commons.wikimedia.org/wiki/File:Morgenlicht_leuchtet_(Morning_has_broken).mid",
+          "author": "Melody: Galic tune (before 1900); setting & sound file: Rabanus Flavus (Peter Gerloff)",
+          "license": "CC0",
+          "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+          "sha1": "82c14a21566c157b3a28dcc71172123fef5eed67",
+          "match": "EG-Nummer in Dateibeschreibung"
+        }
+      }
+    ]
   },
   {
     "id": 456,
@@ -20554,7 +21595,7 @@
     "scores": [
       {
         "id": "ich_freu_mich_in_dem_herren",
-        "asset": "assets/hymn_scores/ich_freu_mich_in_dem_herren.svg",
+        "asset": "assets/hymn_scores/eg472_ich_freu_mich_in_dem_herren.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Ich freu mich in dem Herren",
@@ -20567,6 +21608,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "6e266494d4ccac1c4166a19566f4e2efde22545a",
           "match": "Melodie von EG 349"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -20853,7 +21897,7 @@
     "scores": [
       {
         "id": "o_welt_ich_muss_dich_lassen",
-        "asset": "assets/hymn_scores/o_welt_ich_muss_dich_lassen.svg",
+        "asset": "assets/hymn_scores/eg477_o_welt_ich_muss_dich_lassen.svg",
         "format": "svg",
         "kind": "melody",
         "label": "O Welt, ich muss dich lassen",
@@ -20866,6 +21910,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "a98c4be4868e5334118beaddaf6b71393b9adde9",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -20922,7 +21969,7 @@
     "scores": [
       {
         "id": "nun_sich_der_tag_geendet_hat",
-        "asset": "assets/hymn_scores/nun_sich_der_tag_geendet_hat.svg",
+        "asset": "assets/hymn_scores/eg478_nun_sich_der_tag_geendet_hat.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Nun sich der Tag geendet hat",
@@ -20935,6 +21982,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "6a774e0d5073cae31fd43efe75ddf0e7cca705e4",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -21036,7 +22086,7 @@
     "scores": [
       {
         "id": "nun_schlaefet_man",
-        "asset": "assets/hymn_scores/nun_schlaefet_man.svg",
+        "asset": "assets/hymn_scores/eg480_nun_schlaefet_man.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Nun schläfet man",
@@ -21049,6 +22099,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "acf88e381b553900d40b4d37ef4d2a6cedac72d1",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -21081,7 +22134,29 @@
       "Schlaflieder"
     ],
     "bibleReferences": [],
-    "explanation": ""
+    "explanation": "",
+    "scores": [
+      {
+        "id": "o_welt_ich_muss_dich_lassen",
+        "asset": "assets/hymn_scores/eg481_o_welt_ich_muss_dich_lassen.svg",
+        "format": "svg",
+        "kind": "melody",
+        "label": "O Welt, ich muss dich lassen",
+        "source": {
+          "name": "Wikimedia Commons",
+          "file": "File:O Welt, ich muss dich lassen.mid",
+          "url": "https://commons.wikimedia.org/wiki/File:O_Welt,_ich_muss_dich_lassen.mid",
+          "author": "Melodie: Heinrich Isaac, um 1500; Satz und Tondatei: Rabanus Flavus",
+          "license": "CC0",
+          "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+          "sha1": "a98c4be4868e5334118beaddaf6b71393b9adde9",
+          "match": "Melodie von EG 477"
+        },
+        "underlay": {
+          "stanza": 1
+        }
+      }
+    ]
   },
   {
     "id": 482,
@@ -21127,7 +22202,7 @@
     "scores": [
       {
         "id": "der_mond_ist_aufgegangen",
-        "asset": "assets/hymn_scores/der_mond_ist_aufgegangen.svg",
+        "asset": "assets/hymn_scores/eg482_der_mond_ist_aufgegangen.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Der Mond ist aufgegangen",
@@ -21140,6 +22215,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "b7117360e2eff177cce71997862efddbbfb3b06b",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -21197,7 +22275,7 @@
     "scores": [
       {
         "id": "muede_bin_ich_geh_zur_ruh",
-        "asset": "assets/hymn_scores/muede_bin_ich_geh_zur_ruh.svg",
+        "asset": "assets/hymn_scores/eg484_muede_bin_ich_geh_zur_ruh.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Müde bin ich, geh zur Ruh",
@@ -21210,6 +22288,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "767ebc436e54da0a008f1b5808f2d52e85c5994b",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -21390,7 +22471,7 @@
     "scores": [
       {
         "id": "bleibe_bei_uns",
-        "asset": "assets/hymn_scores/bleibe_bei_uns.svg",
+        "asset": "assets/hymn_scores/eg488_bleibe_bei_uns.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Bleibe bei uns",
@@ -21403,6 +22484,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "8e8c9b447d59bfa20a73b34e01a2f76a705402a3",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -21543,7 +22627,7 @@
     "scores": [
       {
         "id": "sei_lob_und_ehr_dem_hoechsten_gut",
-        "asset": "assets/hymn_scores/sei_lob_und_ehr_dem_hoechsten_gut.svg",
+        "asset": "assets/hymn_scores/eg494_sei_lob_und_ehr_dem_hoechsten_gut.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Sei Lob und Ehr dem höchsten Gut",
@@ -21556,6 +22640,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "598386245a5d16da3eb022a385a7eb9239e721a2",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -21609,7 +22696,7 @@
     "scores": [
       {
         "id": "o_gott_du_frommer_gott_ii",
-        "asset": "assets/hymn_scores/o_gott_du_frommer_gott_ii.svg",
+        "asset": "assets/hymn_scores/eg495_o_gott_du_frommer_gott_ii.svg",
         "format": "svg",
         "kind": "melody",
         "label": "O Gott, du frommer Gott (II)",
@@ -21622,6 +22709,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "a163a70d3ebd781790d642524d54cceb901b9fb6",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -21653,7 +22743,7 @@
     "scores": [
       {
         "id": "o_gott_du_frommer_gott_ii",
-        "asset": "assets/hymn_scores/o_gott_du_frommer_gott_ii.svg",
+        "asset": "assets/hymn_scores/eg496_o_gott_du_frommer_gott_ii.svg",
         "format": "svg",
         "kind": "melody",
         "label": "O Gott, du frommer Gott (II)",
@@ -21666,6 +22756,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "a163a70d3ebd781790d642524d54cceb901b9fb6",
           "match": "Melodie von EG 495"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -21770,7 +22863,7 @@
     "scores": [
       {
         "id": "in_gottes_namen_fahren_wir_eg",
-        "asset": "assets/hymn_scores/in_gottes_namen_fahren_wir_eg.svg",
+        "asset": "assets/hymn_scores/eg498_in_gottes_namen_fahren_wir_eg.svg",
         "format": "svg",
         "kind": "melody",
         "label": "In Gottes Namen fahren wir (EG)",
@@ -21783,6 +22876,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "de51df9eacbe722e4689cd4920be3a4e9dedd186",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -21797,7 +22893,26 @@
       "Kinderlieder"
     ],
     "bibleReferences": [],
-    "explanation": ""
+    "explanation": "",
+    "scores": [
+      {
+        "id": "erd_und_himmel_sollen_singen",
+        "asset": "assets/hymn_scores/erd_und_himmel_sollen_singen.svg",
+        "format": "svg",
+        "kind": "melody",
+        "label": "Erd und Himmel sollen singen",
+        "source": {
+          "name": "Wikimedia Commons",
+          "file": "File:Erd und Himmel sollen singen.mid",
+          "url": "https://commons.wikimedia.org/wiki/File:Erd_und_Himmel_sollen_singen.mid",
+          "author": "Melody: trad. Singing with a sword in my hand, Lord; setting & sound file: Rabanus Flavus (Peter Gerloff)",
+          "license": "CC0",
+          "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+          "sha1": "ed13593d6f5966a0d2778b94f21f743f2ad2531a",
+          "match": "EG-Nummer in Dateibeschreibung"
+        }
+      }
+    ]
   },
   {
     "id": 500,
@@ -21832,7 +22947,7 @@
     "scores": [
       {
         "id": "herzlich_tut_mich_erfreuen",
-        "asset": "assets/hymn_scores/herzlich_tut_mich_erfreuen.svg",
+        "asset": "assets/hymn_scores/eg500_herzlich_tut_mich_erfreuen.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Herzlich tut mich erfreuen",
@@ -21845,6 +22960,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "6715c6ddf0814b84b00c3c805551eb1786268c72",
           "match": "Melodie von EG 148"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -22146,7 +23264,7 @@
     "scores": [
       {
         "id": "aus_meines_herzens_grunde",
-        "asset": "assets/hymn_scores/aus_meines_herzens_grunde.svg",
+        "asset": "assets/hymn_scores/eg505_aus_meines_herzens_grunde.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Aus meines Herzens Grunde",
@@ -22159,6 +23277,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "a19aef0b089ce051e5f0965ccd8976127357651b",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -22202,7 +23323,7 @@
     "scores": [
       {
         "id": "wenn_ich_o_schoepfer_deine_macht",
-        "asset": "assets/hymn_scores/wenn_ich_o_schoepfer_deine_macht.svg",
+        "asset": "assets/hymn_scores/eg506_wenn_ich_o_schoepfer_deine_macht.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Wenn ich, o Schöpfer, deine Macht",
@@ -22215,6 +23336,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "d216acd04a9428b9b7825b1b4c2867f9e3a8a32c",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -22455,7 +23579,7 @@
     "scores": [
       {
         "id": "o_durchbrecher_aller_bande",
-        "asset": "assets/hymn_scores/o_durchbrecher_aller_bande.svg",
+        "asset": "assets/hymn_scores/eg512_o_durchbrecher_aller_bande.svg",
         "format": "svg",
         "kind": "melody",
         "label": "O Durchbrecher aller Bande",
@@ -22468,6 +23592,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "220273b34ea678e186662cc0d7341fc0780eb46f",
           "match": "Melodie von EG 388"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -22516,7 +23643,26 @@
       "Erntezeit"
     ],
     "bibleReferences": [],
-    "explanation": ""
+    "explanation": "",
+    "scores": [
+      {
+        "id": "das_feld_ist_weiss",
+        "asset": "assets/hymn_scores/das_feld_ist_weiss.svg",
+        "format": "svg",
+        "kind": "melody",
+        "label": "Das Feld ist weiß",
+        "source": {
+          "name": "Wikimedia Commons",
+          "file": "File:Das Feld ist weiß.mid",
+          "url": "https://commons.wikimedia.org/wiki/File:Das_Feld_ist_wei%C3%9F.mid",
+          "author": "Melodie: Königsberg 1885; Satz und Tondatei: Rabanus Flavus (Peter Gerloff)",
+          "license": "CC0",
+          "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+          "sha1": "dc5365335362741d41eb346ff158acacb73834ba",
+          "match": "EG-Nummer in Dateibeschreibung"
+        }
+      }
+    ]
   },
   {
     "id": 514,
@@ -22563,7 +23709,7 @@
     "scores": [
       {
         "id": "lasst_uns_erfreuen_herzlich_sehr",
-        "asset": "assets/hymn_scores/lasst_uns_erfreuen_herzlich_sehr.svg",
+        "asset": "assets/hymn_scores/eg514_lasst_uns_erfreuen_herzlich_sehr.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Lasst uns erfreuen herzlich sehr",
@@ -22576,6 +23722,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "e3b09d4e2eb380982e0dfd786067d8b889e1a8bb",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -22631,7 +23780,26 @@
       "Kinderlieder"
     ],
     "bibleReferences": [],
-    "explanation": "Das Lied ist ein durchgehendes Lob Gottes mit dem Refrain „Laudato si, o mi signore“. In den Strophen preist es Gott für die ganze Schöpfung: Sonne, Mond und Sterne, Meere und Kontinente, Licht und Dunkel, Tage, Jahre und Zeiten, Wind, Regen, Quellen und reifende Felder, Berge, Wälder, Täler und den Schatten der Bäume. Es dankt für das Leben der Welt mit Vögeln, Fischen und allen Tieren und für den Menschen, geschaffen als Abbild seiner Liebe und in allen Völkern der Erde. Zugleich bekennt es, dass Gott in Jesus Mensch wurde, als Bruder unter uns lebte, zu uns sprach, für uns starb und vom Tod auferstand. Am Ende lobt das Lied Gott für Tod und Leben und für die geöffnete Zukunft – gepriesen in Ewigkeit, denn er ist wunderbar."
+    "explanation": "Das Lied ist ein durchgehendes Lob Gottes mit dem Refrain „Laudato si, o mi signore“. In den Strophen preist es Gott für die ganze Schöpfung: Sonne, Mond und Sterne, Meere und Kontinente, Licht und Dunkel, Tage, Jahre und Zeiten, Wind, Regen, Quellen und reifende Felder, Berge, Wälder, Täler und den Schatten der Bäume. Es dankt für das Leben der Welt mit Vögeln, Fischen und allen Tieren und für den Menschen, geschaffen als Abbild seiner Liebe und in allen Völkern der Erde. Zugleich bekennt es, dass Gott in Jesus Mensch wurde, als Bruder unter uns lebte, zu uns sprach, für uns starb und vom Tod auferstand. Am Ende lobt das Lied Gott für Tod und Leben und für die geöffnete Zukunft – gepriesen in Ewigkeit, denn er ist wunderbar.",
+    "scores": [
+      {
+        "id": "laudato_si",
+        "asset": "assets/hymn_scores/laudato_si.svg",
+        "format": "svg",
+        "kind": "melody",
+        "label": "Laudato si",
+        "source": {
+          "name": "Wikimedia Commons",
+          "file": "File:Laudato si.mid",
+          "url": "https://commons.wikimedia.org/wiki/File:Laudato_si.mid",
+          "author": "Melody: anonymous; setting & sound file: Rabanus Flavus (Peter Gerloff)",
+          "license": "Public domain",
+          "licenseUrl": "",
+          "sha1": "495838447b8df0243113f02a3ad63c1c3ca40d7c",
+          "match": "EG-Nummer in Dateibeschreibung"
+        }
+      }
+    ]
   },
   {
     "id": 516,
@@ -22774,7 +23942,29 @@
       "Sterben"
     ],
     "bibleReferences": [],
-    "explanation": ""
+    "explanation": "",
+    "scores": [
+      {
+        "id": "ich_wollt_dass_ich_daheime_waer",
+        "asset": "assets/hymn_scores/eg517_ich_wollt_dass_ich_daheime_waer.svg",
+        "format": "svg",
+        "kind": "melody",
+        "label": "Ich wollt, dass ich daheime wär",
+        "source": {
+          "name": "Wikimedia Commons",
+          "file": "File:Ich wollt, dass ich daheime wär.mid",
+          "url": "https://commons.wikimedia.org/wiki/File:Ich_wollt,_dass_ich_daheime_w%C3%A4r.mid",
+          "author": "Melodie: Straßburg 1430; Satz und Tondatei: Rabanus Flavus (Peter Gerloff)",
+          "license": "CC0",
+          "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+          "sha1": "1f58e0fcb270fb55916d376d3975c04b140fa14f",
+          "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
+        }
+      }
+    ]
   },
   {
     "id": 518,
@@ -22923,7 +24113,7 @@
     "scores": [
       {
         "id": "nun_lasst_uns_den_leib_begraben_nun_legen_wir_den_leib_ins_grab",
-        "asset": "assets/hymn_scores/nun_lasst_uns_den_leib_begraben_nun_legen_wir_den_leib_ins_grab.svg",
+        "asset": "assets/hymn_scores/eg520_nun_lasst_uns_den_leib_begraben_nun_legen_wir_den_leib_ins_grab.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Nun lasst uns den Leib begraben (Nun legen wir den Leib ins Grab)",
@@ -22936,6 +24126,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "20fb2fd375a738a3e8368c6ea616aa483ca33db4",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -22992,7 +24185,7 @@
     "scores": [
       {
         "id": "o_welt_ich_muss_dich_lassen",
-        "asset": "assets/hymn_scores/o_welt_ich_muss_dich_lassen.svg",
+        "asset": "assets/hymn_scores/eg521_o_welt_ich_muss_dich_lassen.svg",
         "format": "svg",
         "kind": "melody",
         "label": "O Welt, ich muss dich lassen",
@@ -23005,6 +24198,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "a98c4be4868e5334118beaddaf6b71393b9adde9",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -23102,7 +24298,7 @@
     "scores": [
       {
         "id": "valet_will_ich_dir_geben_eg",
-        "asset": "assets/hymn_scores/valet_will_ich_dir_geben_eg.svg",
+        "asset": "assets/hymn_scores/eg523_valet_will_ich_dir_geben_eg.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Valet will ich dir geben (EG)",
@@ -23115,6 +24311,9 @@
           "licenseUrl": "",
           "sha1": "c487de062fc0e55e08f1c24240556fd5636f68e2",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -23164,7 +24363,7 @@
     "scores": [
       {
         "id": "freu_dich_sehr_o_meine_seele",
-        "asset": "assets/hymn_scores/freu_dich_sehr_o_meine_seele.svg",
+        "asset": "assets/hymn_scores/eg524_freu_dich_sehr_o_meine_seele.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Freu dich sehr, o meine Seele",
@@ -23177,6 +24376,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "3638d4e800b8082e9813a8cf299dba20bf1d6d7a",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -23290,7 +24492,7 @@
     "scores": [
       {
         "id": "jesus_meine_zuversicht_1653",
-        "asset": "assets/hymn_scores/jesus_meine_zuversicht_1653.svg",
+        "asset": "assets/hymn_scores/eg526_jesus_meine_zuversicht_1653.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Jesus, meine Zuversicht (1653)",
@@ -23303,11 +24505,14 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "3b1ae0a9e0dc725b860ab7d534a7aeaaa660b537",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       },
       {
         "id": "jesus_meine_zuversicht",
-        "asset": "assets/hymn_scores/jesus_meine_zuversicht.svg",
+        "asset": "assets/hymn_scores/eg526_jesus_meine_zuversicht.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Jesus, meine Zuversicht",
@@ -23320,6 +24525,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "b73d919719b704095140241716ea8f6a149883bb",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -23379,7 +24587,7 @@
     "scores": [
       {
         "id": "o_welt_ich_muss_dich_lassen",
-        "asset": "assets/hymn_scores/o_welt_ich_muss_dich_lassen.svg",
+        "asset": "assets/hymn_scores/eg527_o_welt_ich_muss_dich_lassen.svg",
         "format": "svg",
         "kind": "melody",
         "label": "O Welt, ich muss dich lassen",
@@ -23392,6 +24600,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "a98c4be4868e5334118beaddaf6b71393b9adde9",
           "match": "Melodie von EG 521"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -23620,7 +24831,7 @@
     "scores": [
       {
         "id": "o_haupt_voll_blut_und_wunden_eg_gl_2013",
-        "asset": "assets/hymn_scores/o_haupt_voll_blut_und_wunden_eg_gl_2013.svg",
+        "asset": "assets/hymn_scores/eg531_o_haupt_voll_blut_und_wunden_eg_gl_2013.svg",
         "format": "svg",
         "kind": "melody",
         "label": "O Haupt voll Blut und Wunden (EG-GL 2013)",
@@ -23633,6 +24844,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "367467ca1ab82333964435de94bc9e5f7e425d2b",
           "match": "Melodie von EG 85"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]
@@ -23668,7 +24882,7 @@
     "scores": [
       {
         "id": "o_dass_doch_bald_dein_feuer_brennte",
-        "asset": "assets/hymn_scores/o_dass_doch_bald_dein_feuer_brennte.svg",
+        "asset": "assets/hymn_scores/eg532_o_dass_doch_bald_dein_feuer_brennte.svg",
         "format": "svg",
         "kind": "melody",
         "label": "O dass doch bald dein Feuer brennte",
@@ -23681,6 +24895,9 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "8f52d02766aa2b826c46919f805788e004f744c8",
           "match": "Melodie von EG 255"
+        },
+        "underlay": {
+          "stanza": 1
         }
       }
     ]

@@ -114,6 +114,14 @@ flutter:
   # For details regarding adding assets from package dependencies, see
   # https://flutter.dev/to/asset-from-package
 
+  # Schrift des Liedtextes unter den Noten (SIL OFL 1.1, assets/fonts/
+  # Tinos-OFL.txt). Die Notenbilder sind mit ihren Maßen gesetzt; eine andere
+  # Schrift würde Silben und Noten gegeneinander verschieben.
+  fonts:
+    - family: Tinos
+      fonts:
+        - asset: assets/fonts/Tinos-Regular.ttf
+
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
   # "family" key with the font family name, and a "fonts" key with a

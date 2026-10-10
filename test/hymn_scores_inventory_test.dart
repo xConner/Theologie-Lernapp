@@ -75,14 +75,18 @@ void main() {
     }
   });
 
-  test("Noten in den Lieddaten stammen nur aus nutzbar geführten Vorlagen", () {
+  // Der Projektinhaber hat die recherchierten Vorlagen freigegeben; auch
+  // Lieder, deren Melodie die Recherche als geschützt oder ungeklärt führt,
+  // dürfen Noten haben (aufgelistet in docs/hymn-scores/integration.md).
+  // Fest bleibt: Jede Note stammt aus einer Vorlage, die das Inventar genau
+  // diesem Lied zuordnet.
+  test("Noten in den Lieddaten stammen nur aus Vorlagen des Inventars", () {
     for (var i = 0; i < hymns.length; i++) {
       final scores = hymns[i]["scores"] as List<dynamic>? ?? const [];
       if (scores.isEmpty) continue;
 
       final row = inventory[i];
       final reason = "EG ${row["eg_nummer"]}";
-      expect(row["melodie_status"], "gemeinfrei", reason: reason);
 
       final files = {
         for (final file in row["commons_dateien"] as List<dynamic>)

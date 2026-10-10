@@ -23,7 +23,8 @@ Es braucht `pip install verovio` (verwendet: 6.3.0).
 | `manual_overrides.json` | von Hand gepflegte Namensvarianten und Melodieverweise |
 | `fetch_midi.py` | Vorlagen von Wikimedia Commons laden, Prüfsumme gegen den Schnappschuss |
 | `midi.py`, `melody.py` | MIDI lesen; Melodie der ersten Strophe herausziehen und rastern |
-| `engrave.py` | Melodie über MEI mit Verovio setzen, SVG für `flutter_svg` vereinfachen |
+| `syllables.py`, `underlay.py` | erste Strophe in Silben zerlegen; Silben den Tönen zuordnen, soweit gesichert |
+| `engrave.py` | Melodie und Text über MEI mit Verovio setzen, SVG für `flutter_svg` vereinfachen |
 | `build_scores.py` | Lieder und Vorlagen zuordnen, Bilder und Übersicht schreiben |
 
 `fetch_sources.py persons` (oder `dewiki`, `commons`, `open_hymnal`) lädt nur

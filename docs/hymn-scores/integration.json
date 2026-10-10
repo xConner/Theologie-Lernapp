@@ -2,10 +2,12 @@
  {
   "eg_nummer": 1,
   "titel": "Macht hoch die Tür",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "macht_hoch_die_tuer_die_tor_macht_weit"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -13,14 +15,22 @@
   "titel": "Er ist die rechte Freudensonn (Kanon)",
   "kategorie": 4,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt) (Quelle vorhanden: Wikipedia (LilyPond im Artikeltext))"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": "Wikipedia (LilyPond im Artikeltext): nicht verarbeitet"
  },
  {
   "eg_nummer": 3,
   "titel": "Gott, heilger Schöpfer aller Stern",
-  "kategorie": 4,
-  "noten": [],
-  "hinweis": "ungeklärt (Quelle vorhanden: Wikimedia Commons (MIDI, Peter Gerloff))"
+  "kategorie": 1,
+  "noten": [
+   "gott_heilger_schoepfer_aller_stern"
+  ],
+  "unterlegt": [
+   "gott_heilger_schoepfer_aller_stern"
+  ],
+  "melodie_laut_recherche": "ungeklaert",
+  "hinweis": ""
  },
  {
   "eg_nummer": 4,
@@ -29,15 +39,21 @@
   "noten": [
    "nun_komm_der_heiden_heiland"
   ],
+  "unterlegt": [
+   "nun_komm_der_heiden_heiland"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 5,
   "titel": "Gottes Sohn ist kommen",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "gottes_sohn_ist_kommen"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -47,6 +63,10 @@
   "noten": [
    "steht_auf_ihr_lieben_kinderlein"
   ],
+  "unterlegt": [
+   "steht_auf_ihr_lieben_kinderlein"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -56,15 +76,21 @@
   "noten": [
    "o_heiland_reiss_die_himmel_auf"
   ],
+  "unterlegt": [
+   "o_heiland_reiss_die_himmel_auf"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 8,
   "titel": "Es kommt ein Schiff, geladen",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "es_kommt_ein_schiff_geladen"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -74,6 +100,10 @@
   "noten": [
    "aus_meines_herzens_grunde"
   ],
+  "unterlegt": [
+   "aus_meines_herzens_grunde"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -83,15 +113,21 @@
   "noten": [
    "von_gott_will_ich_nicht_lassen"
   ],
+  "unterlegt": [
+   "von_gott_will_ich_nicht_lassen"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 11,
   "titel": "Wie soll ich dich empfangen",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "wie_soll_ich_dich_empfangen"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -101,89 +137,119 @@
   "noten": [
    "gott_sei_dank_durch_alle_welt"
   ],
+  "unterlegt": [
+   "gott_sei_dank_durch_alle_welt"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 13,
   "titel": "Tochter Zion, freue dich",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "tochter_zion_freue_dich"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 14,
   "titel": "Dein König kommt in niedern Hüllen",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "dein_koenig_kommt"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 15,
   "titel": "Tröstet, tröstet, spricht der Herr",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 16,
   "titel": "Die Nacht ist vorgedrungen",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 17,
   "titel": "Wir sagen euch an den lieben Advent",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 18,
   "titel": "Seht, die gute Zeit ist nah (Kanon)",
-  "kategorie": 4,
-  "noten": [],
-  "hinweis": "ungeklärt (Quelle vorhanden: Wikimedia Commons (MIDI, Peter Gerloff))"
+  "kategorie": 3,
+  "noten": [
+   "seht_die_gute_zeit_ist_nah"
+  ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "ungeklaert",
+  "hinweis": ""
  },
  {
   "eg_nummer": 19,
   "titel": "O komm, o komm, du Morgenstern",
-  "kategorie": 5,
-  "noten": [],
-  "hinweis": "Veni, veni, Emmanuel.mid: erste Strophe nicht sicher abgrenzbar"
+  "kategorie": 3,
+  "noten": [
+   "veni_veni_emmanuel"
+  ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": ""
  },
  {
   "eg_nummer": 20,
   "titel": "Das Volk, das noch im Finstern wandelt",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 21,
   "titel": "Seht auf und erhebt eure Häupter",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 22,
   "titel": "Nun sei uns willkommen, Herre Christ",
-  "kategorie": 2,
+  "kategorie": 4,
   "noten": [],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": "Wikipedia (LilyPond im Artikeltext): nicht verarbeitet"
  },
  {
   "eg_nummer": 23,
   "titel": "Gelobet seist du, Jesu Christ",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "gelobet_seist_du_jesu_christ"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -193,6 +259,10 @@
   "noten": [
    "vom_himmel_hoch_da_komm_ich_her_eg"
   ],
+  "unterlegt": [
+   "vom_himmel_hoch_da_komm_ich_her_eg"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -202,14 +272,22 @@
   "noten": [
    "vom_himmel_hoch_da_komm_ich_her_eg"
   ],
+  "unterlegt": [
+   "vom_himmel_hoch_da_komm_ich_her_eg"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 26,
   "titel": "Ehre sei Gott in der Höhe (Kanon)",
-  "kategorie": 4,
-  "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt) (Quelle vorhanden: Wikimedia Commons (MIDI, Peter Gerloff))"
+  "kategorie": 2,
+  "noten": [
+   "ehre_sei_gott_in_der_hoehe_kanon_gebhardi"
+  ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 27,
@@ -218,38 +296,50 @@
   "noten": [
    "lobt_gott_ihr_christen_alle_gleich"
   ],
+  "unterlegt": [
+   "lobt_gott_ihr_christen_alle_gleich"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 28,
   "titel": "Also hat Gott die Welt geliebt",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 29,
   "titel": "Den die Hirten lobeten sehre (Quem pastores laudavere)",
-  "kategorie": 5,
+  "kategorie": 4,
   "noten": [],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": "Den die Hirten lobeten sehre.mid: erste Strophe nicht sicher abgrenzbar"
  },
  {
   "eg_nummer": 30,
   "titel": "Es ist ein Ros entsprungen",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "es_ist_ein_ros_entsprungen"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 31,
   "titel": "Es ist ein Ros entsprungen (Kanon)",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "es_ist_ein_ros_entsprungen_kanon_von_melchior_vulpius"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -259,6 +349,10 @@
   "noten": [
    "zu_betlehem_geboren"
   ],
+  "unterlegt": [
+   "zu_betlehem_geboren"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -268,22 +362,30 @@
   "noten": [
    "brich_an_du_schoenes_morgenlicht"
   ],
+  "unterlegt": [
+   "brich_an_du_schoenes_morgenlicht"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 34,
   "titel": "Freuet euch, ihr Christen alle",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "Melodie gemeinfrei, Notenquelle fehlt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": ""
  },
  {
   "eg_nummer": 35,
   "titel": "Nun singet und seid froh",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "nun_singet_und_seid_froh"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -293,15 +395,21 @@
   "noten": [
    "froehlich_soll_mein_herze_springen"
   ],
+  "unterlegt": [
+   "froehlich_soll_mein_herze_springen"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 37,
   "titel": "Ich steh an deiner Krippen hier",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "ich_steh_an_deiner_krippe_hier_o_jesu"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -311,23 +419,31 @@
   "noten": [
    "wunderbarer_gnadenthron"
   ],
+  "unterlegt": [
+   "wunderbarer_gnadenthron"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 39,
   "titel": "Kommt und lasst uns Christus ehren",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "hoert_es_singt_und_klingt_mit_schalle"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 40,
   "titel": "Dies ist die Nacht, da mir erschienen",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 41,
@@ -336,6 +452,10 @@
   "noten": [
    "lobe_den_herren_den_maechtigen_koenig_der_ehren"
   ],
+  "unterlegt": [
+   "lobe_den_herren_den_maechtigen_koenig_der_ehren"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -345,147 +465,201 @@
   "noten": [
    "vom_himmel_hoch_da_komm_ich_her_eg"
   ],
+  "unterlegt": [
+   "vom_himmel_hoch_da_komm_ich_her_eg"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 43,
   "titel": "Ihr Kinderlein, kommet",
-  "kategorie": 2,
+  "kategorie": 4,
   "noten": [],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": "Wikipedia (LilyPond im Artikeltext): nicht verarbeitet"
  },
  {
   "eg_nummer": 44,
   "titel": "O du fröhliche, o du selige",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "o_du_froehliche"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 45,
   "titel": "Herbei, o ihr Gläubigen (Adeste fideles)",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "herbei_o_ihr_glaeub_gen"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 46,
   "titel": "Stille Nacht, heilige Nacht",
-  "kategorie": 5,
+  "kategorie": 4,
   "noten": [],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": "Stille Nacht, heilige Nacht.mid: erste Strophe nicht sicher abgrenzbar"
  },
  {
   "eg_nummer": 47,
   "titel": "Freu dich, Erd und Sternenzelt",
-  "kategorie": 4,
-  "noten": [],
-  "hinweis": "ungeklärt (Quelle vorhanden: Wikimedia Commons (MIDI, Peter Gerloff))"
+  "kategorie": 1,
+  "noten": [
+   "freu_dich_erd_und_sternenzelt"
+  ],
+  "unterlegt": [
+   "freu_dich_erd_und_sternenzelt"
+  ],
+  "melodie_laut_recherche": "ungeklaert",
+  "hinweis": ""
  },
  {
   "eg_nummer": 48,
   "titel": "Kommet, ihr Hirten, ihr Männer und Fraun",
-  "kategorie": 4,
-  "noten": [],
-  "hinweis": "ungeklärt (Quelle vorhanden: Wikimedia Commons (MIDI, Peter Gerloff))"
+  "kategorie": 2,
+  "noten": [
+   "kommet_ihr_hirten"
+  ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "ungeklaert",
+  "hinweis": ""
  },
  {
   "eg_nummer": 49,
   "titel": "Der Heiland ist geboren (Freut euch von Herzen)",
-  "kategorie": 4,
-  "noten": [],
-  "hinweis": "ungeklärt (Quelle vorhanden: Wikimedia Commons (MIDI, Peter Gerloff))"
+  "kategorie": 2,
+  "noten": [
+   "der_heiland_ist_geboren"
+  ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "ungeklaert",
+  "hinweis": ""
  },
  {
   "eg_nummer": 50,
   "titel": "Du Kind, zu dieser heilgen Zeit",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 51,
   "titel": "Also liebt Gott die arge Welt",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 52,
   "titel": "Wisst ihr noch, wie es geschehen?",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 53,
   "titel": "Als die Welt verloren, Christus ward geboren",
-  "kategorie": 4,
-  "noten": [],
-  "hinweis": "ungeklärt (Quelle vorhanden: Wikimedia Commons (MIDI, Peter Gerloff))"
+  "kategorie": 3,
+  "noten": [
+   "als_die_welt_verloren"
+  ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "ungeklaert",
+  "hinweis": ""
  },
  {
   "eg_nummer": 54,
   "titel": "Hört, der Engel helle Lieder",
   "kategorie": 4,
   "noten": [],
-  "hinweis": "ungeklärt (Quelle vorhanden: Wikimedia Commons (MIDI, Peter Gerloff))"
+  "unterlegt": [],
+  "melodie_laut_recherche": "ungeklaert",
+  "hinweis": "Les anges dans nos campagnes.mid: 85 Töne passen nicht zu 610 Silben der ersten Strophe"
  },
  {
   "eg_nummer": 55,
   "titel": "O Bethlehem, du kleine Stadt",
-  "kategorie": 4,
-  "noten": [],
-  "hinweis": "ungeklärt (Quelle vorhanden: Wikimedia Commons (MIDI, Peter Gerloff))"
+  "kategorie": 2,
+  "noten": [
+   "o_bethlehem_du_kleine_stadt"
+  ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "ungeklaert",
+  "hinweis": ""
  },
  {
   "eg_nummer": 56,
   "titel": "Weil Gott in tiefster Nacht erschienen",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 57,
   "titel": "Uns wird erzählt von Jesus Christ",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 58,
   "titel": "Nun lasst uns gehn und treten",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "nun_lasst_uns_gott_dem_herren"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 59,
   "titel": "Das alte Jahr vergangen ist",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "Melodie gemeinfrei, Notenquelle fehlt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": ""
  },
  {
   "eg_nummer": 60,
   "titel": "Freut euch, ihr lieben Christen all",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "Melodie gemeinfrei, Notenquelle fehlt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": ""
  },
  {
   "eg_nummer": 61,
   "titel": "Hilf, Herr Jesu, lass gelingen",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "hilf_herr_jesu_lass_gelingen"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -496,6 +670,11 @@
    "jesus_meine_zuversicht_1653",
    "jesus_meine_zuversicht"
   ],
+  "unterlegt": [
+   "jesus_meine_zuversicht_1653",
+   "jesus_meine_zuversicht"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -505,21 +684,29 @@
   "noten": [
    "befiehl_du_deine_wege"
   ],
+  "unterlegt": [
+   "befiehl_du_deine_wege"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 64,
   "titel": "Der du die Zeit in Händen hast",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 65,
   "titel": "Von guten Mächten wunderbar geborgen",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 66,
@@ -528,6 +715,10 @@
   "noten": [
    "jesus_ist_kommen_grund_ewiger_freude"
   ],
+  "unterlegt": [
+   "jesus_ist_kommen_grund_ewiger_freude"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -537,40 +728,52 @@
   "noten": [
    "herr_christ_der_einig_gotts_sohn"
   ],
+  "unterlegt": [
+   "herr_christ_der_einig_gotts_sohn"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 68,
   "titel": "O lieber Herre Jesu Christ",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "Melodie gemeinfrei, Notenquelle fehlt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": ""
  },
  {
   "eg_nummer": 69,
   "titel": "Der Morgenstern ist aufgedrungen",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "der_morgenstern_ist_aufgedrungen"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 70,
   "titel": "Wie schön leuchtet der Morgenstern",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "wie_schoen_leuchtet_der_morgenstern"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 71,
   "titel": "O König aller Ehren",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "ich_freu_mich_in_dem_herren"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -580,6 +783,10 @@
   "noten": [
    "o_jesu_christe_wahres_licht"
   ],
+  "unterlegt": [
+   "o_jesu_christe_wahres_licht"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -589,6 +796,10 @@
   "noten": [
    "lobt_gott_ihr_christen_alle_gleich"
   ],
+  "unterlegt": [
+   "lobt_gott_ihr_christen_alle_gleich"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -598,15 +809,21 @@
   "noten": [
    "steht_auf_ihr_lieben_kinderlein"
   ],
+  "unterlegt": [
+   "steht_auf_ihr_lieben_kinderlein"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 75,
   "titel": "Ehre sei dir, Christe",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "ehre_sei_dir_christe"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -616,33 +833,43 @@
   "noten": [
    "o_mensch_bewein_dein_suende_gross_eg"
   ],
+  "unterlegt": [
+   "o_mensch_bewein_dein_suende_gross_eg"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 77,
   "titel": "Christus, der uns selig macht",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "christus_der_uns_selig_macht"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 78,
   "titel": "Jesu Kreuz, Leiden und Pein",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "jesu_kreuz_leiden_und_pein"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 79,
   "titel": "Wir danken dir, Herr Jesu Christ, dass du für uns gestorben bist",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "wir_danken_dir_herr_jesu_christ_dass_du_fuer_uns_gestorben_bist"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -652,6 +879,10 @@
   "noten": [
    "o_traurigkeit_o_herzeleid_eg"
   ],
+  "unterlegt": [
+   "o_traurigkeit_o_herzeleid_eg"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -661,6 +892,10 @@
   "noten": [
    "herzliebster_jesu"
   ],
+  "unterlegt": [
+   "herzliebster_jesu"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -670,15 +905,21 @@
   "noten": [
    "wenn_meine_suend_mich_kraenken"
   ],
+  "unterlegt": [
+   "wenn_meine_suend_mich_kraenken"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 83,
   "titel": "Ein Lämmlein geht und trägt die Schuld",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "ein_laemmlein_geht_und_traegt_die_schuld_an_wasserfluessen_babylon"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -688,6 +929,10 @@
   "noten": [
    "o_welt_ich_muss_dich_lassen"
   ],
+  "unterlegt": [
+   "o_welt_ich_muss_dich_lassen"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -697,37 +942,49 @@
   "noten": [
    "o_haupt_voll_blut_und_wunden_eg_gl_2013"
   ],
+  "unterlegt": [
+   "o_haupt_voll_blut_und_wunden_eg_gl_2013"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 86,
   "titel": "Jesu, meines Lebens Leben",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "Melodie gemeinfrei, Notenquelle fehlt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": ""
  },
  {
   "eg_nummer": 87,
   "titel": "Du großer Schmerzensmann",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "Melodie gemeinfrei, Notenquelle fehlt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": ""
  },
  {
   "eg_nummer": 88,
   "titel": "Jesu, deine Passion",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "lobt_gott_den_herrn_ihr_heiden_all"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 89,
   "titel": "Herr Jesu, deine Angst und Pein",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "ungeklärt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "ungeklaert",
+  "hinweis": ""
  },
  {
   "eg_nummer": 90,
@@ -736,6 +993,10 @@
   "noten": [
    "o_mensch_bewein_dein_suende_gross_eg"
   ],
+  "unterlegt": [
+   "o_mensch_bewein_dein_suende_gross_eg"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -745,106 +1006,138 @@
   "noten": [
    "herzliebster_jesu"
   ],
+  "unterlegt": [
+   "herzliebster_jesu"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 92,
   "titel": "Christe, du Schöpfer aller Welt",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "Melodie gemeinfrei, Notenquelle fehlt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": ""
  },
  {
   "eg_nummer": 93,
   "titel": "Nun gehören unsre Herzen",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 94,
   "titel": "Das Kreuz ist aufgerichtet",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 95,
   "titel": "Seht hin, er ist allein im Garten",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 96,
   "titel": "Du schöner Lebensbaum des Paradieses",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "Melodie gemeinfrei, Notenquelle fehlt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": ""
  },
  {
   "eg_nummer": 97,
   "titel": "Holz auf Jesu Schulter",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 98,
   "titel": "Korn, das in die Erde, in den Tod versinkt",
-  "kategorie": 4,
-  "noten": [],
-  "hinweis": "ungeklärt (Quelle vorhanden: Wikimedia Commons (MIDI, Peter Gerloff))"
+  "kategorie": 3,
+  "noten": [
+   "noel_nouvelet"
+  ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "ungeklaert",
+  "hinweis": ""
  },
  {
   "eg_nummer": 99,
   "titel": "Christ ist erstanden von der Marter alle",
-  "kategorie": 5,
+  "kategorie": 4,
   "noten": [],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": "Christ ist erstanden (EG).mid: erste Strophe nicht sicher abgrenzbar"
  },
  {
   "eg_nummer": 100,
   "titel": "Wir wollen alle fröhlich sein in dieser österlichen Zeit",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "wir_wollen_alle_froehlich_sein"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 101,
   "titel": "Christ lag in Todesbanden",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "christ_lag_in_todesbanden"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 102,
   "titel": "Jesus Christus, unser Heiland, der den Tod überwand",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "jesus_christus_unser_heiland_der_den_tod_ueberwand"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 103,
   "titel": "Gelobt sei Gott im höchsten Thron",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "gelobt_sei_gott_im_hoechsten_thron"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 104,
   "titel": "Singen wir heut mit einem Mund",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "Melodie gemeinfrei, Notenquelle fehlt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": ""
  },
  {
   "eg_nummer": 105,
@@ -853,42 +1146,54 @@
   "noten": [
    "erstanden_ist_der_heilig_christ"
   ],
+  "unterlegt": [
+   "erstanden_ist_der_heilig_christ"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 106,
   "titel": "Erschienen ist der herrlich Tag",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "erschienen_ist_der_herrlich_tag"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 107,
   "titel": "Wir danken dir, Herr Jesu Christ, dass du vom Tod erstanden bist",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "erschienen_ist_der_herrlich_tag"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 108,
   "titel": "Mit Freuden zart zu dieser Fahrt",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "mit_freuden_zart_zu_dieser_fahrt"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 109,
   "titel": "Heut triumphieret Gottes Sohn",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "heut_triumphieret_gottes_sohn"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -898,14 +1203,20 @@
   "noten": [
    "die_ganze_welt_herr_jesu_christ"
   ],
+  "unterlegt": [
+   "die_ganze_welt_herr_jesu_christ"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 111,
   "titel": "Frühmorgens, da die Sonn aufgeht",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "Melodie gemeinfrei, Notenquelle fehlt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": ""
  },
  {
   "eg_nummer": 112,
@@ -914,14 +1225,22 @@
   "noten": [
    "auf_auf_mein_herz_mit_freuden"
   ],
+  "unterlegt": [
+   "auf_auf_mein_herz_mit_freuden"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 113,
   "titel": "O Tod, wo ist dein Stachel nun?",
-  "kategorie": 4,
-  "noten": [],
-  "hinweis": "ungeklärt (Quelle vorhanden: Wikimedia Commons (MIDI, Peter Gerloff))"
+  "kategorie": 2,
+  "noten": [
+   "es_ist_das_heil_uns_kommen_her"
+  ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "ungeklaert",
+  "hinweis": ""
  },
  {
   "eg_nummer": 114,
@@ -930,6 +1249,10 @@
   "noten": [
    "sei_lob_und_ehr_dem_hoechsten_gut"
   ],
+  "unterlegt": [
+   "sei_lob_und_ehr_dem_hoechsten_gut"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -940,28 +1263,41 @@
    "jesus_meine_zuversicht_1653",
    "jesus_meine_zuversicht"
   ],
+  "unterlegt": [
+   "jesus_meine_zuversicht_1653",
+   "jesus_meine_zuversicht"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 116,
   "titel": "Er ist erstanden, Halleluja",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "ungeklärt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "ungeklaert",
+  "hinweis": ""
  },
  {
   "eg_nummer": 117,
   "titel": "Der schöne Ostertag",
-  "kategorie": 5,
-  "noten": [],
-  "hinweis": "Der schöne Ostertag (Hoe groot de vrugten zijn).mid: erste Strophe nicht sicher abgrenzbar"
+  "kategorie": 3,
+  "noten": [
+   "der_schoene_ostertag_hoe_groot_de_vrugten_zijn"
+  ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": ""
  },
  {
   "eg_nummer": 118,
   "titel": "Der Herr ist auferstanden (Kanon)",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 119,
@@ -970,24 +1306,32 @@
   "noten": [
    "gen_himmel_aufgefahren_ist"
   ],
+  "unterlegt": [
+   "gen_himmel_aufgefahren_ist"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 120,
   "titel": "Christ fuhr gen Himmel",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "christ_fuhr_gen_himmel_eg"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 121,
   "titel": "Wir danken dir, Herr Jesu Christ, dass du gen Himmel g'fahren bist",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "heut_triumphieret_gottes_sohn"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -997,6 +1341,10 @@
   "noten": [
    "es_ist_gewisslich_an_der_zeit"
   ],
+  "unterlegt": [
+   "es_ist_gewisslich_an_der_zeit"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -1006,6 +1354,10 @@
   "noten": [
    "alles_ist_an_gottes_segen"
   ],
+  "unterlegt": [
+   "alles_ist_an_gottes_segen"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -1015,15 +1367,21 @@
   "noten": [
    "nun_bitten_wir_den_heiligen_geist_eg"
   ],
+  "unterlegt": [
+   "nun_bitten_wir_den_heiligen_geist_eg"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 125,
   "titel": "Komm, Heiliger Geist, Herre Gott",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "komm_heiliger_geist_herre_gott"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -1033,6 +1391,10 @@
   "noten": [
    "komm_gott_schoepfer_heiliger_geist"
   ],
+  "unterlegt": [
+   "komm_gott_schoepfer_heiliger_geist"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -1042,6 +1404,10 @@
   "noten": [
    "o_mensch_bewein_dein_suende_gross_eg"
   ],
+  "unterlegt": [
+   "o_mensch_bewein_dein_suende_gross_eg"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -1051,6 +1417,10 @@
   "noten": [
    "heilger_geist_du_troester_mein"
   ],
+  "unterlegt": [
+   "heilger_geist_du_troester_mein"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -1060,40 +1430,52 @@
   "noten": [
    "zieh_ein_zu_deinen_toren"
   ],
+  "unterlegt": [
+   "zieh_ein_zu_deinen_toren"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 130,
   "titel": "O Heilger Geist, kehr bei uns ein",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "wie_schoen_leuchtet_der_morgenstern"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 131,
   "titel": "O Heiliger Geist, o heiliger Gott",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "o_heiliger_geist_o_heiliger_gott_o_jesulein_suess_o_jesulein_mild"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 132,
   "titel": "Ihr werdet die Kraft des Heiligen Geistes",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 133,
   "titel": "Zieh ein zu deinen Toren",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "zieh_ein_zu_deinen_toren"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -1103,22 +1485,32 @@
   "noten": [
    "komm_o_komm_du_geist_des_lebens"
   ],
+  "unterlegt": [
+   "komm_o_komm_du_geist_des_lebens"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 135,
   "titel": "Schmückt das Fest mit Maien",
-  "kategorie": 4,
-  "noten": [],
-  "hinweis": "ungeklärt (Quelle vorhanden: Wikimedia Commons (MIDI, Peter Gerloff))"
+  "kategorie": 2,
+  "noten": [
+   "schmueckt_das_fest_mit_maien"
+  ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "ungeklaert",
+  "hinweis": ""
  },
  {
   "eg_nummer": 136,
   "titel": "O komm, du Geist der Wahrheit",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "lob_gott_getrost_mit_singen"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -1128,14 +1520,20 @@
   "noten": [
    "o_durchbrecher_aller_bande"
   ],
+  "unterlegt": [
+   "o_durchbrecher_aller_bande"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 138,
   "titel": "Gott der Vater steh uns bei (Gott der Vater wohn uns bei)",
-  "kategorie": 5,
+  "kategorie": 4,
   "noten": [],
-  "hinweis": "Gott der Vater steh uns bei (EG 138).mid: erste Strophe nicht sicher abgrenzbar"
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": "Gott der Vater steh uns bei (EG 138).mid: 15 Töne passen nicht zu 98 Silben der ersten Strophe"
  },
  {
   "eg_nummer": 139,
@@ -1145,6 +1543,10 @@
    "nun_danket_alle_gott_eg_spaetere_form",
    "nun_danket_alle_gott_oe_version"
   ],
+  "unterlegt": [
+   "nun_danket_alle_gott_oe_version"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -1154,48 +1556,62 @@
   "noten": [
    "lobt_gott_den_herrn_der_herrlichkeit"
   ],
+  "unterlegt": [
+   "lobt_gott_den_herrn_der_herrlichkeit"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 141,
   "titel": "Wir wollen singn ein Lobgesang",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "Melodie gemeinfrei, Notenquelle fehlt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": ""
  },
  {
   "eg_nummer": 142,
   "titel": "Gott, aller Schöpfung heilger Herr",
-  "kategorie": 1,
+  "kategorie": 3,
   "noten": [
    "lobt_gott_den_herrn_der_herrlichkeit"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 143,
   "titel": "Heut singt die liebe Christenheit",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "Melodie gemeinfrei, Notenquelle fehlt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": ""
  },
  {
   "eg_nummer": 144,
   "titel": "Aus tiefer Not lasst uns zu Gott",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "aus_tiefer_not_schrei_ich_zu_dir_dachstein",
    "aus_tiefer_not_schrei_ich_zu_dir_luther_eg"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 145,
   "titel": "Wach auf, wach auf, du deutsches Land",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "wach_auf_wach_auf_du_deutsches_land"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -1205,15 +1621,21 @@
   "noten": [
    "vater_unser_im_himmelreich"
   ],
+  "unterlegt": [
+   "vater_unser_im_himmelreich"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 147,
   "titel": "Wachet auf, ruft uns die Stimme",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "wachet_auf_ruft_uns_die_stimme"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -1223,6 +1645,10 @@
   "noten": [
    "herzlich_tut_mich_erfreuen"
   ],
+  "unterlegt": [
+   "herzlich_tut_mich_erfreuen"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -1232,46 +1658,62 @@
   "noten": [
    "es_ist_gewisslich_an_der_zeit"
   ],
+  "unterlegt": [
+   "es_ist_gewisslich_an_der_zeit"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 150,
   "titel": "Jerusalem, du hochgebaute Stadt",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "jerusalem_du_hochgebaute_stadt"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 151,
   "titel": "Ermuntert euch, ihr Frommen",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "Melodie gemeinfrei, Notenquelle fehlt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": ""
  },
  {
   "eg_nummer": 152,
   "titel": "Wir warten dein, o Gottessohn",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "was_gott_tut_das_ist_wohlgetan"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 153,
   "titel": "Der Himmel, der ist, ist nicht der Himmel, der kommt",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 154,
   "titel": "Herr, mach uns stark im Mut, der dich bekennt",
-  "kategorie": 4,
-  "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt) (Quelle vorhanden: Wikimedia Commons (MIDI, Peter Gerloff))"
+  "kategorie": 3,
+  "noten": [
+   "fuer_alle_heilgen"
+  ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 155,
@@ -1280,14 +1722,20 @@
   "noten": [
    "herr_jesu_christ_dich_zu_uns_wend"
   ],
+  "unterlegt": [
+   "herr_jesu_christ_dich_zu_uns_wend"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 156,
   "titel": "Komm, Heiliger Geist, erfüll die Herzen deiner Gläubigen",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "Melodie gemeinfrei, Notenquelle fehlt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": ""
  },
  {
   "eg_nummer": 157,
@@ -1296,6 +1744,10 @@
   "noten": [
    "valet_will_ich_dir_geben_eg"
   ],
+  "unterlegt": [
+   "valet_will_ich_dir_geben_eg"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -1305,23 +1757,31 @@
   "noten": [
    "o_christe_morgensterne"
   ],
+  "unterlegt": [
+   "o_christe_morgensterne"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 159,
   "titel": "Fröhlich wir nun all fangen an",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "froehlich_wir_nun_all_fangen_an"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 160,
   "titel": "Gott Vater, dir sei Dank gesagt",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "Melodie gemeinfrei, Notenquelle fehlt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": ""
  },
  {
   "eg_nummer": 161,
@@ -1330,15 +1790,21 @@
   "noten": [
    "liebster_jesu_wir_sind_hier"
   ],
+  "unterlegt": [
+   "liebster_jesu_wir_sind_hier"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 162,
   "titel": "Gott Lob, der Sonntag kommt herbei",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "erschienen_ist_der_herrlich_tag"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -1348,15 +1814,21 @@
   "noten": [
    "liebster_jesu_wir_sind_hier"
   ],
+  "unterlegt": [
+   "liebster_jesu_wir_sind_hier"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 164,
   "titel": "Jesu, stärke deine Kinder",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "wachet_auf_ruft_uns_die_stimme"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -1366,6 +1838,10 @@
   "noten": [
    "gott_ist_gegenwaertig"
   ],
+  "unterlegt": [
+   "gott_ist_gegenwaertig"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -1375,195 +1851,253 @@
   "noten": [
    "tut_mir_auf_die_schoene_pforte"
   ],
+  "unterlegt": [
+   "tut_mir_auf_die_schoene_pforte"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 167,
   "titel": "Wir wollen fröhlich singen",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "Melodie gemeinfrei, Notenquelle fehlt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": ""
  },
  {
   "eg_nummer": 168,
   "titel": "Du hast uns, Herr, gerufen",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 169,
   "titel": "Der Gottesdienst soll fröhlich sein",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 170,
   "titel": "Komm, Herr, segne uns",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 171,
   "titel": "Bewahre uns, Gott, behüte uns, Gott",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 172,
   "titel": "Sende dein Licht und deine Wahrheit (Kanon)",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "Melodie gemeinfrei, Notenquelle fehlt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": ""
  },
  {
   "eg_nummer": 173,
   "titel": "Der Herr behüte deinen Ausgang (Kanon)",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 174,
   "titel": "Es segne und behüte uns (Kanon)",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 175,
   "titel": "Ausgang und Eingang, Anfang und Ende (Kanon)",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 176,
   "titel": "Öffne meine Augen (Die Gott suchen) - Kanon",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 177,
   "titel": "Ehr sei dem Vater und dem Sohn (Gloria Patri)",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "Melodie gemeinfrei, Notenquelle fehlt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": ""
  },
  {
   "eg_nummer": 178,
   "titel": "Herr, erbarme dich",
   "kategorie": 4,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt) (Quelle vorhanden: Wikimedia Commons (MIDI, Peter Gerloff))"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": "Kyrie, Gott Vater in Ewigkeit.mid: erste Strophe nicht sicher abgrenzbar"
  },
  {
   "eg_nummer": 179,
   "titel": "Allein Gott in der Höh sei Ehr",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "allein_gott_in_der_hoeh_sei_ehr"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 180,
   "titel": "Wir loben dich, wir beten dich an",
-  "kategorie": 5,
+  "kategorie": 4,
   "noten": [],
-  "hinweis": "Gott in der Höh sei Preis und Ehr.mid: erste Strophe nicht sicher abgrenzbar"
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": "Gott in der Höh sei Preis und Ehr.mid: 64 Töne passen nicht zu 148 Silben der ersten Strophe"
  },
  {
   "eg_nummer": 181,
   "titel": "Laudate omnes gentes",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 182,
   "titel": "Suchet zuerst Gottes Reich in dieser Welt",
-  "kategorie": 4,
-  "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt) (Quelle vorhanden: Wikimedia Commons (MIDI, Peter Gerloff))"
+  "kategorie": 2,
+  "noten": [
+   "halleluja"
+  ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 183,
   "titel": "Wir glauben all an einen Gott (Glaubensbekenntnis)",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "wir_glauben_all_an_einen_gott"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 184,
   "titel": "Wir glauben Gott im höchsten Thron",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 185,
   "titel": "Heilig, heilig, heilig ist Gott, der Herre Zebaoth",
-  "kategorie": 5,
+  "kategorie": 4,
   "noten": [],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": "Heilig, heilig (EG 185.3).mid: erste Strophe nicht sicher abgrenzbar"
  },
  {
   "eg_nummer": 186,
   "titel": "Unser Vater im Himmel, geheiligt werde dein Name",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "ungeklärt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "ungeklaert",
+  "hinweis": ""
  },
  {
   "eg_nummer": 187,
   "titel": "Unser Vater im Himmel, geheiligt werde dein Name",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "ungeklärt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "ungeklaert",
+  "hinweis": ""
  },
  {
   "eg_nummer": 188,
   "titel": "Vater unser, Vater im Himmel (Calypso)",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "ungeklärt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "ungeklaert",
+  "hinweis": ""
  },
  {
   "eg_nummer": 189,
   "titel": "Geheimnis des Glaubens",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "ungeklärt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "ungeklaert",
+  "hinweis": ""
  },
  {
   "eg_nummer": 190,
   "titel": "O Lamm Gottes, unschuldig",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "o_lamm_gottes_unschuldig"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 191,
   "titel": "Herr Gott, dich loben wir",
-  "kategorie": 5,
+  "kategorie": 4,
   "noten": [],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": "Herr Gott, dich loben wir.mid: erste Strophe nicht sicher abgrenzbar"
  },
  {
   "eg_nummer": 192,
   "titel": "Kyrie eleison",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "Melodie gemeinfrei, Notenquelle fehlt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": ""
  },
  {
   "eg_nummer": 193,
@@ -1572,23 +2106,31 @@
   "noten": [
    "erhalt_uns_herr_bei_deinem_wort"
   ],
+  "unterlegt": [
+   "erhalt_uns_herr_bei_deinem_wort"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 194,
   "titel": "O Gott, du höchster Gnadenthron",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "herr_jesu_christ_dich_zu_uns_wend"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 195,
   "titel": "Allein auf Gottes Wort will ich",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "Melodie gemeinfrei, Notenquelle fehlt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": ""
  },
  {
   "eg_nummer": 196,
@@ -1597,6 +2139,10 @@
   "noten": [
    "herr_fuer_dein_wort_sei_hoch_gepreist_es_spricht_der_unweisen_mund_wohl"
   ],
+  "unterlegt": [
+   "herr_fuer_dein_wort_sei_hoch_gepreist_es_spricht_der_unweisen_mund_wohl"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -1606,21 +2152,29 @@
   "noten": [
    "herr_jesu_christ_dich_zu_uns_wend"
   ],
+  "unterlegt": [
+   "herr_jesu_christ_dich_zu_uns_wend"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 198,
   "titel": "Herr, dein Wort, die edle Gabe",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "ungeklärt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "ungeklaert",
+  "hinweis": ""
  },
  {
   "eg_nummer": 199,
   "titel": "Gott hat das erste Wort (Es schuf aus Nichts die Welten)",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 200,
@@ -1629,14 +2183,20 @@
   "noten": [
    "o_dass_ich_tausend_zungen_haette"
   ],
+  "unterlegt": [
+   "o_dass_ich_tausend_zungen_haette"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 201,
   "titel": "Gehet hin in alle Welt, Halleluja",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 202,
@@ -1645,6 +2205,10 @@
   "noten": [
    "christ_unser_herr_zum_jordan_kam"
   ],
+  "unterlegt": [
+   "christ_unser_herr_zum_jordan_kam"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -1654,22 +2218,30 @@
   "noten": [
    "ach_lieber_herre_jesu_christ"
   ],
+  "unterlegt": [
+   "ach_lieber_herre_jesu_christ"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 204,
   "titel": "Herr Christ, dein bin ich eigen",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "Melodie gemeinfrei, Notenquelle fehlt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": ""
  },
  {
   "eg_nummer": 205,
   "titel": "Gott Vater, höre unsre Bitt",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "in_dich_hab_ich_gehoffet_herr"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -1679,51 +2251,67 @@
   "noten": [
    "liebster_jesu_wir_sind_hier"
   ],
+  "unterlegt": [
+   "liebster_jesu_wir_sind_hier"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 207,
   "titel": "Nun schreib ins Buch des Lebens",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "Melodie gemeinfrei, Notenquelle fehlt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": ""
  },
  {
   "eg_nummer": 208,
   "titel": "Gott Vater, du hast deinen Namen",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 209,
   "titel": "Ich möcht, dass einer mit mir geht",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 210,
   "titel": "Du hast mich, Herr, zu dir gerufen",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 211,
   "titel": "Gott, der du alles Leben schufst",
-  "kategorie": 1,
+  "kategorie": 3,
   "noten": [
    "o_jesu_christe_wahres_licht"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 212,
   "titel": "Voller Freude über dieses Wunder",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 213,
@@ -1732,167 +2320,217 @@
   "noten": [
    "zieh_ein_zu_deinen_toren"
   ],
+  "unterlegt": [
+   "zieh_ein_zu_deinen_toren"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 214,
   "titel": "Gott sei gelobet und gebenedeiet",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "gott_sei_gelobet_und_gebenedeiet_eg"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 215,
   "titel": "Jesus Christus, unser Heiland, der von uns den Gotteszorn wandt",
-  "kategorie": 5,
+  "kategorie": 4,
   "noten": [],
-  "hinweis": "Jesus Christus, unser Heiland, der von uns den Gotteszorn wandt.mid: erste Strophe nicht sicher abgrenzbar"
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": "Jesus Christus, unser Heiland, der von uns den Gotteszorn wandt.mid: 42 Töne passen nicht zu 332 Silben der ersten Strophe"
  },
  {
   "eg_nummer": 216,
   "titel": "Du hast uns Leib und Seel gespeist",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "was_mein_gott_will_gescheh_allzeit"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 217,
   "titel": "Herr Jesu Christe, mein getreuer Hirte",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "gott_sei_gelobet_und_gebenedeiet_eg"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 218,
   "titel": "Schmücke dich, o liebe Seele",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "schmuecke_dich_o_liebe_seele"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 219,
   "titel": "Herr Jesu Christ, du höchstes Gut",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "Melodie gemeinfrei, Notenquelle fehlt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": ""
  },
  {
   "eg_nummer": 220,
   "titel": "Herr, du wollest uns bereiten",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "wachet_auf_ruft_uns_die_stimme"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 221,
   "titel": "Das sollt ihr, Jesu Jünger, nie vergessen",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "Melodie gemeinfrei, Notenquelle fehlt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": ""
  },
  {
   "eg_nummer": 222,
   "titel": "Im Frieden dein, o Herre mein",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "im_frieden_dein_o_herre_mein_eg"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 223,
   "titel": "Das Wort geht von dem Vater aus",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "wir_danken_dir_herr_jesu_christ_dass_du_fuer_uns_gestorben_bist"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 224,
   "titel": "Du hast zu deinem Abendmahl",
-  "kategorie": 1,
+  "kategorie": 3,
   "noten": [
    "was_mein_gott_will_gescheh_allzeit"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 225,
   "titel": "Komm, sag es allen weiter",
-  "kategorie": 4,
-  "noten": [],
-  "hinweis": "ungeklärt (Quelle vorhanden: Wikimedia Commons (MIDI, Peter Gerloff))"
+  "kategorie": 3,
+  "noten": [
+   "komm_sag_es_allen_weiter"
+  ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "ungeklaert",
+  "hinweis": ""
  },
  {
   "eg_nummer": 226,
   "titel": "Seht, das Brot, das wir hier teilen",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 227,
   "titel": "Dank sei dir, Vater, für das ewge Leben",
-  "kategorie": 5,
-  "noten": [],
-  "hinweis": "Dank sei dir, Vater, für das ewge Leben.mid: erste Strophe nicht sicher abgrenzbar"
+  "kategorie": 3,
+  "noten": [
+   "dank_sei_dir_vater_fuer_das_ewge_leben"
+  ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": ""
  },
  {
   "eg_nummer": 228,
   "titel": "Er ist das Brot, er ist der Wein",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 229,
   "titel": "Kommt mit Gaben und Lobgesang",
-  "kategorie": 4,
-  "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt) (Quelle vorhanden: Wikimedia Commons (MIDI, Peter Gerloff))"
+  "kategorie": 3,
+  "noten": [
+   "let_us_talents_and_tongues_employ"
+  ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 230,
   "titel": "Schaffe in mir, Gott, ein reines Herz",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "Melodie gemeinfrei, Notenquelle fehlt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": ""
  },
  {
   "eg_nummer": 231,
   "titel": "Dies sind die heilgen zehn Gebot",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "dies_sind_die_heilgen_zehn_gebot_leittonversion"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 232,
   "titel": "Allein zu dir, Herr Jesu Christ",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "allein_zu_dir_herr_jesu_christ"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 233,
   "titel": "Ach Gott und Herr, wie groß und schwer",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "Melodie gemeinfrei, Notenquelle fehlt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": ""
  },
  {
   "eg_nummer": 234,
@@ -1901,50 +2539,66 @@
   "noten": [
    "vater_unser_im_himmelreich"
   ],
+  "unterlegt": [
+   "vater_unser_im_himmelreich"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 235,
   "titel": "O Herr, nimm unsre Schuld, mit der wir uns belasten",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 236,
   "titel": "Ohren gabst du mir, hören kann ich nicht",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 237,
   "titel": "Und suchst du meine Sünde",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 238,
   "titel": "Herr, vor dein Antlitz treten zwei",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "Melodie gemeinfrei, Notenquelle fehlt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": ""
  },
  {
   "eg_nummer": 239,
   "titel": "Freuet euch im Herren allewege",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 240,
   "titel": "Du hast uns, Herr, in dir verbunden",
-  "kategorie": 1,
+  "kategorie": 3,
   "noten": [
    "o_dass_ich_tausend_zungen_haette"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -1954,76 +2608,98 @@
   "noten": [
    "dir_dir_o_hoechster_will_ich_singen"
   ],
+  "unterlegt": [
+   "dir_dir_o_hoechster_will_ich_singen"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 242,
   "titel": "Herr, nun selbst den Wagen halt",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "herr_nun_selbst_den_wagen_halt"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 243,
   "titel": "Lob Gott getrost mit Singen",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "lob_gott_getrost_mit_singen"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 244,
   "titel": "Wach auf, wach auf, es ist hohe Zeit",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "der_tag_bricht_an_und_zeiget_sich"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 245,
   "titel": "Preis, Lob und Dank sei Gott dem Herrn",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "Melodie gemeinfrei, Notenquelle fehlt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": ""
  },
  {
   "eg_nummer": 246,
   "titel": "Ach bleib bei uns, Herr Jesu Christ",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "Melodie gemeinfrei, Notenquelle fehlt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": ""
  },
  {
   "eg_nummer": 247,
   "titel": "Herr, unser Gott, lass nicht zuschanden werden",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "Melodie gemeinfrei, Notenquelle fehlt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": ""
  },
  {
   "eg_nummer": 248,
   "titel": "Treuer Wächter Israel",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "Melodie gemeinfrei, Notenquelle fehlt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": ""
  },
  {
   "eg_nummer": 249,
   "titel": "Verzage nicht, du Häuflein klein",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "Melodie gemeinfrei, Notenquelle fehlt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": ""
  },
  {
   "eg_nummer": 250,
   "titel": "Ich lobe dich von ganzer Seelen",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "ungeklärt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "ungeklaert",
+  "hinweis": ""
  },
  {
   "eg_nummer": 251,
@@ -2032,28 +2708,38 @@
   "noten": [
    "bei_dir_jesu_will_ich_bleiben"
   ],
+  "unterlegt": [
+   "bei_dir_jesu_will_ich_bleiben"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 252,
   "titel": "Jesu, der du bist alleine",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "Melodie gemeinfrei, Notenquelle fehlt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": ""
  },
  {
   "eg_nummer": 253,
   "titel": "Ich glaube, dass die Heiligen",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "Melodie gemeinfrei, Notenquelle fehlt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": ""
  },
  {
   "eg_nummer": 254,
   "titel": "Wir wolln uns gerne wagen",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 255,
@@ -2062,15 +2748,21 @@
   "noten": [
    "o_dass_doch_bald_dein_feuer_brennte"
   ],
+  "unterlegt": [
+   "o_dass_doch_bald_dein_feuer_brennte"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 256,
   "titel": "Einer ist's, an dem wir hangen",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "wachet_auf_ruft_uns_die_stimme"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -2080,170 +2772,216 @@
   "noten": [
    "valet_will_ich_dir_geben_eg"
   ],
+  "unterlegt": [
+   "valet_will_ich_dir_geben_eg"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 258,
   "titel": "Zieht in Frieden eure Pfade",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "wachet_auf_ruft_uns_die_stimme"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 259,
   "titel": "Kommt her, des Königs Aufgebot",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "kommt_her_des_koenigs_aufgebot"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 260,
   "titel": "Gleichwie mich mein Vater gesandt hat, so sende ich euch",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 261,
   "titel": "Herr, wohin sollen wir gehen (Kanon)",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 262,
   "titel": "Sonne der Gerechtigkeit",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "sonne_der_gerechtigkeit"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 263,
   "titel": "Sonne der Gerechtigkeit",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "sonne_der_gerechtigkeit"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 264,
   "titel": "Die Kirche steht gegründet allein auf Jesum Christ",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "Melodie gemeinfrei, Notenquelle fehlt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": ""
  },
  {
   "eg_nummer": 265,
   "titel": "Nun singe Lob, du Christenheit",
-  "kategorie": 1,
+  "kategorie": 3,
   "noten": [
    "nun_danket_all_und_bringet_ehr"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 266,
   "titel": "Der Tag, mein Gott, ist nun vergangen",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "Melodie gemeinfrei, Notenquelle fehlt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": ""
  },
  {
   "eg_nummer": 267,
   "titel": "Herr, du hast darum gebetet",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "ungeklärt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "ungeklaert",
+  "hinweis": ""
  },
  {
   "eg_nummer": 268,
   "titel": "Strahlen brechen viele aus einem Licht",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 269,
   "titel": "Christus ist König, jubelt laut",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 270,
   "titel": "Herr, unser Herrscher, wie herrlich bist du",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 271,
   "titel": "Wie herrlich gibst du, Herr, dich zu erkennen",
-  "kategorie": 1,
+  "kategorie": 3,
   "noten": [
    "gott_rufet_noch"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 272,
   "titel": "Ich lobe meinen Gott von ganzem Herzen",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 273,
   "titel": "Ach Gott, vom Himmel sieh darein",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "ach_gott_vom_himmel_sieh_darein"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 274,
   "titel": "Der Herr ist mein getreuer Hirt",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "Melodie gemeinfrei, Notenquelle fehlt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": ""
  },
  {
   "eg_nummer": 275,
   "titel": "In dich hab ich gehoffet, Herr",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "in_dich_hab_ich_gehoffet_herr"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 276,
   "titel": "Ich will, solang ich lebe",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "Melodie gemeinfrei, Notenquelle fehlt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": ""
  },
  {
   "eg_nummer": 277,
   "titel": "Herr, deine Güte reicht, so weit der Himmel ist",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 278,
   "titel": "Wie der Hirsch lechzt nach frischem Wasser",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 279,
@@ -2252,15 +2990,21 @@
   "noten": [
    "nun_saget_dank_und_lobt_den_herren_eg"
   ],
+  "unterlegt": [
+   "nun_saget_dank_und_lobt_den_herren_eg"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 280,
   "titel": "Es wolle Gott uns gnädig sein (Es woll uns Gott genädig sein)",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "es_wolle_gott_uns_gnaedig_sein"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -2270,52 +3014,68 @@
   "noten": [
    "o_mensch_bewein_dein_suende_gross_eg"
   ],
+  "unterlegt": [
+   "o_mensch_bewein_dein_suende_gross_eg"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 282,
   "titel": "Wie lieblich schön, Herr Zebaoth",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "Melodie gemeinfrei, Notenquelle fehlt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": ""
  },
  {
   "eg_nummer": 283,
   "titel": "Herr, der du vormals hast dein Land",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "aus_tiefer_not_schrei_ich_zu_dir_dachstein",
    "aus_tiefer_not_schrei_ich_zu_dir_luther_eg"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 284,
   "titel": "Das ist köstlich, dir zu sagen Lob und Preis",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "Melodie gemeinfrei, Notenquelle fehlt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": ""
  },
  {
   "eg_nummer": 285,
   "titel": "Das ist ein köstlich Ding, dem Herren danken",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 286,
   "titel": "Singt, singt dem Herren neue Lieder",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "ungeklärt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "ungeklaert",
+  "hinweis": ""
  },
  {
   "eg_nummer": 287,
   "titel": "Singet dem Herrn ein neues Lied, denn Er tut Wunder",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 288,
@@ -2324,54 +3084,70 @@
   "noten": [
    "nun_jauchzt_dem_herren_alle_welt"
   ],
+  "unterlegt": [
+   "nun_jauchzt_dem_herren_alle_welt"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 289,
   "titel": "Nun lob, mein Seel, den Herren",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "nun_lob_mein_seel_den_herren_eg"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 290,
   "titel": "Nun danket Gott, erhebt und preiset",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "Melodie gemeinfrei, Notenquelle fehlt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": ""
  },
  {
   "eg_nummer": 291,
   "titel": "Ich will dir danken, Herr, unter den Völkern",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 292,
   "titel": "Das ist mir lieb, dass du mich hörst",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 293,
   "titel": "Lobt Gott den Herrn, ihr Heiden all",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "lobt_gott_den_herrn_ihr_heiden_all"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 294,
   "titel": "Nun saget Dank und lobt den Herren",
-  "kategorie": 1,
+  "kategorie": 3,
   "noten": [
    "nun_saget_dank_und_lobt_den_herren_eg"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -2381,6 +3157,10 @@
   "noten": [
    "wohl_denen_die_da_wandeln_heinrich_schuetz"
   ],
+  "unterlegt": [
+   "wohl_denen_die_da_wandeln_heinrich_schuetz"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -2390,6 +3170,10 @@
   "noten": [
    "wenn_wir_in_hoechsten_noeten_sein"
   ],
+  "unterlegt": [
+   "wenn_wir_in_hoechsten_noeten_sein"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -2399,23 +3183,31 @@
   "noten": [
    "wo_gott_der_herr_nicht_bei_uns_haelt"
   ],
+  "unterlegt": [
+   "wo_gott_der_herr_nicht_bei_uns_haelt"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 298,
   "titel": "Wenn der Herr einst die Gefangnen",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "Melodie gemeinfrei, Notenquelle fehlt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": ""
  },
  {
   "eg_nummer": 299,
   "titel": "Aus tiefer Not schrei ich zu dir",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "aus_tiefer_not_schrei_ich_zu_dir_dachstein",
    "aus_tiefer_not_schrei_ich_zu_dir_luther_eg"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -2425,14 +3217,24 @@
   "noten": [
    "lobt_gott_den_herrn_der_herrlichkeit"
   ],
+  "unterlegt": [
+   "lobt_gott_den_herrn_der_herrlichkeit"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 301,
   "titel": "Danket Gott, denn er ist gut",
-  "kategorie": 5,
-  "noten": [],
-  "hinweis": "Danket Gott, denn er ist gut.mid: erste Strophe nicht sicher abgrenzbar"
+  "kategorie": 1,
+  "noten": [
+   "danket_gott_denn_er_ist_gut"
+  ],
+  "unterlegt": [
+   "danket_gott_denn_er_ist_gut"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": ""
  },
  {
   "eg_nummer": 302,
@@ -2441,15 +3243,21 @@
   "noten": [
    "du_meine_seele_singe"
   ],
+  "unterlegt": [
+   "du_meine_seele_singe"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 303,
   "titel": "Lobe den Herren, o meine Seele",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "lobe_den_herren_o_meine_seele"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -2459,84 +3267,110 @@
   "noten": [
    "lobet_den_herren_alle_die_ihn_ehren"
   ],
+  "unterlegt": [
+   "lobet_den_herren_alle_die_ihn_ehren"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 305,
   "titel": "Singt das Lied der Freude",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 306,
   "titel": "Singt das Lied der Freude, der Freude über Gott",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 307,
   "titel": "Selig sind, die da geistlich arm sind",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "Melodie gemeinfrei, Notenquelle fehlt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": ""
  },
  {
   "eg_nummer": 308,
   "titel": "Mein Seel, o Herr, muss loben dich",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "Melodie gemeinfrei, Notenquelle fehlt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": ""
  },
  {
   "eg_nummer": 309,
   "titel": "Hoch hebt den Herrn mein Herz",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "Melodie gemeinfrei, Notenquelle fehlt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": ""
  },
  {
   "eg_nummer": 310,
   "titel": "Meine Seele erhebt den Herren (Kanon)",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 311,
   "titel": "Abraham, Abraham, verlass dein Land",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 312,
   "titel": "Kam einst zum Ufer",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 313,
   "titel": "Jesus, der zu den Fischern lief",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 314,
   "titel": "Jesus zieht in Jerusalem ein",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 315,
   "titel": "Ich will zu meinem Vater gehn",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 316,
@@ -2545,6 +3379,10 @@
   "noten": [
    "lobe_den_herren_den_maechtigen_koenig_der_ehren"
   ],
+  "unterlegt": [
+   "lobe_den_herren_den_maechtigen_koenig_der_ehren"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -2554,21 +3392,31 @@
   "noten": [
    "lobe_den_herren_den_maechtigen_koenig_der_ehren"
   ],
+  "unterlegt": [
+   "lobe_den_herren_den_maechtigen_koenig_der_ehren"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 318,
   "titel": "O gläubig Herz, gebenedei",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "Melodie gemeinfrei, Notenquelle fehlt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": ""
  },
  {
   "eg_nummer": 319,
   "titel": "Die beste Zeit im Jahr ist mein",
-  "kategorie": 4,
-  "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt) (Quelle vorhanden: Wikimedia Commons (MIDI, Peter Gerloff))"
+  "kategorie": 2,
+  "noten": [
+   "die_beste_zeit_im_jahr_ist_mein"
+  ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 320,
@@ -2577,6 +3425,10 @@
   "noten": [
    "nun_lasst_uns_gott_dem_herren"
   ],
+  "unterlegt": [
+   "nun_lasst_uns_gott_dem_herren"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -2587,6 +3439,11 @@
    "nun_danket_alle_gott_eg_spaetere_form",
    "nun_danket_alle_gott_oe_version"
   ],
+  "unterlegt": [
+   "nun_danket_alle_gott_eg_spaetere_form",
+   "nun_danket_alle_gott_oe_version"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -2596,14 +3453,20 @@
   "noten": [
    "nun_danket_all_und_bringet_ehr"
   ],
+  "unterlegt": [
+   "nun_danket_all_und_bringet_ehr"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 323,
   "titel": "Man lobt dich in der Stille",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "Melodie gemeinfrei, Notenquelle fehlt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": ""
  },
  {
   "eg_nummer": 324,
@@ -2612,6 +3475,10 @@
   "noten": [
    "nun_danket_all_und_bringet_ehr"
   ],
+  "unterlegt": [
+   "nun_danket_all_und_bringet_ehr"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -2621,6 +3488,10 @@
   "noten": [
    "sollt_ich_meinem_gott_nicht_singen"
   ],
+  "unterlegt": [
+   "sollt_ich_meinem_gott_nicht_singen"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -2630,6 +3501,10 @@
   "noten": [
    "sei_lob_und_ehr_dem_hoechsten_gut"
   ],
+  "unterlegt": [
+   "sei_lob_und_ehr_dem_hoechsten_gut"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -2639,6 +3514,10 @@
   "noten": [
    "gott_ist_gegenwaertig"
   ],
+  "unterlegt": [
+   "gott_ist_gegenwaertig"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -2648,6 +3527,10 @@
   "noten": [
    "dir_dir_o_hoechster_will_ich_singen"
   ],
+  "unterlegt": [
+   "dir_dir_o_hoechster_will_ich_singen"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -2657,6 +3540,10 @@
   "noten": [
    "wenn_ich_o_schoepfer_deine_macht"
   ],
+  "unterlegt": [
+   "wenn_ich_o_schoepfer_deine_macht"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -2666,23 +3553,33 @@
   "noten": [
    "o_dass_ich_tausend_zungen_haette"
   ],
+  "unterlegt": [
+   "o_dass_ich_tausend_zungen_haette"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 331,
   "titel": "Großer Gott, wir loben dich",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "grosser_gott_wir_loben_dich"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 332,
   "titel": "Lobt froh den Herrn, ihr jugendlichen Chöre",
-  "kategorie": 4,
-  "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt) (Quelle vorhanden: Wikimedia Commons (MIDI, Peter Gerloff))"
+  "kategorie": 2,
+  "noten": [
+   "lobt_froh_den_herrn"
+  ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 333,
@@ -2691,74 +3588,100 @@
   "noten": [
    "danket_dem_herrn_wir_danken_dem_herrn"
   ],
+  "unterlegt": [
+   "danket_dem_herrn_wir_danken_dem_herrn"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 334,
   "titel": "Danke für diesen guten Morgen",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 335,
   "titel": "Ich will den Herrn loben allezeit (Kanon)",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "ich_will_den_herrn_loben_allezeit_telemann"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 336,
   "titel": "Danket, danket dem Herrn (Kanon)",
-  "kategorie": 4,
-  "noten": [],
-  "hinweis": "ungeklärt (Quelle vorhanden: Wikimedia Commons (MIDI, Peter Gerloff))"
+  "kategorie": 2,
+  "noten": [
+   "danket_danket_dem_herrn_kanon"
+  ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "ungeklaert",
+  "hinweis": ""
  },
  {
   "eg_nummer": 337,
   "titel": "Lobet und preiset, ihr Völker, den Herrn (Kanon)",
   "kategorie": 4,
   "noten": [],
-  "hinweis": "ungeklärt (Quelle vorhanden: Wikipedia (LilyPond im Artikeltext))"
+  "unterlegt": [],
+  "melodie_laut_recherche": "ungeklaert",
+  "hinweis": "Wikipedia (LilyPond im Artikeltext): nicht verarbeitet"
  },
  {
   "eg_nummer": 338,
   "titel": "Alte mit den Jungen sollen loben (Kanon)",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 339,
   "titel": "Mein Herz ist bereit, Gott",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 340,
   "titel": "Ich will dem Herrn singen mein Leben lang (Kanon)",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 341,
   "titel": "Nun freut euch, lieben Christen gmein",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "nun_freut_euch_lieben_christen_g_mein"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 342,
   "titel": "Es ist das Heil uns kommen her",
-  "kategorie": 4,
-  "noten": [],
-  "hinweis": "ungeklärt (Quelle vorhanden: Wikimedia Commons (MIDI, Peter Gerloff))"
+  "kategorie": 2,
+  "noten": [
+   "es_ist_das_heil_uns_kommen_her"
+  ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "ungeklaert",
+  "hinweis": ""
  },
  {
   "eg_nummer": 343,
@@ -2767,6 +3690,10 @@
   "noten": [
    "ich_ruf_zu_dir_herr_jesu_christ"
   ],
+  "unterlegt": [
+   "ich_ruf_zu_dir_herr_jesu_christ"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -2776,6 +3703,10 @@
   "noten": [
    "vater_unser_im_himmelreich"
   ],
+  "unterlegt": [
+   "vater_unser_im_himmelreich"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -2785,49 +3716,63 @@
   "noten": [
    "auf_meinen_lieben_gott"
   ],
+  "unterlegt": [
+   "auf_meinen_lieben_gott"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 346,
   "titel": "Such, wer da will, ein ander Ziel",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "such_wer_da_will_ein_ander_ziel"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 347,
   "titel": "Ach bleib mit deiner Gnade",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "christus_der_ist_mein_leben"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 348,
   "titel": "Gott verspricht: Ich will dich segnen",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 349,
   "titel": "Ich freu mich in dem Herren aus meines Herzens Grund",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "ich_freu_mich_in_dem_herren"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 350,
   "titel": "Christi Blut und Gerechtigkeit",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "wir_danken_dir_herr_jesu_christ_dass_du_fuer_uns_gestorben_bist"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -2837,6 +3782,10 @@
   "noten": [
    "ist_gott_fuer_mich"
   ],
+  "unterlegt": [
+   "ist_gott_fuer_mich"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -2846,6 +3795,10 @@
   "noten": [
    "alles_ist_an_gottes_segen"
   ],
+  "unterlegt": [
+   "alles_ist_an_gottes_segen"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -2855,6 +3808,10 @@
   "noten": [
    "meinen_jesus_lass_ich_nicht_johann_ulich"
   ],
+  "unterlegt": [
+   "meinen_jesus_lass_ich_nicht_johann_ulich"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -2864,21 +3821,29 @@
   "noten": [
    "o_dass_ich_tausend_zungen_haette"
   ],
+  "unterlegt": [
+   "o_dass_ich_tausend_zungen_haette"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 355,
   "titel": "Mir ist Erbarmung widerfahren",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "Melodie gemeinfrei, Notenquelle fehlt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": ""
  },
  {
   "eg_nummer": 356,
   "titel": "Es ist in keinem andern Heil",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "Melodie gemeinfrei, Notenquelle fehlt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": ""
  },
  {
   "eg_nummer": 357,
@@ -2887,6 +3852,10 @@
   "noten": [
    "ich_weiss_woran_ich_glaube"
   ],
+  "unterlegt": [
+   "ich_weiss_woran_ich_glaube"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -2896,21 +3865,29 @@
   "noten": [
    "ich_weiss_woran_ich_glaube"
   ],
+  "unterlegt": [
+   "ich_weiss_woran_ich_glaube"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 359,
   "titel": "In dem Herren freuet euch",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 360,
   "titel": "Die ganze Welt hast du uns überlassen (Gott schenkt Freiheit)",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 361,
@@ -2919,33 +3896,43 @@
   "noten": [
    "befiehl_du_deine_wege"
   ],
+  "unterlegt": [
+   "befiehl_du_deine_wege"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 362,
   "titel": "Ein feste Burg ist unser Gott",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "ein_feste_burg_ist_unser_gott_eg_362_spaetere_form"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 363,
   "titel": "Kommt her zu mir, spricht Gottes Sohn",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "kommt_her_zu_mir_spricht_gottes_sohn"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 364,
   "titel": "Was mein Gott will, gescheh allzeit",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "was_mein_gott_will_gescheh_allzeit"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -2955,6 +3942,10 @@
   "noten": [
    "von_gott_will_ich_nicht_lassen"
   ],
+  "unterlegt": [
+   "von_gott_will_ich_nicht_lassen"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -2964,16 +3955,22 @@
   "noten": [
    "wenn_wir_in_hoechsten_noeten_sein"
   ],
+  "unterlegt": [
+   "wenn_wir_in_hoechsten_noeten_sein"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 367,
   "titel": "Herr, wie du willst, so schick's mit mir",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "aus_tiefer_not_schrei_ich_zu_dir_dachstein",
    "aus_tiefer_not_schrei_ich_zu_dir_luther_eg"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -2983,6 +3980,10 @@
   "noten": [
    "o_welt_ich_muss_dich_lassen"
   ],
+  "unterlegt": [
+   "o_welt_ich_muss_dich_lassen"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -2992,6 +3993,10 @@
   "noten": [
    "wer_nur_den_lieben_gott_laesst_walten_eg"
   ],
+  "unterlegt": [
+   "wer_nur_den_lieben_gott_laesst_walten_eg"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -3001,6 +4006,10 @@
   "noten": [
    "warum_sollt_ich_mich_denn_graemen"
   ],
+  "unterlegt": [
+   "warum_sollt_ich_mich_denn_graemen"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -3010,15 +4019,21 @@
   "noten": [
    "gib_dich_zufrieden_und_sei_stille_eg"
   ],
+  "unterlegt": [
+   "gib_dich_zufrieden_und_sei_stille_eg"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 372,
   "titel": "Was Gott tut, das ist wohlgetan",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "was_gott_tut_das_ist_wohlgetan"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -3028,6 +4043,10 @@
   "noten": [
    "jesus_ist_kommen_grund_ewiger_freude"
   ],
+  "unterlegt": [
+   "jesus_ist_kommen_grund_ewiger_freude"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -3037,41 +4056,53 @@
   "noten": [
    "wo_gott_der_herr_nicht_bei_uns_haelt"
   ],
+  "unterlegt": [
+   "wo_gott_der_herr_nicht_bei_uns_haelt"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 375,
   "titel": "Dass Jesus siegt, bleibt ewig ausgemacht",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "dass_jesus_siegt"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 376,
   "titel": "So nimm denn meine Hände",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "so_nimm_denn_meine_haende"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 377,
   "titel": "Zieh an die Macht, du Arm des Herrn",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "lobt_gott_den_herrn_ihr_heiden_all"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 378,
   "titel": "Es mag sein, dass alles fällt",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 379,
@@ -3080,35 +4111,47 @@
   "noten": [
    "aus_meines_jammers_tiefe"
   ],
+  "unterlegt": [
+   "aus_meines_jammers_tiefe"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 380,
   "titel": "Ja, ich will euch tragen",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 381,
   "titel": "Gott, mein Gott, warum hast du mich verlassen",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 382,
   "titel": "Ich steh vor dir mit leeren Händen, Herr",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 383,
   "titel": "Herr, du hast mich angerührt",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 384,
@@ -3117,24 +4160,32 @@
   "noten": [
    "sollt_ich_meinem_gott_nicht_singen"
   ],
+  "unterlegt": [
+   "sollt_ich_meinem_gott_nicht_singen"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 385,
   "titel": "Mir nach, spricht Christus, unser Held",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "mir_nach_spricht_christus_unser_held_eg"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 386,
   "titel": "Eins ist not! Ach Herr, dies eine",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "eins_ist_not"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -3144,6 +4195,10 @@
   "noten": [
    "mache_dich_mein_geist_bereit"
   ],
+  "unterlegt": [
+   "mache_dich_mein_geist_bereit"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -3153,6 +4208,10 @@
   "noten": [
    "o_durchbrecher_aller_bande"
   ],
+  "unterlegt": [
+   "o_durchbrecher_aller_bande"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -3162,6 +4221,10 @@
   "noten": [
    "o_jesu_christe_wahres_licht"
   ],
+  "unterlegt": [
+   "o_jesu_christe_wahres_licht"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -3171,6 +4234,10 @@
   "noten": [
    "o_jesu_christe_wahres_licht"
   ],
+  "unterlegt": [
+   "o_jesu_christe_wahres_licht"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -3180,6 +4247,10 @@
   "noten": [
    "jesu_geh_voran"
   ],
+  "unterlegt": [
+   "jesu_geh_voran"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -3189,14 +4260,20 @@
   "noten": [
    "gott_rufet_noch"
   ],
+  "unterlegt": [
+   "gott_rufet_noch"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 393,
   "titel": "Kommt, Kinder, lasst uns gehen",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "Melodie gemeinfrei, Notenquelle fehlt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": ""
  },
  {
   "eg_nummer": 394,
@@ -3205,15 +4282,21 @@
   "noten": [
    "nun_danket_all_und_bringet_ehr"
   ],
+  "unterlegt": [
+   "nun_danket_all_und_bringet_ehr"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 395,
   "titel": "Vertraut den neuen Wegen",
-  "kategorie": 1,
+  "kategorie": 3,
   "noten": [
    "lob_gott_getrost_mit_singen"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -3223,21 +4306,29 @@
   "noten": [
    "jesu_meine_freude"
   ],
+  "unterlegt": [
+   "jesu_meine_freude"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 397,
   "titel": "Herzlich lieb hab ich dich, o Herr",
-  "kategorie": 5,
+  "kategorie": 4,
   "noten": [],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": "Herzlich lieb hab ich dich, o Herr.mid: erste Strophe nicht sicher abgrenzbar"
  },
  {
   "eg_nummer": 398,
   "titel": "In dir ist Freude in allem Leide",
-  "kategorie": 5,
+  "kategorie": 4,
   "noten": [],
-  "hinweis": "In dir ist Freude.mid: erste Strophe nicht sicher abgrenzbar"
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": "In dir ist Freude.mid: 18 Töne passen nicht zu 92 Silben der ersten Strophe"
  },
  {
   "eg_nummer": 399,
@@ -3246,21 +4337,31 @@
   "noten": [
    "o_lebensbruennlein_tief_und_gross"
   ],
+  "unterlegt": [
+   "o_lebensbruennlein_tief_und_gross"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 400,
   "titel": "Ich will dich lieben, meine Stärke",
-  "kategorie": 4,
-  "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt) (Quelle vorhanden: Wikimedia Commons (MIDI, Peter Gerloff))"
+  "kategorie": 2,
+  "noten": [
+   "ich_will_dich_lieben_meine_staerke_eg"
+  ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 401,
   "titel": "Liebe, die du mich zum Bilde",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "Melodie gemeinfrei, Notenquelle fehlt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": ""
  },
  {
   "eg_nummer": 402,
@@ -3269,6 +4370,10 @@
   "noten": [
    "meinen_jesus_lass_ich_nicht_johann_ulich"
   ],
+  "unterlegt": [
+   "meinen_jesus_lass_ich_nicht_johann_ulich"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -3279,6 +4384,10 @@
    "schoenster_herr_jesu_glatz",
    "schoenster_herr_jesu_muenster"
   ],
+  "unterlegt": [
+   "schoenster_herr_jesu_muenster"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -3288,68 +4397,92 @@
   "noten": [
    "herr_christ_der_einig_gotts_sohn"
   ],
+  "unterlegt": [
+   "herr_christ_der_einig_gotts_sohn"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 405,
   "titel": "Halt im Gedächtnis Jesus Christ",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "Melodie gemeinfrei, Notenquelle fehlt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": ""
  },
  {
   "eg_nummer": 406,
   "titel": "Bei dir, Jesu, will ich bleiben",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "bei_dir_jesu_will_ich_bleiben"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 407,
   "titel": "Stern, auf den ich schaue",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "stern_auf_den_ich_schaue"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 408,
   "titel": "Meinem Gott gehört die Welt",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 409,
   "titel": "Gott liebt diese Welt",
-  "kategorie": 4,
-  "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt) (Quelle vorhanden: Wikimedia Commons (MIDI, Peter Gerloff))"
+  "kategorie": 3,
+  "noten": [
+   "gott_liebt_diese_welt"
+  ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 410,
   "titel": "Christus, das Licht der Welt",
-  "kategorie": 5,
-  "noten": [],
-  "hinweis": "Christus, das Licht der Welt.mid: erste Strophe nicht sicher abgrenzbar"
+  "kategorie": 3,
+  "noten": [
+   "christus_das_licht_der_welt"
+  ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": ""
  },
  {
   "eg_nummer": 411,
   "titel": "Gott, weil er groß ist (Kanon)",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 412,
   "titel": "So jemand spricht: Ich liebe Gott",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "mir_nach_spricht_christus_unser_held_eg"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -3359,74 +4492,96 @@
   "noten": [
    "lobt_gott_den_herrn_der_herrlichkeit"
   ],
+  "unterlegt": [
+   "lobt_gott_den_herrn_der_herrlichkeit"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 414,
   "titel": "Lass mich, o Herr, in allen Dingen",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "Melodie gemeinfrei, Notenquelle fehlt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": ""
  },
  {
   "eg_nummer": 415,
   "titel": "Liebe, du ans Kreuz für uns erhöhte",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "Melodie gemeinfrei, Notenquelle fehlt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": ""
  },
  {
   "eg_nummer": 416,
   "titel": "O Herr, mach mich zu einem Werkzeug deines Friedens",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 417,
   "titel": "Lass die Wurzel unsers Handelns Liebe sein",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 418,
   "titel": "Brich den Hungrigen dein Brot",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 419,
   "titel": "Hilf, Herr meines Lebens",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 420,
   "titel": "Brich mit den Hungrigen dein Brot",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 421,
   "titel": "Verleih uns Frieden gnädiglich",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "verleih_uns_frieden_gnaediglich_andere_form",
    "verleih_uns_frieden_gnaediglich"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 422,
   "titel": "Du Friedefürst, Herr Jesu Christ",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "du_friedefuerst_herr_jesu_christ"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -3436,100 +4591,138 @@
   "noten": [
    "o_welt_ich_muss_dich_lassen"
   ],
+  "unterlegt": [
+   "o_welt_ich_muss_dich_lassen"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 424,
   "titel": "Deine Hände, großer Gott",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 425,
   "titel": "Gib uns Frieden jeden Tag!",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 426,
   "titel": "Es wird sein in den letzten Tagen",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 427,
   "titel": "Solang es Menschen gibt auf Erden",
-  "kategorie": 4,
-  "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt) (Quelle vorhanden: Wikimedia Commons (MIDI, Peter Gerloff))"
+  "kategorie": 3,
+  "noten": [
+   "solang_es_menschen_gibt_auf_erden"
+  ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 428,
   "titel": "Komm in unsre stolze Welt",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 429,
   "titel": "Lobt und preist die herrlichen Taten des Herrn",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 430,
   "titel": "Gib Frieden, Herr, gib Frieden",
-  "kategorie": 1,
+  "kategorie": 3,
   "noten": [
    "befiehl_du_deine_wege"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 431,
   "titel": "Gott, unser Ursprung, Herr des Raums",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 432,
   "titel": "Gott gab uns Atem, damit wir leben",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 433,
   "titel": "Wir wünschen Frieden euch allen",
-  "kategorie": 4,
-  "noten": [],
-  "hinweis": "ungeklärt (Quelle vorhanden: Wikimedia Commons (MIDI, Peter Gerloff))"
+  "kategorie": 2,
+  "noten": [
+   "hevenu_shalom_alechem"
+  ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "ungeklaert",
+  "hinweis": ""
  },
  {
   "eg_nummer": 434,
   "titel": "Schalom chaverim (Kanon)",
-  "kategorie": 4,
-  "noten": [],
-  "hinweis": "ungeklärt (Quelle vorhanden: Wikimedia Commons (MIDI, Peter Gerloff))"
+  "kategorie": 2,
+  "noten": [
+   "shalom_chaverim"
+  ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "ungeklaert",
+  "hinweis": ""
  },
  {
   "eg_nummer": 435,
   "titel": "Dona nobis pacem (Kanon)",
-  "kategorie": 4,
-  "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt) (Quelle vorhanden: Wikimedia Commons (MIDI, Peter Gerloff))"
+  "kategorie": 2,
+  "noten": [
+   "dona_nobis_pacem_kanon"
+  ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 436,
   "titel": "Herr, gib uns deinen Frieden (Kanon)",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 437,
@@ -3538,31 +4731,41 @@
   "noten": [
    "die_helle_sonn_leucht_jetzt_herfuer"
   ],
+  "unterlegt": [
+   "die_helle_sonn_leucht_jetzt_herfuer"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 438,
   "titel": "Der Tag bricht an und zeiget sich",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "der_tag_bricht_an_und_zeiget_sich"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 439,
   "titel": "Es geht daher des Tages Schein",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "Melodie gemeinfrei, Notenquelle fehlt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": ""
  },
  {
   "eg_nummer": 440,
   "titel": "All Morgen ist ganz frisch und neu",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "all_morgen_ist_ganz_frisch_und_neu"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -3572,6 +4775,10 @@
   "noten": [
    "du_hoechstes_licht_du_ewger_schein"
   ],
+  "unterlegt": [
+   "du_hoechstes_licht_du_ewger_schein"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -3581,6 +4788,10 @@
   "noten": [
    "steht_auf_ihr_lieben_kinderlein"
   ],
+  "unterlegt": [
+   "steht_auf_ihr_lieben_kinderlein"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -3590,24 +4801,32 @@
   "noten": [
    "aus_meines_herzens_grunde"
   ],
+  "unterlegt": [
+   "aus_meines_herzens_grunde"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 444,
   "titel": "Die güldene Sonne bringt Leben und Wonne",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "die_gueldene_sonne_bringt_leben_und_wonne"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 445,
   "titel": "Gott des Himmels und der Erden",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "gott_des_himmels_und_der_erden"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -3617,196 +4836,258 @@
   "noten": [
    "nun_lasst_uns_gott_dem_herren"
   ],
+  "unterlegt": [
+   "nun_lasst_uns_gott_dem_herren"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 447,
   "titel": "Lobet den Herren alle, die ihn ehren",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "lobet_den_herren_alle_die_ihn_ehren"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 448,
   "titel": "Lobet den Herren alle (Kanon)",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 449,
   "titel": "Die güldne Sonne voll Freud und Wonne",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "die_gueldne_sonne"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 450,
   "titel": "Morgenglanz der Ewigkeit",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "morgenglanz_der_ewigkeit"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 451,
   "titel": "Mein erst Gefühl sei Preis und Dank",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "Melodie gemeinfrei, Notenquelle fehlt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": ""
  },
  {
   "eg_nummer": 452,
   "titel": "Er weckt mich alle Morgen",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 453,
   "titel": "Schon bricht des Tages Glanz hervor",
-  "kategorie": 4,
-  "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt) (Quelle vorhanden: Wikimedia Commons (MIDI, Peter Gerloff))"
+  "kategorie": 1,
+  "noten": [
+   "schon_bricht_des_tages_glanz_hervor"
+  ],
+  "unterlegt": [
+   "schon_bricht_des_tages_glanz_hervor"
+  ],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 454,
   "titel": "Auf und macht die Herzen weit",
-  "kategorie": 4,
-  "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt) (Quelle vorhanden: Wikimedia Commons (MIDI, Peter Gerloff))"
+  "kategorie": 3,
+  "noten": [
+   "auf_und_macht_die_herzen_weit"
+  ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 455,
   "titel": "Morgenlicht leuchtet",
-  "kategorie": 4,
-  "noten": [],
-  "hinweis": "ungeklärt (Quelle vorhanden: Wikimedia Commons (MIDI, Peter Gerloff))"
+  "kategorie": 3,
+  "noten": [
+   "morgenlicht_leuchtet_morning_has_broken"
+  ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "ungeklaert",
+  "hinweis": ""
  },
  {
   "eg_nummer": 456,
   "titel": "Vom Aufgang der Sonne bis zu ihrem Niedergang (Kanon)",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 457,
   "titel": "Der Tag ist seiner Höhe nah",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 458,
   "titel": "Wir danken Gott für seine Gaben",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "Melodie gemeinfrei, Notenquelle fehlt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": ""
  },
  {
   "eg_nummer": 459,
   "titel": "Die Sonn hoch an dem Himmel steht",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "Melodie gemeinfrei, Notenquelle fehlt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": ""
  },
  {
   "eg_nummer": 460,
   "titel": "Lobet den Herren und dankt ihm seine Gaben",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "Melodie gemeinfrei, Notenquelle fehlt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": ""
  },
  {
   "eg_nummer": 461,
   "titel": "Aller Augen warten auf dich, Herre",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "Melodie gemeinfrei, Notenquelle fehlt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": ""
  },
  {
   "eg_nummer": 462,
   "titel": "Wir danken dir, Herr Jesu Christ, dass du unser Gast gewesen bist",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "Melodie gemeinfrei, Notenquelle fehlt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": ""
  },
  {
   "eg_nummer": 463,
   "titel": "Alle guten Gaben",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 464,
   "titel": "Herr, gib uns unser täglich Brot",
-  "kategorie": 1,
+  "kategorie": 3,
   "noten": [
    "lobt_gott_den_herrn_der_herrlichkeit"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 465,
   "titel": "Komm, Herr Jesu, sei du unser Gast (Kanon)",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "ungeklärt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "ungeklaert",
+  "hinweis": ""
  },
  {
   "eg_nummer": 466,
   "titel": "Segne, Herr, was deine Hand (Kanon)",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 467,
   "titel": "Hinunter ist der Sonne Schein",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "hinunter_ist_der_sonne_schein"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 468,
   "titel": "Ach lieber Herre Jesu Christ, weil du ein Kind gewesen bist",
-  "kategorie": 3,
+  "kategorie": 4,
   "noten": [],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": "Ach lieber Herre Jesu Christ.mid: 32 Töne passen nicht zu 44 Silben der ersten Strophe"
  },
  {
   "eg_nummer": 469,
   "titel": "Christe, du bist der helle Tag",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "christe_du_bist_der_helle_tag"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 470,
   "titel": "Der du bist drei in Einigkeit",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "der_du_bist_drei_in_einigkeit"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 471,
   "titel": "Die Nacht ist kommen",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "Melodie gemeinfrei, Notenquelle fehlt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": ""
  },
  {
   "eg_nummer": 472,
@@ -3815,41 +5096,53 @@
   "noten": [
    "ich_freu_mich_in_dem_herren"
   ],
+  "unterlegt": [
+   "ich_freu_mich_in_dem_herren"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 473,
   "titel": "Mein schönste Zier und Kleinod bist",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "mein_schoenste_zier_und_kleinod"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 474,
   "titel": "Mit meinem Gott geh ich zur Ruh",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "mein_schoenste_zier_und_kleinod"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 475,
   "titel": "Werde munter, mein Gemüte",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "werde_munter_mein_gemuete"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 476,
   "titel": "Die Sonn hat sich mit ihrem Glanz gewendet",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "Melodie gemeinfrei, Notenquelle fehlt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": ""
  },
  {
   "eg_nummer": 477,
@@ -3858,6 +5151,10 @@
   "noten": [
    "o_welt_ich_muss_dich_lassen"
   ],
+  "unterlegt": [
+   "o_welt_ich_muss_dich_lassen"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -3867,15 +5164,21 @@
   "noten": [
    "nun_sich_der_tag_geendet_hat"
   ],
+  "unterlegt": [
+   "nun_sich_der_tag_geendet_hat"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 479,
   "titel": "Der lieben Sonne Licht und Pracht",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "der_lieben_sonne_licht_und_pracht"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -3885,14 +5188,24 @@
   "noten": [
    "nun_schlaefet_man"
   ],
+  "unterlegt": [
+   "nun_schlaefet_man"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 481,
   "titel": "Nun sich der Tag geendet",
-  "kategorie": 4,
-  "noten": [],
-  "hinweis": "ungeklärt (Quelle vorhanden: Wikimedia Commons (MIDI, Peter Gerloff))"
+  "kategorie": 1,
+  "noten": [
+   "o_welt_ich_muss_dich_lassen"
+  ],
+  "unterlegt": [
+   "o_welt_ich_muss_dich_lassen"
+  ],
+  "melodie_laut_recherche": "ungeklaert",
+  "hinweis": ""
  },
  {
   "eg_nummer": 482,
@@ -3901,14 +5214,20 @@
   "noten": [
    "der_mond_ist_aufgegangen"
   ],
+  "unterlegt": [
+   "der_mond_ist_aufgegangen"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 483,
   "titel": "Herr, bleibe bei uns (Kanon)",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 484,
@@ -3917,30 +5236,40 @@
   "noten": [
    "muede_bin_ich_geh_zur_ruh"
   ],
+  "unterlegt": [
+   "muede_bin_ich_geh_zur_ruh"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 485,
   "titel": "Du Schöpfer aller Wesen",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "du_schoepfer_aller_wesen"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 486,
   "titel": "Ich liege, Herr, in deiner Hut",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 487,
   "titel": "Abend ward, bald kommt die Nacht",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 488,
@@ -3949,44 +5278,58 @@
   "noten": [
    "bleibe_bei_uns"
   ],
+  "unterlegt": [
+   "bleibe_bei_uns"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 489,
   "titel": "Gehe ein in deinen Frieden",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 490,
   "titel": "Der Tag ist um, die Nacht kehrt wieder",
-  "kategorie": 1,
+  "kategorie": 3,
   "noten": [
    "o_dass_doch_bald_dein_feuer_brennte"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 491,
   "titel": "Bevor die Sonne sinkt",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 492,
   "titel": "Ruhet von des Tages Müh (Kanon)",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 493,
   "titel": "Eine ruhige Nacht und ein seliges Ende (Kanon)",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 494,
@@ -3995,6 +5338,10 @@
   "noten": [
    "sei_lob_und_ehr_dem_hoechsten_gut"
   ],
+  "unterlegt": [
+   "sei_lob_und_ehr_dem_hoechsten_gut"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -4004,7 +5351,11 @@
   "noten": [
    "o_gott_du_frommer_gott_ii"
   ],
-  "hinweis": "O Gott, du frommer Gott.mid: erste Strophe nicht sicher abgrenzbar"
+  "unterlegt": [
+   "o_gott_du_frommer_gott_ii"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": "O Gott, du frommer Gott.mid: 13 Töne passen nicht zu 50 Silben der ersten Strophe"
  },
  {
   "eg_nummer": 496,
@@ -4013,14 +5364,20 @@
   "noten": [
    "o_gott_du_frommer_gott_ii"
   ],
-  "hinweis": "O Gott, du frommer Gott.mid: erste Strophe nicht sicher abgrenzbar"
+  "unterlegt": [
+   "o_gott_du_frommer_gott_ii"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": "O Gott, du frommer Gott.mid: 13 Töne passen nicht zu 50 Silben der ersten Strophe"
  },
  {
   "eg_nummer": 497,
   "titel": "Ich weiß, mein Gott, dass all mein Tun",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "Melodie gemeinfrei, Notenquelle fehlt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": ""
  },
  {
   "eg_nummer": 498,
@@ -4029,14 +5386,22 @@
   "noten": [
    "in_gottes_namen_fahren_wir_eg"
   ],
+  "unterlegt": [
+   "in_gottes_namen_fahren_wir_eg"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 499,
   "titel": "Erd und Himmel sollen singen",
-  "kategorie": 4,
-  "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt) (Quelle vorhanden: Wikimedia Commons (MIDI, Peter Gerloff))"
+  "kategorie": 3,
+  "noten": [
+   "erd_und_himmel_sollen_singen"
+  ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 500,
@@ -4045,42 +5410,54 @@
   "noten": [
    "herzlich_tut_mich_erfreuen"
   ],
+  "unterlegt": [
+   "herzlich_tut_mich_erfreuen"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 501,
   "titel": "Wie lieblich ist der Maien",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "wie_lieblich_ist_der_maien"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 502,
   "titel": "Nun preiset alle Gottes Barmherzigkeit",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "nun_preiset_alle_gottes_barmherzigkeit"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 503,
   "titel": "Geh aus, mein Herz und suche Freud",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "geh_aus_mein_herz_und_suche_freud"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 504,
   "titel": "Himmel, Erde, Luft und Meer",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "himmel_erde_luft_und_meer"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -4090,6 +5467,10 @@
   "noten": [
    "aus_meines_herzens_grunde"
   ],
+  "unterlegt": [
+   "aus_meines_herzens_grunde"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -4099,6 +5480,10 @@
   "noten": [
    "wenn_ich_o_schoepfer_deine_macht"
   ],
+  "unterlegt": [
+   "wenn_ich_o_schoepfer_deine_macht"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -4106,36 +5491,46 @@
   "titel": "Himmels Au, licht und blau",
   "kategorie": 4,
   "noten": [],
-  "hinweis": "ungeklärt (Quelle vorhanden: Wikimedia Commons (MIDI, Peter Gerloff))"
+  "unterlegt": [],
+  "melodie_laut_recherche": "ungeklaert",
+  "hinweis": "Himmels Au, licht und blau.mid: 29 Töne passen nicht zu 12 Silben der ersten Strophe"
  },
  {
   "eg_nummer": 508,
   "titel": "Wir pflügen und wir streuen (Alle gute Gabe)",
-  "kategorie": 5,
+  "kategorie": 4,
   "noten": [],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": "Wir pflügen und wir streuen.mid: erste Strophe nicht sicher abgrenzbar"
  },
  {
   "eg_nummer": 509,
   "titel": "Kein Tierlein ist auf Erden",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 510,
   "titel": "Freuet euch der schönen Erde",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 511,
   "titel": "Weißt du, wie viel Sternlein stehen",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "weisst_du_wie_viel_sternlein_stehen"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -4145,14 +5540,22 @@
   "noten": [
    "o_durchbrecher_aller_bande"
   ],
+  "unterlegt": [
+   "o_durchbrecher_aller_bande"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 513,
   "titel": "Das Feld ist weiß",
-  "kategorie": 4,
-  "noten": [],
-  "hinweis": "ungeklärt (Quelle vorhanden: Wikimedia Commons (MIDI, Peter Gerloff))"
+  "kategorie": 2,
+  "noten": [
+   "das_feld_ist_weiss"
+  ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "ungeklaert",
+  "hinweis": ""
  },
  {
   "eg_nummer": 514,
@@ -4161,47 +5564,67 @@
   "noten": [
    "lasst_uns_erfreuen_herzlich_sehr"
   ],
+  "unterlegt": [
+   "lasst_uns_erfreuen_herzlich_sehr"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 515,
   "titel": "Laudato si, o mi Signore (Sei gepriesen, du hast die Welt erschaffen)",
-  "kategorie": 4,
-  "noten": [],
-  "hinweis": "ungeklärt (Quelle vorhanden: Wikimedia Commons (MIDI, Peter Gerloff))"
+  "kategorie": 2,
+  "noten": [
+   "laudato_si"
+  ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "ungeklaert",
+  "hinweis": ""
  },
  {
   "eg_nummer": 516,
   "titel": "Christus, der ist mein Leben",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "christus_der_ist_mein_leben"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 517,
   "titel": "Ich wollt, dass ich daheime wär",
-  "kategorie": 4,
-  "noten": [],
-  "hinweis": "ungeklärt (Quelle vorhanden: Wikimedia Commons (MIDI, Peter Gerloff))"
+  "kategorie": 1,
+  "noten": [
+   "ich_wollt_dass_ich_daheime_waer"
+  ],
+  "unterlegt": [
+   "ich_wollt_dass_ich_daheime_waer"
+  ],
+  "melodie_laut_recherche": "ungeklaert",
+  "hinweis": ""
  },
  {
   "eg_nummer": 518,
   "titel": "Mitten wir im Leben sind",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "mitten_wir_im_leben_sind_mit_dem_tod_umfangen"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 519,
   "titel": "Mit Fried und Freud ich fahr dahin",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "mit_fried_und_freud_ich_fahr_dahin"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -4211,6 +5634,10 @@
   "noten": [
    "nun_lasst_uns_den_leib_begraben_nun_legen_wir_den_leib_ins_grab"
   ],
+  "unterlegt": [
+   "nun_lasst_uns_den_leib_begraben_nun_legen_wir_den_leib_ins_grab"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -4220,15 +5647,21 @@
   "noten": [
    "o_welt_ich_muss_dich_lassen"
   ],
+  "unterlegt": [
+   "o_welt_ich_muss_dich_lassen"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 522,
   "titel": "Wenn mein Stündlein vorhanden ist",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "wenn_mein_stuendlein_vorhanden_ist"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -4238,6 +5671,10 @@
   "noten": [
    "valet_will_ich_dir_geben_eg"
   ],
+  "unterlegt": [
+   "valet_will_ich_dir_geben_eg"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -4247,15 +5684,21 @@
   "noten": [
    "freu_dich_sehr_o_meine_seele"
   ],
+  "unterlegt": [
+   "freu_dich_sehr_o_meine_seele"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 525,
   "titel": "Machs mit mir, Gott, nach deiner Güt",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "mir_nach_spricht_christus_unser_held_eg"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -4266,6 +5709,11 @@
    "jesus_meine_zuversicht_1653",
    "jesus_meine_zuversicht"
   ],
+  "unterlegt": [
+   "jesus_meine_zuversicht_1653",
+   "jesus_meine_zuversicht"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -4275,31 +5723,41 @@
   "noten": [
    "o_welt_ich_muss_dich_lassen"
   ],
+  "unterlegt": [
+   "o_welt_ich_muss_dich_lassen"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 528,
   "titel": "Ach wie flüchtig, ach wie nichtig",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "ach_wie_fluechtig_ach_wie_nichtig"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 529,
   "titel": "Ich bin ein Gast auf Erden",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "Melodie gemeinfrei, Notenquelle fehlt"
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
+  "hinweis": ""
  },
  {
   "eg_nummer": 530,
   "titel": "Wer weiß, wie nahe mir mein Ende",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "wer_nur_den_lieben_gott_laesst_walten_eg"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -4309,6 +5767,10 @@
   "noten": [
    "o_haupt_voll_blut_und_wunden_eg_gl_2013"
   ],
+  "unterlegt": [
+   "o_haupt_voll_blut_und_wunden_eg_gl_2013"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
@@ -4318,29 +5780,39 @@
   "noten": [
    "o_dass_doch_bald_dein_feuer_brennte"
   ],
+  "unterlegt": [
+   "o_dass_doch_bald_dein_feuer_brennte"
+  ],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  },
  {
   "eg_nummer": 533,
   "titel": "Du kannst nicht tiefer fallen als nur in Gottes Hand",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 534,
   "titel": "Herr, lehre uns, dass wir sterben müssen",
-  "kategorie": 4,
+  "kategorie": 5,
   "noten": [],
-  "hinweis": "nicht ohne Lizenz (Melodie geschützt)"
+  "unterlegt": [],
+  "melodie_laut_recherche": "geschuetzt",
+  "hinweis": ""
  },
  {
   "eg_nummer": 535,
   "titel": "Gloria sei dir gesungen",
-  "kategorie": 1,
+  "kategorie": 2,
   "noten": [
    "wachet_auf_ruft_uns_die_stimme"
   ],
+  "unterlegt": [],
+  "melodie_laut_recherche": "gemeinfrei",
   "hinweis": ""
  }
 ]
