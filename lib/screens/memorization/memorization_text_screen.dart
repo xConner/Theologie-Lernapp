@@ -281,12 +281,29 @@ class _MemorizationTextScreenState extends State<MemorizationTextScreen> {
     // Begonnene Abschnitte auf ihrer Hilfestufe, neue beim Mitlesen.
     final level = HintLevel.values[card?.level ?? 0];
 
+    final title = segment.title;
+
     return Card(
       margin: const EdgeInsets.symmetric(vertical: 4),
       child: ListTile(
         key: Key("memorize_segment_$index"),
         leading: SegmentStatusIcon(status),
-        title: Text(segment.text),
+        // Die Überschrift dient der Orientierung; gelernt wird der Text.
+        title: title == null
+            ? Text(segment.text)
+            : Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                      color: context.colors.textSecondary,
+                    ),
+                  ),
+                  const SizedBox(height: 2),
+                  Text(segment.text),
+                ],
+              ),
         subtitle: Text(segmentStatusLine(scheduler, card)),
         onTap: () => _practice([PracticeUnit.segment(text, index, level)]),
       ),

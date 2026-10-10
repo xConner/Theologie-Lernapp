@@ -22,8 +22,8 @@ import 'bible_translation_sheet.dart';
 /// Der Bibel-Reader: ein Kapitel der gewählten Ausgabe mit Navigation,
 /// Suche und Übersetzungsauswahl.
 ///
-/// Mit [passages] öffnet er eine Stelle hervorgehoben – so ruft ihn das
-/// Perikopenquiz auf. Gehören mehrere Stellen zusammen, sind alle über die
+/// Mit [passages] öffnet er eine Stelle hervorgehoben – so rufen ihn das
+/// Perikopenquiz und der liturgische Kalender auf. Gehören mehrere Stellen zusammen, sind alle über die
 /// Leiste am oberen Rand erreichbar. Ohne [passages] setzt er an der zuletzt
 /// gelesenen Stelle fort.
 ///
@@ -492,7 +492,18 @@ class _BibleReaderScreenState extends State<BibleReaderScreen> {
     if (h == null || _resolve(h.bookId) != _resolve(bookId)) return false;
 
     // Eine Kapitelangabe hebt nichts hervor: Das Kapitel ist die Stelle.
-    return h.hasVerses && h.containsVerse(chapter, verse);
+    if (!h.hasVerses) return false;
+
+    // Hat die aufgeschlagene Stelle Lücken, zählen nur ihre Versgruppen.
+    final parts = _fromPassages && h == widget.passages[passageIndex].reference
+        ? widget.passages[passageIndex].parts
+        : const <BibleReference>[];
+
+    if (parts.isNotEmpty) {
+      return parts.any((part) => part.containsVerse(chapter, verse));
+    }
+
+    return h.containsVerse(chapter, verse);
   }
 
   /// Ob Lesung [index] des Plantags schon erledigt ist.

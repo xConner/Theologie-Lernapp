@@ -2,14 +2,30 @@ import 'package:flutter/material.dart';
 
 import '../models/liturgical_event.dart';
 import '../models/liturgical_day.dart';
+import '../services/bible/bible_repository.dart';
+import '../services/bible/liturgical_reference_parser.dart';
+import '../services/bible/pericope_headings.dart';
 import '../services/liturgical_calendar_loader.dart';
 import '../theme/app_theme.dart';
 import '../widgets/settings_access.dart';
 import '../info/app_info.dart';
 import '../widgets/info_report.dart';
+import 'bible/bible_reader_screen.dart';
 
 class LiturgicalCalendarScreen extends StatefulWidget {
-  const LiturgicalCalendarScreen({super.key});
+  // Nur für Tests ersetzbar; standardmäßig die ausgelieferten Daten.
+  final Future<List<LiturgicalDay>> Function()? loadDays;
+
+  final BibleRepository? bibleRepository;
+
+  final PericopeHeadings? pericopeHeadings;
+
+  const LiturgicalCalendarScreen({
+    super.key,
+    this.loadDays,
+    this.bibleRepository,
+    this.pericopeHeadings,
+  });
 
   @override
   State<LiturgicalCalendarScreen> createState() =>
@@ -33,7 +49,7 @@ class _LiturgicalCalendarScreenState extends State<LiturgicalCalendarScreen> {
 
   Future<void> _load() async {
     try {
-      final data = await LiturgicalCalendarLoader.load();
+      final data = await (widget.loadDays ?? LiturgicalCalendarLoader.load)();
 
       final Map<String, List<LiturgicalDay>> groups = {};
 
@@ -320,10 +336,12 @@ class _LiturgicalCalendarScreenState extends State<LiturgicalCalendarScreen> {
 
                 _section(
                   "Spruch",
-                  "${day.spruch.text}\n\n(${day.spruch.reference})",
+                  day.spruch.text,
+                  reference: day.spruch.reference,
+                  id: "spruch",
                 ),
 
-                _section("Psalm", day.psalm),
+                _section("Psalm", null, reference: day.psalm, id: "psalm"),
 
                 _section("Lieder", day.songs.join("\n")),
 
@@ -348,19 +366,33 @@ class _LiturgicalCalendarScreenState extends State<LiturgicalCalendarScreen> {
                         _readingTile(
                           "Altes Testament",
                           day.readings.oldTestament,
+                          "old-testament",
                         ),
 
-                        _readingTile("Epistel", day.readings.epistle),
+                        _readingTile(
+                          "Epistel",
+                          day.readings.epistle,
+                          "epistle",
+                        ),
 
                         if (day.readings.hallelujah != null)
                           _readingTile(
                             "Hallelujavers",
                             day.readings.hallelujah!,
+                            "hallelujah",
                           ),
 
-                        _readingTile("Evangelium", day.readings.gospel),
+                        _readingTile(
+                          "Evangelium",
+                          day.readings.gospel,
+                          "gospel",
+                        ),
 
-                        _readingTile("Predigttext", day.readings.sermon),
+                        _readingTile(
+                          "Predigttext",
+                          day.readings.sermon,
+                          "sermon",
+                        ),
                       ],
                     ),
                   ),
@@ -373,7 +405,65 @@ class _LiturgicalCalendarScreenState extends State<LiturgicalCalendarScreen> {
     );
   }
 
-  Widget _section(String title, String content) {
+  /// Öffnet [reference] im Bibel-Reader. Nennt die Angabe mehrere Stellen
+  /// („;“ bzw. „oder“), sind dort alle erreichbar.
+  void _openReference(String title, String reference) {
+    final passages = LiturgicalReferenceParser.parse(reference);
+
+    if (passages.isEmpty) return;
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => BibleReaderScreen(
+          passages: passages,
+          passageTitle: "${events[currentIndex].title} · $title",
+          repository: widget.bibleRepository,
+          pericopeHeadings: widget.pericopeHeadings,
+        ),
+      ),
+    );
+  }
+
+  /// Eine Stellenangabe; lässt sie sich lesen, führt Antippen in den
+  /// Bibel-Reader.
+  Widget _reference(String title, String reference, String id) {
+    const style = TextStyle(fontSize: 16);
+
+    if (LiturgicalReferenceParser.parse(reference).isEmpty) {
+      return Text(reference, style: style);
+    }
+
+    final color = Theme.of(context).colorScheme.primary;
+
+    return InkWell(
+      key: ValueKey("calendar-reference-$id"),
+      onTap: () => _openReference(title, reference),
+      borderRadius: BorderRadius.circular(6),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 4),
+        child: Row(
+          children: [
+            Flexible(
+              child: Text(reference, style: style.copyWith(color: color)),
+            ),
+            const SizedBox(width: 6),
+            Tooltip(
+              message: "Im Bibel-Reader öffnen",
+              child: Icon(Icons.menu_book_outlined, size: 18, color: color),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _section(
+    String title,
+    String? content, {
+    String? reference,
+    String? id,
+  }) {
     return Card(
       margin: const EdgeInsets.only(bottom: 1),
 
@@ -391,14 +481,20 @@ class _LiturgicalCalendarScreenState extends State<LiturgicalCalendarScreen> {
 
             const SizedBox(height: 12),
 
-            Text(content, style: const TextStyle(fontSize: 16)),
+            if (content != null)
+              Text(content, style: const TextStyle(fontSize: 16)),
+
+            if (content != null && reference != null)
+              const SizedBox(height: 12),
+
+            if (reference != null) _reference(title, reference, id!),
           ],
         ),
       ),
     );
   }
 
-  Widget _readingTile(String title, String reference) {
+  Widget _readingTile(String title, String reference, String id) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
 
@@ -411,9 +507,7 @@ class _LiturgicalCalendarScreenState extends State<LiturgicalCalendarScreen> {
             style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           ),
 
-          const SizedBox(height: 4),
-
-          Text(reference, style: const TextStyle(fontSize: 16)),
+          _reference(title, reference, id),
         ],
       ),
     );

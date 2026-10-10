@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -9,6 +12,7 @@ import 'package:theologie_lernapp/services/memorization/memorization_catalog.dar
 import 'package:theologie_lernapp/services/memorization/memorization_repository.dart';
 import 'package:theologie_lernapp/services/memorization/memorization_scheduler.dart';
 import 'package:theologie_lernapp/services/memorization/memorization_session.dart';
+import 'package:theologie_lernapp/services/memorization/segment_headings.dart';
 import 'package:theologie_lernapp/services/memorization/text_evaluator.dart';
 import 'package:theologie_lernapp/services/memorization/text_segmenter.dart';
 import 'package:theologie_lernapp/services/memorization/text_tokens.dart';
@@ -26,6 +30,49 @@ MemorizationText textOf(List<String> segments, {String id = "test.text.de"}) {
         MemorizationSegment(id: "$id.s$i", text: segments[i], order: i),
     ],
   );
+}
+
+/// Der unveränderte Text einer Sprachfassung aus den Assets.
+String sourceOf(String textId) {
+  final parts = textId.split(".");
+  final language = parts.last;
+
+  if (parts.first == "prayer") {
+    final List<dynamic> prayers = json.decode(
+      File("assets/prayers.json").readAsStringSync(),
+    );
+
+    final prayer = prayers.firstWhere((p) => p["id"] == parts[1]);
+
+    return (prayer["versions"] as List).firstWhere(
+      (v) => v["language"] == language,
+    )["text"];
+  }
+
+  final List<dynamic> confessions = json.decode(
+    File("assets/confessions.json").readAsStringSync(),
+  );
+
+  final confession = confessions.firstWhere((c) => c["id"] == parts[1]);
+
+  return (confession["sections"] as List).firstWhere(
+    (s) => s["id"] == parts[2],
+  )["texts"][language];
+}
+
+/// Ob [old] – ggf. nach einer Überschrift am Anfang – der Beginn von [now]
+/// ist.
+bool keepsText(List<String> old, List<String> now) {
+  for (var skipped = 0; skipped < old.length; skipped++) {
+    final rest = old.sublist(skipped);
+
+    if (rest.length <= now.length &&
+        rest.join(" ") == now.take(rest.length).join(" ")) {
+      return true;
+    }
+  }
+
+  return false;
 }
 
 List<String> wordsOf(String text) => [
@@ -84,7 +131,10 @@ void main() {
       expect(segments.last, "Dein heiliger Engel sei mit mir!");
 
       for (final segment in segments) {
-        expect(MemorizationNormalizer.wordCount(segment), lessThanOrEqualTo(14));
+        expect(
+          MemorizationNormalizer.wordCount(segment),
+          lessThanOrEqualTo(14),
+        );
       }
     });
 
@@ -118,9 +168,12 @@ void main() {
             );
           }
 
-          // Mehrteilige Texte haben keine winzigen Abschnitte.
+          // Mehrteilige Texte haben keine winzigen Abschnitte – außer
+          // unter einer Überschrift („Non occides.“ ist das ganze Gebot).
           if (text.segments.length > 1) {
             for (final segment in text.segments) {
+              if (segment.title != null) continue;
+
               expect(
                 MemorizationNormalizer.wordCount(segment.text),
                 greaterThanOrEqualTo(3),
@@ -167,12 +220,17 @@ void main() {
       );
       expect(catalog.text("confession.nicenum.full.gr"), isNotNull);
 
-      final article = catalog.text("confession.augsburger_konfession.art_4.de")!;
+      final article = catalog.text(
+        "confession.augsburger_konfession.art_4.de",
+      )!;
 
       expect(article.type, MemorizationTextType.confession);
       expect(article.title, contains("–"));
 
-      expect(catalog.text("confession.augsburger_konfession.art_4.en"), isNotNull);
+      expect(
+        catalog.text("confession.augsburger_konfession.art_4.en"),
+        isNotNull,
+      );
 
       // Fassungen ohne Text werden nicht angeboten.
       expect(catalog.text("confession.apostolicum.full.gr"), isNull);
@@ -194,7 +252,11 @@ void main() {
         "confession.kleiner_katechismus.hauptstueck_1.de",
       )!;
       expect(commandments.title, contains("Kleine Katechismus –"));
-      expect(commandments.segments.first.text, startsWith("Das erste Gebot."));
+      expect(commandments.segments.first.title, "Das erste Gebot");
+      expect(
+        commandments.segments.first.text,
+        "Du sollst nicht andere Götter haben.",
+      );
 
       final chief = catalog.text(
         "confession.schmalkaldische_artikel.teil_2_art_1.de",
@@ -215,6 +277,259 @@ void main() {
       ]) {
         expect(catalog.text(id), isNotNull, reason: id);
       }
+    });
+  });
+
+  group("Überschriften sind Titel, keine Lernaufgabe", () {
+    const segmenter = TextSegmenter();
+
+    MemorizationText text(String id) => catalog.text(id)!;
+
+    test("Zehn Gebote: je Gebot ein Abschnitt mit dem ganzen Wortlaut", () {
+      final commandments = text("prayer.zehn_gebote.de");
+
+      expect(commandments.segments, hasLength(10));
+
+      expect(commandments.segments.map((s) => s.title), [
+        "Das erste Gebot",
+        "Das andere Gebot",
+        "Das dritte Gebot",
+        "Das vierte Gebot",
+        "Das fünfte Gebot",
+        "Das sechste Gebot",
+        "Das siebente Gebot",
+        "Das achte Gebot",
+        "Das neunte Gebot",
+        "Das zehnte Gebot",
+      ]);
+
+      expect(
+        commandments.segments[0].text,
+        "Du sollst nicht andere Götter haben.",
+      );
+      expect(commandments.segments[4].text, "Du sollst nicht töten.");
+      // Auch ein längeres Gebot bleibt ganz.
+      expect(
+        commandments.segments[9].text,
+        "Du sollst nicht begehren deines Nächsten Weib, Knecht, Magd, Vieh, "
+        "oder was sein ist.",
+      );
+
+      // Keine Überschrift ist Lerntext.
+      for (final segment in commandments.segments) {
+        expect(segment.text, isNot(contains("Gebot")), reason: segment.id);
+      }
+
+      expect(commandments.segments.map((s) => s.order), [
+        for (var i = 0; i < 10; i++) i,
+      ]);
+    });
+
+    test("alle Sprachfassungen der Zehn Gebote", () {
+      final latin = text("prayer.zehn_gebote.la");
+      final english = text("prayer.zehn_gebote.en");
+
+      expect(latin.segments, hasLength(10));
+      expect(latin.segments[4].title, "V. Praeceptum");
+      expect(latin.segments[4].text, "Non occides.");
+
+      expect(english.segments, hasLength(10));
+      expect(english.segments[0].title, "The First Commandment");
+      expect(english.segments[0].text, "Thou shalt have no other gods.");
+    });
+
+    test("der Wortlaut bleibt der der Quelle", () {
+      // Lerntext und Überschriften ergeben zusammen wieder den Text.
+      for (final id in [
+        "prayer.zehn_gebote.de",
+        "prayer.zehn_gebote.la",
+        "prayer.tischgebet_gratias.de",
+        "confession.kleiner_katechismus.hauptstueck_1.de",
+        "confession.kleiner_katechismus.hauptstueck_3.la",
+        "confession.kleiner_katechismus.hauptstueck_6.en",
+      ]) {
+        final memorized = text(id);
+
+        final learned = wordsOf(
+          memorized.textOf(0, memorized.segments.length - 1),
+        );
+
+        final titles = <String>{
+          for (final segment in memorized.segments) ?segment.title,
+        };
+
+        final source = wordsOf(sourceOf(id));
+
+        // Jedes gelernte Wort steht in dieser Reihenfolge in der Quelle.
+        var position = 0;
+
+        for (final word in learned) {
+          position = source.indexOf(word, position) + 1;
+          expect(position, greaterThan(0), reason: "$id: $word");
+        }
+
+        // Was fehlt, sind genau die Überschriften.
+        final headingWords = <String>{
+          for (final title in titles) ...wordsOf(title),
+        };
+
+        final missing = [...source];
+
+        for (final word in learned) {
+          missing.remove(word);
+        }
+
+        expect(headingWords.containsAll(missing), isTrue, reason: id);
+      }
+    });
+
+    test("Kleiner Katechismus: Gebot und Auslegung getrennt, die Frage "
+        "ist Titel", () {
+      final chief = text("confession.kleiner_katechismus.hauptstueck_1.de");
+
+      expect(chief.segments[0].title, "Das erste Gebot");
+      expect(chief.segments[0].text, "Du sollst nicht andere Götter haben.");
+
+      expect(chief.segments[1].title, "Das erste Gebot – Was ist das?");
+      expect(
+        chief.segments[1].text,
+        "Wir sollen Gott über alle Dinge fürchten, lieben und vertrauen.",
+      );
+
+      // Eine kurze Auslegung ist eine Einheit.
+      expect(chief.segments[3].title, "Das andere Gebot – Was ist das?");
+      expect(chief.segments[3].text, startsWith("Wir sollen Gott fürchten"));
+      expect(chief.segments[3].text, endsWith("loben und danken."));
+
+      for (final segment in chief.segments) {
+        expect(segment.text, isNot(contains("Was ist das?")));
+        expect(segment.text, isNot(matches(RegExp(r"Das \w+ Gebot\."))));
+      }
+
+      final creed = text("confession.kleiner_katechismus.hauptstueck_2.de");
+
+      expect(
+        creed.segments.first.title,
+        "Der erste Artikel: Von der Schöpfung",
+      );
+      expect(creed.segments.first.text, startsWith("Ich glaube an Gott"));
+
+      final prayer = text("confession.kleiner_katechismus.hauptstueck_3.de");
+
+      expect(prayer.segments.first.title, isNull);
+      expect(prayer.segments.first.text, "Vater unser, der du bist im Himmel.");
+      expect(
+        prayer.segments.map((s) => s.title),
+        contains("Die vierte Bitte – Was heißt denn täglich Brot?"),
+      );
+
+      // Lange Auslegungen bleiben in überschaubaren Abschnitten.
+      final article = creed.segments.where(
+        (s) => s.title == "Der erste Artikel: Von der Schöpfung – Was ist das?",
+      );
+
+      expect(article.length, greaterThan(5));
+    });
+
+    test("Tischgebete: die Anweisung ist Titel des folgenden Gebets", () {
+      final grace = text("prayer.tischgebet_benedicite.de");
+
+      expect(grace.segments.first.title, isNull);
+      expect(grace.segments.first.text, startsWith("Aller Augen warten"));
+
+      for (final segment in grace.segments) {
+        expect(segment.text, isNot(contains("Danach das Vaterunser")));
+      }
+
+      expect(
+        grace.segments.last.title,
+        "Danach das Vaterunser und dies folgende Gebet",
+      );
+      expect(grace.segments.last.text, endsWith("Amen."));
+    });
+
+    test("gespeicherte Lernstände behalten ihren Text", () {
+      // Die ID eines Abschnitts ist die seiner Stelle in der bisherigen
+      // Zerlegung: Was dort Lerntext war, ist es unter derselben ID noch.
+      for (final work in catalog.works) {
+        if (SegmentHeadings.forWork(work.id) == null) continue;
+
+        for (final memorized in work.versions) {
+          final before = segmenter.segment(sourceOf(memorized.id));
+
+          final ids = <String>{};
+
+          for (final segment in memorized.segments) {
+            expect(ids.add(segment.id), isTrue, reason: segment.id);
+
+            final index = int.parse(segment.id.split(".s").last);
+
+            expect(index, lessThan(before.length), reason: segment.id);
+
+            // Der bisherige Abschnitt ist (ohne Überschrift) der Anfang
+            // des neuen.
+            expect(
+              keepsText(wordsOf(before[index]), wordsOf(segment.text)),
+              isTrue,
+              reason: segment.id,
+            );
+          }
+        }
+      }
+    });
+
+    test("andere Texte bleiben unverändert", () {
+      for (final id in [
+        "prayer.vaterunser.de",
+        "confession.apostolicum.full.de",
+        "confession.augsburger_konfession.art_4.de",
+        "confession.kleiner_katechismus.vorrede.de",
+        "prayer.tauffragen.de",
+      ]) {
+        final memorized = text(id);
+
+        expect(SegmentHeadings.forWork(memorized.workId), isNull, reason: id);
+        expect(memorized.segments.every((s) => s.title == null), isTrue);
+        expect(memorized.segments.map((s) => s.id), [
+          for (var i = 0; i < memorized.segments.length; i++) "$id.s$i",
+        ]);
+      }
+    });
+
+    test("passt die Zerlegung nicht zum Text, bleibt sie unverändert", () {
+      final parts = SegmentHeadings.forWork("prayer.zehn_gebote")!.apply(
+        "Das erste Gebot.\nDu sollst nicht töten.",
+        ["Etwas ganz anderes"],
+      );
+
+      expect(parts.single.index, 0);
+      expect(parts.single.text, "Etwas ganz anderes");
+      expect(parts.single.title, isNull);
+    });
+
+    test("Üben und Planen arbeiten mit den neuen Abschnitten", () {
+      final commandments = text("prayer.zehn_gebote.de");
+      final scheduler = MemorizationScheduler();
+
+      final plan = scheduler.planFor(commandments, const {});
+
+      expect(plan.units, isNotEmpty);
+      expect(plan.units.first.segments.single.id, "prayer.zehn_gebote.de.s1");
+
+      final cards = scheduler.apply(
+        unit: PracticeUnit.segment(commandments, 0, HintLevel.free),
+        practiced: HintLevel.free,
+        outcome: RecallOutcome.correct,
+        cards: <String, MemorizationCard>{},
+      );
+
+      expect(cards.single.id, "prayer.zehn_gebote.de.s1");
+
+      // Der ganze Text enthält nur die Gebote, nicht die Überschriften.
+      expect(
+        scheduler.fullUnit(commandments).segments.map((s) => s.text).join(" "),
+        isNot(contains("Gebot")),
+      );
     });
   });
 
@@ -641,7 +956,9 @@ void main() {
 
       while (!session.isFinished) {
         final unit = session.current!;
-        seen.add("${unit.kind.name} ${unit.from}-${unit.to} ${unit.level.name}");
+        seen.add(
+          "${unit.kind.name} ${unit.from}-${unit.to} ${unit.level.name}",
+        );
 
         answer(session);
 
@@ -664,7 +981,11 @@ void main() {
     });
 
     test("drei Abschnitte: A+B, dann A+B+C", () {
-      final text = textOf(["Eins zwei drei.", "Vier fünf sechs.", "Sieben acht."]);
+      final text = textOf([
+        "Eins zwei drei.",
+        "Vier fünf sechs.",
+        "Sieben acht.",
+      ]);
 
       final session = MemorizationSession(
         scheduler: scheduler,
@@ -688,7 +1009,11 @@ void main() {
     });
 
     test("Fehler beim Verbinden: betroffener Abschnitt, dann noch einmal", () {
-      final text = textOf(["Eins zwei drei.", "Vier fünf sechs.", "Sieben acht."]);
+      final text = textOf([
+        "Eins zwei drei.",
+        "Vier fünf sechs.",
+        "Sieben acht.",
+      ]);
 
       for (final i in [0, 1]) {
         scheduler.apply(

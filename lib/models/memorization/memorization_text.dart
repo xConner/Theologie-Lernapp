@@ -30,10 +30,15 @@ class MemorizationSegment {
   /// Position im Text (0-basiert).
   final int order;
 
+  /// Überschrift zur Orientierung (z. B. „Das erste Gebot“). Sie wird
+  /// angezeigt, aber nicht abgefragt.
+  final String? title;
+
   const MemorizationSegment({
     required this.id,
     required this.text,
     required this.order,
+    this.title,
   });
 }
 

@@ -693,6 +693,18 @@ class _MemorizationPracticeScreenState
     return "Zuvor: $tail";
   }
 
+  /// Überschriften der geübten Abschnitte (z. B. „Das erste Gebot“). Sie
+  /// zeigen, was gefragt ist, und gehören nicht zur Wiedergabe.
+  String? _heading(PracticeUnit unit) {
+    if (unit.kind == UnitKind.full) return null;
+
+    final titles = <String>{
+      for (final segment in unit.segments) ?segment.title,
+    };
+
+    return titles.isEmpty ? null : titles.join(" · ");
+  }
+
   Widget _buildLevelChips() {
     return Wrap(
       spacing: 8,
@@ -715,6 +727,7 @@ class _MemorizationPracticeScreenState
     ).textTheme.bodyMedium?.copyWith(color: context.colors.textSecondary);
 
     final cue = _cue(unit);
+    final heading = _heading(unit);
 
     return Card(
       child: Padding(
@@ -722,6 +735,15 @@ class _MemorizationPracticeScreenState
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            if (heading != null) ...[
+              Text(
+                heading,
+                key: const Key("memorize_heading"),
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              const SizedBox(height: 10),
+            ],
+
             if (cue != null) ...[
               Text(cue, style: secondary),
               const SizedBox(height: 10),

@@ -3,11 +3,14 @@ import '../../models/memorization/memorization_text.dart';
 import '../../models/prayer.dart';
 import '../confession_service.dart';
 import '../prayer_service.dart';
+import 'segment_headings.dart';
 import 'text_segmenter.dart';
 
 /// Macht die vorhandenen Inhalte der App (Gebete, Bekenntnisse) als
 /// Lerntexte verfügbar. Die Daten selbst bleiben unverändert; die Abschnitte
 /// werden beim Laden aus der Zeilen- und Absatzstruktur der Texte gebildet.
+/// Bei einzelnen Texten (siehe [SegmentHeadings]) werden Überschriften zum
+/// Titel der Abschnitte statt zur Lernaufgabe.
 ///
 /// Eine weitere Quelle (z. B. Bibeltexte) braucht nur eine Methode, die
 /// [MemorizationWork]s liefert, und einen Eintrag in [load].
@@ -166,9 +169,27 @@ class MemorizationCatalog {
       build: () {
         final parts = _segmenter.segment(content);
 
+        final headings = SegmentHeadings.forWork(workId);
+
+        if (headings == null) {
+          return [
+            for (var i = 0; i < parts.length; i++)
+              MemorizationSegment(id: "$id.s$i", text: parts[i], order: i),
+          ];
+        }
+
+        // Die ID folgt der ursprünglichen Zerlegung: Abschnitte behalten
+        // ihren Lernstand, auch wenn davor Überschriften entfallen.
+        final titled = headings.apply(content, parts);
+
         return [
-          for (var i = 0; i < parts.length; i++)
-            MemorizationSegment(id: "$id.s$i", text: parts[i], order: i),
+          for (var i = 0; i < titled.length; i++)
+            MemorizationSegment(
+              id: "$id.s${titled[i].index}",
+              text: titled[i].text,
+              order: i,
+              title: titled[i].title,
+            ),
         ];
       },
     );

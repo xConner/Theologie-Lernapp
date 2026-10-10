@@ -109,5 +109,14 @@ class BiblePassage {
 
   final BibleReference reference;
 
-  const BiblePassage({required this.label, required this.reference});
+  /// Versgruppen einer Stelle mit Lücken, z. B. „Ps 50,1-6.14-15.23“.
+  /// [reference] reicht dann vom ersten bis zum letzten Vers; hervorgehoben
+  /// werden nur diese Gruppen. Leer bei einer zusammenhängenden Stelle.
+  final List<BibleReference> parts;
+
+  const BiblePassage({
+    required this.label,
+    required this.reference,
+    this.parts = const [],
+  });
 }

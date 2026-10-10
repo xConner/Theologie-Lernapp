@@ -67,6 +67,7 @@ ist eine `MemorizationCard` (erweitert `LearningCard`), gespeichert über
 | Gebete/Bekenntnisse → Lerntexte | `services/memorization/memorization_catalog.dart` |
 | Erzeugung der Bekenntnis- und Liturgiedaten (nicht Teil der App) | `tool/content_import/` |
 | Zerlegung in Abschnitte | `services/memorization/text_segmenter.dart` |
+| Überschriften als Abschnittstitel statt Lernaufgabe (Zehn Gebote, Kleiner Katechismus, Tischgebete) | `services/memorization/segment_headings.dart` |
 | Lücken, Anfangsbuchstaben | `services/memorization/hint_generator.dart` |
 | Wortvergleich mit Alignment (lokal, ohne KI) | `services/memorization/text_evaluator.dart` |
 | Status, Tagesplan, Bewertung | `services/memorization/memorization_scheduler.dart` |
@@ -112,6 +113,7 @@ die Texte nur über `BibleTextSource`.
 | Verzeichnis der Ausgaben, Zwischenspeicher, Suchindex | `services/bible/bible_repository.dart` |
 | Bücher: Reihenfolge, Namen und Abkürzungen aller Sprachen | `services/bible/bible_books.dart` |
 | Stellen lesen und schreiben, Stelle einer Perikope | `services/bible/bible_reference_parser.dart` |
+| Stellenangaben des liturgischen Kalenders → Stellen für den Reader | `services/bible/liturgical_reference_parser.dart` |
 | Textsuche und Vergleichsform (Akzente, Spiritus, ß) | `services/bible/bible_search.dart`, `bible_search_folding.dart` |
 | Perikopenüberschriften aus `assets/perikopen.json` je Kapitel | `services/bible/pericope_headings.dart` |
 | Gewählte Ausgabe, Lesestand, Darstellung (lokal) | `services/bible/bible_reader_settings.dart` |

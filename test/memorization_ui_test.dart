@@ -418,6 +418,70 @@ void main() {
     });
   });
 
+  group("Abschnittstitel", () {
+    MemorizationText commandments() => catalog.text("prayer.zehn_gebote.de")!;
+
+    testWidgets("Textansicht: Titel zur Orientierung, das Gebot als "
+        "Abschnitt", (tester) async {
+      final work = catalog.workOf(commandments())!;
+
+      await tester.pumpWidget(
+        app(MemorizationTextScreen(work: work, languageCode: "de")),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.text("0 / 10 Abschnitte gelernt"), findsOneWidget);
+      expect(find.text("Das erste Gebot"), findsOneWidget);
+      expect(find.text("Du sollst nicht andere Götter haben."), findsOneWidget);
+
+      // Die Überschrift ist kein eigener Abschnitt.
+      expect(find.text("Das erste Gebot."), findsNothing);
+
+      await tapVisible(tester, find.byKey(const Key("memorize_segment_4")));
+
+      expect(find.byType(MemorizationPracticeScreen), findsOneWidget);
+      expect(find.text("Abschnitt 5 von 10 · Deutsch"), findsOneWidget);
+      expect(
+        tester.widget<Text>(find.byKey(const Key("memorize_heading"))).data,
+        "Das fünfte Gebot",
+      );
+      expect(
+        tester.widget<Text>(find.byKey(const Key("memorize_prompt"))).data,
+        "Du sollst nicht töten.",
+      );
+    });
+
+    testWidgets("Übung: gefragt ist nur der Wortlaut des Gebots", (
+      tester,
+    ) async {
+      await pumpPractice(tester, [
+        PracticeUnit.segment(commandments(), 4, HintLevel.free),
+      ]);
+
+      // Frei wiedergeben: Der Titel sagt, welches Gebot gemeint ist.
+      expect(find.text("Das fünfte Gebot"), findsOneWidget);
+      expect(find.byKey(const Key("memorize_prompt")), findsNothing);
+
+      await tester.enterText(
+        find.byKey(const Key("memorize_input")),
+        "Du sollst nicht töten",
+      );
+      await tapVisible(tester, find.byKey(const Key("memorize_check")));
+
+      final card = ensureRepository().cards["prayer.zehn_gebote.de.s9"]!;
+
+      expect(card.learned, isTrue);
+    });
+
+    testWidgets("Texte ohne Überschriften zeigen keinen Titel", (tester) async {
+      await pumpPractice(tester, [
+        PracticeUnit.segment(vaterunser(), 3, HintLevel.read),
+      ]);
+
+      expect(find.byKey(const Key("memorize_heading")), findsNothing);
+    });
+  });
+
   group("Übung", () {
     testWidgets("Mitlesen, dann Lücken tippen", (tester) async {
       await pumpPractice(tester, [

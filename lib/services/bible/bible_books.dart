@@ -205,6 +205,8 @@ class BibleBooks {
     BibleBook("PRO", _ot, "Sprüche", "Spr", [
       "Sprüche",
       "Sprueche",
+      "Sprüche Salomo",
+      "Sprüche Salomos",
       "Sprichwörter",
       "Proverbs",
       "Proverbia",
@@ -627,6 +629,7 @@ class BibleBooks {
     BibleBook("REV", _nt, "Offenbarung", "Offb", [
       "Offenbarung",
       "Offenbarung des Johannes",
+      "Offenbarung an Johannes",
       "Apokalypse",
       "Apocalypsis",
       "Apocalypse",
