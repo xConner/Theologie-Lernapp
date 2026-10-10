@@ -140,6 +140,9 @@ export function createHandler(deps: TestDependencies) {
                     error: 'Push ist nicht eingerichtet.',
                     stage,
                     code: 'not-configured',
+                    // Nennt nur die fehlende Variable bzw. das fehlende
+                    // Feld, nie einen Wert.
+                    detail: e.message,
                 });
             }
 
