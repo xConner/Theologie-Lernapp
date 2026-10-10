@@ -1,0 +1,25 @@
+{
+  "_hinweis": "Von Hand gepflegte Ergänzungen. Alles hier ist eine manuelle Zuordnung und wird im Inventar als solche ausgewiesen (Beleg: manuell) – vor einer Übernahme von Noten am Gesangbuch oder an der Fachliteratur gegenprüfen.",
+  "name_aliases": {
+    "_hinweis": "Schreibweise in eg_lieder.json → Schreibweise, unter der die Person in Wikidata gefunden wird.",
+    "Clemens Brentaon": "Clemens Brentano",
+    "Johann Steuerlein": "Johann Steurlein",
+    "Johann Scheffler": "Angelus Silesius",
+    "Valentin Thilo jun.": "Valentin Thilo"
+  },
+  "melody_aliases": {
+    "_hinweis": "Melodieverweise, die auf kein Lied des Stammteils zeigen → Melodieangabe im Format von eg_lieder.json.",
+    "Es sind doch selig alle, die": "Matthäus Greiter (1525)",
+    "Herr Gott, dich loben alle wir": "Genf (1551)",
+    "Herzlich tut mich verlangen": "Hans Leo Haßler (1601)",
+    "Da Christus geboren war": "Böhmische Brüder (1544)",
+    "O Herre Gott, dein göttlich Wort": "Erfurt (1527)",
+    "Christe, du Beistand deiner Kreuzgemeine": "Matthäus Apelles von Löwenstern (1644)",
+    "Es ist genug, so nimm, Herr, meinen Geist": "Johann Rudolf Ahle (1662)",
+    "Straf mich nicht in deinem Zorn": "Dresden (1694)",
+    "Seelenbräutigam, Jesus, Gotteslamm!": "Adam Drese (1698)",
+    "O wie selig seid ihr doch, ihr Frommen": "Johann Crüger (1649)",
+    "Wie nach einer Wasserquelle": "Genf (1551)",
+    "Abide With Me (Eventide)": "William Henry Monk (1861)"
+  }
+}
