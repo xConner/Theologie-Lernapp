@@ -74,11 +74,19 @@ class GrammarLearning {
     return (difficulty / 5).clamp(0.5, 2.0);
   }
 
-  /// Wählt einen Wert einer Dimension; schwache Werte kommen häufiger.
-  String pickValue(String type, String dimension, List<String> values) {
+  /// Wählt einen Wert einer Dimension; schwache Werte kommen häufiger. Auf
+  /// Wunsch zählt zusätzlich eine inhaltliche Priorität [weightOf].
+  String pickValue(
+    String type,
+    String dimension,
+    List<String> values, {
+    double Function(String)? weightOf,
+  }) {
     return pickWeighted(
       values,
-      (value) => need(dimensionId(type, dimension, value)),
+      (value) =>
+          need(dimensionId(type, dimension, value)) *
+          (weightOf?.call(value) ?? 1),
       _random,
     );
   }

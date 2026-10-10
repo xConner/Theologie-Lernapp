@@ -9,6 +9,7 @@ import 'package:theologie_lernapp/services/greek/grammar/grammar_answer_check.da
 import 'package:theologie_lernapp/services/greek/grammar/grammar_form_analysis.dart';
 import 'package:theologie_lernapp/services/greek/grammar/grammar_question_picker.dart';
 import 'package:theologie_lernapp/services/greek/grammar/grammar_settings_service.dart';
+import 'package:theologie_lernapp/services/greek/grammar/verb_paradigm.dart';
 import 'package:theologie_lernapp/utils/greek_normalization.dart';
 
 GreekVocabularyEntry _entry(
@@ -33,93 +34,6 @@ void main() {
   GrammarLearning learning([int seed = 1]) {
     return GrammarLearning(random: Random(seed));
   }
-
-  Set<String> pickedTenses(GreekVocabularyEntry entry) {
-    final grammar = learning();
-
-    return {
-      for (var i = 0; i < 300; i++)
-        GrammarQuestionPicker.pickVerbTarget(grammar, entry).tense,
-    };
-  }
-
-  Set<String> pickedVoices(GreekVocabularyEntry entry) {
-    final grammar = learning();
-
-    return {
-      for (var i = 0; i < 300; i++)
-        GrammarQuestionPicker.pickVerbTarget(grammar, entry).voice,
-    };
-  }
-
-  group("Zulässige Bestimmungen je Verb", () {
-    test("normales Verb: alle Tempora, Aktiv und Medium/Passiv", () {
-      final entry = _entry(1, "λύω");
-
-      expect(pickedTenses(entry), {"Präsens", "Imperfekt", "Aorist"});
-      expect(pickedVoices(entry), {"Aktiv", "Medium/Passiv"});
-    });
-
-    test("εἰμί: kein Aorist, nur Aktiv", () {
-      final entry = _entry(2, "εἰμί");
-
-      expect(pickedTenses(entry), {"Präsens", "Imperfekt"});
-      expect(pickedVoices(entry), {"Aktiv"});
-    });
-
-    test("Verben ohne Imperfekt bzw. nur im Präsens", () {
-      expect(pickedTenses(_entry(3, "ἐμβαίνω")), {"Präsens", "Aorist"});
-      expect(pickedTenses(_entry(4, "προσεύχομαι", deponent: true)), {
-        "Präsens",
-      });
-    });
-
-    test("Deponens: nur Medium/Passiv", () {
-      expect(pickedVoices(_entry(5, "ἔρχομαι", deponent: true)), {
-        "Medium/Passiv",
-      });
-    });
-
-    test("nur aktiv belegte Verben gehen vor Deponens-Markierung", () {
-      expect(pickedVoices(_entry(6, "χαίρω", deponent: true)), {"Aktiv"});
-    });
-
-    test("Person und Numerus in der Schreibweise der Fragegenerierung", () {
-      final grammar = learning();
-
-      for (var i = 0; i < 100; i++) {
-        final target = GrammarQuestionPicker.pickVerbTarget(
-          grammar,
-          _entry(1, "λύω"),
-        );
-
-        expect(["1.", "2.", "3."], contains(target.person));
-        expect(["Sg", "Pl"], contains(target.number));
-        expect(GrammarQuestionPicker.parsePerson(target.person), isNotNull);
-        expect(
-          GrammarQuestionPicker.personNumbers,
-          contains("${target.person} ${target.number}."),
-        );
-      }
-    });
-
-    test("festgelegte Werte verbrauchen keine Zufallsziehung", () {
-      // προσεύχομαι: Tempus und Genus Verbi stehen fest; gezogen wird nur
-      // Person/Numerus. Zwei Generatoren mit gleichem Startwert bleiben
-      // deshalb nach einer Frage synchron mit einer einzelnen Ziehung.
-      final random = Random(7);
-      final reference = Random(7);
-
-      GrammarQuestionPicker.pickVerbTarget(
-        GrammarLearning(random: random),
-        _entry(4, "προσεύχομαι", deponent: true),
-      );
-
-      reference.nextDouble();
-
-      expect(random.nextDouble(), reference.nextDouble());
-    });
-  });
 
   group("Nomen", () {
     test("Genus folgt dem Artikel", () {
@@ -334,116 +248,6 @@ void main() {
     });
   });
 
-  group("Antwortprüfung Verb", () {
-    // ἔλυον: 1. Sg. und 3. Pl. Imperfekt Aktiv sind formal identisch.
-    final elyon = parseVerbFormAnalyses([
-      {'tense': 'Imperfekt', 'voice': 'Aktiv', 'number': 'Sg', 'person': 1},
-      {'tense': 'Imperfekt', 'voice': 'Aktiv', 'number': 'Pl', 'person': 3},
-    ]);
-
-    VerbAnswerResult check({
-      List<VerbFormAnalysis> analyses = const [],
-      String targetVoice = "Aktiv",
-      bool deponent = false,
-      String? userPersonNumber,
-      String? userTense,
-      String? userVoice,
-    }) {
-      return checkVerbAnswer(
-        targetPerson: "1.",
-        targetNumber: "Sg",
-        targetTense: "Imperfekt",
-        targetVoice: targetVoice,
-        deponent: deponent,
-        analyses: analyses,
-        userPersonNumber: userPersonNumber,
-        userTense: userTense,
-        userVoice: userVoice,
-      );
-    }
-
-    const allCorrect = (
-      personCorrect: true,
-      tenseCorrect: true,
-      voiceCorrect: true,
-    );
-
-    test("Zielbestimmung ist richtig", () {
-      expect(
-        check(
-          userPersonNumber: "1. Sg.",
-          userTense: "Imperfekt",
-          userVoice: "Aktiv",
-        ),
-        allCorrect,
-      );
-    });
-
-    test("formal identische Form gilt als richtig", () {
-      expect(
-        check(
-          analyses: elyon,
-          userPersonNumber: "3. Pl.",
-          userTense: "Imperfekt",
-          userVoice: "Aktiv",
-        ),
-        allCorrect,
-      );
-    });
-
-    test("ohne Angaben des Backends gilt nur die Zielbestimmung", () {
-      final result = check(
-        userPersonNumber: "3. Pl.",
-        userTense: "Imperfekt",
-        userVoice: "Aktiv",
-      );
-
-      expect(result, (
-        personCorrect: false,
-        tenseCorrect: true,
-        voiceCorrect: true,
-      ));
-    });
-
-    test("Mischung zweier möglicher Bestimmungen ist falsch", () {
-      final result = check(
-        analyses: elyon,
-        userPersonNumber: "3. Sg.",
-        userTense: "Aorist",
-        userVoice: "Aktiv",
-      );
-
-      expect(result, (
-        personCorrect: false,
-        tenseCorrect: false,
-        voiceCorrect: true,
-      ));
-    });
-
-    test("Deponent zählt bei Deponentien wie Medium/Passiv", () {
-      final result = check(
-        targetVoice: "Medium/Passiv",
-        deponent: true,
-        userPersonNumber: "1. Sg.",
-        userTense: "Imperfekt",
-        userVoice: "Deponent",
-      );
-
-      expect(result, allCorrect);
-    });
-
-    test("Deponent bei einem normalen Verb ist falsch", () {
-      final result = check(
-        targetVoice: "Medium/Passiv",
-        userPersonNumber: "1. Sg.",
-        userTense: "Imperfekt",
-        userVoice: "Deponent",
-      );
-
-      expect(result.voiceCorrect, isFalse);
-    });
-  });
-
   group("Grundform", () {
     test("Akzente, Spiritus und Groß-/Kleinschreibung zählen nicht", () {
       expect(lemmaAnswerMatches("ανθρωπος", "ἄνθρωπος"), isTrue);
@@ -527,6 +331,73 @@ void main() {
         'enabledComparisonKinds': GrammarQuestionPicker.comparisonKinds,
         'askComparisonLemma': true,
         'askComparisonTranslation': true,
+        'askComparisonDegree': true,
+        'askComparisonForm': true,
+        'enabledMoods': GrammarQuestionPicker.moods,
+      });
+    });
+
+    test("Modi: ohne gespeicherte Unterauswahl gelten alle", () {
+      for (final data in [
+        null,
+        // Einstellungen von vor den Modi.
+        <String, dynamic>{
+          'enabledSteps': [1, 2],
+          'enabledTypes': ["noun", "verb"],
+          'showLemmaFieldVerb': false,
+        },
+      ]) {
+        expect(GrammarTrainerSettings.fromMap(data).enabledMoods, [
+          VerbMood.indicative,
+          VerbMood.imperative,
+          VerbMood.participle,
+        ]);
+      }
+    });
+
+    test("Modi: Unterauswahl wird gelesen, gespeichert, geprüft", () {
+      final settings = GrammarTrainerSettings.fromMap(<String, dynamic>{
+        'enabledMoods': ["Partizip", "Konjunktiv", 3, "Indikativ"],
+      });
+
+      expect(settings.enabledMoods, ["Partizip", "Indikativ"]);
+      expect(settings.toMap()['enabledMoods'], ["Partizip", "Indikativ"]);
+
+      // Veränderbare Kopie für den Einstellungsdialog.
+      GrammarTrainerSettings.fromMap(null).enabledMoods.clear();
+
+      expect(GrammarTrainerSettings.allMoods.length, 3);
+    });
+
+    test("neue Einstellungen lassen die bestehenden unberührt", () {
+      final settings = GrammarTrainerSettings.fromMap(<String, dynamic>{
+        'enabledSteps': [3],
+        'enabledTypes': ["verb", "comparison"],
+        'showLemmaFieldNoun': false,
+        'showLemmaFieldVerb': false,
+        'showLemmaFieldPronoun': false,
+        'enabledPronounKinds': ["relative"],
+        'enabledComparisonKinds': ["regular"],
+        'askComparisonLemma': false,
+        'askComparisonTranslation': true,
+        'enabledMoods': ["Imperativ"],
+        'askComparisonDegree': false,
+        'askComparisonForm': false,
+      });
+
+      expect(settings.toMap(), {
+        'enabledSteps': [3],
+        'enabledTypes': ["verb", "comparison"],
+        'showLemmaFieldNoun': false,
+        'showLemmaFieldVerb': false,
+        'showLemmaFieldPronoun': false,
+        'enabledPronounKinds': ["relative"],
+        'enabledComparisonKinds': ["regular"],
+        'askComparisonLemma': false,
+        'askComparisonTranslation': true,
+        'askComparisonDegree': false,
+        'askComparisonForm': false,
+        'enabledMoods': ["Imperativ"],
       });
     });
 

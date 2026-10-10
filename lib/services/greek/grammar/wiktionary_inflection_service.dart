@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 import 'grammar_form_analysis.dart';
+import 'verb_paradigm.dart';
 
 class WiktionaryInflectionService {
   static const String _backendBaseUrl = 'https://www.theologie.app';
@@ -33,41 +34,43 @@ class WiktionaryInflectionService {
   /// Anfrage. Wird zusammen mit der Form geladen, damit die Antwortprüfung
   /// formal identische Formen ohne weitere Anfrage erkennt.
   static final Map<String, List<NounFormAnalysis>> _nounAnalysesCache = {};
-  static final Map<String, List<VerbFormAnalysis>> _verbAnalysesCache = {};
+
+  /// Bereits geladene Paradigmen je Grundform. Ein Paradigma ist für
+  /// dieselbe Grundform immer identisch; „nicht gefunden“ und Fehler werden
+  /// nicht gecacht.
+  static final Map<String, VerbParadigm> _paradigmCache = {};
 
   // ---------------------------------------------------------------------------
   // VERBEN
   // ---------------------------------------------------------------------------
 
-  /// Holt eine flektierte Verbform über unser Vercel-Backend.
+  /// Holt das Paradigma eines Verbs über unser Vercel-Backend: Indikativ
+  /// und Imperativ aller Tempora des Trainers sowie die Nominative der
+  /// Partizipien, aus denen [VerbParadigm] die Deklination bildet.
   ///
   /// Das Backend übernimmt:
   /// - Wiktionary-Aufruf
-  /// - Auswahl der richtigen Flexionstabelle
-  /// - Auswahl von Tempus
-  /// - Auswahl von Aktiv / Medium-Passiv
-  /// - Auswahl von Person und Numerus
-  Future<String?> getVerbForm({
-    required String lemma,
-    required String tense,
-    required String voice,
-    required String number,
-    required int person,
-  }) async {
-    final uri = _verbUri(
-      lemma: lemma,
-      tense: tense,
-      voice: voice,
-      number: number,
-      person: person,
-    );
-
-    final cacheKey = uri.toString();
-    final cached = _formCache[cacheKey];
+  /// - Auswahl der richtigen Flexionstabelle je Tempus
+  ///
+  /// `null`, wenn es zu dem Verb keine Flexionstabelle gibt.
+  Future<VerbParadigm?> getVerbParadigm(String lemma) async {
+    final cached = _paradigmCache[lemma];
 
     if (cached != null) {
       return cached;
     }
+
+    // Bestimmte Verben bilden den Aorist über ein anderes Lemma.
+    // Beispiel: λέγω → εἶπον
+    final aoristLemma = _aoristApiLemmaOverrides[lemma];
+
+    final uri = Uri.parse('$_backendBaseUrl/api/greek-verb').replace(
+      queryParameters: {
+        'lemma': lemma,
+        'paradigm': '1',
+        'aoristLemma': ?aoristLemma,
+      },
+    );
 
     final response = await http.get(uri);
 
@@ -77,72 +80,32 @@ class WiktionaryInflectionService {
 
     if (response.statusCode != 200) {
       throw Exception(
-        'Backend konnte die Verbform nicht laden '
+        'Backend konnte die Verbformen nicht laden '
         '(HTTP ${response.statusCode}).',
       );
     }
 
-    final data = jsonDecode(response.body);
+    final data = jsonDecode(utf8.decode(response.bodyBytes));
 
     if (data is! Map<String, dynamic>) {
       throw Exception('Ungültige Antwort vom Verb-Backend.');
     }
 
-    final form = data['form'];
+    final paradigm = VerbParadigm.fromJson(data['paradigm']);
 
-    if (form is! String || form.isEmpty) {
+    if (paradigm.forms.isEmpty) {
       return null;
     }
 
-    _formCache[cacheKey] = form;
-    _verbAnalysesCache[cacheKey] = parseVerbFormAnalyses(data['analyses']);
+    _paradigmCache[lemma] = paradigm;
 
-    return form;
+    return paradigm;
   }
 
-  /// Bestimmungen, die für die zuvor mit [getVerbForm] geladene Form möglich
-  /// sind. Leer, wenn die Form nicht geladen wurde oder das Backend keine
-  /// Angaben liefert.
-  List<VerbFormAnalysis> verbFormAnalyses({
-    required String lemma,
-    required String tense,
-    required String voice,
-    required String number,
-    required int person,
-  }) {
-    final uri = _verbUri(
-      lemma: lemma,
-      tense: tense,
-      voice: voice,
-      number: number,
-      person: person,
-    );
-
-    return _verbAnalysesCache[uri.toString()] ?? const [];
-  }
-
-  Uri _verbUri({
-    required String lemma,
-    required String tense,
-    required String voice,
-    required String number,
-    required int person,
-  }) {
-    // Für den Aorist können bestimmte Verben ein anderes Lemma benötigen.
-    // Beispiel: λέγω → εἶπον
-    final apiLemma = tense == 'Aorist'
-        ? (_aoristApiLemmaOverrides[lemma] ?? lemma)
-        : lemma;
-
-    return Uri.parse('$_backendBaseUrl/api/greek-verb').replace(
-      queryParameters: {
-        'lemma': apiLemma,
-        'tense': tense,
-        'voice': voice,
-        'number': number,
-        'person': person.toString(),
-      },
-    );
+  /// Das zuvor mit [getVerbParadigm] geladene Paradigma; `null`, solange es
+  /// nicht geladen wurde.
+  VerbParadigm? cachedVerbParadigm(String lemma) {
+    return _paradigmCache[lemma];
   }
 
   // ---------------------------------------------------------------------------

@@ -5,20 +5,12 @@ import '../../../models/greek/grammar/adjective_comparison.dart';
 import '../../../models/greek/grammar/pronoun_paradigm.dart';
 import '../../../models/greek/vocabulary/greek_vocabulary_entry.dart';
 import 'adjective_comparisons.dart';
+import 'greek_declension.dart';
+import 'verb_paradigm.dart';
 
 /// Zielbestimmung einer Nomen-Aufgabe in der Schreibweise des Trainers
 /// ("Akkusativ", "Sg.", "m").
 typedef NounTarget = ({String grammaticalCase, String number, String gender});
-
-/// Zielbestimmung einer Verb-Aufgabe. [person] und [number] in der
-/// Schreibweise der Fragegenerierung ("3.", "Pl"), Tempus und Genus Verbi
-/// wie im Trainer angezeigt.
-typedef VerbTarget = ({
-  String person,
-  String number,
-  String tense,
-  String voice,
-});
 
 /// Zielbestimmung einer Pronomen-Aufgabe in der Schreibweise des Trainers
 /// ("Akkusativ", "Sg.", "m" bzw. [GrammarQuestionPicker.noGender]) samt der
@@ -30,29 +22,37 @@ typedef PronounTarget = ({
   String form,
 });
 
-/// Aufgabe der Adjektivsteigerung: die angezeigte gesteigerte Form [shown]
-/// und ein Hinweis darunter ([note]: "Neutrum", "Adv.", "Gen. Sg.").
-/// Gefragt werden Grundform und/oder Übersetzung des Positivs.
-typedef ComparisonTarget = ({String shown, String? note});
+/// Aufgabe der Adjektivsteigerung: die angezeigte Form [shown] und ein
+/// Hinweis darunter ([note]: "Neutrum", "Adv.", "Gen. Sg."). Gefragt werden
+/// Grundform und/oder Übersetzung des Positivs, die Steigerungsstufe
+/// ([degree]) und – bei einer flektierten Form – Kasus, Numerus und Genus.
+///
+/// [base] ist die Tabellenform, zu der [shown] gehört (σοφώτερος zu
+/// σοφωτέρου). Kasus, Numerus ("Sg.") und Genus sind `null`, wenn die Form
+/// nicht bestimmt werden soll.
+typedef ComparisonTarget = ({
+  String shown,
+  String? note,
+  String base,
+  String degree,
+  String? grammaticalCase,
+  String? number,
+  String? gender,
+});
 
 /// Fachliche Regeln der Fragegenerierung im Grammatiktrainer: welche Wörter
 /// und welche Bestimmungen überhaupt gefragt werden dürfen.
 ///
 /// Die Regeln legen nur die zulässigen Kandidaten fest. Gewichtet wird
 /// anschließend ausschließlich über [GrammarLearning]; die Reihenfolge der
-/// Zufallsziehungen (Nomen: Kasus, Numerus – Verb: Person, Tempus, Genus
-/// Verbi) ist Teil des Verhaltens.
+/// Zufallsziehungen (Nomen: Kasus, Numerus – Verb: Modus, Tempus, Genus
+/// Verbi, dann Person bzw. Kasus, Numerus, Genus) ist Teil des Verhaltens.
 class GrammarQuestionPicker {
   GrammarQuestionPicker._();
 
   static const List<String> types = ["noun", "verb", "pronoun", "comparison"];
 
-  static const List<String> cases = [
-    "Nominativ",
-    "Genitiv",
-    "Dativ",
-    "Akkusativ",
-  ];
+  static const List<String> cases = declensionCases;
 
   static const List<String> numbers = ["Sg.", "Pl."];
 
@@ -102,12 +102,56 @@ class GrammarQuestionPicker {
     "3. Pl",
   ];
 
+  /// Person und Numerus des Imperativs: Eine 1. Person gibt es nicht.
+  static const List<String> imperativePersonNumbers = [
+    "2. Sg.",
+    "3. Sg.",
+    "2. Pl.",
+    "3. Pl.",
+  ];
+
   static const List<String> tenses = ["Präsens", "Imperfekt", "Aorist"];
 
+  /// Modi der Verbaufgaben, einzeln wählbar.
+  static const List<String> moods = VerbMood.all;
+
+  /// Tempora, in denen es den Modus [mood] gibt: Imperativ und Partizip
+  /// kennen kein Imperfekt. Ohne Modus alle Tempora.
+  static List<String> tensesOfMood(String? mood) {
+    return mood == null || mood == VerbMood.indicative
+        ? tenses
+        : const ["Präsens", "Aorist"];
+  }
+
+  /// Person und Numerus, die im Modus [mood] zur Wahl stehen.
+  static List<String> personNumbersOfMood(String? mood) {
+    return mood == VerbMood.imperative
+        ? imperativePersonNumbers
+        : personNumbers;
+  }
+
+  /// Ob im Modus [mood] Person und Numerus bestimmt werden (finite Formen).
+  /// Ohne gewählten Modus steht das Feld noch nicht zur Wahl, damit es den
+  /// Modus der Lösung nicht verrät.
+  static bool asksPersonNumber(String? mood) {
+    return mood == VerbMood.indicative || mood == VerbMood.imperative;
+  }
+
+  /// Ob im Modus [mood] Kasus, Numerus und Genus bestimmt werden (Partizip).
+  static bool asksCaseNumberGender(String? mood) {
+    return mood == VerbMood.participle;
+  }
+
+  // Genera Verbi, wie der Nutzer sie auswählt. Im Präsens und Imperfekt
+  // sind Medium und Passiv formgleich ("Medium/Passiv"); dort gelten beide.
+  //
   // "Deponent" ist vorerst nicht wählbar, weil die Deponentien in der
   // Vokabelliste noch nicht vollständig markiert sind. Zum Reaktivieren hier
   // wieder aufnehmen; die Antwortprüfung wertet die Auswahl bereits aus.
-  static const List<String> voices = ["Aktiv", "Medium/Passiv"];
+  static const List<String> voices = ["Aktiv", "Medium", "Passiv"];
+
+  /// Steigerungsstufen der Adjektivsteigerung.
+  static const List<String> degrees = AdjectiveComparisons.degrees;
 
   /// Wörter, die im Grammatiktrainer nie gefragt werden.
   static const Set<String> blacklist = {
@@ -254,19 +298,81 @@ class GrammarQuestionPicker {
   /// Eine beliebige gesteigerte Form des Adjektivs (Komparativ, Superlativ,
   /// Neutrum, Genitiv des Komparativs – nie eine seltene Form), gewählt nach
   /// Lernbedarf: falsch beantwortete Formen kommen häufiger wieder.
+  ///
+  /// Mit [inflected] wird stattdessen eine flektierte Form vorgelegt: erst
+  /// die Steigerungsstufe (der Positiv seltener, und nur wo er sich nach der
+  /// a-/o-Deklination bilden lässt), dann die Tabellenform, dann Kasus,
+  /// Numerus und Genus. Formen ohne Deklination (ἥκιστα) bleiben, wie sie
+  /// sind.
   static ComparisonTarget pickComparisonTarget(
     GrammarLearning grammar,
-    AdjectiveComparison comparison,
-  ) {
-    final forms = comparison.shownForms;
+    AdjectiveComparison comparison, {
+    bool inflected = false,
+  }) {
+    if (!inflected) {
+      final forms = comparison.shownForms;
 
-    final shown = grammar.pickValue("comparison", "form", [
-      for (final form in forms) form.text,
+      final shown = grammar.pickValue("comparison", "form", [
+        for (final form in forms) form.text,
+      ]);
+
+      return (
+        shown: shown,
+        note: forms.firstWhere((form) => form.text == shown).note,
+        base: shown,
+        degree: AdjectiveComparisons.degreeOf(comparison, shown),
+        grammaticalCase: null,
+        number: null,
+        gender: null,
+      );
+    }
+
+    final bases = AdjectiveComparisons.basesOf(comparison);
+
+    final degree = grammar.pickValue(
+      "comparison",
+      "degree",
+      [
+        for (final degree in degrees)
+          if (bases.any((base) => base.degree == degree)) degree,
+      ],
+      weightOf: (degree) {
+        return degree == AdjectiveComparisons.positive ? 0.4 : 1;
+      },
+    );
+
+    final text = grammar.pickValue("comparison", "form", [
+      for (final base in bases)
+        if (base.degree == degree) base.text,
     ]);
 
+    final base = bases.firstWhere((base) => base.text == text);
+    final paradigm = base.paradigm;
+
+    if (paradigm == null) {
+      return (
+        shown: text,
+        note: base.note,
+        base: text,
+        degree: degree,
+        grammaticalCase: null,
+        number: null,
+        gender: null,
+      );
+    }
+
+    final grammaticalCase = grammar.pickValue("comparison", "case", cases);
+    final number = grammar.pickValue("comparison", "number", numbers);
+    final gender = grammar.pickValue("comparison", "gender", genders);
+
     return (
-      shown: shown,
-      note: forms.firstWhere((form) => form.text == shown).note,
+      shown: paradigm.form(grammaticalCase, nounRequestNumber(number), gender)!,
+      note: null,
+      base: text,
+      degree: degree,
+      grammaticalCase: grammaticalCase,
+      number: number,
+      gender: gender,
     );
   }
 
@@ -353,65 +459,150 @@ class GrammarQuestionPicker {
     return tenses;
   }
 
-  /// Für das Verb zulässige Genera Verbi. Ein Deponens hat nur
-  /// mediale/passive Formen.
-  static List<String> allowedVoices(GreekVocabularyEntry entry) {
+  /// Für das Verb im Tempus [tense] zulässige Genera Verbi, soweit das
+  /// Paradigma sie enthält.
+  ///
+  /// Im Präsens und Imperfekt Aktiv und Medium/Passiv, im Aorist Aktiv und
+  /// Medium; das Aorist Passiv gehört nicht zum Lernstoff. Ein Deponens hat
+  /// kein Aktiv – im Aorist steht deshalb die Form, die es tatsächlich
+  /// bildet: Medium (ἐγενόμην), sonst Passiv (ἐβουλήθην), sonst Aktiv
+  /// (ἦλθον).
+  static List<String> allowedVoices(
+    GreekVocabularyEntry entry,
+    String tense,
+    VerbParadigm paradigm,
+  ) {
+    final existing = {
+      for (final form in paradigm.forms)
+        if (form.analysis.tense == tense &&
+            form.analysis.mood == VerbMood.indicative)
+          form.analysis.voice,
+    };
+
     if (activeOnlyVerbs.contains(entry.lemma)) {
-      return const ["Aktiv"];
+      return [if (existing.contains("Aktiv")) "Aktiv"];
     }
 
-    if (entry.deponent) {
-      return const ["Medium/Passiv"];
+    if (!entry.deponent) {
+      return [
+        for (final voice in const ["Aktiv", "Medium/Passiv", "Medium"])
+          if (existing.contains(voice)) voice,
+      ];
     }
 
-    return const ["Aktiv", "Medium/Passiv"];
+    if (tense != "Aorist") {
+      return [if (existing.contains("Medium/Passiv")) "Medium/Passiv"];
+    }
+
+    for (final voice in const ["Medium", "Passiv", "Aktiv"]) {
+      if (existing.contains(voice)) {
+        return [voice];
+      }
+    }
+
+    return const [];
   }
 
-  /// Erst die für das Verb zulässigen Werte bestimmen, dann gewichten. Steht
-  /// nur ein Wert zur Wahl, wird nicht gezogen.
-  static VerbTarget pickVerbTarget(
+  /// Ob die Form zum Lernstoff des Verbs gehört: Tempus und Genus Verbi
+  /// zulässig, Modus eingeschaltet. Das Aorist Passiv der Deponentien wird
+  /// nur im Indikativ gefragt.
+  static bool isAskable(
+    GreekVocabularyEntry entry,
+    VerbParadigm paradigm,
+    VerbAnalysis analysis, {
+    List<String> enabledMoods = moods,
+  }) {
+    return enabledMoods.contains(analysis.mood) &&
+        allowedTenses(entry).contains(analysis.tense) &&
+        allowedVoices(
+          entry,
+          analysis.tense,
+          paradigm,
+        ).contains(analysis.voice) &&
+        (analysis.voice != "Passiv" || analysis.mood == VerbMood.indicative);
+  }
+
+  /// Wählt die Form einer Verbaufgabe aus dem Paradigma: nur Formen, die es
+  /// dort gibt und die zum Lernstoff gehören ([isAskable]). Erst die
+  /// zulässigen Werte bestimmen, dann gewichten; steht nur ein Wert zur
+  /// Wahl, wird nicht gezogen. `null`, wenn keine Form in Frage kommt.
+  static VerbForm? pickVerbTarget(
     GrammarLearning grammar,
     GreekVocabularyEntry entry,
-  ) {
-    final personNumber = grammar
-        .pickValue("verb", "person", verbPersonNumbers)
-        .split(" ");
+    VerbParadigm paradigm, {
+    List<String> enabledMoods = moods,
+  }) {
+    var candidates = [
+      for (final form in paradigm.forms)
+        if (isAskable(
+          entry,
+          paradigm,
+          form.analysis,
+          enabledMoods: enabledMoods,
+        ))
+          form,
+    ];
 
-    final tenseOptions = allowedTenses(entry);
-
-    final tense = tenseOptions.length == 1
-        ? tenseOptions.single
-        : grammar.pickValue("verb", "tense", tenseOptions);
-
-    final voiceOptions = allowedVoices(entry);
-
-    final voice = voiceOptions.length == 1
-        ? voiceOptions.single
-        : grammar.pickValue("verb", "voice", voiceOptions);
-
-    return (
-      person: personNumber[0],
-      number: personNumber[1],
-      tense: tense,
-      voice: voice,
-    );
-  }
-
-  /// "1." → 1; `null` bei ungültiger Angabe.
-  static int? parsePerson(String? value) {
-    switch (value) {
-      case "1.":
-        return 1;
-
-      case "2.":
-        return 2;
-
-      case "3.":
-        return 3;
-
-      default:
-        return null;
+    if (candidates.isEmpty) {
+      return null;
     }
+
+    // Schränkt die Kandidaten auf einen nach Lernbedarf gewählten Wert der
+    // Dimension ein. [order] legt die Reihenfolge der Werte fest.
+    void narrow(
+      String type,
+      String dimension,
+      List<String> order,
+      String Function(VerbAnalysis) valueOf,
+    ) {
+      final options = [
+        for (final value in order)
+          if (candidates.any((form) => valueOf(form.analysis) == value)) value,
+      ];
+
+      final picked = options.length == 1
+          ? options.single
+          : grammar.pickValue(type, dimension, options);
+
+      candidates = [
+        for (final form in candidates)
+          if (valueOf(form.analysis) == picked) form,
+      ];
+    }
+
+    narrow("verb", "mood", moods, (analysis) => analysis.mood);
+    narrow("verb", "tense", tenses, (analysis) => analysis.tense);
+    narrow("verb", "voice", const [
+      "Aktiv",
+      "Medium/Passiv",
+      "Medium",
+      "Passiv",
+    ], (analysis) => analysis.voice);
+
+    if (candidates.first.analysis.mood == VerbMood.participle) {
+      narrow(
+        "participle",
+        "case",
+        cases,
+        (analysis) => analysis.grammaticalCase!,
+      );
+      narrow(
+        "participle",
+        "number",
+        numbers,
+        (analysis) => "${analysis.number}.",
+      );
+      narrow("participle", "gender", genders, (analysis) => analysis.gender!);
+    } else {
+      narrow(
+        "verb",
+        "person",
+        verbPersonNumbers,
+        (analysis) => "${analysis.person}. ${analysis.number}",
+      );
+    }
+
+    return candidates.first;
   }
 
   /// Numerus eines Nomens in der Schreibweise der Backend-Anfrage.

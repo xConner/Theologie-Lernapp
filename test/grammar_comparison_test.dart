@@ -576,6 +576,436 @@ void main() {
     });
   });
 
+  group("Flektierte Formen", () {
+    List<String> describe(String form) {
+      return AdjectiveComparisons.describeForm(form);
+    }
+
+    test("Formen der Folien und des Übungsblatts", () {
+      // σοφώτερός ἐστιν / σοφώτατός ἐστιν / οὐδὲν μεῖζον.
+      expect(describe("σοφώτερος"), ["Komparativ · Nominativ Sg. m"]);
+      expect(describe("σοφώτατος"), ["Superlativ · Nominativ Sg. m"]);
+      expect(describe("μεῖζον"), [
+        "Komparativ · Nominativ Sg. n",
+        "Komparativ · Akkusativ Sg. n",
+      ]);
+
+      // εὐδαιμονέστεροι, -τέρα und -τάταις wie im Übungsblatt.
+      expect(describe("εὐδαιμονέστεροι"), ["Komparativ · Nominativ Pl. m"]);
+      expect(describe("σοφωτέρα"), ["Komparativ · Nominativ Sg. f"]);
+      expect(describe("σοφωτάταις"), ["Superlativ · Dativ Pl. f"]);
+
+      // -ίων, -ιον (Gen. -ίονος); -ιστος, -ίστη, -ιστον.
+      expect(describe("κακίονος"), ["Komparativ · Genitiv Sg. m/f/n"]);
+      expect(describe("κάκιον"), [
+        "Komparativ · Nominativ Sg. n",
+        "Komparativ · Akkusativ Sg. n",
+      ]);
+      expect(describe("κακίστη"), ["Superlativ · Nominativ Sg. f"]);
+
+      // Gen.: πλείονος oder πλέονος.
+      expect(describe("πλείονος"), ["Komparativ · Genitiv Sg. m/f/n"]);
+      expect(describe("πλέονος"), ["Komparativ · Genitiv Sg. m/f/n"]);
+      expect(describe("πλέον"), [
+        "Komparativ · Nominativ Sg. n",
+        "Komparativ · Akkusativ Sg. n",
+      ]);
+    });
+
+    test("Akzent wandert mit der Endung", () {
+      final sophos = AdjectiveComparisons.basesOf(_adjective("σοφός"));
+
+      String form(String text, String c, String n, String g) {
+        return sophos
+            .firstWhere((base) => base.text == text)
+            .paradigm!
+            .form(c, n, g)!;
+      }
+
+      expect(form("σοφώτερος", "Genitiv", "Sg", "m"), "σοφωτέρου");
+      expect(form("σοφώτερος", "Nominativ", "Pl", "f"), "σοφώτεραι");
+      expect(form("σοφώτατος", "Nominativ", "Sg", "f"), "σοφωτάτη");
+      expect(form("σοφώτατος", "Akkusativ", "Pl", "n"), "σοφώτατα");
+      expect(form("σοφός", "Genitiv", "Pl", "f"), "σοφῶν");
+
+      final pleistos = AdjectiveComparisons.basesOf(
+        _adjective("πολύς"),
+      ).firstWhere((base) => base.text == "πλεῖστος").paradigm!;
+
+      expect(pleistos.form("Genitiv", "Sg", "m"), "πλείστου");
+      expect(pleistos.form("Nominativ", "Pl", "m"), "πλεῖστοι");
+    });
+
+    test("jede vorlegbare Steigerungsform lässt sich deklinieren", () {
+      for (final comparison in AdjectiveComparisons.all) {
+        for (final base in AdjectiveComparisons.basesOf(comparison)) {
+          if (base.text == "ἥκιστα") {
+            // Adverb.
+            expect(base.paradigm, isNull);
+            expect(base.note, "Adv.");
+          } else {
+            expect(base.paradigm, isNotNull, reason: base.text);
+            expect(
+              base.paradigm!.form("Nominativ", "Sg", "m"),
+              base.text,
+              reason: base.text,
+            );
+          }
+        }
+      }
+    });
+
+    test("Positiv nur nach der a-/o-Deklination, keine seltenen Formen", () {
+      final withPositive = {
+        for (final comparison in AdjectiveComparisons.all)
+          if (AdjectiveComparisons.basesOf(comparison).any((base) {
+            return base.degree == AdjectiveComparisons.positive;
+          }))
+            comparison.positive,
+      };
+
+      expect(withPositive, {
+        "ἀγαθός",
+        "κακός",
+        "μικρός",
+        "ὀλίγος",
+        "καλός",
+        "βέβαιος",
+        "πονηρός",
+        "σοφός",
+        "ἄξιος",
+      });
+
+      final oligos = [
+        for (final base in AdjectiveComparisons.basesOf(_adjective("ὀλίγος")))
+          base.text,
+      ];
+
+      expect(oligos, ["ὀλίγος", "ἐλάττων", "ἐλάχιστος"]);
+
+      // Femininum auf -α nach ε, ι, ρ.
+      expect(describe("μικρά"), contains("Positiv · Nominativ Sg. f"));
+      expect(describe("βεβαία"), ["Positiv · Nominativ Sg. f"]);
+      expect(describe("σοφή"), ["Positiv · Nominativ Sg. f"]);
+    });
+
+    test("flektierte Form gehört zu allen ihren Adjektiven", () {
+      expect(
+        [
+          for (final c in AdjectiveComparisons.ownersOf("ἐλάττονος"))
+            c.positive,
+        ],
+        ["μικρός", "ὀλίγος"],
+      );
+      expect(
+        [
+          for (final c in AdjectiveComparisons.ownersOf("σοφωτέρου"))
+            c.positive,
+        ],
+        ["σοφός"],
+      );
+      expect(AdjectiveComparisons.ownersOf("λόγου"), isEmpty);
+      expect(AdjectiveComparisons.analysesOf("λόγου"), isEmpty);
+    });
+
+    test("Steigerungsstufe der Tabellenformen", () {
+      final polys = _adjective("πολύς");
+
+      expect(AdjectiveComparisons.degreeOf(polys, "πλείων"), "Komparativ");
+      expect(AdjectiveComparisons.degreeOf(polys, "πλέον"), "Komparativ");
+      expect(AdjectiveComparisons.degreeOf(polys, "πλέονος"), "Komparativ");
+      expect(AdjectiveComparisons.degreeOf(polys, "πλεῖστος"), "Superlativ");
+      expect(AdjectiveComparisons.degreeOf(polys, "πολύς"), "Positiv");
+      expect(GrammarQuestionPicker.degrees, [
+        "Positiv",
+        "Komparativ",
+        "Superlativ",
+      ]);
+    });
+  });
+
+  group("Antwortprüfung: Stufe und Form", () {
+    ComparisonAnswerResult check(
+      String shown, {
+      String lemma = "σοφός",
+      bool degreeAsked = true,
+      bool formAsked = true,
+      String? degree,
+      String? grammaticalCase,
+      String? number,
+      String? gender,
+    }) {
+      return checkComparisonAnswer(
+        shown: shown,
+        lemmaInput: lemma,
+        degreeAsked: degreeAsked,
+        formAsked: formAsked,
+        userDegree: degree,
+        userCase: grammaticalCase,
+        userNumber: number,
+        userGender: gender,
+      );
+    }
+
+    test("Stufe richtig und falsch", () {
+      final right = check("σοφώτερος", formAsked: false, degree: "Komparativ");
+
+      expect(right.correct, isTrue);
+      expect(right.degreeCorrect, isTrue);
+      expect(right.caseCorrect, isNull);
+
+      final wrong = check("σοφώτερος", formAsked: false, degree: "Superlativ");
+
+      expect(wrong.correct, isFalse);
+      expect(wrong.degreeCorrect, isFalse);
+      // Die Grundform bleibt richtig.
+      expect(wrong.lemmaCorrect, isTrue);
+
+      expect(
+        check("σοφός", formAsked: false, degree: "Positiv").correct,
+        isTrue,
+      );
+    });
+
+    test("nicht gefragt: wie bisher nur Grundform und Übersetzung", () {
+      final result = check("σοφώτερος", degreeAsked: false, formAsked: false);
+
+      expect(result.correct, isTrue);
+      expect(result.degreeCorrect, isNull);
+      expect(result.caseCorrect, isNull);
+      expect(result.numberCorrect, isNull);
+      expect(result.genderCorrect, isNull);
+    });
+
+    test("formal identische Formen gelten, aber nur als Ganzes", () {
+      ComparisonAnswerResult genitive(String number, String gender) {
+        return check(
+          "σοφωτέρου",
+          degree: "Komparativ",
+          grammaticalCase: "Genitiv",
+          number: number,
+          gender: gender,
+        );
+      }
+
+      // Maskulinum und Neutrum sind im Genitiv Singular gleich.
+      expect(genitive("Sg.", "m").correct, isTrue);
+      expect(genitive("Sg.", "n").correct, isTrue);
+
+      final feminine = genitive("Sg.", "f");
+
+      expect(feminine.correct, isFalse);
+      expect(feminine.genderCorrect, isFalse);
+      expect(feminine.caseCorrect, isTrue);
+      expect(feminine.numberCorrect, isTrue);
+
+      final plural = genitive("Pl.", "m");
+
+      expect(plural.correct, isFalse);
+      expect(plural.numberCorrect, isFalse);
+    });
+
+    test("Komparativ auf -ων: Maskulinum und Femininum", () {
+      for (final gender in ["m", "f"]) {
+        expect(
+          check(
+            "κακίονες",
+            lemma: "κακός",
+            degree: "Komparativ",
+            grammaticalCase: "Nominativ",
+            number: "Pl.",
+            gender: gender,
+          ).correct,
+          isTrue,
+        );
+      }
+
+      expect(
+        check(
+          "κακίονες",
+          lemma: "κακός",
+          degree: "Komparativ",
+          grammaticalCase: "Nominativ",
+          number: "Pl.",
+          gender: "n",
+        ).correct,
+        isFalse,
+      );
+    });
+
+    test("Adverb: nur die Stufe zählt", () {
+      final result = check("ἥκιστα", lemma: "κακός", degree: "Superlativ");
+
+      expect(result.correct, isTrue);
+      expect(result.degreeCorrect, isTrue);
+      expect(result.caseCorrect, isNull);
+    });
+
+    test("fehlende Auswahl ist falsch", () {
+      final result = check("σοφωτέρου");
+
+      expect(result.correct, isFalse);
+      expect(result.degreeCorrect, isFalse);
+      expect(result.caseCorrect, isFalse);
+      expect(result.numberCorrect, isFalse);
+      expect(result.genderCorrect, isFalse);
+    });
+  });
+
+  group("Fragegenerierung: flektierte Formen", () {
+    test("Tabellenform trägt ihre Stufe, aber keine Bestimmung", () {
+      final grammar = GrammarLearning(random: Random(4));
+      final megas = _adjective("μέγας");
+
+      for (var i = 0; i < 100; i++) {
+        final target = GrammarQuestionPicker.pickComparisonTarget(
+          grammar,
+          megas,
+        );
+
+        expect(target.base, target.shown);
+        expect(
+          target.degree,
+          target.shown == "μέγιστος" ? "Superlativ" : "Komparativ",
+        );
+        expect(target.grammaticalCase, isNull);
+        expect(target.number, isNull);
+        expect(target.gender, isNull);
+      }
+    });
+
+    test("Form passt zu Stufe, Kasus, Numerus und Genus", () {
+      final grammar = GrammarLearning(random: Random(5));
+
+      for (final comparison in AdjectiveComparisons.all) {
+        final bases = AdjectiveComparisons.basesOf(comparison);
+
+        for (var i = 0; i < 200; i++) {
+          final target = GrammarQuestionPicker.pickComparisonTarget(
+            grammar,
+            comparison,
+            inflected: true,
+          );
+
+          final base = bases.firstWhere((base) => base.text == target.base);
+
+          expect(base.degree, target.degree);
+
+          if (base.paradigm == null) {
+            expect(target.shown, "ἥκιστα");
+            expect(target.note, "Adv.");
+            expect(target.grammaticalCase, isNull);
+
+            continue;
+          }
+
+          expect(target.note, isNull);
+          expect(
+            base.paradigm!.form(
+              target.grammaticalCase!,
+              GrammarQuestionPicker.nounRequestNumber(target.number),
+              target.gender!,
+            ),
+            target.shown,
+          );
+
+          // Die Zielbestimmung ist eine richtige Antwort.
+          expect(
+            checkComparisonAnswer(
+              shown: target.shown,
+              lemmaInput: comparison.positive,
+              degreeAsked: true,
+              formAsked: true,
+              userDegree: target.degree,
+              userCase: target.grammaticalCase,
+              userNumber: target.number,
+              userGender: target.gender,
+            ).correct,
+            isTrue,
+            reason: target.shown,
+          );
+        }
+      }
+    });
+
+    test("alle Stufen kommen vor, der Positiv seltener", () {
+      final grammar = GrammarLearning(random: Random(6));
+      final sophos = _adjective("σοφός");
+
+      final counts = <String, int>{};
+
+      for (var i = 0; i < 6000; i++) {
+        final degree = GrammarQuestionPicker.pickComparisonTarget(
+          grammar,
+          sophos,
+          inflected: true,
+        ).degree;
+
+        counts[degree] = (counts[degree] ?? 0) + 1;
+      }
+
+      expect(counts.keys.toSet(), {"Positiv", "Komparativ", "Superlativ"});
+      expect(counts["Positiv"]!, lessThan(counts["Komparativ"]! * 0.6));
+
+      // Ohne deklinierbaren Positiv nur Komparativ und Superlativ.
+      final megas = {
+        for (var i = 0; i < 300; i++)
+          GrammarQuestionPicker.pickComparisonTarget(
+            grammar,
+            _adjective("μέγας"),
+            inflected: true,
+          ).degree,
+      };
+
+      expect(megas, {"Komparativ", "Superlativ"});
+    });
+
+    test("seltene Formen werden nie flektiert vorgelegt", () {
+      final grammar = GrammarLearning(random: Random(7));
+
+      final bases = {
+        for (var i = 0; i < 600; i++)
+          GrammarQuestionPicker.pickComparisonTarget(
+            grammar,
+            _adjective("ὀλίγος"),
+            inflected: true,
+          ).base,
+      };
+
+      expect(bases, {"ὀλίγος", "ἐλάττων", "ἐλάχιστος"});
+    });
+  });
+
+  group("Einstellungen: Stufe und Form", () {
+    test("ohne gespeicherte Werte eingeschaltet", () {
+      for (final data in [
+        null,
+        // Einstellungen von vor der Erweiterung.
+        <String, dynamic>{
+          'askComparisonLemma': true,
+          'askComparisonTranslation': false,
+        },
+      ]) {
+        final settings = GrammarTrainerSettings.fromMap(data);
+
+        expect(settings.askComparisonDegree, isTrue);
+        expect(settings.askComparisonForm, isTrue);
+      }
+    });
+
+    test("werden gelesen und gespeichert", () {
+      final settings = GrammarTrainerSettings.fromMap(<String, dynamic>{
+        'askComparisonDegree': false,
+        'askComparisonForm': "ja",
+      });
+
+      expect(settings.askComparisonDegree, isFalse);
+      expect(settings.askComparisonForm, isTrue);
+      expect(settings.toMap()['askComparisonDegree'], isFalse);
+      expect(settings.toMap()['askComparisonForm'], isTrue);
+    });
+  });
+
   group("Klausur-Extra-Vokabeln (Schritt 8)", () {
     final vocabulary = [
       for (final item in jsonDecode(

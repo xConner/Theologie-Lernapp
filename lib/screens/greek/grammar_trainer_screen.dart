@@ -14,6 +14,7 @@ import '../../services/greek/grammar/grammar_form_analysis.dart';
 import '../../services/greek/grammar/grammar_question_picker.dart';
 import '../../services/greek/grammar/grammar_settings_service.dart';
 import '../../services/greek/grammar/pronoun_paradigms.dart';
+import '../../services/greek/grammar/verb_paradigm.dart';
 import '../../services/greek/grammar/wiktionary_inflection_service.dart';
 import '../../services/learning_service.dart';
 import '../../services/quiz_sound_settings.dart';
@@ -92,10 +93,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
   String? _preloadedCase;
   String? _preloadedNumber;
   String? _preloadedGender;
-  String? _preloadedPerson;
-  String? _preloadedNumberVerb;
-  String? _preloadedTense;
-  String? _preloadedVoice;
+  VerbForm? _preloadedVerb;
   ComparisonTarget? _preloadedComparison;
 
   // Wird bei jedem Fragenwechsel erhöht. Eine noch laufende Formabfrage
@@ -115,6 +113,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
   bool? numberCorrect;
   bool? genderCorrect;
   bool? personCorrect;
+  bool? moodCorrect;
   bool? tenseCorrect;
   bool? voiceCorrect;
   bool? lemmaCorrect;
@@ -146,6 +145,11 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
 
   List<String> enabledComparisonKinds = List.of(allComparisonKinds);
 
+  // Unterauswahl der Wortart Verb.
+  static const List<String> allMoods = GrammarQuestionPicker.moods;
+
+  List<String> enabledMoods = List.of(allMoods);
+
   // ---------------------------------------------------------------------------
   // NOMEN
   // ---------------------------------------------------------------------------
@@ -162,11 +166,15 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
   // VERBEN
   // ---------------------------------------------------------------------------
 
-  String? selectedPerson;
-  String? selectedNumberVerb;
-  String? selectedTense;
-  String? selectedVoice;
+  // Die vorgelegte Form mit ihrer Bestimmung.
+  VerbForm? verbTarget;
 
+  // Bestimmung, an der die Antwort gemessen wurde (siehe checkVerbAnswer).
+  VerbAnalysis? _verbReference;
+
+  // Bei einem Partizip stehen Kasus, Numerus und Genus in den Feldern der
+  // Nomen.
+  String? userMood;
   String? userPersonNumber;
   String? userTense;
   String? userVoice;
@@ -199,8 +207,16 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
   bool askComparisonLemma = true;
   bool askComparisonTranslation = true;
 
+  // Zusätzlich die Steigerungsstufe bestimmen bzw. flektierte Formen
+  // vorlegen; Kasus, Numerus und Genus stehen dann in den Feldern der Nomen.
+  bool askComparisonDegree = true;
+  bool askComparisonForm = true;
+
+  String? userDegree;
+
   // Auswertung der Übersetzung; die Grundform steht in lemmaCorrect.
   bool? comparisonTranslationCorrect;
+  bool? degreeCorrect;
 
   // ---------------------------------------------------------------------------
   // SELBSTEINSCHÄTZUNG
@@ -220,6 +236,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
   static const String _partNumber = "number";
   static const String _partGender = "gender";
   static const String _partPerson = "person";
+  static const String _partMood = "mood";
   static const String _partTense = "tense";
   static const String _partVoice = "voice";
 
@@ -276,8 +293,11 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
     showLemmaFieldPronoun = settings.showLemmaFieldPronoun;
     askComparisonLemma = settings.askComparisonLemma;
     askComparisonTranslation = settings.askComparisonTranslation;
+    askComparisonDegree = settings.askComparisonDegree;
+    askComparisonForm = settings.askComparisonForm;
     enabledPronounKinds = settings.enabledPronounKinds;
     enabledComparisonKinds = settings.enabledComparisonKinds;
+    enabledMoods = settings.enabledMoods;
   }
 
   Future<void> saveGrammarSettings() {
@@ -291,8 +311,11 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
         showLemmaFieldPronoun: showLemmaFieldPronoun,
         askComparisonLemma: askComparisonLemma,
         askComparisonTranslation: askComparisonTranslation,
+        askComparisonDegree: askComparisonDegree,
+        askComparisonForm: askComparisonForm,
         enabledPronounKinds: enabledPronounKinds,
         enabledComparisonKinds: enabledComparisonKinds,
+        enabledMoods: enabledMoods,
       ),
     );
   }
@@ -405,6 +428,13 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
     );
   }
 
+  // Ob eine Frage zu den aktuellen Filtern gehört: bei einem Verb auch, ob
+  // der Modus der vorgelegten Form noch eingeschaltet ist.
+  bool _isQuestionAvailable(GreekVocabularyEntry entry, VerbForm? verb) {
+    return _isEntryAvailable(entry) &&
+        (verb == null || enabledMoods.contains(verb.analysis.mood));
+  }
+
   // Die Pronomen der ausgewählten Pronomenarten.
   List<PronounParadigm> _enabledPronouns() {
     return pronouns.all.where((paradigm) {
@@ -444,7 +474,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
     // Vorgeladene Frage verwenden, wenn sie noch gültig ist.
     if (_preloadedQuestion != null &&
         _preloadedForm != null &&
-        _isEntryAvailable(_preloadedQuestion!) &&
+        _isQuestionAvailable(_preloadedQuestion!, _preloadedVerb) &&
         _preloadedQuestion != question) {
       if (!mounted) {
         return;
@@ -478,10 +508,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
       selectedNumber = null;
       selectedGender = null;
 
-      selectedPerson = null;
-      selectedNumberVerb = null;
-      selectedTense = null;
-      selectedVoice = null;
+      verbTarget = null;
 
       comparisonTarget = null;
 
@@ -543,11 +570,12 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
     // WICHTIG:
     // Die aktuelle Frage bleibt bestehen, wenn sie weiterhin
     // den neuen Einstellungen entspricht.
-    if (currentQuestion != null && _isEntryAvailable(currentQuestion)) {
+    if (currentQuestion != null &&
+        _isQuestionAvailable(currentQuestion, verbTarget)) {
       // Eine eventuell vorgeladene Frage muss ebenfalls zu den
       // neuen Einstellungen passen.
       if (_preloadedQuestion != null &&
-          !_isEntryAvailable(_preloadedQuestion!)) {
+          !_isQuestionAvailable(_preloadedQuestion!, _preloadedVerb)) {
         _clearPreloaded();
       }
 
@@ -566,7 +594,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
     // Deshalb zuerst versuchen, die vorgeladene Frage zu verwenden.
     if (_preloadedQuestion != null &&
         _preloadedForm != null &&
-        _isEntryAvailable(_preloadedQuestion!)) {
+        _isQuestionAvailable(_preloadedQuestion!, _preloadedVerb)) {
       _usePreloadedQuestion();
 
       final newAvailable = _getAvailableEntries();
@@ -616,10 +644,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
       selectedNumber = _preloadedNumber;
       selectedGender = _preloadedGender;
 
-      selectedPerson = _preloadedPerson;
-      selectedNumberVerb = _preloadedNumberVerb;
-      selectedTense = _preloadedTense;
-      selectedVoice = _preloadedVoice;
+      verbTarget = _preloadedVerb;
 
       comparisonTarget = _preloadedComparison;
 
@@ -642,19 +667,24 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
     userNumber = null;
     userGender = null;
 
+    userMood = null;
     userPersonNumber = null;
     userTense = null;
     userVoice = null;
+    _verbReference = null;
 
     userPronoun = null;
     _pronounReference = null;
 
+    userDegree = null;
     comparisonTranslationCorrect = null;
+    degreeCorrect = null;
 
     caseCorrect = null;
     numberCorrect = null;
     genderCorrect = null;
     personCorrect = null;
+    moodCorrect = null;
     tenseCorrect = null;
     voiceCorrect = null;
     lemmaCorrect = null;
@@ -698,10 +728,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
     _preloadedCase = null;
     _preloadedNumber = null;
     _preloadedGender = null;
-    _preloadedPerson = null;
-    _preloadedNumberVerb = null;
-    _preloadedTense = null;
-    _preloadedVoice = null;
+    _preloadedVerb = null;
     _preloadedComparison = null;
   }
 
@@ -763,10 +790,20 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
           translationInput: askComparisonTranslation
               ? translationController.text
               : null,
+          degreeAsked: askComparisonDegree,
+          formAsked: target.grammaticalCase != null,
+          userDegree: userDegree,
+          userCase: userCase,
+          userNumber: userNumber,
+          userGender: userGender,
         );
 
         lemmaCorrect = result.lemmaCorrect;
         comparisonTranslationCorrect = result.translationCorrect;
+        degreeCorrect = result.degreeCorrect;
+        caseCorrect = result.caseCorrect;
+        numberCorrect = result.numberCorrect;
+        genderCorrect = result.genderCorrect;
         correct = result.correct;
       } else if (q.type == "pronoun") {
         final result = checkPronounAnswer(
@@ -823,37 +860,34 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
             result.numberCorrect &&
             result.genderCorrect;
       } else if (q.type == "verb") {
-        final parsedPerson = GrammarQuestionPicker.parsePerson(selectedPerson);
+        final target = verbTarget;
 
-        final result = checkVerbAnswer(
-          targetPerson: selectedPerson,
-          targetNumber: selectedNumberVerb,
-          targetTense: selectedTense,
-          targetVoice: selectedVoice,
-          deponent: q.deponent,
-          analyses: parsedPerson == null
-              ? const []
-              : wiktionaryService.verbFormAnalyses(
-                  lemma: q.lemma,
-                  tense: selectedTense ?? "",
-                  voice: selectedVoice ?? "",
-                  number: selectedNumberVerb ?? "",
-                  person: parsedPerson,
-                ),
-          userPersonNumber: userPersonNumber,
-          userTense: userTense,
-          userVoice: userVoice,
-        );
+        if (target != null) {
+          final result = checkVerbAnswer(
+            target: target.analysis,
+            analyses: _verbAnalyses(q, target),
+            deponent: q.deponent,
+            userMood: userMood,
+            userTense: userTense,
+            userVoice: userVoice,
+            userPersonNumber: userPersonNumber,
+            userCase: userCase,
+            userNumber: userNumber,
+            userGender: userGender,
+          );
 
-        personCorrect = result.personCorrect;
-        tenseCorrect = result.tenseCorrect;
-        voiceCorrect = result.voiceCorrect;
+          _verbReference = result.reference;
 
-        correct =
-            lemmaCorrect! &&
-            result.personCorrect &&
-            result.tenseCorrect &&
-            result.voiceCorrect;
+          moodCorrect = result.moodCorrect;
+          tenseCorrect = result.tenseCorrect;
+          voiceCorrect = result.voiceCorrect;
+          personCorrect = result.personCorrect;
+          caseCorrect = result.caseCorrect;
+          numberCorrect = result.numberCorrect;
+          genderCorrect = result.genderCorrect;
+
+          correct = lemmaCorrect! && result.correct;
+        }
       }
     });
 
@@ -897,22 +931,46 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
     }
 
     if (isVerb()) {
+      final analysis = verbTarget?.analysis;
+
+      if (analysis == null) {
+        return const [];
+      }
+
       return [
-        SelfAssessmentPart(
-          id: _partPerson,
-          label: "Person / Numerus",
-          value: "$selectedPerson $selectedNumberVerb.",
-        ),
+        SelfAssessmentPart(id: _partMood, label: "Modus", value: analysis.mood),
         SelfAssessmentPart(
           id: _partTense,
           label: "Tempus",
-          value: selectedTense ?? "",
+          value: analysis.tense,
         ),
         SelfAssessmentPart(
           id: _partVoice,
           label: "Genus Verbi",
-          value: selectedVoice ?? "",
+          value: analysis.voice,
         ),
+        if (analysis.mood == VerbMood.participle) ...[
+          SelfAssessmentPart(
+            id: _partCase,
+            label: "Kasus",
+            value: analysis.grammaticalCase ?? "",
+          ),
+          SelfAssessmentPart(
+            id: _partNumber,
+            label: "Numerus",
+            value: "${analysis.number}.",
+          ),
+          SelfAssessmentPart(
+            id: _partGender,
+            label: "Genus",
+            value: analysis.gender ?? "",
+          ),
+        ] else
+          SelfAssessmentPart(
+            id: _partPerson,
+            label: "Person / Numerus",
+            value: "${analysis.person}. ${analysis.number}.",
+          ),
         if (showLemmaFieldVerb)
           SelfAssessmentPart(
             id: _partLemma,
@@ -985,9 +1043,19 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
       numberCorrect = knew(_partNumber);
       genderCorrect = knew(_partGender);
     } else if (isVerb()) {
-      personCorrect = knew(_partPerson);
+      // Ohne Eingabe gilt die Zielbestimmung der Aufgabe.
+      final analysis = verbTarget?.analysis;
+      final participle = analysis?.mood == VerbMood.participle;
+
+      _verbReference = analysis;
+
+      moodCorrect = knew(_partMood);
       tenseCorrect = knew(_partTense);
       voiceCorrect = knew(_partVoice);
+      personCorrect = participle ? null : knew(_partPerson);
+      caseCorrect = participle ? knew(_partCase) : null;
+      numberCorrect = participle ? knew(_partNumber) : null;
+      genderCorrect = participle ? knew(_partGender) : null;
     }
 
     _recordLearning(q);
@@ -1013,27 +1081,25 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
       ];
     }
 
-    final person = GrammarQuestionPicker.parsePerson(selectedPerson);
+    final target = verbTarget;
 
-    if (!isVerb() || person == null) {
+    if (!isVerb() || target == null) {
       return const [];
     }
 
     return [
-      for (final analysis in wiktionaryService.verbFormAnalyses(
-        lemma: q.lemma,
-        tense: selectedTense ?? "",
-        voice: selectedVoice ?? "",
-        number: selectedNumberVerb ?? "",
-        person: person,
-      ))
-        if (analysis.person != person ||
-            analysis.number != selectedNumberVerb ||
-            analysis.tense != selectedTense ||
-            analysis.voice != selectedVoice)
-          "${analysis.person}. ${analysis.number}. ${analysis.tense} "
-              "${analysis.voice}",
+      for (final analysis in _verbAnalyses(q, target))
+        if (analysis != target.analysis) describeVerbAnalysis(analysis),
     ];
+  }
+
+  // Alle Bestimmungen, die für die vorgelegte Verbform möglich sind, aus
+  // dem bereits geladenen Paradigma.
+  List<VerbAnalysis> _verbAnalyses(GreekVocabularyEntry q, VerbForm target) {
+    return wiktionaryService
+            .cachedVerbParadigm(q.lemma)
+            ?.analysesOf(target.form) ??
+        const [];
   }
 
   // Lösung der Selbsteinschätzung. Die einzeln bewertbaren Bestimmungen
@@ -1098,6 +1164,8 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
 
     final comparison = comparisonTarget;
 
+    final verbReference = _verbReference;
+
     if (q.type == AdjectiveComparisons.type && comparison != null) {
       // Das Adjektiv und die vorgelegte Form: Fehler holen genau diese
       // häufiger zurück.
@@ -1105,9 +1173,25 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
       results[GrammarLearning.dimensionId(
             "comparison",
             "form",
-            comparison.shown,
+            comparison.base,
           )] =
           correct;
+
+      // Stufe und Bestimmung der flektierten Form einzeln, soweit gefragt.
+      final parts = {
+        ("degree", comparison.degree): degreeCorrect,
+        ("case", comparison.grammaticalCase): caseCorrect,
+        ("number", comparison.number): numberCorrect,
+        ("gender", comparison.gender): genderCorrect,
+      };
+
+      for (final MapEntry(key: (dimension, value), value: result)
+          in parts.entries) {
+        if (value != null && result != null) {
+          results[GrammarLearning.dimensionId("comparison", dimension, value)] =
+              result;
+        }
+      }
     } else if (q.type == "pronoun" && reference != null) {
       // Gewertet wird die Bestimmung, an der die Antwort gemessen wurde –
       // bei einer mehrdeutigen Form also die, die der Nutzer erkannt hat.
@@ -1146,17 +1230,30 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
       // Das Genus hängt am Wort, nicht an der Form.
       results[lemmaId] =
           (genderCorrect ?? false) && (!lemmaAsked || lemmaCorrect == true);
-    } else if (q.type == "verb") {
-      results[GrammarLearning.dimensionId(
+    } else if (q.type == "verb" && verbReference != null) {
+      // Gewertet wird die Bestimmung, an der die Antwort gemessen wurde.
+      final parts = {
+        ("verb", "mood", verbReference.mood): moodCorrect,
+        ("verb", "tense", verbReference.tense): tenseCorrect,
+        ("verb", "voice", verbReference.voice): voiceCorrect,
+        if (verbReference.mood == VerbMood.participle) ...{
+          ("participle", "case", verbReference.grammaticalCase ?? ""):
+              caseCorrect,
+          ("participle", "number", verbReference.number): numberCorrect,
+          ("participle", "gender", verbReference.gender ?? ""): genderCorrect,
+        } else
+          (
             "verb",
             "person",
-            "$selectedPerson $selectedNumberVerb",
-          )] =
-          personCorrect ?? false;
-      results[GrammarLearning.dimensionId("verb", "tense", selectedTense!)] =
-          tenseCorrect ?? false;
-      results[GrammarLearning.dimensionId("verb", "voice", selectedVoice!)] =
-          voiceCorrect ?? false;
+            "${verbReference.person}. ${verbReference.number}",
+          ): personCorrect,
+      };
+
+      for (final MapEntry(key: (type, dimension, value), value: result)
+          in parts.entries) {
+        results[GrammarLearning.dimensionId(type, dimension, value)] =
+            result ?? false;
+      }
 
       if (lemmaAsked) {
         results[lemmaId] = lemmaCorrect == true;
@@ -1236,72 +1333,23 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
   Future<void> generateVerbQuestion(GreekVocabularyEntry entry) async {
     final token = _questionToken;
 
-    final (:person, :number, :tense, :voice) =
-        GrammarQuestionPicker.pickVerbTarget(grammar, entry);
-
-    if (mounted) {
-      setState(() {
-        selectedPerson = person;
-        selectedNumberVerb = number;
-        selectedTense = tense;
-        selectedVoice = voice;
-      });
-    }
-
-    final parsedPerson = GrammarQuestionPicker.parsePerson(person);
-
-    if (parsedPerson == null) {
-      if (!mounted || token != _questionToken) {
-        return;
-      }
-
-      setState(() {
-        loadingForm = false;
-
-        formError =
-            'Fehler bei Verbform\n'
-            'Grundform: ${entry.lemma}\n'
-            'Form: $person $number · $tense · $voice\n'
-            'Ungültige Personenangabe.';
-      });
-
-      return;
-    }
-
     try {
-      final form = await wiktionaryService.getVerbForm(
-        lemma: entry.lemma,
-        tense: tense,
-        voice: voice,
-        number: number,
-        person: parsedPerson,
-      );
+      final target = await _pickVerbTarget(entry);
 
       if (!mounted || token != _questionToken) {
-        return;
-      }
-
-      if (form == null || form.isEmpty) {
-        setState(() {
-          loadingForm = false;
-          correctForm = null;
-
-          formError =
-              'Verbform nicht gefunden\n\n'
-              'Grundform: ${entry.lemma}\n\n'
-              'Gesucht: $person $number · '
-              '$tense · $voice';
-        });
-
         return;
       }
 
       setState(() {
         loadingForm = false;
 
-        correctForm = normalizeGreekForDisplay(form);
+        verbTarget = target;
+        correctForm = target?.form;
 
-        formError = null;
+        formError = target == null
+            ? 'Keine passende Verbform gefunden.\n\n'
+                  'Grundform: ${entry.lemma}'
+            : null;
       });
     } catch (e) {
       if (!mounted || token != _questionToken) {
@@ -1315,11 +1363,26 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
         formError =
             'Fehler beim Laden der Verbform\n\n'
             'Grundform: ${entry.lemma}\n\n'
-            'Gesucht: $person $number · '
-            '$tense · $voice\n\n'
             'Fehler: $e';
       });
     }
+  }
+
+  // Lädt das Paradigma des Verbs und wählt daraus eine Form der
+  // eingeschalteten Modi. `null`, wenn es keine zuverlässige Form gibt.
+  Future<VerbForm?> _pickVerbTarget(GreekVocabularyEntry entry) async {
+    final paradigm = await wiktionaryService.getVerbParadigm(entry.lemma);
+
+    if (paradigm == null) {
+      return null;
+    }
+
+    return GrammarQuestionPicker.pickVerbTarget(
+      grammar,
+      entry,
+      paradigm,
+      enabledMoods: enabledMoods,
+    );
   }
 
   // ---------------------------------------------------------------------------
@@ -1392,10 +1455,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
     _preloadedNumber = target.number;
     _preloadedGender = target.gender;
 
-    _preloadedPerson = null;
-    _preloadedNumberVerb = null;
-    _preloadedTense = null;
-    _preloadedVoice = null;
+    _preloadedVerb = null;
     _preloadedComparison = null;
   }
 
@@ -1410,7 +1470,11 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
       return null;
     }
 
-    return GrammarQuestionPicker.pickComparisonTarget(grammar, comparison);
+    return GrammarQuestionPicker.pickComparisonTarget(
+      grammar,
+      comparison,
+      inflected: askComparisonForm,
+    );
   }
 
   // Die Formen liegen lokal vor; keine Netzwerkabfrage.
@@ -1500,10 +1564,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
         _preloadedNumber = number;
         _preloadedGender = gender;
 
-        _preloadedPerson = null;
-        _preloadedNumberVerb = null;
-        _preloadedTense = null;
-        _preloadedVoice = null;
+        _preloadedVerb = null;
         _preloadedComparison = null;
       } else if (token == _preloadToken) {
         _clearPreloaded();
@@ -1522,43 +1583,19 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
   Future<void> _preloadVerbQuestion(GreekVocabularyEntry entry) async {
     final token = ++_preloadToken;
 
-    final (:person, :number, :tense, :voice) =
-        GrammarQuestionPicker.pickVerbTarget(grammar, entry);
-
-    final parsedPerson = GrammarQuestionPicker.parsePerson(person);
-
-    if (parsedPerson == null) {
-      _clearPreloaded();
-      return;
-    }
-
     try {
-      final form = await wiktionaryService.getVerbForm(
-        lemma: entry.lemma,
-        tense: tense,
-        voice: voice,
-        number: number,
-        person: parsedPerson,
-      );
+      final target = await _pickVerbTarget(entry);
 
-      if (form != null && form.isNotEmpty) {
+      if (target != null) {
         if (!_mayStorePreloaded(token, entry)) {
           return;
         }
 
+        _clearPreloaded();
+
         _preloadedQuestion = entry;
-
-        _preloadedForm = normalizeGreekForDisplay(form);
-
-        _preloadedCase = null;
-        _preloadedNumber = null;
-        _preloadedGender = null;
-
-        _preloadedPerson = person;
-        _preloadedNumberVerb = number;
-        _preloadedTense = tense;
-        _preloadedVoice = voice;
-        _preloadedComparison = null;
+        _preloadedForm = target.form;
+        _preloadedVerb = target;
       } else if (token == _preloadToken) {
         _clearPreloaded();
       }
@@ -1656,6 +1693,19 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
                             content: Text(
                               "Mindestens eine Pronomenart muss ausgewählt "
                               "sein.",
+                            ),
+                          ),
+                        );
+
+                        return;
+                      }
+
+                      if (enabledTypes.contains("verb") &&
+                          enabledMoods.isEmpty) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text(
+                              "Mindestens ein Modus muss ausgewählt sein.",
                             ),
                           ),
                         );
@@ -1792,6 +1842,44 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
                       ),
 
                       // -------------------------------------------------------
+                      // MODI DER VERBEN (UNTERAUSWAHL)
+                      // -------------------------------------------------------
+                      if (enabledTypes.contains("verb"))
+                        MultiSelectSection<String>(
+                          title: "Verbformen",
+                          hint:
+                              "Unterauswahl der Wortart Verb: Abgefragt "
+                              "werden nur Formen der ausgewählten Modi. Beim "
+                              "Partizip werden zusätzlich Kasus, Numerus und "
+                              "Genus bestimmt.",
+                          options: allMoods,
+                          isSelected: enabledMoods.contains,
+                          labelOf: (mood) => mood,
+                          emptyError:
+                              "Mindestens ein Modus muss ausgewählt sein.",
+                          onToggleAll: () {
+                            setDialogState(() {
+                              if (enabledMoods.length == allMoods.length) {
+                                enabledMoods.clear();
+                              } else {
+                                enabledMoods = List.of(allMoods);
+                              }
+                            });
+                          },
+                          onChanged: (mood, value) {
+                            setDialogState(() {
+                              if (value) {
+                                if (!enabledMoods.contains(mood)) {
+                                  enabledMoods.add(mood);
+                                }
+                              } else {
+                                enabledMoods.remove(mood);
+                              }
+                            });
+                          },
+                        ),
+
+                      // -------------------------------------------------------
                       // PRONOMENARTEN (UNTERAUSWAHL)
                       // -------------------------------------------------------
                       if (enabledTypes.contains("pronoun"))
@@ -1874,9 +1962,12 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
                         SettingsSection(
                           title: "Adjektivsteigerung: abfragen",
                           hint:
-                              "Angezeigt wird eine gesteigerte Form. Gefragt "
+                              "Angezeigt wird eine Form der Steigerung. Gefragt "
                               "wird die Grundform, ihre Übersetzung oder "
-                              "beides – mindestens eins muss aktiv sein.",
+                              "beides – mindestens eins muss aktiv sein. "
+                              "Dazu lassen sich die Steigerungsstufe und – "
+                              "bei flektierten Formen – Kasus, Numerus und "
+                              "Genus bestimmen.",
                           child: SettingsSwitchGroup(
                             children: [
                               SwitchListTile(
@@ -1895,6 +1986,32 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
                                 onChanged: (value) {
                                   setDialogState(() {
                                     askComparisonTranslation = value;
+                                  });
+                                },
+                              ),
+
+                              SwitchListTile(
+                                title: const Text("Steigerungsstufe"),
+                                subtitle: const Text(
+                                  "Positiv, Komparativ oder Superlativ.",
+                                ),
+                                value: askComparisonDegree,
+                                onChanged: (value) {
+                                  setDialogState(() {
+                                    askComparisonDegree = value;
+                                  });
+                                },
+                              ),
+
+                              SwitchListTile(
+                                title: const Text("Flektierte Formen"),
+                                subtitle: const Text(
+                                  "Kasus, Numerus und Genus bestimmen.",
+                                ),
+                                value: askComparisonForm,
+                                onChanged: (value) {
+                                  setDialogState(() {
+                                    askComparisonForm = value;
                                   });
                                 },
                               ),
@@ -1980,18 +2097,17 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
       "Fehler beim Laden": formError ?? "",
       if (answered || revealed || formError != null) ...{
         "Grundform": "${q.lemma} (ID ${q.id})",
-        if (isComparison())
+        if (isComparison()) ...{
           "Gefragt":
               "${askComparisonLemma ? 'Grundform ' : ''}"
-              "${askComparisonTranslation ? 'Übersetzung' : ''}"
-        else if (isNoun())
+              "${askComparisonTranslation ? 'Übersetzung' : ''}",
+          "Bestimmung": _comparisonAnalysis(),
+        } else if (isNoun())
           "Bestimmung": "$selectedCase $selectedNumber"
         else if (isPronoun())
           "Bestimmung": "$selectedCase $selectedNumber $selectedGender"
-        else if (isVerb())
-          "Bestimmung":
-              "$selectedPerson $selectedNumberVerb, $selectedTense, "
-              "$selectedVoice",
+        else if (isVerb() && verbTarget != null)
+          "Bestimmung": describeVerbAnalysis(verbTarget!.analysis),
       },
     };
   }
@@ -2108,7 +2224,9 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
                   else if (isNoun())
                     _buildNounInputs()
                   else if (isPronoun())
-                    _buildPronounInputs(),
+                    _buildPronounInputs()
+                  else if (isComparison())
+                    _buildComparisonInputs(),
 
                   const SizedBox(height: 16),
 
@@ -2248,17 +2366,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
                                   Text("Genus: $selectedGender"),
                               ],
 
-                              if (isVerb()) ...[
-                                if (personCorrect == false)
-                                  Text(
-                                    "Person / Numerus: "
-                                    "$selectedPerson $selectedNumberVerb.",
-                                  ),
-                                if (tenseCorrect == false)
-                                  Text("Tempus: $selectedTense"),
-                                if (voiceCorrect == false)
-                                  Text("Genus Verbi: $selectedVoice"),
-                              ],
+                              if (isVerb()) ..._verbCorrections(),
                             ],
                           ),
 
@@ -2617,6 +2725,15 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
           const SizedBox(height: 16),
         ],
 
+        if (_comparisonAnalysis().isNotEmpty) ...[
+          SelectableText(
+            "Bestimmung: ${_comparisonAnalysis()}",
+            textAlign: TextAlign.center,
+          ),
+
+          const SizedBox(height: 12),
+        ],
+
         for (final row in rows) ...[
           SelectableText(
             row.row,
@@ -2649,24 +2766,47 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
   // VERB-EINGABEN
   // ---------------------------------------------------------------------------
 
+  // Nach dem Prüfen zählt ein Feld ohne Wertung als falsch: Es gehört dann
+  // nicht zur Bestimmung der Form (Kasus bei einer finiten Form).
+  bool? _shownResult(bool? result) {
+    return answered ? result ?? false : null;
+  }
+
+  // Imperativ und Partizip kennen kein Imperfekt, der Imperativ keine
+  // 1. Person: Eine Auswahl, die es im neuen Modus nicht gibt, entfällt.
+  void _selectMood(String mood) {
+    setState(() {
+      userMood = mood;
+
+      if (!GrammarQuestionPicker.tensesOfMood(mood).contains(userTense)) {
+        userTense = null;
+      }
+
+      if (!GrammarQuestionPicker.personNumbersOfMood(
+        mood,
+      ).contains(userPersonNumber)) {
+        userPersonNumber = null;
+      }
+    });
+  }
+
+  // Die Felder richten sich nach dem gewählten Modus, nicht nach der
+  // Lösung: Finite Formen haben Person und Numerus, das Partizip Kasus,
+  // Numerus und Genus.
   Widget _buildVerbInputs() {
     return _choiceGroups([
       _choice(
-        value: userPersonNumber,
-        label: "Person / Numerus",
-        items: GrammarQuestionPicker.personNumbers,
-        isCorrect: personCorrect,
-        onChanged: (value) {
-          setState(() {
-            userPersonNumber = value;
-          });
-        },
+        value: userMood,
+        label: "Modus",
+        items: GrammarQuestionPicker.moods,
+        isCorrect: moodCorrect,
+        onChanged: _selectMood,
       ),
 
       _choice(
         value: userTense,
         label: "Tempus",
-        items: GrammarQuestionPicker.tenses,
+        items: GrammarQuestionPicker.tensesOfMood(userMood),
         isCorrect: tenseCorrect,
         onChanged: (value) {
           setState(() {
@@ -2686,6 +2826,151 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
           });
         },
       ),
+
+      if (GrammarQuestionPicker.asksCaseNumberGender(userMood))
+        ..._formChoices(),
+
+      if (GrammarQuestionPicker.asksPersonNumber(userMood))
+        _choice(
+          value: userPersonNumber,
+          label: "Person / Numerus",
+          items: GrammarQuestionPicker.personNumbersOfMood(userMood),
+          isCorrect: _shownResult(personCorrect),
+          onChanged: (value) {
+            setState(() {
+              userPersonNumber = value;
+            });
+          },
+        ),
     ]);
+  }
+
+  // Kasus, Numerus und Genus einer flektierten Form (Partizip, Steigerung).
+  List<Widget> _formChoices() {
+    return [
+      _choice(
+        value: userCase,
+        label: "Kasus",
+        items: GrammarQuestionPicker.cases,
+        isCorrect: _shownResult(caseCorrect),
+        onChanged: (value) {
+          setState(() {
+            userCase = value;
+          });
+        },
+      ),
+
+      _choice(
+        value: userNumber,
+        label: "Numerus",
+        items: GrammarQuestionPicker.numbers,
+        isCorrect: _shownResult(numberCorrect),
+        onChanged: (value) {
+          setState(() {
+            userNumber = value;
+          });
+        },
+      ),
+
+      _choice(
+        value: userGender,
+        label: "Genus",
+        items: GrammarQuestionPicker.genders,
+        isCorrect: _shownResult(genderCorrect),
+        onChanged: (value) {
+          setState(() {
+            userGender = value;
+          });
+        },
+      ),
+    ];
+  }
+
+  // Die Bestimmung, an der die Antwort gemessen wurde, soweit sie verfehlt
+  // wurde, und die übrigen möglichen Bestimmungen der Form.
+  List<Widget> _verbCorrections() {
+    final q = question;
+    final target = verbTarget;
+    final reference = _verbReference;
+
+    if (q == null || target == null || reference == null) {
+      return const [];
+    }
+
+    final others = [
+      for (final analysis in _verbAnalyses(q, target))
+        if (analysis != reference) describeVerbAnalysis(analysis),
+    ];
+
+    return [
+      if (moodCorrect == false) Text("Modus: ${reference.mood}"),
+      if (tenseCorrect == false) Text("Tempus: ${reference.tense}"),
+      if (voiceCorrect == false) Text("Genus Verbi: ${reference.voice}"),
+
+      if (reference.mood == VerbMood.participle) ...[
+        if (caseCorrect != true) Text("Kasus: ${reference.grammaticalCase}"),
+        if (numberCorrect != true) Text("Numerus: ${reference.number}."),
+        if (genderCorrect != true) Text("Genus: ${reference.gender}"),
+      ] else if (personCorrect != true)
+        Text("Person / Numerus: ${reference.person}. ${reference.number}."),
+
+      if (others.isNotEmpty) ...[
+        const SizedBox(height: 8),
+        Text("Auch möglich: ${others.join(', ')}", textAlign: TextAlign.center),
+      ],
+    ];
+  }
+
+  // ---------------------------------------------------------------------------
+  // ADJEKTIVSTEIGERUNG: BESTIMMUNG DER FORM
+  // ---------------------------------------------------------------------------
+
+  // Steigerungsstufe und – bei einer flektierten Form – Kasus, Numerus und
+  // Genus.
+  Widget _buildComparisonInputs() {
+    final inflected = comparisonTarget?.grammaticalCase != null;
+
+    if (!askComparisonDegree && !inflected) {
+      return const SizedBox();
+    }
+
+    return _choiceGroups([
+      if (askComparisonDegree)
+        _choice(
+          value: userDegree,
+          label: "Steigerungsstufe",
+          items: GrammarQuestionPicker.degrees,
+          isCorrect: degreeCorrect,
+          onChanged: (value) {
+            setState(() {
+              userDegree = value;
+            });
+          },
+        ),
+
+      if (inflected) ..._formChoices(),
+    ]);
+  }
+
+  // Alle möglichen Bestimmungen der vorgelegten Form, soweit sie gefragt
+  // sind: "Komparativ · Genitiv Sg. m/n".
+  String _comparisonAnalysis() {
+    final target = comparisonTarget;
+
+    if (target == null) {
+      return "";
+    }
+
+    final inflected = target.grammaticalCase != null;
+
+    if (!askComparisonDegree && !inflected) {
+      return "";
+    }
+
+    return AdjectiveComparisons.describeForm(
+      target.shown,
+      degree: askComparisonDegree,
+      form: inflected,
+    ).join(", ");
   }
 }

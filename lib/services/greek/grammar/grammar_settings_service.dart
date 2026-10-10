@@ -16,6 +16,8 @@ class GrammarTrainerSettings {
   static const List<String> allComparisonKinds =
       GrammarQuestionPicker.comparisonKinds;
 
+  static const List<String> allMoods = GrammarQuestionPicker.moods;
+
   final List<int> enabledSteps;
   final List<String> enabledTypes;
 
@@ -38,6 +40,17 @@ class GrammarTrainerSettings {
   final bool askComparisonLemma;
   final bool askComparisonTranslation;
 
+  /// Adjektivsteigerung: zusätzlich die Steigerungsstufe bestimmen.
+  final bool askComparisonDegree;
+
+  /// Adjektivsteigerung: flektierte Formen vorlegen und Kasus, Numerus und
+  /// Genus bestimmen. Ausgeschaltet stehen nur die Tabellenformen zur Wahl.
+  final bool askComparisonForm;
+
+  /// Unterauswahl der Wortart Verb: welche Modi gefragt werden (Indikativ,
+  /// Imperativ, Partizip).
+  final List<String> enabledMoods;
+
   const GrammarTrainerSettings({
     this.enabledSteps = allSteps,
     this.enabledTypes = allTypes,
@@ -48,13 +61,17 @@ class GrammarTrainerSettings {
     this.showLemmaFieldPronoun = true,
     this.askComparisonLemma = true,
     this.askComparisonTranslation = true,
+    this.askComparisonDegree = true,
+    this.askComparisonForm = true,
+    this.enabledMoods = allMoods,
   });
 
   /// Liest das gespeicherte Feld `greek_grammar_settings`. Unbekannte
   /// Schritte und Wortarten werden verworfen; die Listen sind eigene,
   /// veränderbare Kopien. Eine gespeicherte Wortartenliste gilt unverändert:
   /// später hinzugekommene Wortarten (Pronomen) bleiben dort ausgeschaltet,
-  /// bis sie ausgewählt werden.
+  /// bis sie ausgewählt werden. Später hinzugekommene Unterauswahlen (Modi)
+  /// und Schalter gelten ohne gespeicherten Wert mit ihrem Default.
   factory GrammarTrainerSettings.fromMap(Object? data) {
     if (data is! Map<String, dynamic>) {
       return GrammarTrainerSettings(
@@ -62,6 +79,7 @@ class GrammarTrainerSettings {
         enabledTypes: List.of(allTypes),
         enabledPronounKinds: List.of(allPronounKinds),
         enabledComparisonKinds: List.of(allComparisonKinds),
+        enabledMoods: List.of(allMoods),
       );
     }
 
@@ -75,6 +93,9 @@ class GrammarTrainerSettings {
     final lemmaPronoun = data['showLemmaFieldPronoun'];
     final comparisonLemma = data['askComparisonLemma'];
     final comparisonTranslation = data['askComparisonTranslation'];
+    final comparisonDegree = data['askComparisonDegree'];
+    final comparisonForm = data['askComparisonForm'];
+    final moods = data['enabledMoods'];
 
     final askTranslation = comparisonTranslation is bool
         ? comparisonTranslation
@@ -106,6 +127,12 @@ class GrammarTrainerSettings {
       showLemmaFieldVerb: lemmaVerb is bool ? lemmaVerb : true,
       showLemmaFieldPronoun: lemmaPronoun is bool ? lemmaPronoun : true,
       askComparisonTranslation: askTranslation,
+      askComparisonDegree: comparisonDegree is bool ? comparisonDegree : true,
+      askComparisonForm: comparisonForm is bool ? comparisonForm : true,
+      // Ohne gespeicherte Unterauswahl gelten alle Modi.
+      enabledMoods: moods is List
+          ? moods.whereType<String>().where(allMoods.contains).toList()
+          : List.of(allMoods),
       // Ohne Übersetzung wird immer die Grundform gefragt.
       askComparisonLemma:
           !askTranslation || (comparisonLemma is bool ? comparisonLemma : true),
@@ -123,6 +150,9 @@ class GrammarTrainerSettings {
       'enabledComparisonKinds': enabledComparisonKinds,
       'askComparisonLemma': askComparisonLemma,
       'askComparisonTranslation': askComparisonTranslation,
+      'askComparisonDegree': askComparisonDegree,
+      'askComparisonForm': askComparisonForm,
+      'enabledMoods': enabledMoods,
     };
   }
 }

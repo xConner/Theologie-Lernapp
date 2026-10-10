@@ -4,17 +4,6 @@
 /// ("Nominativ", "Sg").
 typedef NounFormAnalysis = ({String grammaticalCase, String number});
 
-/// Eine grammatisch mögliche Bestimmung einer konkreten Verbform.
-///
-/// Die Werte stehen in der Schreibweise der Backend-Anfrage
-/// ("Präsens", "Aktiv", "Sg", 1).
-typedef VerbFormAnalysis = ({
-  int person,
-  String number,
-  String tense,
-  String voice,
-});
-
 /// Eine grammatisch mögliche Bestimmung einer konkreten Pronominalform.
 ///
 /// Kasus und Numerus wie bei [NounFormAnalysis]; [pronounId] ist die ID des
@@ -52,38 +41,6 @@ List<NounFormAnalysis> parseNounFormAnalyses(Object? json) {
   return analyses;
 }
 
-/// Liest die vom Verb-Backend gelieferten Bestimmungen der Form.
-List<VerbFormAnalysis> parseVerbFormAnalyses(Object? json) {
-  if (json is! List) {
-    return const [];
-  }
-
-  final analyses = <VerbFormAnalysis>[];
-
-  for (final item in json) {
-    if (item is! Map) continue;
-
-    final person = item['person'];
-    final number = item['number'];
-    final tense = item['tense'];
-    final voice = item['voice'];
-
-    if (person is int &&
-        number is String &&
-        tense is String &&
-        voice is String) {
-      analyses.add((
-        person: person,
-        number: number,
-        tense: tense,
-        voice: voice,
-      ));
-    }
-  }
-
-  return analyses;
-}
-
 /// Ob die Nutzerantwort (Schreibweise des Trainers, z. B. "Akkusativ" und
 /// "Sg.") eine tatsächlich mögliche Bestimmung der angezeigten Form ist.
 bool nounAnswerMatchesForm(
@@ -93,22 +50,5 @@ bool nounAnswerMatchesForm(
 }) {
   return analyses.any(
     (a) => a.grammaticalCase == userCase && '${a.number}.' == userNumber,
-  );
-}
-
-/// Ob die Nutzerantwort (Schreibweise des Trainers, z. B. "3. Pl.",
-/// "Imperfekt", "Aktiv") eine tatsächlich mögliche Bestimmung der
-/// angezeigten Form ist.
-bool verbAnswerMatchesForm(
-  List<VerbFormAnalysis> analyses, {
-  required String? userPersonNumber,
-  required String? userTense,
-  required String? userVoice,
-}) {
-  return analyses.any(
-    (a) =>
-        '${a.person}. ${a.number}.' == userPersonNumber &&
-        a.tense == userTense &&
-        a.voice == userVoice,
   );
 }

@@ -35,17 +35,6 @@ void main() {
     {'case': 'Genitiv', 'number': 'Sg'},
   ]);
 
-  // ἔλυον: 1. Sg. und 3. Pl. Imperfekt Aktiv sind formal identisch.
-  final elyon = parseVerbFormAnalyses([
-    {'tense': 'Imperfekt', 'voice': 'Aktiv', 'number': 'Sg', 'person': 1},
-    {'tense': 'Imperfekt', 'voice': 'Aktiv', 'number': 'Pl', 'person': 3},
-  ]);
-
-  // ἔλυσα: eindeutig.
-  final elysa = parseVerbFormAnalyses([
-    {'tense': 'Aorist', 'voice': 'Aktiv', 'number': 'Sg', 'person': 1},
-  ]);
-
   group("Nomen", () {
     test("Neutrum: Nominativ und Akkusativ Singular gelten beide", () {
       expect(
@@ -121,87 +110,9 @@ void main() {
     });
   });
 
-  group("Verben", () {
-    test("Imperfekt: 1. Sg. und 3. Pl. gelten beide", () {
-      expect(
-        verbAnswerMatchesForm(
-          elyon,
-          userPersonNumber: "3. Pl.",
-          userTense: "Imperfekt",
-          userVoice: "Aktiv",
-        ),
-        isTrue,
-      );
-      expect(
-        verbAnswerMatchesForm(
-          elyon,
-          userPersonNumber: "1. Sg.",
-          userTense: "Imperfekt",
-          userVoice: "Aktiv",
-        ),
-        isTrue,
-      );
-    });
-
-    test(
-      "Imperfekt: andere Personen, Tempora und Diathesen bleiben falsch",
-      () {
-        expect(
-          verbAnswerMatchesForm(
-            elyon,
-            userPersonNumber: "3. Sg.",
-            userTense: "Imperfekt",
-            userVoice: "Aktiv",
-          ),
-          isFalse,
-        );
-        expect(
-          verbAnswerMatchesForm(
-            elyon,
-            userPersonNumber: "3. Pl.",
-            userTense: "Aorist",
-            userVoice: "Aktiv",
-          ),
-          isFalse,
-        );
-        expect(
-          verbAnswerMatchesForm(
-            elyon,
-            userPersonNumber: "3. Pl.",
-            userTense: "Imperfekt",
-            userVoice: "Medium/Passiv",
-          ),
-          isFalse,
-        );
-      },
-    );
-
-    test("eindeutige Form lässt nur ihre eine Bestimmung zu", () {
-      expect(
-        verbAnswerMatchesForm(
-          elysa,
-          userPersonNumber: "1. Sg.",
-          userTense: "Aorist",
-          userVoice: "Aktiv",
-        ),
-        isTrue,
-      );
-      expect(
-        verbAnswerMatchesForm(
-          elysa,
-          userPersonNumber: "1. Sg.",
-          userTense: "Imperfekt",
-          userVoice: "Aktiv",
-        ),
-        isFalse,
-      );
-    });
-  });
-
   group("Unsichere Daten", () {
     test("ohne Angaben des Backends wird nichts zusätzlich akzeptiert", () {
       expect(parseNounFormAnalyses(null), isEmpty);
-      expect(parseVerbFormAnalyses(null), isEmpty);
       expect(parseNounFormAnalyses("Nominativ"), isEmpty);
 
       expect(
@@ -209,15 +120,6 @@ void main() {
           const [],
           userCase: "Nominativ",
           userNumber: "Sg.",
-        ),
-        isFalse,
-      );
-      expect(
-        verbAnswerMatchesForm(
-          const [],
-          userPersonNumber: "1. Sg.",
-          userTense: "Präsens",
-          userVoice: "Aktiv",
         ),
         isFalse,
       );
@@ -233,13 +135,6 @@ void main() {
         ]),
         [(grammaticalCase: 'Akkusativ', number: 'Sg')],
       );
-      expect(
-        parseVerbFormAnalyses([
-          {'tense': 'Aorist', 'voice': 'Aktiv', 'number': 'Sg', 'person': '1'},
-          {'tense': 'Aorist', 'voice': 'Aktiv', 'number': 'Sg', 'person': 1},
-        ]),
-        [(person: 1, number: 'Sg', tense: 'Aorist', voice: 'Aktiv')],
-      );
     });
   });
 
@@ -250,31 +145,11 @@ void main() {
       final client = MockClient((request) async {
         requests++;
 
-        if (request.url.path == '/api/greek-noun') {
-          return _json({
-            'form': 'δῶρον',
-            'analyses': [
-              {'case': 'Nominativ', 'number': 'Sg'},
-              {'case': 'Akkusativ', 'number': 'Sg'},
-            ],
-          });
-        }
-
         return _json({
-          'form': 'ἔγραφον',
+          'form': 'δῶρον',
           'analyses': [
-            {
-              'tense': 'Imperfekt',
-              'voice': 'Aktiv',
-              'number': 'Sg',
-              'person': 1,
-            },
-            {
-              'tense': 'Imperfekt',
-              'voice': 'Aktiv',
-              'number': 'Pl',
-              'person': 3,
-            },
+            {'case': 'Nominativ', 'number': 'Sg'},
+            {'case': 'Akkusativ', 'number': 'Sg'},
           ],
         });
       });
@@ -297,27 +172,13 @@ void main() {
           grammaticalCase: 'Akkusativ',
           number: 'Sg',
         );
-        await service.getVerbForm(
-          lemma: 'γράφω',
-          tense: 'Imperfekt',
-          voice: 'Aktiv',
-          number: 'Pl',
-          person: 3,
-        );
 
-        expect(requests, 2);
+        expect(requests, 1);
 
         final nounAnalyses = service.nounFormAnalyses(
           lemma: 'δῶρον',
           grammaticalCase: 'Akkusativ',
           number: 'Sg',
-        );
-        final verbAnalyses = service.verbFormAnalyses(
-          lemma: 'γράφω',
-          tense: 'Imperfekt',
-          voice: 'Aktiv',
-          number: 'Pl',
-          person: 3,
         );
 
         expect(
@@ -328,18 +189,9 @@ void main() {
           ),
           isTrue,
         );
-        expect(
-          verbAnswerMatchesForm(
-            verbAnalyses,
-            userPersonNumber: "1. Sg.",
-            userTense: "Imperfekt",
-            userVoice: "Aktiv",
-          ),
-          isTrue,
-        );
 
         // Die Prüfung löst keine weitere Anfrage aus.
-        expect(requests, 2);
+        expect(requests, 1);
       }, () => client);
     });
 

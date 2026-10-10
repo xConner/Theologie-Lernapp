@@ -1,5 +1,29 @@
 import '../../../models/greek/grammar/adjective_comparison.dart';
 import '../../../models/greek/vocabulary/greek_vocabulary_entry.dart';
+import '../../../utils/greek_accents.dart';
+import 'greek_declension.dart';
+
+/// Eine Tabellenform der Steigerung (Nominativ Sg. Maskulinum bzw. das
+/// Adverb) mit ihrer Stufe und – soweit sie sich deklinieren lässt – allen
+/// ihren Formen.
+typedef ComparisonBase = ({
+  String text,
+  String degree,
+  String? note,
+  DeclensionParadigm? paradigm,
+});
+
+/// Eine grammatisch mögliche Bestimmung einer Form der Steigerung. Kasus,
+/// Numerus ("Sg") und Genus sind `null` bei Formen ohne Deklination
+/// (ἥκιστα).
+typedef ComparisonAnalysis = ({
+  int adjectiveId,
+  String degree,
+  String base,
+  String? grammaticalCase,
+  String? number,
+  String? gender,
+});
 
 /// Lernstoff der Adjektivsteigerung (Griechisch I). Anders als Nomen und
 /// Verben kommen die Formen nicht vom Backend, sondern stehen hier fest.
@@ -12,6 +36,12 @@ class AdjectiveComparisons {
 
   /// Wortart im Grammatiktrainer.
   static const String type = "comparison";
+
+  static const String positive = "Positiv";
+  static const String comparative = "Komparativ";
+  static const String superlative = "Superlativ";
+
+  static const List<String> degrees = [positive, comparative, superlative];
 
   static const List<AdjectiveComparison> all = [
     // -------------------------------------------------------------------------
@@ -215,13 +245,255 @@ class AdjectiveComparisons {
     };
   }
 
-  /// Alle Adjektive, zu denen die gesteigerte Form [form] gehört.
-  /// ἐλάττων / ἐλάχιστος: μικρός und ὀλίγος. Verglichen wird die exakte
-  /// Schreibung der Daten.
+  /// Alle Adjektive, zu denen die Form [form] gehört – als Tabellenform
+  /// oder als eine ihrer flektierten Formen. ἐλάττων / ἐλάχιστος: μικρός
+  /// und ὀλίγος. Verglichen wird die exakte Schreibung der Daten.
   static List<AdjectiveComparison> ownersOf(String form) {
+    final ids = {for (final analysis in analysesOf(form)) analysis.adjectiveId};
+
     return [
       for (final comparison in all)
-        if (comparison.gradedForms.contains(form)) comparison,
+        if (comparison.gradedForms.contains(form) ||
+            ids.contains(comparison.id))
+          comparison,
     ];
+  }
+
+  // ---------------------------------------------------------------------------
+  // FLEKTIERTE FORMEN
+  // ---------------------------------------------------------------------------
+
+  // Positive der a-/o-Deklination mit zurückgezogenem Akzent und ihr Stamm
+  // vor langer Endsilbe (βέβαιος, aber βεβαίου). Endbetonte Positive
+  // (σοφός) brauchen die Angabe nicht.
+  static const Map<String, String> _recessivePositives = {
+    "βέβαιος": "βεβαί",
+    "ἄξιος": "ἀξί",
+    "ὀλίγος": "ὀλίγ",
+  };
+
+  // Nach ε, ι und ρ endet das Femininum auf -α statt -η.
+  static bool _alphaFeminine(String stem) {
+    return stem.endsWith("ε") || stem.endsWith("ι") || stem.endsWith("ρ");
+  }
+
+  // Der Positiv wird nur nach der a-/o-Deklination gebildet; μέγας, πολύς,
+  // ταχύς, σώφρων und εὐδαίμων bleiben ohne flektierten Positiv.
+  static DeclensionParadigm? _positiveParadigm(String positive) {
+    if (positive.endsWith("ός")) {
+      final stem = positive.substring(0, positive.length - 2);
+
+      return declineOxytone(stem: stem, alphaFeminine: _alphaFeminine(stem));
+    }
+
+    final long = _recessivePositives[positive];
+
+    if (long == null) {
+      return null;
+    }
+
+    final short = positive.substring(0, positive.length - 2);
+
+    return declineRecessive(
+      short: short,
+      long: long,
+      alphaFeminine: _alphaFeminine(short),
+    );
+  }
+
+  // -τερος, -α, -ον / -τατος, -η, -ον / -ιστος, -η, -ον nach der
+  // a-/o-Deklination, -(ί)ων, -(ι)ον nach der 3. Deklination.
+  static DeclensionParadigm? _gradedParadigm(ComparisonForm form) {
+    final text = form.text;
+
+    // Zweisilbig: Der Akzent wandert nicht, er wechselt nur die Art.
+    if (text == "πλεῖστος") {
+      return declineRecessive(
+        short: "πλεῖστ",
+        long: "πλείστ",
+        alphaFeminine: false,
+      );
+    }
+
+    for (final (suffix, accented, alphaFeminine) in const [
+      ("τερος", "τέρ", true),
+      ("τατος", "τάτ", false),
+      ("ιστος", "ίστ", false),
+    ]) {
+      if (!text.endsWith(suffix)) continue;
+
+      final prefix = text.substring(0, text.length - suffix.length);
+
+      if (!hasGreekAccent(prefix)) {
+        return null;
+      }
+
+      return declineRecessive(
+        short: text.substring(0, text.length - 2),
+        long: "${stripGreekAccent(prefix)}$accented",
+        alphaFeminine: alphaFeminine,
+      );
+    }
+
+    final neuter = form.neuter;
+
+    if (neuter == null) {
+      return null;
+    }
+
+    // πλείων bildet das Neutrum vom kürzeren Stamm: πλέον.
+    if (text == "πλείων" && neuter == "πλέον") {
+      return declineComparative(
+        masculine: text,
+        neuter: "πλεῖον",
+      )?.replacing("πλεῖον", neuter);
+    }
+
+    return declineComparative(masculine: text, neuter: neuter);
+  }
+
+  static final Map<int, List<ComparisonBase>> _bases = {
+    for (final comparison in all)
+      comparison.id: [
+        if (_positiveParadigm(comparison.positive) case final paradigm?)
+          (
+            text: comparison.positive,
+            degree: positive,
+            note: null,
+            paradigm: paradigm,
+          ),
+        for (final (degree, forms) in [
+          (comparative, comparison.comparatives),
+          (superlative, comparison.superlatives),
+        ])
+          for (final form in forms)
+            if (!form.rare)
+              (
+                text: form.text,
+                degree: degree,
+                note: form.note,
+                paradigm: _gradedParadigm(form),
+              ),
+      ],
+  };
+
+  /// Die Tabellenformen des Adjektivs, die flektiert vorgelegt werden: der
+  /// Positiv (nur a-/o-Deklination), Komparative und Superlative – keine
+  /// seltenen Formen.
+  static List<ComparisonBase> basesOf(AdjectiveComparison comparison) {
+    return _bases[comparison.id] ?? const [];
+  }
+
+  /// Steigerungsstufe einer Tabellenform des Adjektivs (Neutrum und Genitiv
+  /// des Komparativs eingeschlossen).
+  static String degreeOf(AdjectiveComparison comparison, String form) {
+    if (form == comparison.positive) {
+      return positive;
+    }
+
+    return AdjectiveComparison.allTexts(
+              comparison.comparatives,
+            ).contains(form) ||
+            comparison.comparativeGenitives.contains(form)
+        ? comparative
+        : superlative;
+  }
+
+  static final Map<String, List<ComparisonAnalysis>> _analyses = () {
+    final index = <String, List<ComparisonAnalysis>>{};
+
+    void add(String form, ComparisonAnalysis analysis) {
+      final known = index.putIfAbsent(form, () => []);
+
+      if (!known.contains(analysis)) {
+        known.add(analysis);
+      }
+    }
+
+    for (final comparison in all) {
+      for (final base in basesOf(comparison)) {
+        final paradigm = base.paradigm;
+
+        if (paradigm == null) {
+          add(base.text, (
+            adjectiveId: comparison.id,
+            degree: base.degree,
+            base: base.text,
+            grammaticalCase: null,
+            number: null,
+            gender: null,
+          ));
+
+          continue;
+        }
+
+        for (final cell in paradigm.forms) {
+          add(cell.form, (
+            adjectiveId: comparison.id,
+            degree: base.degree,
+            base: base.text,
+            grammaticalCase: cell.grammaticalCase,
+            number: cell.number,
+            gender: cell.gender,
+          ));
+        }
+      }
+
+      // Eigens gelernte Nebenform des Genitivs (πλέονος neben πλείονος).
+      for (final genitive in comparison.comparativeGenitives) {
+        for (final gender in declensionGenders) {
+          add(genitive, (
+            adjectiveId: comparison.id,
+            degree: comparative,
+            base: comparison.comparatives.first.text,
+            grammaticalCase: "Genitiv",
+            number: "Sg",
+            gender: gender,
+          ));
+        }
+      }
+    }
+
+    return index;
+  }();
+
+  /// Die möglichen Bestimmungen der Form [form] in Worten, Genera
+  /// zusammengefasst: "Komparativ · Genitiv Sg. m/n". Mit [degree] steht die
+  /// Steigerungsstufe dabei, mit [form] Kasus, Numerus und Genus.
+  static List<String> describeForm(
+    String shown, {
+    bool degree = true,
+    bool form = true,
+  }) {
+    final genders = <String, List<String>>{};
+
+    for (final analysis in analysesOf(shown)) {
+      final declined = form && analysis.grammaticalCase != null;
+
+      final label = [
+        if (degree) analysis.degree,
+        if (declined) "${analysis.grammaticalCase} ${analysis.number}.",
+      ].join(" · ");
+
+      final known = genders.putIfAbsent(label, () => []);
+      final gender = analysis.gender;
+
+      if (declined && gender != null && !known.contains(gender)) {
+        known.add(gender);
+      }
+    }
+
+    return [
+      for (final MapEntry(key: label, value: genders) in genders.entries)
+        if (label.isNotEmpty)
+          genders.isEmpty ? label : "$label ${genders.join('/')}",
+    ];
+  }
+
+  /// Alle Bestimmungen, die für die Form [form] möglich sind – auch über
+  /// Adjektive hinweg (ἐλάττονος: μικρός und ὀλίγος) und über die Genera
+  /// (σοφωτέρου: Maskulinum und Neutrum).
+  static List<ComparisonAnalysis> analysesOf(String form) {
+    return _analyses[form] ?? const [];
   }
 }

@@ -3,13 +3,14 @@ import '../../../utils/greek_normalization.dart';
 import 'adjective_comparisons.dart';
 import 'grammar_form_analysis.dart';
 import 'grammar_question_picker.dart';
+import 'verb_paradigm.dart';
 
 /// Antwortprüfung des Grammatiktrainers, ohne UI und ohne Netzwerk.
 ///
 /// Formal identische Formen (z. B. Nominativ = Akkusativ im Neutrum,
 /// 1. Sg. = 3. Pl. im Imperfekt): Jede für die angezeigte Form mögliche
-/// Bestimmung (`analyses`, vom Backend geliefert) gilt als richtig. Ohne
-/// solche Angaben gilt ausschließlich die Zielbestimmung der Aufgabe.
+/// Bestimmung (`analyses`) gilt als richtig. Ohne solche Angaben gilt
+/// ausschließlich die Zielbestimmung der Aufgabe.
 
 typedef NounAnswerResult = ({
   bool caseCorrect,
@@ -17,10 +18,21 @@ typedef NounAnswerResult = ({
   bool genderCorrect,
 });
 
+/// Einzelergebnisse einer Verbaufgabe. [reference] ist die Bestimmung, an
+/// der die Antwort gemessen wurde: die mögliche Bestimmung der Form, die der
+/// Antwort am nächsten kommt. Bei einer finiten Form ist [personCorrect]
+/// gesetzt, bei einem Partizip stattdessen Kasus, Numerus und Genus; die
+/// jeweils anderen sind `null`.
 typedef VerbAnswerResult = ({
-  bool personCorrect,
+  bool moodCorrect,
   bool tenseCorrect,
   bool voiceCorrect,
+  bool? personCorrect,
+  bool? caseCorrect,
+  bool? numberCorrect,
+  bool? genderCorrect,
+  bool correct,
+  VerbAnalysis reference,
 });
 
 /// [reference] ist die Bestimmung, an der die Antwort gemessen wurde: die
@@ -66,41 +78,118 @@ NounAnswerResult checkNounAnswer({
   );
 }
 
-/// [targetPerson] und [targetNumber] in der Schreibweise der
-/// Fragegenerierung ("3.", "Pl"), [userPersonNumber] wie ausgewählt
-/// ("3. Pl.").
-VerbAnswerResult checkVerbAnswer({
-  required String? targetPerson,
-  required String? targetNumber,
-  required String? targetTense,
-  required String? targetVoice,
+/// Ob die Auswahl [userVoice] das Genus Verbi [voice] einer Form trifft.
+/// "Medium/Passiv" (Präsens, Imperfekt) ist als Medium wie als Passiv
+/// richtig bestimmt. Ein Deponens hat kein Aktiv; "Deponent" benennt bei
+/// diesen Verben also jede ihrer Formen.
+bool verbVoiceMatches(
+  String? userVoice,
+  String voice, {
   required bool deponent,
-  required List<VerbFormAnalysis> analyses,
-  required String? userPersonNumber,
+}) {
+  if (userVoice == "Deponent") {
+    return deponent && voice != "Aktiv";
+  }
+
+  return userVoice == voice ||
+      (voice == "Medium/Passiv" &&
+          (userVoice == "Medium" || userVoice == "Passiv"));
+}
+
+/// Prüft die Bestimmung einer Verbform.
+///
+/// [analyses] sind alle für die angezeigte Form möglichen Bestimmungen (aus
+/// dem Paradigma des Verbs, auch über Modi hinweg: παυόντων ist Imperativ
+/// und Partizip). Richtig ist die Antwort nur, wenn sie eine davon
+/// vollständig trifft; eine Mischung zweier möglicher Bestimmungen bleibt
+/// falsch. Die Einzelwertung richtet sich nach der Bestimmung mit den
+/// meisten Übereinstimmungen, bei Gleichstand nach der Zielbestimmung
+/// [target].
+///
+/// Die Antwort in der Schreibweise der Auswahl: [userPersonNumber] "3. Pl.",
+/// [userNumber] "Sg.". Person und Numerus zählen nur bei finiten Formen,
+/// Kasus, Numerus und Genus nur beim Partizip.
+VerbAnswerResult checkVerbAnswer({
+  required VerbAnalysis target,
+  required List<VerbAnalysis> analyses,
+  required bool deponent,
+  required String? userMood,
   required String? userTense,
   required String? userVoice,
+  String? userPersonNumber,
+  String? userCase,
+  String? userNumber,
+  String? userGender,
 }) {
-  // Ein Deponens hat nur mediale/passive Formen; "Deponent" benennt bei
-  // diesen Verben also dieselbe Form wie "Medium/Passiv".
-  final answeredVoice = userVoice == "Deponent" && deponent
-      ? "Medium/Passiv"
-      : userVoice;
+  VerbAnswerResult compare(VerbAnalysis analysis) {
+    final participle = analysis.mood == VerbMood.participle;
 
-  final matchesForm =
-      GrammarQuestionPicker.parsePerson(targetPerson) != null &&
-      verbAnswerMatchesForm(
-        analyses,
-        userPersonNumber: userPersonNumber,
-        userTense: userTense,
-        userVoice: answeredVoice,
-      );
+    final moodCorrect = userMood == analysis.mood;
+    final tenseCorrect = userTense == analysis.tense;
+    final voiceCorrect = verbVoiceMatches(
+      userVoice,
+      analysis.voice,
+      deponent: deponent,
+    );
 
-  return (
-    personCorrect:
-        matchesForm || userPersonNumber == "$targetPerson $targetNumber.",
-    tenseCorrect: matchesForm || userTense == targetTense,
-    voiceCorrect: matchesForm || answeredVoice == targetVoice,
-  );
+    final personCorrect = participle
+        ? null
+        : userPersonNumber == "${analysis.person}. ${analysis.number}.";
+    final caseCorrect = participle
+        ? userCase == analysis.grammaticalCase
+        : null;
+    final numberCorrect = participle
+        ? userNumber == "${analysis.number}."
+        : null;
+    final genderCorrect = participle ? userGender == analysis.gender : null;
+
+    return (
+      moodCorrect: moodCorrect,
+      tenseCorrect: tenseCorrect,
+      voiceCorrect: voiceCorrect,
+      personCorrect: personCorrect,
+      caseCorrect: caseCorrect,
+      numberCorrect: numberCorrect,
+      genderCorrect: genderCorrect,
+      correct:
+          moodCorrect &&
+          tenseCorrect &&
+          voiceCorrect &&
+          personCorrect != false &&
+          caseCorrect != false &&
+          numberCorrect != false &&
+          genderCorrect != false,
+      reference: analysis,
+    );
+  }
+
+  // Anteil statt Anzahl: Partizipien haben mehr Bestimmungsstücke als
+  // finite Formen.
+  double score(VerbAnswerResult result) {
+    final parts = [
+      result.moodCorrect,
+      result.tenseCorrect,
+      result.voiceCorrect,
+      ?result.personCorrect,
+      ?result.caseCorrect,
+      ?result.numberCorrect,
+      ?result.genderCorrect,
+    ];
+
+    return parts.where((part) => part).length / parts.length;
+  }
+
+  var best = compare(target);
+
+  for (final analysis in analyses) {
+    final result = compare(analysis);
+
+    if (score(result) > score(best)) {
+      best = result;
+    }
+  }
+
+  return best;
 }
 
 /// Prüft die Bestimmung einer Pronominalform.
@@ -159,11 +248,18 @@ PronounAnswerResult checkPronounAnswer({
   return best;
 }
 
-/// Einzelergebnisse; `null` = nicht gefragt.
+/// Einzelergebnisse; `null` = nicht gefragt. [reference] ist die mögliche
+/// Bestimmung der Form, an der Stufe, Kasus, Numerus und Genus gemessen
+/// wurden; `null`, wenn die Form unbekannt ist.
 typedef ComparisonAnswerResult = ({
   bool? lemmaCorrect,
   bool? translationCorrect,
+  bool? degreeCorrect,
+  bool? caseCorrect,
+  bool? numberCorrect,
+  bool? genderCorrect,
   bool correct,
+  ComparisonAnalysis? reference,
 });
 
 /// Prüft eine Antwort der Adjektivsteigerung: Zur angezeigten gesteigerten
@@ -176,12 +272,74 @@ typedef ComparisonAnswerResult = ({
 /// Groß-/Kleinschreibung und Schluss-Sigma), die Übersetzung wie im
 /// Vokabeltrainer ([VocabularyAnswerChecker.normalize]); mehrere durch
 /// Komma getrennte Übersetzungen sind erlaubt, eine richtige genügt.
+///
+/// Mit [degreeAsked] zählt die Steigerungsstufe ([userDegree]), mit
+/// [formAsked] zählen Kasus, Numerus ("Sg.") und Genus der flektierten
+/// Form. Jede für die Form mögliche Bestimmung gilt (σοφωτέρου: Maskulinum
+/// und Neutrum), aber nur als Ganzes; gewertet wird die Bestimmung mit den
+/// meisten Übereinstimmungen.
 ComparisonAnswerResult checkComparisonAnswer({
   required String shown,
   String? lemmaInput,
   String? translationInput,
+  bool degreeAsked = false,
+  bool formAsked = false,
+  String? userDegree,
+  String? userCase,
+  String? userNumber,
+  String? userGender,
 }) {
   final owners = AdjectiveComparisons.ownersOf(shown);
+
+  ({
+    bool? degreeCorrect,
+    bool? caseCorrect,
+    bool? numberCorrect,
+    bool? genderCorrect,
+    ComparisonAnalysis? reference,
+  })
+  compare(ComparisonAnalysis? analysis) {
+    // Formen ohne Deklination (ἥκιστα) haben nur eine Stufe.
+    final declined = formAsked && analysis?.grammaticalCase != null;
+
+    return (
+      degreeCorrect: degreeAsked ? userDegree == analysis?.degree : null,
+      caseCorrect: declined ? userCase == analysis?.grammaticalCase : null,
+      numberCorrect: declined ? userNumber == "${analysis?.number}." : null,
+      genderCorrect: declined ? userGender == analysis?.gender : null,
+      reference: analysis,
+    );
+  }
+
+  final analyses = AdjectiveComparisons.analysesOf(shown);
+
+  var form = compare(analyses.firstOrNull);
+
+  int score(
+    ({
+      bool? degreeCorrect,
+      bool? caseCorrect,
+      bool? numberCorrect,
+      bool? genderCorrect,
+      ComparisonAnalysis? reference,
+    })
+    result,
+  ) {
+    return [
+      result.degreeCorrect,
+      result.caseCorrect,
+      result.numberCorrect,
+      result.genderCorrect,
+    ].where((part) => part == true).length;
+  }
+
+  for (final analysis in analyses.skip(1)) {
+    final result = compare(analysis);
+
+    if (score(result) > score(form)) {
+      form = result;
+    }
+  }
 
   bool? lemmaCorrect;
 
@@ -218,10 +376,19 @@ ComparisonAnswerResult checkComparisonAnswer({
   return (
     lemmaCorrect: lemmaCorrect,
     translationCorrect: translationCorrect,
+    degreeCorrect: form.degreeCorrect,
+    caseCorrect: form.caseCorrect,
+    numberCorrect: form.numberCorrect,
+    genderCorrect: form.genderCorrect,
     correct:
         owners.isNotEmpty &&
         (lemmaCorrect != null || translationCorrect != null) &&
         lemmaCorrect != false &&
-        translationCorrect != false,
+        translationCorrect != false &&
+        form.degreeCorrect != false &&
+        form.caseCorrect != false &&
+        form.numberCorrect != false &&
+        form.genderCorrect != false,
+    reference: form.reference,
   );
 }
