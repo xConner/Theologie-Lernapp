@@ -6,6 +6,7 @@
 
 import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
+import { createSign, generateKeyPairSync } from 'node:crypto';
 import { createRequire } from 'node:module';
 import { dirname, join } from 'node:path';
 import { test } from 'node:test';
@@ -49,6 +50,7 @@ console.error = console.warn = console.log = () => {};
 const guard = require(join(out, '_lib', 'guard.js'));
 const push = require(join(out, '_lib', 'push.js'));
 const pushTest = require(join(out, '_lib', 'push-test.js'));
+const idToken = require(join(out, '_lib', 'id-token.js'));
 const pushTestEndpoint = require(join(out, 'push-test.js')).default;
 const remindersEndpoint = require(join(out, 'send-reminders.js')).default;
 
@@ -84,7 +86,7 @@ function dependencies(overrides = {}) {
         calls,
         deps: {
             authenticate: async (token) => {
-                if (token !== 'gueltig') throw Object.assign(new Error('x'), { code: 'auth/argument-error' });
+                if (token !== 'gueltig') throw new idToken.InvalidTokenError('signature');
                 return 'u1';
             },
             allow: async (uid) => {
@@ -125,7 +127,7 @@ test('Testendpunkt: ohne oder mit ungültigem Token 401, kein Versand', async ()
     const invalid = await call(handler, { authorization: 'Bearer falsch' });
 
     assert.equal(invalid.status, 401);
-    assert.equal(invalid.body.code, 'auth/argument-error');
+    assert.equal(invalid.body.code, 'signature');
     assert.deepEqual(calls.allow, []);
     assert.deepEqual(calls.send, []);
 });
@@ -160,6 +162,19 @@ test('Testendpunkt: fehlende Konfiguration 503, andere Fehler 500 mit Schritt', 
     assert.equal(notConfigured.status, 503);
     assert.equal(notConfigured.body.stage, 'auth');
     assert.equal(notConfigured.body.code, 'not-configured');
+
+    // Kann der Server das Token nicht prüfen (z. B. Schlüssel nicht
+    // abrufbar), ist das kein Anmeldefehler des Nutzers.
+    const unreachable = dependencies({
+        authenticate: async () => {
+            throw new Error('Schlüssel nicht abrufbar (Status 503).');
+        },
+    });
+
+    const authFailed = await call(pushTest.createHandler(unreachable.deps), { authorization: 'Bearer gueltig' });
+
+    assert.equal(authFailed.status, 500);
+    assert.equal(authFailed.body.stage, 'auth');
 
     const denied = dependencies({
         allow: async () => {
@@ -197,6 +212,66 @@ test('ausgelieferte Endpunkte laden und antworten ohne Konfiguration', async () 
     } finally {
         delete process.env.CRON_SECRET;
     }
+});
+
+const project = 'theologie-test';
+const signer = generateKeyPairSync('rsa', { modulusLength: 2048 });
+const stranger = generateKeyPairSync('rsa', { modulusLength: 2048 });
+const now = Date.UTC(2026, 9, 10, 12);
+
+const publicKeys = async () => ({
+    k1: signer.publicKey.export({ type: 'spki', format: 'pem' }),
+});
+
+function token(claims = {}, { key = signer.privateKey, header = {} } = {}) {
+    const encode = (value) => Buffer.from(JSON.stringify(value)).toString('base64url');
+    const seconds = now / 1000;
+
+    const head = encode({ alg: 'RS256', kid: 'k1', typ: 'JWT', ...header });
+    const body = encode({
+        aud: project,
+        iss: `https://securetoken.google.com/${project}`,
+        sub: 'u1',
+        iat: seconds - 60,
+        exp: seconds + 3000,
+        ...claims,
+    });
+
+    const signature = createSign('RSA-SHA256').update(`${head}.${body}`).sign(key, 'base64url');
+
+    return `${head}.${body}.${signature}`;
+}
+
+const verify = (value) => idToken.verifyIdToken(value, project, publicKeys, now);
+
+const rejected = (code) => (e) => e instanceof idToken.InvalidTokenError && e.code === code;
+
+test('ID-Token: gültiges Token liefert die Konto-ID', async () => {
+    assert.equal(await verify(token()), 'u1');
+});
+
+test('ID-Token: Fälschungen und fremde Tokens werden abgelehnt', async () => {
+    await assert.rejects(verify('kein-token'), rejected('malformed'));
+    await assert.rejects(verify('a.b.c'), rejected('malformed'));
+    await assert.rejects(verify(token({}, { key: stranger.privateKey })), rejected('signature'));
+    await assert.rejects(verify(token({}, { header: { kid: 'unbekannt' } })), rejected('unknown-key'));
+    await assert.rejects(verify(token({}, { header: { kid: 'constructor' } })), rejected('unknown-key'));
+    await assert.rejects(verify(token({}, { header: { alg: 'none' } })), rejected('algorithm'));
+    await assert.rejects(verify(token({}, { header: { alg: 'HS256' } })), rejected('algorithm'));
+
+    // Nachträglich veränderter Inhalt passt nicht mehr zur Signatur.
+    const [head, , signature] = token().split('.');
+    const other = token({ sub: 'u2' }, { key: stranger.privateKey }).split('.')[1];
+
+    await assert.rejects(verify(`${head}.${other}.${signature}`), rejected('signature'));
+
+    await assert.rejects(verify(token({ aud: 'anderes-projekt' })), rejected('audience'));
+    await assert.rejects(verify(token({ iss: 'https://example.org' })), rejected('issuer'));
+    await assert.rejects(verify(token({ exp: now / 1000 - 3600 })), rejected('expired'));
+    await assert.rejects(verify(token({ exp: undefined })), rejected('expired'));
+    await assert.rejects(verify(token({ iat: now / 1000 + 3600 })), rejected('issued-in-future'));
+    await assert.rejects(verify(token({ sub: '' })), rejected('subject'));
+    await assert.rejects(verify(token({ sub: 5 })), rejected('subject'));
 });
 
 test('Schutzhülle: Ladefehler und Laufzeitfehler werden zu Antworten', async () => {

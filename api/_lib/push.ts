@@ -10,7 +10,6 @@
 //   WEB_PUSH_SUBJECT           Kontakt für die Push-Dienste (mailto: oder https:)
 
 import { cert, getApps, initializeApp } from 'firebase-admin/app';
-import { getAuth, type Auth } from 'firebase-admin/auth';
 import {
     getFirestore,
     type DocumentReference,
@@ -37,11 +36,16 @@ function app() {
 
     if (existing) return existing;
 
-    return initializeApp({
-        credential: cert(
-            parseServiceAccount(env('FIREBASE_SERVICE_ACCOUNT')),
-        ),
-    });
+    return initializeApp({ credential: cert(serviceAccount()) });
+}
+
+function serviceAccount(): ServiceAccount {
+    return parseServiceAccount(env('FIREBASE_SERVICE_ACCOUNT'));
+}
+
+/** Firebase-Projekt, für das ID-Tokens ausgestellt sein müssen. */
+export function projectId(): string {
+    return serviceAccount().projectId;
 }
 
 export type ServiceAccount = {
@@ -97,10 +101,6 @@ export function parseServiceAccount(raw: string): ServiceAccount {
 
 export function firestore(): Firestore {
     return getFirestore(app());
-}
-
-export function auth(): Auth {
-    return getAuth(app());
 }
 
 // Nur die Push-Dienste der Browser: Die Adresse eines Abonnements stammt

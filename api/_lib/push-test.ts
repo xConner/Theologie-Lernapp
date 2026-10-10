@@ -6,10 +6,11 @@ import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { FieldValue, Timestamp } from 'firebase-admin/firestore';
 
 import { errorCode } from './guard';
+import { InvalidTokenError, verifyIdToken } from './id-token';
 import {
-    auth,
     firestore,
     NotConfiguredError,
+    projectId,
     sendToUser,
     type SendResult,
 } from './push';
@@ -26,8 +27,8 @@ export type TestDependencies = {
 };
 
 const firebase: TestDependencies = {
-    async authenticate(token) {
-        return (await auth().verifyIdToken(token)).uid;
+    authenticate(token) {
+        return verifyIdToken(token, projectId());
     },
 
     allow(uid) {
@@ -98,7 +99,10 @@ export function createHandler(deps: TestDependencies) {
             try {
                 uid = await deps.authenticate(token);
             } catch (e) {
-                if (e instanceof NotConfiguredError) throw e;
+                // Nur ein abgelehntes Token ist eine fehlende Anmeldung;
+                // alles andere (Konfiguration, Schlüsselabruf) ist ein
+                // Fehler des Servers.
+                if (!(e instanceof InvalidTokenError)) throw e;
 
                 console.warn('[push-test] Token abgelehnt:', errorCode(e));
 
