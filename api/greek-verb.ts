@@ -491,7 +491,7 @@ function findVerbAnalyses(
 }
 
 // ---------------------------------------------------------------------------
-// PARADIGMA (Indikativ, Imperativ, Partizipien)
+// PARADIGMA (Indikativ, Imperativ, Infinitive, Partizipien)
 // ---------------------------------------------------------------------------
 
 // Spalten einer finiten Zeile in der Reihenfolge 1./2./3. Sg., 1./2./3. Pl.
@@ -512,6 +512,7 @@ type ParticipleNominatives = Record<string, string | null>;
 type TenseParadigm = {
     indicative: Record<string, FiniteForms>;
     imperative: Record<string, FiniteForms>;
+    infinitives: Record<string, string>;
     participles: Record<string, ParticipleNominatives>;
 };
 
@@ -531,6 +532,7 @@ function extractTenseParadigm(
     const paradigm: TenseParadigm = {
         indicative: {},
         imperative: {},
+        infinitives: {},
         participles: {},
     };
 
@@ -543,6 +545,7 @@ function extractTenseParadigm(
     // Partizipien aus Spalten ohne Überschrift: In Tabellen ohne Aktiv
     // fehlt die Angabe des Genus Verbi über der medialen Spalte.
     const unlabelled = new Map<number, ParticipleNominatives>();
+    const unlabelledInfinitives: string[] = [];
 
     table.find('tr').each((_, element) => {
         const row = $(element);
@@ -598,6 +601,28 @@ function extractTenseParadigm(
         }
 
         if (
+            label === 'infinitive' &&
+            participleVoices.length > 0 &&
+            cells.length === participleVoices.length
+        ) {
+            participleVoices.forEach((voice, index) => {
+                const form = cellForm($(cells[index]));
+
+                if (form === null) {
+                    return;
+                }
+
+                if (voice === null) {
+                    unlabelledInfinitives.push(form);
+                } else {
+                    paradigm.infinitives[voice] = form;
+                }
+            });
+
+            return;
+        }
+
+        if (
             (label === 'm' || label === 'f' || label === 'n') &&
             participleVoices.length > 0 &&
             cells.length === participleVoices.length
@@ -626,6 +651,17 @@ function extractTenseParadigm(
     const middleVoice = ['middle/passive', 'middle'].find(
         (voice) => paradigm.indicative[voice] !== undefined,
     );
+
+    // Ebenso ein Infinitiv auf -σθαι.
+    for (const infinitive of unlabelledInfinitives) {
+        if (
+            middleVoice !== undefined &&
+            paradigm.infinitives[middleVoice] === undefined &&
+            infinitive.endsWith('σθαι')
+        ) {
+            paradigm.infinitives[middleVoice] = infinitive;
+        }
+    }
 
     for (const nominatives of unlabelled.values()) {
         if (
@@ -765,6 +801,10 @@ async function handleParadigm(
 
                 if (other?.participles[voice]) {
                     forms.participles[voice] = other.participles[voice];
+                }
+
+                if (other?.infinitives[voice]) {
+                    forms.infinitives[voice] = other.infinitives[voice];
                 }
             }
         }

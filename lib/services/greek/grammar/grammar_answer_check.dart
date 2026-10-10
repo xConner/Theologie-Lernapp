@@ -22,7 +22,7 @@ typedef NounAnswerResult = ({
 /// der die Antwort gemessen wurde: die mögliche Bestimmung der Form, die der
 /// Antwort am nächsten kommt. Bei einer finiten Form ist [personCorrect]
 /// gesetzt, bei einem Partizip stattdessen Kasus, Numerus und Genus; die
-/// jeweils anderen sind `null`.
+/// jeweils anderen sind `null`, beim Infinitiv alle vier.
 typedef VerbAnswerResult = ({
   bool moodCorrect,
   bool tenseCorrect,
@@ -108,7 +108,8 @@ bool verbVoiceMatches(
 ///
 /// Die Antwort in der Schreibweise der Auswahl: [userPersonNumber] "3. Pl.",
 /// [userNumber] "Sg.". Person und Numerus zählen nur bei finiten Formen,
-/// Kasus, Numerus und Genus nur beim Partizip.
+/// Kasus, Numerus und Genus nur beim Partizip; der Infinitiv ist mit Modus,
+/// Tempus und Genus Verbi vollständig bestimmt.
 VerbAnswerResult checkVerbAnswer({
   required VerbAnalysis target,
   required List<VerbAnalysis> analyses,
@@ -132,7 +133,7 @@ VerbAnswerResult checkVerbAnswer({
       deponent: deponent,
     );
 
-    final personCorrect = participle
+    final personCorrect = analysis.person == null
         ? null
         : userPersonNumber == "${analysis.person}. ${analysis.number}.";
     final caseCorrect = participle
@@ -248,6 +249,26 @@ PronounAnswerResult checkPronounAnswer({
   return best;
 }
 
+/// Ob [input] eine der deutschen Bedeutungen [translations] der Grundform
+/// nennt. Verglichen wird wie im Vokabeltrainer
+/// ([VocabularyAnswerChecker.normalize]); mehrere durch Komma, Semikolon oder
+/// Schrägstrich getrennte Bedeutungen sind erlaubt, eine richtige genügt.
+///
+/// Gewertet werden nur die Bedeutungen, die der Aufrufer übergibt – bei
+/// Nomen und Verben die des Lemmas der Aufgabe. Eine gleich geschriebene
+/// Form eines anderen Wortes macht dessen Bedeutung also nicht richtig.
+bool lemmaTranslationMatches(String input, Iterable<String> translations) {
+  final accepted = {
+    for (final translation in translations)
+      VocabularyAnswerChecker.normalize(translation),
+  }..remove("");
+
+  return input
+      .split(RegExp(r'[,;/]'))
+      .map(VocabularyAnswerChecker.normalize)
+      .any(accepted.contains);
+}
+
 /// Einzelergebnisse; `null` = nicht gefragt. [reference] ist die mögliche
 /// Bestimmung der Form, an der Stufe, Kasus, Numerus und Genus gemessen
 /// wurden; `null`, wenn die Form unbekannt ist.
@@ -361,16 +382,9 @@ ComparisonAnswerResult checkComparisonAnswer({
   bool? translationCorrect;
 
   if (translationInput != null) {
-    final accepted = {
-      for (final owner in owners)
-        for (final translation in owner.translations)
-          VocabularyAnswerChecker.normalize(translation),
-    };
-
-    translationCorrect = translationInput
-        .split(RegExp(r'[,;/]'))
-        .map(VocabularyAnswerChecker.normalize)
-        .any(accepted.contains);
+    translationCorrect = lemmaTranslationMatches(translationInput, [
+      for (final owner in owners) ...owner.translations,
+    ]);
   }
 
   return (

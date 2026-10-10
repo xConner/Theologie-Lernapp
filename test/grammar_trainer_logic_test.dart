@@ -334,7 +334,56 @@ void main() {
         'askComparisonDegree': true,
         'askComparisonForm': true,
         'enabledMoods': GrammarQuestionPicker.moods,
+        'askLemmaTranslation': false,
       });
+    });
+
+    test("Übersetzung der Grundform: aus, bis sie eingeschaltet wird", () {
+      for (final data in [
+        null,
+        // Einstellungen von vor der Erweiterung.
+        <String, dynamic>{
+          'enabledTypes': ["noun", "verb"],
+          'askComparisonTranslation': true,
+        },
+        <String, dynamic>{'askLemmaTranslation': "ja"},
+      ]) {
+        expect(
+          GrammarTrainerSettings.fromMap(data).askLemmaTranslation,
+          isFalse,
+        );
+      }
+
+      final on = GrammarTrainerSettings.fromMap(<String, dynamic>{
+        'askLemmaTranslation': true,
+        'askComparisonTranslation': false,
+      });
+
+      expect(on.askLemmaTranslation, isTrue);
+      expect(on.toMap()['askLemmaTranslation'], isTrue);
+      // Der Schalter der Adjektivsteigerung bleibt eigenständig.
+      expect(on.askComparisonTranslation, isFalse);
+      expect(
+        GrammarTrainerSettings.fromMap(<String, dynamic>{
+          'askComparisonTranslation': true,
+        }).askLemmaTranslation,
+        isFalse,
+      );
+    });
+
+    test("gespeicherte Modusauswahl bleibt: Infinitiv kommt nicht dazu", () {
+      final settings = GrammarTrainerSettings.fromMap(<String, dynamic>{
+        'enabledMoods': ["Indikativ", "Imperativ", "Partizip"],
+      });
+
+      expect(settings.enabledMoods, ["Indikativ", "Imperativ", "Partizip"]);
+
+      expect(
+        GrammarTrainerSettings.fromMap(<String, dynamic>{
+          'enabledMoods': ["Infinitiv"],
+        }).enabledMoods,
+        ["Infinitiv"],
+      );
     });
 
     test("Modi: ohne gespeicherte Unterauswahl gelten alle", () {
@@ -350,6 +399,7 @@ void main() {
         expect(GrammarTrainerSettings.fromMap(data).enabledMoods, [
           VerbMood.indicative,
           VerbMood.imperative,
+          VerbMood.infinitive,
           VerbMood.participle,
         ]);
       }
@@ -366,7 +416,7 @@ void main() {
       // Veränderbare Kopie für den Einstellungsdialog.
       GrammarTrainerSettings.fromMap(null).enabledMoods.clear();
 
-      expect(GrammarTrainerSettings.allMoods.length, 3);
+      expect(GrammarTrainerSettings.allMoods.length, 4);
     });
 
     test("neue Einstellungen lassen die bestehenden unberührt", () {
@@ -383,6 +433,7 @@ void main() {
         'enabledMoods': ["Imperativ"],
         'askComparisonDegree': false,
         'askComparisonForm': false,
+        'askLemmaTranslation': true,
       });
 
       expect(settings.toMap(), {
@@ -398,6 +449,7 @@ void main() {
         'askComparisonDegree': false,
         'askComparisonForm': false,
         'enabledMoods': ["Imperativ"],
+        'askLemmaTranslation': true,
       });
     });
 

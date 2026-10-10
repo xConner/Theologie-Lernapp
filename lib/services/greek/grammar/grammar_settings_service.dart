@@ -48,8 +48,15 @@ class GrammarTrainerSettings {
   final bool askComparisonForm;
 
   /// Unterauswahl der Wortart Verb: welche Modi gefragt werden (Indikativ,
-  /// Imperativ, Partizip).
+  /// Imperativ, Infinitiv, Partizip). Eine gespeicherte Auswahl gilt
+  /// unverändert: Ein später hinzugekommener Modus bleibt dort
+  /// ausgeschaltet, bis er ausgewählt wird.
   final List<String> enabledMoods;
+
+  /// Nomen und Verben: Zur vorgelegten Form wird zusätzlich die deutsche
+  /// Übersetzung der Grundform gefragt. Die Adjektivsteigerung hat dafür
+  /// ihren eigenen Schalter ([askComparisonTranslation]).
+  final bool askLemmaTranslation;
 
   const GrammarTrainerSettings({
     this.enabledSteps = allSteps,
@@ -64,6 +71,7 @@ class GrammarTrainerSettings {
     this.askComparisonDegree = true,
     this.askComparisonForm = true,
     this.enabledMoods = allMoods,
+    this.askLemmaTranslation = false,
   });
 
   /// Liest das gespeicherte Feld `greek_grammar_settings`. Unbekannte
@@ -96,6 +104,7 @@ class GrammarTrainerSettings {
     final comparisonDegree = data['askComparisonDegree'];
     final comparisonForm = data['askComparisonForm'];
     final moods = data['enabledMoods'];
+    final lemmaTranslation = data['askLemmaTranslation'];
 
     final askTranslation = comparisonTranslation is bool
         ? comparisonTranslation
@@ -133,6 +142,7 @@ class GrammarTrainerSettings {
       enabledMoods: moods is List
           ? moods.whereType<String>().where(allMoods.contains).toList()
           : List.of(allMoods),
+      askLemmaTranslation: lemmaTranslation is bool ? lemmaTranslation : false,
       // Ohne Übersetzung wird immer die Grundform gefragt.
       askComparisonLemma:
           !askTranslation || (comparisonLemma is bool ? comparisonLemma : true),
@@ -153,6 +163,7 @@ class GrammarTrainerSettings {
       'askComparisonDegree': askComparisonDegree,
       'askComparisonForm': askComparisonForm,
       'enabledMoods': enabledMoods,
+      'askLemmaTranslation': askLemmaTranslation,
     };
   }
 }

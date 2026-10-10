@@ -115,8 +115,8 @@ class GrammarQuestionPicker {
   /// Modi der Verbaufgaben, einzeln wählbar.
   static const List<String> moods = VerbMood.all;
 
-  /// Tempora, in denen es den Modus [mood] gibt: Imperativ und Partizip
-  /// kennen kein Imperfekt. Ohne Modus alle Tempora.
+  /// Tempora, in denen es den Modus [mood] gibt: Imperativ, Infinitiv und
+  /// Partizip kennen kein Imperfekt. Ohne Modus alle Tempora.
   static List<String> tensesOfMood(String? mood) {
     return mood == null || mood == VerbMood.indicative
         ? tenses
@@ -459,19 +459,20 @@ class GrammarQuestionPicker {
     return tenses;
   }
 
-  /// Für das Verb im Tempus [tense] zulässige Genera Verbi, soweit das
-  /// Paradigma sie enthält.
+  /// Für das Verb im Tempus [tense] und Modus [mood] zulässige Genera
+  /// Verbi, soweit das Paradigma sie enthält.
   ///
   /// Im Präsens und Imperfekt Aktiv und Medium/Passiv, im Aorist Aktiv und
-  /// Medium; das Aorist Passiv gehört nicht zum Lernstoff. Ein Deponens hat
-  /// kein Aktiv – im Aorist steht deshalb die Form, die es tatsächlich
-  /// bildet: Medium (ἐγενόμην), sonst Passiv (ἐβουλήθην), sonst Aktiv
-  /// (ἦλθον).
+  /// Medium. Das Aorist Passiv gehört nur beim Infinitiv zum Lernstoff
+  /// (παυθῆναι). Ein Deponens hat kein Aktiv – im Aorist steht deshalb die
+  /// Form, die es tatsächlich bildet: Medium (ἐγενόμην), sonst Passiv
+  /// (ἐβουλήθην), sonst Aktiv (ἦλθον).
   static List<String> allowedVoices(
     GreekVocabularyEntry entry,
     String tense,
-    VerbParadigm paradigm,
-  ) {
+    VerbParadigm paradigm, {
+    String mood = VerbMood.indicative,
+  }) {
     final existing = {
       for (final form in paradigm.forms)
         if (form.analysis.tense == tense &&
@@ -487,6 +488,8 @@ class GrammarQuestionPicker {
       return [
         for (final voice in const ["Aktiv", "Medium/Passiv", "Medium"])
           if (existing.contains(voice)) voice,
+        if (mood == VerbMood.infinitive && existing.contains("Passiv"))
+          "Passiv",
       ];
     }
 
@@ -504,8 +507,8 @@ class GrammarQuestionPicker {
   }
 
   /// Ob die Form zum Lernstoff des Verbs gehört: Tempus und Genus Verbi
-  /// zulässig, Modus eingeschaltet. Das Aorist Passiv der Deponentien wird
-  /// nur im Indikativ gefragt.
+  /// zulässig, Modus eingeschaltet. Das Aorist Passiv wird nur im Indikativ
+  /// (Deponentien) und im Infinitiv gefragt.
   static bool isAskable(
     GreekVocabularyEntry entry,
     VerbParadigm paradigm,
@@ -518,8 +521,11 @@ class GrammarQuestionPicker {
           entry,
           analysis.tense,
           paradigm,
+          mood: analysis.mood,
         ).contains(analysis.voice) &&
-        (analysis.voice != "Passiv" || analysis.mood == VerbMood.indicative);
+        (analysis.voice != "Passiv" ||
+            analysis.mood == VerbMood.indicative ||
+            analysis.mood == VerbMood.infinitive);
   }
 
   /// Wählt die Form einer Verbaufgabe aus dem Paradigma: nur Formen, die es
@@ -593,7 +599,7 @@ class GrammarQuestionPicker {
         (analysis) => "${analysis.number}.",
       );
       narrow("participle", "gender", genders, (analysis) => analysis.gender!);
-    } else {
+    } else if (candidates.first.analysis.person != null) {
       narrow(
         "verb",
         "person",

@@ -69,6 +69,18 @@ VerbAnalysis _participle(
   );
 }
 
+VerbAnalysis _infinitive(String tense, String voice) {
+  return (
+    mood: VerbMood.infinitive,
+    tense: tense,
+    voice: voice,
+    person: null,
+    number: null,
+    grammaticalCase: null,
+    gender: null,
+  );
+}
+
 String? _form(VerbParadigm paradigm, VerbAnalysis analysis) {
   for (final form in paradigm.forms) {
     if (form.analysis == analysis) return form.form;
@@ -261,6 +273,337 @@ void main() {
     });
   });
 
+  // Folien „Griechisch 1 – Infinitive“ und Aoristblatt.
+  group("Infinitiv", () {
+    String? infinitive(String lemma, String tense, String voice) {
+      return _form(_paradigm(lemma), _infinitive(tense, voice));
+    }
+
+    test("Präsens: Verba vocalia und contracta", () {
+      expect(infinitive("παύω", "Präsens", "Aktiv"), "παύειν");
+      expect(infinitive("παύω", "Präsens", "Medium/Passiv"), "παύεσθαι");
+      expect(infinitive("ποιέω", "Präsens", "Aktiv"), "ποιεῖν");
+      expect(infinitive("ποιέω", "Präsens", "Medium/Passiv"), "ποιεῖσθαι");
+      expect(infinitive("τιμάω", "Präsens", "Aktiv"), "τιμᾶν");
+      expect(infinitive("τιμάω", "Präsens", "Medium/Passiv"), "τιμᾶσθαι");
+    });
+
+    test("Aorist: schwach, stark und Wurzelaorist", () {
+      expect(infinitive("παύω", "Aorist", "Aktiv"), "παῦσαι");
+      expect(infinitive("παύω", "Aorist", "Medium"), "παύσασθαι");
+      expect(infinitive("παύω", "Aorist", "Passiv"), endsWith("θῆναι"));
+      expect(infinitive("ἔρχομαι", "Aorist", "Aktiv"), "ἐλθεῖν");
+      expect(infinitive("ὁράω", "Aorist", "Aktiv"), "ἰδεῖν");
+      expect(infinitive("ὁράω", "Aorist", "Passiv"), "ὀφθῆναι");
+      expect(infinitive("βαίνω", "Aorist", "Aktiv"), "βῆναι");
+      expect(infinitive("γιγνώσκω", "Aorist", "Aktiv"), "γνῶναι");
+    });
+
+    test("εἰμί, Verben auf -μι und Deponentien", () {
+      expect(infinitive("εἰμί", "Präsens", "Aktiv"), "εἶναι");
+      expect(infinitive("δίδωμι", "Präsens", "Aktiv"), "διδόναι");
+      expect(infinitive("δίδωμι", "Aorist", "Aktiv"), "δοῦναι");
+      expect(infinitive("τίθημι", "Aorist", "Medium"), "θέσθαι");
+      expect(infinitive("θεάομαι", "Präsens", "Medium/Passiv"), "θεᾶσθαι");
+      expect(infinitive("βούλομαι", "Aorist", "Passiv"), "βουληθῆναι");
+      expect(infinitive("εὑρίσκω", "Aorist", "Aktiv"), "εὑρεῖν");
+    });
+
+    test("Aoristblatt: Infinitiv Aorist aller Stammklassen", () {
+      const sheet = {
+        // Labialstämme
+        "βλέπω": "βλέψαι",
+        "γράφω": "γράψαι",
+        "πέμπω": "πέμψαι",
+        // Dentalstämme
+        "νομίζω": "νομίσαι",
+        "πείθω": "πεῖσαι",
+        "σῴζω": "σῶσαι",
+        // Gutturalstämme
+        "ἄρχω": "ἄρξαι",
+        "πράττω": "πρᾶξαι",
+        "τάττω": "τάξαι",
+        // Liquidstämme
+        "ἀγγέλλω": "ἀγγεῖλαι",
+        "κρίνω": "κρῖναι",
+        "μένω": "μεῖναι",
+        // starker Aorist
+        "ἄγω": "ἀγαγεῖν",
+        "βάλλω": "βαλεῖν",
+        "ἔρχομαι": "ἐλθεῖν",
+        "εὑρίσκω": "εὑρεῖν",
+        "ἔχω": "σχεῖν",
+        "λαμβάνω": "λαβεῖν",
+        "λέγω": "εἰπεῖν",
+        "λείπω": "λιπεῖν",
+        "μανθάνω": "μαθεῖν",
+        "ὁράω": "ἰδεῖν",
+        "φεύγω": "φυγεῖν",
+        "φέρω": "ἐνεγκεῖν",
+        // Wurzelaorist
+        "βαίνω": "βῆναι",
+        "γιγνώσκω": "γνῶναι",
+      };
+
+      for (final MapEntry(key: lemma, value: form) in sheet.entries) {
+        expect(infinitive(lemma, "Aorist", "Aktiv"), form, reason: lemma);
+      }
+
+      expect(infinitive("γίγνομαι", "Aorist", "Medium"), "γενέσθαι");
+
+      // Das Blatt schreibt φύλαξαι; der Infinitiv Aorist Aktiv ist auf der
+      // vorletzten Silbe betont (φύλαξαι ist der Imperativ des Mediums).
+      expect(infinitive("φυλάττω", "Aorist", "Aktiv"), "φυλάξαι");
+    });
+
+    test("kein Infinitiv im Imperfekt, je Tempus und Genus Verbi einer", () {
+      for (final lemma in _fixtures.keys) {
+        final infinitives = [
+          for (final form in _paradigm(lemma).forms)
+            if (form.analysis.mood == VerbMood.infinitive) form.analysis,
+        ];
+
+        expect(
+          infinitives.every((analysis) => analysis.tense != "Imperfekt"),
+          isTrue,
+          reason: lemma,
+        );
+        expect(
+          _combinations(infinitives).length,
+          infinitives.length,
+          reason: lemma,
+        );
+      }
+    });
+
+    test("unpassende Endung oder fehlender Indikativ: kein Infinitiv", () {
+      List<String> infinitives(Map<String, dynamic> forms) {
+        return [
+          for (final form in VerbParadigm.fromJson({
+            'Präsens': {
+              'indicative': {
+                'active': [
+                  "παύω",
+                  "παύεις",
+                  "παύει",
+                  "παύομεν",
+                  "παύετε",
+                  "παύουσι",
+                ],
+                'middle/passive': [
+                  "παύομαι",
+                  "παύῃ",
+                  "παύεται",
+                  "παυόμεθα",
+                  "παύεσθε",
+                  "παύονται",
+                ],
+              },
+              'infinitives': forms,
+            },
+          }).forms)
+            if (form.analysis.mood == VerbMood.infinitive) form.form,
+        ];
+      }
+
+      expect(infinitives({'active': "παύειν", 'middle/passive': "παύεσθαι"}), [
+        "παύειν",
+        "παύεσθαι",
+      ]);
+      // Vertauschte Spalten.
+      expect(
+        infinitives({'active': "παύεσθαι", 'middle/passive': "παύειν"}),
+        isEmpty,
+      );
+      // Keine Infinitivendung, kein Text.
+      expect(infinitives({'active': "παύων", 'middle/passive': 7}), isEmpty);
+      // Genus Verbi ohne Indikativ.
+      expect(infinitives({'passive': "παυθῆναι"}), isEmpty);
+      expect(infinitives({'kaputt': "παύειν"}), isEmpty);
+    });
+
+    test("formgleich: παῦσαι ist auch Imperativ des Mediums", () {
+      expect(pauo.analysesOf("παῦσαι"), [
+        _finite(VerbMood.imperative, "Aorist", "Medium", 2, "Sg"),
+        _infinitive("Aorist", "Aktiv"),
+      ]);
+      expect(pauo.analysesOf("παύειν"), [_infinitive("Präsens", "Aktiv")]);
+      expect(
+        describeVerbAnalysis(_infinitive("Aorist", "Passiv")),
+        "Infinitiv Aorist Passiv",
+      );
+    });
+
+    test("nur Infinitive eingeschaltet", () {
+      final grammar = GrammarLearning(random: Random(2));
+
+      final seen = <String>{};
+
+      for (var i = 0; i < 300; i++) {
+        final target = GrammarQuestionPicker.pickVerbTarget(
+          grammar,
+          _entry("παύω"),
+          pauo,
+          enabledMoods: [VerbMood.infinitive],
+        )!;
+
+        expect(target.analysis.mood, VerbMood.infinitive);
+
+        seen.add(target.form);
+      }
+
+      expect(seen.length, 5);
+      expect(seen, containsAll(["παύειν", "παύεσθαι", "παῦσαι", "παύσασθαι"]));
+    });
+
+    test("Antwortprüfung: Modus, Tempus und Genus Verbi genügen", () {
+      final target = _infinitive("Aorist", "Aktiv");
+
+      final right = checkVerbAnswer(
+        target: target,
+        analyses: pauo.analysesOf("παῦσαι"),
+        deponent: false,
+        userMood: "Infinitiv",
+        userTense: "Aorist",
+        userVoice: "Aktiv",
+      );
+
+      expect(right.correct, isTrue);
+      expect(right.personCorrect, isNull);
+      expect(right.caseCorrect, isNull);
+      expect(right.numberCorrect, isNull);
+      expect(right.genderCorrect, isNull);
+
+      // Die formgleiche Imperativform gilt ebenfalls.
+      final imperative = checkVerbAnswer(
+        target: target,
+        analyses: pauo.analysesOf("παῦσαι"),
+        deponent: false,
+        userMood: "Imperativ",
+        userTense: "Aorist",
+        userVoice: "Medium",
+        userPersonNumber: "2. Sg.",
+      );
+
+      expect(imperative.correct, isTrue);
+      expect(imperative.reference.mood, VerbMood.imperative);
+
+      final wrongVoice = checkVerbAnswer(
+        target: target,
+        analyses: pauo.analysesOf("παῦσαι"),
+        deponent: false,
+        userMood: "Infinitiv",
+        userTense: "Aorist",
+        userVoice: "Medium",
+      );
+
+      expect(wrongVoice.correct, isFalse);
+      expect(wrongVoice.voiceCorrect, isFalse);
+      expect(wrongVoice.moodCorrect, isTrue);
+
+      // Präsens Medium/Passiv: Medium und Passiv gelten beide.
+      expect(
+        checkVerbAnswer(
+          target: _infinitive("Präsens", "Medium/Passiv"),
+          analyses: const [],
+          deponent: false,
+          userMood: "Infinitiv",
+          userTense: "Präsens",
+          userVoice: "Passiv",
+        ).correct,
+        isTrue,
+      );
+    });
+  });
+
+  group("Übersetzung der Grundform", () {
+    // Bedeutungen wie in der Vokabelliste.
+    const finden = ["finden"];
+    const tag = ["Tag"];
+    const kakos = ["schlecht", "feige"];
+
+    test("flektierte Verbform und Partizip: Bedeutung des Lemmas", () {
+      // εὑρών, ηὗρον, εὑρεῖν → εὑρίσκω „finden“.
+      expect(lemmaTranslationMatches("finden", finden), isTrue);
+      expect(lemmaTranslationMatches("  Finden ", finden), isTrue);
+      expect(lemmaTranslationMatches("gefunden habend", finden), isFalse);
+      expect(lemmaTranslationMatches("suchen", finden), isFalse);
+    });
+
+    test("flektierte Nomenform: Bedeutung des Lemmas", () {
+      // ἡμέρας → ἡμέρα „Tag“.
+      expect(lemmaTranslationMatches("Tag", tag), isTrue);
+      expect(lemmaTranslationMatches("tag", tag), isTrue);
+      expect(lemmaTranslationMatches("des Tages", tag), isFalse);
+    });
+
+    test("mehrere Bedeutungen: eine richtige genügt", () {
+      expect(lemmaTranslationMatches("feige", kakos), isTrue);
+      expect(lemmaTranslationMatches("schlecht, feige", kakos), isTrue);
+      expect(lemmaTranslationMatches("böse; schlecht", kakos), isTrue);
+      expect(lemmaTranslationMatches("böse", kakos), isFalse);
+    });
+
+    test("leere Eingabe und fehlende Daten sind falsch", () {
+      expect(lemmaTranslationMatches("", finden), isFalse);
+      expect(lemmaTranslationMatches("  ", finden), isFalse);
+      expect(lemmaTranslationMatches("finden", const []), isFalse);
+      expect(lemmaTranslationMatches("", const [""]), isFalse);
+    });
+
+    test("nur die Bedeutungen des Lemmas der Aufgabe zählen", () {
+      // Eine gleich geschriebene Form eines anderen Wortes macht dessen
+      // Bedeutung nicht richtig: Übergeben wird allein das Lemma der Frage.
+      expect(lemmaTranslationMatches("sagen", finden), isFalse);
+      expect(lemmaTranslationMatches("finden", const ["sagen"]), isFalse);
+    });
+
+    test("Bedeutungen der echten Vokabelliste", () {
+      final vocabulary =
+          (jsonDecode(File('assets/greek_vocabulary.json').readAsStringSync())
+                  as List)
+              .cast<Map<String, dynamic>>()
+              .map(GreekVocabularyEntry.fromJson)
+              .toList();
+
+      GreekVocabularyEntry entry(String lemma) {
+        return vocabulary.firstWhere((entry) => entry.lemma == lemma);
+      }
+
+      for (final lemma in ["εὑρίσκω", "λέγω", "ὁράω"]) {
+        final translations = entry(lemma).translations;
+
+        expect(translations, isNotEmpty);
+        expect(
+          lemmaTranslationMatches(translations.first, translations),
+          isTrue,
+          reason: lemma,
+        );
+      }
+
+      expect(
+        lemmaTranslationMatches(
+          entry("λέγω").translations.first,
+          entry("εὑρίσκω").translations,
+        ),
+        isFalse,
+      );
+
+      // Jede Vokabel, die der Trainer fragt, hat eine prüfbare Bedeutung.
+      for (final entry in vocabulary) {
+        if (entry.type == "noun" || entry.type == "verb") {
+          expect(
+            entry.translations.any((translation) {
+              return lemmaTranslationMatches(translation, entry.translations);
+            }),
+            isTrue,
+            reason: entry.lemma,
+          );
+        }
+      }
+    });
+  });
+
   group("Partizipien", () {
     test("jede Bestimmung liefert die Form der Folientabellen", () {
       String? form(
@@ -405,7 +748,12 @@ void main() {
       for (final form in pauo.forms) {
         final analysis = form.analysis;
 
-        if (analysis.mood == VerbMood.participle) {
+        if (analysis.mood == VerbMood.infinitive) {
+          expect(analysis.person, isNull);
+          expect(analysis.number, isNull);
+          expect(analysis.grammaticalCase, isNull);
+          expect(analysis.gender, isNull);
+        } else if (analysis.mood == VerbMood.participle) {
           expect(analysis.person, isNull);
           expect(analysis.grammaticalCase, isNotNull);
           expect(analysis.gender, isNotNull);
@@ -428,6 +776,10 @@ void main() {
         "Aorist",
       ]);
       expect(GrammarQuestionPicker.tensesOfMood(VerbMood.participle), [
+        "Präsens",
+        "Aorist",
+      ]);
+      expect(GrammarQuestionPicker.tensesOfMood(VerbMood.infinitive), [
         "Präsens",
         "Aorist",
       ]);
@@ -477,6 +829,17 @@ void main() {
       );
     });
 
+    test("Infinitiv: weder Person und Numerus noch Kasus und Genus", () {
+      expect(
+        GrammarQuestionPicker.asksPersonNumber(VerbMood.infinitive),
+        isFalse,
+      );
+      expect(
+        GrammarQuestionPicker.asksCaseNumberGender(VerbMood.infinitive),
+        isFalse,
+      );
+    });
+
     test("ohne gewählten Modus verrät kein Feld die Lösung", () {
       expect(GrammarQuestionPicker.asksPersonNumber(null), isFalse);
       expect(GrammarQuestionPicker.asksCaseNumberGender(null), isFalse);
@@ -487,6 +850,7 @@ void main() {
       expect(GrammarQuestionPicker.moods, [
         "Indikativ",
         "Imperativ",
+        "Infinitiv",
         "Partizip",
       ]);
     });
@@ -724,6 +1088,11 @@ void main() {
         "Imperativ Präsens Medium/Passiv",
         "Imperativ Aorist Aktiv",
         "Imperativ Aorist Medium",
+        "Infinitiv Präsens Aktiv",
+        "Infinitiv Präsens Medium/Passiv",
+        "Infinitiv Aorist Aktiv",
+        "Infinitiv Aorist Medium",
+        "Infinitiv Aorist Passiv",
         "Partizip Präsens Aktiv",
         "Partizip Präsens Medium/Passiv",
         "Partizip Aorist Aktiv",
@@ -805,6 +1174,7 @@ void main() {
         "Indikativ Präsens Aktiv",
         "Indikativ Imperfekt Aktiv",
         "Imperativ Präsens Aktiv",
+        "Infinitiv Präsens Aktiv",
         "Partizip Präsens Aktiv",
       });
     });
@@ -834,6 +1204,8 @@ void main() {
         "Indikativ Aorist Aktiv",
         "Imperativ Präsens Medium/Passiv",
         "Imperativ Aorist Aktiv",
+        "Infinitiv Präsens Medium/Passiv",
+        "Infinitiv Aorist Aktiv",
         "Partizip Präsens Medium/Passiv",
         "Partizip Aorist Aktiv",
       });
@@ -849,7 +1221,7 @@ void main() {
       );
     });
 
-    test("Aorist Passiv nur beim Deponens und nur im Indikativ", () {
+    test("Aorist Passiv: Indikativ nur beim Deponens, sonst Infinitiv", () {
       final boulomai = _entry("βούλομαι", deponent: true);
 
       // ἐβουλήθην ist der einzige Aorist von βούλομαι.
@@ -861,14 +1233,34 @@ void main() {
         picked(boulomai, _paradigm("βούλομαι")).where((combination) {
           return combination.endsWith("Passiv") &&
               !combination.endsWith("Medium/Passiv") &&
-              !combination.startsWith("Indikativ");
+              !combination.startsWith("Indikativ") &&
+              !combination.startsWith("Infinitiv");
         }),
         isEmpty,
       );
 
-      // Beim normalen Verb gehört das Aorist Passiv nicht zum Lernstoff.
+      // Beim normalen Verb gehört das Aorist Passiv nur als Infinitiv zum
+      // Lernstoff (παυθῆναι).
       expect(
         GrammarQuestionPicker.allowedVoices(_entry("παύω"), "Aorist", pauo),
+        ["Aktiv", "Medium"],
+      );
+      expect(
+        GrammarQuestionPicker.allowedVoices(
+          _entry("παύω"),
+          "Aorist",
+          pauo,
+          mood: VerbMood.infinitive,
+        ),
+        ["Aktiv", "Medium", "Passiv"],
+      );
+      expect(
+        GrammarQuestionPicker.allowedVoices(
+          _entry("παύω"),
+          "Aorist",
+          pauo,
+          mood: VerbMood.participle,
+        ),
         ["Aktiv", "Medium"],
       );
       expect(
@@ -932,8 +1324,8 @@ void main() {
         if (target.analysis.mood == VerbMood.participle) participles++;
       }
 
-      // Neutral wäre ein Drittel.
-      expect(participles / 6000, greaterThan(0.45));
+      // Neutral wäre ein Viertel.
+      expect(participles / 6000, greaterThan(0.34));
     });
   });
 

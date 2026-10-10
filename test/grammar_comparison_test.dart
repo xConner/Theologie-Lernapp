@@ -976,6 +976,29 @@ void main() {
     });
   });
 
+  group("Übersetzung: eigener Schalter der Adjektivsteigerung", () {
+    test("Bedeutung der Grundform genügt auch bei flektierter Form", () {
+      expect(_check("σοφωτέρου", translation: "weise").correct, isTrue);
+      expect(_check("κακίονες", translation: "feige").correct, isTrue);
+      expect(_check("σοφωτέρου", translation: "weiser").correct, isFalse);
+      // ἐλάττονος gehört zu μικρός und ὀλίγος.
+      expect(_check("ἐλάττονος", translation: "klein").correct, isTrue);
+      expect(_check("ἐλάττονος", translation: "wenig").correct, isTrue);
+      expect(_check("ἐλάττονος", translation: "viel").correct, isFalse);
+    });
+
+    test("unabhängig von der Einstellung für Nomen und Verben", () {
+      final settings = GrammarTrainerSettings.fromMap(<String, dynamic>{
+        'askComparisonTranslation': true,
+        'askLemmaTranslation': false,
+      });
+
+      expect(settings.askComparisonTranslation, isTrue);
+      expect(settings.askLemmaTranslation, isFalse);
+      expect(settings.toMap()['askComparisonTranslation'], isTrue);
+    });
+  });
+
   group("Einstellungen: Stufe und Form", () {
     test("ohne gespeicherte Werte eingeschaltet", () {
       for (final data in [

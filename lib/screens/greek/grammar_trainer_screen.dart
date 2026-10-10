@@ -54,7 +54,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
 
   final TextEditingController answerController = TextEditingController();
 
-  // Deutsche Übersetzung der Grundform (Adjektivsteigerung).
+  // Deutsche Übersetzung der Grundform (Nomen, Verben, Adjektivsteigerung).
   final TextEditingController translationController = TextEditingController();
 
   final FocusNode answerFocus = FocusNode();
@@ -118,6 +118,9 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
   bool? voiceCorrect;
   bool? lemmaCorrect;
 
+  // Übersetzung der Grundform; `null`, wenn sie nicht gefragt ist.
+  bool? translationCorrect;
+
   // ---------------------------------------------------------------------------
   // EINSTELLUNGEN
   // ---------------------------------------------------------------------------
@@ -132,6 +135,10 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
   bool showLemmaFieldNoun = true;
   bool showLemmaFieldVerb = true;
   bool showLemmaFieldPronoun = true;
+
+  // Nomen und Verben: zusätzlich die Übersetzung der Grundform abfragen.
+  // Die Adjektivsteigerung hat dafür askComparisonTranslation.
+  bool askLemmaTranslation = false;
 
   // Unterauswahl der Wortart Pronomen.
   static const List<String> allPronounKinds =
@@ -214,8 +221,6 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
 
   String? userDegree;
 
-  // Auswertung der Übersetzung; die Grundform steht in lemmaCorrect.
-  bool? comparisonTranslationCorrect;
   bool? degreeCorrect;
 
   // ---------------------------------------------------------------------------
@@ -239,6 +244,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
   static const String _partMood = "mood";
   static const String _partTense = "tense";
   static const String _partVoice = "voice";
+  static const String _partTranslation = "translation";
 
   // ---------------------------------------------------------------------------
   // INIT / DISPOSE
@@ -298,6 +304,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
     enabledPronounKinds = settings.enabledPronounKinds;
     enabledComparisonKinds = settings.enabledComparisonKinds;
     enabledMoods = settings.enabledMoods;
+    askLemmaTranslation = settings.askLemmaTranslation;
   }
 
   Future<void> saveGrammarSettings() {
@@ -316,6 +323,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
         enabledPronounKinds: enabledPronounKinds,
         enabledComparisonKinds: enabledComparisonKinds,
         enabledMoods: enabledMoods,
+        askLemmaTranslation: askLemmaTranslation,
       ),
     );
   }
@@ -415,6 +423,13 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
 
   bool isComparison() {
     return question?.type == AdjectiveComparisons.type;
+  }
+
+  // Ob zur aktuellen Frage die Übersetzung der Grundform gefragt ist.
+  bool _translationAsked() {
+    return isComparison()
+        ? askComparisonTranslation
+        : (isNoun() || isVerb()) && askLemmaTranslation;
   }
 
   // Prüft ausschließlich, ob ein Wort zu den aktuellen Filtern gehört.
@@ -677,7 +692,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
     _pronounReference = null;
 
     userDegree = null;
-    comparisonTranslationCorrect = null;
+    translationCorrect = null;
     degreeCorrect = null;
 
     caseCorrect = null;
@@ -781,6 +796,12 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
       lemmaCorrect =
           !showLemmaField || lemmaAnswerMatches(answerController.text, q.lemma);
 
+      // Gewertet werden nur die Bedeutungen des Lemmas der Aufgabe.
+      final lemmaTranslationCorrect =
+          (q.type == "noun" || q.type == "verb") && askLemmaTranslation
+          ? lemmaTranslationMatches(translationController.text, q.translations)
+          : null;
+
       final target = comparisonTarget;
 
       if (q.type == AdjectiveComparisons.type && target != null) {
@@ -799,7 +820,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
         );
 
         lemmaCorrect = result.lemmaCorrect;
-        comparisonTranslationCorrect = result.translationCorrect;
+        translationCorrect = result.translationCorrect;
         degreeCorrect = result.degreeCorrect;
         caseCorrect = result.caseCorrect;
         numberCorrect = result.numberCorrect;
@@ -854,8 +875,11 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
         numberCorrect = result.numberCorrect;
         genderCorrect = result.genderCorrect;
 
+        translationCorrect = lemmaTranslationCorrect;
+
         correct =
             lemmaCorrect! &&
+            lemmaTranslationCorrect != false &&
             result.caseCorrect &&
             result.numberCorrect &&
             result.genderCorrect;
@@ -886,7 +910,12 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
           numberCorrect = result.numberCorrect;
           genderCorrect = result.genderCorrect;
 
-          correct = lemmaCorrect! && result.correct;
+          translationCorrect = lemmaTranslationCorrect;
+
+          correct =
+              lemmaCorrect! &&
+              lemmaTranslationCorrect != false &&
+              result.correct;
         }
       }
     });
@@ -965,7 +994,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
             label: "Genus",
             value: analysis.gender ?? "",
           ),
-        ] else
+        ] else if (analysis.person != null)
           SelfAssessmentPart(
             id: _partPerson,
             label: "Person / Numerus",
@@ -976,6 +1005,12 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
             id: _partLemma,
             label: "Grundform",
             value: q.lemma,
+          ),
+        if (askLemmaTranslation)
+          SelfAssessmentPart(
+            id: _partTranslation,
+            label: "Übersetzung",
+            value: q.translations.join(", "),
           ),
       ];
     }
@@ -1004,6 +1039,12 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
         ),
       if (isNoun() && showLemmaFieldNoun)
         SelfAssessmentPart(id: _partLemma, label: "Grundform", value: q.lemma),
+      if (isNoun() && askLemmaTranslation)
+        SelfAssessmentPart(
+          id: _partTranslation,
+          label: "Übersetzung",
+          value: q.translations.join(", "),
+        ),
     ];
   }
 
@@ -1024,6 +1065,10 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
 
     correct = assessment.knew;
     lemmaCorrect = knew(_partLemma);
+
+    if ((isNoun() || isVerb()) && askLemmaTranslation) {
+      translationCorrect = knew(_partTranslation);
+    }
 
     if (isPronoun()) {
       // Ohne Eingabe gibt es keine „erkannte“ Bestimmung: Gewertet wird die
@@ -1052,7 +1097,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
       moodCorrect = knew(_partMood);
       tenseCorrect = knew(_partTense);
       voiceCorrect = knew(_partVoice);
-      personCorrect = participle ? null : knew(_partPerson);
+      personCorrect = analysis?.person == null ? null : knew(_partPerson);
       caseCorrect = participle ? knew(_partCase) : null;
       numberCorrect = participle ? knew(_partNumber) : null;
       genderCorrect = participle ? knew(_partGender) : null;
@@ -1126,7 +1171,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
           const SizedBox(height: 4),
         ],
 
-        if (_feedbackTranslations().isNotEmpty)
+        if (_feedbackTranslations().isNotEmpty && !_translationAsked())
           Text(
             "Übersetzung: ${_feedbackTranslations()}",
             textAlign: TextAlign.center,
@@ -1227,9 +1272,12 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
       results[GrammarLearning.dimensionId("noun", "number", selectedNumber!)] =
           numberCorrect ?? false;
 
-      // Das Genus hängt am Wort, nicht an der Form.
+      // Das Genus hängt am Wort, nicht an der Form – ebenso Grundform und
+      // Übersetzung, soweit gefragt.
       results[lemmaId] =
-          (genderCorrect ?? false) && (!lemmaAsked || lemmaCorrect == true);
+          (genderCorrect ?? false) &&
+          (!lemmaAsked || lemmaCorrect == true) &&
+          translationCorrect != false;
     } else if (q.type == "verb" && verbReference != null) {
       // Gewertet wird die Bestimmung, an der die Antwort gemessen wurde.
       final parts = {
@@ -1239,9 +1287,9 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
         if (verbReference.mood == VerbMood.participle) ...{
           ("participle", "case", verbReference.grammaticalCase ?? ""):
               caseCorrect,
-          ("participle", "number", verbReference.number): numberCorrect,
+          ("participle", "number", verbReference.number ?? ""): numberCorrect,
           ("participle", "gender", verbReference.gender ?? ""): genderCorrect,
-        } else
+        } else if (verbReference.person != null)
           (
             "verb",
             "person",
@@ -1255,8 +1303,11 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
             result ?? false;
       }
 
-      if (lemmaAsked) {
-        results[lemmaId] = lemmaCorrect == true;
+      // Die Karte der Grundform: Grundform und Übersetzung, soweit gefragt.
+      if (lemmaAsked || translationCorrect != null) {
+        results[lemmaId] =
+            (!lemmaAsked || lemmaCorrect == true) &&
+            translationCorrect != false;
       }
     }
 
@@ -1851,7 +1902,8 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
                               "Unterauswahl der Wortart Verb: Abgefragt "
                               "werden nur Formen der ausgewählten Modi. Beim "
                               "Partizip werden zusätzlich Kasus, Numerus und "
-                              "Genus bestimmt.",
+                              "Genus bestimmt, beim Infinitiv nur Tempus und "
+                              "Genus Verbi.",
                           options: allMoods,
                           isSelected: enabledMoods.contains,
                           labelOf: (mood) => mood,
@@ -2065,6 +2117,33 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
                         ),
                       ),
 
+                      // -------------------------------------------------------
+                      // ÜBERSETZUNG DER GRUNDFORM
+                      // -------------------------------------------------------
+                      SettingsSection(
+                        title: "Übersetzung abfragen",
+                        hint:
+                            "Zur vorgelegten Form wird zusätzlich die "
+                            "deutsche Bedeutung der Grundform eingegeben "
+                            "(εὑρών → „finden“); eine richtige Bedeutung "
+                            "genügt. Gilt für Nomen und alle Verbformen. Die "
+                            "Adjektivsteigerung hat ihren eigenen Schalter.",
+                        child: SettingsSwitchGroup(
+                          children: [
+                            SwitchListTile(
+                              title: const Text("Übersetzung der Grundform"),
+                              subtitle: const Text("Bei Nomen und Verben."),
+                              value: askLemmaTranslation,
+                              onChanged: (value) {
+                                setDialogState(() {
+                                  askLemmaTranslation = value;
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+
                       const SoundSettingsSection(
                         module: SoundModule.greekGrammar,
                       ),
@@ -2271,9 +2350,9 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
                   ],
 
                   // -------------------------------------------------------------
-                  // ÜBERSETZUNG (ADJEKTIVSTEIGERUNG)
+                  // ÜBERSETZUNG DER GRUNDFORM
                   // -------------------------------------------------------------
-                  if (isComparison() && askComparisonTranslation) ...[
+                  if (_translationAsked()) ...[
                     TextField(
                       controller: translationController,
                       enabled: !answered && !loadingForm && correctForm != null,
@@ -2282,15 +2361,15 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
                         labelText: "Übersetzung der Grundform",
                         enabledBorder: answerResultBorder(
                           context,
-                          comparisonTranslationCorrect,
+                          translationCorrect,
                         ),
                         focusedBorder: answerResultBorder(
                           context,
-                          comparisonTranslationCorrect,
+                          translationCorrect,
                         ),
                         disabledBorder: answerResultBorder(
                           context,
-                          comparisonTranslationCorrect,
+                          translationCorrect,
                         ),
                         border: const OutlineInputBorder(),
                       ),
@@ -2328,6 +2407,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
                         ],
 
                         if (!isComparison() &&
+                            translationCorrect != false &&
                             _feedbackTranslations().isNotEmpty)
                           Text(
                             "Übersetzung: ${_feedbackTranslations()}",
@@ -2367,6 +2447,13 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
                               ],
 
                               if (isVerb()) ..._verbCorrections(),
+
+                              if (translationCorrect == false)
+                                Text(
+                                  "Übersetzung der Grundform: "
+                                  "${_feedbackTranslations()}",
+                                  textAlign: TextAlign.center,
+                                ),
                             ],
                           ),
 
@@ -2714,7 +2801,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
               style: const TextStyle(fontSize: 18),
             ),
 
-          if (comparisonTranslationCorrect == false)
+          if (translationCorrect == false)
             SelectableText(
               "Übersetzung: "
               "${rows.map((row) => row.translations.join(', ')).join(' / ')}",
@@ -2792,7 +2879,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
 
   // Die Felder richten sich nach dem gewählten Modus, nicht nach der
   // Lösung: Finite Formen haben Person und Numerus, das Partizip Kasus,
-  // Numerus und Genus.
+  // Numerus und Genus, der Infinitiv nur Tempus und Genus Verbi.
   Widget _buildVerbInputs() {
     return _choiceGroups([
       _choice(
@@ -2911,7 +2998,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
         if (caseCorrect != true) Text("Kasus: ${reference.grammaticalCase}"),
         if (numberCorrect != true) Text("Numerus: ${reference.number}."),
         if (genderCorrect != true) Text("Genus: ${reference.gender}"),
-      ] else if (personCorrect != true)
+      ] else if (reference.person != null && personCorrect != true)
         Text("Person / Numerus: ${reference.person}. ${reference.number}."),
 
       if (others.isNotEmpty) ...[

@@ -1,30 +1,38 @@
 import '../../../utils/greek_normalization.dart';
 import 'greek_declension.dart';
 
-/// Modi der Verbaufgaben. Das Partizip steht als infinite Form neben den
-/// beiden finiten Modi, weil es wie sie am Verb bestimmt wird.
+/// Modi der Verbaufgaben. Infinitiv und Partizip stehen als infinite
+/// Formen neben den beiden finiten Modi, weil sie wie diese am Verb bestimmt
+/// werden.
 class VerbMood {
   VerbMood._();
 
   static const String indicative = "Indikativ";
   static const String imperative = "Imperativ";
+  static const String infinitive = "Infinitiv";
   static const String participle = "Partizip";
 
-  static const List<String> all = [indicative, imperative, participle];
+  static const List<String> all = [
+    indicative,
+    imperative,
+    infinitive,
+    participle,
+  ];
 }
 
 /// Eine grammatisch mögliche Bestimmung einer Verbform.
 ///
-/// Finite Formen haben eine [person], Partizipien stattdessen
-/// [grammaticalCase] und [gender]. [number] steht in der Schreibweise der
-/// Backend-Anfrage ("Sg", "Pl"), [voice] wie im Trainer angezeigt ("Aktiv",
-/// "Medium/Passiv", "Medium", "Passiv").
+/// Finite Formen haben [person] und [number], Partizipien stattdessen
+/// [grammaticalCase], [number] und [gender]; der Infinitiv hat nichts davon.
+/// [number] steht in der Schreibweise der Backend-Anfrage ("Sg", "Pl"),
+/// [voice] wie im Trainer angezeigt ("Aktiv", "Medium/Passiv", "Medium",
+/// "Passiv").
 typedef VerbAnalysis = ({
   String mood,
   String tense,
   String voice,
   int? person,
-  String number,
+  String? number,
   String? grammaticalCase,
   String? gender,
 });
@@ -32,9 +40,13 @@ typedef VerbAnalysis = ({
 /// Eine Verbform samt ihrer Bestimmung.
 typedef VerbForm = ({String form, VerbAnalysis analysis});
 
-/// "3. Pl. Präsens Indikativ Aktiv" bzw.
+/// "3. Pl. Präsens Indikativ Aktiv", "Infinitiv Aorist Passiv" bzw.
 /// "Partizip Aorist Medium · Dativ Pl. m".
 String describeVerbAnalysis(VerbAnalysis analysis) {
+  if (analysis.mood == VerbMood.infinitive) {
+    return "Infinitiv ${analysis.tense} ${analysis.voice}";
+  }
+
   if (analysis.mood == VerbMood.participle) {
     return "Partizip ${analysis.tense} ${analysis.voice} · "
         "${analysis.grammaticalCase} ${analysis.number}. ${analysis.gender}";
@@ -44,13 +56,14 @@ String describeVerbAnalysis(VerbAnalysis analysis) {
       "${analysis.mood} ${analysis.voice}";
 }
 
-/// Alle Formen eines Verbs, die der Trainer kennt: Indikativ und Imperativ
-/// aus den Tabellen des Backends, die Partizipien aus ihren Nominativen
-/// lokal dekliniert ([declineParticiple]).
+/// Alle Formen eines Verbs, die der Trainer kennt: Indikativ, Imperativ und
+/// Infinitive aus den Tabellen des Backends, die Partizipien aus ihren
+/// Nominativen lokal dekliniert ([declineParticiple]). Infinitive werden nie
+/// lokal gebildet.
 ///
-/// Unzuverlässige Daten werden nicht zu Formen: Ein Imperativ, dessen
-/// Endungen nicht zum Genus Verbi passen, und ein Partizip, dessen Bildung
-/// sich nicht bestätigen lässt, fehlen im Paradigma.
+/// Unzuverlässige Daten werden nicht zu Formen: Ein Imperativ oder Infinitiv,
+/// dessen Endung nicht zum Genus Verbi passt, und ein Partizip, dessen
+/// Bildung sich nicht bestätigen lässt, fehlen im Paradigma.
 class VerbParadigm {
   final List<VerbForm> forms;
 
@@ -127,6 +140,38 @@ class VerbParadigm {
         }
 
         forms.addAll(_finite(VerbMood.imperative, tense, voice, cells));
+      }
+
+      final infinitives = data['infinitives'];
+
+      if (infinitives is Map) {
+        for (final MapEntry(key: key, value: infinitive)
+            in infinitives.entries) {
+          final voice = key is String ? voiceLabel(tense, key) : null;
+
+          if (voice == null ||
+              infinitive is! String ||
+              !indicative.containsKey(key)) {
+            continue;
+          }
+
+          final form = normalizeGreekForDisplay(infinitive);
+
+          if (!_infinitiveIsReliable(key as String, form)) continue;
+
+          forms.add((
+            form: form,
+            analysis: (
+              mood: VerbMood.infinitive,
+              tense: tense,
+              voice: voice,
+              person: null,
+              number: null,
+              grammaticalCase: null,
+              gender: null,
+            ),
+          ));
+        }
       }
 
       final participles = data['participles'];
@@ -265,6 +310,28 @@ class VerbParadigm {
         thirdSingular.endsWith("τω") &&
         secondPlural.endsWith("τε") &&
         (thirdPlural.endsWith("των") || thirdPlural.endsWith("τωσαν"));
+  }
+
+  /// Gegenprobe eines Infinitivs an der Endung (Folien „Infinitive“):
+  /// medial -σθαι (παύεσθαι, παύσασθαι), Aorist Passiv -ῆναι (παυθῆναι),
+  /// aktiv -ειν / -εῖν / -ᾶν / -οῦν (παύειν, ποιεῖν, τιμᾶν, ἰδεῖν) oder -αι
+  /// (παῦσαι, βῆναι, γνῶναι, εἶναι).
+  static bool _infinitiveIsReliable(String voiceKey, String form) {
+    switch (voiceKey) {
+      case "middle" || "middle/passive":
+        return form.endsWith("σθαι");
+
+      case "passive":
+        return form.endsWith("ῆναι");
+
+      default:
+        return !form.endsWith("σθαι") &&
+            (form.endsWith("ειν") ||
+                form.endsWith("εῖν") ||
+                form.endsWith("ᾶν") ||
+                form.endsWith("οῦν") ||
+                form.endsWith("αι"));
+    }
   }
 
   // Formen gelten als gleich, wenn sie sich höchstens im beweglichen ν
