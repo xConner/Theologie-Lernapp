@@ -49,6 +49,8 @@ class PushService {
   /// mit `--dart-define=WEB_PUSH_PUBLIC_KEY=…` setzen oder hier eintragen.
   static const String defaultPublicKey = String.fromEnvironment(
     "WEB_PUSH_PUBLIC_KEY",
+    defaultValue:
+        "BD8wJX_IoQBouXGAd1WEaY_Yib_f85Cq5VgDxI5UvqP9P1oZkfiMoVL89AeGmYVIrtf0_4yRGk3H2euVhlBTvjs",
   );
 
   /// Dieses Gerät: `<uid>|<Abonnement-ID>|<Tag der letzten Anmeldung>`.
