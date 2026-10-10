@@ -8,12 +8,17 @@ App. Heruntergeladenes liegt im nicht versionierten `build/hymn_scores`.
 python fetch_sources.py        # Quellen abfragen, quellen_snapshot.json schreiben
 python build_inventory.py      # Inventar (JSON, CSV) und auswertung.md erzeugen
 python fetch_midi.py           # MIDI-Vorlagen der vorgesehenen Lieder laden
+python wiki_underlay.py        # Textunterlegung aus Wikipedia-Notensätzen ablesen (braucht LilyPond)
 python build_scores.py         # Notenbilder, Feld „scores“ in eg_lieder.json, integration.md
 ```
 
 Die ersten beiden Schritte ändern keine produktiven Daten. `build_scores.py`
 schreibt `assets/eg_lieder.json` neu, ändert dort aber nur das Feld `scores`.
-Es braucht `pip install verovio` (verwendet: 6.3.0).
+Es braucht `pip install verovio` (verwendet: 6.3.0). `wiki_underlay.py`
+braucht LilyPond 2.24 (entpackt nach `build/hymn_scores/lilypond/` oder über
+die Umgebungsvariable `LILYPOND`); ohne sein Ergebnis
+(`build/hymn_scores/wiki_underlay.json`) entfallen die verifizierten
+Unterlegungen.
 
 | Datei | Aufgabe |
 |---|---|
@@ -23,7 +28,9 @@ Es braucht `pip install verovio` (verwendet: 6.3.0).
 | `manual_overrides.json` | von Hand gepflegte Namensvarianten und Melodieverweise |
 | `fetch_midi.py` | Vorlagen von Wikimedia Commons laden, Prüfsumme gegen den Schnappschuss |
 | `midi.py`, `melody.py` | MIDI lesen; Melodie der ersten Strophe herausziehen und rastern |
-| `syllables.py`, `underlay.py` | erste Strophe in Silben zerlegen; Silben den Tönen zuordnen, soweit gesichert |
+| `syllables.py`, `underlay.py` | erste Strophe in Silben zerlegen; regelbasierte Zuordnung (syllabische Fälle, sonst nur Gegenprobe) |
+| `wiki_underlay.py`, `underlay_listener.ly` | LilyPond-Notensätze der Wikipedia-Liedartikel übersetzen und Töne je Silbe protokollieren |
+| `wiki_match.py` | Unterlegung einer Quelle übernehmen, wenn Tonfolge und Silbenzahl zum Lied passen |
 | `engrave.py` | Melodie und Text über MEI mit Verovio setzen, SVG für `flutter_svg` vereinfachen |
 | `build_scores.py` | Lieder und Vorlagen zuordnen, Bilder und Übersicht schreiben |
 

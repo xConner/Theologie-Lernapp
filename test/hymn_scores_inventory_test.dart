@@ -94,6 +94,14 @@ void main() {
       };
       for (final score in scores) {
         final source = score["source"] as Map<String, dynamic>;
+        // Notensätze aus Wikipedia-Liedartikeln stehen nicht im Inventar
+        // der Commons-Dateien; ihre Fassung ist über die Versionsnummer in
+        // der Adresse festgehalten.
+        if ((source["name"] as String).startsWith("Wikipedia")) {
+          expect(source["url"], contains("oldid="), reason: reason);
+          expect(source["license"], "CC BY-SA 4.0", reason: reason);
+          continue;
+        }
         final file = files[source["file"]];
         // Datei, Prüfsumme und Lizenz wie in der Recherche festgehalten.
         expect(file, isNotNull, reason: reason);

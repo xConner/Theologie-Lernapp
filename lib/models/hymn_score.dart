@@ -25,6 +25,14 @@ class HymnScore {
   /// `null`, wenn das Bild nur die Melodie zeigt.
   final dynamic underlayStanza;
 
+  /// Wie die Unterlegung gesichert ist: `verified` (stimmt mit einer Vorlage
+  /// überein) oder `syllabic` (jede Silbe genau ein Ton, ohne Vorlage).
+  final String underlayStatus;
+
+  /// Herkunft der Unterlegung als Satz für die Quellenzeile; leer, wenn sie
+  /// ohne Vorlage feststeht.
+  final String underlayCredit;
+
   const HymnScore({
     required this.id,
     required this.asset,
@@ -33,6 +41,8 @@ class HymnScore {
     required this.label,
     required this.source,
     this.underlayStanza,
+    this.underlayStatus = '',
+    this.underlayCredit = '',
   });
 
   bool get hasUnderlay => underlayStanza != null;
@@ -55,6 +65,12 @@ class HymnScore {
       underlayStanza: underlay is Map<String, dynamic>
           ? underlay['stanza']
           : null,
+      underlayStatus: underlay is Map<String, dynamic>
+          ? underlay['status'] ?? ''
+          : '',
+      underlayCredit: underlay is Map<String, dynamic>
+          ? underlay['credit'] ?? ''
+          : '',
     );
   }
 

@@ -69,13 +69,19 @@ void main() {
   final hymns = loadHymns();
   Hymn hymn(int id) => hymns.firstWhere((h) => h.id == id);
 
-  // EG 24: erste Strophe unter den Noten. EG 27: mit Melismen und Auftakt.
-  // EG 321: zwei Fassungen. EG 1: Noten ohne gesicherte Silbenzuordnung.
-  // EG 154: Noten, aber kein Liedtext in der App. EG 16: keine Noten.
+  // EG 24: erste Strophe unter den Noten (syllabisch). EG 27: Melismen und
+  // Auftakt, nach einer Vorlage geprüft. EG 154: Noten, aber kein Liedtext
+  // in der App. EG 16: keine Noten. Die beiden übrigen Fälle werden aus den
+  // Daten gegriffen, weil sie sich mit jeder neuen Quelle verschieben.
   final withUnderlay = hymn(24);
   final withMelisma = hymn(27);
-  final withTwoScores = hymn(321);
-  final melodyOnly = hymn(1);
+  final withTwoScores = hymns.firstWhere((h) => h.scores.length == 2);
+  final melodyOnly = hymns.firstWhere(
+    (h) =>
+        h.lyrics.isNotEmpty &&
+        h.scores.length == 1 &&
+        !h.scores.single.hasUnderlay,
+  );
   final withoutLyrics = hymn(154);
   final withoutScore = hymn(16);
 
@@ -129,13 +135,11 @@ void main() {
         "assets/hymn_scores/eg024_vom_himmel_hoch_da_komm_ich_her_eg.svg",
       );
       expect(withUnderlay.scores.single.underlayStanza, 1);
-      expect(withMelisma.scores.single.hasUnderlay, isTrue);
+      expect(withUnderlay.scores.single.underlayStatus, "syllabic");
+      expect(withMelisma.scores.single.underlayStatus, "verified");
+      expect(withMelisma.scores.single.underlayCredit, contains("Wikipedia"));
       expect(withTwoScores.scores, hasLength(2));
       expect(melodyOnly.scores.single.hasUnderlay, isFalse);
-      expect(
-        melodyOnly.scores.single.asset,
-        "assets/hymn_scores/macht_hoch_die_tuer_die_tor_macht_weit.svg",
-      );
       expect(withoutLyrics.scores, isNotEmpty);
       expect(withoutLyrics.lyrics, isEmpty);
       expect(withoutScore.scores, isEmpty);
@@ -234,7 +238,41 @@ void main() {
         }
       }
 
-      expect(checked, greaterThan(150));
+      expect(checked, greaterThan(120));
+    });
+
+    test("unterlegt ist nur, was belegt oder zwingend ist", () {
+      final report =
+          jsonDecode(
+                File("docs/hymn-scores/integration.json").readAsStringSync(),
+              )
+              as List<dynamic>;
+
+      for (var i = 0; i < hymns.length; i++) {
+        final hymn = hymns[i];
+        final row = report[i];
+        for (final score in hymn.scores.where((s) => s.hasUnderlay)) {
+          final reason = "EG ${hymn.id}";
+          final syllables = syllablesIn(
+            File(score.asset).readAsStringSync(),
+          ).length;
+
+          switch (score.underlayStatus) {
+            case "verified":
+              // Die Vorlage ist benannt und über ihre Version verlinkt.
+              expect(score.underlayCredit, isNotEmpty, reason: reason);
+              expect(row["quelle_unterlegung"], contains("oldid="));
+              // Nie mehr Silben als Töne.
+              expect(row["toene"], greaterThanOrEqualTo(syllables));
+            case "syllabic":
+              // Ohne Vorlage nur, wenn kein Melisma möglich ist.
+              expect(score.underlayCredit, isEmpty, reason: reason);
+              expect(row["toene"], syllables, reason: reason);
+            default:
+              fail("$reason: unbekannter Status ${score.underlayStatus}");
+          }
+        }
+      }
     });
 
     test("kein Notensystem beginnt mitten im Wort", () {
@@ -273,7 +311,7 @@ void main() {
         }
       }
 
-      expect(systemsChecked, greaterThan(600));
+      expect(systemsChecked, greaterThan(500));
     });
 
     testWidgets("flutter_svg kann jedes Notenbild lesen", (tester) async {
@@ -310,13 +348,16 @@ void main() {
           reason: reason,
         );
 
-        final expected = hymn.scores.any((s) => s.hasUnderlay)
+        final states = hymn.scores.map((s) => s.underlayStatus).toSet();
+        final expected = states.contains("verified")
             ? 1
-            : hymn.scores.isEmpty
-            ? anyOf(4, 5)
-            : hymn.lyrics.isEmpty
+            : states.contains("syllabic")
             ? 3
-            : 2;
+            : hymn.scores.isEmpty
+            ? anyOf(6, 7)
+            : hymn.lyrics.isEmpty
+            ? 5
+            : 4;
         expect(row["kategorie"], expected, reason: reason);
       }
     });

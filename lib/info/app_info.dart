@@ -347,17 +347,18 @@ class AppModules {
         origin:
             "Melodien nach den Tonsätzen von Peter Gerloff auf Wikimedia "
             "Commons (Kategorie „Melodies from Evangelisches Gesangbuch“), "
-            "überwiegend unter CC0. Vorlage und Lizenz stehen unter jedem "
-            "Notenbild.",
+            "überwiegend unter CC0, bei einigen Liedern nach den "
+            "Notensätzen der Wikipedia-Liedartikel (CC BY-SA 4.0). Vorlage "
+            "und Lizenz stehen unter jedem Notenbild.",
       ),
     ],
     notes: [
-      "Noten gibt es bisher nur für einen Teil der Lieder. Sie zeigen die "
-          "Melodie und, wo die Zuordnung gesichert ist, die erste Strophe "
-          "Silbe für Silbe unter den Noten. Noten und Silbenzuordnung wurden "
-          "automatisch aus den Vorlagen erzeugt und nicht einzeln Korrektur "
-          "gelesen; Tonart, Notenwerte und Bindebögen können von der Fassung "
-          "im Gesangbuch abweichen.",
+      "Noten gibt es bisher nur für einen Teil der Lieder. Die erste "
+          "Strophe steht nur dann unter den Noten, wenn die Zuordnung der "
+          "Silben mit einer Vorlage übereinstimmt oder zwingend ist (jede "
+          "Silbe genau ein Ton); sonst erscheint die Melodie allein. Die "
+          "Noten wurden automatisch aus den Vorlagen erzeugt; Tonart und "
+          "Notenwerte können von der Fassung im Gesangbuch abweichen.",
       "Bei einem Teil der Lieder wird der Text aus urheberrechtlichen "
           "Gründen nicht angezeigt.",
       "Erklärungen, Schlagworte und Bibelstellen sind nicht bei allen "

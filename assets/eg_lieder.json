@@ -37,7 +37,7 @@
     "scores": [
       {
         "id": "macht_hoch_die_tuer_die_tor_macht_weit",
-        "asset": "assets/hymn_scores/macht_hoch_die_tuer_die_tor_macht_weit.svg",
+        "asset": "assets/hymn_scores/eg001_macht_hoch_die_tuer_die_tor_macht_weit.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Macht hoch die Tür, die Tor macht weit",
@@ -50,6 +50,12 @@
           "licenseUrl": "",
           "sha1": "efd595fb7353eceff765dc8c1ffb87b63c96953f",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1,
+          "status": "verified",
+          "credit": "Textunterlegung nach dem Notensatz im deutschen Wikipedia-Artikel „Macht hoch die Tür“ (CC BY-SA 4.0)",
+          "url": "https://de.wikipedia.org/w/index.php?oldid=270515756"
         }
       }
     ]
@@ -78,7 +84,32 @@
       "Kanon"
     ],
     "bibleReferences": [],
-    "explanation": ""
+    "explanation": "",
+    "scores": [
+      {
+        "id": "wikipedia_er_ist_die_rechte_freudensonn",
+        "asset": "assets/hymn_scores/eg002_wikipedia_er_ist_die_rechte_freudensonn.svg",
+        "format": "svg",
+        "kind": "melody",
+        "label": "Er ist die rechte Freudensonn",
+        "source": {
+          "name": "Wikipedia (de)",
+          "file": "Er ist die rechte Freudensonn",
+          "url": "https://de.wikipedia.org/w/index.php?oldid=271189543",
+          "author": "Notensatz im Wikipedia-Artikel, Autoren siehe Versionsgeschichte",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "sha1": "",
+          "match": "Liedartikel zur EG-Nummer"
+        },
+        "underlay": {
+          "stanza": 1,
+          "status": "verified",
+          "credit": "Noten und Textunterlegung aus dem Wikipedia-Artikel",
+          "url": "https://de.wikipedia.org/w/index.php?oldid=271189543"
+        }
+      }
+    ]
   },
   {
     "id": 3,
@@ -134,7 +165,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -186,7 +218,7 @@
     "scores": [
       {
         "id": "nun_komm_der_heiden_heiland",
-        "asset": "assets/hymn_scores/eg004_nun_komm_der_heiden_heiland.svg",
+        "asset": "assets/hymn_scores/nun_komm_der_heiden_heiland.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Nun komm, der Heiden Heiland",
@@ -199,9 +231,6 @@
           "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
           "sha1": "21a048cb0211c4b3cc46d8c6f19520203277fb30",
           "match": "EG-Nummer in Dateibeschreibung"
-        },
-        "underlay": {
-          "stanza": 1
         }
       }
     ]
@@ -362,7 +391,7 @@
     "scores": [
       {
         "id": "steht_auf_ihr_lieben_kinderlein",
-        "asset": "assets/hymn_scores/eg006_steht_auf_ihr_lieben_kinderlein.svg",
+        "asset": "assets/hymn_scores/steht_auf_ihr_lieben_kinderlein.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Steht auf, ihr lieben Kinderlein",
@@ -375,9 +404,6 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "8de47137ef8d792f00602b6871d72331e933ad68",
           "match": "EG-Nummer in Dateibeschreibung"
-        },
-        "underlay": {
-          "stanza": 1
         }
       }
     ]
@@ -442,7 +468,10 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "verified",
+          "credit": "Textunterlegung nach dem Notensatz im deutschen Wikipedia-Artikel „O Heiland, reiß die Himmel auf“ (CC BY-SA 4.0)",
+          "url": "https://de.wikipedia.org/w/index.php?oldid=262883906"
         }
       }
     ]
@@ -486,20 +515,26 @@
     "explanation": "Das Lied zeichnet in poetischen Bildern ein Schiff, das bis zum Rand beladen Gottes Sohn, das ewige Wort des Vaters, zu uns bringt. Es fährt still, getragen von der Liebe als Segel und dem Heiligen Geist als Mast. An Land geworden, wird das Wort Fleisch: In Bethlehem kommt der Sohn in einem Stall zur Welt und gibt sich für uns hin, wofür er gepriesen wird. Wer dieses Kind mit Freude umarmen will, muss bereit sein, auch sein Leiden zu teilen. Der Weg mit ihm führt durch Schmerz und Tod. Doch wer mit ihm stirbt, wird geistlich auferstehen und das ewige Leben erben.",
     "scores": [
       {
-        "id": "es_kommt_ein_schiff_geladen",
-        "asset": "assets/hymn_scores/es_kommt_ein_schiff_geladen.svg",
+        "id": "wikipedia_es_kommt_ein_schiff_geladen",
+        "asset": "assets/hymn_scores/eg008_wikipedia_es_kommt_ein_schiff_geladen.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Es kommt ein Schiff, geladen",
         "source": {
-          "name": "Wikimedia Commons",
-          "file": "File:Es kommt ein Schiff, geladen.mid",
-          "url": "https://commons.wikimedia.org/wiki/File:Es_kommt_ein_Schiff,_geladen.mid",
-          "author": "Melodie: Köln 1608; Satz und Tondatei: Rabanus Flavus (Peter Gerloff)",
-          "license": "CC0",
-          "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
-          "sha1": "8b54b2917548772b4b5535345fba8a762c756243",
-          "match": "EG-Nummer in Dateibeschreibung"
+          "name": "Wikipedia (de)",
+          "file": "Es kommt ein Schiff, geladen",
+          "url": "https://de.wikipedia.org/w/index.php?oldid=266130537",
+          "author": "Notensatz im Wikipedia-Artikel, Autoren siehe Versionsgeschichte",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "sha1": "",
+          "match": "Liedartikel zur EG-Nummer"
+        },
+        "underlay": {
+          "stanza": 1,
+          "status": "verified",
+          "credit": "Noten und Textunterlegung aus dem Wikipedia-Artikel",
+          "url": "https://de.wikipedia.org/w/index.php?oldid=266130537"
         }
       }
     ]
@@ -545,7 +580,7 @@
     "scores": [
       {
         "id": "aus_meines_herzens_grunde",
-        "asset": "assets/hymn_scores/eg009_aus_meines_herzens_grunde.svg",
+        "asset": "assets/hymn_scores/aus_meines_herzens_grunde.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Aus meines Herzens Grunde",
@@ -558,9 +593,6 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "a19aef0b089ce051e5f0965ccd8976127357651b",
           "match": "EG-Nummer in Dateibeschreibung"
-        },
-        "underlay": {
-          "stanza": 1
         }
       }
     ]
@@ -613,7 +645,10 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "verified",
+          "credit": "Textunterlegung nach dem Notensatz im deutschen Wikipedia-Artikel „Mit Ernst, o Menschenkinder“ (CC BY-SA 4.0)",
+          "url": "https://de.wikipedia.org/w/index.php?oldid=269915439"
         }
       }
     ]
@@ -675,7 +710,7 @@
     "scores": [
       {
         "id": "wie_soll_ich_dich_empfangen",
-        "asset": "assets/hymn_scores/wie_soll_ich_dich_empfangen.svg",
+        "asset": "assets/hymn_scores/eg011_wie_soll_ich_dich_empfangen.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Wie soll ich dich empfangen",
@@ -688,6 +723,12 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "9660bdf96a1b74441b9dce17165787ea07d1db98",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1,
+          "status": "verified",
+          "credit": "Textunterlegung nach dem Notensatz im deutschen Wikipedia-Artikel „Wie soll ich dich empfangen“ (CC BY-SA 4.0)",
+          "url": "https://de.wikipedia.org/w/index.php?oldid=269923575"
         }
       }
     ]
@@ -737,7 +778,7 @@
     "scores": [
       {
         "id": "gott_sei_dank_durch_alle_welt",
-        "asset": "assets/hymn_scores/eg012_gott_sei_dank_durch_alle_welt.svg",
+        "asset": "assets/hymn_scores/gott_sei_dank_durch_alle_welt.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Gott sei Dank durch alle Welt",
@@ -750,9 +791,6 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "13cd25e1e483942ecaec1d5276162e8a7b70d09b",
           "match": "EG-Nummer in Dateibeschreibung"
-        },
-        "underlay": {
-          "stanza": 1
         }
       }
     ]
@@ -1224,7 +1262,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -1271,7 +1310,7 @@
     "scores": [
       {
         "id": "vom_himmel_hoch_da_komm_ich_her_eg",
-        "asset": "assets/hymn_scores/eg025_vom_himmel_hoch_da_komm_ich_her_eg.svg",
+        "asset": "assets/hymn_scores/vom_himmel_hoch_da_komm_ich_her_eg.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Vom Himmel hoch, da komm ich her (EG)",
@@ -1284,9 +1323,6 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "255d7e1843004887770d7bdf89fb22d3087067e4",
           "match": "Melodie von EG 24"
-        },
-        "underlay": {
-          "stanza": 1
         }
       }
     ]
@@ -1387,7 +1423,10 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "verified",
+          "credit": "Textunterlegung nach dem Notensatz im englischen Wikipedia-Artikel „Lobt Gott, ihr Christen alle gleich“ (CC BY-SA 4.0)",
+          "url": "https://en.wikipedia.org/w/index.php?oldid=1379321088"
         }
       }
     ]
@@ -1575,23 +1614,26 @@
     "explanation": "",
     "scores": [
       {
-        "id": "zu_betlehem_geboren",
-        "asset": "assets/hymn_scores/eg032_zu_betlehem_geboren.svg",
+        "id": "wikipedia_zu_bethlehem_geboren",
+        "asset": "assets/hymn_scores/eg032_wikipedia_zu_bethlehem_geboren.svg",
         "format": "svg",
         "kind": "melody",
-        "label": "Zu Betlehem geboren",
+        "label": "Zu Bethlehem geboren",
         "source": {
-          "name": "Wikimedia Commons",
-          "file": "File:Zu Betlehem geboren.mid",
-          "url": "https://commons.wikimedia.org/wiki/File:Zu_Betlehem_geboren.mid",
-          "author": "Melodie: Paris 1599 / Köln 1638; Satz und Tondatei: Rabanus Flavus (Peter Gerloff)",
-          "license": "CC0",
-          "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
-          "sha1": "6d147171206425d0aadac3db8c6c7f8e02577b28",
-          "match": "EG-Nummer in Dateibeschreibung"
+          "name": "Wikipedia (de)",
+          "file": "Zu Bethlehem geboren",
+          "url": "https://de.wikipedia.org/w/index.php?oldid=252973153",
+          "author": "Notensatz im Wikipedia-Artikel, Autoren siehe Versionsgeschichte",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "sha1": "",
+          "match": "Liedartikel zur EG-Nummer"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "verified",
+          "credit": "Noten und Textunterlegung aus dem Wikipedia-Artikel",
+          "url": "https://de.wikipedia.org/w/index.php?oldid=252973153"
         }
       }
     ]
@@ -1623,7 +1665,7 @@
     "scores": [
       {
         "id": "brich_an_du_schoenes_morgenlicht",
-        "asset": "assets/hymn_scores/eg033_brich_an_du_schoenes_morgenlicht.svg",
+        "asset": "assets/hymn_scores/brich_an_du_schoenes_morgenlicht.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Brich an, du schönes Morgenlicht",
@@ -1636,9 +1678,6 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "98741eab7943228ced7b9603dc1d5f252eccdd63",
           "match": "EG-Nummer in Dateibeschreibung"
-        },
-        "underlay": {
-          "stanza": 1
         }
       }
     ]
@@ -1804,7 +1843,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -1872,7 +1912,7 @@
     "scores": [
       {
         "id": "ich_steh_an_deiner_krippe_hier_o_jesu",
-        "asset": "assets/hymn_scores/ich_steh_an_deiner_krippe_hier_o_jesu.svg",
+        "asset": "assets/hymn_scores/eg037_ich_steh_an_deiner_krippe_hier_o_jesu.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Ich steh an deiner Krippe hier, o Jesu",
@@ -1885,6 +1925,12 @@
           "licenseUrl": "",
           "sha1": "65d193b9f70f283db708312192cb67b359071e7f",
           "match": "im Wikipedia-Artikel eingebunden"
+        },
+        "underlay": {
+          "stanza": 1,
+          "status": "verified",
+          "credit": "Textunterlegung nach dem Notensatz im deutschen Wikipedia-Artikel „Ich steh an deiner Krippen hier“ (CC BY-SA 4.0)",
+          "url": "https://de.wikipedia.org/w/index.php?oldid=262965566"
         }
       }
     ]
@@ -1931,7 +1977,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -2079,7 +2126,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -2135,7 +2183,7 @@
     "scores": [
       {
         "id": "vom_himmel_hoch_da_komm_ich_her_eg",
-        "asset": "assets/hymn_scores/eg042_vom_himmel_hoch_da_komm_ich_her_eg.svg",
+        "asset": "assets/hymn_scores/vom_himmel_hoch_da_komm_ich_her_eg.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Vom Himmel hoch, da komm ich her (EG)",
@@ -2148,9 +2196,6 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "255d7e1843004887770d7bdf89fb22d3087067e4",
           "match": "EG-Nummer in Dateibeschreibung"
-        },
-        "underlay": {
-          "stanza": 1
         }
       }
     ]
@@ -2195,7 +2240,32 @@
       "Kinderlieder"
     ],
     "bibleReferences": [],
-    "explanation": "Das Lied lädt Kinder ein, zur Krippe im Stall von Bethlehem zu kommen und die Freude zu sehen, die Gott in dieser heiligen Nacht schenkt. Es malt ein zartes Bild des himmlischen Kindes in reinen Windeln, schöner als Engel, auf Heu und Stroh gebettet. Maria und Josef betrachten es froh, die Hirten knien betend, und über ihnen jubelt der Engelchor. Alle werden ermutigt, wie die Hirten die Knie zu beugen, zu danken und in den Jubel der Engel einzustimmen. Im Gebet erinnert das Lied an die Armut des Kindes und an das Leid bis hin zum Kreuz, das es für unsere Schuld trägt. Nicht Reichtum will es, sondern demütige Herzen; darum schenken die Kinder ihr Herz gern und bitten, dass er es heiligt und für immer mit seinem vereint."
+    "explanation": "Das Lied lädt Kinder ein, zur Krippe im Stall von Bethlehem zu kommen und die Freude zu sehen, die Gott in dieser heiligen Nacht schenkt. Es malt ein zartes Bild des himmlischen Kindes in reinen Windeln, schöner als Engel, auf Heu und Stroh gebettet. Maria und Josef betrachten es froh, die Hirten knien betend, und über ihnen jubelt der Engelchor. Alle werden ermutigt, wie die Hirten die Knie zu beugen, zu danken und in den Jubel der Engel einzustimmen. Im Gebet erinnert das Lied an die Armut des Kindes und an das Leid bis hin zum Kreuz, das es für unsere Schuld trägt. Nicht Reichtum will es, sondern demütige Herzen; darum schenken die Kinder ihr Herz gern und bitten, dass er es heiligt und für immer mit seinem vereint.",
+    "scores": [
+      {
+        "id": "wikipedia_ihr_kinderlein_kommet",
+        "asset": "assets/hymn_scores/eg043_wikipedia_ihr_kinderlein_kommet.svg",
+        "format": "svg",
+        "kind": "melody",
+        "label": "Ihr Kinderlein, kommet",
+        "source": {
+          "name": "Wikipedia (de)",
+          "file": "Ihr Kinderlein, kommet",
+          "url": "https://de.wikipedia.org/w/index.php?oldid=259822920",
+          "author": "Notensatz im Wikipedia-Artikel, Autoren siehe Versionsgeschichte",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "sha1": "",
+          "match": "Liedartikel zur EG-Nummer"
+        },
+        "underlay": {
+          "stanza": 1,
+          "status": "verified",
+          "credit": "Noten und Textunterlegung aus dem Wikipedia-Artikel",
+          "url": "https://de.wikipedia.org/w/index.php?oldid=259822920"
+        }
+      }
+    ]
   },
   {
     "id": 44,
@@ -2224,7 +2294,7 @@
     "scores": [
       {
         "id": "o_du_froehliche",
-        "asset": "assets/hymn_scores/o_du_froehliche.svg",
+        "asset": "assets/hymn_scores/eg044_o_du_froehliche.svg",
         "format": "svg",
         "kind": "melody",
         "label": "O du fröhliche",
@@ -2237,6 +2307,12 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "b1dae2972132c88e420979e5d0eec278bc009d50",
           "match": "Titelgleichheit"
+        },
+        "underlay": {
+          "stanza": 1,
+          "status": "verified",
+          "credit": "Textunterlegung nach dem Notensatz im deutschen Wikipedia-Artikel „O du fröhliche“ (CC BY-SA 4.0)",
+          "url": "https://de.wikipedia.org/w/index.php?oldid=267766473"
         }
       }
     ]
@@ -2312,7 +2388,32 @@
       "Weihnachten"
     ],
     "bibleReferences": [],
-    "explanation": ""
+    "explanation": "",
+    "scores": [
+      {
+        "id": "wikipedia_stille_nacht_heilige_nacht",
+        "asset": "assets/hymn_scores/eg046_wikipedia_stille_nacht_heilige_nacht.svg",
+        "format": "svg",
+        "kind": "melody",
+        "label": "Stille Nacht, heilige Nacht",
+        "source": {
+          "name": "Wikipedia (de)",
+          "file": "Stille Nacht, heilige Nacht",
+          "url": "https://de.wikipedia.org/w/index.php?oldid=270747009",
+          "author": "Notensatz im Wikipedia-Artikel, Autoren siehe Versionsgeschichte",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "sha1": "",
+          "match": "Liedartikel zur EG-Nummer"
+        },
+        "underlay": {
+          "stanza": 1,
+          "status": "verified",
+          "credit": "Noten und Textunterlegung aus dem Wikipedia-Artikel",
+          "url": "https://de.wikipedia.org/w/index.php?oldid=270747009"
+        }
+      }
+    ]
   },
   {
     "id": 47,
@@ -2368,7 +2469,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -2412,7 +2514,7 @@
     "scores": [
       {
         "id": "kommet_ihr_hirten",
-        "asset": "assets/hymn_scores/kommet_ihr_hirten.svg",
+        "asset": "assets/hymn_scores/eg048_kommet_ihr_hirten.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Kommet, ihr Hirten",
@@ -2425,6 +2527,12 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "6359d1d0352600e3a2f2ecf949bc9c14aea004d0",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1,
+          "status": "verified",
+          "credit": "Textunterlegung nach dem Notensatz im deutschen Wikipedia-Artikel „Kommet, ihr Hirten“ (CC BY-SA 4.0)",
+          "url": "https://de.wikipedia.org/w/index.php?oldid=267478475"
         }
       }
     ]
@@ -2968,7 +3076,8 @@
           "match": "Melodie von EG 526"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       },
       {
@@ -2988,7 +3097,8 @@
           "match": "Melodie von EG 526"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -3054,7 +3164,8 @@
           "match": "Melodie von EG 361"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -3258,7 +3369,7 @@
     "scores": [
       {
         "id": "jesus_ist_kommen_grund_ewiger_freude",
-        "asset": "assets/hymn_scores/eg066_jesus_ist_kommen_grund_ewiger_freude.svg",
+        "asset": "assets/hymn_scores/jesus_ist_kommen_grund_ewiger_freude.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Jesus ist kommen, Grund ewiger Freude",
@@ -3271,9 +3382,6 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "10067684722fad8f172e548b5f8e38f49cfc225f",
           "match": "EG-Nummer in Dateibeschreibung"
-        },
-        "underlay": {
-          "stanza": 1
         }
       }
     ]
@@ -3334,7 +3442,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -3414,7 +3523,7 @@
     "scores": [
       {
         "id": "der_morgenstern_ist_aufgedrungen",
-        "asset": "assets/hymn_scores/der_morgenstern_ist_aufgedrungen.svg",
+        "asset": "assets/hymn_scores/eg069_der_morgenstern_ist_aufgedrungen.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Der Morgenstern ist aufgedrungen",
@@ -3427,6 +3536,12 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "92f2c47c47c5b22435d35b2d48a0b31efa93df51",
           "match": "Titelgleichheit"
+        },
+        "underlay": {
+          "stanza": 1,
+          "status": "verified",
+          "credit": "Textunterlegung nach dem Notensatz im englischen Wikipedia-Artikel „Der Morgenstern ist aufgedrungen“ (CC BY-SA 4.0)",
+          "url": "https://en.wikipedia.org/w/index.php?oldid=1379321099"
         }
       }
     ]
@@ -3589,7 +3704,7 @@
     "scores": [
       {
         "id": "o_jesu_christe_wahres_licht",
-        "asset": "assets/hymn_scores/eg072_o_jesu_christe_wahres_licht.svg",
+        "asset": "assets/hymn_scores/o_jesu_christe_wahres_licht.svg",
         "format": "svg",
         "kind": "melody",
         "label": "O Jesu Christe, wahres Licht",
@@ -3602,9 +3717,6 @@
           "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
           "sha1": "1932139eb5e49aa61905f135f385c69da6753046",
           "match": "EG-Nummer in Dateibeschreibung"
-        },
-        "underlay": {
-          "stanza": 1
         }
       }
     ]
@@ -3728,7 +3840,7 @@
     "scores": [
       {
         "id": "lobt_gott_ihr_christen_alle_gleich",
-        "asset": "assets/hymn_scores/eg073_lobt_gott_ihr_christen_alle_gleich.svg",
+        "asset": "assets/hymn_scores/lobt_gott_ihr_christen_alle_gleich.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Lobt Gott, ihr Christen alle gleich",
@@ -3741,9 +3853,6 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "a5859b3fde9c2de24baff53d2c7e523753c857ab",
           "match": "Melodie von EG 27"
-        },
-        "underlay": {
-          "stanza": 1
         }
       }
     ]
@@ -3777,7 +3886,7 @@
     "scores": [
       {
         "id": "steht_auf_ihr_lieben_kinderlein",
-        "asset": "assets/hymn_scores/eg074_steht_auf_ihr_lieben_kinderlein.svg",
+        "asset": "assets/hymn_scores/steht_auf_ihr_lieben_kinderlein.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Steht auf, ihr lieben Kinderlein",
@@ -3790,9 +3899,6 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "8de47137ef8d792f00602b6871d72331e933ad68",
           "match": "EG-Nummer in Dateibeschreibung"
-        },
-        "underlay": {
-          "stanza": 1
         }
       }
     ]
@@ -3870,7 +3976,7 @@
     "scores": [
       {
         "id": "o_mensch_bewein_dein_suende_gross_eg",
-        "asset": "assets/hymn_scores/eg076_o_mensch_bewein_dein_suende_gross_eg.svg",
+        "asset": "assets/hymn_scores/o_mensch_bewein_dein_suende_gross_eg.svg",
         "format": "svg",
         "kind": "melody",
         "label": "O Mensch, bewein dein Sünde groß (EG)",
@@ -3883,9 +3989,6 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "df1f45938ba5785d8f468d7d47a0c2f1cb8f00ef",
           "match": "EG-Nummer in Dateibeschreibung"
-        },
-        "underlay": {
-          "stanza": 1
         }
       }
     ]
@@ -4129,7 +4232,7 @@
     "scores": [
       {
         "id": "o_traurigkeit_o_herzeleid_eg",
-        "asset": "assets/hymn_scores/eg080_o_traurigkeit_o_herzeleid_eg.svg",
+        "asset": "assets/hymn_scores/o_traurigkeit_o_herzeleid_eg.svg",
         "format": "svg",
         "kind": "melody",
         "label": "O Traurigkeit, o Herzeleid (EG)",
@@ -4142,9 +4245,6 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "aa4c25a3d78f6e030ca1ed196faff8060bdaf6b9",
           "match": "EG-Nummer in Dateibeschreibung"
-        },
-        "underlay": {
-          "stanza": 1
         }
       }
     ]
@@ -4240,7 +4340,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -4308,7 +4409,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -4469,7 +4571,8 @@
           "match": "Melodie von EG 521"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -4542,7 +4645,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -4748,7 +4852,7 @@
     "scores": [
       {
         "id": "o_mensch_bewein_dein_suende_gross_eg",
-        "asset": "assets/hymn_scores/eg090_o_mensch_bewein_dein_suende_gross_eg.svg",
+        "asset": "assets/hymn_scores/o_mensch_bewein_dein_suende_gross_eg.svg",
         "format": "svg",
         "kind": "melody",
         "label": "O Mensch, bewein dein Sünde groß (EG)",
@@ -4761,9 +4865,6 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "df1f45938ba5785d8f468d7d47a0c2f1cb8f00ef",
           "match": "EG-Nummer in Dateibeschreibung"
-        },
-        "underlay": {
-          "stanza": 1
         }
       }
     ]
@@ -4839,7 +4940,8 @@
           "match": "Melodie von EG 81"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -5366,7 +5468,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -5649,7 +5752,7 @@
     "scores": [
       {
         "id": "die_ganze_welt_herr_jesu_christ",
-        "asset": "assets/hymn_scores/eg110_die_ganze_welt_herr_jesu_christ.svg",
+        "asset": "assets/hymn_scores/die_ganze_welt_herr_jesu_christ.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Die ganze Welt, Herr Jesu Christ",
@@ -5662,9 +5765,6 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "a182110ae9b690cb5db08773bb26e4616c642b27",
           "match": "EG-Nummer in Dateibeschreibung"
-        },
-        "underlay": {
-          "stanza": 1
         }
       }
     ]
@@ -5793,7 +5893,7 @@
     "scores": [
       {
         "id": "auf_auf_mein_herz_mit_freuden",
-        "asset": "assets/hymn_scores/eg112_auf_auf_mein_herz_mit_freuden.svg",
+        "asset": "assets/hymn_scores/auf_auf_mein_herz_mit_freuden.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Auf, auf, mein Herz, mit Freuden",
@@ -5806,9 +5906,6 @@
           "licenseUrl": "",
           "sha1": "fffbfa9fd15dfcb08a9db406070c7a8e216be197",
           "match": "Titelgleichheit"
-        },
-        "underlay": {
-          "stanza": 1
         }
       }
     ]
@@ -5951,7 +6048,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -6013,7 +6111,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       },
       {
@@ -6033,7 +6132,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -6142,7 +6242,7 @@
     "scores": [
       {
         "id": "gen_himmel_aufgefahren_ist",
-        "asset": "assets/hymn_scores/eg119_gen_himmel_aufgefahren_ist.svg",
+        "asset": "assets/hymn_scores/gen_himmel_aufgefahren_ist.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Gen Himmel aufgefahren ist",
@@ -6155,9 +6255,6 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "ce471f5e9b458f4f3ae987b08b3685f7ef2cf7a7",
           "match": "EG-Nummer in Dateibeschreibung"
-        },
-        "underlay": {
-          "stanza": 1
         }
       }
     ]
@@ -6337,7 +6434,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -6404,7 +6502,7 @@
     "scores": [
       {
         "id": "alles_ist_an_gottes_segen",
-        "asset": "assets/hymn_scores/eg123_alles_ist_an_gottes_segen.svg",
+        "asset": "assets/hymn_scores/alles_ist_an_gottes_segen.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Alles ist an Gottes Segen",
@@ -6417,9 +6515,6 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "bd69eca04fcb0fe713f6cbfd8b5354373ffd1be1",
           "match": "im Wikipedia-Artikel eingebunden"
-        },
-        "underlay": {
-          "stanza": 1
         }
       }
     ]
@@ -6455,7 +6550,7 @@
     "scores": [
       {
         "id": "nun_bitten_wir_den_heiligen_geist_eg",
-        "asset": "assets/hymn_scores/eg124_nun_bitten_wir_den_heiligen_geist_eg.svg",
+        "asset": "assets/hymn_scores/nun_bitten_wir_den_heiligen_geist_eg.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Nun bitten wir den Heiligen Geist (EG)",
@@ -6468,9 +6563,6 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "a8c94beed3575dfa8eb1aeb9707de3137b3369a4",
           "match": "EG-Nummer in Dateibeschreibung"
-        },
-        "underlay": {
-          "stanza": 1
         }
       }
     ]
@@ -6577,7 +6669,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -6635,7 +6728,7 @@
     "scores": [
       {
         "id": "o_mensch_bewein_dein_suende_gross_eg",
-        "asset": "assets/hymn_scores/eg127_o_mensch_bewein_dein_suende_gross_eg.svg",
+        "asset": "assets/hymn_scores/o_mensch_bewein_dein_suende_gross_eg.svg",
         "format": "svg",
         "kind": "melody",
         "label": "O Mensch, bewein dein Sünde groß (EG)",
@@ -6648,9 +6741,6 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "df1f45938ba5785d8f468d7d47a0c2f1cb8f00ef",
           "match": "EG-Nummer in Dateibeschreibung"
-        },
-        "underlay": {
-          "stanza": 1
         }
       }
     ]
@@ -6717,7 +6807,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -6768,7 +6859,8 @@
           "match": "Melodie von EG 133"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -7070,7 +7162,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -7252,7 +7345,7 @@
     "scores": [
       {
         "id": "o_durchbrecher_aller_bande",
-        "asset": "assets/hymn_scores/eg137_o_durchbrecher_aller_bande.svg",
+        "asset": "assets/hymn_scores/o_durchbrecher_aller_bande.svg",
         "format": "svg",
         "kind": "melody",
         "label": "O Durchbrecher aller Bande",
@@ -7265,9 +7358,6 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "220273b34ea678e186662cc0d7341fc0780eb46f",
           "match": "Melodie von EG 388"
-        },
-        "underlay": {
-          "stanza": 1
         }
       }
     ]
@@ -7366,7 +7456,8 @@
           "match": "Melodie von EG 321"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -7422,7 +7513,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -7741,7 +7833,8 @@
           "match": "Melodie von EG 344"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -7868,7 +7961,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -7931,7 +8025,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -7997,7 +8092,7 @@
     "scores": [
       {
         "id": "jerusalem_du_hochgebaute_stadt",
-        "asset": "assets/hymn_scores/jerusalem_du_hochgebaute_stadt.svg",
+        "asset": "assets/hymn_scores/eg150_jerusalem_du_hochgebaute_stadt.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Jerusalem, du hochgebaute Stadt",
@@ -8010,6 +8105,12 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "8970079358713d9b52920cfeb98567ccb07c3239",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1,
+          "status": "verified",
+          "credit": "Textunterlegung nach dem Notensatz im englischen Wikipedia-Artikel „Jerusalem, du hochgebaute Stadt“ (CC BY-SA 4.0)",
+          "url": "https://en.wikipedia.org/w/index.php?oldid=1379149857"
         }
       }
     ]
@@ -8207,7 +8308,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -8270,7 +8372,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -8330,7 +8433,7 @@
     "scores": [
       {
         "id": "o_christe_morgensterne",
-        "asset": "assets/hymn_scores/eg158_o_christe_morgensterne.svg",
+        "asset": "assets/hymn_scores/o_christe_morgensterne.svg",
         "format": "svg",
         "kind": "melody",
         "label": "O Christe, Morgensterne",
@@ -8343,9 +8446,6 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "3c08057eb0a84c4dea572bac9b55d10a80c284ae",
           "match": "EG-Nummer in Dateibeschreibung"
-        },
-        "underlay": {
-          "stanza": 1
         }
       }
     ]
@@ -8441,7 +8541,7 @@
     "scores": [
       {
         "id": "liebster_jesu_wir_sind_hier",
-        "asset": "assets/hymn_scores/eg161_liebster_jesu_wir_sind_hier.svg",
+        "asset": "assets/hymn_scores/liebster_jesu_wir_sind_hier.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Liebster Jesu, wir sind hier",
@@ -8454,9 +8554,6 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "3f0fb54adfc3316a7c589ba270aae6a38bf3bf4f",
           "match": "EG-Nummer in Dateibeschreibung"
-        },
-        "underlay": {
-          "stanza": 1
         }
       }
     ]
@@ -8530,7 +8627,7 @@
     "scores": [
       {
         "id": "liebster_jesu_wir_sind_hier",
-        "asset": "assets/hymn_scores/eg163_liebster_jesu_wir_sind_hier.svg",
+        "asset": "assets/hymn_scores/liebster_jesu_wir_sind_hier.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Liebster Jesu, wir sind hier",
@@ -8543,9 +8640,6 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "3f0fb54adfc3316a7c589ba270aae6a38bf3bf4f",
           "match": "Melodie von EG 161"
-        },
-        "underlay": {
-          "stanza": 1
         }
       }
     ]
@@ -8647,7 +8741,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -8693,7 +8788,7 @@
     "scores": [
       {
         "id": "tut_mir_auf_die_schoene_pforte",
-        "asset": "assets/hymn_scores/eg166_tut_mir_auf_die_schoene_pforte.svg",
+        "asset": "assets/hymn_scores/tut_mir_auf_die_schoene_pforte.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Tut mir auf die schöne Pforte",
@@ -8706,9 +8801,6 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "8541837c3b08bbad1eb8ed90bcaa0a2b3398d47f",
           "match": "EG-Nummer in Dateibeschreibung"
-        },
-        "underlay": {
-          "stanza": 1
         }
       }
     ]
@@ -9365,7 +9457,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -9510,7 +9603,7 @@
     "scores": [
       {
         "id": "herr_fuer_dein_wort_sei_hoch_gepreist_es_spricht_der_unweisen_mund_wohl",
-        "asset": "assets/hymn_scores/eg196_herr_fuer_dein_wort_sei_hoch_gepreist_es_spricht_der_unweisen_mund_wohl.svg",
+        "asset": "assets/hymn_scores/herr_fuer_dein_wort_sei_hoch_gepreist_es_spricht_der_unweisen_mund_wohl.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Herr, für dein Wort sei hoch gepreist (Es spricht der Unweisen Mund wohl)",
@@ -9523,9 +9616,6 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "d01b2b96079d4d9ca6cdca9b940f13480cf80afa",
           "match": "EG-Nummer in Dateibeschreibung"
-        },
-        "underlay": {
-          "stanza": 1
         }
       }
     ]
@@ -9572,7 +9662,8 @@
           "match": "Melodie von EG 155"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -9668,7 +9759,8 @@
           "match": "Melodie von EG 330"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -9733,7 +9825,7 @@
     "scores": [
       {
         "id": "christ_unser_herr_zum_jordan_kam",
-        "asset": "assets/hymn_scores/eg202_christ_unser_herr_zum_jordan_kam.svg",
+        "asset": "assets/hymn_scores/christ_unser_herr_zum_jordan_kam.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Christ, unser Herr, zum Jordan kam",
@@ -9746,9 +9838,6 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "266fd8a1a79239d7fe1678717b69d8da1629fa34",
           "match": "EG-Nummer in Dateibeschreibung"
-        },
-        "underlay": {
-          "stanza": 1
         }
       }
     ]
@@ -9808,7 +9897,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -9929,7 +10019,7 @@
     "scores": [
       {
         "id": "liebster_jesu_wir_sind_hier",
-        "asset": "assets/hymn_scores/eg206_liebster_jesu_wir_sind_hier.svg",
+        "asset": "assets/hymn_scores/liebster_jesu_wir_sind_hier.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Liebster Jesu, wir sind hier",
@@ -9942,9 +10032,6 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "3f0fb54adfc3316a7c589ba270aae6a38bf3bf4f",
           "match": "Melodie von EG 161"
-        },
-        "underlay": {
-          "stanza": 1
         }
       }
     ]
@@ -10139,7 +10226,8 @@
           "match": "Melodie von EG 133"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -10983,7 +11071,8 @@
           "match": "Melodie von EG 344"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -11202,7 +11291,8 @@
           "match": "Melodie von EG 328"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -11689,7 +11779,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -11919,7 +12010,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -12026,7 +12118,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -12090,7 +12183,7 @@
     "scores": [
       {
         "id": "kommt_her_des_koenigs_aufgebot",
-        "asset": "assets/hymn_scores/kommt_her_des_koenigs_aufgebot.svg",
+        "asset": "assets/hymn_scores/eg259_kommt_her_des_koenigs_aufgebot.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Kommt her, des Königs Aufgebot",
@@ -12103,6 +12196,12 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "2194c937673aba7076065c15d4e77a1eea371cfe",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1,
+          "status": "verified",
+          "credit": "Textunterlegung nach dem Notensatz im deutschen Wikipedia-Artikel „Kommt her, des Königs Aufgebot“ (CC BY-SA 4.0)",
+          "url": "https://de.wikipedia.org/w/index.php?oldid=261859390"
         }
       }
     ]
@@ -12196,7 +12295,7 @@
     "scores": [
       {
         "id": "sonne_der_gerechtigkeit",
-        "asset": "assets/hymn_scores/sonne_der_gerechtigkeit.svg",
+        "asset": "assets/hymn_scores/eg262_sonne_der_gerechtigkeit.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Sonne der Gerechtigkeit",
@@ -12209,6 +12308,12 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "69f266dab47fc7f5735ce8904acaf396b94fe17e",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1,
+          "status": "verified",
+          "credit": "Textunterlegung nach dem Notensatz im deutschen Wikipedia-Artikel „Sonne der Gerechtigkeit“ (CC BY-SA 4.0)",
+          "url": "https://de.wikipedia.org/w/index.php?oldid=261452929"
         }
       }
     ]
@@ -12757,7 +12862,8 @@
           "match": "Melodie von EG 294"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -12789,7 +12895,7 @@
     "scores": [
       {
         "id": "es_wolle_gott_uns_gnaedig_sein",
-        "asset": "assets/hymn_scores/es_wolle_gott_uns_gnaedig_sein.svg",
+        "asset": "assets/hymn_scores/eg280_es_wolle_gott_uns_gnaedig_sein.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Es wolle Gott uns gnädig sein",
@@ -12802,6 +12908,12 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "b4782f6a3652ab25ca8ed0a14814a05722055270",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1,
+          "status": "verified",
+          "credit": "Textunterlegung nach dem Notensatz im englischen Wikipedia-Artikel „Es woll uns Gott genädig sein“ (CC BY-SA 4.0)",
+          "url": "https://en.wikipedia.org/w/index.php?oldid=1379150160"
         }
       }
     ]
@@ -12841,7 +12953,7 @@
     "scores": [
       {
         "id": "o_mensch_bewein_dein_suende_gross_eg",
-        "asset": "assets/hymn_scores/eg281_o_mensch_bewein_dein_suende_gross_eg.svg",
+        "asset": "assets/hymn_scores/o_mensch_bewein_dein_suende_gross_eg.svg",
         "format": "svg",
         "kind": "melody",
         "label": "O Mensch, bewein dein Sünde groß (EG)",
@@ -12854,9 +12966,6 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "df1f45938ba5785d8f468d7d47a0c2f1cb8f00ef",
           "match": "EG-Nummer in Dateibeschreibung"
-        },
-        "underlay": {
-          "stanza": 1
         }
       }
     ]
@@ -13132,7 +13241,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -13383,7 +13493,7 @@
     "scores": [
       {
         "id": "wohl_denen_die_da_wandeln_heinrich_schuetz",
-        "asset": "assets/hymn_scores/eg295_wohl_denen_die_da_wandeln_heinrich_schuetz.svg",
+        "asset": "assets/hymn_scores/wohl_denen_die_da_wandeln_heinrich_schuetz.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Wohl denen, die da wandeln (Heinrich Schütz)",
@@ -13396,9 +13506,6 @@
           "licenseUrl": "",
           "sha1": "3a4e4ed633538a8cd0c8515bce8052f699ef267a",
           "match": "EG-Nummer in Dateibeschreibung"
-        },
-        "underlay": {
-          "stanza": 1
         }
       }
     ]
@@ -13450,7 +13557,7 @@
     "scores": [
       {
         "id": "wenn_wir_in_hoechsten_noeten_sein",
-        "asset": "assets/hymn_scores/eg296_wenn_wir_in_hoechsten_noeten_sein.svg",
+        "asset": "assets/hymn_scores/wenn_wir_in_hoechsten_noeten_sein.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Wenn wir in höchsten Nöten sein",
@@ -13463,9 +13570,6 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "9a44ab0d013b54986f9addb3bef12b5f20b0c2a5",
           "match": "Melodie von EG 366"
-        },
-        "underlay": {
-          "stanza": 1
         }
       }
     ]
@@ -13524,7 +13628,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -13665,7 +13770,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -13752,7 +13858,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -13829,7 +13936,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -13937,7 +14045,7 @@
     "scores": [
       {
         "id": "lobet_den_herren_alle_die_ihn_ehren",
-        "asset": "assets/hymn_scores/eg304_lobet_den_herren_alle_die_ihn_ehren.svg",
+        "asset": "assets/hymn_scores/lobet_den_herren_alle_die_ihn_ehren.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Lobet den Herren alle, die ihn ehren",
@@ -13950,9 +14058,6 @@
           "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
           "sha1": "1c7b513ad1c796c8e895f602852ad4c6e29f4e84",
           "match": "Melodie von EG 447"
-        },
-        "underlay": {
-          "stanza": 1
         }
       }
     ]
@@ -14264,7 +14369,10 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "verified",
+          "credit": "Textunterlegung nach dem Notensatz im deutschen Wikipedia-Artikel „Lobe den Herren, den mächtigen König der Ehren“, dort an einer anderen Strophe (CC BY-SA 4.0)",
+          "url": "https://de.wikipedia.org/w/index.php?oldid=268762671"
         }
       }
     ]
@@ -14320,7 +14428,8 @@
           "match": "Titelgleichheit"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -14470,7 +14579,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -14520,7 +14630,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       },
       {
@@ -14540,7 +14651,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -14611,7 +14723,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -14742,7 +14855,8 @@
           "match": "Melodie von EG 322"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -14823,7 +14937,10 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "verified",
+          "credit": "Textunterlegung nach dem Notensatz im deutschen Wikipedia-Artikel „Sollt ich meinem Gott nicht singen?“ (CC BY-SA 4.0)",
+          "url": "https://de.wikipedia.org/w/index.php?oldid=268911731"
         }
       }
     ]
@@ -14892,7 +15009,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -14941,7 +15059,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -15002,7 +15121,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -15054,7 +15174,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -15143,7 +15264,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -15208,20 +15330,26 @@
     "explanation": "Das Lied „Großer Gott, wir loben dich“ ist ein christisches Lob- und Danklied, das Gottes Größe, Macht und Ewigkeit preist. Es stellt Gottes Werke und Herrlichkeit heraus, die von Engeln, allen Geschöpfen und der ganzen Erde bewundert und gelobt werden. Auch die Heiligen, Apostel, Propheten und Märtyrer stimmen in dieses Lob ein. Vater, Sohn und Heiliger Geist werden verehrt, wobei besonderes Gewicht auf die Rolle Jesu Christi gelegt wird, der als Gottes Sohn Mensch wurde, die Menschheit erlöst und das Tor zum Himmel geöffnet hat. Die Gläubigen bitten um Gottes Beistand, Führung und Schutz vor dem Bösen und hoffen auf seine Gnade und Erlösung. Das Lied ist geprägt von einer Haltung der Demut und des Vertrauens in Gottes Treue und Barmherzigkeit. Es äußert den Wunsch, Gott täglich zu preisen und auf seine Hilfe in allem zu vertrauen. Schließlich bitten die Gläubigen darum, nicht verloren zu gehen, sondern unter Gottes Güte und Segen zu stehen.",
     "scores": [
       {
-        "id": "grosser_gott_wir_loben_dich",
-        "asset": "assets/hymn_scores/grosser_gott_wir_loben_dich.svg",
+        "id": "wikipedia_grosser_gott_wir_loben_dich",
+        "asset": "assets/hymn_scores/eg331_wikipedia_grosser_gott_wir_loben_dich.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Großer Gott, wir loben dich",
         "source": {
-          "name": "Wikimedia Commons",
-          "file": "File:Großer Gott, wir loben dich.mid",
-          "url": "https://commons.wikimedia.org/wiki/File:Gro%C3%9Fer_Gott,_wir_loben_dich.mid",
-          "author": "Melody: Wien 1776; setting & sound file: Rabanus Flavus (Peter Gerloff)",
-          "license": "CC BY-SA 3.0",
-          "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
-          "sha1": "633bf22fe93fb7ffde1206503b1d7323da272ab8",
-          "match": "EG-Nummer in Dateibeschreibung"
+          "name": "Wikipedia (de)",
+          "file": "Großer Gott, wir loben dich",
+          "url": "https://de.wikipedia.org/w/index.php?oldid=265879463",
+          "author": "Notensatz im Wikipedia-Artikel, Autoren siehe Versionsgeschichte",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "sha1": "",
+          "match": "Liedartikel zur EG-Nummer"
+        },
+        "underlay": {
+          "stanza": 1,
+          "status": "verified",
+          "credit": "Noten und Textunterlegung aus dem Wikipedia-Artikel",
+          "url": "https://de.wikipedia.org/w/index.php?oldid=265879463"
         }
       }
     ]
@@ -15364,7 +15492,7 @@
     "scores": [
       {
         "id": "danket_dem_herrn_wir_danken_dem_herrn",
-        "asset": "assets/hymn_scores/eg333_danket_dem_herrn_wir_danken_dem_herrn.svg",
+        "asset": "assets/hymn_scores/danket_dem_herrn_wir_danken_dem_herrn.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Danket dem Herrn! Wir danken dem Herrn",
@@ -15377,9 +15505,6 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "e8c1f625c29f47134cf42bad9aa53b67722a55fc",
           "match": "EG-Nummer in Dateibeschreibung"
-        },
-        "underlay": {
-          "stanza": 1
         }
       }
     ]
@@ -15736,7 +15861,7 @@
     "scores": [
       {
         "id": "ich_ruf_zu_dir_herr_jesu_christ",
-        "asset": "assets/hymn_scores/eg343_ich_ruf_zu_dir_herr_jesu_christ.svg",
+        "asset": "assets/hymn_scores/ich_ruf_zu_dir_herr_jesu_christ.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Ich ruf zu dir, Herr Jesu Christ",
@@ -15749,9 +15874,6 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "783b247e2c0123ae89420ad234b45365d1596f04",
           "match": "EG-Nummer in Dateibeschreibung"
-        },
-        "underlay": {
-          "stanza": 1
         }
       }
     ]
@@ -15822,7 +15944,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -15882,7 +16005,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -16251,7 +16375,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -16293,7 +16418,7 @@
     "scores": [
       {
         "id": "alles_ist_an_gottes_segen",
-        "asset": "assets/hymn_scores/eg352_alles_ist_an_gottes_segen.svg",
+        "asset": "assets/hymn_scores/alles_ist_an_gottes_segen.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Alles ist an Gottes Segen",
@@ -16306,9 +16431,6 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "bd69eca04fcb0fe713f6cbfd8b5354373ffd1be1",
           "match": "EG-Nummer in Dateibeschreibung"
-        },
-        "underlay": {
-          "stanza": 1
         }
       }
     ]
@@ -16365,7 +16487,7 @@
     "scores": [
       {
         "id": "meinen_jesus_lass_ich_nicht_johann_ulich",
-        "asset": "assets/hymn_scores/eg353_meinen_jesus_lass_ich_nicht_johann_ulich.svg",
+        "asset": "assets/hymn_scores/meinen_jesus_lass_ich_nicht_johann_ulich.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Meinen Jesus lass ich nicht (Johann Ulich)",
@@ -16378,9 +16500,6 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "01c87d3bae7f89c0acf0c364dcd09a9173a90837",
           "match": "Melodie von EG 402"
-        },
-        "underlay": {
-          "stanza": 1
         }
       }
     ]
@@ -16452,7 +16571,8 @@
           "match": "Melodie von EG 330"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -16572,7 +16692,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -16629,7 +16750,8 @@
           "match": "Melodie von EG 357"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -16742,7 +16864,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -16985,7 +17108,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -17034,7 +17158,7 @@
     "scores": [
       {
         "id": "wenn_wir_in_hoechsten_noeten_sein",
-        "asset": "assets/hymn_scores/eg366_wenn_wir_in_hoechsten_noeten_sein.svg",
+        "asset": "assets/hymn_scores/wenn_wir_in_hoechsten_noeten_sein.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Wenn wir in höchsten Nöten sein",
@@ -17047,9 +17171,6 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "9a44ab0d013b54986f9addb3bef12b5f20b0c2a5",
           "match": "EG-Nummer in Dateibeschreibung"
-        },
-        "underlay": {
-          "stanza": 1
         }
       }
     ]
@@ -17182,7 +17303,8 @@
           "match": "Melodie von EG 521"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -17246,7 +17368,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -17331,7 +17454,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -17412,7 +17536,7 @@
     "scores": [
       {
         "id": "gib_dich_zufrieden_und_sei_stille_eg",
-        "asset": "assets/hymn_scores/eg371_gib_dich_zufrieden_und_sei_stille_eg.svg",
+        "asset": "assets/hymn_scores/gib_dich_zufrieden_und_sei_stille_eg.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Gib dich zufrieden und sei stille (EG)",
@@ -17425,9 +17549,6 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "d7b683425e2aed8024481b9245a455a58d596665",
           "match": "EG-Nummer in Dateibeschreibung"
-        },
-        "underlay": {
-          "stanza": 1
         }
       }
     ]
@@ -17536,7 +17657,7 @@
     "scores": [
       {
         "id": "jesus_ist_kommen_grund_ewiger_freude",
-        "asset": "assets/hymn_scores/eg373_jesus_ist_kommen_grund_ewiger_freude.svg",
+        "asset": "assets/hymn_scores/jesus_ist_kommen_grund_ewiger_freude.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Jesus ist kommen, Grund ewiger Freude",
@@ -17549,9 +17670,6 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "10067684722fad8f172e548b5f8e38f49cfc225f",
           "match": "EG-Nummer in Dateibeschreibung"
-        },
-        "underlay": {
-          "stanza": 1
         }
       }
     ]
@@ -17606,7 +17724,8 @@
           "match": "Melodie von EG 297"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -17826,7 +17945,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -17957,7 +18077,8 @@
           "match": "Melodie von EG 325"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -18146,7 +18267,7 @@
     "scores": [
       {
         "id": "mache_dich_mein_geist_bereit",
-        "asset": "assets/hymn_scores/eg387_mache_dich_mein_geist_bereit.svg",
+        "asset": "assets/hymn_scores/mache_dich_mein_geist_bereit.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Mache dich, mein Geist, bereit",
@@ -18159,9 +18280,6 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "93c323bc15f2eb0016ac341bf695e38307ab1b6d",
           "match": "EG-Nummer in Dateibeschreibung"
-        },
-        "underlay": {
-          "stanza": 1
         }
       }
     ]
@@ -18225,7 +18343,7 @@
     "scores": [
       {
         "id": "o_durchbrecher_aller_bande",
-        "asset": "assets/hymn_scores/eg388_o_durchbrecher_aller_bande.svg",
+        "asset": "assets/hymn_scores/o_durchbrecher_aller_bande.svg",
         "format": "svg",
         "kind": "melody",
         "label": "O Durchbrecher aller Bande",
@@ -18238,9 +18356,6 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "220273b34ea678e186662cc0d7341fc0780eb46f",
           "match": "EG-Nummer in Dateibeschreibung"
-        },
-        "underlay": {
-          "stanza": 1
         }
       }
     ]
@@ -18278,7 +18393,7 @@
     "scores": [
       {
         "id": "o_jesu_christe_wahres_licht",
-        "asset": "assets/hymn_scores/eg389_o_jesu_christe_wahres_licht.svg",
+        "asset": "assets/hymn_scores/o_jesu_christe_wahres_licht.svg",
         "format": "svg",
         "kind": "melody",
         "label": "O Jesu Christe, wahres Licht",
@@ -18291,9 +18406,6 @@
           "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
           "sha1": "1932139eb5e49aa61905f135f385c69da6753046",
           "match": "Melodie von EG 72"
-        },
-        "underlay": {
-          "stanza": 1
         }
       }
     ]
@@ -18327,7 +18439,7 @@
     "scores": [
       {
         "id": "o_jesu_christe_wahres_licht",
-        "asset": "assets/hymn_scores/eg390_o_jesu_christe_wahres_licht.svg",
+        "asset": "assets/hymn_scores/o_jesu_christe_wahres_licht.svg",
         "format": "svg",
         "kind": "melody",
         "label": "O Jesu Christe, wahres Licht",
@@ -18340,9 +18452,6 @@
           "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
           "sha1": "1932139eb5e49aa61905f135f385c69da6753046",
           "match": "Melodie von EG 72"
-        },
-        "underlay": {
-          "stanza": 1
         }
       }
     ]
@@ -18395,7 +18504,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -18460,7 +18570,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -18574,7 +18685,8 @@
           "match": "Melodie von EG 322"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -18662,7 +18774,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -18757,7 +18870,7 @@
     "scores": [
       {
         "id": "o_lebensbruennlein_tief_und_gross",
-        "asset": "assets/hymn_scores/eg399_o_lebensbruennlein_tief_und_gross.svg",
+        "asset": "assets/hymn_scores/o_lebensbruennlein_tief_und_gross.svg",
         "format": "svg",
         "kind": "melody",
         "label": "O Lebensbrünnlein tief und groß",
@@ -18770,9 +18883,6 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "7dbb32ae601a0dbe9e30bff8656aa9ea61f8c2cf",
           "match": "EG-Nummer in Dateibeschreibung"
-        },
-        "underlay": {
-          "stanza": 1
         }
       }
     ]
@@ -18917,7 +19027,7 @@
     "scores": [
       {
         "id": "meinen_jesus_lass_ich_nicht_johann_ulich",
-        "asset": "assets/hymn_scores/eg402_meinen_jesus_lass_ich_nicht_johann_ulich.svg",
+        "asset": "assets/hymn_scores/meinen_jesus_lass_ich_nicht_johann_ulich.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Meinen Jesus lass ich nicht (Johann Ulich)",
@@ -18930,9 +19040,6 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "01c87d3bae7f89c0acf0c364dcd09a9173a90837",
           "match": "EG-Nummer in Dateibeschreibung"
-        },
-        "underlay": {
-          "stanza": 1
         }
       }
     ]
@@ -19008,7 +19115,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -19073,7 +19181,8 @@
           "match": "Melodie von EG 67"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -19460,7 +19569,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -19756,7 +19866,8 @@
           "match": "Melodie von EG 521"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -20071,7 +20182,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -20291,7 +20403,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -20347,7 +20460,7 @@
     "scores": [
       {
         "id": "steht_auf_ihr_lieben_kinderlein",
-        "asset": "assets/hymn_scores/eg442_steht_auf_ihr_lieben_kinderlein.svg",
+        "asset": "assets/hymn_scores/steht_auf_ihr_lieben_kinderlein.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Steht auf, ihr lieben Kinderlein",
@@ -20360,9 +20473,6 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "8de47137ef8d792f00602b6871d72331e933ad68",
           "match": "EG-Nummer in Dateibeschreibung"
-        },
-        "underlay": {
-          "stanza": 1
         }
       }
     ]
@@ -20411,7 +20521,7 @@
     "scores": [
       {
         "id": "aus_meines_herzens_grunde",
-        "asset": "assets/hymn_scores/eg443_aus_meines_herzens_grunde.svg",
+        "asset": "assets/hymn_scores/aus_meines_herzens_grunde.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Aus meines Herzens Grunde",
@@ -20424,9 +20534,6 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "a19aef0b089ce051e5f0965ccd8976127357651b",
           "match": "EG-Nummer in Dateibeschreibung"
-        },
-        "underlay": {
-          "stanza": 1
         }
       }
     ]
@@ -20526,7 +20633,7 @@
     "scores": [
       {
         "id": "gott_des_himmels_und_der_erden",
-        "asset": "assets/hymn_scores/gott_des_himmels_und_der_erden.svg",
+        "asset": "assets/hymn_scores/eg445_gott_des_himmels_und_der_erden.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Gott des Himmels und der Erden",
@@ -20539,6 +20646,12 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "fff27eb176b32134e64ec754ff15b4ecaa405bf0",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1,
+          "status": "verified",
+          "credit": "Textunterlegung nach dem Notensatz im deutschen Wikipedia-Artikel „Gott des Himmels und der Erden“ (CC BY-SA 4.0)",
+          "url": "https://de.wikipedia.org/w/index.php?oldid=251459700"
         }
       }
     ]
@@ -20607,7 +20720,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -20668,7 +20782,7 @@
     "scores": [
       {
         "id": "lobet_den_herren_alle_die_ihn_ehren",
-        "asset": "assets/hymn_scores/lobet_den_herren_alle_die_ihn_ehren.svg",
+        "asset": "assets/hymn_scores/eg447_lobet_den_herren_alle_die_ihn_ehren.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Lobet den Herren alle, die ihn ehren",
@@ -20681,6 +20795,12 @@
           "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
           "sha1": "1c7b513ad1c796c8e895f602852ad4c6e29f4e84",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1,
+          "status": "verified",
+          "credit": "Textunterlegung nach dem Notensatz im deutschen Wikipedia-Artikel „Lobet den Herren alle, die ihn ehren“ (CC BY-SA 4.0)",
+          "url": "https://de.wikipedia.org/w/index.php?oldid=242399410"
         }
       }
     ]
@@ -20764,20 +20884,26 @@
     "explanation": "Das Lied beschreibt die Freude über den neuen Tag, den Gott mit der aufgehenden Sonne schenkt. Es lobt Gottes Schöpfung als Zeichen seiner Macht und Größe und erinnert daran, dass alles Irdische letztlich vergänglich ist, während Gott ewig bleibt. Der Mensch wird ermutigt, Gott für all seine Gaben mit Dank und Liedern zu ehren und ihm alles anzuvertrauen. Es wird betont, dass Gott uns beschützt, leitet und im Alltag begleitet, sowohl in Freude als auch in Leid. Der Text bittet um Vergebung, Bewahrung vor Sünde und Neid sowie um das richtige Herz gegenüber anderen Menschen. Selbst in schweren Zeiten soll man Gott vertrauen und wissen, dass alles Leid ein Ende hat. Schließlich richtet sich die Hoffnung auf das ewige Leben bei Gott, wo Freude und Frieden herrschen.",
     "scores": [
       {
-        "id": "die_gueldne_sonne",
-        "asset": "assets/hymn_scores/die_gueldne_sonne.svg",
+        "id": "wikipedia_die_gueldne_sonne_voll_freud_und_wonne",
+        "asset": "assets/hymn_scores/eg449_wikipedia_die_gueldne_sonne_voll_freud_und_wonne.svg",
         "format": "svg",
         "kind": "melody",
-        "label": "Die güldne Sonne",
+        "label": "Die güldne Sonne voll Freud und Wonne",
         "source": {
-          "name": "Wikimedia Commons",
-          "file": "File:Die güldne Sonne.mid",
-          "url": "https://commons.wikimedia.org/wiki/File:Die_g%C3%BCldne_Sonne.mid",
-          "author": "Melodie: Johann Georg Ebeling 1666; Satz und Tondatei: Rabanus Flavus (Peter Gerloff)",
-          "license": "CC0",
-          "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
-          "sha1": "4df8fdba1424bcdde0e776f692f19a67d14ab0f5",
-          "match": "EG-Nummer in Dateibeschreibung"
+          "name": "Wikipedia (de)",
+          "file": "Die güldne Sonne voll Freud und Wonne",
+          "url": "https://de.wikipedia.org/w/index.php?oldid=267645972",
+          "author": "Notensatz im Wikipedia-Artikel, Autoren siehe Versionsgeschichte",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "sha1": "",
+          "match": "Liedartikel zur EG-Nummer"
+        },
+        "underlay": {
+          "stanza": 1,
+          "status": "verified",
+          "credit": "Noten und Textunterlegung aus dem Wikipedia-Artikel",
+          "url": "https://de.wikipedia.org/w/index.php?oldid=267645972"
         }
       }
     ]
@@ -20971,7 +21097,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -21610,7 +21737,8 @@
           "match": "Melodie von EG 349"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -21912,7 +22040,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -21984,7 +22113,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -22086,7 +22216,7 @@
     "scores": [
       {
         "id": "nun_schlaefet_man",
-        "asset": "assets/hymn_scores/eg480_nun_schlaefet_man.svg",
+        "asset": "assets/hymn_scores/nun_schlaefet_man.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Nun schläfet man",
@@ -22099,9 +22229,6 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "acf88e381b553900d40b4d37ef4d2a6cedac72d1",
           "match": "EG-Nummer in Dateibeschreibung"
-        },
-        "underlay": {
-          "stanza": 1
         }
       }
     ]
@@ -22153,7 +22280,8 @@
           "match": "Melodie von EG 477"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -22217,7 +22345,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -22290,7 +22419,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -22486,7 +22616,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -22642,7 +22773,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -22711,7 +22843,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -22758,7 +22891,8 @@
           "match": "Melodie von EG 495"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -22863,7 +22997,7 @@
     "scores": [
       {
         "id": "in_gottes_namen_fahren_wir_eg",
-        "asset": "assets/hymn_scores/eg498_in_gottes_namen_fahren_wir_eg.svg",
+        "asset": "assets/hymn_scores/in_gottes_namen_fahren_wir_eg.svg",
         "format": "svg",
         "kind": "melody",
         "label": "In Gottes Namen fahren wir (EG)",
@@ -22876,9 +23010,6 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "de51df9eacbe722e4689cd4920be3a4e9dedd186",
           "match": "EG-Nummer in Dateibeschreibung"
-        },
-        "underlay": {
-          "stanza": 1
         }
       }
     ]
@@ -22962,7 +23093,8 @@
           "match": "Melodie von EG 148"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -23141,7 +23273,7 @@
     "scores": [
       {
         "id": "geh_aus_mein_herz_und_suche_freud",
-        "asset": "assets/hymn_scores/geh_aus_mein_herz_und_suche_freud.svg",
+        "asset": "assets/hymn_scores/eg503_geh_aus_mein_herz_und_suche_freud.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Geh aus, mein Herz, und suche Freud",
@@ -23154,6 +23286,12 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "3106a542b50213286a8c899c42fd79291ff7aa41",
           "match": "EG-Nummer in Dateibeschreibung"
+        },
+        "underlay": {
+          "stanza": 1,
+          "status": "verified",
+          "credit": "Textunterlegung nach dem Notensatz im deutschen Wikipedia-Artikel „Geh aus, mein Herz, und suche Freud“ (CC BY-SA 4.0)",
+          "url": "https://de.wikipedia.org/w/index.php?oldid=270891653"
         }
       }
     ]
@@ -23264,7 +23402,7 @@
     "scores": [
       {
         "id": "aus_meines_herzens_grunde",
-        "asset": "assets/hymn_scores/eg505_aus_meines_herzens_grunde.svg",
+        "asset": "assets/hymn_scores/aus_meines_herzens_grunde.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Aus meines Herzens Grunde",
@@ -23277,9 +23415,6 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "a19aef0b089ce051e5f0965ccd8976127357651b",
           "match": "EG-Nummer in Dateibeschreibung"
-        },
-        "underlay": {
-          "stanza": 1
         }
       }
     ]
@@ -23338,7 +23473,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -23492,7 +23628,32 @@
       "Schöpfung"
     ],
     "bibleReferences": [],
-    "explanation": "Das Lied lädt dazu ein, sich über die Schönheit der Erde zu freuen, da Gott sie voller Herrlichkeiten geschaffen hat. Natur und Schöpfung sind reich an Wundern, doch im Vergleich zu Gott selbst sind sie lediglich „reich geschmückter Schemel“ oder herrlich ausgestattete Geschöpfe. Sonne, Mond und Sterne werden als Beispiele für Gottes wunderbare Schöpfung genannt, an deren Anblick man sich erfreuen soll. Dennoch sind auch diese Himmelskörper letztlich nur Werke aus Gottes Hand. Die Schönheit der Schöpfung und des Himmels sind lediglich ein Abglanz der Herrlichkeit Gottes. Der Text macht deutlich, dass Gottes eigene Herrlichkeit und Freude seine Schöpfung weit überstrahlen. Daraus folgt die Einladung, in der Bewunderung der Welt auch die Größe Gottes zu erkennen und zu loben."
+    "explanation": "Das Lied lädt dazu ein, sich über die Schönheit der Erde zu freuen, da Gott sie voller Herrlichkeiten geschaffen hat. Natur und Schöpfung sind reich an Wundern, doch im Vergleich zu Gott selbst sind sie lediglich „reich geschmückter Schemel“ oder herrlich ausgestattete Geschöpfe. Sonne, Mond und Sterne werden als Beispiele für Gottes wunderbare Schöpfung genannt, an deren Anblick man sich erfreuen soll. Dennoch sind auch diese Himmelskörper letztlich nur Werke aus Gottes Hand. Die Schönheit der Schöpfung und des Himmels sind lediglich ein Abglanz der Herrlichkeit Gottes. Der Text macht deutlich, dass Gottes eigene Herrlichkeit und Freude seine Schöpfung weit überstrahlen. Daraus folgt die Einladung, in der Bewunderung der Welt auch die Größe Gottes zu erkennen und zu loben.",
+    "scores": [
+      {
+        "id": "wikipedia_freuet_euch_der_schoenen_erde",
+        "asset": "assets/hymn_scores/eg510_wikipedia_freuet_euch_der_schoenen_erde.svg",
+        "format": "svg",
+        "kind": "melody",
+        "label": "Freuet euch der schönen Erde",
+        "source": {
+          "name": "Wikipedia (en)",
+          "file": "Freuet euch der schönen Erde",
+          "url": "https://en.wikipedia.org/w/index.php?oldid=1379147498",
+          "author": "Notensatz im Wikipedia-Artikel, Autoren siehe Versionsgeschichte",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "sha1": "",
+          "match": "Liedartikel zur EG-Nummer"
+        },
+        "underlay": {
+          "stanza": 1,
+          "status": "verified",
+          "credit": "Noten und Textunterlegung aus dem Wikipedia-Artikel",
+          "url": "https://en.wikipedia.org/w/index.php?oldid=1379147498"
+        }
+      }
+    ]
   },
   {
     "id": 511,
@@ -23579,7 +23740,7 @@
     "scores": [
       {
         "id": "o_durchbrecher_aller_bande",
-        "asset": "assets/hymn_scores/eg512_o_durchbrecher_aller_bande.svg",
+        "asset": "assets/hymn_scores/o_durchbrecher_aller_bande.svg",
         "format": "svg",
         "kind": "melody",
         "label": "O Durchbrecher aller Bande",
@@ -23592,9 +23753,6 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "220273b34ea678e186662cc0d7341fc0780eb46f",
           "match": "Melodie von EG 388"
-        },
-        "underlay": {
-          "stanza": 1
         }
       }
     ]
@@ -23724,7 +23882,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -23946,7 +24105,7 @@
     "scores": [
       {
         "id": "ich_wollt_dass_ich_daheime_waer",
-        "asset": "assets/hymn_scores/eg517_ich_wollt_dass_ich_daheime_waer.svg",
+        "asset": "assets/hymn_scores/ich_wollt_dass_ich_daheime_waer.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Ich wollt, dass ich daheime wär",
@@ -23959,9 +24118,6 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "1f58e0fcb270fb55916d376d3975c04b140fa14f",
           "match": "EG-Nummer in Dateibeschreibung"
-        },
-        "underlay": {
-          "stanza": 1
         }
       }
     ]
@@ -24128,7 +24284,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -24200,7 +24357,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -24313,7 +24471,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -24363,7 +24522,7 @@
     "scores": [
       {
         "id": "freu_dich_sehr_o_meine_seele",
-        "asset": "assets/hymn_scores/eg524_freu_dich_sehr_o_meine_seele.svg",
+        "asset": "assets/hymn_scores/freu_dich_sehr_o_meine_seele.svg",
         "format": "svg",
         "kind": "melody",
         "label": "Freu dich sehr, o meine Seele",
@@ -24376,9 +24535,6 @@
           "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
           "sha1": "3638d4e800b8082e9813a8cf299dba20bf1d6d7a",
           "match": "EG-Nummer in Dateibeschreibung"
-        },
-        "underlay": {
-          "stanza": 1
         }
       }
     ]
@@ -24507,7 +24663,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       },
       {
@@ -24527,7 +24684,8 @@
           "match": "EG-Nummer in Dateibeschreibung"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -24602,7 +24760,8 @@
           "match": "Melodie von EG 521"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -24846,7 +25005,8 @@
           "match": "Melodie von EG 85"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]
@@ -24897,7 +25057,8 @@
           "match": "Melodie von EG 255"
         },
         "underlay": {
-          "stanza": 1
+          "stanza": 1,
+          "status": "syllabic"
         }
       }
     ]

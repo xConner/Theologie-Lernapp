@@ -255,30 +255,46 @@ Noten ohne Text.
    Textstrophe grenzt die Suche ein. Was sich nicht sicher abgrenzen lässt
    (Vorspiele, Oberstimmen, Wechselgesänge), wird nicht integriert.
 3. `syllables.py` zerlegt die erste Strophe in Sprechsilben (regelbasiert,
-   mit einer Ausnahmeliste), `underlay.py` ordnet sie den Tönen zu.
+   mit einer Ausnahmeliste); die Zuordnung zu den Tönen siehe unten.
 4. `engrave.py` setzt Melodie und Text mit [Verovio](https://www.verovio.org/)
    als SVG: Bindebögen und Haltestriche bei Melismen, Trennstriche im Wort,
    Umbruch an den Zeilenenden des Textes (im Takt auch mitten im Takt, wie
    im Gesangbuch bei Auftakten), nie mitten im Wort. Taktstriche stehen nur,
    wo die Vorlage eine Taktart nennt und die Töne restlos in Takte passen.
 
-**Silbenzuordnung – was gesichert ist und was nicht:** Die Vorlagen enthalten
-keinen Text und keine Bögen. Unterlegt wird deshalb nur, wenn die Zuordnung
-aufgeht:
+**Textunterlegung – nur belegt oder zwingend:** Die Commons-Vorlagen
+enthalten keinen Text und keine Bögen. Die erste Strophe steht deshalb nur in
+zwei Fällen unter den Noten:
 
-- gleich viele Töne wie Silben: jede Silbe ein Ton;
-- mehr Töne als Silben: nur, wenn kurze Töne die Überzahl restlos erklären
-  (zwei kurze Töne auf einem Grundschlag; ein einzelner kurzer Ton nach
-  einem längeren) oder eine gleich lange, bereits gelöste Zeile denselben
-  Silbenrhythmus vorgibt;
-- Zeilen enden, wo die Vorlage hörbar Luft lässt; in ein Wort darf keine
-  Luft fallen.
+- **Verifiziert:** Ein Notensatz mit unterlegtem deutschem Text aus dem
+  Wikipedia-Artikel des Liedes belegt, auf wie vielen Tönen jede Silbe liegt.
+  `wiki_underlay.py` lässt den LilyPond-Quelltext von LilyPond selbst
+  übersetzen und protokolliert Töne und Silben (`underlay_listener.ly`);
+  `wiki_match.py` übernimmt die Zuordnung nur, wenn die Tonfolge Intervall
+  für Intervall mit der Melodie der App übereinstimmt und die Silbenzahl
+  passt. Unterlegt die Quelle genau den Text der App, stammt auch die
+  Silbentrennung aus ihr. Passt die Melodie der Commons-Vorlage nicht oder
+  fehlt sie, wird bei gleichem Text der Notensatz der Quelle selbst gesetzt.
+  Englische Unterlegungen zählen nicht.
+- **Syllabisch eindeutig:** gleich viele Töne wie Silben. Dann ist die
+  Zuordnung zwingend, ein Melisma ist nicht möglich. Diese Lieder sind nicht
+  an einer Vorlage geprüft und zählen nicht als verifiziert.
 
-Melismen aus gleich langen Tönen (etwa zwei Viertel auf einer Silbe) sind
-aus den Vorlagen nicht zu erkennen. Solche Lieder bekommen die Melodie ohne
-Text und einen Hinweis; der Liedtext steht dann wie bisher darunter. Geraten
-wird nicht. Um diese Lieder zu unterlegen, braucht es je Lied die Angabe, auf
-welchen Silben die Melismen liegen.
+Melismen werden nie aus Zahl oder Dauer der Töne erschlossen. Die Regeln in
+`underlay.py`, die das versuchen (kurze Tonpaare, Punktierung, Rhythmus einer
+Schwesterzeile), dienen nur noch der Gegenprobe gegen die Quellen; ihr
+Ergebnis steht in `integration.md`. Lieder mit mehr Tönen als Silben ohne
+Quelle gelten als „teilweise ungeklärt“: Die App zeigt die Melodie mit einem
+Hinweis und den Text wie bisher darunter.
+
+**Was nicht gelungen ist:** Eine Digitalisierung gedruckter Seiten (OMR) mit
+Abgleich an der Vorlage wurde nicht durchgeführt; der Status „Digitalisiert
+und geprüft“ ist deshalb leer. Frei zugängliche Scans des Evangelischen
+Gesangbuchs mit seinen Notensätzen gibt es in den geprüften Beständen nicht;
+die Bilder in den Wikipedia-Artikeln sind überwiegend Drucke des 16. und
+17. Jahrhunderts in alter Notation mit anderem Text. Für die ungeklärten
+Lieder braucht es je Lied eine Vorlage mit unterlegtem Text – am
+verlässlichsten das gedruckte Gesangbuch.
 
 **Daten:** Jedes Lied in `assets/eg_lieder.json` kann ein Feld `scores`
 tragen – eine Liste aus `id` (Kennung der Melodie), `asset`, `format`,
@@ -307,8 +323,9 @@ angesehen (schmal und breit, hell und dunkel, mit und ohne Unterlegung).
 
 **Grenzen und bekannte Probleme:**
 
-- Noten und Silbenzuordnung sind automatisch erzeugt und nicht einzeln am
-  Gesangbuch Korrektur gelesen.
+- Die Noten sind automatisch erzeugt und nicht einzeln am Gesangbuch
+  Korrektur gelesen. „Verifiziert“ heißt: stimmt mit dem genannten
+  Wikipedia-Notensatz überein, nicht mit dem Gesangbuch selbst.
 - Tonart und Notenwerte folgen der Vorlage, nicht dem Gesangbuch; Fermaten
   und Atemzeichen fehlen, Schlusstöne sind auf einen einfachen Notenwert
   gekürzt. Die meisten Bilder stehen in freiem Rhythmus ohne Taktstriche.
@@ -317,4 +334,4 @@ angesehen (schmal und breit, hell und dunkel, mit und ohne Unterlegung).
 - Unterlegt ist nur die erste Strophe.
 - Sehr lange Textzeilen werden in der Mitte an einer Wortgrenze auf zwei
   Notensysteme verteilt.
-- Offen: die Lieder der Kategorien 2, 4 und 5 in `integration.md`.
+- Offen: die Lieder der Kategorien 4 bis 7 in `integration.md`.

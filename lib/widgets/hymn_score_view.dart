@@ -109,8 +109,8 @@ class _ScoreItem extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(bottom: 2),
               child: Text(
-                "Melodie ohne unterlegten Text – die Silben sind diesen "
-                "Noten noch nicht zugeordnet.",
+                "Melodie ohne unterlegten Text – für dieses Lied ist noch "
+                "nicht belegt, welche Silbe auf welchen Noten liegt.",
                 key: const Key("hymn_score_no_underlay"),
                 style: secondary,
               ),
@@ -213,6 +213,7 @@ class _SourceLine extends StatelessWidget {
       if (source.author.isNotEmpty) "Vorlage: ${source.author}",
       if (source.name.isNotEmpty || source.license.isNotEmpty)
         [source.name, source.license].where((p) => p.isNotEmpty).join(", "),
+      if (score.underlayCredit.isNotEmpty) score.underlayCredit,
     ];
     if (parts.isEmpty) return const SizedBox.shrink();
 

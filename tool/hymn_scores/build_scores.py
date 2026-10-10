@@ -27,6 +27,7 @@ from melody import extract
 from midi import read_midi
 from syllables import split_stanza
 from underlay import align
+from wiki_match import load_sources, melody_from, sizes_for, to_syllables
 
 ASSET_DIR = ROOT / "assets" / "hymn_scores"
 ASSET_PREFIX = "assets/hymn_scores/"
@@ -34,20 +35,42 @@ ASSET_PREFIX = "assets/hymn_scores/"
 DIRECT = "EG-Nummer in Dateibeschreibung"
 
 CATEGORIES = {
-    1: "Noten mit unterlegtem Text (erste Strophe)",
-    2: "Noten ohne Textunterlegung: Silbenzuordnung nicht gesichert",
-    3: "Noten ohne Textunterlegung: kein Liedtext in der App",
-    4: "Vorlage vorhanden, aber nicht zuverlässig verarbeitbar",
-    5: "Keine Vorlage in den recherchierten Quellen",
+    1: "Verifiziert: Textunterlegung stimmt mit einer Vorlage überein",
+    2: "Digitalisiert und geprüft: gedruckte Vorlage digitalisiert und abgeglichen",
+    3: "Syllabisch eindeutig: jede Silbe genau ein Ton (ohne Vorlagenabgleich)",
+    4: "Teilweise ungeklärt: Noten ohne Textunterlegung",
+    5: "Noten ohne Textunterlegung: kein Liedtext in der App",
+    6: "Vorlage vorhanden, aber nicht zuverlässig verarbeitbar",
+    7: "Keine geeignete Quelle gefunden",
 }
 
+WIKI_LICENSE = "CC BY-SA 4.0"
+WIKI_LICENSE_URL = "https://creativecommons.org/licenses/by-sa/4.0/"
 
-def slug(title):
-    text = title[len("File:"):-len(".mid")].lower().replace("ß", "ss")
+
+def slugify(text):
+    text = text.lower().replace("ß", "ss")
     text = text.replace("ä", "ae").replace("ö", "oe").replace("ü", "ue")
     text = unicodedata.normalize("NFKD", text)
     text = "".join(c for c in text if not unicodedata.combining(c))
     return re.sub(r"[^a-z0-9]+", "_", text).strip("_")
+
+
+def wiki_url(source):
+    return f"https://{source['wiki']}/w/index.php?oldid={source['revid']}"
+
+
+def wiki_credit(source, identical):
+    where = "deutschen" if source["wiki"].startswith("de.") else "englischen"
+    stanza = "" if identical else ", dort an einer anderen Strophe"
+    return (
+        f"Textunterlegung nach dem Notensatz im {where} Wikipedia-Artikel "
+        f"„{source['title']}“{stanza} ({WIKI_LICENSE})"
+    )
+
+
+def slug(title):
+    return slugify(title[len("File:"):-len(".mid")])
 
 
 def first_stanza(hymn):
@@ -165,25 +188,32 @@ def main():
             written[name] = melody
         return ASSET_PREFIX + name
 
+    wiki = load_sources()
     report = []
+    comparisons = []  # (Lied, Regel und Quelle stimmen überein?, mit Melisma?)
     for row in inventory:
         number = row["eg_nummer"]
         hymn = by_id[number]
         hymn.pop("scores", None)
         lines = first_stanza(hymn)
         count = sum(map(len, lines))
+        stanza = hymn["lyrics"][0]["text"] if hymn["lyrics"] else ""
+        sources = wiki.get(number, [])
         scores = []
         problems = []
+        open_melisma = False
         for file in wanted.get(number, []):
             title = file["datei"]
             if title not in shared:
                 problems.append(f"{title[5:]}: {file_notes.get(title, 'nicht verarbeitet')}")
                 continue
 
-            # Mit Text: die am eigenen Text abgegrenzte Melodie und, wenn die
-            # Silben gesichert zuzuordnen sind, das Bild mit Unterlegung.
+            # Mit Text: die am eigenen Text abgegrenzte Melodie. Unterlegt
+            # wird, wenn eine Quelle die Zuordnung belegt oder jede Silbe
+            # genau einen Ton hat – Melismen werden nie nur erschlossen.
             melody = shared[title]
             syllables = None
+            underlay = None
             if count:
                 mine = own.get((number, title))
                 if mine is not None and acceptable(mine):
@@ -194,7 +224,29 @@ def main():
                         f"{count} Silben der ersten Strophe"
                     )
                     continue
-                syllables = align(melody, lines)
+                by_rule = align(melody, lines)
+                hit = sizes_for(melody, stanza, lines, sources)
+                if hit:
+                    used_lines, sizes, source, identical = hit
+                    syllables = to_syllables(used_lines, sizes)
+                    underlay = {
+                        "status": "verified",
+                        "credit": wiki_credit(source, identical),
+                        "url": wiki_url(source),
+                    }
+                    if by_rule:
+                        comparisons.append(
+                            (
+                                number,
+                                [x.notes for x in by_rule] == sizes,
+                                any(x.notes > 1 for x in by_rule),
+                            )
+                        )
+                elif by_rule and all(x.notes == 1 for x in by_rule):
+                    syllables = by_rule
+                    underlay = {"status": "syllabic"}
+                elif melody.note_count > count:
+                    open_melisma = True
             try:
                 if syllables:
                     asset = write(f"eg{number:03d}_{slug(title)}.svg", melody, syllables)
@@ -223,42 +275,108 @@ def main():
                     "match": file["zuordnung"],
                 },
             }
-            if syllables:
+            if underlay:
                 # Diese Strophe steht unter den Noten.
-                score["underlay"] = {"stanza": hymn["lyrics"][0]["stanza"]}
+                score["underlay"] = {"stanza": hymn["lyrics"][0]["stanza"], **underlay}
             scores.append(score)
+
+        # Keine unterlegten Noten aus den Commons-Vorlagen: Unterlegt ein
+        # Wikipedia-Notensatz genau den Text der App, wird er selbst gesetzt.
+        if count and not any("underlay" in x for x in scores):
+            for source in sources:
+                built = melody_from(source, stanza, lines)
+                if built is None:
+                    continue
+                name = "wikipedia_" + slugify(source["title"])
+                try:
+                    asset = write(f"eg{number:03d}_{name}.svg", *built)
+                except ValueError as error:
+                    problems.append(f"{source['title']}: Notensatz fehlgeschlagen ({error})")
+                    continue
+                where = "de" if source["wiki"].startswith("de.") else "en"
+                scores = [
+                    {
+                        "id": name,
+                        "asset": asset,
+                        "format": "svg",
+                        "kind": "melody",
+                        "label": source["title"],
+                        "source": {
+                            "name": f"Wikipedia ({where})",
+                            "file": source["title"],
+                            "url": wiki_url(source),
+                            "author": "Notensatz im Wikipedia-Artikel, Autoren siehe Versionsgeschichte",
+                            "license": WIKI_LICENSE,
+                            "licenseUrl": WIKI_LICENSE_URL,
+                            "sha1": "",
+                            "match": "Liedartikel zur EG-Nummer",
+                        },
+                        "underlay": {
+                            "stanza": hymn["lyrics"][0]["stanza"],
+                            "status": "verified",
+                            "credit": "Noten und Textunterlegung aus dem Wikipedia-Artikel",
+                            "url": wiki_url(source),
+                        },
+                    }
+                ]
+                break
         if scores:
             hymn["scores"] = scores
 
         note = "; ".join(problems)
-        if any("underlay" in s for s in scores):
+        states = {x["underlay"]["status"] for x in scores if "underlay" in x}
+        if "verified" in states:
             category = 1
-        elif scores and count:
-            category = 2
-        elif scores:
+        elif "syllabic" in states:
             category = 3
+        elif scores and count:
+            category = 4
+            reason = (
+                "mehr Töne als Silben; wo die Melismen liegen, belegt keine Quelle"
+                if open_melisma
+                else "Silben und Töne lassen sich nicht eindeutig zuordnen"
+            )
+            note = "; ".join(filter(None, [reason, note]))
+        elif scores:
+            category = 5
         elif problems:
-            category = 4
+            category = 6
         elif row["beste_notenquelle"]:
-            category = 4
+            category = 6
             note = f"{row['beste_notenquelle']}: nicht verarbeitet"
         else:
-            category = 5
+            category = 7
         report.append(
             {
                 "eg_nummer": number,
                 "titel": hymn["title"],
                 "kategorie": category,
-                "noten": [s["id"] for s in scores],
-                "unterlegt": [s["id"] for s in scores if "underlay" in s],
+                "status": CATEGORIES[category].split(":")[0],
+                "noten": [x["id"] for x in scores],
+                "unterlegt": [x["id"] for x in scores if "underlay" in x],
+                "quelle_unterlegung": next(
+                    (x["underlay"].get("url", "") for x in scores if "underlay" in x), ""
+                ),
+                # Töne des unterlegten Notenbildes und Silben der Strophe
+                "toene": next(
+                    (
+                        written[x["asset"].rsplit("/", 1)[-1]].note_count
+                        for x in scores
+                        if "underlay" in x
+                    ),
+                    None,
+                ),
+                "silben": count,
                 "melodie_laut_recherche": row["melodie_status"],
                 "hinweis": note,
             }
         )
 
+    used = {x["asset"].rsplit("/", 1)[-1] for h in hymns for x in h.get("scores", [])}
     for stale in ASSET_DIR.glob("*.svg"):
-        if stale.name not in written:
+        if stale.name not in used:
             stale.unlink()
+    written = {name: melody for name, melody in written.items() if name in used}
     HYMNS.write_text(
         json.dumps(hymns, ensure_ascii=False, indent=2), encoding="utf-8", newline="\n"
     )
@@ -267,7 +385,7 @@ def main():
         encoding="utf-8",
         newline="\n",
     )
-    write_overview(report, written, midword)
+    write_overview(report, written, midword, comparisons)
     counts = collections.Counter(r["kategorie"] for r in report)
     size = sum(f.stat().st_size for f in ASSET_DIR.glob("*.svg"))
     print(
@@ -276,17 +394,7 @@ def main():
     )
 
 
-def table(rows):
-    lines = ["| EG | Titel | Hinweis |", "|---|---|---|"]
-    lines += [f"| {r['eg_nummer']} | {r['titel']} | {r['hinweis']} |" for r in rows]
-    return lines
-
-
-def numbers(rows):
-    return ", ".join(str(r["eg_nummer"]) for r in rows) or "–"
-
-
-def write_overview(report, written, midword):
+def write_overview(report, written, midword, comparisons):
     counts = collections.Counter(r["kategorie"] for r in report)
     with_notes = [r for r in report if r["noten"]]
     released = [r for r in with_notes if r["melodie_laut_recherche"] != "gemeinfrei"]
@@ -296,46 +404,48 @@ def write_overview(report, written, midword):
         for name, melody in written.items()
         if any("Raster" in w for w in melody.warnings)
     )
+    agree = sum(1 for _, same, _ in comparisons if same)
+    with_melisma = [c for c in comparisons if c[2]]
     lines = [
         "# Integrierte Noten: Übersicht",
         "",
         "Automatisch erzeugt von `tool/hymn_scores/build_scores.py` – nicht von Hand ändern.",
         "",
-        f"{len(report)} Lieder des Stammteils, davon {len(with_notes)} mit Noten in der App. "
+        f"{len(report)} Lieder des Stammteils, davon {len(with_notes)} mit Noten in der App "
+        f"und {counts[1] + counts[2] + counts[3]} mit unterlegter erster Strophe. "
         f"{len(written)} Notenbilder ({metered} mit Taktstrichen, "
         f"{len(written) - metered} in freiem Rhythmus).",
         "",
-        "| Kategorie | Bedeutung | Lieder |",
+        "| Kategorie | Status | Lieder |",
         "|---|---|---|",
     ]
     lines += [f"| {k} | {v} | {counts[k]} |" for k, v in CATEGORIES.items()]
     lines += [
         "",
-        "## Kategorie 2 – Silbenzuordnung nicht gesichert",
+        "Als vollständig geprüft gelten nur die Kategorien 1 und 2. Kategorie 3",
+        "ist ohne Vorlage unterlegt, weil die Zuordnung dort zwingend ist: gleich",
+        "viele Töne wie Silben, kein Melisma möglich. Melismen werden nie aus",
+        "Zahl oder Dauer der Töne erschlossen.",
         "",
-        "Die Vorlagen enthalten keinen Text. Unterlegt wird nur, wenn die Silben",
-        "den Tönen nach festen Regeln restlos zuzuordnen sind (siehe README,",
-        "Abschnitt 7). Bei diesen Liedern hat die Melodie mehr Töne als die",
-        "Strophe Silben, und wo die Melismen liegen, geht aus der Vorlage nicht",
-        "hervor. Die App zeigt die Noten und darunter den Text.",
+        "## Gegenprobe der Regel an den Quellen",
         "",
-        numbers([r for r in report if r["kategorie"] == 2]),
+        f"Für {len(comparisons)} Lieder liegen sowohl die regelbasierte Zuordnung als auch",
+        f"eine Quelle vor; in {agree} Fällen stimmen sie überein"
+        f" ({len(with_melisma)} davon mit Melismen). Abweichend: "
+        + (", ".join(f"EG {n}" for n, same, _ in comparisons if not same) or "keine")
+        + ".",
         "",
-        "## Kategorie 3 – kein Liedtext in der App",
+        "## Status je Lied",
         "",
-        numbers([r for r in report if r["kategorie"] == 3]),
-        "",
-        "## Kategorie 4 – Vorlage nicht zuverlässig verarbeitbar",
-        "",
-        *table([r for r in report if r["kategorie"] == 4]),
-        "",
-        "## Kategorie 5 – keine Vorlage",
-        "",
-        numbers([r for r in report if r["kategorie"] == 5]),
-        "",
-        "## Lieder mit Noten, bei denen eine weitere Fassung fehlt",
-        "",
-        *table([r for r in with_notes if r["hinweis"]]),
+        "| EG | Titel | Status | Quelle der Unterlegung / Hinweis |",
+        "|---|---|---|---|",
+    ]
+    lines += [
+        f"| {r['eg_nummer']} | {r['titel']} | {r['status']} | "
+        f"{r['quelle_unterlegung'] or r['hinweis']} |"
+        for r in report
+    ]
+    lines += [
         "",
         "## Vom Projektinhaber freigegeben",
         "",
@@ -343,14 +453,7 @@ def write_overview(report, written, midword):
         "ungeklärt. Die Noten sind auf Freigabe des Projektinhabers integriert,",
         "der die Rechte nach eigener Angabe geklärt hat.",
         "",
-        "| EG | Titel | Melodie laut Recherche |",
-        "|---|---|---|",
-    ]
-    lines += [
-        f"| {r['eg_nummer']} | {r['titel']} | {r['melodie_laut_recherche']} |"
-        for r in released
-    ]
-    lines += [
+        ", ".join(f"{r['eg_nummer']} ({r['melodie_laut_recherche']})" for r in released) or "–",
         "",
         "## Notenbilder mit Rasterwarnung",
         "",
