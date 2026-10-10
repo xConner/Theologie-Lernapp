@@ -7,13 +7,16 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:theologie_lernapp/models/bible/bible_reference.dart';
+import 'package:theologie_lernapp/models/hymn.dart';
 import 'package:theologie_lernapp/models/liturgical_day.dart';
 import 'package:theologie_lernapp/screens/bible/bible_reader_screen.dart';
+import 'package:theologie_lernapp/screens/hymn_detail_screen.dart';
 import 'package:theologie_lernapp/screens/liturgical_calendar_screen.dart';
 import 'package:theologie_lernapp/services/bible/bible_repository.dart';
 import 'package:theologie_lernapp/services/bible/bible_text_source.dart';
 import 'package:theologie_lernapp/services/bible/liturgical_reference_parser.dart';
 import 'package:theologie_lernapp/services/bible/pericope_headings.dart';
+import 'package:theologie_lernapp/services/hymn_reference_parser.dart';
 import 'package:theologie_lernapp/theme/app_theme.dart';
 
 import 'test_asset_bundle.dart';
@@ -68,6 +71,14 @@ List<LiturgicalDay> loadDays() {
   );
 
   return [for (final entry in data) LiturgicalDay.fromJson(entry)];
+}
+
+List<Hymn> loadHymns() {
+  final List<dynamic> data = json.decode(
+    File("assets/eg_lieder.json").readAsStringSync(),
+  );
+
+  return [for (final entry in data) Hymn.fromJson(entry)];
 }
 
 void main() {
@@ -353,6 +364,175 @@ void main() {
       expect(key("bible-passage-0"), findsOneWidget);
       expect(key("bible-passage-1"), findsOneWidget);
       expect(find.text("Psalm 139,13-16.23-24"), findsOneWidget);
+    });
+  });
+
+  group("Liedangaben des Kalenders", () {
+    test("Nummer im Gesangbuch", () {
+      expect(
+        HymnReferenceParser.parse("EG 200: Ich bin getauft auf deinen Namen"),
+        [200],
+      );
+    });
+
+    test("zwei Nummern für dasselbe Lied", () {
+      expect(HymnReferenceParser.parse("EG 262/263: Sonne der Gerechtigkeit"), [
+        262,
+        263,
+      ]);
+    });
+
+    test("Ergänzungsheft und Angaben ohne Nummer: kein Lied", () {
+      for (final input in [
+        "EG.E 10: Ich sage Ja zu dem, der mich erschuf",
+        "Sonne der Gerechtigkeit",
+        "EG: Sonne der Gerechtigkeit",
+        "Psalm 200: Lobgesang",
+        "",
+      ]) {
+        expect(HymnReferenceParser.parse(input), isEmpty, reason: input);
+      }
+    });
+
+    test("jede Liedangabe des Kalenders nennt EG oder EG.E; jede EG-Nummer "
+        "steht im Gesangbuch", () {
+      final ids = {for (final hymn in loadHymns()) hymn.id};
+
+      // Die Nummer ist die ID – sie muss eindeutig sein.
+      expect(ids, hasLength(loadHymns().length));
+
+      int linked = 0;
+
+      for (final day in loadDays()) {
+        for (final song in day.songs) {
+          final numbers = HymnReferenceParser.parse(song);
+
+          if (song.startsWith("EG.E ")) {
+            expect(numbers, isEmpty, reason: song);
+            continue;
+          }
+
+          expect(numbers, isNotEmpty, reason: song);
+
+          for (final number in numbers) {
+            expect(ids, contains(number), reason: song);
+            linked++;
+          }
+        }
+      }
+
+      expect(linked, greaterThan(0));
+    });
+  });
+
+  group("Kalender öffnet das Gesangbuch", () {
+    final hymns = loadHymns();
+
+    final day = LiturgicalDay(
+      date: DateTime(2026, 7, 12),
+      title: "6. Sonntag nach Trinitatis",
+      type: "sonntag",
+      color: "grün",
+      spruch: const BibleVerse(
+        text: "Fürchte dich nicht.",
+        reference: "Jesaja 43,1",
+      ),
+      psalm: "Psalm 139,1-12",
+      songs: const [
+        "EG 200: Ich bin getauft auf deinen Namen",
+        "EG.E 10: Ich sage Ja zu dem, der mich erschuf",
+        "EG 262/263: Sonne der Gerechtigkeit",
+        "EG 9999: Gibt es nicht",
+      ],
+      readings: const Readings(
+        oldTestament: "Jesaja 43,1-7",
+        epistle: "Römer 6,3-8 (9-11)",
+        hallelujah: null,
+        gospel: "Matthäus 28,16-20",
+        sermon: "Psalm 50,1-6.14-15.23",
+      ),
+    );
+
+    setUp(() {
+      SharedPreferences.setMockInitialValues({});
+    });
+
+    Future<void> pumpCalendar(
+      WidgetTester tester, {
+      Future<List<Hymn>> Function()? load,
+    }) async {
+      tester.view.physicalSize = const Size(420, 1600);
+      tester.view.devicePixelRatio = 1;
+      addTearDown(tester.view.reset);
+
+      await tester.pumpWidget(
+        MaterialApp(
+          theme: AppTheme.light,
+          home: LiturgicalCalendarScreen(
+            loadDays: () async => [day],
+            loadHymns: load ?? () async => hymns,
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+    }
+
+    testWidgets("nur Lieder des Gesangbuchs sind antippbar", (tester) async {
+      await pumpCalendar(tester);
+
+      for (final number in [200, 262, 263]) {
+        expect(key("calendar-hymn-$number"), findsOneWidget);
+      }
+
+      expect(key("calendar-hymn-10"), findsNothing);
+      expect(key("calendar-hymn-9999"), findsNothing);
+
+      // Unverlinkte Angaben bleiben als Text stehen.
+      expect(
+        find.text("EG.E 10: Ich sage Ja zu dem, der mich erschuf"),
+        findsOneWidget,
+      );
+      expect(find.text("EG 9999: Gibt es nicht"), findsOneWidget);
+      expect(find.text("EG 262: Sonne der Gerechtigkeit"), findsOneWidget);
+      expect(find.text("EG 263: Sonne der Gerechtigkeit"), findsOneWidget);
+    });
+
+    testWidgets("Antippen öffnet die Liedansicht des genannten Liedes", (
+      tester,
+    ) async {
+      await pumpCalendar(tester);
+
+      await tester.tap(key("calendar-hymn-200"));
+      await tester.pumpAndSettle();
+
+      HymnDetailScreen shown() =>
+          tester.widget<HymnDetailScreen>(find.byType(HymnDetailScreen));
+
+      // Dasselbe Lied wie im Gesangbuch, kein eigener Datensatz.
+      expect(shown().hymn, same(hymns.firstWhere((hymn) => hymn.id == 200)));
+      expect(find.text("EG 200"), findsOneWidget);
+
+      // Zurück im Kalender ist das nächste Lied erreichbar.
+      await tester.pageBack();
+      await tester.pumpAndSettle();
+
+      await tester.tap(key("calendar-hymn-263"));
+      await tester.pumpAndSettle();
+
+      expect(shown().hymn.id, 263);
+    });
+
+    testWidgets("ohne Gesangbuch bleiben die Lieder Text, die Bibelstellen "
+        "antippbar", (tester) async {
+      await pumpCalendar(tester, load: () async => throw Exception("fehlt"));
+
+      expect(tester.takeException(), isNull);
+      expect(key("calendar-hymn-200"), findsNothing);
+      expect(
+        find.text("EG 200: Ich bin getauft auf deinen Namen"),
+        findsOneWidget,
+      );
+      expect(key("calendar-reference-gospel"), findsOneWidget);
     });
   });
 }

@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
 
+import '../models/hymn.dart';
 import '../models/liturgical_event.dart';
 import '../models/liturgical_day.dart';
 import '../services/bible/bible_repository.dart';
 import '../services/bible/liturgical_reference_parser.dart';
 import '../services/bible/pericope_headings.dart';
+import '../services/hymn_reference_parser.dart';
+import '../services/hymn_service.dart';
 import '../services/liturgical_calendar_loader.dart';
 import '../theme/app_theme.dart';
 import '../widgets/settings_access.dart';
 import '../info/app_info.dart';
 import '../widgets/info_report.dart';
 import 'bible/bible_reader_screen.dart';
+import 'hymn_detail_screen.dart';
 
 class LiturgicalCalendarScreen extends StatefulWidget {
   // Nur für Tests ersetzbar; standardmäßig die ausgelieferten Daten.
@@ -20,11 +24,15 @@ class LiturgicalCalendarScreen extends StatefulWidget {
 
   final PericopeHeadings? pericopeHeadings;
 
+  // Nur für Tests ersetzbar; standardmäßig das ausgelieferte Gesangbuch.
+  final Future<List<Hymn>> Function()? loadHymns;
+
   const LiturgicalCalendarScreen({
     super.key,
     this.loadDays,
     this.bibleRepository,
     this.pericopeHeadings,
+    this.loadHymns,
   });
 
   @override
@@ -41,10 +49,29 @@ class _LiturgicalCalendarScreenState extends State<LiturgicalCalendarScreen> {
 
   String? selectedVariant;
 
+  /// Die Lieder des Gesangbuchs nach Nummer; leer, solange sie nicht geladen
+  /// sind.
+  Map<int, Hymn> hymns = {};
+
   @override
   void initState() {
     super.initState();
     _load();
+    _loadHymns();
+  }
+
+  Future<void> _loadHymns() async {
+    try {
+      final data = await (widget.loadHymns ?? HymnService().loadHymns)();
+
+      if (!mounted) return;
+
+      setState(() {
+        hymns = {for (final hymn in data) hymn.id: hymn};
+      });
+    } catch (e) {
+      // Ohne Gesangbuch bleiben die Lieder schlichter Text.
+    }
   }
 
   Future<void> _load() async {
@@ -343,7 +370,7 @@ class _LiturgicalCalendarScreenState extends State<LiturgicalCalendarScreen> {
 
                 _section("Psalm", null, reference: day.psalm, id: "psalm"),
 
-                _section("Lieder", day.songs.join("\n")),
+                _songsSection(day.songs),
 
                 Card(
                   child: Padding(
@@ -452,6 +479,84 @@ class _LiturgicalCalendarScreenState extends State<LiturgicalCalendarScreen> {
               message: "Im Bibel-Reader öffnen",
               child: Icon(Icons.menu_book_outlined, size: 18, color: color),
             ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _openHymn(Hymn hymn) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => HymnDetailScreen(hymn: hymn)),
+    );
+  }
+
+  /// Eine Liedangabe; steht das Lied im Gesangbuch, führt Antippen in die
+  /// Liedansicht. Nennt die Angabe mehrere Nummern, bekommt jede eine Zeile.
+  List<Widget> _song(String song) {
+    const style = TextStyle(fontSize: 16);
+
+    final numbers = HymnReferenceParser.parse(song);
+
+    if (numbers.isEmpty || numbers.any((n) => !hymns.containsKey(n))) {
+      return [Text(song, style: style)];
+    }
+
+    final color = Theme.of(context).colorScheme.primary;
+    final title = song.substring(song.indexOf(":") + 1).trim();
+
+    return [
+      for (final number in numbers)
+        InkWell(
+          key: ValueKey("calendar-hymn-$number"),
+          onTap: () => _openHymn(hymns[number]!),
+          borderRadius: BorderRadius.circular(6),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 4),
+            child: Row(
+              children: [
+                Flexible(
+                  child: Text(
+                    numbers.length == 1 ? song : "EG $number: $title",
+                    style: style.copyWith(color: color),
+                  ),
+                ),
+                const SizedBox(width: 6),
+                Tooltip(
+                  message: "Im Gesangbuch öffnen",
+                  child: Icon(
+                    Icons.music_note_outlined,
+                    size: 18,
+                    color: color,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+    ];
+  }
+
+  Widget _songsSection(List<String> songs) {
+    return Card(
+      margin: const EdgeInsets.only(bottom: 1),
+
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+
+          children: [
+            const Text(
+              "Lieder",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+
+            const SizedBox(height: 12),
+
+            for (final song in songs) ..._song(song),
           ],
         ),
       ),
