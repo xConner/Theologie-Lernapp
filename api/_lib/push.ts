@@ -37,29 +37,62 @@ function app() {
 
     if (existing) return existing;
 
-    const raw = env('FIREBASE_SERVICE_ACCOUNT');
+    return initializeApp({
+        credential: cert(
+            parseServiceAccount(env('FIREBASE_SERVICE_ACCOUNT')),
+        ),
+    });
+}
 
-    let account: Record<string, string>;
+export type ServiceAccount = {
+    projectId: string;
+    clientEmail: string;
+    privateKey: string;
+};
+
+/**
+ * Liest das Dienstkonto aus dem Wert der Umgebungsvariable: JSON, roh oder
+ * Base64. Fehlermeldungen nennen nur, was fehlt – nie den Inhalt.
+ */
+export function parseServiceAccount(raw: string): ServiceAccount {
+    let text = raw.trim();
+
+    // Versehentlich mit umschließenden Anführungszeichen eingetragen.
+    if (/^(['"]).*\1$/s.test(text)) text = text.slice(1, -1).trim();
+
+    if (!text.startsWith('{')) {
+        text = Buffer.from(text, 'base64').toString('utf8').trim();
+    }
+
+    let account: Record<string, unknown>;
 
     try {
-        account = JSON.parse(
-            raw.startsWith('{')
-                ? raw
-                : Buffer.from(raw, 'base64').toString('utf8'),
-        );
+        account = JSON.parse(text);
     } catch {
         throw new NotConfiguredError(
             'FIREBASE_SERVICE_ACCOUNT ist kein gültiges JSON.',
         );
     }
 
-    return initializeApp({
-        credential: cert({
-            projectId: account.project_id,
-            clientEmail: account.client_email,
-            privateKey: account.private_key,
-        }),
-    });
+    const field = (name: string): string => {
+        const value = account?.[name];
+
+        if (typeof value !== 'string' || value.trim() === '') {
+            throw new NotConfiguredError(
+                `FIREBASE_SERVICE_ACCOUNT: Feld "${name}" fehlt.`,
+            );
+        }
+
+        return value;
+    };
+
+    return {
+        projectId: field('project_id'),
+        clientEmail: field('client_email'),
+        // Zeilenumbrüche des Schlüssels können beim Eintragen als die zwei
+        // Zeichen "\n" erhalten geblieben sein.
+        privateKey: field('private_key').replace(/\\n/g, '\n'),
+    };
 }
 
 export function firestore(): Firestore {
@@ -110,8 +143,10 @@ const TTL_SECONDS = 4 * 60 * 60;
  * Abgelaufene oder widerrufene Abonnements (404/410) werden gelöscht.
  */
 export async function sendToUser(
-    user: DocumentReference,
+    user: Pick<DocumentReference, 'collection'>,
     message: PushMessage,
+    // Nur für Tests ersetzbar.
+    send: typeof sendNotification = sendNotification,
 ): Promise<SendResult> {
     const vapidDetails = {
         subject: process.env.WEB_PUSH_SUBJECT?.trim() || 'https://www.theologie.app',
@@ -145,7 +180,7 @@ export async function sendToUser(
             }
 
             try {
-                await sendNotification(
+                await send(
                     { endpoint, keys: { p256dh: keys.p256dh, auth: keys.auth } },
                     payload,
                     { vapidDetails, TTL: TTL_SECONDS, timeout: 8000 },
@@ -159,7 +194,10 @@ export async function sendToUser(
                     result.removed++;
                 } else {
                     // Keine Adresse und keine Schlüssel ins Protokoll.
-                    console.error(`Push fehlgeschlagen (Status ${status}).`);
+                    console.error(
+                        `[push] Zustellung fehlgeschlagen (Status ${status}, ` +
+                            `${new URL(endpoint).hostname}).`,
+                    );
                     result.failed++;
                 }
             }
