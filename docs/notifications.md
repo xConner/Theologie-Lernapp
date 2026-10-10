@@ -216,6 +216,11 @@ eingerichtet wird; alles andere funktioniert unverändert.
 6. Neu ausliefern, in der App Push einschalten und
    „Testbenachrichtigung senden“ antippen.
 
+Die Funktionen brauchen Node 22 oder neuer (`firebase-admin`); das legt
+`engines.node` in `package.json` für Vercel fest. Scheitert ein Endpunkt,
+nennt seine Antwort den Schritt (`stage`) und eine Fehlerkennung (`code`),
+die Einzelheiten stehen im Vercel-Protokoll.
+
 GitHub startet geplante Läufe oft einige Minuten verspätet und pausiert sie
 in Repositories ohne Aktivität nach 60 Tagen (dann unter „Actions“ wieder
 einschalten). Im Pro-Tarif von Vercel kann stattdessen ein Cron in
