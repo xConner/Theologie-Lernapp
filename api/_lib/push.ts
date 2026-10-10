@@ -102,6 +102,12 @@ export function parseServiceAccount(raw: string): ServiceAccount {
         text = Buffer.from(text, 'base64').toString('utf8').trim();
     }
 
+    // Versehentlich zweimal hintereinander eingefügt: Sind beide Hälften
+    // gleich, gilt eine davon.
+    const half = text.slice(0, Math.floor(text.length / 2)).trim();
+
+    if (half !== '' && text.slice(half.length).trim() === half) text = half;
+
     let account: Record<string, unknown>;
 
     try {
@@ -116,9 +122,8 @@ export function parseServiceAccount(raw: string): ServiceAccount {
                 `Länge ${text.length}`,
                 text.startsWith('{') ? 'beginnt mit {' : 'beginnt nicht mit {',
                 text.endsWith('}') ? 'endet mit }' : 'endet nicht mit }',
-                text.includes('"private_key"')
-                    ? 'enthält "private_key"'
-                    : 'enthält kein "private_key"',
+                `"private_key" ${text.split('"private_key"').length - 1}-mal`,
+                `${text.split('\n').length} Zeilen`,
             ].join(', ');
 
             throw new NotConfiguredError(

@@ -330,6 +330,10 @@ test('Dienstkonto: JSON, Base64, Anführungszeichen und \\n im Schlüssel', () =
     assert.deepEqual(push.parseServiceAccount(pretty.replaceAll('\\n', '\n')), expected);
     assert.deepEqual(push.parseServiceAccount(pretty.replaceAll('\\n', '\r\n')), expected);
 
+    // Versehentlich zweimal eingefügt.
+    assert.deepEqual(push.parseServiceAccount(json + json), expected);
+    assert.deepEqual(push.parseServiceAccount(`${pretty}\n${pretty}`), expected);
+
     // Doppelt maskierte Zeilenumbrüche werden zu echten.
     assert.deepEqual(
         push.parseServiceAccount(
