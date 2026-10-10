@@ -75,6 +75,31 @@ void main() {
     }
   });
 
+  test("Noten in den Lieddaten stammen nur aus nutzbar geführten Vorlagen", () {
+    for (var i = 0; i < hymns.length; i++) {
+      final scores = hymns[i]["scores"] as List<dynamic>? ?? const [];
+      if (scores.isEmpty) continue;
+
+      final row = inventory[i];
+      final reason = "EG ${row["eg_nummer"]}";
+      expect(row["melodie_status"], "gemeinfrei", reason: reason);
+
+      final files = {
+        for (final file in row["commons_dateien"] as List<dynamic>)
+          file["datei"]: file,
+      };
+      for (final score in scores) {
+        final source = score["source"] as Map<String, dynamic>;
+        final file = files[source["file"]];
+        // Datei, Prüfsumme und Lizenz wie in der Recherche festgehalten.
+        expect(file, isNotNull, reason: reason);
+        expect(source["sha1"], file["sha1"], reason: reason);
+        expect(source["license"], file["lizenz"], reason: reason);
+        expect(source["match"], file["zuordnung"], reason: reason);
+      }
+    }
+  });
+
   test("geschützte oder ungeklärte Melodien sind nie als nutzbar geführt", () {
     for (final row in inventory) {
       if (row["melodie_status"] == "gemeinfrei") continue;

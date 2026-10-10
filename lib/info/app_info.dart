@@ -329,7 +329,9 @@ class AppModules {
     title: "Evangelisches Gesangbuch",
     description:
         "Lieder nach den Nummern des Evangelischen Gesangbuchs (EG) mit "
-        "Suche nach Nummer, Titel, Verfasser, Schlagwort und Bibelstelle.",
+        "Suche nach Nummer, Titel, Verfasser, Schlagwort und Bibelstelle. "
+        "Im Lied lässt sich zwischen „Nur Text“ und „Text und Noten“ "
+        "umschalten, soweit Noten vorhanden sind.",
     sources: [
       SourceInfo(
         title: "Liedtexte, Text- und Melodieangaben",
@@ -340,8 +342,20 @@ class AppModules {
             "Datensatz übernommen wurden, ist im Projekt nicht dokumentiert.",
       ),
       SourceInfo(title: "Schlagworte, Bibelstellen und Erklärungen"),
+      SourceInfo(
+        title: "Noten",
+        origin:
+            "Melodien nach den Tonsätzen von Peter Gerloff auf Wikimedia "
+            "Commons (Kategorie „Melodies from Evangelisches Gesangbuch“), "
+            "überwiegend unter CC0. Vorlage und Lizenz stehen unter jedem "
+            "Notenbild.",
+      ),
     ],
     notes: [
+      "Noten gibt es bisher nur für einen Teil der Lieder. Sie zeigen die "
+          "Melodie der ersten Strophe ohne Text, wurden automatisch aus den "
+          "Vorlagen erzeugt und nicht einzeln Korrektur gelesen; Tonart und "
+          "Notenwerte können von der Fassung im Gesangbuch abweichen.",
       "Bei einem Teil der Lieder wird der Text aus urheberrechtlichen "
           "Gründen nicht angezeigt.",
       "Erklärungen, Schlagworte und Bibelstellen sind nicht bei allen "

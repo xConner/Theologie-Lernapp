@@ -1,19 +1,18 @@
-# Noten zum Evangelischen Gesangbuch: Bestandsaufnahme und Plan
+# Noten zum Evangelischen Gesangbuch
 
-Stand: 10. Oktober 2026. **Keine Rechtsberatung.** Die Einstufungen sind eine
-automatische Vorprüfung nach den unten genannten Regeln; vor der Übernahme von
-Noten muss jedes Lied von einem Menschen gegengelesen werden. In diesem Schritt
-wurden **keine Notendateien** ins Repository übernommen und keine produktiven
-Daten geändert.
+Stand: 10. Oktober 2026. **Keine Rechtsberatung.** Die Einstufungen der
+Recherche (Abschnitte 1–6) sind eine automatische Vorprüfung nach den unten
+genannten Regeln. Abschnitt 7 beschreibt, was davon in der App umgesetzt ist.
 
 | Datei | Inhalt |
 |---|---|
+| [`integration.md`](integration.md) / [`.json`](integration.json) | je Lied: Noten in der App oder Grund, warum nicht (erzeugt) |
 | [`eg_noten_inventar.csv`](eg_noten_inventar.csv) / [`.json`](eg_noten_inventar.json) | je Lied: Angaben, Rechtsstatus, beste Quelle, Fundstelle, Lizenz, Empfehlung |
 | [`auswertung.md`](auswertung.md) | Zahlen und Listen aus dem Inventar (erzeugt) |
 | [`quellen_snapshot.json`](quellen_snapshot.json) | Stand der Quellen: Versionskennungen, Prüfsummen, Lizenzangaben, Lebensdaten |
 | [`tool/hymn_scores/`](../../tool/hymn_scores/README.md) | Skripte, mit denen alles erzeugt wurde |
 
-## 1. Ausgangslage in der App
+## 1. Ausgangslage in der App (vor der Umsetzung)
 
 - **Daten:** eine Datei, `assets/eg_lieder.json`, 535 Einträge. Sie decken den
   Stammteil lückenlos ab (EG 1–535); Regionalteile fehlen.
@@ -232,3 +231,47 @@ vierstimmige Sätze aus fremden Beständen übernommen werden sollen.
 
 Notenunterlegung mit Text ist nur bei Liedern sinnvoll, deren Text ebenfalls
 gemeinfrei ist (Kategorie 1: 339 Lieder); sonst die Melodie ohne Text zeigen.
+
+## 7. Umsetzung in der App
+
+Integriert sind die Lieder, die das Inventar als „frei integrierbar“ oder
+„unter Bedingungen nutzbar“ führt und für die eine Commons-Vorlage vorliegt.
+Lieder mit geschützter oder ungeklärter Melodie bleiben ohne Noten, auch wenn
+es eine Datei gäbe. Die Zahlen stehen in [`integration.md`](integration.md).
+
+**Vom MIDI zum Notenbild** (`tool/hymn_scores/build_scores.py`):
+
+1. `fetch_midi.py` lädt die Vorlagen nach `build/hymn_scores/midi/` und
+   verwirft Dateien, deren Prüfsumme nicht zum Quellen-Schnappschuss passt.
+2. `melody.py` zieht die Melodie der ersten Strophe heraus. Die Vorlagen sind
+   mehrstrophige vierstimmige Sätze; genommen wird die Oberstimme bis zu der
+   Stelle, an der die Melodie neu ansetzt. Die Silbenzahl der ersten
+   Textstrophe grenzt die Suche ein. Was sich nicht sicher abgrenzen lässt
+   (Vorspiele, Oberstimmen, Wechselgesänge), wird nicht integriert.
+3. `engrave.py` setzt die Melodie mit [Verovio](https://www.verovio.org/)
+   als SVG: einstimmig, ohne Text, schmal umbrochen. Taktstriche stehen nur,
+   wo die Vorlage eine Taktart nennt und die Töne restlos in Takte passen;
+   sonst freier Rhythmus wie bei vielen Chorälen im Gesangbuch.
+4. Je Vorlage entsteht ein Bild unter `assets/hymn_scores/`; Lieder mit
+   derselben Melodie teilen es sich.
+
+**Daten:** Jedes Lied in `assets/eg_lieder.json` kann ein Feld `scores`
+tragen – eine Liste aus `id` (Kennung der Melodie), `asset`, `format`,
+`kind`, `label` und `source` (Datei, Adresse, Urheber, Lizenz, Prüfsumme und
+Art der Zuordnung). Lieder ohne das Feld haben keine Noten. Alle übrigen
+Felder schreibt das Skript unverändert zurück.
+
+**App:** `HymnDetailScreen` zeigt bei Liedern mit Noten die Umschaltung
+„Nur Text“ / „Text und Noten“; die Wahl liegt in den `SharedPreferences`
+(`HymnSettings`). `HymnScoreView` zeichnet die Bilder mit `flutter_svg` in
+der Textfarbe des Themes, nennt darunter Vorlage und Lizenz und öffnet auf
+Tipp eine vergrößerbare Ansicht.
+
+**Grenzen:** Die Noten sind automatisch erzeugt und nicht einzeln Korrektur
+gelesen. Tonart und Notenwerte folgen der Vorlage, nicht dem Gesangbuch;
+Atemzeichen und Fermaten fehlen, Schlusstöne sind auf einen einfachen
+Notenwert gekürzt. Fehler bitte über die Meldefunktion im Lied melden.
+
+**Offen:** die Lieder der Kategorien 2, 3 und 5 in `integration.md`, die
+65 Lieder mit gemeinfreier Melodie ohne Vorlage (Abschnitt 6, Stufe 3) und
+Textunterlegung.

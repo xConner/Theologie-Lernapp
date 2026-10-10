@@ -1,3 +1,4 @@
+import 'hymn_score.dart';
 import 'lyric.dart';
 
 class Hymn {
@@ -10,6 +11,9 @@ class Hymn {
   final List<String> bibleReferences;
   final String explanation;
 
+  /// Notenbilder zum Lied; leer, wenn (noch) keine hinterlegt sind.
+  final List<HymnScore> scores;
+
   Hymn({
     required this.id,
     required this.title,
@@ -19,6 +23,7 @@ class Hymn {
     required this.tags,
     required this.bibleReferences,
     required this.explanation,
+    this.scores = const [],
   });
 
   factory Hymn.fromJson(Map<String, dynamic> json) {
@@ -41,6 +46,8 @@ class Hymn {
       bibleReferences: List<String>.from(json['bibleReferences'] ?? []),
 
       explanation: json['explanation'] ?? '',
+
+      scores: HymnScore.listFromJson(json['scores']),
     );
   }
 }

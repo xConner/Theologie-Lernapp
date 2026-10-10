@@ -49,6 +49,7 @@ dependencies:
   record: ^7.1.1
   sherpa_onnx: ^1.13.8
   path_provider: ^2.1.6
+  flutter_svg: ^2.3.0
 
 dev_dependencies:
   flutter_test:
@@ -83,6 +84,9 @@ flutter:
       - assets/greek_pronoun_forms.json
       - assets/latin_vocabulary.json
       - assets/eg_lieder.json
+      # Notenbilder zum Gesangbuch, erzeugt von tool/hymn_scores
+      # (siehe docs/hymn-scores/README.md).
+      - assets/hymn_scores/
       - assets/confessions.json
       - assets/prayers.json
       # Bibeltexte des Readers: je Ausgabe ein Verzeichnis, erzeugt von

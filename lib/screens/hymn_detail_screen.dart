@@ -1,14 +1,42 @@
 import 'package:flutter/material.dart';
 
 import '../models/hymn.dart';
+import '../services/hymn_settings.dart';
+import '../widgets/hymn_score_view.dart';
 import '../widgets/settings_access.dart';
 import '../info/app_info.dart';
 import '../widgets/info_report.dart';
 
-class HymnDetailScreen extends StatelessWidget {
+class HymnDetailScreen extends StatefulWidget {
   final Hymn hymn;
 
   const HymnDetailScreen({super.key, required this.hymn});
+
+  @override
+  State<HymnDetailScreen> createState() => _HymnDetailScreenState();
+}
+
+class _HymnDetailScreenState extends State<HymnDetailScreen> {
+  HymnSettings? settings;
+
+  Hymn get hymn => widget.hymn;
+
+  bool get showScores => settings?.showScores ?? false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    HymnSettings.load().then((loaded) {
+      if (mounted) setState(() => settings = loaded);
+    });
+  }
+
+  void setShowScores(bool value) {
+    setState(() => settings?.showScores = value);
+
+    settings?.saveShowScores(value);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +92,44 @@ class HymnDetailScreen extends StatelessWidget {
               children: hymn.tags.map((tag) => Chip(label: Text(tag))).toList(),
             ),
 
+            // Die Umschaltung erscheint nur, wenn es Noten zu zeigen gibt.
+            if (hymn.scores.isNotEmpty) ...[
+              const SizedBox(height: 16),
+
+              SegmentedButton<bool>(
+                key: const Key("hymn_view_mode"),
+                showSelectedIcon: false,
+                style: const ButtonStyle(visualDensity: VisualDensity.compact),
+                segments: const [
+                  ButtonSegment(
+                    value: false,
+                    icon: Icon(Icons.notes_rounded),
+                    label: Text("Nur Text"),
+                  ),
+                  ButtonSegment(
+                    value: true,
+                    icon: Icon(Icons.music_note_rounded),
+                    label: Text("Text und Noten"),
+                  ),
+                ],
+                selected: {showScores},
+                onSelectionChanged: settings == null
+                    ? null
+                    : (selection) => setShowScores(selection.first),
+              ),
+            ],
+
             const Divider(height: 32),
+
+            if (showScores && hymn.scores.isNotEmpty) ...[
+              HymnScoreView(
+                // Je Lied ein eigener Zustand: nie die Noten des vorigen.
+                key: ValueKey("hymn_scores_${hymn.id}"),
+                scores: hymn.scores,
+              ),
+
+              const SizedBox(height: 8),
+            ],
 
             if (hymn.lyrics.isEmpty)
               Text(
