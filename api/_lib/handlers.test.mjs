@@ -323,6 +323,13 @@ test('Dienstkonto: JSON, Base64, Anführungszeichen und \\n im Schlüssel', () =
         expected,
     );
 
+    // Beim Eintragen zu echten Zeilenumbrüchen gewordene "\n" des Schlüssels
+    // (damit kein gültiges JSON mehr), auch mit Windows-Zeilenenden.
+    const pretty = JSON.stringify(account, null, 2);
+
+    assert.deepEqual(push.parseServiceAccount(pretty.replaceAll('\\n', '\n')), expected);
+    assert.deepEqual(push.parseServiceAccount(pretty.replaceAll('\\n', '\r\n')), expected);
+
     // Doppelt maskierte Zeilenumbrüche werden zu echten.
     assert.deepEqual(
         push.parseServiceAccount(

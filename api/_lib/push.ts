@@ -48,6 +48,40 @@ export function projectId(): string {
     return serviceAccount().projectId;
 }
 
+/**
+ * Ersetzt echte Zeilenumbrüche und Tabulatoren innerhalb von Zeichenketten
+ * durch ihre JSON-Schreibweise. Beim Eintragen der Dienstkonto-Datei werden
+ * die `\n` des privaten Schlüssels leicht zu echten Zeilenumbrüchen – dann
+ * ist der Wert kein gültiges JSON mehr.
+ */
+function escapeLineBreaks(json: string): string {
+    let result = '';
+    let inString = false;
+    let escaped = false;
+
+    for (const char of json) {
+        if (inString && !escaped && char === '\n') {
+            result += '\\n';
+        } else if (inString && !escaped && char === '\r') {
+            // Entfällt: Teil eines Windows-Zeilenumbruchs.
+        } else if (inString && !escaped && char === '\t') {
+            result += '\\t';
+        } else {
+            result += char;
+        }
+
+        if (escaped) {
+            escaped = false;
+        } else if (char === '\\') {
+            escaped = inString;
+        } else if (char === '"') {
+            inString = !inString;
+        }
+    }
+
+    return result;
+}
+
 export type ServiceAccount = {
     projectId: string;
     clientEmail: string;
@@ -73,9 +107,24 @@ export function parseServiceAccount(raw: string): ServiceAccount {
     try {
         account = JSON.parse(text);
     } catch {
-        throw new NotConfiguredError(
-            'FIREBASE_SERVICE_ACCOUNT ist kein gültiges JSON.',
-        );
+        try {
+            account = JSON.parse(escapeLineBreaks(text));
+        } catch {
+            // Form des Werts ohne Inhalt, damit sich der Fehler beim
+            // Eintragen erkennen lässt.
+            const shape = [
+                `Länge ${text.length}`,
+                text.startsWith('{') ? 'beginnt mit {' : 'beginnt nicht mit {',
+                text.endsWith('}') ? 'endet mit }' : 'endet nicht mit }',
+                text.includes('"private_key"')
+                    ? 'enthält "private_key"'
+                    : 'enthält kein "private_key"',
+            ].join(', ');
+
+            throw new NotConfiguredError(
+                `FIREBASE_SERVICE_ACCOUNT ist kein gültiges JSON (${shape}).`,
+            );
+        }
     }
 
     const field = (name: string): string => {
