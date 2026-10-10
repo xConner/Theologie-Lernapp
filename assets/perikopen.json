@@ -6,7 +6,7 @@
         "startChapter": 1,
         "startVerse": 1,
         "endChapter": 2,
-        "endVerse": 4,
+        "endVerse": 3,
         "required": true,
         "precision": "chapter"
     },
@@ -4901,18 +4901,7 @@
         "startChapter": 1,
         "startVerse": 1,
         "endChapter": 1,
-        "endVerse": 25,
-        "required": true,
-        "precision": "chapter"
-    },
-    {
-        "id": "1sam_1",
-        "title": "1Sam 1",
-        "book": "1Sam",
-        "startChapter": 1,
-        "startVerse": 1,
-        "endChapter": 1,
-        "endVerse": 12,
+        "endVerse": 28,
         "required": true,
         "precision": "chapter"
     },
@@ -5363,7 +5352,7 @@
         "startChapter": 2,
         "startVerse": 1,
         "endChapter": 2,
-        "endVerse": 33,
+        "endVerse": 32,
         "required": true,
         "precision": "chapter"
     },
@@ -6364,7 +6353,7 @@
         "startChapter": 2,
         "startVerse": 1,
         "endChapter": 2,
-        "endVerse": 20,
+        "endVerse": 25,
         "required": true,
         "precision": "chapter"
     },
@@ -7827,40 +7816,7 @@
         "startChapter": 2,
         "startVerse": 1,
         "endChapter": 2,
-        "endVerse": 16,
-        "required": true,
-        "precision": "chapter"
-    },
-    {
-        "id": "2chr_2",
-        "title": "2Chr 2",
-        "book": "2Chr",
-        "startChapter": 2,
-        "startVerse": 1,
-        "endChapter": 2,
         "endVerse": 17,
-        "required": true,
-        "precision": "chapter"
-    },
-    {
-        "id": "2chr_2",
-        "title": "2Chr 2",
-        "book": "2Chr",
-        "startChapter": 2,
-        "startVerse": 1,
-        "endChapter": 2,
-        "endVerse": 21,
-        "required": true,
-        "precision": "chapter"
-    },
-    {
-        "id": "2chr_2",
-        "title": "2Chr 2",
-        "book": "2Chr",
-        "startChapter": 2,
-        "startVerse": 1,
-        "endChapter": 2,
-        "endVerse": 22,
         "required": true,
         "precision": "chapter"
     },
@@ -10720,7 +10676,7 @@
         "startChapter": 55,
         "startVerse": 1,
         "endChapter": 55,
-        "endVerse": 23,
+        "endVerse": 24,
         "required": true,
         "precision": "chapter"
     },
@@ -17259,17 +17215,6 @@
         "precision": "chapter"
     },
     {
-        "id": "die_beugung_des_rechts",
-        "title": "Die Beugung des Rechts",
-        "book": "Am",
-        "startChapter": 1,
-        "startVerse": 10,
-        "endChapter": 1,
-        "endVerse": 15,
-        "required": true,
-        "precision": "chapter"
-    },
-    {
         "id": "ueber_juda_und_israel",
         "title": "Über Juda und Israel",
         "book": "Am",
@@ -17332,6 +17277,17 @@
         "startVerse": 4,
         "endChapter": 5,
         "endVerse": 9,
+        "required": true,
+        "precision": "chapter"
+    },
+    {
+        "id": "die_beugung_des_rechts",
+        "title": "Die Beugung des Rechts",
+        "book": "Am",
+        "startChapter": 5,
+        "startVerse": 10,
+        "endChapter": 5,
+        "endVerse": 15,
         "required": true,
         "precision": "chapter"
     },
@@ -24822,7 +24778,7 @@
         "startChapter": 1,
         "startVerse": 1,
         "endChapter": 1,
-        "endVerse": 13,
+        "endVerse": 31,
         "required": true,
         "precision": "chapter"
     },

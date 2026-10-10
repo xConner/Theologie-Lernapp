@@ -114,11 +114,26 @@ fest, wie:
 | `lxx` | `grcbrent` | Psalmenzählung der Septuaginta, abweichende Kapitelfolge, Daniel und Ester nur in griechischer Fassung |
 | `vulgate` | `latVUC` | Psalmenzählung der Septuaginta |
 
-Die Perikopenliste (`assets/perikopen.json`) folgt der deutschen Zählung. Der
-Reader rechnet nicht um: Er hebt die angegebenen Verse hervor und weist im
-Alten Testament darauf hin, wenn die gewählte Ausgabe anders zählt oder die
-Stelle dort nicht existiert. Im Neuen Testament sind die Abweichungen
-vernachlässigbar.
+Die Perikopenliste (`assets/perikopen.json`) folgt der deutschen Zählung
+(Einteilung und Titel nach der Einheitsübersetzung; sie führt deshalb auch
+die Zusätze zu Daniel und Ester und zählt Num 25,19, wo die integrierten
+deutschen Ausgaben 26,1 schreiben).
+
+Für englisch gezählte Ausgaben überträgt der Reader Stellen und
+Perikopenüberschriften außerhalb der Psalmen (`ListVersification` in
+`lib/services/bible/versification_map.dart`): Dort liegen rund 40
+Kapitelgrenzen des Alten Testaments anders, z. B. 1. Mose 32,1 = 31,55,
+Joel 3–4 = Joel 2,28–3,21, Mal 3,19–24 = Mal 4. Jede Übertragung wird an den
+Verszahlen der Ausgabe geprüft; `test/perikopen_data_test.dart` vergleicht
+die Tabelle außerdem mit den Angaben, die die Lutherbibel 1912 selbst im Text
+führt („[32:1]“ vor dem Vers – Bestandteil des Wortlauts der Quelle, daher
+unverändert).
+
+Nicht übertragen werden die Psalmen (Überschriften zählen unterschiedlich),
+Septuaginta und Vulgata: Dort hebt der Reader die angegebenen Verse hervor,
+weist auf die abweichende Zählung hin und zeigt Perikopenüberschriften nur,
+wo Buch und Kapitel gleich gezählt sind. Im Neuen Testament sind die
+Abweichungen vernachlässigbar.
 
 ## Aktualisieren und erweitern
 

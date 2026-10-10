@@ -391,12 +391,17 @@ class AppModules {
           "Stellenangaben. Eigene Pläne lassen sich erstellen oder als "
           "JSON-Datei importieren.",
       "Die Ausgaben zählen Kapitel und Verse teilweise unterschiedlich, vor "
-          "allem im Alten Testament und in den Psalmen. Die App rechnet "
-          "Stellen nicht um; eine hervorgehobene Perikope kann deshalb in "
-          "manchen Ausgaben um einzelne Verse abweichen.",
-      "Die Perikopenüberschriften folgen der Zählung deutscher "
-          "Bibelausgaben. In Kapiteln, die eine Ausgabe anders zählt, "
-          "werden sie nicht angezeigt.",
+          "allem im Alten Testament und in den Psalmen. Perikopen und "
+          "ihre Überschriften folgen der Zählung deutscher Bibelausgaben. "
+          "In englisch gezählten Ausgaben (auch Luther 1912 und Schlachter "
+          "1951) rechnet die App verschobene Kapitelgrenzen um, z. B. "
+          "1. Mose 32,1 = 31,55.",
+      "Wo sich eine Stelle nicht sicher übertragen lässt (Psalmen, "
+          "Septuaginta, Vulgata), kann die Hervorhebung um einzelne Verse "
+          "abweichen; Perikopenüberschriften werden dort nicht angezeigt.",
+      "Die Lutherbibel 1912 nennt in ihrem Text die abweichende deutsche "
+          "Zählung in eckigen Klammern, z. B. „[32:1]“. Das gehört zum "
+          "Wortlaut der Quelle und wird nicht verändert.",
       "Nicht jede Ausgabe enthält alle Bücher: Das SBL Greek New Testament "
           "umfasst nur das Neue Testament, Apokryphen stehen nur in "
           "Septuaginta und Vulgata.",

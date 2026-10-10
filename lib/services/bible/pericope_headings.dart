@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import '../../models/bible/bible_translation.dart';
 import '../../models/greek/perikope.dart';
 import 'bible_books.dart';
+import 'versification_map.dart';
 
 /// Die Perikopenüberschriften für den Bibel-Reader.
 ///
@@ -13,8 +14,9 @@ import 'bible_books.dart';
 /// ersten Vers ihrer Stelle. Die Überschriften gehören damit zu keiner
 /// Bibelausgabe und sind in allen Ausgaben dieselben.
 ///
-/// Die Liste zählt Kapitel und Verse wie deutsche Bibelausgaben. Zählungen
-/// werden nicht umgerechnet: Wo eine Ausgabe anders zählt, entfallen die
+/// Die Liste zählt Kapitel und Verse wie deutsche Bibelausgaben. Wo eine
+/// Ausgabe anders zählt, wird der Anfangsvers übertragen, soweit das sicher
+/// möglich ist (siehe [ListVersification]); sonst entfallen die
 /// Überschriften, statt an einer falschen Stelle zu stehen (siehe
 /// [forChapter]).
 class PericopeHeadings {
@@ -28,21 +30,20 @@ class PericopeHeadings {
       "Bibelübersetzung erstellt und sind nicht Bestandteil des jeweiligen "
       "Bibeltextes.";
 
-  // Buch → Kapitel → Anfangsvers → Titel in der Reihenfolge der Liste.
-  final Map<String, Map<int, Map<int, List<String>>>> _starts;
+  // Buch → Kapitel → Anfangsvers → Perikopen in der Reihenfolge der Liste.
+  final Map<String, Map<int, Map<int, List<Perikope>>>> _starts;
 
   const PericopeHeadings._(this._starts);
 
   static const PericopeHeadings empty = PericopeHeadings._({});
 
   /// Ordnet jede Perikope ihrem Anfangsvers zu. Hat eine Perikope mehrere
-  /// Stellen, steht ihr Titel an jeder; derselbe Titel am selben Vers
-  /// erscheint nur einmal, verschiedene Titel am selben Vers bleiben alle
-  /// erhalten. Perikopen mit unbekanntem Buch werden übergangen, ebenso
-  /// Einträge, deren Titel nur die Stelle wiederholt („Ex 3“): Sie sind
-  /// Kapitelfragen des Quiz und keine Überschriften.
+  /// Stellen, steht ihr Titel an jeder. Perikopen mit unbekanntem Buch
+  /// werden übergangen, ebenso Einträge, deren Titel nur die Stelle
+  /// wiederholt („Ex 3“): Sie sind Kapitelfragen des Quiz und keine
+  /// Überschriften.
   factory PericopeHeadings.fromPerikopen(Iterable<Perikope> perikopen) {
-    final starts = <String, Map<int, Map<int, List<String>>>>{};
+    final starts = <String, Map<int, Map<int, List<Perikope>>>>{};
 
     for (final p in perikopen) {
       final book = BibleBooks.byAbbreviation(p.book);
@@ -55,13 +56,12 @@ class PericopeHeadings {
         continue;
       }
 
-      final titles = starts
+      starts
           .putIfAbsent(book.id, () => {})
           .putIfAbsent(p.startChapter, () => {})
           // Ohne Versangabe beginnt die Perikope am Kapitelanfang.
-          .putIfAbsent(p.startVerse < 1 ? 1 : p.startVerse, () => []);
-
-      if (!titles.contains(title)) titles.add(title);
+          .putIfAbsent(p.startVerse < 1 ? 1 : p.startVerse, () => [])
+          .add(p);
     }
 
     return PericopeHeadings._(starts);
@@ -95,28 +95,41 @@ class PericopeHeadings {
     return _starts[bookId]?[chapter]?.isNotEmpty ?? false;
   }
 
-  // Bücher, die eine Zählung durchgehend anders ordnet als die Liste.
-  static const Map<BibleVersification, Set<String>> _reordered = {
-    BibleVersification.lxx: {"PSA", "PRO", "JER"},
-    BibleVersification.vulgate: {"PSA"},
-  };
+  /// Ob es die Stelle von [p] in der Zählung der Liste überhaupt gibt,
+  /// gemessen an den deutsch gezählten Ausgaben [german]. Die Liste führt
+  /// auch Stellen, die nur Ausgaben mit den Zusätzen zu Daniel und Ester
+  /// kennen (z. B. Dan 3,24–50); in anderen Ausgaben steht unter derselben
+  /// Versnummer ein anderer Text.
+  static bool _exists(Perikope p, List<BibleBookInfo> german) {
+    if (german.isEmpty) return true;
 
-  /// Anfangsvers → Titel für ein Kapitel von [translation].
+    return german.any(
+      (book) =>
+          p.startVerse <= book.verseCount(p.startChapter) &&
+          p.endVerse <= book.verseCount(p.endChapter),
+    );
+  }
+
+  /// Vers → Titel für ein Kapitel von [translation]: Jede Perikope steht
+  /// an dem Vers, mit dem sie in dieser Ausgabe beginnt.
   ///
   /// Im Neuen Testament und in Ausgaben mit deutscher Zählung gelten die
-  /// Stellen der Liste unmittelbar. Sonst wird das Kapitel mit einer
-  /// deutsch gezählten Ausgabe aus [translations] verglichen: Nur wenn Buch
-  /// und Kapitel gleich viele Kapitel bzw. Verse haben, gelten die Stellen
-  /// als übertragbar. In englisch gezählten Psalmen (Überschrift in Vers 1)
-  /// bleibt wenigstens der Psalmanfang zuverlässig. Alles andere ergibt
-  /// keine Überschriften.
+  /// Stellen der Liste unmittelbar. Sonst überträgt [ListVersification]
+  /// den Anfangsvers in die Zählung der Ausgabe – eine Perikope kann dabei
+  /// in ein Nachbarkapitel fallen (1. Mose 32,1 der Liste ist in englischer
+  /// Zählung 31,55). Was sich nicht sicher übertragen lässt, ergibt keine
+  /// Überschrift, ebenso Perikopen, deren Stelle es in deutscher Zählung
+  /// nicht gibt.
+  ///
+  /// Derselbe Titel am selben Vers erscheint nur einmal, verschiedene Titel
+  /// am selben Vers bleiben alle erhalten.
   Map<int, List<String>> forChapter({
     required BibleTranslation translation,
     required List<BibleTranslation> translations,
     required String bookId,
     required int chapter,
   }) {
-    final starts = _starts[bookId]?[chapter];
+    final starts = _starts[bookId];
 
     final book = translation.book(bookId);
 
@@ -124,39 +137,39 @@ class PericopeHeadings {
       return const {};
     }
 
-    if (translation.versification == BibleVersification.german ||
-        BibleBooks.byId(bookId)?.testament == BibleTestament.newTestament) {
-      return starts;
-    }
+    final german = [
+      for (final t in translations)
+        if (t.versification == BibleVersification.german) ?t.book(bookId),
+    ];
 
-    if (_reordered[translation.versification]?.contains(bookId) ?? false) {
-      return const {};
-    }
+    final result = <int, List<String>>{};
 
-    BibleBookInfo? reference;
+    // Eine andere Zählung verschiebt höchstens ins Nachbarkapitel.
+    for (int from = chapter - 1; from <= chapter + 1; from++) {
+      for (final MapEntry(key: verse, value: perikopen)
+          in (starts[from] ?? const <int, List<Perikope>>{}).entries) {
+        final target = ListVersification.locate(
+          translation: translation,
+          translations: translations,
+          bookId: bookId,
+          chapter: from,
+          verse: verse,
+        );
 
-    for (final other in translations) {
-      if (other.versification == BibleVersification.german) {
-        reference = other.book(bookId);
+        if (target == null || target.chapter != chapter) continue;
 
-        if (reference != null) break;
+        for (final p in perikopen) {
+          if (!_exists(p, german)) continue;
+
+          final titles = result.putIfAbsent(target.verse, () => []);
+
+          final title = p.title.trim();
+
+          if (!titles.contains(title)) titles.add(title);
+        }
       }
     }
 
-    if (reference == null || reference.chapterCount != book.chapterCount) {
-      return const {};
-    }
-
-    if (reference.verseCount(chapter) == book.verseCount(chapter)) {
-      return starts;
-    }
-
-    if (translation.versification == BibleVersification.english &&
-        bookId == "PSA" &&
-        starts.containsKey(1)) {
-      return {1: starts[1]!};
-    }
-
-    return const {};
+    return result;
   }
 }

@@ -29,4 +29,29 @@ class QuizQuestion {
         .map((e) => QuizQuestion(id: e.key, variants: e.value))
         .toList();
   }
+
+  /// Die Fragen für die Buchauswahl [books]: Jede Frage behält nur ihre
+  /// Stellen aus den gewählten Büchern, Fragen ohne solche Stelle entfallen.
+  ///
+  /// Die gemeinsame ID fasst zusammengehörige Stellen (z. B. synoptische
+  /// Parallelen) zu einer Frage zusammen. Welche davon abgefragt und im
+  /// Bibel-Reader angeboten werden, bestimmt allein diese Auswahl.
+  static List<QuizQuestion> forBooks(
+    List<QuizQuestion> questions,
+    Set<String> books,
+  ) {
+    final result = <QuizQuestion>[];
+
+    for (final q in questions) {
+      final variants = q.variants
+          .where((p) => p.required && books.contains(p.book))
+          .toList();
+
+      if (variants.isNotEmpty) {
+        result.add(QuizQuestion(id: q.id, variants: variants));
+      }
+    }
+
+    return result;
+  }
 }

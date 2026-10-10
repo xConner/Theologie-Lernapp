@@ -11,6 +11,7 @@ import '../../services/bible/bible_reading_service.dart';
 import '../../services/bible/bible_reference_parser.dart';
 import '../../services/bible/bible_repository.dart';
 import '../../services/bible/pericope_headings.dart';
+import '../../services/bible/versification_map.dart';
 import '../../theme/app_theme.dart';
 import '../../widgets/bible/bible_chapter_view.dart';
 import '../../widgets/bible/bible_reading_widgets.dart';
@@ -206,15 +207,57 @@ class _BibleReaderScreenState extends State<BibleReaderScreen> {
     return id == null ? null : translation!.book(id);
   }
 
+  // Je Ausgabe bereits übertragene Stellen.
+  final Map<(String, BibleReference), BibleReference> _inEditions = {};
+
+  /// [reference] in der Zählung der gewählten Ausgabe. Die Stellen des
+  /// Quiz und des Kalenders zählen deutsch; lässt sich eine Stelle nicht
+  /// sicher übertragen, bleibt sie, wie sie ist (siehe [_passageHint]).
+  BibleReference _inEdition(BibleReference reference) {
+    final t = translation;
+
+    if (t == null) return reference;
+
+    return _inEditions[(t.id, reference)] ??=
+        ListVersification.convert(
+          reference,
+          translation: t,
+          translations: translations,
+        ) ??
+        reference;
+  }
+
+  /// Ob gerade die Stelle aus [BibleReaderScreen.passages] hervorgehoben
+  /// ist (und nicht etwa ein Suchtreffer).
+  bool get _passageHighlighted =>
+      _fromPassages &&
+      highlight == _inEdition(widget.passages[passageIndex].reference);
+
   Future<void> _openPassage(int index) {
-    final passage = widget.passages[index];
+    final reference = _inEdition(widget.passages[index].reference);
 
     passageIndex = index;
 
     return _open(
-      passage.reference,
-      highlighted: passage.reference,
-      scrollToVerse: passage.reference.verse,
+      reference,
+      highlighted: reference,
+      scrollToVerse: reference.verse,
+    );
+  }
+
+  /// Schlägt nach einem Wechsel der Ausgabe dieselbe Stelle wieder auf.
+  /// [passage] sagt, ob vorher die Stelle aus der Leiste hervorgehoben war:
+  /// Zählt die neue Ausgabe sie anders, wird sie dort neu aufgeschlagen.
+  Future<void> _reopen({required bool passage, int? verse}) {
+    if (passage &&
+        _inEdition(widget.passages[passageIndex].reference) != highlight) {
+      return _openPassage(passageIndex);
+    }
+
+    return _open(
+      BibleReference(bookId: bookId, chapter: chapter, verse: verse),
+      highlighted: highlight,
+      scrollToVerse: highlight?.firstVerseIn(chapter) ?? verse,
     );
   }
 
@@ -368,15 +411,13 @@ class _BibleReaderScreenState extends State<BibleReaderScreen> {
 
     final verse = _topVerse();
 
+    final passage = _passageHighlighted;
+
     translation = chosen;
 
     settings.saveTranslation(chosen.id);
 
-    await _open(
-      BibleReference(bookId: bookId, chapter: chapter, verse: verse),
-      highlighted: highlight,
-      scrollToVerse: highlight?.firstVerseIn(chapter) ?? verse,
-    );
+    await _reopen(passage: passage, verse: verse);
   }
 
   Future<void> _chooseReference() async {
@@ -495,12 +536,14 @@ class _BibleReaderScreenState extends State<BibleReaderScreen> {
     if (!h.hasVerses) return false;
 
     // Hat die aufgeschlagene Stelle Lücken, zählen nur ihre Versgruppen.
-    final parts = _fromPassages && h == widget.passages[passageIndex].reference
+    final parts = _passageHighlighted
         ? widget.passages[passageIndex].parts
         : const <BibleReference>[];
 
     if (parts.isNotEmpty) {
-      return parts.any((part) => part.containsVerse(chapter, verse));
+      return parts.any(
+        (part) => _inEdition(part).containsVerse(chapter, verse),
+      );
     }
 
     return h.containsVerse(chapter, verse);
@@ -581,8 +624,8 @@ class _BibleReaderScreenState extends State<BibleReaderScreen> {
     );
   }
 
-  /// Hinweis, wenn sich eine Stelle in der gewählten Ausgabe nicht sicher
-  /// zuordnen lässt. Die App rechnet Zählungen nicht ineinander um.
+  /// Hinweis, wenn die gewählte Ausgabe eine Stelle anders zählt: wo sie
+  /// dort steht oder dass sie sich nicht sicher zuordnen lässt.
   String? _passageHint(BiblePassage passage) {
     final t = translation;
 
@@ -590,13 +633,19 @@ class _BibleReaderScreenState extends State<BibleReaderScreen> {
     // auf die Perikopenliste.
     if (t == null || widget.planDay != null) return null;
 
-    final reference = passage.reference;
-
-    final resolved = BibleBooks.resolveIn(t, reference.bookId);
+    final resolved = BibleBooks.resolveIn(t, passage.reference.bookId);
 
     if (resolved == null) return null;
 
     final book = t.book(resolved)!;
+
+    final converted = ListVersification.convert(
+      passage.reference,
+      translation: t,
+      translations: translations,
+    );
+
+    final reference = converted ?? passage.reference;
 
     final missing =
         reference.endChapter > book.chapterCount ||
@@ -608,9 +657,22 @@ class _BibleReaderScreenState extends State<BibleReaderScreen> {
           "Perikopenliste; die Stelle lässt sich nicht genau zuordnen.";
     }
 
+    if (converted != null && converted != passage.reference) {
+      return "Diese Ausgabe zählt hier anders als die Perikopenliste: Die "
+          "Stelle steht dort unter "
+          "${BibleReferenceParser.format(converted)}.";
+    }
+
     if (t.versification == BibleVersification.german ||
         BibleBooks.byId(reference.bookId)?.testament ==
             BibleTestament.newTestament) {
+      return null;
+    }
+
+    // Übertragen und gleich gezählt: Die Hervorhebung trifft genau.
+    if (converted != null &&
+        t.versification == BibleVersification.english &&
+        resolved != "PSA") {
       return null;
     }
 
@@ -908,15 +970,13 @@ class _BibleReaderScreenState extends State<BibleReaderScreen> {
                     for (final other in others)
                       OutlinedButton(
                         onPressed: () {
+                          final passage = _passageHighlighted;
+
                           translation = other;
 
                           settings.saveTranslation(other.id);
 
-                          _open(
-                            BibleReference.chapter(bookId, chapter),
-                            highlighted: highlight,
-                            scrollToVerse: highlight?.firstVerseIn(chapter),
-                          );
+                          _reopen(passage: passage);
                         },
                         child: Text(other.shortName),
                       ),

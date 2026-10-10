@@ -135,15 +135,30 @@ Eine weitere Textquelle (nachladbare Ausgaben, ein Dienst) implementiert
 
 Bücher tragen überall die USFM-Kennung (`GEN`, `MRK`). Das Perikopenquiz
 übergibt seine Stellen mit `BibleReferenceParser.passageOf`; alle Varianten
-einer Frage gehen gemeinsam an `BibleReaderScreen(passages: …)`. Der Reader
-rechnet Zählungen nicht um, sondern weist auf Abweichungen hin
-(`BibleVersification`).
+einer Frage gehen gemeinsam an `BibleReaderScreen(passages: …)` – das sind
+nur die Stellen aus den im Quiz gewählten Büchern (`QuizQuestion.forBooks`),
+auch wenn dieselbe Perikopen-ID weitere Parallelstellen umfasst.
+
+Die Perikopenliste zählt deutsch. `ListVersification`
+(`services/bible/versification_map.dart`) überträgt ihre Stellen in englisch
+gezählte Ausgaben (verschobene Kapitelgrenzen im Alten Testament, z. B.
+1. Mose 32,1 = 31,55) und prüft jede Übertragung an den Verszahlen der
+Ausgabe. Was sich nicht sicher übertragen lässt (Psalmen, Septuaginta,
+Vulgata), bleibt unverändert; der Reader weist dann auf die abweichende
+Zählung hin (`BibleVersification`).
 
 Die Perikopenüberschriften im Text stammen allein aus der Perikopenliste,
 nie aus einer Ausgabe; der Reader kennzeichnet sie entsprechend. Sie stehen
-am Anfangsvers jeder Perikope. Weil die Liste deutsch zählt, zeigt
-`PericopeHeadings.forChapter` sie im Alten Testament nur in Kapiteln, die
-die gewählte Ausgabe genauso zählt wie eine deutsch gezählte Ausgabe.
+am Anfangsvers jeder Perikope, übertragen in die Zählung der gewählten
+Ausgabe. Wo das nicht sicher möglich ist, zeigt
+`PericopeHeadings.forChapter` keine Überschriften.
+
+`test/perikopen_data_test.dart` prüft die ganze Perikopenliste gegen die
+Verszahlen der Ausgaben (`test/perikopen_validator.dart`): ungültige Stellen,
+widersprüchliche Doppeleinträge, Kapitelfragen, die nicht ihr Kapitel
+umfassen, und Perikopen außerhalb der Reihenfolge. Bewusste Lücken,
+Halbvers-Grenzen und übergeordnete Abschnitte sind zulässig; bekannte
+Ausnahmen stehen dort mit Begründung.
 
 Ausgabe, Lesestand und Schriftgröße gehören zum Gerät und liegen wie das
 Erscheinungsbild in den `SharedPreferences`.

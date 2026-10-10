@@ -165,23 +165,7 @@ class _QuizScreenState extends State<QuizScreen> {
   }
 
   List<QuizQuestion> _filtered() {
-    return questions
-        .where((q) {
-          return q.variants.any(
-            (p) => p.required && settings.selectedBooks.contains(p.book),
-          );
-        })
-        .map((q) {
-          return QuizQuestion(
-            id: q.id,
-            variants: q.variants
-                .where(
-                  (p) => p.required && settings.selectedBooks.contains(p.book),
-                )
-                .toList(),
-          );
-        })
-        .toList();
+    return QuizQuestion.forBooks(questions, settings.selectedBooks);
   }
 
   void _rebuildEngine() {
@@ -653,8 +637,10 @@ class _QuizScreenState extends State<QuizScreen> {
     await service.saveBooks(widget.uid, settings.selectedBooks);
   }
 
-  /// Die Stellen der aktuellen Frage für den Bibel-Reader. Eigene
-  /// Perikopen mit unbekanntem Buch lassen sich dort nicht aufschlagen.
+  /// Die Stellen der aktuellen Frage für den Bibel-Reader: nur die aus den
+  /// gewählten Büchern, wie sie auch abgefragt werden (siehe
+  /// [QuizQuestion.forBooks]). Eigene Perikopen mit unbekanntem Buch lassen
+  /// sich dort nicht aufschlagen.
   List<BiblePassage> _passages() {
     final c = current;
 

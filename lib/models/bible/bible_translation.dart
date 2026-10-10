@@ -40,8 +40,9 @@ class BibleBookInfo {
 }
 
 /// Wie eine Ausgabe Kapitel und Verse zählt. Die Zählungen weichen vor
-/// allem im Alten Testament voneinander ab; die App rechnet sie nicht
-/// ineinander um, sondern weist auf mögliche Abweichungen hin.
+/// allem im Alten Testament voneinander ab. Stellen der Perikopenliste
+/// überträgt `ListVersification` in die englische Zählung; sonst weist die
+/// App auf mögliche Abweichungen hin.
 enum BibleVersification {
   /// Deutsche Zählung (Psalmüberschriften als eigene Verse, Joel 4, Mal 3).
   german,

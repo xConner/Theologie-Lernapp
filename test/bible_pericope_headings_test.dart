@@ -138,7 +138,10 @@ void main() {
         if (info == null) continue;
 
         // Stellen, die es nur in Ausgaben mit Zusätzen gibt (siehe unten).
-        if (p.startVerse > info.verseCount(p.startChapter)) continue;
+        if (p.startVerse > info.verseCount(p.startChapter) ||
+            p.endVerse > info.verseCount(p.endChapter)) {
+          continue;
+        }
 
         final titles =
             of("deuelbbk", book.id, p.startChapter)[p.startVerse] ?? const [];
@@ -255,15 +258,8 @@ void main() {
       }
     });
 
-    test("Anders gezählte Kapitel erhalten keine Überschriften", () {
-      // Joel: 4 Kapitel in deutscher, 3 in englischer Zählung.
-      expect(of("deuelbbk", "JOL", 3), isNotEmpty);
-      expect(of("deu1912", "JOL", 3), isEmpty);
-      expect(of("deu1912", "JOL", 1), isEmpty);
+    test("Nicht übertragbare Kapitel erhalten keine Überschriften", () {
       expect(headings.hasAny("JOL", 3), isTrue);
-
-      // Maleachi: 3 bzw. 4 Kapitel.
-      expect(of("engwebp", "MAL", 3), isEmpty);
 
       // Septuaginta und Vulgata zählen die Psalmen durchgehend anders.
       expect(of("grcbrent", "PSA", 23), isEmpty);
@@ -481,7 +477,11 @@ void main() {
 
     testWidgets("Anders gezähltes Kapitel: keine Überschrift, aber ein "
         "Hinweis", (tester) async {
-      SharedPreferences.setMockInitialValues({"bible_position": "JOL|3|0"});
+      // Die Vulgata zählt die Psalmen durchgehend anders.
+      SharedPreferences.setMockInitialValues({
+        "bible_translation": "latVUC",
+        "bible_position": "PSA|23|0",
+      });
 
       await pumpReader(tester);
 
@@ -495,11 +495,12 @@ void main() {
       await tester.pumpWidget(const SizedBox());
       SharedPreferences.setMockInitialValues({
         "bible_translation": "deuelbbk",
-        "bible_position": "JOL|3|0",
+        "bible_position": "PSA|23|0",
       });
       await pumpReader(tester);
 
-      expect(find.text("Die Ausgießung des Geistes"), findsOneWidget);
+      expect(find.text(PericopeHeadings.label), findsOneWidget);
+      expect(find.text(of("deuelbbk", "PSA", 23)[1]!.single), findsOneWidget);
     });
 
     testWidgets("Hervorhebung, Sprung zum Vers und Blättern bleiben "
