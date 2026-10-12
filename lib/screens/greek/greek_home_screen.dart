@@ -5,6 +5,7 @@ import 'vocabulary_trainer_screen.dart';
 import 'vocabulary_overview_screen.dart';
 import 'grammar_overview_screen.dart';
 import 'grammar_trainer_screen.dart';
+import 'exam/exam_builder_screen.dart';
 
 import '../../theme/app_theme.dart';
 import '../../services/streak/streak_track.dart';
@@ -110,6 +111,24 @@ class GreekHomeScreen extends StatelessWidget {
                     },
                     icon: const Icon(Icons.fitness_center_rounded),
                     label: const Text("Grammatiktrainer"),
+                  ),
+                ),
+
+                const SizedBox(height: 16),
+
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton.icon(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const GreekExamBuilderScreen(),
+                        ),
+                      );
+                    },
+                    icon: const Icon(Icons.assignment_rounded),
+                    label: const Text("Klausurersteller"),
                   ),
                 ),
               ],

@@ -82,6 +82,12 @@ flutter:
       - assets/liturgical_calendar_2026.json
       - assets/greek_vocabulary.json
       - assets/greek_pronoun_forms.json
+      # Klausurersteller: Textkorpora mit Bestimmungen und Suchindex, erzeugt
+      # von tool/greek_exam_corpus (siehe docs/greek-exam-sources.md).
+      - assets/greek_corpus/corpora.json
+      - assets/greek_corpus/lexicon.json
+      - assets/greek_corpus/nt/
+      - assets/greek_corpus/lxx/
       - assets/latin_vocabulary.json
       - assets/eg_lieder.json
       # Notenbilder zum Gesangbuch, erzeugt von tool/hymn_scores

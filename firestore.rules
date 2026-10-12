@@ -18,6 +18,8 @@ rules_version = '2';
 //   users/{uid}/statistics/{trainerId}          (Tagesstatistik je Trainer)
 //   users/{uid}/bible_reading/{documentId}     (Leseverlauf, Fortschritt der
 //                                               Lesepläne, eigene Lesepläne)
+//   users/{uid}/greek_exam/{settings|progress} (Klausurersteller: Konfiguration,
+//                                               als bearbeitet markierte Texte)
 //   users/{uid}/notification_state/inbox       (Lesestatus der Glocke)
 //   users/{uid}/push_tokens/{id}               (Push-Abonnements je Gerät)
 //
@@ -104,7 +106,7 @@ service cloud.firestore {
                             'latin_vocabulary', 'grammar', 'memorization',
                             'pericope_overrides', 'streaks', 'statistics',
                             'bible_reading', 'notification_state',
-                            'push_tokens'];
+                            'push_tokens', 'greek_exam'];
     }
 
     match /users/{uid} {

@@ -98,6 +98,63 @@ nach Gehör schreibt, gleicht `LatinSpeechMatcher` das Transkript vor dem
 Wortvergleich lautlich mit dem Lerntext ab. Im Web braucht die Aufnahme
 `microphone=(self)` in der `Permissions-Policy` (`vercel.json`).
 
+## Klausurersteller (Altgriechisch)
+
+Erstellt Graecum-ähnliche Übungsklausuren aus griechischen Bibeltexten. Die
+Teile sind getrennt, damit weitere Korpora, Phänomene und Aufgabenarten
+ohne Umbau hinzukommen:
+
+| Aufgabe | Ort |
+|---|---|
+| Textkorpora (NT, LXX; Edition, Quellen, Lizenzen) | `assets/greek_corpus/corpora.json`, Modell `models/greek/exam/text_corpus.dart` |
+| Erzeugung der Korpora aus MorphGNT, Bibeltexten und Wiktionary (nicht Teil der App) | `tool/greek_exam_corpus/` |
+| Dateiformat, Suchindex je Vers | `services/greek/exam/corpus_codec.dart` |
+| Zugriff auf die Korpora (Assets, Zwischenspeicher) | `services/greek/exam/exam_corpus_source.dart` |
+| Wortform mit allen Bestimmungen, Herkunft der Bestimmung | `models/greek/exam/corpus_token.dart`, `greek_morph_analysis.dart` |
+| Vergleichsschlüssel griechischer Formen | `services/greek/exam/greek_form_key.dart` |
+| Phänomene: IDs, Kategorien, Status, Voraussetzungen | `services/greek/exam/grammar_phenomena.dart` |
+| Erkennung (sicher/möglich), Muster, Grundformlisten | `services/greek/exam/phenomenon_detection.dart` |
+| Satzkonstruktionen (Genitivus absolutus, AcI, PC, Bedingungssätze …) | `services/greek/exam/syntax_rules.dart` |
+| Vokabelkenntnis nach Lernschritten, Vokabelhilfen | `services/greek/exam/vocabulary_help.dart` |
+| Konfiguration | `models/greek/exam/exam_config.dart` |
+| Textsuche, Zufallsauswahl, Begründung ohne Treffer | `services/greek/exam/passage_finder.dart` |
+| Aufgabenarten (Verben bestimmen, Formen finden, Nominalformen) | `services/greek/exam/exam_task_types.dart` |
+| Klausur erstellen, Aufgaben austauschen | `services/greek/exam/exam_generator.dart` |
+| Antwortprüfung mit Mehrdeutigkeiten | `services/greek/exam/exam_answer_check.dart` |
+| Konfiguration und bearbeitete Texte (Konto: `users/{uid}/greek_exam`, Gast: lokal) | `services/greek/exam/exam_store.dart` |
+| Screens | `screens/greek/exam/` |
+| Herkunft, Lizenzen, Grenzen der Daten | `docs/greek-exam-sources.md` |
+
+Grundsätze:
+
+* **Keine geratene Morphologie.** Das NT ist im Kontext bestimmt
+  (MorphGNT). Die Septuaginta wird über einen Formenindex bestimmt; jede
+  Form behält alle bekannten Bestimmungen, unbekannte bleiben unbestimmt.
+  Jede Regel läuft „sicher“ (alle Bestimmungen erfüllen sie) und „möglich“
+  (eine erfüllt sie): Erforderlich verlangt einen sicheren Beleg,
+  ausgeschlossen verlangt, dass nicht einmal ein möglicher vorliegt und
+  jedes Wort bestimmt ist.
+* **Status je Phänomen.** Zuverlässig (aus der Bestimmung bzw. Grundform),
+  regelbasiert (Satzkonstruktionen; nur forderbar) oder nicht verfügbar
+  (nicht wählbar). Die Oberfläche zeigt den Status und enthält keine
+  eigene Grammatiklogik.
+* **Suche ohne Texte.** Der Index hält je Vers die Phänomene als Bitmenge;
+  Abschnitte sind satzgerechte Versfolgen eines Kapitels. Gewählt wird
+  gleichverteilt über die Anfangsverse aller passenden Abschnitte; in der
+  Sitzung gezeigte Abschnitte erst wieder, wenn es keine anderen gibt.
+* **Index und Regeln gehören zusammen.** `test/greek_exam_corpus_test.dart`
+  vergleicht den Index ausgewählter Bücher mit den aktuellen Regeln. Nach
+  Änderungen an Phänomenen oder Regeln den Import neu ausführen
+  (`tool/greek_exam_corpus/README.md`).
+* **Bearbeitet nur auf Wunsch.** Eine Passage-ID (`nt:JHN.1.1-5`) markiert
+  genau den gestellten Versbereich; Austausch oder Generierung ändern den
+  Status nie.
+
+Ein neues Phänomen ist ein Eintrag in `GrammarPhenomena.all` (bei einer
+neuen Konstruktion zusätzlich eine Funktion in `SyntaxRules`), eine neue
+Aufgabenart eine Klasse in `ExamTaskTypes.extra`, ein neues Korpus ein
+Eintrag im Import (`tool/greek_exam_corpus/README.md`).
+
 ## Bibel-Reader
 
 Liest die mit der App ausgelieferten Bibeltexte ohne Internetverbindung.

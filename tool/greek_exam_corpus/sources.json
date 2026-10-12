@@ -1,0 +1,61 @@
+{
+  "comment": "Quellen der Klausurkorpora (Klausurersteller Altgriechisch). Nach Änderungen: dart run tool/greek_exam_corpus/fetch_sources.dart && dart run tool/greek_exam_corpus/build_corpus.dart – Herkunft und Lizenzen: docs/greek-exam-sources.md.",
+  "cacheDir": "build/content_import/greek_exam",
+  "morphgnt": {
+    "name": "MorphGNT SBLGNT",
+    "version": "6.12",
+    "commit": "aaed91e57c8e4a8dc9a2383e129ca5e75fe6393d",
+    "url": "https://raw.githubusercontent.com/morphgnt/sblgnt/{commit}/{file}",
+    "homepage": "https://github.com/morphgnt/sblgnt",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+    "copyright": "Tauber, J. K., Hg. (2017): MorphGNT: SBLGNT Edition, Version 6.12, DOI 10.5281/zenodo.376200. Text: SBL Greek New Testament, © 2010 Society of Biblical Literature und Logos Bible Software",
+    "files": {
+      "MAT": "61-Mt-morphgnt.txt",
+      "MRK": "62-Mk-morphgnt.txt",
+      "LUK": "63-Lk-morphgnt.txt",
+      "JHN": "64-Jn-morphgnt.txt",
+      "ACT": "65-Ac-morphgnt.txt",
+      "ROM": "66-Ro-morphgnt.txt",
+      "1CO": "67-1Co-morphgnt.txt",
+      "2CO": "68-2Co-morphgnt.txt",
+      "GAL": "69-Ga-morphgnt.txt",
+      "EPH": "70-Eph-morphgnt.txt",
+      "PHP": "71-Php-morphgnt.txt",
+      "COL": "72-Col-morphgnt.txt",
+      "1TH": "73-1Th-morphgnt.txt",
+      "2TH": "74-2Th-morphgnt.txt",
+      "1TI": "75-1Ti-morphgnt.txt",
+      "2TI": "76-2Ti-morphgnt.txt",
+      "TIT": "77-Tit-morphgnt.txt",
+      "PHM": "78-Phm-morphgnt.txt",
+      "HEB": "79-Heb-morphgnt.txt",
+      "JAS": "80-Jas-morphgnt.txt",
+      "1PE": "81-1Pe-morphgnt.txt",
+      "2PE": "82-2Pe-morphgnt.txt",
+      "1JN": "83-1Jn-morphgnt.txt",
+      "2JN": "84-2Jn-morphgnt.txt",
+      "3JN": "85-3Jn-morphgnt.txt",
+      "JUD": "86-Jud-morphgnt.txt",
+      "REV": "87-Re-morphgnt.txt"
+    }
+  },
+  "wiktionaryEnglish": {
+    "name": "English Wiktionary, Altgriechisch (Wiktextract-Auszug von kaikki.org)",
+    "url": "https://kaikki.org/dictionary/Ancient%20Greek/kaikki.org-dictionary-AncientGreek.jsonl",
+    "file": "kaikki-en-grc.jsonl",
+    "homepage": "https://kaikki.org/dictionary/Ancient%20Greek/",
+    "license": "CC BY-SA 4.0 (und GFDL)",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "copyright": "Wiktionary-Autorinnen und -Autoren; Auszug: Tatu Ylonen, Wiktextract"
+  },
+  "wiktionaryGerman": {
+    "name": "Deutsches Wiktionary, Altgriechisch (Wiktextract-Auszug von kaikki.org)",
+    "url": "https://kaikki.org/dewiktionary/Altgriechisch/kaikki.org-dictionary-Altgriechisch.jsonl",
+    "file": "kaikki-de-grc.jsonl",
+    "homepage": "https://kaikki.org/dewiktionary/Altgriechisch/",
+    "license": "CC BY-SA 4.0 (und GFDL)",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "copyright": "Wiktionary-Autorinnen und -Autoren; Auszug: Tatu Ylonen, Wiktextract"
+  }
+}

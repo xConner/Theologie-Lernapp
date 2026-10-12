@@ -35,6 +35,7 @@ class AccountDeletionService {
     "bible_reading",
     "notification_state",
     "push_tokens",
+    "greek_exam",
   ];
 
   static const int _batchLimit = 400;

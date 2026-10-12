@@ -1,0 +1,190 @@
+{
+  "version": 1,
+  "generated": "2026-10-12",
+  "corpora": [
+    {
+      "id": "nt",
+      "name": "Neues Testament",
+      "shortName": "NT",
+      "edition": "SBL Greek New Testament (2010), Wortlaut nach MorphGNT",
+      "bibleTranslation": "grcsbl",
+      "analysis": "contextual",
+      "analysisNote": "Jede Wortform ist im Kontext bestimmt (MorphGNT). Weitere formal mögliche Bestimmungen derselben Form stammen aus den übrigen Belegen im NT und aus Wiktionary-Tabellen.",
+      "text": {
+        "name": "SBL Greek New Testament",
+        "url": "https://sblgnt.com/",
+        "license": "CC BY 4.0",
+        "copyright": "© 2010 Society of Biblical Literature und Logos Bible Software"
+      },
+      "sources": [
+        {
+          "name": "MorphGNT SBLGNT",
+          "url": "https://github.com/morphgnt/sblgnt",
+          "license": "CC BY-SA 3.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+          "copyright": "Tauber, J. K., Hg. (2017): MorphGNT: SBLGNT Edition, Version 6.12, DOI 10.5281/zenodo.376200. Text: SBL Greek New Testament, © 2010 Society of Biblical Literature und Logos Bible Software"
+        },
+        {
+          "name": "English Wiktionary, Altgriechisch (Wiktextract-Auszug von kaikki.org)",
+          "url": "https://kaikki.org/dictionary/Ancient%20Greek/",
+          "license": "CC BY-SA 4.0 (und GFDL)",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "copyright": "Wiktionary-Autorinnen und -Autoren; Auszug: Tatu Ylonen, Wiktextract"
+        }
+      ],
+      "books": [
+        "MAT",
+        "MRK",
+        "LUK",
+        "JHN",
+        "ACT",
+        "ROM",
+        "1CO",
+        "2CO",
+        "GAL",
+        "EPH",
+        "PHP",
+        "COL",
+        "1TH",
+        "2TH",
+        "1TI",
+        "2TI",
+        "TIT",
+        "PHM",
+        "HEB",
+        "JAS",
+        "1PE",
+        "2PE",
+        "1JN",
+        "2JN",
+        "3JN",
+        "JUD",
+        "REV"
+      ],
+      "stats": {
+        "verses": 7927,
+        "words": 137554,
+        "contextual": 137554,
+        "formal": 0,
+        "formalAmbiguous": 0,
+        "properNameGuesses": 0,
+        "unanalyzed": 0,
+        "fullyAnalyzedVerses": 7927
+      }
+    },
+    {
+      "id": "lxx",
+      "name": "Altes Testament (Septuaginta)",
+      "shortName": "LXX",
+      "edition": "Septuaginta nach Brenton (1851), Text der App (eBible.org, grcbrent)",
+      "bibleTranslation": "grcbrent",
+      "analysis": "formal",
+      "analysisNote": "Für die Septuaginta gibt es keine frei weitergebbare morphologische Analyse. Formen werden über einen Formenindex bestimmt (alle im NT belegten Bestimmungen der Form, ergänzt um Wiktionary-Tabellen), ohne Prüfung im Kontext. Mehrdeutige Formen behalten alle Bestimmungen; unbekannte Formen bleiben unbestimmt.",
+      "text": {
+        "name": "Septuaginta nach Brenton (1851)",
+        "url": "https://ebible.org/details.php?id=grcbrent",
+        "license": "Gemeinfrei",
+        "copyright": "Gemeinfrei. Digitale Textfassung: eBible.org."
+      },
+      "sources": [
+        {
+          "name": "MorphGNT SBLGNT",
+          "url": "https://github.com/morphgnt/sblgnt",
+          "license": "CC BY-SA 3.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+          "copyright": "Tauber, J. K., Hg. (2017): MorphGNT: SBLGNT Edition, Version 6.12, DOI 10.5281/zenodo.376200. Text: SBL Greek New Testament, © 2010 Society of Biblical Literature und Logos Bible Software"
+        },
+        {
+          "name": "English Wiktionary, Altgriechisch (Wiktextract-Auszug von kaikki.org)",
+          "url": "https://kaikki.org/dictionary/Ancient%20Greek/",
+          "license": "CC BY-SA 4.0 (und GFDL)",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "copyright": "Wiktionary-Autorinnen und -Autoren; Auszug: Tatu Ylonen, Wiktextract"
+        }
+      ],
+      "books": [
+        "GEN",
+        "EXO",
+        "LEV",
+        "NUM",
+        "DEU",
+        "JOS",
+        "JDG",
+        "RUT",
+        "1SA",
+        "2SA",
+        "1KI",
+        "2KI",
+        "1CH",
+        "2CH",
+        "EZR",
+        "JOB",
+        "PSA",
+        "PRO",
+        "ECC",
+        "SNG",
+        "ISA",
+        "JER",
+        "LAM",
+        "EZK",
+        "HOS",
+        "JOL",
+        "AMO",
+        "OBA",
+        "JON",
+        "MIC",
+        "NAM",
+        "HAB",
+        "ZEP",
+        "HAG",
+        "ZEC",
+        "MAL",
+        "TOB",
+        "JDT",
+        "ESG",
+        "WIS",
+        "SIR",
+        "BAR",
+        "LJE",
+        "SUS",
+        "BEL",
+        "1MA",
+        "2MA",
+        "3MA",
+        "4MA",
+        "1ES",
+        "MAN",
+        "DAG"
+      ],
+      "stats": {
+        "verses": 28597,
+        "words": 577359,
+        "contextual": 0,
+        "formal": 509754,
+        "formalAmbiguous": 232462,
+        "properNameGuesses": 18385,
+        "unanalyzed": 49220,
+        "fullyAnalyzedVerses": 6553
+      }
+    }
+  ],
+  "lexicon": {
+    "note": "Deutsche Bedeutungen außerhalb der Vokabelliste aus dem deutschen Wiktionary; fehlt dort ein Eintrag, englische Bedeutungen aus dem englischen Wiktionary (so gekennzeichnet).",
+    "sources": [
+      {
+        "name": "Deutsches Wiktionary, Altgriechisch (Wiktextract-Auszug von kaikki.org)",
+        "url": "https://kaikki.org/dewiktionary/Altgriechisch/",
+        "license": "CC BY-SA 4.0 (und GFDL)",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "copyright": "Wiktionary-Autorinnen und -Autoren; Auszug: Tatu Ylonen, Wiktextract"
+      },
+      {
+        "name": "English Wiktionary, Altgriechisch (Wiktextract-Auszug von kaikki.org)",
+        "url": "https://kaikki.org/dictionary/Ancient%20Greek/",
+        "license": "CC BY-SA 4.0 (und GFDL)",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "copyright": "Wiktionary-Autorinnen und -Autoren; Auszug: Tatu Ylonen, Wiktextract"
+      }
+    ]
+  }
+}
