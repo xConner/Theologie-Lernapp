@@ -140,12 +140,12 @@ Bedeutung (im NT ist die Grundform durch den Kontext bestimmt); Homonyme mit
 mehreren Pape-Artikeln erhalten die Grundbedeutung jedes Artikels.
 Verschiedene Formen derselben Grundform erhalten eine gemeinsame Hilfe.
 
-**Stand des Lexikons (12. Oktober 2026):** 1 016 Grundformen mit
-redaktioneller Angabe, 524 aus dem deutschen Wiktionary, 1 052 aus Pape.
+**Stand des Lexikons (12. Oktober 2026):** 1 200 Grundformen mit
+redaktioneller Angabe, 523 aus dem deutschen Wiktionary, 1 446 aus Pape.
 Der Pape-Import (`fetch_pape.dart`) fragt die Grundformen nach Häufigkeit
-ab und war zu diesem Stand für die 2 400 häufigsten der 6 805
-kleingeschriebenen Grundformen abgeschlossen; die übrigen 4 317 Grundformen
-(4,6 % der Wortbelege beider Korpora, überwiegend seltene Wörter der
+ab und war zu diesem Stand für die 3 286 häufigsten der 6 805
+kleingeschriebenen Grundformen abgeschlossen; die übrigen 3 743 Grundformen
+(3,3 % der Wortbelege beider Korpora, überwiegend seltene Wörter der
 Septuaginta) sind ungelöst, bis der Import zu Ende gelaufen ist. Er setzt
 beim nächsten Start fort; danach `build_lexicon.dart` ausführen.
 Großgeschriebene Grundformen außerhalb von `BiblicalNames` erhalten keine
