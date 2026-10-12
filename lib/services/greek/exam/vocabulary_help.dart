@@ -1,9 +1,33 @@
 import '../../../models/greek/exam/corpus_token.dart';
 import '../../../models/greek/vocabulary/greek_vocabulary_entry.dart';
+import 'assumed_vocabulary.dart';
+import 'gloss_shortener.dart';
 import 'greek_form_key.dart';
 
-/// Bedeutungen aus Wörterbüchern für Grundformen außerhalb der Vokabelliste
-/// (`assets/greek_corpus/lexicon.json`, erzeugt beim Import).
+/// Herkunft einer Bedeutung.
+enum MeaningSource {
+  /// Vokabelliste der App (Lernschritt in [HintLemma.step]).
+  vocabulary,
+
+  /// Redaktionelle Ergänzung des Imports
+  /// (`tool/greek_exam_corpus/german_glosses.json`).
+  editorial,
+
+  /// Deutsches Wiktionary.
+  wiktionary,
+
+  /// Pape, Griechisch-deutsches Handwörterbuch (1914).
+  pape,
+
+  /// Keine gesicherte deutsche Bedeutung in den Datenquellen (ungelöst).
+  none,
+}
+
+/// Deutsche Bedeutungen für Grundformen außerhalb der Vokabelliste
+/// (`assets/greek_corpus/lexicon.json`, erzeugt beim Import). Das Lexikon
+/// enthält ausschließlich deutsche Angaben, bereits auf Vokabelhilfen
+/// gekürzt; eine Grundform ohne deutsche Quelle hat keinen Eintrag und
+/// bleibt ungelöst.
 class GreekLexicon {
   final Map<String, LexiconEntry> _entries;
 
@@ -25,25 +49,37 @@ class GreekLexicon {
 }
 
 class LexiconEntry {
-  /// Deutsche Bedeutungen (deutsches Wiktionary).
+  /// Deutsche Bedeutungen (kurz, höchstens [maxGlossesPerHint]).
   final List<String> german;
 
-  /// Englische Bedeutungen (englisches Wiktionary).
-  final List<String> english;
+  /// Quelle von [german].
+  final MeaningSource source;
 
   /// Deklinationsklasse eines Nomens (1–3), sonst `null`.
   final int? declension;
 
   const LexiconEntry({
     this.german = const [],
-    this.english = const [],
+    this.source = MeaningSource.none,
     this.declension,
   });
 
+  static const Map<String, MeaningSource> sourceCodes = {
+    "e": MeaningSource.editorial,
+    "w": MeaningSource.wiktionary,
+    "p": MeaningSource.pape,
+  };
+
+  /// Liest einen Eintrag. Andere Sprachen als Deutsch (Feld `en` früherer
+  /// Fassungen) werden nicht gelesen.
   factory LexiconEntry.fromJson(Map<String, dynamic> json) {
+    final german = List<String>.from((json["de"] as List?) ?? const []);
+
     return LexiconEntry(
-      german: List<String>.from((json["de"] as List?) ?? const []),
-      english: List<String>.from((json["en"] as List?) ?? const []),
+      german: german,
+      source: german.isEmpty
+          ? MeaningSource.none
+          : sourceCodes[json["src"]] ?? MeaningSource.wiktionary,
       declension: (json["decl"] as num?)?.toInt(),
     );
   }
@@ -136,8 +172,13 @@ class VocabularyMatcher {
   }
 }
 
-/// Welche Grundformen als bekannt gelten: alle Einträge der gewählten
-/// Lernschritte der Vokabelliste.
+/// Welche Grundformen als bekannt gelten:
+///
+/// 1. der Artikel – immer;
+/// 2. Wörter der Vokabelliste – wenn ihr Lernschritt gewählt ist (das gilt
+///    auch für Pronomen und Namen, die die Liste einem Schritt zuordnet);
+/// 3. elementare Funktionswörter und gängige biblische Eigennamen, die in
+///    der Vokabelliste fehlen ([ElementaryWords], [BiblicalNames]).
 class VocabularyKnowledge {
   final VocabularyMatcher matcher;
   final Set<int> knownSteps;
@@ -146,49 +187,47 @@ class VocabularyKnowledge {
     : knownSteps = steps.toSet();
 
   bool isKnown(String lemma, [LemmaAnalysis? analysis]) {
-    return matcher
-        .entriesFor(lemma, analysis)
-        .any((e) => knownSteps.contains(e.step));
+    if (ElementaryWords.isArticle(lemma)) return true;
+
+    final entries = matcher.entriesFor(lemma, analysis);
+
+    if (entries.isNotEmpty) {
+      return entries.any((e) => knownSteps.contains(e.step));
+    }
+
+    return ElementaryWords.contains(lemma) ||
+        BiblicalNames.containsLemma(lemma);
   }
 
   /// Ob eine Form ohne Hilfe verstanden werden kann: eine ihrer möglichen
-  /// Grundformen ist bekannt. Unbestimmte Formen und Eigennamen gelten als
-  /// unbekannt.
+  /// Grundformen ist bekannt. Unbestimmte Formen gelten als unbekannt; eine
+  /// als Eigenname vermutete Form nur dann als bekannt, wenn sie zu einem
+  /// Namen der Liste gehört.
   bool knowsToken(CorpusToken token) {
-    if (!token.isAnalyzed ||
-        token.reliability == AnalysisReliability.properNameGuess) {
-      return false;
+    if (token.reliability == AnalysisReliability.properNameGuess) {
+      return BiblicalNames.containsForm(token.word);
     }
+
+    if (!token.isAnalyzed) return false;
 
     return token.readings.any((r) => isKnown(r.lemma, r));
   }
-}
-
-/// Herkunft einer Bedeutung.
-enum MeaningSource {
-  /// Vokabelliste der App (Lernschritt in [HintLemma.step]).
-  vocabulary,
-
-  /// Deutsches Wiktionary.
-  wiktionaryGerman,
-
-  /// Englisches Wiktionary (keine deutsche Bedeutung vorhanden).
-  wiktionaryEnglish,
-
-  /// Keine Bedeutung in den Datenquellen.
-  none,
 }
 
 /// Eine mögliche Grundform einer Vokabelhilfe.
 class HintLemma {
   final String lemma;
 
-  /// Grundform mit Genitiv und Artikel aus der Vokabelliste ("ἀρχή, -ῆς, ἡ").
+  /// Grundform, bei Nomen mit Genitiv und Artikel ("ἀρχή, ἀρχῆς, ἡ").
   final String headword;
 
+  /// Kurze deutsche Bedeutungen (höchstens [maxGlossesPerHint]); leer, wenn
+  /// die Grundform ungelöst oder ein Eigenname ist.
   final List<String> meanings;
   final MeaningSource source;
   final int? step;
+
+  /// Eigenname außerhalb von [BiblicalNames].
   final bool properName;
 
   const HintLemma({
@@ -199,6 +238,9 @@ class HintLemma {
     this.step,
     this.properName = false,
   });
+
+  /// Keine gesicherte deutsche Bedeutung vorhanden.
+  bool get unresolved => meanings.isEmpty && !properName;
 }
 
 /// Vokabelhilfe zu einer oder mehreren Formen des Textes.
@@ -223,74 +265,71 @@ class VocabularyHint {
   });
 
   bool get ambiguous => lemmas.length > 1;
+
+  /// Ohne deutsche Bedeutung: unbestimmte Form oder ungelöste Grundform.
+  bool get unresolved => unanalyzed || lemmas.any((l) => l.unresolved);
 }
 
-/// Erstellt die Vokabelhilfen eines Textes.
+/// Erstellt die Vokabelhilfen eines Textes:
+///
+/// 1. Grundform(en) jeder Form aus der Bestimmung (im NT die des Kontexts);
+/// 2. bekannt nach [VocabularyKnowledge] → keine Hilfe;
+/// 3. sonst eine Hilfe je Grundform (nicht je Form) mit kurzer deutscher
+///    Bedeutung: Vokabelliste, sonst Lexikon; ohne deutsche Quelle bleibt
+///    die Grundform ungelöst ([HintLemma.unresolved]).
 class VocabularyHelpBuilder {
   final VocabularyKnowledge knowledge;
   final GreekLexicon lexicon;
 
   const VocabularyHelpBuilder(this.knowledge, this.lexicon);
 
-  static bool isProperNameLemma(String lemma) =>
+  /// Großgeschriebene Grundform. Das allein macht ein Wort weder bekannt
+  /// noch zum Eigennamen (Ἰουδαϊκός, Ἑβραϊστί); siehe [_isProperName].
+  static bool isCapitalized(String lemma) =>
       RegExp(r'^\p{Lu}', unicode: true).hasMatch(lemma);
+
+  static bool _isProperName(String lemma, LemmaAnalysis? analysis) =>
+      isCapitalized(lemma) &&
+      (analysis == null || analysis.analysis.pos == "N-");
+
+  static const Map<String, String> _articles = {"M": "ὁ", "F": "ἡ", "N": "τό"};
 
   HintLemma _lemma(String lemma, LemmaAnalysis? analysis) {
     final entries = knowledge.matcher.entriesFor(lemma, analysis);
-    final properName = isProperNameLemma(lemma);
 
     if (entries.isNotEmpty) {
       final first = entries.first;
-      final headword = [
-        first.lemma,
-        if (first.genitive != null) first.genitive!,
-        if (first.article != null) first.article!,
-      ].join(", ");
-
-      final meanings = <String>[
-        for (final e in entries)
-          for (final t in e.translations)
-            if (t.trim().isNotEmpty) t.trim(),
-      ];
 
       return HintLemma(
         lemma: lemma,
-        headword: headword,
-        meanings: meanings.toSet().toList(),
+        headword: [first.lemma, ?first.genitive, ?first.article].join(", "),
+        meanings: shortGlosses([for (final e in entries) ...e.translations]),
         source: MeaningSource.vocabulary,
         step: entries.map((e) => e.step).reduce((a, b) => a < b ? a : b),
-        properName: properName,
       );
     }
 
     final entry = lexicon[lemma];
+    final a = analysis?.analysis;
+    final article = a != null && a.pos == "N-" ? _articles[a.gender] : null;
+    final headword = [lemma, ?article].join(", ");
 
     if (entry != null && entry.german.isNotEmpty) {
       return HintLemma(
         lemma: lemma,
-        headword: lemma,
-        meanings: entry.german,
-        source: MeaningSource.wiktionaryGerman,
-        properName: properName,
-      );
-    }
-
-    if (entry != null && entry.english.isNotEmpty) {
-      return HintLemma(
-        lemma: lemma,
-        headword: lemma,
-        meanings: entry.english,
-        source: MeaningSource.wiktionaryEnglish,
-        properName: properName,
+        headword: headword,
+        // Beim Import bereits gekürzt.
+        meanings: entry.german.take(maxGlossesPerHint).toList(),
+        source: entry.source,
       );
     }
 
     return HintLemma(
       lemma: lemma,
-      headword: lemma,
+      headword: headword,
       meanings: const [],
       source: MeaningSource.none,
-      properName: properName,
+      properName: _isProperName(lemma, analysis),
     );
   }
 
@@ -324,7 +363,7 @@ class VocabularyHelpBuilder {
           byLemma.putIfAbsent(r.lemma, () => r);
         }
 
-        key = (byLemma.keys.toList()..sort()).join("|");
+        key = (byLemma.keys.map(greekFormKey).toList()..sort()).join("|");
         make = (f) => VocabularyHint(
           forms: f,
           lemmas: [

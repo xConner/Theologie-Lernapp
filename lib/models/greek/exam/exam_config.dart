@@ -1,3 +1,4 @@
+import '../../../services/greek/exam/exam_task_types.dart';
 import '../../../services/greek/exam/grammar_phenomena.dart';
 
 /// Konfiguration einer Übungsklausur. Wird je Nutzer gespeichert
@@ -67,7 +68,17 @@ class ExamConfig {
   /// Lernschritte der Vokabelliste (siehe `VocabularySettings.allSteps`).
   static const List<int> allSteps = [1, 2, 3, 4, 5, 6, 7, 8];
 
-  static const List<String> defaultExtraTasks = ["find_forms", "noun_parsing"];
+  /// Wie in den Klausuren des Kurses: eine Konstruktion im Text kennzeichnen
+  /// und Konstruktionen benennen.
+  static const List<String> defaultExtraTasks = [
+    "construction_marking",
+    "construction_naming",
+  ];
+
+  /// Fassung des gespeicherten Formats. Fassung 1 kannte zusätzlich Filter
+  /// für einzelne Personen, Numeri, Kasus und Genera sowie nur zwei
+  /// Aufgabenarten für Aufgabe 3 und 4; siehe [ExamConfig.fromMap].
+  static const int formatVersion = 2;
 
   PhenomenonRequirement requirementOf(String phenomenonId) =>
       requirements[phenomenonId] ?? PhenomenonRequirement.allowed;
@@ -127,6 +138,7 @@ class ExamConfig {
 
   Map<String, dynamic> toMap() {
     return {
+      "version": formatVersion,
       "corpusIds": corpusIds,
       "bookIds": bookIds,
       "chapterFrom": chapterFrom,
@@ -148,6 +160,12 @@ class ExamConfig {
   /// Liest eine gespeicherte Konfiguration. Unbekannte Phänomene und
   /// Anforderungen, die ein Phänomen nicht unterstützt (z. B. „ausgeschlossen“
   /// bei heuristischer Erkennung), werden verworfen.
+  ///
+  /// Migration von Fassung 1: Anforderungen an entfallene Filter
+  /// ([GrammarPhenomena.retiredFilters], z. B. „3. Person ausgeschlossen“)
+  /// entfallen ersatzlos – der Stoff ist danach uneingeschränkt erlaubt, alle
+  /// übrigen Einstellungen bleiben. Die Aufgaben 3 und 4 erhalten die neuen
+  /// Standardformate, weil Fassung 1 nur die beiden damaligen kannte.
   factory ExamConfig.fromMap(Object? data) {
     if (data is! Map) return const ExamConfig();
 
@@ -194,7 +212,14 @@ class ExamConfig {
 
     final steps = data["knownSteps"];
     final corpusIds = strings(data["corpusIds"], const ["nt"]);
-    final extraTasks = strings(data["extraTaskTypes"], defaultExtraTasks);
+    final version = intOrNull(data["version"]) ?? 1;
+    final storedTasks = strings(data["extraTaskTypes"], defaultExtraTasks);
+    final extraTasks =
+        version >= formatVersion &&
+            storedTasks.length == 2 &&
+            storedTasks.every((id) => ExamTaskTypes.extra.any((t) => t.id == id))
+        ? storedTasks
+        : defaultExtraTasks;
 
     return ExamConfig(
       corpusIds: corpusIds.isEmpty ? const ["nt"] : corpusIds,
@@ -221,7 +246,7 @@ class ExamConfig {
               ..sort())
           : List.of(allSteps),
       verbCount: (intOrNull(data["verbCount"]) ?? 5).clamp(1, maxVerbCount),
-      extraTaskTypes: extraTasks.length == 2 ? extraTasks : defaultExtraTasks,
+      extraTaskTypes: extraTasks,
     );
   }
 }

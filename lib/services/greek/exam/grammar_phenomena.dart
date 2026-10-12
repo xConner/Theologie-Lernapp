@@ -98,6 +98,11 @@ class GrammarPhenomenon {
 /// Gliederung einer Graecums-Lerngrammatik (Formenlehre, Kasus-, Tempus-
 /// und Moduslehre, Partizipial- und Infinitivkonstruktionen, Nebensätze).
 ///
+/// Ein Filter steht hier nur, wenn er einen eigenständigen, schrittweise
+/// gelernten Stoffbereich abbildet (ein Tempus, ein Modus, eine Verbklasse,
+/// eine Konstruktion). Person, Numerus, Kasus und Genus werden mit jeder
+/// Form mitgelernt und sind keine Filter (siehe [retiredFilters]).
+///
 /// Ein neues Phänomen braucht nur einen Eintrag hier; eine neue Regel ist
 /// eine Funktion in `syntax_rules.dart`. Danach den Korpusindex neu
 /// erzeugen (`tool/greek_exam_corpus/README.md`), sonst gilt das Phänomen
@@ -121,12 +126,10 @@ class GrammarPhenomena {
           "Kontext.",
       partitionsVerbs: true,
     ),
-    GrammarCategory("person", "Person und Numerus (finite Formen)"),
-    GrammarCategory("participle", "Partizipien nach Kasus, Numerus, Genus"),
     GrammarCategory("verbclass", "Verbklassen und Stammformen"),
     GrammarCategory("rection", "Verben mit besonderer Rektion"),
     GrammarCategory("noun", "Nomina und Adjektive"),
-    GrammarCategory("pronoun", "Pronomen und Artikel"),
+    GrammarCategory("pronoun", "Pronomen"),
     GrammarCategory("participleSyntax", "Partizipialkonstruktionen"),
     GrammarCategory("infinitiveSyntax", "Infinitivkonstruktionen"),
     GrammarCategory("clauses", "Nebensätze und Rede"),
@@ -135,6 +138,40 @@ class GrammarPhenomena {
     GrammarCategory("preposition", "Präpositionen und Kasusrektion"),
     GrammarCategory("wordOrder", "Wortstellung"),
   ];
+
+  /// Frühere Filter, die keine eigene Lernstufe abbilden, sondern eine
+  /// Grunddimension der Formenlehre in Einzelfälle zerlegten (einzelne
+  /// Personen, Numeri, Kasus, Genera) oder Wörter des ersten Lernschritts
+  /// betrafen (Artikel, οὐ, μή). Wer Präsens gewählt hat, bekommt alle
+  /// Personen und Numeri des Präsens; wer Partizipien zulässt, alle Kasus,
+  /// Numeri und Genera.
+  ///
+  /// Gespeicherte Anforderungen mit diesen IDs entfallen beim Lesen
+  /// (`ExamConfig.fromMap`): der betroffene Stoff ist danach uneingeschränkt
+  /// erlaubt.
+  static const Set<String> retiredFilters = {
+    "verb.person.first",
+    "verb.person.second",
+    "verb.person.third",
+    "verb.number.singular",
+    "verb.number.plural",
+    "participle.case.n",
+    "participle.case.g",
+    "participle.case.d",
+    "participle.case.a",
+    "participle.number.s",
+    "participle.number.p",
+    "participle.gender.m",
+    "participle.gender.f",
+    "participle.gender.n",
+    "case.vocative",
+    "pronoun.article",
+    "negation.ou",
+    "negation.me",
+    "preposition.genitive",
+    "preposition.dative",
+    "preposition.accusative",
+  };
 
   static GrammarCategory? category(String id) {
     for (final c in categories) {
@@ -386,77 +423,6 @@ class GrammarPhenomena {
       "Passiv",
       const MorphPattern(pos: _verb, voice: "P"),
     ),
-
-    // -------------------------------------------------------------------------
-    // PERSON UND NUMERUS
-    // -------------------------------------------------------------------------
-    _morph(
-      "verb.person.first",
-      "person",
-      "1. Person",
-      const MorphPattern(pos: _verb, person: "1"),
-    ),
-    _morph(
-      "verb.person.second",
-      "person",
-      "2. Person",
-      const MorphPattern(pos: _verb, person: "2"),
-    ),
-    _morph(
-      "verb.person.third",
-      "person",
-      "3. Person",
-      const MorphPattern(pos: _verb, person: "3"),
-    ),
-    _morph(
-      "verb.number.singular",
-      "person",
-      "Singular (finite Formen)",
-      const MorphPattern(pos: _verb, mood: "ISOD", number: "S"),
-    ),
-    _morph(
-      "verb.number.plural",
-      "person",
-      "Plural (finite Formen)",
-      const MorphPattern(pos: _verb, mood: "ISOD", number: "P"),
-    ),
-
-    // -------------------------------------------------------------------------
-    // PARTIZIPIEN
-    // -------------------------------------------------------------------------
-    for (final (code, label) in const [
-      ("N", "Nominativ"),
-      ("G", "Genitiv"),
-      ("D", "Dativ"),
-      ("A", "Akkusativ"),
-    ])
-      _morph(
-        "participle.case.${code.toLowerCase()}",
-        "participle",
-        "Partizip im $label",
-        MorphPattern(pos: _verb, mood: "P", grammaticalCase: code),
-        implies: const ["verb.mood.participle"],
-      ),
-    for (final (code, label) in const [("S", "Singular"), ("P", "Plural")])
-      _morph(
-        "participle.number.${code.toLowerCase()}",
-        "participle",
-        "Partizip im $label",
-        MorphPattern(pos: _verb, mood: "P", number: code),
-        implies: const ["verb.mood.participle"],
-      ),
-    for (final (code, label) in const [
-      ("M", "Maskulinum"),
-      ("F", "Femininum"),
-      ("N", "Neutrum"),
-    ])
-      _morph(
-        "participle.gender.${code.toLowerCase()}",
-        "participle",
-        "Partizip im $label",
-        MorphPattern(pos: _verb, mood: "P", gender: code),
-        implies: const ["verb.mood.participle"],
-      ),
 
     // -------------------------------------------------------------------------
     // VERBKLASSEN UND STAMMFORMEN
@@ -773,22 +739,10 @@ class GrammarPhenomena {
           "Erkannt an der Grundform (Kardinal- und Ordinalzahlen, "
           "Zahlsubstantive).",
     ),
-    _morph(
-      "case.vocative",
-      "noun",
-      "Vokativ",
-      const MorphPattern(grammaticalCase: "V"),
-    ),
 
     // -------------------------------------------------------------------------
     // PRONOMEN UND ARTIKEL
     // -------------------------------------------------------------------------
-    _morph(
-      "pronoun.article",
-      "pronoun",
-      "Artikel",
-      const MorphPattern(pos: {"RA"}),
-    ),
     _lemmas(
       "pronoun.personal",
       "pronoun",
@@ -858,7 +812,7 @@ class GrammarPhenomena {
           "Nomen/Pronomen im Genitiv im selben Satz; nicht nach Verben mit "
           "Genitivobjekt (ἀκούω u. a.).",
       SyntaxRules.genitiveAbsolute,
-      implies: const ["verb.mood.participle", "participle.case.g"],
+      implies: const ["verb.mood.participle"],
     ),
     _rule(
       "syntax.participium_coniunctum",
@@ -876,7 +830,7 @@ class GrammarPhenomena {
       "Partizip mit Artikel (substantiviert/attributiv)",
       "Artikel unmittelbar vor einem kongruenten Partizip (ὁ πιστεύων).",
       SyntaxRules.articularParticiple,
-      implies: const ["verb.mood.participle", "pronoun.article"],
+      implies: const ["verb.mood.participle"],
     ),
     _rule(
       "syntax.periphrastic",
@@ -925,7 +879,7 @@ class GrammarPhenomena {
       "Artikel im Neutrum Singular vor einem Infinitiv (τὸ ζῆν, τοῦ "
           "σπεῖραι), höchstens drei Wörter dazwischen.",
       SyntaxRules.articularInfinitive,
-      implies: const ["verb.mood.infinitive", "pronoun.article"],
+      implies: const ["verb.mood.infinitive"],
     ),
     _rule(
       "syntax.prepositional_infinitive",
@@ -1082,7 +1036,7 @@ class GrammarPhenomena {
       "μή (nicht nach οὐ) und bis zu drei Wörter danach ein Aorist "
           "Konjunktiv der 2. Person.",
       SyntaxRules.prohibitiveSubjunctive,
-      implies: const ["verb.mood.subjunctive", "negation.me"],
+      implies: const ["verb.mood.subjunctive"],
     ),
     _rule(
       "mood.deliberative",
@@ -1108,17 +1062,11 @@ class GrammarPhenomena {
       description: "οὐ unmittelbar gefolgt von μή.",
       status: PhenomenonStatus.reliable,
       detector: const AdjacentLemmaDetector("οὐ", "μή"),
-      implies: const ["negation.ou", "negation.me"],
     ),
 
     // -------------------------------------------------------------------------
     // NEGATIONEN
     // -------------------------------------------------------------------------
-    _lemmas("negation.ou", "negation", "οὐ / οὐκ / οὐχ / οὐχί", const [
-      "οὐ",
-      "οὐχί",
-    ]),
-    _lemmas("negation.me", "negation", "μή", const ["μή"]),
     _lemmas(
       "negation.compound",
       "negation",
@@ -1148,27 +1096,6 @@ class GrammarPhenomena {
     // -------------------------------------------------------------------------
     // PRÄPOSITIONEN
     // -------------------------------------------------------------------------
-    _rule(
-      "preposition.genitive",
-      "preposition",
-      "Präposition mit Genitiv",
-      "Kasus der ersten deklinierten Form nach der Präposition.",
-      SyntaxRules.prepositionWithCase("G"),
-    ),
-    _rule(
-      "preposition.dative",
-      "preposition",
-      "Präposition mit Dativ",
-      "Kasus der ersten deklinierten Form nach der Präposition.",
-      SyntaxRules.prepositionWithCase("D"),
-    ),
-    _rule(
-      "preposition.accusative",
-      "preposition",
-      "Präposition mit Akkusativ",
-      "Kasus der ersten deklinierten Form nach der Präposition.",
-      SyntaxRules.prepositionWithCase("A"),
-    ),
     _lemmas(
       "preposition.multi_case",
       "preposition",

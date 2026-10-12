@@ -115,10 +115,12 @@ ohne Umbau hinzukommen:
 | Phänomene: IDs, Kategorien, Status, Voraussetzungen | `services/greek/exam/grammar_phenomena.dart` |
 | Erkennung (sicher/möglich), Muster, Grundformlisten | `services/greek/exam/phenomenon_detection.dart` |
 | Satzkonstruktionen (Genitivus absolutus, AcI, PC, Bedingungssätze …) | `services/greek/exam/syntax_rules.dart` |
-| Vokabelkenntnis nach Lernschritten, Vokabelhilfen | `services/greek/exam/vocabulary_help.dart` |
+| Vokabelkenntnis nach Lernschritten, Vokabelhilfen (deutsch, je Grundform) | `services/greek/exam/vocabulary_help.dart` |
+| Vorausgesetzte Wörter: Artikel, Pronomen, gängige biblische Eigennamen | `services/greek/exam/assumed_vocabulary.dart` |
+| Kürzung der Wörterbuchangaben auf Vokabelhilfen | `services/greek/exam/gloss_shortener.dart` |
 | Konfiguration | `models/greek/exam/exam_config.dart` |
 | Textsuche, Zufallsauswahl, Begründung ohne Treffer | `services/greek/exam/passage_finder.dart` |
-| Aufgabenarten (Verben bestimmen, Formen finden, Nominalformen) | `services/greek/exam/exam_task_types.dart` |
+| Aufgabenarten (Verben bestimmen; Aufgabe 3/4: Konstruktion markieren bzw. benennen, Kasus nach Präposition, Formen finden, Nominalformen) | `services/greek/exam/exam_task_types.dart` |
 | Klausur erstellen, Aufgaben austauschen | `services/greek/exam/exam_generator.dart` |
 | Antwortprüfung mit Mehrdeutigkeiten | `services/greek/exam/exam_answer_check.dart` |
 | Konfiguration und bearbeitete Texte (Konto: `users/{uid}/greek_exam`, Gast: lokal) | `services/greek/exam/exam_store.dart` |
@@ -138,6 +140,19 @@ Grundsätze:
   regelbasiert (Satzkonstruktionen; nur forderbar) oder nicht verfügbar
   (nicht wählbar). Die Oberfläche zeigt den Status und enthält keine
   eigene Grammatiklogik.
+* **Filter sind Lernstufen.** Ein Phänomen ist nur dann ein Filter, wenn
+  es einen eigenständig gelernten Stoffbereich abbildet (Tempus, Modus,
+  Verbklasse, Konstruktion). Person, Numerus, Kasus und Genus werden mit
+  jeder Form mitgelernt und sind keine Filter; frühere Filter dieser Art
+  stehen in `GrammarPhenomena.retiredFilters` und entfallen beim Lesen
+  alter Einstellungen.
+* **Vokabelhilfen nur deutsch, kurz und nur wo nötig.** Bekannt sind die
+  gewählten Lernschritte der Vokabelliste, dazu Artikel, Pronomen und
+  gängige biblische Eigennamen (`assumed_vocabulary.dart`, über die
+  Grundform, nie über die Schreibweise). Jede übrige Grundform erhält eine
+  Hilfe mit höchstens drei deutschen Bedeutungen; ohne deutsche Quelle
+  bleibt sie als ungelöst gekennzeichnet. Das Lexikon enthält keine
+  englischen Angaben.
 * **Suche ohne Texte.** Der Index hält je Vers die Phänomene als Bitmenge;
   Abschnitte sind satzgerechte Versfolgen eines Kapitels. Gewählt wird
   gleichverteilt über die Anfangsverse aller passenden Abschnitte; in der

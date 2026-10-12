@@ -415,8 +415,11 @@ class _GreekExamScreenState extends State<GreekExamScreen> {
               style: secondary,
             ),
           Text(
-            "Bedeutungen: Vokabelliste der App, sonst deutsches bzw. "
-            "englisches Wiktionary (CC BY-SA 4.0).",
+            "Vokabelhilfen: Vokabelliste der App, sonst deutsches Wiktionary "
+            "(CC BY-SA 4.0) und Pape, Griechisch-deutsches Handwörterbuch "
+            "(1914, gemeinfrei; digitale Fassung über das Classical Language "
+            "Dictionary der BBAW, CC BY 4.0), jeweils gekürzt. Artikel, "
+            "Pronomen und gängige biblische Eigennamen gelten als bekannt.",
             style: secondary,
           ),
           const SizedBox(height: 8),
@@ -485,6 +488,11 @@ class _GreekExamScreenState extends State<GreekExamScreen> {
         ],
       ),
       FindFormsTask() => FindFormsView(
+        key: ValueKey(version),
+        passage: exam.passage,
+        task: task,
+      ),
+      ChoiceTask() => ChoiceTaskView(
         key: ValueKey(version),
         passage: exam.passage,
         task: task,

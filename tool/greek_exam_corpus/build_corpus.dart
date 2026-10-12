@@ -17,6 +17,8 @@ import 'package:theologie_lernapp/services/greek/exam/greek_form_key.dart';
 import 'package:theologie_lernapp/services/greek/exam/phenomenon_detection.dart';
 import 'package:theologie_lernapp/utils/greek_normalization.dart';
 
+import 'german_lexicon.dart';
+
 const String outputRoot = 'assets/greek_corpus';
 
 typedef Pair = (String lemma, String code);
@@ -75,7 +77,16 @@ Future<void> main(List<String> args) async {
     usedLemmas: usedLemmas,
   );
 
-  writeLexicon(usedLemmas, wiktionary);
+  final german = GermanLexicon.load(sources);
+  final lexicon = writeGermanLexicon(
+    lemmas: usedLemmas,
+    german: german,
+    declensionOf: wiktionary.declensionOf,
+  );
+  stdout.writeln(
+    'Lexikon: ${usedLemmas.length} Grundformen, deutsche Bedeutung nach '
+    'Quelle ${lexicon.bySource}, ungelöst ${lexicon.unresolved.length}',
+  );
   writeCorpora(sources, ntStats, lxxStats);
 
   stdout.writeln('NT:  $ntStats');
@@ -271,9 +282,6 @@ class Wiktionary {
   /// Schlüssel der Grundform → deutsche Bedeutungen (de.wiktionary).
   final Map<String, List<String>> german = {};
 
-  /// Schlüssel der Grundform → englische Bedeutungen (en.wiktionary).
-  final Map<String, List<String>> english = {};
-
   int? declensionOf(String lemma) => declension[greekFormKey(lemma)];
 
   static Wiktionary load({required File english, required File german}) {
@@ -443,26 +451,6 @@ class Wiktionary {
     final lemma = _lemmaOf(word);
     final senses = (entry['senses'] as List?) ?? const [];
     final forms = (entry['forms'] as List?) ?? const [];
-
-    final isFormOf = senses.isNotEmpty &&
-        senses.every((s) {
-          final tags = ((s as Map)['tags'] as List?) ?? const [];
-          return tags.contains('form-of') || tags.contains('alt-of');
-        });
-
-    // Englische Bedeutungen nur von Grundform-Einträgen.
-    if (!isFormOf) {
-      final glosses = [
-        for (final s in senses)
-          for (final g in ((s as Map)['glosses'] as List?) ?? const [])
-            if (!(((s['tags'] as List?) ?? const []).contains('form-of')))
-              (g as String).trim(),
-      ].where((g) => g.isNotEmpty).toList();
-
-      if (glosses.isNotEmpty) {
-        english.putIfAbsent(greekFormKey(lemma), () => []).addAll(glosses);
-      }
-    }
 
     // Partizipien als eigene Einträge mit vollständiger Deklination.
     String? participleCode;
@@ -914,50 +902,6 @@ CorpusStats buildCorpus({
   return stats;
 }
 
-/// Bedeutungen und Deklinationsklassen der verwendeten Grundformen.
-void writeLexicon(Set<String> lemmas, Wiktionary wiktionary) {
-  final entries = <String, dynamic>{};
-
-  List<String> trimmed(List<String>? glosses, int max) {
-    if (glosses == null) return const [];
-
-    final seen = <String>{};
-    return [
-      for (final g in glosses)
-        if (seen.add(g)) g.length > 160 ? '${g.substring(0, 157)}…' : g,
-    ].take(max).toList();
-  }
-
-  var withGerman = 0;
-  var withEnglish = 0;
-
-  for (final lemma in lemmas.toList()..sort()) {
-    final key = greekFormKey(lemma);
-    final de = trimmed(wiktionary.german[key], 4);
-    final en = trimmed(wiktionary.english[key], 3);
-    final decl = wiktionary.declension[key];
-
-    if (de.isEmpty && en.isEmpty && decl == null) continue;
-    if (de.isNotEmpty) withGerman++;
-    if (en.isNotEmpty) withEnglish++;
-
-    entries[lemma] = {
-      if (de.isNotEmpty) 'de': de,
-      if (en.isNotEmpty) 'en': en,
-      'decl': ?decl,
-    };
-  }
-
-  File('$outputRoot/lexicon.json').writeAsStringSync(
-    jsonEncode({'version': 1, 'entries': entries}),
-  );
-
-  stdout.writeln(
-    'Lexikon: ${lemmas.length} Grundformen, davon $withGerman mit deutscher '
-    'und $withEnglish mit englischer Bedeutung aus Wiktionary',
-  );
-}
-
 void writeCorpora(
   Map<String, dynamic> sources,
   CorpusStats nt,
@@ -966,6 +910,7 @@ void writeCorpora(
   final morphgnt = sources['morphgnt'] as Map<String, dynamic>;
   final en = sources['wiktionaryEnglish'] as Map<String, dynamic>;
   final de = sources['wiktionaryGerman'] as Map<String, dynamic>;
+  final pape = sources['pape'] as Map<String, dynamic>;
   final today = DateTime.now().toIso8601String().substring(0, 10);
 
   Map<String, dynamic> source(Map<String, dynamic> s) => {
@@ -1032,10 +977,12 @@ void writeCorpora(
       ],
       'lexicon': {
         'note':
-            'Deutsche Bedeutungen außerhalb der Vokabelliste aus dem '
-            'deutschen Wiktionary; fehlt dort ein Eintrag, englische '
-            'Bedeutungen aus dem englischen Wiktionary (so gekennzeichnet).',
-        'sources': [source(de), source(en)],
+            'Ausschließlich deutsche Bedeutungen außerhalb der Vokabelliste, '
+            'auf Vokabelhilfen gekürzt: redaktionelle Angaben '
+            '(tool/greek_exam_corpus/german_glosses.json), deutsches '
+            'Wiktionary, Pape (1914). Grundformen ohne deutsche Quelle '
+            'bleiben ungelöst.',
+        'sources': [source(de), source(pape)],
       },
     }),
   );

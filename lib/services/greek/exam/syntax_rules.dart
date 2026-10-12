@@ -186,6 +186,25 @@ class SyntaxRules {
     return (a) => keys.contains(greekFormKey(a.lemma));
   }
 
+  /// Regierende Verben aus [lemmas]. MorphGNT führt δεῖ unter δέω („binden“);
+  /// als unpersönlicher Ausdruck zählt deshalb δέω in der 3. Person Singular
+  /// Aktiv (δεῖ, ἔδει, δέῃ), nicht ἔδησαν.
+  static AnalysisTest _governor(List<String> lemmas) {
+    final listed = _lemma(lemmas);
+    final dei = greekFormKey("δέω");
+
+    return (a) {
+      if (greekFormKey(a.lemma) == dei) {
+        return a.analysis.person == "3" &&
+            a.analysis.number == "S" &&
+            a.analysis.voice == "A" &&
+            "PI".contains(a.analysis.tense);
+      }
+
+      return listed(a);
+    };
+  }
+
   static final AnalysisTest _isArticle = MorphPattern.article.matches;
   static final AnalysisTest _isPreposition = MorphPattern.preposition.matches;
   static final AnalysisTest _isPostpositive = _lemma(postpositives);
@@ -421,6 +440,55 @@ class SyntaxRules {
     return hits;
   }
 
+  /// Verben der Wahrnehmung und des Findens, nach denen ein AcP steht.
+  static const List<String> perceptionVerbs = [
+    "ὁράω",
+    "εἶδον",
+    "βλέπω",
+    "θεωρέω",
+    "θεάομαι",
+    "εὑρίσκω",
+    "γινώσκω",
+    "ἐπιγινώσκω",
+    "οἶδα",
+    "καταλαμβάνω",
+  ];
+
+  /// AcP (Akkusativ mit Partizip): Partizip im Akkusativ ohne Artikel, das
+  /// mit einem Nomen/Pronomen im Akkusativ kongruiert, nach einem Verb der
+  /// Wahrnehmung oder des Findens im selben Satz (εὗρεν αὐτοὺς
+  /// καθεύδοντας). Belege: Partizip, Akkusativ, regierendes Verb.
+  ///
+  /// Nur für die Aufgaben der Klausur; kein Filter und nicht im Index.
+  static List<int> accusativeWithParticiple(DetectionView v) {
+    final hits = <int>[];
+    final governor = _lemma(perceptionVerbs);
+
+    bool accusativeParticiple(LemmaAnalysis a) =>
+        a.analysis.isParticiple && a.analysis.grammaticalCase == "A";
+
+    bool accusativeNominal(LemmaAnalysis a) =>
+        _isNominal(a) && a.analysis.grammaticalCase == "A";
+
+    for (var i = 0; i < v.length; i++) {
+      if (!v.holds(i, accusativeParticiple)) continue;
+      if (_isArticular(v, i) || _governedByPreposition(v, i)) continue;
+
+      final gov = _before(v, i, (a) => governor(a) && a.analysis.isVerb);
+      if (gov == null) continue;
+
+      for (var k = i - 1; k > gov && k >= i - 6; k--) {
+        if (_pair(v, i, accusativeParticiple, k, accusativeNominal, _agree) &&
+            !_governedByPreposition(v, k)) {
+          hits.addAll([i, k, gov]);
+          break;
+        }
+      }
+    }
+
+    return hits;
+  }
+
   /// Umschreibung mit εἰμί und Partizip (ἦν διδάσκων). Belege: beide.
   static List<int> periphrasticConstruction(DetectionView v) {
     final hits = <int>[];
@@ -529,7 +597,7 @@ class SyntaxRules {
   /// Präposition. Belege: Akkusativ, Infinitiv (und regierendes Verb).
   static List<int> accusativeWithInfinitive(DetectionView v) {
     final hits = <int>[];
-    final governor = _lemma(aciGovernors);
+    final governor = _governor(aciGovernors);
     final subordinator = _lemma(subordinators);
 
     bool isSubject(LemmaAnalysis a) =>
@@ -587,7 +655,7 @@ class SyntaxRules {
   /// Belege: regierendes Verb und Infinitiv.
   static List<int> complementaryInfinitive(DetectionView v) {
     final hits = <int>[];
-    final governor = _lemma(infinitiveGovernors);
+    final governor = _governor(infinitiveGovernors);
 
     for (var i = 0; i < v.length; i++) {
       if (!v.holds(i, (a) => governor(a) && a.analysis.isFinite)) continue;

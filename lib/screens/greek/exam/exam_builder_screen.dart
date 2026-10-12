@@ -765,7 +765,8 @@ class _GreekExamBuilderScreenState extends State<GreekExamBuilderScreen> {
       title: "Als bekannt gelten",
       hint:
           "Lernschritte der Vokabelliste. Wörter außerhalb dieser Schritte "
-          "stehen als Vokabelhilfen unter dem Text.",
+          "stehen als kurze deutsche Vokabelhilfen unter dem Text. Artikel, "
+          "Pronomen und gängige biblische Eigennamen gelten als bekannt.",
       options: ExamConfig.allSteps,
       isSelected: config.knownSteps.contains,
       labelOf: VocabularySettings.stepLabel,
@@ -781,7 +782,8 @@ class _GreekExamBuilderScreenState extends State<GreekExamBuilderScreen> {
               : ExamConfig.allSteps,
         ),
       ),
-      emptyError: "Kein Schritt: Jedes Wort erhält eine Vokabelhilfe.",
+      emptyError:
+          "Kein Schritt: Jedes Wort der Vokabelliste erhält eine Vokabelhilfe.",
     );
   }
 
@@ -798,9 +800,11 @@ class _GreekExamBuilderScreenState extends State<GreekExamBuilderScreen> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Text(
-          "Je Phänomen: erlaubt (darf vorkommen), erforderlich (muss sicher "
-          "belegt sein) oder ausgeschlossen (darf nicht vorkommen). „Nur "
-          "Präsens und Aorist“: die übrigen Tempora ausschließen.",
+          "Die Filter bilden den Lernstand ab: Was noch nicht behandelt "
+          "ist, ausschließen (z. B. alle Tempora außer Präsens und "
+          "Imperfekt); was geübt werden soll, als erforderlich wählen. "
+          "Innerhalb des erlaubten Stoffs kommen alle Personen, Numeri, "
+          "Kasus und Genera vor.",
           style: secondary,
         ),
         const SizedBox(height: 4),
@@ -1008,8 +1012,9 @@ class _GreekExamBuilderScreenState extends State<GreekExamBuilderScreen> {
           ),
         const SizedBox(height: 8),
         Text(
-          "Weitere Aufgabenformate folgen, sobald Griechisch-I-Abschlussklausuren "
-          "als Vorlage vorliegen.",
+          "Die Formate folgen den Übungstexten und Eingangsklausuren des "
+          "Kurses. Gibt ein Text die gewählte Aufgabe nicht her (z. B. kein "
+          "Genitivus absolutus), tritt eine andere an ihre Stelle.",
           style: TextStyle(color: context.colors.textSecondary),
         ),
       ],

@@ -267,17 +267,30 @@ class ExamGenerator {
       excluded: config.excludedPhenomena.toList(),
     );
 
-    ExamTask extraTask(String typeId) {
-      final type = ExamTaskTypes.byId(typeId);
+    final extra = <ExamTask>[];
 
-      return type?.create(
-            ExamTaskContext(passage: passage, detection: detection),
-            random,
-          ) ??
-          UnavailableTask(
-            typeId,
-            "Der Text enthält keine geeigneten Formen für diese Aufgabe.",
-          );
+    // Gibt der Text die gewählte Aufgabenart nicht her (kein Genitivus
+    // absolutus im Abschnitt), tritt die nächste mögliche Art an ihre Stelle,
+    // die in dieser Klausur noch nicht vorkommt.
+    for (final typeId in config.extraTaskTypes) {
+      final context = ExamTaskContext(passage: passage, detection: detection);
+      final used = {for (final task in extra) task.typeId};
+
+      var task = ExamTaskTypes.byId(typeId)?.create(context, random);
+
+      for (final type in ExamTaskTypes.extra) {
+        if (task != null) break;
+        if (type.id == typeId || used.contains(type.id)) continue;
+        task = type.create(context, random);
+      }
+
+      extra.add(
+        task ??
+            UnavailableTask(
+              typeId,
+              "Der Text enthält keine geeigneten Formen für diese Aufgabe.",
+            ),
+      );
     }
 
     return GreekExam(
@@ -300,7 +313,7 @@ class ExamGenerator {
             "verb_parsing",
             "Der Text enthält keine eindeutig als Verb bestimmten Formen.",
           ),
-      extra: [for (final typeId in config.extraTaskTypes) extraTask(typeId)],
+      extra: extra,
     );
   }
 

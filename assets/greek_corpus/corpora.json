@@ -169,7 +169,7 @@
     }
   ],
   "lexicon": {
-    "note": "Deutsche Bedeutungen außerhalb der Vokabelliste aus dem deutschen Wiktionary; fehlt dort ein Eintrag, englische Bedeutungen aus dem englischen Wiktionary (so gekennzeichnet).",
+    "note": "Ausschließlich deutsche Bedeutungen außerhalb der Vokabelliste, auf Vokabelhilfen gekürzt: redaktionelle Angaben (tool/greek_exam_corpus/german_glosses.json), deutsches Wiktionary, Pape (1914). Grundformen ohne deutsche Quelle bleiben ungelöst.",
     "sources": [
       {
         "name": "Deutsches Wiktionary, Altgriechisch (Wiktextract-Auszug von kaikki.org)",
@@ -179,11 +179,11 @@
         "copyright": "Wiktionary-Autorinnen und -Autoren; Auszug: Tatu Ylonen, Wiktextract"
       },
       {
-        "name": "English Wiktionary, Altgriechisch (Wiktextract-Auszug von kaikki.org)",
-        "url": "https://kaikki.org/dictionary/Ancient%20Greek/",
-        "license": "CC BY-SA 4.0 (und GFDL)",
-        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
-        "copyright": "Wiktionary-Autorinnen und -Autoren; Auszug: Tatu Ylonen, Wiktextract"
+        "name": "Pape, Griechisch-deutsches Handwörterbuch (3. Aufl. 1914), digitale Fassung von Chaeréphon (André Charbonnet), bereitgestellt vom Classical Language Dictionary der BBAW",
+        "url": "https://cld.bbaw.de/documentation/dictionaries",
+        "license": "Wörterbuchtext gemeinfrei; Bereitstellung CC BY 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+        "copyright": "Wilhelm Pape, bearb. von M. Sengebusch (1914); Classical Language Dictionary, Berlin-Brandenburgische Akademie der Wissenschaften (TELOTA)"
       }
     ]
   }

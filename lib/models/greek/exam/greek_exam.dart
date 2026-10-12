@@ -118,25 +118,76 @@ class VerbParsingTask extends ExamTask {
   String get typeId => "verb_parsing";
 }
 
-/// Formen eines Phänomens im Text markieren.
+/// Formen im Text markieren: alle Formen einer Kategorie ("find_forms")
+/// oder die Formen einer Konstruktion ("construction_marking").
 class FindFormsTask extends ExamTask {
   final String phenomenonId;
 
   /// Formen, die sicher dazugehören (müssen markiert werden).
   final Set<int> targets;
 
-  /// Formen, die nach einer anderen möglichen Bestimmung dazugehören
-  /// (Markieren gilt nicht als Fehler).
+  /// Formen, deren Markierung nicht als Fehler gilt: nach einer anderen
+  /// möglichen Bestimmung zugehörig oder Teil der Konstruktion, ohne
+  /// verlangt zu sein (Bezugswort, Artikel, regierendes Verb).
   final Set<int> tolerated;
+
+  /// Arbeitsanweisung; `null` = „alle Formen“ des Phänomens.
+  final String? instruction;
+
+  /// Erklärung zu [tolerated] in der Auswertung.
+  final String? toleratedNote;
+
+  @override
+  final String typeId;
 
   const FindFormsTask({
     required this.phenomenonId,
     required this.targets,
     required this.tolerated,
+    this.instruction,
+    this.toleratedNote,
+    this.typeId = "find_forms",
   });
+}
 
+/// Eine Auswahlfrage zu einer Stelle des Textes.
+class ChoiceItem {
+  /// Die Form, nach der gefragt ist (Index in [ExamPassage.tokens]).
+  final int tokenIndex;
+
+  /// Weitere Formen, die zur Lösung gehören (Bezugswort, regiertes Wort);
+  /// sie werden erst mit der Auswertung gezeigt.
+  final List<int> related;
+
+  final String question;
+  final List<String> options;
+  final String answer;
+
+  /// Kurze Begründung der Lösung.
+  final String? explanation;
+
+  const ChoiceItem({
+    required this.tokenIndex,
+    required this.question,
+    required this.options,
+    required this.answer,
+    this.related = const [],
+    this.explanation,
+  });
+}
+
+/// Auswahlfragen zum Text (Konstruktion benennen, Kasus nach Präposition).
+class ChoiceTask extends ExamTask {
   @override
-  String get typeId => "find_forms";
+  final String typeId;
+  final String instruction;
+  final List<ChoiceItem> items;
+
+  const ChoiceTask({
+    required this.typeId,
+    required this.instruction,
+    required this.items,
+  });
 }
 
 /// Nominalformen (Nomen, Adjektive, Pronomen) bestimmen.

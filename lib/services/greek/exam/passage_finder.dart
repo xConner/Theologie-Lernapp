@@ -252,16 +252,17 @@ class PassageFinder {
 
   final Map<String, List<int>> _lemmaHintFlags = {};
 
-  /// Je Grundform des Index: 1 = braucht eine Hilfe, 0 = bekannt,
-  /// -1 = Eigenname (zählt nicht als Schwierigkeit).
+  /// Je Grundform des Index: 1 = braucht eine Hilfe, 0 = bekannt (auch
+  /// vorausgesetzte Funktionswörter und gängige Eigennamen), -1 = sonstiger
+  /// Eigenname (zählt nicht als Schwierigkeit).
   List<int> _hintFlags(CorpusIndex index) {
     return _lemmaHintFlags.putIfAbsent(index.corpusId, () {
       final k = knowledge!;
       return [
         for (final lemma in index.lemmas)
-          VocabularyHelpBuilder.isProperNameLemma(lemma)
-              ? -1
-              : (k.isKnown(lemma) ? 0 : 1),
+          k.isKnown(lemma)
+              ? 0
+              : (VocabularyHelpBuilder.isCapitalized(lemma) ? -1 : 1),
       ];
     });
   }

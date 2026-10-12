@@ -40,6 +40,15 @@
       "REV": "87-Re-morphgnt.txt"
     }
   },
+  "pape": {
+    "name": "Pape, Griechisch-deutsches Handwörterbuch (3. Aufl. 1914), digitale Fassung von Chaeréphon (André Charbonnet), bereitgestellt vom Classical Language Dictionary der BBAW",
+    "url": "https://cld.bbaw.de/api/dictionary/lemma/{lemma}?language=grc&options=case-sensitive",
+    "file": "pape.jsonl",
+    "homepage": "https://cld.bbaw.de/documentation/dictionaries",
+    "license": "Wörterbuchtext gemeinfrei; Bereitstellung CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "copyright": "Wilhelm Pape, bearb. von M. Sengebusch (1914); Classical Language Dictionary, Berlin-Brandenburgische Akademie der Wissenschaften (TELOTA)"
+  },
   "wiktionaryEnglish": {
     "name": "English Wiktionary, Altgriechisch (Wiktextract-Auszug von kaikki.org)",
     "url": "https://kaikki.org/dictionary/Ancient%20Greek/kaikki.org-dictionary-AncientGreek.jsonl",

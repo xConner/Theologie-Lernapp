@@ -211,14 +211,11 @@ void main() {
         "verb.tense.aorist",
         "verb.tense.future",
         "verb.voice.passive",
-        "participle.case.g",
         "syntax.aci",
         "syntax.genitive_absolute",
         "syntax.participium_coniunctum",
         "clause.relative",
         "clause.conditional",
-        "negation.me",
-        "preposition.genitive",
         "adjective.comparative",
       ]) {
         expect(GrammarPhenomena.byId(id), isNotNull, reason: id);
@@ -257,10 +254,14 @@ void main() {
 
     test("Im Kontext bestimmte Form zählt nur mit ihrer Kontextbestimmung", () {
       // ἦν: Kontext 3. Sg., formal auch 1. Sg.
-      final token = ctx("ἦν", "εἰμί", "V-3IAI-S--", [la("εἰμί", "V-1IAI-S--")]);
-      final first = GrammarPhenomena.byId("verb.person.first")!;
+      // λύετε: Kontext Indikativ, formal auch Imperativ.
+      final token = ctx("λύετε", "λύω", "V-2PAI-P--", [la("λύω", "V-2PAD-P--")]);
+      final imperative = GrammarPhenomena.byId("verb.mood.imperative")!;
 
-      expect(first.detector!.detect(DetectionView([token], DetectionMode.possible)), isEmpty);
+      expect(
+        imperative.detector!.detect(DetectionView([token], DetectionMode.possible)),
+        isEmpty,
+      );
     });
   });
 
@@ -314,7 +315,7 @@ void main() {
   group("Textsuche", () {
     final index = syntheticIndex([
       verse(30),
-      verse(30, certain: ["syntax.genitive_absolute", "verb.mood.participle", "participle.case.g"]),
+      verse(30, certain: ["syntax.genitive_absolute", "verb.mood.participle"]),
       verse(30, possible: ["verb.tense.future"]),
       verse(30, unanalyzed: 2),
       verse(30, end: false),
@@ -549,8 +550,10 @@ void main() {
     test("Hilfen: Übersetzung aus späterem Schritt, Wörterbuch, Mehrdeutigkeit", () {
       final knowledge = VocabularyKnowledge(matcher, [1]);
       final lexicon = GreekLexicon({
-        "κόσμος": const LexiconEntry(german: ["Ordnung", "Welt"]),
-        "σκότος": const LexiconEntry(english: ["darkness"]),
+        "κόσμος": const LexiconEntry(
+          german: ["Ordnung", "Welt"],
+          source: MeaningSource.wiktionary,
+        ),
       });
 
       final hints = VocabularyHelpBuilder(knowledge, lexicon).build([
@@ -560,7 +563,7 @@ void main() {
         ctx("κόσμῳ", "κόσμος", "N-----DSM-"),
         ctx("σκότος", "σκότος", "N-----NSN-"),
         formal("ἄρα", [la("ἄρα", "X---------"), la("αἴρω", "V-2AAD-S--")]),
-        ctx("Ἰωάννης", "Ἰωάννης", "N-----NSM-"),
+        ctx("Ἐπαφρόδιτος", "Ἐπαφρόδιτος", "N-----NSM-"),
         unknown,
       ]);
 
@@ -572,9 +575,13 @@ void main() {
       expect(hints[0].lemmas.single.step, 2);
 
       expect(hints[1].forms, ["κόσμου", "κόσμῳ"]);
-      expect(hints[1].lemmas.single.source, MeaningSource.wiktionaryGerman);
+      expect(hints[1].lemmas.single.source, MeaningSource.wiktionary);
+      expect(hints[1].lemmas.single.headword, "κόσμος, ὁ");
 
-      expect(hints[2].lemmas.single.source, MeaningSource.wiktionaryEnglish);
+      // Ohne deutsche Quelle: ungelöst, keine Ersatzangabe.
+      expect(hints[2].lemmas.single.source, MeaningSource.none);
+      expect(hints[2].lemmas.single.meanings, isEmpty);
+      expect(hints[2].unresolved, isTrue);
 
       expect(hints[3].ambiguous, isTrue);
       expect(hints[3].lemmas.map((l) => l.lemma), ["ἄρα", "αἴρω"]);

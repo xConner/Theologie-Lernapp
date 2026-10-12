@@ -116,18 +116,24 @@ class ExamPassageText extends StatelessWidget {
   }
 }
 
-/// Vokabelhilfen unter dem Text.
+/// Vokabelhilfen unter dem Text: je Grundform eine Zeile „Grundform –
+/// kurze deutsche Bedeutung“, wie die Hilfen einer Klausur.
 class VocabularyHintList extends StatelessWidget {
   final List<VocabularyHint> hints;
 
   const VocabularyHintList({super.key, required this.hints});
 
-  static String sourceLabel(HintLemma lemma) => switch (lemma.source) {
-    MeaningSource.vocabulary => "Vokabelliste, Schritt ${lemma.step}",
-    MeaningSource.wiktionaryGerman => "Wiktionary (de)",
-    MeaningSource.wiktionaryEnglish => "Wiktionary (en), keine deutsche Angabe",
-    MeaningSource.none => "keine Bedeutung in den Datenquellen",
-  };
+  /// Text nach der Grundform. Ohne gesicherte deutsche Bedeutung steht das
+  /// ausdrücklich da; eine Ersatzangabe in einer anderen Sprache gibt es
+  /// nicht.
+  static String meaningText(HintLemma lemma) {
+    if (lemma.meanings.isNotEmpty) return lemma.meanings.join(", ");
+    if (lemma.properName) return "Eigenname";
+    return unresolvedText;
+  }
+
+  static const String unresolvedText =
+      "keine gesicherte deutsche Angabe – bitte nachschlagen";
 
   @override
   Widget build(BuildContext context) {
@@ -135,80 +141,98 @@ class VocabularyHintList extends StatelessWidget {
 
     if (hints.isEmpty) {
       return Text(
-        "Keine Vokabelhilfen: Alle Wörter gehören zu den gewählten "
-        "Lernschritten.",
+        "Keine Vokabelhilfen: Alle Wörter gehören zum vorausgesetzten "
+        "Wortschatz.",
         style: TextStyle(color: colors.textSecondary),
       );
     }
 
+    final fromPape = hints.any(
+      (hint) => hint.lemmas.any((l) => l.source == MeaningSource.pape),
+    );
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [for (final hint in hints) _hint(context, hint)],
+      children: [
+        for (final hint in hints) ..._hint(context, hint),
+        if (fromPape)
+          Padding(
+            padding: const EdgeInsets.only(top: 6),
+            child: Text(
+              papeNote,
+              style: TextStyle(color: colors.textSecondary, fontSize: 12),
+            ),
+          ),
+      ],
     );
   }
 
-  Widget _hint(BuildContext context, VocabularyHint hint) {
+  /// Hinweis, wenn eine Hilfe automatisch aus dem Wörterbuch gekürzt ist.
+  static const String papeNote =
+      "Angaben zu selteneren Wörtern sind automatisch aus Pape (1914) "
+      "gekürzt und nennen die Grundbedeutung; im Text kann eine verwandte "
+      "Bedeutung passen.";
+
+  Widget _line(BuildContext context, String greek, String german, {bool muted = false}) {
     final colors = context.colors;
-    final secondary = TextStyle(color: colors.textSecondary, fontSize: 13);
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 2),
+      child: Text.rich(
+        TextSpan(
+          children: [
+            TextSpan(
+              text: greek,
+              style: const TextStyle(fontWeight: FontWeight.w600),
+            ),
+            TextSpan(
+              text: " – $german",
+              style: muted ? TextStyle(color: colors.textSecondary) : null,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  List<Widget> _hint(BuildContext context, VocabularyHint hint) {
     final forms = hint.forms.join(", ");
 
-    final List<Widget> lines;
-
     if (hint.unanalyzed) {
-      lines = [
-        Text(forms, style: const TextStyle(fontWeight: FontWeight.w600)),
-        Text(
-          "Form in den Datenquellen nicht bestimmbar – Grundform bitte im "
-          "Wörterbuch nachschlagen.",
-          style: secondary,
+      return [
+        _line(
+          context,
+          forms,
+          "Form nicht bestimmbar – bitte nachschlagen",
+          muted: true,
         ),
-      ];
-    } else if (hint.properNameGuess) {
-      lines = [
-        Text(forms, style: const TextStyle(fontWeight: FontWeight.w600)),
-        Text("vermutlich Eigenname (nicht bestimmt)", style: secondary),
-      ];
-    } else {
-      lines = [
-        if (hint.ambiguous)
-          Text(
-            "$forms – mehrdeutig, mögliche Grundformen:",
-            style: secondary,
-          ),
-        for (final lemma in hint.lemmas) ...[
-          Text.rich(
-            TextSpan(
-              children: [
-                TextSpan(
-                  text: lemma.headword,
-                  style: const TextStyle(fontWeight: FontWeight.w600),
-                ),
-                if (lemma.meanings.isNotEmpty)
-                  TextSpan(text: " – ${lemma.meanings.join("; ")}")
-                else if (lemma.properName)
-                  const TextSpan(text: " – Eigenname"),
-              ],
-            ),
-          ),
-          Text(
-            [
-              if (!hint.ambiguous && forms != lemma.lemma) "im Text: $forms",
-              if (lemma.meanings.length > 1) "Bedeutung nach Kontext wählen",
-              sourceLabel(lemma),
-            ].join(" · "),
-            style: secondary,
-          ),
-        ],
       ];
     }
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 6),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: lines,
-      ),
-    );
+    if (hint.properNameGuess) {
+      return [_line(context, forms, "vermutlich Eigenname", muted: true)];
+    }
+
+    return [
+      if (hint.ambiguous)
+        Padding(
+          padding: const EdgeInsets.only(top: 2),
+          child: Text(
+            "$forms – mehrdeutige Form, mögliche Grundformen:",
+            style: TextStyle(color: context.colors.textSecondary, fontSize: 13),
+          ),
+        ),
+      for (final lemma in hint.lemmas)
+        Padding(
+          padding: EdgeInsets.only(left: hint.ambiguous ? 12 : 0),
+          child: _line(
+            context,
+            lemma.headword,
+            meaningText(lemma),
+            muted: lemma.meanings.isEmpty,
+          ),
+        ),
+    ];
   }
 }
 
@@ -503,7 +527,8 @@ class _FindFormsViewState extends State<FindFormsView> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Text(
-          "Markieren Sie im Text alle Formen: ${phenomenon?.label}.",
+          widget.task.instruction ??
+              "Markieren Sie im Text alle Formen: ${phenomenon?.label}.",
           style: const TextStyle(fontWeight: FontWeight.w600),
         ),
         const SizedBox(height: 8),
@@ -552,8 +577,7 @@ class _FindFormsViewState extends State<FindFormsView> {
             ),
           if (widget.task.tolerated.isNotEmpty)
             Text(
-              "Nicht gewertet (nur nach einer anderen möglichen Bestimmung "
-              "dazugehörig): "
+              "${widget.task.toleratedNote ?? "Nicht gewertet (nur nach einer anderen möglichen Bestimmung dazugehörig)"}: "
               "${widget.task.tolerated.map((i) => widget.passage.tokens[i].word).join(", ")}",
               style: TextStyle(color: colors.textSecondary),
             ),
@@ -569,6 +593,116 @@ class _FindFormsViewState extends State<FindFormsView> {
           ),
         ],
       ],
+    );
+  }
+}
+
+/// Auswahlfragen zum Text („Konstruktion benennen“, „Kasus nach
+/// Präposition“): Die gefragten Formen sind im Text hervorgehoben, jede
+/// Frage wird einzeln geprüft.
+class ChoiceTaskView extends StatefulWidget {
+  final ExamPassage passage;
+  final ChoiceTask task;
+
+  const ChoiceTaskView({super.key, required this.passage, required this.task});
+
+  @override
+  State<ChoiceTaskView> createState() => _ChoiceTaskViewState();
+}
+
+class _ChoiceTaskViewState extends State<ChoiceTaskView> {
+  final Map<int, String> answers = {};
+  final Set<int> checked = {};
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = context.colors;
+    final asked = {for (final item in widget.task.items) item.tokenIndex};
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Text(
+          widget.task.instruction,
+          style: const TextStyle(fontWeight: FontWeight.w600),
+        ),
+        const SizedBox(height: 8),
+        ExamPassageText(
+          passage: widget.passage,
+          wordColor: (i) => asked.contains(i) ? colors.primary : null,
+        ),
+        for (final item in widget.task.items) _item(context, item),
+      ],
+    );
+  }
+
+  Widget _item(BuildContext context, ChoiceItem item) {
+    final colors = context.colors;
+    final tokens = widget.passage.tokens;
+    final answer = answers[item.tokenIndex];
+    final done = checked.contains(item.tokenIndex);
+    final correct = answer == item.answer;
+
+    return Card(
+      margin: const EdgeInsets.symmetric(vertical: 6),
+      child: Padding(
+        padding: const EdgeInsets.all(12),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SingleSelectChips(
+              key: ValueKey("choice-${item.tokenIndex}"),
+              label: item.question,
+              options: item.options,
+              value: answer,
+              correct: done ? correct : null,
+              onChanged: done
+                  ? null
+                  : (v) => setState(() => answers[item.tokenIndex] = v),
+            ),
+            const SizedBox(height: 8),
+            if (!done)
+              Align(
+                alignment: Alignment.centerRight,
+                child: FilledButton(
+                  key: ValueKey("check-choice-${item.tokenIndex}"),
+                  onPressed: answer == null
+                      ? null
+                      : () => setState(() => checked.add(item.tokenIndex)),
+                  child: const Text("Prüfen"),
+                ),
+              )
+            else ...[
+              Text(
+                correct ? "Richtig." : "Nicht ganz. Lösung: ${item.answer}",
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  color: correct ? colors.success : colors.error,
+                ),
+              ),
+              if (item.explanation != null || item.related.isNotEmpty)
+                Text(
+                  [
+                    ?item.explanation,
+                    if (item.related.isNotEmpty)
+                      item.related.map((i) => tokens[i].word).join(", "),
+                  ].join(" – "),
+                  style: TextStyle(color: colors.textSecondary),
+                ),
+              Align(
+                alignment: Alignment.centerRight,
+                child: TextButton(
+                  onPressed: () => setState(() {
+                    checked.remove(item.tokenIndex);
+                    answers.remove(item.tokenIndex);
+                  }),
+                  child: const Text("Nochmal"),
+                ),
+              ),
+            ],
+          ],
+        ),
+      ),
     );
   }
 }
