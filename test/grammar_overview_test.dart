@@ -10,6 +10,7 @@ import 'package:theologie_lernapp/models/greek/vocabulary/greek_vocabulary_entry
 import 'package:theologie_lernapp/screens/greek/grammar_overview_screen.dart';
 import 'package:theologie_lernapp/screens/greek/grammar_topics/adjectives_screen.dart';
 import 'package:theologie_lernapp/screens/greek/grammar_topics/aorist_screen.dart';
+import 'package:theologie_lernapp/screens/greek/grammar_topics/aorist_sheet_screen.dart';
 import 'package:theologie_lernapp/screens/greek/grammar_topics/article_screen.dart';
 import 'package:theologie_lernapp/screens/greek/grammar_topics/comparison_screen.dart';
 import 'package:theologie_lernapp/screens/greek/grammar_topics/conjugations_screen.dart';
@@ -60,6 +61,7 @@ Map<String, Widget Function()> _screens() {
     "pronouns": () => PronounsScreen(paradigms: Future.value(pronouns)),
     "conjugations": () => const ConjugationsScreen(),
     "aorist": () => AoristScreen(vocabulary: Future.value(vocabulary)),
+    "aorist_sheet": () => const AoristSheetScreen(),
     "imperative": () => const ImperativeScreen(),
     "infinitive": () => const InfinitiveScreen(),
     "participles": () => const ParticiplesScreen(),
@@ -99,6 +101,7 @@ void main() {
           "Infinitiv",
           "Partizipien",
           "Aorist und Stammformen",
+          "Aoristblatt",
           "Adjektive",
           "Steigerung der Adjektive",
           "Präpositionen",
@@ -314,19 +317,52 @@ void main() {
       }
     });
 
-    test("Stammformen: Aoristblatt vollständig und ohne Doppelungen", () {
-      final forms = AoristScreen.stemForms(_vocabulary());
-
-      expect({
-        for (final entry in forms.sheet) entry.lemma,
-      }, GrammarQuestionPicker.aoristSheet);
-      expect(forms.sheet, hasLength(GrammarQuestionPicker.aoristSheet.length));
-
-      final lemmas = [
-        for (final entry in [...forms.sheet, ...forms.other]) entry.lemma,
+    test("Aoristblatt: alle Verben des Blatts, Stammform wie in der "
+        "Vokabelliste", () {
+      final verbs = [
+        for (final (_, group) in AoristSheetScreen.groups) ...group,
       ];
+
+      expect(
+        [for (final (title, _) in AoristSheetScreen.groups) title],
+        [
+          "Labialstämme",
+          "Dentalstämme",
+          "Gutturalstämme",
+          "Liquidstämme",
+          "Starker Aorist",
+          "Wurzelaorist",
+        ],
+      );
+      expect(verbs, hasLength(28));
+      expect({
+        for (final verb in verbs) verb.present,
+      }, GrammarQuestionPicker.aoristSheet);
+
+      final vocabulary = _vocabulary();
+
+      for (final verb in verbs) {
+        final entry = vocabulary.firstWhere(
+          (entry) => entry.type == "verb" && entry.lemma == verb.present,
+        );
+
+        expect(verb.aorist, entry.aorist, reason: verb.present);
+        expect(verb.infinitive, isNotEmpty);
+        expect(verb.meaning, isNotEmpty);
+      }
+    });
+
+    test("Stammformen: übrige Verben ohne Doppelung zum Aoristblatt", () {
+      final forms = AoristScreen.stemForms(_vocabulary());
+      final lemmas = [for (final entry in forms) entry.lemma];
+
+      expect(forms, isNotEmpty);
       expect(lemmas.toSet().length, lemmas.length);
-      expect(forms.other.every((entry) => entry.aorist != null), isTrue);
+      expect(forms.every((entry) => entry.aorist != null), isTrue);
+      expect(
+        lemmas.toSet().intersection(GrammarQuestionPicker.aoristSheet),
+        isEmpty,
+      );
     });
 
     test("Präpositionen: Kasus getrennt, gleiche Verbindung nur einmal", () {
@@ -341,10 +377,12 @@ void main() {
       expect(uses.every((use) => use.translations.isNotEmpty), isTrue);
     });
 
-    test("Syntax: nur erkennbare Konstruktionen, keine Tempora", () {
-      final labels = [
-        for (final id in SyntaxScreen.categoryIds) ...SyntaxScreen.labelsOf(id),
+    test("Syntax: alle Konstruktionen mit Erklärung, keine Tempora", () {
+      final phenomena = [
+        for (final id in SyntaxScreen.categoryIds)
+          ...SyntaxScreen.phenomenaOf(id),
       ];
+      final labels = [for (final phenomenon in phenomena) phenomenon.label];
 
       expect(labels.toSet().length, labels.length);
       expect(
@@ -354,9 +392,24 @@ void main() {
           "Participium coniunctum (PC)",
           "AcI (Accusativus cum infinitivo)",
           "Konsekutivsatz (ὥστε)",
+          // Auch, was der Klausurersteller nicht erkennt.
+          "NcI (Nominativus cum infinitivo)",
+          "Accusativus absolutus",
+          "Prädikative Stellung (ἀγαθὸς ὁ ἄνθρωπος)",
+          "Sperrung (Hyperbaton)",
         ]),
       );
-      expect(labels, isNot(contains("NcI (Nominativus cum infinitivo)")));
+
+      for (final phenomenon in phenomena) {
+        expect(
+          SyntaxScreen.explanations[phenomenon.id],
+          isNotNull,
+          reason: phenomenon.id,
+        );
+      }
+      expect(SyntaxScreen.explanations.keys.toSet(), {
+        for (final phenomenon in phenomena) phenomenon.id,
+      });
 
       for (final tense in ["Futur", "Perfekt", "Plusquamperfekt"]) {
         expect(labels, isNot(contains(tense)));

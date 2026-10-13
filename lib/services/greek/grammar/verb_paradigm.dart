@@ -192,6 +192,13 @@ class VerbParadigm {
           continue;
         }
 
+        // -είς, -εῖσα, -έν gehört nur als Aorist Passiv zum Lernstoff
+        // (παυθείς), nicht bei den Verben auf -μι (τιθείς, θείς).
+        if (normalizeGreekForDisplay(masculine).endsWith("είς") &&
+            key != "passive") {
+          continue;
+        }
+
         final declension = declineParticiple(
           masculine: normalizeGreekForDisplay(masculine),
           feminine: normalizeGreekForDisplay(feminine),

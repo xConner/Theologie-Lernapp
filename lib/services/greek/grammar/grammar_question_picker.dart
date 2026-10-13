@@ -463,8 +463,8 @@ class GrammarQuestionPicker {
   /// Verbi, soweit das Paradigma sie enthält.
   ///
   /// Im Präsens und Imperfekt Aktiv und Medium/Passiv, im Aorist Aktiv und
-  /// Medium. Das Aorist Passiv gehört nur beim Infinitiv zum Lernstoff
-  /// (παυθῆναι). Ein Deponens hat kein Aktiv – im Aorist steht deshalb die
+  /// Medium. Das Aorist Passiv gehört nur beim Infinitiv (παυθῆναι) und
+  /// beim Partizip (παυθείς) zum Lernstoff. Ein Deponens hat kein Aktiv – im Aorist steht deshalb die
   /// Form, die es tatsächlich bildet: Medium (ἐγενόμην), sonst Passiv
   /// (ἐβουλήθην), sonst Aktiv (ἦλθον).
   static List<String> allowedVoices(
@@ -488,7 +488,8 @@ class GrammarQuestionPicker {
       return [
         for (final voice in const ["Aktiv", "Medium/Passiv", "Medium"])
           if (existing.contains(voice)) voice,
-        if (mood == VerbMood.infinitive && existing.contains("Passiv"))
+        if ((mood == VerbMood.infinitive || mood == VerbMood.participle) &&
+            existing.contains("Passiv"))
           "Passiv",
       ];
     }
@@ -508,7 +509,7 @@ class GrammarQuestionPicker {
 
   /// Ob die Form zum Lernstoff des Verbs gehört: Tempus und Genus Verbi
   /// zulässig, Modus eingeschaltet. Das Aorist Passiv wird nur im Indikativ
-  /// (Deponentien) und im Infinitiv gefragt.
+  /// (Deponentien), im Infinitiv und im Partizip gefragt.
   static bool isAskable(
     GreekVocabularyEntry entry,
     VerbParadigm paradigm,
@@ -525,7 +526,8 @@ class GrammarQuestionPicker {
         ).contains(analysis.voice) &&
         (analysis.voice != "Passiv" ||
             analysis.mood == VerbMood.indicative ||
-            analysis.mood == VerbMood.infinitive);
+            analysis.mood == VerbMood.infinitive ||
+            analysis.mood == VerbMood.participle);
   }
 
   /// Wählt die Form einer Verbaufgabe aus dem Paradigma: nur Formen, die es

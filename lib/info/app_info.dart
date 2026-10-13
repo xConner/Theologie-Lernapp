@@ -141,7 +141,7 @@ class AppModules {
     description:
         "Übersichtstabellen zum bestimmten Artikel, zu Deklinationen, "
         "Adjektiven und ihrer Steigerung, Pronomen, Konjugationen, Aorist, "
-        "Imperativ, Infinitiv und Partizipien sowie Stichworte zu "
+        "Aoristblatt, Imperativ, Infinitiv und Partizipien sowie zu "
         "Präpositionen und Satzlehre.",
     sources: [
       SourceInfo(
@@ -158,8 +158,16 @@ class AppModules {
       SourceInfo(
         title: "Syntax und Konstruktionen",
         processing:
-            "Stichwortliste der Konstruktionen, die der Klausurersteller "
-            "erkennt; ohne eigene Erklärungen oder Übungen.",
+            "Stichworte aus der Liste des Klausurerstellers mit kurzen, für "
+            "die App geschriebenen Erklärungen.",
+        aiNote: "Die Erklärungen wurden mit KI-Unterstützung formuliert.",
+      ),
+      SourceInfo(
+        title: "Aoristblatt",
+        origin:
+            "Übersicht „Häufige Verben im Aorist“ aus den Unterlagen des "
+            "Sprachkurses",
+        processing: "Die Tabellen wurden aus dem Blatt übertragen.",
       ),
     ],
   );

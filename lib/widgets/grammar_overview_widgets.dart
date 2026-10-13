@@ -126,6 +126,35 @@ class GrammarBulletList extends StatelessWidget {
   }
 }
 
+/// Ein Begriff mit seiner Erklärung.
+class GrammarDefinition extends StatelessWidget {
+  final String term;
+  final String? explanation;
+
+  const GrammarDefinition({super.key, required this.term, this.explanation});
+
+  @override
+  Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final explanation = this.explanation;
+
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 14),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(term, style: textTheme.titleMedium),
+
+          if (explanation != null) ...[
+            const SizedBox(height: 2),
+            Text(explanation, style: textTheme.bodyLarge),
+          ],
+        ],
+      ),
+    );
+  }
+}
+
 /// Lade- bzw. Fehlerzustand einer Themenseite, deren Daten erst geladen
 /// werden.
 class GrammarStatus extends StatelessWidget {

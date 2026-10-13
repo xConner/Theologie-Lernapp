@@ -860,19 +860,27 @@ void main() {
     test("Partizipien außerhalb der gelernten Typen fehlen", () {
       final tithemi = _paradigm("τίθημι");
 
-      // τιθείς und θείς werden nicht dekliniert, τιθέμενος schon.
+      // τιθείς und θείς werden nicht dekliniert, τιθέμενος und τεθείς schon.
       expect(
         _combinations([
           for (final form in tithemi.forms)
             if (form.analysis.mood == VerbMood.participle) form.analysis,
         ]),
-        {"Partizip Präsens Medium/Passiv", "Partizip Aorist Medium"},
+        {
+          "Partizip Präsens Medium/Passiv",
+          "Partizip Aorist Medium",
+          "Partizip Aorist Passiv",
+        },
       );
 
-      // Aorist Passiv (παυσθείς) gehört nicht zum Lernstoff.
+      // Das Partizip Aorist Passiv gehört zum Lernstoff.
       expect(
         _form(pauo, _participle("Aorist", "Passiv", "Nominativ", "Sg", "m")),
-        isNull,
+        "παυσθείς",
+      );
+      expect(
+        _form(pauo, _participle("Aorist", "Passiv", "Genitiv", "Sg", "f")),
+        "παυσθείσης",
       );
     });
 
@@ -1097,6 +1105,7 @@ void main() {
         "Partizip Präsens Medium/Passiv",
         "Partizip Aorist Aktiv",
         "Partizip Aorist Medium",
+        "Partizip Aorist Passiv",
       });
     });
 
@@ -1123,6 +1132,7 @@ void main() {
           "Partizip Präsens Medium/Passiv",
           "Partizip Aorist Aktiv",
           "Partizip Aorist Medium",
+          "Partizip Aorist Passiv",
         },
       );
       expect(
@@ -1157,15 +1167,14 @@ void main() {
         isNull,
       );
 
-      // Das einzige Partizip von βούλομαι im Aorist (βουληθείς) ist nicht
-      // zuverlässig gebildet: Es bleibt das Präsens.
+      // Das Partizip von βούλομαι im Aorist ist passiv (βουληθείς).
       expect(
         picked(
           _entry("βούλομαι", deponent: true),
           _paradigm("βούλομαι"),
           enabledMoods: [VerbMood.participle],
         ),
-        {"Partizip Präsens Medium/Passiv"},
+        {"Partizip Präsens Medium/Passiv", "Partizip Aorist Passiv"},
       );
     });
 
@@ -1221,7 +1230,7 @@ void main() {
       );
     });
 
-    test("Aorist Passiv: Indikativ nur beim Deponens, sonst Infinitiv", () {
+    test("Aorist Passiv: Indikativ nur beim Deponens", () {
       final boulomai = _entry("βούλομαι", deponent: true);
 
       // ἐβουλήθην ist der einzige Aorist von βούλομαι.
@@ -1234,13 +1243,14 @@ void main() {
           return combination.endsWith("Passiv") &&
               !combination.endsWith("Medium/Passiv") &&
               !combination.startsWith("Indikativ") &&
-              !combination.startsWith("Infinitiv");
+              !combination.startsWith("Infinitiv") &&
+              !combination.startsWith("Partizip");
         }),
         isEmpty,
       );
 
-      // Beim normalen Verb gehört das Aorist Passiv nur als Infinitiv zum
-      // Lernstoff (παυθῆναι).
+      // Beim normalen Verb gehört das Aorist Passiv nur als Infinitiv und
+      // Partizip zum Lernstoff (παυθῆναι, παυθείς).
       expect(
         GrammarQuestionPicker.allowedVoices(_entry("παύω"), "Aorist", pauo),
         ["Aktiv", "Medium"],
@@ -1261,7 +1271,7 @@ void main() {
           pauo,
           mood: VerbMood.participle,
         ),
-        ["Aktiv", "Medium"],
+        ["Aktiv", "Medium", "Passiv"],
       );
       expect(
         GrammarQuestionPicker.allowedVoices(_entry("παύω"), "Präsens", pauo),

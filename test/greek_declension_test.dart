@@ -371,20 +371,52 @@ void main() {
   });
 
   group("Unzuverlässige Partizipien", () {
-    test("unbekannter Typ wird nicht dekliniert (παυθείς)", () {
-      expect(
+    test("Aorist Passiv: παυθείς, παυθεῖσα, παυθέν", () {
+      _expectTable(
         declineParticiple(
           masculine: "παυθείς",
           feminine: "παυθεῖσα",
           neuter: "παυθέν",
         ),
-        isNull,
+        masculine: [
+          "παυθείς",
+          "παυθέντος",
+          "παυθέντι",
+          "παυθέντα",
+          "παυθέντες",
+          "παυθέντων",
+          "παυθεῖσι(ν)",
+          "παυθέντας",
+        ],
+        feminine: [
+          "παυθεῖσα",
+          "παυθείσης",
+          "παυθείσῃ",
+          "παυθεῖσαν",
+          "παυθεῖσαι",
+          "παυθεισῶν",
+          "παυθείσαις",
+          "παυθείσας",
+        ],
+        neuter: [
+          "παυθέν",
+          "παυθέντος",
+          "παυθέντι",
+          "παυθέν",
+          "παυθέντα",
+          "παυθέντων",
+          "παυθεῖσι(ν)",
+          "παυθέντα",
+        ],
       );
+    });
+
+    test("unbekannter Typ wird nicht dekliniert (δεικνύς)", () {
       expect(
         declineParticiple(
-          masculine: "τιθείς",
-          feminine: "τιθεῖσα",
-          neuter: "τιθέν",
+          masculine: "δεικνύς",
+          feminine: "δεικνῦσα",
+          neuter: "δεικνύν",
         ),
         isNull,
       );

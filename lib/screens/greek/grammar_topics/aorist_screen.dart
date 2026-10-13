@@ -5,33 +5,26 @@ import '../../../services/greek/grammar/grammar_question_picker.dart';
 import '../../../services/greek/vocabulary/greek_vocabulary_loader.dart';
 import '../../../widgets/grammar_overview_widgets.dart';
 
-/// Aoristbildung und die Aorist-Stammformen der Vokabelliste.
+/// Aoristbildung und die Aorist-Stammformen der Vokabelliste. Die Verben des
+/// Aoristblatts stehen auf ihrer eigenen Seite.
 class AoristScreen extends StatefulWidget {
   /// Vokabelliste für Tests; sonst wird sie aus den Assets geladen.
   final Future<List<GreekVocabularyEntry>>? vocabulary;
 
   const AoristScreen({super.key, this.vocabulary});
 
-  /// Verben mit hinterlegter Aorist-Stammform: zuerst die des Aoristblatts
-  /// in dessen Reihenfolge, dann die übrigen in der Reihenfolge der
-  /// Vokabelliste.
-  static ({List<GreekVocabularyEntry> sheet, List<GreekVocabularyEntry> other})
-  stemForms(List<GreekVocabularyEntry> vocabulary) {
-    final verbs = [
+  /// Verben mit hinterlegter Aorist-Stammform, die nicht auf dem
+  /// Aoristblatt stehen, in der Reihenfolge der Vokabelliste.
+  static List<GreekVocabularyEntry> stemForms(
+    List<GreekVocabularyEntry> vocabulary,
+  ) {
+    return [
       for (final entry in vocabulary)
-        if (entry.type == "verb" && entry.aorist != null) entry,
+        if (entry.type == "verb" &&
+            entry.aorist != null &&
+            !GrammarQuestionPicker.aoristSheet.contains(entry.lemma))
+          entry,
     ];
-
-    return (
-      sheet: [
-        for (final lemma in GrammarQuestionPicker.aoristSheet)
-          ...verbs.where((entry) => entry.lemma == lemma).take(1),
-      ],
-      other: [
-        for (final entry in verbs)
-          if (!GrammarQuestionPicker.aoristSheet.contains(entry.lemma)) entry,
-      ],
-    );
   }
 
   @override
@@ -42,34 +35,12 @@ class _AoristScreenState extends State<AoristScreen> {
   late final Future<List<GreekVocabularyEntry>> _vocabulary =
       widget.vocabulary ?? GreekVocabularyLoader.load();
 
-  static Widget _table(List<GreekVocabularyEntry> entries) {
-    return GrammarTable(
-      rows: [
-        const [
-          GrammarCell.header("Präsens"),
-          GrammarCell.header("Aorist"),
-          GrammarCell.header("Bedeutung"),
-        ],
-        for (final entry in entries)
-          [
-            GrammarCell.form(entry.lemma),
-            GrammarCell.form(entry.aorist ?? ""),
-            GrammarCell.text(entry.translations.join(", ")),
-          ],
-      ],
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<GreekVocabularyEntry>>(
       future: _vocabulary,
       builder: (context, snapshot) {
         final vocabulary = snapshot.data;
-
-        final forms = vocabulary == null
-            ? null
-            : AoristScreen.stemForms(vocabulary);
 
         return GrammarTopicScaffold(
           title: "Aorist und Stammformen",
@@ -84,7 +55,7 @@ class _AoristScreenState extends State<AoristScreen> {
                     "Imperfekts (ἔλαβον, ἦλθον).",
                 "Wurzelaorist: ἔβην, ἔγνων.",
                 "Im Aorist sind Medium und Passiv getrennte Formen.",
-                "Angegeben ist jeweils die 1. Person Singular Indikativ.",
+                "Die häufigsten Verben stehen im Aoristblatt.",
               ]),
             ),
 
@@ -92,19 +63,29 @@ class _AoristScreenState extends State<AoristScreen> {
               const GrammarStatus.error(
                 "Die Stammformen konnten nicht geladen werden.",
               )
-            else if (forms == null)
+            else if (vocabulary == null)
               const GrammarStatus.loading()
-            else ...[
-              GrammarSection(
-                title: "Verben des Aoristblatts",
-                child: _table(forms.sheet),
-              ),
-
+            else
               GrammarSection(
                 title: "Weitere Verben der Vokabelliste",
-                child: _table(forms.other),
+                description:
+                    "Angegeben ist die 1. Person Singular Indikativ Aorist.",
+                child: GrammarTable(
+                  rows: [
+                    const [
+                      GrammarCell.header("Präsens"),
+                      GrammarCell.header("Aorist"),
+                      GrammarCell.header("Bedeutung"),
+                    ],
+                    for (final entry in AoristScreen.stemForms(vocabulary))
+                      [
+                        GrammarCell.form(entry.lemma),
+                        GrammarCell.form(entry.aorist ?? ""),
+                        GrammarCell.text(entry.translations.join(", ")),
+                      ],
+                  ],
+                ),
               ),
-            ],
           ],
         );
       },

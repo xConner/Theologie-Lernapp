@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'adjectives_screen.dart';
 import 'aorist_screen.dart';
+import 'aorist_sheet_screen.dart';
 import 'article_screen.dart';
 import 'comparison_screen.dart';
 import 'conjugations_screen.dart';
@@ -95,8 +96,15 @@ class GrammarTopics {
         GrammarTopic(
           id: "aorist",
           title: "Aorist und Stammformen",
-          subtitle: "Schwacher und starker Aorist, Verben des Aoristblatts",
+          subtitle:
+              "Schwacher und starker Aorist, Stammformen der Vokabelliste",
           builder: (_) => const AoristScreen(),
+        ),
+        GrammarTopic(
+          id: "aorist_sheet",
+          title: "Aoristblatt",
+          subtitle: "Häufige Verben im Aorist mit Infinitiv und Bedeutung",
+          builder: (_) => const AoristSheetScreen(),
         ),
         GrammarTopic(
           id: "imperative",
@@ -132,7 +140,7 @@ class GrammarTopics {
           title: "Syntax und Konstruktionen",
           subtitle:
               "Partizipial- und Infinitivkonstruktionen, Nebensätze, "
-              "Negationen",
+              "Negationen – mit Erklärung",
           builder: (_) => const SyntaxScreen(),
         ),
       ],

@@ -43,6 +43,12 @@ class ParticiplesScreen extends StatelessWidget {
       neuter: "παυσάμενον",
     ),
     (
+      title: "Partizip Aorist Passiv",
+      masculine: "παυθείς",
+      feminine: "παυθεῖσα",
+      neuter: "παυθέν",
+    ),
+    (
       title: "Partizip des starken Aorists (Aktiv)",
       masculine: "ἰδών",
       feminine: "ἰδοῦσα",
@@ -80,6 +86,8 @@ class ParticiplesScreen extends StatelessWidget {
                 "3. Deklination (-ντ-), im Femininum der a-Deklination.",
             "Partizipien auf -μενος, -μένη, -μενον folgen der "
                 "a-/o-Deklination.",
+            "Das Partizip Aorist Passiv (-θείς, -θεῖσα, -θέν) wird wie die "
+                "aktiven Partizipien dekliniert.",
             "Das bewegliche ν steht in Klammern: παύουσι(ν).",
           ]),
         ),

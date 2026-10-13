@@ -330,6 +330,17 @@ const List<_EndingAccented> _endingAccented = [
     feminineLong: "ώσ",
     feminineGenitivePlural: "ωσῶν",
   ),
+  // Aorist Passiv: παυθείς, παυθεῖσα, παυθέν.
+  (
+    masculine: "είς",
+    neuter: "έν",
+    oblique: "έντ",
+    genitivePlural: "έντων",
+    dativePlural: "εῖσι(ν)",
+    feminine: "εῖσ",
+    feminineLong: "είσ",
+    feminineGenitivePlural: "εισῶν",
+  ),
 ];
 
 DeclensionParadigm _declineEndingAccented(String stem, _EndingAccented type) {
@@ -427,7 +438,8 @@ DeclensionParadigm _declineStemAccented({
 ///
 /// Gebildet werden nur die Typen der Lehrveranstaltung: -ων/-ουσα/-ον,
 /// -ας/-ασα/-αν, -μενος/-μένη/-μενον, der starke Aorist (-ών/-οῦσα/-όν)
-/// samt Wurzelaorist und Verba contracta sowie ὤν. Feminin- und Neutrumform
+/// samt Wurzelaorist und Verba contracta, der Aorist Passiv
+/// (-είς/-εῖσα/-έν) sowie ὤν. Feminin- und Neutrumform
 /// dienen als Gegenprobe: Passen sie nicht zur Bildung aus dem Maskulinum,
 /// gilt das Partizip als nicht zuverlässig und das Ergebnis ist `null`.
 DeclensionParadigm? declineParticiple({
