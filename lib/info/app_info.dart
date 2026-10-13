@@ -140,11 +140,26 @@ class AppModules {
     title: "Griechisch – Grammatikübersicht",
     description:
         "Übersichtstabellen zum bestimmten Artikel, zu Deklinationen, "
-        "Pronomen und Konjugationen.",
+        "Adjektiven und ihrer Steigerung, Pronomen, Konjugationen, Aorist, "
+        "Imperativ, Infinitiv und Partizipien sowie Stichworte zu "
+        "Präpositionen und Satzlehre.",
     sources: [
       SourceInfo(
         title: "Tabellen",
-        processing: "Die Tabellen sind fest in der App hinterlegt.",
+        processing:
+            "Die Tabellen sind fest in der App hinterlegt. Partizipien, "
+            "Adjektive und Steigerung verwenden dieselben Formen wie der "
+            "Grammatiktrainer.",
+      ),
+      SourceInfo(
+        title: "Stammformen und Präpositionen",
+        origin: "Vokabelliste der App (siehe „Griechisch – Vokabeln“)",
+      ),
+      SourceInfo(
+        title: "Syntax und Konstruktionen",
+        processing:
+            "Stichwortliste der Konstruktionen, die der Klausurersteller "
+            "erkennt; ohne eigene Erklärungen oder Übungen.",
       ),
     ],
   );

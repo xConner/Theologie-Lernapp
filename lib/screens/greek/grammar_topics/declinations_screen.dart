@@ -1,296 +1,148 @@
 import 'package:flutter/material.dart';
-import '../../../widgets/settings_access.dart';
-import '../../../info/app_info.dart';
-import '../../../widgets/info_report.dart';
+
+import '../../../widgets/grammar_overview_widgets.dart';
 
 class DeclinationsScreen extends StatelessWidget {
   const DeclinationsScreen({super.key});
 
-  static const double cellPadding = 8.0;
-  static const double articleWidth = 60.0;
-
-  static Widget tableText(String text, {bool bold = false}) {
-    return Padding(
-      padding: const EdgeInsets.all(cellPadding),
-
-      child: Text(
-        text,
-
-        style: TextStyle(
-          fontSize: 22,
-          fontWeight: bold ? FontWeight.bold : FontWeight.normal,
-        ),
-      ),
-    );
-  }
-
-  static Widget greekForm(String stem, String article, String ending) {
-    return Padding(
-      padding: const EdgeInsets.all(cellPadding),
-      child: Row(
-        children: [
-          SizedBox(
-            width: articleWidth,
-            child: Text(article, style: const TextStyle(fontSize: 22)),
-          ),
-
-          Text.rich(
-            TextSpan(
-              children: [
-                TextSpan(text: "$stem-", style: const TextStyle(fontSize: 22)),
-                TextSpan(
-                  text: ending,
-                  style: const TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget declensionTable(List<List<Widget>> rows) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-
-      child: Table(
-        border: TableBorder.all(),
-
-        defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-
-        columnWidths: const {
-          0: FixedColumnWidth(120),
-          1: FixedColumnWidth(300),
-          2: FixedColumnWidth(300),
-        },
-
-        children: rows.map((row) {
-          return TableRow(children: row);
-        }).toList(),
-      ),
-    );
+  static Widget _form(String stem, String article, String ending) {
+    return GrammarCell.ending(stem, ending, article: article);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Deklinationen"),
-actions: const [
-          InfoButton(module: AppModules.greekGrammarOverview),
-          SettingsButton(),
-        ],
-      ),
-
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Center(
-          child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 800),
-
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.all(16),
-
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-
-                children: [
-                  const Text(
-                    "o-Deklination",
-
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                  ),
-
-                  const SizedBox(height: 12),
-
-                  declensionTable([
-                    [
-                      tableText("Singular", bold: true),
-                      tableText("Maskulinum", bold: true),
-                      tableText("Neutrum", bold: true),
-                    ],
-
-                    [
-                      tableText("Nom."),
-                      greekForm("λόγ", "ὁ", "ος"),
-                      greekForm("δένδρ", "τὸ", "ον"),
-                    ],
-
-                    [
-                      tableText("Gen."),
-                      greekForm("λόγ", "τοῦ", "ου"),
-                      greekForm("δένδρ", "τοῦ", "ου"),
-                    ],
-
-                    [
-                      tableText("Dat."),
-                      greekForm("λόγ", "τῷ", "ῳ"),
-                      greekForm("δένδρ", "τῷ", "ῳ"),
-                    ],
-
-                    [
-                      tableText("Akk."),
-                      greekForm("λόγ", "τὸν", "ον"),
-                      greekForm("δένδρ", "τὸ", "ον"),
-                    ],
-
-                    [
-                      tableText("Plural", bold: true),
-                      const SizedBox(),
-                      const SizedBox(),
-                    ],
-
-                    [
-                      tableText("Nom."),
-                      greekForm("λόγ", "οἱ", "οι"),
-                      greekForm("δένδρ", "τὰ", "α"),
-                    ],
-
-                    [
-                      tableText("Gen."),
-                      greekForm("λόγ", "τῶν", "ων"),
-                      greekForm("δένδρ", "τῶν", "ων"),
-                    ],
-
-                    [
-                      tableText("Dat."),
-                      greekForm("λόγ", "τοῖς", "οις"),
-                      greekForm("δένδρ", "τοῖς", "οις"),
-                    ],
-
-                    [
-                      tableText("Akk."),
-                      greekForm("λόγ", "τοὺς", "ους"),
-                      greekForm("δένδρ", "τὰ", "α"),
-                    ],
-                  ]),
-
-                  const SizedBox(height: 32),
-
-                  const Text(
-                    "a-Deklination",
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                  ),
-
-                  const SizedBox(height: 12),
-
-                  declensionTable([
-                    [
-                      tableText("Singular", bold: true),
-                      tableText("-η", bold: true),
-                      tableText("-α (Stamm endet auf ε, ι, ρ) ", bold: true),
-                    ],
-
-                    [
-                      tableText("Nom."),
-                      greekForm("ἀρχ", "ἡ", "ή"),
-                      greekForm("καρδί", "ἡ", "α"),
-                    ],
-
-                    [
-                      tableText("Gen."),
-                      greekForm("ἀρχ", "τῆς", "ῆς"),
-                      greekForm("καρδί", "τῆς", "ας"),
-                    ],
-
-                    [
-                      tableText("Dat."),
-                      greekForm("ἀρχ", "τῇ", "ῇ"),
-                      greekForm("καρδί", "τῇ", "ᾳ"),
-                    ],
-
-                    [
-                      tableText("Akk."),
-                      greekForm("ἀρχ", "τὴν", "ήν"),
-                      greekForm("καρδί", "τὴν", "αν"),
-                    ],
-
-                    [
-                      tableText("Plural", bold: true),
-                      const SizedBox(),
-                      const SizedBox(),
-                    ],
-
-                    [
-                      tableText("Nom."),
-                      greekForm("ἀρχ", "αἱ", "αί"),
-                      greekForm("καρδί", "αἱ", "αι"),
-                    ],
-
-                    [
-                      tableText("Gen."),
-                      greekForm("ἀρχ", "τῶν", "ῶν"),
-                      greekForm("καρδί", "τῶν", "ῶν"),
-                    ],
-
-                    [
-                      tableText("Dat."),
-                      greekForm("ἀρχ", "ταῖς", "αῖς"),
-                      greekForm("καρδί", "ταῖς", "αις"),
-                    ],
-
-                    [
-                      tableText("Akk."),
-                      greekForm("ἀρχ", "τὰς", "άς"),
-                      greekForm("καρδί", "τὰς", "ας"),
-                    ],
-                  ]),
-
-                  const SizedBox(height: 40),
-
-                  const Text(
-                    "3./Konsonantische Deklination",
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                  ),
-
-                  const SizedBox(height: 12),
-
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-
-                    child: Table(
-                      border: TableBorder.all(),
-
-                      defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-
-                      columnWidths: const {
-                        0: FixedColumnWidth(120),
-                        1: FixedColumnWidth(300),
-                      },
-
-                      children: [
-                        [tableText("Singular", bold: true), const SizedBox()],
-
-                        [tableText("Nom."), greekForm("παῖ", "ὁ", "ς")],
-
-                        [tableText("Gen."), greekForm("παιδ", "τοῦ", "ός")],
-
-                        [tableText("Dat."), greekForm("παιδ", "τῷ", "ί")],
-
-                        [tableText("Akk."), greekForm("παῖδ", "τὸν", "α")],
-
-                        [tableText("Plural", bold: true), const SizedBox()],
-
-                        [tableText("Nom."), greekForm("παῖδ", "οἱ", "ες")],
-
-                        [tableText("Gen."), greekForm("παίδ", "τῶν", "ων")],
-
-                        [tableText("Dat."), greekForm("παι", "τοῖς", "σί")],
-
-                        [tableText("Akk."), greekForm("παῖδ", "τοὺς", "ας")],
-                      ].map((row) => TableRow(children: row)).toList(),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+    return GrammarTopicScaffold(
+      title: "Deklinationen",
+      children: [
+        GrammarSection(
+          title: "o-Deklination",
+          child: GrammarTable(
+            headerRows: const {0, 5},
+            rows: [
+              const [
+                GrammarCell.header("Singular"),
+                GrammarCell.header("Maskulinum"),
+                GrammarCell.header("Neutrum"),
+              ],
+              [
+                const GrammarCell.label("Nom."),
+                _form("λόγ", "ὁ", "ος"),
+                _form("δένδρ", "τὸ", "ον"),
+              ],
+              [
+                const GrammarCell.label("Gen."),
+                _form("λόγ", "τοῦ", "ου"),
+                _form("δένδρ", "τοῦ", "ου"),
+              ],
+              [
+                const GrammarCell.label("Dat."),
+                _form("λόγ", "τῷ", "ῳ"),
+                _form("δένδρ", "τῷ", "ῳ"),
+              ],
+              [
+                const GrammarCell.label("Akk."),
+                _form("λόγ", "τὸν", "ον"),
+                _form("δένδρ", "τὸ", "ον"),
+              ],
+              const [GrammarCell.header("Plural")],
+              [
+                const GrammarCell.label("Nom."),
+                _form("λόγ", "οἱ", "οι"),
+                _form("δένδρ", "τὰ", "α"),
+              ],
+              [
+                const GrammarCell.label("Gen."),
+                _form("λόγ", "τῶν", "ων"),
+                _form("δένδρ", "τῶν", "ων"),
+              ],
+              [
+                const GrammarCell.label("Dat."),
+                _form("λόγ", "τοῖς", "οις"),
+                _form("δένδρ", "τοῖς", "οις"),
+              ],
+              [
+                const GrammarCell.label("Akk."),
+                _form("λόγ", "τοὺς", "ους"),
+                _form("δένδρ", "τὰ", "α"),
+              ],
+            ],
           ),
         ),
-      ),
+
+        GrammarSection(
+          title: "a-Deklination",
+          child: GrammarTable(
+            headerRows: const {0, 5},
+            rows: [
+              const [
+                GrammarCell.header("Singular"),
+                GrammarCell.header("-η"),
+                GrammarCell.header("-α (Stamm endet auf ε, ι, ρ)"),
+              ],
+              [
+                const GrammarCell.label("Nom."),
+                _form("ἀρχ", "ἡ", "ή"),
+                _form("καρδί", "ἡ", "α"),
+              ],
+              [
+                const GrammarCell.label("Gen."),
+                _form("ἀρχ", "τῆς", "ῆς"),
+                _form("καρδί", "τῆς", "ας"),
+              ],
+              [
+                const GrammarCell.label("Dat."),
+                _form("ἀρχ", "τῇ", "ῇ"),
+                _form("καρδί", "τῇ", "ᾳ"),
+              ],
+              [
+                const GrammarCell.label("Akk."),
+                _form("ἀρχ", "τὴν", "ήν"),
+                _form("καρδί", "τὴν", "αν"),
+              ],
+              const [GrammarCell.header("Plural")],
+              [
+                const GrammarCell.label("Nom."),
+                _form("ἀρχ", "αἱ", "αί"),
+                _form("καρδί", "αἱ", "αι"),
+              ],
+              [
+                const GrammarCell.label("Gen."),
+                _form("ἀρχ", "τῶν", "ῶν"),
+                _form("καρδί", "τῶν", "ῶν"),
+              ],
+              [
+                const GrammarCell.label("Dat."),
+                _form("ἀρχ", "ταῖς", "αῖς"),
+                _form("καρδί", "ταῖς", "αις"),
+              ],
+              [
+                const GrammarCell.label("Akk."),
+                _form("ἀρχ", "τὰς", "άς"),
+                _form("καρδί", "τὰς", "ας"),
+              ],
+            ],
+          ),
+        ),
+
+        GrammarSection(
+          title: "3./Konsonantische Deklination",
+          child: GrammarTable(
+            headerRows: const {0, 5},
+            rows: [
+              const [GrammarCell.header("Singular")],
+              [const GrammarCell.label("Nom."), _form("παῖ", "ὁ", "ς")],
+              [const GrammarCell.label("Gen."), _form("παιδ", "τοῦ", "ός")],
+              [const GrammarCell.label("Dat."), _form("παιδ", "τῷ", "ί")],
+              [const GrammarCell.label("Akk."), _form("παῖδ", "τὸν", "α")],
+              const [GrammarCell.header("Plural")],
+              [const GrammarCell.label("Nom."), _form("παῖδ", "οἱ", "ες")],
+              [const GrammarCell.label("Gen."), _form("παίδ", "τῶν", "ων")],
+              [const GrammarCell.label("Dat."), _form("παι", "τοῖς", "σί")],
+              [const GrammarCell.label("Akk."), _form("παῖδ", "τοὺς", "ας")],
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

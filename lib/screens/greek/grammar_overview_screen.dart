@@ -1,115 +1,49 @@
 import 'package:flutter/material.dart';
 
-import 'grammar_topics/article_screen.dart';
-import 'grammar_topics/conjugations_screen.dart';
-import 'grammar_topics/declinations_screen.dart';
-import 'grammar_topics/pronouns_screen.dart';
-import '../../widgets/settings_access.dart';
-import '../../info/app_info.dart';
-import '../../widgets/info_report.dart';
+import 'grammar_topics/grammar_topics.dart';
+import '../../theme/app_theme.dart';
+import '../../widgets/grammar_overview_widgets.dart';
 
 class GrammarOverviewScreen extends StatelessWidget {
   const GrammarOverviewScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Grammatikübersicht"),
-        actions: const [
-          InfoButton(module: AppModules.greekGrammarOverview),
-          SettingsButton(),
-        ],
-      ),
+    final textTheme = Theme.of(context).textTheme;
 
-      body: Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 400),
-
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  width: double.infinity,
-
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => const ArticleScreen(),
-                        ),
-                      );
-                    },
-
-                    child: const Text("Bestimmter Artikel"),
-                  ),
-                ),
-
-                const SizedBox(height: 16),
-
-                SizedBox(
-                  width: double.infinity,
-
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => const DeclinationsScreen(),
-                        ),
-                      );
-                    },
-
-                    child: const Text("Deklinationen"),
-                  ),
-                ),
-
-                const SizedBox(height: 16),
-
-                SizedBox(
-                  width: double.infinity,
-
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => const PronounsScreen(),
-                        ),
-                      );
-                    },
-
-                    child: const Text("Pronomen"),
-                  ),
-                ),
-
-                const SizedBox(height: 16),
-
-                SizedBox(
-                  width: double.infinity,
-
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => const ConjugationsScreen(),
-                        ),
-                      );
-                    },
-
-                    child: const Text("Konjugationen"),
-                  ),
-                ),
-              ],
-            ),
+    return GrammarTopicScaffold(
+      title: "Grammatikübersicht",
+      children: [
+        for (final group in GrammarTopics.groups) ...[
+          Padding(
+            padding: const EdgeInsets.fromLTRB(4, 8, 4, 4),
+            child: Text(group.title, style: textTheme.titleLarge),
           ),
-        ),
-      ),
+
+          for (final topic in group.topics)
+            Card(
+              margin: const EdgeInsets.symmetric(vertical: 4),
+              child: ListTile(
+                title: Text(topic.title, style: textTheme.titleMedium),
+                subtitle: Text(
+                  topic.subtitle,
+                  style: textTheme.bodyMedium?.copyWith(
+                    color: context.colors.textSecondary,
+                  ),
+                ),
+                trailing: const Icon(Icons.chevron_right_rounded),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: topic.builder),
+                  );
+                },
+              ),
+            ),
+
+          const SizedBox(height: 16),
+        ],
+      ],
     );
   }
 }

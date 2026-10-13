@@ -53,7 +53,7 @@ class PronounParadigmView extends StatelessWidget {
     final List<String?> columns = genders.isEmpty ? [null] : genders;
 
     return Table(
-      border: TableBorder.all(color: context.colors.textSecondary),
+      border: TableBorder.all(color: context.colors.divider),
       defaultVerticalAlignment: TableCellVerticalAlignment.middle,
       columnWidths: const {0: IntrinsicColumnWidth()},
       children: [
