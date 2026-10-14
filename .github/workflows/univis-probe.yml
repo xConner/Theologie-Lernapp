@@ -15,9 +15,9 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: "catalog = Backend auf echten Daten (Kennzahlen), probe = XML-Inventar, schedule = Terminangaben gegen Klartext prüfen, vercel = Erreichbarkeit aus einem Vercel-Preview"
+        description: "catalog = Backend auf echten Daten (Kennzahlen), probe = XML-Inventar, schedule = Terminangaben gegen Klartext prüfen, vercel = Katalog-Endpunkt im Vercel-Preview, production = Katalog-Endpunkt auf www.theologie.app"
         type: choice
-        options: [catalog, probe, schedule, vercel]
+        options: [catalog, probe, schedule, vercel, production]
         default: catalog
       sem:
         description: Semester (z. B. 2026w)
@@ -46,8 +46,9 @@ jobs:
     timeout-minutes: 5
     env:
       # Ein Push dieser Datei führt nur die Prüfung aus, die hier steht
-      # (Vercel-Test: eine Anfrage an UnivIS, aus der Vercel-Funktion).
-      MODE: ${{ inputs.mode || 'vercel' }}
+      # (Produktionstest: höchstens eine Anfrage an UnivIS, aus der
+      # Vercel-Funktion).
+      MODE: ${{ inputs.mode || 'production' }}
       SEM: ${{ inputs.sem || '2026w' }}
       DEPT_QUERY: ${{ inputs.query || 'Theologische' }}
       DEPT_NAME: ${{ inputs.name || 'Theologische Fakultät' }}
@@ -105,8 +106,10 @@ jobs:
       # geschützt; der Abruf braucht das Repository-Secret
       # VERCEL_AUTOMATION_BYPASS_SECRET („Protection Bypass for Automation“
       # in den Vercel-Projekteinstellungen).
-      - name: Erreichbarkeit aus einem Vercel-Preview prüfen
-        if: contains(env.MODE, 'vercel')
+      # production: wartet auf das Produktions-Deployment dieses Commits und
+      # prüft dann die öffentliche Domain (ohne Bypass-Secret).
+      - name: Katalog-Endpunkt im Vercel-Preview bzw. in Produktion prüfen
+        if: env.MODE == 'vercel' || env.MODE == 'production'
         env:
           BYPASS: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
           GH_TOKEN: ${{ github.token }}
@@ -114,9 +117,10 @@ jobs:
           SHA: ${{ github.sha }}
         run: |
           api() { curl -sS -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" "https://api.github.com/repos/$REPO/$1"; }
+          if [ "$MODE" = "production" ]; then ENVIRONMENT="Production"; else ENVIRONMENT="Preview"; fi
           URL=""
           for i in $(seq 1 30); do
-            for id in $(api "deployments?sha=$SHA&per_page=5" | jq -r '.[].id'); do
+            for id in $(api "deployments?sha=$SHA&per_page=10" | jq -r --arg env "$ENVIRONMENT" '.[] | select(.environment | startswith($env)) | .id'); do
               URL=$(api "deployments/$id/statuses" | jq -r '[.[] | select(.state=="success")][0].environment_url // empty')
               [ -n "$URL" ] && break
             done
@@ -124,11 +128,16 @@ jobs:
             sleep 10
           done
           if [ -z "$URL" ]; then
-            echo "Kein erfolgreiches Vercel-Preview für $SHA gefunden."
+            echo "Kein erfolgreiches Deployment ($ENVIRONMENT) für $SHA gefunden."
             exit 1
           fi
-          echo "Preview: $URL"
-          if [ -z "$BYPASS" ]; then
+          if [ "$MODE" = "production" ]; then
+            echo "Produktions-Deployment fertig; geprüft wird die öffentliche Domain."
+            URL="https://www.theologie.app"
+            BYPASS=""
+          fi
+          echo "Ziel: $URL"
+          if [ "$MODE" = "vercel" ] && [ -z "$BYPASS" ]; then
             echo "VERCEL_AUTOMATION_BYPASS_SECRET fehlt – geschütztes Preview nicht prüfbar."
             exit 1
           fi
@@ -136,7 +145,7 @@ jobs:
           # in der Prozessliste, nicht in einer Datei, nicht im Protokoll.
           # Kein -L: Weiterleitungen (z. B. zur Vercel-Anmeldung) nicht folgen.
           fetch() {
-            printf 'header = "x-vercel-protection-bypass: %s"\n' "$BYPASS" \
+            { [ -n "$BYPASS" ] && printf 'header = "x-vercel-protection-bypass: %s"\n' "$BYPASS"; true; } \
               | curl -sS -K - -D headers.txt -o result.json -w "%{http_code}" --max-time 60 \
                 "$URL$1" || echo "curl-Fehler"
           }
