@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  SYNTHETISCHE Beispieldaten, KEINE echte UnivIS-Antwort.
+  Aufbau nach UnivIS-Benutzerhandbuch Kap. 19 (Datensätze mit key-Attribut,
+  Verweise über leere UnivISRef-Elemente, referenzierte Datensätze im selben
+  Dokument). Elementnamen innerhalb von Lecture/term sind Annahmen, die beim
+  ersten echten Abruf mit univis_probe.mjs überprüft werden müssen.
+  Alle Namen, Räume und Kennungen sind erfunden.
+-->
+<UnivIS version="1.6">
+  <Lecture key="Lecture.beispiel.at.vorl1">
+    <name>Beispielvorlesung Altes Testament</name>
+    <short>AT-V</short>
+    <id>010001</id>
+    <type>V</type>
+    <sws>2</sws>
+    <ects_cred>3</ects_cred>
+    <orgname>Beispielinstitut für Altes Testament</orgname>
+    <summary>Synthetischer Beschreibungstext.</summary>
+    <dozs>
+      <doz><UnivISRef type="Person" key="Person.beispiel.musterfrau"/></doz>
+    </dozs>
+    <terms>
+      <term>
+        <repeat>w1 2</repeat>
+        <starttime>10:15</starttime>
+        <endtime>11:45</endtime>
+        <startdate>2026-10-13</startdate>
+        <enddate>2027-02-09</enddate>
+        <exclude>2026-12-22</exclude>
+        <room><UnivISRef type="Room" key="Room.beispiel.hs1"/></room>
+      </term>
+    </terms>
+  </Lecture>
+  <Lecture key="Lecture.beispiel.nt.sem1">
+    <name>Beispielseminar Neues Testament</name>
+    <id>010002</id>
+    <type>S</type>
+    <sws>2</sws>
+    <dozs>
+      <doz><UnivISRef type="Person" key="Person.beispiel.mustermann"/></doz>
+      <doz><UnivISRef type="Person" key="Person.beispiel.fehlt"/></doz>
+    </dozs>
+    <terms>
+      <term>
+        <repeat>w2 1,4</repeat>
+        <starttime>8:30</starttime>
+        <endtime>10:00</endtime>
+        <room><UnivISRef type="Room" key="Room.beispiel.sr2"/></room>
+      </term>
+      <term>
+        <repeat>s1</repeat>
+        <startdate>2027-01-30</startdate>
+        <starttime>09:00</starttime>
+        <endtime>16:00</endtime>
+      </term>
+      <term>
+        <repeat>x9 sonderfall</repeat>
+      </term>
+    </terms>
+  </Lecture>
+  <Lecture key="Lecture.beispiel.ohne.termin">
+    <name>Beispielkolloquium nach Vereinbarung</name>
+    <type>K</type>
+  </Lecture>
+  <Person key="Person.beispiel.musterfrau">
+    <title>Prof. Dr.</title>
+    <firstname>Erika</firstname>
+    <lastname>Musterfrau</lastname>
+  </Person>
+  <Person key="Person.beispiel.mustermann">
+    <firstname>Max</firstname>
+    <lastname>Mustermann</lastname>
+  </Person>
+  <Room key="Room.beispiel.hs1">
+    <short>HS 1</short>
+    <name>Beispielhörsaal 1</name>
+  </Room>
+  <Room key="Room.beispiel.sr2">
+    <short>SR 2</short>
+  </Room>
+</UnivIS>
