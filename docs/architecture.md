@@ -285,3 +285,48 @@ Ein weiteres Theme (z. B. Sepia oder hoher Kontrast) braucht eine weitere
 `AppColors`-Palette, ein daraus mit `AppTheme.fromColors` gebautes
 `ThemeData` und einen gespeicherten Wert in `ThemeSettings`, nach dem `MyApp`
 das Theme auswählt. `test/theme_test.dart` prüft die Kontraste jeder Palette.
+
+## Stundenplan (Vorschau mit synthetischen Testdaten)
+
+Veranstaltungen suchen und filtern, Detailansicht, persönlicher
+Stundenplan mit Wochenansicht und Überschneidungen. Bis zur Klärung der
+Nutzungsrechte an UnivIS-Daten arbeitet die Funktion ausschließlich mit
+**synthetischen** Daten; der Menüpunkt erscheint nur in Entwicklungs-Builds
+oder mit `--dart-define=TIMETABLE_PREVIEW=true`
+(`services/timetable/timetable_feature.dart`).
+
+| Aufgabe | Ort |
+| --- | --- |
+| Katalog-Datenmodell (quellneutral, Format von `api/_lib/catalog`) | `models/timetable/course_catalog.dart` |
+| Katalogquelle (Schnittstelle; synthetisches Asset) | `services/timetable/course_catalog_source.dart`, `assets/timetable/synthetic_catalog.json` |
+| Erzeugung des synthetischen Katalogs (nicht Teil der App) | `tool/timetable/` |
+| Suche, Filter, Filterwerte | `services/timetable/course_search.dart` |
+| Überschneidungen, Wochen, Wochenplan | `services/timetable/timetable_schedule.dart` |
+| Beschriftungen (Typen, Wochentage, Terminregeln, Hinweise) | `services/timetable/course_labels.dart` |
+| Eintrag im Stundenplan, Abgleich mit dem Katalog | `models/timetable/timetable_entry.dart` |
+| Speicher (Konto: `users/{uid}/timetable`, live; Gast: lokal) | `services/timetable/timetable_store.dart` |
+| Zustand für die Oberfläche | `services/timetable/timetable_controller.dart` |
+| Screens | `screens/timetable/` |
+
+Grundsätze:
+
+* **Katalog und Stundenplan sind getrennt.** Der Katalog ist zentral und
+  nur lesbar; der Stundenplan enthält je Veranstaltung nur Kennung,
+  Quellkennungen, Semester, Titel und eine Terminsignatur. Ändert sich der
+  Katalog, bleibt der Eintrag unverändert; die Wochenansicht meldet
+  „geändert“, „nicht mehr vorhanden“ oder „anderes Semester“.
+* **Keine Wiederholungslogik in der App.** Einzeltermine kommen aufgelöst
+  aus der Serververarbeitung (Wochenmuster, Blöcke, Ausfälle,
+  unterrichtsfreie Zeit). Datum und Uhrzeit werden als Kieler Ortszeit aus
+  dem Text gelesen, Vergleiche laufen über den absoluten Zeitpunkt.
+* **Überschneidungen** sind halboffene Intervalle: Ein Termin bis 10:00 und
+  einer ab 10:00 überschneiden sich nicht; abgesagte Termine zählen nicht.
+* **Synchronisierung**: `FirestoreTimetableBackend` beobachtet die
+  Collection über `snapshots()`; Änderungen auf einem Gerät erscheinen auf
+  allen anderen desselben Kontos. Gastmodus wie bei den übrigen Bereichen
+  lokal (`guest.v1.timetable`).
+* Eine neue Katalogquelle (UnivIS über einen Server-Endpunkt, später
+  HISinOne) implementiert nur `CourseCatalogSource`.
+
+`firestore.rules` und `AccountDeletionService.userCollections` enthalten
+`timetable`; die Regeln müssen in der Firebase Console nachgetragen werden.

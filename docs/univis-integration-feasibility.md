@@ -1,6 +1,6 @@
 # UnivIS-Anbindung: Machbarkeitsprüfung
 
-Stand: 14.10.2026 (Phase 2 – Backend-Datenverarbeitung – in Abschnitt 11). Ziel: Veranstaltungen aus UnivIS (zuerst CAU Kiel)
+Stand: 14.10.2026 (Phase 2 – Backend-Datenverarbeitung – in Abschnitt 11, Phase 3 – Stundenplan in der App – in Abschnitt 12). Ziel: Veranstaltungen aus UnivIS (zuerst CAU Kiel)
 automatisch in der App suchen, filtern und in einen persönlichen
 Stundenplan übernehmen, ohne dass Studierende UnivIS öffnen oder etwas
 exportieren.
@@ -726,3 +726,41 @@ nicht geändert; `flutter analyze` war daher nicht nötig.
 4. Danach erst Flutter: Datenmodell in Dart spiegeln, Suche/Filter,
    Stundenplan unter `users/{uid}/timetable` mit Schnappschuss und
    `overlapsBetween`-Logik.
+
+## 12. Phase 3: Stundenplan in der App (synthetische Daten)
+
+Umgesetzt in der Flutter-App (Überblick: `docs/architecture.md`, Abschnitt
+„Stundenplan“), **ausschließlich mit synthetischen Testdaten**:
+
+* Menüpunkt „Stundenplan“ auf der Startseite – nur in Entwicklungs-Builds
+  bzw. mit `--dart-define=TIMETABLE_PREVIEW=true`, damit Nutzer der
+  veröffentlichten App keine erfundenen Veranstaltungen sehen.
+* Suche (Titel, Nummer, Modulkürzel, Dozent; Umlaute egal) und Filter
+  (Dozent, Fachbereich, Veranstaltungstyp, Wochentag), Detailseite,
+  Hinzufügen/Entfernen, Wochenansicht mit konkreten Terminen, Ausfällen,
+  unterrichtsfreier Zeit und markierten Überschneidungen.
+* Speicherung je Nutzer unter `users/{uid}/timetable/{id}` (live
+  synchronisiert), Gastmodus lokal; Katalog und Stundenplan getrennt.
+* Synthetischer Katalog: `tool/timetable/synthetic_catalog.xml` →
+  `node tool/timetable/build_synthetic_catalog.mjs` →
+  `assets/timetable/synthetic_catalog.json` (17 Veranstaltungen nach
+  Dublettenprüfung, 269 Termine). Quellkennung `synthetic`, Kennzeichen
+  `"synthetic": true`; die App lehnt ein Asset ohne dieses Kennzeichen ab.
+  Es wird nichts von UnivIS abgerufen; kein öffentlicher Endpunkt, kein
+  regelmäßiger Import.
+
+Offen für die UnivIS-Anbindung:
+
+1. Freigabe der Nutzungsrechte durch die CAU (Abschnitt 9).
+2. Lesender Endpunkt (z. B. `api/catalog.ts` auf Basis von `loadCatalog`,
+   CDN-Cache), der das Format von `CatalogSnapshot` liefert; in der App eine
+   `CourseCatalogSource`-Implementierung, die ihn abruft und
+   zwischenspeichert (offline).
+3. Datenschutzerklärung um die Katalogquelle und den Stundenplan ergänzen.
+4. Firestore-Regeln mit `timetable` in der Firebase Console eintragen.
+5. Übernahme des Gast-Stundenplans ins Konto (wie bei den Lernständen) –
+   noch nicht umgesetzt.
+6. Semesterwahl, sobald mehr als ein Semester angeboten wird (das Modell
+   trägt die Semesterkennung bereits).
+7. Menüpunkt für alle freischalten (`timetable_feature.dart`), sobald echte
+   Daten zulässig sind.

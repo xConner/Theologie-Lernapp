@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  SYNTHETISCHE Testdaten für die Stundenplan-Funktion der App – KEINE echten
+  UnivIS-Daten. Aufbau wie die UnivIS-XML-Ausgabe, damit dieselbe
+  Verarbeitung (api/_lib/catalog) greift. Alle Veranstaltungen, Nummern,
+  Personen, Räume und Einrichtungen sind erfunden.
+  Erzeugung des App-Assets: node tool/timetable/build_synthetic_catalog.mjs
+-->
+<UnivIS version="1.6">
+  <Lecture key="Lecture.test.at.einf">
+    <id>91000001</id><number>990001</number>
+    <name>Testvorlesung: Einführung in das Alte Testament (TEST-AT1-V)</name>
+    <type>V</type><sws>2</sws><orgname>Testinstitut für Altes Testament</orgname>
+    <classification><UnivISRef type="Title" key="Title.test.at"/></classification>
+    <dozs><doz><UnivISRef type="Person" key="Person.test.beispiel"/></doz></dozs>
+    <terms><term><repeat>w1 1</repeat><starttime>10:15</starttime><endtime>11:45</endtime><exclude>2026-11-16</exclude><room><UnivISRef type="Room" key="Room.test.hs1"/></room></term></terms>
+  </Lecture>
+  <Lecture key="Lecture.test.at.bibelk">
+    <id>91000002</id><number>990002</number>
+    <name>Testübung: Bibelkunde Altes Testament (TEST-AT1-Bib)</name>
+    <type>UE</type><sws>2</sws><orgname>Testinstitut für Altes Testament</orgname>
+    <startdate>2026-10-18</startdate><enddate>2027-02-07</enddate>
+    <classification><UnivISRef type="Title" key="Title.test.at"/></classification>
+    <dozs><doz><UnivISRef type="Person" key="Person.test.muster"/></doz></dozs>
+    <terms><term><repeat>w1 4</repeat><starttime>16:15</starttime><endtime>17:45</endtime><room><UnivISRef type="Room" key="Room.test.sr26"/></room></term></terms>
+  </Lecture>
+  <!-- Import derselben Übung durch eine andere Einrichtung (Dublette). -->
+  <Lecture key="Lecture.test.erg._bibelk">
+    <id>91000003</id><number>990002</number><import_parent_id>91000002</import_parent_id>
+    <name>Testübung: Bibelkunde Altes Testament (TEST-AT1-Bib)</name>
+    <type>UE</type><sws>2</sws><orgname>Testbereich Fachergänzung</orgname>
+    <startdate>2026-10-18</startdate><enddate>2027-02-07</enddate>
+    <classification><UnivISRef type="Title" key="Title.test.erg"/></classification>
+    <dozs><doz><UnivISRef type="Person" key="Person.test.muster"/></doz></dozs>
+    <terms><term><repeat>w1 4</repeat><starttime>16:15</starttime><endtime>17:45</endtime><room><UnivISRef type="Room" key="Room.test.sr26"/></room></term></terms>
+  </Lecture>
+  <Lecture key="Lecture.test.at.ps">
+    <id>91000004</id><number>990003</number>
+    <name>Testproseminar: Methoden der Exegese (TEST-AT2-PS)</name>
+    <type>PS</type><sws>2</sws><orgname>Testinstitut für Altes Testament</orgname>
+    <classification><UnivISRef type="Title" key="Title.test.at"/></classification>
+    <dozs><doz><UnivISRef type="Person" key="Person.test.probe"/></doz></dozs>
+    <terms><term><repeat>w1 2</repeat><starttime>14:15</starttime><endtime>15:45</endtime><room><UnivISRef type="Room" key="Room.test.sr3"/></room></term></terms>
+  </Lecture>
+  <Lecture key="Lecture.test.nt.einf">
+    <id>91000005</id><number>990011</number>
+    <name>Testvorlesung: Einführung in das Neue Testament (TEST-NT1-V)</name>
+    <type>V</type><sws>2</sws><orgname>Testinstitut für Neues Testament</orgname>
+    <classification><UnivISRef type="Title" key="Title.test.nt"/></classification>
+    <dozs><doz><UnivISRef type="Person" key="Person.test.vorlage"/></doz></dozs>
+    <terms><term><repeat>w1 2</repeat><starttime>10:15</starttime><endtime>11:45</endtime><room><UnivISRef type="Room" key="Room.test.hs1"/></room></term></terms>
+  </Lecture>
+  <!-- Überschneidet sich mit der NT-Vorlesung (Di 10:15–11:45). -->
+  <Lecture key="Lecture.test.nt.gr">
+    <id>91000006</id><number>990012</number>
+    <name>Testkurs: Griechische Lektüre zum Neuen Testament</name>
+    <type>UE</type><sws>2</sws><orgname>Testinstitut für Neues Testament</orgname>
+    <classification><UnivISRef type="Title" key="Title.test.nt"/></classification>
+    <dozs><doz><UnivISRef type="Person" key="Person.test.muster"/></doz></dozs>
+    <terms><term><repeat>w1 2</repeat><starttime>11:00</starttime><endtime>12:30</endtime><room><UnivISRef type="Room" key="Room.test.sr3"/></room></term></terms>
+  </Lecture>
+  <Lecture key="Lecture.test.nt.hs">
+    <id>91000007</id><number>990013</number>
+    <name>Testhauptseminar: Gleichnisse Jesu (TEST-NT3-HS)</name>
+    <type>HS</type><sws>2</sws><orgname>Testinstitut für Neues Testament</orgname>
+    <classification><UnivISRef type="Title" key="Title.test.nt"/></classification>
+    <dozs><doz><UnivISRef type="Person" key="Person.test.vorlage"/></doz><doz><UnivISRef type="Person" key="Person.test.probe"/></doz></dozs>
+    <terms><term><repeat>w1 3</repeat><starttime>16:15</starttime><endtime>17:45</endtime><room><UnivISRef type="Room" key="Room.test.sr26"/></room></term></terms>
+  </Lecture>
+  <Lecture key="Lecture.test.kg.einf">
+    <id>91000008</id><number>990021</number>
+    <name>Testvorlesung: Kirchengeschichte im Überblick I (TEST-KG1-V)</name>
+    <type>V</type><sws>2</sws><orgname>Testinstitut für Kirchengeschichte</orgname>
+    <classification><UnivISRef type="Title" key="Title.test.kg"/></classification>
+    <dozs><doz><UnivISRef type="Person" key="Person.test.entwurf"/></doz></dozs>
+    <terms><term><repeat>w1 3</repeat><starttime>08:30</starttime><endtime>10:00</endtime><room><UnivISRef type="Room" key="Room.test.hs2"/></room></term></terms>
+  </Lecture>
+  <!-- Schließt direkt an (10:00) – keine Überschneidung. -->
+  <Lecture key="Lecture.test.kg.ue">
+    <id>91000009</id><number>990022</number>
+    <name>Testübung: Quellen zur Reformation</name>
+    <type>UE</type><sws>2</sws><orgname>Testinstitut für Kirchengeschichte</orgname>
+    <classification><UnivISRef type="Title" key="Title.test.kg"/></classification>
+    <dozs><doz><UnivISRef type="Person" key="Person.test.entwurf"/></doz></dozs>
+    <terms><term><repeat>w1 3</repeat><starttime>10:00</starttime><endtime>11:30</endtime><room><UnivISRef type="Room" key="Room.test.sr3"/></room></term></terms>
+  </Lecture>
+  <Lecture key="Lecture.test.kg.koll">
+    <id>91000010</id><number>990023</number>
+    <name>Testkolloquium Kirchengeschichte (14-täglich)</name>
+    <type>K</type><sws>1</sws><orgname>Testinstitut für Kirchengeschichte</orgname>
+    <classification><UnivISRef type="Title" key="Title.test.kg"/></classification>
+    <dozs><doz><UnivISRef type="Person" key="Person.test.entwurf"/></doz></dozs>
+    <terms><term><repeat>w2 4</repeat><starttime>18:15</starttime><endtime>19:45</endtime><startdate>2026-10-15</startdate><enddate>2027-02-11</enddate><room><UnivISRef type="Room" key="Room.test.sr26"/></room></term></terms>
+  </Lecture>
+  <Lecture key="Lecture.test.st.dogm">
+    <id>91000011</id><number>990031</number>
+    <name>Testvorlesung: Dogmatik – Schöpfung und Erlösung (TEST-ST2-V)</name>
+    <type>V</type><sws>3</sws><orgname>Testinstitut für Systematische Theologie</orgname>
+    <classification><UnivISRef type="Title" key="Title.test.st"/></classification>
+    <dozs><doz><UnivISRef type="Person" key="Person.test.beispiel"/></doz></dozs>
+    <terms>
+      <term><repeat>w1 1</repeat><starttime>14:15</starttime><endtime>15:45</endtime><room><UnivISRef type="Room" key="Room.test.hs2"/></room></term>
+      <term><repeat>w1 4</repeat><starttime>12:15</starttime><endtime>13:00</endtime><room><UnivISRef type="Room" key="Room.test.hs2"/></room></term>
+    </terms>
+  </Lecture>
+  <Lecture key="Lecture.test.st.ethik">
+    <id>91000012</id><number>990032</number>
+    <name>Testseminar: Ethik der Digitalisierung (TEST-ST3-S)</name>
+    <type>S</type><sws>2</sws><orgname>Testinstitut für Systematische Theologie</orgname>
+    <classification><UnivISRef type="Title" key="Title.test.st"/></classification>
+    <dozs><doz><UnivISRef type="Person" key="Person.test.probe"/></doz></dozs>
+    <terms><term><repeat>w1 5</repeat><starttime>10:15</starttime><endtime>11:45</endtime><room><UnivISRef type="Room" key="Room.test.online"/></room></term></terms>
+  </Lecture>
+  <Lecture key="Lecture.test.pt.hom">
+    <id>91000013</id><number>990041</number>
+    <name>Testseminar: Homiletik (Blockveranstaltung) (TEST-PT2-S)</name>
+    <type>BS</type><sws>2</sws><orgname>Testinstitut für Praktische Theologie</orgname>
+    <classification><UnivISRef type="Title" key="Title.test.pt"/></classification>
+    <dozs><doz><UnivISRef type="Person" key="Person.test.vorlage"/></doz></dozs>
+    <terms><term><repeat>bd 1,2,3</repeat><starttime>09:00</starttime><endtime>16:00</endtime><startdate>2027-02-15</startdate><enddate>2027-02-17</enddate><room><UnivISRef type="Room" key="Room.test.sr3"/></room></term></terms>
+  </Lecture>
+  <Lecture key="Lecture.test.pt.exk">
+    <id>91000014</id><number>990042</number>
+    <name>Testexkursion: Kirchenräume erkunden</name>
+    <type>EX</type><orgname>Testinstitut für Praktische Theologie</orgname>
+    <classification><UnivISRef type="Title" key="Title.test.pt"/></classification>
+    <dozs><doz><UnivISRef type="Person" key="Person.test.muster"/></doz></dozs>
+    <terms><term><repeat>b1</repeat><starttime>09:00</starttime><endtime>18:00</endtime><startdate>2027-01-29</startdate><enddate>2027-01-31</enddate></term></terms>
+  </Lecture>
+  <Lecture key="Lecture.test.pt.rv">
+    <id>91000015</id><number>990043</number>
+    <name>Testringvorlesung: Kirche in der Stadt</name>
+    <type>RV</type><orgname>Testinstitut für Praktische Theologie</orgname>
+    <classification><UnivISRef type="Title" key="Title.test.pt"/></classification>
+    <dozs><doz><UnivISRef type="Person" key="Person.test.entwurf"/></doz><doz><UnivISRef type="Person" key="Person.test.beispiel"/></doz></dozs>
+    <terms>
+      <term><repeat>s1</repeat><startdate>2026-11-03</startdate><enddate>2026-11-03</enddate><starttime>18:15</starttime><endtime>19:45</endtime><room><UnivISRef type="Room" key="Room.test.hs1"/></room></term>
+      <term><repeat>s1</repeat><startdate>2026-12-01</startdate><enddate>2026-12-01</enddate><starttime>18:15</starttime><endtime>19:45</endtime><room><UnivISRef type="Room" key="Room.test.hs1"/></room></term>
+      <term><repeat>s1</repeat><startdate>2027-01-12</startdate><enddate>2027-01-12</enddate><starttime>18:15</starttime><endtime>19:45</endtime><room><UnivISRef type="Room" key="Room.test.online"/></room></term>
+    </terms>
+  </Lecture>
+  <Lecture key="Lecture.test.spr.hebr">
+    <id>91000016</id><number>990051</number>
+    <name>Testsprachkurs: Hebräisch I</name>
+    <type>SK</type><sws>6</sws><orgname>Testlektorat für Alte Sprachen</orgname>
+    <classification><UnivISRef type="Title" key="Title.test.spr"/></classification>
+    <dozs><doz><UnivISRef type="Person" key="Person.test.vorlage"/></doz></dozs>
+    <terms>
+      <term><repeat>w1 1,3,5</repeat><starttime>12:15</starttime><endtime>13:45</endtime><room><UnivISRef type="Room" key="Room.test.sr3"/></room></term>
+    </terms>
+  </Lecture>
+  <Lecture key="Lecture.test.spr.gr">
+    <id>91000017</id><number>990052</number>
+    <name>Testsprachkurs: Griechisch I</name>
+    <type>SK</type><sws>6</sws><orgname>Testlektorat für Alte Sprachen</orgname>
+    <classification><UnivISRef type="Title" key="Title.test.spr"/></classification>
+    <dozs><doz><UnivISRef type="Person" key="Person.test.probe"/></doz></dozs>
+    <terms>
+      <term><repeat>w1 2,4</repeat><starttime>08:15</starttime><endtime>09:45</endtime><room><UnivISRef type="Room" key="Room.test.sr26"/></room></term>
+    </terms>
+  </Lecture>
+  <Lecture key="Lecture.test.os">
+    <id>91000018</id><number>990061</number>
+    <name>Testoberseminar für Promovierende</name>
+    <type>OS</type><orgname>Testinstitut für Systematische Theologie</orgname>
+    <classification><UnivISRef type="Title" key="Title.test.st"/></classification>
+    <dozs><doz><UnivISRef type="Person" key="Person.test.beispiel"/></doz></dozs>
+  </Lecture>
+
+  <Person key="Person.test.beispiel"><title>Prof. Dr.</title><firstname>Lea</firstname><lastname>Beispiel</lastname></Person>
+  <Person key="Person.test.muster"><title>Dr.</title><firstname>Jonas</firstname><lastname>Muster</lastname></Person>
+  <Person key="Person.test.probe"><firstname>Mira</firstname><lastname>Probe</lastname></Person>
+  <Person key="Person.test.vorlage"><title>Prof. Dr.</title><firstname>Karl</firstname><lastname>Vorlage</lastname></Person>
+  <Person key="Person.test.entwurf"><title>PD Dr.</title><firstname>Anna</firstname><lastname>Entwurf</lastname></Person>
+  <Room key="Room.test.hs1"><short>Test-HS 1</short><name>Testhörsaal 1</name></Room>
+  <Room key="Room.test.hs2"><short>Test-HS 2</short><name>Testhörsaal 2</name></Room>
+  <Room key="Room.test.sr3"><short>Test-SR 3</short><name>Testseminarraum 3</name></Room>
+  <Room key="Room.test.sr26"><short>Test-SR 26</short><name>Testseminarraum 26</name></Room>
+  <Room key="Room.test.online"><short>Online-Veranstaltung</short><name>Online-Veranstaltung</name></Room>
+  <Title key="Title.test.at"><title>Altes Testament</title></Title>
+  <Title key="Title.test.nt"><title>Neues Testament</title></Title>
+  <Title key="Title.test.kg"><title>Kirchengeschichte</title></Title>
+  <Title key="Title.test.st"><title>Systematische Theologie</title></Title>
+  <Title key="Title.test.pt"><title>Praktische Theologie</title></Title>
+  <Title key="Title.test.spr"><title>Sprachen</title></Title>
+  <Title key="Title.test.erg"><title>Fachergänzung</title></Title>
+</UnivIS>

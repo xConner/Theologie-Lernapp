@@ -20,6 +20,8 @@ rules_version = '2';
 //                                               Lesepläne, eigene Lesepläne)
 //   users/{uid}/greek_exam/{settings|progress} (Klausurersteller: Konfiguration,
 //                                               als bearbeitet markierte Texte)
+//   users/{uid}/timetable/{entryId}            (persönlicher Stundenplan: Verweis
+//                                               auf eine Katalog-Veranstaltung)
 //   users/{uid}/notification_state/inbox       (Lesestatus der Glocke)
 //   users/{uid}/push_tokens/{id}               (Push-Abonnements je Gerät)
 //
@@ -106,7 +108,7 @@ service cloud.firestore {
                             'latin_vocabulary', 'grammar', 'memorization',
                             'pericope_overrides', 'streaks', 'statistics',
                             'bible_reading', 'notification_state',
-                            'push_tokens', 'greek_exam'];
+                            'push_tokens', 'greek_exam', 'timetable'];
     }
 
     match /users/{uid} {

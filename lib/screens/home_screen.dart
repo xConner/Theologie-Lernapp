@@ -17,6 +17,7 @@ import 'prayers_screen.dart';
 import 'memorization/memorization_home_screen.dart';
 
 import 'latin/latin_home_screen.dart';
+import 'timetable/timetable_home_screen.dart';
 
 import 'settings_screen.dart';
 
@@ -26,6 +27,7 @@ import '../services/notifications/app_deep_link.dart';
 import '../services/notifications/notification_service.dart';
 import '../services/notifications/push_service.dart';
 import '../services/progress_data_service.dart';
+import '../services/timetable/timetable_feature.dart';
 import '../widgets/deep_link_navigator.dart';
 import '../widgets/learning_progress_dialogs.dart';
 import '../widgets/notification_bell.dart';
@@ -443,6 +445,28 @@ class _HomeScreenState extends State<HomeScreen> {
                           label: const Text("Latein"),
                         ),
                       ),
+
+                      // Vorschau mit synthetischen Testdaten, siehe
+                      // timetable_feature.dart.
+                      if (timetablePreviewEnabled) ...[
+                        const SizedBox(height: 16),
+
+                        SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton.icon(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => TimetableHomeScreen(uid: uid),
+                                ),
+                              );
+                            },
+                            icon: const Icon(Icons.view_week_rounded),
+                            label: const Text("Stundenplan"),
+                          ),
+                        ),
+                      ],
                     ],
                   ),
                 ),

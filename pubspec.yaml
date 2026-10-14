@@ -82,6 +82,9 @@ flutter:
       - assets/liturgical_calendar_2026.json
       - assets/greek_vocabulary.json
       - assets/greek_pronoun_forms.json
+      # Stundenplan: SYNTHETISCHER Veranstaltungskatalog, erzeugt von
+      # tool/timetable/build_synthetic_catalog.mjs (keine echten UnivIS-Daten).
+      - assets/timetable/synthetic_catalog.json
       # Klausurersteller: Textkorpora mit Bestimmungen und Suchindex, erzeugt
       # von tool/greek_exam_corpus (siehe docs/greek-exam-sources.md).
       - assets/greek_corpus/corpora.json
