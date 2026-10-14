@@ -65,6 +65,7 @@ function mergeGroup(group: SourceCourse[]): Course {
         ...stripSource(primary),
         sources: union(primary.sources, ...others.map((c) => c.sources)),
         organizations: union(primary.organizations, ...others.map((c) => c.organizations)),
+        organizationPath: [primary, ...others].find((c) => (c.organizationPath?.length ?? 0) > 0)?.organizationPath ?? [],
         classification: union(primary.classification, ...others.map((c) => c.classification)),
         lecturerIds: union(primary.lecturerIds, ...others.map((c) => c.lecturerIds)),
         moduleCodes: union(primary.moduleCodes, ...others.map((c) => c.moduleCodes)),

@@ -50,7 +50,7 @@
     <li>Die App selbst setzt <strong>keine Cookies</strong> und braucht deshalb kein Cookie-Banner. Sie nutzt den lokalen Speicher des Browsers nur für Funktionen, die du verwendest (Abschnitt 5).</li>
     <li>Ein Konto ist freiwillig. Ohne Konto (Gastmodus) bleiben Lernstände und Einstellungen in deinem Browser.</li>
     <li>Mit Konto werden Lernstände, Einstellungen und Statistiken bei Google Firebase gespeichert und deinem Konto zugeordnet.</li>
-    <li>Der Stundenplan zeigt das öffentliche Vorlesungsverzeichnis der Theologischen Fakultät der CAU Kiel (UnivIS). Deinen persönlichen Stundenplan speichert die App wie die Lernstände: ohne Konto im Browser, mit Konto in deinem Konto (Abschnitte 3a, 5 und 7).</li>
+    <li>Die Studiumsorganisation zeigt das öffentliche Vorlesungsverzeichnis der CAU Kiel (UnivIS): vollständig für die Theologische Fakultät, für andere Fakultäten über eine Suche. Deinen persönlichen Stundenplan speichert die App wie die Lernstände: ohne Konto im Browser, mit Konto in deinem Konto (Abschnitte 3a, 5 und 7). Die Studienunterlagen sind Links auf Webseiten der CAU und der Nordkirche (Abschnitt 3a).</li>
   </ul>
 
   <h2>3. Aufruf der Website (Vercel)</h2>
@@ -79,7 +79,7 @@
   </p>
   <p>Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO (Bereitstellung und sicherer Betrieb der App).</p>
 
-  <h3>3a. Veranstaltungskatalog (Stundenplan)</h3>
+  <h3>3a. Veranstaltungskatalog, Veranstaltungssuche und Studienunterlagen (Studiumsorganisation)</h3>
   <p>
     Für den Stundenplan ruft die App den Veranstaltungskatalog vom Backend
     dieser Website ab (<code>/api/catalog</code>; übermittelt werden nur das
@@ -109,6 +109,25 @@
     Korrektur wünschen, können sich an die oben genannte Adresse oder an die
     für UnivIS zuständige Stelle der Universität wenden.
   </p>
+  <p>
+    <strong>Suche über alle Fakultäten:</strong> Suchst du nach einer
+    Veranstaltung einer anderen Fakultät, sendet die App deinen Suchbegriff
+    (bzw. die Veranstaltungsnummer), das Semester und gegebenenfalls die
+    gewählte Fakultät an dasselbe Backend; dieses fragt UnivIS ab und bereitet
+    die Treffer genauso auf wie den Katalog (gleiche Datenarten, keine
+    Freitexte). Ergebnisse werden bis zu 12 Stunden im Arbeitsspeicher und im
+    Auslieferungs-Cache von Vercel zwischengespeichert, nicht dauerhaft. Der
+    Suchbegriff wird nicht protokolliert und nicht mit deinem Konto
+    verknüpft; an die Universität gehen weder deine IP-Adresse noch
+    Kontodaten.
+  </p>
+  <p>
+    <strong>Studienunterlagen</strong> sind Links auf die Originaldokumente
+    der Universität (uni-kiel.de, studservice.uni-kiel.de) und der Nordkirche
+    (nordkirche.de, kirchenrecht-nordkirche.de). Die App speichert keine
+    Kopien. Beim Öffnen eines Links rufst du die jeweilige Seite direkt auf;
+    dafür gelten die Datenschutzhinweise der jeweiligen Stelle.
+  </p>
 
   <h2>4. Verbindungen zu Google beim Start der App</h2>
   <p>Die App ist mit Flutter gebaut und nutzt Firebase. Beim Start lädt sie deshalb – auch im Gastmodus – von Servern von Google:</p>
@@ -126,7 +145,8 @@
   <h2>5. Speicherung im Browser</h2>
   <p>Die App speichert im lokalen Speicher des Browsers (localStorage bzw. IndexedDB):</p>
   <ul>
-    <li>im Gastmodus: Lernstände, Lerneinstellungen, Statistiken, Streaks, den Lesestatus der Nachrichten und deinen Stundenplan (Verweise auf die gewählten Veranstaltungen),</li>
+    <li>im Gastmodus: Lernstände, Lerneinstellungen, Statistiken, Streaks, den Lesestatus der Nachrichten und deinen Stundenplan (gewählte Veranstaltungen mit ihren öffentlichen Katalogdaten und deinen eigenen Anpassungen),</li>
+    <li>die Filtereinstellung des Stundenplans (alle, regelmäßige oder Blockveranstaltungen),</li>
     <li>den zuletzt geladenen Veranstaltungskatalog je Semester (öffentliche Daten, Abschnitt 3a), damit der Stundenplan auch ohne Verbindung funktioniert; Kataloge nicht mehr angebotener Semester entfernt die App,</li>
     <li>Einstellungen wie Erscheinungsbild, Sound, Bibel-Reader und Eingabemodus des Perikopenquiz,</li>
     <li>das Sprachmodell für Latein, falls du es heruntergeladen hast (Abschnitt 9),</li>
@@ -191,7 +211,7 @@
         <tr><td>Tagesstatistik je Trainer (Anzahl beantworteter, richtiger und falscher Antworten je Tag)</td><td>Statistik-Anzeige</td></tr>
         <tr><td>Streaks (aktuelle/längste Serie, letzte Aktivität, heutige richtige Antworten)</td><td>Streak-Anzeige</td></tr>
         <tr><td>Benachrichtigungs-Einstellungen (gewählte Uhrzeit und Kategorien, Zeitzone des Geräts, Zeitpunkt der nächsten und Tag der letzten Erinnerung), Lesestatus der Nachrichten</td><td>Nachrichten-Glocke, Push-Benachrichtigungen</td></tr>
-        <tr><td>Stundenplan: je gewählter Veranstaltung Kennung, Semester, Titel, Nummer, Quellkennungen, eine Kurzform der Termine und der Zeitpunkt des Hinzufügens</td><td>Geräteübergreifender Stundenplan, Hinweis bei geänderten Terminen</td></tr>
+        <tr><td>Stundenplan: je gewählter Veranstaltung Kennung, Semester, Titel, Nummer, Quellkennungen, eine Kurzform der Termine, der Zeitpunkt des Speicherns, die beim Hinzufügen übernommenen öffentlichen Katalogdaten (Termine, Räume, Einrichtung, Namen der Lehrenden) sowie deine eigenen Anpassungen (z. B. korrigierte Uhrzeit oder Raum, eigene Notiz)</td><td>Geräteübergreifender Stundenplan, auch für Veranstaltungen anderer Fakultäten; Hinweis bei geänderten Terminen, ohne deine Anpassungen zu überschreiben</td></tr>
         <tr><td>Nur wenn du Push einschaltest: Push-Abonnement je Gerät (Adresse beim Push-Dienst deines Browsers, Verschlüsselungsschlüssel, Geräteart, Zeitpunkt der letzten Anmeldung)</td><td>Zustellung der Push-Benachrichtigungen</td></tr>
       </tbody>
     </table>

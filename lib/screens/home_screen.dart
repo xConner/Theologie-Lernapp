@@ -17,7 +17,7 @@ import 'prayers_screen.dart';
 import 'memorization/memorization_home_screen.dart';
 
 import 'latin/latin_home_screen.dart';
-import 'timetable/timetable_home_screen.dart';
+import 'study/study_organization_screen.dart';
 
 import 'settings_screen.dart';
 
@@ -477,21 +477,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
                       const SizedBox(height: 16),
 
-                      SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton.icon(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (_) => TimetableHomeScreen(uid: uid),
-                              ),
-                            );
-                          },
-                          icon: const Icon(Icons.view_week_rounded),
-                          label: const Text("Stundenplan"),
-                        ),
-                      ),
+                      StudyOrganizationButton(uid: uid),
                     ],
                   ),
                 ),

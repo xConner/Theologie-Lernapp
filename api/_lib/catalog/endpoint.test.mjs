@@ -81,6 +81,8 @@ test('Semesterliste: laufendes und nächstes konfiguriertes Semester', async () 
     assert.equal(r.status, 200);
     assert.deepEqual(r.body.semesters.map((s) => s.id), ['2026w', '2027s']);
     assert.deepEqual(r.body.organizations, [{ id: '010000000', name: 'Theologische Fakultät' }]);
+    assert.equal(r.body.faculties.length, 9);
+    assert.ok(r.body.faculties.some((f) => f.id === '050000000' && f.name === 'Philosophische Fakultät'));
     assert.equal(calls.length, 0);
     assert.deepEqual(offeredSemesters(CAU_SEMESTERS, '2027-04-10').map((s) => s.id), ['2027s']);
     assert.deepEqual(offeredSemesters(CAU_SEMESTERS, '2027-10-01'), []);
@@ -117,7 +119,7 @@ test('Katalog: genau eine Anfrage an die feste UnivIS-Adresse, öffentliche Feld
     assert.ok(r.body.occurrences.length > 0);
     assert.deepEqual(Object.keys(r.body.courses[0]).sort(), [
         'classification', 'detailUrl', 'ects', 'endDate', 'id', 'imported', 'lecturerIds', 'moduleCodes',
-        'number', 'organizations', 'rules', 'semesterId', 'sources', 'startDate', 'sws', 'title', 'type',
+        'number', 'organizationPath', 'organizations', 'rules', 'semesterId', 'sources', 'startDate', 'sws', 'title', 'type',
     ]);
 });
 
@@ -258,4 +260,108 @@ test('Schutzhülle: Endpunkt lädt über guarded', async () => {
     assert.equal(typeof guardedEndpoint, 'function');
     const r = await call(guardedEndpoint, { method: 'DELETE', query: {} });
     assert.equal(r.status, 405);
+});
+
+// --- Fakultätsübergreifende Suche (search.ts) -------------------------------
+
+const { latin1Component, normalizeSearchText, rankOf, trimSnapshot } = lib('catalog/search.js');
+
+test('Suche: Eingaben prüfen, nichts Unbekanntes an UnivIS weitergeben', async () => {
+    const { handler, calls } = setup();
+    for (const query of [
+        { semester: '2026w', q: 'ab' },
+        { semester: '2026w', q: 'x'.repeat(81) },
+        { semester: '2026w', q: ['Ethik', 'Recht'] },
+        { semester: '2026w', q: 'Ethik&department=1' },
+        { semester: '2026w', q: '<script>' },
+        { semester: '2026w', q: 'Καινή' },
+        { semester: '2026w', q: '---' },
+        { semester: '2026w', number: '12345' },
+        { semester: '2026w', number: '0100761' },
+        { semester: '2026w', q: 'Ethik', number: '010076' },
+        { semester: '2026w', q: 'Ethik', faculty: '999999999' },
+        { semester: '2026w', q: 'Ethik', faculty: ['050000000'] },
+        { semester: '1999w', q: 'Ethik' },
+    ]) {
+        const r = await call(handler, { query });
+        assert.equal(r.status, 400, JSON.stringify(query));
+    }
+    assert.equal(calls.length, 0);
+    assert.equal(normalizeSearchText('  Einführung   in  die  Ethik '), 'Einführung in die Ethik');
+    assert.equal(normalizeSearchText('Ethik – Grundlagen'), 'Ethik - Grundlagen');
+});
+
+test('Suche: Umlaute in ISO-8859-1, Fakultät als department, Nummer', async () => {
+    const { handler, calls } = setup();
+    assert.equal(latin1Component('Einführung Ethik'), 'Einf%FChrung%20Ethik');
+    assert.throws(() => latin1Component('Ω'));
+    let r = await call(handler, { query: { semester: '2026w', q: 'Einführung', faculty: '050000000' } });
+    assert.equal(r.status, 200);
+    r = await call(handler, { query: { semester: '2026w', number: '010076' } });
+    assert.equal(r.status, 200);
+    assert.deepEqual(calls, [
+        'https://univis.uni-kiel.de/prg?search=lectures&show=xml&sem=2026w&name=Einf%FChrung&department=050000000',
+        'https://univis.uni-kiel.de/prg?search=lectures&show=xml&sem=2026w&number=010076',
+    ]);
+    assert.equal(r.body.search.number, '010076');
+    assert.equal(r.body.synthetic, false);
+});
+
+test('Suche: Ergebnis in öffentlicher Form mit Einrichtungshierarchie, Zwischenspeicher', async () => {
+    const { handler, calls } = setup();
+    const r = await call(handler, { query: { semester: '2026w', q: 'Test' } });
+    assert.equal(r.status, 200);
+    assert.equal(r.body.search.text, 'Test');
+    assert.equal(r.body.search.total, 12);
+    assert.equal(r.body.search.truncated, false);
+    const weekly = r.body.courses.find((c) => c.sources.some((s) => s.key === 'Lecture.test.weekly'));
+    assert.deepEqual(weekly.organizationPath, ['Testfakultät', 'Testinstitut A']);
+    assert.ok(!JSON.stringify(r.body).includes('example.org'));
+    // Gleiche Suche (andere Schreibweise): aus dem Zwischenspeicher.
+    const again = await call(handler, { query: { semester: '2026w', q: ' test ' } });
+    assert.equal(again.body.cache.state, 'fresh');
+    assert.equal(calls.length, 1);
+    assert.match(again.headers['cache-control'], /s-maxage=3600/);
+});
+
+test('Suche: Kürzung auf die besten Treffer, ohne Termine entfallener Veranstaltungen', () => {
+    assert.equal(rankOf('Ethik', 'ethik'), 0);
+    assert.equal(rankOf('Ethik der Medizin (MED-1)', 'Ethik'), 1);
+    assert.equal(rankOf('Einführung in die Ethik', 'ethik'), 2);
+    assert.equal(rankOf('Medizinethik', 'ethik'), 3);
+    const course = (id, title) => ({ id, title, lecturerIds: [`p-${id}`], rules: [{ roomId: `r-${id}` }] });
+    const snapshot = {
+        courses: [course('a', 'Medizinethik'), course('b', 'Ethik'), course('c', 'Einführung in die Ethik')],
+        persons: ['a', 'b', 'c'].map((id) => ({ id: `p-${id}` })),
+        rooms: ['a', 'b', 'c'].map((id) => ({ id: `r-${id}` })),
+        occurrences: ['a', 'b', 'c'].map((id) => ({ courseId: id })),
+        issues: [], mergedDuplicates: [], possibleDuplicates: [],
+    };
+    const trimmed = trimSnapshot(snapshot, { semesterId: '2026w', text: 'Ethik' }, 2);
+    assert.deepEqual(trimmed.courses.map((c) => c.id), ['b', 'c']);
+    assert.equal(trimmed.total, 3);
+    assert.deepEqual(trimmed.persons.map((p) => p.id), ['p-b', 'p-c']);
+    assert.deepEqual(trimmed.occurrences.map((o) => o.courseId), ['b', 'c']);
+});
+
+test('Suche: Drosselung je Instanz, zu große Antworten, Ausfall der Quelle', async () => {
+    const { handler, calls, advance, fail } = setup({ env: { CATALOG_SEARCH_PER_MINUTE: '2' } });
+    assert.equal((await call(handler, { query: { semester: '2026w', q: 'Test eins' } })).status, 200);
+    assert.equal((await call(handler, { query: { semester: '2026w', q: 'Test zwei' } })).status, 200);
+    const limited = await call(handler, { query: { semester: '2026w', q: 'Test drei' } });
+    assert.equal(limited.status, 429);
+    assert.equal(limited.headers['retry-after'], '30');
+    // Bereits gespeicherte Suche geht trotz Drosselung.
+    assert.equal((await call(handler, { query: { semester: '2026w', q: 'Test eins' } })).status, 200);
+    assert.equal(calls.length, 2);
+    advance(61_000);
+    fail();
+    const down = await call(handler, { query: { semester: '2026w', q: 'Test vier' } });
+    assert.equal(down.status, 503);
+    assert.equal(down.body.code, 'source-unavailable');
+
+    const big = setup({ body: () => 'x'.repeat(8 * 1024 * 1024 + 1) });
+    const tooMany = await call(big.handler, { query: { semester: '2026w', q: 'Einf' } });
+    assert.equal(tooMany.status, 422);
+    assert.equal(tooMany.body.code, 'too-many-results');
 });

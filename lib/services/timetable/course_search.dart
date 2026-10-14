@@ -4,7 +4,12 @@ import '../../models/timetable/course_catalog.dart';
 class CourseFilter {
   final String query;
   final String? lecturerId;
+
+  /// Institut bzw. Fachbereich ([CatalogCourse.institutes]).
   final String? organization;
+
+  /// Fakultät ([CatalogCourse.faculty]).
+  final String? faculty;
   final String? type;
 
   /// ISO-Wochentag (1 = Montag).
@@ -14,6 +19,7 @@ class CourseFilter {
     this.query = "",
     this.lecturerId,
     this.organization,
+    this.faculty,
     this.type,
     this.weekday,
   });
@@ -22,6 +28,7 @@ class CourseFilter {
       query.trim().isEmpty &&
       lecturerId == null &&
       organization == null &&
+      faculty == null &&
       type == null &&
       weekday == null;
 
@@ -29,12 +36,14 @@ class CourseFilter {
     String? query,
     String? Function()? lecturerId,
     String? Function()? organization,
+    String? Function()? faculty,
     String? Function()? type,
     int? Function()? weekday,
   }) => CourseFilter(
     query: query ?? this.query,
     lecturerId: lecturerId != null ? lecturerId() : this.lecturerId,
     organization: organization != null ? organization() : this.organization,
+    faculty: faculty != null ? faculty() : this.faculty,
     type: type != null ? type() : this.type,
     weekday: weekday != null ? weekday() : this.weekday,
   );
@@ -85,6 +94,7 @@ bool _matchesQuery(CourseCatalog catalog, CatalogCourse course, String query) {
       ...course.moduleCodes,
       ...catalog.lecturerNames(course),
       ...course.organizations,
+      ...course.organizationPath,
       ...course.classification,
     ].join(" "),
   );
@@ -100,9 +110,10 @@ List<CatalogCourse> filterCourses(CourseCatalog catalog, CourseFilter filter) {
       return false;
     }
     if (filter.organization != null &&
-        !c.organizations.contains(filter.organization)) {
+        !c.institutes.contains(filter.organization)) {
       return false;
     }
+    if (filter.faculty != null && c.faculty != filter.faculty) return false;
     if (filter.type != null && c.type != filter.type) return false;
     if (filter.weekday != null &&
         !weekdaysOf(catalog, c).contains(filter.weekday)) {
@@ -121,13 +132,17 @@ List<CatalogCourse> filterCourses(CourseCatalog catalog, CourseFilter filter) {
 class CourseFacets {
   /// Lehrperson-Kennung → Name, nach Nachname sortiert.
   final List<CatalogPerson> lecturers;
+
+  /// Institute bzw. Fachbereiche.
   final List<String> organizations;
+  final List<String> faculties;
   final List<String> types;
   final List<int> weekdays;
 
   const CourseFacets({
     required this.lecturers,
     required this.organizations,
+    this.faculties = const [],
     required this.types,
     required this.weekdays,
   });
@@ -144,9 +159,9 @@ class CourseFacets {
         );
     return CourseFacets(
       lecturers: lecturers,
-      organizations: {
-        for (final c in catalog.courses) ...c.organizations,
-      }.toList()..sort(),
+      organizations: {for (final c in catalog.courses) ...c.institutes}.toList()
+        ..sort(),
+      faculties: {for (final c in catalog.courses) ?c.faculty}.toList()..sort(),
       types: {for (final c in catalog.courses) ?c.type}.toList()..sort(),
       weekdays: {
         for (final c in catalog.courses) ...weekdaysOf(catalog, c),

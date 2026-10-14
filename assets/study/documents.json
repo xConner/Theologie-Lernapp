@@ -1,7 +1,7 @@
 {
   "version": 1,
   "checkedAt": "2026-10-14",
-  "checkedBy": "GitHub Actions, Workflow „Studienunterlagen-Links“ (.github/workflows/study-documents.yml)",
+  "checkedBy": "GitHub Actions, Workflow „Studienunterlagen-Links“ (.github/workflows/study-documents.yml): 64 URLs mit HTTP 200, Titel auf der ersten PDF-Seite abgeglichen",
   "notice": "Verlinkt werden ausschließlich Originalquellen der CAU Kiel und der Nordkirche. Maßgeblich ist immer das Dokument an der Originalquelle; Lesefassungen des Studierendenservice sind laut eigenem Vermerk keine amtliche Bekanntmachung.",
   "programs": {
     "dka": "Evangelische Theologie – Erste Theologische Prüfung / Diplom (DKA, Pfarramt)",
@@ -16,25 +16,33 @@
       "id": "seite-dka",
       "title": "Evangelische Theologie studieren (Erste Theologische Prüfung / Diplom)",
       "url": "https://www.uni-kiel.de/de/theol/studieren/unsere-studiengaenge/pfarramt-diplom",
-      "programs": ["dka"]
+      "programs": [
+        "dka"
+      ]
     },
     {
       "id": "seite-lehramt",
       "title": "Theologie studieren auf Lehramt",
       "url": "https://www.uni-kiel.de/de/theol/studieren/unsere-studiengaenge/lehramt",
-      "programs": ["lehramt"]
+      "programs": [
+        "lehramt"
+      ]
     },
     {
       "id": "seite-ma-re",
       "title": "Religion und Ethik im 1-Fach-Masterstudiengang studieren",
       "url": "https://www.uni-kiel.de/de/theol/studieren/unsere-studiengaenge/masterstudiengang-religion-ethik",
-      "programs": ["ma-re"]
+      "programs": [
+        "ma-re"
+      ]
     },
     {
       "id": "seite-pruefungsamt",
       "title": "Prüfungsamt der Theologischen Fakultät",
       "url": "https://www.uni-kiel.de/de/theol/studieren/pruefungsamt",
-      "programs": ["alle"]
+      "programs": [
+        "alle"
+      ]
     }
   ],
   "groups": [
@@ -47,7 +55,9 @@
           "title": "Modulhandbuch (zur DPO 2023)",
           "officialTitle": "Modulhandbuch für die Studiengänge Kirchliches Examen / Diplom (DKA)",
           "description": "Beschreibung aller Module des Diplomstudiengangs mit Pflicht- und Wahlpflichtbereichen.",
-          "programs": ["dka"],
+          "programs": [
+            "dka"
+          ],
           "publisher": "Theologische Fakultät",
           "url": "https://www.uni-kiel.de/fileadmin/user_upload/mandanten/theologische-fakultaet/studieren/diplom/modulhandbuch-zur-dpo-2023.pdf",
           "sourcePage": "https://www.uni-kiel.de/de/theol/studieren/unsere-studiengaenge/pfarramt-diplom",
@@ -58,7 +68,9 @@
           "id": "dka-studienbuch-basis-2023",
           "title": "Studienbuch Basismodule (zur DPO 2023)",
           "description": "Studienbuch zu den Basismodulen des Diplomstudiengangs.",
-          "programs": ["dka"],
+          "programs": [
+            "dka"
+          ],
           "publisher": "Theologische Fakultät",
           "url": "https://www.uni-kiel.de/fileadmin/user_upload/mandanten/theologische-fakultaet/studieren/diplom/Studienbuch_Basismodule_abWiSe2324.pdf",
           "sourcePage": "https://www.uni-kiel.de/de/theol/studieren/unsere-studiengaenge/pfarramt-diplom",
@@ -69,7 +81,9 @@
           "id": "dka-studienbuch-aufbau-2023",
           "title": "Studienbuch Aufbaumodule (zur DPO 2023)",
           "description": "Studienbuch zu den Aufbaumodulen des Diplomstudiengangs.",
-          "programs": ["dka"],
+          "programs": [
+            "dka"
+          ],
           "publisher": "Theologische Fakultät",
           "url": "https://www.uni-kiel.de/fileadmin/user_upload/mandanten/theologische-fakultaet/studieren/diplom/studienbuch-aufbaumodule-zur-dpo-2023.pdf",
           "sourcePage": "https://www.uni-kiel.de/de/theol/studieren/unsere-studiengaenge/pfarramt-diplom",
@@ -80,7 +94,9 @@
           "id": "dka-studienverlaufsplan",
           "title": "Studienverlaufsplan Evangelische Theologie (Diplom)",
           "description": "Empfohlener Studienverlauf auf der Studiengangsseite der CAU.",
-          "programs": ["dka"],
+          "programs": [
+            "dka"
+          ],
           "publisher": "CAU Kiel, Studienangebot",
           "url": "https://www.studium.uni-kiel.de/de/studienangebot/studienfaecher/evangelische-theologie-theolog-pruefung-diplom/studienverlaufsplan",
           "sourcePage": "https://www.studium.uni-kiel.de/de/studienangebot/studienfaecher/evangelische-theologie-theolog-pruefung-diplom",
@@ -92,7 +108,9 @@
           "id": "dka-modulhandbuch-2012",
           "title": "Modulhandbuch (2012)",
           "description": "Modulhandbuch zur Diplomprüfungsordnung 2012.",
-          "programs": ["dka"],
+          "programs": [
+            "dka"
+          ],
           "publisher": "Theologische Fakultät",
           "url": "https://www.uni-kiel.de/fileadmin/user_upload/mandanten/theologische-fakultaet/studieren/diplom/modulhandbuch-dka-2012.pdf",
           "sourcePage": "https://www.uni-kiel.de/de/theol/studieren/unsere-studiengaenge/pfarramt-diplom",
@@ -103,7 +121,9 @@
           "id": "dka-studienplan-2012",
           "title": "Studienplan (zur DPO 2012)",
           "description": "Studienplan zur Diplomprüfungsordnung 2012.",
-          "programs": ["dka"],
+          "programs": [
+            "dka"
+          ],
           "publisher": "Theologische Fakultät",
           "url": "https://www.uni-kiel.de/fileadmin/user_upload/mandanten/theologische-fakultaet/studieren/diplom/studienplan-zur-dpo-2012.pdf",
           "sourcePage": "https://www.uni-kiel.de/de/theol/studieren/unsere-studiengaenge/pfarramt-diplom",
@@ -114,7 +134,9 @@
           "id": "dka-studienbuch-basis-2012",
           "title": "Studienbuch Basismodule (zur DPO 2012)",
           "description": "Studienbuch zu den Basismodulen nach der DPO 2012.",
-          "programs": ["dka"],
+          "programs": [
+            "dka"
+          ],
           "publisher": "Theologische Fakultät",
           "url": "https://www.uni-kiel.de/fileadmin/user_upload/mandanten/theologische-fakultaet/studieren/diplom/studienbuch-basismodule-zur-dpo-2012.pdf",
           "sourcePage": "https://www.uni-kiel.de/de/theol/studieren/unsere-studiengaenge/pfarramt-diplom",
@@ -125,7 +147,9 @@
           "id": "dka-studienbuch-aufbau-2012",
           "title": "Studienbuch Aufbaumodule (zur DPO 2012)",
           "description": "Studienbuch zu den Aufbaumodulen nach der DPO 2012.",
-          "programs": ["dka"],
+          "programs": [
+            "dka"
+          ],
           "publisher": "Theologische Fakultät",
           "url": "https://www.uni-kiel.de/fileadmin/user_upload/mandanten/theologische-fakultaet/studieren/diplom/studienbuch-aufbaumodule-zur-dpo-2012.pdf",
           "sourcePage": "https://www.uni-kiel.de/de/theol/studieren/unsere-studiengaenge/pfarramt-diplom",
@@ -136,18 +160,24 @@
           "id": "lehramt-modulhandbuch-ba-2023",
           "title": "Modulhandbuch Bachelor (gilt für die FPO 2023 & die FPO 2025)",
           "description": "Module des Zwei-Fächer-Bachelors Evangelische Religionslehre mit Pflicht- und Wahlpflichtmodulen.",
-          "programs": ["lehramt"],
+          "programs": [
+            "lehramt"
+          ],
           "publisher": "Theologische Fakultät",
           "url": "https://www.uni-kiel.de/fileadmin/user_upload/mandanten/theologische-fakultaet/studieren/bachelor/modulhandbuch-bachelor-fpo-2023.pdf",
           "sourcePage": "https://www.uni-kiel.de/de/theol/studieren/unsere-studiengaenge/lehramt",
           "status": "current",
-          "validity": "Laut Fakultätsseite gültig für die FPO 2023 und die FPO 2025."
+          "validity": "Laut Fakultätsseite gültig für die FPO 2023 und die FPO 2025.",
+          "version": "Stand: Januar 2023 (laut Dokument)",
+          "officialTitle": "Modulhandbuch für Evangelische Religionslehre Bachelor of Arts (B.A.)"
         },
         {
           "id": "lehramt-studienverlauf-ba-2023",
           "title": "Studienverlaufspläne Bachelor (gilt für die FPO 2023 & die FPO 2025)",
           "description": "Empfohlene Studienverläufe für den Bachelor Evangelische Religionslehre.",
-          "programs": ["lehramt"],
+          "programs": [
+            "lehramt"
+          ],
           "publisher": "Theologische Fakultät",
           "url": "https://www.uni-kiel.de/fileadmin/user_upload/mandanten/theologische-fakultaet/studieren/bachelor/studienverlaufsplan-bachelor-fpo-2023.pdf",
           "sourcePage": "https://www.uni-kiel.de/de/theol/studieren/unsere-studiengaenge/lehramt",
@@ -158,18 +188,24 @@
           "id": "lehramt-modulhandbuch-med-2023",
           "title": "Modulhandbuch Master (zur FPO 2023)",
           "description": "Module des Master of Education Evangelische Religionslehre.",
-          "programs": ["lehramt"],
+          "programs": [
+            "lehramt"
+          ],
           "publisher": "Theologische Fakultät",
           "url": "https://www.uni-kiel.de/fileadmin/user_upload/mandanten/theologische-fakultaet/studieren/master/modulhandbuch-master-fpo-2023.pdf",
           "sourcePage": "https://www.uni-kiel.de/de/theol/studieren/unsere-studiengaenge/lehramt",
           "status": "unclear",
-          "validity": "Zur FPO 2023. Ob es auch für die FPO 2025 gilt, sagt die Fakultätsseite nicht."
+          "validity": "Zur FPO 2023. Ob es auch für die FPO 2025 gilt, sagt die Fakultätsseite nicht.",
+          "version": "Stand: Januar 2023 (laut Dokument)",
+          "officialTitle": "Modulhandbuch für Evangelische Religionslehre Master of Education (M.Ed.) bzw. Master of Arts (M.A.)"
         },
         {
           "id": "lehramt-studienverlauf-med-2023",
           "title": "Studienverlaufspläne Master (zur FPO 2023)",
           "description": "Empfohlene Studienverläufe für den Master of Education Evangelische Religionslehre.",
-          "programs": ["lehramt"],
+          "programs": [
+            "lehramt"
+          ],
           "publisher": "Theologische Fakultät",
           "url": "https://www.uni-kiel.de/fileadmin/user_upload/mandanten/theologische-fakultaet/studieren/master/studienverlaufsplan-master-fpo-2023.pdf",
           "sourcePage": "https://www.uni-kiel.de/de/theol/studieren/unsere-studiengaenge/lehramt",
@@ -180,18 +216,23 @@
           "id": "lehramt-modulhandbuch-ba-2018",
           "title": "Modulhandbuch Bachelor (zur FPO 2018)",
           "description": "Modulhandbuch des Bachelors nach der FPO 2018.",
-          "programs": ["lehramt"],
+          "programs": [
+            "lehramt"
+          ],
           "publisher": "Theologische Fakultät",
           "url": "https://www.uni-kiel.de/fileadmin/user_upload/mandanten/theologische-fakultaet/studieren/bachelor/modulhandbuch-bachelor-fpo-2018.pdf",
           "sourcePage": "https://www.uni-kiel.de/de/theol/studieren/unsere-studiengaenge/lehramt",
           "status": "older",
-          "validity": "Ältere Fassung zur FPO 2018."
+          "validity": "Ältere Fassung zur FPO 2018.",
+          "version": "Stand: 27.09.2017 (laut Dokument)"
         },
         {
           "id": "lehramt-studienverlauf-ba-2018",
           "title": "Studienverlaufsplan Bachelor (zur FPO 2018)",
           "description": "Studienverlaufsplan des Bachelors nach der FPO 2018.",
-          "programs": ["lehramt"],
+          "programs": [
+            "lehramt"
+          ],
           "publisher": "Theologische Fakultät",
           "url": "https://www.uni-kiel.de/fileadmin/user_upload/mandanten/theologische-fakultaet/studieren/bachelor/studienverlaufsplan-bachelor-fpo-2018.pdf",
           "sourcePage": "https://www.uni-kiel.de/de/theol/studieren/unsere-studiengaenge/lehramt",
@@ -202,18 +243,23 @@
           "id": "lehramt-modulhandbuch-med-2018",
           "title": "Modulhandbuch Master (zur FPO 2018)",
           "description": "Modulhandbuch des Master of Education nach der FPO 2018.",
-          "programs": ["lehramt"],
+          "programs": [
+            "lehramt"
+          ],
           "publisher": "Theologische Fakultät",
           "url": "https://www.uni-kiel.de/fileadmin/user_upload/mandanten/theologische-fakultaet/studieren/master/modulhandbuch-master-fpo-2018.pdf",
           "sourcePage": "https://www.uni-kiel.de/de/theol/studieren/unsere-studiengaenge/lehramt",
           "status": "older",
-          "validity": "Ältere Fassung zur FPO 2018."
+          "validity": "Ältere Fassung zur FPO 2018.",
+          "version": "Stand: 27.09.2017 (laut Dokument)"
         },
         {
           "id": "lehramt-studienverlauf-med-2018",
           "title": "Studienverlaufsplan Master (zur FPO 2018)",
           "description": "Studienverlaufsplan des Master of Education nach der FPO 2018.",
-          "programs": ["lehramt"],
+          "programs": [
+            "lehramt"
+          ],
           "publisher": "Theologische Fakultät",
           "url": "https://www.uni-kiel.de/fileadmin/user_upload/mandanten/theologische-fakultaet/studieren/master/studienverlaufsplan-master-fpo-2018.pdf",
           "sourcePage": "https://www.uni-kiel.de/de/theol/studieren/unsere-studiengaenge/lehramt",
@@ -224,7 +270,9 @@
           "id": "ma-re-modulhandbuch-2023",
           "title": "Modulhandbuch zur FPO 2023",
           "description": "Module des 1-Fach-Masters Religion und Ethik.",
-          "programs": ["ma-re"],
+          "programs": [
+            "ma-re"
+          ],
           "publisher": "Theologische Fakultät",
           "url": "https://www.uni-kiel.de/fileadmin/user_upload/mandanten/theologische-fakultaet/studieren/religion-ethik-master/modulhandbuch-religion-und-ethik-master-1-fach-zur-fpo-2023.pdf",
           "sourcePage": "https://www.uni-kiel.de/de/theol/studieren/unsere-studiengaenge/masterstudiengang-religion-ethik",
@@ -235,7 +283,9 @@
           "id": "ma-re-studienverlauf",
           "title": "Studienverlaufsplan Religion und Ethik (Master)",
           "description": "Empfohlener Studienverlauf auf der Studiengangsseite der CAU.",
-          "programs": ["ma-re"],
+          "programs": [
+            "ma-re"
+          ],
           "publisher": "CAU Kiel, Studienangebot",
           "url": "https://www.studium.uni-kiel.de/de/studienangebot/studienfaecher/religion-und-ethik-ma/studienverlaufsplan",
           "sourcePage": "https://www.studium.uni-kiel.de/de/studienangebot/studienfaecher/religion-und-ethik-ma",
@@ -247,18 +297,23 @@
           "id": "ma-re-modulhandbuch-2019",
           "title": "Modulhandbuch zur FPO 2019",
           "description": "Modulhandbuch des Masters Religion und Ethik nach der FPO 2019.",
-          "programs": ["ma-re"],
+          "programs": [
+            "ma-re"
+          ],
           "publisher": "Theologische Fakultät",
           "url": "https://www.uni-kiel.de/fileadmin/user_upload/mandanten/theologische-fakultaet/studieren/religion-ethik-master/modulhandbuch-religion-und-ethik-master-1-fach-zur-fpo-2019.pdf",
           "sourcePage": "https://www.uni-kiel.de/de/theol/studieren/unsere-studiengaenge/masterstudiengang-religion-ethik",
           "status": "older",
-          "validity": "Ältere Fassung zur FPO 2019."
+          "validity": "Ältere Fassung zur FPO 2019.",
+          "version": "Stand: 15.08.2019 (laut Dokument)"
         },
         {
           "id": "ma-re-studienverlauf-2019",
           "title": "Studienverlaufsplan zur FPO 2019",
           "description": "Studienverlaufsplan des Masters Religion und Ethik nach der FPO 2019.",
-          "programs": ["ma-re"],
+          "programs": [
+            "ma-re"
+          ],
           "publisher": "Theologische Fakultät",
           "url": "https://www.uni-kiel.de/fileadmin/user_upload/mandanten/theologische-fakultaet/studieren/religion-ethik-master/studienverlaufsplan-religion-und-ethik-master-1-fach-fpo-2019.pdf",
           "sourcePage": "https://www.uni-kiel.de/de/theol/studieren/unsere-studiengaenge/masterstudiengang-religion-ethik",
@@ -269,7 +324,10 @@
           "id": "ma-re-kombi-dka-2023",
           "title": "Vorschlag zum kombinierten Studium Evangelische Theologie (DKA) und Religion und Ethik (MA / FPO 2023)",
           "description": "Vorschlag der Fakultät, wie sich Diplomstudium und Master Religion und Ethik verbinden lassen.",
-          "programs": ["dka", "ma-re"],
+          "programs": [
+            "dka",
+            "ma-re"
+          ],
           "publisher": "Theologische Fakultät",
           "url": "https://www.uni-kiel.de/fileadmin/user_upload/mandanten/theologische-fakultaet/studieren/religion-ethik-master/vorschlag-zum-kombinierten-studium-dka-ma-fpo-2023.pdf",
           "sourcePage": "https://www.uni-kiel.de/de/theol/studieren/unsere-studiengaenge/masterstudiengang-religion-ethik",
@@ -280,7 +338,10 @@
           "id": "ma-re-kombi-med-2023",
           "title": "Vorschlag zum kombinierten Studium Evangelische Religionslehre (MEd) und Religion und Ethik (MA / FPO 2023)",
           "description": "Vorschlag der Fakultät, wie sich Master of Education und Master Religion und Ethik verbinden lassen.",
-          "programs": ["lehramt", "ma-re"],
+          "programs": [
+            "lehramt",
+            "ma-re"
+          ],
           "publisher": "Theologische Fakultät",
           "url": "https://www.uni-kiel.de/fileadmin/user_upload/mandanten/theologische-fakultaet/studieren/religion-ethik-master/vorschlag-zum-kombinierten-studium-med-ma-fpo-2023.pdf",
           "sourcePage": "https://www.uni-kiel.de/de/theol/studieren/unsere-studiengaenge/masterstudiengang-religion-ethik",
@@ -298,7 +359,9 @@
           "title": "Diplomprüfungsordnung (2023)",
           "officialTitle": "Prüfungsordnung (Satzung) der Theologischen Fakultät der Christian-Albrechts-Universität zu Kiel für Studierende der Evangelischen Theologie mit dem Abschluss Diplom - 2023",
           "description": "Prüfungsordnung des Diplomstudiengangs Evangelische Theologie.",
-          "programs": ["dka"],
+          "programs": [
+            "dka"
+          ],
           "publisher": "Theologische Fakultät (Lesefassung des Studierendenservice)",
           "url": "https://www.studservice.uni-kiel.de/sta/diplompruefungsordnung-evangelische-theologie.pdf",
           "sourcePage": "https://www.uni-kiel.de/de/theol/studieren/unsere-studiengaenge/pfarramt-diplom",
@@ -310,7 +373,9 @@
           "id": "dka-dpo-2012",
           "title": "Diplomprüfungsordnung (2012)",
           "description": "Lesefassung der Diplomprüfungsordnung 2012.",
-          "programs": ["dka"],
+          "programs": [
+            "dka"
+          ],
           "publisher": "Theologische Fakultät (Lesefassung des Studierendenservice)",
           "url": "https://www.studservice.uni-kiel.de/sta/diplompruefungsordnung-evangelische-theologie-2012.pdf",
           "sourcePage": "https://www.uni-kiel.de/de/theol/studieren/unsere-studiengaenge/pfarramt-diplom",
@@ -322,7 +387,9 @@
           "title": "Prüfungsordnung (Satzung) Diplom – Fassung vom 15. November 2012",
           "officialTitle": "Prüfungsordnung (Satzung) der Theologischen Fakultät der Christian-Albrechts-Universität zu Kiel für Studierende der Evangelischen Theologie mit dem Abschluss Diplom",
           "description": "Amtlich bekannt gemachte Diplomprüfungsordnung von 2012.",
-          "programs": ["dka"],
+          "programs": [
+            "dka"
+          ],
           "publisher": "Theologische Fakultät (amtliche Bekanntmachung)",
           "url": "https://www.uni-kiel.de/sy/2012/57-satzung-pruefungsordnung-theologische-fak-diplom.pdf",
           "sourcePage": "https://www.uni-kiel.de/gf-praesidium/de/recht/amtliche-bekanntmachung",
@@ -334,7 +401,9 @@
           "id": "dka-erste-theol-pruefung",
           "title": "Prüfungsordnung für die Erste Theologische Prüfung in der Evangelisch-Lutherischen Kirche in Norddeutschland (1. TheolPO)",
           "description": "Kirchliche Prüfungsordnung für das Erste Theologische Examen (Pfarramt) in der Rechtssammlung der Nordkirche.",
-          "programs": ["dka"],
+          "programs": [
+            "dka"
+          ],
           "publisher": "Evangelisch-Lutherische Kirche in Norddeutschland",
           "url": "https://www.kirchenrecht-nordkirche.de/document/37240",
           "sourcePage": "https://www.studium.uni-kiel.de/de/studienangebot/studienfaecher/evangelische-theologie-theolog-pruefung-diplom",
@@ -347,7 +416,9 @@
           "title": "Fachprüfungsordnung Evangelische Religionslehre (2-Fächer) – 2025",
           "officialTitle": "Fachprüfungsordnung (Satzung) der Theologischen Fakultät der Christian-Albrechts-Universität zu Kiel für Studierende der Zwei-Fächer-Bachelor- und Masterstudiengänge Evangelische Religionslehre mit den Abschlüssen Bachelor of Arts (B.A.) und Master of Education (M.Ed.) beziehungsweise Master of Arts (M.A.) (Wirtschaftspädagogik) - 2025",
           "description": "Fachprüfungsordnung für Bachelor und Master of Education Evangelische Religionslehre.",
-          "programs": ["lehramt"],
+          "programs": [
+            "lehramt"
+          ],
           "publisher": "Theologische Fakultät (Lesefassung des Studierendenservice)",
           "url": "https://www.studservice.uni-kiel.de/sta/fachpruefungsordnung-evangelische-religionslehre-bachelor-master-2-faecher.pdf",
           "sourcePage": "https://www.studium.uni-kiel.de/de/studienangebot/studienfaecher/evangelische-religionslehre-ba-lehramt",
@@ -360,7 +431,9 @@
           "title": "Fachprüfungsordnung Evangelische Religionslehre (2-Fächer) – 2023 (amtliche Bekanntmachung)",
           "officialTitle": "Fachprüfungsordnung (Satzung) der Theologischen Fakultät der Christian-Albrechts-Universität zu Kiel für Studierende der Zwei-Fächer-Bachelor- und Masterstudiengänge Evangelische Religionslehre mit den Abschlüssen Bachelor of Arts (B.A.) und Master of Education (M.Ed.) beziehungsweise Master of Arts (M.A.) (Wirtschaftspädagogik) - 2023",
           "description": "Amtlich bekannt gemachte Fachprüfungsordnung 2023.",
-          "programs": ["lehramt"],
+          "programs": [
+            "lehramt"
+          ],
           "publisher": "Theologische Fakultät (amtliche Bekanntmachung)",
           "url": "https://www.uni-kiel.de/gf-praesidium/de/recht/amtl-bekannt/ordner-amtliche-bekanntmachung-2022/65-FPO-Ev-Religionslehre-2F-BaMa.pdf",
           "sourcePage": "https://www.uni-kiel.de/gf-praesidium/de/recht/amtliche-bekanntmachung",
@@ -372,7 +445,9 @@
           "id": "lehramt-fpo-2018",
           "title": "Fachprüfungsordnung (2018)",
           "description": "Lesefassung der Fachprüfungsordnung Evangelische Religionslehre 2018.",
-          "programs": ["lehramt"],
+          "programs": [
+            "lehramt"
+          ],
           "publisher": "Theologische Fakultät (Lesefassung des Studierendenservice)",
           "url": "https://www.studservice.uni-kiel.de/sta/fachpruefungsordnung-evangelische-religionslehre-bachelor-master-2-faecher-2018.pdf",
           "sourcePage": "https://www.uni-kiel.de/de/theol/studieren/unsere-studiengaenge/lehramt",
@@ -383,18 +458,23 @@
           "id": "ma-re-fpo-2023",
           "title": "Fachprüfungsordnung mit Praktikumsordnung 2023",
           "description": "Fachprüfungsordnung des 1-Fach-Masters Religion und Ethik einschließlich Praktikumsordnung.",
-          "programs": ["ma-re"],
+          "programs": [
+            "ma-re"
+          ],
           "publisher": "Theologische Fakultät (Lesefassung des Studierendenservice)",
           "url": "https://www.studservice.uni-kiel.de/sta/fachpruefungsordnung-religion-und-ethik-master-1-fach.pdf",
           "sourcePage": "https://www.uni-kiel.de/de/theol/studieren/unsere-studiengaenge/masterstudiengang-religion-ethik",
           "status": "current",
-          "validity": "Laut Fakultätsseite gültig ab dem Wintersemester 2023/24."
+          "validity": "Laut Fakultätsseite gültig ab dem Wintersemester 2023/24.",
+          "officialTitle": "FPO Religion und Ethik M.A. 2023"
         },
         {
           "id": "ma-re-fpo-2019",
           "title": "Fachprüfungsordnung 2019",
           "description": "Fachprüfungsordnung des Masters Religion und Ethik nach der Fassung 2019.",
-          "programs": ["ma-re"],
+          "programs": [
+            "ma-re"
+          ],
           "publisher": "Theologische Fakultät (Lesefassung des Studierendenservice)",
           "url": "https://www.studservice.uni-kiel.de/sta/fachpruefungsordnung-religion-und-ethik-master-1-fach-2019.pdf",
           "sourcePage": "https://www.uni-kiel.de/de/theol/studieren/unsere-studiengaenge/masterstudiengang-religion-ethik",
@@ -405,7 +485,9 @@
           "id": "ma-re-praktikum-2019",
           "title": "Praktikumsordnung zur FPO 2019",
           "description": "Praktikumsordnung des Masters Religion und Ethik nach der FPO 2019.",
-          "programs": ["ma-re"],
+          "programs": [
+            "ma-re"
+          ],
           "publisher": "Theologische Fakultät",
           "url": "https://www.uni-kiel.de/fileadmin/user_upload/mandanten/theologische-fakultaet/studieren/religion-ethik-master/praktikumsordnung-religion-und-ethik-master-1-fach-fpo-2019.pdf",
           "sourcePage": "https://www.uni-kiel.de/de/theol/studieren/unsere-studiengaenge/masterstudiengang-religion-ethik",
@@ -417,7 +499,10 @@
           "title": "Zwei-Fächer-Prüfungsordnung Bachelor und Master – 2027",
           "officialTitle": "Gemeinsame Prüfungsordnung (Satzung) der Christian-Albrechts-Universität zu Kiel für Studierende der Zwei-Fächer-Bachelor- und Masterstudiengänge - 2027 (Zwei-Fächer-Prüfungsordnung - 2027)",
           "description": "Übergreifende Prüfungsordnung aller Zwei-Fächer-Studiengänge; enthält als Anlage auch die Praktikumsordnung (Schulpraktische Studien).",
-          "programs": ["lehramt", "zwei-faecher"],
+          "programs": [
+            "lehramt",
+            "zwei-faecher"
+          ],
           "publisher": "CAU Kiel (Lesefassung des Studierendenservice)",
           "url": "https://www.studservice.uni-kiel.de/sta/zwei-faecher-pruefungsordnung-bachelor-master.pdf",
           "sourcePage": "https://www.studium.uni-kiel.de/de/studienangebot/studienfaecher/evangelische-religionslehre-ba-lehramt",
@@ -429,7 +514,10 @@
           "id": "zfpo-2024",
           "title": "Zwei-Fächer-Prüfungsordnung Bachelor und Master – 2024",
           "description": "Vorgängerfassung der Zwei-Fächer-Prüfungsordnung, auf die die Fassung 2027 selbst verweist.",
-          "programs": ["lehramt", "zwei-faecher"],
+          "programs": [
+            "lehramt",
+            "zwei-faecher"
+          ],
           "publisher": "CAU Kiel (Lesefassung des Studierendenservice)",
           "url": "https://www.studservice.uni-kiel.de/sta/zwei-faecher-pruefungsordnung-bachelor-master-2024.pdf",
           "sourcePage": "https://www.studservice.uni-kiel.de/sta/zwei-faecher-pruefungsordnung-bachelor-master.pdf",
@@ -441,7 +529,11 @@
           "title": "Prüfungsverfahrensordnung Bachelor- und Masterstudiengänge 2019",
           "officialTitle": "Prüfungsverfahrensordnung (Satzung) der Christian-Albrechts-Universität zu Kiel für Studierende der Bachelor- und Masterstudiengänge - 2019",
           "description": "Allgemeine Regeln zu Prüfungsverfahren, Fristen, Rücktritt und Anerkennung für alle Bachelor- und Masterstudiengänge.",
-          "programs": ["lehramt", "ma-re", "bama"],
+          "programs": [
+            "lehramt",
+            "ma-re",
+            "bama"
+          ],
           "publisher": "CAU Kiel (Lesefassung des Studierendenservice)",
           "url": "https://www.studservice.uni-kiel.de/sta/pruefungsverfahrensordnung-bachelor-master.pdf",
           "sourcePage": "https://www.uni-kiel.de/de/theol/studieren/unsere-studiengaenge/lehramt",
@@ -453,7 +545,10 @@
           "id": "ordnung-graecum",
           "title": "Ordnung (Satzung) Graecum",
           "description": "Ordnung der Theologischen Fakultät für die Graecumsprüfung.",
-          "programs": ["dka", "lehramt"],
+          "programs": [
+            "dka",
+            "lehramt"
+          ],
           "publisher": "Theologische Fakultät",
           "url": "https://www.uni-kiel.de/fileadmin/user_upload/mandanten/theologische-fakultaet/studieren/allgemein/ordnung-satzung-graecum.pdf",
           "sourcePage": "https://www.uni-kiel.de/de/theol/studieren/unsere-studiengaenge/lehramt",
@@ -464,18 +559,24 @@
           "id": "ordnung-hebraicum",
           "title": "Ordnung (Satzung) Hebraicum",
           "description": "Ordnung der Theologischen Fakultät für die Hebraicumsprüfung.",
-          "programs": ["dka"],
+          "programs": [
+            "dka"
+          ],
           "publisher": "Theologische Fakultät",
           "url": "https://www.uni-kiel.de/fileadmin/user_upload/mandanten/theologische-fakultaet/studieren/diplom/ordnung-satzung-hebraicum.pdf",
           "sourcePage": "https://www.uni-kiel.de/de/theol/studieren/unsere-studiengaenge/pfarramt-diplom",
           "status": "unclear",
-          "validity": "Die Fakultätsseite nennt keinen Stand."
+          "validity": "Die Fakultätsseite nennt keinen Stand; ob spätere Änderungen gelten, bitte beim Prüfungsamt erfragen.",
+          "version": "Bekanntmachung des Kultusministers vom 8. August 1977 (laut Dokument)",
+          "officialTitle": "Ordnung (Satzung) für die Prüfung in der Hebräischen Sprache (Hebraicum)"
         },
         {
           "id": "amtliche-bekanntmachungen",
           "title": "Amtliche Bekanntmachungen der CAU",
           "description": "Offizielle Fundstelle aller Satzungen und Änderungssatzungen der CAU, nach Jahren geordnet.",
-          "programs": ["alle"],
+          "programs": [
+            "alle"
+          ],
           "publisher": "CAU Kiel, Stabsstelle Präsidialbereich",
           "url": "https://www.uni-kiel.de/gf-praesidium/de/recht/amtliche-bekanntmachung",
           "sourcePage": "https://www.uni-kiel.de/gf-praesidium/de/recht/amtliche-bekanntmachung",
@@ -493,7 +594,10 @@
           "id": "anerkennungssatzung",
           "title": "Anerkennungssatzung",
           "description": "Satzung der CAU zur Anerkennung von Studien- und Prüfungsleistungen.",
-          "programs": ["lehramt", "bama"],
+          "programs": [
+            "lehramt",
+            "bama"
+          ],
           "publisher": "CAU Kiel (Lesefassung des Studierendenservice)",
           "url": "https://www.studservice.uni-kiel.de/sta/anerkennungssatzung.pdf",
           "sourcePage": "https://www.uni-kiel.de/de/theol/studieren/unsere-studiengaenge/lehramt",
@@ -504,7 +608,9 @@
           "id": "aequivalenzbescheinigung",
           "title": "Äquivalenzbescheinigung Studienort/Studienfachwechsel",
           "description": "Formular des Prüfungsamts für die Anrechnung beim Wechsel des Studienorts oder Studienfachs.",
-          "programs": ["alle"],
+          "programs": [
+            "alle"
+          ],
           "publisher": "Prüfungsamt der Theologischen Fakultät",
           "url": "https://www.uni-kiel.de/fileadmin/user_upload/mandanten/theologische-fakultaet/studieren/pruefungsamt/aequivalenzbescheinigung.pdf",
           "sourcePage": "https://www.uni-kiel.de/de/theol/studieren/pruefungsamt",
@@ -515,7 +621,9 @@
           "id": "anerkennungsbescheinigung-module",
           "title": "Anerkennungsbescheinigung Module",
           "description": "Formular des Prüfungsamts zur Anerkennung einzelner Module.",
-          "programs": ["alle"],
+          "programs": [
+            "alle"
+          ],
           "publisher": "Prüfungsamt der Theologischen Fakultät",
           "url": "https://www.uni-kiel.de/fileadmin/user_upload/mandanten/theologische-fakultaet/studieren/pruefungsamt/aequivalenzbescheinigung-module.pdf",
           "sourcePage": "https://www.uni-kiel.de/de/theol/studieren/pruefungsamt",
@@ -526,7 +634,9 @@
           "id": "sprachkenntnisse-dka",
           "title": "Sprachkenntnisse Evangelische Theologie",
           "description": "Geforderte Sprachkenntnisse (Latein, Griechisch, Hebräisch) und Nachweise für das Diplomstudium.",
-          "programs": ["dka"],
+          "programs": [
+            "dka"
+          ],
           "publisher": "CAU Kiel, Studienangebot",
           "url": "https://www.studium.uni-kiel.de/de/studienangebot/studienfaecher/evangelische-theologie-theolog-pruefung-diplom/voraussetzungen-und-kenntnisse/sprachkenntnisse-evangelische-theologie",
           "sourcePage": "https://www.studium.uni-kiel.de/de/studienangebot/studienfaecher/evangelische-theologie-theolog-pruefung-diplom",
@@ -538,7 +648,9 @@
           "id": "anmeldung-bibelkunde",
           "title": "Anmeldung Bibelkundeprüfung",
           "description": "Formular zur Anmeldung der Bibelkundeprüfung.",
-          "programs": ["dka"],
+          "programs": [
+            "dka"
+          ],
           "publisher": "Prüfungsamt der Theologischen Fakultät",
           "url": "https://www.uni-kiel.de/fileadmin/user_upload/mandanten/theologische-fakultaet/studieren/pruefungsamt/anmeldung-bibelkunde-dka.pdf",
           "sourcePage": "https://www.uni-kiel.de/de/theol/studieren/pruefungsamt",
@@ -549,7 +661,9 @@
           "id": "anmeldung-grundwissen-2023",
           "title": "Anmeldung Modul Grundwissen Theologie – Wiederholung u. Vertiefung (DPO 2023)",
           "description": "Antrag auf Zulassung zum Modul „Grundwissen Theologie – Wiederholung und Vertiefung“.",
-          "programs": ["dka"],
+          "programs": [
+            "dka"
+          ],
           "publisher": "Prüfungsamt der Theologischen Fakultät",
           "url": "https://www.uni-kiel.de/fileadmin/user_upload/mandanten/theologische-fakultaet/studieren/pruefungsamt/antrag-auf-zulassung-zum-modul-2023.pdf",
           "sourcePage": "https://www.uni-kiel.de/de/theol/studieren/pruefungsamt",
@@ -560,7 +674,9 @@
           "id": "anmeldung-examensphase-2023",
           "title": "Anmeldung Examensphase DKA (DPO 2023)",
           "description": "Formular zur Anmeldung der Examensphase im Diplomstudiengang.",
-          "programs": ["dka"],
+          "programs": [
+            "dka"
+          ],
           "publisher": "Prüfungsamt der Theologischen Fakultät",
           "url": "https://www.uni-kiel.de/fileadmin/user_upload/mandanten/theologische-fakultaet/studieren/pruefungsamt/anmeldung-diplom-PO2023.pdf",
           "sourcePage": "https://www.uni-kiel.de/de/theol/studieren/pruefungsamt",
@@ -571,7 +687,9 @@
           "id": "anmeldung-bachelorarbeit",
           "title": "Anmeldung Bachelorarbeit",
           "description": "Formular zur Anmeldung der Bachelorarbeit.",
-          "programs": ["lehramt"],
+          "programs": [
+            "lehramt"
+          ],
           "publisher": "Prüfungsamt der Theologischen Fakultät",
           "url": "https://www.uni-kiel.de/fileadmin/user_upload/mandanten/theologische-fakultaet/studieren/pruefungsamt/anmeldung-bachelorarbeit.pdf",
           "sourcePage": "https://www.uni-kiel.de/de/theol/studieren/pruefungsamt",
@@ -582,7 +700,9 @@
           "id": "merkblatt-bachelorarbeit",
           "title": "Merkblatt zur Bachelorarbeit",
           "description": "Hinweise des Prüfungsamts zu Anmeldung und Ablauf der Bachelorarbeit.",
-          "programs": ["lehramt"],
+          "programs": [
+            "lehramt"
+          ],
           "publisher": "Prüfungsamt der Theologischen Fakultät",
           "url": "https://www.uni-kiel.de/fileadmin/user_upload/mandanten/theologische-fakultaet/studieren/Merkblatt_zur_Bachelorarbeit_WiSe2425_neu.pdf",
           "sourcePage": "https://www.uni-kiel.de/de/theol/studieren/pruefungsamt",
@@ -593,7 +713,9 @@
           "id": "anmeldung-masterarbeit-med",
           "title": "Anmeldung Masterarbeit (MEd)",
           "description": "Formular zur Anmeldung der Masterarbeit im Master of Education.",
-          "programs": ["lehramt"],
+          "programs": [
+            "lehramt"
+          ],
           "publisher": "Prüfungsamt der Theologischen Fakultät",
           "url": "https://www.uni-kiel.de/fileadmin/user_upload/mandanten/theologische-fakultaet/studieren/pruefungsamt/anmeldung-masterarbeit.pdf",
           "sourcePage": "https://www.uni-kiel.de/de/theol/studieren/pruefungsamt",
@@ -604,7 +726,9 @@
           "id": "merkblatt-masterarbeit-med",
           "title": "Merkblatt zur Masterarbeit (MEd)",
           "description": "Hinweise des Prüfungsamts zur Masterarbeit im Master of Education.",
-          "programs": ["lehramt"],
+          "programs": [
+            "lehramt"
+          ],
           "publisher": "Prüfungsamt der Theologischen Fakultät",
           "url": "https://www.uni-kiel.de/fileadmin/user_upload/mandanten/theologische-fakultaet/studieren/Merkblatt_zur_Masterarbeit_WiSe2425neu.pdf",
           "sourcePage": "https://www.uni-kiel.de/de/theol/studieren/pruefungsamt",
@@ -615,7 +739,9 @@
           "id": "anmeldung-masterarbeit-ma",
           "title": "Anmeldung Masterarbeit (MA)",
           "description": "Formular zur Anmeldung der Masterarbeit im Master Religion und Ethik.",
-          "programs": ["ma-re"],
+          "programs": [
+            "ma-re"
+          ],
           "publisher": "Prüfungsamt der Theologischen Fakultät",
           "url": "https://www.uni-kiel.de/fileadmin/user_upload/mandanten/theologische-fakultaet/studieren/pruefungsamt/Anmeldung_MA_Arbeit_Religion_Ethik.pdf",
           "sourcePage": "https://www.uni-kiel.de/de/theol/studieren/pruefungsamt",
@@ -626,7 +752,9 @@
           "id": "merkblatt-masterarbeit-ma",
           "title": "Merkblatt zur Masterarbeit (MA)",
           "description": "Hinweise des Prüfungsamts zur Masterarbeit im Master Religion und Ethik.",
-          "programs": ["ma-re"],
+          "programs": [
+            "ma-re"
+          ],
           "publisher": "Prüfungsamt der Theologischen Fakultät",
           "url": "https://www.uni-kiel.de/fileadmin/user_upload/mandanten/theologische-fakultaet/studieren/Merkblatt_zur_Masterarbeit_Religion___Ethik_WiSe2425_neu.pdf",
           "sourcePage": "https://www.uni-kiel.de/de/theol/studieren/pruefungsamt",
@@ -637,7 +765,10 @@
           "id": "verlaengerung-abschlussarbeit",
           "title": "Verlängerung Bearbeitungsfrist BA/MA Arbeiten",
           "description": "Antrag auf Verlängerung der Bearbeitungszeit einer Abschlussarbeit.",
-          "programs": ["lehramt", "ma-re"],
+          "programs": [
+            "lehramt",
+            "ma-re"
+          ],
           "publisher": "Prüfungsamt der Theologischen Fakultät",
           "url": "https://www.uni-kiel.de/fileadmin/user_upload/mandanten/theologische-fakultaet/studieren/pruefungsamt/verlaengerungsantrag-abschlussarbeiten.pdf",
           "sourcePage": "https://www.uni-kiel.de/de/theol/studieren/pruefungsamt",
@@ -648,7 +779,10 @@
           "id": "titelaenderung-abschlussarbeit",
           "title": "Antrag auf Änderung des Titels der Abschlussarbeit",
           "description": "Antrag, den Titel einer angemeldeten Abschlussarbeit zu ändern.",
-          "programs": ["lehramt", "ma-re"],
+          "programs": [
+            "lehramt",
+            "ma-re"
+          ],
           "publisher": "Prüfungsamt der Theologischen Fakultät",
           "url": "https://www.uni-kiel.de/fileadmin/user_upload/mandanten/theologische-fakultaet/studieren/pruefungsamt/antrag-auf-titelaenderung-abschlussarbeiten.pdf",
           "sourcePage": "https://www.uni-kiel.de/de/theol/studieren/pruefungsamt",
@@ -659,7 +793,9 @@
           "id": "attest-pruefungsunfaehigkeit",
           "title": "Formular zur Bescheinigung der Prüfungsunfähigkeit",
           "description": "Ärztliches Attest bei Rücktritt von einer Prüfung wegen Krankheit.",
-          "programs": ["alle"],
+          "programs": [
+            "alle"
+          ],
           "publisher": "CAU Kiel",
           "url": "https://www.studium.uni-kiel.de/de/pruefungen/downloads/formulare/aerztliches-attest-pruefungsunfaehigkeit.pdf",
           "sourcePage": "https://www.uni-kiel.de/de/theol/studieren/pruefungsamt",
@@ -670,7 +806,9 @@
           "id": "faq-studieneinstieg",
           "title": "FAQ zum Einstieg ins Studium an der Theologischen Fakultät der CAU Kiel",
           "description": "Antworten der Fakultät zu häufigen Fragen beim Studienstart.",
-          "programs": ["alle"],
+          "programs": [
+            "alle"
+          ],
           "publisher": "Theologische Fakultät",
           "url": "https://www.uni-kiel.de/de/theol/studieren/faq",
           "sourcePage": "https://www.uni-kiel.de/de/theol/studieren",
@@ -682,7 +820,9 @@
           "id": "pruefungsamt-nordkirche",
           "title": "Theologisches Prüfungsamt der Nordkirche",
           "description": "Zuständig für die Erste Theologische Prüfung (kirchliches Examen) in der Nordkirche.",
-          "programs": ["dka"],
+          "programs": [
+            "dka"
+          ],
           "publisher": "Evangelisch-Lutherische Kirche in Norddeutschland",
           "url": "https://www.nordkirche.de/ueber-uns/im-landeskirchenamt/theologisches-pruefungsamt",
           "sourcePage": "https://www.nordkirche.de/ueber-uns/im-landeskirchenamt/theologisches-pruefungsamt",

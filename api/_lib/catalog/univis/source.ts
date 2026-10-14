@@ -4,6 +4,7 @@
 
 import type { Semester } from '../model';
 import { CAU_SEMESTERS } from '../semesters';
+import { CAU_FACULTIES, latin1Component, type SearchQuery } from '../search';
 import type { CatalogQuery, CatalogSource, RawResponse } from '../source';
 import { parseUnivisXml } from './parse';
 
@@ -25,6 +26,14 @@ const USER_AGENT = 'theologie.app/1.0 (+https://www.theologie.app)';
 const TIMEOUT_MS = 20_000;
 /** Theologie WS 2026/27: ~0,4 MB. Deutlich mehr deutet auf eine Fehlanfrage. */
 const MAX_BYTES = 8 * 1024 * 1024;
+
+/** Antwort größer als erlaubt (z. B. zu allgemeiner Suchbegriff). */
+export class ResponseTooLargeError extends Error {
+    constructor(readonly bytes: number) {
+        super(`Antwort zu groß (${bytes} Bytes).`);
+        this.name = 'ResponseTooLargeError';
+    }
+}
 
 export class UnivisSource implements CatalogSource {
     readonly system = 'univis' as const;
@@ -56,8 +65,40 @@ export class UnivisSource implements CatalogSource {
         return url;
     }
 
+    /**
+     * Titel- bzw. Nummernsuche über alle Einrichtungen oder eine Fakultät.
+     * Der Suchtext muss aus `normalizeSearchText` stammen (nur Latin-1).
+     */
+    searchUrl(query: SearchQuery): URL {
+        if (!/^\d{4}[ws]$/.test(query.semesterId) || !this.semesters[query.semesterId]) {
+            throw new Error(`Semester ${query.semesterId} ist nicht konfiguriert.`);
+        }
+        if (query.facultyId !== undefined && !(query.facultyId in CAU_FACULTIES)) {
+            throw new Error('Unbekannte Fakultät.');
+        }
+        const parts = ['search=lectures', 'show=xml', `sem=${query.semesterId}`];
+        if (query.number !== undefined) {
+            if (!/^\d{6}$/.test(query.number)) throw new Error('Veranstaltungsnummer muss sechsstellig sein.');
+            parts.push(`number=${query.number}`);
+        } else if (query.text !== undefined) {
+            // UnivIS findet Umlaute nur in ISO-8859-1-Kodierung (live geprüft).
+            parts.push(`name=${latin1Component(query.text)}`);
+        } else {
+            throw new Error('Suchtext oder Veranstaltungsnummer fehlt.');
+        }
+        if (query.facultyId !== undefined) parts.push(`department=${query.facultyId}`);
+        return new URL(`https://${this.host}/prg?${parts.join('&')}`);
+    }
+
     async fetchRaw(query: CatalogQuery, options: { signal?: AbortSignal } = {}): Promise<RawResponse> {
-        const url = this.url(query);
+        return this.get(this.url(query), options);
+    }
+
+    async fetchSearchRaw(query: SearchQuery, options: { signal?: AbortSignal } = {}): Promise<RawResponse> {
+        return this.get(this.searchUrl(query), options);
+    }
+
+    private async get(url: URL, options: { signal?: AbortSignal }): Promise<RawResponse> {
         const signal = options.signal
             ? AbortSignal.any([options.signal, AbortSignal.timeout(TIMEOUT_MS)])
             : AbortSignal.timeout(TIMEOUT_MS);
@@ -66,7 +107,7 @@ export class UnivisSource implements CatalogSource {
             signal,
         });
         const bytes = new Uint8Array(await response.arrayBuffer());
-        if (bytes.length > MAX_BYTES) throw new Error(`Antwort zu groß (${bytes.length} Bytes).`);
+        if (bytes.length > MAX_BYTES) throw new ResponseTooLargeError(bytes.length);
         const contentType = response.headers.get('content-type');
         if (!response.ok) throw new Error(`UnivIS antwortete mit HTTP ${response.status}.`);
         return { body: decode(bytes, contentType), url: url.toString(), status: response.status, contentType };

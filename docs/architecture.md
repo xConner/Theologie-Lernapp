@@ -286,71 +286,117 @@ Ein weiteres Theme (z. B. Sepia oder hoher Kontrast) braucht eine weitere
 `ThemeData` und einen gespeicherten Wert in `ThemeSettings`, nach dem `MyApp`
 das Theme auswählt. `test/theme_test.dart` prüft die Kontraste jeder Palette.
 
-## Stundenplan
+## Studiumsorganisation (Stundenplan, Veranstaltungssuche, Studienunterlagen)
 
-Veranstaltungen der Theologischen Fakultät der CAU suchen und filtern,
-Detailansicht, persönlicher Stundenplan mit Wochenansicht,
-Überschneidungen und Semesterwahl. Datenquelle ist UnivIS der CAU über den
-Katalog-Endpunkt `/api/catalog` (Freigabe und Betrieb:
-`docs/univis-integration-feasibility.md`, Abschnitt 13). Für alle Nutzer
-sichtbar.
+Ein Hauptpunkt auf dem Startbildschirm (`StudyOrganizationButton`) öffnet
+`StudyOrganizationScreen` mit drei Reitern:
+
+1. **Stundenplan** – Wochenübersicht als Raster (Mo–Fr als Spalten, Zeit von
+   oben nach unten, Wochenende nur mit Terminen), Filter „Alle / Regelmäßige
+   / Blockveranstaltungen“ (je Termin, auf dem Gerät gemerkt),
+   Überschneidungsstellen der Woche und des Semesters.
+2. **Veranstaltungen suchen** – vollständiges Verzeichnis der Theologischen
+   Fakultät (lokal gefiltert, offline nutzbar) oder UnivIS-Titel-/
+   Nummernsuche über alle bzw. eine Fakultät; Hinzufügen mit Vorschau und
+   Korrektur.
+3. **Studienunterlagen** – Verweise auf offizielle Dokumente der Fakultät
+   und der CAU (nur Links, keine Kopien).
+
+Datenquelle ist UnivIS der CAU über `/api/catalog` (Freigabe und Betrieb:
+`docs/univis-integration-feasibility.md`, Abschnitte 13 und 14).
 
 ```
 UnivIS (univis.uni-kiel.de/prg, show=xml)
-   │ 1 Abruf je Semester und Tag (Cache)
-api/catalog.ts → api/_lib/catalog-endpoint.ts
+   │ Fakultätskatalog: 1 Abruf je Semester und Tag · Suche: je Suchbegriff, 12 h Cache, Drosselung
+api/catalog.ts → api/_lib/catalog-endpoint.ts (+ api/_lib/catalog/search.ts)
    │ parse → Dubletten → Termine (api/_lib/catalog/) → öffentliche Form (publish.ts)
-   │ Cache: Arbeitsspeicher, Firestore catalog_cache (Server), CDN (s-maxage)
-App: ApiCourseCatalogSource (+ Offline-Kopie je Semester)
+App: ApiCourseCatalogSource (CourseCatalogSource + CourseSearchSource, Offline-Kopie)
    │
 TimetableController ── TimetableStore (users/{uid}/timetable bzw. lokal)
+   │  Eintrag = Verweis + CourseSnapshot (Import) + EntryOverrides (eigene Korrekturen)
+   │
+plan_schedule.dart (Plan auflösen) → plan_conflicts.dart (Stellen) → week_layout.dart (Raster)
 ```
 
 | Aufgabe | Ort |
 | --- | --- |
 | Katalog-Endpunkt (Eingaben, Cache, Fehler, Kopfzeilen) | `api/catalog.ts`, `api/_lib/catalog-endpoint.ts` |
-| Zwischenspeicher (frisch/stale, parallele Abrufe, Plausibilität) | `api/_lib/catalog/cache.ts`, `api/_lib/catalog/firestore-store.ts` |
+| Fakultätsübergreifende Suche (Fakultäten, Latin-1-Kodierung, Rangfolge, Kürzung) | `api/_lib/catalog/search.ts`, `UnivisSource.searchUrl` |
+| Zwischenspeicher (frisch/stale, parallele Abrufe, Plausibilität, Größe) | `api/_lib/catalog/cache.ts`, `api/_lib/catalog/firestore-store.ts` |
 | Öffentliche Form (nur App-Felder, gehashte Personenkennungen) | `api/_lib/catalog/publish.ts` |
 | UnivIS-Adapter, Terminauflösung, Dubletten, Semester | `api/_lib/catalog/` (siehe Bericht, Abschnitt 11) |
-| Katalog-Datenmodell (quellneutral) | `models/timetable/course_catalog.dart` |
-| Katalogquellen: API mit Offline-Kopie; synthetisch nur für Tests/Entwicklung | `services/timetable/course_catalog_source.dart`, `services/timetable/timetable_feature.dart` |
-| Synthetische Testdaten (nicht im regulären Betrieb) | `assets/timetable/synthetic_catalog.json`, `tool/timetable/` |
-| Suche, Filter, Filterwerte | `services/timetable/course_search.dart` |
-| Überschneidungen, Wochen, Wochenplan, Feiertage der Woche | `services/timetable/timetable_schedule.dart` |
+| Katalog-Datenmodell (quellneutral, mit Einrichtungshierarchie) | `models/timetable/course_catalog.dart` |
+| Eigenständige Beschreibung einer Veranstaltung (Import) | `models/timetable/course_snapshot.dart` |
+| Eintrag, persönliche Anpassungen, Abgleich mit dem Katalog | `models/timetable/timetable_entry.dart` |
+| Katalog- und Suchquellen: API mit Offline-Kopie; synthetisch nur für Tests/Entwicklung | `services/timetable/course_catalog_source.dart`, `services/timetable/timetable_feature.dart` |
+| Plan aus Import und Anpassungen, eigene Termine, Kieler Ortszeit | `services/timetable/plan_schedule.dart` |
+| Überschneidungsstellen und ihre Gruppierung | `services/timetable/plan_conflicts.dart` |
+| Wochenraster (Spuren gleichzeitiger Termine), Filter Block/regelmäßig | `services/timetable/week_layout.dart` |
+| Wochen, unterrichtsfreie Zeit | `services/timetable/timetable_schedule.dart` |
+| Suche, Filter, Filterwerte (Fakultät, Institut, Typ, Wochentag, Dozent) | `services/timetable/course_search.dart` |
 | Beschriftungen (Typen, Wochentage, Terminregeln, Hinweise) | `services/timetable/course_labels.dart` |
-| Eintrag im Stundenplan, Abgleich mit dem Katalog | `models/timetable/timetable_entry.dart` |
 | Speicher (Konto: `users/{uid}/timetable`, live; Gast: lokal) | `services/timetable/timetable_store.dart` |
 | Übernahme des Gast-Stundenplans nach Anmeldung | `services/timetable/timetable_migration.dart`, aufgerufen in `HomeScreen` |
-| Zustand für die Oberfläche (Semester, Laden, Fehler) | `services/timetable/timetable_controller.dart` |
-| Screens | `screens/timetable/` |
+| Zustand für die Oberfläche (Semester, Plan, Filter, Konflikte, Abgleich) | `services/timetable/timetable_controller.dart` |
+| Studienunterlagen (Metadaten zentral, Laden, Filter) | `assets/study/documents.json`, `services/study/study_documents.dart`, Linkprüfung `tool/study_documents/`, `.github/workflows/study-documents.yml` |
+| Screens | `screens/study/` (Hauptbereich, Unterlagen), `screens/timetable/` (Raster, Suche, Details, Vorschau/Korrektur, Konfliktanzeige) |
 | Firestore-Regeln und Emulator-Tests | `firestore.rules`, `test/firestore_rules/`, `.github/workflows/firestore-rules.yml` |
 
 Grundsätze:
 
-* **Katalog und Stundenplan sind getrennt.** Der Katalog ist zentral und
-  nur lesbar; der Stundenplan enthält je Veranstaltung nur Kennung,
-  Quellkennungen, Semester, Titel und eine Terminsignatur. Ändert sich der
-  Katalog, bleibt der Eintrag unverändert; die Wochenansicht meldet
-  „geändert“ bzw. „nicht mehr vorhanden“. Einträge anderer Semester bleiben
-  erhalten und werden als Hinweis mit Umschaltknopf gezeigt.
+* **Import und eigene Korrekturen sind getrennt.** Ein Eintrag speichert die
+  importierten Daten (`snapshot`: Titel, Termine, Räume, Lehrende,
+  Semesterrahmen) und getrennt davon die persönlichen Anpassungen
+  (`overrides`: Titel, Dozent, Notiz, je Termin Wochentag/Uhrzeit/Raum oder
+  „ausgeblendet“, eigene wöchentliche Termine). Veranstaltungen des
+  Fakultätskatalogs werden bei jedem Laden mit dem aktuellen Katalog
+  abgeglichen; Veranstaltungen aus der Suche auf Wunsch („Mit UnivIS
+  abgleichen“). Ein Abgleich ändert nie die Anpassungen; geänderte Termine
+  der Quelle werden gemeldet („Zur Kenntnis genommen“ bzw. „Eigene
+  Termin-Anpassungen verwerfen“).
+* **Keine Duplikate.** Eine Veranstaltung gilt als geplant, wenn Kennung
+  oder eine Quellkennung übereinstimmt (Fakultätskatalog und Suche führen
+  Dubletten unterschiedlich zusammen). Erneutes Hinzufügen ersetzt den
+  Eintrag und behält die Anpassungen.
+* **Rückwärtskompatibel.** Einträge der ersten Version (ohne `snapshot`)
+  werden weiter über den Katalog aufgelöst. Lehnt Firestore die neuen Felder
+  ab (Regeln noch nicht veröffentlicht), speichert die App Veranstaltungen
+  des Fakultätskatalogs in der alten Form; für Veranstaltungen aus der Suche
+  meldet sie einen Speicherfehler.
+* **Überschneidungen zählen Stellen, nicht Termine.** Eine Stelle ist ein
+  zusammenhängender Zeitraum, in dem mindestens zwei verschiedene
+  Veranstaltungen gleichzeitig stattfinden (drei gleichzeitige = eine
+  Stelle). Halboffene Intervalle: direkt anschließende Termine überschneiden
+  sich nicht; abgesagte Termine zählen nicht. Gerechnet wird mit konkreten
+  Daten; für die Übersicht werden gleiche Wochentag-/Uhrzeit-/
+  Veranstaltungs-Kombinationen zusammengefasst („an 14 Terminen“), ein
+  einzelner Blocktermin bleibt ein einzelnes Datum.
 * **Nie erfundene Daten.** Synthetische Daten nur mit
   `--dart-define=TIMETABLE_SYNTHETIC=true` (und stets gekennzeichnet); die
   API-Quelle lehnt Antworten mit `synthetic: true` ab. Ist der Katalog nicht
-  erreichbar und keine Offline-Kopie vorhanden, zeigt die App einen Fehler.
-* **Keine Wiederholungslogik in der App.** Einzeltermine kommen aufgelöst
-  vom Server. Datum und Uhrzeit werden als Kieler Ortszeit aus dem Text
-  gelesen, Vergleiche laufen über den absoluten Zeitpunkt.
-* **Überschneidungen** sind halboffene Intervalle: Ein Termin bis 10:00 und
-  einer ab 10:00 überschneiden sich nicht; abgesagte Termine zählen nicht.
+  erreichbar und keine Offline-Kopie vorhanden, zeigt die App einen Fehler;
+  gespeicherte Einträge bleiben sichtbar.
+* **Wiederholungslogik nur für eigene Angaben.** Termine der Quelle kommen
+  aufgelöst vom Server. Die App rechnet nur, wenn du Termine anpasst oder
+  ergänzt: dieselben Daten der Quelle (Ferien bleiben) bzw. Wochentage der
+  Vorlesungszeit ohne unterrichtsfreie Tage, Kieler Ortszeit mit
+  Sommerzeitregel.
 * **Synchronisierung**: `FirestoreTimetableBackend` beobachtet die
   Collection über `snapshots()`. Gäste speichern lokal
   (`guest.v1.timetable`); nach der Anmeldung übernimmt
   `TimetableGuestMigration` die Einträge (ohne Duplikate, ohne vorhandene zu
   ändern, lokal erst nach Server-Bestätigung gelöscht, idempotent).
 * **Firestore-Regeln**: `timetable` hat eine eigene Regel mit Feldprüfung
-  und steht bewusst nicht in `isUserCollection` – Regeln sind ODER-verknüpft,
-  sonst wäre die Feldprüfung wirkungslos. `catalog_cache` hat keine Regel
-  (nur Admin SDK). Die Regeln werden in der Firebase Console eingetragen
-  (kein Firebase-CLI-Deployment im Projekt).
+  (inklusive `snapshot`/`overrides` mit Größengrenzen) und steht bewusst
+  nicht in `isUserCollection` – Regeln sind ODER-verknüpft, sonst wäre die
+  Feldprüfung wirkungslos. `catalog_cache` hat keine Regel (nur Admin SDK).
+  Die Regeln werden in der Firebase Console eingetragen (kein
+  Firebase-CLI-Deployment im Projekt).
+* **Studienunterlagen**: nur Metadaten in `assets/study/documents.json`
+  (Titel, Beschreibung, Studiengang, Stand, Status `current`/`older`/
+  `unclear`, Link und Fundstelle). Die App akzeptiert nur HTTPS-Links auf
+  uni-kiel.de bzw. Nordkirche; der Workflow prüft alle Links wöchentlich.
+  Aktualisieren: Eintrag in der JSON-Datei ändern, Workflow
+  „Studienunterlagen-Links“ abwarten (siehe `docs/study-documents.md`).
 * Eine neue Katalogquelle (später HISinOne) implementiert serverseitig
   `CatalogSource`; die App bleibt unverändert.

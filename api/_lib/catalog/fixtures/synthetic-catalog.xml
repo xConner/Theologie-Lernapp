@@ -15,6 +15,7 @@
     <type>V</type>
     <sws>2</sws>
     <orgname>Testinstitut A</orgname>
+    <orgunits><orgunit>Testfakultät</orgunit><orgunit>Testinstitut A</orgunit></orgunits>
     <classification><UnivISRef type="Title" key="Title.test.at"/></classification>
     <dozs><doz><UnivISRef type="Person" key="Person.test.a"/></doz></dozs>
     <time_description>Anmeldung bei person@example.org</time_description>

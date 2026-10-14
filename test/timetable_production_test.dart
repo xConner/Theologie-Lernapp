@@ -8,7 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:theologie_lernapp/models/timetable/course_catalog.dart';
 import 'package:theologie_lernapp/models/timetable/timetable_entry.dart';
-import 'package:theologie_lernapp/screens/timetable/timetable_home_screen.dart';
+import 'package:theologie_lernapp/screens/study/study_organization_screen.dart';
 import 'package:theologie_lernapp/services/timetable/course_catalog_source.dart';
 import 'package:theologie_lernapp/services/timetable/timetable_controller.dart';
 import 'package:theologie_lernapp/services/timetable/timetable_migration.dart';
@@ -467,7 +467,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           theme: AppTheme.light,
-          home: TimetableHomeScreen(
+          home: StudyOrganizationScreen(
             uid: "nutzer",
             source: source,
             store: BackendTimetableStore(backend ?? InMemoryTimetableBackend()),
@@ -511,7 +511,10 @@ void main() {
 
         await tester.tap(find.text("Anzeigen"));
         await tester.pumpAndSettle();
-        expect(find.text("10:15–11:45"), findsOneWidget);
+        expect(
+          find.bySemanticsLabel(RegExp(r"^10:15–11:45, Testvorlesung")),
+          findsOneWidget,
+        );
       },
     );
 
@@ -556,7 +559,12 @@ void main() {
         "occurrences": [],
       });
       await open(tester, FakeCatalogSource({"2027s": empty}));
-      await tester.tap(find.text("Veranstaltungen"));
+      await tester.tap(
+        find.descendant(
+          of: find.byType(TabBar),
+          matching: find.text("Veranstaltungen suchen"),
+        ),
+      );
       await tester.pumpAndSettle();
       expect(find.byKey(const ValueKey("empty-catalog")), findsOneWidget);
     });

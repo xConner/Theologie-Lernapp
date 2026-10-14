@@ -153,6 +153,13 @@ export interface Course {
     ects: number | null;
     /** Anbietende Einrichtung(en), bei Dubletten mehrere. */
     organizations: string[];
+    /**
+     * Einrichtungshierarchie der Hauptfassung, oberste Ebene zuerst, z. B.
+     * `["Theologische Fakultät", "Institut für …", "Abteilung …"]`
+     * (UnivIS `orgunits`). Die erste Ebene ist in Kiel die Fakultät oder eine
+     * fakultätsübergreifende Einrichtung.
+     */
+    organizationPath: string[];
     /** Gliederungspunkte des Vorlesungsverzeichnisses. */
     classification: string[];
     lecturerIds: string[];

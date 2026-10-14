@@ -349,11 +349,11 @@ class AppModules {
 
   static const ModuleInfo timetable = ModuleInfo(
     id: "timetable",
-    title: "Stundenplan",
+    title: "Studiumsorganisation",
     description:
-        "Veranstaltungen der Theologischen Fakultät der CAU Kiel suchen, "
-        "filtern und in einen persönlichen Stundenplan mit Wochenansicht und "
-        "Überschneidungen übernehmen.",
+        "Persönlicher Stundenplan als Wochenübersicht mit Überschneidungen, "
+        "Veranstaltungssuche über alle Fakultäten der CAU Kiel und eine "
+        "Sammlung offizieller Studienunterlagen der Theologischen Fakultät.",
     sources: [
       SourceInfo(
         title: "Veranstaltungen, Termine, Räume, Lehrende",
@@ -373,10 +373,42 @@ class AppModules {
         aiNote: "Die Daten werden nicht von einer KI erzeugt oder verändert.",
         url: "https://univis.uni-kiel.de",
       ),
+      SourceInfo(
+        title: "Veranstaltungen anderer Fakultäten",
+        origin:
+            "UnivIS – Titel- bzw. Nummernsuche über das gesamte "
+            "Vorlesungsverzeichnis der CAU",
+        processing:
+            "Die Suche läuft über das Backend der App, das UnivIS abfragt, "
+            "die Treffer wie den Fakultätskatalog aufbereitet und Ergebnisse "
+            "einige Stunden zwischenspeichert. Hinzugefügte Veranstaltungen "
+            "werden mit ihren Terminen in deinem Stundenplan gespeichert; "
+            "deine Korrekturen bleiben davon getrennt und werden bei einem "
+            "Abgleich nicht überschrieben.",
+        aiNote: "Die Daten werden nicht von einer KI erzeugt oder verändert.",
+        url: "https://univis.uni-kiel.de",
+      ),
+      SourceInfo(
+        title: "Studienunterlagen",
+        origin:
+            "Webseiten der Theologischen Fakultät, des Studierendenservice "
+            "und der amtlichen Bekanntmachungen der CAU Kiel sowie der "
+            "Nordkirche",
+        processing:
+            "Die App verlinkt nur auf die Originaldokumente und speichert "
+            "keine Kopien. Titel, Stand und Gültigkeit stammen aus den "
+            "offiziellen Fundstellen; wo die Gültigkeit nicht sicher "
+            "feststeht, ist das gekennzeichnet.",
+        aiNote:
+            "Die Zusammenstellung wurde mit KI-Unterstützung recherchiert und "
+            "jeder Link automatisch gegen die Originalquelle geprüft.",
+        url: "https://www.uni-kiel.de/de/theol/studieren",
+      ),
     ],
     notes: [
-      "Maßgeblich sind die Angaben in UnivIS; kurzfristige Änderungen "
-          "erscheinen in der App in der Regel innerhalb eines Tages.",
+      "Maßgeblich sind die Angaben in UnivIS bzw. in den Originaldokumenten; "
+          "kurzfristige Änderungen erscheinen in der App in der Regel "
+          "innerhalb eines Tages.",
       "ECTS-Punkte zeigt die App nur, wenn UnivIS sie angibt.",
     ],
   );

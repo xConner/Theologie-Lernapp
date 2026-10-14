@@ -66,6 +66,51 @@ abstract class CourseCatalogSource {
   Future<CatalogLoad> load(String semesterId);
 }
 
+/// Eine Fakultät (bzw. fakultätsübergreifende Einrichtung) für die Suche.
+class FacultyOption {
+  final String id;
+  final String name;
+
+  const FacultyOption(this.id, this.name);
+}
+
+/// Ergebnis einer fakultätsübergreifenden Suche.
+class CourseSearchResult {
+  /// Treffer im üblichen Katalogformat (Termine, Räume, Lehrende).
+  final CourseCatalog catalog;
+
+  /// Treffer insgesamt (vor der Kürzung auf die besten).
+  final int total;
+  final bool truncated;
+  final DateTime? fetchedAt;
+
+  /// UnivIS war nicht erreichbar; älterer gespeicherter Stand.
+  final bool stale;
+
+  const CourseSearchResult({
+    required this.catalog,
+    required this.total,
+    this.truncated = false,
+    this.fetchedAt,
+    this.stale = false,
+  });
+}
+
+/// Suche über alle Fakultäten (UnivIS-Titel- bzw. Nummernsuche über
+/// `/api/catalog`).
+abstract class CourseSearchSource {
+  Future<List<FacultyOption>> faculties();
+
+  /// Genau eines von [text] (Titel bzw. Titelbestandteil) und [number]
+  /// (sechsstellige Veranstaltungsnummer).
+  Future<CourseSearchResult> search({
+    required String semesterId,
+    String? text,
+    String? number,
+    String? facultyId,
+  });
+}
+
 /// Server antwortet, aber nicht wie erwartet (verständliche Meldung).
 class CatalogUnavailableException implements Exception {
   final String message;
@@ -115,7 +160,8 @@ class CatalogOfflineCache {
 
 /// Produktive Quelle: `GET /api/catalog` (UnivIS der CAU, aufbereitet und
 /// zwischengespeichert auf dem Server).
-class ApiCourseCatalogSource implements CourseCatalogSource {
+class ApiCourseCatalogSource
+    implements CourseCatalogSource, CourseSearchSource {
   static const String productionBaseUrl = "https://www.theologie.app";
   static const Duration timeout = Duration(seconds: 25);
 
@@ -167,6 +213,89 @@ class ApiCourseCatalogSource implements CourseCatalogSource {
       throw CatalogUnavailableException(message);
     }
     return Map<String, dynamic>.from(decoded);
+  }
+
+  static List<FacultyOption> _parseFaculties(Map<String, dynamic> json) => [
+    if (json["faculties"] is List)
+      for (final f in json["faculties"] as List)
+        if (f is Map && f["id"] is String && f["name"] is String)
+          FacultyOption(f["id"] as String, f["name"] as String),
+  ];
+
+  @override
+  Future<List<FacultyOption>> faculties() async {
+    final stored = await cache.readSemesters();
+    if (stored != null) {
+      try {
+        final list = _parseFaculties(
+          Map<String, dynamic>.from(jsonDecode(stored) as Map),
+        );
+        if (list.isNotEmpty) return list;
+      } catch (_) {
+        // Defekter Speicher: neu laden.
+      }
+    }
+    try {
+      final json = await _get(const {});
+      await cache.saveSemesters(jsonEncode(json));
+      return _parseFaculties(json);
+    } catch (_) {
+      return const [];
+    }
+  }
+
+  /// Zuletzt gesuchte Ergebnisse (nur in dieser Sitzung).
+  final Map<String, CourseSearchResult> _recentSearches = {};
+
+  @override
+  Future<CourseSearchResult> search({
+    required String semesterId,
+    String? text,
+    String? number,
+    String? facultyId,
+  }) async {
+    final query = {
+      "semester": semesterId,
+      if (number != null) "number": number else "q": text ?? "",
+      "faculty": ?facultyId,
+    };
+    final key = jsonEncode(query).toLowerCase();
+    final recent = _recentSearches[key];
+    if (recent != null) return recent;
+    final Map<String, dynamic> json;
+    try {
+      json = await _get(query);
+    } on TimeoutException {
+      throw const CatalogUnavailableException(
+        "Keine Verbindung zum Server. Bitte Internetverbindung prüfen.",
+      );
+    } on http.ClientException {
+      throw const CatalogUnavailableException(
+        "Keine Verbindung zum Server. Bitte Internetverbindung prüfen.",
+      );
+    }
+    if (json["synthetic"] == true) {
+      throw const CatalogFormatException("Server lieferte synthetische Daten");
+    }
+    final catalog = CourseCatalog.fromJson(json);
+    final meta = json["search"] is Map ? json["search"] as Map : const {};
+    final cacheInfo = json["cache"] is Map ? json["cache"] as Map : const {};
+    final result = CourseSearchResult(
+      catalog: catalog,
+      total: meta["total"] is num
+          ? (meta["total"] as num).toInt()
+          : catalog.courses.length,
+      truncated: meta["truncated"] == true,
+      fetchedAt:
+          DateTime.tryParse("${cacheInfo["fetchedAt"] ?? ""}") ??
+          catalog.provenance.fetchedAt,
+      stale: cacheInfo["state"] == "stale",
+    );
+    if (_recentSearches.length >= 20) {
+      _recentSearches.remove(_recentSearches.keys.first);
+    }
+    _recentSearches[key] = result;
+    return result;
   }
 
   static List<SemesterOption> _parseSemesters(Map<String, dynamic> json) => [
@@ -262,7 +391,8 @@ class ApiCourseCatalogSource implements CourseCatalogSource {
 /// `tool/timetable/build_synthetic_catalog.mjs`). Nur für Tests und den
 /// ausdrücklichen Entwicklungsmodus (`--dart-define=TIMETABLE_SYNTHETIC=true`);
 /// jede Ansicht kennzeichnet sie.
-class SyntheticCourseCatalogSource implements CourseCatalogSource {
+class SyntheticCourseCatalogSource
+    implements CourseCatalogSource, CourseSearchSource {
   static const String asset = "assets/timetable/synthetic_catalog.json";
 
   final AssetBundle bundle;
@@ -289,6 +419,44 @@ class SyntheticCourseCatalogSource implements CourseCatalogSource {
   Future<List<SemesterOption>> semesters() async {
     final catalog = await _read();
     return [SemesterOption(catalog.semester.id, catalog.semester.label)];
+  }
+
+  @override
+  Future<List<FacultyOption>> faculties() async => const [
+    FacultyOption("synthetic", "Synthetische Testfakultät"),
+  ];
+
+  /// Durchsucht nur die synthetischen Testdaten (Entwicklungsmodus).
+  @override
+  Future<CourseSearchResult> search({
+    required String semesterId,
+    String? text,
+    String? number,
+    String? facultyId,
+  }) async {
+    final catalog = await _read();
+    final needle = (text ?? "").toLowerCase();
+    final hits = [
+      for (final c in catalog.courses)
+        if (number != null
+            ? c.number == number
+            : c.title.toLowerCase().contains(needle))
+          c,
+    ];
+    return CourseSearchResult(
+      catalog: CourseCatalog(
+        synthetic: true,
+        provenance: catalog.provenance,
+        semester: catalog.semester,
+        courses: hits,
+        persons: catalog.persons,
+        rooms: catalog.rooms,
+        occurrencesByCourse: catalog.occurrencesByCourse,
+        notesByCourse: catalog.notesByCourse,
+      ),
+      total: hits.length,
+      fetchedAt: catalog.provenance.fetchedAt,
+    );
   }
 
   @override

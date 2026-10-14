@@ -1,119 +1,13 @@
 import 'package:flutter/material.dart';
 
-import '../../info/app_info.dart';
 import '../../services/timetable/course_catalog_source.dart';
 import '../../services/timetable/timetable_controller.dart';
-import '../../services/timetable/timetable_feature.dart';
-import '../../services/timetable/timetable_store.dart';
 import '../../theme/app_theme.dart';
-import '../../widgets/info_report.dart';
-import 'course_search_view.dart';
-import 'timetable_week_view.dart';
 
-/// Stundenplan: eigener Wochenplan und Veranstaltungssuche.
-///
-/// [uid] == null → Gastmodus (lokal gespeichert). [source] und [store] sind
-/// für Tests austauschbar; Standard sind der Katalog der CAU über
-/// `/api/catalog` (siehe timetable_feature.dart) und der Speicher des
-/// Nutzers.
-class TimetableHomeScreen extends StatefulWidget {
-  final String? uid;
-  final CourseCatalogSource? source;
-  final TimetableStore? store;
-  final DateTime? today;
+// Gemeinsame Bausteine der Studiumsorganisation: Semesterwahl und Stand des
+// Katalogs, Hinweise, Fehleranzeige.
 
-  const TimetableHomeScreen({
-    super.key,
-    required this.uid,
-    this.source,
-    this.store,
-    this.today,
-  });
-
-  @override
-  State<TimetableHomeScreen> createState() => _TimetableHomeScreenState();
-}
-
-class _TimetableHomeScreenState extends State<TimetableHomeScreen> {
-  late final TimetableController controller = TimetableController(
-    source: widget.source ?? defaultCourseCatalogSource(),
-    store: widget.store ?? TimetableStore.forUser(widget.uid),
-    now: widget.today == null ? null : () => widget.today!,
-  );
-
-  @override
-  void initState() {
-    super.initState();
-    controller.start();
-  }
-
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 2,
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text("Stundenplan"),
-          actions: const [InfoButton(module: AppModules.timetable)],
-          bottom: const TabBar(
-            tabs: [
-              Tab(
-                icon: Icon(Icons.view_week_rounded),
-                text: "Mein Stundenplan",
-              ),
-              Tab(icon: Icon(Icons.search_rounded), text: "Veranstaltungen"),
-            ],
-          ),
-        ),
-        body: ListenableBuilder(
-          listenable: controller,
-          builder: (context, _) {
-            final catalog = controller.catalog;
-            final Widget body;
-            if (catalog == null) {
-              body =
-                  controller.catalogError != null && !controller.catalogLoading
-                  ? _CatalogError(
-                      error: controller.catalogError!,
-                      onRetry: controller.loadCatalog,
-                    )
-                  : const Center(
-                      child: CircularProgressIndicator(
-                        semanticsLabel: "Veranstaltungen werden geladen",
-                      ),
-                    );
-            } else {
-              body = TabBarView(
-                children: [
-                  TimetableWeekView(controller: controller),
-                  CourseSearchView(controller: controller),
-                ],
-              );
-            }
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                if (catalog?.synthetic ?? false) const SyntheticDataBanner(),
-                if (controller.semesters.isNotEmpty)
-                  CatalogStatusBar(controller: controller),
-                if (widget.uid == null) const _GuestHint(),
-                Expanded(child: body),
-              ],
-            );
-          },
-        ),
-      ),
-    );
-  }
-}
-
-String _dateTime(DateTime t) {
+String formatDateTime(DateTime t) {
   final l = t.toLocal();
   String two(int n) => n.toString().padLeft(2, "0");
   return "${l.day}.${l.month}.${l.year}, ${two(l.hour)}:${two(l.minute)} Uhr";
@@ -141,18 +35,18 @@ class CatalogStatusBar extends StatelessWidget {
       warning = true;
       status =
           "Offline – gespeicherter Stand"
-          "${updated == null ? "" : " vom ${_dateTime(updated)}"}. "
+          "${updated == null ? "" : " vom ${formatDateTime(updated)}"}. "
           "Aktuelle Änderungen fehlen möglicherweise.";
     } else if (load.sourceStale) {
       warning = true;
       status =
           "UnivIS ist derzeit nicht erreichbar – Stand"
-          "${updated == null ? "" : " vom ${_dateTime(updated)}"}.";
+          "${updated == null ? "" : " vom ${formatDateTime(updated)}"}.";
     } else if (load.origin == CatalogOrigin.synthetic) {
       status = "Synthetische Testdaten";
     } else {
       status =
-          "Stand: ${updated == null ? "unbekannt" : _dateTime(updated)} · "
+          "Stand: ${updated == null ? "unbekannt" : formatDateTime(updated)} · "
           "Quelle: UnivIS der CAU Kiel";
     }
 
@@ -270,8 +164,8 @@ class SyntheticDataBanner extends StatelessWidget {
   }
 }
 
-class _GuestHint extends StatelessWidget {
-  const _GuestHint();
+class GuestHint extends StatelessWidget {
+  const GuestHint({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -288,11 +182,15 @@ class _GuestHint extends StatelessWidget {
   }
 }
 
-class _CatalogError extends StatelessWidget {
+class CatalogErrorView extends StatelessWidget {
   final Object error;
   final Future<void> Function() onRetry;
 
-  const _CatalogError({required this.error, required this.onRetry});
+  const CatalogErrorView({
+    super.key,
+    required this.error,
+    required this.onRetry,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -333,41 +231,13 @@ class _CatalogError extends StatelessWidget {
   }
 }
 
-/// Fügt hinzu bzw. entfernt und meldet das Ergebnis (auch Fehler).
-Future<void> toggleWithFeedback(
-  BuildContext context,
-  TimetableController controller,
-  String courseId,
-) async {
-  final course = controller.catalog?.courseById(courseId);
-  if (course == null) {
-    await controller.remove(courseId);
-    return;
-  }
-  final messenger = ScaffoldMessenger.of(context);
-  try {
-    final added = await controller.toggle(course);
-    messenger
-      ..hideCurrentSnackBar()
-      ..showSnackBar(
-        SnackBar(
-          content: Text(
-            added
-                ? "Zum Stundenplan hinzugefügt."
-                : "Aus dem Stundenplan entfernt.",
-          ),
-        ),
-      );
-  } catch (_) {
-    messenger
-      ..hideCurrentSnackBar()
-      ..showSnackBar(
-        const SnackBar(
-          content: Text(
-            "Der Stundenplan konnte nicht gespeichert werden. "
-            "Bitte später erneut versuchen.",
-          ),
-        ),
-      );
-  }
+/// Kurze Rückmeldung nach dem Speichern (auch bei Fehlern).
+void showSaveFeedback(BuildContext context, String message) {
+  ScaffoldMessenger.of(context)
+    ..hideCurrentSnackBar()
+    ..showSnackBar(SnackBar(content: Text(message)));
 }
+
+const String saveFailedMessage =
+    "Der Stundenplan konnte nicht gespeichert werden. Bitte später erneut "
+    "versuchen.";

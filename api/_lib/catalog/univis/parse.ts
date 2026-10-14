@@ -212,6 +212,14 @@ export function parseUnivisXml(xml: string, ctx: UnivisParseContext): ParsedCata
             sws: number(text($, el, 'sws')),
             ects: number(text($, el, 'ects_cred')),
             organizations: [text($, el, 'orgname')].filter((o): o is string => o != null),
+            // <orgunits><orgunit>Fakultät</orgunit><orgunit>Institut</orgunit>…
+            // (live geprüft, docs/univis-integration-feasibility.md, Abschnitt 14).
+            organizationPath: $(el)
+                .children('orgunits')
+                .children('orgunit')
+                .map((_, u) => $(u).text().replace(/\s+/g, ' ').trim())
+                .get()
+                .filter((u: string) => u.length > 0),
             classification: refs($, el, 'classification').map((k) => titles.get(k)).filter((t): t is string => t != null),
             lecturerIds,
             rules,

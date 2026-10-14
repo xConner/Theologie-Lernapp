@@ -187,3 +187,135 @@ class FailingCatalogSource implements CourseCatalogSource {
     return Future.error(const CatalogFormatException("nicht erreichbar"));
   }
 }
+
+/// Katalog wie vom Server für eine Suche nach Veranstaltungen einer
+/// anderen Fakultät (synthetisch, aber im Format von `/api/catalog?q=`).
+Map<String, dynamic> foreignSearchJson() => {
+  "version": 1,
+  "synthetic": false,
+  "provenance": {
+    "sourceId": "cau-univis",
+    "system": "univis",
+    "institution": "Christian-Albrechts-Universität zu Kiel",
+    "url": null,
+    "fetchedAt": "2026-10-14T06:00:00.000Z",
+    "contentHash": null,
+  },
+  "semester": catalogJson()["semester"],
+  "courses": [
+    {
+      "id": "cau-univis:2026w:Lecture.phil.test.ethik",
+      "semesterId": "2026w",
+      "sources": [
+        {"sourceId": "cau-univis", "key": "Lecture.phil.test.ethik"},
+      ],
+      "number": "050999",
+      "title": "Testseminar: Einführung in die Ethik",
+      "moduleCodes": [],
+      "type": "S",
+      "sws": 2,
+      "ects": null,
+      "organizations": ["Testabteilung Praktische Philosophie"],
+      "organizationPath": [
+        "Philosophische Fakultät",
+        "Testseminar Philosophie",
+        "Testabteilung Praktische Philosophie",
+      ],
+      "classification": [],
+      "lecturerIds": ["cau-univis:p0000000000000001"],
+      "rules": [
+        {
+          "id": "phil-r1",
+          "kind": "weekly",
+          "intervalWeeks": 1,
+          "weekdays": [2],
+          "startTime": "11:15",
+          "endTime": "12:45",
+          "roomId": "cau-univis:Room.phil.1",
+        },
+        {
+          "id": "phil-r2",
+          "kind": "weekly",
+          "intervalWeeks": 1,
+          "weekdays": [4],
+        },
+      ],
+      "detailUrl": null,
+    },
+  ],
+  "persons": [
+    {"id": "cau-univis:p0000000000000001", "displayName": "Dr. Test Philosoph"},
+  ],
+  "rooms": [
+    {
+      "id": "cau-univis:Room.phil.1",
+      "shortName": "Test-PH 1",
+      "name": "Testhörsaal Philosophie",
+      "online": false,
+    },
+  ],
+  "occurrences": [
+    for (final date in ["2026-11-03", "2026-11-10", "2026-11-17"])
+      {
+        "id": "phil-r1@$date",
+        "courseId": "cau-univis:2026w:Lecture.phil.test.ethik",
+        "ruleId": "phil-r1",
+        "date": date,
+        "start": "${date}T11:15:00+01:00",
+        "end": "${date}T12:45:00+01:00",
+        "roomId": "cau-univis:Room.phil.1",
+        "status": "scheduled",
+      },
+  ],
+  "issues": [
+    {
+      "courseId": "cau-univis:2026w:Lecture.phil.test.ethik",
+      "ruleId": "phil-r2",
+      "code": "missing-time",
+      "severity": "warning",
+      "detail": "Uhrzeit fehlt",
+    },
+  ],
+  "search": {"total": 1, "returned": 1, "truncated": false},
+};
+
+/// Fakultätskatalog aus den synthetischen Testdaten, Suche mit vorbereiteten
+/// Ergebnissen bzw. Fehler.
+class SearchingCatalogSource
+    implements CourseCatalogSource, CourseSearchSource {
+  final CourseCatalogSource catalogs;
+  Object? failWith;
+  final List<Map<String, String?>> searches = [];
+
+  SearchingCatalogSource(this.catalogs, {this.failWith});
+
+  @override
+  Future<List<SemesterOption>> semesters() => catalogs.semesters();
+
+  @override
+  Future<CatalogLoad> load(String semesterId) => catalogs.load(semesterId);
+
+  @override
+  Future<List<FacultyOption>> faculties() async => const [
+    FacultyOption("010000000", "Theologische Fakultät"),
+    FacultyOption("050000000", "Philosophische Fakultät"),
+  ];
+
+  @override
+  Future<CourseSearchResult> search({
+    required String semesterId,
+    String? text,
+    String? number,
+    String? facultyId,
+  }) async {
+    searches.add({"text": text, "number": number, "faculty": facultyId});
+    final failure = failWith;
+    if (failure != null) throw failure;
+    final catalog = CourseCatalog.fromJson(foreignSearchJson());
+    return CourseSearchResult(
+      catalog: catalog,
+      total: catalog.courses.length,
+      fetchedAt: catalog.provenance.fetchedAt,
+    );
+  }
+}

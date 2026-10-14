@@ -143,6 +143,52 @@ describe('users/{uid}/timetable', () => {
         await assertFails(setDoc(entryRef(alice()), entry({ addedAt: Date.now() })));
     });
 
+    // Ab Version 2: importierte Daten (CourseSnapshot.toMap()) und
+    // persönliche Anpassungen (EntryOverrides.toMap()).
+    const snapshot = (overrides = {}) => ({
+        v: 1,
+        title: 'Einführung in die Ethik',
+        number: '050999',
+        organizationPath: ['Philosophische Fakultät', 'Philosophisches Seminar'],
+        lecturers: ['Dr. Beispiel'],
+        rules: [{ id: 'r1', kind: 'weekly', intervalWeeks: 1, weekdays: [2], startTime: '11:15', endTime: '12:45' }],
+        occurrences: [{ ruleId: 'r1', start: '2026-11-03T11:15:00+01:00', end: '2026-11-03T12:45:00+01:00' }],
+        semester: { id: '2026w', label: 'Wintersemester 2026/27', start: '2026-10-01', end: '2027-03-31', lectureStart: '2026-10-12', lectureEnd: '2027-02-12', breaks: [] },
+        catalog: 'search',
+        ...overrides,
+    });
+
+    test('Import und persönliche Anpassungen: gültig, mit Grenzen', async () => {
+        const db = alice();
+        await assertSucceeds(setDoc(entryRef(db), entry({ snapshot: snapshot() })), 'mit Import');
+        await assertSucceeds(
+            setDoc(entryRef(db), entry({
+                snapshot: snapshot(),
+                overrides: {
+                    title: 'Ethik (Wahlpflicht)',
+                    lecturers: 'Prof. Dr. Korrigiert',
+                    note: 'für Modul X',
+                    rules: { r1: { startTime: '12:15', endTime: '13:45', room: 'Raum 7' } },
+                    extraSessions: [{ id: 'x1', weekday: 4, startTime: '16:15', endTime: '17:45' }],
+                },
+            })),
+            'mit Anpassungen',
+        );
+        const db2 = alice();
+        for (const [label, data] of [
+            ['Import kein Objekt', entry({ snapshot: 'x' })],
+            ['Import ohne Titel', entry({ snapshot: (({ title: _t, ...rest }) => rest)(snapshot()) })],
+            ['Import zu viele Termine', entry({ snapshot: snapshot({ occurrences: Array.from({ length: 401 }, () => ({ ruleId: 'r1' })) }) })],
+            ['Import zu viele Felder', entry({ snapshot: snapshot(Object.fromEntries(Array.from({ length: 20 }, (_, i) => [`f${i}`, i]))) })],
+            ['Anpassung unbekanntes Feld', entry({ overrides: { email: 'x@example.org' } })],
+            ['Anpassung Titel zu lang', entry({ overrides: { title: 'x'.repeat(501) } })],
+            ['Anpassung Regeln kein Objekt', entry({ overrides: { rules: 'x' } })],
+            ['zu viele eigene Termine', entry({ overrides: { extraSessions: Array.from({ length: 21 }, (_, i) => ({ id: `x${i}` })) } })],
+        ]) {
+            await assertFails(setDoc(entryRef(db2, 'alice', label.replace(/\W/g, '_')), data), label);
+        }
+    });
+
     test('keine Unterdokumente unterhalb eines Eintrags', async () => {
         const db = alice();
         await assertFails(setDoc(doc(db, 'users', 'alice', 'timetable', 'e1', 'extra', 'x'), { a: 1 }));

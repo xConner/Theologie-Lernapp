@@ -22,6 +22,25 @@ class LocalDateTime {
 
   const LocalDateTime(this.date, this.time, this.instant);
 
+  /// Abstand der Ortszeit zu UTC (z. B. +2 h in der Sommerzeit).
+  Duration get offset =>
+      DateTime.parse("${date}T$time:00Z").difference(instant);
+
+  /// Zurück ins Austauschformat, z. B. `2026-10-22T16:15:00+02:00`.
+  String toIso() {
+    final minutes = offset.inMinutes;
+    final sign = minutes < 0 ? "-" : "+";
+    final abs = minutes.abs();
+    String two(int n) => n.toString().padLeft(2, "0");
+    return "${date}T$time:00$sign${two(abs ~/ 60)}:${two(abs % 60)}";
+  }
+
+  /// Minuten seit Mitternacht (Ortszeit).
+  int get minuteOfDay {
+    final parts = time.split(":");
+    return int.parse(parts[0]) * 60 + int.parse(parts[1]);
+  }
+
   static final RegExp _pattern = RegExp(
     r"^(\d{4}-\d{2}-\d{2})T(\d{2}:\d{2})(?::\d{2}(?:\.\d+)?)?(Z|[+-]\d{2}:\d{2})$",
   );
@@ -143,6 +162,19 @@ class CatalogSemester {
     this.breaks = const [],
   });
 
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "label": label,
+    "start": start,
+    "end": end,
+    "lectureStart": lectureStart,
+    "lectureEnd": lectureEnd,
+    "breaks": [
+      for (final b in breaks)
+        {"start": b.start, "end": b.end, "label": b.label},
+    ],
+  };
+
   factory CatalogSemester.fromJson(Map<String, dynamic> json) =>
       CatalogSemester(
         id: _string(json["id"]),
@@ -191,6 +223,19 @@ class SessionRule {
     this.excludedDates = const [],
     this.roomId,
   });
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "kind": kind.name,
+    "intervalWeeks": ?intervalWeeks,
+    "weekdays": weekdays,
+    "startTime": ?startTime,
+    "endTime": ?endTime,
+    "startDate": ?startDate,
+    "endDate": ?endDate,
+    if (excludedDates.isNotEmpty) "excludedDates": excludedDates,
+    "roomId": ?roomId,
+  };
 
   factory SessionRule.fromJson(Map<String, dynamic> json) => SessionRule(
     id: _string(json["id"]),
@@ -295,6 +340,9 @@ class CatalogCourse {
   final num? sws;
   final num? ects;
   final List<String> organizations;
+
+  /// Einrichtungshierarchie, oberste Ebene (Fakultät) zuerst.
+  final List<String> organizationPath;
   final List<String> classification;
   final List<String> lecturerIds;
   final List<SessionRule> rules;
@@ -311,11 +359,24 @@ class CatalogCourse {
     this.sws,
     this.ects,
     this.organizations = const [],
+    this.organizationPath = const [],
     this.classification = const [],
     this.lecturerIds = const [],
     this.rules = const [],
     this.detailUrl,
   });
+
+  /// Fakultät bzw. oberste Einrichtung, falls bekannt.
+  String? get faculty =>
+      organizationPath.isNotEmpty ? organizationPath.first : null;
+
+  /// Institut (zweite Ebene), sonst die anbietende Einrichtung.
+  String? get institute => institutes.firstOrNull;
+
+  /// Institute für Filter: die zweite Ebene der Hierarchie, sonst alle
+  /// anbietenden Einrichtungen (bei zusammengeführten Dubletten mehrere).
+  List<String> get institutes =>
+      organizationPath.length > 1 ? [organizationPath[1]] : organizations;
 
   static CatalogCourse? tryFromJson(Map<String, dynamic> json) {
     final id = _optString(json["id"]);
@@ -332,6 +393,7 @@ class CatalogCourse {
       sws: _num(json["sws"]),
       ects: _num(json["ects"]),
       organizations: _strings(json["organizations"]),
+      organizationPath: _strings(json["organizationPath"]),
       classification: _strings(json["classification"]),
       lecturerIds: _strings(json["lecturerIds"]),
       rules: [for (final r in _maps(json["rules"])) SessionRule.fromJson(r)],

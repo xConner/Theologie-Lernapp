@@ -47,9 +47,8 @@ String formatDate(String date, {bool withYear = true}) {
 String timeRange(String? start, String? end) =>
     start == null || end == null ? "Uhrzeit offen" : "$start–$end";
 
-/// Lesbare Beschreibung einer Terminregel, z. B.
-/// „wöchentlich Mo 10:15–11:45 · Test-HS 1“.
-String describeRule(SessionRule rule, CourseCatalog catalog) {
+/// Terminregel ohne Raum, z. B. „wöchentlich Mo 10:15–11:45“.
+String describeSessionRule(SessionRule rule) {
   final days = rule.weekdays.map((d) => weekdayName(d, short: true)).join(", ");
   final time = timeRange(rule.startTime, rule.endTime);
   final when = switch (rule.kind) {
@@ -66,8 +65,15 @@ String describeRule(SessionRule rule, CourseCatalog catalog) {
                 "${formatDate(rule.endDate!)} ($days) $time",
     _ => "Termin ohne eindeutige Angabe",
   };
+  return when.trim();
+}
+
+/// Lesbare Beschreibung einer Terminregel, z. B.
+/// „wöchentlich Mo 10:15–11:45 · Test-HS 1“.
+String describeRule(SessionRule rule, CourseCatalog catalog) {
   final room = rule.roomId == null ? null : catalog.rooms[rule.roomId]?.label;
-  return room == null ? when.trim() : "${when.trim()} · $room";
+  final when = describeSessionRule(rule);
+  return room == null ? when : "$when · $room";
 }
 
 /// Hinweise der Verarbeitung in verständlicher Sprache.

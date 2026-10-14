@@ -50,6 +50,8 @@ export interface CatalogCacheOptions<T> {
     minSizeRatio?: number;
     sizeOf: (value: T) => number;
     persistent?: PersistentCatalogStore<T> | null;
+    /** Höchstzahl der Einträge im Arbeitsspeicher (älteste zuerst verworfen). */
+    maxEntries?: number;
     now?: () => number;
     /** Für Protokolle: nur Codes, keine Inhalte. */
     log?: (message: string) => void;
@@ -74,6 +76,18 @@ export class CatalogCache<T> {
         }
     }
 
+    private remember(key: string, entry: CachedCatalog<T>) {
+        this.memory.delete(key);
+        this.memory.set(key, entry);
+        const max = this.options.maxEntries;
+        if (max !== undefined) {
+            for (const oldest of this.memory.keys()) {
+                if (this.memory.size <= max) break;
+                this.memory.delete(oldest);
+            }
+        }
+    }
+
     private async writePersistent(key: string, entry: CachedCatalog<T>): Promise<void> {
         if (!this.options.persistent) return;
         try {
@@ -88,13 +102,14 @@ export class CatalogCache<T> {
         const inMemory = this.memory.get(key);
         if (inMemory) return inMemory;
         const stored = await this.readPersistent(key);
-        if (stored) this.memory.set(key, stored);
+        if (stored) this.remember(key, stored);
         return stored;
     }
 
     async get(key: string, load: () => Promise<T>): Promise<CacheResult<T>> {
         const cached = this.memory.get(key);
         if (cached && this.now() - cached.fetchedAt < this.options.ttlMs) {
+            if (this.options.maxEntries !== undefined) this.remember(key, cached);
             return { value: cached.value, fetchedAt: cached.fetchedAt, state: 'fresh' };
         }
         const running = this.inFlight.get(key);
@@ -119,7 +134,7 @@ export class CatalogCache<T> {
                 throw new ImplausibleCatalogError(`nur ${size} statt bisher ${previous.size} Veranstaltungen`);
             }
             const entry: CachedCatalog<T> = { value, fetchedAt: this.now(), size };
-            this.memory.set(key, entry);
+            this.remember(key, entry);
             await this.writePersistent(key, entry);
             return { value, fetchedAt: entry.fetchedAt, state: 'refreshed' };
         } catch (e) {
@@ -134,6 +149,16 @@ export class CatalogCache<T> {
             }
             throw new CatalogUnavailableError('Der Veranstaltungskatalog ist derzeit nicht verfügbar.', e);
         }
+    }
+
+    /** Frischer Eintrag vorhanden (ohne Abruf)? */
+    hasFresh(key: string): boolean {
+        const cached = this.memory.get(key);
+        return cached !== undefined && this.now() - cached.fetchedAt < this.options.ttlMs;
+    }
+
+    get size(): number {
+        return this.memory.size;
     }
 
     /** Nur für Tests. */

@@ -1,8 +1,11 @@
 // Lesender Katalog-Endpunkt `/api/catalog` (Freigabe der UnivIS-Nutzung:
 // docs/univis-integration-feasibility.md, Abschnitt 13).
 //
-//   GET /api/catalog                    → angebotene Semester
+//   GET /api/catalog                    → angebotene Semester und Fakultäten
 //   GET /api/catalog?semester=2026w     → Katalog der Theologischen Fakultät
+//   GET /api/catalog?semester=2026w&q=Ethik[&faculty=050000000]
+//   GET /api/catalog?semester=2026w&number=010076
+//                                       → fakultätsübergreifende Suche (search.ts)
 //
 // Sicherheit: Nur `GET`; Semester nur aus der Konfiguration (laufendes und
 // nächstes), Einrichtung nur aus einer festen Liste – es gibt keinen Weg, eine
@@ -17,8 +20,16 @@ import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { CatalogCache, CatalogUnavailableError, type PersistentCatalogStore } from './catalog/cache';
 import { PUBLIC_CATALOG_VERSION, toPublicCatalog, type PublicCatalog } from './catalog/publish';
 import { offeredSemesters } from './catalog/semesters';
+import {
+    CAU_FACULTIES,
+    normalizeLectureNumber,
+    normalizeSearchText,
+    SEARCH_MAX_RESULTS,
+    trimSnapshot,
+    type SearchQuery,
+} from './catalog/search';
 import { buildSnapshot, sha256, type CatalogSource } from './catalog/source';
-import { CAU_UNIVIS, UnivisSource } from './catalog/univis/source';
+import { CAU_UNIVIS, ResponseTooLargeError, UnivisSource } from './catalog/univis/source';
 
 /** Einrichtungen, deren Katalog angeboten wird (UnivIS-OrgNr). */
 export const ORGANIZATIONS: Record<string, string> = {
@@ -33,6 +44,10 @@ export interface CatalogEndpointConfig {
     ttlMs: number;
     /** Wie lange ein alter Stand bei Ausfällen noch ausgeliefert wird. */
     maxStaleMs: number;
+    /** Gültigkeit eines Suchergebnisses. */
+    searchTtlMs: number;
+    /** Höchstzahl der Suchanfragen an UnivIS je Minute und Funktionsinstanz. */
+    searchPerMinute: number;
 }
 
 export function configFrom(env: NodeJS.ProcessEnv): CatalogEndpointConfig {
@@ -43,6 +58,8 @@ export function configFrom(env: NodeJS.ProcessEnv): CatalogEndpointConfig {
     return {
         ttlMs: hours('CATALOG_CACHE_TTL_HOURS', 24, 1, 168) * HOUR,
         maxStaleMs: hours('CATALOG_MAX_STALE_HOURS', 14 * 24, 24, 60 * 24) * HOUR,
+        searchTtlMs: hours('CATALOG_SEARCH_TTL_HOURS', 12, 1, 168) * HOUR,
+        searchPerMinute: hours('CATALOG_SEARCH_PER_MINUTE', 20, 1, 120),
     };
 }
 
@@ -77,6 +94,26 @@ export function createCatalogHandler(deps: CatalogEndpointDeps = {}) {
         log,
     });
 
+    // Suchergebnisse: eigener Zwischenspeicher, begrenzte Größe, kein
+    // dauerhafter Speicher; weniger Treffer als zuvor sind hier normal.
+    const searchCache = new CatalogCache<PublicSearchResult>({
+        ttlMs: config.searchTtlMs,
+        maxStaleMs: 7 * 24 * HOUR,
+        minSizeRatio: 0,
+        maxEntries: 300,
+        sizeOf: (c) => c.courses.length,
+        now,
+        log,
+    });
+    const recentSearchFetches: number[] = [];
+    const takeSearchBudget = () => {
+        const t = now();
+        while (recentSearchFetches.length > 0 && t - recentSearchFetches[0] >= 60_000) recentSearchFetches.shift();
+        if (recentSearchFetches.length >= config.searchPerMinute) return false;
+        recentSearchFetches.push(t);
+        return true;
+    };
+
     const handler = async (req: VercelRequest, res: VercelResponse) => {
         // Öffentliche, nur lesbare Daten ohne Anmeldung: Abruf von jeder
         // Herkunft erlaubt (z. B. lokale Web-Entwicklung).
@@ -90,12 +127,13 @@ export function createCatalogHandler(deps: CatalogEndpointDeps = {}) {
         const semesterParam = single(req.query.semester);
         const orgParam = single(req.query.organization) ?? DEFAULT_ORGANIZATION;
 
-        if (semesterParam === undefined && req.query.semester === undefined) {
+        if (semesterParam === undefined && req.query.semester === undefined && req.query.q === undefined && req.query.number === undefined) {
             res.setHeader('Cache-Control', 'public, max-age=3600, s-maxage=3600');
             return res.status(200).json({
                 version: PUBLIC_CATALOG_VERSION,
                 institution: source.institution,
                 organizations: Object.entries(ORGANIZATIONS).map(([id, name]) => ({ id, name })),
+                faculties: Object.entries(CAU_FACULTIES).map(([id, name]) => ({ id, name })),
                 semesters: offered.map((s) => ({ id: s.id, label: s.label, start: s.start, end: s.end })),
             });
         }
@@ -106,6 +144,9 @@ export function createCatalogHandler(deps: CatalogEndpointDeps = {}) {
                 error: 'Unbekanntes oder nicht angebotenes Semester.',
                 semesters: offered.map((s) => s.id),
             });
+        }
+        if (req.query.q !== undefined || req.query.number !== undefined) {
+            return search(req, res, semester.id);
         }
         if (!(orgParam in ORGANIZATIONS)) {
             return res.status(400).json({ error: 'Unbekannte Einrichtung.' });
@@ -154,8 +195,109 @@ export function createCatalogHandler(deps: CatalogEndpointDeps = {}) {
         }
     };
 
-    return Object.assign(handler, { cache });
+    async function search(req: VercelRequest, res: VercelResponse, semesterId: string) {
+        const number = req.query.number === undefined ? undefined : normalizeLectureNumber(single(req.query.number));
+        const text = req.query.q === undefined ? undefined : normalizeSearchText(single(req.query.q));
+        const facultyParam = single(req.query.faculty);
+        if (number === null || text === null || (number !== undefined && text !== undefined)) {
+            return res.status(400).json({
+                error: 'Bitte einen Suchbegriff (3 bis 80 Zeichen) oder eine sechsstellige Veranstaltungsnummer angeben.',
+                code: 'invalid-query',
+            });
+        }
+        if (req.query.faculty !== undefined && (facultyParam === undefined || !(facultyParam in CAU_FACULTIES))) {
+            return res.status(400).json({ error: 'Unbekannte Fakultät.', code: 'invalid-faculty' });
+        }
+        if (!source.fetchSearchRaw) {
+            return res.status(501).json({ error: 'Die Quelle bietet keine Suche an.', code: 'not-supported' });
+        }
+        const query: SearchQuery = {
+            semesterId,
+            ...(number !== undefined ? { number } : { text: text! }),
+            ...(facultyParam !== undefined ? { facultyId: facultyParam } : {}),
+        };
+        const key = `${source.sourceId}:search:${semesterId}:${query.facultyId ?? 'all'}:${
+            query.number ?? `q=${query.text!.toLowerCase()}`
+        }`;
+        if (!searchCache.hasFresh(key) && !takeSearchBudget()) {
+            res.setHeader('Retry-After', '30');
+            res.setHeader('Cache-Control', 'no-store');
+            return res.status(429).json({
+                error: 'Gerade laufen sehr viele Suchanfragen. Bitte in einer halben Minute erneut versuchen.',
+                code: 'rate-limited',
+            });
+        }
+        try {
+            const result = await searchCache.get(key, async () => {
+                const raw = await source.fetchSearchRaw!(query);
+                const snapshot = trimSnapshot(
+                    buildSnapshot(source, { semesterId, organizationId: query.facultyId ?? 'all' }, raw, new Date(now())),
+                    query,
+                );
+                return {
+                    ...toPublicCatalog(snapshot),
+                    search: {
+                        text: query.text ?? null,
+                        number: query.number ?? null,
+                        faculty: query.facultyId ?? null,
+                        total: snapshot.total,
+                        returned: snapshot.courses.length,
+                        truncated: snapshot.total > snapshot.courses.length,
+                        limit: SEARCH_MAX_RESULTS,
+                    },
+                };
+            });
+            res.setHeader('X-Catalog-State', result.state);
+            res.setHeader(
+                'Cache-Control',
+                result.state === 'stale' ? 'public, max-age=300, s-maxage=600' : 'public, max-age=600, s-maxage=3600',
+            );
+            res.setHeader('Content-Type', 'application/json; charset=utf-8');
+            return res.status(200).send(
+                req.method === 'HEAD'
+                    ? ''
+                    : JSON.stringify({
+                          ...result.value,
+                          cache: {
+                              state: result.state,
+                              fetchedAt: new Date(result.fetchedAt).toISOString(),
+                              ...(result.reason ? { reason: result.reason } : {}),
+                          },
+                      }),
+            );
+        } catch (e) {
+            if (e instanceof CatalogUnavailableError) {
+                res.setHeader('Cache-Control', 'no-store');
+                if (e.cause instanceof ResponseTooLargeError) {
+                    return res.status(422).json({
+                        error: 'Zu viele Treffer – bitte den Suchbegriff genauer fassen oder eine Fakultät wählen.',
+                        code: 'too-many-results',
+                    });
+                }
+                res.setHeader('Retry-After', '600');
+                return res.status(503).json({
+                    error: 'Die Suche in UnivIS ist derzeit nicht verfügbar. Bitte später erneut versuchen.',
+                    code: 'source-unavailable',
+                });
+            }
+            throw e;
+        }
+    }
+
+    return Object.assign(handler, { cache, searchCache });
 }
+
+export type PublicSearchResult = PublicCatalog & {
+    search: {
+        text: string | null;
+        number: string | null;
+        faculty: string | null;
+        total: number;
+        returned: number;
+        truncated: boolean;
+        limit: number;
+    };
+};
 
 /** Dauerhafter Speicher, falls das Firebase-Dienstkonto konfiguriert ist. */
 function persistentFromEnv(): PersistentCatalogStore<PublicCatalog> | null {

@@ -85,6 +85,9 @@ flutter:
       # Stundenplan: SYNTHETISCHER Veranstaltungskatalog, erzeugt von
       # tool/timetable/build_synthetic_catalog.mjs (keine echten UnivIS-Daten).
       - assets/timetable/synthetic_catalog.json
+      # Studiumsorganisation: Verweise auf offizielle Studienunterlagen
+      # (nur Metadaten und Links; geprüft von tool/study_documents).
+      - assets/study/documents.json
       # Klausurersteller: Textkorpora mit Bestimmungen und Suchindex, erzeugt
       # von tool/greek_exam_corpus (siehe docs/greek-exam-sources.md).
       - assets/greek_corpus/corpora.json

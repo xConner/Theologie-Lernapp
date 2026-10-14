@@ -33,6 +33,8 @@ export interface CatalogSource {
     readonly semesters: Record<string, Semester>;
     /** Genau eine Anfrage an das Quellsystem. */
     fetchRaw(query: CatalogQuery, options?: { signal?: AbortSignal }): Promise<RawResponse>;
+    /** Titel- bzw. Nummernsuche (genau eine Anfrage), falls die Quelle sie anbietet. */
+    fetchSearchRaw?(query: import('./search').SearchQuery, options?: { signal?: AbortSignal }): Promise<RawResponse>;
     /** Quellformat → normalisierte Veranstaltungen (ohne Netzwerk). */
     parse(body: string, query: CatalogQuery): ParsedCatalog;
 }

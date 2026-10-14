@@ -941,3 +941,72 @@ bei 320 px und 1,5-facher Schrift meldet 119 px Überlauf (behoben).
 3. Schriftliche Bedingungen der CAU-Freigabe hier dokumentieren (13.1).
 4. Für SoSe 2027 prüfen, sobald UnivIS die Veranstaltungen veröffentlicht;
    weitere Semester in `semesters.ts` nur mit offiziellen Daten eintragen.
+
+## 14. Fakultätsübergreifende Suche
+
+### 14.1 Live-Prüfung der PRG-Titelsuche
+
+Lauf [38599090924](https://github.com/xConner/Theologie-Lernapp/actions/runs/38599090924)
+(`tool/univis/univis_search_probe.mjs`, sechs Anfragen mit Pausen, nur
+Kennzahlen und Namen von Einrichtungen im Protokoll), WS 2026/27:
+
+| Anfrage | Ergebnis |
+|---|---|
+| `search=departments&name=Fakult&noimports=1` | Organisationsnummern der Fakultäten: 010000000 Theologische, 020000000 Rechtswissenschaftliche, 030000000 Wirtschafts- und Sozialwissenschaftliche, 040000000 Medizinische, 050000000 Philosophische, 060000000 Mathematisch-Naturwissenschaftliche, 070000000 Agrar- und Ernährungswissenschaftliche, 080000000 Technische Fakultät, 200000000 Gemeinsame Einrichtungen der Fakultäten |
+| `search=lectures&name=Ethik` | 200, `text/xml`, 246 KB, 65 Veranstaltungen aus 23 Einrichtungen, alle mit „ethik“ im Titel (Teilzeichenfolge) |
+| `name=ethik` (klein) | identisch – ohne Groß-/Kleinschreibung |
+| `name=Altes Testament` | 2 Treffer – Wortgruppe zusammenhängend |
+| `name=Einf%FChrung` (ISO-8859-1) | 561 Treffer, 1,7 MB – **Umlaute funktionieren in Latin-1-Kodierung** (UTF-8 findet nichts, Abschnitt 5) |
+| `name=Ethik&department=050000000` | 25 Treffer, nur Philosophische Fakultät – `department` und `name` sind UND-verknüpft |
+
+`orgunits` enthält die Hierarchie als `<orgunit>`-Elemente, oberste Ebene
+zuerst (Fakultät bzw. fakultätsübergreifende Einrichtung wie
+„Gemeinsame Einrichtungen der Fakultäten“, „Universitätsklinikum
+Schleswig-Holstein“, „Zentrum für Schlüsselqualifikationen“), dann Institut
+und Abteilung. Die App übernimmt sie als `organizationPath`.
+
+### 14.2 Endpunkt
+
+`GET /api/catalog?semester=2026w&q=<Titel>[&faculty=<OrgNr>]` bzw.
+`&number=<sechsstellig>` (`api/_lib/catalog/search.ts`):
+
+* Eingaben: Semester aus der angebotenen Liste, Suchtext 3–80 Zeichen aus
+  Latin-1-Buchstaben, Ziffern und wenigen Satzzeichen, Nummer genau sechs
+  Ziffern, Fakultät nur aus `CAU_FACULTIES`; sonst `400`. Die Adresse an
+  UnivIS wird ausschließlich aus diesen Werten zusammengesetzt.
+* Verarbeitung wie beim Fakultätskatalog (Dubletten, Terminauflösung,
+  öffentliche Form ohne Freitexte, gehashte Personenkennungen), danach die
+  100 passendsten Treffer (exakter Titel, Titelanfang, Wortanfang, sonst
+  alphabetisch); `search.total`/`truncated` nennen die Gesamtzahl.
+* Zwischenspeicher: 12 h je Suchbegriff (`CATALOG_SEARCH_TTL_HOURS`,
+  1–168), höchstens 300 Suchen je Instanz im Arbeitsspeicher, CDN
+  `s-maxage=3600`, kein dauerhafter Speicher. Bei Ausfall bis zu 7 Tage der
+  letzte Stand (`state: stale`), sonst `503`.
+* Schonung: höchstens 20 UnivIS-Suchanfragen je Minute und Funktionsinstanz
+  (`CATALOG_SEARCH_PER_MINUTE`, 1–120); darüber `429` mit `Retry-After`.
+  Antworten über 8 MiB (zu allgemeiner Begriff) → `422`
+  „Zu viele Treffer – bitte genauer suchen“.
+* Protokolle enthalten keine Suchbegriffe und keine Antwortinhalte.
+
+### 14.3 Einordnung der Freigabe
+
+Die Freigabe (Abschnitt 13.1) bezog sich auf den Katalog der Theologischen
+Fakultät (eine Anfrage je Semester und Tag). Die Suche über alle
+Fakultäten erzeugt zusätzliche, nutzergesteuerte Anfragen an UnivIS
+(gedrosselt und zwischengespeichert, s. o.). Der Auftraggeber hat die
+fakultätsübergreifende Suche am 14.10.2026 ausdrücklich beauftragt; ob die
+schriftlichen Bedingungen der CAU diesen Umfang abdecken, ist **offen** und
+sollte bei der CAU bestätigt werden. Bei Bedarf lässt sich die Suche mit
+`CATALOG_SEARCH_PER_MINUTE=1` stark drosseln.
+
+### 14.4 App
+
+* Veranstaltungen aus der Suche werden mit ihren Daten gespeichert
+  (`TimetableEntry.snapshot`), persönliche Korrekturen getrennt
+  (`overrides`); siehe `docs/architecture.md`, Abschnitt
+  „Studiumsorganisation“.
+* Firestore-Regeln: neue optionale Felder `snapshot` und `overrides` mit
+  Größengrenzen (Emulator-Tests in `test/firestore_rules/`). **Die Regeln
+  müssen in der Firebase Console neu veröffentlicht werden**; bis dahin
+  speichert die App Veranstaltungen des Fakultätskatalogs in der alten Form
+  und meldet bei Veranstaltungen aus der Suche einen Speicherfehler.

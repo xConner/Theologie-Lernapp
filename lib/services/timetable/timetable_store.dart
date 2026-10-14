@@ -16,7 +16,12 @@ abstract class TimetableStore {
   /// Aktuelle Einträge, danach jede Änderung (auch von anderen Geräten).
   Stream<List<TimetableEntry>> watch();
 
-  Future<void> add(TimetableEntry entry);
+  /// Speichert bzw. ersetzt einen Eintrag (samt Import und Anpassungen).
+  /// [legacyFallback]: Lehnt der Server die neuen Felder ab (Firestore-Regeln
+  /// noch nicht aktualisiert), den Eintrag in der alten Form speichern – nur
+  /// sinnvoll für Veranstaltungen des Fakultätskatalogs, die sich ohne Import
+  /// auflösen lassen.
+  Future<void> add(TimetableEntry entry, {bool legacyFallback = false});
 
   Future<void> remove(String courseId);
 
@@ -66,12 +71,33 @@ class BackendTimetableStore implements TimetableStore {
   });
 
   @override
-  Future<void> add(TimetableEntry entry) =>
-      backend.put(timetableDocId(entry.courseId), entry.toMap());
+  Future<void> add(TimetableEntry entry, {bool legacyFallback = false}) async {
+    final id = timetableDocId(entry.courseId);
+    try {
+      await backend.put(id, entry.toMap());
+    } catch (e) {
+      if (!legacyFallback ||
+          !isPermissionDenied(e) ||
+          !entry.overrides.isEmpty) {
+        rethrow;
+      }
+      await backend.put(id, entry.toMap(legacy: true));
+    }
+  }
 
   @override
   Future<void> remove(String courseId) =>
       backend.delete(timetableDocId(courseId));
+}
+
+/// Vom Server wegen fehlender Berechtigung abgelehnt (Firestore-Regeln).
+bool isPermissionDenied(Object e) =>
+    (e is FirebaseException && e.code == "permission-denied") ||
+    e is TimetablePermissionDenied;
+
+/// Für Tests und lokale Speicher: wie `permission-denied` von Firestore.
+class TimetablePermissionDenied implements Exception {
+  const TimetablePermissionDenied();
 }
 
 /// `users/{uid}/timetable/{id}`.

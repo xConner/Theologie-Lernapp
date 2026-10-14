@@ -46,8 +46,9 @@ jobs:
     timeout-minutes: 15
     env:
       # Ein Push dieser Datei führt nur die Prüfung aus, die hier steht
-      # (Titelsuche: höchstens sechs Anfragen mit Pausen).
-      MODE: ${{ inputs.mode || 'search' }}
+      # (Vercel-Preview: Katalog und Suche, höchstens vier UnivIS-Abrufe aus
+      # der Vercel-Funktion).
+      MODE: ${{ inputs.mode || 'vercel' }}
       SEM: ${{ inputs.sem || '2026w' }}
       DEPT_QUERY: ${{ inputs.query || 'Theologische' }}
       DEPT_NAME: ${{ inputs.name || 'Theologische Fakultät' }}
@@ -177,7 +178,7 @@ jobs:
                       semester: .semester.id?, courses: (.courses // null | if . then length else null end),
                       occurrences: (.occurrences // null | if . then length else null end),
                       persons: (.persons // null | if . then length else null end),
-                      synthetic, cache, counts, error, code}' result.json
+                      synthetic, cache, counts, search, error, code}' result.json
             else
               sed -e 's/<[^>]*>/ /g' result.json | tr -s ' \n' ' ' | head -c 200; echo
             fi
@@ -191,5 +192,13 @@ jobs:
           CODE=$(fetch "/api/catalog?semester=2026w"); summary "$CODE"; [ "$CODE" = "200" ] || FAIL=1
           echo "== ungültiges Semester (muss 400 sein)"
           CODE=$(fetch "/api/catalog?semester=1999w"); echo "HTTP $CODE"; [ "$CODE" = "400" ] || FAIL=1
+          echo "== Suche: Titel in einer anderen Fakultät (ein UnivIS-Abruf)"
+          CODE=$(fetch "/api/catalog?semester=2026w&q=Ethik&faculty=050000000"); summary "$CODE"; [ "$CODE" = "200" ] || FAIL=1
+          echo "== Suche: Umlaut im Suchbegriff (ein UnivIS-Abruf)"
+          CODE=$(fetch "/api/catalog?semester=2026w&q=Einf%C3%BChrung%20in%20die%20Ethik"); summary "$CODE"; [ "$CODE" = "200" ] || FAIL=1
+          echo "== Suche: Veranstaltungsnummer (ein UnivIS-Abruf)"
+          CODE=$(fetch "/api/catalog?semester=2026w&number=010076"); summary "$CODE"; [ "$CODE" = "200" ] || FAIL=1
+          echo "== Suche: zu kurzer Begriff (muss 400 sein, kein Abruf)"
+          CODE=$(fetch "/api/catalog?semester=2026w&q=ab"); echo "HTTP $CODE"; [ "$CODE" = "400" ] || FAIL=1
           rm -f result.json headers.txt
           exit $FAIL

@@ -21,7 +21,8 @@ rules_version = '2';
 //   users/{uid}/greek_exam/{settings|progress} (Klausurersteller: Konfiguration,
 //                                               als bearbeitet markierte Texte)
 //   users/{uid}/timetable/{entryId}            (persönlicher Stundenplan: Verweis
-//                                               auf eine Katalog-Veranstaltung;
+//                                               auf eine Veranstaltung, deren
+//                                               Import und eigene Anpassungen;
 //                                               eigene Regel mit Feldprüfung)
 //   users/{uid}/notification_state/inbox       (Lesestatus der Glocke)
 //   users/{uid}/push_tokens/{id}               (Push-Abonnements je Gerät)
@@ -96,10 +97,14 @@ service cloud.firestore {
     }
 
     // Muss zu TimetableEntry.toMap() und FirestoreTimetableBackend.put()
-    // (lib/services/timetable/) passen.
+    // (lib/services/timetable/) passen. `snapshot` (importierte Daten,
+    // CourseSnapshot.toMap()) und `overrides` (persönliche Anpassungen,
+    // EntryOverrides.toMap()) sind optional; Einträge der ersten Version haben
+    // sie nicht.
     function isValidTimetableEntry(d) {
       return d.keys().hasOnly(['courseId', 'semesterId', 'sources', 'title',
-                               'number', 'scheduleSignature', 'addedAt'])
+                               'number', 'scheduleSignature', 'addedAt',
+                               'snapshot', 'overrides'])
         && d.keys().hasAll(['courseId', 'semesterId', 'sources', 'title',
                             'scheduleSignature', 'addedAt'])
         && d.courseId is string
@@ -109,7 +114,28 @@ service cloud.firestore {
         && d.title is string && d.title.size() <= 500
         && (!('number' in d) || (d.number is string && d.number.size() <= 20))
         && d.scheduleSignature is string && d.scheduleSignature.size() <= 4000
+        && (!('snapshot' in d) || isValidSnapshot(d.snapshot))
+        && (!('overrides' in d) || isValidOverrides(d.overrides))
         && d.addedAt == request.time;
+    }
+
+    function isValidSnapshot(s) {
+      return s is map && s.size() <= 25
+        && s.keys().hasAll(['title', 'rules', 'occurrences'])
+        && s.title is string && s.title.size() <= 500
+        && s.rules is list && s.rules.size() <= 50
+        && s.occurrences is list && s.occurrences.size() <= 400;
+    }
+
+    function isValidOverrides(o) {
+      return o is map
+        && o.keys().hasOnly(['title', 'lecturers', 'note', 'rules',
+                             'extraSessions'])
+        && (!('title' in o) || (o.title is string && o.title.size() <= 500))
+        && (!('lecturers' in o) || (o.lecturers is string && o.lecturers.size() <= 500))
+        && (!('note' in o) || (o.note is string && o.note.size() <= 500))
+        && (!('rules' in o) || (o.rules is map && o.rules.size() <= 50))
+        && (!('extraSessions' in o) || (o.extraSessions is list && o.extraSessions.size() <= 20));
     }
 
     // Felder, die der Client im users/{uid}-Dokument setzen darf (alle

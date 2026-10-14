@@ -66,6 +66,7 @@ export function toPublicCatalog(snapshot: CatalogSnapshot): PublicCatalog {
             // Nur, was die Quelle angibt – nie geschätzt.
             ects: c.ects,
             organizations: c.organizations,
+            organizationPath: c.organizationPath,
             classification: c.classification,
             lecturerIds: c.lecturerIds.map(personId),
             rules: c.rules,
