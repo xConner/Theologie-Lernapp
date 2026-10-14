@@ -299,6 +299,13 @@ class _CourseSearchViewState extends State<CourseSearchView>
                   "gespeichertes Ergebnis"
                   "${_result!.fetchedAt == null ? "" : " vom ${formatDateTime(_result!.fetchedAt!)}"}.",
             ),
+          if (_remote && _result!.matchedWords)
+            _Notice(
+              icon: Icons.manage_search_rounded,
+              text:
+                  "Keine Treffer für genau diese Wortfolge – gezeigt werden "
+                  "Veranstaltungen, deren Titel alle Wörter enthält.",
+            ),
           if (_remote && _result!.truncated)
             _Notice(
               icon: Icons.filter_list_rounded,

@@ -22,6 +22,9 @@ import { PUBLIC_CATALOG_VERSION, toPublicCatalog, type PublicCatalog } from './c
 import { offeredSemesters } from './catalog/semesters';
 import {
     CAU_FACULTIES,
+    fallbackWord,
+    keepCourses,
+    matchesAllWords,
     normalizeLectureNumber,
     normalizeSearchText,
     SEARCH_MAX_RESULTS,
@@ -229,11 +232,20 @@ export function createCatalogHandler(deps: CatalogEndpointDeps = {}) {
         }
         try {
             const result = await searchCache.get(key, async () => {
-                const raw = await source.fetchSearchRaw!(query);
-                const snapshot = trimSnapshot(
-                    buildSnapshot(source, { semesterId, organizationId: query.facultyId ?? 'all' }, raw, new Date(now())),
-                    query,
-                );
+                const build = (raw: Awaited<ReturnType<NonNullable<CatalogSource['fetchSearchRaw']>>>) =>
+                    buildSnapshot(source, { semesterId, organizationId: query.facultyId ?? 'all' }, raw, new Date(now()));
+                let full = build(await source.fetchSearchRaw!(query));
+                let match: 'phrase' | 'words' = 'phrase';
+                // UnivIS sucht Wortgruppen zusammenhängend. Findet die Gruppe
+                // nichts, einmal mit dem längsten Wort suchen und nur Titel
+                // mit allen Wörtern behalten (z. B. „Ethik Einführung“).
+                const word = query.text ? fallbackWord(query.text) : null;
+                if (full.courses.length === 0 && word && takeSearchBudget()) {
+                    const wide = build(await source.fetchSearchRaw!({ ...query, text: word }));
+                    full = keepCourses(wide, wide.courses.filter((c) => matchesAllWords(c.title, query.text!)));
+                    match = 'words';
+                }
+                const snapshot = trimSnapshot(full, query);
                 return {
                     ...toPublicCatalog(snapshot),
                     search: {
@@ -244,6 +256,7 @@ export function createCatalogHandler(deps: CatalogEndpointDeps = {}) {
                         returned: snapshot.courses.length,
                         truncated: snapshot.total > snapshot.courses.length,
                         limit: SEARCH_MAX_RESULTS,
+                        match,
                     },
                 };
             });
@@ -296,6 +309,8 @@ export type PublicSearchResult = PublicCatalog & {
         returned: number;
         truncated: boolean;
         limit: number;
+        /** `phrase`: Wortgruppe wie eingegeben; `words`: alle Wörter einzeln. */
+        match: 'phrase' | 'words';
     };
 };
 

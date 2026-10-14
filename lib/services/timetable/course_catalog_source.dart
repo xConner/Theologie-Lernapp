@@ -87,12 +87,16 @@ class CourseSearchResult {
   /// UnivIS war nicht erreichbar; älterer gespeicherter Stand.
   final bool stale;
 
+  /// Die Wortgruppe fand nichts; Treffer enthalten alle Wörter einzeln.
+  final bool matchedWords;
+
   const CourseSearchResult({
     required this.catalog,
     required this.total,
     this.truncated = false,
     this.fetchedAt,
     this.stale = false,
+    this.matchedWords = false,
   });
 }
 
@@ -290,6 +294,7 @@ class ApiCourseCatalogSource
           DateTime.tryParse("${cacheInfo["fetchedAt"] ?? ""}") ??
           catalog.provenance.fetchedAt,
       stale: cacheInfo["state"] == "stale",
+      matchedWords: meta["match"] == "words",
     );
     if (_recentSearches.length >= 20) {
       _recentSearches.remove(_recentSearches.keys.first);

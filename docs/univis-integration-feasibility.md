@@ -974,6 +974,10 @@ und Abteilung. Die App übernimmt sie als `organizationPath`.
   Latin-1-Buchstaben, Ziffern und wenigen Satzzeichen, Nummer genau sechs
   Ziffern, Fakultät nur aus `CAU_FACULTIES`; sonst `400`. Die Adresse an
   UnivIS wird ausschließlich aus diesen Werten zusammengesetzt.
+* Wortgruppen sucht UnivIS zusammenhängend. Findet eine Gruppe nichts,
+  fragt der Endpunkt **einmal** mit ihrem längsten bedeutungstragenden Wort
+  nach und behält nur Titel, die alle Wörter enthalten (`search.match:
+  "words"`; die App weist darauf hin).
 * Verarbeitung wie beim Fakultätskatalog (Dubletten, Terminauflösung,
   öffentliche Form ohne Freitexte, gehashte Personenkennungen), danach die
   100 passendsten Treffer (exakter Titel, Titelanfang, Wortanfang, sonst

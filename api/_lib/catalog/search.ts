@@ -95,6 +95,49 @@ export function rankOf(title: string, text: string): number {
     return 3;
 }
 
+/** Füllwörter, die bei der Wortsuche nicht zählen. */
+const STOPWORDS = new Set(['der', 'die', 'das', 'und', 'oder', 'in', 'im', 'ins', 'zu', 'zur', 'zum', 'von', 'vom', 'mit', 'fur', 'fuer', 'an', 'am', 'auf', 'aus', 'bei', 'den', 'dem', 'des', 'ein', 'eine', 'einer', 'eines', 'the', 'of', 'and']);
+
+/** Bedeutungstragende Wörter eines Suchtexts (Vergleichsform). */
+export function significantWords(text: string): string[] {
+    return foldForRanking(text).split(' ').filter((w) => w.length >= 2 && !STOPWORDS.has(w));
+}
+
+/**
+ * Für die Rückfallsuche: das längste bedeutungstragende Wort in der
+ * Originalschreibweise (Latin-1, für UnivIS). Nur bei mehreren Wörtern.
+ */
+export function fallbackWord(text: string): string | null {
+    const words = text.split(/[^A-Za-z0-9\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u00FF]+/).filter(Boolean);
+    if (words.length < 2) return null;
+    const candidates = words.filter((w) => w.length >= 3 && !STOPWORDS.has(foldForRanking(w)));
+    if (candidates.length === 0) return null;
+    return candidates.reduce((a, b) => (b.length > a.length ? b : a));
+}
+
+/** Nur Veranstaltungen, deren Titel alle Wörter des Suchtexts enthält. */
+export function matchesAllWords(title: string, text: string): boolean {
+    const haystack = foldForRanking(title);
+    return significantWords(text).every((w) => haystack.includes(w));
+}
+
+/** Teilmenge der Veranstaltungen samt zugehöriger Personen, Räume, Termine. */
+export function keepCourses<T extends CatalogSnapshot>(snapshot: T, courses: CatalogSnapshot['courses']): T {
+    const ids = new Set(courses.map((c) => c.id));
+    const persons = new Set(courses.flatMap((c) => c.lecturerIds));
+    const rooms = new Set(courses.flatMap((c) => c.rules.map((r) => r.roomId)).filter((r): r is string => r != null));
+    return {
+        ...snapshot,
+        courses,
+        persons: snapshot.persons.filter((p) => persons.has(p.id)),
+        rooms: snapshot.rooms.filter((r) => rooms.has(r.id)),
+        occurrences: snapshot.occurrences.filter((o) => ids.has(o.courseId)),
+        issues: snapshot.issues.filter((i) => ids.has(i.courseId)),
+        mergedDuplicates: snapshot.mergedDuplicates.filter((m) => ids.has(m.courseId)),
+        possibleDuplicates: snapshot.possibleDuplicates.filter((p) => p.courseIds.some((id) => ids.has(id))),
+    };
+}
+
 /**
  * Beste Treffer behalten (höchstens [limit]) und alles, was nur zu
  * entfallenen Veranstaltungen gehört, entfernen.
@@ -104,19 +147,5 @@ export function trimSnapshot<T extends CatalogSnapshot>(snapshot: T, query: Sear
         const r = query.text ? rankOf(a.title, query.text) - rankOf(b.title, query.text) : 0;
         return r !== 0 ? r : foldForRanking(a.title).localeCompare(foldForRanking(b.title));
     });
-    const kept = ranked.slice(0, limit);
-    const ids = new Set(kept.map((c) => c.id));
-    const persons = new Set(kept.flatMap((c) => c.lecturerIds));
-    const rooms = new Set(kept.flatMap((c) => c.rules.map((r) => r.roomId)).filter((r): r is string => r != null));
-    return {
-        ...snapshot,
-        courses: kept,
-        persons: snapshot.persons.filter((p) => persons.has(p.id)),
-        rooms: snapshot.rooms.filter((r) => rooms.has(r.id)),
-        occurrences: snapshot.occurrences.filter((o) => ids.has(o.courseId)),
-        issues: snapshot.issues.filter((i) => ids.has(i.courseId)),
-        mergedDuplicates: snapshot.mergedDuplicates.filter((m) => ids.has(m.courseId)),
-        possibleDuplicates: snapshot.possibleDuplicates.filter((p) => p.courseIds.some((id) => ids.has(id))),
-        total: snapshot.courses.length,
-    };
+    return { ...keepCourses(snapshot, ranked.slice(0, limit)), total: snapshot.courses.length };
 }

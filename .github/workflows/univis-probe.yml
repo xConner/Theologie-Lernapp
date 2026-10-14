@@ -46,7 +46,7 @@ jobs:
     timeout-minutes: 15
     env:
       # Ein Push dieser Datei führt nur die Prüfung aus, die hier steht
-      # (Vercel-Preview: Katalog und Suche, höchstens vier UnivIS-Abrufe aus
+      # (Vercel-Preview: Katalog und Suche, höchstens sechs UnivIS-Abrufe aus
       # der Vercel-Funktion).
       MODE: ${{ inputs.mode || 'vercel' }}
       SEM: ${{ inputs.sem || '2026w' }}
@@ -194,8 +194,10 @@ jobs:
           CODE=$(fetch "/api/catalog?semester=1999w"); echo "HTTP $CODE"; [ "$CODE" = "400" ] || FAIL=1
           echo "== Suche: Titel in einer anderen Fakultät (ein UnivIS-Abruf)"
           CODE=$(fetch "/api/catalog?semester=2026w&q=Ethik&faculty=050000000"); summary "$CODE"; [ "$CODE" = "200" ] || FAIL=1
-          echo "== Suche: Umlaut im Suchbegriff (ein UnivIS-Abruf)"
-          CODE=$(fetch "/api/catalog?semester=2026w&q=Einf%C3%BChrung%20in%20die%20Ethik"); summary "$CODE"; [ "$CODE" = "200" ] || FAIL=1
+          echo "== Suche: Umlaut im Suchbegriff, Theologische Fakultät (ein UnivIS-Abruf)"
+          CODE=$(fetch "/api/catalog?semester=2026w&q=Einf%C3%BChrung&faculty=010000000"); summary "$CODE"; [ "$CODE" = "200" ] || FAIL=1
+          echo "== Suche: Wörter in anderer Reihenfolge (Rückfallsuche, zwei UnivIS-Abrufe)"
+          CODE=$(fetch "/api/catalog?semester=2026w&q=Ethik%20Einf%C3%BChrung"); summary "$CODE"; [ "$CODE" = "200" ] || FAIL=1
           echo "== Suche: Veranstaltungsnummer (ein UnivIS-Abruf)"
           CODE=$(fetch "/api/catalog?semester=2026w&number=010076"); summary "$CODE"; [ "$CODE" = "200" ] || FAIL=1
           echo "== Suche: zu kurzer Begriff (muss 400 sein, kein Abruf)"

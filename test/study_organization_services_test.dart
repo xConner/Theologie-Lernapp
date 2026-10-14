@@ -44,7 +44,12 @@ void main() {
             return http.Response(
               jsonEncode({
                 ...foreignSearchJson(),
-                "search": {"total": 140, "returned": 100, "truncated": true},
+                "search": {
+                  "total": 140,
+                  "returned": 100,
+                  "truncated": true,
+                  "match": "words",
+                },
                 "cache": {
                   "state": "stale",
                   "fetchedAt": "2026-10-13T06:00:00.000Z",
@@ -69,6 +74,7 @@ void main() {
         expect(result.total, 140);
         expect(result.truncated, isTrue);
         expect(result.stale, isTrue);
+        expect(result.matchedWords, isTrue);
         expect(result.fetchedAt, DateTime.utc(2026, 10, 13, 6));
         final course = result.catalog.courses.single;
         expect(course.faculty, "Philosophische Fakultät");

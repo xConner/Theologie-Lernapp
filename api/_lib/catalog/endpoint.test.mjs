@@ -365,3 +365,30 @@ test('Suche: Drosselung je Instanz, zu große Antworten, Ausfall der Quelle', as
     assert.equal(tooMany.status, 422);
     assert.equal(tooMany.body.code, 'too-many-results');
 });
+
+test('Suche: Wortgruppe ohne Treffer → einmal mit dem längsten Wort, nur Titel mit allen Wörtern', async () => {
+    const { fallbackWord, matchesAllWords } = lib('catalog/search.js');
+    assert.equal(fallbackWord('Einführung in die Ethik'), 'Einführung');
+    assert.equal(fallbackWord('Ethik'), null);
+    assert.equal(fallbackWord('in der'), null);
+    assert.equal(matchesAllWords('Ethik: eine Einführung (PHIL-1)', 'Einführung in die Ethik'), true);
+    assert.equal(matchesAllWords('Einführung in die Logik', 'Einführung in die Ethik'), false);
+
+    const empty = '<?xml version="1.0"?><UnivIS version="1.6"></UnivIS>';
+    const { handler, calls } = setup({ body: (n) => (n === 1 ? empty : xml) });
+    const r = await call(handler, { query: { semester: '2026w', q: 'Testament Testvorlesung' } });
+    assert.equal(r.status, 200);
+    assert.equal(calls.length, 2);
+    assert.match(calls[0], /name=Testament%20Testvorlesung/);
+    assert.match(calls[1], /name=Testvorlesung$/);
+    assert.equal(r.body.search.match, 'words');
+    assert.ok(r.body.courses.length > 0);
+    for (const c of r.body.courses) assert.match(c.title, /Testament/);
+    assert.ok(r.body.courses.every((c) => /Testvorlesung/.test(c.title)));
+
+    // Ein Wort ohne Treffer: keine zweite Anfrage.
+    const single = setup({ body: () => empty });
+    const none = await call(single.handler, { query: { semester: '2026w', q: 'Nichtvorhanden' } });
+    assert.equal(none.body.courses.length, 0);
+    assert.equal(single.calls.length, 1);
+});
