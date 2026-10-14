@@ -11,15 +11,16 @@
 //
 // Die OrgNr steht im Element <orgnr> des <Org>-Datensatzes (am 14.10.2026
 // gegen univis.uni-kiel.de bestätigt; <id> ist eine andere, interne Nummer).
-// Zur Kontrolle zeigt das Skript alle einfachen Felder und markiert Werte aus
-// 6–9 Ziffern als Kandidaten.
+// Zur Kontrolle markiert das Skript Werte aus 6–9 Ziffern als Kandidaten.
 
 import { readFile } from 'node:fs/promises';
 import { parseArgs } from 'node:util';
 import * as cheerio from 'cheerio';
 import { fetchUnivis, htmlText } from './univis_http.mjs';
 
-const SKIP = /mail|tel|fax|phone|mobil|street|address|sprech|office/i;
+// Nur diese Felder einer Einrichtung werden ausgegeben (keine Kontaktdaten,
+// keine Freitexte).
+const ALLOWED = new Set(['id', 'name', 'name_en', 'orgnr', 'ordernr', 'url']);
 
 const { values } = parseArgs({
     options: {
@@ -63,7 +64,7 @@ root.children().each((_, el) => {
         .children()
         .each((_, child) => {
             const name = child.tagName ?? child.name;
-            if (SKIP.test(name) || $(child).children().length > 0) return;
+            if (!ALLOWED.has(name) || $(child).children().length > 0) return;
             const text = $(child).text().replace(/\s+/g, ' ').trim().slice(0, 120);
             if (!text) return;
             fields[name] = text;
@@ -72,6 +73,4 @@ root.children().each((_, el) => {
     departments.push({ tag, key: $(el).attr('key') ?? null, fields, orgNrCandidates: candidates });
 });
 
-// Leere Antwort: Rohtext zeigen (nur wenige Bytes, ohne Personendaten).
-const empty = departments.length === 0 ? { body: xml.slice(0, 400) } : {};
-console.log(JSON.stringify({ meta, counts, departments, ...empty }, null, 2));
+console.log(JSON.stringify({ meta, counts, departments }, null, 2));

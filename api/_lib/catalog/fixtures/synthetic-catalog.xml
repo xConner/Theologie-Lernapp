@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  SYNTHETISCHE Testdaten im Aufbau der echten UnivIS-Antwort (Abgleich mit
+  univis.uni-kiel.de, 14.10.2026). Alle Namen, Räume, Nummern und Kennungen
+  sind erfunden. Jede Veranstaltung deckt einen Fall der Terminauflösung,
+  Dublettenprüfung oder Fehlerbehandlung ab (siehe catalog.test.mjs).
+-->
+<UnivIS version="1.6">
+  <!-- Wöchentlich montags, über die Zeitumstellung (25.10.) und die
+       Weihnachtspause; ein Ausfall, ein Ausfall ohne passenden Termin. -->
+  <Lecture key="Lecture.test.weekly">
+    <id>90000001</id>
+    <number>090001</number>
+    <name>Testvorlesung Altes Testament (DKA-T1-AT, EvRel-T-AT)</name>
+    <type>V</type>
+    <sws>2</sws>
+    <orgname>Testinstitut A</orgname>
+    <classification><UnivISRef type="Title" key="Title.test.at"/></classification>
+    <dozs><doz><UnivISRef type="Person" key="Person.test.a"/></doz></dozs>
+    <time_description>Anmeldung bei person@example.org</time_description>
+    <terms>
+      <term>
+        <repeat>w1 1</repeat>
+        <starttime>10:15</starttime>
+        <endtime>11:45</endtime>
+        <exclude>2026-11-02</exclude>
+        <exclude>2026-11-04</exclude>
+        <room><UnivISRef type="Room" key="Room.test.hs1"/></room>
+      </term>
+    </terms>
+  </Lecture>
+
+  <!-- Zwei Wochentage in einer Regel. -->
+  <Lecture key="Lecture.test.twodays">
+    <id>90000002</id>
+    <number>090002</number>
+    <name>Testübung Griechisch (Teil 1)</name>
+    <type>UE</type>
+    <dozs><doz><UnivISRef type="Person" key="Person.test.b"/></doz></dozs>
+    <terms>
+      <term>
+        <repeat>w1 1,3</repeat>
+        <starttime>8:00</starttime>
+        <endtime>10:00</endtime>
+        <room><UnivISRef type="Room" key="Room.test.sr2"/></room>
+      </term>
+    </terms>
+  </Lecture>
+
+  <!-- 14-täglich mit und ohne Startdatum. -->
+  <Lecture key="Lecture.test.biweekly">
+    <id>90000003</id>
+    <number>090003</number>
+    <name>Testkolloquium 14-täglich</name>
+    <type>K</type>
+    <terms>
+      <term>
+        <repeat>w2 3</repeat>
+        <starttime>18:00</starttime>
+        <endtime>20:00</endtime>
+        <startdate>2026-10-14</startdate>
+        <enddate>2026-12-09</enddate>
+      </term>
+      <term>
+        <repeat>w2 4</repeat>
+        <starttime>18:00</starttime>
+        <endtime>20:00</endtime>
+      </term>
+    </terms>
+  </Lecture>
+
+  <!-- Einzeltermine: online, außerhalb des Semesters, ohne Datum,
+       mit Zeitraum, in der Weihnachtspause (bleibt: ausdrücklich). -->
+  <Lecture key="Lecture.test.singles">
+    <id>90000004</id>
+    <number>090004</number>
+    <name>Testringvorlesung</name>
+    <type>RV</type>
+    <terms>
+      <term><repeat>s1</repeat><startdate>2026-11-02</startdate><enddate>2026-11-02</enddate><starttime>18:15</starttime><endtime>19:45</endtime><room><UnivISRef type="Room" key="Room.test.online"/></room></term>
+      <term><repeat>s1</repeat><startdate>2026-09-15</startdate><enddate>2026-09-15</enddate><starttime>18:15</starttime><endtime>19:45</endtime></term>
+      <term><repeat>s1</repeat><starttime>18:15</starttime><endtime>19:45</endtime></term>
+      <term><repeat>s1</repeat><startdate>2026-11-09</startdate><enddate>2026-11-10</enddate><starttime>18:15</starttime><endtime>19:45</endtime></term>
+      <term><repeat>s1</repeat><startdate>2026-12-22</startdate><enddate>2026-12-22</enddate><starttime>10:00</starttime><endtime>12:00</endtime></term>
+    </terms>
+  </Lecture>
+
+  <!-- Blöcke: mit Tagen, eintägig ohne Tage, mehrtägig ohne Tage, ohne Zeitraum. -->
+  <Lecture key="Lecture.test.blocks">
+    <id>90000005</id>
+    <number>090005</number>
+    <name>Testblockseminar</name>
+    <type>BS</type>
+    <terms>
+      <term><repeat>bd 4,5</repeat><startdate>2027-02-15</startdate><enddate>2027-02-21</enddate><starttime>09:00</starttime><endtime>17:00</endtime></term>
+      <term><repeat>b1</repeat><startdate>2027-03-01</startdate><enddate>2027-03-01</enddate><starttime>09:00</starttime><endtime>12:00</endtime></term>
+      <term><repeat>b1</repeat><startdate>2027-03-08</startdate><enddate>2027-03-12</enddate><starttime>09:00</starttime><endtime>12:00</endtime></term>
+      <term><repeat>bd 1,2</repeat><starttime>09:00</starttime><endtime>12:00</endtime></term>
+    </terms>
+  </Lecture>
+
+  <!-- Fehlende und unsinnige Angaben. -->
+  <Lecture key="Lecture.test.broken">
+    <id>90000006</id>
+    <number>090006</number>
+    <name>Testseminar mit Lücken</name>
+    <type>S</type>
+    <dozs><doz><UnivISRef type="Person" key="Person.test.unbekannt"/></doz></dozs>
+    <terms>
+      <term><repeat>w1 2</repeat></term>
+      <term><repeat>w1 2</repeat><starttime>12:00</starttime><endtime>11:00</endtime></term>
+      <term><repeat>x9 sonderfall</repeat><starttime>12:00</starttime><endtime>13:00</endtime></term>
+      <term><repeat>w1 9</repeat><starttime>12:00</starttime><endtime>13:00</endtime></term>
+      <term><starttime>12:00</starttime><endtime>13:00</endtime><room><UnivISRef type="Room" key="Room.test.unbekannt"/></room></term>
+    </terms>
+  </Lecture>
+
+  <!-- Ohne Termine (nach Vereinbarung). -->
+  <Lecture key="Lecture.test.noterms">
+    <id>90000007</id>
+    <number>090007</number>
+    <name>Testoberseminar nach Vereinbarung</name>
+    <type>OS</type>
+  </Lecture>
+
+  <!-- Dublette über Import-Verknüpfung (gleiche Termine). -->
+  <Lecture key="Lecture.test.orig">
+    <id>90000010</id>
+    <number>090010</number>
+    <name>Testbibelkunde (DKA-T-Bib)</name>
+    <type>UE</type>
+    <orgname>Testinstitut A</orgname>
+    <classification><UnivISRef type="Title" key="Title.test.at"/></classification>
+    <dozs><doz><UnivISRef type="Person" key="Person.test.a"/></doz></dozs>
+    <terms><term><repeat>w1 4</repeat><starttime>16:15</starttime><endtime>17:45</endtime><room><UnivISRef type="Room" key="Room.test.sr2"/></room></term></terms>
+  </Lecture>
+  <Lecture key="Lecture.test._import">
+    <id>90000011</id>
+    <number>090010</number>
+    <import_parent_id>90000010</import_parent_id>
+    <name>Testbibelkunde (DKA-T-Bib)</name>
+    <type>UE</type>
+    <orgname>Testinstitut B</orgname>
+    <classification><UnivISRef type="Title" key="Title.test.erg"/></classification>
+    <dozs><doz><UnivISRef type="Person" key="Person.test.a"/></doz></dozs>
+    <terms><term><repeat>w1 4</repeat><starttime>16:15</starttime><endtime>17:45</endtime><room><UnivISRef type="Room" key="Room.test.sr2"/></room></term></terms>
+  </Lecture>
+
+  <!-- Dublette ohne Verknüpfung: gleiche Nummer, gleicher Titel (anders
+       geschrieben), gleiche Termine. -->
+  <Lecture key="Lecture.test.copy1">
+    <id>90000020</id>
+    <number>090020</number>
+    <name>Einführung in die Kirchengeschichte</name>
+    <type>V</type>
+    <orgname>Testinstitut C</orgname>
+    <terms><term><repeat>w1 2</repeat><starttime>14:15</starttime><endtime>15:45</endtime><room><UnivISRef type="Room" key="Room.test.hs1"/></room></term></terms>
+  </Lecture>
+  <Lecture key="Lecture.test.copy2">
+    <id>90000021</id>
+    <number>090020</number>
+    <import_parent_id>99999999</import_parent_id>
+    <name>Einführung in die  Kirchengeschichte.</name>
+    <type>V</type>
+    <orgname>Testinstitut D</orgname>
+    <terms><term><repeat>w1 2</repeat><starttime>14:15</starttime><endtime>15:45</endtime><room><UnivISRef type="Room" key="Room.test.hs1"/></room></term></terms>
+  </Lecture>
+
+  <!-- Parallelgruppen: gleiche Nummer und gleicher Titel, andere Zeit. -->
+  <Lecture key="Lecture.test.groupA">
+    <id>90000030</id>
+    <number>090030</number>
+    <name>Tutorium Hebräisch</name>
+    <type>TUT</type>
+    <terms><term><repeat>w1 5</repeat><starttime>10:00</starttime><endtime>12:00</endtime></term></terms>
+  </Lecture>
+  <Lecture key="Lecture.test.groupB">
+    <id>90000031</id>
+    <number>090030</number>
+    <name>Tutorium Hebräisch</name>
+    <type>TUT</type>
+    <terms><term><repeat>w1 5</repeat><starttime>12:00</starttime><endtime>14:00</endtime></term></terms>
+  </Lecture>
+
+  <!-- Ähnlicher Titel, andere Nummer: nie zusammenführen. -->
+  <Lecture key="Lecture.test.similar">
+    <id>90000040</id>
+    <number>090040</number>
+    <name>Einführung in die Kirchengeschichte II</name>
+    <type>V</type>
+    <terms><term><repeat>w1 2</repeat><starttime>14:15</starttime><endtime>15:45</endtime><room><UnivISRef type="Room" key="Room.test.hs1"/></room></term></terms>
+  </Lecture>
+
+  <!-- Unvollständige Datensätze. -->
+  <Lecture><name>Ohne Kennung</name></Lecture>
+  <Lecture key="Lecture.test.notitle"><id>90000050</id></Lecture>
+
+  <Person key="Person.test.a"><title>Prof. Dr.</title><firstname>Erika</firstname><lastname>Musterfrau</lastname></Person>
+  <Person key="Person.test.b"><firstname>Max</firstname><lastname>Mustermann</lastname></Person>
+  <Person key="Person.test.unused"><firstname>Nicht</firstname><lastname>Verwendet</lastname></Person>
+  <Room key="Room.test.hs1"><short>HS 1</short><name>Testhörsaal 1</name></Room>
+  <Room key="Room.test.sr2"><short>SR 2</short></Room>
+  <Room key="Room.test.online"><short>Online-Veranstaltung</short><name>Online-Veranstaltung</name></Room>
+  <Title key="Title.test.at"><title>4. Altes Testament</title></Title>
+  <Title key="Title.test.erg"><title>3. Fachergänzung</title></Title>
+</UnivIS>

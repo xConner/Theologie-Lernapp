@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Auszug aus der echten Antwort von
+  https://univis.uni-kiel.de/prg?search=lectures&show=xml&sem=2026w&department=010000000
+  (14.10.2026), REKONSTRUIERT aus der bereits öffentlichen, geschwärzten
+  Ausgabe des GitHub-Actions-Laufs 38571688314/38572194090:
+  Kennungen, Nummern, Titel, Typen, Einrichtungen, Gliederung, Termine und
+  Räume wie dort; Lehrpersonen durch synthetische Platzhalter ersetzt,
+  Freitexte weggelassen. Die Ringvorlesung ist auf vier ihrer zehn
+  Einzeltermine gekürzt; ihre Nummer (010999) ist synthetisch, weil sie im
+  Protokoll nicht stand.
+  ANNAHME (nicht live belegt): import_parent_id der importierten Bibelkunde
+  zeigt auf die id der Ursprungsveranstaltung; der echte Wert wurde nicht
+  protokolliert.
+-->
+<UnivIS version="1.6">
+  <Lecture key="Lecture.theol.altte.relig._bibel">
+    <id>42685235</id>
+    <number>010076</number>
+    <import_parent_id>42619541</import_parent_id>
+    <name>Bibelkunde Altes Testament (DKA-Ein-ÜAT, DKA-AT1-Bib, EvRel-BA-Ein-ÜAT, erbATmH-01a-Ü, erbATmL-01a-Ü, EvRel-TH-BI)</name>
+    <type>UE</type>
+    <sws>2</sws>
+    <orgname>Religionsgeschichte des Alten Testaments und Archäologie Syrien-Palästina</orgname>
+    <startdate>2026-10-18</startdate>
+    <enddate>2027-02-07</enddate>
+    <classification><UnivISRef type="Title" key="Title.theol.facher"/></classification>
+    <dozs><doz><UnivISRef type="Person" key="Person.synthetisch.1"/></doz></dozs>
+    <terms>
+      <term>
+        <repeat>w1 4</repeat>
+        <starttime>16:15</starttime>
+        <endtime>17:45</endtime>
+        <room><UnivISRef type="Room" key="Room.zentra_1.servic.ressou.gebude.dezern_1.refera.ii26"/></room>
+      </term>
+    </terms>
+  </Lecture>
+  <Lecture key="Lecture.theol.altte.relig.bibelk">
+    <id>42619541</id>
+    <number>010076</number>
+    <name>Bibelkunde Altes Testament (DKA-Ein-ÜAT, DKA-AT1-Bib, EvRel-BA-Ein-ÜAT, erbATmH-01a-Ü, erbATmL-01a-Ü, EvRel-TH-BI)</name>
+    <type>UE</type>
+    <sws>2</sws>
+    <orgname>Religionsgeschichte des Alten Testaments und Archäologie Syrien-Palästina</orgname>
+    <startdate>2026-10-18</startdate>
+    <enddate>2027-02-07</enddate>
+    <classification><UnivISRef type="Title" key="Title.theol._3alte"/></classification>
+    <dozs><doz><UnivISRef type="Person" key="Person.synthetisch.1"/></doz></dozs>
+    <terms>
+      <term>
+        <repeat>w1 4</repeat>
+        <starttime>16:15</starttime>
+        <endtime>17:45</endtime>
+        <room><UnivISRef type="Room" key="Room.zentra_1.servic.ressou.gebude.dezern_1.refera.ii26"/></room>
+      </term>
+    </terms>
+  </Lecture>
+  <Lecture key="Lecture.theol.altte.theol._human">
+    <id>42665142</id>
+    <number>010999</number>
+    <name>Humanities in der Krise? Geistes- und Kulturwissenschaften im Wandel (DKA-IDZ1-RV, DKA-IDZ2-RV, remREG-01a-V)</name>
+    <type>RV</type>
+    <orgname>Theologie- und Literaturgeschichte des Alten Testaments und Biblisch-Orientalische Sprachen</orgname>
+    <dozs><doz><UnivISRef type="Person" key="Person.synthetisch.2"/></doz></dozs>
+    <terms>
+      <term><repeat>s1</repeat><startdate>2026-11-02</startdate><enddate>2026-11-02</enddate><starttime>18:15</starttime><endtime>19:45</endtime><room><UnivISRef type="Room" key="Room.zentr.zentr.zentr.online"/></room></term>
+      <term><repeat>s1</repeat><startdate>2026-11-09</startdate><enddate>2026-11-09</enddate><starttime>18:15</starttime><endtime>19:45</endtime><room><UnivISRef type="Room" key="Room.zentr.zentr.zentr.online"/></room></term>
+      <term><repeat>s1</repeat><startdate>2027-01-11</startdate><enddate>2027-01-11</enddate><starttime>18:15</starttime><endtime>19:45</endtime><room><UnivISRef type="Room" key="Room.zentr.zentr.zentr.online"/></room></term>
+      <term><repeat>s1</repeat><startdate>2027-02-01</startdate><enddate>2027-02-01</enddate><starttime>18:15</starttime><endtime>19:45</endtime><room><UnivISRef type="Room" key="Room.zentr.zentr.zentr.online"/></room></term>
+    </terms>
+  </Lecture>
+  <Person key="Person.synthetisch.1"><firstname>Lehrperson</firstname><lastname>Eins</lastname></Person>
+  <Person key="Person.synthetisch.2"><firstname>Lehrperson</firstname><lastname>Zwei</lastname></Person>
+  <Room key="Room.zentra_1.servic.ressou.gebude.dezern_1.refera.ii26"><short>OS75/S2 - R.26</short><name>Seminarraum R.26</name></Room>
+  <Room key="Room.zentr.zentr.zentr.online"><short>Online-Veranstaltung</short><name>Online-Veranstaltung</name></Room>
+  <Title key="Title.theol.facher"><title>3. Fachergänzung</title></Title>
+  <Title key="Title.theol._3alte"><title>4. Altes Testament</title></Title>
+</UnivIS>
