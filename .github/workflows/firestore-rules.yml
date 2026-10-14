@@ -22,7 +22,7 @@ permissions:
 jobs:
   emulator:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     defaults:
       run:
         working-directory: test/firestore_rules
@@ -35,5 +35,17 @@ jobs:
         with:
           distribution: temurin
           java-version: 21
+      # Emulator-JAR zwischenspeichern: Der Download ist der langsamste und
+      # störanfälligste Schritt.
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/firebase/emulators
+          key: firebase-emulators-${{ hashFiles('test/firestore_rules/package-lock.json') }}
       - run: npm ci --no-audit --no-fund
+      - name: Firestore-Emulator vorab laden
+        run: |
+          for i in 1 2 3; do
+            timeout 180 npx firebase setup:emulators:firestore && break
+            echo "Download fehlgeschlagen, neuer Versuch ($i) …"
+          done
       - run: npm test
