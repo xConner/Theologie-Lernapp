@@ -124,6 +124,25 @@ describe('users/{uid}/timetable', () => {
         }
     });
 
+    // put() ersetzt das Dokument immer vollständig mit addedAt =
+    // serverTimestamp(); erneutes Hinzufügen setzt den Zeitpunkt neu.
+    test('addedAt bei Aktualisierung: nur Serverzeit, kein Teil-Update', async () => {
+        const db = alice();
+        await seed(['users', 'alice', 'timetable', 'e1'], { ...entry(), addedAt: Timestamp.fromMillis(1000) });
+        await assertFails(setDoc(entryRef(db), entry({ addedAt: Timestamp.fromMillis(0) })), 'gefälschter Zeitpunkt');
+        await assertFails(setDoc(entryRef(db), entry({ addedAt: Timestamp.fromMillis(1000) })), 'alter Zeitpunkt vom Client');
+        await assertFails(updateDoc(entryRef(db), { title: 'Neu' }), 'Teil-Update ohne addedAt');
+        await assertSucceeds(setDoc(entryRef(db), entry({ title: 'Neu' })), 'wie put()');
+        const saved = (await getDoc(entryRef(db))).data();
+        if (!(saved.addedAt instanceof Timestamp) || saved.addedAt.toMillis() <= 1000) {
+            throw new Error('addedAt wurde nicht auf die Serverzeit gesetzt');
+        }
+    });
+
+    test('Gast-Übernahme: lokaler Zeitstempel (Zahl) wird abgelehnt', async () => {
+        await assertFails(setDoc(entryRef(alice()), entry({ addedAt: Date.now() })));
+    });
+
     test('keine Unterdokumente unterhalb eines Eintrags', async () => {
         const db = alice();
         await assertFails(setDoc(doc(db, 'users', 'alice', 'timetable', 'e1', 'extra', 'x'), { a: 1 }));
