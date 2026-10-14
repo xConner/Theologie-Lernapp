@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 
+import '../../info/app_info.dart';
 import '../../services/timetable/course_catalog_source.dart';
 import '../../services/timetable/timetable_controller.dart';
+import '../../services/timetable/timetable_feature.dart';
 import '../../services/timetable/timetable_store.dart';
 import '../../theme/app_theme.dart';
+import '../../widgets/info_report.dart';
 import 'course_search_view.dart';
 import 'timetable_week_view.dart';
 
 /// Stundenplan: eigener Wochenplan und Veranstaltungssuche.
 ///
 /// [uid] == null → Gastmodus (lokal gespeichert). [source] und [store] sind
-/// für Tests austauschbar; Standard sind die synthetischen Testdaten und der
-/// Speicher des Nutzers.
+/// für Tests austauschbar; Standard sind der Katalog der CAU über
+/// `/api/catalog` (siehe timetable_feature.dart) und der Speicher des
+/// Nutzers.
 class TimetableHomeScreen extends StatefulWidget {
   final String? uid;
   final CourseCatalogSource? source;
@@ -32,7 +36,7 @@ class TimetableHomeScreen extends StatefulWidget {
 
 class _TimetableHomeScreenState extends State<TimetableHomeScreen> {
   late final TimetableController controller = TimetableController(
-    source: widget.source ?? SyntheticCourseCatalogSource(),
+    source: widget.source ?? defaultCourseCatalogSource(),
     store: widget.store ?? TimetableStore.forUser(widget.uid),
     now: widget.today == null ? null : () => widget.today!,
   );
@@ -56,6 +60,7 @@ class _TimetableHomeScreenState extends State<TimetableHomeScreen> {
       child: Scaffold(
         appBar: AppBar(
           title: const Text("Stundenplan"),
+          actions: const [InfoButton(module: AppModules.timetable)],
           bottom: const TabBar(
             tabs: [
               Tab(
@@ -70,32 +75,159 @@ class _TimetableHomeScreenState extends State<TimetableHomeScreen> {
           listenable: controller,
           builder: (context, _) {
             final catalog = controller.catalog;
+            final Widget body;
             if (catalog == null) {
-              return controller.catalogError != null
-                  ? _CatalogError(onRetry: controller.loadCatalog)
+              body =
+                  controller.catalogError != null && !controller.catalogLoading
+                  ? _CatalogError(
+                      error: controller.catalogError!,
+                      onRetry: controller.loadCatalog,
+                    )
                   : const Center(
                       child: CircularProgressIndicator(
                         semanticsLabel: "Veranstaltungen werden geladen",
                       ),
                     );
+            } else {
+              body = TabBarView(
+                children: [
+                  TimetableWeekView(controller: controller),
+                  CourseSearchView(controller: controller),
+                ],
+              );
             }
             return Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                if (catalog.synthetic) const SyntheticDataBanner(),
+                if (catalog?.synthetic ?? false) const SyntheticDataBanner(),
+                if (controller.semesters.isNotEmpty)
+                  CatalogStatusBar(controller: controller),
                 if (widget.uid == null) const _GuestHint(),
-                Expanded(
-                  child: TabBarView(
-                    children: [
-                      TimetableWeekView(controller: controller),
-                      CourseSearchView(controller: controller),
-                    ],
-                  ),
-                ),
+                Expanded(child: body),
               ],
             );
           },
         ),
+      ),
+    );
+  }
+}
+
+String _dateTime(DateTime t) {
+  final l = t.toLocal();
+  String two(int n) => n.toString().padLeft(2, "0");
+  return "${l.day}.${l.month}.${l.year}, ${two(l.hour)}:${two(l.minute)} Uhr";
+}
+
+/// Semesterwahl, Stand und Herkunft des Katalogs, Aktualisieren.
+class CatalogStatusBar extends StatelessWidget {
+  final TimetableController controller;
+
+  const CatalogStatusBar({super.key, required this.controller});
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = context.colors;
+    final load = controller.catalogLoad;
+    final small = Theme.of(
+      context,
+    ).textTheme.bodySmall?.copyWith(color: colors.textSecondary);
+    final updated = load?.updatedAt;
+    final String? status;
+    var warning = false;
+    if (load == null) {
+      status = controller.catalogLoading ? "Wird geladen …" : null;
+    } else if (load.origin == CatalogOrigin.offlineCache) {
+      warning = true;
+      status =
+          "Offline – gespeicherter Stand"
+          "${updated == null ? "" : " vom ${_dateTime(updated)}"}. "
+          "Aktuelle Änderungen fehlen möglicherweise.";
+    } else if (load.sourceStale) {
+      warning = true;
+      status =
+          "UnivIS ist derzeit nicht erreichbar – Stand"
+          "${updated == null ? "" : " vom ${_dateTime(updated)}"}.";
+    } else if (load.origin == CatalogOrigin.synthetic) {
+      status = "Synthetische Testdaten";
+    } else {
+      status =
+          "Stand: ${updated == null ? "unbekannt" : _dateTime(updated)} · "
+          "Quelle: UnivIS der CAU Kiel";
+    }
+
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 8, 8, 0),
+      child: Row(
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                DropdownButton<String>(
+                  key: const ValueKey("semester-select"),
+                  value: controller.semesterId,
+                  isExpanded: true,
+                  underline: const SizedBox.shrink(),
+                  hint: const Text("Semester"),
+                  items: [
+                    for (final s in controller.semesters)
+                      DropdownMenuItem(value: s.id, child: Text(s.label)),
+                  ],
+                  onChanged: controller.catalogLoading
+                      ? null
+                      : (id) {
+                          if (id != null) controller.selectSemester(id);
+                        },
+                ),
+                if (status != null)
+                  Semantics(
+                    liveRegion: true,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        if (warning) ...[
+                          Icon(
+                            Icons.cloud_off_rounded,
+                            size: 16,
+                            color: colors.error,
+                          ),
+                          const SizedBox(width: 4),
+                        ],
+                        Expanded(
+                          child: Text(
+                            status,
+                            key: const ValueKey("catalog-status"),
+                            style: warning
+                                ? small?.copyWith(color: colors.error)
+                                : small,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+              ],
+            ),
+          ),
+          controller.catalogLoading
+              ? const Padding(
+                  padding: EdgeInsets.all(12),
+                  child: SizedBox(
+                    width: 24,
+                    height: 24,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 2.5,
+                      semanticsLabel: "Katalog wird aktualisiert",
+                    ),
+                  ),
+                )
+              : IconButton(
+                  tooltip: "Katalog aktualisieren",
+                  icon: const Icon(Icons.refresh_rounded),
+                  onPressed: controller.loadCatalog,
+                ),
+        ],
       ),
     );
   }
@@ -157,9 +289,10 @@ class _GuestHint extends StatelessWidget {
 }
 
 class _CatalogError extends StatelessWidget {
+  final Object error;
   final Future<void> Function() onRetry;
 
-  const _CatalogError({required this.onRetry});
+  const _CatalogError({required this.error, required this.onRetry});
 
   @override
   Widget build(BuildContext context) {
@@ -179,6 +312,14 @@ class _CatalogError extends StatelessWidget {
               "Die Veranstaltungen konnten nicht geladen werden.",
               textAlign: TextAlign.center,
             ),
+            if (error is CatalogUnavailableException) ...[
+              const SizedBox(height: 4),
+              Text(
+                error.toString(),
+                textAlign: TextAlign.center,
+                style: TextStyle(color: context.colors.textSecondary),
+              ),
+            ],
             const SizedBox(height: 16),
             FilledButton.icon(
               onPressed: onRetry,

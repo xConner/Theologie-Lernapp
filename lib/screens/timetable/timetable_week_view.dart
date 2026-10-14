@@ -56,12 +56,30 @@ class _TimetableWeekViewState extends State<TimetableWeekView>
         ),
       );
     }
-    if (controller.entries.isEmpty) {
+    final others = controller.entriesOfOtherSemesters;
+    final otherSemesterNotes = [
+      for (final e in others.entries)
+        _Banner(
+          icon: Icons.swap_horiz_rounded,
+          text: e.value.length == 1
+              ? "1 Veranstaltung im ${controller.semesterLabel(e.key)}"
+              : "${e.value.length} Veranstaltungen im ${controller.semesterLabel(e.key)}",
+          action: controller.semesters.any((s) => s.id == e.key)
+              ? TextButton(
+                  onPressed: () => controller.selectSemester(e.key),
+                  child: const Text("Anzeigen"),
+                )
+              : null,
+        ),
+    ];
+
+    if (controller.entriesOfSemester.isEmpty) {
       return _Message(
         icon: Icons.event_note_rounded,
         text:
-            "Dein Stundenplan ist noch leer. Füge Veranstaltungen über "
-            "die Suche hinzu.",
+            "Dein Stundenplan für das ${catalog.semester.label} ist noch leer. "
+            "Füge Veranstaltungen über die Suche hinzu.",
+        notes: otherSemesterNotes,
         action: FilledButton.icon(
           onPressed: () => DefaultTabController.of(context).animateTo(1),
           icon: const Icon(Icons.search_rounded),
@@ -83,7 +101,7 @@ class _TimetableWeekViewState extends State<TimetableWeekView>
         if (d <= 5 || days[d]!.isNotEmpty) d,
     ];
     final problems = [
-      for (final e in controller.entries)
+      for (final e in controller.entriesOfSemester)
         if (controller.stateFor(e) case final state?
             when state != TimetableEntryState.current)
           (e, state),
@@ -99,13 +117,18 @@ class _TimetableWeekViewState extends State<TimetableWeekView>
           onChange: (delta) =>
               setState(() => _monday = addDays(_monday, 7 * delta)),
           onToday: () => setState(
-            () => _monday = initialWeek(catalog.semester, widget.controller.now()),
+            () => _monday = initialWeek(
+              catalog.semester,
+              widget.controller.now(),
+            ),
           ),
         ),
-        if (breakOn(catalog.semester, addDays(_monday, 2)) case final b?)
+        for (final b in breaksInWeek(catalog.semester, _monday))
           _Banner(
             icon: Icons.beach_access_rounded,
-            text: "Diese Woche: ${b.label}.",
+            text: b.start == b.end
+                ? "${b.label} am ${formatDate(b.start, withYear: false)}"
+                : "${b.label}: ${formatDate(b.start, withYear: false)}–${formatDate(b.end)}",
           ),
         if (weekConflicts > 0)
           _Banner(
@@ -117,6 +140,7 @@ class _TimetableWeekViewState extends State<TimetableWeekView>
           ),
         for (final (entry, state) in problems)
           _EntryProblem(controller: controller, entry: entry, state: state),
+        ...otherSemesterNotes,
         const SizedBox(height: 8),
         LayoutBuilder(
           builder: (context, constraints) {
@@ -451,11 +475,13 @@ class _Message extends StatelessWidget {
   final IconData icon;
   final String text;
   final Widget action;
+  final List<Widget> notes;
 
   const _Message({
     required this.icon,
     required this.text,
     required this.action,
+    this.notes = const [],
   });
 
   @override
@@ -471,6 +497,7 @@ class _Message extends StatelessWidget {
             Text(text, textAlign: TextAlign.center),
             const SizedBox(height: 16),
             action,
+            ...notes,
           ],
         ),
       ),

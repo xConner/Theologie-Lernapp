@@ -21,7 +21,8 @@ rules_version = '2';
 //   users/{uid}/greek_exam/{settings|progress} (Klausurersteller: Konfiguration,
 //                                               als bearbeitet markierte Texte)
 //   users/{uid}/timetable/{entryId}            (persönlicher Stundenplan: Verweis
-//                                               auf eine Katalog-Veranstaltung)
+//                                               auf eine Katalog-Veranstaltung;
+//                                               eigene Regel mit Feldprüfung)
 //   users/{uid}/notification_state/inbox       (Lesestatus der Glocke)
 //   users/{uid}/push_tokens/{id}               (Push-Abonnements je Gerät)
 //
@@ -41,6 +42,15 @@ rules_version = '2';
 //   reports/{id}               von jedem anlegbar (nur gültige Felder,
 //                              begrenzte Längen, ohne Nutzerbezug), vom
 //                              Client weder lesbar noch änderbar.
+//
+// Veranstaltungskatalog (siehe docs/univis-integration-feasibility.md):
+//   catalog_cache/{key}        Zwischenspeicher des Servers (Admin SDK);
+//                              bewusst ohne match → für Clients verboten.
+//
+// Firestore-Regeln gelten nicht „nach unten“: Eine Regel für ein Dokument
+// erlaubt nichts in seinen Subcollections. Treffen mehrere Regeln auf einen
+// Pfad zu, genügt EINE erlaubende – deshalb steht `timetable` NICHT in
+// isUserCollection, sonst wäre seine Feldprüfung wirkungslos.
 //
 // Diese Datei ist die Referenz für die Regeln, die manuell in der Firebase
 // Console unter Firestore Database -> Regeln eingetragen werden müssen
@@ -85,6 +95,23 @@ service cloud.firestore {
       allow read, update, delete: if false;
     }
 
+    // Muss zu TimetableEntry.toMap() und FirestoreTimetableBackend.put()
+    // (lib/services/timetable/) passen.
+    function isValidTimetableEntry(d) {
+      return d.keys().hasOnly(['courseId', 'semesterId', 'sources', 'title',
+                               'number', 'scheduleSignature', 'addedAt'])
+        && d.keys().hasAll(['courseId', 'semesterId', 'sources', 'title',
+                            'scheduleSignature', 'addedAt'])
+        && d.courseId is string
+        && d.courseId.size() > 0 && d.courseId.size() <= 300
+        && d.semesterId is string && d.semesterId.size() <= 20
+        && d.sources is list && d.sources.size() <= 20
+        && d.title is string && d.title.size() <= 500
+        && (!('number' in d) || (d.number is string && d.number.size() <= 20))
+        && d.scheduleSignature is string && d.scheduleSignature.size() <= 4000
+        && d.addedAt == request.time;
+    }
+
     // Felder, die der Client im users/{uid}-Dokument setzen darf (alle
     // Schreibzugriffe im Code verwenden set(..., merge: true) mit genau
     // einem dieser Felder). Geprüft werden nur die GEÄNDERTEN Felder, damit
@@ -108,7 +135,7 @@ service cloud.firestore {
                             'latin_vocabulary', 'grammar', 'memorization',
                             'pericope_overrides', 'streaks', 'statistics',
                             'bible_reading', 'notification_state',
-                            'push_tokens', 'greek_exam', 'timetable'];
+                            'push_tokens', 'greek_exam'];
     }
 
     match /users/{uid} {
@@ -126,6 +153,16 @@ service cloud.firestore {
       // Nur die bekannten Subcollections, je eine Dokumentebene tief.
       match /{collection}/{documentId} {
         allow read, write: if isOwner(uid) && isUserCollection(collection);
+      }
+
+      // Persönlicher Stundenplan (lib/services/timetable/timetable_store.dart,
+      // Format: TimetableEntry.toMap()). Nur der Nutzer selbst; Gäste
+      // (request.auth == null) speichern nur lokal. Unterdokumente gibt es
+      // nicht – ohne eigene Regel sind sie verboten.
+      match /timetable/{entryId} {
+        allow read, delete: if isOwner(uid);
+        allow create, update: if isOwner(uid)
+          && isValidTimetableEntry(request.resource.data);
       }
     }
   }

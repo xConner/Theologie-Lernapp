@@ -114,7 +114,7 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
                 Text(
                   catalog.synthetic
                       ? "Quelle: synthetische Testdaten"
-                      : "Quelle: ${catalog.provenance.institution}",
+                      : "Quelle: UnivIS – ${catalog.provenance.institution}",
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
                     color: context.colors.textSecondary,
                   ),

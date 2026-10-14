@@ -176,3 +176,12 @@ SemesterBreak? breakOn(CatalogSemester semester, String date) {
   }
   return null;
 }
+
+/// Unterrichtsfreie Zeiträume, die die Woche ab [monday] berühren.
+List<SemesterBreak> breaksInWeek(CatalogSemester semester, String monday) {
+  final sunday = addDays(monday, 6);
+  return [
+    for (final b in semester.breaks)
+      if (b.start.compareTo(sunday) <= 0 && b.end.compareTo(monday) >= 0) b,
+  ];
+}

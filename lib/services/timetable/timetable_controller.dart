@@ -8,9 +8,11 @@ import 'course_catalog_source.dart';
 import 'timetable_schedule.dart';
 import 'timetable_store.dart';
 
-/// Zustand der Stundenplan-Funktion: Katalog (zentral, nur lesend) und
-/// persönliche Einträge (je Nutzer). Beide bleiben getrennt; der Controller
-/// verbindet sie nur für die Anzeige.
+/// Zustand der Stundenplan-Funktion: Katalog des gewählten Semesters
+/// (zentral, nur lesend) und persönliche Einträge (je Nutzer, alle Semester).
+/// Beide bleiben getrennt; der Controller verbindet sie nur für die Anzeige.
+/// Ein Semesterwechsel lädt nur einen anderen Katalog – Einträge werden dabei
+/// nie verändert.
 class TimetableController extends ChangeNotifier {
   final CourseCatalogSource source;
   final TimetableStore store;
@@ -24,9 +26,12 @@ class TimetableController extends ChangeNotifier {
     DateTime Function()? now,
   }) : now = now ?? DateTime.now;
 
-  CourseCatalog? _catalog;
+  List<SemesterOption> _semesters = const [];
+  String? _semesterId;
+  CatalogLoad? _load;
   Object? _catalogError;
   bool _catalogLoading = false;
+  int _loadToken = 0;
 
   List<TimetableEntry> _entries = const [];
   bool _entriesLoaded = false;
@@ -36,7 +41,10 @@ class TimetableController extends ChangeNotifier {
   /// Kennungen mit laufendem Speichervorgang (für Ladeanzeigen an Buttons).
   final Set<String> _pending = {};
 
-  CourseCatalog? get catalog => _catalog;
+  List<SemesterOption> get semesters => _semesters;
+  String? get semesterId => _semesterId;
+  CatalogLoad? get catalogLoad => _load;
+  CourseCatalog? get catalog => _load?.catalog;
   Object? get catalogError => _catalogError;
   bool get catalogLoading => _catalogLoading;
 
@@ -52,24 +60,52 @@ class TimetableController extends ChangeNotifier {
     if (!_disposed) notifyListeners();
   }
 
-  /// Lädt den Katalog und beobachtet den persönlichen Stundenplan.
+  /// Semester und Katalog laden, persönlichen Stundenplan beobachten.
   Future<void> start() async {
     _watchEntries();
     await loadCatalog();
   }
 
+  /// Lädt (bzw. aktualisiert) Semesterliste und Katalog des gewählten
+  /// Semesters. Ohne Wahl: das erste angebotene (laufende) Semester.
   Future<void> loadCatalog() async {
+    final token = ++_loadToken;
     _catalogLoading = true;
     _catalogError = null;
     _notify();
     try {
-      _catalog = await source.load();
+      final semesters = await source.semesters();
+      if (token != _loadToken) return;
+      _semesters = semesters;
+      if (semesters.isEmpty) {
+        throw const CatalogUnavailableException(
+          "Derzeit wird kein Semester angeboten.",
+        );
+      }
+      final ids = {for (final s in semesters) s.id};
+      if (_semesterId == null || !ids.contains(_semesterId)) {
+        _semesterId = semesters.first.id;
+      }
+      final load = await source.load(_semesterId!);
+      if (token != _loadToken) return;
+      _load = load;
     } catch (e) {
+      if (token != _loadToken) return;
       _catalogError = e;
     } finally {
-      _catalogLoading = false;
-      _notify();
+      if (token == _loadToken) {
+        _catalogLoading = false;
+        _notify();
+      }
     }
+  }
+
+  /// Wechselt das Semester. Einträge anderer Semester bleiben erhalten.
+  Future<void> selectSemester(String semesterId) async {
+    if (semesterId == _semesterId && _load != null) return;
+    _semesterId = semesterId;
+    _load = null;
+    await loadCatalog();
   }
 
   void _watchEntries() {
@@ -97,29 +133,46 @@ class TimetableController extends ChangeNotifier {
 
   bool isPlanned(String courseId) => plannedIds.contains(courseId);
 
-  /// Gewählte Veranstaltungen, die im aktuellen Katalog vorhanden sind.
-  List<CatalogCourse> get plannedCourses {
-    final catalog = _catalog;
-    if (catalog == null) return const [];
-    return [for (final e in _entries) ?catalog.courseById(e.courseId)];
+  /// Einträge des angezeigten Semesters.
+  List<TimetableEntry> get entriesOfSemester {
+    final id = catalog?.semester.id;
+    return [
+      for (final e in _entries)
+        if (e.semesterId.isEmpty || e.semesterId == id) e,
+    ];
   }
 
+  /// Einträge anderer Semester, nach Semester gruppiert.
+  Map<String, List<TimetableEntry>> get entriesOfOtherSemesters {
+    final id = catalog?.semester.id;
+    final result = <String, List<TimetableEntry>>{};
+    for (final e in _entries) {
+      if (e.semesterId.isNotEmpty && e.semesterId != id) {
+        (result[e.semesterId] ??= []).add(e);
+      }
+    }
+    return result;
+  }
+
+  String semesterLabel(String id) =>
+      _semesters.where((s) => s.id == id).firstOrNull?.label ?? id;
+
   TimetableEntryState? stateFor(TimetableEntry entry) {
-    final catalog = _catalog;
+    final catalog = this.catalog;
     return catalog == null ? null : stateOf(entry, catalog);
   }
 
   /// Überschneidungen innerhalb des Stundenplans: Veranstaltung →
   /// (andere Veranstaltung → Anzahl Termine).
   Map<String, Map<String, int>> get planConflicts {
-    final catalog = _catalog;
+    final catalog = this.catalog;
     if (catalog == null) return const {};
     return conflictsByCourse(catalog, plannedIds);
   }
 
   /// Überschneidungen von [courseId] mit dem bestehenden Stundenplan.
   Map<String, int> conflictsFor(String courseId) {
-    final catalog = _catalog;
+    final catalog = this.catalog;
     if (catalog == null) return const {};
     return conflictsWithPlan(
       catalog,

@@ -30,6 +30,10 @@ abstract class TimetableStore {
 abstract class TimetableBackend {
   Stream<Map<String, Map<String, dynamic>>> watch();
 
+  /// Einmal lesen. [confirmed]: nur vom Server bestätigte Daten (Firestore:
+  /// nicht aus dem lokalen Cache) – für die Prüfung nach einer Übernahme.
+  Future<Map<String, Map<String, dynamic>>> read({bool confirmed = false});
+
   Future<void> put(String id, Map<String, dynamic> data);
 
   Future<void> delete(String id);
@@ -90,6 +94,16 @@ class FirestoreTimetableBackend implements TimetableBackend {
       .map((s) => {for (final doc in s.docs) doc.id: doc.data()});
 
   @override
+  Future<Map<String, Map<String, dynamic>>> read({
+    bool confirmed = false,
+  }) async {
+    final snapshot = await _collection.get(
+      confirmed ? const GetOptions(source: Source.server) : null,
+    );
+    return {for (final doc in snapshot.docs) doc.id: doc.data()};
+  }
+
+  @override
   Future<void> put(String id, Map<String, dynamic> data) => _collection
       .doc(id)
       .set({...data, "addedAt": FieldValue.serverTimestamp()});
@@ -109,6 +123,10 @@ class LocalTimetableBackend implements TimetableBackend {
   // Schreibvorgänge nacheinander, damit sich zwei (Lesen → Ändern →
   // Schreiben) nicht überholen.
   static Future<void> _pending = Future.value();
+
+  @override
+  Future<Map<String, Map<String, dynamic>>> read({bool confirmed = false}) =>
+      _read();
 
   Future<Map<String, Map<String, dynamic>>> _read() async {
     final prefs = await SharedPreferences.getInstance();

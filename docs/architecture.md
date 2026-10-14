@@ -286,27 +286,44 @@ Ein weiteres Theme (z. B. Sepia oder hoher Kontrast) braucht eine weitere
 `ThemeData` und einen gespeicherten Wert in `ThemeSettings`, nach dem `MyApp`
 das Theme auswählt. `test/theme_test.dart` prüft die Kontraste jeder Palette.
 
-## Stundenplan (Vorschau mit synthetischen Testdaten)
+## Stundenplan
 
-Veranstaltungen suchen und filtern, Detailansicht, persönlicher
-Stundenplan mit Wochenansicht und Überschneidungen. Bis zur Klärung der
-Nutzungsrechte an UnivIS-Daten arbeitet die Funktion ausschließlich mit
-**synthetischen** Daten; der Menüpunkt erscheint nur in Entwicklungs-Builds
-oder mit `--dart-define=TIMETABLE_PREVIEW=true`
-(`services/timetable/timetable_feature.dart`).
+Veranstaltungen der Theologischen Fakultät der CAU suchen und filtern,
+Detailansicht, persönlicher Stundenplan mit Wochenansicht,
+Überschneidungen und Semesterwahl. Datenquelle ist UnivIS der CAU über den
+Katalog-Endpunkt `/api/catalog` (Freigabe und Betrieb:
+`docs/univis-integration-feasibility.md`, Abschnitt 13). Für alle Nutzer
+sichtbar.
+
+```
+UnivIS (univis.uni-kiel.de/prg, show=xml)
+   │ 1 Abruf je Semester und Tag (Cache)
+api/catalog.ts → api/_lib/catalog-endpoint.ts
+   │ parse → Dubletten → Termine (api/_lib/catalog/) → öffentliche Form (publish.ts)
+   │ Cache: Arbeitsspeicher, Firestore catalog_cache (Server), CDN (s-maxage)
+App: ApiCourseCatalogSource (+ Offline-Kopie je Semester)
+   │
+TimetableController ── TimetableStore (users/{uid}/timetable bzw. lokal)
+```
 
 | Aufgabe | Ort |
 | --- | --- |
-| Katalog-Datenmodell (quellneutral, Format von `api/_lib/catalog`) | `models/timetable/course_catalog.dart` |
-| Katalogquelle (Schnittstelle; synthetisches Asset) | `services/timetable/course_catalog_source.dart`, `assets/timetable/synthetic_catalog.json` |
-| Erzeugung des synthetischen Katalogs (nicht Teil der App) | `tool/timetable/` |
+| Katalog-Endpunkt (Eingaben, Cache, Fehler, Kopfzeilen) | `api/catalog.ts`, `api/_lib/catalog-endpoint.ts` |
+| Zwischenspeicher (frisch/stale, parallele Abrufe, Plausibilität) | `api/_lib/catalog/cache.ts`, `api/_lib/catalog/firestore-store.ts` |
+| Öffentliche Form (nur App-Felder, gehashte Personenkennungen) | `api/_lib/catalog/publish.ts` |
+| UnivIS-Adapter, Terminauflösung, Dubletten, Semester | `api/_lib/catalog/` (siehe Bericht, Abschnitt 11) |
+| Katalog-Datenmodell (quellneutral) | `models/timetable/course_catalog.dart` |
+| Katalogquellen: API mit Offline-Kopie; synthetisch nur für Tests/Entwicklung | `services/timetable/course_catalog_source.dart`, `services/timetable/timetable_feature.dart` |
+| Synthetische Testdaten (nicht im regulären Betrieb) | `assets/timetable/synthetic_catalog.json`, `tool/timetable/` |
 | Suche, Filter, Filterwerte | `services/timetable/course_search.dart` |
-| Überschneidungen, Wochen, Wochenplan | `services/timetable/timetable_schedule.dart` |
+| Überschneidungen, Wochen, Wochenplan, Feiertage der Woche | `services/timetable/timetable_schedule.dart` |
 | Beschriftungen (Typen, Wochentage, Terminregeln, Hinweise) | `services/timetable/course_labels.dart` |
 | Eintrag im Stundenplan, Abgleich mit dem Katalog | `models/timetable/timetable_entry.dart` |
 | Speicher (Konto: `users/{uid}/timetable`, live; Gast: lokal) | `services/timetable/timetable_store.dart` |
-| Zustand für die Oberfläche | `services/timetable/timetable_controller.dart` |
+| Übernahme des Gast-Stundenplans nach Anmeldung | `services/timetable/timetable_migration.dart`, aufgerufen in `HomeScreen` |
+| Zustand für die Oberfläche (Semester, Laden, Fehler) | `services/timetable/timetable_controller.dart` |
 | Screens | `screens/timetable/` |
+| Firestore-Regeln und Emulator-Tests | `firestore.rules`, `test/firestore_rules/`, `.github/workflows/firestore-rules.yml` |
 
 Grundsätze:
 
@@ -314,19 +331,26 @@ Grundsätze:
   nur lesbar; der Stundenplan enthält je Veranstaltung nur Kennung,
   Quellkennungen, Semester, Titel und eine Terminsignatur. Ändert sich der
   Katalog, bleibt der Eintrag unverändert; die Wochenansicht meldet
-  „geändert“, „nicht mehr vorhanden“ oder „anderes Semester“.
+  „geändert“ bzw. „nicht mehr vorhanden“. Einträge anderer Semester bleiben
+  erhalten und werden als Hinweis mit Umschaltknopf gezeigt.
+* **Nie erfundene Daten.** Synthetische Daten nur mit
+  `--dart-define=TIMETABLE_SYNTHETIC=true` (und stets gekennzeichnet); die
+  API-Quelle lehnt Antworten mit `synthetic: true` ab. Ist der Katalog nicht
+  erreichbar und keine Offline-Kopie vorhanden, zeigt die App einen Fehler.
 * **Keine Wiederholungslogik in der App.** Einzeltermine kommen aufgelöst
-  aus der Serververarbeitung (Wochenmuster, Blöcke, Ausfälle,
-  unterrichtsfreie Zeit). Datum und Uhrzeit werden als Kieler Ortszeit aus
-  dem Text gelesen, Vergleiche laufen über den absoluten Zeitpunkt.
+  vom Server. Datum und Uhrzeit werden als Kieler Ortszeit aus dem Text
+  gelesen, Vergleiche laufen über den absoluten Zeitpunkt.
 * **Überschneidungen** sind halboffene Intervalle: Ein Termin bis 10:00 und
   einer ab 10:00 überschneiden sich nicht; abgesagte Termine zählen nicht.
 * **Synchronisierung**: `FirestoreTimetableBackend` beobachtet die
-  Collection über `snapshots()`; Änderungen auf einem Gerät erscheinen auf
-  allen anderen desselben Kontos. Gastmodus wie bei den übrigen Bereichen
-  lokal (`guest.v1.timetable`).
-* Eine neue Katalogquelle (UnivIS über einen Server-Endpunkt, später
-  HISinOne) implementiert nur `CourseCatalogSource`.
-
-`firestore.rules` und `AccountDeletionService.userCollections` enthalten
-`timetable`; die Regeln müssen in der Firebase Console nachgetragen werden.
+  Collection über `snapshots()`. Gäste speichern lokal
+  (`guest.v1.timetable`); nach der Anmeldung übernimmt
+  `TimetableGuestMigration` die Einträge (ohne Duplikate, ohne vorhandene zu
+  ändern, lokal erst nach Server-Bestätigung gelöscht, idempotent).
+* **Firestore-Regeln**: `timetable` hat eine eigene Regel mit Feldprüfung
+  und steht bewusst nicht in `isUserCollection` – Regeln sind ODER-verknüpft,
+  sonst wäre die Feldprüfung wirkungslos. `catalog_cache` hat keine Regel
+  (nur Admin SDK). Die Regeln werden in der Firebase Console eingetragen
+  (kein Firebase-CLI-Deployment im Projekt).
+* Eine neue Katalogquelle (später HISinOne) implementiert serverseitig
+  `CatalogSource`; die App bleibt unverändert.

@@ -15,11 +15,21 @@ void main() {
     r"'([a-z_]+)'",
   ).allMatches(ruleCollections).map((m) => m.group(1)!).toSet();
 
+  // Subcollections mit eigener Regel (z. B. timetable mit Feldprüfung);
+  // inbox löscht die Kontolöschung gesondert.
+  final usersBlock = rules.substring(rules.indexOf('match /users/{uid}'));
+  final dedicatedCollections = RegExp(r"match /([a-z_]+)/\{[A-Za-z]+\}")
+      .allMatches(usersBlock)
+      .map((m) => m.group(1)!)
+      .toSet()
+    ..removeAll(['users', 'inbox']);
+
   test('Kontolöschung kennt genau die Subcollections der Firestore-Regeln', () {
     expect(
       AccountDeletionService.userCollections.toSet(),
-      allowedCollections,
+      {...allowedCollections, ...dedicatedCollections},
     );
+    expect(dedicatedCollections, contains('timetable'));
   });
 
   test('Gastdaten-Übernahme schreibt nur erlaubte Collections', () {

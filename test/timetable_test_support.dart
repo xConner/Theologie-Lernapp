@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/services.dart';
 
@@ -15,8 +16,20 @@ class InMemoryTimetableBackend implements TimetableBackend {
   final StreamController<void> _changes = StreamController<void>.broadcast();
   bool failWrites;
   bool failWatch;
+  bool failReads;
 
-  InMemoryTimetableBackend({this.failWrites = false, this.failWatch = false});
+  /// Schreibt bis einschließlich so vielen Einträgen, danach Fehler.
+  int? failPutsAfter;
+  int puts = 0;
+
+  /// Einträge, die der Server (noch) nicht bestätigt (`read(confirmed: true)`).
+  final Set<String> unconfirmed = {};
+
+  InMemoryTimetableBackend({
+    this.failWrites = false,
+    this.failWatch = false,
+    this.failReads = false,
+  });
 
   Map<String, Map<String, dynamic>> _copy() => {
     for (final e in docs.entries) e.key: Map<String, dynamic>.from(e.value),
@@ -40,8 +53,21 @@ class InMemoryTimetableBackend implements TimetableBackend {
   }
 
   @override
+  Future<Map<String, Map<String, dynamic>>> read({
+    bool confirmed = false,
+  }) async {
+    if (failReads) throw StateError("Lesen fehlgeschlagen");
+    final copy = _copy();
+    if (confirmed) copy.removeWhere((id, _) => unconfirmed.contains(id));
+    return copy;
+  }
+
+  @override
   Future<void> put(String id, Map<String, dynamic> data) async {
-    if (failWrites) throw StateError("Schreiben fehlgeschlagen");
+    if (failWrites || (failPutsAfter != null && puts >= failPutsAfter!)) {
+      throw StateError("Schreiben fehlgeschlagen");
+    }
+    puts++;
     docs[id] = {...data, "addedAt": 1};
     _changes.add(null);
   }
@@ -71,6 +97,73 @@ class MemoryAssetBundle extends AssetBundle {
   }
 }
 
+/// JSON des synthetischen Katalogs; mit [asApi] wie vom Server
+/// (`/api/catalog`) ausgeliefert, mit [semester] für ein anderes Semester.
+Map<String, dynamic> catalogJson({
+  bool asApi = false,
+  String semester = "2026w",
+  String cacheState = "refreshed",
+}) {
+  var raw = File(SyntheticCourseCatalogSource.asset).readAsStringSync();
+  if (semester != "2026w") {
+    raw = raw
+        .replaceAll(":2026w:", ":$semester:")
+        .replaceAll('"2026w"', '"$semester"')
+        .replaceAll("Wintersemester 2026/27", "Sommersemester 2027");
+  }
+  final json = Map<String, dynamic>.from(jsonDecode(raw) as Map);
+  if (asApi) {
+    json["synthetic"] = false;
+    json.remove("notice");
+    json["cache"] = {
+      "state": cacheState,
+      "fetchedAt": "2026-10-14T06:00:00.000Z",
+    };
+  }
+  return json;
+}
+
+/// Katalogquelle mit mehreren Semestern aus vorbereiteten Katalogen.
+class FakeCatalogSource implements CourseCatalogSource {
+  final Map<String, CourseCatalog> catalogs;
+  final List<SemesterOption> options;
+  final CatalogOrigin origin;
+  final bool stale;
+  final List<String> loads = [];
+
+  FakeCatalogSource(
+    this.catalogs, {
+    List<SemesterOption>? options,
+    this.origin = CatalogOrigin.network,
+    this.stale = false,
+  }) : options =
+           options ??
+           [
+             for (final c in catalogs.values)
+               SemesterOption(c.semester.id, c.semester.label),
+           ];
+
+  @override
+  Future<List<SemesterOption>> semesters() async => options;
+
+  @override
+  Future<CatalogLoad> load(String semesterId) async {
+    loads.add(semesterId);
+    final catalog = catalogs[semesterId];
+    if (catalog == null) {
+      throw const CatalogUnavailableException(
+        "Kein Katalog für dieses Semester.",
+      );
+    }
+    return CatalogLoad(
+      catalog: catalog,
+      origin: origin,
+      updatedAt: DateTime.utc(2026, 10, 14, 6),
+      sourceStale: stale,
+    );
+  }
+}
+
 class FailingCatalogSource implements CourseCatalogSource {
   int calls = 0;
   final CourseCatalogSource? recoverWith;
@@ -78,10 +171,19 @@ class FailingCatalogSource implements CourseCatalogSource {
   FailingCatalogSource({this.recoverWith});
 
   @override
-  Future<CourseCatalog> load() {
+  Future<List<SemesterOption>> semesters() async {
     calls++;
     final recover = recoverWith;
-    if (calls > 1 && recover != null) return recover.load();
+    if (calls > 1 && recover != null) return recover.semesters();
+    throw const CatalogUnavailableException(
+      "Der Veranstaltungskatalog ist derzeit nicht verfügbar.",
+    );
+  }
+
+  @override
+  Future<CatalogLoad> load(String semesterId) {
+    final recover = recoverWith;
+    if (recover != null) return recover.load(semesterId);
     return Future.error(const CatalogFormatException("nicht erreichbar"));
   }
 }

@@ -1,0 +1,15 @@
+{
+  "name": "theologie-app-firestore-rules-tests",
+  "private": true,
+  "description": "Tests der firestore.rules im Firestore-Emulator (nicht Teil der App oder des Vercel-Builds).",
+  "type": "module",
+  "scripts": {
+    "pretest": "node -e \"require('fs').copyFileSync('../../firestore.rules','firestore.rules.under-test')\"",
+    "test": "firebase emulators:exec --only firestore --project demo-theologie-rules \"node --test rules.test.mjs\""
+  },
+  "devDependencies": {
+    "@firebase/rules-unit-testing": "5.0.2",
+    "firebase": "12.19.0",
+    "firebase-tools": "15.31.0"
+  }
+}

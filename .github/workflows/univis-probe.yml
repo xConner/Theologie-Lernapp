@@ -3,7 +3,8 @@
 # nicht erreicht. Kein Zeitplan: nur manuell oder beim Ändern dieser Datei auf
 # einem claude/-Branch. Höchstens zwei Anfragen je Lauf (Einrichtung suchen,
 # Veranstaltungen abrufen) mit Pause dazwischen bzw. eine Anfrage
-# (Wochentagsprüfung; Vercel-Test: eine Anfrage aus der Vercel-Funktion).
+# (Wochentagsprüfung; Vercel-Test: ein Abruf aus der Vercel-Funktion, danach
+# Zwischenspeicher).
 #
 # Die Protokolle sind öffentlich: Ausgegeben werden nur Kennzahlen,
 # Elementnamen, Organisationsnummern und Wochentag/Uhrzeit – keine
@@ -98,9 +99,9 @@ jobs:
         if: contains(env.MODE, 'catalog')
         run: node tool/univis/catalog_stats.mjs --sem "$SEM" --org 010000000
 
-      # Wartet auf das Vercel-Preview dieses Commits und ruft den
-      # Erreichbarkeitstest EINMAL auf (api/univis-reachability.ts: nur
-      # Preview, nur Kennzahlen). Previews sind durch Vercel Authentication
+      # Wartet auf das Vercel-Preview dieses Commits und prüft den
+      # Katalog-Endpunkt (api/catalog.ts): höchstens ein UnivIS-Abruf je
+      # Semester, nur Zählwerte im Protokoll. Previews sind durch Vercel Authentication
       # geschützt; der Abruf braucht das Repository-Secret
       # VERCEL_AUTOMATION_BYPASS_SECRET („Protection Bypass for Automation“
       # in den Vercel-Projekteinstellungen).
@@ -134,16 +135,34 @@ jobs:
           # Secret über stdin als curl-Konfiguration statt als Argument: nicht
           # in der Prozessliste, nicht in einer Datei, nicht im Protokoll.
           # Kein -L: Weiterleitungen (z. B. zur Vercel-Anmeldung) nicht folgen.
-          CODE=$(printf 'header = "x-vercel-protection-bypass: %s"\n' "$BYPASS" \
-            | curl -sS -K - -o result.json -w "%{http_code}" --max-time 60 \
-              "$URL/api/univis-reachability") || CODE="curl-Fehler"
-          echo "HTTP $CODE"
-          # Nur die JSON-Antwort des Endpunkts (Kennzahlen) oder eine kurze,
-          # auf Text reduzierte Fehlerseite ausgeben.
-          if [ -f result.json ] && jq -e . result.json >/dev/null 2>&1; then
-            jq . result.json
-          elif [ -f result.json ]; then
-            sed -e 's/<[^>]*>/ /g' result.json | tr -s ' \n' ' ' | head -c 300; echo
-          fi
-          rm -f result.json
-          [ "$CODE" = "200" ]
+          fetch() {
+            printf 'header = "x-vercel-protection-bypass: %s"\n' "$BYPASS" \
+              | curl -sS -K - -D headers.txt -o result.json -w "%{http_code}" --max-time 60 \
+                "$URL$1" || echo "curl-Fehler"
+          }
+          # Nur Status, Kopfzeilen und Zählwerte ausgeben – keine Titel, Namen
+          # oder Räume (öffentliches Protokoll).
+          summary() {
+            echo "HTTP $1"
+            grep -iE '^(x-vercel-id|x-catalog-state|cache-control|x-vercel-cache):' headers.txt || true
+            if jq -e . result.json >/dev/null 2>&1; then
+              jq -c '{semesters: (.semesters // null | if . then map(.id) else null end),
+                      semester: .semester.id?, courses: (.courses // null | if . then length else null end),
+                      occurrences: (.occurrences // null | if . then length else null end),
+                      persons: (.persons // null | if . then length else null end),
+                      synthetic, cache, counts, error, code}' result.json
+            else
+              sed -e 's/<[^>]*>/ /g' result.json | tr -s ' \n' ' ' | head -c 200; echo
+            fi
+          }
+          FAIL=0
+          echo "== Semesterliste (ohne UnivIS-Abruf)"
+          CODE=$(fetch "/api/catalog"); summary "$CODE"; [ "$CODE" = "200" ] || FAIL=1
+          echo "== WS 2026/27 (ein UnivIS-Abruf)"
+          CODE=$(fetch "/api/catalog?semester=2026w"); summary "$CODE"; [ "$CODE" = "200" ] || FAIL=1
+          echo "== WS 2026/27 erneut (muss aus dem Zwischenspeicher kommen)"
+          CODE=$(fetch "/api/catalog?semester=2026w"); summary "$CODE"; [ "$CODE" = "200" ] || FAIL=1
+          echo "== ungültiges Semester (muss 400 sein)"
+          CODE=$(fetch "/api/catalog?semester=1999w"); echo "HTTP $CODE"; [ "$CODE" = "400" ] || FAIL=1
+          rm -f result.json headers.txt
+          exit $FAIL

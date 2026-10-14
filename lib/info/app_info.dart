@@ -347,6 +347,40 @@ class AppModules {
     ],
   );
 
+  static const ModuleInfo timetable = ModuleInfo(
+    id: "timetable",
+    title: "Stundenplan",
+    description:
+        "Veranstaltungen der Theologischen Fakultät der CAU Kiel suchen, "
+        "filtern und in einen persönlichen Stundenplan mit Wochenansicht und "
+        "Überschneidungen übernehmen.",
+    sources: [
+      SourceInfo(
+        title: "Veranstaltungen, Termine, Räume, Lehrende",
+        origin:
+            "UnivIS – Vorlesungsverzeichnis der Christian-Albrechts-"
+            "Universität zu Kiel, Theologische Fakultät (Nutzung mit "
+            "Freigabe der Universität)",
+        processing:
+            "Das Backend der App (theologie.app) ruft den Katalog je Semester "
+            "etwa einmal täglich ab, führt doppelt eingetragene Veranstaltungen "
+            "zusammen und löst die Terminangaben in einzelne Termine auf "
+            "(Vorlesungszeit, unterrichtsfreie Zeit und Feiertage nach den "
+            "zentralen Terminen der CAU). Unklare Angaben werden nicht "
+            "geraten, sondern als Hinweis gezeigt. Freitexte wie "
+            "Anmeldehinweise übernimmt die App nicht; dafür verlinkt sie auf "
+            "UnivIS.",
+        aiNote: "Die Daten werden nicht von einer KI erzeugt oder verändert.",
+        url: "https://univis.uni-kiel.de",
+      ),
+    ],
+    notes: [
+      "Maßgeblich sind die Angaben in UnivIS; kurzfristige Änderungen "
+          "erscheinen in der App in der Regel innerhalb eines Tages.",
+      "ECTS-Punkte zeigt die App nur, wenn UnivIS sie angibt.",
+    ],
+  );
+
   static const ModuleInfo hymns = ModuleInfo(
     id: "hymns",
     title: "Evangelisches Gesangbuch",
@@ -461,5 +495,6 @@ class AppModules {
     greekGrammarTrainer,
     greekGrammarOverview,
     latinVocabulary,
+    timetable,
   ];
 }

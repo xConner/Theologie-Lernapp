@@ -17,7 +17,9 @@ void main() {
   String id(String key) => "synthetic:2026w:$key";
 
   setUpAll(() async {
-    catalog = await SyntheticCourseCatalogSource(bundle: FileAssetBundle()).load();
+    catalog = (await SyntheticCourseCatalogSource(
+      bundle: FileAssetBundle(),
+    ).load("2026w")).catalog;
   });
 
   InMemoryTimetableBackend backendWith(List<String> keys) {
@@ -244,7 +246,29 @@ void main() {
     expect(tester.takeException(), isNull);
     await openSearch(tester);
     expect(tester.takeException(), isNull);
-    await tester.tap(find.text("Testvorlesung: Dogmatik – Schöpfung und Erlösung (TEST-ST2-V)"));
+    await tester.enterText(
+      find.byKey(const ValueKey("course-search-field")),
+      "Dogmatik",
+    );
+    await tester.pumpAndSettle();
+    expect(tester.takeException(), isNull);
+    final dogmatik = find.text(
+      "Testvorlesung: Dogmatik – Schöpfung und Erlösung (TEST-ST2-V)",
+    );
+    // Bei großer Schrift füllen Suchfeld und Filter den Bildschirm; die
+    // Treffer entstehen erst beim Scrollen.
+    await tester.scrollUntilVisible(
+      dogmatik,
+      200,
+      scrollable: find
+          .ancestor(
+            of: find.byKey(const ValueKey("course-search-field")),
+            matching: find.byType(Scrollable),
+          )
+          .first,
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(dogmatik);
     await tester.pumpAndSettle();
     expect(tester.takeException(), isNull);
   });
@@ -257,7 +281,8 @@ void main() {
     expect(tuesday.dx, greaterThan(monday.dx));
   });
 
-  test("Vorschau ist in Entwicklungs-Builds (Tests) sichtbar", () {
-    expect(timetablePreviewEnabled, isTrue);
+  test("ohne ausdrücklichen Entwicklungsmodus: echte Quelle, nie synthetisch", () {
+    expect(timetableSyntheticMode, isFalse);
+    expect(defaultCourseCatalogSource(), isA<ApiCourseCatalogSource>());
   });
 }

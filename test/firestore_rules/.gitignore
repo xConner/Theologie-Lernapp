@@ -1,0 +1,2 @@
+firestore.rules.under-test
+*.log

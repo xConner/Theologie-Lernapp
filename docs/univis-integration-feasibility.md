@@ -1,6 +1,6 @@
 # UnivIS-Anbindung: Machbarkeitsprüfung
 
-Stand: 14.10.2026 (Phase 2 – Backend-Datenverarbeitung – in Abschnitt 11, Phase 3 – Stundenplan in der App – in Abschnitt 12). Ziel: Veranstaltungen aus UnivIS (zuerst CAU Kiel)
+Stand: 14.10.2026 (Phase 2 – Backend-Datenverarbeitung – in Abschnitt 11, Phase 3 – Stundenplan in der App – in Abschnitt 12, **Produktivbetrieb – Abschnitt 13**). Ziel: Veranstaltungen aus UnivIS (zuerst CAU Kiel)
 automatisch in der App suchen, filtern und in einen persönlichen
 Stundenplan übernehmen, ohne dass Studierende UnivIS öffnen oder etwas
 exportieren.
@@ -749,7 +749,7 @@ Umgesetzt in der Flutter-App (Überblick: `docs/architecture.md`, Abschnitt
   Es wird nichts von UnivIS abgerufen; kein öffentlicher Endpunkt, kein
   regelmäßiger Import.
 
-Offen für die UnivIS-Anbindung:
+Offen für die UnivIS-Anbindung (inzwischen umgesetzt bzw. offen, siehe Abschnitt 13):
 
 1. Freigabe der Nutzungsrechte durch die CAU (Abschnitt 9).
 2. Lesender Endpunkt (z. B. `api/catalog.ts` auf Basis von `loadCatalog`,
@@ -764,3 +764,127 @@ Offen für die UnivIS-Anbindung:
    trägt die Semesterkennung bereits).
 7. Menüpunkt für alle freischalten (`timetable_feature.dart`), sobald echte
    Daten zulässig sind.
+
+## 13. Produktivbetrieb
+
+### 13.1 Freigabegrundlage
+
+Die Freigabe zur Nutzung der UnivIS-Daten wurde vom Auftraggeber am
+14.10.2026 bestätigt. Ihre konkreten Bedingungen liegen **nicht** im
+Repository vor. Umgesetzt ist deshalb nur der Umfang, der in der Anfrage an
+die CAU (Abschnitt 9) beschrieben war:
+
+| Angefragter Umfang | Umsetzung |
+|---|---|
+| Abfrage der PRG-Schnittstelle (`show=xml`, eine Anfrage je Semester) | `UnivisSource`, nur `department=010000000` |
+| etwa einmal täglich | Cache-Gültigkeit 24 h (`CATALOG_CACHE_TTL_HOURS`, 1–168), parallele Anfragen teilen einen Abruf, dauerhafter Server-Cache gegen Kaltstarts, CDN-Cache |
+| zwischenspeichern, mit Quellenangabe anzeigen | Statuszeile „Quelle: UnivIS der CAU Kiel“, Info-Seite ⓘ, Link je Veranstaltung |
+| Personendaten nur öffentliche Namen der Lehrenden | `publish.ts`: nur Anzeigename, gehashte Kennung |
+| keine Freitexte mit Kontaktangaben | `parse.ts` übernimmt sie nicht; Tests prüfen das |
+
+Sollten die schriftlichen Bedingungen der CAU davon abweichen (z. B. eine
+andere Abrufhäufigkeit oder eine bestimmte Form der Quellenangabe), sind sie
+hier nachzutragen und die Konfiguration anzupassen.
+
+### 13.2 Katalog-Endpunkt `/api/catalog`
+
+* `GET /api/catalog` → angebotene Semester (laufendes und nächstes aus
+  `semesters.ts`; derzeit `2026w`, `2027s`) und Einrichtungen.
+* `GET /api/catalog?semester=2026w[&organization=010000000]` → Katalog in
+  öffentlicher Form (`publish.ts`), plus `cache: {state, fetchedAt[, reason]}`.
+* Eingaben: Semester nur aus der angebotenen Liste, Einrichtung nur aus
+  `ORGANIZATIONS`; Arrays, leere oder fremde Werte → `400`. Nur `GET`/`HEAD`
+  (sonst `405`). Die abgefragte Adresse ist fest (`univis.uni-kiel.de/prg`);
+  der Endpunkt kann keine beliebigen URLs abrufen.
+* Antwortgrößen: UnivIS-Antwort höchstens 8 MiB, Zeitlimit 20 s
+  (Funktionslimit 30 s).
+* Kopfzeilen: `X-Catalog-State`, `ETag` (→ `304`),
+  `Cache-Control: public, s-maxage=<Restgültigkeit>, stale-while-revalidate=3600`;
+  bei altem Stand `s-maxage=600`; Fehler `no-store`, `Retry-After: 600`.
+* Protokolle: nur Codes (`refresh-failed <Schlüssel> <Fehlername>`), nie
+  Antwortinhalte oder Personendaten.
+
+Cache-Verhalten (`cache.ts`):
+
+| Lage | Antwort |
+|---|---|
+| Stand jünger als 24 h (Arbeitsspeicher oder Firestore `catalog_cache`) | `200`, `state: fresh`, kein UnivIS-Abruf |
+| abgelaufen, UnivIS liefert | `200`, `state: refreshed` |
+| abgelaufen, UnivIS nicht erreichbar / HTML / HTTP-Fehler / ungültiges XML | `200` mit letztem Stand, `state: stale`, `reason: source-unavailable` (bis 14 Tage, `CATALOG_MAX_STALE_HOURS`) |
+| UnivIS liefert plötzlich weniger als die Hälfte der Veranstaltungen | `200` mit letztem Stand, `state: stale`, `reason: implausible` |
+| kein brauchbarer Stand vorhanden | `503`, verständliche Meldung, keine Veranstaltungen |
+| Semester ohne Veranstaltungen (erster Abruf) | `200` mit leerer Liste |
+
+Der dauerhafte Cache in Firestore (`catalog_cache/<Umgebung>__<Schlüssel>`,
+gzip, Admin SDK) ist aktiv, wenn `FIREBASE_SERVICE_ACCOUNT` gesetzt ist
+(wie für die Push-Funktionen); Preview und Produktion schreiben getrennte
+Dokumente.
+
+### 13.3 App
+
+* `ApiCourseCatalogSource` ruft `/api/catalog` auf (Web: gleiche Herkunft,
+  sonst `https://www.theologie.app`), speichert den letzten Stand je Semester
+  lokal (`catalog.v1.<Semester>`) und nutzt ihn bei Verbindungsproblemen
+  („Offline – gespeicherter Stand vom …“). Server-seitig veraltete Stände
+  zeigt die Statuszeile als „UnivIS ist derzeit nicht erreichbar – Stand vom
+  …“. Ohne Verbindung und ohne Offline-Kopie: Fehlerzustand mit „Erneut
+  versuchen“.
+* Synthetische Daten nur mit `--dart-define=TIMETABLE_SYNTHETIC=true` und
+  stets gekennzeichnet; Antworten mit `synthetic: true` werden abgelehnt.
+* Semesterwahl über der Wochen- und der Katalogansicht; Einträge anderer
+  Semester bleiben erhalten und werden mit Umschaltknopf angezeigt.
+* Gast-Stundenplan: automatische Übernahme nach der Anmeldung
+  (`TimetableGuestMigration`), siehe `docs/architecture.md`.
+* Menüpunkt „Stundenplan“ für alle sichtbar.
+
+### 13.4 Firestore-Regeln
+
+`users/{uid}/timetable/{entryId}`: lesen/löschen nur der Eigentümer;
+anlegen/ändern nur der Eigentümer mit gültigem Eintrag (nur die Felder von
+`TimetableEntry.toMap()` plus `addedAt == request.time`, Längen- und
+Typgrenzen). Unterdokumente: keine Regel → verboten. Gäste: kein Zugriff
+(nur lokal). `timetable` steht **nicht** in `isUserCollection`, weil die
+allgemeine Regel sonst jede Feldprüfung aushebeln würde (Firestore verknüpft
+passende Regeln mit ODER) – die Emulator-Tests prüfen genau das.
+`catalog_cache`: keine Regel → für Clients verboten.
+
+Emulator-Tests: `test/firestore_rules/` (9 Tests; lokal mit Java 21 und
+`npm ci && npm test`, in CI `.github/workflows/firestore-rules.yml`).
+
+**Deployment (manuell, nicht erfolgt):** Die Produktionsregeln werden laut
+`firestore.rules` in der Firebase Console gepflegt; Zugriff auf das
+Firebase-Projekt hatte diese Arbeit nicht.
+
+1. Firebase Console → Projekt → Firestore Database → Regeln.
+2. Den vollständigen Inhalt von `firestore.rules` aus diesem Stand einfügen
+   (nicht nur den `timetable`-Block – auch die Liste in `isUserCollection`
+   hat sich geändert).
+3. „Veröffentlichen“. Danach in der App angemeldet eine Veranstaltung
+   hinzufügen und entfernen.
+
+Alternativ mit der Firebase-CLI (`firebase deploy --only firestore:rules`),
+sofern ein `firebase.json` mit dem Projekt angelegt wird – im Repository
+bewusst nicht vorhanden.
+
+### 13.5 Vercel
+
+* `vercel.json`: `"regions": ["fra1"]` – Funktionen in Frankfurt.
+  Überprüfung im Preview: Abschnitt 13.6.
+* Umgebungsvariablen (optional): `CATALOG_CACHE_TTL_HOURS`,
+  `CATALOG_MAX_STALE_HOURS`. Für den dauerhaften Cache muss
+  `FIREBASE_SERVICE_ACCOUNT` in der jeweiligen Umgebung gesetzt sein.
+* Vercel bleibt ein US-Anbieter; die Datenschutzerklärung nennt das weiterhin.
+
+### 13.6 Prüfung
+
+Siehe Abschlussbericht des Commits; Ergebnisse der Preview-Prüfung werden
+hier nachgetragen.
+
+### 13.7 Offene manuelle Schritte
+
+1. Firestore-Regeln in der Firebase Console veröffentlichen (13.4).
+2. Branch nach `main` übernehmen (Produktion), nach Freigabe durch den
+   Betreiber.
+3. Schriftliche Bedingungen der CAU-Freigabe hier dokumentieren (13.1).
+4. Für SoSe 2027 prüfen, sobald UnivIS die Veranstaltungen veröffentlicht;
+   weitere Semester in `semesters.ts` nur mit offiziellen Daten eintragen.

@@ -39,6 +39,19 @@ class _CourseSearchViewState extends State<CourseSearchView>
     super.build(context);
     final controller = widget.controller;
     final catalog = controller.catalog!;
+    if (catalog.courses.isEmpty) {
+      return Center(
+        child: Padding(
+          padding: const EdgeInsets.all(24),
+          child: Text(
+            "Für das ${catalog.semester.label} sind noch keine Veranstaltungen "
+            "veröffentlicht.",
+            key: const ValueKey("empty-catalog"),
+            textAlign: TextAlign.center,
+          ),
+        ),
+      );
+    }
     final facets = CourseFacets.of(catalog);
     final results = filterCourses(catalog, _filter);
 
@@ -103,17 +116,20 @@ class _CourseSearchViewState extends State<CourseSearchView>
           ],
         ),
         const SizedBox(height: 12),
-        Row(
+        // Umbrechend statt starr: bei großer Schrift steht der Knopf unter
+        // der Trefferzahl.
+        Wrap(
+          alignment: WrapAlignment.spaceBetween,
+          crossAxisAlignment: WrapCrossAlignment.center,
+          spacing: 8,
           children: [
-            Expanded(
-              child: Semantics(
-                liveRegion: true,
-                child: Text(
-                  results.length == 1
-                      ? "1 Veranstaltung"
-                      : "${results.length} Veranstaltungen",
-                  style: Theme.of(context).textTheme.titleSmall,
-                ),
+            Semantics(
+              liveRegion: true,
+              child: Text(
+                results.length == 1
+                    ? "1 Veranstaltung"
+                    : "${results.length} Veranstaltungen",
+                style: Theme.of(context).textTheme.titleSmall,
               ),
             ),
             if (!_filter.isEmpty)

@@ -27,7 +27,7 @@ import '../services/notifications/app_deep_link.dart';
 import '../services/notifications/notification_service.dart';
 import '../services/notifications/push_service.dart';
 import '../services/progress_data_service.dart';
-import '../services/timetable/timetable_feature.dart';
+import '../services/timetable/timetable_migration.dart';
 import '../widgets/deep_link_navigator.dart';
 import '../widgets/learning_progress_dialogs.dart';
 import '../widgets/notification_bell.dart';
@@ -83,6 +83,35 @@ class _HomeScreenState extends State<HomeScreen> {
       WidgetsBinding.instance.addPostFrameCallback(
         (_) => _offerGuestDataTransfer(),
       );
+
+      _migrateGuestTimetable(accountUid);
+    }
+  }
+
+  /// Übernimmt einen lokal gespeicherten Gast-Stundenplan ins Konto
+  /// (ohne Duplikate, ohne vorhandene Einträge zu verändern; lokal erst nach
+  /// Bestätigung gelöscht). Scheitert es, bleibt alles lokal und der nächste
+  /// Start versucht es erneut.
+  Future<void> _migrateGuestTimetable(String accountUid) async {
+    try {
+      final result = await TimetableGuestMigration.forUser(
+        accountUid,
+      ).runOnce(accountUid);
+
+      if (!mounted || result.copied == 0) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            result.copied == 1
+                ? "1 Veranstaltung aus dem Gast-Stundenplan übernommen."
+                : "${result.copied} Veranstaltungen aus dem Gast-Stundenplan "
+                      "übernommen.",
+          ),
+        ),
+      );
+    } catch (_) {
+      // Lokale Daten bleiben erhalten; erneuter Versuch beim nächsten Start.
     }
   }
 
@@ -446,27 +475,23 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
 
-                      // Vorschau mit synthetischen Testdaten, siehe
-                      // timetable_feature.dart.
-                      if (timetablePreviewEnabled) ...[
-                        const SizedBox(height: 16),
+                      const SizedBox(height: 16),
 
-                        SizedBox(
-                          width: double.infinity,
-                          child: ElevatedButton.icon(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (_) => TimetableHomeScreen(uid: uid),
-                                ),
-                              );
-                            },
-                            icon: const Icon(Icons.view_week_rounded),
-                            label: const Text("Stundenplan"),
-                          ),
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton.icon(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => TimetableHomeScreen(uid: uid),
+                              ),
+                            );
+                          },
+                          icon: const Icon(Icons.view_week_rounded),
+                          label: const Text("Stundenplan"),
                         ),
-                      ],
+                      ),
                     ],
                   ),
                 ),

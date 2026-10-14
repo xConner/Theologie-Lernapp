@@ -1,12 +1,14 @@
-import 'package:flutter/foundation.dart';
+import 'course_catalog_source.dart';
 
-/// Stundenplan-Vorschau. Bis zur Klärung der Nutzungsrechte an UnivIS-Daten
-/// arbeitet die Funktion nur mit SYNTHETISCHEN Testdaten. Damit Nutzerinnen
-/// und Nutzer der veröffentlichten App keine erfundenen Veranstaltungen für
-/// echte halten, erscheint der Menüpunkt nur in Entwicklungs-Builds oder
-/// ausdrücklich freigeschaltet:
+/// Der Stundenplan ist regulär verfügbar und nutzt den Veranstaltungskatalog
+/// der CAU (UnivIS, über `/api/catalog`).
 ///
-///   flutter run --dart-define=TIMETABLE_PREVIEW=true
-///   flutter build web --dart-define=TIMETABLE_PREVIEW=true
-const bool timetablePreviewEnabled =
-    kDebugMode || bool.fromEnvironment("TIMETABLE_PREVIEW");
+/// Synthetische Testdaten gibt es nur noch ausdrücklich für die
+/// Entwicklung – nie als stiller Ersatz, wenn der echte Katalog fehlt:
+///
+///   flutter run --dart-define=TIMETABLE_SYNTHETIC=true
+const bool timetableSyntheticMode = bool.fromEnvironment("TIMETABLE_SYNTHETIC");
+
+CourseCatalogSource defaultCourseCatalogSource() => timetableSyntheticMode
+    ? SyntheticCourseCatalogSource()
+    : ApiCourseCatalogSource();

@@ -21,7 +21,9 @@ void main() {
   CatalogCourse course(String key) => catalog.courseById(id(key))!;
 
   setUpAll(() async {
-    catalog = await SyntheticCourseCatalogSource(bundle: FileAssetBundle()).load();
+    catalog = (await SyntheticCourseCatalogSource(
+      bundle: FileAssetBundle(),
+    ).load("2026w")).catalog;
   });
 
   group("Katalog", () {
@@ -57,7 +59,7 @@ void main() {
         }),
       });
       expect(
-        SyntheticCourseCatalogSource(bundle: bundle).load(),
+        SyntheticCourseCatalogSource(bundle: bundle).load("2026w"),
         throwsA(isA<CatalogFormatException>()),
       );
     });
@@ -372,10 +374,20 @@ void main() {
     });
   });
 
-  test("Firestore-Regeln erlauben die Collection timetable", () {
+  test("Firestore-Regeln: timetable mit eigener Regel, nicht in der allgemeinen Liste", () {
     final rules = File("firestore.rules").readAsStringSync();
-    expect(rules, contains("'timetable'"));
+    expect(rules, contains("match /timetable/{entryId}"));
+    expect(rules, contains("isValidTimetableEntry(request.resource.data)"));
+    final generic = RegExp(r"collection in \[([^\]]*)\]").firstMatch(rules)!.group(1)!;
+    // Sonst würde die allgemeine Regel die Feldprüfung aushebeln (ODER).
+    expect(generic, isNot(contains("'timetable'")));
     expect(FirestoreTimetableBackend.collection, "timetable");
+    // Felder der Regel = Felder von TimetableEntry.toMap() + addedAt.
+    final fields = RegExp(r"hasOnly\(\['courseId'[^\]]*\]").firstMatch(rules)!.group(0)!;
+    final entry = TimetableEntry.fromCourse(course("Lecture.test.at.einf"));
+    for (final key in [...entry.toMap().keys, "addedAt"]) {
+      expect(fields, contains("'$key'"));
+    }
   });
 
   test("Katalog-Asset ist ausschließlich synthetisch", () {

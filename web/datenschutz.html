@@ -50,6 +50,7 @@
     <li>Die App selbst setzt <strong>keine Cookies</strong> und braucht deshalb kein Cookie-Banner. Sie nutzt den lokalen Speicher des Browsers nur für Funktionen, die du verwendest (Abschnitt 5).</li>
     <li>Ein Konto ist freiwillig. Ohne Konto (Gastmodus) bleiben Lernstände und Einstellungen in deinem Browser.</li>
     <li>Mit Konto werden Lernstände, Einstellungen und Statistiken bei Google Firebase gespeichert und deinem Konto zugeordnet.</li>
+    <li>Der Stundenplan zeigt das öffentliche Vorlesungsverzeichnis der Theologischen Fakultät der CAU Kiel (UnivIS). Deinen persönlichen Stundenplan speichert die App wie die Lernstände: ohne Konto im Browser, mit Konto in deinem Konto (Abschnitte 3a, 5 und 7).</li>
   </ul>
 
   <h2>3. Aufruf der Website (Vercel)</h2>
@@ -75,6 +76,37 @@
   </p>
   <p>Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO (Bereitstellung und sicherer Betrieb der App).</p>
 
+  <h3>3a. Veranstaltungskatalog (Stundenplan)</h3>
+  <p>
+    Für den Stundenplan ruft die App den Veranstaltungskatalog vom Backend
+    dieser Website ab (<code>/api/catalog</code>; übermittelt werden nur das
+    gewählte Semester und die üblichen Verbindungsdaten an Vercel). Das
+    Backend fragt das öffentliche Vorlesungsverzeichnis <strong>UnivIS der
+    Christian-Albrechts-Universität zu Kiel</strong>
+    (univis.uni-kiel.de) ab – mit Freigabe der Universität und nicht bei
+    jedem Aufruf: Ein Abruf gilt in der Regel 24 Stunden und wird bis dahin
+    aus einem Zwischenspeicher beantwortet (Arbeitsspeicher und
+    Auslieferungs-Cache von Vercel sowie, sofern eingerichtet, ein
+    serverseitiges Dokument in Cloud Firestore, auf das die App keinen
+    Zugriff hat). Ist UnivIS nicht erreichbar, liefert das Backend bis zu
+    14 Tage lang den letzten Stand und kennzeichnet ihn als veraltet. Deine
+    IP-Adresse und Kontodaten werden dabei nicht an die Universität
+    weitergegeben.
+  </p>
+  <p>
+    Der Katalog enthält Titel, Nummern, Termine, Räume und Einordnung der
+    Lehrveranstaltungen sowie die <strong>Namen der Lehrenden</strong> (Titel,
+    Vor- und Nachname), so wie UnivIS sie öffentlich anzeigt. Weitere Angaben
+    zu Personen und Freitexte (z. B. Anmeldehinweise mit Kontaktadressen)
+    übernimmt die App nicht; dafür verlinkt sie auf die Veranstaltung in
+    UnivIS. Rechtsgrundlage für die Verarbeitung der Namen der Lehrenden ist
+    Art. 6 Abs. 1 lit. f DSGVO (Bereitstellung eines Stundenplans auf Grundlage
+    des öffentlichen Vorlesungsverzeichnisses). Änderungen in UnivIS
+    erscheinen in der Regel innerhalb von 24 Stunden. Lehrende, die eine
+    Korrektur wünschen, können sich an die oben genannte Adresse oder an die
+    für UnivIS zuständige Stelle der Universität wenden.
+  </p>
+
   <h2>4. Verbindungen zu Google beim Start der App</h2>
   <p>Die App ist mit Flutter gebaut und nutzt Firebase. Beim Start lädt sie deshalb – auch im Gastmodus – von Servern von Google:</p>
   <ul>
@@ -91,7 +123,8 @@
   <h2>5. Speicherung im Browser</h2>
   <p>Die App speichert im lokalen Speicher des Browsers (localStorage bzw. IndexedDB):</p>
   <ul>
-    <li>im Gastmodus: Lernstände, Lerneinstellungen, Statistiken, Streaks und den Lesestatus der Nachrichten,</li>
+    <li>im Gastmodus: Lernstände, Lerneinstellungen, Statistiken, Streaks, den Lesestatus der Nachrichten und deinen Stundenplan (Verweise auf die gewählten Veranstaltungen),</li>
+    <li>den zuletzt geladenen Veranstaltungskatalog je Semester (öffentliche Daten, Abschnitt 3a), damit der Stundenplan auch ohne Verbindung funktioniert; Kataloge nicht mehr angebotener Semester entfernt die App,</li>
     <li>Einstellungen wie Erscheinungsbild, Sound, Bibel-Reader und Eingabemodus des Perikopenquiz,</li>
     <li>das Sprachmodell für Latein, falls du es heruntergeladen hast (Abschnitt 9),</li>
     <li>ob der Gastmodus gewählt wurde und für welche Konten die Übernahme von Gastdaten abgelehnt wurde (Konto-ID),</li>
@@ -102,7 +135,10 @@
     Diese Speicherung ist für die von dir genutzten Funktionen erforderlich
     (§ 25 Abs. 2 Nr. 2 TDDDG); eine Einwilligung ist dafür nicht nötig. Die
     Gastdaten verlassen den Browser nicht, außer du überträgst sie bewusst in
-    ein Konto. Du kannst alles jederzeit über die Browser-Einstellungen
+    ein Konto. Ausnahme Stundenplan: Meldest du dich an, übernimmt die App
+    die Einträge deines Gast-Stundenplans automatisch in dein Konto (ohne
+    dort vorhandene Einträge zu verändern) und löscht sie im Browser, sobald
+    die Übernahme bestätigt ist. Du kannst alles jederzeit über die Browser-Einstellungen
     („Websitedaten löschen“) entfernen.
   </p>
 
@@ -152,6 +188,7 @@
         <tr><td>Tagesstatistik je Trainer (Anzahl beantworteter, richtiger und falscher Antworten je Tag)</td><td>Statistik-Anzeige</td></tr>
         <tr><td>Streaks (aktuelle/längste Serie, letzte Aktivität, heutige richtige Antworten)</td><td>Streak-Anzeige</td></tr>
         <tr><td>Benachrichtigungs-Einstellungen (gewählte Uhrzeit und Kategorien, Zeitzone des Geräts, Zeitpunkt der nächsten und Tag der letzten Erinnerung), Lesestatus der Nachrichten</td><td>Nachrichten-Glocke, Push-Benachrichtigungen</td></tr>
+        <tr><td>Stundenplan: je gewählter Veranstaltung Kennung, Semester, Titel, Nummer, Quellkennungen, eine Kurzform der Termine und der Zeitpunkt des Hinzufügens</td><td>Geräteübergreifender Stundenplan, Hinweis bei geänderten Terminen</td></tr>
         <tr><td>Nur wenn du Push einschaltest: Push-Abonnement je Gerät (Adresse beim Push-Dienst deines Browsers, Verschlüsselungsschlüssel, Geräteart, Zeitpunkt der letzten Anmeldung)</td><td>Zustellung der Push-Benachrichtigungen</td></tr>
       </tbody>
     </table>
@@ -243,6 +280,8 @@
     <li>Gastmodus: über die Browser-Einstellungen („Websitedaten löschen“).</li>
     <li>Konto: in der App unter <em>Einstellungen → Konto &amp; Sicherheit → Konto löschen</em>. Dabei werden deine in Firestore gespeicherten Daten und anschließend dein Konto gelöscht. Nach Angaben von Google kann es bis zu 180 Tage dauern, bis gelöschte Daten auch aus Sicherungskopien entfernt sind; bei Anmeldungen protokollierte IP-Adressen speichert Google einige Wochen.</li>
     <li>Lernfortschritte allein lassen sich unter <em>Einstellungen → Lernfortschritte zurücksetzen</em> löschen.</li>
+    <li>Stundenplan-Einträge entfernst du einzeln im Stundenplan; mit dem Konto werden alle gelöscht.</li>
+    <li>Zwischengespeicherte Veranstaltungskataloge (öffentliche Daten) ersetzt das Backend bei jedem Abruf; nicht mehr angebotene Semester werden nicht mehr abgerufen.</li>
   </ul>
 
   <h2>13. Deine Rechte</h2>

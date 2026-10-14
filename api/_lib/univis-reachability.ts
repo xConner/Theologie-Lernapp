@@ -3,8 +3,8 @@
 // eine UnivIS-Anfrage pro Minute und Instanz. Antwort enthält nur Kennzahlen
 // (catalogStats), keine Titel, Namen oder Freitexte.
 //
-// Kein regelmäßiger Abruf: Die Nutzungsrechte sind ungeklärt
-// (docs/univis-integration-feasibility.md).
+// Reine Diagnose; der produktive Katalog-Endpunkt ist api/catalog.ts
+// (docs/univis-integration-feasibility.md, Abschnitt 13).
 
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { catalogStats } from './catalog/stats';
