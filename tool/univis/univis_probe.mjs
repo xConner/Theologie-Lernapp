@@ -13,6 +13,8 @@
 //   --save-raw <pfad>    Rohantwort speichern (NICHT ins Repository legen:
 //                        enthält Namen von Lehrpersonen)
 //   --sample <n>         n normalisierte Veranstaltungen ausgeben (Standard 3)
+//   --redact             Lehrpersonen in der Ausgabe schwärzen (für öffentliche
+//                        Protokolle, z. B. GitHub Actions)
 //
 // Genau EINE Anfrage je Aufruf, mit Zeitlimit und erkennbarem User-Agent.
 // Keine Anmeldung, keine Cookies, keine Zugangsdaten.
@@ -34,6 +36,7 @@ const { values } = parseArgs({
         file: { type: 'string' },
         'save-raw': { type: 'string' },
         sample: { type: 'string', default: '3' },
+        redact: { type: 'boolean', default: false },
     },
 });
 
@@ -84,8 +87,28 @@ async function load() {
 }
 
 const { xml, meta } = await load();
-const result = parseUnivisLectures(xml);
+let result;
+try {
+    result = parseUnivisLectures(xml);
+} catch (e) {
+    // z. B. HTML statt XML: Anfang der Antwort zeigen statt abzustürzen.
+    console.log(JSON.stringify({ meta, error: e.message, bodyStart: xml.slice(0, 500) }, null, 2));
+    process.exit(1);
+}
 const sampleSize = Math.max(0, Number(values.sample) || 0);
+
+// Häufigkeit der rohen Wiederholungsmuster (enthalten keine Personendaten).
+const repeatValues = {};
+for (const s of result.lectures.flatMap((l) => l.sessions)) {
+    const raw = s.repeat.raw ?? '(fehlt)';
+    repeatValues[raw] = (repeatValues[raw] ?? 0) + 1;
+}
+
+const sample = result.lectures.slice(0, sampleSize).map((l) =>
+    values.redact
+        ? { ...l, lecturers: l.lecturers.map(() => ({ key: '[geschwärzt]', displayName: '[geschwärzt]' })) }
+        : l,
+);
 
 console.log(
     JSON.stringify(
@@ -93,7 +116,8 @@ console.log(
             meta,
             validation: validateLectures(result),
             inventory: result.inventory,
-            sample: result.lectures.slice(0, sampleSize),
+            repeatValues,
+            sample,
         },
         null,
         2,

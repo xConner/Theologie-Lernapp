@@ -1,0 +1,63 @@
+# Machbarkeitstest der UnivIS-PRG-Schnittstelle (docs/univis-integration-feasibility.md).
+# Läuft auf GitHub-Runnern, weil die Entwicklungsumgebung univis.uni-kiel.de
+# nicht erreicht. Kein Zeitplan: nur manuell oder beim Ändern dieser Datei auf
+# einem claude/-Branch. Höchstens zwei Anfragen je Lauf (Einrichtung suchen,
+# Veranstaltungen abrufen) mit Pause dazwischen.
+#
+# Die Protokolle sind öffentlich: Lehrpersonen werden geschwärzt
+# (--redact), Personen-Datensätze nur gezählt, Rohantworten nicht gespeichert.
+name: UnivIS-Abruftest
+
+on:
+  workflow_dispatch:
+    inputs:
+      sem:
+        description: Semester (z. B. 2026w)
+        default: 2026w
+      name:
+        description: Name der Einrichtung in UnivIS
+        default: Theologische Fakultät
+  push:
+    branches: ["claude/**"]
+    paths: [".github/workflows/univis-probe.yml"]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: univis-probe
+  cancel-in-progress: false
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      SEM: ${{ inputs.sem || '2026w' }}
+      DEPT_NAME: ${{ inputs.name || 'Theologische Fakultät' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci --ignore-scripts
+
+      - name: Organisationsnummer aus UnivIS ermitteln
+        run: |
+          node tool/univis/univis_find_department.mjs --name "$DEPT_NAME" | tee dept.json
+
+      - name: Veranstaltungen der Einrichtung abrufen
+        run: |
+          sleep 5
+          # OrgNr nur übernehmen, wenn genau EINE Einrichtung exakt so heißt
+          # und genau einen Kandidaten trägt; sonst der dokumentierte
+          # Namensfilter department=<Name>.
+          ORG=$(node -e '
+            const d = JSON.parse(require("fs").readFileSync("dept.json", "utf8"));
+            const hits = (d.departments || []).filter(x => x.fields.name === process.env.DEPT_NAME);
+            const c = hits.length === 1 ? hits[0].orgNrCandidates : [];
+            process.stdout.write(c.length === 1 ? c[0].value : "");
+          ' || true)
+          echo "OrgNr: ${ORG:-nicht eindeutig – Namensfilter}"
+          node tool/univis/univis_probe.mjs --sem "$SEM" \
+            --param "department=${ORG:-$DEPT_NAME}" --sample 3 --redact
