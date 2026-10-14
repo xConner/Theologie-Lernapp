@@ -1,6 +1,6 @@
 # UnivIS-Anbindung: Machbarkeitsprüfung
 
-Stand: 14.10.2026. Ziel: Veranstaltungen aus UnivIS (zuerst CAU Kiel)
+Stand: 14.10.2026 (Phase 2 – Backend-Datenverarbeitung – in Abschnitt 11). Ziel: Veranstaltungen aus UnivIS (zuerst CAU Kiel)
 automatisch in der App suchen, filtern und in einen persönlichen
 Stundenplan übernehmen, ohne dass Studierende UnivIS öffnen oder etwas
 exportieren.
@@ -28,7 +28,7 @@ live bestätigt.**
   (`search=departments`, Element `orgnr`), nicht geraten.
 * Titel, Typ, SWS, Veranstaltungsnummer, Gliederung des
   Vorlesungsverzeichnisses, Lehrpersonen, Räume, Uhrzeiten, wöchentliche
-  und einzelne Termine sowie Ausnahmedaten sind maschinenlesbar und
+  und einzelne Termine sowie Ausschlussangaben sind maschinenlesbar und
   vollständig über Verweise auflösbar (0 offene Verweise).
 * Die PRG-Schnittstelle ist von der CAU selbst für das Einbinden in eigene
   Webseiten dokumentiert. **Nutzungsbedingungen für Dritte gibt es keine
@@ -156,7 +156,8 @@ stehen im selben Dokument.
 Nicht vorhanden: `ects_cred` (ECTS fehlen in diesem Katalog), `short`.
 
 `term` (207 Termine): `repeat`, `starttime`, `endtime`, `room` je 205;
-`startdate`/`enddate` 62; `exclude` (Ausnahmedatum) 65.
+`startdate`/`enddate` 62; `exclude` 65 (durchweg das Kennzeichen `vac`, kein
+Datum – Abschnitt 11.3).
 
 Wiederholungscodes (Häufigkeit):
 
@@ -165,8 +166,8 @@ Wiederholungscodes (Häufigkeit):
 | `w1 <Tag>` | 142 | wöchentlich; Tag 1 = Mo … 5 = Fr (**live bestätigt**: `w1 4` ↔ Klartext „Do 16:15-17:45“) |
 | `w2 <Tag>` | 1 | 14-täglich (Annahme aus dem Muster) |
 | `s1` | 50 | Einzeltermin, Datum in `startdate` = `enddate` (live bestätigt) |
-| `bd <Tage>` | 8 | Block an den genannten Wochentagen innerhalb `startdate`–`enddate` (Annahme) |
-| `b1` | 4 | Block (Annahme) |
+| `bd <Tage>` | 8 | Block an den genannten Wochentagen innerhalb `startdate`–`enddate` (**live bestätigt**, Abschnitt 11.3) |
+| `b1` | 4 | durchgehender Block von Startdatum/-zeit bis Enddatum/-zeit (**live bestätigt**) |
 | fehlt | 2 | kein Muster |
 
 ### Weitere Formate
@@ -201,7 +202,7 @@ Protokolle; Lehrpersonen geschwärzt, keine Rohdaten gespeichert):
 | | `search=lectures&department=Theologische Fakultät` | 200, aber `text/html` statt XML |
 | [38571543838](https://github.com/xConner/Theologie-Lernapp/actions/runs/38571543838) | `search=departments&name=Theologische&noimports=1` | 200, `text/xml`, 48 KB: 2 `Org`, 48 `Person`; `orgnr` 010000000 |
 | [38571688314](https://github.com/xConner/Theologie-Lernapp/actions/runs/38571688314) | `search=lectures&show=xml&sem=2026w&department=010000000` | **200, `text/xml`, 407 619 B, 1,2 s** |
-| 38571975156 | dieselben zwei Anfragen, erweitertes Inventar | wie oben; Protokoll enthält einen Freitext mit Kontaktdaten (siehe Abschnitt 5) |
+| 38571975156 | dieselben zwei Anfragen, erweitertes Inventar | wie oben; Protokoll enthielt einen Freitext mit Kontaktdaten – **Lauf gelöscht** (Abschnitt 11.1) |
 | [38572194090](https://github.com/xConner/Theologie-Lernapp/actions/runs/38572194090) | `search=lectures&number=010076&sem=2026w&show=llong` | 200, HTML; Klartext „Do 16:15-17:45“ = XML `w1 4` |
 
 Insgesamt 9 Anfragen an UnivIS, je Lauf höchstens zwei mit 5 s Pause.
@@ -257,24 +258,27 @@ zwischengespeicherten Katalog vorgesehen.
   Vorlesungsverzeichnisses steht in `classification`. Ein Modulfilter ist
   damit möglich, hängt aber an der Pflegedisziplin der Einrichtungen.
 * **ECTS** fehlen im Katalog der Theologie.
-* **Blocktermine** (`bd`, `b1`): Deutung plausibel, nicht gegen Klartext
-  geprüft. `w2` (14-täglich) kommt einmal vor; die Startwoche ist offen.
-* **Absagen**: Ausnahmedaten (`exclude`) werden gepflegt (65 Termine);
-  ob kurzfristige Absagen zuverlässig eingetragen werden, hängt von den
-  Einrichtungen ab.
+* **Blocktermine** (`bd`, `b1`): gegen die Klartextansicht geprüft
+  (Abschnitt 11.3). `w2` (14-täglich) kommt einmal vor; die Startwoche ist
+  offen.
+* **Absagen**: `exclude` enthält in Kiel keine Daten, sondern durchweg das
+  Kennzeichen `vac` (vorlesungsfreie Zeit). Einzelne Ausfalltermine sind im
+  Theologie-Katalog nicht eingetragen; ob kurzfristige Absagen je gepflegt
+  werden, ist offen.
 * **Stabile Kennungen**: Die Schlüssel sind sprechend
   (`Lecture.theol.altte.relig.bibelk`) und wirken aus dem Titel abgeleitet;
   ob sie über Semester und Umbenennungen stabil bleiben, ist offen.
 * **Freitexte mit Kontaktdaten**: `time_description` (und ggf. `kontakt`,
   `organizational`) enthält in Kiel teils private E-Mail-Adressen. Solche
   Felder nicht übernehmen oder nur verlinken. **Vorfall:** Das öffentliche
-  Protokoll von Lauf 38571975156 enthält den Anfang einer solchen Adresse
-  (in UnivIS öffentlich sichtbar). Das Skript schwärzt Freitexte inzwischen;
-  das Protokoll dieses Laufs sollte gelöscht werden (Abschnitt 10).
+  Protokoll von Lauf 38571975156 enthielt den Anfang einer solchen Adresse.
+  Der Lauf ist gelöscht (geprüft, Abschnitt 11.1); die Skripte geben keine
+  Freitexte mehr aus.
 * **Umlaute in Parametern**: UTF-8-kodierte Umlaute finden nichts;
   Organisationsnummern statt Namen verwenden.
 * **Netzwerk**: Die Claude-Cloud-Umgebung erreicht UnivIS nicht; GitHub
-  Actions und (vermutlich) Vercel schon. Vercel ist nicht geprüft.
+  Actions schon. Vercel: ungeklärt, weil Previews geschützt sind
+  (Abschnitt 11.6).
 * **CORS**: nicht geprüft; für die Web-App ist ohnehin ein Server-Adapter
   nötig.
 * **Anmeldung**: PRG ist anonym. Belegungen/Anmeldungen laufen über
@@ -395,10 +399,9 @@ kennt nur das normalisierte Format.
 1. ~~Live-Test~~ – erledigt (Abschnitt 4).
 2. **Anfrage an die CAU** (Abschnitt 9) senden; bis zur Antwort keine
    öffentliche Funktion und keine regelmäßigen Abrufe.
-3. **Parser ergänzen**: Zusammenführen importierter Doppel, Modulkürzel aus
-   dem Titel, Termin-Expansion über die Vorlesungszeit (inkl. `exclude`,
-   `bd`), Konfliktprüfung – als reine, getestete Funktionen.
-4. **Prüfen, ob Vercel UnivIS erreicht**, dann Prototyp-Endpunkt
+3. ~~Parser ergänzen~~ – erledigt: `api/_lib/catalog/` (Abschnitt 11).
+4. **Prüfen, ob Vercel UnivIS erreicht** (vorbereitet, braucht das
+   Bypass-Secret, Abschnitt 11.6), dann Prototyp-Endpunkt
    `api/univis-lectures.ts` (über `guarded`), fest eingeschränkt auf Host
    und Organisationsnummer, mit
    `Cache-Control: s-maxage=86400, stale-while-revalidate`; Tests wie
@@ -492,12 +495,231 @@ Alles im Browser, ohne Konto, ohne Installation.
 **D. Wiederholung über GitHub (optional)**
 
 Auf GitHub unter „Actions“ → „UnivIS-Abruftest“ → „Run workflow“ (erscheint,
-sobald die Workflow-Datei im Hauptzweig liegt). Modus `probe` ruft den
-Katalog ab und zeigt Kennzahlen; das Protokoll ist öffentlich, Lehrpersonen
-und Freitexte sind geschwärzt.
+sobald die Workflow-Datei im Hauptzweig liegt). Modus `catalog` führt das
+Backend auf echten Daten aus und zeigt nur Kennzahlen; das Protokoll ist
+öffentlich und enthält keine Personen und keine Freitexte.
 
-**E. Protokoll mit Kontaktdaten löschen (einmalig)**
+**E. Protokoll mit Kontaktdaten löschen** – erledigt (Lauf 38571975156
+ist gelöscht, Abschnitt 11.1).
 
-Auf GitHub: Actions → „UnivIS-Abruftest“ → Lauf
-`38571975156` („Matched the UnivIS parser to the real Kiel response…“)
-öffnen → oben rechts „…“ → „Delete workflow run“.
+**F. Vercel-Erreichbarkeit freischalten (einmalig, ohne Programmierung)**
+
+1. Vercel → Projekt „theologie-lernapp“ → Settings → Deployment Protection →
+   „Protection Bypass for Automation“ → Secret erzeugen und kopieren.
+2. GitHub → Repository → Settings → Secrets and variables → Actions →
+   „New repository secret“, Name `VERCEL_AUTOMATION_BYPASS_SECRET`, Wert
+   einfügen.
+3. Actions → „UnivIS-Abruftest“ → „Run workflow“, Modus `vercel` (sobald
+   die Workflow-Datei im Hauptzweig liegt; sonst genügt mir ein Hinweis, dann
+   starte ich den Lauf).
+
+## 11. Phase 2: Backend-Datenverarbeitung
+
+Ziel: robuste, getestete Verarbeitung ohne Flutter-Oberfläche und ohne
+regelmäßigen Abruf. Ort: `api/_lib/catalog/` (TypeScript wie die übrigen
+Serverfunktionen, `cheerio` als vorhandene Abhängigkeit).
+
+### 11.1 Ausgangslage und Datenschutzprüfung
+
+* Branch `claude/clever-albattani-rt4952`, sauber, gleich `origin`.
+* **Lauf 38571975156 ist gelöscht – geprüft:** Die GitHub-API liefert für
+  ihn `404`, die übrigen Läufe `200`; die Laufliste des Workflows enthält
+  nur noch die Läufe 1, 2, 3 und 5.
+* Workflow und Skripte geprüft und verschärft:
+  - `probe` gibt keine Stichproben mehr aus (nur Inventar und Kennzahlen).
+  - `univis_find_department.mjs` gibt von Einrichtungen nur `id`, `name`,
+    `name_en`, `orgnr`, `ordernr`, `url` aus (Positivliste).
+  - `univis_check_schedule.mjs` gibt nur Folgen aus einer festen Wortliste
+    aus (Wochentage, Daten, Uhrzeiten, „Block“, „ab“, „bis“ …); Namen und
+    Freitexte können so nicht ins Protokoll.
+  - `catalog_stats.mjs` und der Vercel-Endpunkt geben nur Zählungen und
+    Veranstaltungsnummern aus.
+  - Ältere Läufe (1–3, 5) enthalten Titel, Räume, Einrichtungen und
+    Organisationsnummern, aber keine Personen oder Freitexte.
+
+### 11.2 Datenmodell (`model.ts`)
+
+| Typ | Inhalt | Quellbezug |
+|---|---|---|
+| `Semester` | Semester, Vorlesungszeit, unterrichtsfreie Zeiten, Zeitzone, Beleg | gepflegt in `semesters.ts` (CAU WS 2026/27: 01.10.–31.03., Vorlesungen 12.10.–12.02., frei 21.12.–03.01.) |
+| `Course` | Titel, Nummer, Modulkürzel, Typ, SWS, ECTS, Einrichtungen, Gliederung, Lehrpersonen, Terminregeln, Zeitraum, Detail-URL | `sources[]`: **alle** Quellkennungen, auch zusammengeführter Dubletten |
+| `SessionRule` | Terminangabe wie in der Quelle (Art, Intervall, Wochentage, Zeiten, Zeitraum, Ausfalldaten, Ausschluss-Kennzeichen, Raum, Rohwert) | `raw` (z. B. `w1 4`); `id` aus dem Inhalt, ohne Ausfälle |
+| `Occurrence` | konkreter Termin `[start, end)` mit Offset (Europe/Berlin), Raum, `scheduled`/`cancelled` | `id = <ruleId>@<Datum>` |
+| `Person` | nur Anzeigename (Titel, Vor-, Nachname) | `source` |
+| `Room` | Kurz- und Langname, `online` | `source` |
+| `Provenance` | Quelle, System, Hochschule, URL, Abrufzeit, SHA-256 der Antwort | – |
+| `ScheduleIssue` | Hinweis/Warnung je Veranstaltung und Regel | – |
+| `CatalogSnapshot` | alles zusammen, plus `mergedDuplicates` und `possibleDuplicates` | – |
+
+Freitexte (`time_description`, `kontakt`, `organizational`, `summary`,
+`literature`, `comment`) werden nicht übernommen; Personen ohne Verweis
+aus einer Veranstaltung fallen weg.
+
+### 11.3 Terminauflösung (`schedule.ts`, `time.ts`)
+
+Deutung, live gegen die Klartextansicht (`show=llong`) geprüft (Lauf
+[38575633585](https://github.com/xConner/Theologie-Lernapp/actions/runs/38575633585)):
+
+| Angabe | Klartext in UnivIS | Auflösung |
+|---|---|---|
+| `w1 4` (010076) | „Do 16:15 - 17:45, vom 18.10.2026 bis 7.2.2027“ | jeder Donnerstag im **Veranstaltungszeitraum** ∩ Vorlesungszeit, ohne unterrichtsfreie Zeit |
+| Veranstaltungs-`startdate`/`enddate` | „vom … bis …“ (oben) | begrenzt wöchentliche Regeln (bestätigt; zunächst fälschlich nur gemeldet) |
+| `w2 2` (010000) | „… Woche Di 18:15 - 19:45, vom 18.10.2026 bis 7.2.2027“ | **keine Termine** – Startwoche nicht angegeben (`biweekly-phase-unknown`) |
+| `bd 1,2,3,4,5` (010032) | „Blockveranstaltung 12.10.2026 - 16.10.2026, 9:00 - 17:00“ | die Wochentage im Zeitraum |
+| `bd 1,2,3,4` (010036) | „Blockveranstaltung 5.10.2026 - 8.10.2026, 9:00 - 15:00“ | dto. |
+| `b1` (010008) | „Blockveranstaltung 5.2.2027 9:15 - 8.2.2027 19:45“ | **ein** durchgehender Zeitraum (`block-continuous`) |
+| `s1` | Einzeltermin | genau das Datum |
+| `exclude` = `vac` (24 Regeln) | – | vorlesungsfreie Zeit ausgenommen; entspricht der Standardauflösung, daher ohne Wirkung |
+| `exclude` = Datum | – (in Kiel nicht belegt) | Termin bleibt sichtbar, Status `cancelled` |
+
+Weitere Regeln: Zeitzone Europe/Berlin über `Intl` (Zeitumstellung
+25.10.2026 und 28.03.2027 getestet; nicht existierende Ortszeiten ergeben
+keinen Termin). Termine außerhalb des Semesters werden verworfen
+(`outside-semester`). Fehlende Uhrzeiten, Ende vor Beginn, unbekannte
+Muster, Einzeltermine ohne Datum oder mit Zeitraum, Blöcke ohne Zeitraum:
+keine Termine, sondern eine Warnung. Ausfalldaten ohne passenden Termin
+und unbekannte Ausschluss-Kennzeichen: Hinweis. Ausfallangaben in
+unbekanntem Format werden als Strukturwarnung gemeldet, nie still
+verworfen (das war zuvor der Fall).
+
+Feiertage: Im WS 2026/27 fällt in Schleswig-Holstein kein Feiertag auf
+einen Vorlesungstag außerhalb der Weihnachtspause (31.10. ist ein
+Samstag). Für andere Semester müssen sie in `Semester.breaks` gepflegt
+werden.
+
+### 11.4 Dubletten und Überschneidungen (`dedupe.ts`, `overlap.ts`)
+
+Zusammengeführt wird nur, was eindeutig gleich ist: (1) Import-Verknüpfung
+`import_parent_id` → `id` **und** gleiche Termine, oder (2) gleiche Nummer
+**und** gleicher (normalisierter) Titel **und** gleiche, nicht leere
+Termine samt Raum. Hauptfassung ist die nicht importierte; alle
+Quellkennungen, Einrichtungen, Gliederungspunkte und Lehrpersonen bleiben
+erhalten. Gleiche Nummer mit abweichendem Titel oder abweichenden
+Terminen (Parallelgruppen) bleibt getrennt und wird als
+`possibleDuplicates` gemeldet; ähnliche Titel allein führen nie zusammen.
+
+Überschneidungen: halboffene Intervalle `[start, end)` in echter Zeit
+(UTC-Millisekunden) – direkt aufeinanderfolgende Termine kollidieren
+nicht, abgesagte zählen nicht, Überschneidungen innerhalb einer
+Veranstaltung werden als `sameCourse` gekennzeichnet.
+`overlapsBetween(occurrences, courseIds)` liefert die Konflikte eines
+Stundenplans je Sitzung.
+
+### 11.5 Ergebnis auf echten Daten
+
+`catalog_stats.mjs` in GitHub Actions, je eine Anfrage, nur Kennzahlen
+(Läufe [38575289543](https://github.com/xConner/Theologie-Lernapp/actions/runs/38575289543),
+[38576150730](https://github.com/xConner/Theologie-Lernapp/actions/runs/38576150730)):
+
+| Kennzahl | WS 2026/27, Theologische Fakultät |
+|---|---|
+| Veranstaltungen in der Antwort | 150 |
+| nach Dublettenprüfung | **89** |
+| importiert / Ursprung in derselben Antwort | 70 / 61 |
+| zusammengeführt | 34 Gruppen (19 über Import, 15 über Import und Nummer+Titel+Termine) |
+| mögliche Dubletten (bewusst getrennt) | 0 |
+| Terminregeln (nach Zusammenführung) | 103: 79 wöchentlich, 1 × 14-täglich, 6 Blöcke, 16 Einzeltermine, 1 ohne Muster |
+| aufgelöste Termine | **1149** (vor Anwendung des Veranstaltungszeitraums 1298) |
+| abgesagte Termine | 0 (keine Ausfalldaten gepflegt) |
+| Veranstaltungen ohne Termine | 12: 10 ohne Terminangabe, 1 × 14-täglich ohne Startwoche, 1 ohne Uhrzeit |
+| Strukturwarnungen | 0 |
+| Veranstaltungen mit Modulkürzeln | 58 von 89 |
+
+Die neun Importe ohne Ursprung in der Antwort stammen aus Einrichtungen
+außerhalb der Fakultät; sie bleiben eigene Einträge.
+
+### 11.6 Serverzugriff (Vercel) und Adapter
+
+* `api/univis-reachability.ts`: antwortet nur in Preview-Deployments (in
+  Produktion `404`), nur `GET`, höchstens eine UnivIS-Anfrage pro Minute
+  und Instanz, Antwort nur Kennzahlen. Getestet mit gefälschtem `fetch`.
+* **Ergebnis: Ob Vercel UnivIS erreicht, ist weiterhin offen.** Das Preview
+  wurde gebaut (Vercel-Status `success`), ist aber durch **Vercel
+  Authentication** geschützt: Der Aufruf aus GitHub Actions erhielt `302`
+  („Protected by Vercel Authentication“), die Funktion lief nicht, es ging
+  keine Anfrage an UnivIS (Lauf
+  [38574515340](https://github.com/xConner/Theologie-Lernapp/actions/runs/38574515340)).
+  Der Schutz wurde nicht umgangen. Der Workflow-Modus `vercel` nutzt den
+  offiziellen Weg „Protection Bypass for Automation“, sobald das Secret
+  `VERCEL_AUTOMATION_BYPASS_SECRET` gesetzt ist (Abschnitt 10F).
+  Indiz, kein Beleg: Bestehende Vercel-Funktionen (`api/greek-noun.ts`)
+  rufen externe Seiten ab; GitHub-Runner (Azure) erreichen UnivIS.
+* Adapter-Schnittstelle (`source.ts`):
+
+  ```ts
+  interface CatalogSource {
+      sourceId; system; institution; semesters;
+      fetchRaw(query: { semesterId; organizationId }): Promise<RawResponse>; // genau eine Anfrage
+      parse(body, query): ParsedCatalog;                                   // ohne Netzwerk
+  }
+  buildSnapshot(source, query, raw, fetchedAt) // rein: parse → dedupe → resolve
+  loadCatalog(source, query)                   // fetchRaw + buildSnapshot
+  ```
+
+  `UnivisSource` (Host, Semester, Organisationsnummer geprüft; Zeitlimit,
+  Größenlimit, Zeichensatz) ist die einzige UnivIS-spezifische Stelle
+  neben `univis/parse.ts`. Ein HISinOne-Adapter implementiert dieselbe
+  Schnittstelle; Modell, Auflösung, Dubletten, Überschneidungen und alles
+  darüber bleiben unverändert.
+* **Kein regelmäßiger Abruf eingerichtet.** Der Workflow hat keinen
+  Zeitplan; er läuft nur manuell oder beim Ändern der Workflow-Datei auf
+  einem `claude/`-Branch (dann eine Anfrage).
+
+### 11.7 Tests
+
+| Suite | Ergebnis |
+|---|---|
+| `node --test api/_lib/catalog/catalog.test.mjs` | 31/31 |
+| `node --test api/_lib/handlers.test.mjs` | 14/14 |
+| `node --test api/_lib/reminders.test.mjs` | 10/10 |
+| `node --test tool/univis/univis_parser.test.mjs` | 9/9 |
+
+Abgedeckt: Zeitzone und Zeitumstellung, Wochentage (1 = Mo), mehrere
+Wochentage, 14-täglich mit/ohne Startdatum, Einzel- und Blocktermine
+(auch durchgehend über mehrere Tage), Weihnachtspause, Veranstaltungs-
+zeitraum, Semestergrenzen, Ausfälle (Datum, Kennzeichen, unbekanntes
+Format), stabile Kennungen, Dubletten (Import, Nummer+Titel+Termine,
+Parallelgruppen, ähnliche Titel), Überschneidungen (teilweise, enthalten,
+drei gleichzeitig, direkt anschließend, abgesagt, über die Zeitumstellung),
+fehlerhafte und unvollständige XML (HTML, leer, abgeschnitten, ohne
+Kennung/Titel, unbekannte Verweise), Datenschutz (keine Freitexte, keine
+unbenutzten Personen), Adapter (eine Anfrage, Parameterprüfung,
+ISO-8859-1, HTTP-Fehler) und der Vercel-Endpunkt (Produktion, Methode,
+Drosselung, nur Kennzahlen, Netzfehler). Gegenprobe: Zwei absichtlich
+eingebaute Fehler (Weihnachtspause verschoben, Berührung als
+Überschneidung) ließen 5 bzw. 2 Tests scheitern.
+
+Testdaten: `fixtures/synthetic-catalog.xml` (erfunden) und
+`fixtures/kiel-2026w-excerpt.xml` (aus dem öffentlichen, geschwärzten
+Protokoll rekonstruiert; Lehrpersonen synthetisch). Flutter-Code wurde
+nicht geändert; `flutter analyze` war daher nicht nötig.
+
+### 11.8 Offene Punkte
+
+1. **Nutzungsrechte** (Abschnitt 9) – unverändert offen; Anfrage an die CAU
+   noch nicht gestellt.
+2. **Vercel-Erreichbarkeit** – braucht das Bypass-Secret (Abschnitt 10F).
+3. **14-täglich ohne Startwoche** (010000): UnivIS nennt die Startwoche
+   nicht. Denkbar ist „ab Beginn des Veranstaltungszeitraums“; das ist
+   nicht belegt, daher keine Termine. Klärung bei der CAU (Handbuch 19.4).
+4. **`vac`**: Bedeutung aus dem Namen erschlossen; die Auflösung wäre auch
+   ohne diese Deutung gleich.
+5. **Einzelne Ausfälle**: Im Theologie-Katalog nicht gepflegt; ob Absagen
+   je über UnivIS kommen, ist offen. Die App braucht dafür ggf. einen
+   Hinweis „Kurzfristige Änderungen siehe OLAT/UnivIS“.
+6. **Stabilität der UnivIS-Schlüssel** über Semester und Bearbeitungen.
+7. **Feiertage** anderer Semester in `semesters.ts` pflegen.
+
+### 11.9 Empfohlene nächste Phase
+
+1. CAU-Anfrage (Abschnitt 9) senden; Secret für den Vercel-Test anlegen und
+   den Modus `vercel` einmal ausführen.
+2. Nach Freigabe: Lesender Endpunkt `api/catalog.ts` auf Basis von
+   `loadCatalog` mit CDN-Cache (`s-maxage=86400`) – oder, falls Vercel UnivIS
+   nicht erreicht, Erzeugung des Katalogs in GitHub Actions und Ablage in
+   Firestore (`catalog_sources/…`, nur Server schreibt).
+3. Änderungserkennung zwischen zwei Snapshots (gleiche `Occurrence.id`,
+   anderer Inhalt → „geändert“; fehlend → „entfallen“) als reine Funktion.
+4. Danach erst Flutter: Datenmodell in Dart spiegeln, Suche/Filter,
+   Stundenplan unter `users/{uid}/timetable` mit Schnappschuss und
+   `overlapsBetween`-Logik.

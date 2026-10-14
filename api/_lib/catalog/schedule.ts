@@ -5,7 +5,8 @@
 // * wöchentlich (`w1 <Tage>`): jeder passende Wochentag im Zeitraum – das ist
 //   der Zeitraum der Regel, sonst der der Veranstaltung („vom 18.10.2026 bis
 //   7.2.2027“), jeweils begrenzt auf die Vorlesungszeit –, stets ohne
-//   unterrichtsfreie Zeiten. Ausfalldaten (`exclude` mit Datum) bleiben als
+//   unterrichtsfreie Zeiten (in Kiel zusätzlich als `exclude` = `vac`
+//   gekennzeichnet). Ausfalldaten (`exclude` mit Datum) bleiben als
 //   `cancelled` sichtbar.
 // * 14-täglich (`w2`): nur mit Startdatum der Regel; sonst ist die Startwoche
 //   unbekannt (die Klartextansicht nennt sie nicht) und es entstehen KEINE
@@ -34,6 +35,13 @@ interface Slot {
     /** Enddatum bei durchgehenden Blöcken, sonst gleich `date`. */
     endDate: IsoDate;
 }
+
+/**
+ * Bekannte Ausschluss-Kennzeichen. `vac` (Kiel, 24 Regeln im WS 2026/27):
+ * vorlesungsfreie Zeit ausgenommen – das tut die Auflösung für wöchentliche
+ * Regeln ohnehin (`Semester.breaks`), daher ohne Wirkung.
+ */
+const KNOWN_EXCLUDE_CODES = new Set(['vac']);
 
 function inBreak(semester: Semester, date: IsoDate): boolean {
     return semester.breaks.some((b) => date >= b.start && date <= b.end);
@@ -142,9 +150,10 @@ export function resolveCourse(course: Course, semester: Semester): Resolution {
             issues.push(issue(course, rule, 'invalid-time', 'warning', `Ende ${rule.endTime} nicht nach Beginn ${rule.startTime}`));
             continue;
         }
-        if (rule.excludeCodes.length > 0) {
+        const unknownCodes = rule.excludeCodes.filter((c) => !KNOWN_EXCLUDE_CODES.has(c));
+        if (unknownCodes.length > 0) {
             issues.push(issue(course, rule, 'exclude-code-unknown', 'info',
-                `Ausschluss-Kennzeichen ${rule.excludeCodes.join(', ')} (Bedeutung ungeklärt, nicht angewendet)`));
+                `Ausschluss-Kennzeichen ${unknownCodes.join(', ')} (Bedeutung ungeklärt, nicht angewendet)`));
         }
 
         const slots = slotsFor(course, rule, semester, issues);

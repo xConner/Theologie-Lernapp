@@ -410,10 +410,11 @@ test('Erreichbarkeitstest: nur Preview, nur GET, gedrosselt, nur Kennzahlen', as
 });
 
 test('Ausfallangaben: unbekanntes Format gemeldet, Buchstabenkennzeichen erhalten, aber nicht geraten', () => {
-    const xml = '<UnivIS><Lecture key="L.x"><name>X</name><terms><term><repeat>w1 1</repeat><starttime>10:00</starttime><endtime>11:00</endtime><exclude>02.11.2026</exclude><exclude>vac</exclude></term></terms></Lecture></UnivIS>';
+    const xml = '<UnivIS><Lecture key="L.x"><name>X</name><terms><term><repeat>w1 1</repeat><starttime>10:00</starttime><endtime>11:00</endtime><exclude>02.11.2026</exclude><exclude>vac</exclude><exclude>xyz</exclude></term></terms></Lecture></UnivIS>';
     const s = snapshotOf(xml);
     assert.deepEqual(s.warnings, ['Ausfalldatum in unbekanntem Format "99.99.9999" in L.x']);
-    assert.deepEqual(s.courses[0].rules[0].excludeCodes, ['vac']);
+    assert.deepEqual(s.courses[0].rules[0].excludeCodes, ['vac', 'xyz']);
+    assert.match(s.issues[0].detail, /Kennzeichen xyz \(/);
     assert.deepEqual(s.issues.map((i) => i.code), ['exclude-code-unknown']);
     assert.equal(s.occurrences.length, 16);
     assert.equal(s.occurrences.filter((x) => x.status === 'cancelled').length, 0);
