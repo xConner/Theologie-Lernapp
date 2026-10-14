@@ -45,7 +45,7 @@ jobs:
     timeout-minutes: 5
     env:
       # Ein Push dieser Datei führt nur die Prüfungen aus, die hier stehen.
-      MODE: ${{ inputs.mode || 'catalog,schedule' }}
+      MODE: ${{ inputs.mode || 'catalog' }}
       SEM: ${{ inputs.sem || '2026w' }}
       DEPT_QUERY: ${{ inputs.query || 'Theologische' }}
       DEPT_NAME: ${{ inputs.name || 'Theologische Fakultät' }}

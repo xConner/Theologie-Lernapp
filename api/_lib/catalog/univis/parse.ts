@@ -165,6 +165,18 @@ export function parseUnivisXml(xml: string, ctx: UnivisParseContext): ParsedCata
                 const roomKey = refs($, term, 'room')[0] ?? null;
                 if (roomKey && !rooms.has(roomKey)) warnings.push(`unbekannter Raum ${roomKey} in ${key}`);
                 if (roomKey && rooms.has(roomKey)) usedRooms.add(roomKey);
+                // `exclude` enthält Daten (YYYY-MM-DD) oder – in Kiel durchweg –
+                // ein Buchstabenkennzeichen. Alles andere nicht still verwerfen:
+                // Sonst erschienen Ausfälle als reguläre Termine.
+                const excludeValues = $(term)
+                    .children('exclude')
+                    .map((_, ex) => $(ex).text().trim())
+                    .get() as string[];
+                for (const v of excludeValues) {
+                    if (!isIsoDate(v) && !/^[a-z]{1,8}$/i.test(v)) {
+                        warnings.push(`Ausfalldatum in unbekanntem Format ${JSON.stringify(shapeOf(v))} in ${key}`);
+                    }
+                }
                 const rule = {
                     kind: repeat.kind,
                     intervalWeeks: repeat.intervalWeeks,
@@ -173,18 +185,8 @@ export function parseUnivisXml(xml: string, ctx: UnivisParseContext): ParsedCata
                     endTime: normalizeTime(text($, term, 'endtime')),
                     startDate: date(text($, term, 'startdate')),
                     endDate: date(text($, term, 'enddate')),
-                    excludedDates: $(term)
-                        .children('exclude')
-                        .map((_, ex) => $(ex).text().trim())
-                        .get()
-                        .filter((value: string) => {
-                            if (isIsoDate(value)) return true;
-                            // Nicht still verwerfen: Ein unbekanntes Format hieße,
-                            // dass Ausfälle als reguläre Termine erscheinen.
-                            warnings.push(`Ausfalldatum in unbekanntem Format ${JSON.stringify(shapeOf(value))} in ${key}`);
-                            return false;
-                        })
-                        .sort(),
+                    excludedDates: excludeValues.filter(isIsoDate).sort(),
+                    excludeCodes: [...new Set(excludeValues.filter((v) => /^[a-z]{1,8}$/i.test(v)))].sort(),
                     roomId: roomKey && rooms.has(roomKey) ? id(roomKey) : null,
                     raw,
                 };

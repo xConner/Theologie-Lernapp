@@ -30,6 +30,8 @@ export function catalogStats(parsed: ParsedCatalog, snapshot: CatalogSnapshot) {
         repeatKinds: count(rules, ({ r }) => (r.kind === 'weekly' ? `weekly/${r.intervalWeeks}` : r.kind)),
         occurrences: snapshot.occurrences.length,
         cancelled: snapshot.occurrences.filter((o) => o.status === 'cancelled').length,
+        // Ausschluss-Kennzeichen der Quelle (Buchstabencodes, keine Inhalte).
+        excludeCodes: count(rules.flatMap(({ r }) => r.excludeCodes), (c) => c),
         issues: count(snapshot.issues, (i) => `${i.severity}:${i.code}`),
         warnings: parsed.warnings.length,
         // Meldungen ohne Kennungen gruppiert (Kennungen sind sprechend, aber

@@ -90,6 +90,8 @@ export interface SessionRule {
     startDate: IsoDate | null;
     endDate: IsoDate | null;
     excludedDates: IsoDate[];
+    /** Ausschluss-Kennzeichen der Quelle, die kein Datum sind (Kiel: dreibuchstabig). */
+    excludeCodes: string[];
     roomId: string | null;
     /** Rohwert der Quelle (z. B. `w1 4`), für Nachvollziehbarkeit. */
     raw: string | null;
@@ -104,8 +106,8 @@ export type IssueCode =
     | 'block-pattern-unclear'
     | 'outside-semester'
     | 'exclude-not-matching'
-    | 'course-range-differs'
-    | 'block-unverified'
+    | 'block-continuous'
+    | 'exclude-code-unknown'
     | 'nonexistent-local-time'
     | 'no-rules';
 

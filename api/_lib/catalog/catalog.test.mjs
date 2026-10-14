@@ -151,10 +151,19 @@ test('Einzeltermine: Datum genau, außerhalb des Semesters verworfen, Lücken ge
     assert.ok(snap.rooms.find((r) => r.id === 'cau-univis:Room.test.online').online);
 });
 
-test('Blöcke: Tage im Zeitraum (als ungeprüft markiert), mehrtägig ohne Tage unklar', () => {
+test('Blöcke: Tage im Zeitraum; ohne Tage ein durchgehender Zeitraum', () => {
     const list = occ('Lecture.test.blocks');
-    assert.deepEqual(list.map((o) => o.date), ['2027-02-18', '2027-02-19', '2027-03-01']);
-    assert.deepEqual(issues('Lecture.test.blocks'), ['block-pattern-unclear', 'block-unverified', 'missing-date']);
+    assert.deepEqual(list.map((o) => o.date), ['2027-02-18', '2027-02-19', '2027-03-01', '2027-03-08']);
+    assert.deepEqual([list[0].start, list[0].end], ['2027-02-18T09:00:00+01:00', '2027-02-18T17:00:00+01:00']);
+    // b1 über mehrere Tage: wie in UnivIS „Blockveranstaltung 5.2.2027 9:15 - 8.2.2027 19:45“.
+    assert.deepEqual([list[3].start, list[3].end], ['2027-03-08T09:00:00+01:00', '2027-03-12T12:00:00+01:00']);
+    assert.deepEqual(issues('Lecture.test.blocks'), ['block-continuous', 'missing-date']);
+});
+
+test('durchgehender Block darf mit früherer Uhrzeit am letzten Tag enden', () => {
+    const xml = '<UnivIS><Lecture key="L.b"><name>B</name><terms><term><repeat>b1</repeat><startdate>2027-02-05</startdate><enddate>2027-02-08</enddate><starttime>19:45</starttime><endtime>09:15</endtime></term></terms></Lecture></UnivIS>';
+    const s = snapshotOf(xml);
+    assert.deepEqual([s.occurrences[0].start, s.occurrences[0].end], ['2027-02-05T19:45:00+01:00', '2027-02-08T09:15:00+01:00']);
 });
 
 test('fehlende, unsinnige und unbekannte Angaben erzeugen keine Termine', () => {
@@ -264,10 +273,12 @@ test('Kieler Auszug: Import-Dublette, Donnerstage, Einzeltermine online', () => 
     assert.ok(bib.moduleCodes.includes('DKA-AT1-Bib'));
     assert.equal(bib.detailUrl, 'https://univis.uni-kiel.de/prg?search=lectures&number=010076&sem=2026w&show=llong');
     const thursdays = kiel.occurrences.filter((x) => x.courseId === bib.id);
-    assert.equal(thursdays.length, 16);
+    // Zeitraum der Veranstaltung („vom 18.10.2026 bis 7.2.2027“) begrenzt die
+    // Vorlesungszeit: 22.10.–04.02., ohne 24. und 31.12. → 14 Donnerstage.
+    assert.equal(thursdays.length, 14);
+    assert.deepEqual([thursdays[0].date, thursdays.at(-1).date], ['2026-10-22', '2027-02-04']);
     assert.ok(thursdays.every((x) => isoWeekday(x.date) === 4 && x.start.includes('T16:15:00')));
-    // Veranstaltungszeitraum (18.10.–07.02., Sonntage) schränkt nicht ein, wird aber gemeldet.
-    assert.match(kiel.issues.find((i) => i.code === 'course-range-differs').detail, /^2 Termin/);
+    assert.deepEqual(kiel.issues, []);
     const rv = kiel.occurrences.filter((x) => x.courseId.endsWith('_human'));
     assert.deepEqual(rv.map((x) => x.start), [
         '2026-11-02T18:15:00+01:00', '2026-11-09T18:15:00+01:00', '2027-01-11T18:15:00+01:00', '2027-02-01T18:15:00+01:00',
@@ -398,9 +409,21 @@ test('Erreichbarkeitstest: nur Preview, nur GET, gedrosselt, nur Kennzahlen', as
     assert.deepEqual([failed.body.reachable, failed.body.cause], [false, 'ENOTFOUND']);
 });
 
-test('Ausfalldaten in unbekanntem Format werden gemeldet statt still verworfen', () => {
-    const xml = '<UnivIS><Lecture key="L.x"><name>X</name><terms><term><repeat>w1 1</repeat><starttime>10:00</starttime><endtime>11:00</endtime><exclude>02.11.2026</exclude></term></terms></Lecture></UnivIS>';
+test('Ausfallangaben: unbekanntes Format gemeldet, Buchstabenkennzeichen erhalten, aber nicht geraten', () => {
+    const xml = '<UnivIS><Lecture key="L.x"><name>X</name><terms><term><repeat>w1 1</repeat><starttime>10:00</starttime><endtime>11:00</endtime><exclude>02.11.2026</exclude><exclude>vac</exclude></term></terms></Lecture></UnivIS>';
     const s = snapshotOf(xml);
     assert.deepEqual(s.warnings, ['Ausfalldatum in unbekanntem Format "99.99.9999" in L.x']);
+    assert.deepEqual(s.courses[0].rules[0].excludeCodes, ['vac']);
+    assert.deepEqual(s.issues.map((i) => i.code), ['exclude-code-unknown']);
+    assert.equal(s.occurrences.length, 16);
     assert.equal(s.occurrences.filter((x) => x.status === 'cancelled').length, 0);
+});
+
+test('wöchentlich: Veranstaltungszeitraum begrenzt, außerhalb der Vorlesungszeit nicht erweitert', () => {
+    const xml = (from, to) => `<UnivIS><Lecture key="L.r"><name>R</name><startdate>${from}</startdate><enddate>${to}</enddate><terms><term><repeat>w1 1</repeat><starttime>10:00</starttime><endtime>11:00</endtime></term></terms></Lecture></UnivIS>`;
+    const narrow = snapshotOf(xml('2026-11-01', '2026-11-30')).occurrences.map((x) => x.date);
+    assert.deepEqual(narrow, ['2026-11-02', '2026-11-09', '2026-11-16', '2026-11-23', '2026-11-30']);
+    const wide = snapshotOf(xml('2026-10-01', '2027-03-31')).occurrences.map((x) => x.date);
+    assert.deepEqual([wide[0], wide.at(-1), wide.length], ['2026-10-12', '2027-02-08', 16]);
+    assert.deepEqual(snapshotOf(xml('2026-12-22', '2027-01-03')).occurrences, []);
 });
