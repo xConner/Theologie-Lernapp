@@ -397,3 +397,10 @@ test('Erreichbarkeitstest: nur Preview, nur GET, gedrosselt, nur Kennzahlen', as
     assert.equal(failed.status, 502);
     assert.deepEqual([failed.body.reachable, failed.body.cause], [false, 'ENOTFOUND']);
 });
+
+test('Ausfalldaten in unbekanntem Format werden gemeldet statt still verworfen', () => {
+    const xml = '<UnivIS><Lecture key="L.x"><name>X</name><terms><term><repeat>w1 1</repeat><starttime>10:00</starttime><endtime>11:00</endtime><exclude>02.11.2026</exclude></term></terms></Lecture></UnivIS>';
+    const s = snapshotOf(xml);
+    assert.deepEqual(s.warnings, ['Ausfalldatum in unbekanntem Format "99.99.9999" in L.x']);
+    assert.equal(s.occurrences.filter((x) => x.status === 'cancelled').length, 0);
+});

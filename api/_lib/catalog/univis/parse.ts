@@ -43,6 +43,11 @@ function date(value: string | null): string | null {
     return isIsoDate(value) ? value : null;
 }
 
+/** Form eines Werts ohne Inhalt (Ziffern → 9, Buchstaben → a), für Meldungen. */
+export function shapeOf(value: string): string {
+    return value.replace(/\d/g, '9').replace(/\p{L}/gu, 'a').slice(0, 30);
+}
+
 function weekdays(list: string): number[] | null {
     const days = list.split(',').map((d) => Number(d.trim()));
     if (days.some((d) => !Number.isInteger(d) || d < 0 || d > 7)) return null;
@@ -172,7 +177,13 @@ export function parseUnivisXml(xml: string, ctx: UnivisParseContext): ParsedCata
                         .children('exclude')
                         .map((_, ex) => $(ex).text().trim())
                         .get()
-                        .filter(isIsoDate)
+                        .filter((value: string) => {
+                            if (isIsoDate(value)) return true;
+                            // Nicht still verwerfen: Ein unbekanntes Format hieße,
+                            // dass Ausfälle als reguläre Termine erscheinen.
+                            warnings.push(`Ausfalldatum in unbekanntem Format ${JSON.stringify(shapeOf(value))} in ${key}`);
+                            return false;
+                        })
                         .sort(),
                     roomId: roomKey && rooms.has(roomKey) ? id(roomKey) : null,
                     raw,

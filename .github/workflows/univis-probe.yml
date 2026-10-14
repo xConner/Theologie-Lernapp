@@ -14,9 +14,9 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: "catalog = Backend auf echten Daten (Kennzahlen), probe = XML-Inventar, weekday = Wochentagscode prüfen, vercel = Erreichbarkeit aus einem Vercel-Preview"
+        description: "catalog = Backend auf echten Daten (Kennzahlen), probe = XML-Inventar, schedule = Terminangaben gegen Klartext prüfen, vercel = Erreichbarkeit aus einem Vercel-Preview"
         type: choice
-        options: [catalog, probe, weekday, vercel]
+        options: [catalog, probe, schedule, vercel]
         default: catalog
       sem:
         description: Semester (z. B. 2026w)
@@ -44,8 +44,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     env:
-      # Ein Push dieser Datei führt nur die Prüfung aus, die hier steht.
-      MODE: ${{ inputs.mode || 'catalog' }}
+      # Ein Push dieser Datei führt nur die Prüfungen aus, die hier stehen.
+      MODE: ${{ inputs.mode || 'catalog,schedule' }}
       SEM: ${{ inputs.sem || '2026w' }}
       DEPT_QUERY: ${{ inputs.query || 'Theologische' }}
       DEPT_NAME: ${{ inputs.name || 'Theologische Fakultät' }}
@@ -57,12 +57,12 @@ jobs:
       - run: npm ci --ignore-scripts
 
       - name: Organisationsnummer aus UnivIS ermitteln
-        if: env.MODE == 'probe'
+        if: contains(env.MODE, 'probe')
         run: |
           node tool/univis/univis_find_department.mjs --name "$DEPT_QUERY" | tee dept.json
 
       - name: Veranstaltungen der Einrichtung abrufen
-        if: env.MODE == 'probe'
+        if: contains(env.MODE, 'probe')
         run: |
           sleep 5
           # OrgNr (Element <orgnr> des Org-Datensatzes) nur übernehmen, wenn
@@ -81,15 +81,20 @@ jobs:
           node tool/univis/univis_probe.mjs --sem "$SEM" \
             --param "department=$ORG" --sample 0 --redact
 
-      # Veranstaltung 010076 hat laut XML (WS 2026/27) den Code "w1 4",
-      # 16:15-17:45; die Klartextansicht zeigt, welcher Wochentag das ist.
-      - name: Wochentagscodes gegen die Klartextansicht prüfen
-        if: env.MODE == 'weekday'
-        run: node tool/univis/univis_check_weekday.mjs --sem "$SEM" --number 010076
+      # Terminangaben gegen die Klartextansicht (nur Wörter einer festen
+      # Liste): 010076 = w1 4 (Do 16:15-17:45), 010000 = 14-täglich,
+      # 010032/010036 = Block mit Tagen, 010008 = Block ohne Tage
+      # (Nummern aus der Kennzahlenausgabe von catalog_stats.mjs).
+      - name: Terminangaben gegen die Klartextansicht prüfen
+        if: contains(env.MODE, 'schedule')
+        run: |
+          sleep 5
+          node tool/univis/univis_check_schedule.mjs --sem "$SEM" \
+            --number 010076 --number 010000 --number 010032 --number 010036 --number 010008
 
       # Katalogverarbeitung (api/_lib/catalog) mit EINER Anfrage, nur Kennzahlen.
       - name: Katalog-Backend auf echten Daten prüfen
-        if: env.MODE == 'catalog'
+        if: contains(env.MODE, 'catalog')
         run: node tool/univis/catalog_stats.mjs --sem "$SEM" --org 010000000
 
       # Wartet auf das Vercel-Preview dieses Commits und ruft den
@@ -99,7 +104,7 @@ jobs:
       # VERCEL_AUTOMATION_BYPASS_SECRET („Protection Bypass for Automation“
       # in den Vercel-Projekteinstellungen).
       - name: Erreichbarkeit aus einem Vercel-Preview prüfen
-        if: env.MODE == 'vercel'
+        if: contains(env.MODE, 'vercel')
         env:
           BYPASS: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
           GH_TOKEN: ${{ github.token }}

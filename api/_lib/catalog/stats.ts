@@ -32,6 +32,9 @@ export function catalogStats(parsed: ParsedCatalog, snapshot: CatalogSnapshot) {
         cancelled: snapshot.occurrences.filter((o) => o.status === 'cancelled').length,
         issues: count(snapshot.issues, (i) => `${i.severity}:${i.code}`),
         warnings: parsed.warnings.length,
+        // Meldungen ohne Kennungen gruppiert (Kennungen sind sprechend, aber
+        // für die Auswertung unnötig).
+        warningKinds: count(parsed.warnings, (w) => w.replace(/ in \S+$/, '').replace(/ \(.*\)$/, '')),
         coursesWithoutOccurrences: snapshot.courses.filter((c) => !snapshot.occurrences.some((o) => o.courseId === c.id)).length,
         coursesWithModuleCodes: snapshot.courses.filter((c) => c.moduleCodes.length > 0).length,
         samples: {
