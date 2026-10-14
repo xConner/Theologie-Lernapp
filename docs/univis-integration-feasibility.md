@@ -848,12 +848,17 @@ allgemeine Regel sonst jede Feldprüfung aushebeln würde (Firestore verknüpft
 passende Regeln mit ODER) – die Emulator-Tests prüfen genau das.
 `catalog_cache`: keine Regel → für Clients verboten.
 
-Emulator-Tests: `test/firestore_rules/` (9 Tests; lokal mit Java 21 und
+Emulator-Tests: `test/firestore_rules/` (11 Tests, u. a. `addedAt` bei
+Aktualisierungen: nur Serverzeit, erneutes Hinzufügen setzt sie neu; lokal mit Java 21 und
 `npm ci && npm test`, in CI `.github/workflows/firestore-rules.yml`).
 
-**Deployment (manuell, nicht erfolgt):** Die Produktionsregeln werden laut
+**Deployment (manuell):** Die Produktionsregeln werden laut
 `firestore.rules` in der Firebase Console gepflegt; Zugriff auf das
-Firebase-Projekt hatte diese Arbeit nicht.
+Firebase-Projekt hatte diese Arbeit nicht. Am 14.10.2026 hat der Betreiber
+die Console-Regeln durch diesen Stand ersetzt. Die vorher veröffentlichte
+Fassung war älter als `main` (ohne `reports`, ohne Löschrecht für `inbox`,
+ohne Feldprüfung im Nutzerdokument); mit dem Ersetzen wurden auch diese
+Änderungen wirksam.
 
 1. Firebase Console → Projekt → Firestore Database → Regeln.
 2. Den vollständigen Inhalt von `firestore.rules` aus diesem Stand einfügen
@@ -892,7 +897,19 @@ Protokoll enthält nur Status, Kopfzeilen und Zählwerte):
 | `GET /api/catalog?semester=1999w` | `400` |
 | Region | `x-vercel-id: iad1::fra1::…` – Edge in den USA (Runner dort), **Funktion in `fra1`** (Frankfurt) |
 
-Nicht live geprüft: Produktion (Branch nicht in `main`), `semester=2027s`
+**Produktion, echter Endpunkt** (nach Übernahme in `main`, Lauf
+[38591016985](https://github.com/xConner/Theologie-Lernapp/actions/runs/38591016985),
+`https://www.theologie.app`):
+
+| Aufruf | Ergebnis |
+|---|---|
+| `GET /api/catalog` | `200`, Semester `2026w`, `2027s` |
+| `GET /api/catalog?semester=2026w` | `200`, `state: fresh` (aus dem Server-Zwischenspeicher), 89 Veranstaltungen, 1149 Termine, 37 Lehrende, 34 zusammengeführte Dubletten, `synthetic: false` |
+| derselbe Aufruf erneut | `200`, `x-vercel-cache: HIT` |
+| `GET /api/catalog?semester=1999w` | `400` |
+| Region | `x-vercel-id: iad1::fra1::…` – **Funktion in `fra1`** |
+
+Nicht live geprüft: `semester=2027s`
 (bewusst keine zusätzliche UnivIS-Anfrage; der Endpunkt liefert bei noch
 nicht veröffentlichten Veranstaltungen eine leere Liste), der dauerhafte
 Firestore-Cache (ob `FIREBASE_SERVICE_ACCOUNT` im Preview gesetzt ist, ist
@@ -907,7 +924,7 @@ von außen nicht sichtbar).
 | `node --test api/_lib/handlers.test.mjs`, `reminders.test.mjs` | 14/14, 10/10 |
 | `node --test tool/univis/univis_parser.test.mjs` | 9/9 |
 | `tsc --noEmit` über alle API-Dateien | ohne Fehler |
-| Firestore-Emulator `test/firestore_rules` (lokal und CI-Lauf [38586515865](https://github.com/xConner/Theologie-Lernapp/actions/runs/38586515865)) | 9/9 |
+| Firestore-Emulator `test/firestore_rules` (lokal und CI-Lauf [38588670119](https://github.com/xConner/Theologie-Lernapp/actions/runs/38588670119)) | 11/11 |
 | `flutter analyze` (Flutter 3.47.7) | keine Befunde |
 | `flutter test` | 1042 bestanden, 1 übersprungen (bestehend) |
 
@@ -917,9 +934,10 @@ bei 320 px und 1,5-facher Schrift meldet 119 px Überlauf (behoben).
 
 ### 13.7 Offene manuelle Schritte
 
-1. Firestore-Regeln in der Firebase Console veröffentlichen (13.4).
-2. Branch nach `main` übernehmen (Produktion), nach Freigabe durch den
-   Betreiber.
+1. ~~Firestore-Regeln in der Firebase Console veröffentlichen (13.4).~~
+   Erledigt am 14.10.2026 durch den Betreiber.
+2. ~~Branch nach `main` übernehmen.~~ Erledigt am 14.10.2026 nach Freigabe
+   durch den Betreiber; Produktion geprüft (13.6).
 3. Schriftliche Bedingungen der CAU-Freigabe hier dokumentieren (13.1).
 4. Für SoSe 2027 prüfen, sobald UnivIS die Veranstaltungen veröffentlicht;
    weitere Semester in `semesters.ts` nur mit offiziellen Daten eintragen.
