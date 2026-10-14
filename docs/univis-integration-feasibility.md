@@ -7,49 +7,52 @@ exportieren.
 
 Kennzeichnung in diesem Bericht:
 
-* **Bestätigt** – selbst geprüft oder in einer offiziellen Quelle belegt.
+* **Live bestätigt** – am 14.10.2026 selbst gegen `univis.uni-kiel.de`
+  abgerufen (Abschnitt 4).
+* **Bestätigt** – in einer offiziellen Quelle belegt.
 * **Indiziert** – durch öffentlich indexierte Kieler URLs oder Clients
-  Dritter belegt, aber nicht selbst live abgerufen.
+  Dritter belegt, aber nicht selbst abgerufen.
 * **Annahme** – plausibel, noch ungeprüft.
 * **Offen** – ließ sich nicht klären.
 
 ## 1. Kurzfazit
 
-**Ein automatischer Abruf ohne manuellen Export ist technisch realistisch,
-konnte aus dieser Umgebung aber nicht live bestätigt werden.**
+**Ja: Der automatische Abruf ohne manuellen Export funktioniert. Er ist
+live bestätigt.**
 
-* UnivIS hat mit der **PRG-Schnittstelle** (`https://<host>/prg?search=…`)
-  eine dokumentierte, anmeldefreie Abfrageschnittstelle mit XML-Ausgabe
-  (`show=xml`). Die CAU dokumentiert sie selbst für das Einbinden in eigene
-  Webseiten (bestätigt, Quellen in Abschnitt 2).
-* Für Kiel sind reale PRG-Abfragen auf Veranstaltungen mit Semester- und
-  Einrichtungsfilter öffentlich indexiert, z. B.
-  `https://univis.uni-kiel.de/prg?search=lectures&sem=2025w&number=080063`
-  (indiziert). Die Abfrage deckt den **Katalog** ab, nicht nur einzelne
-  Stundenpläne.
-* **Nicht getestet:** Die Ausführungsumgebung dieser Prüfung darf
-  `univis.uni-kiel.de` (wie alle Hochschul-Hosts) nicht erreichen
-  (Egress-Proxy: `403` beim CONNECT, Abschnitt 4). Ob Kiel `show=xml`
-  tatsächlich ausliefert und welche Felder enthalten sind, ist daher
-  **offen**. Ein fertiges Testskript dafür liegt bei (`tool/univis/`).
-* Rechtlich gibt es **keine auffindbaren Nutzungsbedingungen** für
-  automatisierte Abrufe oder Weitergabe. Vor einer dauerhaften Nutzung ist
-  eine **Rückfrage bei der CAU** nötig (Entwurf in Abschnitt 9).
+* `https://univis.uni-kiel.de/prg?search=lectures&show=xml&sem=2026w&department=010000000`
+  liefert ohne Anmeldung den Katalog der **Theologischen Fakultät für das
+  WS 2026/27** als XML: 150 Veranstaltungen, 207 Termine, 408 KB, ~1,2 s
+  (live bestätigt).
+* Die Organisationsnummer `010000000` stammt aus UnivIS selbst
+  (`search=departments`, Element `orgnr`), nicht geraten.
+* Titel, Typ, SWS, Veranstaltungsnummer, Gliederung des
+  Vorlesungsverzeichnisses, Lehrpersonen, Räume, Uhrzeiten, wöchentliche
+  und einzelne Termine sowie Ausnahmedaten sind maschinenlesbar und
+  vollständig über Verweise auflösbar (0 offene Verweise).
+* Die PRG-Schnittstelle ist von der CAU selbst für das Einbinden in eigene
+  Webseiten dokumentiert. **Nutzungsbedingungen für Dritte gibt es keine
+  auffindbaren**; vor einer dauerhaften Nutzung ist eine **Rückfrage bei der
+  CAU** nötig (Entwurf in Abschnitt 9).
 * **Lebensdauer begrenzt:** Die CAU plant, UnivIS mit dem
   Veranstaltungsmanagement von HISinOne abzulösen (nach der
   Prüfungsverwaltung, deren Umstellung laut Gemeinsamem Prüfungsamt bis
   spätestens WiSe 2029/30 laufen soll). Die Anbindung muss deshalb hinter
   einem austauschbaren Adapter liegen.
+* Die Cloud-Entwicklungsumgebung erreicht UnivIS nicht (Netzwerksperre);
+  die Live-Tests liefen deshalb über GitHub Actions
+  (`.github/workflows/univis-probe.yml`).
 
 **Empfehlung:** Ansatz B (PRG/XML) über einen serverseitigen Adapter,
 parallel Ansatz E (Freigabe bei der CAU anfragen). Kein HTML-Scraping.
 
 ## 2. Geprüfte Quellen
 
-Weil die Hosts nicht direkt erreichbar waren, stammen die Angaben aus der
-Websuche (Inhalte indexierter Seiten) und aus dem Quelltext eines
-veröffentlichten Clients (npm-Paket). Seiten der CAU zur UnivIS-Schnittstelle
-sind teils viele Jahre alt.
+Die Dokumentationsseiten waren aus der Entwicklungsumgebung nicht direkt
+erreichbar; ihre Angaben stammen aus der Websuche (Inhalte indexierter
+Seiten) und aus dem Quelltext eines veröffentlichten Clients (npm-Paket).
+Seiten der CAU zur UnivIS-Schnittstelle sind teils viele Jahre alt. Die
+Schnittstelle selbst ist live geprüft (Abschnitt 4).
 
 **UnivIS an der CAU**
 
@@ -100,101 +103,185 @@ https://univis.uni-kiel.de/prg?search=<modul>&<parameter>=<wert>&show=<format>&s
 
 | Element | Werte | Status |
 |---|---|---|
-| `search` | `lectures`, `persons`, `departments`, `rooms`, `calendar`, `allocations` u. a. („grundsätzlich alle UnivIS-Daten“) | bestätigt (Doku) |
-| Parameter für `lectures` | `department`, `chapter`, `name`, `shortname`, `number`, `sws`, `bonus`, `malus`, `ectscredits`, `lecturer`, `room`, `noimports`, `type`, `keywords`, `path`, `id`, `evaluation`, `allocation` (nur mit `show=xml`) | bestätigt (Kieler Überblicksseite) |
-| `show` | u. a. `llong`, `compact`, `info`, `short`, `xml` | `llong`/`compact`/`info` in Kieler URLs indiziert, `short` im Kieler Beispiel; `xml` laut Kieler Doku vorhanden (`allocation` „nur bei show=xml“), live **offen** |
-| `sem` | `<Jahr>w` / `<Jahr>s`, z. B. `2025w` = WS 2025/26, `2025s` = SS 2025; ohne Angabe das aktuelle Semester | indiziert (Kieler URLs) |
-| `number` | Organisationsnummer der Einrichtung, z. B. `080063`, `200409` | indiziert |
-| `lang=en`, `noimports=1`, `nolinks=1` | Sprache, ohne Querverweise, ohne Links | bestätigt (Doku) |
+| `search` | `lectures`, `departments` | **live bestätigt** |
+| | `persons`, `rooms`, `calendar`, `allocations` u. a. („grundsätzlich alle UnivIS-Daten“) | bestätigt (Doku) |
+| `show` | `xml` (Antwort `text/xml`, UTF-8), `llong` (HTML) | **live bestätigt** |
+| | `compact`, `info`, `short` | indiziert |
+| `sem` | `2026w` = WS 2026/27 | **live bestätigt** |
+| | `<Jahr>s` = Sommersemester; ohne Angabe das aktuelle Semester | indiziert / Doku |
+| `department` | neunstellige Organisationsnummer, z. B. `010000000` (Theologische Fakultät) | **live bestätigt** |
+| | Name statt Nummer (`department=Theologische Fakultät`) | **live: liefert HTML statt XML** – nicht verwenden |
+| `number` | sechsstellige **Veranstaltungsnummer**, z. B. `010076` | **live bestätigt** |
+| `name` (bei `departments`) | Teilstring, ohne Umlaute (`Theologische`) | **live bestätigt**; mit „ä“ (UTF-8-kodiert) leere Antwort |
+| `noimports=1` | ohne Querverweise | live verwendet (bei `departments`) |
+| weitere Parameter für `lectures` | `chapter`, `name`, `shortname`, `sws`, `bonus`, `malus`, `ectscredits`, `lecturer`, `room`, `type`, `keywords`, `path`, `id`, `evaluation`, `allocation` (nur mit `show=xml`), `lang=en`, `nolinks=1` | bestätigt (Kieler Überblicksseite), nicht live geprüft |
 
-Indexierte Kieler Abfragen (nicht selbst abgerufen):
+Korrektur gegenüber der ersten Fassung: `number=080063` in indexierten
+URLs ist eine Veranstaltungs-, keine Organisationsnummer.
 
-* `https://univis.uni-kiel.de/prg?search=lectures&sem=2025w&number=080063`
-* `https://univis.uni-kiel.de/prg?search=lectures&number=200409&lang=en&show=llong&noimports=1&sem=2025s`
-* `https://univis.uni-kiel.de/prg?department=Pharmazeutisches+Institut&search=lectures&type=v`
-* `https://univis.uni-kiel.de/prg?search=rooms&name=%5EWSP&show=compact`
-* `http://univis.uni-kiel.de/prg?search=persons&fullname=…&show=info` (von der Theologischen Fakultät verlinkt)
+Organisationsnummern der Fakultät (live, `search=departments&name=Theologische`):
 
-### XML-Format
+| Einrichtung | `key` | `orgnr` |
+|---|---|---|
+| Theologische Fakultät | `Org.theol` | `010000000` |
+| Bibliothek der Theologischen Institute | `Org.theol.bibli` | `010210000` |
 
-Bestätigt (Handbuch Kap. 19): Jeder Datensatz trägt ein `key`-Attribut;
-Verweise (Lehrperson einer Veranstaltung, Raum eines Termins) sind leere
-`UnivISRef`-Elemente mit `type` und `key`; ein Dokument enthält alle
-referenzierten Datensätze. Wiederholungsmuster von Terminen sind kodiert
-(Abschnitt 19.4). Eine DTD beschreibt den genauen Aufbau. Die
-Weboberfläche lässt Personen ohne Veröffentlichungszustimmung aus.
+### XML-Format (live bestätigt, WS 2026/27, Theologische Fakultät)
 
-Annahme (aus Clients Dritter, nicht gegen Kiel geprüft): Wurzel `<UnivIS>`
-mit `<Lecture>`, `<Person>`, `<Room>`; in `Lecture` u. a. `name`, `short`,
-`id`, `type`, `sws`, `ects_cred`, `orgname`, `summary`,
-`dozs/doz/UnivISRef`, `terms/term` mit `repeat`, `starttime`, `endtime`,
-`startdate`, `enddate`, `exclude`, `room/UnivISRef`.
+Wurzel `<UnivIS>` mit `Lecture` (150), `Person` (40), `Room` (18),
+`Title` (36, Gliederungspunkte des Vorlesungsverzeichnisses), `Event` (1).
+Jeder Datensatz trägt ein `key`-Attribut; Verweise sind leere
+`UnivISRef`-Elemente mit `type` und `key`, alle referenzierten Datensätze
+stehen im selben Dokument.
+
+`Lecture` (Anzahl der Veranstaltungen mit dem Element):
+
+| Element | n | Bedeutung |
+|---|---|---|
+| `name` | 150 | Titel; enthält in Kiel die **Modulkürzel** in Klammern, z. B. „Bibelkunde Altes Testament (DKA-Ein-ÜAT, DKA-AT1-Bib, …)“ |
+| `number` | 150 | Veranstaltungsnummer (`010076`) |
+| `id` | 150 | interne Nummer (`42685235`) |
+| `type` | 150 | Kürzel, z. B. `UE`, `RV` |
+| `sws` | 145 | Semesterwochenstunden |
+| `orgname`, `orgunits` | 150 | anbietende Einrichtung |
+| `dozs` | 150 | Lehrpersonen (Verweise) |
+| `terms` | 140 | Termine |
+| `classification` | 149 | Verweis auf Gliederungspunkt, z. B. „4. Altes Testament“, „3. Fachergänzung“ |
+| `startdate`, `enddate` | 129/128 | Zeitraum der Veranstaltung |
+| `summary`, `literature`, `organizational` | 119/65/60 | Beschreibungstexte |
+| `time_description` | 132 | **Freitext** (in Kiel Anmeldehinweise, teils mit Kontaktdaten) – keine Zeitangabe |
+| `import_parent_id` | 70 | aus einer anderen Einrichtung übernommen („importiert“) |
+| weitere | | `ordernr`, `turnout`, `schein`, `benschein`, `comment`, `erasmus`, `kontakt`, `studgen`, `englisch`, `praesenz` |
+
+Nicht vorhanden: `ects_cred` (ECTS fehlen in diesem Katalog), `short`.
+
+`term` (207 Termine): `repeat`, `starttime`, `endtime`, `room` je 205;
+`startdate`/`enddate` 62; `exclude` (Ausnahmedatum) 65.
+
+Wiederholungscodes (Häufigkeit):
+
+| Code | n | Deutung |
+|---|---|---|
+| `w1 <Tag>` | 142 | wöchentlich; Tag 1 = Mo … 5 = Fr (**live bestätigt**: `w1 4` ↔ Klartext „Do 16:15-17:45“) |
+| `w2 <Tag>` | 1 | 14-täglich (Annahme aus dem Muster) |
+| `s1` | 50 | Einzeltermin, Datum in `startdate` = `enddate` (live bestätigt) |
+| `bd <Tage>` | 8 | Block an den genannten Wochentagen innerhalb `startdate`–`enddate` (Annahme) |
+| `b1` | 4 | Block (Annahme) |
+| fehlt | 2 | kein Muster |
 
 ### Weitere Formate
 
-* **XML-Export der Oberfläche** („Extras“): nur wenn die Installation ihn
-  aktiviert; nutzerseitig, kein Mehrwert gegenüber PRG.
+* **XML-Export der Oberfläche** („Extras“): nutzerseitig, kein Mehrwert
+  gegenüber PRG.
 * **iCal**: UnivIS bietet für gesammelte Veranstaltungen „Ausgabe als
-  iCal“ (Beispiel Uni Bamberg). Das ist ein nutzerseitiger Export aus
-  einer Sitzungssammlung, kein Katalog-Feed.
+  iCal“ (Beispiel Uni Bamberg) – nutzerseitiger Export, kein Katalog-Feed.
 * **Script `exportxml`**: läuft nur auf dem UnivIS-Server, also nur über
   die Betreiber (relevant für Ansatz E).
 * **JSON, RSS, OAI**: keine Belege gefunden.
-* **`/formbot/…`**: HTML-Seiten der Oberfläche mit kodierten Pfaden –
-  nicht als Schnittstelle gedacht.
+* **`/formbot/…`**: HTML-Seiten der Oberfläche – nicht als Schnittstelle
+  gedacht.
 
 ## 4. Testresultate
 
+**Entwicklungsumgebung (Claude-Cloud):**
+
 | Test | Ergebnis |
 |---|---|
-| `curl https://univis.uni-kiel.de/` | **fehlgeschlagen**: `CONNECT tunnel failed, response 403` (Egress-Policy dieser Umgebung, nicht UnivIS) |
-| ebenso `www.uni-kiel.de`, `univis.fau.de`, `univis.uni-erlangen.de`, `de.wikipedia.org` | 403 – alle nicht freigegebenen Hosts gesperrt |
-| Abruf über das Web-Abruf-Werkzeug | `getaddrinfo ENOTFOUND` für alle Hochschul-Hosts (gleiche Sperre) |
-| `node tool/univis/univis_probe.mjs --sem 2026w --param name=Theologie` mit Proxy | `Proxy response (403) !== 200 when HTTP Tunneling` |
-| Parser gegen synthetische Fixture (`node --test tool/univis/univis_parser.test.mjs`) | 8/8 bestanden |
+| `curl https://univis.uni-kiel.de/` | `CONNECT tunnel failed, response 403` (Netzwerksperre der Umgebung, nicht UnivIS) |
+| ebenso `www.uni-kiel.de`, andere UnivIS-Hosts, Web-Abruf-Werkzeug | 403 bzw. `ENOTFOUND` |
+| Parser-Tests (`node --test tool/univis/univis_parser.test.mjs`) | 9/9 bestanden (synthetische Fixture) |
 | Bestehende API-Tests (`node --test api/_lib/*.test.mjs`) | 24/24 bestanden (unverändert) |
 
-Damit sind **nicht** belegt: Semesterliste, Suche, Detaildaten,
-Terminauflösung, Räume, Dozenten und Aktualisierung für ein konkretes
-Semester. Kein Ergebnis wurde simuliert; die Fixture ist ausdrücklich
-synthetisch und prüft nur den Parser.
+**Live über GitHub Actions** (Workflow „UnivIS-Abruftest“, öffentliche
+Protokolle; Lehrpersonen geschwärzt, keine Rohdaten gespeichert):
 
-Der Prototyp ist so gebaut, dass ein einziger Aufruf von einem Rechner mit
-Zugang alle offenen Strukturfragen beantwortet: HTTP-Status, Content-Type,
-Cache-Header, Inventar der tatsächlich vorkommenden Elemente, Kennzahlen
-(Veranstaltungen ohne Termin/Lehrperson, Termine mit Uhrzeit/Raum,
-unaufgelöste Verweise, unbekannte Wiederholungsmuster) und eine kleine
-Stichprobe. Anleitung: `tool/univis/README.md`.
+| Lauf | Anfrage | Ergebnis |
+|---|---|---|
+| [38571341714](https://github.com/xConner/Theologie-Lernapp/actions/runs/38571341714) | `search=departments&name=Theologische Fakultät` (UTF-8) | 200, `text/xml`, leer (160 B) – Umlaut |
+| | `search=lectures&department=Theologische Fakultät` | 200, aber `text/html` statt XML |
+| [38571543838](https://github.com/xConner/Theologie-Lernapp/actions/runs/38571543838) | `search=departments&name=Theologische&noimports=1` | 200, `text/xml`, 48 KB: 2 `Org`, 48 `Person`; `orgnr` 010000000 |
+| [38571688314](https://github.com/xConner/Theologie-Lernapp/actions/runs/38571688314) | `search=lectures&show=xml&sem=2026w&department=010000000` | **200, `text/xml`, 407 619 B, 1,2 s** |
+| 38571975156 | dieselben zwei Anfragen, erweitertes Inventar | wie oben; Protokoll enthält einen Freitext mit Kontaktdaten (siehe Abschnitt 5) |
+| [38572194090](https://github.com/xConner/Theologie-Lernapp/actions/runs/38572194090) | `search=lectures&number=010076&sem=2026w&show=llong` | 200, HTML; Klartext „Do 16:15-17:45“ = XML `w1 4` |
 
-Um den Test in dieser Cloud-Umgebung nachzuholen, muss
-`univis.uni-kiel.de` in den Netzwerkeinstellungen der Umgebung unter
-„Allowed domains“ freigegeben werden
-(https://code.claude.com/docs/en/cloud-environments#network-access).
+Insgesamt 9 Anfragen an UnivIS, je Lauf höchstens zwei mit 5 s Pause.
+
+Kennzahlen des Katalogabrufs (WS 2026/27, Theologische Fakultät):
+
+| Kennzahl | Wert |
+|---|---|
+| Veranstaltungen / ohne Titel / ohne Schlüssel / doppelte Schlüssel | 150 / 0 / 0 / 0 |
+| ohne Termine (z. B. „nach Vereinbarung“) | 10 |
+| ohne Lehrperson | 0 |
+| Termine / mit Uhrzeit / mit aufgelöstem Raum | 207 / 205 / 205 |
+| unaufgelöste Verweise | 0 |
+| unbekannte Wiederholungscodes | 0 (alle gedeutet, 2 ohne Code) |
+| HTTP-Cache-Header | kein `ETag`, kein `Last-Modified`, `Cache-Control: private` |
+
+Beispiel (gekürzt, Lehrperson weggelassen):
+
+```json
+{
+  "sourceKey": "Lecture.theol.altte.relig.bibelk",
+  "number": "010076",
+  "name": "Bibelkunde Altes Testament (DKA-Ein-ÜAT, DKA-AT1-Bib, EvRel-BA-Ein-ÜAT, …)",
+  "type": "UE", "sws": "2",
+  "orgName": "Religionsgeschichte des Alten Testaments und Archäologie Syrien-Palästina",
+  "startDate": "2026-10-18", "endDate": "2027-02-07",
+  "classification": [{ "key": "Title.theol._3alte", "title": "4. Altes Testament" }],
+  "sessions": [{
+    "repeat": { "kind": "weekly", "intervalWeeks": 1, "weekdays": [4], "raw": "w1 4" },
+    "startTime": "16:15", "endTime": "17:45",
+    "room": { "short": "OS75/S2 - R.26", "name": "Seminarraum R.26" }
+  }]
+}
+```
+
+Damit ist für ein konkretes Semester belegt: Liste der Veranstaltungen,
+strukturierte Details, wiederkehrende und einzelne Termine, Räume,
+Lehrpersonen, Uhrzeiten. Suche per Suchbegriff ist über `name=` dokumentiert,
+aber nicht live geprüft; für die App ist ohnehin die Suche im
+zwischengespeicherten Katalog vorgesehen.
 
 ## 5. Grenzen
 
-* **Live-Struktur offen**: Ob Kiel `show=xml` ausliefert, welche Felder
-  gefüllt sind und wie Wiederholungen tatsächlich kodiert sind.
-* **Module/Studiengänge**: PRG kennt `chapter`/`path` (Gliederung des
-  Vorlesungsverzeichnisses) und laut Handbuch UnivIS-Module (19.5.1). Ob
-  Kiel Module in UnivIS pflegt oder nur in HISinOne/Modulhandbüchern, ist
-  offen. Ein Studiengangsfilter ist daher nicht gesichert.
-* **Einzeltermine und Ausfälle**: Ausnahmen (`exclude`) und Einzeltermine
-  sind wahrscheinlich, aber unbestätigt. Ob kurzfristige Absagen in UnivIS
-  gepflegt werden, hängt von den Einrichtungen ab.
-* **Stabile Kennungen**: Ob `key` einer Veranstaltung über Semester und
-  Bearbeitungen hinweg stabil bleibt, ist offen. Termine haben vermutlich
-  keinen eigenen Schlüssel.
-* **CORS**: Ob UnivIS CORS-Header sendet, ist unbekannt; für die Web-App ist
-  ohnehin ein Server-Adapter nötig.
-* **Anmeldung**: PRG ist anonym; Daten, die nur angemeldet sichtbar sind
-  (z. B. Personen ohne Veröffentlichungszustimmung), werden nicht genutzt.
-  Belegungen/Anmeldungen laufen an der CAU über HISinOne und sind kein
-  Gegenstand dieser Anbindung.
+* **Keine Änderungsmarker**: Kein `ETag`/`Last-Modified` – Änderungen
+  erkennt nur der Vergleich mit dem letzten Stand (Hash je Veranstaltung).
+* **Doppelte Einträge durch Importe**: 70 Veranstaltungen sind aus anderen
+  Einrichtungen importiert; dieselbe Veranstaltung kann unter mehreren
+  Schlüsseln erscheinen (Beispiel: „Bibelkunde Altes Testament“ zweimal mit
+  gleicher Nummer `010076` und gleichem Termin). Für die App nach
+  `number` + Terminen zusammenführen.
+* **Module/Studiengänge**: Kein eigenes Feld. Die Modulkürzel stehen im
+  Titel in Klammern (z. B. `DKA-AT1-Bib`), die Gliederung des
+  Vorlesungsverzeichnisses steht in `classification`. Ein Modulfilter ist
+  damit möglich, hängt aber an der Pflegedisziplin der Einrichtungen.
+* **ECTS** fehlen im Katalog der Theologie.
+* **Blocktermine** (`bd`, `b1`): Deutung plausibel, nicht gegen Klartext
+  geprüft. `w2` (14-täglich) kommt einmal vor; die Startwoche ist offen.
+* **Absagen**: Ausnahmedaten (`exclude`) werden gepflegt (65 Termine);
+  ob kurzfristige Absagen zuverlässig eingetragen werden, hängt von den
+  Einrichtungen ab.
+* **Stabile Kennungen**: Die Schlüssel sind sprechend
+  (`Lecture.theol.altte.relig.bibelk`) und wirken aus dem Titel abgeleitet;
+  ob sie über Semester und Umbenennungen stabil bleiben, ist offen.
+* **Freitexte mit Kontaktdaten**: `time_description` (und ggf. `kontakt`,
+  `organizational`) enthält in Kiel teils private E-Mail-Adressen. Solche
+  Felder nicht übernehmen oder nur verlinken. **Vorfall:** Das öffentliche
+  Protokoll von Lauf 38571975156 enthält den Anfang einer solchen Adresse
+  (in UnivIS öffentlich sichtbar). Das Skript schwärzt Freitexte inzwischen;
+  das Protokoll dieses Laufs sollte gelöscht werden (Abschnitt 10).
+* **Umlaute in Parametern**: UTF-8-kodierte Umlaute finden nichts;
+  Organisationsnummern statt Namen verwenden.
+* **Netzwerk**: Die Claude-Cloud-Umgebung erreicht UnivIS nicht; GitHub
+  Actions und (vermutlich) Vercel schon. Vercel ist nicht geprüft.
+* **CORS**: nicht geprüft; für die Web-App ist ohnehin ein Server-Adapter
+  nötig.
+* **Anmeldung**: PRG ist anonym. Belegungen/Anmeldungen laufen über
+  OLAT/HISinOne und sind kein Gegenstand dieser Anbindung.
 * **Ablösung**: UnivIS wird an der CAU mittelfristig durch HISinOne ersetzt.
 * **Rechtliches**: keine Nutzungsbedingungen, Lizenz- oder Quellenhinweise
-  zur PRG-Ausgabe auffindbar; Impressum/Datenschutzseite von
-  univis.uni-kiel.de konnten nicht eingesehen werden.
+  zur PRG-Ausgabe auffindbar.
 
 ## 6. Vergleich der Ansätze
 
@@ -202,7 +289,7 @@ Um den Test in dieser Cloud-Umgebung nachzuholen, muss
 |---|---|---|---|---|---|
 | Verfügbarkeit | keine eigene REST/JSON-API; PRG ist die dokumentierte Schnittstelle | dokumentiert, anonym | technisch möglich | nur nutzerseitig (iCal, XML-Extras) | über `univis@univis.uni-kiel.de` anfragbar |
 | Zuverlässigkeit | – | hoch (seit ~2003 stabil, von Hochschulen selbst genutzt) | gering (`formbot`-URLs, Layout) | mittel | hoch |
-| Datenabdeckung | – | Katalog je Semester/Einrichtung, Termine, Räume, Dozenten (Details offen) | was die Seite zeigt | nur Ausgewähltes | ggf. vollständig (`exportxml`) |
+| Datenabdeckung | – | Katalog je Semester/Einrichtung, Termine, Räume, Dozenten (live bestätigt) | was die Seite zeigt | nur Ausgewähltes | ggf. vollständig (`exportxml`) |
 | Aktualisierbarkeit | – | beliebig, eigener Takt | beliebig | manuell | nach Vereinbarung |
 | Wartung | – | gering bis mittel (ein Parser je Format) | hoch | hoch (Nutzer) | gering |
 | Kosten | – | gering (Vercel/Actions im vorhandenen Tarif) | gering | – | Abstimmungsaufwand |
@@ -219,7 +306,7 @@ CAU nur zurückhaltende Tests, keine öffentliche Funktion.
 
 ```
 UnivIS (PRG, show=xml)                    später: HISinOne, andere UnivIS
-        │  wenige Anfragen je Einrichtung/Semester, 1×/Tag + ETag
+        │  1 Anfrage je Einrichtung/Semester (Theologie: ~400 KB), 1×/Tag
         ▼
 Katalog-Adapter  (Node, tool/univis → api/_lib/catalog/)
   • Quelle je Hochschule: UnivisSource { host, semesters, departments[] }
@@ -242,9 +329,10 @@ Flutter-App
 `.github/workflows/push-reminders.yml`, da Vercel-Cron im Hobby-Tarif nur
 einen Lauf pro Tag erlaubt) stößt einmal täglich nachts die Synchronisation
 an; im Semester ggf. zweimal. Anfragen nacheinander mit Pause (z. B. 2 s),
-Zeitlimit, erkennbarem User-Agent, bedingten Anfragen, wenn UnivIS
-`ETag`/`Last-Modified` sendet (offen). Abfrage je Einrichtung (`number=`)
-statt Namenssuche, damit Ergebnisse eindeutig sind.
+Zeitlimit und erkennbarem User-Agent. UnivIS sendet weder `ETag` noch
+`Last-Modified`; der Adapter vergleicht deshalb Hashes je Veranstaltung.
+Abfrage je Einrichtung über die Organisationsnummer (`department=010000000`)
+statt über Namen. Für die ganze Theologie genügt eine Anfrage pro Semester.
 
 **Warum Firestore statt Live-Proxy.** Ein Live-Proxy nach dem Muster von
 `api/greek-noun.ts` (mit CDN-Cache) wäre einfacher, kann aber keine
@@ -255,9 +343,11 @@ der Proxy dennoch der schnellste Weg (Plan, Schritt 3).
 
 **Kennungen.**
 `lectureId = <sourceId>:<sem>:<UnivIS-key>` (z. B.
-`cau-univis:2026w:Lecture.theol...`); `sessionId = <lectureId>#<Hash aus
-repeat, starttime, endtime, startdate, room>`. Weil Termine keinen eigenen
-Schlüssel haben (Annahme), wird eine Änderung von Zeit oder Raum als „Termin
+`cau-univis:2026w:Lecture.theol.altte.relig.bibelk`); `sessionId =
+<lectureId>#<Hash aus repeat, starttime, endtime, startdate, room>`.
+Importierte Doppel (gleiche `number`, gleiche Termine) werden zu einem
+Eintrag zusammengeführt. Weil Termine kein eigenes Kennungselement haben (live:
+nur `repeat`, Zeiten, Daten, `room`, `exclude`), wird eine Änderung von Zeit oder Raum als „Termin
 geändert“ erkannt, indem der Adapter alte und neue Termine je Veranstaltung
 paarweise zuordnet.
 
@@ -284,9 +374,16 @@ berücksichtigt.
 UnivIS geraten) zu konkreten Zeitfenstern expandieren, Ausnahmen abziehen,
 Überschneidungen paarweise prüfen. Reine Funktion ohne UI, gut testbar.
 
-**Filter.** Sicher möglich: Semester, Einrichtung (Organisationsnummer),
-Veranstaltungstyp, Lehrperson, Wochentag, Uhrzeit, Volltext im Titel.
-Abhängig von den Live-Daten: Modul, Studiengang, ECTS.
+**Filter.** Möglich (live bestätigt): Semester, Einrichtung
+(`orgname`/Organisationsnummer), Gliederungspunkt (`classification`, z. B.
+„4. Altes Testament“), Veranstaltungstyp, Lehrperson, Wochentag, Uhrzeit,
+Volltext im Titel, Modulkürzel (aus dem Titel). Nicht möglich: ECTS.
+
+**Datenminimierung.** Übernommen werden Titel, Nummer, Typ, SWS,
+Einrichtung, Gliederung, Termine, Räume und von Lehrpersonen nur Titel und
+Name. Freitextfelder (`time_description`, `kontakt`, `organizational`,
+`summary`) werden nicht gespeichert; die Detailansicht verlinkt für sie auf
+UnivIS.
 
 **Erweiterbarkeit.** `CatalogSource`-Schnittstelle mit Implementierungen
 je System (UnivIS mit hochschulspezifischer Konfiguration: Host,
@@ -295,42 +392,41 @@ kennt nur das normalisierte Format.
 
 ## 8. Umsetzungsplan
 
-1. **Live-Test** von einem Rechner mit Zugang (oder nach Freigabe des Hosts
-   in der Cloud-Umgebung): `univis_probe.mjs` für 2026w mit einer
-   theologischen Einrichtung; Parser anhand von `inventory` und
-   `unknownRepeatValues` korrigieren; Ergebnis hier nachtragen.
+1. ~~Live-Test~~ – erledigt (Abschnitt 4).
 2. **Anfrage an die CAU** (Abschnitt 9) senden; bis zur Antwort keine
-   öffentliche Funktion.
-3. **Prototyp-Endpunkt** `api/univis-lectures.ts` (über `guarded`), fest
-   eingeschränkt auf Host und Einrichtungsliste, mit
+   öffentliche Funktion und keine regelmäßigen Abrufe.
+3. **Parser ergänzen**: Zusammenführen importierter Doppel, Modulkürzel aus
+   dem Titel, Termin-Expansion über die Vorlesungszeit (inkl. `exclude`,
+   `bd`), Konfliktprüfung – als reine, getestete Funktionen.
+4. **Prüfen, ob Vercel UnivIS erreicht**, dann Prototyp-Endpunkt
+   `api/univis-lectures.ts` (über `guarded`), fest eingeschränkt auf Host
+   und Organisationsnummer, mit
    `Cache-Control: s-maxage=86400, stale-while-revalidate`; Tests wie
    `api/_lib/handlers.test.mjs` mit Fixture.
-4. **Flutter, lesend**: `CatalogRepository`, Suchscreen mit Semester- und
+5. **Flutter, lesend**: `CatalogRepository`, Suchscreen mit Semester- und
    Einrichtungsauswahl, Detailansicht, Quellenhinweis „Daten: UnivIS der
    CAU Kiel“ mit Stand.
-5. **Stundenplan**: `TimetableStore.forUser`, Firestore-Regeln,
+6. **Stundenplan**: `TimetableStore.forUser`, Firestore-Regeln,
    Kontolöschung, Konfliktprüfung, Wochenansicht.
-6. **Synchronisation** in Firestore mit Änderungserkennung, geplanter Lauf
+7. **Synchronisation** in Firestore mit Änderungserkennung, geplanter Lauf
    über GitHub Actions, Hinweise auf geänderte Einträge.
-7. **Ausbau**: weitere Einrichtungen/Hochschulen über Konfiguration;
+8. **Ausbau**: weitere Einrichtungen/Hochschulen über Konfiguration;
    HISinOne-Adapter, sobald die CAU das Veranstaltungsmanagement umstellt.
 
 ## 9. Offene Fragen
 
-1. Liefert `univis.uni-kiel.de/prg?…&show=xml` XML aus, und mit welchen
-   Feldern und Wiederholungscodes? (Test Schritt 1)
-2. Ist ein regelmäßiger automatisierter Abruf (≈ einmal täglich, wenige
+1. Ist ein regelmäßiger automatisierter Abruf (≈ einmal täglich, wenige
    Dutzend Anfragen) erlaubt, gibt es Lastgrenzen oder einen bevorzugten
    Weg (z. B. `exportxml`-Datei)?
-3. Dürfen die Daten in einer kostenlosen Open-Source-App angezeigt und
+2. Dürfen die Daten in einer kostenlosen Open-Source-App angezeigt und
    zwischengespeichert werden, und in welcher Form ist die Quelle zu nennen?
    Bestehen Rechte an der Datenbank (Datenbankherstellerrecht), die einer
    Weitergabe entgegenstehen?
-4. Dürfen Namen von Lehrpersonen übernommen werden (nur, was UnivIS ohnehin
+3. Dürfen Namen von Lehrpersonen übernommen werden (nur, was UnivIS ohnehin
    öffentlich zeigt)?
-5. Bleiben UnivIS-Schlüssel über Bearbeitungen stabil? Werden Absagen in
-   UnivIS gepflegt?
-6. Wann wird das Veranstaltungsmanagement in HISinOne produktiv, und wird es
+4. Bleiben UnivIS-Schlüssel über Bearbeitungen stabil? Werden Absagen in
+   UnivIS gepflegt? Wie sind `bd`/`b1`/`w2` genau zu lesen (Handbuch 19.4)?
+5. Wann wird das Veranstaltungsmanagement in HISinOne produktiv, und wird es
    eine vergleichbare öffentliche Schnittstelle geben?
 
 Datenschutz: Die App übernähme nur öffentlich angezeigte Daten und von
@@ -341,7 +437,7 @@ Datenschutzerklärung der App müsste den Katalog als Datenquelle nennen.
 Rechtsfragen werden hier nicht beantwortet, sondern an die CAU gestellt.
 
 **Entwurf der Anfrage** an `univis@univis.uni-kiel.de` (UnivIS-Projektgruppe;
-in Kopie ggf. `hisinone@uv.uni-kiel.de` für Frage 6):
+in Kopie ggf. `hisinone@uv.uni-kiel.de` für Frage 5):
 
 > Betreff: Nutzung der UnivIS-PRG-Schnittstelle für eine studentische Lern-App
 >
@@ -351,10 +447,11 @@ in Kopie ggf. `hisinone@uv.uni-kiel.de` für Frage 6):
 > Theologiestudierende. Wir möchten Studierenden ermöglichen, Veranstaltungen
 > der CAU aus UnivIS in der App zu suchen und in einen persönlichen
 > Stundenplan zu übernehmen. Dafür würden wir die öffentliche
-> PRG-Schnittstelle (`/prg?search=lectures&show=xml`) für ausgewählte
-> Einrichtungen etwa einmal täglich abfragen, die Daten
+> PRG-Schnittstelle (`/prg?search=lectures&show=xml&department=010000000`,
+> eine Anfrage je Semester) etwa einmal täglich abfragen, die Daten
 > zwischenspeichern und mit Quellenangabe anzeigen. Personenbezogene Daten
-> würden wir auf die öffentlich angezeigten Namen der Lehrenden beschränken.
+> würden wir auf die öffentlich angezeigten Namen der Lehrenden beschränken;
+> Freitexte mit Kontaktangaben übernehmen wir nicht.
 >
 > 1. Ist eine solche regelmäßige automatisierte Nutzung zulässig, und gibt es
 >    Vorgaben zu Abrufhäufigkeit oder Last?
@@ -364,3 +461,43 @@ in Kopie ggf. `hisinone@uv.uni-kiel.de` für Frage 6):
 >    eine vergleichbare Schnittstelle geben wird?
 >
 > Vielen Dank und freundliche Grüße
+
+## 10. Testplan ohne Programmierkenntnisse
+
+Alles im Browser, ohne Konto, ohne Installation.
+
+**A. Katalog ansehen (1 Minute)**
+
+1. Diese Adresse im Browser öffnen:
+   `https://univis.uni-kiel.de/prg?search=lectures&show=xml&sem=2026w&department=010000000`
+2. Erwartet: eine lange, strukturierte Textseite (XML), die mit `<UnivIS`
+   beginnt und Einträge `<Lecture key="Lecture.theol…">` enthält.
+3. Mit Strg+F nach „Bibelkunde“ suchen: Darunter stehen `<repeat>w1 4</repeat>`,
+   `<starttime>16:15</starttime>`, `<endtime>17:45</endtime>`.
+
+**B. Wochentag gegenprüfen (1 Minute)**
+
+1. `https://univis.uni-kiel.de/prg?search=lectures&number=010076&sem=2026w&show=llong`
+   öffnen.
+2. Erwartet: normale UnivIS-Seite zur „Bibelkunde Altes Testament“ mit
+   „Do 16:15 - 17:45“. Das bestätigt: `w1 4` = donnerstags.
+
+**C. Einen anderen Fachbereich oder ein anderes Semester testen**
+
+* Andere Einrichtung: `https://univis.uni-kiel.de/prg?search=departments&name=Philosoph&show=xml&noimports=1`
+  öffnen, im Ergebnis die Zahl bei `<orgnr>` ablesen und in A statt
+  `010000000` einsetzen. Suchbegriffe ohne Umlaute verwenden.
+* Anderes Semester: in A `2026w` durch z. B. `2026s` (SoSe 2026) ersetzen.
+
+**D. Wiederholung über GitHub (optional)**
+
+Auf GitHub unter „Actions“ → „UnivIS-Abruftest“ → „Run workflow“ (erscheint,
+sobald die Workflow-Datei im Hauptzweig liegt). Modus `probe` ruft den
+Katalog ab und zeigt Kennzahlen; das Protokoll ist öffentlich, Lehrpersonen
+und Freitexte sind geschwärzt.
+
+**E. Protokoll mit Kontaktdaten löschen (einmalig)**
+
+Auf GitHub: Actions → „UnivIS-Abruftest“ → Lauf
+`38571975156` („Matched the UnivIS parser to the real Kiel response…“)
+öffnen → oben rechts „…“ → „Delete workflow run“.
