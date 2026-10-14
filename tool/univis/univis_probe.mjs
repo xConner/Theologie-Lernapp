@@ -13,8 +13,8 @@
 //   --save-raw <pfad>    Rohantwort speichern (NICHT ins Repository legen:
 //                        enthält Namen von Lehrpersonen)
 //   --sample <n>         n normalisierte Veranstaltungen ausgeben (Standard 3)
-//   --redact             Lehrpersonen in der Ausgabe schwärzen (für öffentliche
-//                        Protokolle, z. B. GitHub Actions)
+//   --redact             Lehrpersonen und Freitexte in der Ausgabe schwärzen
+//                        (für öffentliche Protokolle, z. B. GitHub Actions)
 //
 // Genau EINE Anfrage je Aufruf, mit Zeitlimit und erkennbarem User-Agent.
 // Keine Anmeldung, keine Cookies, keine Zugangsdaten.
@@ -84,19 +84,14 @@ for (const s of result.lectures.flatMap((l) => l.sessions)) {
     repeatValues[raw] = (repeatValues[raw] ?? 0) + 1;
 }
 
-// Abgleich der Wochentagscodes mit dem Freitext der Zeitangabe: je Code bis
-// zu drei Veranstaltungen mit genau einem wöchentlichen Termin.
-const weekdayCheck = {};
-for (const l of result.lectures) {
-    if (l.sessions.length !== 1 || l.sessions[0].repeat.kind !== 'weekly') continue;
-    const raw = l.sessions[0].repeat.raw;
-    const list = (weekdayCheck[raw] ??= []);
-    if (list.length < 3 && l.timeDescription) list.push(l.timeDescription.slice(0, 40));
-}
-
 const sample = result.lectures.slice(0, sampleSize).map((l) =>
     values.redact
-        ? { ...l, lecturers: l.lecturers.map(() => ({ key: '[geschwärzt]', displayName: '[geschwärzt]' })) }
+        ? {
+              ...l,
+              lecturers: l.lecturers.map(() => ({ key: '[geschwärzt]', displayName: '[geschwärzt]' })),
+              // Freitext (in Kiel: Anmeldehinweise), kann Kontaktdaten enthalten.
+              timeDescription: l.timeDescription == null ? null : '[geschwärzt]',
+          }
         : l,
 );
 
@@ -107,7 +102,6 @@ console.log(
             validation: validateLectures(result),
             inventory: result.inventory,
             repeatValues,
-            weekdayCheck,
             sample,
         },
         null,

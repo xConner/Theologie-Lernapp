@@ -2,15 +2,22 @@
 # Läuft auf GitHub-Runnern, weil die Entwicklungsumgebung univis.uni-kiel.de
 # nicht erreicht. Kein Zeitplan: nur manuell oder beim Ändern dieser Datei auf
 # einem claude/-Branch. Höchstens zwei Anfragen je Lauf (Einrichtung suchen,
-# Veranstaltungen abrufen) mit Pause dazwischen.
+# Veranstaltungen abrufen) mit Pause dazwischen bzw. eine Anfrage
+# (Wochentagsprüfung).
 #
-# Die Protokolle sind öffentlich: Lehrpersonen werden geschwärzt
-# (--redact), Personen-Datensätze nur gezählt, Rohantworten nicht gespeichert.
+# Die Protokolle sind öffentlich: Lehrpersonen und Freitexte werden
+# geschwärzt (--redact), Personen-Datensätze nur gezählt, Rohantworten nicht
+# gespeichert.
 name: UnivIS-Abruftest
 
 on:
   workflow_dispatch:
     inputs:
+      mode:
+        description: "probe = Katalog abrufen, weekday = Wochentagscodes prüfen"
+        type: choice
+        options: [probe, weekday]
+        default: probe
       sem:
         description: Semester (z. B. 2026w)
         default: 2026w
@@ -36,6 +43,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     env:
+      # Ein Push dieser Datei führt nur die Prüfung aus, die hier steht.
+      MODE: ${{ inputs.mode || 'weekday' }}
       SEM: ${{ inputs.sem || '2026w' }}
       DEPT_QUERY: ${{ inputs.query || 'Theologische' }}
       DEPT_NAME: ${{ inputs.name || 'Theologische Fakultät' }}
@@ -47,10 +56,12 @@ jobs:
       - run: npm ci --ignore-scripts
 
       - name: Organisationsnummer aus UnivIS ermitteln
+        if: env.MODE == 'probe'
         run: |
           node tool/univis/univis_find_department.mjs --name "$DEPT_QUERY" | tee dept.json
 
       - name: Veranstaltungen der Einrichtung abrufen
+        if: env.MODE == 'probe'
         run: |
           sleep 5
           # OrgNr (Element <orgnr> des Org-Datensatzes) nur übernehmen, wenn
@@ -68,3 +79,9 @@ jobs:
           echo "OrgNr: $ORG"
           node tool/univis/univis_probe.mjs --sem "$SEM" \
             --param "department=$ORG" --sample 2 --redact
+
+      # Veranstaltung 010076 hat laut XML (WS 2026/27) den Code "w1 4",
+      # 16:15-17:45; die Klartextansicht zeigt, welcher Wochentag das ist.
+      - name: Wochentagscodes gegen die Klartextansicht prüfen
+        if: env.MODE == 'weekday'
+        run: node tool/univis/univis_check_weekday.mjs --sem "$SEM" --number 010076
