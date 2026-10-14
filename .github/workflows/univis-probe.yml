@@ -44,8 +44,9 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     env:
-      # Ein Push dieser Datei führt nur die Prüfungen aus, die hier stehen.
-      MODE: ${{ inputs.mode || 'catalog' }}
+      # Ein Push dieser Datei führt nur die Prüfung aus, die hier steht
+      # (Vercel-Test: eine Anfrage an UnivIS, aus der Vercel-Funktion).
+      MODE: ${{ inputs.mode || 'vercel' }}
       SEM: ${{ inputs.sem || '2026w' }}
       DEPT_QUERY: ${{ inputs.query || 'Theologische' }}
       DEPT_NAME: ${{ inputs.name || 'Theologische Fakultät' }}
@@ -130,8 +131,19 @@ jobs:
             echo "VERCEL_AUTOMATION_BYPASS_SECRET fehlt – geschütztes Preview nicht prüfbar."
             exit 1
           fi
-          CODE=$(curl -sS -o result.json -w "%{http_code}" --max-time 60 \
-            -H "x-vercel-protection-bypass: $BYPASS" "$URL/api/univis-reachability")
+          # Secret über stdin als curl-Konfiguration statt als Argument: nicht
+          # in der Prozessliste, nicht in einer Datei, nicht im Protokoll.
+          # Kein -L: Weiterleitungen (z. B. zur Vercel-Anmeldung) nicht folgen.
+          CODE=$(printf 'header = "x-vercel-protection-bypass: %s"\n' "$BYPASS" \
+            | curl -sS -K - -o result.json -w "%{http_code}" --max-time 60 \
+              "$URL/api/univis-reachability") || CODE="curl-Fehler"
           echo "HTTP $CODE"
-          if jq -e . result.json >/dev/null 2>&1; then jq . result.json; else head -c 300 result.json; echo; fi
+          # Nur die JSON-Antwort des Endpunkts (Kennzahlen) oder eine kurze,
+          # auf Text reduzierte Fehlerseite ausgeben.
+          if [ -f result.json ] && jq -e . result.json >/dev/null 2>&1; then
+            jq . result.json
+          elif [ -f result.json ]; then
+            sed -e 's/<[^>]*>/ /g' result.json | tr -s ' \n' ' ' | head -c 300; echo
+          fi
+          rm -f result.json
           [ "$CODE" = "200" ]
