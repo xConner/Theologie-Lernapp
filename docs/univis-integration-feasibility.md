@@ -868,8 +868,11 @@ bewusst nicht vorhanden.
 
 ### 13.5 Vercel
 
-* `vercel.json`: `"regions": ["fra1"]` – Funktionen in Frankfurt.
-  Überprüfung im Preview: Abschnitt 13.6.
+* `vercel.json`: `"regions": ["fra1"]` – Funktionen in Frankfurt; im
+  Preview bestätigt (13.6). Gilt für alle Funktionen des Projekts, auch die
+  Push- und Grammatik-Endpunkte. Im Vercel-Dashboard ist dafür nichts
+  einzustellen; abweichende Dashboard-Voreinstellungen überschreibt
+  `vercel.json`.
 * Umgebungsvariablen (optional): `CATALOG_CACHE_TTL_HOURS`,
   `CATALOG_MAX_STALE_HOURS`. Für den dauerhaften Cache muss
   `FIREBASE_SERVICE_ACCOUNT` in der jeweiligen Umgebung gesetzt sein.
@@ -877,8 +880,40 @@ bewusst nicht vorhanden.
 
 ### 13.6 Prüfung
 
-Siehe Abschlussbericht des Commits; Ergebnisse der Preview-Prüfung werden
-hier nachgetragen.
+**Vercel-Preview, echter Endpunkt** (Commit `8c7af21`, Lauf
+[38586515264](https://github.com/xConner/Theologie-Lernapp/actions/runs/38586515264),
+Protokoll enthält nur Status, Kopfzeilen und Zählwerte):
+
+| Aufruf | Ergebnis |
+|---|---|
+| `GET /api/catalog` | `200`, Semester `2026w`, `2027s` |
+| `GET /api/catalog?semester=2026w` | `200`, `state: refreshed`, 89 Veranstaltungen, 1149 Termine, 37 Lehrende, 34 zusammengeführte Dubletten, `synthetic: false` – ein UnivIS-Abruf |
+| derselbe Aufruf erneut | `200`, `x-vercel-cache: HIT` – aus dem CDN-Cache, kein UnivIS-Abruf |
+| `GET /api/catalog?semester=1999w` | `400` |
+| Region | `x-vercel-id: iad1::fra1::…` – Edge in den USA (Runner dort), **Funktion in `fra1`** (Frankfurt) |
+
+Nicht live geprüft: Produktion (Branch nicht in `main`), `semester=2027s`
+(bewusst keine zusätzliche UnivIS-Anfrage; der Endpunkt liefert bei noch
+nicht veröffentlichten Veranstaltungen eine leere Liste), der dauerhafte
+Firestore-Cache (ob `FIREBASE_SERVICE_ACCOUNT` im Preview gesetzt ist, ist
+von außen nicht sichtbar).
+
+**Lokal bzw. in CI:**
+
+| Suite | Ergebnis |
+|---|---|
+| `node --test api/_lib/catalog/endpoint.test.mjs` (Endpunkt, Cache, Eingaben, Fehler, Datenschutz – Mock-Antworten) | 13/13 |
+| `node --test api/_lib/catalog/catalog.test.mjs` | 31/31 |
+| `node --test api/_lib/handlers.test.mjs`, `reminders.test.mjs` | 14/14, 10/10 |
+| `node --test tool/univis/univis_parser.test.mjs` | 9/9 |
+| `tsc --noEmit` über alle API-Dateien | ohne Fehler |
+| Firestore-Emulator `test/firestore_rules` (lokal und CI-Lauf [38586515865](https://github.com/xConner/Theologie-Lernapp/actions/runs/38586515865)) | 9/9 |
+| `flutter analyze` (Flutter 3.47.7) | keine Befunde |
+| `flutter test` | 1042 bestanden, 1 übersprungen (bestehend) |
+
+Gegenproben: `timetable` in `isUserCollection` → Emulator-Test für
+ungültige Einträge schlägt fehl; starre Ergebniszeile in der Suche → Test
+bei 320 px und 1,5-facher Schrift meldet 119 px Überlauf (behoben).
 
 ### 13.7 Offene manuelle Schritte
 
