@@ -1,0 +1,46 @@
+# Linkprüfung der Studienunterlagen (assets/study/documents.json).
+# Läuft auf GitHub-Runnern, weil die Entwicklungsumgebung uni-kiel.de nicht
+# erreicht. Eine Anfrage je URL, nur Status, Inhaltstyp, Seitentitel und der
+# Anfang der ersten PDF-Seite im Protokoll.
+name: Studienunterlagen-Links
+
+on:
+  workflow_dispatch:
+    inputs:
+      file:
+        description: JSON-Datei (Dokumentliste oder Kandidaten-Array)
+        default: assets/study/documents.json
+      discover:
+        description: Verlinkte Dokumente auf Übersichtsseiten auflisten
+        type: boolean
+        default: false
+  push:
+    paths:
+      - assets/study/documents.json
+      - tool/study_documents/**
+      - .github/workflows/study-documents.yml
+  schedule:
+    # Wöchentlich: tote Links früh bemerken.
+    - cron: "17 5 * * 1"
+
+permissions:
+  contents: read
+
+jobs:
+  links:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci --ignore-scripts
+      - run: sudo apt-get install -y -qq poppler-utils >/dev/null
+      - name: Links prüfen
+        env:
+          FILE: ${{ inputs.file || 'assets/study/documents.json' }}
+          DISCOVER: ${{ inputs.discover && '--discover' || '' }}
+        run: |
+          if [ ! -f "$FILE" ]; then FILE=tool/study_documents/candidates.json; DISCOVER=--discover; fi
+          node tool/study_documents/check_links.mjs --file "$FILE" $DISCOVER
