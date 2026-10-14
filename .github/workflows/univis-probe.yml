@@ -46,9 +46,9 @@ jobs:
     timeout-minutes: 15
     env:
       # Ein Push dieser Datei führt nur die Prüfung aus, die hier steht
-      # (Vercel-Preview: Katalog und Suche, höchstens sechs UnivIS-Abrufe aus
-      # der Vercel-Funktion).
-      MODE: ${{ inputs.mode || 'vercel' }}
+      # (Produktion: Katalog und Suche, höchstens sechs UnivIS-Abrufe aus der
+      # Vercel-Funktion, meist aus dem Zwischenspeicher).
+      MODE: ${{ inputs.mode || 'production' }}
       SEM: ${{ inputs.sem || '2026w' }}
       DEPT_QUERY: ${{ inputs.query || 'Theologische' }}
       DEPT_NAME: ${{ inputs.name || 'Theologische Fakultät' }}
@@ -124,19 +124,20 @@ jobs:
         run: |
           api() { curl -sS -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" "https://api.github.com/repos/$REPO/$1"; }
           if [ "$MODE" = "production" ]; then
-            # Der neue Code ist live, sobald /api/catalog (Semesterliste, ohne
-            # UnivIS-Abruf) mit 200 antwortet.
+            # Der neue Code ist live, sobald ein zu kurzer Suchbegriff mit 400
+            # abgelehnt wird (ältere Stände ohne Suche antworten mit 200; kein
+            # UnivIS-Abruf).
             URL="https://www.theologie.app"
             BYPASS=""
             READY=""
             for i in $(seq 1 30); do
-              CODE=$(curl -sS -o /dev/null -w "%{http_code}" --max-time 20 "$URL/api/catalog" || echo 000)
-              [ "$CODE" = "200" ] && READY=1 && break
+              CODE=$(curl -sS -o /dev/null -w "%{http_code}" --max-time 20 "$URL/api/catalog?semester=2026w&q=ab" || echo 000)
+              [ "$CODE" = "400" ] && READY=1 && break
               echo "Noch nicht bereit (HTTP $CODE), warte …"
               sleep 20
             done
             if [ -z "$READY" ]; then
-              echo "Produktion antwortet nicht mit 200. Deployments zu $SHA:"
+              echo "Produktion liefert noch keinen Stand mit Suche. Deployments zu $SHA:"
               api "deployments?sha=$SHA&per_page=10" | jq -c '[.[] | {environment, created_at}]'
               exit 1
             fi
