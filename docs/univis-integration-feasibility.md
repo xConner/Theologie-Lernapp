@@ -1034,3 +1034,14 @@ Ein früherer Lauf
 ([38605878964](https://github.com/xConner/Theologie-Lernapp/actions/runs/38605878964))
 ergab für die genaue Wortgruppe „Einführung in die Ethik“ 0 Treffer – Anlass
 für die Rückfallsuche (14.2).
+
+### 14.6 Prüfung in Produktion
+
+Lauf [38609693524](https://github.com/xConner/Theologie-Lernapp/actions/runs/38609693524)
+gegen `https://www.theologie.app` (Funktion in `fra1`): dieselben Ergebnisse
+wie im Preview – „Ethik“ in der Philosophischen Fakultät 13, „Einführung“ in
+der Theologischen Fakultät 12, „Ethik Einführung“ 3 (Rückfallsuche),
+Nummer 010076 1 Veranstaltung, zu kurzer Begriff `400`.
+
+Offen: Veröffentlichung der geänderten `firestore.rules` in der Firebase
+Console (14.4).
