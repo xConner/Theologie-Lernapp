@@ -9,9 +9,10 @@
 // gezählt, Kontaktfelder ausgelassen – die Ausgabe darf in öffentlichen
 // Protokollen (GitHub Actions) stehen.
 //
-// Welches Element die OrgNr trägt, ist nicht dokumentiert. Das Skript zeigt
-// deshalb alle einfachen Felder und markiert Werte aus 6–9 Ziffern als
-// Kandidaten, jeweils mit Elementnamen.
+// Die OrgNr steht im Element <orgnr> des <Org>-Datensatzes (am 14.10.2026
+// gegen univis.uni-kiel.de bestätigt; <id> ist eine andere, interne Nummer).
+// Zur Kontrolle zeigt das Skript alle einfachen Felder und markiert Werte aus
+// 6–9 Ziffern als Kandidaten.
 
 import { readFile } from 'node:fs/promises';
 import { parseArgs } from 'node:util';

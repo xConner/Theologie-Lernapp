@@ -53,13 +53,13 @@ jobs:
       - name: Veranstaltungen der Einrichtung abrufen
         run: |
           sleep 5
-          # OrgNr nur übernehmen, wenn genau EINE Einrichtung exakt so heißt
-          # und genau einen Kandidaten trägt – sonst kein Abruf (nicht raten).
+          # OrgNr (Element <orgnr> des Org-Datensatzes) nur übernehmen, wenn
+          # genau EINE Einrichtung exakt so heißt – sonst kein Abruf.
           ORG=$(node -e '
             const d = JSON.parse(require("fs").readFileSync("dept.json", "utf8"));
             const hits = (d.departments || []).filter(x => x.fields.name === process.env.DEPT_NAME);
-            const c = hits.length === 1 ? hits[0].orgNrCandidates : [];
-            process.stdout.write(c.length === 1 ? c[0].value : "");
+            const nr = hits.length === 1 ? hits[0].fields.orgnr : "";
+            process.stdout.write(/^\d{9}$/.test(nr || "") ? nr : "");
           ' || true)
           if [ -z "$ORG" ]; then
             echo "Keine eindeutige OrgNr für \"$DEPT_NAME\" gefunden – Abruf übersprungen."
