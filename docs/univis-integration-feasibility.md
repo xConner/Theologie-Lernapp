@@ -277,8 +277,7 @@ zwischengespeicherten Katalog vorgesehen.
 * **Umlaute in Parametern**: UTF-8-kodierte Umlaute finden nichts;
   Organisationsnummern statt Namen verwenden.
 * **Netzwerk**: Die Claude-Cloud-Umgebung erreicht UnivIS nicht; GitHub
-  Actions schon. Vercel: ungeklärt, weil Previews geschützt sind
-  (Abschnitt 11.6).
+  Actions und Vercel (Region `iad1`) schon (Abschnitt 11.6).
 * **CORS**: nicht geprüft; für die Web-App ist ohnehin ein Server-Adapter
   nötig.
 * **Anmeldung**: PRG ist anonym. Belegungen/Anmeldungen laufen über
@@ -400,8 +399,7 @@ kennt nur das normalisierte Format.
 2. **Anfrage an die CAU** (Abschnitt 9) senden; bis zur Antwort keine
    öffentliche Funktion und keine regelmäßigen Abrufe.
 3. ~~Parser ergänzen~~ – erledigt: `api/_lib/catalog/` (Abschnitt 11).
-4. **Prüfen, ob Vercel UnivIS erreicht** (vorbereitet, braucht das
-   Bypass-Secret, Abschnitt 11.6), dann Prototyp-Endpunkt
+4. ~~Prüfen, ob Vercel UnivIS erreicht~~ – bestätigt (Abschnitt 11.6); dann Prototyp-Endpunkt
    `api/univis-lectures.ts` (über `guarded`), fest eingeschränkt auf Host
    und Organisationsnummer, mit
    `Cache-Control: s-maxage=86400, stale-while-revalidate`; Tests wie
@@ -502,7 +500,8 @@ Backend auf echten Daten aus und zeigt nur Kennzahlen; das Protokoll ist
 **E. Protokoll mit Kontaktdaten löschen** – erledigt (Lauf 38571975156
 ist gelöscht, Abschnitt 11.1).
 
-**F. Vercel-Erreichbarkeit freischalten (einmalig, ohne Programmierung)**
+**F. Vercel-Erreichbarkeit freischalten** – erledigt, Secret ist gesetzt,
+Test erfolgreich (Abschnitt 11.6). Zum Wiederholen: Schritt 3.
 
 1. Vercel → Projekt „theologie-lernapp“ → Settings → Deployment Protection →
    „Protection Bypass for Automation“ → Secret erzeugen und kopieren.
@@ -633,17 +632,23 @@ außerhalb der Fakultät; sie bleiben eigene Einträge.
 * `api/univis-reachability.ts`: antwortet nur in Preview-Deployments (in
   Produktion `404`), nur `GET`, höchstens eine UnivIS-Anfrage pro Minute
   und Instanz, Antwort nur Kennzahlen. Getestet mit gefälschtem `fetch`.
-* **Ergebnis: Ob Vercel UnivIS erreicht, ist weiterhin offen.** Das Preview
-  wurde gebaut (Vercel-Status `success`), ist aber durch **Vercel
-  Authentication** geschützt: Der Aufruf aus GitHub Actions erhielt `302`
-  („Protected by Vercel Authentication“), die Funktion lief nicht, es ging
-  keine Anfrage an UnivIS (Lauf
-  [38574515340](https://github.com/xConner/Theologie-Lernapp/actions/runs/38574515340)).
-  Der Schutz wurde nicht umgangen. Der Workflow-Modus `vercel` nutzt den
-  offiziellen Weg „Protection Bypass for Automation“, sobald das Secret
-  `VERCEL_AUTOMATION_BYPASS_SECRET` gesetzt ist (Abschnitt 10F).
-  Indiz, kein Beleg: Bestehende Vercel-Funktionen (`api/greek-noun.ts`)
-  rufen externe Seiten ab; GitHub-Runner (Azure) erreichen UnivIS.
+* **Ergebnis: Vercel erreicht UnivIS – live bestätigt** (Lauf
+  [38577665979](https://github.com/xConner/Theologie-Lernapp/actions/runs/38577665979),
+  Commit `90bbc99`):
+  - erster Versuch ohne Secret: Preview `302` („Protected by Vercel
+    Authentication“), Funktion nicht ausgeführt (Lauf
+    [38574515340](https://github.com/xConner/Theologie-Lernapp/actions/runs/38574515340));
+  - mit „Protection Bypass for Automation“: Preview `HTTP 200`, Funktion in
+    Region `iad1` ausgeführt, UnivIS `200`, `text/xml`, 407 619 Bytes in
+    790 ms, gleicher Inhalts-Hash wie aus GitHub Actions
+    (`6a64b341…`); die Pipeline lieferte dieselben Kennzahlen (150 → 89
+    Veranstaltungen, 1149 Termine, 0 Strukturwarnungen).
+  - Genau ein Aufruf des Endpunkts, also eine UnivIS-Anfrage.
+* Umgang mit dem Secret `VERCEL_AUTOMATION_BYPASS_SECRET`: nur als
+  Umgebungsvariable des einen Workflow-Schritts; an `curl` über stdin als
+  Konfiguration (`curl -K -`), nicht als Argument; keine Weiterleitungen;
+  GitHub maskiert es im Protokoll (`***`). Ausgegeben werden nur HTTP-Status
+  und die Kennzahlen-Antwort bzw. eine auf Text gekürzte Fehlerseite.
 * Adapter-Schnittstelle (`source.ts`):
 
   ```ts
@@ -698,7 +703,7 @@ nicht geändert; `flutter analyze` war daher nicht nötig.
 
 1. **Nutzungsrechte** (Abschnitt 9) – unverändert offen; Anfrage an die CAU
    noch nicht gestellt.
-2. **Vercel-Erreichbarkeit** – braucht das Bypass-Secret (Abschnitt 10F).
+2. ~~Vercel-Erreichbarkeit~~ – bestätigt (Abschnitt 11.6).
 3. **14-täglich ohne Startwoche** (010000): UnivIS nennt die Startwoche
    nicht. Denkbar ist „ab Beginn des Veranstaltungszeitraums“; das ist
    nicht belegt, daher keine Termine. Klärung bei der CAU (Handbuch 19.4).
@@ -712,12 +717,10 @@ nicht geändert; `flutter analyze` war daher nicht nötig.
 
 ### 11.9 Empfohlene nächste Phase
 
-1. CAU-Anfrage (Abschnitt 9) senden; Secret für den Vercel-Test anlegen und
-   den Modus `vercel` einmal ausführen.
+1. CAU-Anfrage (Abschnitt 9) senden.
 2. Nach Freigabe: Lesender Endpunkt `api/catalog.ts` auf Basis von
-   `loadCatalog` mit CDN-Cache (`s-maxage=86400`) – oder, falls Vercel UnivIS
-   nicht erreicht, Erzeugung des Katalogs in GitHub Actions und Ablage in
-   Firestore (`catalog_sources/…`, nur Server schreibt).
+   `loadCatalog` mit CDN-Cache (`s-maxage=86400`); Vercel erreicht UnivIS
+   (Abschnitt 11.6).
 3. Änderungserkennung zwischen zwei Snapshots (gleiche `Occurrence.id`,
    anderer Inhalt → „geändert“; fehlend → „entfallen“) als reine Funktion.
 4. Danach erst Flutter: Datenmodell in Dart spiegeln, Suche/Filter,
