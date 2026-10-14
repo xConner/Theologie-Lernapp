@@ -1014,3 +1014,23 @@ sollte bei der CAU bestätigt werden. Bei Bedarf lässt sich die Suche mit
   müssen in der Firebase Console neu veröffentlicht werden**; bis dahin
   speichert die App Veranstaltungen des Fakultätskatalogs in der alten Form
   und meldet bei Veranstaltungen aus der Suche einen Speicherfehler.
+
+### 14.5 Prüfung im Vercel-Preview
+
+Lauf [38607192348](https://github.com/xConner/Theologie-Lernapp/actions/runs/38607192348)
+(Commit `0a323bf`, nur Status, Kopfzeilen und Zählwerte im Protokoll),
+Funktion in `fra1`:
+
+| Aufruf | Ergebnis |
+|---|---|
+| `?semester=2026w&q=Ethik&faculty=050000000` | `200`, 13 Veranstaltungen (nach Zusammenführen von Dubletten), 176 Termine, `match: phrase` |
+| `?semester=2026w&q=Einführung&faculty=010000000` | `200`, 12 Veranstaltungen – Umlaut korrekt als ISO-8859-1 weitergegeben |
+| `?semester=2026w&q=Ethik Einführung` | `200`, 3 Veranstaltungen über die Rückfallsuche (`match: words`) |
+| `?semester=2026w&number=010076` | `200`, 1 Veranstaltung, 14 Termine |
+| `?semester=2026w&q=ab` | `400` ohne UnivIS-Abruf |
+| Fakultätskatalog wie bisher | `200`, 89 Veranstaltungen, CDN-Treffer beim zweiten Abruf |
+
+Ein früherer Lauf
+([38605878964](https://github.com/xConner/Theologie-Lernapp/actions/runs/38605878964))
+ergab für die genaue Wortgruppe „Einführung in die Ethik“ 0 Treffer – Anlass
+für die Rückfallsuche (14.2).
