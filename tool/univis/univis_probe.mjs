@@ -84,6 +84,16 @@ for (const s of result.lectures.flatMap((l) => l.sessions)) {
     repeatValues[raw] = (repeatValues[raw] ?? 0) + 1;
 }
 
+// Abgleich der Wochentagscodes mit dem Freitext der Zeitangabe: je Code bis
+// zu drei Veranstaltungen mit genau einem wöchentlichen Termin.
+const weekdayCheck = {};
+for (const l of result.lectures) {
+    if (l.sessions.length !== 1 || l.sessions[0].repeat.kind !== 'weekly') continue;
+    const raw = l.sessions[0].repeat.raw;
+    const list = (weekdayCheck[raw] ??= []);
+    if (list.length < 3 && l.timeDescription) list.push(l.timeDescription.slice(0, 40));
+}
+
 const sample = result.lectures.slice(0, sampleSize).map((l) =>
     values.redact
         ? { ...l, lecturers: l.lecturers.map(() => ({ key: '[geschwärzt]', displayName: '[geschwärzt]' })) }
@@ -97,6 +107,7 @@ console.log(
             validation: validateLectures(result),
             inventory: result.inventory,
             repeatValues,
+            weekdayCheck,
             sample,
         },
         null,

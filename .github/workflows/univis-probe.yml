@@ -67,4 +67,4 @@ jobs:
           fi
           echo "OrgNr: $ORG"
           node tool/univis/univis_probe.mjs --sem "$SEM" \
-            --param "department=$ORG" --sample 3 --redact
+            --param "department=$ORG" --sample 2 --redact

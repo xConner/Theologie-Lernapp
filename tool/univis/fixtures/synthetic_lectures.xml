@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
   SYNTHETISCHE Beispieldaten, KEINE echte UnivIS-Antwort.
-  Aufbau nach UnivIS-Benutzerhandbuch Kap. 19 (Datensätze mit key-Attribut,
-  Verweise über leere UnivISRef-Elemente, referenzierte Datensätze im selben
-  Dokument). Elementnamen innerhalb von Lecture/term sind Annahmen, die beim
-  ersten echten Abruf mit univis_probe.mjs überprüft werden müssen.
-  Alle Namen, Räume und Kennungen sind erfunden.
+  Aufbau wie die echte Antwort von univis.uni-kiel.de (Abgleich 14.10.2026):
+  Datensätze mit key-Attribut, Verweise über leere UnivISRef-Elemente,
+  referenzierte Datensätze im selben Dokument. Alle Namen, Räume und
+  Kennungen sind erfunden.
 -->
 <UnivIS version="1.6">
   <Lecture key="Lecture.beispiel.at.vorl1">
     <name>Beispielvorlesung Altes Testament</name>
     <short>AT-V</short>
-    <id>010001</id>
+    <id>40000001</id>
+    <number>010001</number>
+    <time_description>Di 10:15 - 11:45, HS 1</time_description>
+    <classification><UnivISRef type="Title" key="Title.beispiel.at"/></classification>
     <type>V</type>
     <sws>2</sws>
     <ects_cred>3</ects_cred>
@@ -34,7 +36,9 @@
   </Lecture>
   <Lecture key="Lecture.beispiel.nt.sem1">
     <name>Beispielseminar Neues Testament</name>
-    <id>010002</id>
+    <id>40000002</id>
+    <number>010002</number>
+    <import_parent_id>39999999</import_parent_id>
     <type>S</type>
     <sws>2</sws>
     <dozs>
@@ -55,6 +59,13 @@
         <endtime>16:00</endtime>
       </term>
       <term>
+        <repeat>bd 4,5</repeat>
+        <startdate>2027-02-18</startdate>
+        <enddate>2027-02-19</enddate>
+        <starttime>09:00</starttime>
+        <endtime>17:00</endtime>
+      </term>
+      <term>
         <repeat>x9 sonderfall</repeat>
       </term>
     </terms>
@@ -72,6 +83,9 @@
     <firstname>Max</firstname>
     <lastname>Mustermann</lastname>
   </Person>
+  <Title key="Title.beispiel.at">
+    <title>Beispielgliederung Altes Testament</title>
+  </Title>
   <Room key="Room.beispiel.hs1">
     <short>HS 1</short>
     <name>Beispielhörsaal 1</name>

@@ -24,7 +24,11 @@ const byKey = Object.fromEntries(result.lectures.map((l) => [l.sourceKey, l]));
 test('liest Stammdaten einer Veranstaltung', () => {
     const lecture = byKey['Lecture.beispiel.at.vorl1'];
     assert.equal(lecture.name, 'Beispielvorlesung Altes Testament');
-    assert.equal(lecture.id, '010001');
+    assert.equal(lecture.id, '40000001');
+    assert.equal(lecture.number, '010001');
+    assert.equal(lecture.timeDescription, 'Di 10:15 - 11:45, HS 1');
+    assert.equal(lecture.imported, false);
+    assert.equal(byKey['Lecture.beispiel.nt.sem1'].imported, true);
     assert.equal(lecture.type, 'V');
     assert.equal(lecture.ects, '3');
     assert.equal(lecture.hasSummary, true);
@@ -40,6 +44,12 @@ test('löst Lehrpersonen und Räume über UnivISRef auf', () => {
         short: 'HS 1',
         name: 'Beispielhörsaal 1',
     });
+});
+
+test('löst Gliederungspunkte des Vorlesungsverzeichnisses auf', () => {
+    assert.deepEqual(byKey['Lecture.beispiel.at.vorl1'].classification, [
+        { key: 'Title.beispiel.at', title: 'Beispielgliederung Altes Testament' },
+    ]);
 });
 
 test('meldet nicht auflösbare Verweise statt sie zu verwerfen', () => {
@@ -67,6 +77,8 @@ test('deutet Wiederholungsmuster und behält Unbekanntes als Rohwert', () => {
     assert.deepEqual(parseRepeat('w2 4,1').weekdays, [1, 4]);
     assert.equal(parseRepeat('w1 0').weekdays[0], 7);
     assert.equal(parseRepeat('s1').kind, 'single');
+    assert.deepEqual(parseRepeat('bd 5,4'), { kind: 'block', weekdays: [4, 5], raw: 'bd 5,4' });
+    assert.equal(parseRepeat('b1').kind, 'block');
     assert.deepEqual(parseRepeat('x9 sonderfall'), {
         kind: 'unknown',
         raw: 'x9 sonderfall',
@@ -80,16 +92,16 @@ test('Validierung zählt Lücken der Daten', () => {
     assert.equal(v.duplicateKeys, 0);
     assert.equal(v.lecturesWithoutSessions, 1);
     assert.equal(v.lecturesWithoutLecturer, 1);
-    assert.equal(v.sessions, 4);
-    assert.equal(v.sessionsWithTimes, 3);
+    assert.equal(v.sessions, 5);
+    assert.equal(v.sessionsWithTimes, 4);
     assert.equal(v.sessionsWithRoom, 2);
-    assert.deepEqual(v.repeatKinds, { weekly: 2, single: 1, unknown: 1 });
+    assert.deepEqual(v.repeatKinds, { weekly: 2, single: 1, block: 1, unknown: 1 });
     assert.deepEqual(v.unknownRepeatValues, ['x9 sonderfall']);
 });
 
 test('Inventar listet die tatsächlich vorkommenden Elemente', () => {
     assert.equal(result.inventory.UnivIS.Lecture, 3);
-    assert.equal(result.inventory.term.repeat, 4);
+    assert.equal(result.inventory.term.repeat, 5);
 });
 
 test('lehnt Antworten ohne UnivIS-Wurzel ab (z. B. HTML-Fehlerseite)', () => {
