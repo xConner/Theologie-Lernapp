@@ -36,7 +36,7 @@ jobs:
         with:
           node-version: 22
       - run: npm ci --ignore-scripts
-      - run: sudo apt-get install -y -qq poppler-utils >/dev/null
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils >/dev/null
       - name: Links prüfen
         env:
           FILE: ${{ inputs.file || 'assets/study/documents.json' }}
