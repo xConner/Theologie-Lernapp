@@ -1,7 +1,7 @@
 // Ermittelt die Organisationsnummer einer Einrichtung direkt aus UnivIS,
 // statt sie zu raten:
 //
-//   node tool/univis/univis_find_department.mjs --name "Theologische Fakultät"
+//   node tool/univis/univis_find_department.mjs --name "Theologische"
 //   node tool/univis/univis_find_department.mjs --file antwort.xml   (offline)
 //
 // Genau EINE Anfrage (`search=departments&show=xml&noimports=1`). Ausgegeben
@@ -16,15 +16,14 @@
 import { readFile } from 'node:fs/promises';
 import { parseArgs } from 'node:util';
 import * as cheerio from 'cheerio';
+import { fetchUnivis, htmlText } from './univis_http.mjs';
 
-const USER_AGENT =
-    'theologie.app-univis-probe/0.1 (+https://www.theologie.app; Machbarkeitstest)';
 const SKIP = /mail|tel|fax|phone|mobil|street|address|sprech|office/i;
 
 const { values } = parseArgs({
     options: {
         host: { type: 'string', default: 'univis.uni-kiel.de' },
-        name: { type: 'string', default: 'Theologische Fakultät' },
+        name: { type: 'string', default: 'Theologische' },
         file: { type: 'string' },
     },
 });
@@ -36,20 +35,8 @@ async function load() {
     url.searchParams.set('name', values.name);
     url.searchParams.set('show', 'xml');
     url.searchParams.set('noimports', '1');
-    const response = await fetch(url, {
-        headers: { 'User-Agent': USER_AGENT, Accept: 'application/xml, text/xml' },
-        signal: AbortSignal.timeout(20000),
-    });
-    const xml = await response.text();
-    return {
-        xml,
-        meta: {
-            url: url.toString(),
-            status: response.status,
-            contentType: response.headers.get('content-type'),
-            bytes: Buffer.byteLength(xml),
-        },
-    };
+    const { body, meta } = await fetchUnivis(url);
+    return { xml: body, meta };
 }
 
 const { xml, meta } = await load();
@@ -57,7 +44,7 @@ const $ = cheerio.load(xml, { xml: true });
 const root = $('UnivIS').first();
 
 if (root.length === 0) {
-    console.log(JSON.stringify({ meta, error: 'keine UnivIS-XML-Antwort', bodyStart: xml.slice(0, 500) }, null, 2));
+    console.log(JSON.stringify({ meta, error: 'keine UnivIS-XML-Antwort', text: htmlText(xml) }, null, 2));
     process.exit(1);
 }
 
@@ -84,4 +71,6 @@ root.children().each((_, el) => {
     departments.push({ tag, key: $(el).attr('key') ?? null, fields, orgNrCandidates: candidates });
 });
 
-console.log(JSON.stringify({ meta, counts, departments }, null, 2));
+// Leere Antwort: Rohtext zeigen (nur wenige Bytes, ohne Personendaten).
+const empty = departments.length === 0 ? { body: xml.slice(0, 400) } : {};
+console.log(JSON.stringify({ meta, counts, departments, ...empty }, null, 2));

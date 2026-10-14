@@ -14,8 +14,11 @@ on:
       sem:
         description: Semester (z. B. 2026w)
         default: 2026w
+      query:
+        description: Suchbegriff für die Einrichtung (ohne Umlaute)
+        default: Theologische
       name:
-        description: Name der Einrichtung in UnivIS
+        description: Exakter Name der Einrichtung in UnivIS
         default: Theologische Fakultät
   push:
     branches: ["claude/**"]
@@ -34,6 +37,7 @@ jobs:
     timeout-minutes: 5
     env:
       SEM: ${{ inputs.sem || '2026w' }}
+      DEPT_QUERY: ${{ inputs.query || 'Theologische' }}
       DEPT_NAME: ${{ inputs.name || 'Theologische Fakultät' }}
     steps:
       - uses: actions/checkout@v4
@@ -44,20 +48,23 @@ jobs:
 
       - name: Organisationsnummer aus UnivIS ermitteln
         run: |
-          node tool/univis/univis_find_department.mjs --name "$DEPT_NAME" | tee dept.json
+          node tool/univis/univis_find_department.mjs --name "$DEPT_QUERY" | tee dept.json
 
       - name: Veranstaltungen der Einrichtung abrufen
         run: |
           sleep 5
           # OrgNr nur übernehmen, wenn genau EINE Einrichtung exakt so heißt
-          # und genau einen Kandidaten trägt; sonst der dokumentierte
-          # Namensfilter department=<Name>.
+          # und genau einen Kandidaten trägt – sonst kein Abruf (nicht raten).
           ORG=$(node -e '
             const d = JSON.parse(require("fs").readFileSync("dept.json", "utf8"));
             const hits = (d.departments || []).filter(x => x.fields.name === process.env.DEPT_NAME);
             const c = hits.length === 1 ? hits[0].orgNrCandidates : [];
             process.stdout.write(c.length === 1 ? c[0].value : "");
           ' || true)
-          echo "OrgNr: ${ORG:-nicht eindeutig – Namensfilter}"
+          if [ -z "$ORG" ]; then
+            echo "Keine eindeutige OrgNr für \"$DEPT_NAME\" gefunden – Abruf übersprungen."
+            exit 1
+          fi
+          echo "OrgNr: $ORG"
           node tool/univis/univis_probe.mjs --sem "$SEM" \
-            --param "department=${ORG:-$DEPT_NAME}" --sample 3 --redact
+            --param "department=$ORG" --sample 3 --redact

@@ -21,11 +21,8 @@
 
 import { readFile, writeFile } from 'node:fs/promises';
 import { parseArgs } from 'node:util';
+import { fetchUnivis, htmlText } from './univis_http.mjs';
 import { parseUnivisLectures, validateLectures } from './univis_parser.mjs';
-
-const USER_AGENT =
-    'theologie.app-univis-probe/0.1 (+https://www.theologie.app; Machbarkeitstest)';
-const TIMEOUT_MS = 20000;
 
 const { values } = parseArgs({
     options: {
@@ -60,27 +57,10 @@ async function load() {
     if (values.file) {
         return { xml: await readFile(values.file, 'utf8'), meta: { file: values.file } };
     }
-    const url = buildUrl();
-    const started = Date.now();
-    const response = await fetch(url, {
-        headers: { 'User-Agent': USER_AGENT, Accept: 'application/xml, text/xml' },
-        signal: AbortSignal.timeout(TIMEOUT_MS),
-        redirect: 'follow',
-    });
-    const xml = await response.text();
-    const meta = {
-        url: url.toString(),
-        status: response.status,
-        contentType: response.headers.get('content-type'),
-        lastModified: response.headers.get('last-modified'),
-        etag: response.headers.get('etag'),
-        cacheControl: response.headers.get('cache-control'),
-        bytes: Buffer.byteLength(xml),
-        ms: Date.now() - started,
-    };
+    const { ok, body: xml, meta } = await fetchUnivis(buildUrl());
     if (values['save-raw']) await writeFile(values['save-raw'], xml);
-    if (!response.ok) {
-        console.log(JSON.stringify({ meta, bodyStart: xml.slice(0, 500) }, null, 2));
+    if (!ok) {
+        console.log(JSON.stringify({ meta, text: htmlText(xml) }, null, 2));
         process.exit(1);
     }
     return { xml, meta };
@@ -92,7 +72,7 @@ try {
     result = parseUnivisLectures(xml);
 } catch (e) {
     // z. B. HTML statt XML: Anfang der Antwort zeigen statt abzustürzen.
-    console.log(JSON.stringify({ meta, error: e.message, bodyStart: xml.slice(0, 500) }, null, 2));
+    console.log(JSON.stringify({ meta, error: e.message, text: htmlText(xml) }, null, 2));
     process.exit(1);
 }
 const sampleSize = Math.max(0, Number(values.sample) || 0);
