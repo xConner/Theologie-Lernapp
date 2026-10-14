@@ -14,10 +14,10 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: "probe = Katalog-Kennzahlen, weekday = Wochentagscode prüfen, vercel = Erreichbarkeit aus einem Vercel-Preview"
+        description: "catalog = Backend auf echten Daten (Kennzahlen), probe = XML-Inventar, weekday = Wochentagscode prüfen, vercel = Erreichbarkeit aus einem Vercel-Preview"
         type: choice
-        options: [probe, weekday, vercel]
-        default: probe
+        options: [catalog, probe, weekday, vercel]
+        default: catalog
       sem:
         description: Semester (z. B. 2026w)
         default: 2026w
@@ -45,7 +45,7 @@ jobs:
     timeout-minutes: 5
     env:
       # Ein Push dieser Datei führt nur die Prüfung aus, die hier steht.
-      MODE: ${{ inputs.mode || 'vercel' }}
+      MODE: ${{ inputs.mode || 'catalog' }}
       SEM: ${{ inputs.sem || '2026w' }}
       DEPT_QUERY: ${{ inputs.query || 'Theologische' }}
       DEPT_NAME: ${{ inputs.name || 'Theologische Fakultät' }}
@@ -87,12 +87,21 @@ jobs:
         if: env.MODE == 'weekday'
         run: node tool/univis/univis_check_weekday.mjs --sem "$SEM" --number 010076
 
+      # Katalogverarbeitung (api/_lib/catalog) mit EINER Anfrage, nur Kennzahlen.
+      - name: Katalog-Backend auf echten Daten prüfen
+        if: env.MODE == 'catalog'
+        run: node tool/univis/catalog_stats.mjs --sem "$SEM" --org 010000000
+
       # Wartet auf das Vercel-Preview dieses Commits und ruft den
       # Erreichbarkeitstest EINMAL auf (api/univis-reachability.ts: nur
-      # Preview, nur Kennzahlen).
+      # Preview, nur Kennzahlen). Previews sind durch Vercel Authentication
+      # geschützt; der Abruf braucht das Repository-Secret
+      # VERCEL_AUTOMATION_BYPASS_SECRET („Protection Bypass for Automation“
+      # in den Vercel-Projekteinstellungen).
       - name: Erreichbarkeit aus einem Vercel-Preview prüfen
         if: env.MODE == 'vercel'
         env:
+          BYPASS: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
           SHA: ${{ github.sha }}
@@ -112,7 +121,12 @@ jobs:
             exit 1
           fi
           echo "Preview: $URL"
-          CODE=$(curl -sS -o result.json -w "%{http_code}" --max-time 60 "$URL/api/univis-reachability")
+          if [ -z "$BYPASS" ]; then
+            echo "VERCEL_AUTOMATION_BYPASS_SECRET fehlt – geschütztes Preview nicht prüfbar."
+            exit 1
+          fi
+          CODE=$(curl -sS -o result.json -w "%{http_code}" --max-time 60 \
+            -H "x-vercel-protection-bypass: $BYPASS" "$URL/api/univis-reachability")
           echo "HTTP $CODE"
           if jq -e . result.json >/dev/null 2>&1; then jq . result.json; else head -c 300 result.json; echo; fi
           [ "$CODE" = "200" ]
