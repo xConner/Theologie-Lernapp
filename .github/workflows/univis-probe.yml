@@ -15,9 +15,9 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: "catalog = Backend auf echten Daten (Kennzahlen), probe = XML-Inventar, schedule = Terminangaben gegen Klartext prüfen, vercel = Katalog-Endpunkt im Vercel-Preview, production = Katalog-Endpunkt auf www.theologie.app"
+        description: "catalog = Backend auf echten Daten (Kennzahlen), probe = XML-Inventar, schedule = Terminangaben gegen Klartext prüfen, search = Titelsuche und Fakultätsnummern, vercel = Katalog-Endpunkt im Vercel-Preview, production = Katalog-Endpunkt auf www.theologie.app"
         type: choice
-        options: [catalog, probe, schedule, vercel, production]
+        options: [catalog, probe, schedule, search, vercel, production]
         default: catalog
       sem:
         description: Semester (z. B. 2026w)
@@ -46,9 +46,8 @@ jobs:
     timeout-minutes: 15
     env:
       # Ein Push dieser Datei führt nur die Prüfung aus, die hier steht
-      # (Produktionstest: höchstens eine Anfrage an UnivIS, aus der
-      # Vercel-Funktion).
-      MODE: ${{ inputs.mode || 'production' }}
+      # (Titelsuche: höchstens sechs Anfragen mit Pausen).
+      MODE: ${{ inputs.mode || 'search' }}
       SEM: ${{ inputs.sem || '2026w' }}
       DEPT_QUERY: ${{ inputs.query || 'Theologische' }}
       DEPT_NAME: ${{ inputs.name || 'Theologische Fakultät' }}
@@ -94,6 +93,12 @@ jobs:
           sleep 5
           node tool/univis/univis_check_schedule.mjs --sem "$SEM" \
             --number 010076 --number 010000 --number 010032 --number 010036 --number 010008
+
+      # Titelsuche und Fakultätsnummern (höchstens sechs Anfragen, nur Kennzahlen
+      # und Namen von Einrichtungen).
+      - name: Titelsuche und Fakultäten prüfen
+        if: env.MODE == 'search'
+        run: node tool/univis/univis_search_probe.mjs --sem "$SEM"
 
       # Katalogverarbeitung (api/_lib/catalog) mit EINER Anfrage, nur Kennzahlen.
       - name: Katalog-Backend auf echten Daten prüfen
