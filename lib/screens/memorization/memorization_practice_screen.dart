@@ -297,6 +297,18 @@ class _MemorizationPracticeScreenState
 
     final target = [for (final i in asked) _prompt.words[i].raw];
 
+    // Wer den ganzen Abschnitt wiedergibt, schreibt leicht über dessen
+    // Grenzen hinaus: Text der Nachbarabschnitte wird erkannt und nicht
+    // bewertet. Bei Lückenaufgaben gibt es keine Grenzen zu verfehlen.
+    final context = onlyGaps
+        ? (before: const <String>[], after: const <String>[])
+        : MemorizationTextEvaluator.neighbourWords(
+            [for (final segment in unit.text.segments) segment.text],
+            unit.from,
+            unit.to,
+            limit: input.trim().split(RegExp(r"\s+")).length + 10,
+          );
+
     // Latein schreibt die Erkennung nach Gehör („celi“ für „caeli“): vor dem
     // Wortvergleich lautlich mit dem Text abgleichen.
     if (spoken && unit.text.languageCode == "la") {
@@ -307,6 +319,8 @@ class _MemorizationPracticeScreenState
       target: target,
       input: input,
       spoken: spoken,
+      before: context.before,
+      after: context.after,
     );
 
     final errorSegments = {

@@ -559,6 +559,70 @@ void main() {
       expect(find.text("Abschnitt 5 von 8 · Deutsch"), findsOneWidget);
     });
 
+    testWidgets("Text vor und nach den abgefragten Abschnitten ist kein "
+        "Fehler", (tester) async {
+      final text = vaterunser();
+
+      await pumpPractice(tester, [
+        PracticeUnit(
+          text: text,
+          from: 1,
+          to: 3,
+          kind: UnitKind.chain,
+          level: HintLevel.free,
+        ),
+      ]);
+
+      // Abgefragt sind die Abschnitte 2–4, eingegeben werden 1–5.
+      await tester.enterText(
+        find.byKey(const Key("memorize_input")),
+        text.textOf(0, 4),
+      );
+      await tester.pumpAndSettle();
+      await tapVisible(tester, find.byKey(const Key("memorize_check")));
+
+      expect(find.text("Wortgetreu"), findsOneWidget);
+      expect(find.textContaining("Zu viel"), findsNothing);
+
+      for (var i = 1; i <= 3; i++) {
+        expect(ensureRepository().cards[text.segments[i].id]!.failures, 0);
+      }
+    });
+
+    testWidgets("Fehler im abgefragten Bereich trotz Zusatztext", (
+      tester,
+    ) async {
+      final text = vaterunser();
+
+      await pumpPractice(tester, [
+        PracticeUnit(
+          text: text,
+          from: 1,
+          to: 3,
+          kind: UnitKind.chain,
+          level: HintLevel.free,
+        ),
+      ]);
+
+      await tester.enterText(
+        find.byKey(const Key("memorize_input")),
+        text.textOf(0, 4).replaceFirst("Reich", "Name"),
+      );
+      await tester.pumpAndSettle();
+      await tapVisible(tester, find.byKey(const Key("memorize_check")));
+
+      expect(find.text("Wortgetreu"), findsNothing);
+      expect(find.text("Anderes Wort: „Name“ statt „Reich“"), findsOneWidget);
+      expect(
+        find.text(
+          "Text vor oder nach den abgefragten Abschnitten wurde nicht "
+          "bewertet.",
+        ),
+        findsOneWidget,
+      );
+      expect(ensureRepository().cards[text.segments[2].id]!.failures, 1);
+    });
+
     testWidgets("Sprechen: Hinweis, Transkript, lokaler Vergleich", (
       tester,
     ) async {

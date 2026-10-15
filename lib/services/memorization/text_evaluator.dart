@@ -54,11 +54,20 @@ class EvaluationResult {
   final int inputCount;
   final RecallOutcome outcome;
 
+  /// Eingabewörter vor bzw. hinter dem abgefragten Bereich, die zu den
+  /// Nachbarabschnitten gehören und daher nicht bewertet wurden (siehe
+  /// [MemorizationTextEvaluator.evaluateWords]). Sie sind in [alignment]
+  /// und [inputCount] nicht enthalten.
+  final int ignoredBefore;
+  final int ignoredAfter;
+
   const EvaluationResult({
     required this.alignment,
     required this.targetCount,
     required this.inputCount,
     required this.outcome,
+    this.ignoredBefore = 0,
+    this.ignoredAfter = 0,
   });
 
   int _count(bool Function(WordAlignment a) test) =>
@@ -77,6 +86,9 @@ class EvaluationResult {
   int get errors => missing + extra + wrong + swappedPairs;
 
   bool get isEmptyInput => inputCount == 0;
+
+  /// Wurde Text außerhalb des abgefragten Bereichs mit eingegeben?
+  bool get hasIgnoredContext => ignoredBefore + ignoredAfter > 0;
 
   /// Positionen im Zieltext, an denen etwas nicht stimmte. Zusätzliche
   /// Wörter zählen zur Stelle, an der sie eingefügt wurden.
@@ -159,6 +171,13 @@ class EvaluationResult {
       i++;
     }
 
+    // Die Abweichungen beziehen sich nur auf den abgefragten Bereich.
+    if (hasIgnoredContext && outcome != RecallOutcome.correct) {
+      lines.add(
+        "Text vor oder nach den abgefragten Abschnitten wurde nicht bewertet.",
+      );
+    }
+
     return lines;
   }
 
@@ -230,28 +249,96 @@ class MemorizationTextEvaluator {
     );
   }
 
+  /// Wie [evaluate], mit dem Zieltext als Wortliste.
+  ///
+  /// [before] und [after] sind die Wörter der Abschnitte unmittelbar vor
+  /// bzw. hinter dem abgefragten Bereich (siehe [neighbourWords]). Wer die
+  /// Abschnittsgrenzen nicht genau kennt und davor oder danach weiteren
+  /// Text des Werks eingibt, wird dafür nicht bestraft: Eingabewörter, die
+  /// sich zuverlässig diesen Nachbarabschnitten zuordnen lassen, werden
+  /// abgetrennt, bewertet wird nur der abgefragte Bereich. Fehler darin
+  /// zählen unverändert.
   EvaluationResult evaluateWords({
     required List<String> target,
     required String input,
     bool spoken = false,
+    List<String> before = const [],
+    List<String> after = const [],
   }) {
-    final t = [
-      for (final word in target)
-        if (MemorizationNormalizer.word(word).isNotEmpty) word,
-    ];
+    final t = _significant(target);
     final tn = t.map(MemorizationNormalizer.word).toList();
 
-    var u = _words(input);
+    final words = _words(input);
+    final whole = _evaluate(t, tn, words, spoken);
 
-    if (spoken) {
-      final targetNorms = tn.toSet();
+    if (before.isEmpty && after.isEmpty) return whole;
 
-      u = u.where((word) {
-        final norm = MemorizationNormalizer.word(word);
-        return !_fillers.contains(norm) || targetNorms.contains(norm);
-      }).toList();
+    final b = _significant(before);
+    final a = _significant(after);
+    final bn = b.map(MemorizationNormalizer.word).toList();
+    final an = a.map(MemorizationNormalizer.word).toList();
+
+    final u = spoken ? _withoutFillers(words, {...tn, ...bn, ...an}) : words;
+
+    final range = _locate(
+      bn,
+      tn,
+      an,
+      u.map(MemorizationNormalizer.word).toList(),
+      spoken,
+    );
+
+    if (range == null) return whole;
+
+    final (start, end) = range;
+
+    final core = _evaluate(t, tn, u.sublist(start, end), spoken);
+
+    final trimmed = EvaluationResult(
+      alignment: core.alignment,
+      targetCount: core.targetCount,
+      inputCount: core.inputCount,
+      outcome: core.outcome,
+      ignoredBefore: start,
+      ignoredAfter: u.length - end,
+    );
+
+    // Das Abtrennen darf die Bewertung nie verschlechtern.
+    return _rank(trimmed) > _rank(whole) ? trimmed : whole;
+  }
+
+  /// Wörter der Abschnitte vor [from] und nach [to] (je einschließlich) aus
+  /// [segments], den Texten aller Abschnitte eines Lerntextes. Je Seite
+  /// werden ganze Abschnitte genommen, bis mindestens [limit] Wörter
+  /// beisammen sind – mehr kann eine Eingabe dieser Länge nicht abdecken.
+  static ({List<String> before, List<String> after}) neighbourWords(
+    List<String> segments,
+    int from,
+    int to, {
+    required int limit,
+  }) {
+    List<String> wordsOf(int index) => _words(segments[index]);
+
+    final before = <String>[];
+    for (var i = from - 1; i >= 0 && before.length < limit; i--) {
+      before.insertAll(0, wordsOf(i));
     }
 
+    final after = <String>[];
+    for (var i = to + 1; i < segments.length && after.length < limit; i++) {
+      after.addAll(wordsOf(i));
+    }
+
+    return (before: before, after: after);
+  }
+
+  EvaluationResult _evaluate(
+    List<String> t,
+    List<String> tn,
+    List<String> words,
+    bool spoken,
+  ) {
+    final u = spoken ? _withoutFillers(words, tn.toSet()) : words;
     final un = u.map(MemorizationNormalizer.word).toList();
 
     final alignment = _align(t, tn, u, un, spoken);
@@ -269,6 +356,191 @@ class MemorizationTextEvaluator {
       inputCount: u.length,
       outcome: _outcome(result),
     );
+  }
+
+  static List<String> _significant(List<String> words) => [
+    for (final word in words)
+      if (MemorizationNormalizer.word(word).isNotEmpty) word,
+  ];
+
+  static List<String> _withoutFillers(List<String> words, Set<String> keep) {
+    return words.where((word) {
+      final norm = MemorizationNormalizer.word(word);
+      return !_fillers.contains(norm) || keep.contains(norm);
+    }).toList();
+  }
+
+  /// Rangfolge zweier Bewertungen derselben Aufgabe: besseres Ergebnis,
+  /// dann weniger Abweichungen.
+  static int _rank(EvaluationResult r) {
+    final outcome = switch (r.outcome) {
+      RecallOutcome.correct => 2,
+      RecallOutcome.almost => 1,
+      RecallOutcome.incorrect => 0,
+    };
+
+    return outcome * 1000000 - r.errors * 1000 - r.minor;
+  }
+
+  /// Ordnet die Eingabe [un] dem fortlaufenden Text Vorabschnitte [bn] +
+  /// Zielbereich [tn] + Folgeabschnitte [an] zu und liefert den Teil der
+  /// Eingabe `[start, end)`, der zum Zielbereich gehört – oder null, wenn
+  /// nichts zuverlässig abzutrennen ist.
+  ///
+  /// Wortvergleich wie in [_align], aber die Eingabe darf an beliebiger
+  /// Stelle der Vorabschnitte beginnen und der Folgeabschnitte enden
+  /// (übersprungener Text davor und danach kostet nichts). Ein Treffer im
+  /// Zielbereich ist minimal billiger als einer in den Nachbarabschnitten:
+  /// Bei gleich guten Zuordnungen, etwa bei wiederkehrenden Formulierungen,
+  /// wird die Eingabe dem Zielbereich zugeschlagen und nicht abgetrennt.
+  ///
+  /// Abgetrennt wird ein Rand der Eingabe nur, wenn er dem Nachbartext
+  /// überwiegend entspricht (mindestens so viele Treffer wie Abweichungen);
+  /// fremde Wörter bleiben als „Zu viel“ in der Bewertung.
+  static (int, int)? _locate(
+    List<String> bn,
+    List<String> tn,
+    List<String> an,
+    List<String> un,
+    bool spoken,
+  ) {
+    final e = [...bn, ...tn, ...an];
+    final b = bn.length;
+    final targetEnd = b + tn.length;
+    final n = e.length;
+    final m = un.length;
+
+    if (m == 0 || tn.isEmpty) return null;
+
+    // −1 = vor dem Zielbereich, 0 = Zielbereich, 1 = danach.
+    int region(int i) => i < b ? -1 : (i >= targetEnd ? 1 : 0);
+
+    const contextMatch = 1;
+
+    int substitution(int i, int j) {
+      if (_equal(e[i], un[j], spoken)) {
+        return region(i) == 0 ? 0 : contextMatch;
+      }
+      return isMinorDeviation(e[i], un[j]) ? _minorCost : _edit;
+    }
+
+    bool swap(int i, int j) {
+      return i > 1 &&
+          j > 1 &&
+          e[i - 1] != e[i - 2] &&
+          e[i - 1] == un[j - 2] &&
+          e[i - 2] == un[j - 1];
+    }
+
+    final d = List.generate(n + 1, (_) => List<int>.filled(m + 1, 0));
+
+    for (var i = 1; i <= n; i++) {
+      d[i][0] = i <= b ? 0 : d[i - 1][0] + _edit;
+    }
+    for (var j = 1; j <= m; j++) {
+      d[0][j] = j * _edit;
+    }
+
+    for (var i = 1; i <= n; i++) {
+      for (var j = 1; j <= m; j++) {
+        var best = math.min(
+          math.min(d[i - 1][j] + _edit, d[i][j - 1] + _edit),
+          d[i - 1][j - 1] + substitution(i - 1, j - 1),
+        );
+
+        if (swap(i, j)) {
+          best = math.min(best, d[i - 2][j - 2] + _edit);
+        }
+
+        d[i][j] = best;
+      }
+    }
+
+    // Ende frühestens hinter dem Zielbereich; die übrigen Folgewörter
+    // dürfen fehlen.
+    var i = targetEnd;
+    for (var k = targetEnd + 1; k <= n; k++) {
+      if (d[k][m] < d[i][m]) i = k;
+    }
+
+    final owner = List<int>.filled(m, 0);
+    final hits = {-1: 0, 1: 0};
+    final misses = {-1: 0, 1: 0};
+    var targetHit = false;
+
+    void step(int r, {required bool hit}) {
+      if (r == 0) {
+        targetHit = targetHit || hit;
+      } else if (hit) {
+        hits[r] = hits[r]! + 1;
+      } else {
+        misses[r] = misses[r]! + 1;
+      }
+    }
+
+    var j = m;
+
+    while (j > 0) {
+      if (i > 0) {
+        if (swap(i, j) && d[i][j] == d[i - 2][j - 2] + _edit) {
+          owner[j - 1] = region(i - 1);
+          owner[j - 2] = region(i - 2);
+          step(region(i - 1), hit: false);
+          i -= 2;
+          j -= 2;
+          continue;
+        }
+
+        final cost = substitution(i - 1, j - 1);
+
+        if (d[i][j] == d[i - 1][j - 1] + cost) {
+          owner[j - 1] = region(i - 1);
+          step(region(i - 1), hit: cost < _edit);
+          i--;
+          j--;
+          continue;
+        }
+
+        if (d[i][j] == d[i - 1][j] + _edit) {
+          step(region(i - 1), hit: false);
+          i--;
+          continue;
+        }
+      }
+
+      // Zusätzliches Wort zwischen e[i − 1] und e[i]; an der Grenze zum
+      // Zielbereich zählt es zum Zielbereich.
+      final r = i < b ? -1 : (i > targetEnd ? 1 : 0);
+      owner[j - 1] = r;
+      step(r, hit: false);
+      j--;
+    }
+
+    if (!targetHit) return null;
+
+    var start = 0;
+    while (start < m && owner[start] == -1) {
+      start++;
+    }
+
+    var end = m;
+    while (end > start && owner[end - 1] == 1) {
+      end--;
+    }
+
+    // Die Zuordnung ist monoton; alles dazwischen gehört zum Zielbereich.
+    for (var k = start; k < end; k++) {
+      if (owner[k] != 0) return null;
+    }
+
+    bool reliable(int r) => hits[r]! > 0 && hits[r]! >= misses[r]!;
+
+    if (start > 0 && !reliable(-1)) start = 0;
+    if (end < m && !reliable(1)) end = m;
+
+    if (start == 0 && end == m) return null;
+
+    return (start, end);
   }
 
   static List<String> _words(String text) {
