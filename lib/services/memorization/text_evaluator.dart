@@ -290,17 +290,40 @@ class MemorizationTextEvaluator {
 
     if (range == null) return whole;
 
-    final (start, end) = range;
+    final (:lead, :start, :end, :trail) = range;
 
     final core = _evaluate(t, tn, u.sublist(start, end), spoken);
 
+    // Wörter am äußeren Rand, die zu keinem Nachbarabschnitt passen, bleiben
+    // zusätzliche Wörter vor bzw. hinter dem Zielbereich.
+    final alignment = [
+      for (final word in u.take(lead))
+        WordAlignment(type: AlignmentType.extra, targetIndex: -1, actual: word),
+      ...core.alignment,
+      for (final word in u.skip(trail))
+        WordAlignment(
+          type: AlignmentType.extra,
+          targetIndex: t.length - 1,
+          actual: word,
+        ),
+    ];
+
+    final inputCount = core.inputCount + lead + (u.length - trail);
+
+    final draft = EvaluationResult(
+      alignment: alignment,
+      targetCount: t.length,
+      inputCount: inputCount,
+      outcome: RecallOutcome.incorrect,
+    );
+
     final trimmed = EvaluationResult(
-      alignment: core.alignment,
-      targetCount: core.targetCount,
-      inputCount: core.inputCount,
-      outcome: core.outcome,
-      ignoredBefore: start,
-      ignoredAfter: u.length - end,
+      alignment: alignment,
+      targetCount: t.length,
+      inputCount: inputCount,
+      outcome: _outcome(draft),
+      ignoredBefore: start - lead,
+      ignoredAfter: trail - end,
     );
 
     // Das Abtrennen darf die Bewertung nie verschlechtern.
@@ -383,9 +406,14 @@ class MemorizationTextEvaluator {
   }
 
   /// Ordnet die Eingabe [un] dem fortlaufenden Text Vorabschnitte [bn] +
-  /// Zielbereich [tn] + Folgeabschnitte [an] zu und liefert den Teil der
-  /// Eingabe `[start, end)`, der zum Zielbereich gehört – oder null, wenn
-  /// nichts zuverlässig abzutrennen ist.
+  /// Zielbereich [tn] + Folgeabschnitte [an] zu – oder null, wenn nichts
+  /// zuverlässig abzutrennen ist. Die Eingabe zerfällt in
+  ///
+  /// * `[0, lead)`: fremde Wörter vor dem Vortext,
+  /// * `[lead, start)`: Text der Vorabschnitte (wird nicht bewertet),
+  /// * `[start, end)`: der Zielbereich,
+  /// * `[end, trail)`: Text der Folgeabschnitte (wird nicht bewertet),
+  /// * `[trail, m)`: fremde Wörter hinter dem Folgetext.
   ///
   /// Wortvergleich wie in [_align], aber die Eingabe darf an beliebiger
   /// Stelle der Vorabschnitte beginnen und der Folgeabschnitte enden
@@ -395,9 +423,10 @@ class MemorizationTextEvaluator {
   /// wird die Eingabe dem Zielbereich zugeschlagen und nicht abgetrennt.
   ///
   /// Abgetrennt wird ein Rand der Eingabe nur, wenn er dem Nachbartext
-  /// überwiegend entspricht (mindestens so viele Treffer wie Abweichungen);
-  /// fremde Wörter bleiben als „Zu viel“ in der Bewertung.
-  static (int, int)? _locate(
+  /// überwiegend entspricht (mindestens so viele Treffer wie Abweichungen),
+  /// und nur bis zum äußersten Treffer: Wörter davor bzw. dahinter, die zu
+  /// keinem Nachbarwort passen, bleiben als „Zu viel“ in der Bewertung.
+  static ({int lead, int start, int end, int trail})? _locate(
     List<String> bn,
     List<String> tn,
     List<String> an,
@@ -464,18 +493,16 @@ class MemorizationTextEvaluator {
     }
 
     final owner = List<int>.filled(m, 0);
-    final hits = {-1: 0, 1: 0};
-    final misses = {-1: 0, 1: 0};
+    final hit = List<bool>.filled(m, false);
+
+    // Ausgelassene Wörter der Nachbarabschnitte (innerhalb der Eingabe).
+    final gaps = {-1: 0, 1: 0};
     var targetHit = false;
 
-    void step(int r, {required bool hit}) {
-      if (r == 0) {
-        targetHit = targetHit || hit;
-      } else if (hit) {
-        hits[r] = hits[r]! + 1;
-      } else {
-        misses[r] = misses[r]! + 1;
-      }
+    void assign(int j, int r, {bool matched = false}) {
+      owner[j] = r;
+      hit[j] = matched;
+      if (r == 0 && matched) targetHit = true;
     }
 
     var j = m;
@@ -483,9 +510,8 @@ class MemorizationTextEvaluator {
     while (j > 0) {
       if (i > 0) {
         if (swap(i, j) && d[i][j] == d[i - 2][j - 2] + _edit) {
-          owner[j - 1] = region(i - 1);
-          owner[j - 2] = region(i - 2);
-          step(region(i - 1), hit: false);
+          assign(j - 1, region(i - 1));
+          assign(j - 2, region(i - 2));
           i -= 2;
           j -= 2;
           continue;
@@ -494,15 +520,15 @@ class MemorizationTextEvaluator {
         final cost = substitution(i - 1, j - 1);
 
         if (d[i][j] == d[i - 1][j - 1] + cost) {
-          owner[j - 1] = region(i - 1);
-          step(region(i - 1), hit: cost < _edit);
+          assign(j - 1, region(i - 1), matched: cost < _edit);
           i--;
           j--;
           continue;
         }
 
         if (d[i][j] == d[i - 1][j] + _edit) {
-          step(region(i - 1), hit: false);
+          final r = region(i - 1);
+          if (r != 0) gaps[r] = gaps[r]! + 1;
           i--;
           continue;
         }
@@ -510,9 +536,7 @@ class MemorizationTextEvaluator {
 
       // Zusätzliches Wort zwischen e[i − 1] und e[i]; an der Grenze zum
       // Zielbereich zählt es zum Zielbereich.
-      final r = i < b ? -1 : (i > targetEnd ? 1 : 0);
-      owner[j - 1] = r;
-      step(r, hit: false);
+      assign(j - 1, i < b ? -1 : (i > targetEnd ? 1 : 0));
       j--;
     }
 
@@ -533,14 +557,28 @@ class MemorizationTextEvaluator {
       if (owner[k] != 0) return null;
     }
 
-    bool reliable(int r) => hits[r]! > 0 && hits[r]! >= misses[r]!;
+    // Abgetrennt wird nur bis zum äußersten Treffer im Nachbartext.
+    var lead = 0;
+    while (lead < start && !hit[lead]) {
+      lead++;
+    }
 
-    if (start > 0 && !reliable(-1)) start = 0;
-    if (end < m && !reliable(1)) end = m;
+    var trail = m;
+    while (trail > end && !hit[trail - 1]) {
+      trail--;
+    }
+
+    bool reliable(int from, int to, int side) {
+      final matched = hit.sublist(from, to).where((h) => h).length;
+      return matched > 0 && matched >= (to - from - matched) + gaps[side]!;
+    }
+
+    if (!reliable(lead, start, -1)) lead = start = 0;
+    if (!reliable(end, trail, 1)) end = trail = m;
 
     if (start == 0 && end == m) return null;
 
-    return (start, end);
+    return (lead: lead, start: start, end: end, trail: trail);
   }
 
   static List<String> _words(String text) {

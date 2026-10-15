@@ -533,6 +533,75 @@ void main() {
     });
   });
 
+  group("Zusätzliche Abschnitte bei verbundenen Übungen", () {
+    const evaluator = MemorizationTextEvaluator();
+
+    // Wie die Übungsansicht: Abschnitte [from]–[to] frei wiedergeben.
+    EvaluationResult recite(
+      MemorizationText text,
+      int from,
+      int to,
+      String input,
+    ) {
+      final prompt = const HintGenerator().build([
+        for (var i = from; i <= to; i++) text.segments[i].text,
+      ], HintLevel.free);
+
+      final context = MemorizationTextEvaluator.neighbourWords(
+        [for (final segment in text.segments) segment.text],
+        from,
+        to,
+        limit: input.split(RegExp(r"\s+")).length + 10,
+      );
+
+      return evaluator.evaluateWords(
+        target: [for (final word in prompt.words) word.raw],
+        input: input,
+        before: context.before,
+        after: context.after,
+      );
+    }
+
+    test("korrekte Nachbarabschnitte gelten in allen Gebeten als richtig", () {
+      var checked = 0;
+
+      for (final work in catalog.works) {
+        for (final text in work.versions) {
+          if (text.type == MemorizationTextType.confession) continue;
+          if (text.segments.length < 6) continue;
+
+          // Abschnitte 2–5 verlangt.
+          for (final (first, last) in [(1, 5), (0, 4), (0, 5)]) {
+            final result = recite(text, 1, 4, text.textOf(first, last));
+
+            expect(
+              result.outcome,
+              RecallOutcome.correct,
+              reason: "${text.id}: Eingabe ${first + 1}–${last + 1}",
+            );
+          }
+
+          // Ein fehlendes Wort im verlangten Bereich bleibt ein Fehler.
+          final words = text.textOf(0, 5).split(" ");
+          final dropped = MemorizationNormalizer.tokenize(
+            text.textOf(0, 0),
+          ).length;
+          words.removeAt(dropped + 1);
+
+          expect(
+            recite(text, 1, 4, words.join(" ")).outcome,
+            isNot(RecallOutcome.correct),
+            reason: text.id,
+          );
+
+          checked++;
+        }
+      }
+
+      expect(checked, greaterThan(0));
+    });
+  });
+
   group("Hilfestufen", () {
     const hints = HintGenerator();
     const segment = "Dein Wille geschehe,\nwie im Himmel so auf Erden.";

@@ -326,6 +326,55 @@ void main() {
       expect(result.errorTargetIndices, isEmpty);
     });
 
+    test("Teile 2–5 verlangt, korrekte Teile 2–6 eingegeben: richtig", () {
+      final result = recite(vaterunser, 2, 5, parts(2, 6));
+
+      expect(result.outcome, RecallOutcome.correct);
+      expect(result.extra, 0);
+      expect(result.ignoredBefore, 0);
+      expect(result.ignoredAfter, 11);
+      expect(result.messages(), isEmpty);
+    });
+
+    test("Teile 2–5 verlangt, korrekte Teile 1–5 eingegeben: richtig", () {
+      final result = recite(vaterunser, 2, 5, parts(1, 5));
+
+      expect(result.outcome, RecallOutcome.correct);
+      expect(result.extra, 0);
+      expect(result.ignoredBefore, 4);
+      expect(result.ignoredAfter, 0);
+      expect(result.messages(), isEmpty);
+    });
+
+    test("Fehler im verlangten Bereich bei Teilen 2–6 bleibt sichtbar", () {
+      final input = parts(2, 6).replaceFirst("Brot", "Wort");
+      final result = recite(vaterunser, 2, 5, input);
+
+      expect(result.outcome, isNot(RecallOutcome.correct));
+      expect(result.wrong, 1);
+      expect(result.messages().first, "Anderes Wort: „Wort“ statt „Brot“");
+    });
+
+    test("fremdes Fragment hinter korrektem Zusatzabschnitt zählt", () {
+      final result = recite(vaterunser, 2, 5, "${parts(2, 6)} und so weiter");
+
+      // „und“ beginnt Teil 7 und gehört noch zum bekannten Text.
+      expect(result.outcome, isNot(RecallOutcome.correct));
+      expect(result.extra, 2);
+      expect(result.ignoredAfter, 12);
+      expect(result.messages().first, "Zu viel: „so weiter“");
+    });
+
+    test("fremdes Fragment vor korrektem Zusatzabschnitt zählt", () {
+      final result = recite(vaterunser, 2, 5, "bla bla ${parts(1, 5)}");
+
+      expect(result.outcome, isNot(RecallOutcome.correct));
+      expect(result.extra, 2);
+      expect(result.ignoredBefore, 4);
+      expect(result.messages().first, "Zu viel: „bla bla“");
+      expect(result.alignment.first.targetIndex, -1);
+    });
+
     test("Teile 2–5 verlangt und genau diese eingegeben: richtig", () {
       final result = recite(vaterunser, 2, 5, parts(2, 5));
 
