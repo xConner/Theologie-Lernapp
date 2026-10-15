@@ -50,6 +50,8 @@ dependencies:
   sherpa_onnx: ^1.13.8
   path_provider: ^2.1.6
   flutter_svg: ^2.3.0
+  pdf: ^3.13.1
+  printing: ^5.15.1
 
 dev_dependencies:
   flutter_test:
@@ -119,6 +121,10 @@ flutter:
       - assets/images/lutherrose.png
       - assets/sounds/correct.wav
       - assets/sounds/incorrect.wav
+      # Schrift des PDF-Stundenplans (SIL OFL 1.1, assets/fonts/Lato-OFL.txt);
+      # wird in die PDF-Datei eingebettet, damit Umlaute überall stimmen.
+      - assets/fonts/Lato-Regular.ttf
+      - assets/fonts/Lato-Bold.ttf
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

@@ -294,7 +294,16 @@ Ein Hauptpunkt auf dem Startbildschirm (`StudyOrganizationButton`) öffnet
 1. **Stundenplan** – Wochenübersicht als Raster (Mo–Fr als Spalten, Zeit von
    oben nach unten, Wochenende nur mit Terminen), Filter „Alle / Regelmäßige
    / Blockveranstaltungen“ (je Termin, auf dem Gerät gemerkt),
-   Überschneidungsstellen der Woche und des Semesters.
+   Überschneidungsstellen der Woche und des Semesters. Über „Drucken / als
+   PDF exportieren“ (`TimetableExportScreen`) entsteht lokal ein PDF: A4
+   quer oder hoch, Wochenraster im UnivIS-Stil (bei langen Tagen auf
+   mehrere Seiten verteilt, Spaltenköpfe wiederholt), danach
+   Veranstaltungsliste, Block- und Sondertermine mit Datum und
+   Überschneidungen. Grundlage ist derselbe Plan wie in der Ansicht
+   (`TimetableController.plan`, Filter als Voreinstellung); regelmäßige
+   Termine werden aus den konkreten Terminen zu Wochenmustern
+   zusammengefasst, nicht neu berechnet. Schrift: Lato (eingebettet, SIL OFL
+   1.1, `assets/fonts/Lato-OFL.txt`).
 2. **Veranstaltungen suchen** – vollständiges Verzeichnis der Theologischen
    Fakultät (lokal gefiltert, offline nutzbar) oder UnivIS-Titel-/
    Nummernsuche über alle bzw. eine Fakultät; Hinzufügen mit Vorschau und
@@ -338,6 +347,7 @@ plan_schedule.dart (Plan auflösen) → plan_conflicts.dart (Stellen) → week_l
 | Speicher (Konto: `users/{uid}/timetable`, live; Gast: lokal) | `services/timetable/timetable_store.dart` |
 | Übernahme des Gast-Stundenplans nach Anmeldung | `services/timetable/timetable_migration.dart`, aufgerufen in `HomeScreen` |
 | Zustand für die Oberfläche (Semester, Plan, Filter, Konflikte, Abgleich) | `services/timetable/timetable_controller.dart` |
+| Druck/PDF: Inhalt (Wochenmuster, Sondertermine, Raster) und Ausgabe | `services/timetable/timetable_export.dart`, `services/timetable/timetable_pdf.dart`, `screens/timetable/timetable_export_screen.dart` (Pakete `pdf`, `printing`) |
 | Studienunterlagen (Metadaten zentral, Laden, Filter) | `assets/study/documents.json`, `services/study/study_documents.dart`, Linkprüfung `tool/study_documents/`, `.github/workflows/study-documents.yml` |
 | Screens | `screens/study/` (Hauptbereich, Unterlagen), `screens/timetable/` (Raster, Suche, Details, Vorschau/Korrektur, Konfliktanzeige) |
 | Firestore-Regeln und Emulator-Tests | `firestore.rules`, `test/firestore_rules/`, `.github/workflows/firestore-rules.yml` |

@@ -90,6 +90,17 @@ void main() {
 
   Finder block(RegExp label) => find.bySemanticsLabel(label);
 
+  testWidgets("Druck/PDF-Export nur im Stundenplan-Reiter", (tester) async {
+    await open(tester);
+    final button = find.byKey(const ValueKey("timetable-export"));
+    expect(button, findsOneWidget);
+    expect(find.byTooltip("Drucken / als PDF exportieren"), findsOneWidget);
+    expect(tester.widget<IconButton>(button).onPressed, isNotNull);
+    await tester.tap(tab("Veranstaltungen suchen"));
+    await tester.pumpAndSettle();
+    expect(button, findsNothing);
+  });
+
   testWidgets("drei Bereiche; leerer Stundenplan führt zur Suche", (
     tester,
   ) async {

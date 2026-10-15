@@ -351,7 +351,8 @@ class AppModules {
     id: "timetable",
     title: "Studiumsorganisation",
     description:
-        "Persönlicher Stundenplan als Wochenübersicht mit Überschneidungen, "
+        "Persönlicher Stundenplan als Wochenübersicht mit Überschneidungen "
+        "(druckbar bzw. als PDF, auf dem Gerät erzeugt), "
         "Veranstaltungssuche über alle Fakultäten der CAU Kiel und eine "
         "Sammlung offizieller Studienunterlagen der Theologischen Fakultät.",
     sources: [

@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import '../../info/app_info.dart';
 import '../../services/timetable/course_catalog_source.dart';
 import '../../services/timetable/timetable_controller.dart';
+import '../../services/timetable/timetable_export.dart';
 import '../../services/timetable/timetable_feature.dart';
 import '../../services/timetable/timetable_store.dart';
 import '../../widgets/info_report.dart';
 import '../timetable/catalog_status.dart';
 import '../timetable/course_search_view.dart';
+import '../timetable/timetable_export_screen.dart';
 import '../timetable/timetable_week_view.dart';
 import 'study_documents_view.dart';
 
@@ -88,12 +90,40 @@ class _StudyOrganizationScreenState extends State<StudyOrganizationScreen>
     );
   }
 
+  /// Druck/PDF mit dem aktuellen Plan und Filter als Voreinstellung.
+  void _openExport() {
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: (_) => TimetableExportScreen(
+          plan: controller.plan,
+          semester: controller.semesterInfo,
+          initialOptions: TimetableExportOptions(
+            content: ExportContent.fromFilter(controller.filter),
+          ),
+          now: widget.today == null ? null : () => widget.today!,
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Studiumsorganisation"),
-        actions: const [InfoButton(module: AppModules.timetable)],
+        actions: [
+          if (_tabs.index == 0)
+            ListenableBuilder(
+              listenable: controller,
+              builder: (context, _) => IconButton(
+                key: const ValueKey("timetable-export"),
+                tooltip: "Drucken / als PDF exportieren",
+                icon: const Icon(Icons.print_rounded),
+                onPressed: controller.entriesLoaded ? _openExport : null,
+              ),
+            ),
+          const InfoButton(module: AppModules.timetable),
+        ],
         bottom: TabBar(
           controller: _tabs,
           isScrollable: MediaQuery.sizeOf(context).width < 420,
