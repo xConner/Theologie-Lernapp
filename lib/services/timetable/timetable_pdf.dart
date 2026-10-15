@@ -6,6 +6,7 @@ import 'package:pdf/widgets.dart' as pw;
 
 import 'course_labels.dart';
 import 'plan_conflicts.dart';
+import 'plan_schedule.dart';
 import 'timetable_export.dart';
 
 // Druckbarer Stundenplan als PDF (A4) aus einem [TimetableExport]:
@@ -336,7 +337,7 @@ pw.Widget _legend(TimetableExport export, _Style s) {
       "* von dir angepasst",
     if (export.slots.any((x) => x.conflict)) "! Überschneidung",
     if (export.slots.any((x) => !x.everyWeek || x.cancelledDates.isNotEmpty))
-      "° nicht jede Woche bzw. mit Ausfällen",
+      "° nicht jede Woche (Rhythmus am Termin) bzw. mit Ausfällen",
     if (export.specials.isNotEmpty && export.options.content.includesSpecial)
       "Block- und Sondertermine: Liste ab der nächsten Seite",
   ];
@@ -468,6 +469,8 @@ pw.Widget _block(
       "${continuesBefore ? "… " : ""}${timeRange(slot.startTime, slot.endTime)}${continuesAfter ? " …" : ""}";
   final extra = [
     time,
+    // Rhythmus in eigener Zeile, damit er auch in schmalen Spalten bleibt.
+    ?slot.rhythm,
     ?slot.room,
     if (s.detailed && c.lecturers.isNotEmpty) c.lecturers.join(", "),
     if (s.detailed && c.type != null) courseTypeLabel(c.type),
@@ -505,7 +508,10 @@ pw.Widget _block(
       border: pw.Border.all(
         color: slot.conflict ? s.conflict : s.border(c.colorIndex),
         width: slot.conflict ? 1.6 : 0.7,
-        style: slot.conflict && !s.color
+        // Gepunktet: Wochen unbekannt (siehe Liste).
+        style: slot.tentative
+            ? pw.BorderStyle.dotted
+            : slot.conflict && !s.color
             ? pw.BorderStyle.dashed
             : pw.BorderStyle.solid,
       ),
@@ -575,8 +581,16 @@ pw.Widget _courseTable(TimetableExport export, _Style s) {
         if (x.cancelledDates.isNotEmpty)
           "fällt aus: ${x.cancelledDates.map((d) => formatDate(d, withYear: false)).join(", ")}",
       for (final x in slots)
-        if (!x.everyWeek)
+        if (x.missingWeeks.isNotEmpty)
           "ohne Termin: ${x.missingWeeks.map((d) => formatDate(d, withYear: false)).join(", ")}",
+      // Kein gleichmäßiger Rhythmus: die tatsächlichen Daten nennen.
+      for (final x in slots)
+        if (x.kind == SessionKind.series)
+          "Termine ${weekdayName(x.weekday, short: true)}: ${x.dates.map((d) => formatDate(d, withYear: false)).join(", ")}",
+      for (final x in slots)
+        if (x.tentative)
+          "${weekdayName(x.weekday, short: true)} ${x.startTime}: ${x.rhythm}; "
+              "die Quelle nennt keine Startwoche – bitte in UnivIS prüfen",
       if (c.plan.entry.overrides.note != null) c.plan.entry.overrides.note!,
     ];
     rows.add([

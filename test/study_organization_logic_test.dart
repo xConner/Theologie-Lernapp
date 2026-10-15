@@ -22,7 +22,7 @@ PlanOccurrence occ(
   ruleId: "$entry-rule",
   start: berlinLocal(date, start),
   end: berlinLocal(endDate ?? date, end),
-  regular: regular,
+  kind: regular ? SessionKind.weekly : SessionKind.block,
   cancelled: cancelled,
 );
 

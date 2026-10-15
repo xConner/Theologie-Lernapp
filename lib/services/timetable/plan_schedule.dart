@@ -20,6 +20,40 @@ enum PlanSource {
   missing,
 }
 
+/// Art eines Termins. Eine einzige Einordnung für Wochenansicht, Filter,
+/// Überschneidungen und PDF-Export ([classifyOccurrences]): aus der
+/// Terminregel der Quelle und den tatsächlichen Daten, ohne einen Rhythmus
+/// zu erfinden.
+enum SessionKind {
+  /// Jede Woche (Regel „wöchentlich“ bzw. Einzeltermine im Wochenabstand).
+  weekly,
+
+  /// Regelmäßig mit bekanntem Abstand von mehreren Wochen (z. B. 14-täglich).
+  recurring,
+
+  /// Mindestens drei Termine am selben Wochentag zur selben Uhrzeit in
+  /// verschiedenen Wochen, aber ohne gleichmäßigen Abstand.
+  series,
+
+  /// Regel „alle n Wochen“ ohne Startwoche: Wochentag und Uhrzeit sind
+  /// bekannt, die Wochen nicht. Die Termine stehen in jeder Vorlesungswoche
+  /// als „unsicher“ und zählen nicht als Überschneidung.
+  tentative,
+
+  /// Blockveranstaltung (zusammenhängende Tage bzw. durchgehender Zeitraum).
+  block,
+
+  /// Einzeltermin ohne erkennbare Serie.
+  single;
+
+  /// Gehört zu den regelmäßigen Veranstaltungen (Wochenraster, Filter
+  /// „Regelmäßige“); sonst Block- bzw. Einzeltermin.
+  bool get regular => switch (this) {
+    weekly || recurring || series || tentative => true,
+    block || single => false,
+  };
+}
+
 /// Ein Termin im persönlichen Plan.
 class PlanOccurrence {
   final String id;
@@ -32,8 +66,15 @@ class PlanOccurrence {
   final String? room;
   final bool cancelled;
 
-  /// Wöchentlich wiederkehrend (sonst Einzel- bzw. Blocktermin).
-  final bool regular;
+  final SessionKind kind;
+
+  /// Abstand in Wochen ([SessionKind.weekly] 1, [SessionKind.recurring] und
+  /// [SessionKind.tentative] laut Regel bzw. Daten); sonst null (unbekannt).
+  final int? intervalWeeks;
+
+  /// Termine derselben Serie (Regel, bzw. erkannte Serie aus Einzelterminen
+  /// mehrerer Regeln).
+  final String? series;
 
   /// Durch eine persönliche Anpassung entstanden oder verändert.
   final bool adjusted;
@@ -46,9 +87,39 @@ class PlanOccurrence {
     required this.end,
     this.room,
     this.cancelled = false,
-    this.regular = true,
+    this.kind = SessionKind.weekly,
+    this.intervalWeeks,
+    this.series,
     this.adjusted = false,
   });
+
+  /// Kennung der Serie (ohne erkannte Serie: die Regel).
+  String get seriesId => series ?? ruleId;
+
+  /// Regelmäßig (auch nicht wöchentlich); sonst Block- bzw. Einzeltermin.
+  bool get regular => kind.regular;
+
+  /// Datum unbekannt (siehe [SessionKind.tentative]).
+  bool get tentative => kind == SessionKind.tentative;
+
+  PlanOccurrence copyWith({
+    String? entryId,
+    SessionKind? kind,
+    int? intervalWeeks,
+    String? series,
+  }) => PlanOccurrence(
+    id: id,
+    entryId: entryId ?? this.entryId,
+    ruleId: ruleId,
+    start: start,
+    end: end,
+    room: room,
+    cancelled: cancelled,
+    kind: kind ?? this.kind,
+    intervalWeeks: kind != null ? intervalWeeks : this.intervalWeeks,
+    series: series ?? this.series,
+    adjusted: adjusted,
+  );
 
   String get date => start.date;
   bool get spansDays => end.date != start.date;
@@ -181,12 +252,14 @@ PlanCourse resolvePlanCourse(TimetableEntry entry, {CourseCatalog? catalog}) {
           start: berlinLocal(date, x.startTime),
           end: berlinLocal(date, x.endTime),
           room: x.room,
+          intervalWeeks: 1,
           adjusted: true,
         ),
       );
     }
   }
   occurrences.sort((a, b) => a.start.instant.compareTo(b.start.instant));
+  final classified = classifyOccurrences(occurrences, semester);
 
   final changed =
       source == PlanSource.catalog &&
@@ -198,7 +271,7 @@ PlanCourse resolvePlanCourse(TimetableEntry entry, {CourseCatalog? catalog}) {
     source: source,
     imported: imported,
     rules: rules,
-    occurrences: occurrences,
+    occurrences: classified,
     sourceChanged: changed,
   );
 }
@@ -236,12 +309,20 @@ List<PlanOccurrence> _occurrencesOf(
   CatalogSemester? semester,
 ) {
   final regular = source.rule.kind == RepeatKind.weekly;
+  final interval = regular ? (source.rule.intervalWeeks ?? 1) : null;
+  final kind = switch (source.rule.kind) {
+    RepeatKind.weekly =>
+      interval == 1 ? SessionKind.weekly : SessionKind.recurring,
+    RepeatKind.block => SessionKind.block,
+    RepeatKind.single || RepeatKind.unknown => SessionKind.single,
+  };
   final adjusted = o != null && !o.isEmpty;
   PlanOccurrence make(
     LocalDateTime start,
     LocalDateTime end, {
     String? occRoom,
     bool cancelled = false,
+    SessionKind? as,
   }) => PlanOccurrence(
     id: "$entryId@${source.id}@${start.date}",
     entryId: entryId,
@@ -250,9 +331,38 @@ List<PlanOccurrence> _occurrencesOf(
     end: end,
     room: o?.room ?? occRoom ?? room,
     cancelled: cancelled,
-    regular: regular,
+    kind: as ?? kind,
+    intervalWeeks: interval,
     adjusted: adjusted,
   );
+
+  // „Alle n Wochen“ ohne Startwoche: Die Quelle liefert keine Termine. Der
+  // Wochentag und die Uhrzeit sind bekannt; in welchen Wochen, nicht.
+  // Daher in jeder Vorlesungswoche als unsicher – nie als feste Termine.
+  if (imports.isEmpty && regular && interval! > 1) {
+    if (rule.weekdays.isEmpty ||
+        rule.startTime == null ||
+        rule.endTime == null ||
+        semester == null ||
+        rule.startTime!.compareTo(rule.endTime!) >= 0) {
+      return const [];
+    }
+    return [
+      for (final weekday in rule.weekdays)
+        for (final date in weeklyDates(
+          semester,
+          weekday,
+          from: rule.startDate,
+          to: rule.endDate,
+        ))
+          if (!rule.excludedDates.contains(date))
+            make(
+              berlinLocal(date, rule.startTime!),
+              berlinLocal(date, rule.endTime!),
+              as: SessionKind.tentative,
+            ),
+    ];
+  }
 
   if (o == null ||
       !adjusted ||
@@ -310,6 +420,115 @@ List<PlanOccurrence> _occurrencesOf(
           ),
   ];
 }
+
+// --- Einordnung ---------------------------------------------------------------
+
+/// Erkennt Serien in Block- und Einzelterminen einer Veranstaltung: Liegen
+/// mindestens drei Termine am selben Wochentag zur selben Uhrzeit in
+/// verschiedenen Wochen, sind sie regelmäßig – wöchentlich bzw. alle n
+/// Wochen, wenn der Abstand (ohne unterrichtsfreie Wochen) immer gleich ist,
+/// sonst „nicht wöchentlich“ ohne Angabe eines Rhythmus. Zwei Termine
+/// genügen nicht für einen Rhythmus; zusammenhängende Blocktage (drei und
+/// mehr Tage in Folge, auch über mehrere Wochen) bleiben ein Block. Wöchentliche Regeln der Quelle bleiben unverändert.
+List<PlanOccurrence> classifyOccurrences(
+  List<PlanOccurrence> occurrences,
+  CatalogSemester? semester,
+) {
+  // Tage in einer Folge von mindestens drei aufeinanderfolgenden Tagen
+  // gehören zu einem Block (z. B. Mo–Fr über mehrere Wochen), nicht zu einer
+  // Wochenserie.
+  final days = <String, Set<String>>{};
+  for (final o in occurrences) {
+    if (!o.regular && !o.spansDays) (days[o.entryId] ??= {}).add(o.date);
+  }
+  bool inRun(PlanOccurrence o) {
+    final d = days[o.entryId]!;
+    bool has(int offset) => d.contains(addDays(o.date, offset));
+    return (has(-1) && has(1)) || (has(-2) && has(-1)) || (has(1) && has(2));
+  }
+
+  final groups = <String, List<PlanOccurrence>>{};
+  for (final o in occurrences) {
+    if (o.regular || o.spansDays || inRun(o)) continue;
+    final key = [
+      o.entryId,
+      weekdayOf(o.date),
+      o.start.time,
+      o.end.time,
+    ].join("|");
+    (groups[key] ??= []).add(o);
+  }
+  final replaced = <String, PlanOccurrence>{};
+  for (final MapEntry(key: key, value: list) in groups.entries) {
+    final dates = {for (final o in list) o.date}.toList()..sort();
+    if (dates.length < 3) continue;
+    // Höchstens ein Termin je Woche, sonst eher Blocktage.
+    if ({for (final d in dates) mondayOf(d)}.length != dates.length) continue;
+    final gaps = {
+      for (var i = 1; i < dates.length; i++)
+        _lectureWeeksBetween(dates[i - 1], dates[i], semester),
+    };
+    // Einen Abstand nennen erst ab vier Terminen (drei gleiche Abstände
+    // wären ein schwacher Beleg).
+    final interval = gaps.length == 1 && dates.length >= 4 ? gaps.single : null;
+    final kind = switch (interval) {
+      1 => SessionKind.weekly,
+      final int n when n > 1 => SessionKind.recurring,
+      _ => SessionKind.series,
+    };
+    final seriesId = "series:$key";
+    for (final o in list) {
+      replaced[o.id] = o.copyWith(
+        kind: kind,
+        intervalWeeks: kind == SessionKind.series ? null : interval,
+        series: seriesId,
+      );
+    }
+  }
+  if (replaced.isEmpty) return occurrences;
+  return [for (final o in occurrences) replaced[o.id] ?? o];
+}
+
+/// Abstand zweier Daten desselben Wochentags in Wochen, ohne Wochen, in
+/// denen dieser Wochentag unterrichtsfrei ist.
+int _lectureWeeksBetween(String a, String b, CatalogSemester? semester) {
+  var weeks = 0;
+  for (var d = addDays(a, 7); d.compareTo(b) <= 0; d = addDays(d, 7)) {
+    if (d != b && semester != null && breakOn(semester, d) != null) continue;
+    weeks++;
+  }
+  return weeks;
+}
+
+/// Kurzer Hinweis auf den Rhythmus, z. B. „14-täglich“; null bei
+/// wöchentlichen Terminen. Nennt nie einen Abstand, den die Daten nicht
+/// hergeben.
+String? rhythmLabel(PlanOccurrence o) {
+  String every(int? n) => switch (n) {
+    2 => "14-täglich",
+    final int n when n > 2 => "alle $n Wochen",
+    _ => "nicht wöchentlich",
+  };
+  return switch (o.kind) {
+    SessionKind.weekly => null,
+    SessionKind.recurring => every(o.intervalWeeks),
+    SessionKind.series => "nicht wöchentlich",
+    SessionKind.tentative => "${every(o.intervalWeeks)}, Wochen unbekannt",
+    SessionKind.block => "Blocktermin",
+    SessionKind.single => "Einzeltermin",
+  };
+}
+
+/// Art eines Termins in Worten (Detailansicht).
+String sessionKindDescription(PlanOccurrence o) => switch (o.kind) {
+  SessionKind.weekly => "regelmäßiger Termin, wöchentlich",
+  SessionKind.recurring => "regelmäßiger Termin, ${rhythmLabel(o)}",
+  SessionKind.series =>
+    "wiederkehrender Termin, nicht wöchentlich (Rhythmus nicht angegeben)",
+  SessionKind.tentative => "regelmäßiger Termin, ${rhythmLabel(o)}",
+  SessionKind.block => "Blockveranstaltung",
+  SessionKind.single => "Einzeltermin",
+};
 
 // --- Termine aus eigenen Angaben ----------------------------------------------
 

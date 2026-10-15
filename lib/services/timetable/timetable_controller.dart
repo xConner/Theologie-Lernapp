@@ -271,20 +271,9 @@ class TimetableController extends ChangeNotifier {
       for (final p in plan)
         if (p.id != existing?.courseId) ...p.occurrences,
     ];
-    final mine = resolvePlanCourse(TimetableEntry.fromSnapshot(candidate))
-        .occurrences
-        .map(
-          (o) => PlanOccurrence(
-            id: o.id,
-            entryId: candidateId,
-            ruleId: o.ruleId,
-            start: o.start,
-            end: o.end,
-            room: o.room,
-            cancelled: o.cancelled,
-            regular: o.regular,
-          ),
-        );
+    final mine = resolvePlanCourse(
+      TimetableEntry.fromSnapshot(candidate),
+    ).occurrences.map((o) => o.copyWith(entryId: candidateId));
     return spotsInvolving(conflictSpots([...others, ...mine]), candidateId);
   }
 

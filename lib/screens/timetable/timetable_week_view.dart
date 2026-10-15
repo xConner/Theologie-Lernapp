@@ -476,15 +476,19 @@ class _GridBlock extends StatelessWidget {
     final colors = context.colors;
     final o = block.occurrence;
     final special = !o.regular;
+    final tentative = o.tentative;
+    // Rhythmus nur bei regelmäßigen, nicht wöchentlichen Terminen.
+    final rhythm = o.regular ? rhythmLabel(o) : null;
     final base = special ? colors.accent : colors.primary;
     final cancelled = o.cancelled;
-    final time = o.spansDays
+    final range = o.spansDays
         ? (block.continuesBefore && block.continuesAfter
               ? "ganztägig"
               : block.continuesAfter
               ? "ab ${o.start.time}"
               : "bis ${o.end.time}")
         : timeRange(o.start.time, o.end.time);
+    final time = rhythm == null ? range : "$range · $rhythm";
     final lecturers = plan.lecturers.join(", ");
     final semantics = [
       time,
@@ -492,12 +496,14 @@ class _GridBlock extends StatelessWidget {
       ?o.room,
       if (lecturers.isNotEmpty) lecturers,
       if (special) "Block- bzw. Einzeltermin",
+      if (tentative) "nicht sicher, ob in dieser Woche",
       if (cancelled) "fällt aus",
       if (conflict) "Überschneidung",
     ].join(", ");
     final textStyle = Theme.of(context).textTheme.bodySmall?.copyWith(
-      color: cancelled ? colors.textSecondary : colors.textPrimary,
+      color: cancelled || tentative ? colors.textSecondary : colors.textPrimary,
       decoration: cancelled ? TextDecoration.lineThrough : null,
+      fontStyle: tentative ? FontStyle.italic : null,
       height: 1.15,
     );
 
@@ -509,11 +515,19 @@ class _GridBlock extends StatelessWidget {
         key: ValueKey("block-${o.id}"),
         color: cancelled
             ? colors.surfaceMuted
-            : base.withValues(alpha: conflict ? 0.22 : 0.16),
+            : base.withValues(
+                alpha: conflict
+                    ? 0.22
+                    : tentative
+                    ? 0.06
+                    : 0.16,
+              ),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(6),
           side: BorderSide(
-            color: conflict ? colors.error : base.withValues(alpha: 0.7),
+            color: conflict
+                ? colors.error
+                : base.withValues(alpha: tentative ? 0.4 : 0.7),
             width: conflict ? 2 : 1,
           ),
         ),
@@ -528,7 +542,9 @@ class _GridBlock extends StatelessWidget {
                 final lines = math.max(1, (c.maxHeight / lineHeight).floor());
                 if (lines <= 1) {
                   return Text(
-                    "${o.start.time} ${plan.title}",
+                    rhythm == null
+                        ? "${o.start.time} ${plan.title}"
+                        : "${o.start.time} ($rhythm) ${plan.title}",
                     style: textStyle?.copyWith(fontWeight: FontWeight.w600),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
@@ -634,7 +650,7 @@ Future<void> showOccurrenceSheet(
               ? "nicht angegeben"
               : plan.lecturers.join(", "),
         ),
-        ("Art", o.regular ? "regelmäßiger Termin" : "Block- bzw. Einzeltermin"),
+        ("Art", sessionKindDescription(o)),
         if (plan.number != null) ("Nummer", plan.number!),
         if (plan.faculty != null) ("Fakultät", plan.faculty!),
       ];
@@ -658,6 +674,17 @@ Future<void> showOccurrenceSheet(
                   child: Text(
                     "Dieser Termin fällt aus.",
                     style: TextStyle(color: colors.error),
+                  ),
+                ),
+              if (o.tentative)
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 8),
+                  child: Text(
+                    "Die Quelle nennt Wochentag, Uhrzeit und Rhythmus, aber "
+                    "nicht, in welchen Wochen der Termin stattfindet. Er "
+                    "steht deshalb in jeder Vorlesungswoche – ob er in dieser "
+                    "Woche stattfindet, steht nicht fest.",
+                    style: TextStyle(color: colors.textSecondary),
                   ),
                 ),
               if (o.adjusted)

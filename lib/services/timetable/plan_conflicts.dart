@@ -39,7 +39,8 @@ class ConflictSpot {
 List<ConflictSpot> conflictSpots(Iterable<PlanOccurrence> occurrences) {
   final items = [
     for (final o in occurrences)
-      if (!o.cancelled) o,
+      // Unsichere Termine (Woche unbekannt) sind keine sichere Überschneidung.
+      if (!o.cancelled && !o.tentative) o,
   ];
   // Ereignisse: Beginn (+1) und Ende (−1). Bei gleichem Zeitpunkt zuerst die
   // Enden (halboffene Intervalle).

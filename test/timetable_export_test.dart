@@ -51,7 +51,7 @@ PlanOccurrence occ(
   start: berlinLocal(date, start),
   end: berlinLocal(endDate ?? date, end),
   room: room,
-  regular: regular,
+  kind: regular ? SessionKind.weekly : SessionKind.block,
   cancelled: cancelled,
   adjusted: adjusted,
 );

@@ -320,6 +320,32 @@ void main() {
     },
   );
 
+  testWidgets(
+    "14-täglich: im Raster mit Rhythmus, nur in seinen Wochen, regelmäßig",
+    (tester) async {
+      await open(
+        tester,
+        backend: backendWith(["Lecture.test.kg.koll", "Lecture.test.pt.exk"]),
+      );
+      final koll = block(RegExp(r"14-täglich, Testkolloquium"));
+      // Woche 2.11.: kein Termin (14-täglich ab 15.10.).
+      expect(koll, findsNothing);
+      await tester.tap(find.byTooltip("Nächste Woche"));
+      await tester.pumpAndSettle();
+      expect(find.text("Woche 9.11.–15.11.2026"), findsOneWidget);
+      expect(koll, findsOneWidget);
+      expect(find.textContaining("14-täglich"), findsWidgets);
+
+      await tester.tap(find.byKey(const ValueKey("kind-filter-regular")));
+      await tester.pumpAndSettle();
+      expect(koll, findsOneWidget);
+      await tester.tap(find.byKey(const ValueKey("kind-filter-special")));
+      await tester.pumpAndSettle();
+      expect(koll, findsNothing);
+      expect(find.text("Block- und Einzeltermine"), findsOneWidget);
+    },
+  );
+
   testWidgets("Ausfall und unterrichtsfreie Zeit werden angezeigt", (
     tester,
   ) async {

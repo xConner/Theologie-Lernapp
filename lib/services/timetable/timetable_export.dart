@@ -16,6 +16,10 @@ import 'week_layout.dart';
 //   (Wochentag, Uhrzeit, Raum) mit Zeitraum und Anzahl; finden sie nicht in
 //   jeder Vorlesungswoche statt oder fallen sie aus, steht das in der
 //   Veranstaltungsliste.
+// * Die Art der Termine kommt aus plan_schedule.dart ([SessionKind]), wie in
+//   der Wochenansicht und im Filter: Auch nicht wöchentliche Serien
+//   (14-täglich, wiederkehrende Einzeltermine, Wochen unbekannt) stehen im
+//   Raster, mit ihrem Rhythmus.
 // * Block- und Einzeltermine stehen mit Datum in einer eigenen Liste.
 // * Überschneidungen: dieselben Stellen wie in der App.
 
@@ -128,11 +132,18 @@ class ExportCourse {
   List<String> get lecturers => plan.lecturers;
 }
 
-/// Ein wiederkehrender wöchentlicher Termin (zusammengefasst aus den
-/// konkreten Terminen derselben Regel mit gleichem Wochentag, gleicher
-/// Uhrzeit und gleichem Raum).
+/// Ein wiederkehrender Termin (zusammengefasst aus den konkreten Terminen
+/// derselben Serie mit gleichem Wochentag, gleicher Uhrzeit und gleichem
+/// Raum) – wöchentlich oder in anderem Rhythmus ([kind]).
 class RecurringSlot {
   final ExportCourse course;
+
+  /// [SessionKind.weekly], [SessionKind.recurring], [SessionKind.series] oder
+  /// [SessionKind.tentative] (Wochen unbekannt).
+  final SessionKind kind;
+
+  /// „14-täglich“ usw.; null bei wöchentlichen Terminen.
+  final String? rhythm;
   final int weekday;
   final String startTime;
   final String endTime;
@@ -144,8 +155,8 @@ class RecurringSlot {
   /// Als Ausfall eingetragene Daten.
   final List<String> cancelledDates;
 
-  /// Vorlesungswochen zwischen erstem und letztem Termin ohne Termin (ohne
-  /// unterrichtsfreie Zeit) – z. B. 14-täglich oder nur bestimmte Wochen.
+  /// Nur bei wöchentlichen Terminen: Vorlesungswochen zwischen erstem und
+  /// letztem Termin ohne Termin (ohne unterrichtsfreie Zeit).
   final List<String> missingWeeks;
   final bool adjusted;
 
@@ -157,6 +168,8 @@ class RecurringSlot {
 
   const RecurringSlot({
     required this.course,
+    this.kind = SessionKind.weekly,
+    this.rhythm,
     required this.weekday,
     required this.startTime,
     required this.endTime,
@@ -172,18 +185,26 @@ class RecurringSlot {
   String get firstDate => dates.isNotEmpty ? dates.first : sample.date;
   String get lastDate => dates.isNotEmpty ? dates.last : sample.date;
 
-  /// Jede Vorlesungswoche zwischen erstem und letztem Termin.
-  bool get everyWeek => missingWeeks.isEmpty;
+  /// Wöchentlich und jede Vorlesungswoche zwischen erstem und letztem
+  /// Termin.
+  bool get everyWeek => kind == SessionKind.weekly && missingWeeks.isEmpty;
 
-  /// „Di 10:15–11:45 · Hörsaal 1 · 13.10.–2.2.2027 (14 Termine)“
+  bool get tentative => kind == SessionKind.tentative;
+
+  /// „Di 10:15–11:45 · Hörsaal 1 · 13.10.–2.2.2027 (14 Termine)“,
+  /// „… (8 Termine, 14-täglich)“; bei unbekannten Wochen ohne Daten.
   String describe({bool withRoom = true}) {
+    final note = rhythm ?? (everyWeek ? null : "nicht jede Woche");
     final parts = [
       "${weekdayName(weekday, short: true)} ${timeRange(startTime, endTime)}",
       if (withRoom && room != null) room!,
-      dates.length <= 1
-          ? "am ${formatDate(firstDate)}"
-          : "${formatDate(firstDate, withYear: false)}–${formatDate(lastDate)} "
-                "(${dates.length} Termine${everyWeek ? "" : ", nicht jede Woche"})",
+      if (tentative)
+        "$rhythm (Startwoche in der Quelle nicht angegeben)"
+      else if (dates.length <= 1)
+        "am ${formatDate(firstDate)}"
+      else
+        "${formatDate(firstDate, withYear: false)}–${formatDate(lastDate)} "
+            "(${dates.length} Termine${note == null ? "" : ", $note"})",
     ];
     return parts.join(" · ");
   }
@@ -322,7 +343,7 @@ TimetableExport buildTimetableExport({
     if (!o.regular || o.spansDays) continue;
     final key = [
       o.entryId,
-      o.ruleId,
+      o.seriesId,
       weekdayOf(o.date),
       o.start.time,
       o.end.time,
@@ -346,13 +367,16 @@ TimetableExport buildTimetableExport({
     slots.add(
       RecurringSlot(
         course: byId[first.entryId]!,
+        kind: first.kind,
+        rhythm: rhythmLabel(first),
         weekday: weekdayOf(first.date),
         startTime: first.start.time,
         endTime: first.end.time,
         room: first.room,
-        dates: held,
+        // Unsichere Termine sind keine Daten.
+        dates: first.tentative ? const [] : held,
         cancelledDates: cancelled,
-        missingWeeks: semester == null
+        missingWeeks: semester == null || first.kind != SessionKind.weekly
             ? const []
             : _missingWeeks(all, semester),
         adjusted: list.any((o) => o.adjusted),

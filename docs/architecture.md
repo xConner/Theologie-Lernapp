@@ -293,8 +293,18 @@ Ein Hauptpunkt auf dem Startbildschirm (`StudyOrganizationButton`) öffnet
 
 1. **Stundenplan** – Wochenübersicht als Raster (Mo–Fr als Spalten, Zeit von
    oben nach unten, Wochenende nur mit Terminen), Filter „Alle / Regelmäßige
-   / Blockveranstaltungen“ (je Termin, auf dem Gerät gemerkt),
-   Überschneidungsstellen der Woche und des Semesters. Über „Drucken / als
+   / Block- und Einzeltermine“ (je Termin, auf dem Gerät gemerkt),
+   Überschneidungsstellen der Woche und des Semesters. Die Art eines
+   Termins (`SessionKind` in `plan_schedule.dart`: wöchentlich, alle n
+   Wochen, wiederkehrend ohne festen Rhythmus, Wochen unbekannt, Block,
+   Einzeltermin) gilt einheitlich für Raster, Filter, Überschneidungen und
+   PDF. Sie folgt der Regel der Quelle; Einzel- und Blocktermine werden
+   anhand der Daten als Serie erkannt (mindestens drei Termine am selben
+   Wochentag zur selben Uhrzeit in verschiedenen Wochen; einen Abstand nennt
+   die App erst ab vier gleich weit entfernten Terminen, ohne
+   unterrichtsfreie Wochen). „Alle n Wochen“ ohne Startwoche steht in jeder
+   Vorlesungswoche als unsicherer Termin und zählt nicht als
+   Überschneidung. Über „Drucken / als
    PDF exportieren“ (`TimetableExportScreen`) entsteht lokal ein PDF: A4
    quer oder hoch, Wochenraster im UnivIS-Stil (bei langen Tagen auf
    mehrere Seiten verteilt, Spaltenköpfe wiederholt), danach

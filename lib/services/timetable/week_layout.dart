@@ -9,14 +9,16 @@ import 'timetable_schedule.dart';
 enum SessionKindFilter {
   all("Alle Veranstaltungen"),
   regular("Regelmäßige Veranstaltungen"),
-  special("Blockveranstaltungen");
+  special("Block- und Einzeltermine");
 
   final String label;
   const SessionKindFilter(this.label);
 
-  /// Gefiltert wird je Termin: Eine Veranstaltung mit wöchentlichen Terminen
-  /// und einzelnen Sonderterminen erscheint bei „Regelmäßige“ mit den
-  /// wöchentlichen, bei „Blockveranstaltungen“ mit den Sonderterminen.
+  /// Gefiltert wird je Termin nach [SessionKind.regular]: Regelmäßig sind
+  /// wöchentliche und nicht wöchentliche Serien (z. B. 14-täglich), auch
+  /// wenn die Quelle sie als Einzeltermine führt; Block- und Einzeltermine
+  /// sind der Rest. Eine Veranstaltung mit beidem erscheint je Filter mit
+  /// den passenden Terminen.
   bool accepts(PlanOccurrence o) => switch (this) {
     SessionKindFilter.all => true,
     SessionKindFilter.regular => o.regular,
