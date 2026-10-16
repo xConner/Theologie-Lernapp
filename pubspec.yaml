@@ -104,6 +104,9 @@ flutter:
       - assets/greek_corpus/lxx/
       - assets/latin_vocabulary.json
       - assets/eg_lieder.json
+      # Gesangbücher und Liedsammlungen: Katalog und Lieder der Regionalteile
+      # und Ergänzungshefte (siehe docs/hymnals.md).
+      - assets/hymnals/
       # Notenbilder zum Gesangbuch, erzeugt von tool/hymn_scores
       # (siehe docs/hymn-scores/README.md).
       - assets/hymn_scores/

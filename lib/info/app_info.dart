@@ -416,15 +416,17 @@ class AppModules {
 
   static const ModuleInfo hymns = ModuleInfo(
     id: "hymns",
-    title: "Evangelisches Gesangbuch",
+    title: "Gesangbücher",
     description:
-        "Lieder nach den Nummern des Evangelischen Gesangbuchs (EG) mit "
-        "Suche nach Nummer, Titel, Verfasser, Schlagwort und Bibelstelle. "
-        "Im Lied lässt sich zwischen „Nur Text“ und „Text und Noten“ "
-        "umschalten, soweit Noten vorhanden sind.",
+        "Evangelisches Gesangbuch (Stammteil, Regionalteile, Ergänzungsheft) "
+        "und weitere Liedsammlungen mit einer gemeinsamen Suche nach Nummer, "
+        "Titel, Liedtext, Text- und Melodieangabe, Schlagwort und "
+        "Bibelstelle; jeder Treffer nennt seine Sammlung. Im Lied lässt sich "
+        "zwischen „Nur Text“ und „Text und Noten“ umschalten, soweit Noten "
+        "vorhanden sind.",
     sources: [
       SourceInfo(
-        title: "Liedtexte, Text- und Melodieangaben",
+        title: "Stammteil: Liedtexte, Text- und Melodieangaben",
         origin:
             "Die Lieder folgen der Nummerierung des Evangelischen "
             "Gesangbuchs; Angaben zu Text und Melodie stehen beim jeweiligen "
@@ -441,16 +443,32 @@ class AppModules {
             "Notensätzen der Wikipedia-Liedartikel (CC BY-SA 4.0). Vorlage "
             "und Lizenz stehen unter jedem Notenbild.",
       ),
+      SourceInfo(
+        title: "Regionalteile",
+        origin:
+            "Nummer und Titel nach den Dateibeschreibungen derselben "
+            "Commons-Kategorie; die Quelle steht beim jeweiligen Lied.",
+      ),
+      SourceInfo(
+        title: "Ergänzungsheft (EG.E)",
+        origin:
+            "Nummer und Titel nach den Wochenliedern der Perikopenordnung im "
+            "liturgischen Kalender der App.",
+      ),
     ],
     notes: [
-      "Noten gibt es bisher nur für einen Teil der Lieder. Die erste "
-          "Strophe steht nur dann unter den Noten, wenn die Zuordnung der "
-          "Silben mit einer Vorlage übereinstimmt oder zwingend ist (jede "
-          "Silbe genau ein Ton); sonst erscheint die Melodie allein. Die "
-          "Noten wurden automatisch aus den Vorlagen erzeugt; Tonart und "
+      "Noten gibt es bisher nur für einen Teil der Lieder des Stammteils. "
+          "Die erste Strophe steht nur dann unter den Noten, wenn die "
+          "Zuordnung der Silben mit einer Vorlage übereinstimmt oder zwingend "
+          "ist (jede Silbe genau ein Ton); sonst erscheint die Melodie allein. "
+          "Die Noten wurden automatisch aus den Vorlagen erzeugt; Tonart und "
           "Notenwerte können von der Fassung im Gesangbuch abweichen.",
       "Bei einem Teil der Lieder wird der Text aus urheberrechtlichen "
           "Gründen nicht angezeigt.",
+      "Regionalteile und Ergänzungsheft sind nur teilweise verzeichnet, "
+          "ohne Text und Noten; der Geistliche Liederschatz und die "
+          "nordkirchlichen Regionalteile sind noch nicht integriert. Der "
+          "Stand steht bei jeder Sammlung.",
       "Erklärungen, Schlagworte und Bibelstellen sind nicht bei allen "
           "Liedern vorhanden.",
     ],

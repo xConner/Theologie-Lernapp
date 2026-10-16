@@ -9,7 +9,7 @@ import '../screens/liturgical_calendar_screen.dart';
 import '../screens/greek/greek_home_screen.dart';
 
 import '../models/greek/perikope.dart';
-import 'hymn_screen.dart';
+import 'hymnals_screen.dart';
 import 'bible/bible_home_screen.dart';
 
 import 'confessions_screen.dart';
@@ -393,12 +393,12 @@ class _HomeScreenState extends State<HomeScreen> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (_) => const HymnScreen(),
+                                builder: (_) => const HymnalsScreen(),
                               ),
                             );
                           },
                           icon: const Icon(Icons.library_music_rounded),
-                          label: const Text("Evangelisches Gesangbuch"),
+                          label: const Text("Gesangbücher"),
                         ),
                       ),
 

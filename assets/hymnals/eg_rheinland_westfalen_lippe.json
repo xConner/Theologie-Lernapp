@@ -1,0 +1,42 @@
+[
+  {
+    "number": "544",
+    "title": "Mit den Hirten will ich gehen",
+    "text": "",
+    "melody": "August Rische 1885",
+    "lyrics": [],
+    "tags": [],
+    "bibleReferences": [],
+    "explanation": "",
+    "workId": "mit_den_hirten_will_ich_gehen",
+    "lyricsNote": "Nummer und Titel laut Beschreibung der Datei auf Wikimedia Commons. Text und Noten dieser Ausgabe liegen der App nicht vor.",
+    "source": {
+      "name": "Wikimedia Commons",
+      "file": "File:Mit den Hirten will ich gehen.mid",
+      "url": "https://commons.wikimedia.org/wiki/File:Mit_den_Hirten_will_ich_gehen.mid",
+      "statement": "Mit den Hirten will ich gehen, Evang. Gesangbuch Rheinland-Westfalen-Lippe 544",
+      "license": "CC0",
+      "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+    }
+  },
+  {
+    "number": "661",
+    "title": "Ich bete an die Macht der Liebe",
+    "text": "Gerhard Tersteegen",
+    "melody": "Dmitry Bortniansky",
+    "lyrics": [],
+    "tags": [],
+    "bibleReferences": [],
+    "explanation": "",
+    "workId": "ich_bete_an_die_macht_der_liebe",
+    "lyricsNote": "Nummer und Titel laut Beschreibung der Datei auf Wikimedia Commons. Text und Noten dieser Ausgabe liegen der App nicht vor.",
+    "source": {
+      "name": "Wikimedia Commons",
+      "file": "File:Ich bete an die Macht der Liebe.mid",
+      "url": "https://commons.wikimedia.org/wiki/File:Ich_bete_an_die_Macht_der_Liebe.mid",
+      "statement": "Ich bete an die Macht der Liebe, Text Gerhard Terstegen, Melodie Dmitri Bortnjanski (Evang. Gesangbuch Rheinland/ Westfalen/ Lippe 661)",
+      "license": "CC0",
+      "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
+    }
+  }
+]

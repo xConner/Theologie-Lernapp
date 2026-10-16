@@ -1,29 +1,46 @@
 import 'package:flutter/material.dart';
 
 import '../models/hymn.dart';
-import '../services/hymn_service.dart';
+import '../models/hymnal.dart';
+import '../services/hymnal_service.dart';
 import 'hymn_detail_screen.dart';
+import '../widgets/hymnal_widgets.dart';
 import '../widgets/settings_access.dart';
 import '../info/app_info.dart';
 import '../widgets/info_report.dart';
 
+/// Lieder einer Sammlung mit Suche, standardmäßig der Stammteil des
+/// Evangelischen Gesangbuchs. Die Suche ist dieselbe wie in der globalen
+/// Suche ([HymnalLibrary.index]), nur auf die Sammlung begrenzt.
 class HymnScreen extends StatefulWidget {
-  const HymnScreen({super.key});
+  final String hymnalId;
+
+  /// Nur für Tests oder zum Weiterreichen bereits geladener Sammlungen.
+  final Future<HymnalLibrary> Function()? loadLibrary;
+
+  const HymnScreen({super.key, this.hymnalId = 'eg', this.loadLibrary});
 
   @override
   State<HymnScreen> createState() => _HymnScreenState();
 }
 
 class _HymnScreenState extends State<HymnScreen> {
-  final HymnService service = HymnService();
+  HymnalLibrary? library;
 
   List<Hymn> hymns = [];
 
   List<Hymn> filtered = [];
 
+  /// Fundstellen im Liedtext je Lied.
+  Map<String, String?> snippets = {};
+
   bool loading = true;
 
   final TextEditingController searchController = TextEditingController();
+
+  Hymnal? get hymnal => library?.hymnal(widget.hymnalId);
+
+  bool get failed => library?.failed.contains(widget.hymnalId) ?? true;
 
   @override
   void initState() {
@@ -32,46 +49,65 @@ class _HymnScreenState extends State<HymnScreen> {
     load();
   }
 
+  @override
+  void dispose() {
+    searchController.dispose();
+    super.dispose();
+  }
+
   Future<void> load() async {
-    final data = await service.loadHymns();
+    HymnalLibrary? data;
+    try {
+      data = await (widget.loadLibrary ?? HymnalService.shared)();
+    } catch (_) {
+      data = null;
+    }
 
     if (!mounted) return;
 
     setState(() {
-      hymns = data;
+      library = data;
 
-      filtered = data;
+      hymns = data?.hymnsOf(widget.hymnalId) ?? const [];
+
+      filtered = hymns;
 
       loading = false;
     });
   }
 
   void search(String value) {
-    final query = value.toLowerCase();
+    final index = library?.index;
+    if (index == null) return;
+
+    if (value.trim().isEmpty) {
+      setState(() {
+        filtered = hymns;
+        snippets = {};
+      });
+      return;
+    }
+
+    final hits = index.search(
+      value,
+      where: (hymn) => hymn.collectionId == widget.hymnalId,
+    );
 
     setState(() {
-      filtered = hymns.where((hymn) {
-        final tags = hymn.tags.map((tag) => tag.toLowerCase()).join(" ");
-
-        final bibleReferences = hymn.bibleReferences
-            .map((ref) => ref.toLowerCase())
-            .join(" ");
-
-        return hymn.id.toString().contains(query) ||
-            hymn.title.toLowerCase().contains(query) ||
-            hymn.author.toLowerCase().contains(query) ||
-            tags.contains(query) ||
-            bibleReferences.contains(query);
-      }).toList();
+      filtered = [for (final hit in hits) hit.hymn];
+      snippets = {for (final hit in hits) hit.hymn.key: hit.snippet};
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    final current = hymnal;
+    final isCore = current?.part == HymnalPart.core;
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Gesangbuch"),
-actions: const [
+        title: Text(current == null || isCore ? "Gesangbuch" : current.title),
+        actions: const [
           InfoButton(module: AppModules.hymns),
           SettingsButton(),
         ],
@@ -79,47 +115,84 @@ actions: const [
 
       body: loading
           ? const Center(child: CircularProgressIndicator())
+          : current == null || (failed && current.asset != null)
+          ? const Center(
+              key: Key("hymn_list_error"),
+              child: Padding(
+                padding: EdgeInsets.all(24),
+                child: Text(
+                  "Die Lieder konnten nicht geladen werden.",
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            )
           : Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(12),
+                if (hymns.isNotEmpty)
+                  Padding(
+                    padding: const EdgeInsets.all(12),
 
-                  child: TextField(
-                    controller: searchController,
+                    child: TextField(
+                      controller: searchController,
 
-                    decoration: const InputDecoration(
-                      prefixIcon: Icon(Icons.search),
+                      decoration: InputDecoration(
+                        prefixIcon: const Icon(Icons.search),
 
-                      hintText:
-                          "Suche nach Nummer, Titel, Autor, Tags oder Bibelstellen",
+                        hintText: isCore
+                            ? "Suche nach Nummer, Titel, Text, Autor, Tags "
+                                  "oder Bibelstellen"
+                            : "Suche in ${current.label}",
 
-                      border: OutlineInputBorder(),
+                        border: const OutlineInputBorder(),
+                      ),
+
+                      onChanged: search,
                     ),
-
-                    onChanged: search,
                   ),
-                ),
+
+                if (filtered.isEmpty && searchController.text.isNotEmpty)
+                  const Padding(
+                    key: Key("hymn_list_no_results"),
+                    padding: EdgeInsets.all(16),
+                    child: Text("Keine Lieder gefunden."),
+                  ),
 
                 Expanded(
                   child: ListView.builder(
-                    itemCount: filtered.length,
+                    // Bei Teilsammlungen stehen Stand und Quellen über der
+                    // Liste.
+                    itemCount: filtered.length + (isCore ? 0 : 1),
 
                     itemBuilder: (context, index) {
+                      if (!isCore) {
+                        if (index == 0) {
+                          return Padding(
+                            padding: EdgeInsets.only(
+                              top: hymns.isEmpty ? 12 : 0,
+                            ),
+                            child: HymnalInfoCard(
+                              hymnal: current,
+                              hymns: hymns,
+                            ),
+                          );
+                        }
+                        index--;
+                      }
+
                       final hymn = filtered[index];
 
-                      return ListTile(
-                        leading: CircleAvatar(child: Text(hymn.id.toString())),
-
-                        title: Text(hymn.title),
-
-                        subtitle: Text(hymn.author),
-
+                      return HymnTile(
+                        hymn: hymn,
+                        snippet: snippets[hymn.key],
                         onTap: () {
                           Navigator.push(
                             context,
 
                             MaterialPageRoute(
-                              builder: (_) => HymnDetailScreen(hymn: hymn),
+                              builder: (_) => HymnDetailScreen(
+                                hymn: hymn,
+                                library: library,
+                              ),
                             ),
                           );
                         },

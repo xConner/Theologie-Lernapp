@@ -9,7 +9,7 @@ import '../screens/confessions_screen.dart';
 import '../screens/greek/grammar_trainer_screen.dart';
 import '../screens/greek/greek_home_screen.dart';
 import '../screens/greek/vocabulary_trainer_screen.dart';
-import '../screens/hymn_screen.dart';
+import '../screens/hymnals_screen.dart';
 import '../screens/latin/latin_home_screen.dart';
 import '../screens/latin/latin_vocabulary_trainer_screen.dart';
 import '../screens/liturgical_calendar_screen.dart';
@@ -42,7 +42,7 @@ final Map<String, Future<Widget?> Function()> _screens = {
   AppDeepLink.latin: () async => const LatinHomeScreen(),
   AppDeepLink.latinVocabulary: () async => const LatinVocabularyTrainerScreen(),
   AppDeepLink.calendar: () async => const LiturgicalCalendarScreen(),
-  AppDeepLink.hymns: () async => const HymnScreen(),
+  AppDeepLink.hymns: () async => const HymnalsScreen(),
   AppDeepLink.confessions: () async => const ConfessionsScreen(),
   AppDeepLink.prayers: () async => const PrayersScreen(),
   AppDeepLink.memorize: () async => const MemorizationHomeScreen(),

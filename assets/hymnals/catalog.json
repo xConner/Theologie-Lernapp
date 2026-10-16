@@ -1,0 +1,202 @@
+{
+  "groups": [
+    {"id": "eg", "title": "Evangelisches Gesangbuch"},
+    {"id": "other", "title": "Weitere Liedsammlungen"}
+  ],
+  "hymnals": [
+    {
+      "id": "eg",
+      "group": "eg",
+      "part": "core",
+      "title": "Stammteil",
+      "fullTitle": "Evangelisches Gesangbuch – Stammteil",
+      "shortTitle": "EG Stammteil",
+      "numberPrefix": "EG",
+      "edition": "Nr. 1–535, gemeinsam in allen Ausgaben",
+      "year": "ab 1993",
+      "asset": "assets/eg_lieder.json",
+      "status": "complete",
+      "expectedCount": 535,
+      "description": "Die 535 Lieder und Gesänge, die alle Ausgaben des Evangelischen Gesangbuchs gemeinsam haben.",
+      "lyricsNote": "Liedtext aus urheberrechtlichen Gründen nicht verfügbar.",
+      "sources": [
+        {
+          "title": "Noten: Wikimedia Commons, Kategorie „Melodies from Evangelisches Gesangbuch“",
+          "url": "https://commons.wikimedia.org/wiki/Category:Melodies_from_%22Evangelisches_Gesangbuch%22",
+          "license": "überwiegend CC0; Angabe unter jedem Notenbild"
+        }
+      ]
+    },
+    {
+      "id": "eg_niedersachsen_bremen",
+      "group": "eg",
+      "part": "regional",
+      "title": "Regionalteil Niedersachsen und Bremen",
+      "shortTitle": "EG Niedersachsen/Bremen",
+      "numberPrefix": "EG",
+      "region": "Ev.-luth. Landeskirchen Braunschweig, Hannover, Oldenburg, Schaumburg-Lippe und Bremische Ev. Kirche",
+      "edition": "Regionalteil ab Nr. 536",
+      "asset": "assets/hymnals/eg_niedersachsen_bremen.json",
+      "status": "partial",
+      "description": "Nur Lieder, deren Nummer eine frei lizenzierte Quelle ausdrücklich nennt; das Verzeichnis ist nicht vollständig.",
+      "statusNote": "Ein vollständiges, frei nutzbares Verzeichnis des Regionalteils mit Texten und Noten gibt es nicht. Die Texte und Notensätze des Regionalteils sind überwiegend urheberrechtlich geschützt; der Nachdruck bedarf der Genehmigung der Herausgeber.",
+      "sources": [
+        {
+          "title": "Nummern und Titel: Dateibeschreibungen auf Wikimedia Commons (Stand 10.10.2026)",
+          "url": "https://commons.wikimedia.org/wiki/Category:Melodies_from_%22Evangelisches_Gesangbuch%22",
+          "license": "Beschreibungen frei nutzbar; Lizenz der Datei je Lied"
+        }
+      ]
+    },
+    {
+      "id": "eg_bayern_thueringen",
+      "group": "eg",
+      "part": "regional",
+      "title": "Regionalteil Bayern und Thüringen",
+      "shortTitle": "EG Bayern/Thüringen",
+      "numberPrefix": "EG",
+      "region": "Ev.-Luth. Kirche in Bayern; Thüringen",
+      "edition": "Regionalteil ab Nr. 536",
+      "asset": "assets/hymnals/eg_bayern_thueringen.json",
+      "status": "partial",
+      "description": "Nur Lieder, deren Nummer eine frei lizenzierte Quelle ausdrücklich nennt; das Verzeichnis ist nicht vollständig.",
+      "statusNote": "Ein vollständiges, frei nutzbares Verzeichnis des Regionalteils mit Texten und Noten gibt es nicht. Die Texte und Notensätze des Regionalteils sind überwiegend urheberrechtlich geschützt; der Nachdruck bedarf der Genehmigung der Herausgeber.",
+      "sources": [
+        {
+          "title": "Nummern und Titel: Dateibeschreibungen auf Wikimedia Commons (Stand 10.10.2026)",
+          "url": "https://commons.wikimedia.org/wiki/Category:Melodies_from_%22Evangelisches_Gesangbuch%22",
+          "license": "Beschreibungen frei nutzbar; Lizenz der Datei je Lied"
+        }
+      ]
+    },
+    {
+      "id": "eg_rheinland_westfalen_lippe",
+      "group": "eg",
+      "part": "regional",
+      "title": "Regionalteil Rheinland, Westfalen und Lippe",
+      "shortTitle": "EG Rheinland/Westfalen/Lippe",
+      "numberPrefix": "EG",
+      "region": "Ev. Kirche im Rheinland, Ev. Kirche von Westfalen, Lippische Landeskirche",
+      "edition": "Regionalteil ab Nr. 536",
+      "asset": "assets/hymnals/eg_rheinland_westfalen_lippe.json",
+      "status": "partial",
+      "description": "Nur Lieder, deren Nummer eine frei lizenzierte Quelle ausdrücklich nennt; das Verzeichnis ist nicht vollständig.",
+      "statusNote": "Ein vollständiges, frei nutzbares Verzeichnis des Regionalteils mit Texten und Noten gibt es nicht. Die Texte und Notensätze des Regionalteils sind überwiegend urheberrechtlich geschützt; der Nachdruck bedarf der Genehmigung der Herausgeber.",
+      "sources": [
+        {
+          "title": "Nummern und Titel: Dateibeschreibungen auf Wikimedia Commons (Stand 10.10.2026)",
+          "url": "https://commons.wikimedia.org/wiki/Category:Melodies_from_%22Evangelisches_Gesangbuch%22",
+          "license": "Beschreibungen frei nutzbar; Lizenz der Datei je Lied"
+        }
+      ]
+    },
+    {
+      "id": "eg_baden_pfalz",
+      "group": "eg",
+      "part": "regional",
+      "title": "Regionalteil Baden und Pfalz",
+      "shortTitle": "EG Baden/Pfalz",
+      "numberPrefix": "EG",
+      "region": "Ev. Landeskirche in Baden; Ev. Kirche der Pfalz",
+      "edition": "Regionalteil ab Nr. 536; die Quelle nennt die Ausgabe „Baden/Pfalz“",
+      "asset": "assets/hymnals/eg_baden_pfalz.json",
+      "status": "partial",
+      "description": "Nur Lieder, deren Nummer eine frei lizenzierte Quelle ausdrücklich nennt; das Verzeichnis ist nicht vollständig.",
+      "statusNote": "Ein vollständiges, frei nutzbares Verzeichnis des Regionalteils mit Texten und Noten gibt es nicht. Die Texte und Notensätze des Regionalteils sind überwiegend urheberrechtlich geschützt; der Nachdruck bedarf der Genehmigung der Herausgeber.",
+      "sources": [
+        {
+          "title": "Nummern und Titel: Dateibeschreibungen auf Wikimedia Commons (Stand 10.10.2026)",
+          "url": "https://commons.wikimedia.org/wiki/Category:Melodies_from_%22Evangelisches_Gesangbuch%22",
+          "license": "Beschreibungen frei nutzbar; Lizenz der Datei je Lied"
+        }
+      ]
+    },
+    {
+      "id": "eg_nordelbien",
+      "group": "eg",
+      "part": "regional",
+      "title": "Regionalteil Nordelbien",
+      "shortTitle": "EG Nordelbien",
+      "numberPrefix": "EG",
+      "region": "Nordkirche: Hamburg und Schleswig-Holstein (Ausgabe der früheren Nordelbischen Ev.-Luth. Kirche)",
+      "edition": "Regionalteil ab Nr. 536",
+      "status": "notIntegrated",
+      "description": "Für den nordelbischen Regionalteil liegt keine frei nutzbare Quelle mit Nummern, Texten oder Noten vor.",
+      "statusNote": "Die geprüften freien Quellen nennen Lieder dieses Regionalteils nur ohne Nummer. Texte und Notensätze sind überwiegend urheberrechtlich geschützt. Die Sammlung wird ergänzt, sobald eine zulässige Quelle vorliegt.",
+      "sources": []
+    },
+    {
+      "id": "eg_mecklenburg_pommern",
+      "group": "eg",
+      "part": "regional",
+      "title": "Regionalteil Mecklenburg und Pommern",
+      "shortTitle": "EG Mecklenburg/Pommern",
+      "numberPrefix": "EG",
+      "region": "Nordkirche: Mecklenburg und Pommern",
+      "edition": "Regionalteil ab Nr. 536",
+      "status": "notIntegrated",
+      "description": "Für diesen Regionalteil liegt keine frei nutzbare Quelle mit Nummern, Texten oder Noten vor.",
+      "statusNote": "Texte und Notensätze sind überwiegend urheberrechtlich geschützt. Die Sammlung wird ergänzt, sobald eine zulässige Quelle vorliegt.",
+      "sources": []
+    },
+    {
+      "id": "eg_ergaenzungsheft",
+      "group": "eg",
+      "part": "supplement",
+      "title": "Ergänzungsheft (EG.E)",
+      "fullTitle": "Ergänzungsheft zum Evangelischen Gesangbuch – Lieder zur Perikopenordnung",
+      "shortTitle": "EG.E",
+      "numberPrefix": "EG.E",
+      "edition": "32 neue Wochenlieder der Perikopenordnung",
+      "year": "2018",
+      "asset": "assets/hymnals/eg_ergaenzungsheft.json",
+      "status": "partial",
+      "expectedCount": 32,
+      "description": "Wochenlieder der 2018 eingeführten Perikopenordnung, die nicht im Stammteil stehen. Verzeichnet sind die Lieder, die der liturgische Kalender der App nennt.",
+      "statusNote": "Die Lieder sind neuere Werke und urheberrechtlich geschützt; Text und Noten stehen im gedruckten Heft. Die App verzeichnet nur Nummer und Titel.",
+      "sources": [
+        {
+          "title": "Zentrum Verkündigung der EKHN: Informationen zu den neuen Wochenliedern",
+          "url": "https://www.zentrum-verkuendigung.de/fileadmin/zentrum-verkuendigung/Downloaddatenbank/Gottesdienst/Perikopenrevision/Informationen_zu_den_neuen_Wochenliedern.pdf"
+        }
+      ]
+    },
+    {
+      "id": "geistlicher_liederschatz",
+      "group": "other",
+      "part": "collection",
+      "title": "Geistlicher Liederschatz",
+      "fullTitle": "Geistlicher Liederschatz. Sammlung der vorzüglichsten geistlichen Lieder für Kirche, Schule und Haus und alle Lebensverhältnisse",
+      "shortTitle": "Geistlicher Liederschatz",
+      "numberPrefix": "GLS",
+      "region": "Berlin, hrsg. von Samuel Elsner",
+      "edition": "1. Auflage 1832 (xxxi, 920, 72 S.); weitere Auflagen 1840, 1842, 1846",
+      "year": "1832",
+      "status": "notIntegrated",
+      "description": "Umfangreiche Sammlung geistlicher Lieder, der „Berliner Liederschatz“. Das Werk ist gemeinfrei; digitalisierte Drucke sind über Bibliotheken zugänglich.",
+      "statusNote": "Die Digitalisate sind Seitenscans in Frakturschrift. Für die App braucht es eine geprüfte Abschrift jedes Liedes mit Nummer; sie liegt noch nicht vor. Noten enthält die Sammlung nicht.",
+      "sources": [
+        {
+          "title": "HathiTrust: Katalogeintrag der Ausgabe 1832",
+          "url": "https://catalog.hathitrust.org/Record/009717778",
+          "license": "gemeinfrei; Nutzungsbedingungen des Digitalisats beachten"
+        },
+        {
+          "title": "Internet Archive: Digitalisat der Ausgabe 1846",
+          "url": "https://archive.org/details/geiliede00berl",
+          "license": "gemeinfrei; Nutzungsbedingungen des Digitalisats beachten"
+        },
+        {
+          "title": "Münchener Digitalisierungszentrum (BSB)",
+          "url": "https://reader.digitale-sammlungen.de/de/fs1/object/display/bsb10592427_00005.html",
+          "license": "gemeinfrei; Nutzungsbedingungen des Digitalisats beachten"
+        },
+        {
+          "title": "Google Books",
+          "url": "https://books.google.com/books/about/Geistlicher_Liederschatz.html?id=6CsLAAAAYAAJ",
+          "license": "gemeinfrei; Nutzungsbedingungen des Digitalisats beachten"
+        }
+      ]
+    }
+  ]
+}

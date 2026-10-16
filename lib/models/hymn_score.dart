@@ -87,7 +87,8 @@ class HymnScore {
   }
 }
 
-/// Herkunft eines Notenbildes: Vorlage, Urheber der Vorlage und Lizenz.
+/// Herkunft eines Notenbildes (Vorlage, Urheber der Vorlage und Lizenz) oder
+/// der Angaben zu einem Lied.
 class HymnScoreSource {
   final String name;
   final String file;
@@ -96,6 +97,10 @@ class HymnScoreSource {
   final String license;
   final String licenseUrl;
 
+  /// Wortlaut der Quelle, der die Angaben belegt, z. B. die Beschreibung
+  /// einer Datei mit Ausgabe und Nummer.
+  final String statement;
+
   const HymnScoreSource({
     this.name = '',
     this.file = '',
@@ -103,6 +108,7 @@ class HymnScoreSource {
     this.author = '',
     this.license = '',
     this.licenseUrl = '',
+    this.statement = '',
   });
 
   factory HymnScoreSource.fromJson(Map<String, dynamic> json) {
@@ -113,6 +119,7 @@ class HymnScoreSource {
       author: json['author'] ?? '',
       license: json['license'] ?? '',
       licenseUrl: json['licenseUrl'] ?? '',
+      statement: json['statement'] ?? '',
     );
   }
 }
