@@ -1,0 +1,165 @@
+# Argumente
+
+Wir wollen das Argumentieren jetzt möglichst genau formalisieren. Eine formale Argumentation heißt **Beweis**. Die einzelnen Schlussschritte darin heißen **Argumente**: Ein Argument legt fest, unter welchen Bedingungen man in einem Beweis von Sätzen zu einem weiteren Satz übergehen darf. Argumente haben deshalb ebenfalls Prämissen und eine Konklusion: Gelten die Prämissen, dürfen wir die Konklusion folgern – in einem formalen Beweis sagt man auch: die Konklusion aus den Prämissen **herleiten**.
+
+Argumente werden aber nicht für bestimmte Sätze formuliert, sondern für **Formen** von Sätzen. Passt ein konkreter Satz zur Form der Prämisse eines Arguments, darf man auf einen konkreten Satz schließen, der zur Form der Konklusion passt. Ein Argument beschreibt also eine Beziehung zwischen Satzformen. Ein Beispiel:
+
+@rule -K | A ∧ B | A
+
+Der waagrechte Strich heißt **Herleitungsstrich**. Darüber stehen die Prämisse(n), darunter die Konklusion, rechts der Name des Arguments. **-K** steht für die **Beseitigung der Konjunktion**: Das Argument erlaubt, eine Konjunktion aus einem Satz zu entfernen. Semantisch geschieht nichts Geheimnisvolles – haben wir A und B, dann haben wir insbesondere A. Wer zweifelt, prüft mit einer Wahrheitstafel, dass `(A ∧ B) → A` eine Tautologie ist. Natürlich geht es auch mit dem rechten Operanden:
+
+@rule -K | A ∧ B | B
+
+## Wie ein Beweis aufgeschrieben wird
+
+In einem Beweis schreiben wir in nummerierten Zeilen aussagenlogische Sätze untereinander und begründen bei jedem Satz, warum wir ihn hinschreiben dürfen. Als Begründung zählt nur ein Argument, das wir zuvor als gültig festgesetzt oder selbst bewiesen haben. Und wir müssen nachweisen, dass wir das Argument anwenden dürfen: Wir geben an, in welcher Zeile ein Satz steht, der zur Form der Prämisse passt. Und der Satz, den wir damit begründen, muss zur Form der Konklusion passen. Zum Beispiel:
+
+@proof-partial l4
+1 | q ∧ (r ∧ s) | |
+2 | r ∧ s | -K(1) |
+3 | s | -K(2) |
+@end
+
+Gehen wir in Zeile 1 davon aus, dass `q ∧ (r ∧ s)` gilt, dann dürfen wir in Zeile 2 auf `r ∧ s` und in Zeile 3 auf `s` schließen. In Zeile 1 fehlt allerdings eine Begründung – dass wir „davon ausgehen“, ist so noch nicht ganz korrekt. Dazu gleich mehr.
+
+## Einführung der Konjunktion
+
+@rule +K | A ; B | A ∧ B
+
+Hat ein Argument mehrere Prämissen, stehen sie nebeneinander. Das ist die **Einführung der Konjunktion**: Haben wir sowohl A als auch B, dürfen wir auf `A ∧ B` schließen. Den Beweis von eben können wir so fortsetzen:
+
+@proof-partial l4
+1 | q ∧ (r ∧ s) | |
+2 | r ∧ s | -K(1) |
+3 | s | -K(2) |
+4 | q | -K(1) |
+5 | q ∧ s | +K(4, 3) |
+@end
+
+Die Prämissen stehen in den Zeilen 4 und 3. Warum heißt es +K(4, 3) und nicht +K(3, 4)? In Zeile 5 steht `q ∧ s`. Bilden wir diesen Satz auf die Form der Konklusion `A ∧ B` ab, geht das nur mit A = q und B = s. Die Prämissen der Form lauten – in dieser Reihenfolge – A und B. Also brauchen wir erst q (Zeile 4), dann s (Zeile 3). +K(3, 4) ergäbe `s ∧ q`. Semantisch macht das keinen Unterschied – darum geht es hier aber nicht mehr. Entscheidend ist allein, die festgelegten Regeln buchstabengetreu zu befolgen.
+
+## Beseitigung der Adjunktion
+
+@rule -A | A ∨ B ; ¬A | B
+
+Mit der **Beseitigung der Adjunktion** lösen wir einen Satz auf, der auf oberster Ebene eine Adjunktion ist. Anders als bei der Konjunktion reicht der Satz allein nicht: `A ∨ B` liefert für sich weder A noch B. Haben wir aber als zweite Prämisse ¬A, dann folgt B: Gilt A oder B, und A gilt nicht, muss es B sein. Und genauso andersherum:
+
+@rule -A | A ∨ B ; ¬B | A
+
+## Doppelte Negation
+
+Dazu kommen zwei einfache Argumente zur **Einführung** und **Beseitigung der doppelten Negation**:
+
+@rule +DN | A | ¬¬A
+@rule -DN | ¬¬A | A
+
+# Beweise
+
+Jetzt können wir einen ersten Beweis schreiben. Bewiesen werden immer **Theoreme**. Nehmen wir `q ∧ (r ∧ s) ⊢ s ∧ q`. Die Voraussetzung ist `q ∧ (r ∧ s)`, die These `s ∧ q`. Ein Beweis muss zeigen, dass wir allein mit den gegebenen Argumenten von der Voraussetzung zur These kommen.
+
+Wir gehen von der **Annahme** aus, dass die Voraussetzung gilt. Deshalb braucht `q ∧ (r ∧ s)` im Beweis keine Begründung – er ist der Ausgangspunkt. In die Spalte der Argumente schreiben wir **A** für Annahme. Annahmezeilen bezeichnen wir nicht mit Zahlen, sondern mit **griechischen Buchstaben**. So sieht man sofort, wo sich Argumente auf Annahmen beziehen und wo auf hergeleitete Sätze; warum das wichtig ist, zeigen die nächsten Lektionen.
+
+@proof l4 | q ∧ (r ∧ s) ⊢ s ∧ q
+α | q ∧ (r ∧ s) | A |
+1 | r ∧ s | -K(α) |
+2 | s | -K(1) |
+3 | q | -K(α) |
+4 | s ∧ q | +K(2, 3) |
+@end
+
+Ebenso beweist man Theoreme mit mehreren Voraussetzungen, etwa `¬r ∧ s, r ∨ q ⊢ q`. Die Beweisidee lässt sich im Kopf skizzieren: Aus der ersten Voraussetzung lösen wir `¬r` heraus (-K), um damit aus der zweiten q herauszulösen (-A).
+
+@proof l4 | ¬r ∧ s, r ∨ q ⊢ q
+α | ¬r ∧ s | A |
+1 | ¬r | -K(α) |
+β | r ∨ q | A |
+2 | q | -A(β, 1) |
+@end
+
+Man muss also nicht alle Voraussetzungen gleich zu Beginn als Annahmen aufschreiben – oft ist das gar nicht hilfreich. Eine verfügbare Voraussetzung darf an **jeder Stelle** des Beweises als Annahme eingeführt werden. Sinnvollerweise führt man sie dann ein, wenn man sie braucht. Formal falsch wäre es aber nicht, sie früher einzuführen; das ist eine Frage der Ordnung.
+
+## Genau nach der Form arbeiten
+
+Noch ein Beweis, für `r, ¬r ∨ s ⊢ s`:
+
+@proof l4 | r, ¬r ∨ s ⊢ s
+α | r | A |
+1 | ¬¬r | +DN(α) |
+β | ¬r ∨ s | A |
+2 | s | -A(β, 1) |
+@end
+
+Warum der Umweg über Zeile 1? Semantisch ist doch klar, dass man mit r aus `¬r ∨ s` auf s schließen kann. Aber die Regeln sollen genau angewendet werden. Wir wollen s, also den rechten Operanden der Adjunktion. Von den beiden Varianten von -A kommt nur die in Frage, deren Konklusion B ist. Bilden wir `¬r ∨ s` auf die Form `A ∨ B` ab, müssen wir B = s und A = ¬r setzen. Die zweite Prämisse hat die Form ¬A – wir brauchen also `¬¬r`, nicht r.
+
+# Weitere Argumente
+
+Das folgende Argument ist leicht nachvollziehbar:
+
+@rule -I | A → B ; A | B
+
+Die **Beseitigung der Implikation** heißt auch **modus ponens** und ist vielleicht die grundlegendste Schlussform: Wissen wir, dass aus A der Satz B folgt, und wissen wir, dass A gilt, dann dürfen wir auf B schließen.
+
+Die **Einführung der Adjunktion** sieht zunächst weniger anschaulich aus:
+
+@rule +A | ¬A → B | A ∨ B
+
+Inhaltlich ist das plausibel: Wenn die Falschheit von A die Wahrheit von B nach sich zieht, ist jedenfalls eines der beiden wahr – A oder B. Zur Übung kann man nachprüfen, dass dieser Satz eine Tautologie ist:
+
+@table (p → q) ↔ (¬p ∨ q)
+
+`p → q` und `¬p ∨ q` haben also unter jeder Interpretation denselben Wahrheitswert. Das liegt nahe: `¬p ∨ q` sagt nur in anderer Form, wann eine Implikation wahr ist – bei falscher Prämisse oder wahrer Konklusion. Für das Argument +A nutzen wir nur eine Richtung dieser Äquivalenz.
+
+Das führt zu den nächsten Argumenten, der **Einführung** und **Beseitigung der Äquivalenz**:
+
+@rule +Ä | A → B ; B → A | A ↔ B
+@rule -Ä | A ↔ B | A → B
+@rule -Ä | A ↔ B | B → A
+
+Sie drücken aus, dass eine Äquivalenz die Implikation in beide Richtungen bedeutet.
+
+## Tautologie
+
+@rule T | | A → A
+
+Dieses Argument heißt einfach **Tautologie**. Sätze der Form `A → A` sind immer logisch wahr. Deshalb darf man einen solchen Satz an jeder Stelle in den Beweis aufnehmen – ohne Prämissen, was im Schema dadurch ausgedrückt ist, dass über dem Herleitungsstrich nichts steht.
+
+Es gibt auch Theoreme **ohne Voraussetzungen**, zum Beispiel `⊢ q ∨ ¬q`. Semantisch ist es klar eine Tautologie, und wir können es in zwei Schritten beweisen:
+
+@proof l4 | ⊢ q ∨ ¬q
+1 | ¬q → ¬q | T |
+2 | q ∨ ¬q | +A(1) |
+@end
+
+Hier beginnen wir nicht mit einer Annahme – das Theorem hat keine Voraussetzung. Mit T haben wir trotzdem einen Anfang.
+
+Für jeden Operator streben wir ein Argument zur Einführung und eines zur Beseitigung an. Es fehlen noch die Einführung der Implikation und Argumente für Negationen. Mit den bisherigen Mitteln lassen sie sich nicht gut formulieren; in der nächsten Lektion erweitern wir deshalb das Beweisverfahren. Eine Vorbereitung dafür beginnt jetzt.
+
+# Buchhaltung über die Annahmen
+
+Im Folgenden müssen wir genau notieren, welche Annahmen wir wo verwenden. Dafür bekommt jeder Beweis eine **vierte Spalte**. Ein Beispiel, der Beweis für `r → s, r ∧ q ⊢ s ∧ q`:
+
+@proof l4 | r → s, r ∧ q ⊢ s ∧ q
+α | r ∧ q | A | α
+1 | r | -K(α) | α
+β | r → s | A | β
+2 | s | -I(β, 1) | α, β
+3 | q | -K(α) | α
+4 | s ∧ q | +K(2, 3) | α, β
+@end
+
+- Eine **Annahmezeile** hängt von sich selbst ab: In Zeile α steht α. Auch das Aufnehmen einer Annahme gilt als ihre Verwendung.
+- Zeile 1 ist aus α hergeleitet, also steht dort α.
+- In Zeile 2 steht α, β. Direkt greift -I zwar nur auf β zu – die zweite Prämisse aber ist Zeile 1, und die hing von α ab. Diese Abhängigkeit **vererbt** sich, wenn man den Satz weiterverwendet. Man kann es sich auch so überlegen: Um s herzuleiten, brauchen wir α *und* β; aus einem allein ginge es nicht. r und q dagegen lassen sich allein aus α herleiten.
+
+In der Logik geht es vor allem um das Verhältnis von Sätzen zueinander. Die vierte Spalte macht das Verhältnis zwischen den Annahmen und den hergeleiteten Sätzen sichtbar. Besonders wichtig ist die **letzte Zeile**, in der die These steht. Wir erwarten, dass sie
+
+- nur von Annahmen abhängt, die Voraussetzungen des Theorems sind, und
+- dass alle Voraussetzungen dort vorkommen.
+
+Fehlt dort eine Voraussetzung, dann ist sie überflüssig – man könnte sie streichen, ohne dass das Theorem ungültig wird. Solange wir nur Annahmen einführen, die Voraussetzungen sind, kann die letzte Zeile nicht von einer anderen Annahme abhängen. Das ändert sich in der nächsten Lektion.
+
+::: explanation Typische Fehler in dieser Lektion
+- Bei -A wird statt ¬A einfach irgendeine Negation verwendet. Die zweite Prämisse muss genau die Negation des *anderen* Operanden sein – notfalls erst mit +DN herstellen.
+- Bei +K werden die Zeilen in der falschen Reihenfolge angegeben.
+- Bei -I wird von der Konklusion auf die Prämisse zurückgeschlossen (aus `A → B` und B auf A). Das ist kein gültiger Schluss.
+:::

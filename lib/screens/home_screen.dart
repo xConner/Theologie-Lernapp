@@ -17,6 +17,7 @@ import 'prayers_screen.dart';
 import 'memorization/memorization_home_screen.dart';
 
 import 'latin/latin_home_screen.dart';
+import 'philosophy/philosophy_home_screen.dart';
 import 'study/study_organization_screen.dart';
 
 import 'settings_screen.dart';
@@ -474,6 +475,25 @@ class _HomeScreenState extends State<HomeScreen> {
                           onPressed: _openLatin,
                           icon: const Icon(Icons.translate_rounded),
                           label: const Text("Latein"),
+                        ),
+                      ),
+
+                      const SizedBox(height: 16),
+
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton.icon(
+                          key: const ValueKey("open-philosophy"),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => PhilosophyHomeScreen(uid: uid),
+                              ),
+                            );
+                          },
+                          icon: const Icon(Icons.school_outlined),
+                          label: const Text("Philosophie"),
                         ),
                       ),
 

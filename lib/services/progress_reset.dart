@@ -31,23 +31,34 @@ enum ProgressArea {
     label: "Perikopenkenntnisse",
     resetTitle: "Perikopenkenntnisse zurücksetzen",
     collection: LocalLearningStore.perikopen,
+    documents: [LocalLearningStore.pericopeBooks],
   ),
   memorization(
     label: "Texte auswendig lernen",
     resetTitle: "Fortschritt beim Auswendiglernen zurücksetzen",
     collection: LocalLearningStore.memorization,
+  ),
+  logic(
+    label: "Einführung in die Logik",
+    resetTitle: "Fortschritt in „Einführung in die Logik“ zurücksetzen",
+    collection: null,
+    documents: [LocalLearningStore.logicCourse],
   );
 
   final String label;
   final String resetTitle;
 
-  /// Die Karten-Collection des Bereichs.
-  final String collection;
+  /// Die Karten-Collection des Bereichs (null: keine Karten).
+  final String? collection;
+
+  /// Dokumente unter `quiz_settings`, die beim Zurücksetzen gelöscht werden.
+  final List<String> documents;
 
   const ProgressArea({
     required this.label,
     required this.resetTitle,
     required this.collection,
+    this.documents = const [],
   });
 
   /// Was beim Zurücksetzen gelöscht wird – für die Bestätigung.
@@ -66,6 +77,9 @@ enum ProgressArea {
       case ProgressArea.memorization:
         return "Die Lernstände aller Abschnitte unter „Texte auswendig "
             "lernen“.";
+      case ProgressArea.logic:
+        return "Welche Lektionen geöffnet oder als bearbeitet markiert sind "
+            "und die gespeicherten Antworten zu den Übungen.";
     }
   }
 }

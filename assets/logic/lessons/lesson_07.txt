@@ -1,0 +1,145 @@
+# Grenzen der Aussagenlogik
+
+Ein Schluss, an dem kaum jemand zweifelt:
+
+@text Alle Psalmen sind Gedichte.
+@text Psalm 23 ist ein Psalm.
+@text Also ist Psalm 23 ein Gedicht.
+
+Dass er stimmt, liegt nicht an Psalmen, Gedichten oder Psalm 23, sondern schon an seiner **Form**:
+
+@text Alle M sind G.
+@text a ist M.
+@text Also ist a auch G.
+
+Wovon die Rede ist, spielt keine Rolle; allein aus der Form ist die Gültigkeit abzulesen. Lässt sich das aussagenlogisch beweisen? Die einzige Formalisierung, die AL hergibt, ist `(p ∧ q) → r` mit p = »Alle Psalmen sind Gedichte«, q = »Psalm 23 ist ein Psalm« und r = »Psalm 23 ist ein Gedicht«. Das hilft nicht weiter, denn `(p ∧ q) → r` ist kontingent.
+
+Die entscheidende Struktur geht bei dieser Formalisierung verloren. Die Gültigkeit beruht auf dem Verhältnis von **Prädikaten** und **Individuen**, nicht auf dem Verhältnis von Sätzen oder Teilsätzen. Wir haben die Prädikate »ist ein Psalm« und »ist ein Gedicht« sowie das Individuum »Psalm 23«. »Alle Psalmen sind Gedichte« sagt, dass man vom Psalm-Sein auf das Gedicht-Sein schließen kann. »Psalm 23 ist ein Psalm« sagt, dass das Psalm-Sein auf Psalm 23 zutrifft. Mit dem ersten Satz folgt, dass auch das Gedicht-Sein auf Psalm 23 zutrifft. AL reicht nicht aus, um diese Zusammenhänge darzustellen.
+
+Ein weiteres Beispiel:
+
+@text Einige Theologen sind Reformatoren.
+@text Martin Luther ist ein Theologe.
+@text Also ist Martin Luther ein Reformator.
+
+Inhaltlich ist jeder einzelne Satz wahr. Aber stimmt der Schluss der Form nach? Setzt man »Thomas von Aquin« für »Martin Luther« ein, wird die Konklusion falsch, während die Prämissen wahr bleiben. Der Unterschied zum ersten Beispiel liegt im Verhältnis der Prädikate: *Alle* Psalmen sind Gedichte – deshalb kann man vom Psalm-Sein auf das Gedicht-Sein schließen. Aber nur *einige* Theologen sind Reformatoren – vom Theologe-Sein kann man nicht notwendig auf das Reformator-Sein schließen.
+
+Wir brauchen also eine formale Sprache, die mit Prädikaten und Individuen umgehen und verschiedene Verhältnisse zwischen Prädikaten ausdrücken kann.
+
+# Syntax der Prädikatenlogik
+
+Diese Sprache ist die **Prädikatenlogik PL**. Wieder legen wir zuerst die Syntax fest. Das Alphabet von PL umfasst:
+
+- F, G, H, … – die **Prädikate**,
+- a, b, c, … – die **Individuenkonstanten**, kurz **Individuen**,
+- x, y, z, … – die **Variablen**,
+- ∀ und ∃ – die **Quantoren**: der **Allquantor** und der **Existenzquantor**,
+- ¬, ∨, ∧, →, ↔ – die bekannten aussagenlogischen Operatoren,
+- ( und ) – die Klammerzeichen.
+
+Weil die Grammatik von PL vielschichtiger ist als die von AL, bauen wir sie schrittweise auf.
+
+::: definition Definition 7.1 (elementarer Satz)
+Ein Ausdruck α in PL (eine beliebige Zeichenfolge aus dem Alphabet von PL) heißt genau dann **elementarer Satz**, wenn er so gebaut ist:
+1. α = Pi: ein Prädikat P, gefolgt von einem Individuum i. P heißt dann ein **einstelliges Prädikat**. Man liest: »P trifft auf i zu«, »i ist P« oder »i fällt unter P«.
+2. α = Pij: ein Prädikat P, gefolgt von zwei Individuen i und j. P heißt dann ein **zweistelliges Prädikat** oder eine **Relation**. Man liest: »P trifft auf i und j zu« oder »i steht in der Relation P zu j«.
+:::
+
+Beispiele für elementare Sätze: `Fb`, `Hc`, `Gab`, `Fcb`.
+
+Semantisch versteht man einen elementaren Satz als Zuschreibung einer **Eigenschaft** an ein bestimmtes Objekt oder als Zusicherung, dass zwei bestimmte Objekte in einer bestimmten **Beziehung** zueinander stehen. Mit den Abkürzungen F = »ist ein Apostel« und a = »Petrus« drückt `Fa` aus: »Petrus ist ein Apostel«. Mit b = »Paulus« und der Relation G = »… kennt …« drückt `Gab` aus: »Petrus kennt Paulus«.
+
+Sätze von PL lassen sich aussagenlogisch verknüpfen. `(Fa ∧ Ha)` bedeutet etwa, dass auf a sowohl F als auch H zutrifft. Alles, was wir über die Aussagenlogik gelernt haben, gilt auf dieser Ebene auch in der Prädikatenlogik. Man sagt: PL ist eine **echte Obermenge** von AL – eine Obermenge, weil sich in PL alles ausdrücken lässt, was sich in AL ausdrücken lässt; eine *echte* Obermenge, weil sich in PL mehr ausdrücken lässt. Um diesen zusätzlichen Bereich zu erschließen, brauchen wir noch einige Zwischenschritte.
+
+::: definition Definition 7.2 (Satzfunktion, freie Variable)
+Enthält ein Ausdruck A in PL die Variable x und wird A zu einem Satz, sobald man x überall durch ein Individuum a ersetzt, dann heißt A eine **Satzfunktion**; x kommt in A **frei** vor. Um zu zeigen, dass A von der Variablen x abhängt, schreiben wir auch Ax. Mit Aa bezeichnen wir den Satz, der entsteht, wenn man in Ax alle Vorkommen von x durch a ersetzt.
+:::
+
+Das einfachste Beispiel ist `Gx`. Ersetzt man x durch b, erhält man den elementaren Satz `Gb`.
+
+Eine Satzfunktion ist **kein Satz**. Das sieht man daran, dass wir nicht wissen, was sie aussagt. `Gb` sagt: »Auf das Individuum b trifft G zu.« Bei `Gx` wissen wir nicht, was x ist – also auch nicht, was der Ausdruck sagen soll. Erst wenn wir für x ein Individuum einsetzen, entsteht ein Satz.
+
+::: definition Definition 7.3 (quantifizierter Satz)
+Ist Ax eine Satzfunktion mit x als einziger freier Variable, so heißt ∀xAx ein **allquantifizierter Satz** und ∃xAx ein **existenzquantifizierter Satz**. x heißt die an den Quantor **gebundene** Variable, Ax der **Bereich** des Quantors. Im Bereich des Quantors kommt x nicht mehr frei, sondern gebunden vor. ∀xAx liest man: »Für alle x gilt A.« ∃xAx liest man: »Es gibt (mindestens) ein x, für das A gilt.«
+:::
+
+Demnach ist `∀xGx` ein Satz: x ist an den Quantor gebunden und kommt nicht mehr frei vor. Im Satz `∀x(Gx ∧ ∃yHyx)` sind alle Variablen gebunden: x an den Allquantor, y an den Existenzquantor. Auch das x in `Hyx` ist an den Allquantor gebunden, denn der Existenzquantor steht im Bereich des Allquantors.
+
+Anders bei `∀xGx ∧ ∃yHyx`: Hier steht der Existenzquantor **nicht** im Bereich des Allquantors (der reicht nur über `Gx`), und an den Existenzquantor ist nur y gebunden. Das x in `Hyx` kommt also frei vor – der Ausdruck ist eine Satzfunktion, kein Satz.
+
+@tree ∀x(Gx ∧ ∃yHyx)
+
+Damit können wir die Syntax von PL vollständig festlegen:
+
+::: definition Definition 7.4 (Satz in PL)
+Ein Ausdruck α in PL ist genau dann ein **Satz**, wenn einer dieser drei Fälle vorliegt:
+1. α ist ein elementarer Satz.
+2. α = ∀xAx oder α = ∃xAx, wobei Ax eine Satzfunktion mit x als einziger freier Variable ist.
+3. α hat mit Sätzen A, B von PL eine der Formen ¬A, (A ∧ B), (A ∨ B), (A → B), (A ↔ B).
+:::
+
+Auch in PL gilt die Klammerersparnisregel aus der Aussagenlogik.
+
+# Formalisierung von Allaussagen
+
+Zurück zum Ausgangspunkt:
+
+@text (1) Alle Psalmen sind Gedichte.
+@text (2) Psalm 23 ist ein Psalm.
+@text (3) Also ist Psalm 23 ein Gedicht.
+
+Jetzt können wir das prädikatenlogisch formalisieren. Wir weisen Prädikaten und Individuen Zeichen zu: F für »ist ein Psalm«, G für »ist ein Gedicht«, a für »Psalm 23«. Die Zeilen 2 und 3 lauten dann einfach `Fa` und `Ga`.
+
+Zeile 1 ist eine **Allaussage**: eine Aussage über alle Individuen einer bestimmten Menge, hier über alle Psalmen. Für solche Aussagen haben wir den Allquantor. `∀xGx` liest man »für jedes x: Gx«, knapper »jedes x ist G«.
+
+Was ist x, und was sind »alle x«? x ist eine Variable, die der Reihe nach jedes Objekt einer bestimmten **Diskursmenge** vertritt. Die Diskursmenge – auch **Diskursuniversum** oder **Redebereich** – ist die Menge der Objekte, über die die Quantoren etwas aussagen, über die wir also reden. Wer einen Satz der Alltagssprache prädikatenlogisch formalisiert, muss deshalb nicht nur Prädikaten und Individuen Zeichen zuweisen, sondern auch eine Diskursmenge angeben. Ist man unsicher, wie man sie wählen soll, bleibt immer die **unbeschränkte Quantifizierung**: Die Diskursmenge umfasst alle denkbaren Objekte, wir legen keinen besonderen Bereich fest.
+
+Naheliegend wäre hier die Menge aller Psalmen als Diskursmenge. Das ist aber nicht geschickt, weil es eine Struktur der Aussage zum Verschwinden bringt – dazu gleich. Zunächst die Formalisierung mit unbeschränkter Quantifizierung. `∀xGx` würde sagen, dass jedes denkbare Objekt ein Gedicht ist – das meinen wir nicht. Wir müssen den Bereich, über den der Allquantor spricht, nachträglich **einschränken**. Das gelingt mit einer Implikation:
+
+@formula ∀x(Fx → Gx)
+
+Für jedes denkbare Objekt x gilt: Ist x ein Psalm, dann ist x ein Gedicht. Genau das bedeutet Satz (1). Allgemein: Will man über eine Teilmenge der Diskursmenge quantifizieren, quantifiziert man über eine Implikation, deren Prämisse genau für die Objekte der gewünschten Teilmenge wahr ist. Die ganze Formalisierung, mit den Sätzen (1) und (2) als Voraussetzungen und (3) als Konklusion:
+
+@rule | ∀x(Fx → Gx) ; Fa | Ga
+
+Was geschieht, wenn wir die Diskursmenge von vornherein auf die Psalmen beschränken? Dann kann Satz (1) als `∀xGx` geschrieben werden; die anderen beiden bleiben gleich:
+
+@rule | ∀xGx ; Fa | Ga
+
+Wie man prädikatenlogische Beweise führt, lernen wir in der nächsten Lektion. Intuitiv ist aber klar, dass die Prämisse `Fa` hier überflüssig ist. Wir könnten auch schreiben:
+
+@rule | ∀xGx | Ga
+
+Die Individuen stammen ja selbst aus der Diskursmenge. Gilt G für alle ihre Objekte, dann insbesondere für a. Diese Formalisierung ist nicht falsch. Sie lässt aber einen Aspekt der inneren logischen Struktur des ursprünglichen Satzes verschwinden; man kann sie deshalb für weniger gelungen halten. Vor allem zeigt sich: Eine Formalisierung kann nie in dem Sinn richtig oder falsch sein, wie ein formaler Beweis richtig oder falsch ist. **Formalisieren ist immer Interpretation und Auslegung.**
+
+# Formalisierung von Existenzaussagen
+
+Nun zum anderen Quantor:
+
+@text (1) Alle Säugetiere sind Wirbeltiere.
+@text (2) Einige Säugetiere sind Wale.
+@text (3) Also sind alle Wale Wirbeltiere.
+
+Dieser Schluss enthält keine Individuen, sondern nur Beziehungen zwischen Prädikaten. Sei F »ist ein Säugetier«, G »ist ein Wirbeltier«, H »ist ein Wal«. Mit unbeschränkter Quantifizierung, ohne festgelegtes Diskursuniversum, erhalten wir:
+
+@rule | ∀x(Fx → Gx) ; ∃x(Fx ∧ Hx) | ∀x(Hx → Gx)
+
+Satz (2), »Einige Säugetiere sind Wale«, wird mit dem Existenzquantor formalisiert. Damit wird behauptet, dass die Aussage auf **wenigstens ein** Objekt des Diskursuniversums zutrifft – hier: mindestens ein Objekt, das ein Säugetier und ein Wal ist.
+
+::: explanation Warum hier ∧ und nicht →?
+Bei Allaussagen schränkt man den Bereich mit einer Implikation ein: ∀x(Fx → Gx). Bei Existenzaussagen verwendet man dagegen eine Konjunktion: ∃x(Fx ∧ Hx) – »es gibt etwas, das F ist **und** H ist«. Die Formel ∃x(Fx → Hx) wäre schon dann wahr, wenn es irgendein Objekt gibt, das kein Säugetier ist (die Implikation ist bei falscher Prämisse wahr). Sie gibt deshalb »Einige F sind H« nicht wieder.
+:::
+
+Stimmt dieser Schluss? Alle Wale sind tatsächlich Wirbeltiere. Aber folgt das notwendig aus den Prämissen, allein aus der Form? Wenn ja, dann müsste der Schluss auch mit anderen Bedeutungen der Prädikate gelten. Setzen wir für F »ist durch 4 teilbar«, für G »ist gerade« und für H »ist durch 3 teilbar« (Diskursmenge: die natürlichen Zahlen):
+
+@text (1) Alle durch 4 teilbaren Zahlen sind gerade.
+@text (2) Einige durch 4 teilbare Zahlen sind durch 3 teilbar.
+@text (3) Also sind alle durch 3 teilbaren Zahlen gerade.
+
+Die Prämissen sind wahr (die 12 ist durch 4 und durch 3 teilbar), die Konklusion offensichtlich falsch – 3 ist durch 3 teilbar und ungerade. Der Form nach ist der Schluss also nicht notwendig richtig, obwohl er im ersten Beispiel eine wahre Konklusion hatte.
+
+::: explanation Typische Fehler in dieser Lektion
+- Eine Satzfunktion wie `Gx` wird für einen Satz gehalten. Ein Satz enthält keine freien Variablen.
+- Der Bereich eines Quantors wird zu weit gelesen: In `∀xGx ∧ Hx` reicht der Allquantor nur über `Gx`; das x in `Hx` ist frei.
+- Existenzaussagen werden mit → statt mit ∧ formalisiert.
+:::

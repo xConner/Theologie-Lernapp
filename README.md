@@ -23,6 +23,7 @@ Der Schwerpunkt liegt auf aktivem Lernen: Die Trainer fragen ab, merken sich dei
   - **Bücher systematisch lernen** – ein Buch abschnittsweise nach einer Gliederung lernen, mit Lernplan, Kapiteln, Reihenfolge-Übungen, Wiederholungsübersicht und Prüfung; einzelne Perikopen lassen sich persönlich versgenau festlegen ([Details](docs/pericope-books.md)).
 - **Altgriechisch** – Vokabeltrainer, Grammatiktrainer (Formen bestimmen), Vokabel- und Grammatikübersichten, griechische Bildschirmtastatur.
 - **Latein** – Vokabeltrainer mit Zusatzformen und Genus sowie Vokabelübersicht.
+- **Philosophie** – *Einführung in die Logik*: Aussagen- und Prädikatenlogik in neun Lektionen mit Lehrtexten, Wahrheitstafeln, Syntaxbäumen, automatisch geprüften Übungen und einem Beweisprüfer für formale Beweise ([Details](docs/logic-course.md)).
 - **Texte auswendig lernen** – Gebete, liturgische Texte und Bekenntnisse abschnittsweise lernen: vom Mitlesen über Lücken und Anfangsbuchstaben bis zum freien Aufsagen oder Schreiben.
 
 **Lesen und Nachschlagen**

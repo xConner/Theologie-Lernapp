@@ -1,0 +1,35 @@
+# Worum es in diesem Kurs geht
+
+Wissenschaftliches Arbeiten – und philosophisches Arbeiten ist wissenschaftliches Arbeiten – braucht feste Wege des Vorgehens. Eine Untersuchung soll nicht nur berichten, was jemandem eingefallen ist, sondern anderen zeigen, wie sie zu denselben Ergebnissen kommen können. Dafür gibt es Methoden.
+
+In diesem Kurs geht es nicht um eine bestimmte Methode einer bestimmten Disziplin, sondern um methodisches Vorgehen überhaupt. Die einzelnen Inhalte – Wahrheitstafeln, Beweisregeln, Quantoren – werden im weiteren Studium nicht ständig gebraucht. Die *Form* des Arbeitens, die man hier einübt, aber sehr wohl: genau lesen, Regeln exakt anwenden, jeden Schritt begründen.
+
+Die Aufgaben sind anspruchsvoll, aber nicht in dem Sinne kompliziert, dass man besonders scharfsinnig sein müsste. Fast alle Aufgaben – auch die der Klausur – könnte ein Computer lösen, und zwar ohne viel Rechenaufwand. Sein Vorteil liegt hier gerade darin, dass er nicht „nachdenkt“, sondern Regeln befolgt. Genau das wird geübt: Regeln so lange anzuwenden, bis sie selbstverständlich werden.
+
+::: example Ein Vergleich
+Wer eine Sprache lernt, buchstabiert anfangs jede Endung bewusst: Welcher Fall? Welche Endung? Passt das Verb? So stockt man von Wort zu Wort. Erst durch viele Wiederholungen werden die Formen zur Gewohnheit – und erst dann kann man sich auf das konzentrieren, was man eigentlich sagen will. Die Freiheit, wirklich zu sprechen, entsteht dadurch, dass man die Kontrolle über jede einzelne Endung abgibt, weil sie „von selbst“ richtig kommt.
+:::
+
+Mit dem Denken verhält es sich ähnlich: Wer selbständig und frei denken will, beginnt damit, sich bewährten Formen des Denkens zu unterwerfen und sie einzuüben. Darin liegt eine Paradoxie der Freiheit: Freiheit setzt einen festen Halt voraus, an dem man sich orientieren kann.
+
+# Aufbau des Lernbereichs
+
+Der Kurs ist in neun Lektionen gegliedert, die aufeinander aufbauen:
+
+1. Syntax der Aussagenlogik
+2. Semantik der Aussagenlogik
+3. Logische Folgerungen
+4. Aussagenlogische Beweise I
+5. Aussagenlogische Beweise II
+6. Aussagenlogische Beweise III
+7. Prädikatenlogik I
+8. Prädikatenlogik II
+9. Prädikatenlogik III
+
+Dazu kommt eine Übungsklausur mit Beweisaufgaben.
+
+Jede Lektion hat einen **Lehrtext**, **Kursübungen** und – wo sich das sicher prüfen lässt – **erzeugte Übungen**. Die Lehrtexte sind für diesen Lernbereich eigens formuliert und folgen inhaltlich, in Reihenfolge, Begriffen und Schreibweise dem Kurs. Kursübungen entsprechen den Übungen des Kurses, sind aber abgewandelt. Erläuterungen, Hinweise und Zusatzübungen sind als solche gekennzeichnet.
+
+::: explanation Was der Fortschritt bedeutet
+Die App merkt sich, welche Lektionen du geöffnet oder als bearbeitet markiert hast und wie deine letzten Antworten ausgefallen sind. Das ist eine Orientierung, kein Nachweis, dass ein Thema sicher beherrscht wird.
+:::

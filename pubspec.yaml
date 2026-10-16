@@ -92,6 +92,10 @@ flutter:
       # Studiumsorganisation: Verweise auf offizielle Studienunterlagen
       # (nur Metadaten und Links; geprüft von tool/study_documents).
       - assets/study/documents.json
+      # Philosophie – Einführung in die Logik: Lektionen, Übungen und
+      # Übungsklausur (siehe docs/logic-course.md).
+      - assets/logic/
+      - assets/logic/lessons/
       # Klausurersteller: Textkorpora mit Bestimmungen und Suchindex, erzeugt
       # von tool/greek_exam_corpus (siehe docs/greek-exam-sources.md).
       - assets/greek_corpus/corpora.json
@@ -141,6 +145,11 @@ flutter:
     - family: Tinos
       fonts:
         - asset: assets/fonts/Tinos-Regular.ttf
+    # Logische Zeichen (¬ ∧ ∨ → ↔ ∀ ∃ ⊢ ⊨): Teilmenge von DejaVu Sans,
+    # Lizenz in assets/fonts/LogicSymbols-LICENSE.txt.
+    - family: LogicSymbols
+      fonts:
+        - asset: assets/fonts/LogicSymbols.ttf
 
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a

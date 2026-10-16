@@ -430,3 +430,9 @@ Grundsätze:
   „Studienunterlagen-Links“ abwarten (siehe `docs/study-documents.md`).
 * Eine neue Katalogquelle (später HISinOne) implementiert serverseitig
   `CatalogSource`; die App bleibt unverändert.
+
+## Einführung in die Logik (Philosophie)
+
+Inhalte unter `assets/logic/`, Logik-Engine (Parser, Semantik,
+Beweisprüfer, Aufgabenerzeugung) unter `lib/services/logic/`, Screens unter
+`lib/screens/philosophy/`. Details: [logic-course.md](logic-course.md).

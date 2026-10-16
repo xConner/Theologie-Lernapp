@@ -1,0 +1,151 @@
+# Argumente für den Allquantor
+
+Auch die Quantoren bekommen je ein Argument, das sie einführt, und eines, das sie beseitigt. Die **Beseitigung** oder Auflösung des **Allquantors** ist einfach:
+
+@rule -∀ | X ⊢ ∀xAx | X ⊢ Ai
+
+Gilt eine Aussage A für alle x, dann gilt sie insbesondere, wenn wir für x irgendein Individuum i einsetzen. Das sagt der Allquantor ja: »Es gilt für alle …« – also auch für eines. Steht also in einem Beweis ein allquantifizierter Satz, darf man den Quantor streichen, indem wir für **alle** Vorkommen der gebundenen Variablen **dasselbe** beliebige Individuum einsetzen.
+
+Die **Einführung** des Allquantors ist anspruchsvoller. Es geht darum, eine Aussage über ein bestimmtes Individuum zu einer Aussage über alle Individuen zu verallgemeinern, etwa so:
+
+@rule | Ai | ∀xAx
+
+Wir haben ein Individuum i, auf das A zutrifft, und möchten schließen, dass A auf alle Individuen der Diskursmenge zutrifft. Wann sind wir dazu berechtigt? Oft ist die Diskursmenge unübersichtlich groß – »alle Menschen« – oder sogar unendlich – »alle natürlichen Zahlen«. Wie kann die Eigenschaft eines einzelnen Individuums einen Schluss auf alle erlauben?
+
+## Ein allgemeines Individuum
+
+Eine Veranschaulichung: Vor uns steht ein Korb mit Äpfeln und Birnen, alle grün. Verdeckt wird ein beliebiges Stück herausgenommen und beiseitegelegt. Wir wissen nicht, welches; nennen wir es a. Nun fragt man uns: Ist a grün? Ist a rot? Ist a ein Apfel? Welche Fragen können wir beantworten?
+
+Alle Stücke im Korb sind grün – also ist auch a grün. Und weil es grün ist, ist es nicht rot. Ob a ein Apfel ist, wissen wir aber nicht; dafür fehlen Informationen. Die Fragen nach der Farbe können wir beantworten, weil a aus einer Menge stammt, deren Elemente alle grün sind. Weil manche Stücke Äpfel und manche Birnen sind, wissen wir nichts über die Sorte.
+
+Da a beliebig aus der Menge gewählt wurde und wir sonst nichts über a wissen, nennen wir a **allgemein** in Bezug auf diese Menge – ein typischer Stellvertreter für die Stücke im Korb. Was wir über a wissen, wissen wir allein deshalb, weil a zu dieser Menge gehört und wir über die Menge etwas wissen. Über das, was a als dieses eine Stück auszeichnet, wissen wir gerade nichts. Dann könnte man a aber durch jedes andere Stück aus dem Korb ersetzen, ohne dass sich an der Gültigkeit unserer Sätze über a etwas ändert. Und dann können wir den letzten Schritt gehen: Alles, was wir über a sagen können, können wir allgemein über alle Stücke im Korb sagen.
+
+Damit ist die Frage beantwortet: Von einem einzelnen Individuum darf man genau dann auf die Allgemeinheit schließen, wenn es ein **beliebig gewähltes, allgemeines Individuum** ist, über das keine besonderen Annahmen gemacht wurden – über das wir also nichts wissen als das, was allgemein für die Menge gilt.
+
+Man könnte einwenden: Was ist damit gewonnen? Über ein allgemeines Individuum weiß ich nur, was für alle gilt – und genau das kann ich dann wieder verallgemeinern. Nichts Neues also? Ein Beispiel: Diesmal liegen im Korb nur grüne Äpfel derselben Sorte. Ein Rezept verlangt genau solche Äpfel. Wählen wir ein beliebiges Stück a und stellen fest, dass a sich für das Rezept eignet, dann wissen wir: **Alle** Äpfel aus dem Korb eignen sich. An einem einzelnen, beliebig gewählten Stück haben wir aus einer gemeinsamen Eigenschaft eine weitere erschlossen – und dürfen sie deshalb allen Stücken zuschreiben. So argumentiert man in der Prädikatenlogik häufig.
+
+Formal drücken wir das so aus:
+
+@rule +∀ | X[i̸] ⊢ Ai | X ⊢ ∀xAx
+
+In eckigen Klammern hinter einer Satzmenge oder einem Satz machen wir Angaben über Individuen, die darin vorkommen. Die Angaben sind nicht erschöpfend; es können andere Individuen vorkommen, die für das Argument keine Rolle spielen. **X[i̸]** bedeutet: In der Satzmenge X kommt das Individuum i **nicht** vor. Kommt i in den Bedingungen von Ai nicht vor, dann ist i in Ai allgemein, denn es kann nicht mit Annahmen belastet sein – sonst käme es irgendwo in X vor. Und umgekehrt: Ist i nicht durch Annahmen belastet, kommt es auch nicht in X vor.
+
+::: explanation Genau gelesen
+Beim Übergang von Ai zu ∀xAx wird i überall durch die Variable ersetzt: Ai ist der Satz, der aus Ax entsteht, wenn man alle Vorkommen von x durch i ersetzt. In ∀xAx selbst kommt i also nicht mehr vor. Der Prüfer dieser App verlangt das ausdrücklich.
+:::
+
+# Argumente für den Existenzquantor
+
+Dieselbe Schreibweise verwenden wir für die **Beseitigung des Existenzquantors**. Wieder zuerst eine Vorüberlegung. In einer Kiste mit der Aufschrift »alle« liegen mehrere uns unbekannte Gegenstände. Uns wird zweierlei zugesichert: Mindestens einer davon ist ein Buch. Und mindestens einer ist blau.
+
+Mit diesen Zusicherungen können wir Anweisungen geben: »Nimm den Gegenstand, der ein Buch ist.« Daraufhin wird verdeckt ein Gegenstand in eine zweite Kiste mit der Aufschrift »Bücher« gelegt. Wir wissen nicht, welcher es ist – nur, dass es ein Buch ist. Nicht mehr und nicht weniger. Dann eine weitere Anweisung: »Nimm den Gegenstand, der blau ist.« Daraufhin wird ein Gegenstand aus der Kiste »alle« *oder* aus der Kiste »Bücher« – wir wissen nicht, aus welcher – in eine Kiste »blau« gelegt. Es ist nicht ausgeschlossen, dass es ein und derselbe Gegenstand ist, der blau ist und ein Buch. Aber wir wissen es nicht. Wir wissen auch nicht, dass es zwei verschiedene sind. Wenn wir uns nur an das halten, was wir sicher wissen, dürfen wir die beiden zugesicherten Gegenstände in Gedanken **nicht zusammenlegen**, sondern müssen sie auseinanderhalten.
+
+Genau das tun wir, wenn wir sagen, ein Individuum sei **mit einer Annahme versehen**: Wir haben einen Gegenstand ausgewählt unter der Annahme, dass er ein Buch ist. Weil uns die Existenz mindestens eines Buches zugesichert ist, dürfen wir von dieser Annahme aus Schlüsse ziehen und die Annahme danach wieder beseitigen. Ebenso mit dem blauen Gegenstand. Eine Zusicherung, dass es einen Gegenstand gibt, der zugleich ein Buch und blau ist, haben wir aber nicht. Betrachten wir ein Individuum unter beiden Annahmen zugleich, verlassen wir den Boden dessen, was wir wissen können – und das versperrt später den Weg, die Annahmen wieder zu beseitigen.
+
+@rule -∃ | X[i̸] ⊢ ∃xAx ; Y[i̸], Ai ⊢ B[i̸] | X, Y, ∃xAx ⊢ B
+
+»Gibt es mindestens ein Individuum i, über das A ausgesagt werden kann, und können wir aus Ai einen Satz B herleiten, in dem i nicht mehr vorkommt, dann können wir B auch ohne die Annahme Ai herleiten.« In der Argumentspalte nennt man zuerst die Zeile mit ∃xAx, dann die Annahme Ai, dann die Zeile mit B, z. B. -∃(α, β, 5).
+
+Die **Einführung des Existenzquantors** ist wieder einfach:
+
+@rule +∃ | X ⊢ Ai | X ⊢ ∃xAx
+
+Haben wir ein Individuum i und können Ai herleiten, dann dürfen wir ∃xAx herleiten – denn i selbst belegt, dass es ein solches Individuum gibt. Dabei ist gleichgültig, ob i allgemein oder besonders ist.
+
+# Beweise
+
+Einige erste Beweise. Zu jedem Theorem eine Lesart mit dem Korb von oben (G = »ist grün«, H = »ist reif«).
+
+@text ∀x(Gx ∧ Hx) ⊢ ∀xGx ∧ ∀xHx
+
+»Ist jedes Stück im Korb grün und reif, dann sind alle Stücke grün, und alle Stücke sind reif.«
+
+@proof l8 | ∀x(Gx ∧ Hx) ⊢ ∀xGx ∧ ∀xHx
+α | ∀x(Gx ∧ Hx) | A[V] | α
+1 | Ga ∧ Ha | -∀(α) | α
+2 | Ga | -K(1) | α
+3 | ∀xGx | +∀(2) | α
+4 | Ha | -K(1) | α
+5 | ∀xHx | +∀(4) | α
+6 | ∀xGx ∧ ∀xHx | +K(3, 5) | α
+@end
+
+Das +∀ in Zeile 3 ist erlaubt, weil a in α nicht vorkommt: a ist allgemein.
+
+@text ∀xGx ∧ ∀xHx ⊢ ∀x(Gx ∧ Hx)
+
+»Sind alle Stücke grün und sind alle Stücke reif, dann ist jedes Stück grün und reif.«
+
+@proof l8 | ∀xGx ∧ ∀xHx ⊢ ∀x(Gx ∧ Hx)
+α | ∀xGx ∧ ∀xHx | A[V] | α
+1 | ∀xGx | -K(α) | α
+2 | Ga | -∀(1) | α
+3 | ∀xHx | -K(α) | α
+4 | Ha | -∀(3) | α
+5 | Ga ∧ Ha | +K(2, 4) | α
+6 | ∀x(Gx ∧ Hx) | +∀(5) | α
+@end
+
+@text ∀x(Gx → Hx) ⊢ ∀xGx → ∀xHx
+
+»Gilt für jedes einzelne Stück: Ist es grün, dann ist es reif – dann gilt insbesondere: Sind alle Stücke grün, dann sind alle reif.«
+
+@proof l8 | ∀x(Gx → Hx) ⊢ ∀xGx → ∀xHx
+α | ∀x(Gx → Hx) | A[V] | α
+1 | Ga → Ha | -∀(α) | α
+β | ∀xGx | A[+I] | β
+2 | Ga | -∀(β) | β
+3 | Ha | -I(1, 2) | α, β
+4 | ∀xHx | +∀(3) | α, β
+5 | ∀xGx → ∀xHx | +I(β, 4) | α
+@end
+
+@text ∀xGx → ∀xHx ⊢ ∀x(Gx → Hx)
+
+»Sind alle Stücke grün, dann sind alle reif. Gilt dann für jedes einzelne Stück: Ist es grün, dann ist es reif?« Nein. Die Voraussetzung ist schon erfüllt, sobald ein einziges Stück nicht grün ist – dann ist ihre Prämisse falsch. Allein daraus lässt sich über die einzelnen Stücke nichts schließen. Woran scheitert der Beweis?
+
+@proof-partial l8 | ∀xGx → ∀xHx ⊢ ∀x(Gx → Hx)
+α | ∀xGx → ∀xHx | A[V] | α
+β | Ga | A[+I] | β
+@end
+
+Wir nehmen Ga an, um `Ga → Ha` herzuleiten und dann ∀x(Gx → Hx) einzuführen. Aber wie weiter? Wir müssten Ga verwenden, um die Implikation der Voraussetzung aufzulösen und an Ha zu kommen. Die Implikation steht aber zwischen zwei Allquantoren: Wir bräuchten ∀xGx. Ga dürfen wir aber nicht allquantifizieren, weil a in einer Annahme (β) vorkommt.
+
+@text ∃x(Gx ∧ Hx) ⊢ ∃xGx ∧ ∃xHx
+
+»Gibt es ein Stück, das grün und reif ist, dann gibt es ein grünes Stück, und es gibt ein reifes Stück.«
+
+@proof l8 | ∃x(Gx ∧ Hx) ⊢ ∃xGx ∧ ∃xHx
+α | ∃x(Gx ∧ Hx) | A[V] | α
+β | Ga ∧ Ha | A[-∃] | β
+1 | Ga | -K(β) | β
+2 | ∃xGx | +∃(1) | β
+3 | Ha | -K(β) | β
+4 | ∃xHx | +∃(3) | β
+5 | ∃xGx ∧ ∃xHx | +K(2, 4) | β
+6 | ∃xGx ∧ ∃xHx | -∃(α, β, 5) | α
+@end
+
+Für -∃ in Zeile 6 sind die Bedingungen erfüllt: a kommt weder in α noch in Zeile 5 vor, und Zeile 5 hängt außer von β von keiner Annahme ab.
+
+@text ∃xGx ∧ ∃xHx ⊢ ∃x(Gx ∧ Hx)
+
+»Gibt es ein grünes Stück und gibt es ein reifes Stück, dann gibt es ein Stück, das grün und reif ist.« Das stimmt nicht: Zugesichert ist nur, dass es ein grünes und ein reifes Stück gibt – nicht, dass ein einzelnes beides ist. Woran scheitert der Beweis?
+
+@proof-partial l8 | ∃xGx ∧ ∃xHx ⊢ ∃x(Gx ∧ Hx)
+α | ∃xGx ∧ ∃xHx | A[V] | α
+1 | ∃xGx | -K(α) | α
+2 | ∃xHx | -K(α) | α
+β | Ga | A[-∃] | β
+γ | Ha | A[-∃] | γ
+3 | Ga ∧ Ha | +K(β, γ) | β, γ
+4 | ∃x(Gx ∧ Hx) | +∃(3) | β, γ
+@end
+
+Hier ist Schluss. Zeile 4 hängt von den beiden Annahmen β und γ ab. Wollten wir eine davon mit -∃ beseitigen – über den Existenzquantor aus Zeile 1 oder 2 –, so ginge das nicht: In beiden Fällen käme a in der jeweils anderen Annahme vor, von der Zeile 4 abhängt. Das ist genau die Situation aus der Vorüberlegung: Wir haben ein Individuum unter zwei Annahmen zugleich betrachtet.
+
+::: explanation Typische Fehler in dieser Lektion
+- +∀ auf ein Individuum, das in einer Annahme vorkommt, von der die Zeile abhängt.
+- -∃, obwohl das Individuum noch in der Konklusion B oder in einer weiteren Annahme vorkommt.
+- Bei -∀ werden für dieselbe gebundene Variable verschiedene Individuen eingesetzt.
+:::

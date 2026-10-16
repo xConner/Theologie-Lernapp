@@ -1,0 +1,116 @@
+# Die Argumente neu formuliert
+
+Ein guter Anlass, über Nutzen und Probleme des Formalismus nachzudenken. In Lektion 5 haben wir +I und RAA kennengelernt, deren Formulierung umständlich wirkt – vor allem RAA:
+
+@rule RAA | X, A ⊢ B ; Y, A ⊢ ¬B | X, Y ⊢ ¬A
+
+Man kann es aber auch umgekehrt sehen: Die früheren Formulierungen der Argumente enthielten Vereinfachungen. Nehmen wir eines der einfachsten:
+
+@rule +K | A ; B | A ∧ B
+
+Erzählt diese Darstellung die ganze Wahrheit? Betrachten wir einen einfachen Beweis für `q ∧ r, s ∧ p ⊢ r ∧ p`:
+
+@proof l5 | q ∧ r, s ∧ p ⊢ r ∧ p
+α | q ∧ r | A[V] | α
+β | s ∧ p | A[V] | β
+1 | r | -K(α) | α
+2 | p | -K(β) | β
+3 | r ∧ p | +K(1, 2) | α, β
+@end
+
+In Zeile 3 steht als Satzmenge α, β. Bisher hieß es nur: Eine Zeile „erbt“ die Abhängigkeiten der Zeilen, auf die sie sich bezieht. Zeile 1 hängt von α ab, Zeile 2 von β, und Zeile 3 bezieht sich auf beide.
+
+Das ist leicht zu befolgen. Wir wollen aber genauer sehen, was hier passiert. Das Ergebnis von Zeile 1 könnten wir als α ⊢ r festhalten: r lässt sich aus α beweisen. Für Zeile 2 entsprechend β ⊢ p. Diese beiden Aussagen sind völlig unabhängig voneinander – r ließe sich aus α beweisen, auch wenn wir von β und p nichts wüssten, und umgekehrt. In Zeile 3 wird dann, zunächst in konkreten Sätzen, so geschlossen:
+
+@rule | α ⊢ r ; β ⊢ p | α, β ⊢ r ∧ p
+
+»Aus α folgt r, aus β folgt p. Also folgt aus α, β der Satz `r ∧ p`.« Verallgemeinert mit Satzmengen X, Y und Sätzen A, B erhalten wir eine vollständigere Formulierung von +K:
+
+@rule +K | X ⊢ A ; Y ⊢ B | X, Y ⊢ A ∧ B
+
+»Lässt sich aus X der Satz A und aus Y der Satz B herleiten, dann aus der Vereinigung X, Y der Satz `A ∧ B`.« So formalisiert das Argument selbst, was gemeint war, als wir sagten, die Abhängigkeiten vererben sich.
+
+Alle bisherigen Argumente lassen sich so ausdrücken:
+
+@rule -K | X ⊢ A ∧ B | X ⊢ A
+
+Bei -K gewinnt man kaum Information: Lässt sich `A ∧ B` aus X herleiten, dann auch A. Es gibt ja nur eine Prämisse. Anders hier:
+
+@rule -A | X ⊢ A ∨ B ; Y ⊢ ¬B | X, Y ⊢ A
+
+Aus `A ∨ B` allein folgt A nicht; wir brauchen auch ¬B. Vielleicht lässt sich ¬B ebenfalls aus X folgern – dann genügt X, das ist der Fall X = Y. Vielleicht gibt X das aber nicht her, und wir brauchen weitere Voraussetzungen für ¬B. Dann hängt das Ergebnis A auch von diesen ab. Deshalb steht in der Konklusion X, Y ⊢ A und nicht nur X ⊢ A.
+
+Praktisch ändert sich durch diese Schreibweise nichts. Wer die Argumente bisher richtig eingesetzt hat, macht es genauso weiter. Man kann mit Recht sagen, die neue Schreibweise mache die Dinge nur komplizierter. Aber sie macht etwas **explizit**, das vorher nur implizit war – und Implizites explizit zu machen, ist zu einem großen Teil das Geschäft der Philosophie. Selbst wer am Ende den Formalismus hier für überflüssig hält, wäre ohne die Auseinandersetzung mit ihm nie zu dieser Einsicht gekommen. Wittgenstein vergleicht am Ende seines *Tractatus logico-philosophicus* seine eigenen Sätze mit einer Leiter, die man wegwerfen muss, nachdem man auf ihr hinaufgestiegen ist.
+
+# Übersicht über die Argumente der Aussagenlogik
+
+Damit ist die Aussagenlogik abgeschlossen. Wir stellen alle Argumente systematisch zusammen. Zunächst die **Grundargumente**, die wir axiomatisch als gültig setzen, weil uns einfache semantische Überlegungen von ihrer Gültigkeit überzeugen.
+
+::: rules Argumente 6.1
+@rule +K | X ⊢ A ; Y ⊢ B | X, Y ⊢ A ∧ B
+@rule -K | X ⊢ A ∧ B | X ⊢ A
+@rule -K | X ⊢ A ∧ B | X ⊢ B
+@rule +A | X ⊢ ¬A → B | X ⊢ A ∨ B
+@rule -A | X ⊢ A ∨ B ; Y ⊢ ¬A | X, Y ⊢ B
+@rule -A | X ⊢ A ∨ B ; Y ⊢ ¬B | X, Y ⊢ A
+@rule +I | X, A ⊢ B | X ⊢ A → B
+@rule -I | X ⊢ A → B ; Y ⊢ A | X, Y ⊢ B
+@rule +Ä | X ⊢ A → B ; Y ⊢ B → A | X, Y ⊢ A ↔ B
+@rule -Ä | X ⊢ A ↔ B | X ⊢ A → B
+@rule -Ä | X ⊢ A ↔ B | X ⊢ B → A
+@rule RAA | X, A ⊢ B ; Y, A ⊢ ¬B | X, Y ⊢ ¬A
+@rule T | | X, A ⊢ A
+:::
+
+Die Argumente zur doppelten Negation formulieren wir offener:
+
+::: rules Argumente 6.2
+Doppelte Negationen dürfen überall – vor ganzen Sätzen wie vor Teilsätzen – entfernt oder ergänzt werden. Das kann wie gewohnt ausdrücklich in einem eigenen Schritt mit +DN oder -DN geschehen. Es darf aber auch **stillschweigend** geschehen: wenn für die Anwendung eines anderen Arguments an irgendeiner Stelle eines Prämissen-Satzes eine doppelte Negation hinzugefügt oder entfernt werden müsste. Ebenso darf eine doppelte Negation, die in der Konklusion eines Arguments entsteht, gleich stillschweigend gestrichen werden.
+:::
+
++DN und -DN dürfen also weiter wie bisher verwendet werden. Zusätzlich darf man sich etwa -A oder RAA vereinfachen, indem man doppelte Negationen stillschweigend entfernt oder hinzufügt, um die Form des Arguments zu erfüllen. Ein Beispiel: Aus `r` und `¬r ∨ s` darf man jetzt direkt mit -A auf s schließen – der Zwischenschritt über `¬¬r` aus Lektion 4 entfällt.
+
+@proof l6 | r, ¬r ∨ s ⊢ s
+α | r | A[V] | α
+β | ¬r ∨ s | A[V] | β
+1 | s | -A(β, α) | α, β
+@end
+
+## Abgeleitete Argumente
+
+Einige weitere Argumente müssen wir nicht als gültig voraussetzen, sondern können sie aus den gegebenen **beweisen**:
+
+::: rules Argumente 6.3
+@rule T | | ⊢ A → A
+@rule EFQ | X ⊢ ¬A | X ⊢ A → B
+@rule VEQ | X ⊢ A | X ⊢ B → A
+@rule -A | X ⊢ A ∨ B ; Y, A ⊢ C ; Z, B ⊢ C | X, Y, Z ⊢ C
+@rule KP | X ⊢ A → B | X ⊢ ¬B → ¬A
+@rule TI | X ⊢ A → B ; Y ⊢ B → C | X, Y ⊢ A → C
+@rule +NK | X ⊢ ¬A ∨ ¬B | X ⊢ ¬(A ∧ B)
+@rule -NK | X ⊢ ¬(A ∧ B) | X ⊢ ¬A ∨ ¬B
+@rule +NA | X ⊢ ¬A ∧ ¬B | X ⊢ ¬(A ∨ B)
+@rule -NA | X ⊢ ¬(A ∨ B) | X ⊢ ¬A ∧ ¬B
+:::
+
+::: explanation Die Namen
+EFQ steht für *ex falso quodlibet* („aus Falschem folgt Beliebiges“), VEQ für *verum ex quodlibet* („Wahres folgt aus Beliebigem“), KP für Kontraposition, TI für die Transitivität der Implikation. NK und NA stehen für negierte Konjunktion bzw. negierte Adjunktion. Das zweite -A ist die Beseitigung der Adjunktion durch **Fallunterscheidung**: Folgt C sowohl aus A als auch aus B, dann folgt C aus `A ∨ B`. In der Argumentspalte nennt man dafür die Adjunktion und die beiden Zeilen, in denen C jeweils hergeleitet ist, z. B. -A(γ, 5, 10).
+:::
+
+Die Gültigkeit eines Arguments beweist man, indem man ein Theorem beweist, das die Form des Arguments hat. Beweist man etwa `¬p ⊢ p → q`, dann ist damit das Argument EFQ bewiesen:
+
+@rule EFQ | X ⊢ ¬A | X ⊢ A → B
+
+@proof l6basic | ¬p ⊢ p → q
+α | ¬p | A[V] | α
+β | p | A[+I] | β
+γ | ¬q | A[RAA] | γ
+1 | q | RAA(γ, β, α) | α, β
+2 | p → q | +I(β, 1) | α
+@end
+
+Zeile 1 nutzt die stillschweigende doppelte Negation: RAA liefert eigentlich `¬¬q`; die doppelte Negation in der Konklusion darf gleich gestrichen werden.
+
+::: explanation Kommentare für Fallunterscheidungen
+Für Annahmen, die mit der Fallunterscheidung beseitigt werden, ist ein Kommentar wie A[-A, Fall 1] und A[-A, Fall 2] üblich; für Annahmen, die mit RAA beseitigt werden, A[RAA].
+:::

@@ -1,0 +1,154 @@
+# Wahrheitswerte und Interpretationen
+
+Nachdem die Syntax festliegt, geben wir den Sätzen von AL eine Bedeutung. Die Bedeutung eines aussagenlogischen Satzes ist sein **Wahrheitswert**. Es gibt genau zwei Wahrheitswerte: wahr und falsch. Abkürzend schreiben wir **1** für wahr und **0** für falsch.
+
+::: definition Definition 2.1 (Interpretation)
+Eine (extensionale) **Interpretation** V ordnet jedem Satzbuchstaben von AL genau einen Wahrheitswert zu; sie ist also eine Funktion von den Satzbuchstaben in die Wahrheitswerte. Statt Interpretation sagt man auch **Belegung** oder **Bewertung**.
+:::
+
+Eine bestimmte Interpretation geben wir zum Beispiel so an:
+
+@text V(p) = 0, V(q) = 1, V(r) = 1, V(s) = 0
+
+Damit ist gemeint: p wird falsch zugewiesen, q und r wahr, s falsch. Haben wir das Alphabet um weitere Satzbuchstaben erweitert, muss die Interpretation auch diesen Werte zuweisen. Geht es nur um eine einzige Interpretation und ist keine Verwechslung möglich, schreiben wir kürzer: p = 0, q = 1, r = 1, s = 0.
+
+::: warning Wahr nur unter einer Interpretation
+Über den Wahrheitswert eines Satzes lässt sich nichts sagen, ohne eine Interpretation zugrunde zu legen. Ein Satz ist nie einfach „wahr“, sondern immer **wahr unter einer Interpretation V**. Wir schreiben dann V(α) = 1. Ist aus dem Zusammenhang klar, welche Interpretation gemeint ist, darf man den Zusatz weglassen – man muss sie aber auf Nachfrage genau benennen können.
+:::
+
+Für »wahr« sind auch *gültig*, *trifft zu* und *ist der Fall* gebräuchlich, für »falsch« entsprechend *nicht gültig*, *trifft nicht zu* und *ist nicht der Fall*. Das Wort „richtig“ verwenden wir dagegen **nie** an Stelle von „wahr“.
+
+Kennen wir eine Interpretation, dann kennen wir die Wahrheitswerte aller elementaren Sätze: Für α = q ist V(α) = V(q). Wie aber bestimmt sich der Wahrheitswert eines zusammengesetzten Satzes wie `(q ∧ s)`? Dafür legen wir für jeden Operator fest, wie er auf den Wahrheitswerten seiner Operanden arbeitet. Wir orientieren uns dabei an der Alltagssprache.
+
+# Die Operatoren
+
+## »und«
+
+Der Operator `∧` hat zwei Operanden – passend zum alltagssprachlichen »und«, das zwei Aussagen verbindet. Sagt jemand »Die Bibliothek ist geöffnet und der Lesesaal ist frei«, dann erwarten wir, dass beides zutrifft. Ist die Bibliothek geschlossen oder der Lesesaal belegt, ist die Aussage falsch.
+
+Deshalb legen wir fest: `(p ∧ q)` ist genau dann wahr, wenn sowohl p als auch q wahr sind. Ist einer der Operanden falsch (oder sind es beide), ist der Satz falsch. Übersichtlich lässt sich das in einer **Wahrheitstafel** festhalten:
+
+@table p ∧ q
+
+## Wie man eine Wahrheitstafel liest
+
+Jede Zeile der Tafel steht für eine Interpretation. Links stehen alle möglichen Kombinationen von Wahrheitswerten der vorkommenden Satzbuchstaben: in der ersten Zeile p wahr und q wahr, dann p wahr und q falsch, dann p falsch und q wahr, zuletzt beide falsch. Rechts steht, welchen Wahrheitswert der Satz unter der jeweiligen Interpretation hat.
+
+Warum genau vier Zeilen? Hat man n Satzbuchstaben und kann jeder zwei Werte annehmen, gibt es 2ⁿ Kombinationen – bei zwei Satzbuchstaben also 2² = 4. Die Zahl der Zeilen wächst damit exponentiell: Drei Satzbuchstaben ergeben schon 8 Interpretationen, fünf bereits 32.
+
+## »oder«
+
+Für »oder« steht `∨`. `(p ∨ q)` wird wahr, sobald mindestens einer der beiden Operanden wahr ist – auch wenn es beide sind. Nur wenn p und q beide falsch sind, ist der Satz falsch.
+
+@table p ∨ q
+
+Beachte: Auch wenn beide Operanden wahr sind, ist `(p ∨ q)` wahr. Man spricht von einem **inklusiven** »oder«. Für die alltagssprachliche Wendung »entweder …, oder …« – das **exklusive** »oder« – ist `∨` deshalb keine geeignete Formalisierung. Man könnte dafür einen eigenen Operator einführen; im Kurs verzichten wir darauf.
+
+## Implikation
+
+`→` ist der Implikationsoperator, kurz die **Implikation**. `(p → q)` liest man »p impliziert q«, »aus p folgt q« oder »wenn p, dann q«. Den vorderen Teil p nennt man **Prämisse** (auch **Voraussetzung**), den hinteren Teil q **Konklusion**.
+
+Die Wahrheitsbedingungen der Implikation sind weniger anschaulich als die von »und« und »oder«. Das liegt daran, dass »Wenn p, dann q« ein **Konditionalsatz** ist. Er sagt nicht, wie die Welt gerade beschaffen ist, sondern wie sie unter einer Bedingung beschaffen wäre.
+
+Ein Beispiel: p steht für »Die Glocke läutet« und q für »Der Gottesdienst beginnt«. Der Satz »p und q« beschreibt die Wirklichkeit unmittelbar: Die Glocke läutet, und der Gottesdienst beginnt. Ist dagegen »Wenn p, dann q« wahr, wissen wir weder, ob die Glocke gerade läutet, noch, ob der Gottesdienst beginnt. Wir wissen nur: *Falls* die Glocke läutet, beginnt der Gottesdienst.
+
+Unter welchen Bedingungen ist »Wenn p, dann q« also wahr? Gehen wir die vier Fälle durch:
+
+- **p wahr, q wahr:** Die Glocke läutet, und der Gottesdienst beginnt. Die Zusicherung wurde eingehalten – der Satz ist wahr.
+- **p wahr, q falsch:** Die Glocke läutet, aber der Gottesdienst beginnt nicht. Die Zusicherung ist verletzt – der Satz ist falsch.
+- **p falsch, q falsch:** Die Glocke läutet nicht, und es beginnt auch kein Gottesdienst. Das widerspricht der Zusicherung nicht; sie sagt ja nur etwas für den Fall, dass die Glocke läutet. Falsch kann man den Satz hier nicht nennen. Weil wir uns in der Logik zwischen wahr und falsch entscheiden müssen, legen wir fest: wahr.
+- **p falsch, q wahr:** Die Glocke läutet nicht, aber der Gottesdienst beginnt trotzdem. Das ist der am wenigsten anschauliche Fall. Hier hilft die Frage, welche Art von Bedingung der Satz ausdrückt. Er sagt nicht, dass das Läuten *notwendig* für den Beginn des Gottesdienstes ist, sondern dass es *hinreichend* ist: Läutet die Glocke, braucht es nichts weiter, damit der Gottesdienst beginnt. Der Gottesdienst kann aber auch aus anderen Gründen beginnen, ohne dass die Aussage verletzt wäre. Der Satz ist also wahr.
+
+@table p → q
+
+Merke: Eine Implikation ist immer dann wahr, wenn ihre Prämisse falsch ist oder ihre Konklusion wahr ist. Falsch ist sie nur bei wahrer Prämisse und falscher Konklusion.
+
+## Hinreichende und notwendige Bedingung
+
+In `(p → q)` ist p eine **hinreichende Bedingung** für q. Zugleich drückt der Satz auch eine **notwendige Bedingung** aus: Die Tafel zeigt, dass p nicht wahr sein kann, ohne dass auch q wahr ist. Also ist q eine notwendige Bedingung für p. Im Beispiel: Wenn der Gottesdienst immer beginnt, sobald die Glocke läutet, dann kann die Glocke nicht läuten, ohne dass der Gottesdienst beginnt.
+
+::: note Zusammenfassung
+In `(p → q)` heißt p die Prämisse und q die Konklusion. p ist hinreichende Bedingung für q; q ist notwendige Bedingung für p.
+:::
+
+## Äquivalenz
+
+Man kann auch ausdrücken, dass p zugleich hinreichende und notwendige Bedingung für q ist. Ein solcher Satz heißt **Äquivalenz**: `(p ↔ q)`, gelesen etwa »p genau dann, wenn q«. Er ist wahr, wenn p und q denselben Wahrheitswert haben – beide wahr oder beide falsch –, und falsch, wenn sie verschiedene Wahrheitswerte haben.
+
+Ist p wahr, so reicht das dafür, dass q wahr ist; zugleich kann q nicht wahr sein, ohne dass p wahr ist.
+
+@table p ↔ q
+
+## Negation
+
+Die Negation ist der einfachste Operator: Sie kehrt den Wahrheitswert ihres Operanden um. Aus einem wahren p wird ein falsches `¬p`, aus einem falschen p ein wahres.
+
+@table ¬p
+
+# Semantik zusammengesetzter Sätze
+
+Wie bestimmt man den Wahrheitswert eines komplexeren Satzes wie `(q → (p → q))`? Offensichtlich zuerst den des inneren Satzes `(p → q)` und dann die Implikation zwischen q und diesem Ergebnis. Die Klammern funktionieren wie aus der Mathematik bekannt. Wer unsicher ist, stellt zuerst den Syntaxbaum auf (Lektion 1):
+
+@tree q → (p → q)
+
+Unter einer Interpretation kennen wir die Wahrheitswerte der Blätter. Von dort arbeiten wir uns nach oben: Sind auf einer Ebene alle Werte bekannt, wertet man die Operatoren der nächsthöheren Ebene aus – bis zur Wurzel.
+
+## Formale Definition
+
+Die Semantik lässt sich auf dieselbe rekursive Weise festlegen wie die Syntax:
+
+::: definition Definition 2.2 (Semantik von AL)
+Sei V eine Interpretation und α ein Satz.
+1. Ist α elementar, dann ist sein Wahrheitswert unter V der Wahrheitswert seines Satzbuchstabens unter V.
+2. Ist α nicht elementar, bestimmt sich sein Wahrheitswert nach einer der folgenden Regeln:
+- (i) Negation: V(¬A) = 1 genau dann, wenn V(A) = 0.
+- (ii) Konjunktion: V((A ∧ B)) = 1 genau dann, wenn beide Operanden den Wert 1 haben.
+- (iii) Adjunktion: V((A ∨ B)) = 1 genau dann, wenn mindestens einer der Operanden den Wert 1 hat.
+- (iv) Implikation: V((A → B)) = 1 genau dann, wenn V(A) = 0 ist oder V(B) = 1.
+- (v) Äquivalenz: V((A ↔ B)) = 1 genau dann, wenn A und B unter V denselben Wert haben (beide 1 oder beide 0).
+:::
+
+Das ist nichts Neues, nur die Zusammenfassung des Bisherigen.
+
+## Ein Beispiel Schritt für Schritt
+
+Betrachten wir `(q → ((p ∨ q) → (q ∧ ¬p)))`. Ob mit Klammergefühl oder mit Syntaxbaum: Zuerst müssen `(p ∨ q)` und `(q ∧ ¬p)` ausgewertet werden, und für `(q ∧ ¬p)` vorher `¬p`.
+
+- `¬p` fällt unter Regel 2i mit A = p.
+- `(p ∨ q)` fällt unter Regel 2iii mit A = p und B = q. Die Werte von p und q liefert Regel 1 aus der Interpretation.
+- `(q ∧ ¬p)` fällt unter Regel 2ii mit A = q und B = ¬p.
+- `((p ∨ q) → (q ∧ ¬p))` fällt unter Regel 2iv mit A = (p ∨ q) und B = (q ∧ ¬p) – deren Werte haben wir schon.
+- Zuletzt liefert Regel 2iv mit A = q den Wert des ganzen Satzes.
+
+Am übersichtlichsten schreibt man das als Wahrheitstafel. Man beginnt mit allen vier Interpretationen von p und q und ergänzt dann Spalte für Spalte die Teilsätze, von innen nach außen. Die letzte Spalte enthält die Wahrheitswerte des ganzen Satzes.
+
+@table (q → ((p ∨ q) → (q ∧ ¬p)))
+
+::: explanation Schreibweise in dieser App
+Im Kurs schreibt man die Wahrheitswerte eines Teilsatzes direkt unter dessen Operator in den Satz hinein. Hier steht für jeden Teilsatz eine eigene Spalte, beschriftet mit dem Teilsatz. Der Inhalt ist derselbe: Die Spalte eines Teilsatzes entspricht den Werten unter seinem Hauptoperator.
+:::
+
+# Modelle, Tautologien, Kontradiktionen
+
+Wahrheitstafeln sind eine Methode, für einen Satz zu bestimmen, unter welchen Interpretationen er wahr und unter welchen er falsch ist. Dafür führen wir einige Begriffe ein.
+
+::: definition Definition 2.3 (Modell, Gegenbeispiel)
+Sei A ein Satz und V eine Interpretation.
+- (i) Ist A unter V wahr, heißt V ein **Modell** für A. Man sagt auch: V **erfüllt** A, und schreibt V ⊨ A.
+- (ii) Ist A unter V falsch, heißt V ein **Gegenbeispiel** für A. Man sagt auch: V **widerlegt** A, und schreibt V ⊭ A.
+:::
+
+::: definition Definition 2.4 (logisch wahr, logisch falsch, kontingent)
+Sei A ein Satz.
+- (i) A ist **logisch wahr** genau dann, wenn A unter jeder Interpretation wahr ist. A heißt dann auch **Tautologie**; man schreibt ⊨ A.
+- (ii) A ist **logisch falsch** genau dann, wenn A unter jeder Interpretation falsch ist. A heißt dann auch **Kontradiktion**.
+- (iii) Ist A weder logisch wahr noch logisch falsch, heißt A **kontingent**.
+:::
+
+Für unser Beispiel `(q → ((p ∨ q) → (q ∧ ¬p)))` nennen wir die vier Interpretationen V₁ bis V₄: V₁(p) = 1, V₁(q) = 1; V₂(p) = 1, V₂(q) = 0; V₃(p) = 0, V₃(q) = 1; V₄(p) = 0, V₄(q) = 0. Aus der Tafel lesen wir ab: V₂, V₃ und V₄ sind Modelle, V₁ ist das einzige Gegenbeispiel. Der Satz ist weder unter jeder Interpretation wahr noch unter jeder falsch – er ist kontingent.
+
+## Warum Tautologien besonders sind
+
+Ist ein Satz logisch wahr, dann ist er wahr, ganz gleich, wie man seine Satzbuchstaben interpretiert – also unabhängig davon, wovon er handelt, allein aufgrund seiner **Form**. Ebenso ist ein logisch falscher Satz allein aufgrund seiner Form falsch. Bei Tautologien und Kontradiktionen ist das Ziel der Logik – Sätze unabhängig vom Inhalt nur nach ihrer Form zu beurteilen – schon ganz erreicht.
+
+Die meisten Sätze, mit denen man zu tun hat, sind aber kontingent: Ihre Wahrheit lässt sich nicht allein aus der Form entscheiden. Um auch hier vom Inhalt absehen zu können, untersucht man nicht einzelne Sätze, sondern die **Beziehungen zwischen Sätzen**. Lässt sich etwa für einen kontingenten Satz ein anderer Satz angeben, sodass der erste immer dann wahr ist, wenn der zweite wahr ist? Genau das ist das Thema logischer Folgerungen (Lektion 3).

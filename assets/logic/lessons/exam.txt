@@ -1,0 +1,22 @@
+# Ablauf
+
+In der Klausur werden formale Beweise verlangt. Zur Orientierung, wie eine solche Klausur aufgebaut sein kann:
+
+- Es gibt sieben Theoreme; davon werden **fünf** ausgewählt und bewiesen.
+- Jede Aufgabe zählt **4 Punkte**; zum Bestehen ist die Hälfte der Punkte nötig.
+- Die Bearbeitungszeit beträgt **90 Minuten**.
+- Als Hilfsmittel gibt es nur das Blatt mit den Argumenten und Regeln (in dieser App: die Regelübersicht).
+- Verwendet werden dürfen nur die Argumente des Regelblatts: die Grundargumente, die doppelte Negation, die abgeleiteten Argumente sowie die Argumente für Quantoren und negierte Quantoren.
+- Für jede Aufgabe wird der endgültige Beweis sauber aufgeschrieben; Schmierpapier wird nicht abgegeben.
+
+# Wie bewertet wird
+
+Grobe Leitlinien – im Einzelfall kann abweichend bewertet werden, wenn sich eine Aufgabe nicht sinnvoll danach beurteilen lässt:
+
+- **Semantischer Fehler:** Irgendwo wird ein Satz hergeleitet, der semantisch nicht aus den an dieser Stelle geltenden Voraussetzungen und Annahmen folgt. Die Aufgabe bekommt null Punkte.
+- **Leichter syntaktischer Fehler:** Ein Argument wird nicht genau nach seiner Form verwendet, oder der Beweis hält die typografischen Konventionen nicht ein – etwa eine falsche Zeilennummer bei den Prämissen, eine falsche Reihenfolge der Prämissen oder eine geringfügig falsche Anwendung eines Arguments. Je nach Zahl und Schwere gibt es einen bis vier Punkte.
+- **Schwerer syntaktischer Fehler:** Ein Argument wird sinnentstellend falsch angewendet, oder der Beweis hat überhaupt nicht die vorgegebene Form – etwa „Beseitigung der Implikation“ als Schluss von p → q und q auf p, „Beseitigung der Adjunktion“ als Schluss von p ∨ q auf p, oder Sätze werden aus nicht erreichbaren Unterbeweisen wiederholt. Die Aufgabe bekommt null Punkte. Meist ist ein schwerer syntaktischer Fehler zugleich ein semantischer; zufällig kann der falsch hergeleitete Satz aber auch semantisch folgen.
+
+::: explanation Prüfung in dieser App
+Der Beweisprüfer ordnet Fehler nach diesen Kategorien ein, soweit das automatisch möglich ist: falsche Zeilenangaben und vertauschte Prämissen als leichte Fehler; bei aussagenlogischen Zeilen prüft er per Wahrheitstafel, ob der Satz semantisch aus den Annahmen folgt. Eine Punktzahl vergibt er nicht – die Bewertung in der echten Klausur kann abweichen.
+:::

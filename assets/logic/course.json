@@ -1,0 +1,5269 @@
+{
+ "id": "logic-intro",
+ "title": "Einführung in die Logik",
+ "description": "Aussagenlogik und Prädikatenlogik: Syntax, Semantik, Folgerung und formale Beweise mit Annahmen.",
+ "intro": "intro.txt",
+ "lessons": [
+  {
+   "id": "l1",
+   "number": 1,
+   "title": "Syntax der Aussagenlogik",
+   "chapter": "Syntax der Aussagenlogik",
+   "file": "lesson_01.txt",
+   "goals": [
+    "Das Alphabet von AL und die Namen der Operatoren kennen.",
+    "Nach Definition 1.2 entscheiden, ob ein Ausdruck ein Satz ist, und das begründen.",
+    "Den Syntaxbaum eines Satzes aufstellen und den Hauptoperator bestimmen.",
+    "Die Klammerersparnisregel korrekt anwenden – und ihre Grenzen kennen."
+   ],
+   "prerequisites": [],
+   "pitfalls": [
+    "Klammern um eine Negation, z. B. (¬q) – die Definition sieht sie nicht vor.",
+    "Innere Klammern weglassen, z. B. q ∧ r ∨ s – dann ist kein Hauptoperator bestimmbar.",
+    "Die Klammerersparnisregel als Erweiterung der Definition missverstehen: Sie erlaubt nur das Weglassen der äußersten Klammern."
+   ],
+   "proofSystem": null,
+   "generators": [
+    "wellFormed"
+   ],
+   "literature": [
+    "Ansgar Beckermann: Einführung in die Logik. De Gruyter.",
+    "Sven Rosenkranz: Einführung in die Logik. J. B. Metzler."
+   ],
+   "exercises": [
+    {
+     "id": "l1.k1.i",
+     "type": "wellFormed",
+     "origin": "course",
+     "group": "Übung 1 – Teil A",
+     "expression": "(q ∨ r)"
+    },
+    {
+     "id": "l1.k1.ii",
+     "type": "wellFormed",
+     "origin": "course",
+     "group": "Übung 1 – Teil A",
+     "expression": "q ↔ q"
+    },
+    {
+     "id": "l1.k1.iii",
+     "type": "wellFormed",
+     "origin": "course",
+     "group": "Übung 1 – Teil A",
+     "expression": "(¬(q ∨ s))"
+    },
+    {
+     "id": "l1.k1.iv",
+     "type": "wellFormed",
+     "origin": "course",
+     "group": "Übung 1 – Teil A",
+     "expression": "¬(q ∨ s)"
+    },
+    {
+     "id": "l1.k1.v",
+     "type": "wellFormed",
+     "origin": "course",
+     "group": "Übung 1 – Teil A",
+     "expression": "¬q ∨ s"
+    },
+    {
+     "id": "l1.k1.vi",
+     "type": "wellFormed",
+     "origin": "course",
+     "group": "Übung 1 – Teil A",
+     "expression": "((q ∧ r) → p ↔ s)"
+    },
+    {
+     "id": "l1.k1.vii",
+     "type": "wellFormed",
+     "origin": "course",
+     "group": "Übung 1 – Teil A",
+     "expression": "¬(q ↔ q) ∧ ¬p"
+    },
+    {
+     "id": "l1.k1b.i",
+     "type": "wellFormed",
+     "origin": "course",
+     "group": "Übung 1 – Teil B",
+     "expression": "¬(r ∧ r)"
+    },
+    {
+     "id": "l1.k1b.ii",
+     "type": "wellFormed",
+     "origin": "course",
+     "group": "Übung 1 – Teil B",
+     "expression": "((r → s) ∨ s)"
+    },
+    {
+     "id": "l1.k1b.iii",
+     "type": "wellFormed",
+     "origin": "course",
+     "group": "Übung 1 – Teil B",
+     "expression": "¬(r ∧ s) ↔ s"
+    },
+    {
+     "id": "l1.k1b.iv",
+     "type": "wellFormed",
+     "origin": "course",
+     "group": "Übung 1 – Teil B",
+     "expression": "(¬(r ∧ s)) ↔ s"
+    },
+    {
+     "id": "l1.k1b.v",
+     "type": "wellFormed",
+     "origin": "course",
+     "group": "Übung 1 – Teil B",
+     "expression": "(¬(r ∧ s) ↔ s)"
+    },
+    {
+     "id": "l1.k1b.vi",
+     "type": "wellFormed",
+     "origin": "course",
+     "group": "Übung 1 – Teil B",
+     "expression": "(¬(q ∨ q))"
+    },
+    {
+     "id": "l1.k1b.vii",
+     "type": "wellFormed",
+     "origin": "course",
+     "group": "Übung 1 – Teil B",
+     "expression": "¬(q ∨ q) → r ∧ p"
+    },
+    {
+     "id": "l1.z1",
+     "type": "choice",
+     "origin": "extra",
+     "group": "Zusatzübungen",
+     "question": "Welcher Operator ist der Hauptoperator von ¬(q → r) ∧ s?",
+     "options": [
+      {
+       "text": "¬",
+       "correct": false,
+       "feedback": "Die Negation bezieht sich nur auf (q → r). Ausgeschrieben lautet der Satz (¬(q → r) ∧ s)."
+      },
+      {
+       "text": "→",
+       "correct": false,
+       "feedback": "→ steht innerhalb der Klammern des Operanden ¬(q → r)."
+      },
+      {
+       "text": "∧",
+       "correct": true,
+       "feedback": "Richtig: Mit äußeren Klammern lautet der Satz (¬(q → r) ∧ s) – eine Konjunktion."
+      }
+     ],
+     "tree": "¬(q → r) ∧ s"
+    },
+    {
+     "id": "l1.z2",
+     "type": "choice",
+     "origin": "extra",
+     "group": "Zusatzübungen",
+     "question": "Welche Zerlegung von ((q ∨ r) → ¬s) nach Definition 1.2 ist zulässig?",
+     "options": [
+      {
+       "text": "A = (q ∨ r), B = ¬s, Form (A → B)",
+       "correct": true,
+       "feedback": "Beide Operanden sind Sätze: (q ∨ r) ist eine Adjunktion, ¬s eine Negation."
+      },
+      {
+       "text": "A = (q, B = r) → ¬s, Form (A ∨ B)",
+       "correct": false,
+       "feedback": "Weder (q noch r) → ¬s ist ein Satz – die Definition verlangt aber, dass A und B Sätze sind."
+      },
+      {
+       "text": "A = ((q ∨ r) → s), Form ¬A",
+       "correct": false,
+       "feedback": "Das ¬ steht nicht am Anfang des ganzen Ausdrucks, sondern nur vor s."
+      }
+     ],
+     "tree": "((q ∨ r) → ¬s)"
+    },
+    {
+     "id": "l1.z3",
+     "type": "choice",
+     "origin": "extra",
+     "group": "Zusatzübungen",
+     "question": "Was erlaubt die Klammerersparnisregel (Konvention 1.1)?",
+     "options": [
+      {
+       "text": "Die äußersten Klammern eines Satzes der Form (A ∧ B), (A ∨ B), (A → B) oder (A ↔ B) wegzulassen.",
+       "correct": true
+      },
+      {
+       "text": "Beliebige Klammern wegzulassen, solange der Satz eindeutig bleibt.",
+       "correct": false,
+       "feedback": "Innere Klammern dürfen nie wegfallen."
+      },
+      {
+       "text": "Klammern um eine Negation zu setzen, z. B. (¬q).",
+       "correct": false,
+       "feedback": "Die Regel erlaubt nur das Weglassen; um Negationen stehen nie Klammern."
+      },
+      {
+       "text": "Die äußersten Klammern von ¬(q ∧ r) wegzulassen.",
+       "correct": false,
+       "feedback": "¬(q ∧ r) ist eine Negation; die Klammern gehören zum Operanden (q ∧ r) und sind keine äußersten Klammern."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "l2",
+   "number": 2,
+   "title": "Semantik der Aussagenlogik",
+   "chapter": "Semantik der Aussagenlogik",
+   "file": "lesson_02.txt",
+   "goals": [
+    "Interpretationen angeben und den Wahrheitswert eines Satzes unter einer Interpretation bestimmen.",
+    "Die Wahrheitstafeln der fünf Operatoren kennen und begründen können.",
+    "Wahrheitstafeln für zusammengesetzte Sätze aufstellen.",
+    "Modelle und Gegenbeispiele bestimmen; Sätze als logisch wahr, logisch falsch oder kontingent einordnen.",
+    "Hinreichende und notwendige Bedingung unterscheiden."
+   ],
+   "prerequisites": [
+    "l1"
+   ],
+   "pitfalls": [
+    "Die Implikation für falsch halten, wenn die Prämisse falsch ist.",
+    "∨ exklusiv lesen: (p ∨ q) ist auch wahr, wenn beide wahr sind.",
+    "Hinreichende und notwendige Bedingung vertauschen: In (p → q) ist q notwendig für p.",
+    "Von »wahr« ohne Interpretation sprechen."
+   ],
+   "proofSystem": null,
+   "generators": [
+    "truthTable",
+    "evaluate"
+   ],
+   "literature": [
+    "Ansgar Beckermann: Einführung in die Logik. De Gruyter.",
+    "Sven Rosenkranz: Einführung in die Logik. J. B. Metzler."
+   ],
+   "exercises": [
+    {
+     "id": "l2.k1.i",
+     "type": "truthTable",
+     "origin": "course",
+     "group": "Übung 1 – Teil A",
+     "formula": "q ↔ q"
+    },
+    {
+     "id": "l2.k1.ii",
+     "type": "truthTable",
+     "origin": "course",
+     "group": "Übung 1 – Teil A",
+     "formula": "(q ↔ ¬q)"
+    },
+    {
+     "id": "l2.k1.iii",
+     "type": "truthTable",
+     "origin": "course",
+     "group": "Übung 1 – Teil A",
+     "formula": "¬(q → p)"
+    },
+    {
+     "id": "l2.k1.iv",
+     "type": "truthTable",
+     "origin": "course",
+     "group": "Übung 1 – Teil A",
+     "formula": "¬p ↔ q"
+    },
+    {
+     "id": "l2.k1.v",
+     "type": "truthTable",
+     "origin": "course",
+     "group": "Übung 1 – Teil A",
+     "formula": "¬q ∨ p"
+    },
+    {
+     "id": "l2.k1.vi",
+     "type": "truthTable",
+     "origin": "course",
+     "group": "Übung 1 – Teil A",
+     "formula": "¬q → ¬p"
+    },
+    {
+     "id": "l2.k1.vii",
+     "type": "truthTable",
+     "origin": "course",
+     "group": "Übung 1 – Teil A",
+     "formula": "(q ∧ ¬q) → p"
+    },
+    {
+     "id": "l2.k1b.i",
+     "type": "truthTable",
+     "origin": "course",
+     "group": "Übung 1 – Teil B",
+     "formula": "q → (p → q)"
+    },
+    {
+     "id": "l2.k1b.ii",
+     "type": "truthTable",
+     "origin": "course",
+     "group": "Übung 1 – Teil B",
+     "formula": "(q → p) → q"
+    },
+    {
+     "id": "l2.k1b.iii",
+     "type": "truthTable",
+     "origin": "course",
+     "group": "Übung 1 – Teil B",
+     "formula": "¬(q ∨ p)"
+    },
+    {
+     "id": "l2.k1b.iv",
+     "type": "truthTable",
+     "origin": "course",
+     "group": "Übung 1 – Teil B",
+     "formula": "¬q ∧ p"
+    },
+    {
+     "id": "l2.k1b.v",
+     "type": "truthTable",
+     "origin": "course",
+     "group": "Übung 1 – Teil B",
+     "formula": "¬q ∨ ¬p"
+    },
+    {
+     "id": "l2.k1b.vi",
+     "type": "truthTable",
+     "origin": "course",
+     "group": "Übung 1 – Teil B",
+     "formula": "¬(p ∧ ¬q)"
+    },
+    {
+     "id": "l2.k1b.vii",
+     "type": "truthTable",
+     "origin": "course",
+     "group": "Übung 1 – Teil B",
+     "formula": "¬p → q"
+    },
+    {
+     "id": "l2.k1b.viii",
+     "type": "truthTable",
+     "origin": "course",
+     "group": "Übung 1 – Teil B",
+     "formula": "p → (q → q)"
+    },
+    {
+     "id": "l2.k1b.ix",
+     "type": "truthTable",
+     "origin": "course",
+     "group": "Übung 1 – Teil B",
+     "formula": "¬(q ∧ ¬q)"
+    },
+    {
+     "id": "l2.k1b.x",
+     "type": "truthTable",
+     "origin": "course",
+     "group": "Übung 1 – Teil B",
+     "formula": "¬(q ∧ p) ↔ (¬q ∨ ¬p)"
+    },
+    {
+     "id": "l2.k1b.xi",
+     "type": "truthTable",
+     "origin": "course",
+     "group": "Übung 1 – Teil B",
+     "formula": "¬(q ∨ p) ↔ (¬q ∧ ¬p)"
+    },
+    {
+     "id": "l2.k1b.xii",
+     "type": "truthTable",
+     "origin": "course",
+     "group": "Übung 1 – Teil B",
+     "formula": "((q → p) ∧ (p → q)) ↔ (q ↔ p)"
+    },
+    {
+     "id": "l2.k2.i",
+     "type": "open",
+     "origin": "course",
+     "group": "Übung 2",
+     "question": "Erkläre kurz in eigenen Worten: Was ist die Prämisse einer Implikation?",
+     "sample": "In einer Implikation (A → B) ist A die Prämisse (auch Voraussetzung): der Teil, unter dessen Bedingung etwas zugesichert wird – das »wenn …« im Satz »wenn A, dann B«."
+    },
+    {
+     "id": "l2.k2.ii",
+     "type": "open",
+     "origin": "course",
+     "group": "Übung 2",
+     "question": "Erkläre kurz in eigenen Worten: Was ist die Konklusion einer Implikation?",
+     "sample": "In (A → B) ist B die Konklusion: das, was für den Fall zugesichert wird, dass die Prämisse wahr ist – das »dann …«."
+    },
+    {
+     "id": "l2.k2.iii",
+     "type": "open",
+     "origin": "course",
+     "group": "Übung 2",
+     "question": "Erkläre kurz in eigenen Worten: Was ist eine hinreichende Bedingung?",
+     "sample": "A ist hinreichende Bedingung für B, wenn das Vorliegen von A ausreicht, damit B vorliegt: Ist A wahr, so ist auch B wahr. In (A → B) ist A hinreichende Bedingung für B. B kann aber auch ohne A wahr sein."
+    },
+    {
+     "id": "l2.k2.iv",
+     "type": "open",
+     "origin": "course",
+     "group": "Übung 2",
+     "question": "Erkläre kurz in eigenen Worten: Was ist eine notwendige Bedingung?",
+     "sample": "B ist notwendige Bedingung für A, wenn A nicht wahr sein kann, ohne dass B wahr ist. In (A → B) ist B notwendige Bedingung für A. Dass B wahr ist, garantiert aber noch nicht, dass A wahr ist."
+    },
+    {
+     "id": "l2.z1",
+     "type": "evaluate",
+     "origin": "extra",
+     "group": "Zusatzübungen",
+     "formula": "(q ∨ r) → ¬(p ∧ q)",
+     "interpretation": {
+      "p": 1,
+      "q": 1,
+      "r": 0
+     }
+    },
+    {
+     "id": "l2.z2",
+     "type": "evaluate",
+     "origin": "extra",
+     "group": "Zusatzübungen",
+     "formula": "¬(p → q) ↔ (r ∨ ¬q)",
+     "interpretation": {
+      "p": 0,
+      "q": 0,
+      "r": 1
+     }
+    },
+    {
+     "id": "l2.z3",
+     "type": "formalize",
+     "origin": "extra",
+     "group": "Zusatzübungen",
+     "sentence": "Wenn die Glocke läutet, beginnt der Gottesdienst.",
+     "key": {
+      "p": "Die Glocke läutet.",
+      "q": "Der Gottesdienst beginnt."
+     },
+     "expected": "p → q",
+     "explanation": "Das Läuten ist hinreichende Bedingung für den Beginn: p → q."
+    },
+    {
+     "id": "l2.z4",
+     "type": "formalize",
+     "origin": "extra",
+     "group": "Zusatzübungen",
+     "sentence": "Der Gottesdienst beginnt nur dann, wenn die Glocke läutet.",
+     "key": {
+      "p": "Die Glocke läutet.",
+      "q": "Der Gottesdienst beginnt."
+     },
+     "expected": "q → p",
+     "explanation": "»nur dann, wenn« nennt eine notwendige Bedingung: Ohne Läuten kein Beginn. Der Beginn (q) ist also hinreichend dafür, dass geläutet wurde: q → p."
+    },
+    {
+     "id": "l2.z5",
+     "type": "formalize",
+     "origin": "extra",
+     "group": "Zusatzübungen",
+     "sentence": "Entweder findet das Seminar statt, oder die Vorlesung findet statt (aber nicht beides).",
+     "key": {
+      "p": "Das Seminar findet statt.",
+      "q": "Die Vorlesung findet statt."
+     },
+     "expected": "(p ∨ q) ∧ ¬(p ∧ q)",
+     "explanation": "∨ ist inklusiv. Das exklusive »entweder … oder« braucht den Zusatz, dass nicht beide wahr sind. Gleichwertig ist z. B. ¬(p ↔ q)."
+    },
+    {
+     "id": "l2.z6",
+     "type": "formalize",
+     "origin": "extra",
+     "group": "Zusatzübungen",
+     "sentence": "Das Fest findet genau dann statt, wenn sich genug Gäste anmelden.",
+     "key": {
+      "p": "Das Fest findet statt.",
+      "q": "Es melden sich genug Gäste an."
+     },
+     "expected": "p ↔ q",
+     "explanation": "»genau dann, wenn« ist die Äquivalenz: Jede Seite ist hinreichende und notwendige Bedingung der anderen."
+    },
+    {
+     "id": "l2.z7",
+     "type": "choice",
+     "origin": "extra",
+     "group": "Zusatzübungen",
+     "question": "Welche Formulierung verwendet der Kurs NICHT an Stelle von »wahr«?",
+     "options": [
+      {
+       "text": "richtig",
+       "correct": true,
+       "feedback": "Genau: »richtig« wird nie statt »wahr« verwendet."
+      },
+      {
+       "text": "gültig",
+       "correct": false,
+       "feedback": "»gültig« darf statt »wahr« stehen."
+      },
+      {
+       "text": "trifft zu",
+       "correct": false,
+       "feedback": "»trifft zu« darf statt »wahr« stehen."
+      },
+      {
+       "text": "ist der Fall",
+       "correct": false,
+       "feedback": "»ist der Fall« darf statt »wahr« stehen."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "l3",
+   "number": 3,
+   "title": "Logische Folgerungen",
+   "chapter": "Logische Folgerungen",
+   "file": "lesson_03.txt",
+   "goals": [
+    "Erklären, was es heißt, dass aus A der Satz B folgt.",
+    "Mit Wahrheitstafeln und dem Folgerungstheorem prüfen, ob ein Theorem gültig ist.",
+    "Gegenbeispiele zu Theoremen angeben.",
+    "Objektsprache und Metasprache unterscheiden (⊢ und Komma gehören zur Metasprache)."
+   ],
+   "prerequisites": [
+    "l2"
+   ],
+   "pitfalls": [
+    "Ein Gegenbeispiel nur nach der These suchen – alle Voraussetzungen müssen dabei wahr sein.",
+    "A ⊢ B für einen Satz von AL halten.",
+    "Gültigkeit mit der Wahrheit der Voraussetzungen verwechseln.",
+    "Die Implikation als ursächlichen Zusammenhang verstehen."
+   ],
+   "proofSystem": null,
+   "generators": [
+    "entailment",
+    "findPremises"
+   ],
+   "literature": [
+    "Ansgar Beckermann: Einführung in die Logik. De Gruyter.",
+    "Sven Rosenkranz: Einführung in die Logik. J. B. Metzler."
+   ],
+   "exercises": [
+    {
+     "id": "l3.k1.i",
+     "type": "entailment",
+     "origin": "course",
+     "group": "Übung 1",
+     "theorem": "q, p → q ⊢ p"
+    },
+    {
+     "id": "l3.k1.ii",
+     "type": "entailment",
+     "origin": "course",
+     "group": "Übung 1",
+     "theorem": "r, q ⊢ q",
+     "argument": "Wir nehmen an, dass r und q gelten. Insbesondere gilt dann q."
+    },
+    {
+     "id": "l3.k1.iii",
+     "type": "entailment",
+     "origin": "course",
+     "group": "Übung 1",
+     "theorem": "r, q ⊢ r",
+     "argument": "Wir nehmen an, dass r und q gelten. Insbesondere gilt dann r."
+    },
+    {
+     "id": "l3.k1.iv",
+     "type": "entailment",
+     "origin": "course",
+     "group": "Übung 1",
+     "theorem": "q ∨ r ⊢ r"
+    },
+    {
+     "id": "l3.k1.v",
+     "type": "entailment",
+     "origin": "course",
+     "group": "Übung 1",
+     "theorem": "q ∨ r ⊢ q"
+    },
+    {
+     "id": "l3.k1.vi",
+     "type": "entailment",
+     "origin": "course",
+     "group": "Übung 1",
+     "theorem": "q ∨ r, ¬r ⊢ q",
+     "argument": "Es gilt q oder r. Da r nicht gilt, bleibt nur q."
+    },
+    {
+     "id": "l3.k1.vii",
+     "type": "entailment",
+     "origin": "course",
+     "group": "Übung 1",
+     "theorem": "q ∨ r, ¬q ⊢ r",
+     "argument": "Es gilt q oder r. Da q nicht gilt, bleibt nur r."
+    },
+    {
+     "id": "l3.k2",
+     "type": "open",
+     "origin": "course",
+     "group": "Übung 2",
+     "question": "r ∧ r → s → s ist kein Satz der Aussagenlogik. Warum nicht? Und warum ist es trotzdem korrekt, r, r → s ⊢ s zu schreiben?",
+     "sample": "r ∧ r → s → s enthält auf derselben Ebene drei zweistellige Operatoren ohne trennende Klammern; man kann keinen Hauptoperator bestimmen, und die Klammerersparnisregel erlaubt nur das Weglassen der äußersten Klammern. Nach Definition 1.2 ist das kein Satz. r, r → s ⊢ s ist dagegen gar kein Satz von AL, sondern eine metasprachliche Aussage: Komma und ⊢ gehören nicht zum Alphabet von AL. Sie verbindet drei Sätze von AL – r, r → s und s – und besagt, dass es eine Argumentation von den Voraussetzungen zur These gibt. Nach dem Folgerungstheorem entspricht dem der logisch wahre Satz ((r ∧ (r → s)) → s), der korrekt geklammert ist."
+    },
+    {
+     "id": "l3.k3.i",
+     "type": "findPremises",
+     "origin": "course",
+     "group": "Übung 3",
+     "thesis": "q",
+     "count": 2,
+     "sample": [
+      "r",
+      "r → q"
+     ],
+     "note": "Alle Voraussetzungen müssen verschieden sein, und keine darf überflüssig sein: Streicht man eine, wird das Theorem ungültig."
+    },
+    {
+     "id": "l3.k3.ii",
+     "type": "findPremises",
+     "origin": "course",
+     "group": "Übung 3",
+     "thesis": "q ↔ r",
+     "count": 2,
+     "sample": [
+      "q → r",
+      "r → q"
+     ],
+     "note": "Alle Voraussetzungen müssen verschieden sein, und keine darf überflüssig sein: Streicht man eine, wird das Theorem ungültig."
+    },
+    {
+     "id": "l3.k3.iii",
+     "type": "findPremises",
+     "origin": "course",
+     "group": "Übung 3",
+     "thesis": "¬q",
+     "count": 2,
+     "sample": [
+      "r",
+      "q → ¬r"
+     ],
+     "note": "Alle Voraussetzungen müssen verschieden sein, und keine darf überflüssig sein: Streicht man eine, wird das Theorem ungültig."
+    },
+    {
+     "id": "l3.k3.iv",
+     "type": "findPremises",
+     "origin": "course",
+     "group": "Übung 3",
+     "thesis": "q → r",
+     "count": 2,
+     "sample": [
+      "q → s",
+      "s → r"
+     ],
+     "note": "Alle Voraussetzungen müssen verschieden sein, und keine darf überflüssig sein: Streicht man eine, wird das Theorem ungültig."
+    },
+    {
+     "id": "l3.k3.v",
+     "type": "findPremises",
+     "origin": "course",
+     "group": "Übung 3",
+     "thesis": "¬(q → r)",
+     "count": 2,
+     "sample": [
+      "q",
+      "¬r"
+     ],
+     "note": "Alle Voraussetzungen müssen verschieden sein, und keine darf überflüssig sein: Streicht man eine, wird das Theorem ungültig."
+    },
+    {
+     "id": "l3.k3.vi",
+     "type": "findPremises",
+     "origin": "course",
+     "group": "Übung 3",
+     "thesis": "¬(q ∨ r)",
+     "count": 2,
+     "sample": [
+      "¬q",
+      "¬r"
+     ],
+     "note": "Alle Voraussetzungen müssen verschieden sein, und keine darf überflüssig sein: Streicht man eine, wird das Theorem ungültig."
+    },
+    {
+     "id": "l3.z1",
+     "type": "choice",
+     "origin": "extra",
+     "group": "Zusatzübungen",
+     "question": "Zu welcher Sprache gehört das Zeichen ⊢?",
+     "options": [
+      {
+       "text": "Zur Metasprache",
+       "correct": true,
+       "feedback": "Richtig: ⊢ und das Komma gehören nicht zum Alphabet von AL."
+      },
+      {
+       "text": "Zur Objektsprache AL",
+       "correct": false,
+       "feedback": "Das Alphabet von AL enthält nur Satzbuchstaben, ¬ ∧ ∨ → ↔ und Klammern."
+      }
+     ]
+    },
+    {
+     "id": "l3.z2",
+     "type": "choice",
+     "origin": "extra",
+     "group": "Zusatzübungen",
+     "question": "Wann ist ein Theorem V₁, …, Vₙ ⊢ T nach dem Folgerungstheorem gültig?",
+     "options": [
+      {
+       "text": "Wenn ((V₁ ∧ (… ∧ Vₙ)) → T) logisch wahr ist.",
+       "correct": true
+      },
+      {
+       "text": "Wenn T unter mindestens einer Interpretation wahr ist.",
+       "correct": false,
+       "feedback": "Das hieße nur, dass T nicht logisch falsch ist."
+      },
+      {
+       "text": "Wenn alle Voraussetzungen wahr sind.",
+       "correct": false,
+       "feedback": "Es kommt nicht auf die Wahrheit der Voraussetzungen an, sondern auf das Verhältnis zur These."
+      }
+     ]
+    },
+    {
+     "id": "l3.z3",
+     "type": "choice",
+     "origin": "extra",
+     "group": "Zusatzübungen",
+     "question": "Was ist ein Gegenbeispiel zu einem Theorem V₁, …, Vₙ ⊢ T?",
+     "options": [
+      {
+       "text": "Eine Interpretation, unter der alle Voraussetzungen wahr sind und T falsch ist.",
+       "correct": true
+      },
+      {
+       "text": "Eine Interpretation, unter der T falsch ist.",
+       "correct": false,
+       "feedback": "Ist dabei eine Voraussetzung falsch, widerlegt das die Folgerung nicht."
+      },
+      {
+       "text": "Eine Interpretation, unter der eine Voraussetzung falsch ist.",
+       "correct": false,
+       "feedback": "Bei falscher Voraussetzung ist die Folgerung nicht verletzt."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "l4",
+   "number": 4,
+   "title": "Argumente und erste Beweise",
+   "chapter": "Aussagenlogische Beweise I",
+   "file": "lesson_04.txt",
+   "goals": [
+    "Argumente als Beziehungen zwischen Satzformen lesen.",
+    "-K, +K, -A, +A, -I, +Ä, -Ä, +DN, -DN und T genau nach ihrer Form anwenden.",
+    "Beweise mit Annahmen (griechische Bezeichner) aufschreiben.",
+    "Die Abhängigkeitsspalte führen."
+   ],
+   "prerequisites": [
+    "l1",
+    "l3"
+   ],
+   "pitfalls": [
+    "Zeilen bei +K in der falschen Reihenfolge angeben.",
+    "-A mit einer zweiten Prämisse anwenden, die nicht genau ¬A bzw. ¬B ist.",
+    "Aus A → B und B auf A schließen.",
+    "Abhängigkeiten nicht vererben."
+   ],
+   "proofSystem": "l4",
+   "generators": [
+    "proof"
+   ],
+   "literature": [
+    "Ansgar Beckermann: Einführung in die Logik. De Gruyter.",
+    "Sven Rosenkranz: Einführung in die Logik. J. B. Metzler.",
+    "Frederic B. Fitch: Symbolic Logic. An Introduction. Ronald Press."
+   ],
+   "exercises": [
+    {
+     "id": "l4.k1.i",
+     "type": "proof",
+     "origin": "course",
+     "group": "Übung 1",
+     "theorem": "¬¬r ∨ s, ¬r, ¬s ∨ q ⊢ q ∧ s",
+     "system": "l4",
+     "solution": [
+      [
+       "α",
+       "¬¬r ∨ s",
+       "A",
+       "α"
+      ],
+      [
+       "β",
+       "¬r",
+       "A",
+       "β"
+      ],
+      [
+       "1",
+       "¬¬¬r",
+       "+DN(β)",
+       "β"
+      ],
+      [
+       "2",
+       "s",
+       "-A(α, 1)",
+       "α, β"
+      ],
+      [
+       "3",
+       "¬¬s",
+       "+DN(2)",
+       "α, β"
+      ],
+      [
+       "γ",
+       "¬s ∨ q",
+       "A",
+       "γ"
+      ],
+      [
+       "4",
+       "q",
+       "-A(γ, 3)",
+       "α, β, γ"
+      ],
+      [
+       "5",
+       "q ∧ s",
+       "+K(4, 2)",
+       "α, β, γ"
+      ]
+     ]
+    },
+    {
+     "id": "l4.k1.ii",
+     "type": "proof",
+     "origin": "course",
+     "group": "Übung 1",
+     "theorem": "s → r, ¬r ∨ ¬¬q, s ⊢ q",
+     "system": "l4",
+     "solution": [
+      [
+       "α",
+       "s → r",
+       "A",
+       "α"
+      ],
+      [
+       "β",
+       "s",
+       "A",
+       "β"
+      ],
+      [
+       "1",
+       "r",
+       "-I(α, β)",
+       "α, β"
+      ],
+      [
+       "2",
+       "¬¬r",
+       "+DN(1)",
+       "α, β"
+      ],
+      [
+       "γ",
+       "¬r ∨ ¬¬q",
+       "A",
+       "γ"
+      ],
+      [
+       "3",
+       "¬¬q",
+       "-A(γ, 2)",
+       "α, β, γ"
+      ],
+      [
+       "4",
+       "q",
+       "-DN(3)",
+       "α, β, γ"
+      ]
+     ]
+    },
+    {
+     "id": "l4.k1.iii",
+     "type": "proof",
+     "origin": "course",
+     "group": "Übung 1",
+     "theorem": "q ∧ (s ∧ p) ⊢ (q ∧ s) ∧ p",
+     "system": "l4",
+     "solution": [
+      [
+       "α",
+       "q ∧ (s ∧ p)",
+       "A",
+       "α"
+      ],
+      [
+       "1",
+       "q",
+       "-K(α)",
+       "α"
+      ],
+      [
+       "2",
+       "s ∧ p",
+       "-K(α)",
+       "α"
+      ],
+      [
+       "3",
+       "s",
+       "-K(2)",
+       "α"
+      ],
+      [
+       "4",
+       "p",
+       "-K(2)",
+       "α"
+      ],
+      [
+       "5",
+       "q ∧ s",
+       "+K(1, 3)",
+       "α"
+      ],
+      [
+       "6",
+       "(q ∧ s) ∧ p",
+       "+K(5, 4)",
+       "α"
+      ]
+     ]
+    },
+    {
+     "id": "l4.k1.iv",
+     "type": "proof",
+     "origin": "course",
+     "group": "Übung 1",
+     "theorem": "s ∧ ¬r, r ∨ q ⊢ q ∧ s",
+     "system": "l4",
+     "solution": [
+      [
+       "α",
+       "s ∧ ¬r",
+       "A",
+       "α"
+      ],
+      [
+       "1",
+       "¬r",
+       "-K(α)",
+       "α"
+      ],
+      [
+       "β",
+       "r ∨ q",
+       "A",
+       "β"
+      ],
+      [
+       "2",
+       "q",
+       "-A(β, 1)",
+       "α, β"
+      ],
+      [
+       "3",
+       "s",
+       "-K(α)",
+       "α"
+      ],
+      [
+       "4",
+       "q ∧ s",
+       "+K(2, 3)",
+       "α, β"
+      ]
+     ]
+    },
+    {
+     "id": "l4.k1.v",
+     "type": "proof",
+     "origin": "course",
+     "group": "Übung 1",
+     "theorem": "r ∧ (¬s ∨ q), ¬r ∨ ¬p, p ∨ ¬¬s ⊢ (¬p ∧ q) ∧ r",
+     "system": "l4",
+     "solution": [
+      [
+       "α",
+       "r ∧ (¬s ∨ q)",
+       "A",
+       "α"
+      ],
+      [
+       "1",
+       "r",
+       "-K(α)",
+       "α"
+      ],
+      [
+       "2",
+       "¬¬r",
+       "+DN(1)",
+       "α"
+      ],
+      [
+       "β",
+       "¬r ∨ ¬p",
+       "A",
+       "β"
+      ],
+      [
+       "3",
+       "¬p",
+       "-A(β, 2)",
+       "α, β"
+      ],
+      [
+       "γ",
+       "p ∨ ¬¬s",
+       "A",
+       "γ"
+      ],
+      [
+       "4",
+       "¬¬s",
+       "-A(γ, 3)",
+       "α, β, γ"
+      ],
+      [
+       "5",
+       "¬s ∨ q",
+       "-K(α)",
+       "α"
+      ],
+      [
+       "6",
+       "q",
+       "-A(5, 4)",
+       "α, β, γ"
+      ],
+      [
+       "7",
+       "¬p ∧ q",
+       "+K(3, 6)",
+       "α, β, γ"
+      ],
+      [
+       "8",
+       "(¬p ∧ q) ∧ r",
+       "+K(7, 1)",
+       "α, β, γ"
+      ]
+     ]
+    },
+    {
+     "id": "l4.k2",
+     "type": "choice",
+     "origin": "course",
+     "group": "Übung 2",
+     "question": "Alle vier Theoreme sind gültig. Welches lässt sich mit den Argumenten von Lektion 4 NICHT beweisen? (i) ¬¬q → r, ¬r ⊢ ¬q  (ii) q → r, ¬r ⊢ ¬q  (iii) q ↔ ¬¬r, ¬q ⊢ ¬r  (iv) ¬(q ∨ r) ↔ r, ¬r ⊢ q",
+     "options": [
+      {
+       "text": "(i)",
+       "correct": false,
+       "feedback": "Mit +A wird aus ¬¬q → r der Satz ¬q ∨ r (A = ¬q), und -A mit ¬r liefert ¬q."
+      },
+      {
+       "text": "(ii)",
+       "correct": true,
+       "feedback": "Richtig. +A verlangt eine Prämisse der Form ¬A → B; q → r hat diese Form nicht (q ist keine Negation), und andere Argumente für Implikationen gibt es noch nicht. Es fehlt ein Argument, das mit Widersprüchen arbeitet (RAA, Lektion 5) – oder die Kontraposition, die man damit beweisen kann."
+      },
+      {
+       "text": "(iii)",
+       "correct": false,
+       "feedback": "-Ä liefert ¬¬r → q, +A daraus ¬r ∨ q (A = ¬r), und -A mit ¬q liefert ¬r."
+      },
+      {
+       "text": "(iv)",
+       "correct": false,
+       "feedback": "-Ä liefert ¬(q ∨ r) → r, +A daraus (q ∨ r) ∨ r, -A mit ¬r liefert q ∨ r und noch einmal -A mit ¬r liefert q."
+      }
+     ]
+    },
+    {
+     "id": "l4.k2.i",
+     "type": "proof",
+     "origin": "course",
+     "group": "Übung 2",
+     "theorem": "¬¬q → r, ¬r ⊢ ¬q",
+     "system": "l4",
+     "solution": [
+      [
+       "α",
+       "¬¬q → r",
+       "A",
+       "α"
+      ],
+      [
+       "1",
+       "¬q ∨ r",
+       "+A(α)",
+       "α"
+      ],
+      [
+       "β",
+       "¬r",
+       "A",
+       "β"
+      ],
+      [
+       "2",
+       "¬q",
+       "-A(1, β)",
+       "α, β"
+      ]
+     ]
+    },
+    {
+     "id": "l4.k2.iii",
+     "type": "proof",
+     "origin": "course",
+     "group": "Übung 2",
+     "theorem": "q ↔ ¬¬r, ¬q ⊢ ¬r",
+     "system": "l4",
+     "solution": [
+      [
+       "α",
+       "q ↔ ¬¬r",
+       "A",
+       "α"
+      ],
+      [
+       "1",
+       "¬¬r → q",
+       "-Ä(α)",
+       "α"
+      ],
+      [
+       "2",
+       "¬r ∨ q",
+       "+A(1)",
+       "α"
+      ],
+      [
+       "β",
+       "¬q",
+       "A",
+       "β"
+      ],
+      [
+       "3",
+       "¬r",
+       "-A(2, β)",
+       "α, β"
+      ]
+     ]
+    },
+    {
+     "id": "l4.k2.iv",
+     "type": "proof",
+     "origin": "course",
+     "group": "Übung 2",
+     "theorem": "¬(q ∨ r) ↔ r, ¬r ⊢ q",
+     "system": "l4",
+     "solution": [
+      [
+       "α",
+       "¬(q ∨ r) ↔ r",
+       "A",
+       "α"
+      ],
+      [
+       "1",
+       "¬(q ∨ r) → r",
+       "-Ä(α)",
+       "α"
+      ],
+      [
+       "2",
+       "(q ∨ r) ∨ r",
+       "+A(1)",
+       "α"
+      ],
+      [
+       "β",
+       "¬r",
+       "A",
+       "β"
+      ],
+      [
+       "3",
+       "q ∨ r",
+       "-A(2, β)",
+       "α, β"
+      ],
+      [
+       "4",
+       "q",
+       "-A(3, β)",
+       "α, β"
+      ]
+     ]
+    },
+    {
+     "id": "l4.z1",
+     "type": "choice",
+     "origin": "extra",
+     "group": "Zusatzübungen",
+     "question": "Ein Beweis enthält die Zeilen 1: s ∧ r und 2: r ∧ s mit der Begründung +K(1, 1). Was stimmt?",
+     "options": [
+      {
+       "text": "+K braucht zwei Prämissen A und B; aus s ∧ r als A und B entstünde (s ∧ r) ∧ (s ∧ r). Richtig wäre: r und s erst mit -K gewinnen und dann +K in der passenden Reihenfolge.",
+       "correct": true
+      },
+      {
+       "text": "Der Schritt ist korrekt, weil r ∧ s semantisch dasselbe sagt wie s ∧ r.",
+       "correct": false,
+       "feedback": "Es geht nicht um semantische Gleichheit, sondern um die genaue Form der Argumente."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "l5",
+   "number": 5,
+   "title": "Beweise mit Annahmen",
+   "chapter": "Aussagenlogische Beweise II",
+   "file": "lesson_05.txt",
+   "goals": [
+    "Zusätzliche Annahmen einführen und mit +I wieder beseitigen.",
+    "Beweise planen: von der These rückwärts, bei elementaren Sätzen von den Annahmen vorwärts.",
+    "Annahmen kommentieren (A[V], A[+I], A[RAA]).",
+    "Mit RAA aus einem Widerspruch die Negation einer Annahme herleiten."
+   ],
+   "prerequisites": [
+    "l4"
+   ],
+   "pitfalls": [
+    "Den Beweis beenden, obwohl die These noch von einer zusätzlichen Annahme abhängt.",
+    "Bei +I oder RAA die beseitigte Annahme nicht aus den Abhängigkeiten streichen.",
+    "Annahmen ohne Plan einführen."
+   ],
+   "proofSystem": "l5",
+   "generators": [
+    "proof"
+   ],
+   "literature": [
+    "Ansgar Beckermann: Einführung in die Logik. De Gruyter.",
+    "Sven Rosenkranz: Einführung in die Logik. J. B. Metzler.",
+    "Frederic B. Fitch: Symbolic Logic. An Introduction. Ronald Press."
+   ],
+   "exercises": [
+    {
+     "id": "l5.k1.i",
+     "type": "proof",
+     "origin": "course",
+     "group": "Übung 1 – Teil A",
+     "theorem": "q ⊢ ¬q → r",
+     "system": "l5",
+     "solution": [
+      [
+       "α",
+       "¬q",
+       "A[+I]",
+       "α"
+      ],
+      [
+       "β",
+       "¬r",
+       "A[RAA]",
+       "β"
+      ],
+      [
+       "γ",
+       "q",
+       "A[V]",
+       "γ"
+      ],
+      [
+       "1",
+       "¬¬r",
+       "RAA(β, γ, α)",
+       "α, γ"
+      ],
+      [
+       "2",
+       "r",
+       "-DN(1)",
+       "α, γ"
+      ],
+      [
+       "3",
+       "¬q → r",
+       "+I(α, 2)",
+       "γ"
+      ]
+     ],
+     "plan": "Die These ist eine Implikation: ¬q annehmen und r herleiten. r gewinnt man durch einen Widerspruch: Unter ¬r (A[RAA]) stehen q und ¬q nebeneinander."
+    },
+    {
+     "id": "l5.k1.ii",
+     "type": "proof",
+     "origin": "course",
+     "group": "Übung 1 – Teil A",
+     "theorem": "¬¬r → s ⊢ r → s",
+     "system": "l5",
+     "solution": [
+      [
+       "α",
+       "r",
+       "A[+I]",
+       "α"
+      ],
+      [
+       "1",
+       "¬¬r",
+       "+DN(α)",
+       "α"
+      ],
+      [
+       "β",
+       "¬¬r → s",
+       "A[V]",
+       "β"
+      ],
+      [
+       "2",
+       "s",
+       "-I(β, 1)",
+       "α, β"
+      ],
+      [
+       "3",
+       "r → s",
+       "+I(α, 2)",
+       "β"
+      ]
+     ]
+    },
+    {
+     "id": "l5.k1.iii",
+     "type": "proof",
+     "origin": "course",
+     "group": "Übung 1 – Teil A",
+     "theorem": "r → s ⊢ ¬¬r → s",
+     "system": "l5",
+     "solution": [
+      [
+       "α",
+       "¬¬r",
+       "A[+I]",
+       "α"
+      ],
+      [
+       "1",
+       "r",
+       "-DN(α)",
+       "α"
+      ],
+      [
+       "β",
+       "r → s",
+       "A[V]",
+       "β"
+      ],
+      [
+       "2",
+       "s",
+       "-I(β, 1)",
+       "α, β"
+      ],
+      [
+       "3",
+       "¬¬r → s",
+       "+I(α, 2)",
+       "β"
+      ]
+     ]
+    },
+    {
+     "id": "l5.k1b.i",
+     "type": "proof",
+     "origin": "course",
+     "group": "Übung 1 – Teil B",
+     "theorem": "⊢ q → (r → q)",
+     "system": "l5",
+     "solution": [
+      [
+       "α",
+       "q",
+       "A[+I]",
+       "α"
+      ],
+      [
+       "β",
+       "r",
+       "A[+I]",
+       "β"
+      ],
+      [
+       "1",
+       "r → q",
+       "+I(β, α)",
+       "α"
+      ],
+      [
+       "2",
+       "q → (r → q)",
+       "+I(α, 1)",
+       ""
+      ]
+     ],
+     "plan": "Zweimal +I: q annehmen, r annehmen. Dass q unter r gilt, steht schon in α."
+    },
+    {
+     "id": "l5.k1b.ii",
+     "type": "proof",
+     "origin": "course",
+     "group": "Übung 1 – Teil B",
+     "theorem": "s ⊢ r → s",
+     "system": "l5",
+     "solution": [
+      [
+       "α",
+       "s",
+       "A[V]",
+       "α"
+      ],
+      [
+       "β",
+       "r",
+       "A[+I]",
+       "β"
+      ],
+      [
+       "1",
+       "r → s",
+       "+I(β, α)",
+       "α"
+      ]
+     ]
+    },
+    {
+     "id": "l5.k1b.iii",
+     "type": "proof",
+     "origin": "course",
+     "group": "Übung 1 – Teil B",
+     "theorem": "q ⊢ ¬¬q",
+     "system": "l5noDnIntro",
+     "solution": [
+      [
+       "α",
+       "q",
+       "A[V]",
+       "α"
+      ],
+      [
+       "β",
+       "¬q",
+       "A[RAA]",
+       "β"
+      ],
+      [
+       "1",
+       "¬¬q",
+       "RAA(β, α, β)",
+       "α"
+      ]
+     ],
+     "plan": "Nimm ¬q an: Dann stehen q und ¬q nebeneinander – ein Widerspruch, der ¬q widerlegt.",
+     "note": "Ohne das Argument +DN."
+    },
+    {
+     "id": "l5.k1b.iv",
+     "type": "choice",
+     "origin": "course",
+     "group": "Übung 1 – Teil B",
+     "question": "Lässt sich ¬¬q ⊢ q ohne das Argument -DN beweisen (Argumente aus Lektion 4 und 5)?",
+     "options": [
+      {
+       "text": "Ja",
+       "correct": true,
+       "feedback": "Mit T erhält man ¬q → ¬q, mit +A daraus q ∨ ¬q (A = q, B = ¬q). -A mit ¬¬q als Negation des rechten Operanden ¬q liefert q."
+      },
+      {
+       "text": "Nein",
+       "correct": false,
+       "feedback": "Doch: T, +A und -A genügen – siehe Erklärung."
+      }
+     ],
+     "explanation": "Beweis: 1 ¬q → ¬q T; 2 q ∨ ¬q +A(1); α ¬¬q A[V]; 3 q -A(2, α). Die Abhängigkeitsspalte von Zeile 3 enthält nur α."
+    },
+    {
+     "id": "l5.k1b.iv.beweis",
+     "type": "proof",
+     "origin": "course",
+     "group": "Übung 1 – Teil B",
+     "theorem": "¬¬q ⊢ q",
+     "system": "l5noDnElim",
+     "solution": [
+      [
+       "1",
+       "¬q → ¬q",
+       "T",
+       ""
+      ],
+      [
+       "2",
+       "q ∨ ¬q",
+       "+A(1)",
+       ""
+      ],
+      [
+       "α",
+       "¬¬q",
+       "A[V]",
+       "α"
+      ],
+      [
+       "3",
+       "q",
+       "-A(2, α)",
+       "α"
+      ]
+     ],
+     "note": "Ohne das Argument -DN."
+    },
+    {
+     "id": "l5.k1b.v",
+     "type": "proof",
+     "origin": "course",
+     "group": "Übung 1 – Teil B",
+     "theorem": "r → ¬¬s ⊢ r → s",
+     "system": "l5",
+     "solution": [
+      [
+       "α",
+       "r",
+       "A[+I]",
+       "α"
+      ],
+      [
+       "β",
+       "r → ¬¬s",
+       "A[V]",
+       "β"
+      ],
+      [
+       "1",
+       "¬¬s",
+       "-I(β, α)",
+       "α, β"
+      ],
+      [
+       "2",
+       "s",
+       "-DN(1)",
+       "α, β"
+      ],
+      [
+       "3",
+       "r → s",
+       "+I(α, 2)",
+       "β"
+      ]
+     ]
+    },
+    {
+     "id": "l5.k1b.vi",
+     "type": "proof",
+     "origin": "course",
+     "group": "Übung 1 – Teil B",
+     "theorem": "s → q ⊢ ¬¬s → ¬¬q",
+     "system": "l5",
+     "solution": [
+      [
+       "α",
+       "¬¬s",
+       "A[+I]",
+       "α"
+      ],
+      [
+       "1",
+       "s",
+       "-DN(α)",
+       "α"
+      ],
+      [
+       "β",
+       "s → q",
+       "A[V]",
+       "β"
+      ],
+      [
+       "2",
+       "q",
+       "-I(β, 1)",
+       "α, β"
+      ],
+      [
+       "3",
+       "¬¬q",
+       "+DN(2)",
+       "α, β"
+      ],
+      [
+       "4",
+       "¬¬s → ¬¬q",
+       "+I(α, 3)",
+       "β"
+      ]
+     ]
+    },
+    {
+     "id": "l5.k1b.vii",
+     "type": "proof",
+     "origin": "course",
+     "group": "Übung 1 – Teil B",
+     "theorem": "r ∧ ¬s ⊢ ¬(r → s)",
+     "system": "l5",
+     "solution": [
+      [
+       "α",
+       "r ∧ ¬s",
+       "A[V]",
+       "α"
+      ],
+      [
+       "β",
+       "r → s",
+       "A[RAA]",
+       "β"
+      ],
+      [
+       "1",
+       "r",
+       "-K(α)",
+       "α"
+      ],
+      [
+       "2",
+       "s",
+       "-I(β, 1)",
+       "α, β"
+      ],
+      [
+       "3",
+       "¬s",
+       "-K(α)",
+       "α"
+      ],
+      [
+       "4",
+       "¬(r → s)",
+       "RAA(β, 2, 3)",
+       "α"
+      ]
+     ],
+     "plan": "Die These ist eine Negation: r → s annehmen und einen Widerspruch herleiten."
+    },
+    {
+     "id": "l5.k1b.viii",
+     "type": "proof",
+     "origin": "course",
+     "group": "Übung 1 – Teil B",
+     "theorem": "r → s ⊢ ¬s → ¬r",
+     "system": "l5",
+     "solution": [
+      [
+       "α",
+       "r → s",
+       "A[V]",
+       "α"
+      ],
+      [
+       "β",
+       "¬s",
+       "A[+I]",
+       "β"
+      ],
+      [
+       "γ",
+       "r",
+       "A[RAA]",
+       "γ"
+      ],
+      [
+       "1",
+       "s",
+       "-I(α, γ)",
+       "α, γ"
+      ],
+      [
+       "2",
+       "¬r",
+       "RAA(γ, 1, β)",
+       "α, β"
+      ],
+      [
+       "3",
+       "¬s → ¬r",
+       "+I(β, 2)",
+       "α"
+      ]
+     ]
+    },
+    {
+     "id": "l5.z1",
+     "type": "choice",
+     "origin": "extra",
+     "group": "Zusatzübungen",
+     "question": "Die These steht in der letzten Zeile, die Abhängigkeitsspalte nennt aber auch eine Annahme, die keine Voraussetzung ist. Was gilt?",
+     "options": [
+      {
+       "text": "Der Beweis ist noch nicht fertig – er beweist ein Theorem mit einer zusätzlichen Voraussetzung.",
+       "correct": true
+      },
+      {
+       "text": "Der Beweis ist fertig, weil die These hergeleitet ist.",
+       "correct": false,
+       "feedback": "Die These darf nur von Voraussetzungen abhängen."
+      },
+      {
+       "text": "Der Beweis ist formal falsch.",
+       "correct": false,
+       "feedback": "Zusätzliche Annahmen sind formal erlaubt; sie müssen nur wieder beseitigt werden."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "l6",
+   "number": 6,
+   "title": "Die Argumente der Aussagenlogik",
+   "chapter": "Aussagenlogische Beweise III",
+   "file": "lesson_06.txt",
+   "goals": [
+    "Die Argumente in der Schreibweise mit Satzmengen lesen.",
+    "Doppelte Negationen nach 6.2 stillschweigend hinzufügen oder streichen.",
+    "Die abgeleiteten Argumente (EFQ, VEQ, Fallunterscheidung, KP, TI, ±NK, ±NA) beweisen und anwenden."
+   ],
+   "prerequisites": [
+    "l5"
+   ],
+   "pitfalls": [
+    "Abgeleitete Argumente in falscher Form anwenden, z. B. KP ohne Vertauschung.",
+    "Bei der Fallunterscheidung in den beiden Fällen verschiedene Sätze herleiten."
+   ],
+   "proofSystem": "l6",
+   "generators": [
+    "proof"
+   ],
+   "literature": [
+    "Ansgar Beckermann: Einführung in die Logik. De Gruyter.",
+    "Sven Rosenkranz: Einführung in die Logik. J. B. Metzler.",
+    "Frederic B. Fitch: Symbolic Logic. An Introduction. Ronald Press."
+   ],
+   "exercises": [
+    {
+     "id": "l6.k1.t",
+     "type": "proof",
+     "origin": "course",
+     "group": "Übung 1",
+     "theorem": "⊢ q → q",
+     "system": "l6basic",
+     "solution": [
+      [
+       "α",
+       "q",
+       "A[+I]",
+       "α"
+      ],
+      [
+       "1",
+       "q → q",
+       "+I(α, α)",
+       ""
+      ]
+     ],
+     "note": "Beweise das Argument T (⊢ A → A) mit den Argumenten 6.1 und 6.2."
+    },
+    {
+     "id": "l6.k1.efq",
+     "type": "proof",
+     "origin": "course",
+     "group": "Übung 1",
+     "theorem": "¬r ⊢ r → s",
+     "system": "l6basic",
+     "solution": [
+      [
+       "α",
+       "¬r",
+       "A[V]",
+       "α"
+      ],
+      [
+       "β",
+       "r",
+       "A[+I]",
+       "β"
+      ],
+      [
+       "γ",
+       "¬s",
+       "A[RAA]",
+       "γ"
+      ],
+      [
+       "1",
+       "s",
+       "RAA(γ, β, α)",
+       "α, β"
+      ],
+      [
+       "2",
+       "r → s",
+       "+I(β, 1)",
+       "α"
+      ]
+     ],
+     "note": "Beweise das Argument EFQ."
+    },
+    {
+     "id": "l6.k1.veq",
+     "type": "proof",
+     "origin": "course",
+     "group": "Übung 1",
+     "theorem": "q ⊢ r → q",
+     "system": "l6basic",
+     "solution": [
+      [
+       "α",
+       "q",
+       "A[V]",
+       "α"
+      ],
+      [
+       "β",
+       "r",
+       "A[+I]",
+       "β"
+      ],
+      [
+       "1",
+       "r → q",
+       "+I(β, α)",
+       "α"
+      ]
+     ],
+     "note": "Beweise das Argument VEQ."
+    },
+    {
+     "id": "l6.k1.cases",
+     "type": "proof",
+     "origin": "course",
+     "group": "Übung 1",
+     "theorem": "q ∨ r, q → s, r → s ⊢ s",
+     "system": "l6basic",
+     "solution": [
+      [
+       "α",
+       "q ∨ r",
+       "A[V]",
+       "α"
+      ],
+      [
+       "β",
+       "q → s",
+       "A[V]",
+       "β"
+      ],
+      [
+       "γ",
+       "r → s",
+       "A[V]",
+       "γ"
+      ],
+      [
+       "δ",
+       "¬s",
+       "A[RAA]",
+       "δ"
+      ],
+      [
+       "ε",
+       "q",
+       "A[RAA]",
+       "ε"
+      ],
+      [
+       "1",
+       "s",
+       "-I(β, ε)",
+       "β, ε"
+      ],
+      [
+       "2",
+       "¬q",
+       "RAA(ε, 1, δ)",
+       "β, δ"
+      ],
+      [
+       "3",
+       "r",
+       "-A(α, 2)",
+       "α, β, δ"
+      ],
+      [
+       "4",
+       "s",
+       "-I(γ, 3)",
+       "α, β, γ, δ"
+      ],
+      [
+       "5",
+       "s",
+       "RAA(δ, 4, δ)",
+       "α, β, γ"
+      ]
+     ],
+     "plan": "Indirekt: ¬s annehmen. Dann kann q nicht gelten (sonst s), also r nach -A, also doch s – Widerspruch zu ¬s.",
+     "note": "Beweise die Fallunterscheidung -A. Die Prämissen Y, A ⊢ C und Z, B ⊢ C werden hier durch die Voraussetzungen q → s und r → s vertreten (nach +I gleichwertig)."
+    },
+    {
+     "id": "l6.k1.kp",
+     "type": "proof",
+     "origin": "course",
+     "group": "Übung 1",
+     "theorem": "q → r ⊢ ¬r → ¬q",
+     "system": "l6basic",
+     "solution": [
+      [
+       "α",
+       "q → r",
+       "A[V]",
+       "α"
+      ],
+      [
+       "β",
+       "¬r",
+       "A[+I]",
+       "β"
+      ],
+      [
+       "γ",
+       "q",
+       "A[RAA]",
+       "γ"
+      ],
+      [
+       "1",
+       "r",
+       "-I(α, γ)",
+       "α, γ"
+      ],
+      [
+       "2",
+       "¬q",
+       "RAA(γ, 1, β)",
+       "α, β"
+      ],
+      [
+       "3",
+       "¬r → ¬q",
+       "+I(β, 2)",
+       "α"
+      ]
+     ],
+     "note": "Beweise das Argument KP."
+    },
+    {
+     "id": "l6.k1.ti",
+     "type": "proof",
+     "origin": "course",
+     "group": "Übung 1",
+     "theorem": "q → r, r → s ⊢ q → s",
+     "system": "l6basic",
+     "solution": [
+      [
+       "α",
+       "q → r",
+       "A[V]",
+       "α"
+      ],
+      [
+       "β",
+       "r → s",
+       "A[V]",
+       "β"
+      ],
+      [
+       "γ",
+       "q",
+       "A[+I]",
+       "γ"
+      ],
+      [
+       "1",
+       "r",
+       "-I(α, γ)",
+       "α, γ"
+      ],
+      [
+       "2",
+       "s",
+       "-I(β, 1)",
+       "α, β, γ"
+      ],
+      [
+       "3",
+       "q → s",
+       "+I(γ, 2)",
+       "α, β"
+      ]
+     ],
+     "note": "Beweise das Argument TI."
+    },
+    {
+     "id": "l6.k1.nki",
+     "type": "proof",
+     "origin": "course",
+     "group": "Übung 1",
+     "theorem": "¬q ∨ ¬r ⊢ ¬(q ∧ r)",
+     "system": "l6basic",
+     "solution": [
+      [
+       "α",
+       "¬q ∨ ¬r",
+       "A[V]",
+       "α"
+      ],
+      [
+       "β",
+       "q ∧ r",
+       "A[RAA]",
+       "β"
+      ],
+      [
+       "1",
+       "q",
+       "-K(β)",
+       "β"
+      ],
+      [
+       "2",
+       "¬r",
+       "-A(α, 1)",
+       "α, β"
+      ],
+      [
+       "3",
+       "r",
+       "-K(β)",
+       "β"
+      ],
+      [
+       "4",
+       "¬(q ∧ r)",
+       "RAA(β, 3, 2)",
+       "α"
+      ]
+     ],
+     "note": "Beweise das Argument +NK."
+    },
+    {
+     "id": "l6.k1.nke",
+     "type": "proof",
+     "origin": "course",
+     "group": "Übung 1",
+     "theorem": "¬(q ∧ r) ⊢ ¬q ∨ ¬r",
+     "system": "l6basic",
+     "solution": [
+      [
+       "α",
+       "¬(q ∧ r)",
+       "A[V]",
+       "α"
+      ],
+      [
+       "β",
+       "q",
+       "A[+I]",
+       "β"
+      ],
+      [
+       "γ",
+       "r",
+       "A[RAA]",
+       "γ"
+      ],
+      [
+       "1",
+       "q ∧ r",
+       "+K(β, γ)",
+       "β, γ"
+      ],
+      [
+       "2",
+       "¬r",
+       "RAA(γ, 1, α)",
+       "α, β"
+      ],
+      [
+       "3",
+       "q → ¬r",
+       "+I(β, 2)",
+       "α"
+      ],
+      [
+       "4",
+       "¬q ∨ ¬r",
+       "+A(3)",
+       "α"
+      ]
+     ],
+     "plan": "Ziel ist eine Adjunktion: mit +A über ¬¬q → ¬r, also (nach 6.2) q → ¬r.",
+     "note": "Beweise das Argument -NK."
+    },
+    {
+     "id": "l6.k1.nai",
+     "type": "proof",
+     "origin": "course",
+     "group": "Übung 1",
+     "theorem": "¬q ∧ ¬r ⊢ ¬(q ∨ r)",
+     "system": "l6basic",
+     "solution": [
+      [
+       "α",
+       "¬q ∧ ¬r",
+       "A[V]",
+       "α"
+      ],
+      [
+       "β",
+       "q ∨ r",
+       "A[RAA]",
+       "β"
+      ],
+      [
+       "1",
+       "¬q",
+       "-K(α)",
+       "α"
+      ],
+      [
+       "2",
+       "r",
+       "-A(β, 1)",
+       "α, β"
+      ],
+      [
+       "3",
+       "¬r",
+       "-K(α)",
+       "α"
+      ],
+      [
+       "4",
+       "¬(q ∨ r)",
+       "RAA(β, 2, 3)",
+       "α"
+      ]
+     ],
+     "note": "Beweise das Argument +NA."
+    },
+    {
+     "id": "l6.k1.nae",
+     "type": "proof",
+     "origin": "course",
+     "group": "Übung 1",
+     "theorem": "¬(q ∨ r) ⊢ ¬q ∧ ¬r",
+     "system": "l6basic",
+     "solution": [
+      [
+       "α",
+       "¬(q ∨ r)",
+       "A[V]",
+       "α"
+      ],
+      [
+       "β",
+       "q",
+       "A[RAA]",
+       "β"
+      ],
+      [
+       "γ",
+       "¬q",
+       "A[+I]",
+       "γ"
+      ],
+      [
+       "δ",
+       "¬r",
+       "A[RAA]",
+       "δ"
+      ],
+      [
+       "1",
+       "r",
+       "RAA(δ, β, γ)",
+       "β, γ"
+      ],
+      [
+       "2",
+       "¬q → r",
+       "+I(γ, 1)",
+       "β"
+      ],
+      [
+       "3",
+       "q ∨ r",
+       "+A(2)",
+       "β"
+      ],
+      [
+       "4",
+       "¬q",
+       "RAA(β, 3, α)",
+       "α"
+      ],
+      [
+       "ε",
+       "r",
+       "A[RAA]",
+       "ε"
+      ],
+      [
+       "ζ",
+       "¬q",
+       "A[+I]",
+       "ζ"
+      ],
+      [
+       "5",
+       "¬q → r",
+       "+I(ζ, ε)",
+       "ε"
+      ],
+      [
+       "6",
+       "q ∨ r",
+       "+A(5)",
+       "ε"
+      ],
+      [
+       "7",
+       "¬r",
+       "RAA(ε, 6, α)",
+       "α"
+      ],
+      [
+       "8",
+       "¬q ∧ ¬r",
+       "+K(4, 7)",
+       "α"
+      ]
+     ],
+     "note": "Beweise das Argument -NA."
+    },
+    {
+     "id": "l6.k2",
+     "type": "open",
+     "origin": "course",
+     "group": "Übung 2",
+     "question": "Gib für einige Argumente aus 6.1 bis 6.3 eine alltagssprachliche Begründung, warum man von ihrer Gültigkeit ausgehen kann – z. B. für -A, +A, EFQ, KP und +NK.",
+     "sample": "-A: Gilt A oder B und gilt A nicht, dann bleibt nur B. – +A: Folgt aus der Falschheit von A, dass B wahr ist, dann ist jedenfalls eines von beiden wahr: A oder B. – EFQ: Ist A falsch, dann ist A → B wahr, denn eine Implikation mit falscher Prämisse ist wahr. – KP: Folgt aus A immer B, dann kann bei falschem B auch A nicht wahr sein, sonst wäre B ja wahr. – +NK: Ist A falsch oder B falsch, dann können nicht beide zugleich wahr sein."
+    },
+    {
+     "id": "l6.k3.i",
+     "type": "proof",
+     "origin": "course",
+     "group": "Übung 3 – Teil A",
+     "theorem": "¬(q → ¬r) ⊢ q ∧ r",
+     "system": "l6",
+     "solution": [
+      [
+       "α",
+       "¬q",
+       "A[RAA]",
+       "α"
+      ],
+      [
+       "1",
+       "q → ¬r",
+       "EFQ(α)",
+       "α"
+      ],
+      [
+       "β",
+       "¬(q → ¬r)",
+       "A[V]",
+       "β"
+      ],
+      [
+       "2",
+       "q",
+       "RAA(α, 1, β)",
+       "β"
+      ],
+      [
+       "γ",
+       "¬r",
+       "A[RAA]",
+       "γ"
+      ],
+      [
+       "3",
+       "q → ¬r",
+       "VEQ(γ)",
+       "γ"
+      ],
+      [
+       "4",
+       "r",
+       "RAA(γ, 3, β)",
+       "β"
+      ],
+      [
+       "5",
+       "q ∧ r",
+       "+K(2, 4)",
+       "β"
+      ]
+     ]
+    },
+    {
+     "id": "l6.k3.ii",
+     "type": "proof",
+     "origin": "course",
+     "group": "Übung 3 – Teil A",
+     "theorem": "(q ∧ ¬r) ∨ (¬q ∧ r) ⊢ ¬(q ↔ r)",
+     "system": "l6",
+     "solution": [
+      [
+       "α",
+       "q ∧ ¬r",
+       "A[-A, Fall 1]",
+       "α"
+      ],
+      [
+       "β",
+       "q ↔ r",
+       "A[RAA]",
+       "β"
+      ],
+      [
+       "1",
+       "q → r",
+       "-Ä(β)",
+       "β"
+      ],
+      [
+       "2",
+       "q",
+       "-K(α)",
+       "α"
+      ],
+      [
+       "3",
+       "r",
+       "-I(1, 2)",
+       "α, β"
+      ],
+      [
+       "4",
+       "¬r",
+       "-K(α)",
+       "α"
+      ],
+      [
+       "5",
+       "¬(q ↔ r)",
+       "RAA(β, 3, 4)",
+       "α"
+      ],
+      [
+       "γ",
+       "¬q ∧ r",
+       "A[-A, Fall 2]",
+       "γ"
+      ],
+      [
+       "δ",
+       "q ↔ r",
+       "A[RAA]",
+       "δ"
+      ],
+      [
+       "6",
+       "r → q",
+       "-Ä(δ)",
+       "δ"
+      ],
+      [
+       "7",
+       "r",
+       "-K(γ)",
+       "γ"
+      ],
+      [
+       "8",
+       "q",
+       "-I(6, 7)",
+       "γ, δ"
+      ],
+      [
+       "9",
+       "¬q",
+       "-K(γ)",
+       "γ"
+      ],
+      [
+       "10",
+       "¬(q ↔ r)",
+       "RAA(δ, 8, 9)",
+       "γ"
+      ],
+      [
+       "ε",
+       "(q ∧ ¬r) ∨ (¬q ∧ r)",
+       "A[V]",
+       "ε"
+      ],
+      [
+       "11",
+       "¬(q ↔ r)",
+       "-A(ε, 5, 10)",
+       "ε"
+      ]
+     ],
+     "plan": "Fallunterscheidung über die beiden Adjunktionsglieder; in jedem Fall die Äquivalenz annehmen und zum Widerspruch führen."
+    },
+    {
+     "id": "l6.k3b.i",
+     "type": "proof",
+     "origin": "course",
+     "group": "Übung 3 – Teil B",
+     "theorem": "s → (q → r) ⊢ q → (s → r)",
+     "system": "l6",
+     "solution": [
+      [
+       "α",
+       "s → (q → r)",
+       "A[V]",
+       "α"
+      ],
+      [
+       "β",
+       "q",
+       "A[+I]",
+       "β"
+      ],
+      [
+       "γ",
+       "s",
+       "A[+I]",
+       "γ"
+      ],
+      [
+       "1",
+       "q → r",
+       "-I(α, γ)",
+       "α, γ"
+      ],
+      [
+       "2",
+       "r",
+       "-I(1, β)",
+       "α, β, γ"
+      ],
+      [
+       "3",
+       "s → r",
+       "+I(γ, 2)",
+       "α, β"
+      ],
+      [
+       "4",
+       "q → (s → r)",
+       "+I(β, 3)",
+       "α"
+      ]
+     ]
+    },
+    {
+     "id": "l6.k3b.ii",
+     "type": "proof",
+     "origin": "course",
+     "group": "Übung 3 – Teil B",
+     "theorem": "(q ∨ r) ∨ s ⊢ q ∨ (r ∨ s)",
+     "system": "l6",
+     "solution": [
+      [
+       "α",
+       "(q ∨ r) ∨ s",
+       "A[V]",
+       "α"
+      ],
+      [
+       "β",
+       "¬q",
+       "A[+I]",
+       "β"
+      ],
+      [
+       "γ",
+       "¬r",
+       "A[+I]",
+       "γ"
+      ],
+      [
+       "1",
+       "¬q ∧ ¬r",
+       "+K(β, γ)",
+       "β, γ"
+      ],
+      [
+       "2",
+       "¬(q ∨ r)",
+       "+NA(1)",
+       "β, γ"
+      ],
+      [
+       "3",
+       "s",
+       "-A(α, 2)",
+       "α, β, γ"
+      ],
+      [
+       "4",
+       "¬r → s",
+       "+I(γ, 3)",
+       "α, β"
+      ],
+      [
+       "5",
+       "r ∨ s",
+       "+A(4)",
+       "α, β"
+      ],
+      [
+       "6",
+       "¬q → (r ∨ s)",
+       "+I(β, 5)",
+       "α"
+      ],
+      [
+       "7",
+       "q ∨ (r ∨ s)",
+       "+A(6)",
+       "α"
+      ]
+     ],
+     "plan": "Adjunktionen gewinnt man mit +A: Es genügt, unter ¬q den Satz r ∨ s herzuleiten – und dafür wiederum unter ¬r den Satz s."
+    },
+    {
+     "id": "l6.k3b.iii",
+     "type": "proof",
+     "origin": "course",
+     "group": "Übung 3 – Teil B",
+     "theorem": "q ↔ r ⊢ (q ∧ r) ∨ (¬q ∧ ¬r)",
+     "system": "l6",
+     "solution": [
+      [
+       "α",
+       "q ↔ r",
+       "A[V]",
+       "α"
+      ],
+      [
+       "1",
+       "q → r",
+       "-Ä(α)",
+       "α"
+      ],
+      [
+       "2",
+       "r → q",
+       "-Ä(α)",
+       "α"
+      ],
+      [
+       "β",
+       "¬(q ∧ r)",
+       "A[+I]",
+       "β"
+      ],
+      [
+       "3",
+       "¬q ∨ ¬r",
+       "-NK(β)",
+       "β"
+      ],
+      [
+       "γ",
+       "q",
+       "A[RAA]",
+       "γ"
+      ],
+      [
+       "4",
+       "r",
+       "-I(1, γ)",
+       "α, γ"
+      ],
+      [
+       "5",
+       "¬q",
+       "-A(3, 4)",
+       "α, β, γ"
+      ],
+      [
+       "6",
+       "¬q",
+       "RAA(γ, γ, 5)",
+       "α, β"
+      ],
+      [
+       "δ",
+       "r",
+       "A[RAA]",
+       "δ"
+      ],
+      [
+       "7",
+       "q",
+       "-I(2, δ)",
+       "α, δ"
+      ],
+      [
+       "8",
+       "¬r",
+       "-A(3, 7)",
+       "α, β, δ"
+      ],
+      [
+       "9",
+       "¬r",
+       "RAA(δ, δ, 8)",
+       "α, β"
+      ],
+      [
+       "10",
+       "¬q ∧ ¬r",
+       "+K(6, 9)",
+       "α, β"
+      ],
+      [
+       "11",
+       "¬(q ∧ r) → (¬q ∧ ¬r)",
+       "+I(β, 10)",
+       "α"
+      ],
+      [
+       "12",
+       "(q ∧ r) ∨ (¬q ∧ ¬r)",
+       "+A(11)",
+       "α"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "l7",
+   "number": 7,
+   "title": "Prädikatenlogik: Syntax und Formalisierung",
+   "chapter": "Prädikatenlogik I",
+   "file": "lesson_07.txt",
+   "goals": [
+    "Erklären, warum die Aussagenlogik für Schlüsse wie »Alle M sind G« nicht ausreicht.",
+    "Elementare Sätze, Satzfunktionen und quantifizierte Sätze unterscheiden.",
+    "Freie und gebundene Variablen sowie den Bereich eines Quantors bestimmen.",
+    "All- und Existenzaussagen formalisieren; Diskursmenge und unbeschränkte Quantifizierung."
+   ],
+   "prerequisites": [
+    "l2"
+   ],
+   "pitfalls": [
+    "Satzfunktionen für Sätze halten.",
+    "Den Bereich eines Quantors zu weit lesen.",
+    "»Einige F sind G« mit → statt ∧ formalisieren."
+   ],
+   "proofSystem": null,
+   "generators": [
+    "freeVariables",
+    "wellFormedPL"
+   ],
+   "literature": [
+    "Ansgar Beckermann: Einführung in die Logik. De Gruyter.",
+    "Sven Rosenkranz: Einführung in die Logik. J. B. Metzler."
+   ],
+   "exercises": [
+    {
+     "id": "l7.k1.i",
+     "type": "freeVariables",
+     "origin": "course",
+     "group": "Übung 1",
+     "expression": "∀x(Fx ∧ Gx) → ∀x(Gx → Hx)"
+    },
+    {
+     "id": "l7.k1.ii",
+     "type": "freeVariables",
+     "origin": "course",
+     "group": "Übung 1",
+     "expression": "∃xGx ∨ Hx"
+    },
+    {
+     "id": "l7.k1.iii",
+     "type": "freeVariables",
+     "origin": "course",
+     "group": "Übung 1",
+     "expression": "∀yGy ∧ ∃xHx"
+    },
+    {
+     "id": "l7.k1.iv",
+     "type": "freeVariables",
+     "origin": "course",
+     "group": "Übung 1",
+     "expression": "∃yGy ∧ Hy"
+    },
+    {
+     "id": "l7.k1.v",
+     "type": "freeVariables",
+     "origin": "course",
+     "group": "Übung 1",
+     "expression": "∀x¬Gx → Gx"
+    },
+    {
+     "id": "l7.k2.i",
+     "type": "choice",
+     "origin": "course",
+     "group": "Übung 2",
+     "question": "Was ist in ∀xGx der Bereich von der Allquantor ∀x?",
+     "options": [
+      {
+       "text": "Gx",
+       "correct": true
+      },
+      {
+       "text": "∀xGx",
+       "correct": false,
+       "feedback": "Der Bereich ist das, was auf ∀x folgt – ohne den Quantor selbst."
+      }
+     ],
+     "tree": "∀xGx"
+    },
+    {
+     "id": "l7.k2.ii",
+     "type": "choice",
+     "origin": "course",
+     "group": "Übung 2",
+     "question": "Was ist in ∀x¬Gx ∨ Gb der Bereich von der Allquantor ∀x?",
+     "options": [
+      {
+       "text": "¬Gx",
+       "correct": true,
+       "feedback": "Der Quantor bindet nur den unmittelbar folgenden Satz ¬Gx; die Adjunktion ist der Hauptoperator."
+      },
+      {
+       "text": "¬Gx ∨ Gb",
+       "correct": false,
+       "feedback": "Ohne Klammern reicht der Quantor nur über ¬Gx. Ausgeschrieben: (∀x¬Gx ∨ Gb)."
+      }
+     ],
+     "tree": "∀x¬Gx ∨ Gb"
+    },
+    {
+     "id": "l7.k2.iii",
+     "type": "choice",
+     "origin": "course",
+     "group": "Übung 2",
+     "question": "Was ist in ∀x¬(Gx ∨ Gx) der Bereich von der Allquantor ∀x?",
+     "options": [
+      {
+       "text": "¬(Gx ∨ Gx)",
+       "correct": true
+      },
+      {
+       "text": "(Gx ∨ Gx)",
+       "correct": false,
+       "feedback": "Die Negation gehört mit zum Bereich."
+      }
+     ],
+     "tree": "∀x¬(Gx ∨ Gx)"
+    },
+    {
+     "id": "l7.k2.iv",
+     "type": "choice",
+     "origin": "course",
+     "group": "Übung 2",
+     "question": "Was ist in ∀x(¬Gx ∧ Gx) der Bereich von der Allquantor ∀x?",
+     "options": [
+      {
+       "text": "(¬Gx ∧ Gx)",
+       "correct": true
+      },
+      {
+       "text": "¬Gx",
+       "correct": false,
+       "feedback": "Die Klammer schließt erst nach Gx; der ganze Klammerausdruck ist der Bereich."
+      }
+     ],
+     "tree": "∀x(¬Gx ∧ Gx)"
+    },
+    {
+     "id": "l7.k2.v",
+     "type": "choice",
+     "origin": "course",
+     "group": "Übung 2",
+     "question": "Was ist in ∀x(Gx → ∃yHxy) der Bereich von der Existenzquantor ∃y?",
+     "options": [
+      {
+       "text": "Hxy",
+       "correct": true,
+       "feedback": "x ist darin frei – gebunden wird es vom äußeren Allquantor, in dessen Bereich ∃yHxy steht."
+      },
+      {
+       "text": "Gx → ∃yHxy",
+       "correct": false,
+       "feedback": "Das ist (ohne Klammern) der Bereich des Allquantors."
+      }
+     ],
+     "tree": "∀x(Gx → ∃yHxy)"
+    },
+    {
+     "id": "l7.k2.vi",
+     "type": "choice",
+     "origin": "course",
+     "group": "Übung 2",
+     "question": "Was ist in ∀xGx → ∃yHy der Bereich von der Allquantor ∀x?",
+     "options": [
+      {
+       "text": "Gx",
+       "correct": true,
+       "feedback": "Ausgeschrieben lautet der Satz (∀xGx → ∃yHy); der Allquantor reicht nur über Gx."
+      },
+      {
+       "text": "Gx → ∃yHy",
+       "correct": false,
+       "feedback": "Ohne Klammern um Gx → ∃yHy reicht der Quantor nicht so weit."
+      }
+     ],
+     "tree": "∀xGx → ∃yHy"
+    },
+    {
+     "id": "l7.k3.i",
+     "type": "open",
+     "origin": "course",
+     "group": "Übung 3",
+     "question": "Formalisiere: »Alle Evangelien sind biblische Bücher. Alle synoptischen Evangelien sind Evangelien. Also sind alle synoptischen Evangelien biblische Bücher.« Wann bietet sich unbeschränkte Quantifizierung an, wann eine bestimmte Diskursmenge?",
+     "sample": "F = »ist ein Evangelium«, G = »ist ein biblisches Buch«, H = »ist ein synoptisches Evangelium«. Mit unbeschränkter Quantifizierung: Voraussetzungen ∀x(Fx → Gx) und ∀x(Hx → Fx), Konklusion ∀x(Hx → Gx). Wählt man die Evangelien als Diskursmenge, wird die erste Voraussetzung zu ∀xGx und die zweite überflüssig – dabei geht aber die Struktur des Schlusses verloren. Unbeschränkte Quantifizierung ist hier die bessere Wahl."
+    },
+    {
+     "id": "l7.k3.ii",
+     "type": "open",
+     "origin": "course",
+     "group": "Übung 3",
+     "question": "Formalisiere: »Anna ist älter als Ben. Ben ist älter als Clara. Also ist Anna älter als Clara.«",
+     "sample": "a = Anna, b = Ben, c = Clara, G = »… ist älter als …«. Voraussetzungen Gab und Gbc, Konklusion Gac. Allein der Form nach folgt Gac nicht: Dass »älter als« transitiv ist, muss als eigene Voraussetzung hinzukommen, etwa ∀x∀y∀z((Gxy ∧ Gyz) → Gxz). Eine Diskursmenge (z. B. Menschen) kann man festlegen; nötig ist es nicht, weil keine Allaussage über eine Teilmenge eingeschränkt werden muss."
+    },
+    {
+     "id": "l7.k3.iii",
+     "type": "open",
+     "origin": "course",
+     "group": "Übung 3",
+     "question": "Formalisiere: »In jeder Gruppe gibt es jemanden, für den gilt: Wenn er singt, dann singen alle.«",
+     "sample": "Für eine bestimmte Gruppe als Diskursmenge, mit S = »singt«: ∃x(Sx → ∀ySy). Das Diskursuniversum vorzugeben vereinfacht hier viel, denn »alle« meint alle in der Gruppe. Unbeschränkt bräuchte man zusätzlich ein Prädikat für die Gruppenzugehörigkeit. Bemerkenswert: Der Satz ist (bei nicht leerer Gruppe) logisch wahr – singen nicht alle, nimmt man jemanden, der nicht singt; dann ist die Implikation wahr, weil ihre Prämisse falsch ist."
+    },
+    {
+     "id": "l7.z1",
+     "type": "choice",
+     "origin": "extra",
+     "group": "Zusatzübungen",
+     "question": "Welche Formalisierung gibt »Alle Psalmen sind Gedichte« (F = Psalm, G = Gedicht, unbeschränkte Quantifizierung) wieder?",
+     "options": [
+      {
+       "text": "∀x(Fx → Gx)",
+       "correct": true
+      },
+      {
+       "text": "∀x(Fx ∧ Gx)",
+       "correct": false,
+       "feedback": "Das hieße: Alles ist ein Psalm und ein Gedicht."
+      },
+      {
+       "text": "∀xFx → ∀xGx",
+       "correct": false,
+       "feedback": "Das hieße: Wenn alles ein Psalm ist, ist alles ein Gedicht."
+      }
+     ]
+    },
+    {
+     "id": "l7.z2",
+     "type": "choice",
+     "origin": "extra",
+     "group": "Zusatzübungen",
+     "question": "Welche Formalisierung gibt »Einige Theologen sind Reformatoren« (F = Theologe, G = Reformator) wieder?",
+     "options": [
+      {
+       "text": "∃x(Fx ∧ Gx)",
+       "correct": true
+      },
+      {
+       "text": "∃x(Fx → Gx)",
+       "correct": false,
+       "feedback": "Das wäre schon wahr, wenn es irgendetwas gäbe, das kein Theologe ist."
+      },
+      {
+       "text": "∃xFx ∧ ∃xGx",
+       "correct": false,
+       "feedback": "Das sagt nur, dass es Theologen und Reformatoren gibt – nicht, dass jemand beides ist."
+      }
+     ]
+    },
+    {
+     "id": "l7.z3",
+     "type": "wellFormed",
+     "origin": "extra",
+     "group": "Zusatzübungen",
+     "expression": "∀x(Fx ∧ ∃yGxy)",
+     "pl": true
+    },
+    {
+     "id": "l7.z4",
+     "type": "wellFormed",
+     "origin": "extra",
+     "group": "Zusatzübungen",
+     "expression": "∀x(Fx)",
+     "pl": true
+    }
+   ]
+  },
+  {
+   "id": "l8",
+   "number": 8,
+   "title": "Argumente für die Quantoren",
+   "chapter": "Prädikatenlogik II",
+   "file": "lesson_08.txt",
+   "goals": [
+    "-∀, +∀, -∃ und +∃ anwenden.",
+    "Erklären, wann ein Individuum allgemein ist, und die Bedingungen X[i̸], Y[i̸], B[i̸] prüfen.",
+    "Erkennen, woran Beweise für ungültige Theoreme scheitern."
+   ],
+   "prerequisites": [
+    "l6",
+    "l7"
+   ],
+   "pitfalls": [
+    "+∀ auf ein Individuum anwenden, das in einer Annahme vorkommt.",
+    "-∃ anwenden, obwohl das Individuum noch in B vorkommt.",
+    "Ein Individuum unter zwei Existenzannahmen zugleich betrachten."
+   ],
+   "proofSystem": "l8",
+   "generators": [
+    "proof"
+   ],
+   "literature": [
+    "Ansgar Beckermann: Einführung in die Logik. De Gruyter.",
+    "Sven Rosenkranz: Einführung in die Logik. J. B. Metzler.",
+    "Frederic B. Fitch: Symbolic Logic. An Introduction. Ronald Press."
+   ],
+   "exercises": [
+    {
+     "id": "l8.k1.i",
+     "type": "proof",
+     "origin": "course",
+     "group": "Übung 1",
+     "theorem": "∀xGx ∨ ∀x¬Hx ⊢ ∀x(Hx → Gx)",
+     "system": "l8",
+     "solution": [
+      [
+       "α",
+       "∀xGx ∨ ∀x¬Hx",
+       "A[V]",
+       "α"
+      ],
+      [
+       "β",
+       "∀xGx",
+       "A[-A, Fall 1]",
+       "β"
+      ],
+      [
+       "1",
+       "Ga",
+       "-∀(β)",
+       "β"
+      ],
+      [
+       "2",
+       "Ha → Ga",
+       "VEQ(1)",
+       "β"
+      ],
+      [
+       "3",
+       "∀x(Hx → Gx)",
+       "+∀(2)",
+       "β"
+      ],
+      [
+       "γ",
+       "∀x¬Hx",
+       "A[-A, Fall 2]",
+       "γ"
+      ],
+      [
+       "4",
+       "¬Ha",
+       "-∀(γ)",
+       "γ"
+      ],
+      [
+       "5",
+       "Ha → Ga",
+       "EFQ(4)",
+       "γ"
+      ],
+      [
+       "6",
+       "∀x(Hx → Gx)",
+       "+∀(5)",
+       "γ"
+      ],
+      [
+       "7",
+       "∀x(Hx → Gx)",
+       "-A(α, 3, 6)",
+       "α"
+      ]
+     ],
+     "plan": "Fallunterscheidung über die Adjunktion; in beiden Fällen Ha → Ga für ein allgemeines a herleiten und verallgemeinern."
+    },
+    {
+     "id": "l8.k1.ii",
+     "type": "proof",
+     "origin": "course",
+     "group": "Übung 1",
+     "theorem": "∃xGx ∨ ∃x¬Hx ⊢ ∃x(¬Hx ∨ Gx)",
+     "system": "l8",
+     "solution": [
+      [
+       "α",
+       "∃xGx ∨ ∃x¬Hx",
+       "A[V]",
+       "α"
+      ],
+      [
+       "β",
+       "∃xGx",
+       "A[-A, Fall 1]",
+       "β"
+      ],
+      [
+       "γ",
+       "Ga",
+       "A[-∃]",
+       "γ"
+      ],
+      [
+       "1",
+       "Ha → Ga",
+       "VEQ(γ)",
+       "γ"
+      ],
+      [
+       "2",
+       "¬Ha ∨ Ga",
+       "+A(1)",
+       "γ"
+      ],
+      [
+       "3",
+       "∃x(¬Hx ∨ Gx)",
+       "+∃(2)",
+       "γ"
+      ],
+      [
+       "4",
+       "∃x(¬Hx ∨ Gx)",
+       "-∃(β, γ, 3)",
+       "β"
+      ],
+      [
+       "δ",
+       "∃x¬Hx",
+       "A[-A, Fall 2]",
+       "δ"
+      ],
+      [
+       "ε",
+       "¬Hb",
+       "A[-∃]",
+       "ε"
+      ],
+      [
+       "5",
+       "Hb → Gb",
+       "EFQ(ε)",
+       "ε"
+      ],
+      [
+       "6",
+       "¬Hb ∨ Gb",
+       "+A(5)",
+       "ε"
+      ],
+      [
+       "7",
+       "∃x(¬Hx ∨ Gx)",
+       "+∃(6)",
+       "ε"
+      ],
+      [
+       "8",
+       "∃x(¬Hx ∨ Gx)",
+       "-∃(δ, ε, 7)",
+       "δ"
+      ],
+      [
+       "9",
+       "∃x(¬Hx ∨ Gx)",
+       "-A(α, 4, 8)",
+       "α"
+      ]
+     ],
+     "plan": "Fallunterscheidung; in jedem Fall den Existenzquantor mit einer Annahme A[-∃] auflösen und am Ende wieder beseitigen."
+    },
+    {
+     "id": "l8.k1.iii",
+     "type": "proof",
+     "origin": "course",
+     "group": "Übung 1",
+     "theorem": "∃x(Gx ∨ ¬Hx) ⊢ ∃xGx ∨ ∃x¬Hx",
+     "system": "l8",
+     "solution": [
+      [
+       "α",
+       "∃x(Gx ∨ ¬Hx)",
+       "A[V]",
+       "α"
+      ],
+      [
+       "β",
+       "Ga ∨ ¬Ha",
+       "A[-∃]",
+       "β"
+      ],
+      [
+       "γ",
+       "Ga",
+       "A[-A, Fall 1]",
+       "γ"
+      ],
+      [
+       "1",
+       "∃xGx",
+       "+∃(γ)",
+       "γ"
+      ],
+      [
+       "2",
+       "¬∃xGx → ∃x¬Hx",
+       "EFQ(1)",
+       "γ"
+      ],
+      [
+       "3",
+       "∃xGx ∨ ∃x¬Hx",
+       "+A(2)",
+       "γ"
+      ],
+      [
+       "δ",
+       "¬Ha",
+       "A[-A, Fall 2]",
+       "δ"
+      ],
+      [
+       "4",
+       "∃x¬Hx",
+       "+∃(δ)",
+       "δ"
+      ],
+      [
+       "5",
+       "¬∃xGx → ∃x¬Hx",
+       "VEQ(4)",
+       "δ"
+      ],
+      [
+       "6",
+       "∃xGx ∨ ∃x¬Hx",
+       "+A(5)",
+       "δ"
+      ],
+      [
+       "7",
+       "∃xGx ∨ ∃x¬Hx",
+       "-A(β, 3, 6)",
+       "β"
+      ],
+      [
+       "8",
+       "∃xGx ∨ ∃x¬Hx",
+       "-∃(α, β, 7)",
+       "α"
+      ]
+     ],
+     "note": "In Zeile 2 wird nach 6.2 stillschweigend eine doppelte Negation ergänzt: EFQ verlangt ¬A mit A = ¬∃xGx, also ¬¬∃xGx."
+    },
+    {
+     "id": "l8.z1",
+     "type": "choice",
+     "origin": "extra",
+     "group": "Zusatzübungen",
+     "question": "In Zeile 1 steht Ga, abhängig von der Annahme β: Ga. Darf man daraus mit +∀ den Satz ∀xGx herleiten?",
+     "options": [
+      {
+       "text": "Nein – a kommt in der Annahme β vor und ist deshalb nicht allgemein.",
+       "correct": true
+      },
+      {
+       "text": "Ja – +∀ verlangt nur, dass Ga hergeleitet ist.",
+       "correct": false,
+       "feedback": "+∀ verlangt X[i̸]: i darf in den Annahmen, von denen die Zeile abhängt, nicht vorkommen."
+      }
+     ]
+    },
+    {
+     "id": "l8.z2",
+     "type": "choice",
+     "origin": "extra",
+     "group": "Zusatzübungen",
+     "question": "Für -∃(α, β, 5) mit α: ∃xGx und β: Ga steht in Zeile 5 der Satz Ha ∧ Ga. Ist die Anwendung korrekt?",
+     "options": [
+      {
+       "text": "Nein – B darf das Individuum a nicht enthalten.",
+       "correct": true
+      },
+      {
+       "text": "Ja – Zeile 5 hängt von β ab.",
+       "correct": false,
+       "feedback": "Die Bedingung B[i̸] ist verletzt."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "l9",
+   "number": 9,
+   "title": "Verhältnis der Quantoren",
+   "chapter": "Prädikatenlogik III",
+   "file": "lesson_09.txt",
+   "goals": [
+    "Die Argumente ±N∀ und ±N∃ kennen und anwenden.",
+    "RAA auch mit einer Voraussetzung als widerlegter Annahme einsetzen.",
+    "Verschachtelte Quantoren lesen und entscheiden, wann man sie vertauschen darf."
+   ],
+   "prerequisites": [
+    "l8"
+   ],
+   "pitfalls": [
+    "∀x∃y und ∃y∀x verwechseln.",
+    "Bei -N∃ und +N∃ die innere Negation vergessen."
+   ],
+   "proofSystem": "full",
+   "generators": [
+    "proof"
+   ],
+   "literature": [
+    "Ansgar Beckermann: Einführung in die Logik. De Gruyter.",
+    "Sven Rosenkranz: Einführung in die Logik. J. B. Metzler.",
+    "Frederic B. Fitch: Symbolic Logic. An Introduction. Ronald Press."
+   ],
+   "exercises": [
+    {
+     "id": "l9.k1.i",
+     "type": "proof",
+     "origin": "course",
+     "group": "Übung 1",
+     "theorem": "∀x¬(Gx ∧ Hx), Hb ⊢ ¬Gb",
+     "system": "full",
+     "solution": [
+      [
+       "α",
+       "∀x¬(Gx ∧ Hx)",
+       "A[V]",
+       "α"
+      ],
+      [
+       "β",
+       "Hb",
+       "A[V]",
+       "β"
+      ],
+      [
+       "1",
+       "¬(Gb ∧ Hb)",
+       "-∀(α)",
+       "α"
+      ],
+      [
+       "2",
+       "¬Gb ∨ ¬Hb",
+       "-NK(1)",
+       "α"
+      ],
+      [
+       "3",
+       "¬Gb",
+       "-A(2, β)",
+       "α, β"
+      ]
+     ]
+    },
+    {
+     "id": "l9.k1.ii",
+     "type": "proof",
+     "origin": "course",
+     "group": "Übung 1",
+     "theorem": "∀x(Hx → Gx), ∀x(Gx → Fx) ⊢ ∀x(Hx → Fx)",
+     "system": "full",
+     "solution": [
+      [
+       "α",
+       "∀x(Hx → Gx)",
+       "A[V]",
+       "α"
+      ],
+      [
+       "β",
+       "∀x(Gx → Fx)",
+       "A[V]",
+       "β"
+      ],
+      [
+       "1",
+       "Ha → Ga",
+       "-∀(α)",
+       "α"
+      ],
+      [
+       "2",
+       "Ga → Fa",
+       "-∀(β)",
+       "β"
+      ],
+      [
+       "3",
+       "Ha → Fa",
+       "TI(1, 2)",
+       "α, β"
+      ],
+      [
+       "4",
+       "∀x(Hx → Fx)",
+       "+∀(3)",
+       "α, β"
+      ]
+     ]
+    },
+    {
+     "id": "l9.k1.iii",
+     "type": "proof",
+     "origin": "course",
+     "group": "Übung 1",
+     "theorem": "∀x(¬Gx → Hx) ⊢ ¬∃x(¬Gx ∧ ¬Hx)",
+     "system": "full",
+     "solution": [
+      [
+       "α",
+       "∀x(¬Gx → Hx)",
+       "A[V]",
+       "α"
+      ],
+      [
+       "1",
+       "¬Ga → Ha",
+       "-∀(α)",
+       "α"
+      ],
+      [
+       "2",
+       "Ga ∨ Ha",
+       "+A(1)",
+       "α"
+      ],
+      [
+       "3",
+       "¬(¬Ga ∧ ¬Ha)",
+       "+NK(2)",
+       "α"
+      ],
+      [
+       "4",
+       "∀x¬(¬Gx ∧ ¬Hx)",
+       "+∀(3)",
+       "α"
+      ],
+      [
+       "5",
+       "¬∃x(¬Gx ∧ ¬Hx)",
+       "+N∃(4)",
+       "α"
+      ]
+     ]
+    },
+    {
+     "id": "l9.k1.iv",
+     "type": "proof",
+     "origin": "course",
+     "group": "Übung 1",
+     "theorem": "∃x(Gx ∧ Hx) ⊢ ¬∀x(Gx → ¬Hx)",
+     "system": "full",
+     "solution": [
+      [
+       "α",
+       "∃x(Gx ∧ Hx)",
+       "A[V]",
+       "α"
+      ],
+      [
+       "β",
+       "∀x(Gx → ¬Hx)",
+       "A[RAA]",
+       "β"
+      ],
+      [
+       "γ",
+       "Ga ∧ Ha",
+       "A[-∃]",
+       "γ"
+      ],
+      [
+       "1",
+       "Ga → ¬Ha",
+       "-∀(β)",
+       "β"
+      ],
+      [
+       "2",
+       "Ga",
+       "-K(γ)",
+       "γ"
+      ],
+      [
+       "3",
+       "¬Ha",
+       "-I(1, 2)",
+       "β, γ"
+      ],
+      [
+       "4",
+       "Ha",
+       "-K(γ)",
+       "γ"
+      ],
+      [
+       "5",
+       "¬∀x(Gx → ¬Hx)",
+       "RAA(β, 4, 3)",
+       "γ"
+      ],
+      [
+       "6",
+       "¬∀x(Gx → ¬Hx)",
+       "-∃(α, γ, 5)",
+       "α"
+      ]
+     ]
+    },
+    {
+     "id": "l9.k1.v",
+     "type": "proof",
+     "origin": "course",
+     "group": "Übung 1",
+     "theorem": "¬∀x(Gx → Hx) ⊢ ∃x(Gx ∧ ¬Hx)",
+     "system": "full",
+     "solution": [
+      [
+       "α",
+       "¬∀x(Gx → Hx)",
+       "A[V]",
+       "α"
+      ],
+      [
+       "β",
+       "¬∃x(Gx ∧ ¬Hx)",
+       "A[RAA]",
+       "β"
+      ],
+      [
+       "γ",
+       "Ga ∧ ¬Ha",
+       "A[RAA]",
+       "γ"
+      ],
+      [
+       "1",
+       "∃x(Gx ∧ ¬Hx)",
+       "+∃(γ)",
+       "γ"
+      ],
+      [
+       "2",
+       "¬(Ga ∧ ¬Ha)",
+       "RAA(γ, 1, β)",
+       "β"
+      ],
+      [
+       "3",
+       "¬Ga ∨ Ha",
+       "-NK(2)",
+       "β"
+      ],
+      [
+       "δ",
+       "Ga",
+       "A[+I]",
+       "δ"
+      ],
+      [
+       "4",
+       "Ha",
+       "-A(3, δ)",
+       "β, δ"
+      ],
+      [
+       "5",
+       "Ga → Ha",
+       "+I(δ, 4)",
+       "β"
+      ],
+      [
+       "6",
+       "∀x(Gx → Hx)",
+       "+∀(5)",
+       "β"
+      ],
+      [
+       "7",
+       "∃x(Gx ∧ ¬Hx)",
+       "RAA(β, 6, α)",
+       "α"
+      ]
+     ]
+    },
+    {
+     "id": "l9.k1.vi",
+     "type": "proof",
+     "origin": "course",
+     "group": "Übung 1",
+     "theorem": "∀x∃y(Hx → Gxy) ⊢ ∀x(Hx → ∃yGxy)",
+     "system": "full",
+     "solution": [
+      [
+       "α",
+       "∀x∃y(Hx → Gxy)",
+       "A[V]",
+       "α"
+      ],
+      [
+       "1",
+       "∃y(Ha → Gay)",
+       "-∀(α)",
+       "α"
+      ],
+      [
+       "β",
+       "Ha",
+       "A[+I]",
+       "β"
+      ],
+      [
+       "γ",
+       "Ha → Gab",
+       "A[-∃]",
+       "γ"
+      ],
+      [
+       "2",
+       "Gab",
+       "-I(γ, β)",
+       "β, γ"
+      ],
+      [
+       "3",
+       "∃yGay",
+       "+∃(2)",
+       "β, γ"
+      ],
+      [
+       "4",
+       "∃yGay",
+       "-∃(1, γ, 3)",
+       "α, β"
+      ],
+      [
+       "5",
+       "Ha → ∃yGay",
+       "+I(β, 4)",
+       "α"
+      ],
+      [
+       "6",
+       "∀x(Hx → ∃yGxy)",
+       "+∀(5)",
+       "α"
+      ]
+     ]
+    },
+    {
+     "id": "l9.k1.vii",
+     "type": "proof",
+     "origin": "course",
+     "group": "Übung 1",
+     "theorem": "∃x(Hx ∧ ∀yGxy) ⊢ ∃x∀y(Hx ∧ Gxy)",
+     "system": "full",
+     "solution": [
+      [
+       "α",
+       "∃x(Hx ∧ ∀yGxy)",
+       "A[V]",
+       "α"
+      ],
+      [
+       "β",
+       "Ha ∧ ∀yGay",
+       "A[-∃]",
+       "β"
+      ],
+      [
+       "1",
+       "Ha",
+       "-K(β)",
+       "β"
+      ],
+      [
+       "2",
+       "∀yGay",
+       "-K(β)",
+       "β"
+      ],
+      [
+       "3",
+       "Gab",
+       "-∀(2)",
+       "β"
+      ],
+      [
+       "4",
+       "Ha ∧ Gab",
+       "+K(1, 3)",
+       "β"
+      ],
+      [
+       "5",
+       "∀y(Ha ∧ Gay)",
+       "+∀(4)",
+       "β"
+      ],
+      [
+       "6",
+       "∃x∀y(Hx ∧ Gxy)",
+       "+∃(5)",
+       "β"
+      ],
+      [
+       "7",
+       "∃x∀y(Hx ∧ Gxy)",
+       "-∃(α, β, 6)",
+       "α"
+      ]
+     ]
+    },
+    {
+     "id": "l9.k2.i",
+     "type": "proof",
+     "origin": "course",
+     "group": "Übung 2",
+     "theorem": "∀x(Gx → Hx), Gb ⊢ Hb",
+     "system": "full",
+     "solution": [
+      [
+       "α",
+       "∀x(Gx → Hx)",
+       "A[V]",
+       "α"
+      ],
+      [
+       "β",
+       "Gb",
+       "A[V]",
+       "β"
+      ],
+      [
+       "1",
+       "Gb → Hb",
+       "-∀(α)",
+       "α"
+      ],
+      [
+       "2",
+       "Hb",
+       "-I(1, β)",
+       "α, β"
+      ]
+     ]
+    },
+    {
+     "id": "l9.k2.ii",
+     "type": "proof",
+     "origin": "course",
+     "group": "Übung 2",
+     "theorem": "∀x(Gx → Hx), ¬Hb ⊢ ¬Gb",
+     "system": "full",
+     "solution": [
+      [
+       "α",
+       "∀x(Gx → Hx)",
+       "A[V]",
+       "α"
+      ],
+      [
+       "β",
+       "¬Hb",
+       "A[V]",
+       "β"
+      ],
+      [
+       "1",
+       "Gb → Hb",
+       "-∀(α)",
+       "α"
+      ],
+      [
+       "2",
+       "¬Hb → ¬Gb",
+       "KP(1)",
+       "α"
+      ],
+      [
+       "3",
+       "¬Gb",
+       "-I(2, β)",
+       "α, β"
+      ]
+     ]
+    },
+    {
+     "id": "l9.k2.iii",
+     "type": "proof",
+     "origin": "course",
+     "group": "Übung 2",
+     "theorem": "∀x(Gx ∨ Hx), ¬Gb ⊢ Hb",
+     "system": "full",
+     "solution": [
+      [
+       "α",
+       "∀x(Gx ∨ Hx)",
+       "A[V]",
+       "α"
+      ],
+      [
+       "β",
+       "¬Gb",
+       "A[V]",
+       "β"
+      ],
+      [
+       "1",
+       "Gb ∨ Hb",
+       "-∀(α)",
+       "α"
+      ],
+      [
+       "2",
+       "Hb",
+       "-A(1, β)",
+       "α, β"
+      ]
+     ]
+    },
+    {
+     "id": "l9.k2.iv",
+     "type": "proof",
+     "origin": "course",
+     "group": "Übung 2",
+     "theorem": "∀x(Gx → Hx), ∃xGx ⊢ ∃xHx",
+     "system": "full",
+     "solution": [
+      [
+       "α",
+       "∀x(Gx → Hx)",
+       "A[V]",
+       "α"
+      ],
+      [
+       "β",
+       "∃xGx",
+       "A[V]",
+       "β"
+      ],
+      [
+       "γ",
+       "Ga",
+       "A[-∃]",
+       "γ"
+      ],
+      [
+       "1",
+       "Ga → Ha",
+       "-∀(α)",
+       "α"
+      ],
+      [
+       "2",
+       "Ha",
+       "-I(1, γ)",
+       "α, γ"
+      ],
+      [
+       "3",
+       "∃xHx",
+       "+∃(2)",
+       "α, γ"
+      ],
+      [
+       "4",
+       "∃xHx",
+       "-∃(β, γ, 3)",
+       "α, β"
+      ]
+     ]
+    },
+    {
+     "id": "l9.k2.v",
+     "type": "proof",
+     "origin": "course",
+     "group": "Übung 2",
+     "theorem": "∀x(Gx → Hx), ∃x(Gx ∧ Fx) ⊢ ∃x(Hx ∧ Fx)",
+     "system": "full",
+     "solution": [
+      [
+       "α",
+       "∀x(Gx → Hx)",
+       "A[V]",
+       "α"
+      ],
+      [
+       "β",
+       "∃x(Gx ∧ Fx)",
+       "A[V]",
+       "β"
+      ],
+      [
+       "γ",
+       "Ga ∧ Fa",
+       "A[-∃]",
+       "γ"
+      ],
+      [
+       "1",
+       "Ga → Ha",
+       "-∀(α)",
+       "α"
+      ],
+      [
+       "2",
+       "Ga",
+       "-K(γ)",
+       "γ"
+      ],
+      [
+       "3",
+       "Ha",
+       "-I(1, 2)",
+       "α, γ"
+      ],
+      [
+       "4",
+       "Fa",
+       "-K(γ)",
+       "γ"
+      ],
+      [
+       "5",
+       "Ha ∧ Fa",
+       "+K(3, 4)",
+       "α, γ"
+      ],
+      [
+       "6",
+       "∃x(Hx ∧ Fx)",
+       "+∃(5)",
+       "α, γ"
+      ],
+      [
+       "7",
+       "∃x(Hx ∧ Fx)",
+       "-∃(β, γ, 6)",
+       "α, β"
+      ]
+     ]
+    },
+    {
+     "id": "l9.k2.vi",
+     "type": "proof",
+     "origin": "course",
+     "group": "Übung 2",
+     "theorem": "∀x(Gx → Hx), ∀xGx ⊢ ∀xHx",
+     "system": "full",
+     "solution": [
+      [
+       "α",
+       "∀x(Gx → Hx)",
+       "A[V]",
+       "α"
+      ],
+      [
+       "β",
+       "∀xGx",
+       "A[V]",
+       "β"
+      ],
+      [
+       "1",
+       "Ga → Ha",
+       "-∀(α)",
+       "α"
+      ],
+      [
+       "2",
+       "Ga",
+       "-∀(β)",
+       "β"
+      ],
+      [
+       "3",
+       "Ha",
+       "-I(1, 2)",
+       "α, β"
+      ],
+      [
+       "4",
+       "∀xHx",
+       "+∀(3)",
+       "α, β"
+      ]
+     ]
+    },
+    {
+     "id": "l9.k2.vii",
+     "type": "proof",
+     "origin": "course",
+     "group": "Übung 2",
+     "theorem": "¬∃x(Gx ∧ ¬Hx) ⊢ ∀x(Gx → Hx)",
+     "system": "full",
+     "solution": [
+      [
+       "α",
+       "¬∃x(Gx ∧ ¬Hx)",
+       "A[V]",
+       "α"
+      ],
+      [
+       "1",
+       "∀x¬(Gx ∧ ¬Hx)",
+       "-N∃(α)",
+       "α"
+      ],
+      [
+       "2",
+       "¬(Ga ∧ ¬Ha)",
+       "-∀(1)",
+       "α"
+      ],
+      [
+       "3",
+       "¬Ga ∨ Ha",
+       "-NK(2)",
+       "α"
+      ],
+      [
+       "β",
+       "Ga",
+       "A[+I]",
+       "β"
+      ],
+      [
+       "4",
+       "Ha",
+       "-A(3, β)",
+       "α, β"
+      ],
+      [
+       "5",
+       "Ga → Ha",
+       "+I(β, 4)",
+       "α"
+      ],
+      [
+       "6",
+       "∀x(Gx → Hx)",
+       "+∀(5)",
+       "α"
+      ]
+     ]
+    },
+    {
+     "id": "l9.k2.viii",
+     "type": "proof",
+     "origin": "course",
+     "group": "Übung 2",
+     "theorem": "¬∀x(Gx → ¬Hx) ⊢ ∃x(Gx ∧ Hx)",
+     "system": "full",
+     "solution": [
+      [
+       "α",
+       "¬∀x(Gx → ¬Hx)",
+       "A[V]",
+       "α"
+      ],
+      [
+       "β",
+       "¬∃x(Gx ∧ Hx)",
+       "A[RAA]",
+       "β"
+      ],
+      [
+       "γ",
+       "Ga ∧ Ha",
+       "A[RAA]",
+       "γ"
+      ],
+      [
+       "1",
+       "∃x(Gx ∧ Hx)",
+       "+∃(γ)",
+       "γ"
+      ],
+      [
+       "2",
+       "¬(Ga ∧ Ha)",
+       "RAA(γ, 1, β)",
+       "β"
+      ],
+      [
+       "3",
+       "¬Ga ∨ ¬Ha",
+       "-NK(2)",
+       "β"
+      ],
+      [
+       "δ",
+       "Ga",
+       "A[+I]",
+       "δ"
+      ],
+      [
+       "4",
+       "¬Ha",
+       "-A(3, δ)",
+       "β, δ"
+      ],
+      [
+       "5",
+       "Ga → ¬Ha",
+       "+I(δ, 4)",
+       "β"
+      ],
+      [
+       "6",
+       "∀x(Gx → ¬Hx)",
+       "+∀(5)",
+       "β"
+      ],
+      [
+       "7",
+       "∃x(Gx ∧ Hx)",
+       "RAA(β, 6, α)",
+       "α"
+      ]
+     ]
+    },
+    {
+     "id": "l9.k2.ix",
+     "type": "proof",
+     "origin": "course",
+     "group": "Übung 2",
+     "theorem": "∃x(Gx ∧ ¬Hx) ⊢ ¬∀x(Gx → Hx)",
+     "system": "full",
+     "solution": [
+      [
+       "α",
+       "∃x(Gx ∧ ¬Hx)",
+       "A[V]",
+       "α"
+      ],
+      [
+       "β",
+       "∀x(Gx → Hx)",
+       "A[RAA]",
+       "β"
+      ],
+      [
+       "γ",
+       "Ga ∧ ¬Ha",
+       "A[-∃]",
+       "γ"
+      ],
+      [
+       "1",
+       "Ga → Ha",
+       "-∀(β)",
+       "β"
+      ],
+      [
+       "2",
+       "Ga",
+       "-K(γ)",
+       "γ"
+      ],
+      [
+       "3",
+       "Ha",
+       "-I(1, 2)",
+       "β, γ"
+      ],
+      [
+       "4",
+       "¬Ha",
+       "-K(γ)",
+       "γ"
+      ],
+      [
+       "5",
+       "¬∀x(Gx → Hx)",
+       "RAA(β, 3, 4)",
+       "γ"
+      ],
+      [
+       "6",
+       "¬∀x(Gx → Hx)",
+       "-∃(α, γ, 5)",
+       "α"
+      ]
+     ]
+    },
+    {
+     "id": "l9.k2.x",
+     "type": "proof",
+     "origin": "course",
+     "group": "Übung 2",
+     "theorem": "∀x(Gx → ¬Hx) ⊢ ¬∃x(Gx ∧ Hx)",
+     "system": "full",
+     "solution": [
+      [
+       "α",
+       "∀x(Gx → ¬Hx)",
+       "A[V]",
+       "α"
+      ],
+      [
+       "1",
+       "Ga → ¬Ha",
+       "-∀(α)",
+       "α"
+      ],
+      [
+       "2",
+       "¬Ga ∨ ¬Ha",
+       "+A(1)",
+       "α"
+      ],
+      [
+       "3",
+       "¬(Ga ∧ Ha)",
+       "+NK(2)",
+       "α"
+      ],
+      [
+       "4",
+       "∀x¬(Gx ∧ Hx)",
+       "+∀(3)",
+       "α"
+      ],
+      [
+       "5",
+       "¬∃x(Gx ∧ Hx)",
+       "+N∃(4)",
+       "α"
+      ]
+     ]
+    },
+    {
+     "id": "l9.k2.xi",
+     "type": "proof",
+     "origin": "course",
+     "group": "Übung 2",
+     "theorem": "¬∃x(Gx ∧ Hx) ⊢ ∀x(Gx → ¬Hx)",
+     "system": "full",
+     "solution": [
+      [
+       "α",
+       "¬∃x(Gx ∧ Hx)",
+       "A[V]",
+       "α"
+      ],
+      [
+       "1",
+       "∀x¬(Gx ∧ Hx)",
+       "-N∃(α)",
+       "α"
+      ],
+      [
+       "2",
+       "¬(Ga ∧ Ha)",
+       "-∀(1)",
+       "α"
+      ],
+      [
+       "3",
+       "¬Ga ∨ ¬Ha",
+       "-NK(2)",
+       "α"
+      ],
+      [
+       "β",
+       "Ga",
+       "A[+I]",
+       "β"
+      ],
+      [
+       "4",
+       "¬Ha",
+       "-A(3, β)",
+       "α, β"
+      ],
+      [
+       "5",
+       "Ga → ¬Ha",
+       "+I(β, 4)",
+       "α"
+      ],
+      [
+       "6",
+       "∀x(Gx → ¬Hx)",
+       "+∀(5)",
+       "α"
+      ]
+     ]
+    },
+    {
+     "id": "l9.k2.xii",
+     "type": "proof",
+     "origin": "course",
+     "group": "Übung 2",
+     "theorem": "∀x(Hx ∧ Fx) ⊢ ∀xHx ∧ ∀xFx",
+     "system": "full",
+     "solution": [
+      [
+       "α",
+       "∀x(Hx ∧ Fx)",
+       "A[V]",
+       "α"
+      ],
+      [
+       "1",
+       "Ha ∧ Fa",
+       "-∀(α)",
+       "α"
+      ],
+      [
+       "2",
+       "Ha",
+       "-K(1)",
+       "α"
+      ],
+      [
+       "3",
+       "∀xHx",
+       "+∀(2)",
+       "α"
+      ],
+      [
+       "4",
+       "Fa",
+       "-K(1)",
+       "α"
+      ],
+      [
+       "5",
+       "∀xFx",
+       "+∀(4)",
+       "α"
+      ],
+      [
+       "6",
+       "∀xHx ∧ ∀xFx",
+       "+K(3, 5)",
+       "α"
+      ]
+     ]
+    },
+    {
+     "id": "l9.k2.xiii",
+     "type": "proof",
+     "origin": "course",
+     "group": "Übung 2",
+     "theorem": "∀xHx ∧ ∀xFx ⊢ ∀x(Hx ∧ Fx)",
+     "system": "full",
+     "solution": [
+      [
+       "α",
+       "∀xHx ∧ ∀xFx",
+       "A[V]",
+       "α"
+      ],
+      [
+       "1",
+       "∀xHx",
+       "-K(α)",
+       "α"
+      ],
+      [
+       "2",
+       "Ha",
+       "-∀(1)",
+       "α"
+      ],
+      [
+       "3",
+       "∀xFx",
+       "-K(α)",
+       "α"
+      ],
+      [
+       "4",
+       "Fa",
+       "-∀(3)",
+       "α"
+      ],
+      [
+       "5",
+       "Ha ∧ Fa",
+       "+K(2, 4)",
+       "α"
+      ],
+      [
+       "6",
+       "∀x(Hx ∧ Fx)",
+       "+∀(5)",
+       "α"
+      ]
+     ]
+    },
+    {
+     "id": "l9.k2.xiv",
+     "type": "proof",
+     "origin": "course",
+     "group": "Übung 2",
+     "theorem": "∃x(Hx ∨ Fx) ⊢ ∃xHx ∨ ∃xFx",
+     "system": "full",
+     "solution": [
+      [
+       "α",
+       "∃x(Hx ∨ Fx)",
+       "A[V]",
+       "α"
+      ],
+      [
+       "β",
+       "Ha ∨ Fa",
+       "A[-∃]",
+       "β"
+      ],
+      [
+       "γ",
+       "Ha",
+       "A[-A, Fall 1]",
+       "γ"
+      ],
+      [
+       "1",
+       "∃xHx",
+       "+∃(γ)",
+       "γ"
+      ],
+      [
+       "2",
+       "¬∃xHx → ∃xFx",
+       "EFQ(1)",
+       "γ"
+      ],
+      [
+       "3",
+       "∃xHx ∨ ∃xFx",
+       "+A(2)",
+       "γ"
+      ],
+      [
+       "δ",
+       "Fa",
+       "A[-A, Fall 2]",
+       "δ"
+      ],
+      [
+       "4",
+       "∃xFx",
+       "+∃(δ)",
+       "δ"
+      ],
+      [
+       "5",
+       "¬∃xHx → ∃xFx",
+       "VEQ(4)",
+       "δ"
+      ],
+      [
+       "6",
+       "∃xHx ∨ ∃xFx",
+       "+A(5)",
+       "δ"
+      ],
+      [
+       "7",
+       "∃xHx ∨ ∃xFx",
+       "-A(β, 3, 6)",
+       "β"
+      ],
+      [
+       "8",
+       "∃xHx ∨ ∃xFx",
+       "-∃(α, β, 7)",
+       "α"
+      ]
+     ]
+    },
+    {
+     "id": "l9.k2.xv",
+     "type": "proof",
+     "origin": "course",
+     "group": "Übung 2",
+     "theorem": "∃xHx ∨ ∃xFx ⊢ ∃x(Hx ∨ Fx)",
+     "system": "full",
+     "solution": [
+      [
+       "α",
+       "∃xHx ∨ ∃xFx",
+       "A[V]",
+       "α"
+      ],
+      [
+       "β",
+       "∃xHx",
+       "A[-A, Fall 1]",
+       "β"
+      ],
+      [
+       "γ",
+       "Ha",
+       "A[-∃]",
+       "γ"
+      ],
+      [
+       "1",
+       "¬Ha → Fa",
+       "EFQ(γ)",
+       "γ"
+      ],
+      [
+       "2",
+       "Ha ∨ Fa",
+       "+A(1)",
+       "γ"
+      ],
+      [
+       "3",
+       "∃x(Hx ∨ Fx)",
+       "+∃(2)",
+       "γ"
+      ],
+      [
+       "4",
+       "∃x(Hx ∨ Fx)",
+       "-∃(β, γ, 3)",
+       "β"
+      ],
+      [
+       "δ",
+       "∃xFx",
+       "A[-A, Fall 2]",
+       "δ"
+      ],
+      [
+       "ε",
+       "Fa",
+       "A[-∃]",
+       "ε"
+      ],
+      [
+       "5",
+       "¬Ha → Fa",
+       "VEQ(ε)",
+       "ε"
+      ],
+      [
+       "6",
+       "Ha ∨ Fa",
+       "+A(5)",
+       "ε"
+      ],
+      [
+       "7",
+       "∃x(Hx ∨ Fx)",
+       "+∃(6)",
+       "ε"
+      ],
+      [
+       "8",
+       "∃x(Hx ∨ Fx)",
+       "-∃(δ, ε, 7)",
+       "δ"
+      ],
+      [
+       "9",
+       "∃x(Hx ∨ Fx)",
+       "-A(α, 4, 8)",
+       "α"
+      ]
+     ]
+    },
+    {
+     "id": "l9.k2.xvi",
+     "type": "proof",
+     "origin": "course",
+     "group": "Übung 2",
+     "theorem": "∀x(Hx → Fx) ⊢ ∀xHx → ∀xFx",
+     "system": "full",
+     "solution": [
+      [
+       "α",
+       "∀x(Hx → Fx)",
+       "A[V]",
+       "α"
+      ],
+      [
+       "1",
+       "Ha → Fa",
+       "-∀(α)",
+       "α"
+      ],
+      [
+       "β",
+       "∀xHx",
+       "A[+I]",
+       "β"
+      ],
+      [
+       "2",
+       "Ha",
+       "-∀(β)",
+       "β"
+      ],
+      [
+       "3",
+       "Fa",
+       "-I(1, 2)",
+       "α, β"
+      ],
+      [
+       "4",
+       "∀xFx",
+       "+∀(3)",
+       "α, β"
+      ],
+      [
+       "5",
+       "∀xHx → ∀xFx",
+       "+I(β, 4)",
+       "α"
+      ]
+     ]
+    },
+    {
+     "id": "l9.k2.xvii",
+     "type": "proof",
+     "origin": "course",
+     "group": "Übung 2",
+     "theorem": "∃x(Hx ∧ Fx) ⊢ ∃xHx ∧ ∃xFx",
+     "system": "full",
+     "solution": [
+      [
+       "α",
+       "∃x(Hx ∧ Fx)",
+       "A[V]",
+       "α"
+      ],
+      [
+       "β",
+       "Ha ∧ Fa",
+       "A[-∃]",
+       "β"
+      ],
+      [
+       "1",
+       "Ha",
+       "-K(β)",
+       "β"
+      ],
+      [
+       "2",
+       "∃xHx",
+       "+∃(1)",
+       "β"
+      ],
+      [
+       "3",
+       "Fa",
+       "-K(β)",
+       "β"
+      ],
+      [
+       "4",
+       "∃xFx",
+       "+∃(3)",
+       "β"
+      ],
+      [
+       "5",
+       "∃xHx ∧ ∃xFx",
+       "+K(2, 4)",
+       "β"
+      ],
+      [
+       "6",
+       "∃xHx ∧ ∃xFx",
+       "-∃(α, β, 5)",
+       "α"
+      ]
+     ]
+    },
+    {
+     "id": "l9.k2.xviii",
+     "type": "proof",
+     "origin": "course",
+     "group": "Übung 2",
+     "theorem": "∀x(Hx → Fx) ⊢ ∃xHx → ∃xFx",
+     "system": "full",
+     "solution": [
+      [
+       "α",
+       "∀x(Hx → Fx)",
+       "A[V]",
+       "α"
+      ],
+      [
+       "β",
+       "∃xHx",
+       "A[+I]",
+       "β"
+      ],
+      [
+       "γ",
+       "Ha",
+       "A[-∃]",
+       "γ"
+      ],
+      [
+       "1",
+       "Ha → Fa",
+       "-∀(α)",
+       "α"
+      ],
+      [
+       "2",
+       "Fa",
+       "-I(1, γ)",
+       "α, γ"
+      ],
+      [
+       "3",
+       "∃xFx",
+       "+∃(2)",
+       "α, γ"
+      ],
+      [
+       "4",
+       "∃xFx",
+       "-∃(β, γ, 3)",
+       "α, β"
+      ],
+      [
+       "5",
+       "∃xHx → ∃xFx",
+       "+I(β, 4)",
+       "α"
+      ]
+     ]
+    },
+    {
+     "id": "l9.k2.xix",
+     "type": "proof",
+     "origin": "course",
+     "group": "Übung 2",
+     "theorem": "∀x(Hx → ∃yGxy) ⊢ ∀x∃y(Hx → Gxy)",
+     "system": "full",
+     "solution": [
+      [
+       "α",
+       "∀x(Hx → ∃yGxy)",
+       "A[V]",
+       "α"
+      ],
+      [
+       "1",
+       "Ha → ∃yGay",
+       "-∀(α)",
+       "α"
+      ],
+      [
+       "2",
+       "¬Ha → ¬Ha",
+       "T",
+       ""
+      ],
+      [
+       "3",
+       "Ha ∨ ¬Ha",
+       "+A(2)",
+       ""
+      ],
+      [
+       "β",
+       "Ha",
+       "A[-A, Fall 1]",
+       "β"
+      ],
+      [
+       "4",
+       "∃yGay",
+       "-I(1, β)",
+       "α, β"
+      ],
+      [
+       "γ",
+       "Gab",
+       "A[-∃]",
+       "γ"
+      ],
+      [
+       "5",
+       "Ha → Gab",
+       "VEQ(γ)",
+       "γ"
+      ],
+      [
+       "6",
+       "∃y(Ha → Gay)",
+       "+∃(5)",
+       "γ"
+      ],
+      [
+       "7",
+       "∃y(Ha → Gay)",
+       "-∃(4, γ, 6)",
+       "α, β"
+      ],
+      [
+       "δ",
+       "¬Ha",
+       "A[-A, Fall 2]",
+       "δ"
+      ],
+      [
+       "8",
+       "Ha → Gab",
+       "EFQ(δ)",
+       "δ"
+      ],
+      [
+       "9",
+       "∃y(Ha → Gay)",
+       "+∃(8)",
+       "δ"
+      ],
+      [
+       "10",
+       "∃y(Ha → Gay)",
+       "-A(3, 7, 9)",
+       "α"
+      ],
+      [
+       "11",
+       "∀x∃y(Hx → Gxy)",
+       "+∀(10)",
+       "α"
+      ]
+     ]
+    },
+    {
+     "id": "l9.k2.xx",
+     "type": "proof",
+     "origin": "course",
+     "group": "Übung 2",
+     "theorem": "∃x∀y(Hx ∧ Gxy) ⊢ ∃x(Hx ∧ ∀yGxy)",
+     "system": "full",
+     "solution": [
+      [
+       "α",
+       "∃x∀y(Hx ∧ Gxy)",
+       "A[V]",
+       "α"
+      ],
+      [
+       "β",
+       "∀y(Ha ∧ Gay)",
+       "A[-∃]",
+       "β"
+      ],
+      [
+       "1",
+       "Ha ∧ Gab",
+       "-∀(β)",
+       "β"
+      ],
+      [
+       "2",
+       "Ha",
+       "-K(1)",
+       "β"
+      ],
+      [
+       "3",
+       "Gab",
+       "-K(1)",
+       "β"
+      ],
+      [
+       "4",
+       "∀yGay",
+       "+∀(3)",
+       "β"
+      ],
+      [
+       "5",
+       "Ha ∧ ∀yGay",
+       "+K(2, 4)",
+       "β"
+      ],
+      [
+       "6",
+       "∃x(Hx ∧ ∀yGxy)",
+       "+∃(5)",
+       "β"
+      ],
+      [
+       "7",
+       "∃x(Hx ∧ ∀yGxy)",
+       "-∃(α, β, 6)",
+       "α"
+      ]
+     ]
+    },
+    {
+     "id": "l9.z1",
+     "type": "choice",
+     "origin": "extra",
+     "group": "Zusatzübungen",
+     "question": "Gilt ∀x∃yHxy ⊢ ∃y∀xHxy?",
+     "options": [
+      {
+       "text": "Nein",
+       "correct": true,
+       "feedback": "Gegenbeispiel: Menschen, H = »… hat als Mutter …«. Jeder hat eine Mutter, aber niemand ist die Mutter aller."
+      },
+      {
+       "text": "Ja",
+       "correct": false,
+       "feedback": "Aus »zu jedem gibt es eins« folgt nicht »es gibt eins für alle«."
+      }
+     ]
+    },
+    {
+     "id": "l9.z2",
+     "type": "choice",
+     "origin": "extra",
+     "group": "Zusatzübungen",
+     "question": "Darf in RAA auch eine Voraussetzung (A[V]) als die widerlegte Annahme genannt werden?",
+     "options": [
+      {
+       "text": "Ja – formal gibt es keinen Unterschied zwischen Voraussetzungen und Annahmen.",
+       "correct": true
+      },
+      {
+       "text": "Nein – nur Annahmen mit dem Kommentar A[RAA].",
+       "correct": false,
+       "feedback": "Kommentare haben keinen Einfluss auf die Korrektheit."
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "exam": {
+  "title": "Übungsklausur",
+  "file": "exam.txt",
+  "proofSystem": "full",
+  "choose": 5,
+  "minutes": 90,
+  "tasks": [
+   {
+    "id": "exam.1",
+    "type": "proof",
+    "origin": "course",
+    "group": "Übungsklausur",
+    "theorem": "⊢ ¬(Fb ∧ Gb) ∨ Fb",
+    "system": "full",
+    "solution": [
+     [
+      "α",
+      "Fb ∧ Gb",
+      "A[+I]",
+      "α"
+     ],
+     [
+      "1",
+      "Fb",
+      "-K(α)",
+      "α"
+     ],
+     [
+      "2",
+      "(Fb ∧ Gb) → Fb",
+      "+I(α, 1)",
+      ""
+     ],
+     [
+      "3",
+      "¬(Fb ∧ Gb) ∨ Fb",
+      "+A(2)",
+      ""
+     ]
+    ]
+   },
+   {
+    "id": "exam.2",
+    "type": "proof",
+    "origin": "course",
+    "group": "Übungsklausur",
+    "theorem": "⊢ ¬(Gb → Fb) → Gb",
+    "system": "full",
+    "solution": [
+     [
+      "α",
+      "¬(Gb → Fb)",
+      "A[+I]",
+      "α"
+     ],
+     [
+      "β",
+      "¬Gb",
+      "A[RAA]",
+      "β"
+     ],
+     [
+      "1",
+      "Gb → Fb",
+      "EFQ(β)",
+      "β"
+     ],
+     [
+      "2",
+      "Gb",
+      "RAA(β, 1, α)",
+      "α"
+     ],
+     [
+      "3",
+      "¬(Gb → Fb) → Gb",
+      "+I(α, 2)",
+      ""
+     ]
+    ]
+   },
+   {
+    "id": "exam.3",
+    "type": "proof",
+    "origin": "course",
+    "group": "Übungsklausur",
+    "theorem": "Gb → ¬Fb ⊢ ¬(Fb ∧ Gb)",
+    "system": "full",
+    "solution": [
+     [
+      "α",
+      "Gb → ¬Fb",
+      "A[V]",
+      "α"
+     ],
+     [
+      "1",
+      "Fb → ¬Gb",
+      "KP(α)",
+      "α"
+     ],
+     [
+      "2",
+      "¬Fb ∨ ¬Gb",
+      "+A(1)",
+      "α"
+     ],
+     [
+      "3",
+      "¬(Fb ∧ Gb)",
+      "+NK(2)",
+      "α"
+     ]
+    ]
+   },
+   {
+    "id": "exam.4",
+    "type": "proof",
+    "origin": "course",
+    "group": "Übungsklausur",
+    "theorem": "∀x(Fx → ¬Gx), ∃xGx ⊢ ∃x¬Fx",
+    "system": "full",
+    "solution": [
+     [
+      "α",
+      "∀x(Fx → ¬Gx)",
+      "A[V]",
+      "α"
+     ],
+     [
+      "β",
+      "∃xGx",
+      "A[V]",
+      "β"
+     ],
+     [
+      "γ",
+      "Ga",
+      "A[-∃]",
+      "γ"
+     ],
+     [
+      "1",
+      "Fa → ¬Ga",
+      "-∀(α)",
+      "α"
+     ],
+     [
+      "2",
+      "Ga → ¬Fa",
+      "KP(1)",
+      "α"
+     ],
+     [
+      "3",
+      "¬Fa",
+      "-I(2, γ)",
+      "α, γ"
+     ],
+     [
+      "4",
+      "∃x¬Fx",
+      "+∃(3)",
+      "α, γ"
+     ],
+     [
+      "5",
+      "∃x¬Fx",
+      "-∃(β, γ, 4)",
+      "α, β"
+     ]
+    ]
+   },
+   {
+    "id": "exam.5",
+    "type": "proof",
+    "origin": "course",
+    "group": "Übungsklausur",
+    "theorem": "∀x(Fx → Gx) ⊢ ∃x¬Gx → ∃x¬Fx",
+    "system": "full",
+    "solution": [
+     [
+      "α",
+      "∀x(Fx → Gx)",
+      "A[V]",
+      "α"
+     ],
+     [
+      "β",
+      "∃x¬Gx",
+      "A[+I]",
+      "β"
+     ],
+     [
+      "γ",
+      "¬Ga",
+      "A[-∃]",
+      "γ"
+     ],
+     [
+      "1",
+      "Fa → Ga",
+      "-∀(α)",
+      "α"
+     ],
+     [
+      "2",
+      "¬Ga → ¬Fa",
+      "KP(1)",
+      "α"
+     ],
+     [
+      "3",
+      "¬Fa",
+      "-I(2, γ)",
+      "α, γ"
+     ],
+     [
+      "4",
+      "∃x¬Fx",
+      "+∃(3)",
+      "α, γ"
+     ],
+     [
+      "5",
+      "∃x¬Fx",
+      "-∃(β, γ, 4)",
+      "α, β"
+     ],
+     [
+      "6",
+      "∃x¬Gx → ∃x¬Fx",
+      "+I(β, 5)",
+      "α"
+     ]
+    ]
+   },
+   {
+    "id": "exam.6",
+    "type": "proof",
+    "origin": "course",
+    "group": "Übungsklausur",
+    "theorem": "¬∃x(Fx ∧ Gx) ⊢ ∀x(Gx → ¬Fx)",
+    "system": "full",
+    "solution": [
+     [
+      "α",
+      "¬∃x(Fx ∧ Gx)",
+      "A[V]",
+      "α"
+     ],
+     [
+      "1",
+      "∀x¬(Fx ∧ Gx)",
+      "-N∃(α)",
+      "α"
+     ],
+     [
+      "2",
+      "¬(Fa ∧ Ga)",
+      "-∀(1)",
+      "α"
+     ],
+     [
+      "3",
+      "¬Fa ∨ ¬Ga",
+      "-NK(2)",
+      "α"
+     ],
+     [
+      "β",
+      "Ga",
+      "A[+I]",
+      "β"
+     ],
+     [
+      "4",
+      "¬Fa",
+      "-A(3, β)",
+      "α, β"
+     ],
+     [
+      "5",
+      "Ga → ¬Fa",
+      "+I(β, 4)",
+      "α"
+     ],
+     [
+      "6",
+      "∀x(Gx → ¬Fx)",
+      "+∀(5)",
+      "α"
+     ]
+    ]
+   },
+   {
+    "id": "exam.7",
+    "type": "proof",
+    "origin": "course",
+    "group": "Übungsklausur",
+    "theorem": "∃x∀yGxy ⊢ ∀y∃xGxy",
+    "system": "full",
+    "solution": [
+     [
+      "α",
+      "∃x∀yGxy",
+      "A[V]",
+      "α"
+     ],
+     [
+      "β",
+      "∀yGay",
+      "A[-∃]",
+      "β"
+     ],
+     [
+      "1",
+      "Gab",
+      "-∀(β)",
+      "β"
+     ],
+     [
+      "2",
+      "∃xGxb",
+      "+∃(1)",
+      "β"
+     ],
+     [
+      "3",
+      "∀y∃xGxy",
+      "+∀(2)",
+      "β"
+     ],
+     [
+      "4",
+      "∀y∃xGxy",
+      "-∃(α, β, 3)",
+      "α"
+     ]
+    ]
+   }
+  ]
+ }
+}

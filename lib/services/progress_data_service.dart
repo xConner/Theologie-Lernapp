@@ -34,7 +34,8 @@ class ProgressDataService {
   }
 
   /// Dokumente unter `quiz_settings`, darunter die von „Bücher systematisch
-  /// lernen“ ([LocalLearningStore.bookLearningDocuments]).
+  /// lernen“ und der Fortschritt in „Einführung in die Logik“
+  /// ([LocalLearningStore.quizDocuments]).
   DocumentReference<Map<String, dynamic>> _quizSettingsDoc(
     String uid,
     String name,
@@ -70,7 +71,7 @@ class ProgressDataService {
       return true;
     }
 
-    for (final name in LocalLearningStore.bookLearningDocuments) {
+    for (final name in LocalLearningStore.quizDocuments) {
       if ((await _quizSettingsDoc(uid, name).get()).exists) {
         return true;
       }
@@ -125,9 +126,10 @@ class ProgressDataService {
       writes.add((batch) => batch.set(ref, {"selectedBooks": books.toList()}));
     }
 
-    // Bücher systematisch lernen: Lernstände, Präzisierungen und Pläne
-    // unverändert übernehmen (gleiches Format wie in Firestore).
-    for (final name in LocalLearningStore.bookLearningDocuments) {
+    // Bücher systematisch lernen (Lernstände, Präzisierungen, Pläne) und
+    // Logik-Fortschritt unverändert übernehmen (gleiches Format wie in
+    // Firestore).
+    for (final name in LocalLearningStore.quizDocuments) {
       final doc = await local.loadQuizDocument(name);
 
       if (doc.isNotEmpty) {
@@ -145,8 +147,9 @@ class ProgressDataService {
   // RESET
   // ==========================
 
-  /// Setzt alle Lernstände (stability, difficulty, lastReviewed) auf die
-  /// Initialwerte zurück. uid == null → lokaler Gast-Lernstand.
+  /// Setzt alle Lernstände (stability, difficulty, lastReviewed) und den
+  /// Fortschritt in „Einführung in die Logik“ zurück. uid == null → lokaler
+  /// Gast-Lernstand.
   ///
   /// Karten ohne Eselsbrücke werden gelöscht (fehlende Karte = Initialwerte),
   /// Karten mit Eselsbrücke behalten nur diese. Der Lernstand von „Bücher
@@ -165,8 +168,10 @@ class ProgressDataService {
       }
 
       final books = _quizSettingsDoc(uid, LocalLearningStore.pericopeBooks);
+      final logic = _quizSettingsDoc(uid, LocalLearningStore.logicCourse);
 
       writes.add((batch) => batch.delete(books));
+      writes.add((batch) => batch.delete(logic));
 
       await _commitInBatches(writes);
     });
@@ -177,26 +182,31 @@ class ProgressDataService {
   /// Einstellungen und Inhalte bleiben unverändert.
   ///
   /// [ProgressArea.pericopes] umfasst das Perikopenquiz und „Bücher
-  /// systematisch lernen“ (dessen Lernstand, nicht Präzisierungen/Pläne).
+  /// systematisch lernen“ (dessen Lernstand, nicht Präzisierungen/Pläne);
+  /// [ProgressArea.logic] besteht nur aus einem Dokument unter
+  /// `quiz_settings`.
   Future<void> resetArea(String? uid, ProgressArea area) {
     return _exclusive(() async {
-      final pericopes = area == ProgressArea.pericopes;
+      final collection = area.collection;
+      final documents = area.documents;
 
       if (uid == null) {
-        await local.resetCollection(area.collection);
+        if (collection != null) await local.resetCollection(collection);
 
-        if (pericopes) {
-          await local.removeQuizDocument(LocalLearningStore.pericopeBooks);
+        for (final name in documents) {
+          await local.removeQuizDocument(name);
         }
 
         return;
       }
 
-      final writes = await _collectionResetWrites(uid, area.collection);
+      final writes = collection == null
+          ? <void Function(WriteBatch)>[]
+          : await _collectionResetWrites(uid, collection);
 
-      if (pericopes) {
-        final books = _quizSettingsDoc(uid, LocalLearningStore.pericopeBooks);
-        writes.add((batch) => batch.delete(books));
+      for (final name in documents) {
+        final ref = _quizSettingsDoc(uid, name);
+        writes.add((batch) => batch.delete(ref));
       }
 
       await _commitInBatches(writes);

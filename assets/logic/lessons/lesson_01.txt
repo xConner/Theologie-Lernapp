@@ -1,0 +1,98 @@
+# Das Alphabet von AL
+
+Die Sprache der Aussagenlogik nennen wir kurz **AL**. Wie jede formale Sprache legen wir zuerst fest, aus welchen Zeichen sie besteht. Das Alphabet von AL umfasst:
+
+@text p, q, r, s, ¬, ∨, ∧, →, ↔, (, )
+
+- `p`, `q`, `r`, `s` sind die **Satzbuchstaben**.
+- `¬`, `∨`, `∧`, `→`, `↔` sind die (logischen) **Operatoren**.
+- `(` und `)` sind die **Klammerzeichen**.
+
+Die Operatoren tragen folgende Namen:
+
+- `¬` heißt **Negation** oder Verneinung.
+- `∧` heißt **Konjunktion**, gelesen einfach »und«.
+- `∨` heißt **Adjunktion**, gelesen »oder«.
+- `→` heißt **Implikation**, gelesen »wenn …, dann …«.
+- `↔` heißt **Äquivalenz**, gelesen »… genau dann, wenn …«.
+
+Die Menge der Satzbuchstaben lässt sich beliebig erweitern. Für unsere Zwecke reichen in aller Regel vier.
+
+::: explanation Adjunktion oder Disjunktion?
+Achte auf die Bezeichnung „Adjunktion“ für `∨`. In anderen Büchern heißt dieser Operator oft „Disjunktion“ – im Kurs wird durchgehend „Adjunktion“ verwendet, und davon leiten sich auch die Namen der Beweisregeln ab (+A, -A).
+:::
+
+# Ausdrücke und Sätze
+
+::: definition Definition 1.1 (Ausdruck)
+Jede beliebige Folge von Zeichen des Alphabets heißt ein **Ausdruck** in AL.
+:::
+
+Ausdrücke unterliegen keinerlei Regeln. `q ∨ r` ist ein Ausdruck, ebenso `)s¬(q`. Mit den meisten Ausdrücken können wir aber nichts anfangen. Deshalb geben wir Regeln an – die **Grammatik** von AL –, die die wohlgeformten Ausdrücke, die **Sätze**, von beliebigen Zeichenfolgen unterscheiden.
+
+::: definition Definition 1.2 (Satz)
+Ein Ausdruck α in AL heißt genau dann **Satz** in AL, wenn er eine dieser zwei Bedingungen erfüllt:
+1. α besteht nur aus einem einzigen Satzbuchstaben. Ein solcher Satz heißt **elementar**.
+2. α ist aus Sätzen A und B von AL nach einer dieser Formen zusammengesetzt:
+- α = ¬A – eine **Negation**
+- α = (A ∧ B) – eine **Konjunktion**
+- α = (A ∨ B) – eine **Adjunktion**
+- α = (A → B) – eine **Implikation**
+- α = (A ↔ B) – eine **Äquivalenz**
+
+Bei Sätzen der Form 2 heißen A und B die **Operanden** des Operators (bei der Negation gibt es nur den einen Operanden A).
+:::
+
+Im Kurs werden die Formen in Bedingung 2 der Reihe nach als (i) Negation, (ii) Konjunktion, (iii) Adjunktion, (iv) Implikation und (v) Äquivalenz gezählt. „Regel 2iv“ meint also die Implikation.
+
+Beispiele für Sätze sind `s`, `(q ∨ r)` und `(¬(p ∧ s) → q)`.
+
+::: warning Wichtig
+Die Klammern gehören fest zu den zweistelligen Formen: (A ∧ B), (A ∨ B), (A → B), (A ↔ B). Die Negation ¬A hat **keine** eigenen Klammern, ein elementarer Satz auch nicht.
+:::
+
+## Sätze bauen: die Definition als Produktionsregeln
+
+Man kann die Definition auch als Bauanleitung lesen. Jeder einzelne Satzbuchstabe ist schon ein Satz, zum Beispiel `q` und `s`. Aus Sätzen, die man schon hat, kann man nach den Formen in Bedingung 2 neue bauen: aus `q` und `s` etwa `(q ∧ s)` oder `¬s`. Und auch diese neuen Sätze lassen sich weiter kombinieren, etwa zu `((q ∧ s) ∨ ¬s)`.
+
+Weil die Regeln immer wieder auf ihre eigenen Ergebnisse angewendet werden dürfen, nennt man eine solche Definition **rekursiv**.
+
+## Sätze zerlegen: der Syntaxbaum
+
+Umgekehrt lässt sich ein gegebener Satz Schritt für Schritt in seine Bestandteile zerlegen. Man fragt jeweils: Nach welcher Regel ist dieser Satz entstanden?
+
+Nehmen wir α = `((q ∧ s) ∨ ¬s)`. Mit A = `(q ∧ s)` und B = `¬s` hat α die Form (A ∨ B) – Regel 2iii, eine Adjunktion. Nun zerlegen wir die Operanden weiter: `(q ∧ s)` hat mit A = `q` und B = `s` die Form (A ∧ B) nach Regel 2ii. `¬s` hat mit A = `s` die Form ¬A nach Regel 2i. `q` und `s` sind elementar. Das Ergebnis dieser Zerlegung ist der **Syntaxbaum** des Satzes:
+
+@tree-names ((q ∧ s) ∨ ¬s)
+
+Kürzer schreibt man an die Knoten statt der Satztypen einfach die Operatoren:
+
+@tree ((q ∧ s) ∨ ¬s)
+
+Das oberste Symbol heißt **Wurzel**, die Endpunkte der untersten Verzweigungen heißen **Blätter**. Syntaxbäume wachsen also nach unten. Die Blätter sind immer Satzbuchstaben. Der Operator an der Wurzel ist der **Hauptoperator**: Er bestimmt, welche Form der Satz auf oberster Ebene hat.
+
+## Die Zerlegung ist eindeutig
+
+Für einen Satz gibt es genau einen Syntaxbaum. Man könnte zwar versucht sein, `((q ∧ s) ∨ ¬s)` anders zu zerlegen – etwa mit A = `(q` und B = `s) ∨ ¬s`, sodass α wie (A ∧ B) aussieht. Aber weder `(q` noch `s) ∨ ¬s` ist ein Satz, denn keiner von beiden entspricht einer der Formen der Definition. Bedingung 2 verlangt aber ausdrücklich, dass A und B selbst Sätze sind. Diese Zerlegung ist also unzulässig.
+
+# Die Klammerersparnisregel
+
+::: convention Konvention 1.1 (Klammerersparnisregel)
+Bei Sätzen der Form (A ∧ B), (A ∨ B), (A → B) und (A ↔ B) dürfen die **äußersten** Klammern weggelassen werden. Statt `((q ∧ s) ∨ ¬s)` darf man also `(q ∧ s) ∨ ¬s` schreiben.
+:::
+
+Drei Punkte sind bei dieser Regel entscheidend:
+
+- Sie gilt nur für die äußersten Klammern eines ganzen Satzes. Innere Klammern dürfen nie wegfallen: `q ∧ s ∨ ¬s` ist **kein** Satz, denn man kann nicht entscheiden, ob ∧ oder ∨ der Hauptoperator ist.
+- Sie gilt nur für die zweistelligen Formen. Um eine Negation oder einen elementaren Satz stehen nie Klammern, also auch keine, die man weglassen könnte.
+- Sie erlaubt nur das **Weglassen**. Sie erweitert nicht, was ein Satz ist: `(¬q)` ist kein Satz, und zu `¬(q ∨ r)` dürfen keine zusätzlichen Klammern hinzugefügt werden.
+
+::: example Vorgehen bei der Prüfung
+Um zu prüfen, ob ein Ausdruck ein Satz ist, zerlegt man ihn von außen nach innen nach Definition 1.2. Fehlen ganz außen die Klammern einer zweistelligen Form, denkt man sie sich nach Konvention 1.1 hinzu. Jeder Teil, der dabei als Operand entsteht, muss selbst wieder ein Satz sein – vollständig ausgeschrieben, ohne Klammerersparnis.
+
+`¬q → (r ∨ s)` ist ein Satz: Ausgeschrieben lautet er `(¬q → (r ∨ s))`, eine Implikation mit den Operanden `¬q` (Negation) und `(r ∨ s)` (Adjunktion).
+
+`(¬q) → s` ist dagegen kein Satz: Der Operand `(¬q)` ist eine Negation mit Klammern, und die sieht die Definition nicht vor.
+:::
+
+@tree ¬q → (r ∨ s)

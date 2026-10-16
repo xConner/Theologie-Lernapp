@@ -1,0 +1,104 @@
+# Was ist eine Folgerung?
+
+In Lektion 2 haben wir logische Wahrheit, logische Falschheit und Kontingenz kennengelernt. Bei logisch wahren und logisch falschen Sätzen entscheidet die Form allein über die Wahrheit. Bei kontingenten Sätzen scheint die Untersuchung der Form an eine Grenze zu stoßen: Um ihre Wahrheit zu beurteilen, müssten wir auf den Inhalt schauen.
+
+Zum Glück geht es in der Logik gar nicht in erster Linie darum, ob ein einzelner Satz wahr oder falsch ist. Es geht um die **Beziehungen zwischen Sätzen**. Diese Beziehungen zeigen die Struktur von Argumenten und ob aus bestimmten Sätzen logisch korrekt geschlossen werden kann. Die Logik untersucht also die **Gültigkeit von Argumentationen** – unabhängig davon, ob die Sätze darin wahr oder falsch sind.
+
+Die zentrale Beziehung zwischen Sätzen ist die **Folgerung**. Man kann sie als Wenn-dann-Satz formulieren: »Wenn A, dann B«. Die entscheidende Frage ist: Wann sagen wir, dass aus A zwangsläufig B folgt?
+
+Dass aus A der Satz B folgt, heißt: Es ist **unmöglich, dass A wahr und B falsch** ist. Wo A zutrifft, trifft zwangsläufig auch B zu. In AL wird diese Beziehung durch die Implikation `A → B` ausgedrückt.
+
+Eine Folgerung handelt ausdrücklich nur von dem Fall, dass A wahr ist. Über den Fall, dass A falsch ist, sagt sie nichts. Deshalb ist `A → B` auch dann wahr, wenn A falsch ist – gleichgültig, ob B wahr ist oder nicht. Verletzt ist die Implikation nur, wenn A wahr und B falsch ist:
+
+@table A → B
+
+## Prämisse und Konklusion
+
+Eine Folgerung hat zwei Teile: die **Voraussetzung** oder **Prämisse** und die **Konklusion**, auch **These** genannt. Das eine ist der Ausgangspunkt, das andere das Ziel. Wer sich mit einer Folgerung beschäftigt, beschäftigt sich aber nur in zweiter Linie mit Ausgangspunkt und Ziel für sich. In erster Linie geht es um das **Verhältnis** zwischen beiden. Das ist ein ganz wichtiger Unterschied.
+
+## Ein Beispiel mit Karten
+
+In einer Schachtel liegen noch vier Karten mit den Zahlen 1, 4, 8 und 10. Jemand zieht verdeckt eine Karte, schaut sie nicht an und sagt: »Wenn meine Karte nicht die 1 ist, dann ist ihre Zahl gerade.«
+
+Das ist ein Wenn-dann-Satz, den man mit der Implikation bzw. mit dem metasprachlichen Begriff der Folgerung verbinden kann. Die Prämisse lautet »Meine Karte ist nicht die 1«, die Konklusion »Die Zahl meiner Karte ist gerade«. Stimmt die Aussage in jedem Fall, oder hängt das von der gezogenen Karte ab? Wir gehen alle Fälle durch:
+
+- **Die Karte ist die 4, 8 oder 10.** Die Prämisse ist wahr, denn keine dieser Zahlen ist 1. Die Konklusion ist ebenfalls wahr, denn alle drei sind gerade. Intuitiv ist die ganze Aussage wahr – und das deckt sich mit den Wahrheitsbedingungen der Implikation.
+- **Die Karte ist die 1.** Die Prämisse ist falsch, denn die Karte *ist* die 1. Die Konklusion ist ebenfalls falsch, denn 1 ist ungerade. Ist die Aussage deshalb falsch? Die Wahrheitsbedingungen sagen: Sie ist wahr. Mit der Intuition bringt man das in Einklang, wenn man sich klar macht, dass die Folgerung vom **Verhältnis** zwischen Prämisse und Konklusion handelt. Weder die Wahrheit der Prämisse noch die der Konklusion für sich ist nötig, damit die Folgerung stimmt. Die Aussage sagt nichts darüber, welche Karte gezogen wurde, sondern etwas über Möglichkeiten: Ist es nicht die 1, dann muss die Zahl gerade sein. Ist es die 1, muss sie es nicht.
+
+In allen Fällen trifft die Aussage zu. Sie ist also wahr, unabhängig davon, welche Karte gezogen wurde.
+
+Nun liegen in der Schachtel die Karten 1, 4, 8 und 9. Wieder lautet die Aussage: »Wenn die Karte nicht die 1 ist, dann ist ihre Zahl gerade.«
+
+- **Die Karte ist die 4 oder 8:** Prämisse und Konklusion sind wahr, die Aussage also wahr.
+- **Die Karte ist die 1:** Prämisse und Konklusion sind falsch, die Aussage – wie eben besprochen – wahr.
+- **Die Karte ist die 9:** Die Prämisse ist wahr, denn 9 ist nicht 1. Die Konklusion ist falsch, denn 9 ist ungerade. Die Wahrheitsbedingungen sagen: Die Aussage ist falsch. Die Aussage hat ja zugesichert, dass zwischen »die Karte ist nicht die 1« und »die Zahl ist gerade« ein bestimmtes Verhältnis besteht: Ist das eine der Fall, dann auch das andere. Genau diese Zusicherung ist hier verletzt.
+
+Diesmal trifft die Aussage also nicht in allen Fällen zu; ihre Wahrheit hängt von der gezogenen Karte ab.
+
+Ein drittes Beispiel mit denselben Karten 1, 4, 8 und 9. Die Aussage lautet jetzt: »Wenn die Zahl der Karte größer als 8 ist, dann ist sie ungerade.«
+
+- **Die Karte ist die 4 oder die 8:** Die Prämisse ist falsch, denn weder 4 noch 8 ist größer als 8. Dass auch die Konklusion falsch ist, schadet nicht: Ist die Bedingung der Prämisse nicht erfüllt, erwarten wir auch nicht, dass die Konklusion zutrifft. Die Aussage ist wahr.
+- **Die Karte ist die 1:** Die Prämisse ist falsch, denn 1 ist nicht größer als 8. Die Konklusion aber ist wahr, denn 1 ist ungerade. Diesen Fall hatten wir noch nicht. Die Wahrheitsbedingungen sagen: wahr. Entscheidend ist, dass das Verhältnis zwischen Prämisse und Konklusion eine **Richtung** hat: Eine wahre Prämisse verlangt eine wahre Konklusion – aber nicht umgekehrt. Eine wahre Konklusion darf durchaus mit einer falschen Prämisse zusammen bestehen.
+- **Die Karte ist die 9:** Prämisse und Konklusion sind wahr.
+
+Auch diese Aussage ist wahr, ganz gleich, welche Karte gezogen wurde.
+
+# Argumentationen
+
+Behaupten wir »aus A folgt B«, in AL notiert als `A → B`, so ist diese Folgerung **gültig**, wenn `A → B` eine Tautologie ist – und nur dann.
+
+Ein Beispiel: »Wenn p oder q gilt und p nicht gilt, dann gilt q.« Die Prämisse lautet »p oder q gilt, und p gilt nicht«, die Konklusion »q gilt«. Formalisiert:
+
+@formula ((p ∨ q) ∧ ¬p) → q
+
+Man könnte mit einer Wahrheitstafel nachprüfen, dass dieser Satz logisch wahr ist, und hätte damit die Gültigkeit der Folgerung nachgewiesen. In der Praxis ist das oft umständlich. Vor allem entspricht es nicht der Struktur einer Argumentation, einfach alle Möglichkeiten durchzuprobieren: Die Wahrheitstafel geht alle Interpretationen durch, ohne darauf zu achten, wie der Satz aufgebaut ist. Eine Argumentation geht gezielter vor. Sie bringt Prämisse und Konklusion in einen **Begründungszusammenhang**, gegebenenfalls über mehrere Zwischenschritte.
+
+Wie sieht das hier aus? Wir dürfen davon ausgehen, dass p oder q gilt und dass p nicht gilt. Denn wir sollen ja begründen, dass die Folgerung gültig ist – und eine Folgerung ist bei falscher Prämisse ohnehin gültig. Eine Argumentation fragt nicht, ob die Prämissen wahr sind, sondern nur, ob unter der **Annahme** der Prämissen die Konklusion zwingend folgt. Also: Es gilt p oder q. Da p nicht gilt, bleibt nur q. Damit ist q wahr.
+
+Das unterstreicht noch einmal: Es geht nicht um die Wahrheit einzelner Aussagen, sondern um die Beziehung zwischen ihnen. Man kann ein Argument als Weg verstehen: Es führt von A zu B. Wer bei A angekommen ist, kennt damit den Weg nach B. Wo man gerade steht, sagt das Argument aber nicht: Es sagt nicht, ob A oder B wahr ist.
+
+# Objekt- und Metasprache
+
+In den folgenden Lektionen werden Argumentationen ganz formal geführt, mit genauen Regeln dafür, welche Schritte erlaubt sind. Für den Augenblick genügt die alltagssprachliche Darstellung.
+
+Wir haben begründet, dass aus `(p ∨ q) ∧ ¬p` der Satz `q` folgt. Dafür führen wir ein neues Zeichen ein:
+
+@text (p ∨ q) ∧ ¬p ⊢ q
+
+`⊢` heißt **Beweisbarkeitsoperator** oder **Folgerungsoperator**. Er gehört **nicht** zur Sprache AL. Deshalb ist `(p ∨ q) ∧ ¬p ⊢ q` auch kein Satz von AL, sondern es sind zwei Sätze von AL, die mit dem Zeichen ⊢ verbunden werden. Natürlich hängt ⊢ eng mit der Implikation zusammen – dazu gleich mehr.
+
+Mit A ⊢ B behaupten wir: Man kann von A ausgehend argumentativ zu B gelangen. A heißt dann die **Voraussetzung**, B die **These**, und A ⊢ B heißt ein **Theorem**.
+
+Sieht man genauer hin, enthält die Voraussetzung `(p ∨ q) ∧ ¬p` eigentlich zwei Voraussetzungen, die mit ∧ verbunden sind: `p ∨ q` und `¬p`. In der Argumentation haben wir sie auch einzeln verwendet. Dann schreiben wir:
+
+@text p ∨ q, ¬p ⊢ q
+
+Auch das Komma gehört nicht zum Alphabet von AL. `p ∨ q, ¬p ⊢ q` ist kein Satz, sondern drei Sätze, die durch Komma und ⊢ in einen bestimmten Zusammenhang gestellt werden.
+
+Spricht man über eine formale Sprache, unterscheidet man **Objektsprache** und **Metasprache**. Die Objektsprache ist hier AL mit der Syntax nach Definition 1.2 und der Semantik nach Definition 2.2. Die Metasprache ist unsere Alltagssprache, angereichert um einige Zeichen. Komma und ⊢ gehören zur Metasprache.
+
+## Das Folgerungstheorem
+
+Wenn wir später genaue Regeln für Argumentationen aufstellen, erwarten wir von ⊢ Folgendes:
+
+::: theorem Satz 3.1 (Folgerungstheorem)
+Seien V₁, …, Vₙ und T Sätze in AL. Es gilt V₁, …, Vₙ ⊢ T genau dann, wenn ⊨ ((V₁ ∧ (V₂ ∧ … (Vₙ₋₁ ∧ Vₙ) …)) → T).
+:::
+
+Der etwas unhandliche Ausdruck `(V₁ ∧ (V₂ ∧ … (Vₙ₋₁ ∧ Vₙ) …))` ist der Syntax geschuldet. In der Metasprache dürfen wir V₁, …, Vₙ schreiben. In der Objektsprache aber nicht V₁ ∧ … ∧ Vₙ, denn jede Konjunktion braucht ihre Klammern. Für n = 4 lautet die Konjunktion zum Beispiel:
+
+@text (V₁ ∧ (V₂ ∧ (V₃ ∧ V₄)))
+
+## Gegenbeispiele zu Folgerungen
+
+Aus dem Folgerungstheorem und Definition 2.3 ergibt sich, wie ein Gegenbeispiel zu einem Theorem V₁, …, Vₙ ⊢ T aussieht: ein Gegenbeispiel für den Satz `((V₁ ∧ (… ∧ Vₙ)) → T)`. Eine Implikation ist nur falsch, wenn ihre Prämisse wahr und ihre Konklusion falsch ist. Ein Gegenbeispiel ist also eine Interpretation, unter der **alle Voraussetzungen wahr** und die **These falsch** ist. Gibt es keine solche Interpretation, ist das Theorem gültig.
+
+::: example Beispiel
+`q ⊢ p ∨ q` ist gültig: In keiner Zeile der Wahrheitstafel ist q wahr und `p ∨ q` falsch.
+
+`p ∨ q ⊢ q` ist nicht gültig: Unter p = 1, q = 0 ist die Voraussetzung `p ∨ q` wahr, die These q aber falsch. Diese Interpretation ist ein Gegenbeispiel.
+:::
+
+::: explanation Implikation und Kausalität
+Die Implikation behauptet keinen ursächlichen oder inhaltlichen Zusammenhang. `(p → q)` ist schon dann wahr, wenn p falsch oder q wahr ist – auch wenn p und q inhaltlich nichts miteinander zu tun haben. Gültigkeit einer Folgerung heißt nur: Es gibt keine Interpretation, unter der die Voraussetzungen wahr sind und die These falsch ist.
+:::

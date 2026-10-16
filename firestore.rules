@@ -10,6 +10,7 @@ rules_version = '2';
 //   users/{uid}/quiz_settings/perikopen
 //   users/{uid}/quiz_settings/{pericope_books|pericope_precision|pericope_plans}
 //                                              (Bücher systematisch lernen)
+//   users/{uid}/quiz_settings/logic_course     (Einführung in die Logik: Fortschritt)
 //   users/{uid}/vocabulary/{vocabularyId}
 //   users/{uid}/learning_cards/{cardId}
 //   users/{uid}/latin_vocabulary/{cardId}

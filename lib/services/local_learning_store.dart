@@ -17,8 +17,8 @@ import '../models/memorization/memorization_card.dart';
 ///     (`vocabulary_settings`, `latin_vocabulary_settings`,
 ///     `greek_grammar_settings`, `memorization_settings`)
 ///   * `quiz_settings/perikopen`
-///   * die Dokumente von „Bücher systematisch lernen“ unter `quiz_settings`
-///     ([bookLearningDocuments])
+///   * die Dokumente von „Bücher systematisch lernen“ und der Fortschritt in
+///     „Einführung in die Logik“ unter `quiz_settings` ([quizDocuments])
 ///
 /// Alle Keys sind versioniert (`guest.v1.`), damit sich das Format später
 /// migrieren lässt. Fehlende oder ungültige Daten werden als "nicht
@@ -100,6 +100,17 @@ class LocalLearningStore {
     pericopeBooks,
     pericopePrecision,
     pericopePlans,
+  ];
+
+  /// Lernfortschritt im Lernbereich „Einführung in die Logik“
+  /// (`quiz_settings/logic_course`, siehe `LogicProgressStore`).
+  static const String logicCourse = "logic_course";
+
+  /// Alle Dokumente unter `quiz_settings`, die bei der Übernahme von
+  /// Gastdaten übertragen und beim Löschen der Gastdaten entfernt werden.
+  static const List<String> quizDocuments = [
+    ...bookLearningDocuments,
+    logicCourse,
   ];
 
   static String _quizDocumentKey(String name) =>
@@ -287,7 +298,7 @@ class LocalLearningStore {
   // BÜCHER SYSTEMATISCH LERNEN
   // ==========================
 
-  /// Inhalt eines Dokuments aus [bookLearningDocuments]; leer, wenn nichts
+  /// Inhalt eines Dokuments aus [quizDocuments]; leer, wenn nichts
   /// (Gültiges) gespeichert ist.
   Future<Map<String, dynamic>> loadQuizDocument(String name) async {
     final prefs = await SharedPreferences.getInstance();
@@ -351,7 +362,7 @@ class LocalLearningStore {
       }
     }
 
-    for (final name in bookLearningDocuments) {
+    for (final name in quizDocuments) {
       if (await _hasQuizDocumentEntries(name)) {
         return true;
       }
@@ -388,7 +399,7 @@ class LocalLearningStore {
     await prefs.remove(_settingsKey);
     await prefs.remove(_perikopenSettingsKey);
 
-    for (final name in bookLearningDocuments) {
+    for (final name in quizDocuments) {
       await prefs.remove(_quizDocumentKey(name));
     }
   }
@@ -397,13 +408,14 @@ class LocalLearningStore {
   // RESET
   // ==========================
 
-  /// Setzt alle lokalen Lernstände auf die Initialwerte zurück. Eigene
-  /// Eselsbrücken und Einstellungen (auch Verspräzisierungen und Lernpläne)
-  /// bleiben erhalten.
+  /// Setzt alle lokalen Lernstände auf die Initialwerte zurück (auch den
+  /// Fortschritt in „Einführung in die Logik“). Eigene Eselsbrücken und
+  /// Einstellungen (auch Verspräzisierungen und Lernpläne) bleiben erhalten.
   Future<void> resetProgress() async {
     final prefs = await SharedPreferences.getInstance();
 
     await prefs.remove(_quizDocumentKey(pericopeBooks));
+    await prefs.remove(_quizDocumentKey(logicCourse));
 
     for (final collection in cardCollections) {
       await resetCollection(collection);
@@ -444,7 +456,7 @@ class LocalLearningStore {
     }
   }
 
-  /// Entfernt ein Dokument aus [bookLearningDocuments] vollständig.
+  /// Entfernt ein Dokument aus [quizDocuments] vollständig.
   Future<void> removeQuizDocument(String name) async {
     final prefs = await SharedPreferences.getInstance();
 

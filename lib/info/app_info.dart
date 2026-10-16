@@ -515,6 +515,60 @@ class AppModules {
     ],
   );
 
+  static const ModuleInfo logic = ModuleInfo(
+    id: "philosophy_logic",
+    title: "Einführung in die Logik",
+    description:
+        "Lernbereich zur Aussagen- und Prädikatenlogik in neun Lektionen: "
+        "Syntax, Semantik, logische Folgerung und formale Beweise mit "
+        "Annahmen, dazu eine Übungsklausur. Jede Lektion hat einen Lehrtext, "
+        "Kursübungen und automatisch erzeugte, geprüfte Zusatzübungen.",
+    sources: [
+      SourceInfo(
+        title: "Lehrtexte und Übungen",
+        origin:
+            "Inhaltlich nach einem universitären Einführungskurs in die "
+            "Logik (Gliederung, Begriffe, Schreibweise und Argumente des "
+            "Kurses)",
+        processing:
+            "Die Texte sind für diesen Lernbereich eigens formuliert; "
+            "Beispiele und Übungsaufgaben sind abgewandelt. Ergänzende "
+            "Erläuterungen sind in der App als solche gekennzeichnet.",
+        aiNote:
+            "Texte, Beispiele, Übungen und Musterlösungen wurden mit "
+            "KI-Unterstützung erstellt. Alle Formeln, Wahrheitstafeln und "
+            "Musterbeweise werden automatisch geprüft.",
+      ),
+      SourceInfo(
+        title: "Auswertung der Antworten",
+        processing:
+            "Wahrheitstafeln, Folgerungen und Formalisierungen werden auf "
+            "dem Gerät berechnet (Formalisierungen über logische "
+            "Äquivalenz). Beweise prüft ein Beweisprüfer Zeile für Zeile "
+            "nach den Argumenten des Kurses einschließlich der "
+            "Abhängigkeiten von Annahmen.",
+        aiNote: "Für die Auswertung wird keine KI verwendet.",
+      ),
+      SourceInfo(
+        title: "Schrift für logische Zeichen",
+        origin: "DejaVu Sans (Teilmenge)",
+        license: "Bitstream-Vera-Lizenz, Änderungen gemeinfrei",
+        url: "https://dejavu-fonts.github.io/",
+      ),
+    ],
+    notes: [
+      "Der Beweisprüfer ordnet Fehler wie die Bewertungshinweise des Kurses "
+          "ein (leichter oder schwerer syntaktischer Fehler, semantischer "
+          "Fehler), vergibt aber keine Punkte. Ob ein aussagenlogischer Satz "
+          "semantisch folgt, wird per Wahrheitstafel geprüft; in der "
+          "Prädikatenlogik ist das nicht automatisch möglich.",
+      "Offene Aufgaben (Erklärungen, Formalisierungen in der "
+          "Prädikatenlogik) werden nicht automatisch bewertet.",
+      "Eine als bearbeitet markierte Lektion ist kein Nachweis, dass der "
+          "Stoff sicher beherrscht wird.",
+    ],
+  );
+
   /// Bereiche, die in „Über die App“ aufgelistet werden.
   static const List<ModuleInfo> all = [
     pericopeQuiz,
@@ -528,6 +582,7 @@ class AppModules {
     greekGrammarTrainer,
     greekGrammarOverview,
     latinVocabulary,
+    logic,
     timetable,
   ];
 }

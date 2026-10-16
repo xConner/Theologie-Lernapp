@@ -1,0 +1,173 @@
+# Verhältnis der Quantoren zueinander
+
+Damit haben wir alle Techniken und Argumente, um prädikatenlogische Theoreme zu beweisen:
+
+::: rules Argumente 9.1
+@rule -∀ | X ⊢ ∀xAx | X ⊢ Ai
+@rule +∀ | X[i̸] ⊢ Ai | X ⊢ ∀xAx
+@rule -∃ | X[i̸] ⊢ ∃xAx ; Y[i̸], Ai ⊢ B[i̸] | X, Y, ∃xAx ⊢ B
+@rule +∃ | X ⊢ Ai | X ⊢ ∃xAx
+:::
+
+Von hier aus lassen sich einige Zusammenhänge klären, die Beweise erheblich vereinfachen.
+
+Wie hängen die beiden Quantoren zusammen? Nehmen wir die Aussage »Alle x sind G«. Damit ist ausgeschlossen, dass es irgendein x gibt, das nicht G ist. Als Theorem:
+
+@text ∀xGx ⊢ ¬∃x¬Gx
+
+Der Beweis verlangt eine ungewöhnliche Anwendung von RAA. Der Anfang ist gewöhnlich: Mit der Annahme β bereiten wir einen Widerspruchsbeweis vor, mit γ die Beseitigung des Existenzquantors aus β. Mit -∀ zeigt sich rasch ein Widerspruch, allerdings einer, der an der Annahme γ hängt. Das macht Schwierigkeiten und zwingt zu einem Umweg.
+
+Zuerst der naheliegende Versuch: Sobald wir den Widerspruch haben, schließen wir mit RAA auf `¬∃x¬Gx`.
+
+@proof-partial full | ∀xGx ⊢ ¬∃x¬Gx
+α | ∀xGx | A[V] | α
+β | ∃x¬Gx | A[RAA] | β
+γ | ¬Ga | A[-∃] | γ
+1 | Ga | -∀(α) | α
+2 | ¬∃x¬Gx | RAA(β, 1, γ) | α, γ
+@end
+
+Fertig sind wir damit nicht, denn γ darf nicht zu den Bedingungen der These gehören. Wir könnten γ beseitigen, indem wir die geplante Beseitigung des Existenzquantors ausführen:
+
+@proof-partial full | ∀xGx ⊢ ¬∃x¬Gx
+α | ∀xGx | A[V] | α
+β | ∃x¬Gx | A[RAA] | β
+γ | ¬Ga | A[-∃] | γ
+1 | Ga | -∀(α) | α
+2 | ¬∃x¬Gx | RAA(β, 1, γ) | α, γ
+3 | ¬∃x¬Gx | -∃(β, γ, 2) | α, β
+@end
+
+Aber der Existenzquantor war die Annahme β. Indem wir ihn beseitigen, ziehen wir β wieder in die Bedingungen hinein – und ein zweites Mal lässt sich β nicht eliminieren.
+
+So herum geht es also nicht. Versuchen wir, zuerst den Existenzquantor zu beseitigen und dann den Widerspruch zu nutzen. Auch das geht nicht ohne Weiteres: Der Widerspruch besteht zwischen `Ga` und `¬Ga`, zwei Sätzen mit a – die kommen als B in -∃ nicht in Frage. Wir müssen den Widerspruch so „verpacken“, dass er durch -∃ hindurchgeschmuggelt werden kann. Dafür verwenden wir RAA, widerlegen aber die **Voraussetzung α**:
+
+@proof-partial full | ∀xGx ⊢ ¬∃x¬Gx
+α | ∀xGx | A[V] | α
+β | ∃x¬Gx | A[RAA] | β
+γ | ¬Ga | A[-∃] | γ
+1 | Ga | -∀(α) | α
+2 | ¬∀xGx | RAA(α, 1, γ) | γ
+@end
+
+Darf man das? Ja: Formal gibt es **keinen Unterschied zwischen Voraussetzungen und Annahmen**. Argumentationstheoretisch mag man mit „voraussetzen“ und „annehmen“ verschiedene Sprechhandlungen verbinden, formal bildet sich das nicht zwingend ab. Das zeigen auch unsere Argumente: Die Satzmenge X umfasst immer alle Voraussetzungen und Annahmen eines Satzes. Und auch wenn wir β eingeführt haben, um es in einem Widerspruchsbeweis zu verwenden, gibt es keinen formalen Grund, gerade β zu widerlegen. Im Gegenteil: Stößt man nach einer zusätzlichen Annahme auf einen Widerspruch, kann man ihn sehr wohl auch beseitigen, indem man eine andere Voraussetzung oder Annahme streicht.
+
+Der Rest ergibt sich: Wir beseitigen den Existenzquantor, um γ loszuwerden, und nutzen dann mit RAA den in Zeile 2 „gespeicherten“ Widerspruch, um β zu streichen. Der vollständige Beweis:
+
+@proof full | ∀xGx ⊢ ¬∃x¬Gx
+α | ∀xGx | A[V] | α
+β | ∃x¬Gx | A[RAA] | β
+γ | ¬Ga | A[-∃] | γ
+1 | Ga | -∀(α) | α
+2 | ¬∀xGx | RAA(α, 1, γ) | γ
+3 | ¬∀xGx | -∃(β, γ, 2) | β
+4 | ¬∃x¬Gx | RAA(β, α, 3) | α
+@end
+
+Damit wir diesen schwierigen Beweis nicht jedes Mal führen müssen, formulieren wir auf Grundlage des Theorems ein Argument, die **Einführung des negierten Existenzquantors**:
+
+@rule +N∃ | X ⊢ ∀xAx | X ⊢ ¬∃x¬Ax
+
+## Die übrigen Zusammenhänge
+
+Das Theorem gilt auch mit vertauschten Quantoren:
+
+@text ∃xGx ⊢ ¬∀x¬Gx
+
+Gibt es ein x, das G ist, dann gilt offensichtlich nicht, dass alle x nicht G sind. Nach der Vorarbeit ist der Beweis einfach:
+
+@proof full | ∃xGx ⊢ ¬∀x¬Gx
+α | ∃xGx | A[V] | α
+β | ∀x¬Gx | A[RAA] | β
+1 | ¬∃xGx | +N∃(β) | β
+2 | ¬∀x¬Gx | RAA(β, α, 1) | α
+@end
+
+In Zeile 1 liefert +N∃ eigentlich `¬∃x¬¬Gx`; die doppelte Negation wird nach 6.2 stillschweigend gestrichen. Auch hier formulieren wir ein Argument, die **Einführung des negierten Allquantors**:
+
+@rule +N∀ | X ⊢ ∃xAx | X ⊢ ¬∀x¬Ax
+
+Wie man vielleicht schon vermutet, lassen sich beide Argumente auch umkehren:
+
+@text ¬∃x¬Gx ⊢ ∀xGx
+
+Der Beweis ist wieder etwas trickreicher:
+
+@proof full | ¬∃x¬Gx ⊢ ∀xGx
+α | ¬∃x¬Gx | A[V] | α
+β | ¬Ga | A[RAA] | β
+1 | ∃x¬Gx | +∃(β) | β
+2 | Ga | RAA(β, 1, α) | α
+3 | ∀xGx | +∀(2) | α
+@end
+
+In β nehmen wir an, es gebe irgendein Individuum a, für das G nicht gilt. Ungewöhnlich wirkt, dass wir einfach ein Individuum einführen, ohne uns auf einen Quantor zu beziehen. Als Annahme ist das aber in Ordnung. Genau besehen haben wir das bei der Beseitigung des Existenzquantors schon immer so gemacht: Die Annahme Ai hat formal zunächst keinen Bezug zum Quantor; der entsteht erst in der Zeile, in der wir sie mit -∃ wieder beseitigen.
+
+Besonders interessant ist Zeile 3. Warum dürfen wir hier den Allquantor einführen? Weil a in Zeile 2 nicht mehr durch Annahmen belastet ist. a kommt zwar in der Annahme β vor – aber β gehört nicht mehr zu den Bedingungen von Zeile 2. Das zugehörige Argument:
+
+@rule -N∃ | X ⊢ ¬∃x¬Ax | X ⊢ ∀xAx
+
+Der Beweis von
+
+@text ¬∀x¬Gx ⊢ ∃xGx
+
+ist dann wieder einfach:
+
+@proof full | ¬∀x¬Gx ⊢ ∃xGx
+α | ¬∀x¬Gx | A[V] | α
+β | ¬∃xGx | A[RAA] | β
+1 | ∀x¬Gx | -N∃(β) | β
+2 | ∃xGx | RAA(β, 1, α) | α
+@end
+
+Und das zugehörige Argument:
+
+@rule -N∀ | X ⊢ ¬∀x¬Ax | X ⊢ ∃xAx
+
+::: rules Argumente 9.2
+@rule -N∀ | X ⊢ ¬∀x¬Ax | X ⊢ ∃xAx
+@rule +N∀ | X ⊢ ∃xAx | X ⊢ ¬∀x¬Ax
+@rule -N∃ | X ⊢ ¬∃x¬Ax | X ⊢ ∀xAx
+@rule +N∃ | X ⊢ ∀xAx | X ⊢ ¬∃x¬Ax
+:::
+
+# Verschachtelte Quantoren
+
+Besonders interessante Sätze entstehen, wenn man Quantoren ineinander verschachtelt. Die erste Frage ist, ob man sie vertauschen darf. Gelten diese Theoreme?
+
+- (i) `∀x∃yHxy ⊢ ∃y∀xHxy`
+- (ii) `∃y∀xHxy ⊢ ∀x∃yHxy`
+
+Was sagen sie? (i): »Gibt es zu jedem x ein y, sodass x zu y in der Relation H steht, dann gibt es ein y, zu dem schon jedes x in der Relation H steht.« In der Voraussetzung steht »für jedes … gibt es eins«, in der These »es gibt eins, sodass für jedes …«.
+
+Eine Interpretation zur Veranschaulichung: Die Diskursmenge seien alle Menschen, und H sei »… hat als Mutter …«. Die Voraussetzung sagt dann: »Jeder Mensch x hat eine Mutter y.« Das stimmt. Die These sagt: »Es gibt einen Menschen y, der die Mutter aller Menschen x ist.« Das stimmt offensichtlich nicht. Theorem (i) ist also **nicht gültig**.
+
+Theorem (ii) lautet: »Gibt es ein y, zu dem jedes x in der Relation H steht, dann findet man zu jedem x ein y, sodass x zu y in der Relation H steht.« Liest man es aufmerksam, ergibt sich die Gültigkeit fast von selbst. Die These verlangt, zu jedem x ein y mit Hxy zu benennen. Wir wählen für jedes x dasselbe y – jenes, das die Voraussetzung garantiert und zu dem alle x in Relation H stehen.
+
+Als Veranschaulichung braucht man vor allem eine Interpretation, unter der die Voraussetzung erfüllt ist – die eben gewählte erfüllt sie nicht. Nehmen wir die Teilnehmenden eines Seminars und H = »… kennt …«, und nehmen wir an, alle kennen die Dozentin. Dann ist die Voraussetzung erfüllt: »Es gibt jemanden, den alle kennen.« Und die These auch: »Jeder kennt jemanden« – im Zweifel nimmt man durchgängig die Dozentin.
+
+Der Beweis für (ii):
+
+@proof full | ∃y∀xHxy ⊢ ∀x∃yHxy
+α | ∃y∀xHxy | A[V] | α
+β | ∀xHxa | A[-∃] | β
+1 | Hba | -∀(β) | β
+2 | ∃yHby | +∃(1) | β
+3 | ∀x∃yHxy | +∀(2) | β
+4 | ∀x∃yHxy | -∃(α, β, 3) | α
+@end
+
+Woran scheitert dagegen ein Beweis für (i)? Er könnte so beginnen:
+
+@proof-partial full | ∀x∃yHxy ⊢ ∃y∀xHxy
+α | ∀x∃yHxy | A[V] | α
+1 | ∃yHby | -∀(α) | α
+β | Hba | A[-∃] | β
+@end
+
+Wir lösen den Allquantor auf und bereiten mit β die Auflösung des Existenzquantors vor. Ausgehend von `Hba` würden wir die Quantoren gern in umgekehrter Reihenfolge wieder aufbauen. Das geht nicht: Den Allquantor über `Hba` können wir nicht einführen, denn b ist in dieser Zeile nicht mehr allgemein – es kommt in der Annahme β vor. Im Beweis von (ii) hatten wir dieses Problem nicht: Einen Existenzquantor dürfen wir auch unter einer Annahme einführen, und den Allquantor haben wir erst aufgelöst, als die Annahme schon eingeführt war. Das dabei eingeführte Individuum b stand also unter keiner Annahme, und wir konnten den Allquantor später wieder einführen.
+
+::: explanation Typische Fehler in dieser Lektion
+- Quantoren werden vertauscht, als wären `∀x∃y` und `∃y∀x` gleichbedeutend.
+- In RAA wird nur „die eigene“ Annahme widerlegt. Formal darf jede Annahme oder Voraussetzung widerlegt werden, die zum Widerspruch beiträgt.
+:::

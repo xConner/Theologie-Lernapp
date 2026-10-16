@@ -1,0 +1,189 @@
+# Beweise mit Annahmen
+
+Für die Einführung der Implikation reicht das bisherige Beweisverfahren nicht aus; wir erweitern es. Zur Motivation ein Theorem:
+
+@text q → r, r → s ⊢ q → s
+
+Semantisch ist schnell klar, dass es gilt: Kommen wir von q nach r und von r nach s, dann kommen wir von q nach s. Wie würden wir es nicht-formal beweisen? Wir haben zwei Voraussetzungen und sollen `q → s` folgern. Eine solche Implikation ist jedenfalls wahr, wenn q falsch ist – ganz unabhängig davon, was q genau ist. Diesen Fall müssen wir also nicht betrachten. Interessant ist der Fall, dass q wahr ist; dann müssen wir zeigen, dass auch s wahr ist. Wir dürfen also **annehmen**, dass q gilt, und müssen nur noch zeigen, dass dann s gilt. Das ist der Hebel: Mit q erhalten wir aus `q → r` den Satz r, und mit r aus `r → s` den Satz s. Der Schlüssel ist, dass wir eine **zusätzliche Annahme** – q – aufgenommen haben und begründen konnten, dass wir damit nicht „geschummelt“ haben.
+
+## Zusätzliche Annahmen
+
+Grundsätzlich darf man **beliebige Annahmen** in einen Beweis aufnehmen. Entscheidend ist, was man mit ihnen macht – und vor allem, ob man sie am Ende wieder **beseitigen** kann. Ein Beispiel, ein Beweis für `q → s, q ∧ p ⊢ s ∧ p`:
+
+@proof l5 | q → s, q ∧ p ⊢ s ∧ p
+α | q → s | A | α
+β | q ∧ p | A | β
+1 | q | -K(β) | β
+2 | s | -I(α, 1) | α, β
+γ | r | A | γ
+3 | p | -K(β) | β
+4 | s ∧ p | +K(2, 3) | α, β
+@end
+
+Nach Zeile 2 wird die zusätzliche Annahme r eingeführt – und dann nirgends verwendet. Das ist überflüssig, aber **nicht formal falsch**: Der Beweis ist vollständig korrekt. Das ist ein wichtiger Unterschied. Manche Schritte bringen uns dem Ziel nicht näher und sind in diesem Sinn sinnlos – formal korrekt können sie trotzdem sein.
+
+Nun eine Variante:
+
+@proof-partial l5 | q → s, q ∧ p ⊢ s ∧ p
+α | q → s | A | α
+β | q ∧ p | A | β
+1 | q | -K(β) | β
+2 | s | -I(α, 1) | α, β
+γ | p | A | γ
+3 | s ∧ p | +K(2, γ) | α, β, γ
+@end
+
+Auch hier ist kein Schritt formal falsch. Aber der Beweis ist **unvollständig**. In der letzten Zeile steht zwar die These – sie hängt aber von α, β, γ ab, und γ ist keine Voraussetzung des Theorems. Wir sind zur These gekommen, aber nur mit Hilfe einer zusätzlichen Annahme. So ist das ein Beweis für ein anderes Theorem:
+
+@text q → s, q ∧ p, p ⊢ s ∧ p
+
+Wir halten fest: Wir dürfen jederzeit beliebige Annahmen hinzufügen. Am Ende muss aber die These hergeleitet sein, und sie darf **nur von Annahmen abhängen, die Voraussetzungen des Theorems sind**.
+
+# Einführung der Implikation
+
+Zurück zu `q → r, r → s ⊢ q → s`. Mit einer Annahme kommen wir so weit:
+
+@proof-partial l5 | q → r, r → s ⊢ q → s
+α | q → r | A | α
+β | r → s | A | β
+γ | q | A | γ
+1 | r | -I(α, γ) | α, γ
+2 | s | -I(β, 1) | α, β, γ
+@end
+
+Das sind genau die Schritte der alltagssprachlichen Begründung. Dort hatten wir gesagt: Können wir unter der Annahme q den Satz s folgern, dann dürfen wir die Annahme q wieder entfernen und `q → s` herleiten. Genau das formulieren wir als Argument:
+
+@rule +I | X, A ⊢ B | X ⊢ A → B
+
+Schauen wir Zeichen für Zeichen hin. X bezeichnet eine **Menge von Annahmen**, kurz eine **Satzmenge**. Prämisse und Konklusion des Arguments sind diesmal keine einzelnen Sätze, sondern wie Theoreme notiert. Man liest: »Wenn sich aus der Satzmenge X zusammen mit dem Satz A als weiterer Annahme der Satz B beweisen lässt, dann lässt sich allein aus X der Satz `A → B` herleiten.«
+
+Bevor man die Details durchdringt, sollte man sehen, was an diesem Argument so nützlich ist: Es erlaubt, eine **Annahme zu beseitigen**.
+
+@proof l5 | q → r, r → s ⊢ q → s
+α | q → r | A | α
+β | r → s | A | β
+γ | q | A | γ
+1 | r | -I(α, γ) | α, γ
+2 | s | -I(β, 1) | α, β, γ
+3 | q → s | +I(γ, 2) | α, β
+@end
+
+Bei +I geben wir zuerst die Annahme an, die beseitigt wird – hier γ –, dann die Zeile mit dem Satz, der Konklusion der neuen Implikation wird. In der Abhängigkeitsspalte dürfen wir γ dann streichen. Damit sind wir fertig: `q → s` ist hergeleitet und hängt nur von Voraussetzungen ab.
+
+Die vierte Spalte ist genau das X des Arguments. Zeile 2 sagt für sich genommen: α, β, γ ⊢ s – »aus der Satzmenge α, β, γ lässt sich s herleiten«. Das ist die Prämisse von +I. Die Konklusion lautet: Aus α, β lässt sich `γ → s` herleiten, also `q → s`, denn γ ist der Satz q. Als Formel: α, β ⊢ q → s. Genau das steht in Zeile 3.
+
+# Vorgehen beim Beweisen
+
+Wie geht man vor, wenn man ein Theorem beweisen soll – etwa dieses?
+
+@text r → (s → q) ⊢ (r → s) → (r → q)
+
+Das Wichtigste vorab: Die **Beweisfindung** verläuft oft in der umgekehrten Richtung, in der man den Beweis später aufschreibt. Man schaut zuerst auf die **These**: Wo will ich hin? Von dort aus plant man.
+
+Welche Form hat die These? Auf oberster Ebene ist sie eine Implikation. (Wer unsicher ist, stellt den Syntaxbaum auf – der Operator an der Wurzel bestimmt die Form.) Jetzt sucht man ein Argument, dessen Konklusion diese Form hat. Von den bisherigen Argumenten liefert nur +I eine Implikation. Im nächsten Schritt schaut man auf die Prämisse von +I: Um die These so herzuleiten, müssen wir zeigen, dass wir unter der Annahme `r → s` den Satz `r → q` herleiten können. Damit beginnt alles von vorn – mit einem neuen Ziel.
+
+Wir nehmen also `r → s` an. Neues Ziel: `r → q`. Wieder eine Implikation, wieder kommt nur +I in Frage: Wir müssen unter der Annahme r den Satz q herleiten. Also nehmen wir r an. Ziel: q.
+
+Jetzt sind wir bei einem elementaren Satz angelangt. Viele Argumente können einen elementaren Satz liefern – bisher etwa -I, -K, -A, -DN, und es werden noch mehr. Die bloße Form „q“ gibt keinen Anhaltspunkt mehr. An dieser Stelle **wechselt die Arbeitsrichtung**: Wir schauen auf die Annahmen, die wir gesammelt haben, und auf die Voraussetzungen, die wir hinzunehmen können. Woher bekommen wir q?
+
+Ins Auge fällt die Voraussetzung `r → (s → q)`, denn sie enthält q. Wo steht es? Außen steht eine Implikation, in deren Konklusion eine weitere Implikation, deren Konklusion q ist. Zuerst beseitigen wir die äußere Implikation. Dafür kommt -I in Frage, und wir brauchen deren Prämisse r – die haben wir angenommen. Also erhalten wir `s → q`.
+
+Von vorn: Wir haben `s → q` und wollen q. Mit -I brauchen wir s. Ein einzelnes s haben wir nicht. Woraus könnten wir es gewinnen? Aus der Annahme `r → s` mit -I – und r haben wir. Damit haben wir s und können q aus `s → q` lösen.
+
+Wo stehen wir? q ist hergeleitet – unter Verwendung der Voraussetzung und der beiden Annahmen `r → s` und r. Wir wollen aber nur von der Voraussetzung abhängen. Also beseitigen wir die Annahmen: Mit +I entfernen wir r beim Übergang von q zu `r → q`, und dann `r → s` beim Übergang zu `(r → s) → (r → q)`. Diese letzten beiden Schritte mussten wir uns nicht erst überlegen – sie führen nur den Plan vom Anfang aus.
+
+Grundsätzlich gilt: Eine Annahme ohne klaren Plan für ihre spätere Beseitigung ist **zwecklos – aber kein Fehler**. Nun schreibt man den Beweis in der umgekehrten Richtung auf:
+
+@proof l5 | r → (s → q) ⊢ (r → s) → (r → q)
+α | r → (s → q) | A | α
+β | r | A | β
+1 | s → q | -I(α, β) | α, β
+γ | r → s | A | γ
+2 | s | -I(γ, β) | β, γ
+3 | q | -I(1, 2) | α, β, γ
+4 | r → q | +I(β, 3) | α, γ
+5 | (r → s) → (r → q) | +I(γ, 4) | α
+@end
+
+## Schritt für Schritt
+
+1. Ziel bestimmen: Welcher Satz soll herauskommen?
+2. Passende Argumente suchen: Welche liefern einen Satz dieser Form?
+3. Voraussetzungen klären: Was muss vorliegen, damit ein solches Argument greift?
+4. Das sind die neuen Ziele – weiter bei 1, solange nicht nur noch elementare Sätze gesucht sind.
+5. Bestand prüfen: Stehen die gesuchten Sätze schon im Beweis, vor allem unter Voraussetzungen und Annahmen?
+6. Falls nicht: Aus welchen vorhandenen Sätzen ließen sie sich gewinnen?
+7. Mit welchen Argumenten lassen sie sich dort herauslösen?
+8. Was setzen diese Argumente voraus?
+9. Das sind die neuen Ziele – weiter bei 5.
+
+Im Einzelnen mag das Vorgehen abweichen. Wer sich aber an dieses Grundgerüst hält, sollte immer einen Weg finden.
+
+# Kommentare in Beweisen
+
+Formal darf man jederzeit irgendeine Annahme in den Beweis aufnehmen. Solange sie nicht als Prämisse eines Arguments verwendet wird, steht sie einfach da und schadet niemandem. Auch wenn man sie korrekt als Prämisse benutzt, entsteht dadurch allein kein Fehler. Man muss nur notieren, dass der hergeleitete Satz von dieser Annahme abhängt – und dass sich die Abhängigkeit vererbt, wenn man den Satz weiterverwendet. Abgeschlossen ist der Beweis, sobald die These dasteht und nur noch von Voraussetzungen des Theorems abhängt.
+
+Eine zusätzliche Annahme muss also früher oder später wieder verschwinden. Zielführend ist eine Annahme deshalb nur, wenn man in dem Moment, in dem man sie macht, schon einen Plan hat, wie man sie beseitigt. Alles andere ist kein strukturiertes Vorgehen, sondern Raten. Darum empfiehlt es sich, bei jeder Annahme gleich zu vermerken, was mit ihr geplant ist.
+
+Dafür gibt es **Kommentare**: An jeder Stelle des Beweises dürfen in **eckigen Klammern** Kommentare stehen. Sie gehören nicht zum formalen Beweis und haben keinen Einfluss auf seine Korrektheit – ebenso wenig wie ihr Fehlen. Bei der Korrektur einer Klausur werden sie nicht beachtet. Für Annahmen verwenden wir folgende Konventionen:
+
+- **A[V]** – die Annahme ist eine Voraussetzung des Theorems.
+- **A[+I]** – die Annahme soll später mit +I beseitigt werden.
+
+@proof l5 | r → (s → q) ⊢ (r → s) → (r → q)
+α | r → (s → q) | A[V] | α
+β | r | A[+I] | β
+1 | s → q | -I(α, β) | α, β
+γ | r → s | A[+I] | γ
+2 | s | -I(γ, β) | β, γ
+3 | q | -I(1, 2) | α, β, γ
+4 | r → q | +I(β, 3) | α, γ
+5 | (r → s) → (r → q) | +I(γ, 4) | α
+@end
+
+# Beweis durch Widerspruch
+
+Es fehlt noch ein sehr zentrales Argument: eines, mit dem man über **Widersprüche** argumentieren kann. Zur Motivation gehen wir zurück zu den Wahrheitstafeln:
+
+@table ((r → s) ∧ (r → ¬s)) → ¬r
+
+Der Satz ist eine Tautologie. Als Theorem geschrieben:
+
+@text r → s, r → ¬s ⊢ ¬r
+
+Beginnen wir einen Beweis und nehmen r hinzu:
+
+@proof-partial l5 | r → s, r → ¬s ⊢ ¬r
+α | r → s | A | α
+β | r → ¬s | A | β
+γ | r | A | γ
+1 | s | -I(α, γ) | α, γ
+2 | ¬s | -I(β, γ) | β, γ
+@end
+
+Unter der Annahme r können wir sowohl s als auch ¬s herleiten. Das ist verdächtig: Unser logisches System beruht darauf, **widerspruchsfrei** zu sein. Unter der Annahme r geraten wir aber in einen Widerspruch. Also kann r nicht wahr sein. Und weil es keine dritte Möglichkeit gibt, muss r falsch sein – es gilt ¬r.
+
+Das fassen wir im Argument **reductio ad absurdum**:
+
+@rule RAA | X, A ⊢ B ; Y, A ⊢ ¬B | X, Y ⊢ ¬A
+
+X und Y sind Satzmengen. Das Argument besagt: »Lässt sich aus einer Satzmenge X zusammen mit der Annahme A ein Satz B herleiten, und aus einer Satzmenge Y (möglicherweise X = Y) zusammen mit A der Satz ¬B, dann lässt sich aus der Vereinigung von X und Y – ohne A – der Satz ¬A herleiten.« Einfacher: Lässt sich aus einer Annahme A ein Widerspruch herleiten, dürfen wir A beseitigen und ¬A herleiten. Ein **Widerspruch** liegt vor, wenn ein Satz sowohl in bejahter als auch in verneinter Form herleitbar ist.
+
+Warum die umständliche Formulierung mit X und Y? Vervollständigen wir den Beweis:
+
+@proof l5 | r → s, r → ¬s ⊢ ¬r
+α | r → s | A[V] | α
+β | r → ¬s | A[V] | β
+γ | r | A[RAA] | γ
+1 | s | -I(α, γ) | α, γ
+2 | ¬s | -I(β, γ) | β, γ
+3 | ¬r | RAA(γ, 1, 2) | α, β
+@end
+
+Bei RAA nennen wir zuerst die Annahme, auf die wir uns beziehen (das A im Argument), dann die Zeilen der beiden Sätze, die den Widerspruch bilden – erst B, dann ¬B. Zeile 1 hängt von α, γ ab: γ ist die Annahme A, α bildet die Satzmenge X. Zeile 2 hängt von β, γ ab: β bildet Y. Die Vereinigung von X und Y ist α, β – das steht in der Abhängigkeitsspalte von Zeile 3.
+
+::: explanation Typische Fehler in dieser Lektion
+- Die These steht in der letzten Zeile, hängt aber noch von einer zusätzlichen Annahme ab. Dann ist der Beweis nicht fertig.
+- Bei +I oder RAA wird die beseitigte Annahme nicht aus der Abhängigkeitsspalte gestrichen – oder eine Annahme gestrichen, die gar nicht beseitigt wurde.
+- Bei RAA werden die Zeilen in der falschen Reihenfolge genannt: erst B, dann ¬B.
+:::
