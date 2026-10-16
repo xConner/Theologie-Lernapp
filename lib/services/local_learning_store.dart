@@ -406,28 +406,49 @@ class LocalLearningStore {
     await prefs.remove(_quizDocumentKey(pericopeBooks));
 
     for (final collection in cardCollections) {
-      final cards = await loadCards(collection);
+      await resetCollection(collection);
+    }
+  }
 
-      final kept = <String, Map<String, dynamic>>{};
+  /// Setzt die Karten einer Collection zurück (alle oder nur [ids]): Karten
+  /// mit Eselsbrücke behalten nur diese, alle anderen werden entfernt.
+  /// Andere Collections, Einstellungen und Dokumente bleiben unberührt.
+  Future<void> resetCollection(String collection, {Set<String>? ids}) async {
+    final raw = await _readCardMaps(collection);
 
-      for (final card in cards.values) {
-        final mnemonic = card.mnemonic;
+    final cards = await loadCards(collection);
 
-        if (mnemonic != null && mnemonic.isNotEmpty) {
-          kept[card.id] = LearningCard(
-            id: card.id,
-            mnemonic: mnemonic,
-          ).toJson();
-        }
+    final kept = <String, Map<String, dynamic>>{};
+
+    for (final entry in raw.entries) {
+      final id = entry.key;
+
+      if (ids != null && !ids.contains(id)) {
+        // Nicht betroffen: unverändert (auch zusätzliche Felder).
+        kept[id] = entry.value;
+        continue;
       }
 
-      if (kept.isEmpty) {
-        final prefs = await SharedPreferences.getInstance();
-        await prefs.remove(_cardsKey(collection));
-      } else {
-        await _writeCardMaps(collection, kept);
+      final mnemonic = cards[id]?.mnemonic;
+
+      if (mnemonic != null && mnemonic.isNotEmpty) {
+        kept[id] = LearningCard(id: id, mnemonic: mnemonic).toJson();
       }
     }
+
+    if (kept.isEmpty) {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.remove(_cardsKey(collection));
+    } else {
+      await _writeCardMaps(collection, kept);
+    }
+  }
+
+  /// Entfernt ein Dokument aus [bookLearningDocuments] vollständig.
+  Future<void> removeQuizDocument(String name) async {
+    final prefs = await SharedPreferences.getInstance();
+
+    await prefs.remove(_quizDocumentKey(name));
   }
 
   // ==========================

@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import '../models/greek/perikope.dart';
+import '../quiz/books/book_catalog.dart';
+import '../services/greek/perikope_loader.dart';
 import '../services/progress_data_service.dart';
+import '../services/progress_reset.dart';
 import '../services/quiz_sound_player.dart';
 import '../services/quiz_sound_settings.dart';
 import '../services/theme_settings.dart';
@@ -42,6 +46,14 @@ class GeneralSettingsView extends StatefulWidget {
   /// Ermöglicht Widget-Tests ohne initialisiertes Firebase.
   @visibleForTesting
   static User? Function() currentUser = () => FirebaseAuth.instance.currentUser;
+
+  /// Für Tests ersetzbar: Dienst zum Zurücksetzen und Laden der Perikopen.
+  @visibleForTesting
+  static ProgressDataService Function() progressService =
+      ProgressDataService.new;
+
+  @visibleForTesting
+  static Future<List<Perikope>> Function() loadPerikopen = PerikopeLoader.load;
 
   const GeneralSettingsView({
     super.key,
@@ -88,8 +100,136 @@ class _GeneralSettingsViewState extends State<GeneralSettingsView> {
   }
 
   Future<void> _resetProgress() async {
-    if (!await confirmProgressReset(context)) return;
+    if (!await confirmProgressReset(
+      context,
+      title: "Alle Lernfortschritte zurücksetzen?",
+    )) {
+      return;
+    }
+
+    await _runReset(
+      (service, uid) => service.resetProgress(uid),
+      success: "Alle Lernfortschritte wurden zurückgesetzt.",
+    );
+  }
+
+  /// Einen Lernbereich (bei Perikopen optional ein Bibelbuch) zurücksetzen.
+  Future<void> _resetArea() async {
+    final area = await pickProgressArea(context);
+
+    if (area == null || !mounted) return;
+
+    if (area == ProgressArea.pericopes) {
+      await _resetPericopes();
+      return;
+    }
+
+    if (!await confirmProgressReset(
+      context,
+      title: "${area.resetTitle}?",
+      message: areaResetMessage(area),
+    )) {
+      return;
+    }
+
+    await _runReset(
+      (service, uid) => service.resetArea(uid, area),
+      success: "${area.label}: Lernfortschritt wurde zurückgesetzt.",
+    );
+  }
+
+  Future<void> _resetPericopes() async {
+    final messenger = ScaffoldMessenger.of(context);
+
+    final List<Perikope> perikopen;
+
+    try {
+      perikopen = await GeneralSettingsView.loadPerikopen();
+    } catch (_) {
+      messenger.showSnackBar(
+        const SnackBar(
+          content: Text("Die Perikopen konnten nicht geladen werden."),
+        ),
+      );
+      return;
+    }
+
     if (!mounted) return;
+
+    final scope = await pickPericopeScope(
+      context,
+      books: BookCatalog.fromPerikopen(perikopen).books,
+      nameOf: BookCatalog.nameOf,
+    );
+
+    if (scope == null || !mounted) return;
+
+    if (scope.isEmpty) {
+      const area = ProgressArea.pericopes;
+
+      if (!await confirmProgressReset(
+        context,
+        title: "${area.resetTitle}?",
+        message: areaResetMessage(area),
+      )) {
+        return;
+      }
+
+      await _runReset(
+        (service, uid) => service.resetArea(uid, area),
+        success: "Perikopenkenntnisse wurden zurückgesetzt.",
+      );
+      return;
+    }
+
+    final bookName = BookCatalog.nameOf(scope);
+
+    final PericopeBookResetPlan plan;
+
+    try {
+      plan = await GeneralSettingsView.progressService().planPericopeBookReset(
+        GeneralSettingsView.currentUser()?.uid,
+        scope,
+        perikopen,
+      );
+    } catch (_) {
+      messenger.showSnackBar(
+        const SnackBar(
+          content: Text("Die Lernstände konnten nicht geladen werden."),
+        ),
+      );
+      return;
+    }
+
+    if (!mounted) return;
+
+    final includeShared = await confirmPericopeBookReset(
+      context,
+      bookName: bookName,
+      plan: plan,
+      nameOf: BookCatalog.nameOf,
+    );
+
+    if (includeShared == null) return;
+
+    await _runReset(
+      (service, uid) => service.resetPericopeBook(
+        uid,
+        scope,
+        perikopen,
+        includeShared: includeShared,
+      ),
+      success: "Perikopenkenntnisse für $bookName wurden zurückgesetzt.",
+    );
+  }
+
+  /// Führt ein Zurücksetzen aus: immer nur eines zur Zeit, Erfolg erst nach
+  /// Abschluss melden, Fehler verständlich anzeigen.
+  Future<void> _runReset(
+    Future<void> Function(ProgressDataService service, String? uid) action, {
+    required String success,
+  }) async {
+    if (!mounted || resettingProgress) return;
 
     final messenger = ScaffoldMessenger.of(context);
 
@@ -99,17 +239,27 @@ class _GeneralSettingsViewState extends State<GeneralSettingsView> {
 
     try {
       // uid == null → lokaler Gast-Lernstand, sonst Firestore des Kontos.
-      await ProgressDataService().resetProgress(
+      await action(
+        GeneralSettingsView.progressService(),
         GeneralSettingsView.currentUser()?.uid,
       );
 
+      messenger.showSnackBar(SnackBar(content: Text(success)));
+    } on StateError catch (_) {
       messenger.showSnackBar(
-        const SnackBar(content: Text("Lernfortschritte wurden zurückgesetzt.")),
+        const SnackBar(
+          content: Text(
+            "Es wird bereits zurückgesetzt. Bitte einen Moment warten.",
+          ),
+        ),
       );
     } catch (_) {
       messenger.showSnackBar(
         const SnackBar(
-          content: Text("Lernfortschritte konnten nicht zurückgesetzt werden."),
+          content: Text(
+            "Lernfortschritte konnten nicht zurückgesetzt werden. Bitte "
+            "später erneut versuchen.",
+          ),
         ),
       );
     } finally {
@@ -245,28 +395,44 @@ class _GeneralSettingsViewState extends State<GeneralSettingsView> {
         ),
 
         Card(
-          child: ListTile(
-            leading: Icon(
-              Icons.restart_alt_rounded,
-              color: context.colors.error,
-            ),
-            title: const Text("Lernfortschritte zurücksetzen"),
-            subtitle: Text(
-              widget.allowProgressReset
-                  ? "Vokabeln, Perikopen und Grammatik. Einstellungen "
-                        "bleiben erhalten."
-                  : "Nur außerhalb eines Trainers möglich, z. B. über die "
-                        "Einstellungen der Startseite.",
-            ),
-            trailing: resettingProgress
-                ? const SizedBox(
-                    height: 18,
-                    width: 18,
-                    child: CircularProgressIndicator(strokeWidth: 2),
-                  )
-                : null,
-            enabled: widget.allowProgressReset,
-            onTap: resettingProgress ? null : _resetProgress,
+          child: Column(
+            children: [
+              ListTile(
+                key: const ValueKey("reset-all"),
+                leading: Icon(
+                  Icons.restart_alt_rounded,
+                  color: context.colors.error,
+                ),
+                title: const Text("Alle Lernfortschritte zurücksetzen"),
+                subtitle: Text(
+                  widget.allowProgressReset
+                      ? "Alle Lernbereiche. Einstellungen bleiben erhalten."
+                      : "Nur außerhalb eines Trainers möglich, z. B. über "
+                            "die Einstellungen der Startseite.",
+                ),
+                trailing: resettingProgress
+                    ? const SizedBox(
+                        height: 18,
+                        width: 18,
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      )
+                    : null,
+                enabled: widget.allowProgressReset && !resettingProgress,
+                onTap: _resetProgress,
+              ),
+              const Divider(height: 1),
+              ListTile(
+                key: const ValueKey("reset-area"),
+                leading: Icon(Icons.tune_rounded, color: context.colors.error),
+                title: const Text("Einzelnen Lernbereich zurücksetzen"),
+                subtitle: const Text(
+                  "Z. B. nur Latein-Vokabeln oder die Perikopen eines "
+                  "Bibelbuchs.",
+                ),
+                enabled: widget.allowProgressReset && !resettingProgress,
+                onTap: _resetArea,
+              ),
+            ],
           ),
         ),
 

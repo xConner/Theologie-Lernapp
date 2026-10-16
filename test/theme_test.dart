@@ -301,7 +301,8 @@ void main() {
         scrollable: find.byType(Scrollable).first,
       );
 
-      expect(find.text("Lernfortschritte zurücksetzen"), findsOneWidget);
+      expect(find.text("Alle Lernfortschritte zurücksetzen"), findsOneWidget);
+      expect(find.text("Einzelnen Lernbereich zurücksetzen"), findsOneWidget);
       expect(tester.takeException(), isNull);
     });
   });

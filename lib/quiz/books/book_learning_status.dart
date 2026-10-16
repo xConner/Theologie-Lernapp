@@ -32,6 +32,11 @@ class BookCard extends LearningCard {
   int orderCorrect;
   int orderWrong;
 
+  /// Nach dem Zurücksetzen eines Buchs: Der Lernstand des Endlos-Quiz gilt
+  /// für diese Perikope nicht mehr als Startwert (sonst wäre der gerade
+  /// gelöschte Fortschritt über die gemeinsame Perikopen-ID sofort wieder da).
+  bool ignoreEndlessQuiz;
+
   BookCard({
     required super.id,
     super.stability,
@@ -44,6 +49,7 @@ class BookCard extends LearningCard {
     this.introducedAt,
     this.orderCorrect = 0,
     this.orderWrong = 0,
+    this.ignoreEndlessQuiz = false,
   });
 
   /// Erste Karte für eine Perikope, die im Endlos-Quiz schon gelernt wurde:
@@ -100,6 +106,7 @@ class BookCard extends LearningCard {
     card.introducedAt = _time(data["i"]);
     card.orderCorrect = _count(data["oc"]);
     card.orderWrong = _count(data["ow"]);
+    card.ignoreEndlessQuiz = data["nl"] == true;
 
     return card;
   }
@@ -117,6 +124,7 @@ class BookCard extends LearningCard {
       "i": introducedAt?.millisecondsSinceEpoch,
       "oc": orderCorrect,
       "ow": orderWrong,
+      if (ignoreEndlessQuiz) "nl": true,
     };
   }
 }
@@ -238,7 +246,9 @@ class BookLearningRules {
       );
     }
 
-    if (legacy != null && legacy.lastReviewed != null) {
+    if (legacy != null &&
+        legacy.lastReviewed != null &&
+        !(card?.ignoreEndlessQuiz ?? false)) {
       final dueAt = BookLearningRules.dueAt(legacy);
 
       return PericopeStatus(

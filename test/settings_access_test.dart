@@ -89,9 +89,14 @@ void main() {
 
     // Zurücksetzen ist aus einem Trainer heraus deaktiviert.
     final reset = tester.widget<ListTile>(
-      find.widgetWithText(ListTile, "Lernfortschritte zurücksetzen"),
+      find.widgetWithText(ListTile, "Alle Lernfortschritte zurücksetzen"),
     );
     expect(reset.enabled, isFalse);
+
+    final resetArea = tester.widget<ListTile>(
+      find.widgetWithText(ListTile, "Einzelnen Lernbereich zurücksetzen"),
+    );
+    expect(resetArea.enabled, isFalse);
   });
 
   testWidgets("Globale Einstellung aus einem Trainer-Dialog wirkt global", (

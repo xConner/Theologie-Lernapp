@@ -15,6 +15,15 @@ Infrastruktur + trainer-spezifische Fachlogik – kein „Universaltrainer“.
 | Lernhilfe, Sound-Schalter, Ergebnis-Rahmen | `widgets/trainer_widgets.dart` |
 | Auswahl-Bausteine der Einstellungsdialoge | `widgets/settings_selection.dart`, `widgets/settings_access.dart` |
 
+Lernfortschritte zurücksetzen – alle, je Lernbereich oder die
+Perikopenkenntnisse eines Bibelbuchs – geschieht zentral in
+`ProgressDataService` (`resetProgress`, `resetArea`, `resetPericopeBook`).
+Die Lernbereiche und ihre Collections stehen in `ProgressArea`
+(`services/progress_reset.dart`); Einstellungen, Eselsbrücken und Inhalte
+bleiben erhalten, und es läuft immer nur ein Zurücksetzen zur Zeit.
+Streaks, Tagesstatistik, Lesepläne und Klausur-Markierungen gehören nicht
+dazu.
+
 `uid == null` bedeutet überall Gastmodus: dieselben Datenstrukturen, lokal
 über `LocalLearningStore` statt in Firestore. Die Collection-Namen stehen
 einmal in `LocalLearningStore.cardCollections`.

@@ -209,9 +209,27 @@ im `LocalLearningStore` (`guest.v1.quiz_settings.<name>`).
 | `pericope_plans` | `{plans: {Buch: {dailyNew, targetDate, paused, createdAt}}}` |
 
 Geschrieben werden nur geänderte Einträge (Merge). Gast → Konto übernimmt
-die drei Dokumente; „Lernfortschritt zurücksetzen“ löscht `pericope_books`,
+die drei Dokumente; „Alle Lernfortschritte zurücksetzen“ und das
+Zurücksetzen der Perikopenkenntnisse löschen `pericope_books`,
 Präzisierungen und Pläne bleiben; die Kontolöschung entfernt
 `quiz_settings` vollständig.
+
+### Perikopenkenntnisse eines Bibelbuchs zurücksetzen
+
+Einstellungen → „Einzelnen Lernbereich zurücksetzen“ → Perikopenkenntnisse
+→ „Nur ein Bibelbuch“ (`PericopeBookResetPlan` in
+`lib/services/progress_reset.dart`). Zugeordnet wird nur über die
+Buchabkürzung der Perikopenliste und die Perikopen-ID:
+
+* Karten des Perikopenquiz (`learning_cards`), deren ID nur in diesem Buch
+  vorkommt, werden zurückgesetzt (Eselsbrücken bleiben).
+* Karten, deren ID auch in anderen Büchern vorkommt (Parallelstellen),
+  bleiben erhalten – außer der Nutzer wählt „Gemeinsame Lernstände auch
+  zurücksetzen“; der Dialog nennt Anzahl und betroffene Bücher.
+* Buch-Karten mit Schlüssel `Buch|…` werden gelöscht. Bleibt eine gemeinsame
+  Quiz-Karte erhalten, wird die Perikope stattdessen markiert (`"nl": true`,
+  `BookCard.ignoreEndlessQuiz`), damit sie nicht sofort wieder deren Stand
+  übernimmt.
 
 ## Grenzen
 

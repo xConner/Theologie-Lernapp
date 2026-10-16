@@ -457,7 +457,7 @@ void main() {
 
     final text = tester.widget<TextField>(key("recall-input")).controller!.text;
 
-    expect(text, isGen ? "Gen 1-2" : "Mk 1");
+    expect(text, isGen ? "Gen 1" : "Mk 1");
   });
 
   testWidgets("Abschnitt lernen und zum nächsten Abschnitt", (tester) async {
