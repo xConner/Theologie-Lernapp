@@ -9,7 +9,7 @@
   },
   "devDependencies": {
     "@types/web-push": "^3.6.4",
-    "@vercel/node": "^6.0.0"
+    "@vercel/node": "^23.0.1"
   },
   "overrides": {
     "@vercel/node": {
