@@ -8,6 +8,8 @@ rules_version = '2';
 //   users/{uid}                                (Felder: greek_grammar_settings, vocabulary_settings,
 //                                               memorization_settings, notification_settings, ...)
 //   users/{uid}/quiz_settings/perikopen
+//   users/{uid}/quiz_settings/{pericope_books|pericope_precision|pericope_plans}
+//                                              (Bücher systematisch lernen)
 //   users/{uid}/vocabulary/{vocabularyId}
 //   users/{uid}/learning_cards/{cardId}
 //   users/{uid}/latin_vocabulary/{cardId}

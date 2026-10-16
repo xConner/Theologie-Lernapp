@@ -19,6 +19,7 @@ Der Schwerpunkt liegt auf aktivem Lernen: Die Trainer fragen ab, merken sich dei
 **Lernen**
 
 - **Perikopenquiz** – zu einem Perikopentitel die passende Bibelstelle nennen; die abgefragte Perikope lässt sich direkt im Bibel-Reader nachlesen.
+- **Bücher systematisch lernen** – die Perikopen ganzer Bücher mit Lernplan, Kapiteltraining, Reihenfolge-Übungen, Wiederholungsübersicht und Prüfung lernen; einzelne Perikopen lassen sich persönlich versgenau festlegen ([Details](docs/pericope-books.md)).
 - **Altgriechisch** – Vokabeltrainer, Grammatiktrainer (Formen bestimmen), Vokabel- und Grammatikübersichten, griechische Bildschirmtastatur.
 - **Latein** – Vokabeltrainer mit Zusatzformen und Genus sowie Vokabelübersicht.
 - **Texte auswendig lernen** – Gebete, liturgische Texte und Bekenntnisse abschnittsweise lernen: vom Mitlesen über Lücken und Anfangsbuchstaben bis zum freien Aufsagen oder Schreiben.

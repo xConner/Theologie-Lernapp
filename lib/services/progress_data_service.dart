@@ -27,7 +27,16 @@ class ProgressDataService {
   }
 
   DocumentReference<Map<String, dynamic>> _perikopenSettingsDoc(String uid) {
-    return _userDoc(uid).collection("quiz_settings").doc("perikopen");
+    return _quizSettingsDoc(uid, "perikopen");
+  }
+
+  /// Dokumente unter `quiz_settings`, darunter die von „Bücher systematisch
+  /// lernen“ ([LocalLearningStore.bookLearningDocuments]).
+  DocumentReference<Map<String, dynamic>> _quizSettingsDoc(
+    String uid,
+    String name,
+  ) {
+    return _userDoc(uid).collection("quiz_settings").doc(name);
   }
 
   // ==========================
@@ -54,7 +63,17 @@ class ProgressDataService {
       return true;
     }
 
-    return (await _perikopenSettingsDoc(uid).get()).exists;
+    if ((await _perikopenSettingsDoc(uid).get()).exists) {
+      return true;
+    }
+
+    for (final name in LocalLearningStore.bookLearningDocuments) {
+      if ((await _quizSettingsDoc(uid, name).get()).exists) {
+        return true;
+      }
+    }
+
+    return false;
   }
 
   /// Überträgt die validierten lokalen Gastdaten in die bestehenden
@@ -103,6 +122,17 @@ class ProgressDataService {
       writes.add((batch) => batch.set(ref, {"selectedBooks": books.toList()}));
     }
 
+    // Bücher systematisch lernen: Lernstände, Präzisierungen und Pläne
+    // unverändert übernehmen (gleiches Format wie in Firestore).
+    for (final name in LocalLearningStore.bookLearningDocuments) {
+      final doc = await local.loadQuizDocument(name);
+
+      if (doc.isNotEmpty) {
+        final ref = _quizSettingsDoc(uid, name);
+        writes.add((batch) => batch.set(ref, doc, SetOptions(merge: true)));
+      }
+    }
+
     await _commitInBatches(writes);
 
     await local.clearGuestData();
@@ -116,8 +146,9 @@ class ProgressDataService {
   /// Initialwerte zurück. uid == null → lokaler Gast-Lernstand.
   ///
   /// Karten ohne Eselsbrücke werden gelöscht (fehlende Karte = Initialwerte),
-  /// Karten mit Eselsbrücke behalten nur diese. Einstellungen, Konto- und
-  /// sonstige Daten bleiben unberührt.
+  /// Karten mit Eselsbrücke behalten nur diese. Der Lernstand von „Bücher
+  /// systematisch lernen“ wird gelöscht; Verspräzisierungen, Lernpläne,
+  /// Einstellungen, Konto- und sonstige Daten bleiben unberührt.
   Future<void> resetProgress(String? uid) async {
     if (uid == null) {
       return local.resetProgress();
@@ -142,6 +173,10 @@ class ProgressDataService {
         }
       }
     }
+
+    final books = _quizSettingsDoc(uid, LocalLearningStore.pericopeBooks);
+
+    writes.add((batch) => batch.delete(books));
 
     await _commitInBatches(writes);
   }

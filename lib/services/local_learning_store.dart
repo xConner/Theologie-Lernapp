@@ -17,6 +17,8 @@ import '../models/memorization/memorization_card.dart';
 ///     (`vocabulary_settings`, `latin_vocabulary_settings`,
 ///     `greek_grammar_settings`, `memorization_settings`)
 ///   * `quiz_settings/perikopen`
+///   * die Dokumente von „Bücher systematisch lernen“ unter `quiz_settings`
+///     ([bookLearningDocuments])
 ///
 /// Alle Keys sind versioniert (`guest.v1.`), damit sich das Format später
 /// migrieren lässt. Fehlende oder ungültige Daten werden als "nicht
@@ -86,6 +88,22 @@ class LocalLearningStore {
   };
 
   static Iterable<String> get settingsGroups => _settingsSchema.keys;
+
+  /// Dokumente unter `quiz_settings` für „Bücher systematisch lernen“: der
+  /// Lernstand je Perikope, persönliche Verspräzisierungen und Lernpläne.
+  /// Getrennt von den Karten des Endlos-Quiz (`learning_cards`).
+  static const String pericopeBooks = "pericope_books";
+  static const String pericopePrecision = "pericope_precision";
+  static const String pericopePlans = "pericope_plans";
+
+  static const List<String> bookLearningDocuments = [
+    pericopeBooks,
+    pericopePrecision,
+    pericopePlans,
+  ];
+
+  static String _quizDocumentKey(String name) =>
+      "${_prefix}quiz_settings.$name";
 
   static String _cardsKey(String collection) => "${_prefix}cards.$collection";
 
@@ -266,6 +284,56 @@ class LocalLearningStore {
   }
 
   // ==========================
+  // BÜCHER SYSTEMATISCH LERNEN
+  // ==========================
+
+  /// Inhalt eines Dokuments aus [bookLearningDocuments]; leer, wenn nichts
+  /// (Gültiges) gespeichert ist.
+  Future<Map<String, dynamic>> loadQuizDocument(String name) async {
+    final prefs = await SharedPreferences.getInstance();
+
+    return _decodeMap(prefs.getString(_quizDocumentKey(name)));
+  }
+
+  /// Ersetzt die Einträge [entries] im Feld [field] des Dokuments; ein Wert
+  /// `null` entfernt den Eintrag (wie `FieldValue.delete()`).
+  Future<void> mergeQuizDocument(
+    String name,
+    String field,
+    Map<String, Object?> entries,
+  ) async {
+    final prefs = await SharedPreferences.getInstance();
+
+    final doc = _decodeMap(prefs.getString(_quizDocumentKey(name)));
+
+    final existing = doc[field];
+
+    final values = existing is Map
+        ? Map<String, dynamic>.from(existing)
+        : <String, dynamic>{};
+
+    for (final entry in entries.entries) {
+      if (entry.value == null) {
+        values.remove(entry.key);
+      } else {
+        values[entry.key] = entry.value;
+      }
+    }
+
+    doc[field] = values;
+
+    await _markSchema(prefs);
+
+    await prefs.setString(_quizDocumentKey(name), jsonEncode(doc));
+  }
+
+  Future<bool> _hasQuizDocumentEntries(String name) async {
+    final doc = await loadQuizDocument(name);
+
+    return doc.values.any((value) => value is Map && value.isNotEmpty);
+  }
+
+  // ==========================
   // GAST → KONTO
   // ==========================
 
@@ -279,6 +347,12 @@ class LocalLearningStore {
 
     for (final group in settingsGroups) {
       if ((await loadSettingsGroup(group)).isNotEmpty) {
+        return true;
+      }
+    }
+
+    for (final name in bookLearningDocuments) {
+      if (await _hasQuizDocumentEntries(name)) {
         return true;
       }
     }
@@ -313,6 +387,10 @@ class LocalLearningStore {
 
     await prefs.remove(_settingsKey);
     await prefs.remove(_perikopenSettingsKey);
+
+    for (final name in bookLearningDocuments) {
+      await prefs.remove(_quizDocumentKey(name));
+    }
   }
 
   // ==========================
@@ -320,8 +398,13 @@ class LocalLearningStore {
   // ==========================
 
   /// Setzt alle lokalen Lernstände auf die Initialwerte zurück. Eigene
-  /// Eselsbrücken und Einstellungen bleiben erhalten.
+  /// Eselsbrücken und Einstellungen (auch Verspräzisierungen und Lernpläne)
+  /// bleiben erhalten.
   Future<void> resetProgress() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    await prefs.remove(_quizDocumentKey(pericopeBooks));
+
     for (final collection in cardCollections) {
       final cards = await loadCards(collection);
 

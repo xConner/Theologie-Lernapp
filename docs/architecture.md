@@ -30,6 +30,7 @@ Einstellungs-Service (ein Lesezugriff je Öffnen) und seine Antwortprüfung.
 | Latein-Vokabeln | `services/latin/vocabulary/latin_vocabulary_settings_service.dart` | `latin_vocabulary_answer_checker.dart` |
 | Griechisch-Grammatik | `services/greek/grammar/grammar_settings_service.dart` | `grammar_answer_check.dart` |
 | Perikopenquiz | `services/settings_service.dart` | im `quiz_screen.dart` (Vergleich der Stellen) |
+| Bücher systematisch lernen | `services/book_learning_storage.dart` | `quiz/books/reference_answer.dart` (siehe [pericope-books.md](pericope-books.md)) |
 
 ### Grammatiktrainer
 
