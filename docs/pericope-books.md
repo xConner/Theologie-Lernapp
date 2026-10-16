@@ -127,12 +127,55 @@ Liste hinterlegten Verse – nur als Vorschlag.
 
 Je Buch: neue Perikopen pro Tag, optional ein Zieldatum (dann mindestens
 `⌈verbleibende neue / verbleibende Tage⌉` pro Tag), pausieren und
-fortsetzen. Eine Lerneinheit bringt zuerst die fälligen Wiederholungen
-(höchstens 20, die am längsten fälligen zuerst), danach neue Perikopen in
-Buchreihenfolge bis zur Tagesmenge (ohne Plan 3). Neue Perikopen werden
-eingeführt und erst einige Aufgaben später abgefragt. Ein pausierter Plan
+fortsetzen. Der Plan bestimmt nur, wie viele neue Perikopen eine
+Buch-Lerneinheit einführen darf (ohne Plan 3 am Tag); die Auswahl selbst
+folgt dem Wiederholungsverfahren (siehe unten). Ein pausierter Plan
 schlägt nichts Neues vor; Abschnitte, Kapitel und einzelne Perikopen
 bleiben jederzeit frei wählbar.
+
+## Auswahl der Perikopen (Spaced Repetition)
+
+Buch-, Abschnitts- und Kapitel-Lerneinheiten werden fortlaufend gebildet
+(`AdaptiveStudyQueue`, `lib/quiz/books/adaptive_study_queue.dart`) – mit dem
+unveränderten Auswahlverfahren des Perikopenquiz (`LearningSelector`,
+`SpacedRepetition`):
+
+* **Auswahlwert = Lernbedarf × Fälligkeit**, gewichtete Zufallswahl. Der
+  Lernbedarf kommt aus `difficulty` (Fehler erhöhen, Treffer senken), die
+  Fälligkeit aus der Zeit seit `lastReviewed` im Verhältnis zum
+  Wiederholungsabstand `stability`. (Felder „weight“ oder „lastAsked“ gibt
+  es im Code nicht; diese drei Werte sind es.)
+* Zuletzt gefragte Perikopen sind kurz gesperrt; neue Karten haben ein
+  gemeinsames Budget, damit sie fällige Wiederholungen nicht verdrängen.
+* Gewählt wird nach jeder Antwort neu, also mit dem aktuellen Stand.
+* Die Stufen „Neu“, „In Bearbeitung“, „Sicher“ und „fällig“ dienen nur der
+  Anzeige; keine schließt eine Perikope von der Auswahl aus.
+* Startwert: Ohne eigene Karte gewichtet die Karte des Endlos-Quiz
+  (`BookLearningState.selectionCardOf`); sie wird nicht verändert.
+
+Geprüft für ganze Bücher und nur dort ergänzt, wo es nötig war:
+
+* **Neue Perikopen** kommen aus einem Fenster der nächsten 10 noch nicht
+  eingeführten (Buchreihenfolge), darin zufällig – sonst würde aus allen
+  96 neuen Markus-Perikopen wahllos eingeführt. Je Einheit höchstens die
+  Tagesmenge des Plans (Buch) bzw. 6 (Abschnitt, Kapitel). Jede neue wird
+  vorgestellt und zwei Aufgaben später abgefragt.
+* **Keine unnötigen Wiederholungen:** Je Einheit wird jede Perikope einmal
+  abgefragt, nach einer falschen Antwort genau ein weiteres Mal (später).
+  Eine Einheit hat höchstens 15 geplante Abfragen und nie mehr, als es
+  abfragbare Perikopen gibt.
+
+Feste Folgen behalten ihren Zweck: Prüfung (jede Perikope einmal,
+gemischt), Reihenfolge, einzelne Perikope. Wiederholungslisten
+(„Überfällig“, „Fehler wiederholen“ …) fragen jede Perikope einmal, gereiht
+nach Auswahlwert mit Zufall statt starrer Sortierung.
+
+Endlos-Quiz und Buchlernen behalten getrennte Karten: Das Quiz führt eine
+Karte je Perikopen-ID über alle gewählten Bücher (Parallelstellen
+zusammen), das Buchlernen eine je Eintrag (z. B. dreimal „Berufung der
+Jünger“ in Mk 1). Eine gemeinsame Datenbasis hieße, Karten umzurechnen
+oder zu verschmelzen – das würde bestehende Lernstände verändern. Das
+Buchlernen nutzt die Quiz-Karten deshalb weiter als Startwert.
 
 ## Buchansicht
 
@@ -173,27 +216,67 @@ ohne Code zu ändern:
   mit je etwa 10 Perikopen; sie sind als automatisch gebildet
   gekennzeichnet.
 
-Abschnitt lernen: fällige und noch nicht sichere Perikopen des Abschnitts,
-dann die nächsten bis zu 6 neuen in Buchreihenfolge; ist alles sicher, wird
-der ganze Abschnitt wiederholt. Am Ende bietet die Einheit „Abschnitt
+Abschnitt lernen: eine Lerneinheit über die Perikopen des Abschnitts
+(Auswahl wie oben, bis zu 6 neue). Am Ende bietet die Einheit „Abschnitt
 weiterlernen“ (solange er neue Perikopen hat) und „Weiter: nächster
 Abschnitt“ an. Der aktuelle Abschnitt ist der erste mit neuen Perikopen,
-sonst der erste mit fälligen oder noch nicht sicheren. Fortschritt und
-Wiederholung nutzen dieselben Karten und Regeln wie alle anderen Modi; es
-wird nichts zusätzlich gespeichert.
+sonst der erste mit fälligen oder noch nicht sicheren. Es wird nichts
+zusätzlich gespeichert.
 
-## Lernmodi
+## Lernmöglichkeiten
 
-| Modus | Inhalt |
+Bewusst wenige, klar verschiedene:
+
+| Möglichkeit | Lernaufgabe |
 |---|---|
-| Buch lernen | Lerneinheit nach Plan (s. o.) |
-| Abschnitt lernen | ein Abschnitt der Gliederung (s. o.), danach der nächste |
-| Kapitel oder Bereich | einzelnes Kapitel (Kapitelfeld) oder Bereich: fällige zuerst, dann alle übrigen; neue werden eingeführt |
-| Gemischte Wiederholung | fällige, schwierige und gelernte Perikopen gemischt (20), ohne neue |
-| Reihenfolge lernen | Kapitelbereich oder ganzes Buch; nur an der Reihenfolge der Liste bewertet |
-| Schwierige Perikopen | schwierige und kürzlich falsche, fehleranfälligste zuerst, mit Vergleichsaufgaben |
-| Prüfung | ganzes Buch, Kapitelbereich oder Abschnitt; keine Lösung und kein Ton während der Bearbeitung, am Ende Ergebnis und Fehler |
-| Wiederholungen | überfällig, heute fällig, kürzlich falsch, auf Wunsch bald fällig (3 Tage); gemischt (auch buchübergreifend), je Kapitel oder einzeln |
+| Lerneinheit (Buch) | Stellen abrufen, ganzes Buch, neue nach Lernplan |
+| Abschnitt lernen | dasselbe für einen Abschnitt der Gliederung, danach der nächste |
+| Kapitel oder Bereich | dasselbe für ein Kapitel (Kapitelfeld) oder einen Bereich |
+| Wiederholungen | gezielt Überfälliges, heute Fälliges, kürzlich Falsches; auch buchübergreifend |
+| Reihenfolge lernen | Abfolge der Perikopen (nächste, dazwischen, ordnen); zählt getrennt |
+| Prüfung | Buch, Bereich oder Abschnitt ohne Hilfen, Ergebnis am Ende |
+| Einzelne Perikope | über ihren Abschnitt: üben, mit Nachbarn vergleichen, versgenau festlegen |
+
+Zusammengefasst wurden:
+
+* **Gemischte Wiederholung** – entfiel als eigener Knopf: Jede Lerneinheit
+  mischt nach Lernbedarf und Fälligkeit; bei pausiertem Plan oder ohne neue
+  Perikopen ist sie genau diese Wiederholung.
+* **Schwierige Perikopen** – entfiel als eigener Knopf: Fehler erhöhen den
+  Lernbedarf und damit die Auswahlwahrscheinlichkeit; schwierige Perikopen
+  kommen gelegentlich als Vergleichsaufgabe; „Kürzlich falsch“ steht unter
+  Wiederholungen.
+* **Kapiteltraining** und **Abschnitt lernen** nutzen dieselbe Lerneinheit,
+  nur mit anderem Umfang.
+* Freie Eingabe, Schnelleingabe und „Im Kopf“ sind Antwortformen, keine
+  Modi.
+
+## Bibelstelle lesen
+
+Wie „Bibelstelle lesen“ im Perikopenquiz: derselbe `BibleReaderScreen`,
+die Stelle über `BibleReferenceParser.passageOf` (mit persönlicher
+Verspräzisierung, falls vorhanden), Perikopenüberschriften aus derselben
+Liste (`lib/screens/pericope_quiz/books/bible_passage.dart`). Erreichbar
+in der Buchansicht (ganzes Buch), im Abschnittsblatt, bei einzelnen
+Perikopen, bei der Einführung, nach jeder Antwort (nicht in der Prüfung),
+in den Wiederholungen und bei den Fehlern im Ergebnis. Der Reader liegt
+über der Ansicht; zurück geht es an dieselbe Stelle, die Lerneinheit läuft
+weiter. Bewertet wird weiterhin nur die Stelle.
+
+## Einstellungen
+
+Jede Ansicht von „Bücher systematisch lernen“ hat das Zahnrad mit dem
+Einstellungsdialog der Trainer (`ModuleSettingsDialog`): Tab „Allgemein“
+(globale Einstellungen samt Zurücksetzen der Lernfortschritte) und Tab
+„Bücher lernen“ (Antwortform, Schnelleingabe, Sounds). Die Bibelkunde-Seite
+hat das Zahnrad der allgemeinen Einstellungen.
+
+Zurücksetzen aus einem geöffneten Lernbereich: In Trainern bleibt es
+gesperrt, weil sie ihre Karten im Speicher halten und zurückschreiben
+würden. Das Perikopenquiz und „Bücher systematisch lernen“ laden ihre
+Lernstände nach einem Zurücksetzen neu (`onProgressReset`); dort ist es
+deshalb erlaubt. Es ist dieselbe Oberfläche und derselbe Dienst wie auf
+der Startseite, also dasselbe Ergebnis von jedem Einstieg aus.
 
 ## Speicherung
 

@@ -6,12 +6,17 @@ import '../../../quiz/books/book_learning_controller.dart';
 import '../../../quiz/books/book_learning_status.dart';
 import '../../../quiz/books/book_outline.dart';
 import '../../../quiz/books/book_plan.dart';
+import '../../../quiz/books/book_study_session.dart';
 import '../../../quiz/pericope_reference.dart';
+import '../../../services/bible/bible_reference_parser.dart';
 import '../../../theme/app_theme.dart';
+import 'bible_passage.dart';
 import 'book_dialogs.dart';
+import 'book_settings.dart';
 import 'book_study_screen.dart';
 import 'book_widgets.dart';
 import 'precision_dialog.dart';
+import 'review_overview_screen.dart';
 
 /// Ein Buch: Fortschritt, Lernplan, die Abschnitte der Gliederung, weitere
 /// Lernmodi und eine kompakte Kapitelübersicht.
@@ -47,16 +52,14 @@ class _BookDetailScreenState extends State<BookDetailScreen> {
   late final BookOutline outline = controller.outlineFor(book);
 
   Future<void> _study(
-    StudyMode mode,
-    List<StudyTask> tasks, {
+    StudySession session, {
     String? title,
     List<StudyFollowUp> Function()? followUps,
   }) {
     return startStudy(
       context,
       controller: controller,
-      mode: mode,
-      tasks: tasks,
+      session: session,
       title: title,
       followUps: followUps,
     );
@@ -85,20 +88,25 @@ class _BookDetailScreenState extends State<BookDetailScreen> {
     return result;
   }
 
+  StudySession _sectionSession(OutlineSection section) {
+    return controller.scopeSession(
+      StudyMode.section,
+      pericopesOfSection(state.catalog, section),
+    );
+  }
+
   StudyFollowUp _sectionFollowUp(OutlineSection section, String label) {
     return StudyFollowUp(
       label: label,
       title: section.title,
-      mode: StudyMode.section,
-      tasks: () => controller.planner().section(section),
+      session: () => _sectionSession(section),
       followUps: () => _sectionFollowUps(section),
     );
   }
 
   Future<void> _learnSection(OutlineSection section) {
     return _study(
-      StudyMode.section,
-      controller.planner().section(section),
+      _sectionSession(section),
       title: section.title,
       followUps: () => _sectionFollowUps(section),
     );
@@ -122,27 +130,38 @@ class _BookDetailScreenState extends State<BookDetailScreen> {
         await _learnSection(section);
       case "order":
         await _study(
-          StudyMode.order,
-          controller.planner().order(members),
+          controller.fixedSession(
+            StudyMode.order,
+            controller.planner().order(members),
+          ),
           title: section.title,
         );
       case "exam":
         await _study(
-          StudyMode.exam,
-          controller.planner().exam(members),
+          controller.fixedSession(
+            StudyMode.exam,
+            controller.planner().exam(members),
+          ),
           title: section.title,
         );
+      case "read":
+        final passage = passageOfSection(section);
+
+        if (passage != null) {
+          await openPassage(context, controller, passage, title: section.title);
+        }
       case BookPericope p:
         await _openPericope(p);
     }
   }
 
-  // ---------- Weitere Lernmodi ----------
+  // ---------- Weitere Lernmöglichkeiten ----------
 
+  /// Lerneinheit über das ganze Buch: fortlaufend ausgewählt nach
+  /// Lernbedarf und Fälligkeit, neue Perikopen nach Lernplan.
   Future<void> _learnBook() {
     return _study(
-      StudyMode.learnBook,
-      controller.planner().learnBook(book),
+      controller.bookSession(book),
       title: "${BookCatalog.nameOf(book)} lernen",
     );
   }
@@ -159,14 +178,12 @@ class _BookDetailScreenState extends State<BookDetailScreen> {
     if (range == null || !mounted) return;
 
     await _study(
-      StudyMode.chapter,
-      controller.planner().chapter(book, range.$1, range.$2),
+      controller.scopeSession(
+        StudyMode.chapter,
+        state.catalog.inChapters(book, range.$1, range.$2),
+      ),
       title: "$book ${_rangeText(range)}",
     );
-  }
-
-  Future<void> _mixed() {
-    return _study(StudyMode.mixed, controller.planner().mixed(pericopes));
   }
 
   Future<void> _order() async {
@@ -180,17 +197,12 @@ class _BookDetailScreenState extends State<BookDetailScreen> {
     if (range == null || !mounted) return;
 
     await _study(
-      StudyMode.order,
-      controller.planner().order(
-        state.catalog.inChapters(book, range.$1, range.$2),
+      controller.fixedSession(
+        StudyMode.order,
+        controller.planner().order(
+          state.catalog.inChapters(book, range.$1, range.$2),
+        ),
       ),
-    );
-  }
-
-  Future<void> _difficult() {
-    return _study(
-      StudyMode.difficult,
-      controller.planner().difficult(pericopes),
     );
   }
 
@@ -207,9 +219,11 @@ class _BookDetailScreenState extends State<BookDetailScreen> {
     final whole = range.$1 == chapters.first && range.$2 == chapters.last;
 
     await _study(
-      StudyMode.exam,
-      controller.planner().exam(
-        state.catalog.inChapters(book, range.$1, range.$2),
+      controller.fixedSession(
+        StudyMode.exam,
+        controller.planner().exam(
+          state.catalog.inChapters(book, range.$1, range.$2),
+        ),
       ),
       title: whole ? BookCatalog.nameOf(book) : "$book ${_rangeText(range)}",
     );
@@ -270,14 +284,25 @@ class _BookDetailScreenState extends State<BookDetailScreen> {
     switch (action) {
       case "study":
         await _study(
-          StudyMode.selection,
-          controller.planner().selection([p]),
+          controller.fixedSession(
+            StudyMode.selection,
+            controller.planner().single(p),
+          ),
           title: p.title,
         );
       case "compare":
-        await _study(StudyMode.selection, [
-          controller.planner().compareOrRecall(p),
-        ], title: p.title);
+        await _study(
+          controller.fixedSession(StudyMode.selection, [
+            controller.planner().compareOrRecall(p),
+          ]),
+          title: p.title,
+        );
+      case "read":
+        final passage = passageOfPericope(controller, p);
+
+        if (passage != null) {
+          await openPassage(context, controller, passage, title: p.title);
+        }
       case "precision":
         await _editPrecision(p);
       case "reset":
@@ -295,7 +320,29 @@ class _BookDetailScreenState extends State<BookDetailScreen> {
         final progress = state.progressOf(pericopes);
 
         return Scaffold(
-          appBar: AppBar(title: Text(BookCatalog.nameOf(book))),
+          appBar: AppBar(
+            title: Text(BookCatalog.nameOf(book)),
+            actions: [
+              IconButton(
+                key: const ValueKey("book-read"),
+                tooltip: "Im Bibel-Reader lesen",
+                icon: const Icon(Icons.auto_stories_rounded),
+                onPressed: () {
+                  final passage = passageOfBook(book);
+
+                  if (passage != null) {
+                    openPassage(
+                      context,
+                      controller,
+                      passage,
+                      title: BookCatalog.nameOf(book),
+                    );
+                  }
+                },
+              ),
+              BookLearningSettingsButton(controller: controller),
+            ],
+          ),
           body: ListView(
             key: const ValueKey("book-detail-list"),
             padding: const EdgeInsets.fromLTRB(16, 8, 16, 32),
@@ -325,7 +372,7 @@ class _BookDetailScreenState extends State<BookDetailScreen> {
               const SizedBox(height: 8),
               _buildPlanCard(context, state.planOf(book), progress),
               ..._buildSections(context),
-              const SectionTitle("Weitere Lernmodi"),
+              const SectionTitle("Weitere Lernmöglichkeiten"),
               _buildModes(context),
               const SectionTitle("Kapitel"),
               _buildChapterGrid(context),
@@ -378,11 +425,12 @@ class _BookDetailScreenState extends State<BookDetailScreen> {
     ];
   }
 
+  /// Weitere, klar verschiedene Lernmöglichkeiten. Gemischtes Wiederholen
+  /// und schwierige Perikopen braucht es nicht als eigene Modi: Jede
+  /// Lerneinheit wählt nach Lernbedarf und Fälligkeit, gezielt Fälliges und
+  /// kürzlich Falsches gibt es unter „Wiederholungen“.
   Widget _buildModes(BuildContext context) {
-    final difficultCount = pericopes.where((p) {
-      final s = state.statusOf(p);
-      return s.difficult || s.recentlyWrong;
-    }).length;
+    final due = state.progressOf(pericopes).due;
 
     return Wrap(
       spacing: 8,
@@ -395,22 +443,24 @@ class _BookDetailScreenState extends State<BookDetailScreen> {
           onPressed: _chapterTraining,
         ),
         OutlinedButton.icon(
-          key: const ValueKey("mode-mixed"),
-          icon: const Icon(Icons.shuffle_rounded),
-          label: const Text("Gemischte Wiederholung"),
-          onPressed: _mixed,
+          key: const ValueKey("mode-review"),
+          icon: const Icon(Icons.schedule_rounded),
+          label: Text(
+            due > 0 ? "Wiederholungen ($due fällig)" : "Wiederholungen",
+          ),
+          onPressed: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) =>
+                  ReviewOverviewScreen(controller: controller, book: book),
+            ),
+          ),
         ),
         OutlinedButton.icon(
           key: const ValueKey("mode-order"),
           icon: const Icon(Icons.format_list_numbered_rounded),
           label: const Text("Reihenfolge lernen"),
           onPressed: _order,
-        ),
-        OutlinedButton.icon(
-          key: const ValueKey("mode-difficult"),
-          icon: const Icon(Icons.priority_high_rounded),
-          label: Text("Schwierige Perikopen ($difficultCount)"),
-          onPressed: difficultCount == 0 ? null : _difficult,
         ),
         OutlinedButton.icon(
           key: const ValueKey("mode-exam"),
@@ -488,7 +538,7 @@ class _BookDetailScreenState extends State<BookDetailScreen> {
   ) {
     final now = state.now;
 
-    final suggested = controller.planner().suggestedNew(book).length;
+    final suggested = controller.planner().newToday(book);
 
     final String summary;
 
@@ -732,6 +782,14 @@ class _SectionSheet extends StatelessWidget {
               title: const Text("Abschnitt prüfen"),
               onTap: () => Navigator.pop(context, "exam"),
             ),
+            if (passageOfSection(section) != null)
+              ListTile(
+                key: const ValueKey("section-sheet-read"),
+                contentPadding: EdgeInsets.zero,
+                leading: const Icon(Icons.auto_stories_rounded),
+                title: const Text("Abschnitt in der Bibel lesen"),
+                onTap: () => Navigator.pop(context, "read"),
+              ),
             ExpansionTile(
               key: const ValueKey("section-sheet-pericopes"),
               tilePadding: EdgeInsets.zero,
@@ -823,6 +881,15 @@ class _PericopeSheet extends StatelessWidget {
                 style: TextStyle(color: context.colors.textSecondary),
               ),
             const SizedBox(height: 12),
+            if (BibleReferenceParser.passageOf(p.perikope) != null)
+              ListTile(
+                key: const ValueKey("sheet-read"),
+                contentPadding: EdgeInsets.zero,
+                leading: const Icon(Icons.auto_stories_rounded),
+                title: const Text("Bibelstelle lesen"),
+                subtitle: Text(expected.text),
+                onTap: () => Navigator.pop(context, "read"),
+              ),
             ListTile(
               key: const ValueKey("sheet-study"),
               contentPadding: EdgeInsets.zero,

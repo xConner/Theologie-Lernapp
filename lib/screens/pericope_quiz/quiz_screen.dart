@@ -158,6 +158,21 @@ class _QuizScreenState extends State<QuizScreen> {
     });
   }
 
+  /// Nach einem Zurücksetzen in den Einstellungen: die Karten neu laden.
+  /// Die Engine hält dieselbe Map, gilt also sofort ohne Neustart; alte
+  /// Werte im Speicher würden sonst beim nächsten Antworten zurückgeschrieben.
+  Future<void> _reloadCards() async {
+    final cards = await learningService.loadPerikopeCards(widget.uid);
+
+    if (!mounted) return;
+
+    setState(() {
+      learningCards
+        ..clear()
+        ..addAll(cards);
+    });
+  }
+
   void _prepareQuestions() {
     questions = QuizQuestion.fromPerikopen(widget.perikopen);
 
@@ -590,6 +605,7 @@ class _QuizScreenState extends State<QuizScreen> {
       builder: (_) => QuizSettingsSheet(
         selected: settings.selectedBooks,
         onChanged: (_) {},
+        onProgressReset: _reloadCards,
       ),
     );
 

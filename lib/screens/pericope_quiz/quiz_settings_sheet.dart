@@ -8,10 +8,15 @@ class QuizSettingsSheet extends StatefulWidget {
   final Set<String> selected;
   final void Function(Set<String>) onChanged;
 
+  /// Lädt die Lernstände des Quiz nach einem Zurücksetzen im Tab
+  /// „Allgemein“ neu (siehe `GeneralSettingsView.onProgressReset`).
+  final Future<void> Function()? onProgressReset;
+
   const QuizSettingsSheet({
     super.key,
     required this.selected,
     required this.onChanged,
+    this.onProgressReset,
   });
 
   @override
@@ -237,6 +242,7 @@ class _QuizSettingsSheetState extends State<QuizSettingsSheet> {
                   child: Material(
                     type: MaterialType.transparency,
                     child: SettingsTabs(
+                      onProgressReset: widget.onProgressReset,
                       moduleLabel: "Perikopenquiz",
                       moduleSettings: Column(
                         children: [

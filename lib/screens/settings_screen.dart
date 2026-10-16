@@ -41,6 +41,12 @@ class GeneralSettingsView extends StatefulWidget {
   /// nächsten Antworten wieder zurückschreiben.
   final bool allowProgressReset;
 
+  /// Lädt die Lernstände eines geöffneten Lernbereichs nach einem
+  /// Zurücksetzen neu (z. B. Perikopenquiz, „Bücher systematisch lernen“).
+  /// Mit diesem Rückruf ist das Zurücksetzen auch dort erlaubt: Der Bereich
+  /// verwirft seine Karten im Speicher, statt sie zurückzuschreiben.
+  final Future<void> Function()? onProgressReset;
+
   final EdgeInsetsGeometry padding;
 
   /// Ermöglicht Widget-Tests ohne initialisiertes Firebase.
@@ -58,8 +64,11 @@ class GeneralSettingsView extends StatefulWidget {
   const GeneralSettingsView({
     super.key,
     this.allowProgressReset = true,
+    this.onProgressReset,
     this.padding = const EdgeInsets.all(16),
   });
+
+  bool get _resetAllowed => allowProgressReset || onProgressReset != null;
 
   @override
   State<GeneralSettingsView> createState() => _GeneralSettingsViewState();
@@ -244,6 +253,25 @@ class _GeneralSettingsViewState extends State<GeneralSettingsView> {
         GeneralSettingsView.currentUser()?.uid,
       );
 
+      // Erst den geöffneten Lernbereich neu laden, dann Erfolg melden.
+      final reload = widget.onProgressReset;
+
+      if (reload != null) {
+        try {
+          await reload();
+        } catch (_) {
+          messenger.showSnackBar(
+            SnackBar(
+              content: Text(
+                "$success Bitte die Ansicht schließen und neu öffnen, um "
+                "den neuen Stand zu sehen.",
+              ),
+            ),
+          );
+          return;
+        }
+      }
+
       messenger.showSnackBar(SnackBar(content: Text(success)));
     } on StateError catch (_) {
       messenger.showSnackBar(
@@ -405,7 +433,7 @@ class _GeneralSettingsViewState extends State<GeneralSettingsView> {
                 ),
                 title: const Text("Alle Lernfortschritte zurücksetzen"),
                 subtitle: Text(
-                  widget.allowProgressReset
+                  widget._resetAllowed
                       ? "Alle Lernbereiche. Einstellungen bleiben erhalten."
                       : "Nur außerhalb eines Trainers möglich, z. B. über "
                             "die Einstellungen der Startseite.",
@@ -417,7 +445,7 @@ class _GeneralSettingsViewState extends State<GeneralSettingsView> {
                         child: CircularProgressIndicator(strokeWidth: 2),
                       )
                     : null,
-                enabled: widget.allowProgressReset && !resettingProgress,
+                enabled: widget._resetAllowed && !resettingProgress,
                 onTap: _resetProgress,
               ),
               const Divider(height: 1),
@@ -429,7 +457,7 @@ class _GeneralSettingsViewState extends State<GeneralSettingsView> {
                   "Z. B. nur Latein-Vokabeln oder die Perikopen eines "
                   "Bibelbuchs.",
                 ),
-                enabled: widget.allowProgressReset && !resettingProgress,
+                enabled: widget._resetAllowed && !resettingProgress,
                 onTap: _resetArea,
               ),
             ],

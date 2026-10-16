@@ -5,7 +5,9 @@ import '../../../quiz/books/book_learning.dart';
 import '../../../quiz/books/book_learning_controller.dart';
 import '../../../quiz/books/book_learning_status.dart';
 import '../../../theme/app_theme.dart';
+import 'bible_passage.dart';
 import 'book_dialogs.dart';
+import 'book_settings.dart';
 import 'book_study_screen.dart';
 import 'book_widgets.dart';
 
@@ -38,11 +40,15 @@ class _ReviewOverviewScreenState extends State<ReviewOverviewScreen> {
   }
 
   Future<void> _start(List<BookPericope> list, String title) {
+    // Jede Perikope der Liste einmal, gewichtet nach Lernbedarf und
+    // Fälligkeit mit Zufall gereiht (wie im Perikopenquiz).
     return startStudy(
       context,
       controller: controller,
-      mode: StudyMode.review,
-      tasks: controller.planner().review(list),
+      session: controller.fixedSession(
+        StudyMode.review,
+        controller.planner().review(list),
+      ),
       title: title,
     );
   }
@@ -66,6 +72,7 @@ class _ReviewOverviewScreenState extends State<ReviewOverviewScreen> {
                   ? "Wiederholungen"
                   : "Wiederholungen: ${widget.book}",
             ),
+            actions: [BookLearningSettingsButton(controller: controller)],
           ),
           body: ListView(
             padding: const EdgeInsets.fromLTRB(16, 8, 16, 32),
@@ -260,7 +267,18 @@ class _ReviewTile extends StatelessWidget {
             if (status.wrongCount > 0) "${status.wrongCount}× falsch",
           ].join(" · "),
         ),
-        trailing: const Icon(Icons.chevron_right_rounded),
+        trailing: IconButton(
+          key: ValueKey("review-read-${pericope.key}"),
+          tooltip: "Bibelstelle lesen",
+          icon: const Icon(Icons.auto_stories_rounded),
+          onPressed: () {
+            final passage = passageOfPericope(controller, pericope);
+
+            if (passage != null) {
+              openPassage(context, controller, passage, title: pericope.title);
+            }
+          },
+        ),
         onTap: onTap,
       ),
     );

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../models/greek/perikope.dart';
 import '../../services/streak/streak_track.dart';
 import '../../theme/app_theme.dart';
+import '../../widgets/settings_access.dart';
 import '../../widgets/streak_widgets.dart';
 import 'books/books_overview_screen.dart';
 import 'quiz_screen.dart';
@@ -39,7 +40,12 @@ class BibelkundeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Bibelkunde")),
+      appBar: AppBar(
+        title: const Text("Bibelkunde"),
+        // Allgemeine Einstellungen; hier ist kein Lernbereich geöffnet, das
+        // Zurücksetzen ist also ohne Neuladen möglich.
+        actions: const [SettingsButton()],
+      ),
       body: Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 400),

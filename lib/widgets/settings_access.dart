@@ -40,10 +40,15 @@ class SettingsTabs extends StatefulWidget {
   final String moduleLabel;
   final Widget moduleSettings;
 
+  /// Siehe [GeneralSettingsView.onProgressReset]: Ohne Rückruf bleibt das
+  /// Zurücksetzen im Tab „Allgemein“ gesperrt.
+  final Future<void> Function()? onProgressReset;
+
   const SettingsTabs({
     super.key,
     required this.moduleLabel,
     required this.moduleSettings,
+    this.onProgressReset,
   });
 
   static const int generalTab = 0;
@@ -90,8 +95,9 @@ class _SettingsTabsState extends State<SettingsTabs>
                 index: controller.index,
                 sizing: StackFit.expand,
                 children: [
-                  const GeneralSettingsView(
+                  GeneralSettingsView(
                     allowProgressReset: false,
+                    onProgressReset: widget.onProgressReset,
                     padding: EdgeInsets.zero,
                   ),
                   widget.moduleSettings,
@@ -113,11 +119,15 @@ class ModuleSettingsDialog extends StatelessWidget {
   final String moduleLabel;
   final Widget moduleSettings;
 
+  /// Siehe [SettingsTabs.onProgressReset].
+  final Future<void> Function()? onProgressReset;
+
   const ModuleSettingsDialog({
     super.key,
     required this.title,
     required this.moduleLabel,
     required this.moduleSettings,
+    this.onProgressReset,
   });
 
   @override
@@ -138,6 +148,7 @@ class ModuleSettingsDialog extends StatelessWidget {
         child: SettingsTabs(
           moduleLabel: moduleLabel,
           moduleSettings: moduleSettings,
+          onProgressReset: onProgressReset,
         ),
       ),
     );

@@ -9,7 +9,9 @@ import '../../../services/book_learning_storage.dart';
 import '../../../services/learning_service.dart';
 import '../../../services/settings_service.dart';
 import '../../../theme/app_theme.dart';
+import '../../../widgets/settings_access.dart';
 import 'book_detail_screen.dart';
+import 'book_settings.dart';
 import 'book_widgets.dart';
 import 'review_overview_screen.dart';
 
@@ -120,7 +122,15 @@ class _BooksOverviewScreenState extends State<BooksOverviewScreen> {
     final c = controller;
 
     return Scaffold(
-      appBar: AppBar(title: const Text("Bücher systematisch lernen")),
+      appBar: AppBar(
+        title: const Text("Bücher systematisch lernen"),
+        actions: [
+          if (controller != null)
+            BookLearningSettingsButton(controller: controller!)
+          else
+            const SettingsButton(),
+        ],
+      ),
       body: c == null
           ? Center(
               child: error == null

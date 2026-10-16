@@ -13,16 +13,17 @@ import '../../../widgets/self_assessment.dart';
 import '../../../widgets/trainer_widgets.dart';
 import '../../../quiz/pericope_reference.dart';
 import '../quick_entry_panel.dart';
+import 'bible_passage.dart';
+import 'book_settings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// Anschluss an eine Lerneinheit, z. B. „Weiter mit dem nächsten
-/// Abschnitt“. Die Aufgaben werden erst beim Antippen gebildet, damit sie den
-/// gerade gelernten Stand berücksichtigen.
+/// Abschnitt“. Die Einheit wird erst beim Antippen gebildet, damit sie den
+/// gerade gelernten Stand berücksichtigt.
 class StudyFollowUp {
   final String label;
   final String title;
-  final StudyMode mode;
-  final List<StudyTask> Function() tasks;
+  final StudySession Function() session;
 
   /// Anschlüsse der folgenden Einheit (z. B. der übernächste Abschnitt).
   final List<StudyFollowUp> Function()? followUps;
@@ -30,8 +31,7 @@ class StudyFollowUp {
   const StudyFollowUp({
     required this.label,
     required this.title,
-    required this.mode,
-    required this.tasks,
+    required this.session,
     this.followUps,
   });
 }
@@ -40,16 +40,15 @@ class StudyFollowUp {
 Future<void> startStudy(
   BuildContext context, {
   required BookLearningController controller,
-  required StudyMode mode,
-  required List<StudyTask> tasks,
+  required StudySession session,
   String? title,
   List<StudyFollowUp> Function()? followUps,
 }) async {
-  if (tasks.isEmpty) {
+  if (session.finished) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(
-          mode == StudyMode.order
+          session.mode == StudyMode.order
               ? "Für Reihenfolge-Aufgaben braucht es mindestens drei "
                     "Perikopen mit verschiedenen Titeln."
               : "Hierfür gibt es gerade nichts zu lernen.",
@@ -64,12 +63,7 @@ Future<void> startStudy(
     MaterialPageRoute(
       builder: (_) => BookStudyScreen(
         controller: controller,
-        session: StudySession(
-          state: controller.state,
-          storage: controller.storage,
-          tasks: tasks,
-          mode: mode,
-        ),
+        session: session,
         title: title,
         followUps: followUps,
       ),
@@ -150,6 +144,28 @@ class _BookStudyScreenState extends State<BookStudyScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) => controller.refresh());
 
     super.dispose();
+  }
+
+  /// Nach dem Einstellungsdialog: geänderte Antwortmethode und
+  /// Schnelleingabe übernehmen (nicht mitten in einer bewerteten Frage).
+  Future<void> _reloadPreferences() async {
+    final m = await AnswerMethodPreference.load(
+      AnswerMethodPreference.pericopeQuiz,
+    );
+
+    bool q = quickEntry;
+
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      q = prefs.getBool(QuickEntryPanel.preferenceKey) ?? false;
+    } catch (_) {}
+
+    if (!mounted) return;
+
+    setState(() {
+      if (!session.exam && !answered && !revealed) method = m;
+      quickEntry = q;
+    });
   }
 
   void _report(bool correct) {
@@ -276,14 +292,15 @@ class _BookStudyScreenState extends State<BookStudyScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(_modeTitle()),
+        actions: [
+          BookLearningSettingsButton(
+            controller: widget.controller,
+            onClosed: _reloadPreferences,
+          ),
+        ],
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(4),
-          child: LinearProgressIndicator(
-            value: session.tasks.isEmpty
-                ? 1
-                : session.index / session.tasks.length,
-            minHeight: 4,
-          ),
+          child: LinearProgressIndicator(value: session.progress, minHeight: 4),
         ),
       ),
       body: SafeArea(
@@ -303,9 +320,9 @@ class _BookStudyScreenState extends State<BookStudyScreen> {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         Text(
-                          "Aufgabe ${session.index + 1} von "
-                          "${session.tasks.length}"
+                          "${session.progressLabel}"
                           "${session.exam ? " · Prüfung ohne Lösungshinweise" : ""}",
+                          key: const ValueKey("study-progress"),
                           textAlign: TextAlign.center,
                           style: TextStyle(color: context.colors.textSecondary),
                         ),
@@ -372,10 +389,22 @@ class _BookStudyScreenState extends State<BookStudyScreen> {
               style: TextStyle(color: context.colors.textSecondary),
             ),
             const SizedBox(height: 16),
-            ElevatedButton(
-              key: const ValueKey("intro-continue"),
-              onPressed: _introduced,
-              child: const Text("Weiter"),
+            Wrap(
+              alignment: WrapAlignment.center,
+              spacing: 8,
+              runSpacing: 8,
+              children: [
+                readPericopeButton(
+                  widget.controller,
+                  task.target,
+                  key: const ValueKey("intro-read"),
+                ),
+                ElevatedButton(
+                  key: const ValueKey("intro-continue"),
+                  onPressed: _introduced,
+                  child: const Text("Weiter"),
+                ),
+              ],
             ),
           ],
         ),
@@ -453,10 +482,20 @@ class _BookStudyScreenState extends State<BookStudyScreen> {
             onReveal: () => setState(() => revealed = true),
             onAssess: _assess,
             hint: "Rufe die Stelle im Kopf ab und decke dann die Lösung auf.",
-            solutionBuilder: (_) => SelectableText(
-              expected.text,
-              textAlign: TextAlign.center,
-              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+            solutionBuilder: (_) => Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SelectableText(
+                  expected.text,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                readPericopeButton(widget.controller, task.target),
+              ],
             ),
           )
         else ...[
@@ -543,8 +582,17 @@ class _BookStudyScreenState extends State<BookStudyScreen> {
               ),
             ],
           ),
-          if (feedback != null)
+          if (feedback != null) ...[
             _Feedback(text: feedback!, correct: lastCorrect!),
+            const SizedBox(height: 12),
+            Center(
+              child: readPericopeButton(
+                widget.controller,
+                task.target,
+                key: const ValueKey("recall-read"),
+              ),
+            ),
+          ],
         ],
       ],
     );
@@ -691,12 +739,23 @@ class _BookStudyScreenState extends State<BookStudyScreen> {
           ),
         if (answered) ...[
           const SizedBox(height: 8),
-          Center(
-            child: ElevatedButton(
-              key: const ValueKey("choice-next"),
-              onPressed: _next,
-              child: const Text("Weiter"),
-            ),
+          Wrap(
+            alignment: WrapAlignment.center,
+            spacing: 8,
+            runSpacing: 8,
+            children: [
+              if (!session.exam)
+                readPericopeButton(
+                  widget.controller,
+                  task.target,
+                  key: const ValueKey("choice-read"),
+                ),
+              ElevatedButton(
+                key: const ValueKey("choice-next"),
+                onPressed: _next,
+                child: const Text("Weiter"),
+              ),
+            ],
           ),
         ],
       ],
@@ -914,9 +973,9 @@ class _ResultView extends StatelessWidget {
   });
 
   void _start(BuildContext context, StudyFollowUp followUp) {
-    final tasks = followUp.tasks();
+    final next = followUp.session();
 
-    if (tasks.isEmpty) {
+    if (next.finished) {
       Navigator.pop(context);
       return;
     }
@@ -926,12 +985,7 @@ class _ResultView extends StatelessWidget {
       MaterialPageRoute(
         builder: (_) => BookStudyScreen(
           controller: controller,
-          session: StudySession(
-            state: controller.state,
-            storage: controller.storage,
-            tasks: tasks,
-            mode: followUp.mode,
-          ),
+          session: next,
           title: followUp.title,
           followUps: followUp.followUps,
         ),
@@ -1007,18 +1061,14 @@ class _ResultView extends StatelessWidget {
                         icon: const Icon(Icons.replay_rounded),
                         label: const Text("Fehler wiederholen"),
                         onPressed: () {
-                          final tasks = controller.planner().review(retry);
-
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
                               builder: (_) => BookStudyScreen(
                                 controller: controller,
-                                session: StudySession(
-                                  state: controller.state,
-                                  storage: controller.storage,
-                                  tasks: tasks,
-                                  mode: StudyMode.review,
+                                session: controller.fixedSession(
+                                  StudyMode.review,
+                                  controller.planner().review(retry),
                                 ),
                                 title: "Fehler wiederholen",
                               ),
@@ -1054,6 +1104,30 @@ class _ResultView extends StatelessWidget {
                           "${r.note == null ? "" : "\n${r.note}"}",
                         ),
                         isThreeLine: true,
+                        trailing: r.task is ArrangeTask
+                            ? null
+                            : IconButton(
+                                key: ValueKey(
+                                  "result-read-${r.task.target.key}",
+                                ),
+                                tooltip: "Bibelstelle lesen",
+                                icon: const Icon(Icons.auto_stories_rounded),
+                                onPressed: () {
+                                  final passage = passageOfPericope(
+                                    controller,
+                                    r.task.target,
+                                  );
+
+                                  if (passage != null) {
+                                    openPassage(
+                                      context,
+                                      controller,
+                                      passage,
+                                      title: r.task.target.title,
+                                    );
+                                  }
+                                },
+                              ),
                       ),
                     ),
                 ],

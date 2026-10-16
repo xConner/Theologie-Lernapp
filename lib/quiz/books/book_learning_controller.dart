@@ -10,7 +10,9 @@ import '../../services/learning_service.dart';
 import '../../services/settings_service.dart';
 import '../../settings/quiz_settings.dart';
 import 'book_catalog.dart';
+import 'adaptive_study_queue.dart';
 import 'book_learning.dart';
+import 'book_study_session.dart';
 import 'book_outline.dart';
 import 'book_plan.dart';
 import 'verse_precision.dart';
@@ -29,12 +31,17 @@ class BookLearningController extends ChangeNotifier {
   /// Hinterlegte Buchgliederungen (`assets/book_outlines.json`).
   final BookOutlines outlines;
 
+  final LearningService learningService;
+  final SettingsService settingsService;
+
   BookLearningController._({
     required this.uid,
     required this.storage,
     required this.state,
     required this.bibleRepository,
     required this.outlines,
+    required this.learningService,
+    required this.settingsService,
   });
 
   BookCatalog get catalog => state.catalog;
@@ -56,38 +63,68 @@ class BookLearningController extends ChangeNotifier {
   }) async {
     final store = storage ?? BookLearningStorage.forUser(uid);
 
+    final learning = learningService ?? LearningService();
+    final settings = settingsService ?? SettingsService();
+
     final data = await store.load();
 
-    Map<String, LearningCard> legacy = {};
-    Set<String> legacyBooks = {};
-
-    // Der Stand des Endlos-Quiz ist nur ein Startwert; fehlt er (z. B.
-    // offline), funktioniert alles andere trotzdem.
-    try {
-      legacy = await (learningService ?? LearningService()).loadPerikopeCards(
-        uid,
-      );
-
-      final books = await (settingsService ?? SettingsService()).loadBooks(uid);
-
-      legacyBooks = books.isEmpty ? {...QuizSettings.allBooks} : books;
-    } catch (e) {
-      debugPrint("Lernstand des Endlos-Quiz nicht verfügbar: $e");
-    }
+    final legacy = await _loadLegacy(uid, learning, settings);
 
     return BookLearningController._(
       uid: uid,
       storage: store,
+      learningService: learning,
+      settingsService: settings,
       bibleRepository: bibleRepository ?? BibleRepository.instance,
       outlines: outlines ?? await BookOutlines.load(),
       state: BookLearningState(
         catalog: BookCatalog.fromPerikopen(perikopen),
         data: data,
-        legacyCards: legacy,
-        legacyBooks: legacyBooks,
+        legacyCards: legacy.cards,
+        legacyBooks: legacy.books,
         clock: clock,
       ),
     );
+  }
+
+  /// Der Stand des Endlos-Quiz ist nur ein Startwert; fehlt er (z. B.
+  /// offline), funktioniert alles andere trotzdem.
+  static Future<({Map<String, LearningCard> cards, Set<String> books})>
+  _loadLegacy(
+    String? uid,
+    LearningService learning,
+    SettingsService settings,
+  ) async {
+    try {
+      final cards = await learning.loadPerikopeCards(uid);
+
+      final books = await settings.loadBooks(uid);
+
+      return (
+        cards: cards,
+        books: books.isEmpty ? {...QuizSettings.allBooks} : books,
+      );
+    } catch (e) {
+      debugPrint("Lernstand des Endlos-Quiz nicht verfügbar: $e");
+      return (cards: <String, LearningCard>{}, books: <String>{});
+    }
+  }
+
+  /// Lädt alle Lernstände neu – nach einem Zurücksetzen in den allgemeinen
+  /// Einstellungen. Ersetzt die Daten an Ort und Stelle, sodass eine offene
+  /// Lerneinheit nichts Altes zurückschreibt.
+  Future<void> reload() async {
+    final data = await storage.load();
+
+    final legacy = await _loadLegacy(uid, learningService, settingsService);
+
+    state.replaceWith(
+      data,
+      legacyCards: legacy.cards,
+      legacyBooks: legacy.books,
+    );
+
+    refresh();
   }
 
   bool _disposed = false;
@@ -105,6 +142,49 @@ class BookLearningController extends ChangeNotifier {
   }
 
   StudyPlanner planner() => StudyPlanner(state);
+
+  /// Neue Perikopen je Einheit in Abschnitt oder Kapitel.
+  static const int scopeNewPerSession = 6;
+
+  /// Eine Lerneinheit mit fester Aufgabenfolge (Reihenfolge, Prüfung,
+  /// einzelne Perikope, Wiederholungslisten).
+  StudySession fixedSession(StudyMode mode, List<StudyTask> tasks) {
+    return StudySession(
+      state: state,
+      storage: storage,
+      mode: mode,
+      tasks: tasks,
+    );
+  }
+
+  /// Eine fortlaufend ausgewählte Lerneinheit über [scope] (siehe
+  /// [AdaptiveStudyQueue]).
+  StudySession adaptiveSession(
+    StudyMode mode,
+    List<BookPericope> scope, {
+    required int maxNew,
+  }) {
+    return StudySession(
+      state: state,
+      storage: storage,
+      mode: mode,
+      queue: AdaptiveStudyQueue(state: state, scope: scope, maxNew: maxNew),
+    );
+  }
+
+  /// Das ganze Buch; neue Perikopen nach Lernplan (Tagesmenge).
+  StudySession bookSession(String book) {
+    return adaptiveSession(
+      StudyMode.learnBook,
+      catalog.pericopesOf(book),
+      maxNew: state.newQuotaToday(book),
+    );
+  }
+
+  /// Abschnitt, Kapitel oder Bereich.
+  StudySession scopeSession(StudyMode mode, List<BookPericope> scope) {
+    return adaptiveSession(mode, scope, maxNew: scopeNewPerSession);
+  }
 
   // ---------- Verspräzisierung ----------
 

@@ -147,6 +147,18 @@ void main() {
   String instruction(WidgetTester tester) =>
       tester.widget<Text>(key("recall-instruction")).data!;
 
+  /// Kapitel der gerade abgefragten Markus-Perikope (aus dem Titel).
+  String askedChapter(WidgetTester tester) {
+    final chapters = {for (final p in markus) p.title: p.startChapter};
+
+    for (final t in tester.widgetList<Text>(find.byType(Text))) {
+      final chapter = chapters[t.data];
+      if (chapter != null) return "$chapter";
+    }
+
+    throw StateError("Keine Perikope angezeigt");
+  }
+
   testWidgets("Buchansicht ohne Perikopenliste, mit Abschnitten", (
     tester,
   ) async {
@@ -290,7 +302,10 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text("Neue Perikope"), findsOneWidget);
-    expect(find.text("Aufgabe 1 von 6"), findsOneWidget);
+    expect(
+      tester.widget<Text>(key("study-progress")).data,
+      "Einführung · 0 von 3 Abfragen erledigt",
+    );
 
     int answered = 0;
 
@@ -319,7 +334,12 @@ void main() {
       );
 
       // Mit Buch getippt geht auch – nicht nur durch Ausprobieren.
-      await tester.enterText(key("recall-input"), answered == 0 ? "Mk 1" : "1");
+      final chapter = askedChapter(tester);
+
+      await tester.enterText(
+        key("recall-input"),
+        answered == 0 ? "Mk $chapter" : chapter,
+      );
       await tester.pump();
       await tester.tap(key("recall-submit"));
       await tester.pumpAndSettle();
@@ -363,15 +383,20 @@ void main() {
     // Das Buch ist gesetzt; die Schnelleingabe beginnt bei den Kapiteln.
     expect(key("book-quick-entry"), findsOneWidget);
 
+    final chapter = askedChapter(tester);
+
     final panel = find.descendant(
       of: key("book-quick-entry"),
-      matching: find.text("1"),
+      matching: find.text(chapter),
     );
 
     await tester.tap(panel.first);
     await tester.pumpAndSettle();
 
-    expect(tester.widget<TextField>(key("recall-input")).controller!.text, "1");
+    expect(
+      tester.widget<TextField>(key("recall-input")).controller!.text,
+      chapter,
+    );
 
     await tester.tap(key("recall-submit"));
     await tester.pumpAndSettle();

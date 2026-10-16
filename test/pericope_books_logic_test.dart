@@ -8,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:theologie_lernapp/algorithms/spaced_repetition.dart';
 import 'package:theologie_lernapp/models/greek/perikope.dart';
 import 'package:theologie_lernapp/models/greek/vocabulary/learning_card.dart';
+import 'package:theologie_lernapp/quiz/books/adaptive_study_queue.dart';
 import 'package:theologie_lernapp/quiz/books/book_catalog.dart';
 import 'package:theologie_lernapp/quiz/books/book_learning.dart';
 import 'package:theologie_lernapp/quiz/books/book_learning_status.dart';
@@ -644,45 +645,6 @@ void main() {
       );
     }
 
-    test("Fällige zuerst, dann neue in Buchreihenfolge", () {
-      final markus = catalog.pericopesOf("Mk");
-
-      final dueOne = markus[10];
-
-      final state = stateWith(
-        cards: {
-          dueOne.key: BookCard(
-            id: dueOne.key,
-            stability: 1,
-            lastReviewed: clock.now.subtract(const Duration(days: 2)),
-          ),
-        },
-      );
-
-      final tasks = StudyPlanner(state, random: Random(1)).learnBook("Mk");
-
-      expect(tasks.first, isA<RecallTask>());
-      expect(tasks.first.target, dueOne);
-
-      final intros = tasks.whereType<IntroduceTask>().map((t) => t.target);
-
-      expect(intros, [markus[0], markus[1], markus[2]]);
-
-      // Jede neue Perikope wird erst nach der Einführung und nicht direkt
-      // danach abgefragt.
-      for (final p in intros) {
-        final intro = tasks.indexWhere(
-          (t) => t is IntroduceTask && t.target == p,
-        );
-        final recall = tasks.indexWhere(
-          (t) => t is RecallTask && t.target == p,
-        );
-
-        expect(recall, greaterThan(intro + 1));
-        expect((tasks[recall] as RecallTask).afterIntroduction, isTrue);
-      }
-    });
-
     test("Tagesmenge aus dem Plan, abzüglich heute eingeführter", () {
       final markus = catalog.pericopesOf("Mk");
 
@@ -714,7 +676,16 @@ void main() {
       );
 
       expect(state.newQuotaToday("Mk"), 0);
-      expect(StudyPlanner(state).learnBook("Mk"), isEmpty);
+
+      // Nichts begonnen, nichts Neues: Die Einheit ist sofort zu Ende.
+      final queue = AdaptiveStudyQueue(
+        state: state,
+        scope: catalog.pericopesOf("Mk"),
+        maxNew: state.newQuotaToday("Mk"),
+      );
+
+      expect(queue.questions, 0);
+      expect(queue.next(), isNull);
     });
 
     test("Zieldatum erhöht die Tagesmenge", () {
@@ -770,74 +741,6 @@ void main() {
           reason: p.book,
         );
       }
-    });
-
-    test("Kapiteltraining nur mit Perikopen der Kapitel", () {
-      final state = stateWith();
-
-      final tasks = StudyPlanner(state).chapter("Mk", 2, 3);
-
-      expect(tasks, isNotEmpty);
-      expect(
-        tasks.every((t) => t.target.chapter >= 2 && t.target.chapter <= 3),
-        isTrue,
-      );
-      expect(
-        tasks.whereType<IntroduceTask>().length,
-        catalog.inChapters("Mk", 2, 3).length,
-      );
-    });
-
-    test("Gemischte Wiederholung ohne neue Perikopen", () {
-      final markus = catalog.pericopesOf("Mk");
-
-      final cards = {
-        for (final p in markus.take(6))
-          p.key: BookCard(
-            id: p.key,
-            lastReviewed: clock.now.subtract(const Duration(hours: 2)),
-          ),
-      };
-
-      final state = stateWith(cards: cards);
-
-      final tasks = StudyPlanner(state, random: Random(3)).mixed(markus);
-
-      expect(tasks.length, 6);
-      expect(tasks.whereType<IntroduceTask>(), isEmpty);
-      expect(tasks.map((t) => t.target).toSet(), markus.take(6).toSet());
-    });
-
-    test("Schwierige Perikopen nach Fehlerzahl", () {
-      final markus = catalog.pericopesOf("Mk");
-
-      final state = stateWith(
-        cards: {
-          markus[3].key: BookCard(
-            id: markus[3].key,
-            lastReviewed: clock.now,
-            wrongCount: 1,
-            lastWrong: clock.now,
-          ),
-          markus[5].key: BookCard(
-            id: markus[5].key,
-            lastReviewed: clock.now,
-            wrongCount: 4,
-            difficulty: 8,
-            lastWrong: clock.now.subtract(const Duration(days: 30)),
-          ),
-          markus[7].key: BookCard(id: markus[7].key, lastReviewed: clock.now),
-        },
-      );
-
-      final tasks = StudyPlanner(state, random: Random(2)).difficult(markus);
-
-      final targets = [
-        for (final t in tasks)
-          if (t is RecallTask) t.target,
-      ];
-
-      expect(targets, [markus[5], markus[3]]);
     });
 
     test("Prüfung fragt jede Perikope einmal ohne Hilfe ab", () {
@@ -1169,19 +1072,19 @@ void main() {
         data: BookLearningData(),
       );
 
-      // Früher wählte der Planer die Form zufällig je Aufgabe; jetzt hängt
-      // sie nur noch vom Buchkontext der Einheit ab.
+      // Der Buchkontext folgt aus dem Umfang der Einheit, nicht aus der
+      // einzelnen Aufgabe.
       for (int seed = 0; seed < 5; seed++) {
-        final tasks = StudyPlanner(
-          state,
-          random: Random(seed),
-        ).chapter("Mk", 1, 3);
-
         final session = StudySession(
           state: state,
           storage: LocalBookLearningStorage(),
           mode: StudyMode.chapter,
-          tasks: tasks,
+          queue: AdaptiveStudyQueue(
+            state: state,
+            scope: catalog.inChapters("Mk", 1, 3),
+            maxNew: 6,
+            random: Random(seed),
+          ),
         );
 
         expect(session.contextBook, "Mk");
@@ -1338,14 +1241,12 @@ void main() {
       expect(BookOutlines.fromJson({}).hasDefined("Mk"), isFalse);
     });
 
-    test("Abschnitt lernen: fällige und offene zuerst, neue begrenzt", () {
+    test("Abschnitt lernen: nur Perikopen des Abschnitts", () {
       final clock = TestClock(DateTime(2026, 10, 1, 8));
 
       final outline = outlines.outlineFor(catalog, "Mk");
       final section = outline.sections[1];
       final members = pericopesOfSection(catalog, section);
-
-      expect(members.length, greaterThan(StudyPlanner.sectionNewPerSession));
 
       final state = BookLearningState(
         catalog: catalog,
@@ -1360,15 +1261,18 @@ void main() {
         clock: clock.call,
       );
 
-      final tasks = StudyPlanner(state).section(section);
-
-      expect(tasks.first, isA<RecallTask>());
-      expect(tasks.first.target, members[2]);
-      expect(
-        tasks.whereType<IntroduceTask>().length,
-        StudyPlanner.sectionNewPerSession,
+      final queue = AdaptiveStudyQueue(
+        state: state,
+        scope: members,
+        maxNew: 6,
+        random: Random(3),
       );
+
+      final tasks = [for (var t = queue.next(); t != null; t = queue.next()) t];
+
       expect(tasks.every((t) => section.contains(t.target)), isTrue);
+      expect(tasks.whereType<IntroduceTask>().length, 6);
+      expect(tasks.where((t) => t.target == members[2]), isNotEmpty);
 
       // Weitergelernt wird im ersten Abschnitt mit neuen Perikopen.
       expect(state.currentSection(outline)!.id, outline.sections.first.id);
@@ -1376,7 +1280,7 @@ void main() {
       expect(state.sectionAfter(outline, outline.sections.last), isNull);
     });
 
-    test("alles sicher: der Abschnitt wird ganz wiederholt", () {
+    test("alles sicher: der Abschnitt wird trotzdem wiederholt", () {
       final clock = TestClock(DateTime(2026, 10, 1, 8));
 
       final outline = outlines.outlineFor(catalog, "Mk");
@@ -1399,9 +1303,15 @@ void main() {
         clock: clock.call,
       );
 
-      final tasks = StudyPlanner(state).section(section);
+      final queue = AdaptiveStudyQueue(state: state, scope: members, maxNew: 6);
 
-      expect(tasks.map((t) => t.target), members);
+      final targets = {
+        for (var t = queue.next(); t != null; t = queue.next()) t.target,
+      };
+
+      // Kategorien schließen nichts aus: Auch sichere, nicht fällige
+      // Perikopen kommen vor – jede einmal.
+      expect(targets, members.toSet());
       expect(state.progressOfSection(section).secure, members.length);
       expect(state.currentSection(outline)!.id, outline.sections[1].id);
     });

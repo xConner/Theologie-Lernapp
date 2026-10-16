@@ -1,5 +1,8 @@
 import 'dart:math';
 
+import '../../algorithms/learning_selector.dart';
+import '../../algorithms/spaced_repetition.dart';
+
 import '../../models/greek/vocabulary/learning_card.dart';
 import '../../services/book_learning_storage.dart';
 import 'book_catalog.dart';
@@ -32,9 +35,35 @@ class BookLearningState {
     Map<String, LearningCard>? legacyCards,
     Set<String>? legacyBooks,
     DateTime Function()? clock,
-  }) : legacyCards = legacyCards ?? const {},
-       legacyBooks = legacyBooks ?? const {},
+  }) : legacyCards = {...?legacyCards},
+       legacyBooks = {...?legacyBooks},
        clock = clock ?? DateTime.now;
+
+  /// Ersetzt die geladenen Daten an Ort und Stelle (z. B. nach einem
+  /// Zurücksetzen), damit offene Ansichten und eine laufende Lerneinheit
+  /// mit demselben Zustand weiterarbeiten.
+  void replaceWith(
+    BookLearningData fresh, {
+    required Map<String, LearningCard> legacyCards,
+    required Set<String> legacyBooks,
+  }) {
+    data.cards
+      ..clear()
+      ..addAll(fresh.cards);
+    data.precisions
+      ..clear()
+      ..addAll(fresh.precisions);
+    data.plans
+      ..clear()
+      ..addAll(fresh.plans);
+
+    this.legacyCards
+      ..clear()
+      ..addAll(legacyCards);
+    this.legacyBooks
+      ..clear()
+      ..addAll(legacyBooks);
+  }
 
   DateTime get now => clock();
 
@@ -52,6 +81,25 @@ class BookLearningState {
       p.key,
       () => BookCard.seeded(p.key, legacyOf(p)),
     );
+  }
+
+  /// Die Karte, nach der das Auswahlverfahren gewichtet: der eigene
+  /// Lernstand, sonst (als Startwert) der des Endlos-Quiz, sonst eine neue
+  /// Karte. Wird nicht gespeichert.
+  LearningCard selectionCardOf(BookPericope p) {
+    final card = cardOf(p);
+
+    if (card != null && card.lastReviewed != null) return card;
+
+    final legacy = legacyOf(p);
+
+    if (legacy != null &&
+        legacy.lastReviewed != null &&
+        !(card?.ignoreEndlessQuiz ?? false)) {
+      return legacy;
+    }
+
+    return LearningCard(id: p.key);
   }
 
   PericopeStatus statusOf(BookPericope p) {
@@ -226,13 +274,11 @@ class ArrangeTask extends StudyTask {
 
 enum StudyMode {
   learnBook("Buch lernen"),
-  chapter("Kapiteltraining"),
   section("Abschnitt lernen"),
-  mixed("Gemischte Wiederholung"),
+  chapter("Kapitel lernen"),
   order("Reihenfolge lernen"),
-  difficult("Schwierige Perikopen"),
   exam("Prüfung"),
-  selection("Ausgewählte Perikopen"),
+  selection("Einzelne Perikope"),
   review("Wiederholungen");
 
   final String label;
@@ -241,6 +287,11 @@ enum StudyMode {
 }
 
 /// Stellt die Aufgaben der Lernmodi zusammen.
+///
+/// Die eigentlichen Lerneinheiten (Buch, Abschnitt, Kapitel) bildet
+/// [AdaptiveStudyQueue] fortlaufend mit dem Auswahlverfahren des
+/// Perikopenquiz. Hier stehen die festen Aufgabenfolgen: Reihenfolge,
+/// Prüfung, einzelne Perikopen und Wiederholungslisten.
 class StudyPlanner {
   final BookLearningState state;
 
@@ -248,127 +299,8 @@ class StudyPlanner {
 
   StudyPlanner(this.state, {Random? random}) : _random = random ?? Random();
 
-  /// Höchstzahl der Wiederholungen je Lerneinheit.
-  static const int maxReviews = 20;
-
-  // ---------- Modus A: Buch lernen ----------
-
-  /// Zuerst die fälligen Wiederholungen (am längsten überfällige zuerst),
-  /// danach neue Perikopen in Buchreihenfolge bis zur Tagesmenge. Neue
-  /// Perikopen werden eingeführt und einige Aufgaben später abgefragt.
-  List<StudyTask> learnBook(String book, {int? newCount}) {
-    final pericopes = state.catalog.pericopesOf(book);
-
-    final due = _dueSorted(pericopes).take(maxReviews).toList();
-
-    final count = newCount ?? state.newQuotaToday(book);
-
-    final fresh = pericopes
-        .where((p) => state.statusOf(p).level == LearningLevel.fresh)
-        .take(count)
-        .toList();
-
-    return _interleave(due, fresh);
-  }
-
-  /// Neue Perikopen, die heute laut Plan eingeführt würden.
-  List<BookPericope> suggestedNew(String book) {
-    return state.catalog
-        .pericopesOf(book)
-        .where((p) => state.statusOf(p).level == LearningLevel.fresh)
-        .take(state.newQuotaToday(book))
-        .toList();
-  }
-
-  // ---------- Modus B: Kapiteltraining ----------
-
-  /// Alle Perikopen der Kapitel [from]–[to]: fällige zuerst, dann die
-  /// übrigen in Buchreihenfolge; neue werden eingeführt.
-  List<StudyTask> chapter(String book, int from, int to) {
-    final pericopes = state.catalog.inChapters(book, from, to);
-
-    final due = _dueSorted(pericopes);
-
-    final rest = pericopes.where((p) => !due.contains(p)).toList();
-
-    return _interleave(due, rest);
-  }
-
-  // ---------- Abschnittsweise (nach Buchgliederung) ----------
-
-  /// Neue Perikopen je Lerneinheit eines Abschnitts.
-  static const int sectionNewPerSession = 6;
-
-  /// Eine Lerneinheit für einen Abschnitt der Gliederung: fällige und noch
-  /// nicht sichere Perikopen des Abschnitts, dann die nächsten neuen in
-  /// Buchreihenfolge (höchstens [sectionNewPerSession]). Ist im Abschnitt
-  /// alles sicher und nichts fällig, wird der ganze Abschnitt wiederholt.
-  List<StudyTask> section(OutlineSection section) {
-    final pericopes = pericopesOfSection(state.catalog, section);
-
-    final due = _dueSorted(pericopes);
-
-    final learning = pericopes
-        .where(
-          (p) =>
-              !due.contains(p) &&
-              state.statusOf(p).level == LearningLevel.learning,
-        )
-        .toList();
-
-    final fresh = pericopes
-        .where((p) => state.statusOf(p).level == LearningLevel.fresh)
-        .take(sectionNewPerSession)
-        .toList();
-
-    if (due.isEmpty && learning.isEmpty && fresh.isEmpty) {
-      return _interleave(const [], pericopes);
-    }
-
-    return _interleave([...due, ...learning], fresh);
-  }
-
-  // ---------- Modus C: Gemischte Wiederholung ----------
-
-  /// Fällige, schwierige und bereits gelernte Perikopen gemischt. Neue
-  /// Perikopen kommen nicht vor.
-  List<StudyTask> mixed(Iterable<BookPericope> scope, {int limit = 20}) {
-    final started = scope
-        .where((p) => state.statusOf(p).level != LearningLevel.fresh)
-        .toList();
-
-    final due = _dueSorted(started);
-
-    final difficult =
-        started.where((p) => !due.contains(p) && _isDifficult(p)).toList()
-          ..shuffle(_random);
-
-    final others =
-        started
-            .where((p) => !due.contains(p) && !difficult.contains(p))
-            .toList()
-          ..shuffle(_random);
-
-    final chosen = <BookPericope>[
-      ...due.take(limit ~/ 2),
-      ...difficult.take(limit ~/ 4),
-    ];
-
-    for (final p in [...due, ...difficult, ...others]) {
-      if (chosen.length >= limit) break;
-      if (!chosen.contains(p)) chosen.add(p);
-    }
-
-    chosen.shuffle(_random);
-
-    return [
-      for (final p in chosen)
-        if (_isDifficult(p) && _random.nextBool())
-          compareOrRecall(p)
-        else
-          RecallTask(p),
-    ];
-  }
+  /// Neue Perikopen, die heute laut Plan noch eingeführt würden.
+  int newToday(String book) => state.newQuotaToday(book);
 
   // ---------- Modus D: Reihenfolge lernen ----------
 
@@ -506,39 +438,7 @@ class StudyPlanner {
     return true;
   }
 
-  // ---------- Modus E: Schwierige Perikopen ----------
-
-  /// Häufig falsch beantwortete und kürzlich verwechselte Perikopen, die
-  /// fehleranfälligsten zuerst; abwechselnd mit Vergleichsaufgaben.
-  List<StudyTask> difficult(Iterable<BookPericope> scope, {int limit = 20}) {
-    final list = scope.where(_isDifficultOrRecent).toList()
-      ..sort(
-        (a, b) => state
-            .statusOf(b)
-            .wrongCount
-            .compareTo(state.statusOf(a).wrongCount),
-      );
-
-    final tasks = <StudyTask>[];
-
-    for (final p in list.take(limit)) {
-      tasks.add(RecallTask(p));
-
-      final compare = _compareTask(p);
-      if (compare != null) tasks.add(compare);
-    }
-
-    return tasks;
-  }
-
-  bool _isDifficult(BookPericope p) => state.statusOf(p).difficult;
-
-  bool _isDifficultOrRecent(BookPericope p) {
-    final s = state.statusOf(p);
-    return s.difficult || s.recentlyWrong;
-  }
-
-  // ---------- Modus F: Prüfung ----------
+  // ---------- Prüfung ----------
 
   /// Jede Perikope einmal, vollständig aus dem Gedächtnis, gemischt.
   List<StudyTask> exam(Iterable<BookPericope> scope) {
@@ -547,79 +447,38 @@ class StudyPlanner {
     return [for (final p in list) RecallTask(p)];
   }
 
-  // ---------- Einzelne Perikopen, Auswahl, Wiederholungen ----------
+  // ---------- Einzelne Perikope, Wiederholungslisten ----------
 
-  /// Gezielte Auswahl: neue werden eingeführt, die übrigen abgefragt.
-  List<StudyTask> selection(Iterable<BookPericope> selected) {
-    final list = selected.toList();
-
-    final due = _dueSorted(list);
-
-    final rest = list.where((p) => !due.contains(p)).toList();
-
-    return _interleave(due, rest);
-  }
-
-  /// Fällige Wiederholungen aus [scope] (auch buchübergreifend).
-  List<StudyTask> review(Iterable<BookPericope> scope, {bool shuffle = true}) {
-    final list = scope.toList();
-
-    if (shuffle) list.shuffle(_random);
-
-    return [for (final p in list) RecallTask(p)];
-  }
-
-  // ---------- Bausteine ----------
-
-  List<BookPericope> _dueSorted(Iterable<BookPericope> pericopes) {
-    final due = pericopes.where((p) => state.statusOf(p).due).toList()
-      ..sort((a, b) {
-        final at = state.statusOf(a).dueAt!;
-        final bt = state.statusOf(b).dueAt!;
-        return at.compareTo(bt);
-      });
-
-    return due;
-  }
-
-  /// Wiederholungen und weitere Perikopen; neue werden eingeführt und erst
-  /// nach zwei weiteren Aufgaben abgefragt (kurzer Abstand statt sofortiger
-  /// Wiederholung der gerade gezeigten Lösung).
-  List<StudyTask> _interleave(
-    List<BookPericope> first,
-    List<BookPericope> then,
-  ) {
-    final result = <StudyTask>[];
-
-    final pending = <({RecallTask task, int wait})>[];
-
-    void tick() {
-      for (int i = 0; i < pending.length; i++) {
-        pending[i] = (task: pending[i].task, wait: pending[i].wait - 1);
-      }
-
-      while (pending.isNotEmpty && pending.first.wait <= 0) {
-        result.add(pending.removeAt(0).task);
-      }
+  /// Eine Perikope gezielt üben: eine neue wird zuerst eingeführt.
+  List<StudyTask> single(BookPericope p) {
+    if (state.statusOf(p).level == LearningLevel.fresh) {
+      return [IntroduceTask(p), RecallTask(p, afterIntroduction: true)];
     }
 
-    for (final p in [...first, ...then]) {
-      if (state.statusOf(p).level == LearningLevel.fresh) {
-        result.add(IntroduceTask(p));
+    return [RecallTask(p)];
+  }
 
-        pending.add((task: RecallTask(p, afterIntroduction: true), wait: 3));
-      } else {
-        result.add(RecallTask(p));
-      }
+  /// Eine feste Liste (z. B. „Überfällig“, „Fehler wiederholen“) je einmal
+  /// abfragen – in der Reihenfolge des Auswahlverfahrens: gewichtet nach
+  /// Lernbedarf und Fälligkeit, mit Zufall statt starrer Sortierung.
+  List<StudyTask> review(Iterable<BookPericope> scope) {
+    final algorithm = SpacedRepetition(clock: state.clock);
 
-      tick();
+    final remaining = scope.toList();
+    final ordered = <BookPericope>[];
+
+    while (remaining.isNotEmpty) {
+      final next = pickWeighted(
+        remaining,
+        (p) => algorithm.selectionScore(state.selectionCardOf(p)),
+        _random,
+      );
+
+      remaining.remove(next);
+      ordered.add(next);
     }
 
-    for (final item in pending) {
-      result.add(item.task);
-    }
-
-    return result;
+    return [for (final p in ordered) RecallTask(p)];
   }
 
   StudyTask compareOrRecall(BookPericope p) {
