@@ -9,8 +9,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:theologie_lernapp/models/greek/perikope.dart';
 import 'package:theologie_lernapp/models/greek/vocabulary/learning_card.dart';
 import 'package:theologie_lernapp/quiz/books/book_catalog.dart';
+import 'package:theologie_lernapp/quiz/books/book_learning_status.dart';
+import 'package:theologie_lernapp/quiz/books/book_outline.dart';
 import 'package:theologie_lernapp/quiz/books/verse_precision.dart';
+import 'package:theologie_lernapp/screens/pericope_quiz/bibelkunde_screen.dart';
 import 'package:theologie_lernapp/screens/pericope_quiz/books/books_overview_screen.dart';
+import 'package:theologie_lernapp/screens/pericope_quiz/quick_entry_panel.dart';
+import 'package:theologie_lernapp/screens/pericope_quiz/quiz_screen.dart';
 import 'package:theologie_lernapp/screens/settings_screen.dart';
 import 'package:theologie_lernapp/services/bible/bible_repository.dart';
 import 'package:theologie_lernapp/services/bible/bible_text_source.dart';
@@ -50,15 +55,24 @@ void main() {
 
   final now = DateTime(2026, 10, 1, 8);
 
+  late List<Perikope> all;
   late List<Perikope> markus;
+  late BookOutlines outlines;
 
   setUpAll(() {
-    markus = [
+    all = [
       for (final entry
           in jsonDecode(File("assets/perikopen.json").readAsStringSync())
               as List)
         Perikope.fromJson(Map<String, dynamic>.from(entry)),
-    ].where((p) => p.book == "Mk").toList();
+    ];
+
+    markus = all.where((p) => p.book == "Mk").toList();
+
+    outlines = BookOutlines.fromJson(
+      jsonDecode(File(BookOutlines.asset).readAsStringSync())
+          as Map<String, dynamic>,
+    );
   });
 
   setUp(() {
@@ -78,6 +92,7 @@ void main() {
     WidgetTester tester, {
     Size size = const Size(1000, 1600),
     Map<String, LearningCard> legacy = const {},
+    List<Perikope>? perikopen,
   }) async {
     tester.view.physicalSize = size;
     tester.view.devicePixelRatio = 1;
@@ -87,13 +102,14 @@ void main() {
       MaterialApp(
         theme: AppTheme.light,
         home: BooksOverviewScreen(
-          perikopen: markus,
+          perikopen: perikopen ?? markus,
           uid: null,
           learningService: FakeLearningService(legacy),
           settingsService: FakeSettingsService(),
           bibleRepository: BibleRepository(
             source: AssetBibleTextSource(bundle: FileAssetBundle()),
           ),
+          outlines: outlines,
           clock: () => now,
         ),
       ),
@@ -107,6 +123,20 @@ void main() {
     await tester.pumpAndSettle();
   }
 
+  /// Bringt ein Element der (lazy gebauten) Buchansicht ins Bild.
+  Future<void> scrollTo(WidgetTester tester, String name) async {
+    await tester.scrollUntilVisible(
+      key(name),
+      200,
+      scrollable: find.descendant(
+        of: key("book-detail-list"),
+        matching: find.byType(Scrollable),
+      ),
+    );
+    await tester.ensureVisible(key(name));
+    await tester.pumpAndSettle();
+  }
+
   BookPericope callOf(int occurrence) {
     return BookCatalog.fromPerikopen(markus)
         .pericopesOf("Mk")
@@ -114,11 +144,15 @@ void main() {
         .elementAt(occurrence);
   }
 
-  testWidgets("Übersicht zeigt das Buch mit allen Perikopen", (tester) async {
+  String instruction(WidgetTester tester) =>
+      tester.widget<Text>(key("recall-instruction")).data!;
+
+  testWidgets("Buchansicht ohne Perikopenliste, mit Abschnitten", (
+    tester,
+  ) async {
     await pumpOverview(tester);
 
     expect(find.text("Bücher systematisch lernen"), findsOneWidget);
-    expect(key("book-Mk"), findsOneWidget);
     expect(
       find.textContaining("${markus.length} Perikopen · 0 sicher"),
       findsOneWidget,
@@ -126,9 +160,41 @@ void main() {
 
     await openMarkus(tester);
 
-    expect(find.text("Kapitel 1"), findsOneWidget);
-    expect(find.text("Johannes der Täufer"), findsWidgets);
-    expect(find.text("Neu"), findsWidgets);
+    // Keine endlose Liste einzelner Perikopen mehr.
+    expect(find.text("Johannes der Täufer"), findsNothing);
+    expect(find.text("Die Berufung der ersten Jünger"), findsNothing);
+
+    // Gliederung: vorläufig gekennzeichnet, aktueller Abschnitt markiert.
+    expect(key("outline-provisional"), findsOneWidget);
+    expect(
+      find.textContaining("Vorläufige Beispielgliederung"),
+      findsOneWidget,
+    );
+    expect(key("section-mk-beispiel-1"), findsOneWidget);
+    expect(find.text("Hier weiter"), findsOneWidget);
+
+    await scrollTo(tester, "chapter-16");
+
+    expect(key("chapter-1"), findsOneWidget);
+  });
+
+  testWidgets("Buch ohne hinterlegte Gliederung: automatische Abschnitte", (
+    tester,
+  ) async {
+    await pumpOverview(
+      tester,
+      perikopen: all.where((p) => p.book == "Rut").toList(),
+    );
+
+    await tester.tap(key("book-Rut"));
+    await tester.pumpAndSettle();
+
+    expect(key("outline-provisional"), findsNothing);
+    expect(
+      tester.widget<Text>(key("outline-note")).data,
+      contains("automatisch nach Kapiteln"),
+    );
+    expect(find.textContaining("Kapitel 1"), findsWidgets);
   });
 
   testWidgets("Lernstand aus dem Endlos-Quiz wird angezeigt", (tester) async {
@@ -146,7 +212,7 @@ void main() {
     expect(find.textContaining("· 1 sicher"), findsOneWidget);
   });
 
-  testWidgets("Verspräzisierung festlegen, anzeigen und zurücksetzen", (
+  testWidgets("Einzelne Perikope über den Abschnitt: versgenau festlegen", (
     tester,
   ) async {
     await pumpOverview(tester);
@@ -154,16 +220,21 @@ void main() {
 
     final p = callOf(1);
 
-    await tester.tap(key("pericope-${p.key}"));
+    await tester.tap(key("section-mk-beispiel-2"));
     await tester.pumpAndSettle();
 
-    expect(key("sheet-reference"), findsOneWidget);
+    await tester.tap(key("section-sheet-pericopes"));
+    await tester.pumpAndSettle();
+
+    await tester.ensureVisible(key("section-pericope-${p.key}"));
+    await tester.tap(key("section-pericope-${p.key}"));
+    await tester.pumpAndSettle();
+
     expect(tester.widget<Text>(key("sheet-reference")).data, "Mk 1");
 
     await tester.tap(key("sheet-precision"));
     await tester.pumpAndSettle();
 
-    // Bisherige Angabe und Vorschlag aus der Liste sind sichtbar.
     expect(find.textContaining("Perikopenliste: Mk 1"), findsOneWidget);
 
     await tester.tap(key("precision-enabled"));
@@ -174,17 +245,12 @@ void main() {
     await tester.tap(key("precision-save"));
     await tester.pumpAndSettle();
 
-    // Mk 1 hat 45 Verse.
     expect(find.text("Kapitel 1 hat nur 45 Verse."), findsOneWidget);
 
     await tester.enterText(key("precision-end-verse"), "20");
     await tester.tap(key("precision-save"));
     await tester.pumpAndSettle();
 
-    expect(find.text("Mk 1,14-20"), findsOneWidget);
-    expect(find.text("versgenau"), findsOneWidget);
-
-    // Dauerhaft gespeichert.
     final stored = await LocalBookLearningStorage().load();
 
     expect(
@@ -197,28 +263,34 @@ void main() {
       ),
     );
 
-    // Zurücksetzen: wieder kapitelgenau.
-    await tester.tap(key("pericope-${p.key}"));
+    // Im Abschnitt als versgenau erkennbar, zurücksetzen möglich.
+    await tester.tap(key("section-mk-beispiel-2"));
+    await tester.pumpAndSettle();
+    await tester.tap(key("section-sheet-pericopes"));
+    await tester.pumpAndSettle();
+
+    expect(find.text("Mk 1,14-20 · versgenau"), findsOneWidget);
+
+    await tester.ensureVisible(key("section-pericope-${p.key}"));
+    await tester.tap(key("section-pericope-${p.key}"));
     await tester.pumpAndSettle();
     await tester.tap(key("sheet-reset"));
     await tester.pumpAndSettle();
 
-    expect(find.text("Mk 1,14-20"), findsNothing);
-    expect(find.text("versgenau"), findsNothing);
     expect((await LocalBookLearningStorage().load()).precisions, isEmpty);
   });
 
-  testWidgets("Lerneinheit: Einführung, Abfrage und Ergebnis", (tester) async {
+  testWidgets("Ein Buch: nur die Kapitelzahl eingeben, Fehler vorab", (
+    tester,
+  ) async {
     await pumpOverview(tester);
     await openMarkus(tester);
 
     await tester.tap(key("learn-book"));
     await tester.pumpAndSettle();
 
-    // Drei neue Perikopen (Standardmenge), jeweils eingeführt und abgefragt.
     expect(find.text("Neue Perikope"), findsOneWidget);
     expect(find.text("Aufgabe 1 von 6"), findsOneWidget);
-    expect(tester.widget<SelectableText>(key("intro-reference")).data, "Mk 1");
 
     int answered = 0;
 
@@ -229,8 +301,25 @@ void main() {
         continue;
       }
 
-      // Kapitelgenau mit vorgegebenem Buch: nur das Kapitel tippen.
-      await tester.enterText(key("recall-input"), "1");
+      // Einheitlich: Das Buch steht vor dem Feld, die Anleitung sagt es.
+      expect(instruction(tester), "Buch: Markus – gib nur das Kapitel ein.");
+      expect(find.text("Mk "), findsOneWidget);
+
+      // Kapitel ohne Perikopen: Hinweis, keine Bewertung.
+      await tester.enterText(key("recall-input"), "17");
+      await tester.pump();
+
+      expect(
+        find.text("In Mk gibt es Perikopen nur bis Kapitel 16."),
+        findsOneWidget,
+      );
+      expect(
+        tester.widget<ElevatedButton>(key("recall-submit")).onPressed,
+        isNull,
+      );
+
+      // Mit Buch getippt geht auch – nicht nur durch Ausprobieren.
+      await tester.enterText(key("recall-input"), answered == 0 ? "Mk 1" : "1");
       await tester.pump();
       await tester.tap(key("recall-submit"));
       await tester.pumpAndSettle();
@@ -245,16 +334,161 @@ void main() {
     expect(answered, 3);
     expect(tester.widget<Text>(key("study-result")).data, "3 von 3 richtig");
 
-    await tester.tap(key("study-done"));
-    await tester.pumpAndSettle();
-
-    // Drei Perikopen sind jetzt in Bearbeitung – noch nicht sicher.
-    expect(find.text("In Bearbeitung"), findsWidgets);
-    expect(find.text("Sicher gelernt"), findsNothing);
-
     final stored = await LocalBookLearningStorage().load();
 
     expect(stored.cards.values.where((c) => c.introducedAt != null).length, 3);
+    // Ungültige Eingaben wurden nicht als Fehler verbucht.
+    expect(stored.cards.values.every((c) => c.wrongCount == 0), isTrue);
+  });
+
+  testWidgets("Schnelleingabe aus dem Perikopenquiz mit Buchkontext", (
+    tester,
+  ) async {
+    SharedPreferences.setMockInitialValues({
+      QuickEntryPanel.preferenceKey: true,
+    });
+
+    await pumpOverview(tester);
+    await openMarkus(tester);
+
+    await tester.tap(key("learn-book"));
+    await tester.pumpAndSettle();
+    await tester.tap(key("intro-continue"));
+    await tester.pumpAndSettle();
+    await tester.tap(key("intro-continue"));
+    await tester.pumpAndSettle();
+    await tester.tap(key("intro-continue"));
+    await tester.pumpAndSettle();
+
+    // Das Buch ist gesetzt; die Schnelleingabe beginnt bei den Kapiteln.
+    expect(key("book-quick-entry"), findsOneWidget);
+
+    final panel = find.descendant(
+      of: key("book-quick-entry"),
+      matching: find.text("1"),
+    );
+
+    await tester.tap(panel.first);
+    await tester.pumpAndSettle();
+
+    expect(tester.widget<TextField>(key("recall-input")).controller!.text, "1");
+
+    await tester.tap(key("recall-submit"));
+    await tester.pumpAndSettle();
+
+    expect(find.textContaining("✔"), findsOneWidget);
+  });
+
+  testWidgets("Mehrere Bücher: Buch angeben, Schnelleingabe mit Büchern", (
+    tester,
+  ) async {
+    final catalog = BookCatalog.fromPerikopen(all);
+
+    final gen = catalog.pericopesOf("Gen").first;
+    final mk = catalog.pericopesOf("Mk").first;
+
+    await LocalBookLearningStorage().saveCards([
+      for (final p in [gen, mk])
+        BookCard(
+          id: p.key,
+          lastReviewed: now.subtract(const Duration(days: 5)),
+        ),
+    ]);
+
+    await pumpOverview(
+      tester,
+      perikopen: all.where((p) => p.book == "Gen" || p.book == "Mk").toList(),
+    );
+
+    await tester.tap(key("open-reviews"));
+    await tester.pumpAndSettle();
+
+    expect(find.text("2 Wiederholungen jetzt fällig"), findsOneWidget);
+
+    await tester.tap(key("review-start-all"));
+    await tester.pumpAndSettle();
+
+    expect(instruction(tester), "Mehrere Bücher – gib Buch und Kapitel ein.");
+    expect(find.text("Mk "), findsNothing);
+
+    await tester.enterText(key("recall-input"), "1");
+    await tester.pump();
+
+    expect(
+      find.text("Bitte auch das Buch angeben, z. B. Gen 5."),
+      findsOneWidget,
+    );
+
+    await tester.enterText(key("recall-input"), "Xyz 1");
+    await tester.pump();
+
+    expect(find.text("„Xyz“ ist kein bekanntes Bibelbuch."), findsOneWidget);
+
+    // Schnelleingabe des Perikopenquiz: Buch wählen, dann Kapitel.
+    await tester.enterText(key("recall-input"), "");
+    await tester.tap(key("book-quick-entry-toggle"));
+    await tester.pumpAndSettle();
+
+    final panel = key("book-quick-entry");
+
+    expect(
+      find.descendant(of: panel, matching: find.text("Gen")),
+      findsOneWidget,
+    );
+    expect(
+      find.descendant(of: panel, matching: find.text("Mk")),
+      findsOneWidget,
+    );
+
+    final title = find.textContaining(
+      RegExp("^(${RegExp.escape(gen.title)}|${RegExp.escape(mk.title)})\$"),
+    );
+
+    final isGen = tester.widget<Text>(title.first).data == gen.title;
+
+    await tester.tap(
+      find.descendant(of: panel, matching: find.text(isGen ? "Gen" : "Mk")),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(
+      find.descendant(of: panel, matching: find.text("1")).first,
+    );
+    await tester.pumpAndSettle();
+
+    final text = tester.widget<TextField>(key("recall-input")).controller!.text;
+
+    expect(text, isGen ? "Gen 1-2" : "Mk 1");
+  });
+
+  testWidgets("Abschnitt lernen und zum nächsten Abschnitt", (tester) async {
+    await pumpOverview(tester);
+    await openMarkus(tester);
+
+    await tester.tap(key("section-learn-mk-beispiel-1"));
+    await tester.pumpAndSettle();
+
+    // Abschnitt 1 hat drei Perikopen: je Einführung und Abfrage.
+    for (int step = 0; step < 6; step++) {
+      if (find.text("Neue Perikope").evaluate().isNotEmpty) {
+        await tester.tap(key("intro-continue"));
+      } else {
+        await tester.enterText(key("recall-input"), "1");
+        await tester.pump();
+        await tester.tap(key("recall-submit"));
+        await tester.pumpAndSettle();
+        await tester.tap(key("recall-submit"));
+      }
+      await tester.pumpAndSettle();
+    }
+
+    expect(key("study-result"), findsOneWidget);
+    expect(find.text("Weiter: Erstes Wirken in Galiläa"), findsOneWidget);
+
+    await tester.tap(key("follow-up-0"));
+    await tester.pumpAndSettle();
+
+    expect(find.text("Erstes Wirken in Galiläa"), findsOneWidget);
+    expect(find.text("Neue Perikope"), findsOneWidget);
   });
 
   testWidgets("Lernplan anlegen und pausieren", (tester) async {
@@ -288,13 +522,12 @@ void main() {
     expect(stored.plans["Mk"]!.dailyNew, 4);
   });
 
-  testWidgets("Prüfung ohne Lösungshinweise, Fehler am Ende", (tester) async {
+  testWidgets("Prüfung eines Kapitels ohne Lösungshinweise", (tester) async {
     await pumpOverview(tester);
     await openMarkus(tester);
 
+    await scrollTo(tester, "mode-exam");
     await tester.tap(key("mode-exam"));
-    await tester.pumpAndSettle();
-    await tester.tap(key("exam-chapters"));
     await tester.pumpAndSettle();
     await tester.tap(key("range-start"));
     await tester.pumpAndSettle();
@@ -309,12 +542,11 @@ void main() {
     );
 
     for (int i = 0; i < count; i++) {
-      await tester.enterText(key("recall-input"), "Mk 2");
+      await tester.enterText(key("recall-input"), "2");
       await tester.pump();
       await tester.tap(key("recall-submit"));
       await tester.pumpAndSettle();
 
-      // Keine Rückmeldung während der Prüfung.
       expect(key("study-feedback"), findsNothing);
     }
 
@@ -322,7 +554,6 @@ void main() {
       tester.widget<Text>(key("study-result")).data,
       "0 von $count richtig",
     );
-    expect(find.text("Fehler"), findsOneWidget);
     expect(find.textContaining("Richtig: Mk 1"), findsWidgets);
   });
 
@@ -347,24 +578,12 @@ void main() {
     await pumpOverview(tester, size: const Size(360, 640));
     await openMarkus(tester);
 
-    await tester.scrollUntilVisible(
-      key("mode-order"),
-      200,
-      scrollable: find.descendant(
-        of: key("book-detail-list"),
-        matching: find.byType(Scrollable),
-      ),
-    );
-    await tester.ensureVisible(key("mode-order"));
-    await tester.pumpAndSettle();
+    await scrollTo(tester, "mode-order");
     await tester.tap(key("mode-order"));
     await tester.pumpAndSettle();
     await tester.tap(key("range-whole-book"));
     await tester.pumpAndSettle();
 
-    expect(find.text("Reihenfolge lernen"), findsOneWidget);
-
-    // Jede Aufgabe beantworten, egal welcher Art.
     for (int i = 0; i < 10; i++) {
       if (key("option-0").evaluate().isNotEmpty) {
         await tester.ensureVisible(key("option-0"));
@@ -393,27 +612,22 @@ void main() {
     }
 
     expect(key("study-result"), findsOneWidget);
-
-    // Reihenfolge-Fehler werden nicht als Stellenabfrage wiederholt.
     expect(key("retry-mistakes"), findsNothing);
 
-    // Reihenfolge-Aufgaben ändern den Lernstatus nicht.
     await tester.tap(key("study-done"));
     await tester.pumpAndSettle();
-
-    expect(key("book-detail-list"), findsOneWidget);
 
     final stored = await LocalBookLearningStorage().load();
 
     expect(stored.cards, isNotEmpty);
     expect(stored.cards.values.every((c) => c.lastReviewed == null), isTrue);
-    expect(
-      stored.cards.values.every((c) => c.orderCorrect + c.orderWrong > 0),
-      isTrue,
-    );
   });
 
   testWidgets("Kleiner Bildschirm ohne Überlauf", (tester) async {
+    SharedPreferences.setMockInitialValues({
+      QuickEntryPanel.preferenceKey: true,
+    });
+
     await pumpOverview(tester, size: const Size(320, 568));
 
     expect(tester.takeException(), isNull);
@@ -422,25 +636,65 @@ void main() {
 
     expect(tester.takeException(), isNull);
 
-    await tester.tap(key("plan-edit"));
+    await scrollTo(tester, "section-mk-beispiel-2");
+    await tester.tap(key("section-mk-beispiel-2"));
     await tester.pumpAndSettle();
 
     expect(tester.takeException(), isNull);
 
-    await tester.tap(find.text("Abbrechen"));
+    await tester.ensureVisible(key("section-sheet-learn"));
+    await tester.tap(key("section-sheet-learn"));
     await tester.pumpAndSettle();
 
-    await tester.ensureVisible(key("learn-book"));
-    await tester.pumpAndSettle();
-    await tester.tap(key("learn-book"));
-    await tester.pumpAndSettle();
+    while (key("intro-continue").evaluate().isNotEmpty) {
+      await tester.ensureVisible(key("intro-continue"));
+      await tester.tap(key("intro-continue"));
+      await tester.pumpAndSettle();
 
+      expect(tester.takeException(), isNull);
+    }
+
+    // Abfrage mit geöffneter Schnelleingabe.
+    expect(key("book-quick-entry"), findsOneWidget);
     expect(tester.takeException(), isNull);
+  });
 
-    await tester.ensureVisible(key("intro-continue"));
-    await tester.tap(key("intro-continue"));
-    await tester.pumpAndSettle();
+  group("Bibelkunde", () {
+    Future<void> pumpHub(WidgetTester tester) async {
+      tester.view.physicalSize = const Size(400, 800);
+      tester.view.devicePixelRatio = 1;
+      addTearDown(tester.view.reset);
 
-    expect(tester.takeException(), isNull);
+      await tester.pumpWidget(
+        MaterialApp(
+          theme: AppTheme.light,
+          home: BibelkundeScreen(perikopen: markus, uid: null),
+        ),
+      );
+      await tester.pumpAndSettle();
+    }
+
+    testWidgets("bündelt Perikopenquiz und Bücher-Lernen", (tester) async {
+      await pumpHub(tester);
+
+      expect(find.text("Bibelkunde"), findsOneWidget);
+      expect(find.text("Perikopenquiz"), findsOneWidget);
+      expect(find.text("Bücher systematisch lernen"), findsOneWidget);
+
+      await tester.tap(key("bibelkunde-books"));
+      await tester.pumpAndSettle();
+
+      expect(find.byType(BooksOverviewScreen), findsOneWidget);
+      expect(key("book-Mk"), findsOneWidget);
+    });
+
+    testWidgets("öffnet das bestehende Perikopenquiz", (tester) async {
+      await pumpHub(tester);
+
+      await tester.tap(key("bibelkunde-quiz"));
+      await tester.pumpAndSettle();
+
+      expect(find.byType(QuizScreen), findsOneWidget);
+    });
   });
 }

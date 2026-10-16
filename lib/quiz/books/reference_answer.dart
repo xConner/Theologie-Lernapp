@@ -1,20 +1,8 @@
 import '../../services/bible/bible_books.dart';
 import '../../services/bible/bible_reference_parser.dart';
+import '../bible_structure.dart';
 import '../pericope_reference.dart';
 import 'verse_precision.dart';
-
-/// Wie viel der Stelle die Frage vorgibt.
-enum ReferencePrompt {
-  /// Nichts: vollständige Stelle aus dem Gedächtnis.
-  none,
-
-  /// Das Buch; gesucht sind Kapitel und ggf. Verse.
-  book,
-
-  /// Buch und Kapitel; gesucht sind die Verse. Nur bei versgenauen
-  /// Perikopen innerhalb eines Kapitels sinnvoll.
-  bookAndChapter,
-}
 
 enum AnswerVerdict {
   correct,
@@ -81,36 +69,94 @@ class AnswerCheck {
 class ReferenceAnswerChecker {
   ReferenceAnswerChecker._();
 
-  /// Liest eine Eingabe. [prompt] und [expected] bestimmen, welcher Teil
-  /// vorgegeben war und vorangestellt wird.
-  static PericopeReference? read(
-    String input,
-    ExpectedReference expected, {
-    ReferencePrompt prompt = ReferencePrompt.none,
-  }) {
+  /// Liest eine Eingabe. Mit [contextBook] (die Lerneinheit betrifft genau
+  /// ein Buch) genügt die Kapitelangabe, z. B. „5“ für „Gen 5“; wer das
+  /// Buch trotzdem mittippt, wird nicht bestraft. Ohne Buchkontext muss die
+  /// Eingabe das Buch enthalten.
+  static PericopeReference? read(String input, {String? contextBook}) {
     var text = clean(input);
 
     if (text.isEmpty) return null;
 
-    final ref = expected.reference;
-
-    switch (prompt) {
-      case ReferencePrompt.none:
-        break;
-      case ReferencePrompt.book:
-        // Wer das Buch trotzdem mittippt, wird nicht bestraft.
-        if (RegExp(r'^\d').hasMatch(text) && !_looksLikeBook(text)) {
-          text = "${ref.book} $text";
-        }
-      case ReferencePrompt.bookAndChapter:
-        if (RegExp(r'^\d+(-\d+)?$').hasMatch(text)) {
-          text = "${ref.book} ${ref.startChapter},$text";
-        } else if (RegExp(r'^\d').hasMatch(text) && !_looksLikeBook(text)) {
-          text = "${ref.book} $text";
-        }
+    if (contextBook != null &&
+        RegExp(r'^\d').hasMatch(text) &&
+        !_looksLikeBook(text)) {
+      text = "$contextBook $text";
     }
 
     return parse(text);
+  }
+
+  /// Warum sich eine Eingabe nicht bewerten lässt – oder `null`, wenn sie
+  /// eine lesbare Stelle ist (auch eine falsche) oder leer ist.
+  ///
+  /// Solche Eingaben zählen nicht als Antwort: Formfehler, unbekannte
+  /// Bücher, fehlendes Buch ohne Buchkontext und Kapitel, zu denen es laut
+  /// [structure] (aus denselben Perikopen wie die Schnelleingabe) keine
+  /// Perikope gibt.
+  static String? problem(
+    String input, {
+    String? contextBook,
+    BibleStructure? structure,
+  }) {
+    final text = clean(input);
+
+    if (text.isEmpty) return null;
+
+    final example = contextBook == null
+        ? "z. B. Gen 5 oder Mk 1,14-20"
+        : "z. B. 5 oder 1,14-20";
+
+    final given = read(text, contextBook: contextBook);
+
+    if (given == null) {
+      final digitsOnly = RegExp(r'^\d').hasMatch(text) && !_looksLikeBook(text);
+
+      if (digitsOnly && contextBook == null) {
+        return "Bitte auch das Buch angeben, z. B. Gen 5.";
+      }
+
+      final name = RegExp(
+        r'^((?:[1-4]\.?\s?)?[^\d]+?)\s*(?:\d|$)',
+      ).firstMatch(text)?.group(1)?.trim();
+
+      if (!digitsOnly &&
+          name != null &&
+          name.isNotEmpty &&
+          BibleBooks.find(name) == null &&
+          BibleBooks.byAbbreviation(name) == null) {
+        return "„$name“ ist kein bekanntes Bibelbuch.";
+      }
+
+      if (!digitsOnly && name != null && !RegExp(r'\d').hasMatch(text)) {
+        return "Bitte auch das Kapitel angeben, $example.";
+      }
+
+      return "Ungültige Angabe, $example.";
+    }
+
+    final book = given.book!;
+
+    if (structure != null) {
+      if (!structure.hasBook(book)) {
+        final known =
+            BibleBooks.byAbbreviation(book) != null ||
+            BibleBooks.find(book) != null;
+
+        return known
+            ? "Zu $book gibt es keine Perikopen."
+            : "„$book“ ist kein bekanntes Bibelbuch.";
+      }
+
+      final max = structure.chapterCount(book);
+      final end = given.endChapter ?? given.startChapter!;
+
+      if (given.startChapter! < 1 || end > max) {
+        return "In $book gibt es Perikopen nur bis Kapitel $max.";
+      }
+    }
+
+    return null;
   }
 
   // „1Kor 3“ bzw. „1.Makk 2“ beginnen mit einer Ziffer, sind aber Bücher.
@@ -191,9 +237,9 @@ class ReferenceAnswerChecker {
   static AnswerCheck check(
     String input,
     ExpectedReference expected, {
-    ReferencePrompt prompt = ReferencePrompt.none,
+    String? contextBook,
   }) {
-    final given = read(input, expected, prompt: prompt);
+    final given = read(input, contextBook: contextBook);
 
     if (given == null) {
       return const AnswerCheck(AnswerVerdict.invalid);

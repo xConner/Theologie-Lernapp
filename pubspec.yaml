@@ -81,6 +81,8 @@ flutter:
   #   - images/a_dot_ham.jpeg
   assets:
       - assets/perikopen.json
+      # Gliederungen für „Bücher systematisch lernen“ (Mk: vorläufiges Beispiel).
+      - assets/book_outlines.json
       - assets/liturgical_calendar_2026.json
       - assets/greek_vocabulary.json
       - assets/greek_pronoun_forms.json

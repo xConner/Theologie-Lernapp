@@ -11,6 +11,7 @@ import '../../services/settings_service.dart';
 import '../../settings/quiz_settings.dart';
 import 'book_catalog.dart';
 import 'book_learning.dart';
+import 'book_outline.dart';
 import 'book_plan.dart';
 import 'verse_precision.dart';
 
@@ -25,14 +26,21 @@ class BookLearningController extends ChangeNotifier {
 
   final BibleRepository bibleRepository;
 
+  /// Hinterlegte Buchgliederungen (`assets/book_outlines.json`).
+  final BookOutlines outlines;
+
   BookLearningController._({
     required this.uid,
     required this.storage,
     required this.state,
     required this.bibleRepository,
+    required this.outlines,
   });
 
   BookCatalog get catalog => state.catalog;
+
+  /// Gliederung eines Buchs; ohne hinterlegte automatisch nach Kapiteln.
+  BookOutline outlineFor(String book) => outlines.outlineFor(catalog, book);
 
   /// Lädt Lernstände, Präzisierungen und Pläne sowie – nur lesend – die
   /// Karten und die Buchauswahl des Endlos-Quiz als Startwerte.
@@ -43,6 +51,7 @@ class BookLearningController extends ChangeNotifier {
     LearningService? learningService,
     SettingsService? settingsService,
     BibleRepository? bibleRepository,
+    BookOutlines? outlines,
     DateTime Function()? clock,
   }) async {
     final store = storage ?? BookLearningStorage.forUser(uid);
@@ -70,6 +79,7 @@ class BookLearningController extends ChangeNotifier {
       uid: uid,
       storage: store,
       bibleRepository: bibleRepository ?? BibleRepository.instance,
+      outlines: outlines ?? await BookOutlines.load(),
       state: BookLearningState(
         catalog: BookCatalog.fromPerikopen(perikopen),
         data: data,

@@ -97,7 +97,7 @@ class _QuizScreenState extends State<QuizScreen> {
   final FocusNode firstInputFocusNode = FocusNode();
   final FocusNode quizFocusNode = FocusNode();
 
-  static const String _quickEntryKey = 'pericope_quiz_quick_entry';
+  static const String _quickEntryKey = QuickEntryPanel.preferenceKey;
 
   // Schnelleingabe: schreibt in das Eingabefeld [activeInput].
   bool quickEntry = false;

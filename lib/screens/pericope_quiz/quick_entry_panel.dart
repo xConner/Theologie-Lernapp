@@ -14,6 +14,10 @@ enum _Stage { book, chapter, verse, endChapter, endVerse }
 /// Auswahl über [onChanged]; angeboten wird nur, was laut [books] und
 /// [structure] möglich ist.
 class QuickEntryPanel extends StatefulWidget {
+  /// Gespeicherte Wahl „Schnelleingabe an/aus“ (SharedPreferences), gemeinsam
+  /// für das Perikopenquiz und „Bücher systematisch lernen“.
+  static const String preferenceKey = 'pericope_quiz_quick_entry';
+
   /// Auswählbare Bücher in Anzeigereihenfolge.
   final List<String> books;
 

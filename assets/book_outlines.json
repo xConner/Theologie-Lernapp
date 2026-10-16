@@ -1,0 +1,19 @@
+{
+  "_comment": "Gliederungen für „Bücher systematisch lernen“ (siehe docs/pericope-books.md). Je Buch (Abkürzung der Perikopenliste) eine geordnete Folge von Abschnitten mit eindeutiger id, title, start und end („Kapitel“ oder „Kapitel,Vers“, deutsche Zählung). Perikopen werden nach ihrem Anfang zugeordnet. Bücher ohne Eintrag erhalten automatisch Abschnitte nach Kapiteln. Einträge mit provisional=true sind vorläufige Beispiele und keine verbindliche Gliederung.",
+  "books": {
+    "Mk": {
+      "provisional": true,
+      "note": "Vorläufige Beispielgliederung zum Ausprobieren, keine verbindliche Gliederung.",
+      "sections": [
+        { "id": "mk-beispiel-1", "title": "Anfang des Evangeliums", "start": "1,1", "end": "1,13" },
+        { "id": "mk-beispiel-2", "title": "Erstes Wirken in Galiläa", "start": "1,14", "end": "3,6" },
+        { "id": "mk-beispiel-3", "title": "Jesus, die Zwölf und das Volk", "start": "3,7", "end": "6,5" },
+        { "id": "mk-beispiel-4", "title": "Wirken über Galiläa hinaus", "start": "6,6", "end": "8,26" },
+        { "id": "mk-beispiel-5", "title": "Auf dem Weg nach Jerusalem", "start": "8,27", "end": "10,52" },
+        { "id": "mk-beispiel-6", "title": "Wirken in Jerusalem", "start": "11", "end": "13" },
+        { "id": "mk-beispiel-7", "title": "Passion", "start": "14", "end": "15" },
+        { "id": "mk-beispiel-8", "title": "Auferstehung", "start": "16", "end": "16" }
+      ]
+    }
+  }
+}

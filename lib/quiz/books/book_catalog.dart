@@ -1,6 +1,7 @@
 import '../../models/greek/perikope.dart';
 import '../../services/bible/bible_books.dart';
 import '../../settings/quiz_settings.dart';
+import '../bible_structure.dart';
 
 /// Eine Perikope innerhalb eines Bibelbuchs, wie sie die Perikopenliste
 /// führt – Grundlage von „Bücher systematisch lernen“.
@@ -123,6 +124,12 @@ class BookCatalog {
 
     return byRank != 0 ? byRank : a.compareTo(b);
   }
+
+  /// Kapitel- und Versumfang aus denselben Perikopen – wie im Endlos-Quiz
+  /// Grundlage der Schnelleingabe und der Prüfung von Kapitelzahlen.
+  late final BibleStructure structure = BibleStructure.fromPerikopen(
+    all.map((p) => p.perikope),
+  );
 
   /// Die Bücher, zu denen Perikopen vorliegen, in biblischer Reihenfolge.
   List<String> get books => _books.keys.toList();

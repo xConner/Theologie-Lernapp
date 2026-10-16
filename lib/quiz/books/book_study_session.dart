@@ -55,13 +55,51 @@ class StudySession {
 
   int _index = 0;
 
+  /// Bücher, die die Lerneinheit betrifft (in Buchreihenfolge).
+  final List<String> contextBooks;
+
   StudySession({
     required this.state,
     required this.storage,
     required this.tasks,
     required this.mode,
     SpacedRepetition? algorithm,
-  }) : algorithm = algorithm ?? SpacedRepetition(clock: state.clock);
+  }) : algorithm = algorithm ?? SpacedRepetition(clock: state.clock),
+       contextBooks = _booksOf(state, tasks);
+
+  static List<String> _booksOf(BookLearningState state, List<StudyTask> tasks) {
+    final books = {
+      for (final t in tasks)
+        ...switch (t) {
+          ArrangeTask() => t.ordered.map((p) => p.book),
+          ChoiceTask() => [t.target.book, ...t.options.map((p) => p.book)],
+          _ => [t.target.book],
+        },
+    };
+
+    return [
+      for (final b in state.catalog.books)
+        if (books.contains(b)) b,
+    ];
+  }
+
+  /// Der Buchkontext der Lerneinheit – die eine Quelle für Eingabefeld,
+  /// Schnelleingabe, Validierung und Auswertung: Betrifft die Einheit genau
+  /// ein Buch, ist es vorgegeben und es genügt die Kapitelangabe („5“);
+  /// sonst muss die Eingabe das Buch nennen („Gen 5“).
+  String? get contextBook =>
+      contextBooks.length == 1 ? contextBooks.single : null;
+
+  /// Warum sich [input] nicht bewerten lässt (siehe
+  /// [ReferenceAnswerChecker.problem]); `null`, wenn die Eingabe bewertbar
+  /// oder leer ist.
+  String? inputProblem(String input) {
+    return ReferenceAnswerChecker.problem(
+      input,
+      contextBook: contextBook,
+      structure: state.catalog.structure,
+    );
+  }
 
   bool get exam => mode == StudyMode.exam;
 
@@ -99,7 +137,8 @@ class StudySession {
     await _save(card);
   }
 
-  /// Getippte Antwort auf eine [RecallTask].
+  /// Getippte Antwort auf eine [RecallTask]. Vorher [inputProblem] prüfen:
+  /// Nicht bewertbare Eingaben sollen nicht als Fehler zählen.
   Future<AnswerCheck> answerRecall(String input) async {
     final task = current as RecallTask;
 
@@ -108,7 +147,7 @@ class StudySession {
     final check = ReferenceAnswerChecker.check(
       input,
       expected,
-      prompt: task.prompt,
+      contextBook: contextBook,
     );
 
     await _recordRecall(

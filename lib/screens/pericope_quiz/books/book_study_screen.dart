@@ -11,6 +11,30 @@ import '../../../services/streak/streak_track.dart';
 import '../../../theme/app_theme.dart';
 import '../../../widgets/self_assessment.dart';
 import '../../../widgets/trainer_widgets.dart';
+import '../../../quiz/pericope_reference.dart';
+import '../quick_entry_panel.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+/// Anschluss an eine Lerneinheit, z. B. „Weiter mit dem nächsten
+/// Abschnitt“. Die Aufgaben werden erst beim Antippen gebildet, damit sie den
+/// gerade gelernten Stand berücksichtigen.
+class StudyFollowUp {
+  final String label;
+  final String title;
+  final StudyMode mode;
+  final List<StudyTask> Function() tasks;
+
+  /// Anschlüsse der folgenden Einheit (z. B. der übernächste Abschnitt).
+  final List<StudyFollowUp> Function()? followUps;
+
+  const StudyFollowUp({
+    required this.label,
+    required this.title,
+    required this.mode,
+    required this.tasks,
+    this.followUps,
+  });
+}
 
 /// Startet eine Lerneinheit; ohne Aufgaben erscheint nur ein Hinweis.
 Future<void> startStudy(
@@ -19,6 +43,7 @@ Future<void> startStudy(
   required StudyMode mode,
   required List<StudyTask> tasks,
   String? title,
+  List<StudyFollowUp> Function()? followUps,
 }) async {
   if (tasks.isEmpty) {
     ScaffoldMessenger.of(context).showSnackBar(
@@ -46,6 +71,7 @@ Future<void> startStudy(
           mode: mode,
         ),
         title: title,
+        followUps: followUps,
       ),
     ),
   );
@@ -58,11 +84,15 @@ class BookStudyScreen extends StatefulWidget {
   final StudySession session;
   final String? title;
 
+  /// Angebote am Ende der Einheit (werden dann ausgewertet).
+  final List<StudyFollowUp> Function()? followUps;
+
   const BookStudyScreen({
     super.key,
     required this.controller,
     required this.session,
     this.title,
+    this.followUps,
   });
 
   @override
@@ -88,9 +118,21 @@ class _BookStudyScreenState extends State<BookStudyScreen> {
 
   final List<BookPericope> arranged = [];
 
+  // Schnelleingabe wie im Perikopenquiz (gleiche gespeicherte Wahl).
+  bool quickEntry = false;
+
+  final List<String> recentBooks = [];
+
   @override
   void initState() {
     super.initState();
+
+    SharedPreferences.getInstance()
+        .then((prefs) {
+          final value = prefs.getBool(QuickEntryPanel.preferenceKey) ?? false;
+          if (mounted) setState(() => quickEntry = value);
+        })
+        .catchError((Object _) {});
 
     AnswerMethodPreference.load(AnswerMethodPreference.pericopeQuiz).then((m) {
       if (mounted && !session.exam) setState(() => method = m);
@@ -152,7 +194,12 @@ class _BookStudyScreenState extends State<BookStudyScreen> {
   }
 
   Future<void> _submitRecall() async {
-    if (answered || input.text.trim().isEmpty) return;
+    // Leere oder nicht bewertbare Eingaben zählen nicht als Antwort.
+    if (answered ||
+        input.text.trim().isEmpty ||
+        session.inputProblem(input.text) != null) {
+      return;
+    }
 
     final check = await session.answerRecall(input.text);
 
@@ -245,6 +292,7 @@ class _BookStudyScreenState extends State<BookStudyScreen> {
                 session: session,
                 controller: widget.controller,
                 title: _modeTitle(),
+                followUps: widget.followUps?.call() ?? const [],
               )
             : SingleChildScrollView(
                 padding: const EdgeInsets.all(16),
@@ -342,34 +390,33 @@ class _BookStudyScreenState extends State<BookStudyScreen> {
 
     final expected = state.expectedOf(task.target);
 
-    final reference = expected.reference;
+    final contextBook = session.contextBook;
 
-    final prefix = switch (task.prompt) {
-      ReferencePrompt.none => null,
-      ReferencePrompt.book => "${reference.book} ",
-      ReferencePrompt.bookAndChapter =>
-        "${reference.book} ${reference.startChapter},",
-    };
+    final verse = expected.versePrecise;
 
-    final question = switch (task.prompt) {
-      ReferencePrompt.none => "Wo steht die Perikope?",
-      ReferencePrompt.book =>
-        expected.versePrecise
-            ? "Kapitel und Verse in ${BookCatalog.nameOf(reference.book!)}?"
-            : "Welches Kapitel in ${BookCatalog.nameOf(reference.book!)}?",
-      ReferencePrompt.bookAndChapter =>
-        "Welche Verse in ${reference.book} ${reference.startChapter}?",
-    };
+    // Was einzugeben ist, folgt allein aus dem Buchkontext der Einheit.
+    final String instruction;
+    final String hint;
 
-    final hint = switch (task.prompt) {
-      ReferencePrompt.none =>
-        expected.versePrecise ? "z. B. Mk 1,14-20" : "z. B. Mk 1 oder Mk 8-10",
-      ReferencePrompt.book =>
-        expected.versePrecise ? "z. B. 1,14-20" : "z. B. 1",
-      ReferencePrompt.bookAndChapter => "z. B. 14-20",
-    };
+    if (contextBook != null) {
+      instruction = verse
+          ? "Buch: ${BookCatalog.nameOf(contextBook)} – gib Kapitel und "
+                "Verse ein."
+          : "Buch: ${BookCatalog.nameOf(contextBook)} – gib nur das "
+                "Kapitel ein.";
+      hint = verse ? "z. B. 1,14-20" : "z. B. 5";
+    } else {
+      instruction = verse
+          ? "Mehrere Bücher – gib Buch, Kapitel und Verse ein."
+          : "Mehrere Bücher – gib Buch und Kapitel ein.";
+      hint = verse ? "z. B. Mk 1,14-20" : "z. B. Gen 5";
+    }
+
+    final problem = answered ? null : session.inputProblem(input.text);
 
     final recall = method == AnswerMethod.recall && !session.exam;
+
+    final showQuickEntry = quickEntry && !answered && !recall;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -381,13 +428,8 @@ class _BookStudyScreenState extends State<BookStudyScreen> {
         ),
         const SizedBox(height: 6),
         Center(
-          child: _PrecisionNote(
-            personal: expected.personal,
-            verse: expected.versePrecise,
-          ),
+          child: _PrecisionNote(personal: expected.personal, verse: verse),
         ),
-        const SizedBox(height: 12),
-        Text(question, textAlign: TextAlign.center),
         const SizedBox(height: 12),
         if (!session.exam)
           Center(
@@ -418,16 +460,25 @@ class _BookStudyScreenState extends State<BookStudyScreen> {
             ),
           )
         else ...[
+          Text(
+            instruction,
+            key: const ValueKey("recall-instruction"),
+            textAlign: TextAlign.center,
+            style: TextStyle(color: context.colors.textSecondary),
+          ),
+          const SizedBox(height: 8),
           TextField(
             key: const ValueKey("recall-input"),
             controller: input,
             focusNode: inputFocus,
-            autofocus: true,
+            autofocus: !(quickEntry && _touchPlatform),
             enabled: !answered,
             textInputAction: TextInputAction.done,
             decoration: InputDecoration(
-              prefixText: prefix,
+              prefixText: contextBook == null ? null : "$contextBook ",
               hintText: hint,
+              errorText: problem,
+              errorMaxLines: 2,
               enabledBorder: answered
                   ? answerResultBorder(context, lastCorrect)
                   : null,
@@ -438,7 +489,38 @@ class _BookStudyScreenState extends State<BookStudyScreen> {
             onChanged: (_) => setState(() {}),
             onSubmitted: (_) => answered ? _next() : _submitRecall(),
           ),
-          const SizedBox(height: 12),
+          if (!answered)
+            Center(
+              child: TextButton.icon(
+                key: const ValueKey("book-quick-entry-toggle"),
+                icon: Icon(quickEntry ? Icons.keyboard_arrow_up : Icons.bolt),
+                label: const Text("Schnelleingabe"),
+                style: quickEntry
+                    ? TextButton.styleFrom(
+                        backgroundColor: context.colors.surfaceMuted,
+                      )
+                    : null,
+                onPressed: _toggleQuickEntry,
+              ),
+            ),
+          if (showQuickEntry)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 8),
+              child: ConstrainedBox(
+                // Das Panel scrollt selbst und braucht eine feste Höhe.
+                constraints: const BoxConstraints(maxHeight: 300),
+                child: QuickEntryPanel(
+                  key: const ValueKey("book-quick-entry"),
+                  books: session.contextBooks,
+                  recentBooks: recentBooks,
+                  structure: state.catalog.structure,
+                  precision: verse ? "verse" : "chapter",
+                  value: _quickValue(),
+                  onChanged: _applyQuickReference,
+                ),
+              ),
+            ),
+          const SizedBox(height: 8),
           Wrap(
             alignment: WrapAlignment.center,
             spacing: 8,
@@ -454,7 +536,9 @@ class _BookStudyScreenState extends State<BookStudyScreen> {
                 key: const ValueKey("recall-submit"),
                 onPressed: answered
                     ? _next
-                    : (input.text.trim().isEmpty ? null : _submitRecall),
+                    : (input.text.trim().isEmpty || problem != null
+                          ? null
+                          : _submitRecall),
                 child: Text(answered ? "Weiter" : "Prüfen"),
               ),
             ],
@@ -464,6 +548,84 @@ class _BookStudyScreenState extends State<BookStudyScreen> {
         ],
       ],
     );
+  }
+
+  // ---------- Schnelleingabe (aus dem Perikopenquiz) ----------
+
+  bool get _touchPlatform {
+    final platform = Theme.of(context).platform;
+
+    return platform == TargetPlatform.android || platform == TargetPlatform.iOS;
+  }
+
+  Future<void> _toggleQuickEntry() async {
+    setState(() => quickEntry = !quickEntry);
+
+    // Auf Touch-Geräten die Tastatur schließen, damit das Panel Platz hat.
+    if (quickEntry && _touchPlatform) inputFocus.unfocus();
+
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setBool(QuickEntryPanel.preferenceKey, quickEntry);
+    } catch (_) {
+      // Die Wahl gilt dann nur für diese Lerneinheit.
+    }
+  }
+
+  /// Der Inhalt des Eingabefelds als Auswahl der Schnelleingabe; mit
+  /// Buchkontext ist das Buch immer schon gewählt.
+  PericopeReference _quickValue() {
+    final contextBook = session.contextBook;
+
+    var text = ReferenceAnswerChecker.clean(input.text);
+
+    if (contextBook != null && RegExp(r'^\d').hasMatch(text)) {
+      text = "$contextBook $text";
+    }
+
+    // Wie im Perikopenquiz: auch unvollständige Stellen („Gen“), damit die
+    // Schnelleingabe beim nächsten Schritt weitermacht.
+    final parsed = text.isEmpty ? null : PericopeReference.parse(text);
+
+    final structure = widget.controller.catalog.structure;
+
+    if (parsed != null && structure.allows(parsed, session.contextBooks)) {
+      return parsed;
+    }
+
+    return contextBook == null
+        ? PericopeReference.empty
+        : PericopeReference(book: contextBook);
+  }
+
+  void _applyQuickReference(PericopeReference reference) {
+    if (answered) return;
+
+    final contextBook = session.contextBook;
+
+    final book = reference.book;
+
+    // Mit Buchkontext steht das Buch schon vor dem Feld.
+    var text = reference.text;
+
+    if (contextBook != null && book == contextBook) {
+      text = text.substring(book!.length).trim();
+    }
+
+    if (book != null) {
+      recentBooks
+        ..remove(book)
+        ..insert(0, book);
+
+      if (recentBooks.length > 4) recentBooks.removeLast();
+    }
+
+    setState(() {
+      input.value = TextEditingValue(
+        text: text,
+        selection: TextSelection.collapsed(offset: text.length),
+      );
+    });
   }
 
   // ---------- Auswahl ----------
@@ -742,12 +904,40 @@ class _ResultView extends StatelessWidget {
   final StudySession session;
   final BookLearningController controller;
   final String title;
+  final List<StudyFollowUp> followUps;
 
   const _ResultView({
     required this.session,
     required this.controller,
     required this.title,
+    required this.followUps,
   });
+
+  void _start(BuildContext context, StudyFollowUp followUp) {
+    final tasks = followUp.tasks();
+
+    if (tasks.isEmpty) {
+      Navigator.pop(context);
+      return;
+    }
+
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (_) => BookStudyScreen(
+          controller: controller,
+          session: StudySession(
+            state: controller.state,
+            storage: controller.storage,
+            tasks: tasks,
+            mode: followUp.mode,
+          ),
+          title: followUp.title,
+          followUps: followUp.followUps,
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -804,6 +994,13 @@ class _ResultView extends StatelessWidget {
                   spacing: 8,
                   runSpacing: 8,
                   children: [
+                    for (int i = 0; i < followUps.length; i++)
+                      ElevatedButton.icon(
+                        key: ValueKey("follow-up-$i"),
+                        icon: const Icon(Icons.arrow_forward_rounded),
+                        label: Text(followUps[i].label),
+                        onPressed: () => _start(context, followUps[i]),
+                      ),
                     if (retry.isNotEmpty)
                       OutlinedButton.icon(
                         key: const ValueKey("retry-mistakes"),
@@ -829,7 +1026,7 @@ class _ResultView extends StatelessWidget {
                           );
                         },
                       ),
-                    ElevatedButton(
+                    OutlinedButton(
                       key: const ValueKey("study-done"),
                       onPressed: () => Navigator.pop(context),
                       child: const Text("Fertig"),

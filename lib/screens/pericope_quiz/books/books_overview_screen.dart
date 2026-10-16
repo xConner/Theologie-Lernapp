@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../models/greek/perikope.dart';
 import '../../../quiz/books/book_learning_controller.dart';
+import '../../../quiz/books/book_outline.dart';
 import '../../../services/bible/bible_books.dart';
 import '../../../services/bible/bible_repository.dart';
 import '../../../services/book_learning_storage.dart';
@@ -25,6 +26,7 @@ class BooksOverviewScreen extends StatefulWidget {
   final LearningService? learningService;
   final SettingsService? settingsService;
   final BibleRepository? bibleRepository;
+  final BookOutlines? outlines;
   final DateTime Function()? clock;
 
   const BooksOverviewScreen({
@@ -35,6 +37,7 @@ class BooksOverviewScreen extends StatefulWidget {
     this.learningService,
     this.settingsService,
     this.bibleRepository,
+    this.outlines,
     this.clock,
   });
 
@@ -71,6 +74,7 @@ class _BooksOverviewScreenState extends State<BooksOverviewScreen> {
         learningService: widget.learningService,
         settingsService: widget.settingsService,
         bibleRepository: widget.bibleRepository,
+        outlines: widget.outlines,
         clock: widget.clock,
       );
 

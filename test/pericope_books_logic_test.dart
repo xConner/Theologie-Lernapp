@@ -11,6 +11,7 @@ import 'package:theologie_lernapp/models/greek/vocabulary/learning_card.dart';
 import 'package:theologie_lernapp/quiz/books/book_catalog.dart';
 import 'package:theologie_lernapp/quiz/books/book_learning.dart';
 import 'package:theologie_lernapp/quiz/books/book_learning_status.dart';
+import 'package:theologie_lernapp/quiz/books/book_outline.dart';
 import 'package:theologie_lernapp/quiz/books/book_plan.dart';
 import 'package:theologie_lernapp/quiz/books/book_study_session.dart';
 import 'package:theologie_lernapp/quiz/books/reference_answer.dart';
@@ -209,7 +210,7 @@ void main() {
       );
     });
 
-    test("Abfrageformen: Buch bzw. Buch und Kapitel vorgegeben", () {
+    test("Buchkontext: nur Kapitel (und ggf. Verse) eingeben", () {
       final p = mk("berufungjuenger", occurrence: 1);
       final expected = precise(p, 1, 14, 1, 20);
 
@@ -217,24 +218,16 @@ void main() {
         ReferenceAnswerChecker.check(
           "1,14-20",
           expected,
-          prompt: ReferencePrompt.book,
+          contextBook: "Mk",
         ).correct,
         isTrue,
       );
-      expect(
-        ReferenceAnswerChecker.check(
-          "14-20",
-          expected,
-          prompt: ReferencePrompt.bookAndChapter,
-        ).correct,
-        isTrue,
-      );
-      // Wer das Vorgegebene mittippt, wird nicht bestraft.
+      // Wer das Buch trotzdem mittippt, wird nicht bestraft.
       expect(
         ReferenceAnswerChecker.check(
           "Mk 1,14-20",
           expected,
-          prompt: ReferencePrompt.book,
+          contextBook: "Mk",
         ).correct,
         isTrue,
       );
@@ -245,10 +238,74 @@ void main() {
         ReferenceAnswerChecker.check(
           "1",
           chapterOnly,
-          prompt: ReferencePrompt.book,
+          contextBook: "Mk",
         ).correct,
         isTrue,
       );
+      expect(
+        ReferenceAnswerChecker.check(
+          "2",
+          chapterOnly,
+          contextBook: "Mk",
+        ).verdict,
+        AnswerVerdict.wrongChapter,
+      );
+
+      // Ohne Buchkontext genügt die Kapitelzahl nicht.
+      expect(
+        ReferenceAnswerChecker.check("1", chapterOnly).verdict,
+        AnswerVerdict.invalid,
+      );
+    });
+
+    group("Eingabe prüfen, bevor bewertet wird", () {
+      String? problem(String input, {String? book}) =>
+          ReferenceAnswerChecker.problem(
+            input,
+            contextBook: book,
+            structure: catalog.structure,
+          );
+
+      test("leere Eingabe ist kein Fehler", () {
+        expect(problem(""), isNull);
+        expect(problem("   ", book: "Gen"), isNull);
+      });
+
+      test("ein Buch ausgewählt: Kapitelzahl genügt", () {
+        expect(problem("5", book: "Gen"), isNull);
+        expect(problem("Gen 5", book: "Gen"), isNull);
+        expect(problem("Genesis 5", book: "Gen"), isNull);
+      });
+
+      test("mehrere Bücher: das Buch ist nötig", () {
+        expect(problem("5"), "Bitte auch das Buch angeben, z. B. Gen 5.");
+        expect(problem("Gen 5"), isNull);
+        expect(problem("gen 5"), isNull);
+        expect(problem("1. Mose 5"), isNull);
+      });
+
+      test("unbekanntes Buch", () {
+        expect(problem("Xyz 5"), "„Xyz“ ist kein bekanntes Bibelbuch.");
+      });
+
+      test("Buch ohne Kapitel", () {
+        expect(problem("Gen"), startsWith("Bitte auch das Kapitel angeben"));
+      });
+
+      test("Kapitel ohne Perikopen", () {
+        final max = catalog.structure.chapterCount("Mk");
+
+        expect(max, 16);
+        expect(
+          problem("${max + 1}", book: "Mk"),
+          "In Mk gibt es Perikopen nur bis Kapitel 16.",
+        );
+        expect(problem("0", book: "Mk"), isNotNull);
+      });
+
+      test("unlesbare Angabe", () {
+        expect(problem("5,,3", book: "Mk"), startsWith("Ungültige Angabe"));
+      });
     });
 
     test("Bücher mit Ziffer im Namen", () {
@@ -263,7 +320,7 @@ void main() {
         ReferenceAnswerChecker.check(
           "${cor.perikope.startChapter}",
           expected,
-          prompt: ReferencePrompt.book,
+          contextBook: "1Kor",
         ).correct,
         isTrue,
       );
@@ -791,10 +848,7 @@ void main() {
 
       expect(tasks.length, scope.length);
       expect(tasks.map((t) => t.target).toSet(), scope.toSet());
-      expect(
-        tasks.every((t) => t is RecallTask && t.prompt == ReferencePrompt.none),
-        isTrue,
-      );
+      expect(tasks.every((t) => t is RecallTask), isTrue);
     });
   });
 
@@ -1067,6 +1121,289 @@ void main() {
 
       expect(data.cards, isEmpty);
       expect(data.precisions, isEmpty);
+    });
+  });
+
+  group("Buchkontext der Lerneinheit", () {
+    StudySession sessionFor(List<StudyTask> tasks) => StudySession(
+      state: BookLearningState(catalog: catalog, data: BookLearningData()),
+      storage: LocalBookLearningStorage(),
+      mode: StudyMode.review,
+      tasks: tasks,
+    );
+
+    test("ein Buch: Buch vorgegeben, Kapitel genügt", () async {
+      final p = catalog.pericopesOf("Gen")[4];
+      final session = sessionFor([RecallTask(p), RecallTask(p)]);
+
+      expect(session.contextBook, "Gen");
+      expect(session.contextBooks, ["Gen"]);
+      expect(session.inputProblem("${p.chapter}"), isNull);
+
+      final check = await session.answerRecall("${p.chapter}");
+
+      expect(check.correct, isTrue);
+      expect(check.given, "Gen ${p.chapter}");
+    });
+
+    test("mehrere Bücher: Buch nötig, gleiche Quelle für Prüfung", () async {
+      final gen = catalog.pericopesOf("Gen").first;
+      final mark = catalog.pericopesOf("Mk").first;
+
+      final session = sessionFor([RecallTask(mark), RecallTask(gen)]);
+
+      expect(session.contextBook, isNull);
+      // In Buchreihenfolge.
+      expect(session.contextBooks, ["Gen", "Mk"]);
+      expect(session.inputProblem("1"), isNotNull);
+      expect(session.inputProblem("Mk 1"), isNull);
+
+      final check = await session.answerRecall("Mk 1");
+
+      expect(check.correct, isTrue);
+    });
+
+    test("jede Abfrage einer Einheit hat dieselbe Form", () {
+      final state = BookLearningState(
+        catalog: catalog,
+        data: BookLearningData(),
+      );
+
+      // Früher wählte der Planer die Form zufällig je Aufgabe; jetzt hängt
+      // sie nur noch vom Buchkontext der Einheit ab.
+      for (int seed = 0; seed < 5; seed++) {
+        final tasks = StudyPlanner(
+          state,
+          random: Random(seed),
+        ).chapter("Mk", 1, 3);
+
+        final session = StudySession(
+          state: state,
+          storage: LocalBookLearningStorage(),
+          mode: StudyMode.chapter,
+          tasks: tasks,
+        );
+
+        expect(session.contextBook, "Mk");
+      }
+    });
+  });
+
+  group("Buchgliederung", () {
+    late BookOutlines outlines;
+
+    setUpAll(() {
+      outlines = BookOutlines.fromJson(
+        jsonDecode(File(BookOutlines.asset).readAsStringSync())
+            as Map<String, dynamic>,
+      );
+    });
+
+    test("Grenzen kapitel- oder versgenau", () {
+      expect(OutlinePosition.parse("6,6")!.verse, 6);
+      expect(OutlinePosition.parse("11")!.verse, isNull);
+      expect(OutlinePosition.parse(3)!.chapter, 3);
+      expect(OutlinePosition.parse("6,"), isNull);
+      expect(OutlinePosition.parse("0"), isNull);
+
+      const s = OutlineSection(
+        id: "x",
+        book: "Mk",
+        title: "X",
+        start: OutlinePosition(3, 7),
+        end: OutlinePosition(6, 5),
+      );
+
+      expect(s.containsStart(3, 7), isTrue);
+      expect(s.containsStart(3, 6), isFalse);
+      expect(s.containsStart(6, 5), isTrue);
+      expect(s.containsStart(6, 6), isFalse);
+      expect(s.rangeText, "3,7–6,5");
+
+      const whole = OutlineSection(
+        id: "y",
+        book: "Mk",
+        title: "Y",
+        start: OutlinePosition(11),
+        end: OutlinePosition(13),
+      );
+
+      expect(whole.containsStart(13, 37), isTrue);
+      expect(whole.containsStart(14, 1), isFalse);
+      expect(whole.rangeText, "Kapitel 11–13");
+    });
+
+    test(
+      "hinterlegte Gliederung: jede Perikope genau einmal, in Reihenfolge",
+      () {
+        expect(outlines.hasDefined("Mk"), isTrue);
+
+        final outline = outlines.outlineFor(catalog, "Mk");
+
+        expect(outline.provisional, isTrue);
+        expect(outline.automatic, isFalse);
+
+        final all = [
+          for (final section in outline.sections)
+            ...pericopesOfSection(catalog, section),
+        ];
+
+        expect(all, catalog.pericopesOf("Mk"));
+        expect(
+          outline.sections.map((s) => s.id).toSet().length,
+          outline.sections.length,
+        );
+
+        // Halbvers-Grenze Mk 6,6: Ablehnung in Nazaret (6,1) bleibt vorn,
+        // die Aussendung (6,6) beginnt den nächsten Abschnitt.
+        final third = pericopesOfSection(catalog, outline.sections[2]);
+        final fourth = pericopesOfSection(catalog, outline.sections[3]);
+
+        expect(third.last.title, "Die Ablehnung Jesu in seiner Heimat");
+        expect(fourth.first.title, "Die Aussendung der zwölf Jünger");
+      },
+    );
+
+    test("ohne Gliederung: automatisch nach ganzen Kapiteln", () {
+      expect(outlines.hasDefined("Gen"), isFalse);
+
+      final outline = outlines.outlineFor(catalog, "Gen");
+
+      expect(outline.automatic, isTrue);
+      expect(outline.sections, isNotEmpty);
+
+      final all = [
+        for (final section in outline.sections)
+          ...pericopesOfSection(catalog, section),
+      ];
+
+      expect(all, catalog.pericopesOf("Gen"));
+
+      for (final section in outline.sections) {
+        expect(section.start.verse, isNull);
+        expect(section.end.verse, isNull);
+      }
+
+      // Bücher mit nur einer Perikope gehen auch.
+      expect(outlines.outlineFor(catalog, "Obd").sections, hasLength(1));
+    });
+
+    test("Lücken der Gliederung landen in „Weitere Perikopen“", () {
+      final partial = BookOutlines.fromJson({
+        "books": {
+          "Mk": {
+            "sections": [
+              {"id": "a", "title": "Anfang", "start": "1", "end": "2"},
+            ],
+          },
+        },
+      });
+
+      final outline = partial.outlineFor(catalog, "Mk");
+
+      expect(outline.sections, hasLength(2));
+      expect(outline.sections.last.title, "Weitere Perikopen");
+
+      final rest = pericopesOfSection(catalog, outline.sections.last);
+
+      expect(rest.every((p) => p.chapter >= 3), isTrue);
+      expect(
+        rest.length +
+            pericopesOfSection(catalog, outline.sections.first).length,
+        catalog.pericopesOf("Mk").length,
+      );
+    });
+
+    test("ungültige Abschnitte werden übergangen", () {
+      final parsed = BookOutlines.fromJson({
+        "books": {
+          "Mk": {
+            "sections": [
+              {"id": "ok", "title": "Gut", "start": "1", "end": "3"},
+              {"id": "ok", "title": "Doppelte ID", "start": "4", "end": "5"},
+              {"id": "rev", "title": "Rückwärts", "start": "9", "end": "8"},
+              {"title": "Ohne ID", "start": "1", "end": "2"},
+              {"id": "bad", "title": "Kaputt", "start": "x", "end": "2"},
+            ],
+          },
+          "Lk": "kein Objekt",
+        },
+      });
+
+      final outline = parsed.outlineFor(catalog, "Mk");
+
+      expect(outline.sections.first.id, "ok");
+      expect(outline.sections.where((s) => s.id == "ok"), hasLength(1));
+      expect(parsed.hasDefined("Lk"), isFalse);
+      expect(BookOutlines.fromJson({}).hasDefined("Mk"), isFalse);
+    });
+
+    test("Abschnitt lernen: fällige und offene zuerst, neue begrenzt", () {
+      final clock = TestClock(DateTime(2026, 10, 1, 8));
+
+      final outline = outlines.outlineFor(catalog, "Mk");
+      final section = outline.sections[1];
+      final members = pericopesOfSection(catalog, section);
+
+      expect(members.length, greaterThan(StudyPlanner.sectionNewPerSession));
+
+      final state = BookLearningState(
+        catalog: catalog,
+        data: BookLearningData(
+          cards: {
+            members[2].key: BookCard(
+              id: members[2].key,
+              lastReviewed: clock.now.subtract(const Duration(days: 3)),
+            ),
+          },
+        ),
+        clock: clock.call,
+      );
+
+      final tasks = StudyPlanner(state).section(section);
+
+      expect(tasks.first, isA<RecallTask>());
+      expect(tasks.first.target, members[2]);
+      expect(
+        tasks.whereType<IntroduceTask>().length,
+        StudyPlanner.sectionNewPerSession,
+      );
+      expect(tasks.every((t) => section.contains(t.target)), isTrue);
+
+      // Weitergelernt wird im ersten Abschnitt mit neuen Perikopen.
+      expect(state.currentSection(outline)!.id, outline.sections.first.id);
+      expect(state.sectionAfter(outline, section)!.id, outline.sections[2].id);
+      expect(state.sectionAfter(outline, outline.sections.last), isNull);
+    });
+
+    test("alles sicher: der Abschnitt wird ganz wiederholt", () {
+      final clock = TestClock(DateTime(2026, 10, 1, 8));
+
+      final outline = outlines.outlineFor(catalog, "Mk");
+      final section = outline.sections.first;
+      final members = pericopesOfSection(catalog, section);
+
+      final state = BookLearningState(
+        catalog: catalog,
+        data: BookLearningData(
+          cards: {
+            for (final p in members)
+              p.key: BookCard(
+                id: p.key,
+                stability: 500,
+                lastReviewed: clock.now,
+                spacedStreak: 3,
+              ),
+          },
+        ),
+        clock: clock.call,
+      );
+
+      final tasks = StudyPlanner(state).section(section);
+
+      expect(tasks.map((t) => t.target), members);
+      expect(state.progressOfSection(section).secure, members.length);
+      expect(state.currentSection(outline)!.id, outline.sections[1].id);
     });
   });
 

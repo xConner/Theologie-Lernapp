@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../services/greek/perikope_loader.dart';
-import 'pericope_quiz/quiz_screen.dart';
-import 'pericope_quiz/books/books_overview_screen.dart';
+import 'pericope_quiz/bibelkunde_screen.dart';
 import '../screens/liturgical_calendar_screen.dart';
 import '../screens/greek/greek_home_screen.dart';
 
@@ -204,7 +203,8 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  void _openQuiz() {
+  /// Bereich „Bibelkunde“: Perikopenquiz und „Bücher systematisch lernen“.
+  void _openBibelkunde() {
     final list = perikopen;
 
     if (list == null || list.isEmpty) {
@@ -218,28 +218,7 @@ class _HomeScreenState extends State<HomeScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (_) => QuizScreen(perikopen: list, uid: uid),
-      ),
-    );
-  }
-
-  /// „Bücher systematisch lernen“: ergänzt das Endlos-Quiz mit denselben
-  /// Perikopen, ohne es zu verändern.
-  void _openBookLearning() {
-    final list = perikopen;
-
-    if (list == null || list.isEmpty) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text("Keine Perikopen geladen")));
-
-      return;
-    }
-
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (_) => BooksOverviewScreen(perikopen: list, uid: uid),
+        builder: (_) => BibelkundeScreen(perikopen: list, uid: uid),
       ),
     );
   }
@@ -368,21 +347,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       SizedBox(
                         width: double.infinity,
                         child: ElevatedButton.icon(
-                          onPressed: _openQuiz,
+                          key: const ValueKey("open-bibelkunde"),
+                          onPressed: _openBibelkunde,
                           icon: const Icon(Icons.quiz_rounded),
-                          label: const Text("Perikopenquiz"),
-                        ),
-                      ),
-
-                      const SizedBox(height: 16),
-
-                      SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton.icon(
-                          key: const ValueKey("open-book-learning"),
-                          onPressed: _openBookLearning,
-                          icon: const Icon(Icons.menu_book_rounded),
-                          label: const Text("Bücher systematisch lernen"),
+                          label: const Text("Bibelkunde"),
                         ),
                       ),
 

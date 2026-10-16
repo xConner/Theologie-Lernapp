@@ -3,9 +3,9 @@ import 'dart:math';
 import '../../models/greek/vocabulary/learning_card.dart';
 import '../../services/book_learning_storage.dart';
 import 'book_catalog.dart';
+import 'book_outline.dart';
 import 'book_learning_status.dart';
 import 'book_plan.dart';
-import 'reference_answer.dart';
 import 'verse_precision.dart';
 
 /// Alles, was „Bücher systematisch lernen“ zur Anzeige und Planung braucht:
@@ -72,6 +72,37 @@ class BookLearningState {
 
   BookPlan? planOf(String book) => data.plans[book];
 
+  /// Fortschritt eines Gliederungsabschnitts.
+  LearningProgress progressOfSection(OutlineSection section) {
+    return progressOf(pericopesOfSection(catalog, section));
+  }
+
+  /// Der Abschnitt, an dem beim abschnittsweisen Lernen weitergearbeitet
+  /// wird: der erste mit noch nicht eingeführten Perikopen, sonst der erste
+  /// mit fälligen oder noch nicht sicheren; `null`, wenn alles sicher ist.
+  OutlineSection? currentSection(BookOutline outline) {
+    for (final s in outline.sections) {
+      if (progressOfSection(s).fresh > 0) return s;
+    }
+
+    for (final s in outline.sections) {
+      final progress = progressOfSection(s);
+
+      if (progress.due > 0 || progress.learning > 0) return s;
+    }
+
+    return null;
+  }
+
+  /// Der Abschnitt nach [section] in der Gliederung, sonst `null`.
+  OutlineSection? sectionAfter(BookOutline outline, OutlineSection section) {
+    final i = outline.sections.indexWhere((s) => s.id == section.id);
+
+    return i < 0 || i + 1 >= outline.sections.length
+        ? null
+        : outline.sections[i + 1];
+  }
+
   /// Am Tag von [day] eingeführte Perikopen des Buchs.
   int introducedOn(String book, DateTime day) {
     final start = BookPlan.dayOf(day);
@@ -127,20 +158,18 @@ class IntroduceTask extends StudyTask {
 }
 
 /// Stelle zu einem Titel abrufen.
+///
+/// Ob das Buch vorgegeben ist, bestimmt nicht die Aufgabe, sondern der
+/// Buchkontext der ganzen Lerneinheit ([StudySession.contextBook]): So ist
+/// die Eingabe innerhalb einer Einheit immer gleich.
 class RecallTask extends StudyTask {
   @override
   final BookPericope target;
 
-  final ReferencePrompt prompt;
-
   /// Kommt kurz nach der Einführung: zählt nie als zeitlich getrennter Abruf.
   final bool afterIntroduction;
 
-  const RecallTask(
-    this.target, {
-    this.prompt = ReferencePrompt.none,
-    this.afterIntroduction = false,
-  });
+  const RecallTask(this.target, {this.afterIntroduction = false});
 }
 
 enum ChoiceKind {
@@ -198,6 +227,7 @@ class ArrangeTask extends StudyTask {
 enum StudyMode {
   learnBook("Buch lernen"),
   chapter("Kapiteltraining"),
+  section("Abschnitt lernen"),
   mixed("Gemischte Wiederholung"),
   order("Reihenfolge lernen"),
   difficult("Schwierige Perikopen"),
@@ -264,6 +294,40 @@ class StudyPlanner {
     return _interleave(due, rest);
   }
 
+  // ---------- Abschnittsweise (nach Buchgliederung) ----------
+
+  /// Neue Perikopen je Lerneinheit eines Abschnitts.
+  static const int sectionNewPerSession = 6;
+
+  /// Eine Lerneinheit für einen Abschnitt der Gliederung: fällige und noch
+  /// nicht sichere Perikopen des Abschnitts, dann die nächsten neuen in
+  /// Buchreihenfolge (höchstens [sectionNewPerSession]). Ist im Abschnitt
+  /// alles sicher und nichts fällig, wird der ganze Abschnitt wiederholt.
+  List<StudyTask> section(OutlineSection section) {
+    final pericopes = pericopesOfSection(state.catalog, section);
+
+    final due = _dueSorted(pericopes);
+
+    final learning = pericopes
+        .where(
+          (p) =>
+              !due.contains(p) &&
+              state.statusOf(p).level == LearningLevel.learning,
+        )
+        .toList();
+
+    final fresh = pericopes
+        .where((p) => state.statusOf(p).level == LearningLevel.fresh)
+        .take(sectionNewPerSession)
+        .toList();
+
+    if (due.isEmpty && learning.isEmpty && fresh.isEmpty) {
+      return _interleave(const [], pericopes);
+    }
+
+    return _interleave([...due, ...learning], fresh);
+  }
+
   // ---------- Modus C: Gemischte Wiederholung ----------
 
   /// Fällige, schwierige und bereits gelernte Perikopen gemischt. Neue
@@ -302,7 +366,7 @@ class StudyPlanner {
         if (_isDifficult(p) && _random.nextBool())
           compareOrRecall(p)
         else
-          RecallTask(p, prompt: promptFor(p)),
+          RecallTask(p),
     ];
   }
 
@@ -458,7 +522,7 @@ class StudyPlanner {
     final tasks = <StudyTask>[];
 
     for (final p in list.take(limit)) {
-      tasks.add(RecallTask(p, prompt: promptFor(p)));
+      tasks.add(RecallTask(p));
 
       final compare = _compareTask(p);
       if (compare != null) tasks.add(compare);
@@ -502,7 +566,7 @@ class StudyPlanner {
 
     if (shuffle) list.shuffle(_random);
 
-    return [for (final p in list) RecallTask(p, prompt: promptFor(p))];
+    return [for (final p in list) RecallTask(p)];
   }
 
   // ---------- Bausteine ----------
@@ -543,12 +607,9 @@ class StudyPlanner {
       if (state.statusOf(p).level == LearningLevel.fresh) {
         result.add(IntroduceTask(p));
 
-        pending.add((
-          task: RecallTask(p, prompt: _introPrompt(p), afterIntroduction: true),
-          wait: 3,
-        ));
+        pending.add((task: RecallTask(p, afterIntroduction: true), wait: 3));
       } else {
-        result.add(RecallTask(p, prompt: promptFor(p)));
+        result.add(RecallTask(p));
       }
 
       tick();
@@ -561,46 +622,8 @@ class StudyPlanner {
     return result;
   }
 
-  ReferencePrompt _introPrompt(BookPericope p) {
-    final expected = state.expectedOf(p);
-
-    return expected.versePrecise && _singleChapter(expected)
-        ? ReferencePrompt.bookAndChapter
-        : ReferencePrompt.book;
-  }
-
-  static bool _singleChapter(ExpectedReference e) {
-    final r = e.reference;
-    return r.endChapter == null || r.endChapter == r.startChapter;
-  }
-
-  /// Abfrageform je nach Lernstand: Wer eine Perikope noch lernt, bekommt
-  /// das Buch (bei versgenauen Perikopen im Wechsel auch das Kapitel)
-  /// vorgegeben; sicher gelernte werden meist ohne Hilfe abgefragt.
-  ReferencePrompt promptFor(BookPericope p) {
-    final status = state.statusOf(p);
-
-    final expected = state.expectedOf(p);
-
-    final verseForm = expected.versePrecise && _singleChapter(expected);
-
-    if (status.level == LearningLevel.secure) {
-      return _random.nextInt(4) == 0
-          ? ReferencePrompt.book
-          : ReferencePrompt.none;
-    }
-
-    if (verseForm && _random.nextBool()) {
-      return ReferencePrompt.bookAndChapter;
-    }
-
-    return _random.nextInt(3) == 0
-        ? ReferencePrompt.none
-        : ReferencePrompt.book;
-  }
-
   StudyTask compareOrRecall(BookPericope p) {
-    return _compareTask(p) ?? RecallTask(p, prompt: promptFor(p));
+    return _compareTask(p) ?? RecallTask(p);
   }
 
   /// Vergleich: Titel gegeben, die richtige unter nahe beieinanderliegenden
