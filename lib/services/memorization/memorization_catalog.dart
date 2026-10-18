@@ -70,6 +70,8 @@ class MemorizationCatalog {
 
   MemorizationWork? workOf(MemorizationText text) => _works[text.workId];
 
+  MemorizationWork? work(String id) => _works[id];
+
   // ==========================
   // GEBETE
   // ==========================

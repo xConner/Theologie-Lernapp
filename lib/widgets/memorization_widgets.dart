@@ -4,6 +4,7 @@ import '../models/memorization/memorization_card.dart';
 import '../models/memorization/memorization_text.dart';
 import '../screens/memorization/memorization_text_screen.dart';
 import '../services/memorization/hint_generator.dart';
+import '../services/memorization/memorization_repository.dart';
 import '../services/memorization/memorization_scheduler.dart';
 import '../services/memorization/text_evaluator.dart';
 import '../theme/app_theme.dart';
@@ -41,6 +42,74 @@ class MemorizeButton extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+}
+
+/// Stern zum Markieren eines Werks (mit allen Sprachfassungen) als Favorit.
+/// Zeigt immer den aktuellen Stand aus dem [repository]; der Lernstand
+/// bleibt beim Umschalten unverändert.
+class FavoriteButton extends StatelessWidget {
+  final MemorizationRepository repository;
+  final String workId;
+
+  const FavoriteButton({
+    super.key,
+    required this.repository,
+    required this.workId,
+  });
+
+  Future<void> _toggle(BuildContext context) async {
+    final messenger = ScaffoldMessenger.of(context);
+
+    try {
+      await repository.toggleFavorite(workId);
+    } catch (_) {
+      messenger.showSnackBar(
+        const SnackBar(
+          content: Text("Die Änderung konnte nicht gespeichert werden."),
+        ),
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ListenableBuilder(
+      listenable: repository,
+      builder: (context, _) {
+        final favorite = repository.isFavorite(workId);
+
+        return IconButton(
+          key: Key("memorize_favorite_$workId"),
+          icon: Icon(
+            favorite ? Icons.star_rounded : Icons.star_border_rounded,
+            color: favorite ? context.colors.accent : null,
+          ),
+          tooltip: favorite
+              ? "Aus Favoriten entfernen"
+              : "Als Favorit markieren",
+          isSelected: favorite,
+          onPressed: () => _toggle(context),
+        );
+      },
+    );
+  }
+}
+
+/// Hinweis, solange keine Favoriten markiert sind.
+class FavoritesEmptyHint extends StatelessWidget {
+  const FavoritesEmptyHint({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      "Noch keine Favoriten. Markiere Gebete, Bekenntnisse und andere Texte "
+      "mit dem Stern, um sie hier schnell wiederzufinden.",
+      key: const Key("memorize_favorites_empty"),
+      style: Theme.of(
+        context,
+      ).textTheme.bodyMedium?.copyWith(color: context.colors.textSecondary),
     );
   }
 }

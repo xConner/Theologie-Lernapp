@@ -12,6 +12,7 @@ import '../../widgets/info_report.dart';
 import '../../widgets/memorization_widgets.dart';
 import '../../widgets/settings_access.dart';
 import '../../widgets/streak_widgets.dart';
+import 'memorization_favorites_screen.dart';
 import 'memorization_practice_screen.dart';
 import 'memorization_text_screen.dart';
 
@@ -82,6 +83,10 @@ class _MemorizationHomeScreenState extends State<MemorizationHomeScreen> {
     ];
   }
 
+  /// Favoriten, soweit sie in den Daten der App (noch) vorhanden sind.
+  int get _favoriteCount =>
+      repository.favoriteIds.where((id) => catalog!.work(id) != null).length;
+
   Future<void> _guard(Future<void> Function() action) async {
     try {
       await action();
@@ -119,6 +124,18 @@ class _MemorizationHomeScreenState extends State<MemorizationHomeScreen> {
       MaterialPageRoute(
         builder: (_) =>
             MemorizationPracticeScreen(repository: repository, units: units),
+      ),
+    );
+  }
+
+  void _openFavorites() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => MemorizationFavoritesScreen(
+          catalog: catalog!,
+          repository: repository,
+        ),
       ),
     );
   }
@@ -224,6 +241,7 @@ class _MemorizationHomeScreenState extends State<MemorizationHomeScreen> {
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
+            FavoriteButton(repository: repository, workId: text.workId),
             Semantics(
               label: "Wiederholung aktiv",
               child: Switch(
@@ -317,6 +335,19 @@ class _MemorizationHomeScreenState extends State<MemorizationHomeScreen> {
           label: const Text("Text hinzufügen"),
           onPressed: _addTexts,
         ),
+
+        const SizedBox(height: 8),
+
+        OutlinedButton.icon(
+          key: const Key("memorize_favorites"),
+          icon: const Icon(Icons.star_border_rounded),
+          label: Text(
+            repository.favoriteIds.isEmpty
+                ? "Favoriten"
+                : "Favoriten ($_favoriteCount)",
+          ),
+          onPressed: _openFavorites,
+        ),
       ],
     );
   }
@@ -383,8 +414,9 @@ class _MemorizationHomeScreenState extends State<MemorizationHomeScreen> {
   }
 }
 
-/// Auswahl der Texte für „Meine Texte“, je Sprachfassung einzeln.
-class MemorizationAddTextScreen extends StatelessWidget {
+/// Auswahl der Texte für „Meine Texte“, je Sprachfassung einzeln. Ein Filter
+/// beschränkt die Auswahl auf die Favoriten.
+class MemorizationAddTextScreen extends StatefulWidget {
   final MemorizationCatalog catalog;
   final MemorizationRepository repository;
 
@@ -394,13 +426,16 @@ class MemorizationAddTextScreen extends StatelessWidget {
     required this.repository,
   });
 
-  static const Map<MemorizationTextType, String> _headings = {
-    MemorizationTextType.prayer: "Gebete",
-    MemorizationTextType.creed: "Altkirchliche Bekenntnisse",
-    MemorizationTextType.confession: "Bekenntnisschriften",
-    MemorizationTextType.bible: "Bibeltexte",
-    MemorizationTextType.other: "Weitere Texte",
-  };
+  @override
+  State<MemorizationAddTextScreen> createState() =>
+      _MemorizationAddTextScreenState();
+}
+
+class _MemorizationAddTextScreenState extends State<MemorizationAddTextScreen> {
+  MemorizationCatalog get catalog => widget.catalog;
+  MemorizationRepository get repository => widget.repository;
+
+  bool onlyFavorites = false;
 
   Future<void> _toggle(BuildContext context, MemorizationText text) async {
     final messenger = ScaffoldMessenger.of(context);
@@ -427,12 +462,19 @@ class MemorizationAddTextScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              work.group == null ? work.title : work.shortTitle ?? work.title,
-              style: Theme.of(context).textTheme.titleSmall,
+            Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    work.group == null
+                        ? work.title
+                        : work.shortTitle ?? work.title,
+                    style: Theme.of(context).textTheme.titleSmall,
+                  ),
+                ),
+                FavoriteButton(repository: repository, workId: work.id),
+              ],
             ),
-
-            const SizedBox(height: 8),
 
             Wrap(
               spacing: 8,
@@ -484,8 +526,13 @@ class MemorizationAddTextScreen extends StatelessWidget {
         Card(
           clipBehavior: Clip.antiAlias,
           child: ExpansionTile(
-            key: PageStorageKey("memorize_group_${entry.key}"),
-            initiallyExpanded: expandFirst && entry.key == grouped.keys.first,
+            // Gefiltert eigener Zustand: dort sind alle Gruppen aufgeklappt.
+            key: PageStorageKey(
+              "memorize_group_${onlyFavorites ? "favorites_" : ""}${entry.key}",
+            ),
+            initiallyExpanded:
+                onlyFavorites ||
+                (expandFirst && entry.key == grouped.keys.first),
             title: Text(entry.key),
             subtitle: Text(
               selected == 0
@@ -507,11 +554,6 @@ class MemorizationAddTextScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final groups = [
-      for (final type in MemorizationTextType.values)
-        (type, catalog.works.where((w) => w.type == type).toList()),
-    ].where((group) => group.$2.isNotEmpty).toList();
-
     return Scaffold(
       appBar: AppBar(title: const Text("Text hinzufügen")),
 
@@ -520,35 +562,69 @@ class MemorizationAddTextScreen extends StatelessWidget {
           constraints: const BoxConstraints(maxWidth: 700),
           child: ListenableBuilder(
             listenable: repository,
-            builder: (context, _) => ListView(
-              padding: const EdgeInsets.all(16),
-              children: [
-                Text(
-                  "Wähle die Sprachfassungen, die du auswendig lernen "
-                  "möchtest. Jede Sprache wird getrennt gelernt.",
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: context.colors.textSecondary,
+            builder: (context, _) {
+              final groups = [
+                for (final type in MemorizationTextType.values)
+                  (
+                    type,
+                    catalog.works
+                        .where((w) => w.type == type)
+                        .where(
+                          (w) => !onlyFavorites || repository.isFavorite(w.id),
+                        )
+                        .toList(),
                   ),
-                ),
+              ].where((group) => group.$2.isNotEmpty).toList();
 
-                for (final (type, works) in groups) ...[
-                  const SizedBox(height: 20),
-
+              return ListView(
+                padding: const EdgeInsets.all(16),
+                children: [
                   Text(
-                    _headings[type]!,
-                    style: Theme.of(context).textTheme.titleMedium,
+                    "Wähle die Sprachfassungen, die du auswendig lernen "
+                    "möchtest. Jede Sprache wird getrennt gelernt.",
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: context.colors.textSecondary,
+                    ),
                   ),
 
-                  const SizedBox(height: 4),
+                  const SizedBox(height: 12),
 
-                  ..._buildWorks(
-                    context,
-                    works,
-                    expandFirst: type == groups.first.$1,
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: FilterChip(
+                      key: const Key("memorize_filter_favorites"),
+                      avatar: const Icon(Icons.star_rounded, size: 18),
+                      label: const Text("Nur Favoriten"),
+                      selected: onlyFavorites,
+                      onSelected: (value) =>
+                          setState(() => onlyFavorites = value),
+                    ),
                   ),
+
+                  if (onlyFavorites && groups.isEmpty) ...[
+                    const SizedBox(height: 20),
+                    const FavoritesEmptyHint(),
+                  ],
+
+                  for (final (type, works) in groups) ...[
+                    const SizedBox(height: 20),
+
+                    Text(
+                      type.heading,
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+
+                    const SizedBox(height: 4),
+
+                    ..._buildWorks(
+                      context,
+                      works,
+                      expandFirst: type == groups.first.$1,
+                    ),
+                  ],
                 ],
-              ],
-            ),
+              );
+            },
           ),
         ),
       ),

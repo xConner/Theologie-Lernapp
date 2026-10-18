@@ -17,6 +17,22 @@ extension MemorizationTextTypeLabel on MemorizationTextType {
         return "Text";
     }
   }
+
+  /// Überschrift der Kategorie in Textauswahl und Favoriten.
+  String get heading {
+    switch (this) {
+      case MemorizationTextType.prayer:
+        return "Gebete";
+      case MemorizationTextType.creed:
+        return "Altkirchliche Bekenntnisse";
+      case MemorizationTextType.confession:
+        return "Bekenntnisschriften";
+      case MemorizationTextType.bible:
+        return "Bibeltexte";
+      case MemorizationTextType.other:
+        return "Weitere Texte";
+    }
+  }
 }
 
 /// Ein Abschnitt eines Lerntextes – die Einheit, auf der gelernt und

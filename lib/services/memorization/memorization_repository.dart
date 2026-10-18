@@ -6,11 +6,12 @@ import '../../models/memorization/memorization_card.dart';
 import '../learning_service.dart';
 import '../local_learning_store.dart';
 
-/// Lernstände und „Meine Texte“ von „Texte auswendig lernen“ für einen
-/// Nutzer.
+/// Lernstände, „Meine Texte“ und Favoriten von „Texte auswendig lernen“ für
+/// einen Nutzer.
 ///
 /// Speicherung wie bei den Trainern: angemeldet in Firestore
-/// (`users/{uid}/memorization` und das Feld `memorization_settings`),
+/// (`users/{uid}/memorization` und das Feld `memorization_settings`, damit
+/// auf allen Geräten des Kontos gleich),
 /// als Gast (`uid == null`) lokal über [LocalLearningStore].
 ///
 /// Die Daten werden je Instanz einmal geladen und danach im Speicher
@@ -46,6 +47,7 @@ class MemorizationRepository extends ChangeNotifier {
 
   final List<String> _texts = [];
   final Set<String> _paused = {};
+  final List<String> _favorites = [];
 
   bool _loaded = false;
 
@@ -61,6 +63,12 @@ class MemorizationRepository extends ChangeNotifier {
   /// Nur aktive Texte nehmen an der automatischen Wiederholung teil.
   bool isActive(String textId) =>
       _texts.contains(textId) && !_paused.contains(textId);
+
+  /// Werk-IDs der Favoriten (z. B. `prayer.vaterunser`), in der Reihenfolge
+  /// des Markierens.
+  List<String> get favoriteIds => List.unmodifiable(_favorites);
+
+  bool isFavorite(String workId) => _favorites.contains(workId);
 
   /// Lädt Lernstände und Textauswahl (je ein Lesezugriff). Mehrfache
   /// Aufrufe teilen sich denselben Ladevorgang; nach einem Fehler kann
@@ -88,6 +96,10 @@ class MemorizationRepository extends ChangeNotifier {
     _paused
       ..clear()
       ..addAll(_strings(settings["paused"]));
+    // Doppelte Einträge (z. B. aus einem älteren Stand) nur einmal führen.
+    _favorites
+      ..clear()
+      ..addAll(_strings(settings["favorites"]).toSet());
 
     _loaded = true;
 
@@ -168,10 +180,37 @@ class MemorizationRepository extends ChangeNotifier {
     await _saveSettings();
   }
 
+  // ==========================
+  // FAVORITEN
+  // ==========================
+
+  /// Markiert ein Werk mit allen Sprachfassungen als Favorit oder entfernt
+  /// die Markierung. Lernstand, Wiederholung und „Meine Texte“ bleiben davon
+  /// unberührt.
+  Future<void> setFavorite(String workId, bool favorite) async {
+    if (favorite == _favorites.contains(workId)) return;
+
+    if (favorite) {
+      _favorites.add(workId);
+    } else {
+      _favorites.remove(workId);
+    }
+
+    await _saveSettings();
+  }
+
+  Future<void> toggleFavorite(String workId) {
+    return setFavorite(workId, !isFavorite(workId));
+  }
+
   Future<void> _saveSettings() {
     notifyListeners();
 
-    final values = {"texts": List.of(_texts), "paused": _paused.toList()};
+    final values = {
+      "texts": List.of(_texts),
+      "paused": _paused.toList(),
+      "favorites": List.of(_favorites),
+    };
 
     final result = _pending.then((_) {
       if (uid == null) {

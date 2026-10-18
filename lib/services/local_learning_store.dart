@@ -84,6 +84,7 @@ class LocalLearningStore {
     "memorization_settings": {
       "texts": _FieldType.stringList,
       "paused": _FieldType.stringList,
+      "favorites": _FieldType.stringList,
     },
   };
 

@@ -425,6 +425,8 @@ class _MemorizationTextScreenState extends State<MemorizationTextScreen> {
         title: Text(widget.work.title),
         actions: [
           if (!loading && !failed)
+            FavoriteButton(repository: repository, workId: widget.work.id),
+          if (!loading && !failed)
             ListenableBuilder(
               listenable: repository,
               builder: (context, _) {

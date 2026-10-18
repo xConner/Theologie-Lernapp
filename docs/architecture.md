@@ -82,7 +82,7 @@ ist eine `MemorizationCard` (erweitert `LearningCard`), gespeichert über
 | Wortvergleich mit Alignment (lokal, ohne KI) | `services/memorization/text_evaluator.dart` |
 | Status, Tagesplan, Bewertung | `services/memorization/memorization_scheduler.dart` |
 | Ablauf einer Lernrunde (Verbinden, Wiederholen) | `services/memorization/memorization_session.dart` |
-| Lernstände und „Meine Texte“ (Konto/Gast) | `services/memorization/memorization_repository.dart` |
+| Lernstände, „Meine Texte“ und Favoriten (Konto/Gast) | `services/memorization/memorization_repository.dart` |
 | Spracherkennung (austauschbar) | `services/speech/speech_recognition_service.dart` |
 | Wahl der Erkennung je Sprache (Latein → eigenes Modell) | `services/speech/routing_speech_recognition_service.dart` |
 | Lateinische Erkennung auf dem Gerät (Aufnahme, Whisper) | `services/speech/latin/`, im Web zusätzlich `web/latin_stt/` |
@@ -92,6 +92,11 @@ ist eine `MemorizationCard` (erweitert `LearningCard`), gespeichert über
 Jede Sprachfassung ist ein eigener Lerntext (`prayer.vaterunser.de`,
 `prayer.vaterunser.la`) mit eigenem Lernstand. Eine neue Textquelle braucht
 nur eine Methode im Katalog, die `MemorizationWork`s liefert.
+
+Favoriten gelten je Werk (`prayer.vaterunser`, alle Sprachfassungen) und
+liegen als Liste von Werk-IDs im Feld `favorites` von
+`memorization_settings` – neben „Meine Texte“, getrennt vom Lernstand. Die
+Favoritenansicht verweist auf die Werke des Katalogs, ohne Kopien.
 
 Die Spracherkennung liefert ausschließlich ein Transkript; bewertet wird
 lokal durch `MemorizationTextEvaluator`. Ob die Erkennung selbst auf dem
