@@ -17,13 +17,23 @@ import '../local_learning_store.dart';
 /// Die Daten werden je Instanz einmal geladen und danach im Speicher
 /// geführt; die Screens einer Sitzung teilen sich eine Instanz. Geschrieben
 /// wird nur, was sich geändert hat.
+///
+/// Favoriten werden auch in den Menüs Gebete und Bekenntnisse gesetzt, die
+/// eigene Instanzen haben. Damit alle Ansichten denselben Stand zeigen (und
+/// keine ältere Instanz beim Speichern neuere Einstellungen überschreibt),
+/// übernehmen alle geladenen Instanzen desselben Nutzers jede gespeicherte
+/// Änderung von „Meine Texte“, Pausen und Favoriten sofort.
 class MemorizationRepository extends ChangeNotifier {
   final String? uid;
 
   final LearningService _learning;
 
   MemorizationRepository(this.uid, {LearningService? learning})
-    : _learning = learning ?? LearningService();
+    : _learning = learning ?? LearningService() {
+    _instances.add(WeakReference(this));
+  }
+
+  static final List<WeakReference<MemorizationRepository>> _instances = [];
 
   /// Für Widget-Tests: ersetzt [forCurrentUser].
   @visibleForTesting
@@ -64,8 +74,9 @@ class MemorizationRepository extends ChangeNotifier {
   bool isActive(String textId) =>
       _texts.contains(textId) && !_paused.contains(textId);
 
-  /// Werk-IDs der Favoriten (z. B. `prayer.vaterunser`), in der Reihenfolge
-  /// des Markierens.
+  /// IDs der Favoriten in der Reihenfolge des Markierens: Werk-IDs
+  /// (z. B. `prayer.vaterunser`) oder ganze Bekenntnisschriften
+  /// (`confession.augsburger_konfession`), siehe `FavoriteIds`.
   List<String> get favoriteIds => List.unmodifiable(_favorites);
 
   bool isFavorite(String workId) => _favorites.contains(workId);
@@ -184,8 +195,8 @@ class MemorizationRepository extends ChangeNotifier {
   // FAVORITEN
   // ==========================
 
-  /// Markiert ein Werk mit allen Sprachfassungen als Favorit oder entfernt
-  /// die Markierung. Lernstand, Wiederholung und „Meine Texte“ bleiben davon
+  /// Markiert ein Werk mit allen Sprachfassungen (oder eine ganze
+  /// Bekenntnisschrift) als Favorit oder entfernt die Markierung. Lernstand, Wiederholung und „Meine Texte“ bleiben davon
   /// unberührt.
   Future<void> setFavorite(String workId, bool favorite) async {
     if (favorite == _favorites.contains(workId)) return;
@@ -206,6 +217,8 @@ class MemorizationRepository extends ChangeNotifier {
   Future<void> _saveSettings() {
     notifyListeners();
 
+    _shareSettings();
+
     final values = {
       "texts": List.of(_texts),
       "paused": _paused.toList(),
@@ -223,5 +236,34 @@ class MemorizationRepository extends ChangeNotifier {
     _pending = result.then((_) {}, onError: (_) {});
 
     return result;
+  }
+
+  /// Gibt die eigenen Einstellungen an die übrigen geladenen Instanzen
+  /// desselben Nutzers weiter.
+  void _shareSettings() {
+    _instances.removeWhere((ref) => ref.target == null);
+
+    for (final ref in List.of(_instances)) {
+      final other = ref.target;
+
+      if (other == null ||
+          identical(other, this) ||
+          other.uid != uid ||
+          !other._loaded) {
+        continue;
+      }
+
+      other._texts
+        ..clear()
+        ..addAll(_texts);
+      other._paused
+        ..clear()
+        ..addAll(_paused);
+      other._favorites
+        ..clear()
+        ..addAll(_favorites);
+
+      other.notifyListeners();
+    }
   }
 }

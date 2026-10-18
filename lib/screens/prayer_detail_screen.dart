@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../models/prayer.dart';
+import '../services/memorization/favorite_ids.dart';
 import '../services/memorization/memorization_catalog.dart';
+import '../services/memorization/memorization_repository.dart';
 import '../widgets/memorization_widgets.dart';
 import '../theme/app_theme.dart';
 import '../widgets/settings_access.dart';
@@ -11,7 +13,10 @@ import '../widgets/info_report.dart';
 class PrayerDetailScreen extends StatefulWidget {
   final Prayer prayer;
 
-  const PrayerDetailScreen({super.key, required this.prayer});
+  /// Vom Menü übergeben (Favoriten); sonst hier geladen.
+  final MemorizationRepository? repository;
+
+  const PrayerDetailScreen({super.key, required this.prayer, this.repository});
 
   @override
   State<PrayerDetailScreen> createState() => _PrayerDetailScreenState();
@@ -22,9 +27,14 @@ class _PrayerDetailScreenState extends State<PrayerDetailScreen> {
 
   late String selectedLanguage;
 
+  late final MemorizationRepository favorites =
+      widget.repository ?? MemorizationRepository.forCurrentUser();
+
   @override
   void initState() {
     super.initState();
+
+    favorites.load().catchError((Object _) {});
 
     // Deutsch bevorzugt, sonst die erste vorhandene Fassung.
     final languages = prayer.languages;
@@ -91,6 +101,10 @@ class _PrayerDetailScreenState extends State<PrayerDetailScreen> {
       appBar: AppBar(
         title: Text(prayer.displayTitle),
         actions: [
+          FavoriteButton(
+            repository: favorites,
+            workId: FavoriteIds.prayer(prayer),
+          ),
           InfoButton(
             module: AppModules.prayers,
             reportDetails: () => {

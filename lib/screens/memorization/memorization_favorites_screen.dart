@@ -7,9 +7,11 @@ import '../../services/memorization/memorization_repository.dart';
 import '../../widgets/memorization_widgets.dart';
 import 'memorization_text_screen.dart';
 
-/// Die als Favorit markierten Texte, nach denselben Kategorien wie die
-/// Textauswahl. Die Einträge verweisen auf die Texte des Katalogs; geöffnet
-/// wird die gewohnte Textansicht mit Lernstand und Übungen.
+/// Alle als Favorit markierten Texte (auch die in den Menüs Gebete und
+/// Bekenntnisse markierten), nach denselben Kategorien wie die Textauswahl.
+/// Die Einträge verweisen auf die Texte des Katalogs; geöffnet wird die
+/// gewohnte Textansicht mit Lernstand und Übungen. Eine ganze
+/// Bekenntnisschrift steht aufklappbar mit ihren Artikeln da.
 class MemorizationFavoritesScreen extends StatelessWidget {
   final MemorizationCatalog catalog;
   final MemorizationRepository repository;
@@ -56,6 +58,37 @@ class MemorizationFavoritesScreen extends StatelessWidget {
     );
   }
 
+  Widget _buildGroup(
+    BuildContext context,
+    String groupId,
+    List<MemorizationWork> works,
+  ) {
+    return Card(
+      clipBehavior: Clip.antiAlias,
+      child: ExpansionTile(
+        key: PageStorageKey("memorize_favorite_entry_$groupId"),
+        title: Row(
+          children: [
+            Expanded(child: Text(works.first.group ?? groupId)),
+            FavoriteButton(repository: repository, workId: groupId),
+          ],
+        ),
+        subtitle: Text(
+          works.length == 1 ? "1 Abschnitt" : "${works.length} Abschnitte",
+        ),
+        shape: const Border(),
+        children: [
+          for (final work in works)
+            ListTile(
+              key: Key("memorize_favorite_part_${work.id}"),
+              title: Text(work.shortTitle ?? work.title),
+              onTap: () => _open(context, work),
+            ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,7 +105,18 @@ class MemorizationFavoritesScreen extends StatelessWidget {
                   if (catalog.work(id) != null) catalog.work(id)!,
               ];
 
-              if (works.isEmpty) {
+              final groups = {
+                for (final id in repository.favoriteIds)
+                  if (catalog.worksInGroup(id).isNotEmpty)
+                    id: catalog.worksInGroup(id),
+              };
+
+              final types = [
+                for (final work in works) work.type,
+                for (final group in groups.values) group.first.type,
+              ];
+
+              if (types.isEmpty) {
                 return const Padding(
                   padding: EdgeInsets.all(16),
                   child: FavoritesEmptyHint(),
@@ -83,7 +127,7 @@ class MemorizationFavoritesScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(16),
                 children: [
                   for (final type in MemorizationTextType.values)
-                    if (works.any((work) => work.type == type)) ...[
+                    if (types.contains(type)) ...[
                       Text(
                         type.heading,
                         style: Theme.of(context).textTheme.titleMedium,
@@ -93,6 +137,10 @@ class MemorizationFavoritesScreen extends StatelessWidget {
 
                       for (final work in works)
                         if (work.type == type) _buildWork(context, work),
+
+                      for (final entry in groups.entries)
+                        if (entry.value.first.type == type)
+                          _buildGroup(context, entry.key, entry.value),
 
                       const SizedBox(height: 20),
                     ],

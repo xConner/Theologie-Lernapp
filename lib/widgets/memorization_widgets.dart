@@ -78,6 +78,10 @@ class FavoriteButton extends StatelessWidget {
     return ListenableBuilder(
       listenable: repository,
       builder: (context, _) {
+        // Erst nach dem Laden: sonst überschriebe der geladene Stand die
+        // Änderung.
+        if (!repository.isLoaded) return const SizedBox.shrink();
+
         final favorite = repository.isFavorite(workId);
 
         return IconButton(
@@ -99,13 +103,19 @@ class FavoriteButton extends StatelessWidget {
 
 /// Hinweis, solange keine Favoriten markiert sind.
 class FavoritesEmptyHint extends StatelessWidget {
-  const FavoritesEmptyHint({super.key});
+  /// Was sich markieren lässt, z. B. „Gebete“.
+  final String items;
+
+  const FavoritesEmptyHint({
+    super.key,
+    this.items = "Gebete, Bekenntnisse und andere Texte",
+  });
 
   @override
   Widget build(BuildContext context) {
     return Text(
-      "Noch keine Favoriten. Markiere Gebete, Bekenntnisse und andere Texte "
-      "mit dem Stern, um sie hier schnell wiederzufinden.",
+      "Noch keine Favoriten. Markiere $items mit dem Stern, um sie hier "
+      "schnell wiederzufinden.",
       key: const Key("memorize_favorites_empty"),
       style: Theme.of(
         context,

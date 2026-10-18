@@ -3,6 +3,7 @@ import '../../models/memorization/memorization_text.dart';
 import '../../models/prayer.dart';
 import '../confession_service.dart';
 import '../prayer_service.dart';
+import 'favorite_ids.dart';
 import 'segment_headings.dart';
 import 'text_segmenter.dart';
 
@@ -72,12 +73,24 @@ class MemorizationCatalog {
 
   MemorizationWork? work(String id) => _works[id];
 
+  /// Die Werke einer als Ganzes favorisierbaren Gruppe
+  /// ([MemorizationWork.groupId]); leer für unbekannte IDs.
+  List<MemorizationWork> worksInGroup(String groupId) {
+    return works.where((work) => work.groupId == groupId).toList();
+  }
+
+  /// Ob [favoriteId] (Werk oder ganze Bekenntnisschrift) im Katalog
+  /// vorkommt; Favoriten entfernter Texte werden nicht angezeigt.
+  bool hasFavorite(String favoriteId) {
+    return work(favoriteId) != null || worksInGroup(favoriteId).isNotEmpty;
+  }
+
   // ==========================
   // GEBETE
   // ==========================
 
   static MemorizationWork fromPrayer(Prayer prayer) {
-    final workId = "prayer.${prayer.id}";
+    final workId = FavoriteIds.prayer(prayer);
 
     return MemorizationWork(
       id: workId,
@@ -108,7 +121,7 @@ class MemorizationCatalog {
     Confession confession,
     ConfessionSection section,
   ) {
-    final workId = "confession.${confession.id}.${section.id}";
+    final workId = FavoriteIds.confessionSection(confession, section);
 
     final type = confession.category == "altkirchliche_symbole"
         ? MemorizationTextType.creed
@@ -133,6 +146,7 @@ class MemorizationCatalog {
       title: title("de"),
       type: type,
       group: multiple ? (confession.title["de"] ?? confession.id) : null,
+      groupId: multiple ? FavoriteIds.confessionGroup(confession) : null,
       shortTitle: multiple ? (section.title["de"] ?? section.id) : null,
       versions: [
         for (final language in confession.languages)

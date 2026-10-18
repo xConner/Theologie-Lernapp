@@ -94,9 +94,15 @@ Jede Sprachfassung ist ein eigener Lerntext (`prayer.vaterunser.de`,
 nur eine Methode im Katalog, die `MemorizationWork`s liefert.
 
 Favoriten gelten je Werk (`prayer.vaterunser`, alle Sprachfassungen) und
-liegen als Liste von Werk-IDs im Feld `favorites` von
-`memorization_settings` – neben „Meine Texte“, getrennt vom Lernstand. Die
-Favoritenansicht verweist auf die Werke des Katalogs, ohne Kopien.
+liegen als Liste von IDs im Feld `favorites` von `memorization_settings` –
+neben „Meine Texte“, getrennt vom Lernstand. Es gibt nur diesen einen
+Bestand: Die Menüs Gebete und Bekenntnisse setzen und filtern dieselben IDs
+(`services/memorization/favorite_ids.dart`); eine Bekenntnisschrift mit
+mehreren Artikeln ist dort als Ganzes Favorit (`confession.<id>`). Geladene
+`MemorizationRepository`-Instanzen desselben Nutzers übernehmen jede
+gespeicherte Einstellungsänderung, damit alle Ansichten sofort denselben
+Stand zeigen. Die Favoritenansicht verweist auf die Werke des Katalogs,
+ohne Kopien.
 
 Die Spracherkennung liefert ausschließlich ein Transkript; bewertet wird
 lokal durch `MemorizationTextEvaluator`. Ob die Erkennung selbst auf dem

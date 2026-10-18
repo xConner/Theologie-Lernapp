@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../models/confession.dart';
+import '../services/memorization/favorite_ids.dart';
 import '../services/memorization/memorization_catalog.dart';
+import '../services/memorization/memorization_repository.dart';
 import '../widgets/memorization_widgets.dart';
 import '../widgets/settings_access.dart';
 import '../info/app_info.dart';
@@ -10,7 +12,18 @@ import '../widgets/info_report.dart';
 class ConfessionDetailScreen extends StatefulWidget {
   final Confession confession;
 
-  const ConfessionDetailScreen({super.key, required this.confession});
+  /// Abschnitt, der zuerst angezeigt wird (z. B. ein favorisierter Artikel).
+  final int initialSectionIndex;
+
+  /// Vom Menü übergeben (Favoriten); sonst hier geladen.
+  final MemorizationRepository? repository;
+
+  const ConfessionDetailScreen({
+    super.key,
+    required this.confession,
+    this.initialSectionIndex = 0,
+    this.repository,
+  });
 
   @override
   State<ConfessionDetailScreen> createState() => _ConfessionDetailScreenState();
@@ -21,11 +34,19 @@ class _ConfessionDetailScreenState extends State<ConfessionDetailScreen> {
 
   late String selectedLanguage;
 
-  int selectedSectionIndex = 0;
+  late int selectedSectionIndex = widget.initialSectionIndex.clamp(
+    0,
+    confession.sections.length - 1,
+  );
+
+  late final MemorizationRepository favorites =
+      widget.repository ?? MemorizationRepository.forCurrentUser();
 
   @override
   void initState() {
     super.initState();
+
+    favorites.load().catchError((Object _) {});
 
     selectedLanguage = confession.languages.first;
   }
@@ -133,6 +154,11 @@ class _ConfessionDetailScreenState extends State<ConfessionDetailScreen> {
         ),
 
         actions: [
+          // Wie im Menü: das Bekenntnis bzw. die ganze Bekenntnisschrift.
+          FavoriteButton(
+            repository: favorites,
+            workId: FavoriteIds.confession(confession),
+          ),
           InfoButton(
             module: AppModules.confessions,
             reportDetails: () => {

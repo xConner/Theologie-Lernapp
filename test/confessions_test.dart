@@ -2,11 +2,13 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:theologie_lernapp/models/confession.dart';
 import 'package:theologie_lernapp/screens/confession_detail_screen.dart';
 import 'package:theologie_lernapp/screens/confessions_screen.dart';
 import 'package:theologie_lernapp/services/confession_service.dart';
+import 'package:theologie_lernapp/services/memorization/memorization_repository.dart';
 import 'package:theologie_lernapp/services/notifications/app_deep_link.dart';
 import 'package:theologie_lernapp/widgets/settings_access.dart';
 
@@ -14,6 +16,14 @@ import 'test_asset_bundle.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+
+  // Favoriten der Menüs: Gastmodus, lokal gespeichert.
+  setUp(() {
+    SharedPreferences.setMockInitialValues({});
+    MemorizationRepository.debugOverride = MemorizationRepository(null);
+  });
+
+  tearDown(() => MemorizationRepository.debugOverride = null);
 
   group("Bekenntnisse: Daten", () {
     test("werden aus dem App-Bundle geladen (ohne localhost)", () async {

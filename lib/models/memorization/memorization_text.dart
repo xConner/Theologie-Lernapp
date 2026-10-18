@@ -138,6 +138,10 @@ class MemorizationWork {
   /// Titel innerhalb der Gruppe (z. B. nur der Artikel), sonst [title].
   final String? shortTitle;
 
+  /// Stabile ID der Gruppe, falls sie als Ganzes Favorit sein kann
+  /// (Bekenntnisschrift mit mehreren Artikeln); null bei Rubriken der Gebete.
+  final String? groupId;
+
   const MemorizationWork({
     required this.id,
     required this.title,
@@ -145,5 +149,6 @@ class MemorizationWork {
     required this.versions,
     this.group,
     this.shortTitle,
+    this.groupId,
   });
 }

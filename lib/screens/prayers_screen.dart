@@ -1,18 +1,25 @@
 import 'package:flutter/material.dart';
 
 import '../models/prayer.dart';
+import '../services/memorization/favorite_ids.dart';
+import '../services/memorization/memorization_repository.dart';
 import '../services/prayer_service.dart';
 import '../theme/app_theme.dart';
 import '../widgets/settings_access.dart';
 import '../info/app_info.dart';
 import '../widgets/info_report.dart';
+import '../widgets/memorization_widgets.dart';
 import 'prayer_detail_screen.dart';
 
 class PrayersScreen extends StatefulWidget {
   /// Ermöglicht Widget-Tests mit eigenem Asset-Bundle.
   final PrayerService? service;
 
-  const PrayersScreen({super.key, this.service});
+  /// Favoriten (gemeinsam mit „Texte auswendig lernen“); für Tests
+  /// austauschbar.
+  final MemorizationRepository? repository;
+
+  const PrayersScreen({super.key, this.service, this.repository});
 
   /// Tag-Filter über der Liste (null = „Alle“).
   static const List<String?> filterTags = [
@@ -39,6 +46,9 @@ class PrayersScreen extends StatefulWidget {
 class _PrayersScreenState extends State<PrayersScreen> {
   late final PrayerService service = widget.service ?? PrayerService();
 
+  late final MemorizationRepository favorites =
+      widget.repository ?? MemorizationRepository.forCurrentUser();
+
   final TextEditingController searchController = TextEditingController();
 
   List<Prayer> prayers = [];
@@ -46,6 +56,8 @@ class _PrayersScreenState extends State<PrayersScreen> {
   String query = "";
 
   String? selectedTag;
+
+  bool onlyFavorites = false;
 
   bool loading = true;
 
@@ -64,6 +76,10 @@ class _PrayersScreenState extends State<PrayersScreen> {
   }
 
   Future<void> load() async {
+    // Ohne Favoriten bleibt das Menü nutzbar; die Sterne erscheinen erst
+    // nach dem Laden.
+    favorites.load().catchError((Object _) {});
+
     try {
       final data = await service.loadPrayers();
 
@@ -83,8 +99,14 @@ class _PrayersScreenState extends State<PrayersScreen> {
     }
   }
 
-  List<Prayer> get filtered =>
-      PrayerSearch.filter(prayers, query: query, tag: selectedTag);
+  List<Prayer> get filtered => PrayerSearch.filter(
+    prayers,
+    query: query,
+    tag: selectedTag,
+  ).where((p) => !onlyFavorites || isFavorite(p)).toList();
+
+  bool isFavorite(Prayer prayer) =>
+      favorites.isFavorite(FavoriteIds.prayer(prayer));
 
   Widget buildFilterChips() {
     return SingleChildScrollView(
@@ -92,22 +114,36 @@ class _PrayersScreenState extends State<PrayersScreen> {
       padding: const EdgeInsets.symmetric(horizontal: 12),
 
       child: Row(
-        children: PrayersScreen.filterTags.map((tag) {
-          return Padding(
+        children: [
+          // Unabhängig vom Tag: zeigt nur die favorisierten Gebete.
+          Padding(
             padding: const EdgeInsets.only(right: 8),
-
-            child: ChoiceChip(
-              key: Key("prayer_filter_${tag ?? "alle"}"),
-              label: Text(tag == null ? "Alle" : PrayerTags.label(tag)),
-              selected: selectedTag == tag,
-              onSelected: (_) {
-                setState(() {
-                  selectedTag = tag;
-                });
-              },
+            child: FilterChip(
+              key: const Key("prayer_filter_favorites"),
+              avatar: const Icon(Icons.star_rounded, size: 18),
+              label: const Text("Favoriten"),
+              selected: onlyFavorites,
+              onSelected: (value) => setState(() => onlyFavorites = value),
             ),
-          );
-        }).toList(),
+          ),
+
+          ...PrayersScreen.filterTags.map((tag) {
+            return Padding(
+              padding: const EdgeInsets.only(right: 8),
+
+              child: ChoiceChip(
+                key: Key("prayer_filter_${tag ?? "alle"}"),
+                label: Text(tag == null ? "Alle" : PrayerTags.label(tag)),
+                selected: selectedTag == tag,
+                onSelected: (_) {
+                  setState(() {
+                    selectedTag = tag;
+                  });
+                },
+              ),
+            );
+          }),
+        ],
       ),
     );
   }
@@ -119,18 +155,28 @@ class _PrayersScreenState extends State<PrayersScreen> {
 
         subtitle: Text(prayer.tags.map(PrayerTags.label).join(" · ")),
 
-        trailing: Text(
-          prayer.languages.map((l) => l.toUpperCase()).join(" "),
-          style: Theme.of(
-            context,
-          ).textTheme.bodySmall?.copyWith(color: context.colors.textSecondary),
+        trailing: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              prayer.languages.map((l) => l.toUpperCase()).join(" "),
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                color: context.colors.textSecondary,
+              ),
+            ),
+            FavoriteButton(
+              repository: favorites,
+              workId: FavoriteIds.prayer(prayer),
+            ),
+          ],
         ),
 
         onTap: () {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (_) => PrayerDetailScreen(prayer: prayer),
+              builder: (_) =>
+                  PrayerDetailScreen(prayer: prayer, repository: favorites),
             ),
           );
         },
@@ -191,8 +237,13 @@ class _PrayersScreenState extends State<PrayersScreen> {
       );
     }
 
-    final results = filtered;
+    return ListenableBuilder(
+      listenable: favorites,
+      builder: (context, _) => buildContent(filtered),
+    );
+  }
 
+  Widget buildContent(List<Prayer> results) {
     return Center(
       child: ConstrainedBox(
         constraints: const BoxConstraints(maxWidth: 700),
@@ -224,13 +275,15 @@ class _PrayersScreenState extends State<PrayersScreen> {
 
             Expanded(
               child: results.isEmpty
-                  ? const Center(
+                  ? Center(
                       child: Padding(
-                        padding: EdgeInsets.all(24),
-                        child: Text(
-                          "Keine passenden Gebete gefunden.",
-                          textAlign: TextAlign.center,
-                        ),
+                        padding: const EdgeInsets.all(24),
+                        child: onlyFavorites && !prayers.any(isFavorite)
+                            ? const FavoritesEmptyHint(items: "Gebete")
+                            : const Text(
+                                "Keine passenden Gebete gefunden.",
+                                textAlign: TextAlign.center,
+                              ),
                       ),
                     )
                   : buildList(results),

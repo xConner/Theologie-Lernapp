@@ -85,7 +85,7 @@ class _MemorizationHomeScreenState extends State<MemorizationHomeScreen> {
 
   /// Favoriten, soweit sie in den Daten der App (noch) vorhanden sind.
   int get _favoriteCount =>
-      repository.favoriteIds.where((id) => catalog!.work(id) != null).length;
+      repository.favoriteIds.where(catalog!.hasFavorite).length;
 
   Future<void> _guard(Future<void> Function() action) async {
     try {
@@ -437,6 +437,14 @@ class _MemorizationAddTextScreenState extends State<MemorizationAddTextScreen> {
 
   bool onlyFavorites = false;
 
+  /// Das Werk selbst oder seine ganze Bekenntnisschrift ist Favorit.
+  bool _isFavorite(MemorizationWork work) {
+    final groupId = work.groupId;
+
+    return repository.isFavorite(work.id) ||
+        (groupId != null && repository.isFavorite(groupId));
+  }
+
   Future<void> _toggle(BuildContext context, MemorizationText text) async {
     final messenger = ScaffoldMessenger.of(context);
 
@@ -517,6 +525,8 @@ class _MemorizationAddTextScreenState extends State<MemorizationAddTextScreen> {
     }
 
     for (final entry in grouped.entries) {
+      final groupId = entry.value.first.groupId;
+
       final selected = entry.value
           .expand((work) => work.versions)
           .where((text) => repository.contains(text.id))
@@ -533,7 +543,15 @@ class _MemorizationAddTextScreenState extends State<MemorizationAddTextScreen> {
             initiallyExpanded:
                 onlyFavorites ||
                 (expandFirst && entry.key == grouped.keys.first),
-            title: Text(entry.key),
+            // Bekenntnisschriften lassen sich auch als Ganzes markieren.
+            title: groupId == null
+                ? Text(entry.key)
+                : Row(
+                    children: [
+                      Expanded(child: Text(entry.key)),
+                      FavoriteButton(repository: repository, workId: groupId),
+                    ],
+                  ),
             subtitle: Text(
               selected == 0
                   ? "${entry.value.length} Texte"
@@ -569,9 +587,7 @@ class _MemorizationAddTextScreenState extends State<MemorizationAddTextScreen> {
                     type,
                     catalog.works
                         .where((w) => w.type == type)
-                        .where(
-                          (w) => !onlyFavorites || repository.isFavorite(w.id),
-                        )
+                        .where((w) => !onlyFavorites || _isFavorite(w))
                         .toList(),
                   ),
               ].where((group) => group.$2.isNotEmpty).toList();

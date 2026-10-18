@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:theologie_lernapp/models/prayer.dart';
 import 'package:theologie_lernapp/screens/prayer_detail_screen.dart';
 import 'package:theologie_lernapp/screens/prayers_screen.dart';
+import 'package:theologie_lernapp/services/memorization/memorization_repository.dart';
 import 'package:theologie_lernapp/services/notifications/app_deep_link.dart';
 import 'package:theologie_lernapp/services/prayer_service.dart';
 import 'package:theologie_lernapp/widgets/settings_access.dart';
@@ -37,6 +39,14 @@ Widget app(Widget home) => MaterialApp(home: home);
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+
+  // Favoriten der Menüs: Gastmodus, lokal gespeichert.
+  setUp(() {
+    SharedPreferences.setMockInitialValues({});
+    MemorizationRepository.debugOverride = MemorizationRepository(null);
+  });
+
+  tearDown(() => MemorizationRepository.debugOverride = null);
 
   late List<Prayer> prayers;
 
