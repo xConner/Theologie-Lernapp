@@ -42,7 +42,7 @@ class StreakTrack {
   static const StreakTrack latin = StreakTrack(
     id: "latin",
     label: "Latein",
-    sources: [StreakSource.vocabulary],
+    sources: [StreakSource.vocabulary, StreakSource.grammar],
   );
 
   static const StreakTrack perikope = StreakTrack(

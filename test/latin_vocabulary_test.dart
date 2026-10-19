@@ -138,11 +138,7 @@ void main() {
 
     test("Nomen haben ein gültiges Genus", () {
       for (final entry in _entries().where((e) => e.type == "noun")) {
-        expect(
-          ["m", "f", "n"],
-          contains(entry.gender),
-          reason: entry.lemma,
-        );
+        expect(["m", "f", "n"], contains(entry.gender), reason: entry.lemma);
       }
     });
 

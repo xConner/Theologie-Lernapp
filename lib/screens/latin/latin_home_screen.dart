@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import 'grammar/latin_grammar_overview_screen.dart';
+import 'grammar/latin_grammar_trainer_screen.dart';
 import 'latin_vocabulary_trainer_screen.dart';
 import 'latin_vocabulary_overview_screen.dart';
 
@@ -81,7 +83,14 @@ class LatinHomeScreen extends StatelessWidget {
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton.icon(
-                    onPressed: null,
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const LatinGrammarOverviewScreen(),
+                        ),
+                      );
+                    },
                     icon: const Icon(Icons.rule_rounded),
                     label: const Text("Grammatikübersicht"),
                   ),
@@ -92,7 +101,14 @@ class LatinHomeScreen extends StatelessWidget {
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton.icon(
-                    onPressed: null,
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const LatinGrammarTrainerScreen(),
+                        ),
+                      );
+                    },
                     icon: const Icon(Icons.fitness_center_rounded),
                     label: const Text("Grammatiktrainer"),
                   ),

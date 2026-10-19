@@ -38,6 +38,7 @@ Einstellungs-Service (ein Lesezugriff je Öffnen) und seine Antwortprüfung.
 | Griechisch-Vokabeln | `services/greek/vocabulary/vocabulary_settings_service.dart` | `vocabulary_answer_checker.dart` |
 | Latein-Vokabeln | `services/latin/vocabulary/latin_vocabulary_settings_service.dart` | `latin_vocabulary_answer_checker.dart` |
 | Griechisch-Grammatik | `services/greek/grammar/grammar_settings_service.dart` | `grammar_answer_check.dart` |
+| Latein-Grammatik | `services/latin/grammar/latin_grammar_store.dart` | `latin_grammar_answer_check.dart` (siehe [latin.md](latin.md)) |
 | Perikopenquiz | `services/settings_service.dart` | im `quiz_screen.dart` (Vergleich der Stellen) |
 | Bücher systematisch lernen | `services/book_learning_storage.dart` | `quiz/books/reference_answer.dart` (siehe [pericope-books.md](pericope-books.md)) |
 
@@ -55,7 +56,12 @@ Einstellungs-Service (ein Lesezugriff je Öffnen) und seine Antwortprüfung.
 * `grammar_trainer_screen.dart` – Sitzungszustand, Preloading der nächsten
   Frage (`_preloadedQuestion`, Tokens gegen überholte Antworten) und UI.
 
-Ein neuer Trainer (z. B. Latein-Grammatik) braucht eigene Regeln und eine
+Der Latein-Grammatiktrainer bildet seine Formen selbst
+(`services/latin/grammar/latin_morphology.dart`, ohne Netzwerk) und
+speichert Lernstand und Einstellungen als Dokumente unter `quiz_settings`
+(`LatinGrammarStore`), ohne eigene Collection.
+
+Ein neuer Trainer braucht eigene Regeln und eine
 eigene Antwortprüfung, kann aber `LearningService`, `GrammarLearning`,
 `reportTrainerAnswer` und die Widgets unverändert verwenden. Für den
 Lernstand kommt eine Collection in `LocalLearningStore.cardCollections`,

@@ -7,7 +7,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// Modul entscheidet über eigene Booleans, ob sein Richtig- bzw.
 /// Falsch-Sound abgespielt wird; die Lautstärke selbst ist dagegen für alle
 /// Module gemeinsam (siehe [QuizSoundSettings.volume]).
-enum SoundModule { pericopeQuiz, greekGrammar, greekVocabulary, latinVocabulary }
+enum SoundModule {
+  pericopeQuiz,
+  greekGrammar,
+  greekVocabulary,
+  latinVocabulary,
+  latinGrammar,
+}
 
 /// Persistiert die Nutzer-Einstellungen für die Antwort-Sounds im Quizsystem
 /// lokal auf dem Gerät, sodass sie einen Neustart der App überdauern.

@@ -169,9 +169,14 @@ class ProgressDataService {
 
       final books = _quizSettingsDoc(uid, LocalLearningStore.pericopeBooks);
       final logic = _quizSettingsDoc(uid, LocalLearningStore.logicCourse);
+      final latinGrammar = _quizSettingsDoc(
+        uid,
+        LocalLearningStore.latinGrammar,
+      );
 
       writes.add((batch) => batch.delete(books));
       writes.add((batch) => batch.delete(logic));
+      writes.add((batch) => batch.delete(latinGrammar));
 
       await _commitInBatches(writes);
     });

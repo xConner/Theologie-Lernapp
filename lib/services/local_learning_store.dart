@@ -17,8 +17,9 @@ import '../models/memorization/memorization_card.dart';
 ///     (`vocabulary_settings`, `latin_vocabulary_settings`,
 ///     `greek_grammar_settings`, `memorization_settings`)
 ///   * `quiz_settings/perikopen`
-///   * die Dokumente von „Bücher systematisch lernen“ und der Fortschritt in
-///     „Einführung in die Logik“ unter `quiz_settings` ([quizDocuments])
+///   * die Dokumente von „Bücher systematisch lernen“, der Fortschritt in
+///     „Einführung in die Logik“ und Lernstand/Einstellungen des lateinischen
+///     Grammatiktrainers unter `quiz_settings` ([quizDocuments])
 ///
 /// Alle Keys sind versioniert (`guest.v1.`), damit sich das Format später
 /// migrieren lässt. Fehlende oder ungültige Daten werden als "nicht
@@ -107,11 +108,19 @@ class LocalLearningStore {
   /// (`quiz_settings/logic_course`, siehe `LogicProgressStore`).
   static const String logicCourse = "logic_course";
 
+  /// Lernstand und Einstellungen des lateinischen Grammatiktrainers
+  /// (`quiz_settings/latin_grammar` bzw. `latin_grammar_settings`, siehe
+  /// `LatinGrammarStore`).
+  static const String latinGrammar = "latin_grammar";
+  static const String latinGrammarSettings = "latin_grammar_settings";
+
   /// Alle Dokumente unter `quiz_settings`, die bei der Übernahme von
   /// Gastdaten übertragen und beim Löschen der Gastdaten entfernt werden.
   static const List<String> quizDocuments = [
     ...bookLearningDocuments,
     logicCourse,
+    latinGrammar,
+    latinGrammarSettings,
   ];
 
   static String _quizDocumentKey(String name) =>
@@ -410,13 +419,15 @@ class LocalLearningStore {
   // ==========================
 
   /// Setzt alle lokalen Lernstände auf die Initialwerte zurück (auch den
-  /// Fortschritt in „Einführung in die Logik“). Eigene Eselsbrücken und
+  /// Fortschritt in „Einführung in die Logik“ und im lateinischen
+  /// Grammatiktrainer). Eigene Eselsbrücken und
   /// Einstellungen (auch Verspräzisierungen und Lernpläne) bleiben erhalten.
   Future<void> resetProgress() async {
     final prefs = await SharedPreferences.getInstance();
 
     await prefs.remove(_quizDocumentKey(pericopeBooks));
     await prefs.remove(_quizDocumentKey(logicCourse));
+    await prefs.remove(_quizDocumentKey(latinGrammar));
 
     for (final collection in cardCollections) {
       await resetCollection(collection);

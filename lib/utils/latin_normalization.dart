@@ -47,25 +47,21 @@ const Map<String, String> _composedMacrons = {
 /// Zeichen zusammen und entfernt Kürzezeichen (Breve, U+0306 bzw. ă …).
 String composeLatinMacrons(String text) {
   final composed = text.replaceAllMapped(
-    RegExp('([aeiouyAEIOUY])̄'),
+    RegExp('([aeiouyAEIOUY])\u0304'),
     (m) => _composedMacrons[m.group(1)!]!,
   );
 
   return composed
-      .replaceAll('̆', '')
-      .replaceAllMapped(
-        RegExp('[ăĕĭŏŭ]'),
-        (m) => _plainVowels[m.group(0)!]!,
-      );
+      .replaceAll('\u0306', '')
+      .replaceAllMapped(RegExp('[ăĕĭŏŭ]'), (m) => _plainVowels[m.group(0)!]!);
 }
 
 /// Entfernt Längen- und Kürzezeichen: „cōgitāre“ → „cogitare“.
 String stripLatinMacrons(String text) {
-  return composeLatinMacrons(text)
-      .replaceAllMapped(
-        RegExp('[āēīōūȳĀĒĪŌŪȲ]'),
-        (m) => _plainVowels[m.group(0)!]!,
-      );
+  return composeLatinMacrons(text).replaceAllMapped(
+    RegExp('[āēīōūȳĀĒĪŌŪȲ]'),
+    (m) => _plainVowels[m.group(0)!]!,
+  );
 }
 
 /// Ob der Text Längenzeichen enthält.

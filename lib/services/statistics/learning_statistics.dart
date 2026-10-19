@@ -26,6 +26,11 @@ class StatisticsTrainer {
     label: "Latein-Vokabeltrainer",
   );
 
+  static const StatisticsTrainer latinGrammar = StatisticsTrainer(
+    id: "latin_grammar",
+    label: "Latein-Grammatiktrainer",
+  );
+
   static const StatisticsTrainer perikopenQuiz = StatisticsTrainer(
     id: "perikopen_quiz",
     label: "Perikopenquiz",
@@ -35,6 +40,7 @@ class StatisticsTrainer {
     greekVocabulary,
     greekGrammar,
     latinVocabulary,
+    latinGrammar,
     perikopenQuiz,
   ];
 }

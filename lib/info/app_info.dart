@@ -176,21 +176,87 @@ class AppModules {
     id: "latin_vocabulary",
     title: "Latein – Vokabeln",
     description:
-        "Vokabeltrainer für Latein. Abgefragt werden Übersetzung und – je "
-        "nach Einstellung – Zusatzformen und Genus.",
+        "Vokabeltrainer und Vokabelübersicht für Latein. Abgefragt werden "
+        "Übersetzung und – je nach Einstellung – Zusatzformen und Genus.",
     sources: [
       SourceInfo(
         title: "Vokabelliste",
+        origin:
+            "Wortschatz der Lektionen 1–3 von „prima. Latein lernen“, "
+            "Band 1 (C.C. Buchner, 2020). Das Lehrbuch ist im Projekt nicht "
+            "ausdrücklich genannt; die Zuordnung beruht auf Reihenfolge, "
+            "Gliederung und Wortauswahl der Liste (siehe docs/latin.md).",
         processing:
-            "Die Vokabeln sind in Schritte und Unter-Schritte gegliedert in "
-            "der App hinterlegt. Laut Projektcode orientieren sich die "
-            "Zusatzformen an einem Lehrbuch, das im Projekt nicht benannt "
-            "ist.",
+            "Die Vokabeln sind in Schritte (Lektionen) und Unter-Schritte "
+            "(Wortschatzteile) gegliedert in der App hinterlegt. Die "
+            "Lektionen ab 4 fehlen noch, weil die Wortliste des Verlags "
+            "nicht frei zugänglich ist.",
       ),
     ],
     notes: [
       "Bei mehreren möglichen Übersetzungen gelten nur die hinterlegten "
           "Bedeutungen als richtig.",
+    ],
+  );
+
+  static const ModuleInfo latinGrammarTrainer = ModuleInfo(
+    id: "latin_grammar_trainer",
+    title: "Latein – Grammatiktrainer",
+    description:
+        "Formen lateinischer Substantive, Adjektive, Pronomen und Verben "
+        "bestimmen und bilden, Präpositionen mit ihrem Kasus und "
+        "Satzkonstruktionen erkennen.",
+    sources: [
+      SourceInfo(
+        title: "Formen",
+        processing:
+            "Die Formen werden in der App nach den Regeln der Schulgrammatik "
+            "aus Grundform, Stamm und Endungen gebildet; unregelmäßige "
+            "Wörter (esse, posse, īre, velle, Pronomen) sind als Tabellen "
+            "hinterlegt. Tests prüfen die Paradigmen gegen Referenzformen.",
+        aiNote:
+            "Endungstabellen, Beispielsätze und Erklärungen wurden mit "
+            "KI-Unterstützung erstellt und anhand von Standardparadigmen "
+            "geprüft.",
+      ),
+      SourceInfo(
+        title: "Wörter",
+        origin:
+            "Vokabelliste der App (siehe „Latein – Vokabeln“) und "
+            "zusätzliche, eindeutig gekennzeichnete Musterwörter für Stoff, "
+            "den der Wortschatz noch nicht abdeckt",
+      ),
+    ],
+    notes: [
+      "Längenzeichen sind beim Bilden freiwillig, außer „Längenzeichen "
+          "verlangen“ ist eingeschaltet. Gesetzte Längen müssen aber stimmen, "
+          "wenn sie Formen unterscheiden (venit – vēnit).",
+      "Die Reihenfolge der Themen folgt dem üblichen Lehrgang; nur die "
+          "Lektionen 1–3 sind am Lehrbuch abgeglichen.",
+    ],
+  );
+
+  static const ModuleInfo latinGrammarOverview = ModuleInfo(
+    id: "latin_grammar_overview",
+    title: "Latein – Grammatikübersicht",
+    description:
+        "Übersichten zu Kasus, Deklinationen, Adjektiven, Pronomen, "
+        "Präpositionen, Konjugationen, Tempora, Passiv, Konjunktiv, "
+        "Imperativ, Infinitiv, Partizipien und Satzlehre.",
+    sources: [
+      SourceInfo(
+        title: "Tabellen",
+        processing:
+            "Die Tabellen verwenden dieselben Formen wie der "
+            "Grammatiktrainer.",
+      ),
+      SourceInfo(
+        title: "Regeln, Beispiele und Satzlehre",
+        processing:
+            "Kurze, für die App geschriebene Erklärungen und Beispielsätze "
+            "mit Übersetzung.",
+        aiNote: "Die Erklärungen wurden mit KI-Unterstützung formuliert.",
+      ),
     ],
   );
 
@@ -600,6 +666,8 @@ class AppModules {
     greekGrammarTrainer,
     greekGrammarOverview,
     latinVocabulary,
+    latinGrammarTrainer,
+    latinGrammarOverview,
     logic,
     timetable,
   ];

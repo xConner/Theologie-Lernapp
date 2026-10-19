@@ -10,6 +10,7 @@ import '../screens/greek/grammar_trainer_screen.dart';
 import '../screens/greek/greek_home_screen.dart';
 import '../screens/greek/vocabulary_trainer_screen.dart';
 import '../screens/hymnals_screen.dart';
+import '../screens/latin/grammar/latin_grammar_trainer_screen.dart';
 import '../screens/latin/latin_home_screen.dart';
 import '../screens/latin/latin_vocabulary_trainer_screen.dart';
 import '../screens/liturgical_calendar_screen.dart';
@@ -41,6 +42,7 @@ final Map<String, Future<Widget?> Function()> _screens = {
   AppDeepLink.greekGrammar: () async => const GreekGrammarTrainerScreen(),
   AppDeepLink.latin: () async => const LatinHomeScreen(),
   AppDeepLink.latinVocabulary: () async => const LatinVocabularyTrainerScreen(),
+  AppDeepLink.latinGrammar: () async => const LatinGrammarTrainerScreen(),
   AppDeepLink.calendar: () async => const LiturgicalCalendarScreen(),
   AppDeepLink.hymns: () async => const HymnalsScreen(),
   AppDeepLink.confessions: () async => const ConfessionsScreen(),

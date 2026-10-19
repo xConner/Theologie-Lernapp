@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../info/app_info.dart';
+import '../info/module_info.dart';
 import '../services/greek/grammar/greek_declension.dart';
 import '../theme/app_theme.dart';
 import 'info_report.dart';
@@ -13,10 +14,14 @@ class GrammarTopicScaffold extends StatelessWidget {
   final String title;
   final List<Widget> children;
 
+  /// Bereich für die Info-Schaltfläche (Griechisch oder Latein).
+  final ModuleInfo module;
+
   const GrammarTopicScaffold({
     super.key,
     required this.title,
     required this.children,
+    this.module = AppModules.greekGrammarOverview,
   });
 
   static const double maxWidth = 720;
@@ -26,9 +31,9 @@ class GrammarTopicScaffold extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
-        actions: const [
-          InfoButton(module: AppModules.greekGrammarOverview),
-          SettingsButton(),
+        actions: [
+          InfoButton(module: module),
+          const SettingsButton(),
         ],
       ),
 
@@ -199,7 +204,7 @@ class GrammarCell extends StatelessWidget {
       article = null,
       _ending = null;
 
-  /// Griechische Form oder Endung.
+  /// Griechische bzw. lateinische Form oder Endung.
   const GrammarCell.form(this.text, {super.key})
     : _kind = _GrammarCellKind.form,
       article = null,

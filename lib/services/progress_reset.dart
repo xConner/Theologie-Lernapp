@@ -17,6 +17,12 @@ enum ProgressArea {
     resetTitle: "Latein-Vokabelfortschritt zurücksetzen",
     collection: LocalLearningStore.latinVocabulary,
   ),
+  latinGrammar(
+    label: "Lateinische Grammatik",
+    resetTitle: "Grammatikfortschritt (Latein) zurücksetzen",
+    collection: null,
+    documents: [LocalLearningStore.latinGrammar],
+  ),
   greekVocabulary(
     label: "Altgriechisch-Vokabeln",
     resetTitle: "Altgriechischen Vokabelfortschritt zurücksetzen",
@@ -66,6 +72,9 @@ enum ProgressArea {
     switch (this) {
       case ProgressArea.latinVocabulary:
         return "Die Lernstände aller lateinischen Vokabeln.";
+      case ProgressArea.latinGrammar:
+        return "Die Lernstände und Antworten des Grammatiktrainers (Latein). "
+            "Die Einstellungen bleiben erhalten.";
       case ProgressArea.greekVocabulary:
         return "Die Lernstände aller altgriechischen Vokabeln.";
       case ProgressArea.greekGrammar:
