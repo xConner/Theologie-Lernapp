@@ -269,6 +269,39 @@ void main() {
       expect(find.text("serva"), findsOneWidget);
     });
 
+    testWidgets("eine neue Lektion erscheint ohne Codeänderung im Filter", (
+      tester,
+    ) async {
+      // Simuliert eine spätere Ergänzung (Lektion 4, neue ID am Ende):
+      // Übersicht und Schrittfilter lesen die Schritte aus den Daten.
+      final entries = [
+        ..._entries(),
+        LatinVocabularyEntry.fromJson({
+          "id": 103,
+          "step": 4,
+          "substep": 1,
+          "type": "noun",
+          "lemma": "porta",
+          "principalForm": "portae",
+          "gender": "f",
+          "translations": ["Tor"],
+        }),
+      ];
+
+      await tester.pumpWidget(app(entries));
+      await tester.pumpAndSettle();
+
+      expect(find.text("${entries.length} Vokabeln"), findsOneWidget);
+
+      await tester.tap(find.text("Alle"));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text("Schritt 4").last);
+      await tester.pumpAndSettle();
+
+      expect(find.text("porta"), findsOneWidget);
+      expect(find.text("1 von ${entries.length} Vokabeln"), findsOneWidget);
+    });
+
     testWidgets("jede Vokabel erscheint in der Übersicht", (tester) async {
       final entries = _entries();
 

@@ -55,6 +55,35 @@ nova, prima brevis, ROMA) weichen in Wortauswahl oder Lektionszählung ab.
   dem eigenen Buch) bereitzustellen. Neue Einträge bekommen fortlaufende
   IDs ab 103; Schritt = Lektion, Unter-Schritt = Wortschatzteil.
 
+**Zweite Recherche (19. Oktober 2026)**
+
+Ziel war der Wortschatz der Lektionen 4–28. Ergebnis: Es kam keine Vokabel
+hinzu, weil sich keine Lektion zuverlässig rekonstruieren ließ.
+
+* Erreichbar war nur die Websuche, die Titel und kurze Ausschnitte liefert.
+  Direkt abrufen ließ sich keine Quelle: Verlag (ccbuchner.de), Quizlet,
+  karteikarte.com, phase-6, card2brain, Studydrive, Knowunity, Wordwall,
+  latin-is-simple, Wiktionary, Wikibooks, archive.org sowie die Suchmaschinen
+  Google, Bing und DuckDuckGo wurden vom Netzwerk der Umgebung abgewiesen
+  (HTTP 403 bzw. DNS-Fehler). GitHub ist nur für dieses Repository
+  freigegeben.
+* Bestätigt: Eine Quizlet-Liste „prima. Vokabeln Lektion 1“ (37 Karten) hat
+  dieselbe Größe wie Schritt 1 der App (37 Wörter). Eine Liste „prima.1
+  Lektion 4“ (28 Karten) existiert; in Ausschnitten erscheinen gaudium,
+  timor, porta, simul und sceleratus. Ein Schulcurriculum nennt für
+  Lektion 4 den Titel „Incitatus ist der Größte!“ und den Ablativ.
+* Nicht verwertbar: Die Ausschnitte zeigen je Liste nur wenige Wörter,
+  widersprechen sich zwischen Suchläufen und mischen die Ausgaben prima A,
+  prima nova, prima brevis und prima. (2020), die andere Lektionszählungen
+  haben. Wortschatzteile (Unter-Schritte) waren nirgends erkennbar.
+* Fünf Wörter einer Lektion mit erfundenem Wortschatzteil hätten im
+  Trainer eine vollständige Lektion vorgetäuscht. Deshalb wurde nichts
+  übernommen.
+* Für spätere Ergänzungen ist nichts im Code anzupassen: Trainer und
+  Übersicht lesen Schritte und Unter-Schritte aus den Daten, neue Schritte
+  sind im Trainer automatisch aktiv, Lernstände hängen an der ID (Test
+  „eine neue Lektion erscheint ohne Codeänderung im Filter“).
+
 ## Grammatikübersicht und Grammatiktrainer
 
 Die Formen werden in `lib/services/latin/grammar/latin_morphology.dart`
