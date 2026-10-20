@@ -24,6 +24,17 @@ bleiben erhalten, und es läuft immer nur ein Zurücksetzen zur Zeit.
 Streaks, Tagesstatistik, Lesepläne und Klausur-Markierungen gehören nicht
 dazu.
 
+Streaks berechnet nur `StreakCalculator` (`services/streak/streak_state.dart`)
+auf lokalen Kalendertagen; `StreakService` lädt, zählt und speichert sie für
+alle Lernbereiche. Ein leerer Firestore-Cache (offline, im Web nach jedem
+Neuladen) gilt als Ladefehler, nicht als „keine Streak“: Bis der Stand
+gelesen ist, wird nichts gespeichert, und offline gezählte Antworten werden
+danach nachgetragen. Beim Neuladen gewinnt je Track der weiter
+fortgeschrittene Stand (`StreakCalculator.merge`), und vor dem Zählen wird
+ein Stand von einem früheren Tag oder älter als 15 Minuten neu geladen,
+damit ein offener Tab keine auf einem anderen Gerät fortgeführte Streak
+zurücksetzt.
+
 `uid == null` bedeutet überall Gastmodus: dieselben Datenstrukturen, lokal
 über `LocalLearningStore` statt in Firestore. Die Collection-Namen stehen
 einmal in `LocalLearningStore.cardCollections`.
