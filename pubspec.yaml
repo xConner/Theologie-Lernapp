@@ -103,6 +103,10 @@ flutter:
       - assets/greek_corpus/nt/
       - assets/greek_corpus/lxx/
       - assets/latin_vocabulary.json
+      # Kirchengeschichte: Epochen, Themen, Einträge, Vorlesungen und
+      # Folienbilder (siehe docs/church-history.md).
+      - assets/church_history/
+      - assets/church_history/slides/
       - assets/eg_lieder.json
       # Gesangbücher und Liedsammlungen: Katalog und Lieder der Regionalteile
       # und Ergänzungshefte (siehe docs/hymnals.md).

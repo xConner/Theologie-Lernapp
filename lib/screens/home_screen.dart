@@ -16,6 +16,7 @@ import 'confessions_screen.dart';
 import 'prayers_screen.dart';
 import 'memorization/memorization_home_screen.dart';
 
+import 'church_history/church_history_home_screen.dart';
 import 'latin/latin_home_screen.dart';
 import 'philosophy/philosophy_home_screen.dart';
 import 'study/study_organization_screen.dart';
@@ -453,6 +454,25 @@ class _HomeScreenState extends State<HomeScreen> {
                           },
                           icon: const Icon(Icons.psychology_alt_rounded),
                           label: const Text("Texte auswendig lernen"),
+                        ),
+                      ),
+
+                      const SizedBox(height: 16),
+
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton.icon(
+                          key: const ValueKey("open-church-history"),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => const ChurchHistoryHomeScreen(),
+                              ),
+                            );
+                          },
+                          icon: const Icon(Icons.account_balance_rounded),
+                          label: const Text("Kirchengeschichte"),
                         ),
                       ),
 

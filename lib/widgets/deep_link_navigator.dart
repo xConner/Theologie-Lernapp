@@ -5,6 +5,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../screens/account_security_screen.dart';
 import '../screens/bible/bible_home_screen.dart';
 import '../screens/bible/reading_plan_detail_screen.dart';
+import '../screens/church_history/church_history_home_screen.dart';
 import '../screens/confessions_screen.dart';
 import '../screens/greek/grammar_trainer_screen.dart';
 import '../screens/greek/greek_home_screen.dart';
@@ -43,6 +44,7 @@ final Map<String, Future<Widget?> Function()> _screens = {
   AppDeepLink.latin: () async => const LatinHomeScreen(),
   AppDeepLink.latinVocabulary: () async => const LatinVocabularyTrainerScreen(),
   AppDeepLink.latinGrammar: () async => const LatinGrammarTrainerScreen(),
+  AppDeepLink.churchHistory: () async => const ChurchHistoryHomeScreen(),
   AppDeepLink.calendar: () async => const LiturgicalCalendarScreen(),
   AppDeepLink.hymns: () async => const HymnalsScreen(),
   AppDeepLink.confessions: () async => const ConfessionsScreen(),

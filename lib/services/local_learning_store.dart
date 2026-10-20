@@ -18,8 +18,9 @@ import '../models/memorization/memorization_card.dart';
 ///     `greek_grammar_settings`, `memorization_settings`)
 ///   * `quiz_settings/perikopen`
 ///   * die Dokumente von „Bücher systematisch lernen“, der Fortschritt in
-///     „Einführung in die Logik“ und Lernstand/Einstellungen des lateinischen
-///     Grammatiktrainers unter `quiz_settings` ([quizDocuments])
+///     „Einführung in die Logik“, Lernstand/Einstellungen des lateinischen
+///     Grammatiktrainers und des Bereichs Kirchengeschichte unter
+///     `quiz_settings` ([quizDocuments])
 ///
 /// Alle Keys sind versioniert (`guest.v1.`), damit sich das Format später
 /// migrieren lässt. Fehlende oder ungültige Daten werden als "nicht
@@ -114,6 +115,12 @@ class LocalLearningStore {
   static const String latinGrammar = "latin_grammar";
   static const String latinGrammarSettings = "latin_grammar_settings";
 
+  /// Lernstand und Einstellungen im Bereich Kirchengeschichte
+  /// (`quiz_settings/church_history` bzw. `church_history_settings`, siehe
+  /// `ChurchHistoryStore`).
+  static const String churchHistory = "church_history";
+  static const String churchHistorySettings = "church_history_settings";
+
   /// Alle Dokumente unter `quiz_settings`, die bei der Übernahme von
   /// Gastdaten übertragen und beim Löschen der Gastdaten entfernt werden.
   static const List<String> quizDocuments = [
@@ -121,6 +128,8 @@ class LocalLearningStore {
     logicCourse,
     latinGrammar,
     latinGrammarSettings,
+    churchHistory,
+    churchHistorySettings,
   ];
 
   static String _quizDocumentKey(String name) =>
@@ -428,6 +437,7 @@ class LocalLearningStore {
     await prefs.remove(_quizDocumentKey(pericopeBooks));
     await prefs.remove(_quizDocumentKey(logicCourse));
     await prefs.remove(_quizDocumentKey(latinGrammar));
+    await prefs.remove(_quizDocumentKey(churchHistory));
 
     for (final collection in cardCollections) {
       await resetCollection(collection);

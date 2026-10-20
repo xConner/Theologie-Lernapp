@@ -50,7 +50,7 @@ Gäste speichern den Lesestatus lokal.
 
 **Deep Links** (`lib/services/notifications/app_deep_link.dart`):
 `/perikopen`, `/greek`, `/greek/vocabulary`, `/greek/grammar`, `/latin`,
-`/latin/vocabulary`, `/latin/grammar`, `/calendar`, `/hymns`, `/confessions`, `/prayers`,
+`/latin/vocabulary`, `/latin/grammar`, `/church-history`, `/calendar`, `/hymns`, `/confessions`, `/prayers`,
 `/memorize`, `/bible`, `/bible/plan/<Plan-ID>`, `/settings`,
 `/settings/notifications`, `/account` sowie `/` (Startseite). Unbekannte
 Pfade werden nicht angezeigt. Derselbe Wert steht im Feld `link` einer

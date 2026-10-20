@@ -44,6 +44,12 @@ enum ProgressArea {
     resetTitle: "Fortschritt beim Auswendiglernen zurücksetzen",
     collection: LocalLearningStore.memorization,
   ),
+  churchHistory(
+    label: "Kirchengeschichte",
+    resetTitle: "Fortschritt in Kirchengeschichte zurücksetzen",
+    collection: null,
+    documents: [LocalLearningStore.churchHistory],
+  ),
   logic(
     label: "Einführung in die Logik",
     resetTitle: "Fortschritt in „Einführung in die Logik“ zurücksetzen",
@@ -86,6 +92,10 @@ enum ProgressArea {
       case ProgressArea.memorization:
         return "Die Lernstände aller Abschnitte unter „Texte auswendig "
             "lernen“.";
+      case ProgressArea.churchHistory:
+        return "Die Lernstände aller Fragen, Merklisten und "
+            "Reihenfolge-Aufgaben zur Kirchengeschichte. Die Einstellungen "
+            "bleiben erhalten.";
       case ProgressArea.logic:
         return "Welche Lektionen geöffnet oder als bearbeitet markiert sind "
             "und die gespeicherten Antworten zu den Übungen.";

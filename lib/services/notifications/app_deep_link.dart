@@ -18,6 +18,7 @@ class AppDeepLink {
   static const String latin = "/latin";
   static const String latinVocabulary = "/latin/vocabulary";
   static const String latinGrammar = "/latin/grammar";
+  static const String churchHistory = "/church-history";
   static const String calendar = "/calendar";
   static const String hymns = "/hymns";
   static const String confessions = "/confessions";
@@ -41,6 +42,7 @@ class AppDeepLink {
     latin,
     latinVocabulary,
     latinGrammar,
+    churchHistory,
     calendar,
     hymns,
     confessions,

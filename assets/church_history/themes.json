@@ -1,0 +1,29 @@
+{
+  "themes": [
+    {
+      "id": "theme.discipline",
+      "title": "Das Fach und seine Methoden",
+      "description": "Was Geschichtsschreibung leistet, wie das Fach heißt, mit welchen Zugängen es arbeitet und wie es die Geschichte in Epochen gliedert."
+    },
+    {
+      "id": "theme.judaism",
+      "title": "Christentum und Judentum",
+      "description": "Die Herkunft der ersten Gemeinden aus dem Judentum, juden- und heidenchristliche Gemeinden und die Ausbildung eines eigenen Selbstverständnisses."
+    },
+    {
+      "id": "theme.mission",
+      "title": "Mission und Ausbreitung",
+      "description": "Voraussetzungen, Methoden, Trägergruppen und Phasen der Ausbreitung des Christentums."
+    },
+    {
+      "id": "theme.martyrdom",
+      "title": "Martyrium und Christenverfolgungen",
+      "description": "Das Verständnis des Martyriums, die Anlässe und der Verlauf der Verfolgungen sowie die Quellen darüber."
+    },
+    {
+      "id": "theme.church_state",
+      "title": "Kirche und politische Macht",
+      "description": "Das Verhältnis von Christen, Kaiser und Reich: Kaiserkult, Loyalitätsforderungen, staatliche Maßnahmen und ihr Ende."
+    }
+  ]
+}

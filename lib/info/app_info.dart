@@ -260,6 +260,47 @@ class AppModules {
     ],
   );
 
+  static const ModuleInfo churchHistory = ModuleInfo(
+    id: "church_history",
+    title: "Kirchengeschichte",
+    description:
+        "Vorlesungen mit Originalfolien und Zusammenfassung, Epochen und "
+        "Zeitleiste, verknüpfte Einträge zu Personen, Ereignissen, Begriffen "
+        "und Quellen, Suche, Wissensquiz und Chronologietrainer.",
+    sources: [
+      SourceInfo(
+        title: "Vorlesungsfolien",
+        origin:
+            "Prof. Dr. A. Müller, „Geschichte des Christentums im Überblick "
+            "I“, Folien 1–15 (Einleitung; Anfänge, Mission und Martyrium). "
+            "Übernahme in die App mit Erlaubnis.",
+        processing:
+            "Die Folien sind als Bilder (Originalansicht) und als "
+            "vollständige Abschrift hinterlegt. Die Zusammenfassungen geben "
+            "den Folieninhalt wieder; Zitate der Vorlesung sind als solche "
+            "gekennzeichnet.",
+      ),
+      SourceInfo(
+        title: "Erläuterungen und Ergänzungen",
+        processing:
+            "Kurzbeschreibungen, Bedeutung, Datierungshinweise, "
+            "Forschungsdiskussionen und Quellenangaben der Einträge sowie "
+            "die als „Ergänzung“ markierten Abschnitte sind nicht Teil der "
+            "Vorlesung. Sie geben verbreitetes Lehrbuchwissen wieder.",
+        aiNote:
+            "Die Ergänzungen wurden mit KI-Unterstützung formuliert und "
+            "nicht mit der Vorlesung oder einem bestimmten Lehrbuch "
+            "abgeglichen.",
+      ),
+    ],
+    notes: [
+      "Ungefähre und umstrittene Datierungen sind gekennzeichnet. Im Quiz "
+          "stehen nur Ereignisse zusammen, deren Datierungen sich auch mit "
+          "ihrer Unschärfe nicht überschneiden.",
+      "Die Epochengrenzen sind nach der Vorlesung nur grobe Richtwerte.",
+    ],
+  );
+
   static const ModuleInfo confessions = ModuleInfo(
     id: "confessions",
     title: "Bekenntnisse",
@@ -668,6 +709,7 @@ class AppModules {
     latinVocabulary,
     latinGrammarTrainer,
     latinGrammarOverview,
+    churchHistory,
     logic,
     timetable,
   ];

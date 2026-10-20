@@ -425,6 +425,7 @@ void main() {
         "greek",
         "latin",
         "perikope",
+        "church_history",
         "memorization",
         "bible",
       ]);
