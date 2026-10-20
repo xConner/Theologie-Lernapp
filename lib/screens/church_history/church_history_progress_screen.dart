@@ -10,7 +10,7 @@ import '../../services/church_history/church_history_store.dart';
 import '../../theme/app_theme.dart';
 import 'church_history_widgets.dart';
 
-/// Lernstand je Vorlesung und Aufgabenart, schwierige Inhalte und
+/// Lernstand je Veranstaltung, Vorlesung bzw. Sitzung und Aufgabenart, schwierige Inhalte und
 /// Zurücksetzen. Zeigt nur, wann Inhalte wie beantwortet wurden – keine
 /// Punkte, Level oder Behauptungen über „Beherrschung“.
 class ChurchHistoryProgressScreen extends StatefulWidget {
@@ -119,7 +119,7 @@ class _ChurchHistoryProgressScreenState
     final epoch = data.epoch(itemId);
     if (epoch != null) return "Epoche: ${epoch.title}";
 
-    for (final l in data.lectures) {
+    for (final l in data.units) {
       for (final q in l.questions) {
         if (q.id == itemId) return q.prompt;
       }
@@ -176,15 +176,43 @@ class _ChurchHistoryProgressScreenState
               : () => _reset("Kirchengeschichte", cards.keys.toList()),
         ),
 
-        const SectionTitle("Nach Vorlesung"),
-        for (final l in data.lectures)
+        if (data.seminar != null) ...[
+          const SectionTitle("Nach Veranstaltung"),
+          for (final scope in [
+            LearningScope.allLectures,
+            LearningScope.seminar,
+          ])
+            Builder(
+              builder: (_) {
+                final ids = _ids(scope);
+                final summary = ProgressSummary.of(ids, cards, algorithm);
+                return _SummaryTile(
+                  key: ValueKey("progress-${scope.key}"),
+                  title: scope.label(data),
+                  summary: summary,
+                  onReset: summary.fresh == summary.total
+                      ? null
+                      : () => _reset(scope.label(data), ids),
+                );
+              },
+            ),
+        ],
+
+        SectionTitle(
+          data.seminar == null
+              ? "Nach Vorlesung"
+              : "Nach Vorlesung und Sitzung",
+        ),
+        for (final l in data.units.where((l) => l.hasLearningContent))
           Builder(
             builder: (_) {
               final ids = _ids(LearningScope.lecture(l.id));
               final summary = ProgressSummary.of(ids, cards, algorithm);
               return _SummaryTile(
                 key: ValueKey("progress-${l.id}"),
-                title: "${l.label}: ${l.title}",
+                title: l.kind == CourseKind.lecture
+                    ? "${l.label}: ${l.title}"
+                    : "${l.kind.label}, ${l.label}: ${l.title}",
                 summary: summary,
                 onReset: summary.fresh == summary.total
                     ? null

@@ -261,8 +261,11 @@ class _ChurchHistoryQuizScreenState extends State<ChurchHistoryQuizScreen> {
 
   List<LearningScope> get _scopes => [
     LearningScope.all,
-    if (data.lectures.length > 1) LearningScope.allLectures,
-    for (final l in data.lectures) LearningScope.lecture(l.id),
+    if (data.lectures.length > 1 || data.seminar != null)
+      LearningScope.allLectures,
+    if (data.seminar != null) LearningScope.seminar,
+    for (final l in data.units)
+      if (l.hasLearningContent) LearningScope.lecture(l.id),
     for (final e in data.epochs)
       if (data.entriesOfEpoch(e.id).isNotEmpty) LearningScope.epoch(e.id),
     for (final t in data.usedThemes) LearningScope.theme(t.id),
@@ -702,11 +705,7 @@ class _ChurchHistoryQuizScreenState extends State<ChurchHistoryQuizScreen> {
             TextButton.icon(
               style: TextButton.styleFrom(padding: EdgeInsets.zero),
               icon: const Icon(Icons.school_outlined, size: 18),
-              label: Text(
-                q.slides.isEmpty
-                    ? lecture.label
-                    : "${lecture.label}, ${slidesLabel(q.slides)}",
-              ),
+              label: Text(data.sourceLabel(lecture.id, q.slides, q.ref)),
               onPressed: () => Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -720,7 +719,9 @@ class _ChurchHistoryQuizScreenState extends State<ChurchHistoryQuizScreen> {
             )
           else
             Text(
-              "Ergänzung – nicht aus den Vorlesungsfolien",
+              data.seminar == null
+                  ? "Ergänzung – nicht aus den Vorlesungsfolien"
+                  : "Ergänzung – nicht aus Vorlesung oder Proseminar",
               style: TextStyle(
                 color: context.colors.textSecondary,
                 fontSize: 12,

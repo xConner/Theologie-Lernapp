@@ -20,7 +20,8 @@ import 'search_screen.dart';
 import 'themes_screen.dart';
 
 /// Lernbereich „Kirchengeschichte“: zwei Lernmodi, darunter die Zugänge
-/// zum Stoff (Vorlesungen, Epochen, Nachschlagen, Themen) und die Suche.
+/// zum Stoff (Veranstaltungen, Epochen, Nachschlagen, Themen) und die
+/// Suche.
 class ChurchHistoryHomeScreen extends StatelessWidget {
   /// Nur für Tests: Daten und Speicher ohne Assets bzw. Anmeldung.
   final ChurchHistoryData? data;
@@ -111,7 +112,12 @@ class _Home extends StatelessWidget {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  "${data.course.title}\n${data.course.lecturer}",
+                  [
+                    for (final c in data.courses)
+                      c.kind == CourseKind.lecture && c.lecturer != null
+                          ? "${c.title} (${c.lecturer})"
+                          : "${c.kind.label}: ${c.title}",
+                  ].join("\n"),
                   textAlign: TextAlign.center,
                   style: secondary,
                 ),
@@ -149,7 +155,9 @@ class _Home extends StatelessWidget {
                   context,
                   key: "church-history-lectures",
                   icon: Icons.school_outlined,
-                  label: "Vorlesungen und Folien",
+                  label: data.seminar == null
+                      ? "Vorlesungen und Folien"
+                      : "Vorlesung und Proseminar",
                   screen: () => LecturesScreen(data: data),
                 ),
                 _button(
@@ -184,8 +192,12 @@ class _Home extends StatelessWidget {
 
                 const SizedBox(height: 4),
                 Text(
-                  "Inhalte der Vorlesungen sind mit „VL“ gekennzeichnet, "
-                  "Ergänzungen der App als „Ergänzung“.",
+                  data.seminar == null
+                      ? "Inhalte der Vorlesungen sind mit „VL“ gekennzeichnet, "
+                            "Ergänzungen der App als „Ergänzung“."
+                      : "Jeder Eintrag zeigt, ob er aus der Vorlesung, dem "
+                            "Proseminar oder beiden stammt; Ergänzungen der App "
+                            "heißen „Ergänzung“.",
                   textAlign: TextAlign.center,
                   style: secondary.copyWith(fontSize: 12.5),
                 ),

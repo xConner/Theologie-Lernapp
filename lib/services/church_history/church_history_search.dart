@@ -8,7 +8,10 @@ enum SearchHitKind {
   source("Quelle"),
   epoch("Epoche"),
   lecture("Vorlesung"),
-  slide("Folie");
+  session("Sitzung"),
+  slide("Folie"),
+  material("Seminarplan"),
+  course("Proseminar");
 
   final String label;
 
@@ -29,7 +32,8 @@ class SearchHit {
   /// Kurzer Kontext (Datierung, Fundstelle).
   final String subtitle;
 
-  /// Eintrag, Epoche oder Vorlesung, die der Treffer öffnet.
+  /// Eintrag, Epoche, Vorlesung, Sitzung oder Veranstaltung, die der
+  /// Treffer öffnet.
   final String targetId;
 
   /// Bei Folientreffern: die Folie.
@@ -112,6 +116,9 @@ class ChurchHistorySearch {
         ...e.references,
       ]);
 
+      // Ein Alias zählt wie der Name („Cassian“ für Johannes Cassian).
+      if (s < 90 && e.aliases.any((a) => normalize(a) == q)) s = 90;
+
       final dating = e.dating;
       if (year != null &&
           dating != null &&
@@ -154,7 +161,8 @@ class ChurchHistorySearch {
       }
     }
 
-    for (final l in data.lectures) {
+    for (final l in data.units) {
+      final lecture = l.kind == CourseKind.lecture;
       final s = score("${l.label} ${l.title}", [
         l.title,
         for (final section in l.sections) section.title,
@@ -162,13 +170,33 @@ class ChurchHistorySearch {
       if (s > 0) {
         hits.add(
           SearchHit(
-            kind: SearchHitKind.lecture,
+            kind: lecture ? SearchHitKind.lecture : SearchHitKind.session,
             title: "${l.label}: ${l.title}",
-            subtitle: "${l.slides.length} Folien",
+            subtitle: lecture
+                ? "${l.slides.length} Folien"
+                : [l.kind.label, ?l.date].join(" · "),
             targetId: l.id,
             score: s,
           ),
         );
+      }
+
+      // Sitzungen ohne Folien: Treffer im Text des Seminarplans.
+      if (!lecture) {
+        for (final section in l.sections) {
+          final text = section.points.join("\n");
+          if (terms.every(normalize(text).contains)) {
+            hits.add(
+              SearchHit(
+                kind: SearchHitKind.material,
+                title: "${l.label}: ${section.title}",
+                subtitle: _excerpt(text, terms.first),
+                targetId: l.id,
+                score: 20,
+              ),
+            );
+          }
+        }
       }
 
       for (final slide in l.slides) {
@@ -188,6 +216,26 @@ class ChurchHistorySearch {
       }
     }
 
+    for (final c in data.courses) {
+      for (final section in c.sections) {
+        final s = score(section.title, section.points);
+        if (s > 0) {
+          hits.add(
+            SearchHit(
+              kind: SearchHitKind.course,
+              title: section.title,
+              subtitle: [
+                c.kind.label,
+                if (section.ref != null) ?data.materialLabel(section.ref!),
+              ].join(" · "),
+              targetId: c.id,
+              score: s,
+            ),
+          );
+        }
+      }
+    }
+
     hits.sort((a, b) {
       final s = b.score.compareTo(a.score);
       if (s != 0) return s;
@@ -199,7 +247,7 @@ class ChurchHistorySearch {
     return hits;
   }
 
-  /// Zeile der Folie, die den Suchbegriff enthält.
+  /// Zeile der Folie bzw. des Plans, die den Suchbegriff enthält.
   static String _excerpt(String text, String term) {
     for (final line in text.split("\n")) {
       if (normalize(line).contains(term)) return line.trim();

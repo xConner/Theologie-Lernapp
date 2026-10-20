@@ -6,9 +6,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:theologie_lernapp/screens/church_history/church_history_home_screen.dart';
 import 'package:theologie_lernapp/screens/church_history/church_history_progress_screen.dart';
 import 'package:theologie_lernapp/screens/church_history/church_history_quiz_screen.dart';
+import 'package:theologie_lernapp/screens/church_history/entries_screen.dart';
 import 'package:theologie_lernapp/screens/church_history/entry_detail_screen.dart';
 import 'package:theologie_lernapp/screens/church_history/epochs_screen.dart';
 import 'package:theologie_lernapp/screens/church_history/lecture_detail_screen.dart';
+import 'package:theologie_lernapp/screens/church_history/lectures_screen.dart';
 import 'package:theologie_lernapp/screens/church_history/timeline_view.dart';
 import 'package:theologie_lernapp/services/church_history/church_history_quiz.dart';
 import 'package:theologie_lernapp/services/church_history/church_history_store.dart';
@@ -113,6 +115,57 @@ void main() {
       }
     });
 
+    testWidgets("Veranstaltungen → Proseminar → Sitzung ohne Folien", (
+      tester,
+    ) async {
+      _largeView(tester);
+
+      await tester.pumpWidget(_app(LecturesScreen(data: data)));
+      await tester.pumpAndSettle();
+
+      expect(find.byKey(const ValueKey("lecture-lecture.01")), findsOneWidget);
+      expect(find.textContaining("Verwandter Stoff im Thema"), findsWidgets);
+
+      await tester.tap(
+        find.byKey(const ValueKey("course-tab-course.cassian_seminar")),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.textContaining(data.seminar!.title), findsWidgets);
+      expect(find.byKey(const ValueKey("learn-seminar")), findsOneWidget);
+      expect(
+        find.byKey(const ValueKey("material-material.schwartz")),
+        findsOneWidget,
+      );
+
+      await tester.tap(find.byKey(const ValueKey("lecture-seminar.02")));
+      await tester.pumpAndSettle();
+
+      expect(find.text("Überblick"), findsOneWidget);
+      expect(find.text("Folien"), findsNothing);
+      expect(find.text("Sitzung lernen"), findsOneWidget);
+      expect(find.text("Seminarplan, S. 1"), findsWidgets);
+
+      await tester.tap(find.text("Einträge"));
+      await tester.pumpAndSettle();
+      expect(
+        find.byKey(const ValueKey("entry-person.germanus")),
+        findsOneWidget,
+      );
+      expect(tester.takeException(), isNull);
+    });
+
+    testWidgets("Sitzung ohne Lernstoff bietet kein Lernen an", (tester) async {
+      await tester.pumpWidget(
+        _app(LectureDetailScreen(data: data, lectureId: "seminar.13")),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.byKey(const ValueKey("lecture-learn")), findsNothing);
+      expect(find.textContaining("2027"), findsWidgets);
+      expect(tester.takeException(), isNull);
+    });
+
     testWidgets("Vorlesung öffnet an einer bestimmten Folie", (tester) async {
       _largeView(tester);
 
@@ -160,7 +213,8 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.text("Decische Verfolgung"), findsWidgets);
-      expect(find.text("In der Vorlesung"), findsOneWidget);
+      expect(find.text("In den Veranstaltungen"), findsOneWidget);
+      expect(find.text("Vorlesung · VL 2"), findsWidgets);
       expect(find.text("Decius"), findsWidgets);
 
       await tester.tap(find.text("Decius").last);
@@ -184,7 +238,77 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.text("Ergänzung"), findsWidgets);
-      expect(find.text("In der Vorlesung"), findsNothing);
+      expect(find.text("In den Veranstaltungen"), findsNothing);
+    });
+
+    testWidgets("Proseminar-Eintrag zeigt Sitzung, Fundstelle und Forschung", (
+      tester,
+    ) async {
+      _largeView(tester);
+
+      await tester.pumpWidget(
+        _app(EntryDetailScreen(data: data, entryId: "person.cassian")),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.text("Proseminar · Sitzung 1"), findsWidgets);
+      expect(
+        find.text("Proseminar, Sitzung 1 · Seminarplan, S. 1"),
+        findsOneWidget,
+      );
+      expect(find.text("Ergänzung zum Proseminar"), findsOneWidget);
+      expect(
+        find.text("Forschungsdiskussion · Schwartz 1939, S. 1"),
+        findsOneWidget,
+      );
+      expect(tester.takeException(), isNull);
+    });
+
+    testWidgets("gemeinsamer Eintrag ist als „Beide“ gekennzeichnet", (
+      tester,
+    ) async {
+      _largeView(tester);
+
+      await tester.pumpWidget(
+        _app(EntryDetailScreen(data: data, entryId: "term.periodization")),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.text("Beide · VL 1 · Sitzung 1"), findsOneWidget);
+      expect(find.textContaining("Vorlesung 1, Folie"), findsWidgets);
+      expect(find.textContaining("Proseminar, Sitzung 1"), findsOneWidget);
+    });
+
+    testWidgets("Filter nach Veranstaltung", (tester) async {
+      _largeView(tester);
+
+      await tester.pumpWidget(_app(EntriesScreen(data: data)));
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.byKey(const ValueKey("entries-origin-seminar")));
+      await tester.pumpAndSettle();
+      expect(
+        find.byKey(const ValueKey("entry-person.cassian")),
+        findsOneWidget,
+      );
+      expect(find.byKey(const ValueKey("entry-person.decius")), findsNothing);
+      expect(
+        find.byKey(const ValueKey("entry-term.periodization")),
+        findsOneWidget,
+      );
+
+      await tester.tap(find.byKey(const ValueKey("entries-origin-both")));
+      await tester.pumpAndSettle();
+      expect(find.byKey(const ValueKey("entry-person.cassian")), findsNothing);
+      expect(
+        find.byKey(const ValueKey("entry-term.periodization")),
+        findsOneWidget,
+      );
+
+      await tester.tap(find.byKey(const ValueKey("entries-origin-lecture")));
+      await tester.pumpAndSettle();
+      expect(find.byKey(const ValueKey("entry-person.cassian")), findsNothing);
+      expect(find.byKey(const ValueKey("entry-person.decius")), findsOneWidget);
     });
 
     testWidgets("unbekannte ID zeigt einen Hinweis statt eines Fehlers", (
@@ -307,6 +431,38 @@ void main() {
       expect(find.byKey(const ValueKey("quiz-explanation")), findsNothing);
     });
 
+    testWidgets("Wissensquiz zum Proseminar zeigt die Fundstelle", (
+      tester,
+    ) async {
+      _largeView(tester);
+
+      final store = await storeWith(
+        ChurchHistorySettings(
+          scope: LearningScope.seminar.key,
+          kinds: {QuizKind.lecture},
+        ),
+      );
+
+      await tester.pumpWidget(
+        _app(
+          ChurchHistoryQuizScreen(
+            data: data,
+            mode: QuizMode.knowledge,
+            store: store,
+            random: Random(4),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.byKey(const ValueKey("option-0")));
+      await tester.pumpAndSettle();
+
+      expect(find.byKey(const ValueKey("quiz-explanation")), findsOneWidget);
+      expect(find.textContaining("Proseminar, Sitzung"), findsOneWidget);
+      expect((await store.loadCards()).keys.single, startsWith("q.ps"));
+    });
+
     testWidgets("Chronologie: Reihenfolge prüfen", (tester) async {
       _largeView(tester);
 
@@ -376,6 +532,11 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.byKey(const ValueKey("progress-lecture.01")), findsOneWidget);
+      expect(
+        find.byKey(const ValueKey("progress-course:seminar")),
+        findsOneWidget,
+      );
+      expect(find.byKey(const ValueKey("progress-seminar.02")), findsOneWidget);
       expect(find.text("Schwierige Inhalte"), findsOneWidget);
       expect(find.text(q.prompt), findsOneWidget);
 

@@ -7,8 +7,8 @@ import 'epochs_screen.dart';
 import 'lecture_detail_screen.dart';
 import 'themes_screen.dart';
 
-/// Ein Eintrag mit allem, was ihn mit dem übrigen Stoff verbindet: was die
-/// Vorlesung sagt, Erläuterung, Anmerkungen, verknüpfte Einträge, Epochen
+/// Ein Eintrag mit allem, was ihn mit dem übrigen Stoff verbindet: was
+/// Vorlesung und Proseminar sagen, Erläuterung, Anmerkungen, verknüpfte Einträge, Epochen
 /// und Themen.
 class EntryDetailScreen extends StatelessWidget {
   final ChurchHistoryData data;
@@ -35,6 +35,7 @@ class EntryDetailScreen extends StatelessWidget {
     final mentions = data.mentionsOf(entry.id);
     final related = data.relatedOf(entry.id);
     final dating = entry.dating;
+    final course = data.contextOf(entry.id);
 
     return ChurchHistoryPage(
       title: entry.type.label,
@@ -83,19 +84,22 @@ class EntryDetailScreen extends StatelessWidget {
         ],
 
         if (mentions.isNotEmpty) ...[
-          const SectionTitle("In der Vorlesung"),
+          SectionTitle(
+            data.seminar == null
+                ? "In der Vorlesung"
+                : "In den Veranstaltungen",
+          ),
           for (final m in mentions)
             LectureQuote(
               text: m.text,
-              source:
-                  "${data.lecture(m.lectureId)!.label}, ${slidesLabel(m.slides)}",
+              source: data.sourceLabel(m.lectureId, m.slides, m.ref),
               onTap: () => Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (_) => LectureDetailScreen(
                     data: data,
                     lectureId: m.lectureId,
-                    initialSlide: m.slides.first,
+                    initialSlide: m.slides.firstOrNull,
                   ),
                 ),
               ),
@@ -105,13 +109,22 @@ class EntryDetailScreen extends StatelessWidget {
         const SectionTitle("Erläuterung"),
         SupplementBox(
           "${entry.summary}\n\n${entry.significance}",
-          label: mentions.isEmpty
-              ? "Ergänzung – kein Stoff der bisherigen Vorlesungen"
-              : "Ergänzung zur Vorlesung",
+          label: switch (course) {
+            null => "Ergänzung – kein Stoff der bisherigen Veranstaltungen",
+            CourseContext.lecture => "Ergänzung zur Vorlesung",
+            CourseContext.seminar => "Ergänzung zum Proseminar",
+            CourseContext.both => "Ergänzung zu beiden Veranstaltungen",
+          },
         ),
 
         for (final note in entry.notes)
-          SupplementBox(note.text, label: note.kind.label),
+          SupplementBox(
+            note.text,
+            label: [
+              note.kind.label,
+              if (note.ref != null) ?data.materialLabel(note.ref!),
+            ].join(" · "),
+          ),
 
         if (related.isNotEmpty) ...[
           const SectionTitle("Verknüpft"),

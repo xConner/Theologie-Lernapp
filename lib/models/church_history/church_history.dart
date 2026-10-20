@@ -100,12 +100,14 @@ enum EntryType {
   }
 }
 
-/// Art einer Anmerkung: Forschungsdiskussion, konfessionelle Perspektive
-/// oder Begriffsklärung.
+/// Art einer Anmerkung: Forschungsdiskussion, konfessionelle Perspektive,
+/// Begriffsklärung oder Position aus der Forschungsliteratur einer
+/// Veranstaltung (mit Fundstelle).
 enum NoteKind {
   debate("Forschungsdiskussion"),
   perspective("Konfessionelle Perspektive"),
-  terminology("Zum Begriff");
+  terminology("Zum Begriff"),
+  research("Aus der Forschungsliteratur");
 
   final String label;
 
@@ -123,13 +125,19 @@ class EntryNote {
   final NoteKind kind;
   final String text;
 
-  const EntryNote({required this.kind, required this.text});
+  /// Fundstelle im Veranstaltungsmaterial (z. B. ein Aufsatz aus dem
+  /// Proseminar); null bei Anmerkungen der App.
+  final MaterialRef? ref;
+
+  const EntryNote({required this.kind, required this.text, this.ref});
 }
 
 /// Person, Ereignis, Begriff oder Quelle – ein einheitliches Modell.
 ///
-/// [summary] und [significance] sind Erläuterungen der App. Was die
-/// Vorlesung selbst sagt, steht in den [LectureMention]s der Vorlesungen.
+/// Jeder Inhalt hat genau einen Eintrag, auch wenn Vorlesung und
+/// Proseminar ihn behandeln. [summary] und [significance] sind
+/// Erläuterungen der App. Was eine Veranstaltung selbst sagt, steht in den
+/// [LectureMention]s ihrer Vorlesungen bzw. Sitzungen.
 class HistoryEntry {
   final String id;
   final EntryType type;
@@ -235,33 +243,48 @@ class Slide {
   });
 }
 
+/// Fundstelle in einem Material einer Veranstaltung ohne Folien
+/// (Seminarplan, Aufsatz, Arbeitshilfe), z. B. „S. 2“.
+class MaterialRef {
+  final String materialId;
+  final String? at;
+
+  const MaterialRef(this.materialId, [this.at]);
+}
+
 /// Abschnitt der strukturierten Zusammenfassung: [points] geben den Inhalt
-/// der Folien wieder, [supplement] ist eine gekennzeichnete Ergänzung.
+/// der Folien bzw. des Materials ([ref]) wieder, [supplement] ist eine
+/// gekennzeichnete Ergänzung.
 class LectureSection {
   final String title;
   final List<int> slides;
+  final MaterialRef? ref;
   final List<String> points;
   final String? supplement;
 
   const LectureSection({
     required this.title,
-    required this.slides,
+    this.slides = const [],
+    this.ref,
     required this.points,
     this.supplement,
   });
 }
 
-/// Was eine Vorlesung über einen Eintrag sagt (mit Folien).
+/// Was eine Vorlesung oder Sitzung über einen Eintrag sagt (mit Folien
+/// bzw. Fundstelle im Material).
 class LectureMention {
   final String lectureId;
   final String entryId;
   final List<int> slides;
+  final MaterialRef? ref;
   final String text;
 
   const LectureMention({
     required this.lectureId,
     required this.entryId,
-    required this.slides,
+    this.slides = const [],
+    this.ref,
     required this.text,
   });
 }
@@ -273,6 +296,7 @@ class RecallList {
   final String title;
   final String prompt;
   final List<int> slides;
+  final MaterialRef? ref;
   final List<String> items;
   final bool ordered;
 
@@ -281,13 +305,14 @@ class RecallList {
     required this.lectureId,
     required this.title,
     required this.prompt,
-    required this.slides,
+    this.slides = const [],
+    this.ref,
     required this.items,
     this.ordered = false,
   });
 }
 
-/// Von Hand gepflegte Auswahlfrage zu einer Vorlesung.
+/// Von Hand gepflegte Auswahlfrage zu einer Vorlesung oder Sitzung.
 class CuratedQuestion {
   final String id;
   final String lectureId;
@@ -296,6 +321,7 @@ class CuratedQuestion {
   final List<String> distractors;
   final String explanation;
   final List<int> slides;
+  final MaterialRef? ref;
   final List<String> entryIds;
 
   const CuratedQuestion({
@@ -305,15 +331,25 @@ class CuratedQuestion {
     required this.answer,
     required this.distractors,
     required this.explanation,
-    required this.slides,
+    this.slides = const [],
+    this.ref,
     this.entryIds = const [],
   });
 }
 
+/// Eine Vorlesung (mit Folien) oder eine Sitzung des Proseminars.
 class Lecture {
   final String id;
+
+  /// Veranstaltung, zu der die Vorlesung bzw. Sitzung gehört.
+  final String courseId;
+  final CourseKind kind;
+
   final int number;
   final String title;
+
+  /// Termin, wie im Material angegeben (bei Sitzungen).
+  final String? date;
 
   /// Name der Originaldatei der Folien.
   final String? file;
@@ -328,8 +364,11 @@ class Lecture {
 
   const Lecture({
     required this.id,
+    this.courseId = "",
+    this.kind = CourseKind.lecture,
     required this.number,
     required this.title,
+    this.date,
     this.file,
     this.epochIds = const [],
     this.themeIds = const [],
@@ -340,7 +379,11 @@ class Lecture {
     this.questions = const [],
   });
 
-  String get label => "Vorlesung $number";
+  String get label => "${kind.unit} $number";
+
+  /// Ob es zu dieser Vorlesung bzw. Sitzung etwas zu lernen gibt.
+  bool get hasLearningContent =>
+      questions.isNotEmpty || lists.isNotEmpty || mentions.isNotEmpty;
 
   /// Einträge, die die Vorlesung erwähnt (ohne Doppelungen, in Reihenfolge).
   List<String> get entryIds => {
@@ -363,10 +406,15 @@ class OutlineTopic {
   /// Vorlesung, deren Folien das Thema behandeln (null: noch keine).
   final String? lectureId;
 
+  /// Thema der App, unter dem verwandter Stoff (etwa aus dem Proseminar)
+  /// schon zu finden ist.
+  final String? themeId;
+
   const OutlineTopic({
     required this.number,
     required this.title,
     this.lectureId,
+    this.themeId,
   });
 }
 
@@ -386,28 +434,114 @@ class OutlinePart {
   });
 }
 
-class Course {
-  final String id;
-  final String title;
-  final String lecturer;
-  final List<OutlinePart> outline;
+/// Art einer Veranstaltung.
+enum CourseKind {
+  lecture("Vorlesung", "Vorlesung", "VL"),
+  seminar("Proseminar", "Sitzung", "Sitzung");
 
-  const Course({
+  final String label;
+
+  /// Bezeichnung einer einzelnen Vorlesung bzw. Sitzung.
+  final String unit;
+  final String unitShort;
+
+  const CourseKind(this.label, this.unit, this.unitShort);
+
+  static CourseKind parse(Object? name) {
+    if (name == null) return lecture;
+    return CourseKind.values.firstWhere(
+      (k) => k.name == name,
+      orElse: () => throw FormatException("Unbekannte Veranstaltung: $name"),
+    );
+  }
+}
+
+/// Veranstaltungskontext eines Eintrags: nur Vorlesung, nur Proseminar
+/// oder beide. Er ergibt sich aus den Erwähnungen (siehe
+/// [ChurchHistoryData.contextOf]).
+enum CourseContext {
+  lecture("Vorlesung"),
+  seminar("Proseminar"),
+  both("Beide");
+
+  final String label;
+
+  const CourseContext(this.label);
+
+  bool includes(CourseKind kind) =>
+      this == both ||
+      (this == lecture && kind == CourseKind.lecture) ||
+      (this == seminar && kind == CourseKind.seminar);
+}
+
+/// Ein Dokument einer Veranstaltung ohne Folien: Seminarplan,
+/// Bibliographie, Aufsatz, Arbeitshilfe.
+class CourseMaterial {
+  final String id;
+
+  /// Kurzform für Fundstellen („Seminarplan“, „Schwartz 1939“).
+  final String short;
+
+  /// Vollständige Angabe.
+  final String title;
+
+  /// Art des Dokuments („Seminarplan“, „Forschungsliteratur“ …).
+  final String category;
+
+  /// Wofür das Dokument in der App verwendet wird.
+  final String description;
+
+  const CourseMaterial({
     required this.id,
+    required this.short,
     required this.title,
-    required this.lecturer,
-    this.outline = const [],
+    required this.category,
+    required this.description,
   });
 }
 
+class Course {
+  final String id;
+  final CourseKind kind;
+  final String title;
+  final String? lecturer;
+  final String? semester;
+  final List<OutlinePart> outline;
+
+  /// Übergreifende Abschnitte (z. B. Prüfungsleistungen, Literatur).
+  final List<LectureSection> sections;
+
+  final List<CourseMaterial> materials;
+
+  const Course({
+    required this.id,
+    this.kind = CourseKind.lecture,
+    required this.title,
+    this.lecturer,
+    this.semester,
+    this.outline = const [],
+    this.sections = const [],
+    this.materials = const [],
+  });
+
+  /// Untertitel mit Lehrperson und Semester, soweit bekannt.
+  String get subtitle => [kind.label, ?lecturer, ?semester].join(" · ");
+}
+
 /// Alle Inhalte mit Indizes für die Verknüpfungen.
+///
+/// Vorlesung und Proseminar teilen sich Einträge, Epochen und Themen; nur
+/// Vorlesungen bzw. Sitzungen ([units]) und Materialien gehören zu einer
+/// Veranstaltung.
 class ChurchHistoryData {
-  final Course course;
+  final List<Course> courses;
   final List<Epoch> epochs;
   final String? epochNote;
   final List<HistoryTheme> themes;
   final List<HistoryEntry> entries;
-  final List<Lecture> lectures;
+
+  /// Vorlesungen und Sitzungen aller Veranstaltungen.
+  final List<Lecture> units;
 
   late final Map<String, HistoryEntry> _entries = {
     for (final e in entries) e.id: e,
@@ -416,25 +550,80 @@ class ChurchHistoryData {
   late final Map<String, HistoryTheme> _themes = {
     for (final t in themes) t.id: t,
   };
-  late final Map<String, Lecture> _lectures = {
-    for (final l in lectures) l.id: l,
+  late final Map<String, Lecture> _lectures = {for (final l in units) l.id: l};
+  late final Map<String, Course> _courses = {for (final c in courses) c.id: c};
+  late final Map<String, CourseMaterial> _materials = {
+    for (final c in courses)
+      for (final m in c.materials) m.id: m,
   };
 
   late final Map<String, Set<String>> _related = _buildRelated();
 
   ChurchHistoryData({
-    required this.course,
+    required this.courses,
     required this.epochs,
     this.epochNote,
     required this.themes,
     required this.entries,
-    required this.lectures,
+    required this.units,
   });
 
   HistoryEntry? entry(String id) => _entries[id];
   Epoch? epoch(String id) => _epochs[id];
   HistoryTheme? theme(String id) => _themes[id];
   Lecture? lecture(String id) => _lectures[id];
+  Course? courseById(String id) => _courses[id];
+  CourseMaterial? material(String id) => _materials[id];
+
+  /// Die Vorlesung (erste Veranstaltung dieser Art).
+  Course get course => courses.firstWhere((c) => c.kind == CourseKind.lecture);
+
+  /// Das Proseminar, falls vorhanden.
+  Course? get seminar {
+    for (final c in courses) {
+      if (c.kind == CourseKind.seminar) return c;
+    }
+    return null;
+  }
+
+  /// Nur die Vorlesungen (mit Folien).
+  List<Lecture> get lectures => unitsOfKind(CourseKind.lecture);
+
+  /// Nur die Sitzungen des Proseminars.
+  List<Lecture> get sessions => unitsOfKind(CourseKind.seminar);
+
+  List<Lecture> unitsOfKind(CourseKind kind) => [
+    for (final l in units)
+      if (l.kind == kind) l,
+  ];
+
+  List<Lecture> unitsOfCourse(String courseId) => [
+    for (final l in units)
+      if (l.courseId == courseId) l,
+  ];
+
+  /// Fundstelle für die Anzeige: „Vorlesung 2, Folie 9“ bzw.
+  /// „Proseminar, Sitzung 2 · Schwartz 1939, S. 7“.
+  String sourceLabel(String? lectureId, List<int> slides, MaterialRef? ref) {
+    final unit = lectureId == null ? null : lecture(lectureId);
+    final parts = <String>[
+      if (unit != null)
+        unit.kind == CourseKind.lecture
+            ? unit.label
+            : "${unit.kind.label}, ${unit.label}",
+      if (slides.isNotEmpty) slidesLabel(slides),
+    ];
+    final head = parts.join(", ");
+    final cite = ref == null ? null : materialLabel(ref);
+    if (cite == null) return head;
+    return head.isEmpty ? cite : "$head · $cite";
+  }
+
+  String? materialLabel(MaterialRef ref) {
+    final m = material(ref.materialId);
+    if (m == null) return null;
+    return ref.at == null ? m.short : "${m.short}, ${ref.at}";
+  }
 
   Map<String, Set<String>> _buildRelated() {
     final related = <String, Set<String>>{};
@@ -461,21 +650,40 @@ class ChurchHistoryData {
     return list;
   }
 
-  /// Was die Vorlesungen über einen Eintrag sagen.
+  /// Was die Vorlesungen und Sitzungen über einen Eintrag sagen.
   List<LectureMention> mentionsOf(String entryId) => [
-    for (final l in lectures)
+    for (final l in units)
       for (final m in l.mentions)
         if (m.entryId == entryId) m,
   ];
 
-  /// Vorlesungen, die einen Eintrag behandeln.
+  /// Vorlesungen und Sitzungen, die einen Eintrag behandeln.
   List<Lecture> lecturesOf(String entryId) => [
-    for (final l in lectures)
+    for (final l in units)
       if (l.entryIds.contains(entryId)) l,
   ];
 
-  /// Ob der Eintrag in einer Vorlesung vorkommt (sonst: Ergänzung).
+  /// Ob der Eintrag in einer Veranstaltung vorkommt (sonst: Ergänzung).
   bool isFromLecture(String entryId) => lecturesOf(entryId).isNotEmpty;
+
+  /// Vorlesung, Proseminar oder beide – je nachdem, welche Veranstaltung
+  /// den Eintrag behandelt; null bei reinen Ergänzungen der App.
+  ///
+  /// „Beide“ ergibt sich nur, wenn beide Veranstaltungen den Inhalt
+  /// tatsächlich behandeln (eine Erwähnung mit eigenem Text oder eine
+  /// Frage), nicht schon durch ein Stichwort im Material.
+  CourseContext? contextOf(String entryId) {
+    final kinds = {for (final l in lecturesOf(entryId)) l.kind};
+    if (kinds.isEmpty) return null;
+    if (kinds.length > 1) return CourseContext.both;
+    return kinds.single == CourseKind.lecture
+        ? CourseContext.lecture
+        : CourseContext.seminar;
+  }
+
+  /// Einträge, die eine Veranstaltung dieser Art behandelt.
+  List<HistoryEntry> entriesOfCourseKind(CourseKind kind) =>
+      _sorted(entries.where((e) => contextOf(e.id)?.includes(kind) ?? false));
 
   List<HistoryEntry> entriesOfEpoch(String epochId) =>
       _sorted(entries.where((e) => e.epochIds.contains(epochId)));
@@ -528,4 +736,11 @@ class ChurchHistoryData {
   static List<HistoryEntry> _sorted(Iterable<HistoryEntry> entries) {
     return entries.toList()..sort(compareEntries);
   }
+}
+
+String slidesLabel(List<int> slides) {
+  if (slides.isEmpty) return "";
+  return slides.length == 1
+      ? "Folie ${slides.single}"
+      : "Folien ${slides.join(", ")}";
 }

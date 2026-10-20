@@ -25,7 +25,9 @@ void main() {
         ...data.epochs.map((e) => e.id),
         ...data.themes.map((t) => t.id),
         ...data.entries.map((e) => e.id),
-        ...data.lectures.map((l) => l.id),
+        ...data.units.map((l) => l.id),
+        ...data.courses.map((c) => c.id),
+        for (final c in data.courses) ...c.materials.map((m) => m.id),
       ];
       expect(ids.toSet().length, ids.length);
 
@@ -50,6 +52,11 @@ void main() {
         "event.decian_persecution",
         "term.lapsi",
         "source.pliny_letters",
+        "seminar.01",
+        "seminar.14",
+        "person.cassian",
+        "source.de_incarnatione",
+        "term.theotokos",
       ]) {
         expect(
           data.entry(id) ?? data.epoch(id) ?? data.lecture(id),
@@ -165,7 +172,7 @@ void main() {
     });
 
     test("kuratierte Fragen haben eindeutige Antwortmöglichkeiten", () {
-      for (final l in data.lectures) {
+      for (final l in data.units) {
         for (final q in l.questions) {
           final options = [q.answer, ...q.distractors];
           expect(options.toSet().length, options.length, reason: q.id);
@@ -287,6 +294,177 @@ void main() {
     test("offenes Ende reicht bis heute", () {
       final last = data.epochs.last.dating;
       expect(last.end, DateTime.now().year);
+    });
+  });
+
+  group("Proseminar", () {
+    final seminar = data.seminar!;
+
+    test("eigene Veranstaltung mit 14 Sitzungen ohne Folien", () {
+      expect(seminar.kind, CourseKind.seminar);
+      expect(data.course.kind, CourseKind.lecture);
+      expect(data.lectures.map((l) => l.id), ["lecture.01", "lecture.02"]);
+      expect(data.sessions.map((s) => s.id), [
+        for (var i = 1; i <= 14; i++) "seminar.${i.toString().padLeft(2, "0")}",
+      ]);
+      for (final s in data.sessions) {
+        expect(s.courseId, seminar.id);
+        expect(s.slides, isEmpty);
+        expect(s.date, isNotNull);
+      }
+    });
+
+    test("offensichtlicher Jahresfehler im Seminarplan ist berichtigt", () {
+      expect(data.lecture("seminar.09")!.date, contains("2026"));
+      for (final n in ["10", "11", "12", "13", "14"]) {
+        final session = data.lecture("seminar.$n")!;
+        expect(session.date, contains("2027"), reason: n);
+        expect(session.sections.first.supplement, contains("2027"));
+      }
+    });
+
+    test("Kennzeichnung: Vorlesung, Proseminar oder beide", () {
+      expect(data.contextOf("event.decian_persecution"), CourseContext.lecture);
+      expect(data.contextOf("person.cassian"), CourseContext.seminar);
+      expect(data.contextOf("term.theotokos"), CourseContext.seminar);
+      expect(data.contextOf("term.periodization"), CourseContext.both);
+      expect(data.contextOf("term.church_history"), CourseContext.both);
+
+      // Die Bibliographie nennt Ebeling nur; das macht ihn nicht gemeinsam.
+      expect(data.contextOf("person.gerhard_ebeling"), CourseContext.lecture);
+    });
+
+    test("gemeinsame Inhalte haben einen Eintrag mit Erwähnungen beider", () {
+      final mentions = data.mentionsOf("term.periodization");
+      expect(mentions.map((m) => data.lecture(m.lectureId)!.kind).toSet(), {
+        CourseKind.lecture,
+        CourseKind.seminar,
+      });
+      expect(
+        data.entries.where((e) => e.plainName == "Periodisierung"),
+        hasLength(1),
+      );
+      expect(
+        data.entriesOfCourseKind(CourseKind.seminar).map((e) => e.id),
+        containsAll(["term.periodization", "person.cassian"]),
+      );
+      expect(
+        data.entriesOfCourseKind(CourseKind.lecture).map((e) => e.id),
+        allOf(
+          contains("term.periodization"),
+          isNot(contains("person.cassian")),
+        ),
+      );
+    });
+
+    test("jeder Inhalt einer Sitzung nennt seine Fundstelle", () {
+      final materials = {for (final m in seminar.materials) m.id};
+      final refs = [
+        for (final s in data.sessions) ...[
+          for (final x in s.sections) x.ref,
+          for (final x in s.mentions) x.ref,
+          for (final x in s.lists) x.ref,
+          for (final x in s.questions) x.ref,
+        ],
+        for (final x in seminar.sections) x.ref,
+      ];
+      expect(refs, isNotEmpty);
+      for (final ref in refs) {
+        expect(ref, isNotNull);
+        expect(materials, contains(ref!.materialId));
+        expect(data.materialLabel(ref), isNotNull);
+      }
+      expect(
+        data.sourceLabel(
+          "seminar.02",
+          const [],
+          const MaterialRef("material.schwartz", "S. 7"),
+        ),
+        "Proseminar, Sitzung 2 · Schwartz 1939, S. 7",
+      );
+      expect(
+        data.sourceLabel("lecture.02", const [9], null),
+        "Vorlesung 2, Folie 9",
+      );
+    });
+
+    test("Forschungspositionen sind belegt und als solche gekennzeichnet", () {
+      for (final e in data.entries) {
+        for (final n in e.notes.where((n) => n.kind == NoteKind.research)) {
+          expect(n.ref, isNotNull, reason: e.id);
+        }
+      }
+      final cassian = data.entry("person.cassian")!;
+      expect(
+        cassian.notes.map((n) => n.ref?.materialId),
+        containsAll(["material.schwartz", "material.paucker"]),
+      );
+      // Umstrittene Herkunft und Lebensdaten werden nicht als sicher geführt.
+      expect(cassian.dating!.disputed, isTrue);
+      expect(data.entry("source.de_incarnatione")!.dating!.disputed, isTrue);
+    });
+
+    test("Gliederung der Vorlesung verweist auf Themen des Proseminars", () {
+      final topics = {
+        for (final p in data.course.outline)
+          for (final t in p.topics) t.title: t,
+      };
+      expect(
+        topics["Der christologische Streit"]!.themeId,
+        "theme.christology",
+      );
+      expect(
+        data.entriesOfTheme("theme.christology").map((e) => e.id),
+        contains("event.nestorian_controversy"),
+      );
+      expect(
+        data.entriesOfTheme("theme.judaism").map((e) => e.id),
+        containsAll(["term.anti_judaism", "term.jewish_christians"]),
+      );
+    });
+
+    test("ohne Proseminar-Datei bleibt die Vorlesung allein", () {
+      final json = churchHistoryJsonWithoutSeminar();
+      final only = parseChurchHistory(json);
+
+      expect(only.seminar, isNull);
+      expect(only.courses, hasLength(1));
+      expect(only.contextOf("term.periodization"), CourseContext.lecture);
+    });
+
+    test("Sitzung ohne Fundstelle wird abgelehnt", () {
+      final json = churchHistoryJson();
+      final session = (json["seminar"]!["sessions"] as List)[1] as Map;
+      ((session["mentions"] as List).first as Map).remove("ref");
+
+      expect(() => parseChurchHistory(json), throwsFormatException);
+    });
+
+    test("Fundstelle in unbekanntem Material wird abgelehnt", () {
+      final json = churchHistoryJson();
+      final session = (json["seminar"]!["sessions"] as List)[1] as Map;
+      ((session["mentions"] as List).first as Map)["ref"] = {
+        "material": "material.unknown",
+      };
+
+      expect(() => parseChurchHistory(json), throwsFormatException);
+    });
+
+    test("doppelte Erwähnung und doppelter Name werden abgelehnt", () {
+      final json = churchHistoryJson();
+      final session = (json["seminar"]!["sessions"] as List)[1] as Map;
+      final mentions = session["mentions"] as List;
+      mentions.add(Map<String, dynamic>.from(mentions.first as Map));
+      expect(() => parseChurchHistory(json), throwsFormatException);
+
+      final json2 = churchHistoryJson();
+      final entries = json2["entries"]!["entries"] as List;
+      entries.add(
+        Map<String, dynamic>.from(
+          entries.firstWhere((e) => e["id"] == "person.cassian") as Map,
+        )..["id"] = "person.cassian_copy",
+      );
+      expect(() => parseChurchHistory(json2), throwsFormatException);
     });
   });
 }

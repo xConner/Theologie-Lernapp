@@ -199,6 +199,60 @@ void main() {
       expect(ids.any((id) => id.startsWith("q.l02.")), isTrue);
     });
 
+    test("Proseminarstoff: nur Sitzungen und gemeinsame Einträge", () {
+      final ids = {
+        for (final c in quiz.candidates(LearningScope.seminar, {
+          QuizKind.lecture,
+          QuizKind.recall,
+        }))
+          c.cardId.split("|").first,
+      };
+      expect(ids, contains("q.ps02.scytha"));
+      expect(ids, contains("list.ps_paper_structure"));
+      expect(
+        ids.every((id) => id.startsWith("q.ps") || id.startsWith("list.ps_")),
+        isTrue,
+      );
+
+      final entries = quiz.entriesIn(LearningScope.seminar).map((e) => e.id);
+      expect(entries, containsAll(["person.cassian", "term.periodization"]));
+      expect(entries, isNot(contains("event.decian_persecution")));
+
+      // Die Epocheneinteilung stammt aus der Vorlesung.
+      expect(quiz.epochsIn(LearningScope.seminar), isEmpty);
+    });
+
+    test("Vorlesungsstoff enthält kein Proseminar", () {
+      final ids = {
+        for (final c in quiz.candidates(LearningScope.allLectures, _allKinds))
+          c.cardId.split("|").first,
+      };
+      expect(ids.any((id) => id.startsWith("q.ps")), isFalse);
+      expect(ids, isNot(contains("person.cassian")));
+      expect(ids, contains("term.periodization"));
+    });
+
+    test("beide Veranstaltungen zusammen", () {
+      final ids = {
+        for (final c in quiz.candidates(LearningScope.all, {QuizKind.lecture}))
+          c.cardId.split("|").first,
+      };
+      expect(ids, containsAll(["q.l01.label", "q.ps02.scytha"]));
+    });
+
+    test("Fragen zum Proseminar nennen ihre Fundstelle im Material", () {
+      final questions = _build(quiz, scope: LearningScope.seminar);
+      expect(questions, isNotEmpty);
+      for (final q in questions) {
+        if (q.lectureId == null) continue;
+        final unit = data.lecture(q.lectureId!)!;
+        if (unit.kind != CourseKind.seminar) continue;
+        expect(q.slides, isEmpty, reason: q.prompt);
+        expect(q.ref, isNotNull, reason: q.prompt);
+        expect(data.materialLabel(q.ref!), isNotNull, reason: q.prompt);
+      }
+    });
+
     test("Thema filtert auf seine Einträge", () {
       const scope = LearningScope.theme("theme.martyrdom");
       final entries = quiz.entriesIn(scope);
@@ -222,6 +276,8 @@ void main() {
       for (final scope in [
         LearningScope.all,
         LearningScope.allLectures,
+        LearningScope.seminar,
+        const LearningScope.lecture("seminar.02"),
         const LearningScope.lecture("lecture.02"),
         const LearningScope.epoch("epoch.antiquity"),
         const LearningScope.theme("theme.mission"),
@@ -236,6 +292,16 @@ void main() {
         LearningScope.all,
       );
       expect(LearningScope.parse("x", data), LearningScope.all);
+
+      // Gespeicherter Umfang aus der Zeit vor dem Proseminar.
+      expect(LearningScope.parse("lectures", data), LearningScope.allLectures);
+
+      // Proseminar gewählt, aber nicht (mehr) vorhanden: alles.
+      final json = churchHistoryJsonWithoutSeminar();
+      expect(
+        LearningScope.parse("course:seminar", parseChurchHistory(json)),
+        LearningScope.all,
+      );
       expect(LearningScope.parse(null, data), LearningScope.all);
     });
   });
@@ -367,6 +433,28 @@ void main() {
       final slide = hits.firstWhere((h) => h.kind == SearchHitKind.slide);
       expect(slide.targetId, "lecture.02");
       expect(slide.slide, 12);
+    });
+
+    test("Proseminar: Personen, Begriffe, Sitzungen und Seminarplan", () {
+      expect(search.search("Cassian").first.targetId, "person.cassian");
+      expect(
+        search.search("Gottesgebärerin").map((h) => h.targetId),
+        contains("term.theotokos"),
+      );
+
+      final hydra = search
+          .search("Hydra")
+          .firstWhere((h) => h.kind == SearchHitKind.material);
+      expect(hydra.targetId, "seminar.02");
+
+      expect(
+        search.search("Kieler Richtlinien").map((h) => h.kind),
+        contains(SearchHitKind.course),
+      );
+      expect(
+        search.search("Bildanalyse").map((h) => h.targetId),
+        contains("seminar.09"),
+      );
     });
 
     test("leere Suche und kein Treffer", () {

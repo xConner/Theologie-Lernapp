@@ -47,22 +47,37 @@ class ChurchHistoryLoader {
       themes: await read("themes.json"),
       entries: await read("entries.json"),
       lectures: await read("lectures.json"),
+      seminar: await read("seminar.json"),
     );
   }
 
+  /// [lectures] und [seminar] beschreiben je eine Veranstaltung (`course`)
+  /// mit ihren Vorlesungen (`lectures`) bzw. Sitzungen (`sessions`).
   static ChurchHistoryData parse({
     required Map<String, dynamic> epochs,
     required Map<String, dynamic> themes,
     required Map<String, dynamic> entries,
     required Map<String, dynamic> lectures,
+    Map<String, dynamic>? seminar,
   }) {
+    final courses = <Course>[];
+    final units = <Lecture>[];
+
+    for (final file in [lectures, ?seminar]) {
+      final course = _course(file["course"] as Map<String, dynamic>);
+      courses.add(course);
+      for (final l in _list(file["lectures"] ?? file["sessions"])) {
+        units.add(_lecture(l, course));
+      }
+    }
+
     final data = ChurchHistoryData(
-      course: _course(lectures["course"] as Map<String, dynamic>),
+      courses: courses,
       epochs: [for (final e in _list(epochs["epochs"])) _epoch(e)],
       epochNote: epochs["note"] as String?,
       themes: [for (final t in _list(themes["themes"])) _theme(t)],
       entries: [for (final e in _list(entries["entries"])) _entry(e)],
-      lectures: [for (final l in _list(lectures["lectures"])) _lecture(l)],
+      units: units,
     );
 
     final problems = validate(data);
@@ -95,7 +110,13 @@ class ChurchHistoryLoader {
     for (final e in data.entries) {
       unique(e.id);
     }
-    for (final l in data.lectures) {
+    for (final c in data.courses) {
+      unique(c.id);
+      for (final m in c.materials) {
+        unique(m.id);
+      }
+    }
+    for (final l in data.units) {
       unique(l.id);
       for (final list in l.lists) {
         unique(list.id);
@@ -130,16 +151,53 @@ class ChurchHistoryLoader {
       if (e.type == EntryType.person && e.clue == null) {
         problems.add("${e.id}: Person ohne Kennzeichnung (clue)");
       }
+      for (final n in e.notes) {
+        if (n.ref != null && data.material(n.ref!.materialId) == null) {
+          problems.add("${e.id}: Material ${n.ref!.materialId} fehlt");
+        }
+      }
     }
 
-    for (final l in data.lectures) {
-      final slideNumbers = {for (final s in l.slides) s.number};
+    // Gleicher Name oder Alias bei zwei Einträgen deutet auf eine Doppelung.
+    final names = <String, String>{};
+    for (final e in data.entries) {
+      for (final n in {e.plainName, ...e.aliases}) {
+        final key = "${e.type.name}:${n.toLowerCase()}";
+        final other = names[key];
+        if (other != null && other != e.id) {
+          problems.add("${e.id}: Name „$n“ auch bei $other");
+        }
+        names[key] = e.id;
+      }
+    }
 
-      void slidesExist(String where, List<int> slides) {
+    for (final l in data.units) {
+      final slideNumbers = {for (final s in l.slides) s.number};
+      final course = data.courseById(l.courseId);
+
+      if (course == null) {
+        problems.add("${l.id}: Veranstaltung ${l.courseId} fehlt");
+      }
+
+      // Fundstelle: in Vorlesungen die Folie, sonst ein Material der
+      // eigenen Veranstaltung.
+      void slidesExist(
+        String where,
+        List<int> slides, [
+        MaterialRef? ref,
+        bool required = false,
+      ]) {
         for (final n in slides) {
           if (!slideNumbers.contains(n)) {
             problems.add("${l.id} $where: Folie $n fehlt");
           }
+        }
+        if (ref != null &&
+            !(course?.materials.any((m) => m.id == ref.materialId) ?? false)) {
+          problems.add("${l.id} $where: Material ${ref.materialId} fehlt");
+        }
+        if (required && slides.isEmpty && ref == null) {
+          problems.add("${l.id} $where: ohne Fundstelle");
         }
       }
 
@@ -150,20 +208,24 @@ class ChurchHistoryLoader {
         if (data.theme(id) == null) problems.add("${l.id}: Thema $id fehlt");
       }
       for (final s in l.sections) {
-        slidesExist(s.title, s.slides);
+        slidesExist(s.title, s.slides, s.ref, true);
       }
+      final mentioned = <String>{};
       for (final m in l.mentions) {
         if (data.entry(m.entryId) == null) {
           problems.add("${l.id}: erwähnter Eintrag ${m.entryId} fehlt");
         }
-        slidesExist(m.entryId, m.slides);
+        if (!mentioned.add(m.entryId)) {
+          problems.add("${l.id}: ${m.entryId} doppelt erwähnt");
+        }
+        slidesExist(m.entryId, m.slides, m.ref, true);
       }
       for (final list in l.lists) {
-        slidesExist(list.id, list.slides);
+        slidesExist(list.id, list.slides, list.ref, true);
         if (list.items.length < 2) problems.add("${list.id}: zu kurz");
       }
       for (final q in l.questions) {
-        slidesExist(q.id, q.slides);
+        slidesExist(q.id, q.slides, q.ref, true);
         for (final id in q.entryIds) {
           if (data.entry(id) == null) {
             problems.add("${q.id}: Eintrag $id fehlt");
@@ -177,13 +239,29 @@ class ChurchHistoryLoader {
       }
     }
 
-    for (final part in data.course.outline) {
-      if (part.epochId != null && data.epoch(part.epochId!) == null) {
-        problems.add("Gliederung ${part.part}: Epoche fehlt");
+    if (!data.courses.any((c) => c.kind == CourseKind.lecture)) {
+      problems.add("Keine Vorlesung vorhanden");
+    }
+
+    for (final course in data.courses) {
+      for (final s in course.sections) {
+        if (s.ref == null ||
+            !course.materials.any((m) => m.id == s.ref!.materialId)) {
+          problems.add("${course.id} ${s.title}: Material fehlt");
+        }
       }
-      for (final topic in part.topics) {
-        if (topic.lectureId != null && data.lecture(topic.lectureId!) == null) {
-          problems.add("Gliederung ${topic.title}: Vorlesung fehlt");
+      for (final part in course.outline) {
+        if (part.epochId != null && data.epoch(part.epochId!) == null) {
+          problems.add("Gliederung ${part.part}: Epoche fehlt");
+        }
+        for (final topic in part.topics) {
+          if (topic.lectureId != null &&
+              data.lecture(topic.lectureId!) == null) {
+            problems.add("Gliederung ${topic.title}: Vorlesung fehlt");
+          }
+          if (topic.themeId != null && data.theme(topic.themeId!) == null) {
+            problems.add("Gliederung ${topic.title}: Thema fehlt");
+          }
         }
       }
     }
@@ -206,11 +284,39 @@ class ChurchHistoryLoader {
   static List<int> _ints(Object? raw) =>
       raw == null ? const [] : [for (final n in raw as List) n as int];
 
+  static MaterialRef? _ref(Object? raw) {
+    if (raw is! Map) return null;
+    return MaterialRef(raw["material"] as String, raw["at"] as String?);
+  }
+
+  static LectureSection _section(Map<String, dynamic> s) {
+    return LectureSection(
+      title: s["title"] as String,
+      slides: _ints(s["slides"]),
+      ref: _ref(s["ref"]),
+      points: _strings(s["points"]),
+      supplement: s["supplement"] as String?,
+    );
+  }
+
   static Course _course(Map<String, dynamic> json) {
     return Course(
       id: json["id"] as String,
+      kind: CourseKind.parse(json["kind"]),
       title: json["title"] as String,
-      lecturer: json["lecturer"] as String,
+      lecturer: json["lecturer"] as String?,
+      semester: json["semester"] as String?,
+      sections: [for (final s in _list(json["sections"])) _section(s)],
+      materials: [
+        for (final m in _list(json["materials"]))
+          CourseMaterial(
+            id: m["id"] as String,
+            short: m["short"] as String,
+            title: m["title"] as String,
+            category: m["category"] as String,
+            description: m["description"] as String,
+          ),
+      ],
       outline: [
         for (final p in _list(json["outline"]))
           OutlinePart(
@@ -224,6 +330,7 @@ class ChurchHistoryLoader {
                   number: t["number"] as int,
                   title: t["title"] as String,
                   lectureId: t["lecture"] as String?,
+                  themeId: t["theme"] as String?,
                 ),
             ],
           ),
@@ -266,19 +373,26 @@ class ChurchHistoryLoader {
       relatedIds: _strings(json["related"]),
       notes: [
         for (final n in _list(json["notes"]))
-          EntryNote(kind: NoteKind.parse(n["kind"]), text: n["text"] as String),
+          EntryNote(
+            kind: NoteKind.parse(n["kind"]),
+            text: n["text"] as String,
+            ref: _ref(n["ref"]),
+          ),
       ],
       references: _strings(json["references"]),
     );
   }
 
-  static Lecture _lecture(Map<String, dynamic> json) {
+  static Lecture _lecture(Map<String, dynamic> json, Course course) {
     final id = json["id"] as String;
 
     return Lecture(
       id: id,
+      courseId: course.id,
+      kind: course.kind,
       number: json["number"] as int,
       title: json["title"] as String,
+      date: json["date"] as String?,
       file: json["file"] as String?,
       epochIds: _strings(json["epochs"]),
       themeIds: _strings(json["themes"]),
@@ -292,21 +406,14 @@ class ChurchHistoryLoader {
             highlights: _strings(s["highlights"]),
           ),
       ],
-      sections: [
-        for (final s in _list(json["sections"]))
-          LectureSection(
-            title: s["title"] as String,
-            slides: _ints(s["slides"]),
-            points: _strings(s["points"]),
-            supplement: s["supplement"] as String?,
-          ),
-      ],
+      sections: [for (final s in _list(json["sections"])) _section(s)],
       mentions: [
         for (final m in _list(json["mentions"]))
           LectureMention(
             lectureId: id,
             entryId: m["entry"] as String,
             slides: _ints(m["slides"]),
+            ref: _ref(m["ref"]),
             text: m["text"] as String,
           ),
       ],
@@ -318,6 +425,7 @@ class ChurchHistoryLoader {
             title: l["title"] as String,
             prompt: l["prompt"] as String,
             slides: _ints(l["slides"]),
+            ref: _ref(l["ref"]),
             items: _strings(l["items"]),
             ordered: l["ordered"] == true,
           ),
@@ -332,6 +440,7 @@ class ChurchHistoryLoader {
             distractors: _strings(q["distractors"]),
             explanation: q["explanation"] as String,
             slides: _ints(q["slides"]),
+            ref: _ref(q["ref"]),
             entryIds: _strings(q["entries"]),
           ),
       ],

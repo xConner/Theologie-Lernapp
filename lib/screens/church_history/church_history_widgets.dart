@@ -103,17 +103,29 @@ class ChurchHistoryPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text(title), actions: actions),
       floatingActionButton: floatingActionButton,
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.fromLTRB(16, 16, 16, 88),
-          child: Center(
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: maxWidth),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: children,
-              ),
-            ),
+      body: SafeArea(child: ChurchHistoryBody(children: children)),
+    );
+  }
+}
+
+/// Scrollbarer Inhalt mit begrenzter Breite (auch innerhalb von Tabs).
+class ChurchHistoryBody extends StatelessWidget {
+  final List<Widget> children;
+
+  const ChurchHistoryBody({super.key, required this.children});
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.fromLTRB(16, 16, 16, 88),
+      child: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(
+            maxWidth: ChurchHistoryPage.maxWidth,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: children,
           ),
         ),
       ),
@@ -181,7 +193,8 @@ IconData entryIcon(EntryType type) => switch (type) {
   EntryType.source => Icons.description_outlined,
 };
 
-/// Herkunft eines Eintrags: aus welcher Vorlesung, sonst „Ergänzung“.
+/// Herkunft eines Eintrags: Vorlesung, Proseminar oder beide (mit den
+/// Vorlesungen bzw. Sitzungen), sonst „Ergänzung“.
 class ProvenanceTag extends StatelessWidget {
   final ChurchHistoryData data;
   final String entryId;
@@ -190,14 +203,28 @@ class ProvenanceTag extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final lectures = data.lecturesOf(entryId);
+    final course = data.contextOf(entryId);
 
-    if (lectures.isEmpty) {
+    if (course == null) {
       return const Tag("Ergänzung", icon: Icons.add_circle_outline_rounded);
     }
 
+    final lectures = data.lecturesOf(entryId);
+
+    String units(CourseKind kind) {
+      final numbers = [
+        for (final l in lectures)
+          if (l.kind == kind) l.number,
+      ];
+      return "${kind.unitShort} ${numbers.join(", ")}";
+    }
+
     return Tag(
-      lectures.map((l) => "VL ${l.number}").join(", "),
+      [
+        course.label,
+        for (final kind in CourseKind.values)
+          if (course.includes(kind)) units(kind),
+      ].join(" · "),
       color: context.colors.primary,
       icon: Icons.school_outlined,
     );
@@ -304,7 +331,8 @@ void openEntry(BuildContext context, ChurchHistoryData data, String id) {
   );
 }
 
-/// Kasten für Inhalte, die nicht aus der Vorlesung stammen.
+/// Kasten für Inhalte, die nicht aus der Vorlesung bzw. dem Material des
+/// Proseminars stammen.
 class SupplementBox extends StatelessWidget {
   final String text;
   final String label;
@@ -314,6 +342,11 @@ class SupplementBox extends StatelessWidget {
     super.key,
     this.label = "Ergänzung – nicht von den Folien",
   });
+
+  /// Kennzeichnung passend zur Veranstaltung.
+  static String labelFor(CourseKind kind) => kind == CourseKind.lecture
+      ? "Ergänzung – nicht von den Folien"
+      : "Ergänzung – nicht aus dem Seminarmaterial";
 
   @override
   Widget build(BuildContext context) {
@@ -346,7 +379,7 @@ class SupplementBox extends StatelessWidget {
   }
 }
 
-/// Wortlaut der Vorlesung mit Fundstelle.
+/// Wortlaut der Vorlesung bzw. des Seminarmaterials mit Fundstelle.
 class LectureQuote extends StatelessWidget {
   final String text;
   final String source;
@@ -410,13 +443,6 @@ class LectureQuote extends StatelessWidget {
       ),
     );
   }
-}
-
-String slidesLabel(List<int> slides) {
-  if (slides.isEmpty) return "";
-  return slides.length == 1
-      ? "Folie ${slides.single}"
-      : "Folien ${slides.join(", ")}";
 }
 
 /// Leerer Zustand mit Erklärung.

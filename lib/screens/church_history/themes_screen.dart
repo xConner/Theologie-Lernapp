@@ -72,7 +72,7 @@ class ThemeDetailScreen extends StatelessWidget {
 
     final entries = data.entriesOfTheme(theme.id);
     final lectures = [
-      for (final l in data.lectures)
+      for (final l in data.units)
         if (l.themeIds.contains(theme.id)) l,
     ];
 
@@ -115,11 +115,12 @@ class ThemeDetailScreen extends StatelessWidget {
           ],
         ),
         if (lectures.isNotEmpty) ...[
-          const SectionTitle("In den Vorlesungen"),
+          const SectionTitle("In den Veranstaltungen"),
           for (final l in lectures)
             ListTile(
               leading: const Icon(Icons.school_outlined),
               title: Text("${l.label}: ${l.title}"),
+              subtitle: Text(l.kind.label),
               onTap: () => Navigator.push(
                 context,
                 MaterialPageRoute(

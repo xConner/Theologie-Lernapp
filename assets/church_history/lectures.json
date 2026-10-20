@@ -19,10 +19,10 @@
           {"number": 7, "title": "Die Ausdifferenzierung der „Mehrheitskirche“ in vorkonstantinischer Zeit"},
           {"number": 8, "title": "Das Christentum auf dem Weg zur Staatsreligion"},
           {"number": 9, "title": "„Der Untergang des Heidentums“"},
-          {"number": 10, "title": "Askese und Mönchtum im frühen Christentum"},
+          {"number": 10, "title": "Askese und Mönchtum im frühen Christentum", "theme": "theme.monasticism"},
           {"number": 11, "title": "Die Entwicklung von Kirchenstruktur und Konzilswesen"},
           {"number": 12, "title": "Der trinitätstheologische Streit"},
-          {"number": 13, "title": "Der christologische Streit"},
+          {"number": 13, "title": "Der christologische Streit", "theme": "theme.christology"},
           {"number": 14, "title": "Die Entwicklung der Lehre von der Gnade"}
         ]
       },

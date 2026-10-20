@@ -7,8 +7,9 @@ import 'church_history_quiz_screen.dart';
 import 'church_history_widgets.dart';
 import 'timeline_view.dart';
 
-/// Eine Vorlesung: strukturierte Zusammenfassung, Originalfolien mit
-/// Abschrift und die behandelten Einträge.
+/// Eine Vorlesung (Zusammenfassung, Originalfolien mit Abschrift, Einträge)
+/// oder eine Sitzung des Proseminars (Zusammenfassung des Seminarplans mit
+/// Fundstellen und Einträge, ohne Folien).
 class LectureDetailScreen extends StatefulWidget {
   final ChurchHistoryData data;
   final String lectureId;
@@ -75,30 +76,35 @@ class _LectureDetailScreenState extends State<LectureDetailScreen> {
       );
     }
 
+    // Sitzungen des Proseminars haben keine Folien.
+    final slides = lecture.kind == CourseKind.lecture;
+
     return DefaultTabController(
-      length: 3,
-      initialIndex: widget.initialSlide != null ? 1 : 0,
+      length: slides ? 3 : 2,
+      initialIndex: slides && widget.initialSlide != null ? 1 : 0,
       child: Scaffold(
         appBar: AppBar(
           title: Text("${lecture.label}: ${lecture.title}"),
-          bottom: const TabBar(
+          bottom: TabBar(
             tabs: [
-              Tab(text: "Überblick"),
-              Tab(text: "Folien"),
-              Tab(text: "Einträge"),
+              const Tab(text: "Überblick"),
+              if (slides) const Tab(text: "Folien"),
+              const Tab(text: "Einträge"),
             ],
           ),
         ),
-        floatingActionButton: FloatingActionButton.extended(
-          key: const ValueKey("lecture-learn"),
-          onPressed: () => _learn(lecture),
-          icon: const Icon(Icons.quiz_rounded),
-          label: const Text("Vorlesung lernen"),
-        ),
+        floatingActionButton: lecture.hasLearningContent
+            ? FloatingActionButton.extended(
+                key: const ValueKey("lecture-learn"),
+                onPressed: () => _learn(lecture),
+                icon: const Icon(Icons.quiz_rounded),
+                label: Text("${lecture.kind.unit} lernen"),
+              )
+            : null,
         body: TabBarView(
           children: [
             _overview(context, lecture),
-            _slides(context, lecture),
+            if (slides) _slides(context, lecture),
             _entries(context, lecture),
           ],
         ),
@@ -127,15 +133,24 @@ class _LectureDetailScreenState extends State<LectureDetailScreen> {
     final data = widget.data;
     final textTheme = Theme.of(context).textTheme;
 
+    final course = data.courseById(lecture.courseId);
+    final fromSlides = lecture.kind == CourseKind.lecture;
+    final dated = data
+        .entriesOfLecture(lecture.id)
+        .any((e) => e.dating != null);
+
     return _frame([
       Text(
-        "${data.course.title} · ${data.course.lecturer}",
+        [?course?.title, ?course?.lecturer, ?lecture.date].join(" · "),
         style: TextStyle(color: context.colors.textSecondary),
       ),
       const SizedBox(height: 4),
       Text(
-        "Die Stichpunkte geben den Inhalt der Folien wieder. Grau "
-        "hinterlegte Kästen sind Ergänzungen der App.",
+        fromSlides
+            ? "Die Stichpunkte geben den Inhalt der Folien wieder. Grau "
+                  "hinterlegte Kästen sind Ergänzungen der App."
+            : "Die Stichpunkte geben den Seminarplan wieder. Grau "
+                  "hinterlegte Kästen sind Ergänzungen der App.",
         style: TextStyle(color: context.colors.textSecondary, fontSize: 13),
       ),
 
@@ -146,17 +161,26 @@ class _LectureDetailScreenState extends State<LectureDetailScreen> {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Expanded(child: Text(section.title, style: textTheme.titleLarge)),
-              TextButton(
-                onPressed: () {
-                  DefaultTabController.of(context).animateTo(1);
-                  // Erst nach dem Tabwechsel ist die Folienliste aufgebaut.
-                  Future.delayed(
-                    const Duration(milliseconds: 400),
-                    () => _scrollTo(section.slides.first),
-                  );
-                },
-                child: Text(slidesLabel(section.slides)),
-              ),
+              if (fromSlides && section.slides.isNotEmpty)
+                TextButton(
+                  onPressed: () {
+                    DefaultTabController.of(context).animateTo(1);
+                    // Erst nach dem Tabwechsel ist die Folienliste aufgebaut.
+                    Future.delayed(
+                      const Duration(milliseconds: 400),
+                      () => _scrollTo(section.slides.first),
+                    );
+                  },
+                  child: Text(slidesLabel(section.slides)),
+                )
+              else if (section.ref != null)
+                Text(
+                  data.materialLabel(section.ref!) ?? "",
+                  style: TextStyle(
+                    color: context.colors.textSecondary,
+                    fontSize: 13,
+                  ),
+                ),
             ],
           ),
         ),
@@ -165,7 +189,11 @@ class _LectureDetailScreenState extends State<LectureDetailScreen> {
             padding: const EdgeInsets.only(bottom: 4, left: 4),
             child: Text("• $point", style: const TextStyle(fontSize: 16)),
           ),
-        if (section.supplement != null) SupplementBox(section.supplement!),
+        if (section.supplement != null)
+          SupplementBox(
+            section.supplement!,
+            label: SupplementBox.labelFor(lecture.kind),
+          ),
       ],
 
       if (lecture.lists.isNotEmpty) ...[
@@ -181,7 +209,8 @@ class _LectureDetailScreenState extends State<LectureDetailScreen> {
             child: ExpansionTile(
               title: Text(list.title),
               subtitle: Text(
-                "${list.items.length} Punkte · ${slidesLabel(list.slides)}",
+                "${list.items.length} Punkte · "
+                "${data.sourceLabel(null, list.slides, list.ref)}",
               ),
               childrenPadding: const EdgeInsets.fromLTRB(16, 0, 16, 12),
               expandedCrossAxisAlignment: CrossAxisAlignment.start,
@@ -197,20 +226,22 @@ class _LectureDetailScreenState extends State<LectureDetailScreen> {
           ),
       ],
 
-      const SectionTitle("Zeitliche Einordnung"),
-      OutlinedButton.icon(
-        icon: const Icon(Icons.timeline_rounded),
-        label: const Text("Auf der Zeitleiste anzeigen"),
-        onPressed: () => Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (_) => Scaffold(
-              appBar: AppBar(title: Text("Zeitleiste: ${lecture.label}")),
-              body: TimelineView(data: data, lectureId: lecture.id),
+      if (dated) ...[
+        const SectionTitle("Zeitliche Einordnung"),
+        OutlinedButton.icon(
+          icon: const Icon(Icons.timeline_rounded),
+          label: const Text("Auf der Zeitleiste anzeigen"),
+          onPressed: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => Scaffold(
+                appBar: AppBar(title: Text("Zeitleiste: ${lecture.label}")),
+                body: TimelineView(data: data, lectureId: lecture.id),
+              ),
             ),
           ),
         ),
-      ),
+      ],
     ]);
   }
 
@@ -282,9 +313,7 @@ class _LectureDetailScreenState extends State<LectureDetailScreen> {
     final entries = data.entriesOfLecture(lecture.id);
 
     if (entries.isEmpty) {
-      return const EmptyHint(
-        "Diese Vorlesung verweist noch auf keine Einträge.",
-      );
+      return const EmptyHint("Hierzu gibt es noch keine Einträge.");
     }
 
     String? mentionOf(String id) {

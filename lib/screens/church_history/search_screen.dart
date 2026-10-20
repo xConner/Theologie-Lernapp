@@ -6,9 +6,11 @@ import '../../theme/app_theme.dart';
 import 'church_history_widgets.dart';
 import 'epochs_screen.dart';
 import 'lecture_detail_screen.dart';
+import 'lectures_screen.dart';
 
 /// Suche über Personen, Ereignisse, Jahreszahlen, Begriffe, Quellen,
-/// Epochen, Vorlesungen und den Text der Folien.
+/// Epochen, Vorlesungen, Sitzungen, den Text der Folien und des
+/// Seminarplans.
 class ChurchHistorySearchScreen extends StatefulWidget {
   final ChurchHistoryData data;
 
@@ -29,7 +31,16 @@ class _ChurchHistorySearchScreenState extends State<ChurchHistorySearchScreen> {
     switch (hit.kind) {
       case SearchHitKind.epoch:
         screen = EpochDetailScreen(data: data, epochId: hit.targetId);
-      case SearchHitKind.lecture || SearchHitKind.slide:
+      case SearchHitKind.course:
+        screen = LecturesScreen(
+          data: data,
+          initialKind:
+              data.courseById(hit.targetId)?.kind ?? CourseKind.lecture,
+        );
+      case SearchHitKind.lecture ||
+          SearchHitKind.session ||
+          SearchHitKind.slide ||
+          SearchHitKind.material:
         screen = LectureDetailScreen(
           data: data,
           lectureId: hit.targetId,
@@ -50,7 +61,10 @@ class _ChurchHistorySearchScreenState extends State<ChurchHistorySearchScreen> {
     SearchHitKind.source => entryIcon(EntryType.source),
     SearchHitKind.epoch => Icons.timeline_rounded,
     SearchHitKind.lecture => Icons.school_outlined,
+    SearchHitKind.session => Icons.groups_outlined,
     SearchHitKind.slide => Icons.slideshow_rounded,
+    SearchHitKind.material => Icons.description_outlined,
+    SearchHitKind.course => Icons.assignment_outlined,
   };
 
   @override
@@ -73,8 +87,9 @@ class _ChurchHistorySearchScreenState extends State<ChurchHistorySearchScreen> {
         if (query.trim().isEmpty)
           const EmptyHint(
             "Sucht in Personen, Ereignissen, Begriffen, Quellen, Epochen, "
-            "Vorlesungen und im Text der Folien. Eine Jahreszahl findet "
-            "alles, was in dieses Jahr fällt.",
+            "Vorlesungen, Sitzungen und im Text der Folien und des "
+            "Seminarplans. Eine Jahreszahl findet alles, was in dieses Jahr "
+            "fällt.",
           )
         else if (hits.isEmpty)
           const EmptyHint("Keine Treffer.")

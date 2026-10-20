@@ -9,7 +9,7 @@ import '../../models/greek/vocabulary/learning_card.dart';
 /// Lernkarten (`<Inhalt>|<Art>`), damit z. B. eine sichere Datierung nicht
 /// verdeckt, dass die Bedeutung eines Ereignisses noch unsicher ist.
 enum QuizKind {
-  lecture("Fragen zur Vorlesung"),
+  lecture("Fragen zu den Veranstaltungen"),
   recall("Merklisten"),
   person("Personen"),
   term("Begriffe und Quellen"),
@@ -52,10 +52,11 @@ enum QuizMode {
   const QuizMode(this.label, this.kinds);
 }
 
-enum ScopeKind { all, lectures, lecture, epoch, theme }
+enum ScopeKind { all, course, lecture, epoch, theme }
 
-/// Lernumfang: alles, alle Vorlesungen, eine Vorlesung, eine Epoche oder ein
-/// Thema.
+/// Lernumfang: alles (beide Veranstaltungen), der Stoff einer
+/// Veranstaltung (Vorlesung oder Proseminar), eine Vorlesung bzw. Sitzung,
+/// eine Epoche oder ein Thema.
 class LearningScope {
   final ScopeKind kind;
   final String? id;
@@ -63,7 +64,15 @@ class LearningScope {
   const LearningScope._(this.kind, [this.id]);
 
   static const LearningScope all = LearningScope._(ScopeKind.all);
-  static const LearningScope allLectures = LearningScope._(ScopeKind.lectures);
+
+  /// Stoff aller Vorlesungen bzw. aller Sitzungen des Proseminars.
+  LearningScope.course(CourseKind course)
+    : this._(ScopeKind.course, course.name);
+
+  static final LearningScope allLectures = LearningScope.course(
+    CourseKind.lecture,
+  );
+  static final LearningScope seminar = LearningScope.course(CourseKind.seminar);
 
   const LearningScope.lecture(String lectureId)
     : this._(ScopeKind.lecture, lectureId);
@@ -81,8 +90,13 @@ class LearningScope {
     final id = split < 0 ? null : key.substring(split + 1);
 
     switch (kindName) {
+      // Frühere Form, als es nur die Vorlesung gab.
       case "lectures":
         return allLectures;
+      case "course" when id == CourseKind.lecture.name:
+        return allLectures;
+      case "course" when id == CourseKind.seminar.name && data.seminar != null:
+        return seminar;
       case "lecture" when id != null && data.lecture(id) != null:
         return LearningScope.lecture(id);
       case "epoch" when id != null && data.epoch(id) != null:
@@ -94,15 +108,25 @@ class LearningScope {
     return all;
   }
 
+  CourseKind? get courseKind =>
+      kind == ScopeKind.course ? CourseKind.parse(id) : null;
+
   String label(ChurchHistoryData data) {
     switch (kind) {
       case ScopeKind.all:
-        return "Alle Inhalte";
-      case ScopeKind.lectures:
-        return "Alle bisherigen Vorlesungen";
+        return data.seminar == null
+            ? "Alle Inhalte"
+            : "Alle Inhalte (beide Veranstaltungen)";
+      case ScopeKind.course:
+        return courseKind == CourseKind.seminar
+            ? "Proseminarstoff (alle Sitzungen)"
+            : "Vorlesungsstoff (alle bisherigen Vorlesungen)";
       case ScopeKind.lecture:
         final l = data.lecture(id!);
-        return l == null ? "Vorlesung" : "${l.label}: ${l.title}";
+        if (l == null) return "Vorlesung";
+        return l.kind == CourseKind.lecture
+            ? "${l.label}: ${l.title}"
+            : "${l.kind.label}, ${l.label}: ${l.title}";
       case ScopeKind.epoch:
         return data.epoch(id!)?.title ?? "Epoche";
       case ScopeKind.theme:
@@ -129,9 +153,12 @@ sealed class QuizQuestion {
   /// Erklärung nach der Antwort.
   final String explanation;
 
-  /// Bezug zur Vorlesung (null: Ergänzung ohne Folienbezug).
+  /// Bezug zur Vorlesung bzw. Sitzung (null: Ergänzung ohne Bezug).
   final String? lectureId;
   final List<int> slides;
+
+  /// Fundstelle im Material (Veranstaltungen ohne Folien).
+  final MaterialRef? ref;
 
   /// Einträge, die sich aus der Auswertung heraus öffnen lassen.
   final List<String> entryIds;
@@ -142,6 +169,7 @@ sealed class QuizQuestion {
     required this.explanation,
     this.lectureId,
     this.slides = const [],
+    this.ref,
     this.entryIds = const [],
   });
 
@@ -163,6 +191,7 @@ class ChoiceQuestion extends QuizQuestion {
     required super.explanation,
     super.lectureId,
     super.slides,
+    super.ref,
     super.entryIds,
   });
 
@@ -218,6 +247,7 @@ class RecallQuestion extends QuizQuestion {
             : "Die Reihenfolge spielt keine Rolle.",
         lectureId: list.lectureId,
         slides: list.slides,
+        ref: list.ref,
       );
 
   @override
@@ -281,18 +311,20 @@ class ChurchHistoryQuiz {
 
   List<Lecture> lecturesIn(LearningScope scope) {
     switch (scope.kind) {
-      case ScopeKind.all || ScopeKind.lectures:
-        return data.lectures;
+      case ScopeKind.all:
+        return data.units;
+      case ScopeKind.course:
+        return data.unitsOfKind(scope.courseKind!);
       case ScopeKind.lecture:
         return [?data.lecture(scope.id!)];
       case ScopeKind.epoch:
         return [
-          for (final l in data.lectures)
+          for (final l in data.units)
             if (l.epochIds.contains(scope.id)) l,
         ];
       case ScopeKind.theme:
         return [
-          for (final l in data.lectures)
+          for (final l in data.units)
             if (l.themeIds.contains(scope.id)) l,
         ];
     }
@@ -302,12 +334,9 @@ class ChurchHistoryQuiz {
     switch (scope.kind) {
       case ScopeKind.all:
         return data.entries;
-      case ScopeKind.lectures:
-        final ids = {for (final l in data.lectures) ...l.entryIds};
-        return [
-          for (final e in data.entries)
-            if (ids.contains(e.id)) e,
-        ];
+      case ScopeKind.course:
+        // Einträge beider Veranstaltungen gehören auch hierher.
+        return data.entriesOfCourseKind(scope.courseKind!);
       case ScopeKind.lecture:
         return data.entriesOfLecture(scope.id!);
       case ScopeKind.epoch:
@@ -319,8 +348,11 @@ class ChurchHistoryQuiz {
 
   List<Epoch> epochsIn(LearningScope scope) {
     switch (scope.kind) {
-      case ScopeKind.all || ScopeKind.lectures:
+      case ScopeKind.all:
         return data.epochs;
+      // Die Epocheneinteilung stammt aus der Vorlesung (Folie 4).
+      case ScopeKind.course:
+        return scope.courseKind == CourseKind.lecture ? data.epochs : const [];
       case ScopeKind.epoch:
         return [?data.epoch(scope.id!)];
       case ScopeKind.lecture:
@@ -653,14 +685,20 @@ class ChurchHistoryQuiz {
       explanation: q.explanation,
       lectureId: q.lectureId,
       slides: q.slides,
+      ref: q.ref,
       entryIds: q.entryIds,
     );
   }
 
-  ({String? lectureId, List<int> slides}) _source(String entryId) {
+  ({String? lectureId, List<int> slides, MaterialRef? ref}) _source(
+    String entryId,
+  ) {
     final mentions = data.mentionsOf(entryId);
-    if (mentions.isEmpty) return (lectureId: null, slides: const []);
-    return (lectureId: mentions.first.lectureId, slides: mentions.first.slides);
+    if (mentions.isEmpty) {
+      return (lectureId: null, slides: const [], ref: null);
+    }
+    final m = mentions.first;
+    return (lectureId: m.lectureId, slides: m.slides, ref: m.ref);
   }
 
   QuizQuestion? _personByClue(HistoryEntry person, Random r) {
@@ -695,6 +733,7 @@ class ChurchHistoryQuiz {
           ": ${person.significance}",
       lectureId: source.lectureId,
       slides: source.slides,
+      ref: source.ref,
       entryIds: [person.id],
     );
   }
@@ -738,6 +777,7 @@ class ChurchHistoryQuiz {
       explanation: "${event.name} (${event.dating?.label}): ${event.summary}",
       lectureId: source.lectureId,
       slides: source.slides,
+      ref: source.ref,
       entryIds: [event.id, answer.id],
     );
   }
@@ -763,6 +803,7 @@ class ChurchHistoryQuiz {
       explanation: e.significance,
       lectureId: source.lectureId,
       slides: source.slides,
+      ref: source.ref,
       entryIds: [e.id],
     );
   }
@@ -786,6 +827,7 @@ class ChurchHistoryQuiz {
       explanation: e.significance,
       lectureId: source.lectureId,
       slides: source.slides,
+      ref: source.ref,
       entryIds: [e.id],
     );
   }
@@ -852,6 +894,7 @@ class ChurchHistoryQuiz {
       explanation: _withNote("${e.dating!.label}: ${e.summary}", dating),
       lectureId: source.lectureId,
       slides: source.slides,
+      ref: source.ref,
       entryIds: [e.id],
     );
   }
@@ -876,6 +919,7 @@ class ChurchHistoryQuiz {
       explanation: _withNote("${e.name}: ${e.significance}", dating),
       lectureId: source.lectureId,
       slides: source.slides,
+      ref: source.ref,
       entryIds: [e.id],
     );
   }

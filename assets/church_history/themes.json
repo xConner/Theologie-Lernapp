@@ -3,7 +3,7 @@
     {
       "id": "theme.discipline",
       "title": "Das Fach und seine Methoden",
-      "description": "Was Geschichtsschreibung leistet, wie das Fach heißt, mit welchen Zugängen es arbeitet und wie es die Geschichte in Epochen gliedert."
+      "description": "Was Geschichtsschreibung leistet, wie das Fach heißt, mit welchen Zugängen es arbeitet und wie es die Geschichte in Epochen gliedert; dazu das Handwerkszeug: Quellen, Editionen, Textkritik und Seminararbeit."
     },
     {
       "id": "theme.judaism",
@@ -24,6 +24,16 @@
       "id": "theme.church_state",
       "title": "Kirche und politische Macht",
       "description": "Das Verhältnis von Christen, Kaiser und Reich: Kaiserkult, Loyalitätsforderungen, staatliche Maßnahmen und ihr Ende."
+    },
+    {
+      "id": "theme.christology",
+      "title": "Christologie und Menschwerdung",
+      "description": "Wie die Alte Kirche über die Menschwerdung Gottes in Christus stritt: Begriffe, Streitschriften, Konzilien und Bekenntnisse."
+    },
+    {
+      "id": "theme.monasticism",
+      "title": "Askese und Mönchtum",
+      "description": "Lebensformen des frühen Mönchtums in Ägypten, Palästina und Gallien und die Schriften, die sie überliefern."
     }
   ]
 }

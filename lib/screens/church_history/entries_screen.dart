@@ -4,7 +4,8 @@ import '../../models/church_history/church_history.dart';
 import '../../services/church_history/church_history_search.dart';
 import 'church_history_widgets.dart';
 
-/// Nachschlagen: Personen, Ereignisse, Begriffe und Quellen mit Filter.
+/// Nachschlagen: Personen, Ereignisse, Begriffe und Quellen mit Filter nach
+/// Typ und Veranstaltung.
 class EntriesScreen extends StatefulWidget {
   final ChurchHistoryData data;
   final EntryType? initialType;
@@ -17,7 +18,9 @@ class EntriesScreen extends StatefulWidget {
 
 class _EntriesScreenState extends State<EntriesScreen> {
   EntryType? type;
-  bool onlyLecture = false;
+
+  /// Filter nach Veranstaltung; null: alle Einträge.
+  EntryOrigin? origin;
   String filter = "";
 
   @override
@@ -34,7 +37,7 @@ class _EntriesScreenState extends State<EntriesScreen> {
     final entries = [
       for (final e in [...data.entries]..sort(ChurchHistoryData.compareEntries))
         if ((type == null || e.type == type) &&
-            (!onlyLecture || data.isFromLecture(e.id)) &&
+            (origin == null || origin!.matches(data.contextOf(e.id))) &&
             (query.isEmpty ||
                 ChurchHistorySearch.normalize(
                   [e.name, ...e.aliases, e.category ?? ""].join(" "),
@@ -70,12 +73,21 @@ class _EntriesScreenState extends State<EntriesScreen> {
                 selected: type == t,
                 onSelected: (_) => setState(() => type = t),
               ),
-            FilterChip(
-              key: const ValueKey("entries-only-lecture"),
-              label: const Text("Nur aus Vorlesungen"),
-              selected: onlyLecture,
-              onSelected: (v) => setState(() => onlyLecture = v),
-            ),
+          ],
+        ),
+        const SizedBox(height: 8),
+        Wrap(
+          spacing: 8,
+          runSpacing: 8,
+          children: [
+            for (final o in EntryOrigin.values)
+              if (data.seminar != null || !o.needsSeminar)
+                FilterChip(
+                  key: ValueKey("entries-origin-${o.name}"),
+                  label: Text(o.label),
+                  selected: origin == o,
+                  onSelected: (v) => setState(() => origin = v ? o : null),
+                ),
           ],
         ),
         const SizedBox(height: 8),
@@ -86,4 +98,26 @@ class _EntriesScreenState extends State<EntriesScreen> {
       ],
     );
   }
+}
+
+/// Filter nach Veranstaltung. „Vorlesung“ und „Proseminar“ schließen
+/// gemeinsam behandelte Einträge ein.
+enum EntryOrigin {
+  lecture("Vorlesung"),
+  seminar("Proseminar"),
+  both("Gemeinsam"),
+  supplement("Nur Ergänzung");
+
+  final String label;
+
+  const EntryOrigin(this.label);
+
+  bool get needsSeminar => this == seminar || this == both;
+
+  bool matches(CourseContext? context) => switch (this) {
+    lecture => context?.includes(CourseKind.lecture) ?? false,
+    seminar => context?.includes(CourseKind.seminar) ?? false,
+    both => context == CourseContext.both,
+    supplement => context == null,
+  };
 }

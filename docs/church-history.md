@@ -1,8 +1,10 @@
 # Kirchengeschichte
 
 Lernbereich zur Vorlesung „Geschichte des Christentums im Überblick I“
-(Prof. Dr. A. Müller). Erreichbar über die Startseite („Kirchengeschichte“)
-und den Deep Link `/church-history`.
+(Prof. Dr. A. Müller) und zum Proseminar „Einführung in die
+Kirchengeschichte: Cassian und das Menschwerden Gottes“ (Wintersemester
+2026/27). Erreichbar über die Startseite („Kirchengeschichte“) und den Deep
+Link `/church-history`.
 
 ## Inhalte
 
@@ -11,7 +13,8 @@ Lernstand des Nutzers:
 
 | Datei | Inhalt |
 |---|---|
-| `lectures.json` | Kurs mit Gliederung, Vorlesungen mit Folien (Abschrift, Hervorhebungen, Bild), strukturierter Zusammenfassung, Erwähnungen, Merklisten und kuratierten Fragen |
+| `lectures.json` | Vorlesung (`course`) mit Gliederung, Vorlesungen mit Folien (Abschrift, Hervorhebungen, Bild), strukturierter Zusammenfassung, Erwähnungen, Merklisten und kuratierten Fragen |
+| `seminar.json` | Proseminar (`course` mit `kind: "seminar"`, Prüfungshinweisen, Literatur und Materialliste) und seine Sitzungen (`sessions`) im selben Format wie Vorlesungen, aber ohne Folien |
 | `entries.json` | Personen, Ereignisse, Begriffe und Quellen in einem einheitlichen Modell |
 | `epochs.json` | Epochen mit Richtwerten und der Kennzeichnung aus der Vorlesung |
 | `themes.json` | thematische Zugänge |
@@ -24,7 +27,9 @@ Die Originale (PDF) liegen nicht in der App.
 Jeder Inhalt hat eine stabile ID der Form `<typ>.<name>`
 (`person.decius`, `event.decian_persecution`, `term.lapsi`,
 `source.pliny_letters`, `epoch.antiquity`, `theme.martyrdom`,
-`lecture.02`, `q.l02.decius`, `list.persecutions`). Lernkarten verweisen
+`lecture.02`, `q.l02.decius`, `list.persecutions`; im Proseminar
+`seminar.02`, `q.ps02.scytha`, `list.ps_paper_structure`,
+`material.schwartz`). Lernkarten verweisen
 auf diese IDs; **eine ID nie umbenennen**, sonst geht der Lernstand dazu
 verloren. Verknüpfungen (`related`) werden nur in eine Richtung
 eingetragen, die Gegenrichtung ergänzt die App.
@@ -32,6 +37,40 @@ eingetragen, die Gegenrichtung ergänzt die App.
 `ChurchHistoryLoader.validate` prüft beim Laden (und in den Tests) doppelte
 IDs, das ID-Format, alle Verweise auf Einträge, Epochen, Themen und Folien,
 Datierungen von Ereignissen und eindeutige Antwortmöglichkeiten.
+
+### Zwei Veranstaltungen, ein Bestand an Einträgen
+
+Vorlesung und Proseminar teilen sich Einträge, Epochen und Themen. Einen
+Inhalt, den beide behandeln, gibt es nur einmal; beide Veranstaltungen
+erwähnen denselben Eintrag. Neue Einträge nie für eine Veranstaltung
+doppeln (der Loader meldet gleiche Namen oder Aliase desselben Typs).
+
+Die Kennzeichnung „Vorlesung“, „Proseminar“ oder „Beide“
+(`ChurchHistoryData.contextOf`) ergibt sich allein aus den `mentions` und
+`questions` der Vorlesungen bzw. Sitzungen, nie aus einem eigenen Feld.
+„Beide“ heißt also: beide Veranstaltungen behandeln den Inhalt. Dass etwa
+die Bibliographie des Proseminars Ebeling nennt, macht ihn nicht
+gemeinsam; dafür gibt es keine Erwähnung. Einträge ohne Erwähnung sind
+„Ergänzung“.
+
+Themen der Vorlesungsgliederung, zu denen schon Stoff aus dem Proseminar
+da ist, verweisen mit `theme` auf das Thema der App.
+
+### Fundstellen
+
+- Vorlesung: Folien (`slides`).
+- Proseminar: `ref` auf ein Material der eigenen Veranstaltung
+  (`{"material": "material.seminar_plan", "at": "S. 2"}`). Jeder Abschnitt,
+  jede Erwähnung, Merkliste und Frage einer Sitzung braucht eine
+  Fundstelle; der Loader prüft das.
+- Was der Seminarplan sagt, steht in den Sitzungen; was die
+  Forschungsliteratur sagt, steht als `notes` mit `kind: "research"` (oder
+  `debate` bei Streitfragen) und `ref` am Eintrag. Offene Aufgaben des
+  Seminarplans werden nicht beantwortet und nicht abgefragt; Fragen zu
+  Forschungspositionen nennen die Autorin bzw. den Autor („nach Vannier“).
+- Offensichtliche Fehler der Vorlagen werden berichtigt und als
+  `supplement` vermerkt (Jahr 2026 statt 2027 ab der 10. Sitzung,
+  hochgestellte Auflagenziffern der Bibliographie).
 
 ### Vorlesung und Ergänzung
 
@@ -57,15 +96,30 @@ Datierungen von Ereignissen und eindeutige Antwortmöglichkeiten.
 
 Code muss dafür nicht geändert werden.
 
+### Neue Sitzung oder neues Material zum Proseminar
+
+1. Material in `seminar.json` unter `course.materials` aufnehmen
+   (`material.<name>`, Kurzform für Fundstellen in `short`).
+2. Die Sitzung `seminar.NN` mit `sections`, `mentions`, `lists` und
+   `questions` füllen, jeweils mit `ref`.
+3. Vorhandene Einträge erwähnen statt neue anzulegen; dadurch werden sie
+   automatisch „Beide“.
+4. `flutter test test/church_history` ausführen.
+
 ## Lernen
 
 | Modus | Aufgabenarten |
 |---|---|
-| Wissensquiz | Fragen zur Vorlesung, Merklisten (Selbstbewertung), Personen, Begriffe und Quellen, Epochen |
+| Wissensquiz | Fragen zu den Veranstaltungen, Merklisten (Selbstbewertung), Personen, Begriffe und Quellen, Epochen |
 | Chronologietrainer | Reihenfolge, Datierungen, Epochen |
 
-Lernumfang: alle Inhalte, alle bisherigen Vorlesungen, eine Vorlesung,
-eine Epoche oder ein Thema; zusätzlich „Nur schwierige Inhalte“.
+Lernumfang: alle Inhalte (beide Veranstaltungen), Vorlesungsstoff,
+Proseminarstoff, eine Vorlesung oder Sitzung, eine Epoche oder ein Thema;
+zusätzlich „Nur schwierige Inhalte“. Vorlesungs- bzw. Proseminarstoff
+enthält auch die gemeinsamen Einträge. Epochenfragen gehören zur Vorlesung
+(Folie 4). Gespeichert wird der Umfang als Schlüssel (`course:lecture`,
+`course:seminar`, `lecture:seminar.02`); der frühere Schlüssel `lectures`
+gilt weiter als Vorlesungsstoff.
 
 Die Aufgaben entstehen aus den Daten (`ChurchHistoryQuiz`). Damit jede
 Aufgabe eindeutig ist, überschneiden sich Datierungen von Antwort und
@@ -84,8 +138,8 @@ und „Zuletzt sicher“, ohne Punkte, Level oder Aussagen über Beherrschung.
 `users/{uid}/quiz_settings/church_history` (Lernkarten) und
 `.../church_history_settings` (Einstellungen), als Gast lokal über
 `LocalLearningStore`. Zurücksetzen über `ProgressArea.churchHistory`
-(Lernstand, nicht die Einstellungen) oder je Vorlesung im
-Fortschrittsbildschirm. Statistik, Serie (`StreakTrack.churchHistory`) und
+(Lernstand, nicht die Einstellungen) oder je Veranstaltung, Vorlesung bzw.
+Sitzung im Fortschrittsbildschirm. Statistik, Serie (`StreakTrack.churchHistory`) und
 Sounds laufen über `reportTrainerAnswer`.
 
 ## Code
