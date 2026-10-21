@@ -1,6 +1,6 @@
 # Latein: Wortschatz und Grammatik
 
-Stand: Oktober 2026.
+Stand: 21. Oktober 2026.
 
 ## Lehrbuch hinter der Vokabelliste
 
@@ -12,8 +12,9 @@ ihren Wortschätzen, Band 2 die Lektionen 15–28.
 
 | App | Lehrbuch |
 |---|---|
-| Schritt 1–3 | Lektion 1–3 |
-| Unter-Schritt 1–3 | Wortschatzteile einer Lektion |
+| Schritt 1–13 | Lektion 1–13 |
+| Unter-Schritt 1–3 (nur Lektion 1–3) | Wortschatzteile einer Lektion |
+| Unter-Schritt 1 (Lektion 4–13) | ganze Lektion; Wortschatzteile unbekannt |
 
 **Belege**
 
@@ -43,17 +44,14 @@ nova, prima brevis, ROMA) weichen in Wortauswahl oder Lektionszählung ab.
 
 **Lücken**
 
-* Lektionen 4–14 (Band 1) und 15–28 (Band 2) fehlen. Ihre Wortlisten sind
-  urheberrechtlich geschützte Verlagsmaterialien und im Netz nur als
-  unvollständige, von Nutzern abgetippte Lernkarten zu finden. Wörter aus
-  allgemeinem Lateinwissen wurden bewusst nicht als „aus dem Lehrbuch“
-  ergänzt.
+* Lektion 4–13 sind seit dem 21. Oktober 2026 enthalten (siehe unten).
+  Es fehlen Lektion 14 (Band 1) und 15–28 (Band 2).
 * Die Recherche lief in einer Umgebung mit eingeschränktem Netzzugang:
   Seiten von Verlag, Quizlet, Wiktionary und Wörterbüchern waren direkt
   nicht abrufbar, nur Zusammenfassungen von Suchergebnissen.
 * Zum Ergänzen genügt es, die Wortschatzseiten der weiteren Lektionen (aus
   dem eigenen Buch) bereitzustellen. Neue Einträge bekommen fortlaufende
-  IDs ab 103; Schritt = Lektion, Unter-Schritt = Wortschatzteil.
+  IDs ab 418; Schritt = Lektion, Unter-Schritt = Wortschatzteil.
 
 **Zweite Recherche (19. Oktober 2026)**
 
@@ -83,6 +81,51 @@ hinzu, weil sich keine Lektion zuverlässig rekonstruieren ließ.
   Übersicht lesen Schritte und Unter-Schritte aus den Daten, neue Schritte
   sind im Trainer automatisch aktiv, Lernstände hängen an der ID (Test
   „eine neue Lektion erscheint ohne Codeänderung im Filter“).
+
+## Lektion 4–13 (ergänzt am 21. Oktober 2026)
+
+**Quelle:** zehn PDF-Ausdrucke der Quizlet-Lernkarten „prima.kompakt
+Lektion 4“ bis „Lektion 13“, die Conner im Projekt hochgeladen und zur
+Übernahme freigegeben hat. Jeder Ausdruck beginnt mit Seite 2; was auf
+Seite 1 stand, ist nicht bekannt. Lektion 4 der Vorlage enthält gaudium,
+timor, porta, simul und scelerātus, dieselben Wörter, die eine Suche für
+„prima.1 Lektion 4“ zeigte. Die Lektionszählung von prima.kompakt passt
+damit nach unserer Annahme zu prima. Band 1.
+
+**Übernahme**
+
+* 315 neue Einträge, IDs 103–417, Schritt = Lektion, Unter-Schritt 1. Die
+  Vorlage gliedert die Lektionen nicht in Wortschatzteile.
+* Bedeutungen, Genus und Zusatzformen wie in der Vorlage. Die Zusatzform
+  wechselt wie im Buch: Lektion 4–7 1. Person Singular, ab Lektion 8 mit
+  Perfekt (teneō, tenuī); Nomen ab Lektion 6 mit Genitiv, in Lektion 4–5
+  ohne Zusatzform; Adjektive mit Femininum und Neutrum.
+* Längenzeichen hat die Vorlage nicht; sie wurden nach dem Wörterbuch
+  ergänzt.
+* Berichtigte Tippfehler der Vorlage: homie → hodiē, tempo → temptō,
+  tuuus → tuus, dicessi → discessī, consuli → cōnsuluī, villa (Genitiv) →
+  vīllae, sententia (Genitiv) → sententiae, erbärmlichkeit → erbärmlich.
+* Übersetzungen mit Komma („der, die, das erste“) sind gekürzt („der
+  erste“) oder aufgeteilt, weil der Trainer Kommas als Trennung zwischen
+  Bedeutungen liest. Bei prīmus, quī und is steht die vollständige Angabe
+  in der Notiz.
+* Nomen mit zwei Genera (parēns, comes) haben das Genus „m/f“; der Trainer
+  akzeptiert dort m, f und m/f.
+* Possessiv- und Relativpronomen stehen mit allen Formen im Lemma
+  (meus, mea, meum; quī, quae, quod).
+
+**Wiederholungen (29 Karten):** Die Vorlage wiederholt Wörter, meist mit
+Perfektstamm (Lektion 11: dīcere, dīxī …). Damit kein Wort doppelt im
+Trainer erscheint, bleibt der frühere Eintrag; die neue Angabe steht in
+seiner Notiz („Stammformen: dīcō, dīxī (Lektion 11)“). Das betrifft auch
+Wörter aus Lektion 1–3 (esse, vidēre, venīre …) und in mit Ablativ
+(Lektion 4) beim Eintrag in. gaudēre (Lektion 4) wiederholt Lektion 1
+ohne neue Angabe. Die Perfektformen fragt der Vokabeltrainer deshalb
+nicht ab.
+
+**Grammatiktrainer:** Die Einstellung „Nur Wörter aus dem Wortschatz“
+nutzt weiterhin die Wörter der Lektionen 1–3; die Musterwörter (rēx, urbs,
+mittere …) sind nicht mit den neuen Einträgen verknüpft.
 
 ## Grammatikübersicht und Grammatiktrainer
 

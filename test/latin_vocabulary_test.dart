@@ -8,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:theologie_lernapp/models/latin/vocabulary/latin_vocabulary_entry.dart';
 import 'package:theologie_lernapp/models/latin/vocabulary/latin_vocabulary_question.dart';
 import 'package:theologie_lernapp/screens/latin/latin_vocabulary_overview_screen.dart';
+import 'package:theologie_lernapp/services/latin/vocabulary/latin_vocabulary_answer_checker.dart';
 import 'package:theologie_lernapp/services/latin/vocabulary/latin_vocabulary_settings_service.dart';
 import 'package:theologie_lernapp/theme/app_theme.dart';
 import 'package:theologie_lernapp/utils/latin_normalization.dart';
@@ -138,7 +139,11 @@ void main() {
 
     test("Nomen haben ein gültiges Genus", () {
       for (final entry in _entries().where((e) => e.type == "noun")) {
-        expect(["m", "f", "n"], contains(entry.gender), reason: entry.lemma);
+        expect(
+          ["m", "f", "n", "m/f"],
+          contains(entry.gender),
+          reason: entry.lemma,
+        );
       }
     });
 
@@ -182,18 +187,99 @@ void main() {
     });
 
     test("Lemmata und Formen nutzen nur lateinische Buchstaben", () {
-      final allowed = RegExp(r"^[A-Za-zāēīōūȳĀĒĪŌŪȲ ?!]+$");
+      // Zusätzlich erlaubt: Wendungen (nē … quidem), Varianten (ē/ex),
+      // angehängte Wörter (-que), Pronomen mit Formen (is, ea, id) und
+      // Stammformen (teneō, tenuī).
+      final allowedLemma = RegExp(r"^-?[A-Za-zāēīōūȳĀĒĪŌŪȲ ?!/…,]+$");
+      final allowedForm = RegExp(r"^[A-Za-zāēīōūȳĀĒĪŌŪȲ ,]+$");
 
       for (final entry in _entries()) {
-        expect(allowed.hasMatch(entry.lemma), isTrue, reason: entry.lemma);
+        expect(allowedLemma.hasMatch(entry.lemma), isTrue, reason: entry.lemma);
 
         if (entry.form != null) {
-          expect(allowed.hasMatch(entry.form!), isTrue, reason: entry.form);
+          expect(allowedForm.hasMatch(entry.form!), isTrue, reason: entry.form);
         }
 
         // Zerlegte Längenzeichen würden Suche und Prüfung stören.
         expect(entry.lemma, composeLatinMacrons(entry.lemma));
       }
+    });
+
+    test("Lektion 4–13 folgen mit fortlaufenden IDs ab 103", () {
+      final added = _entries().where((e) => e.id > 102).toList();
+      final ids = added.map((e) => e.id).toList();
+
+      expect(ids, List.generate(ids.length, (i) => 103 + i));
+
+      // Anzahl neuer Wörter je Lektion laut Vorlage, ohne Wiederholungen.
+      const perLesson = {
+        4: 25, 5: 30, 6: 29, 7: 31, 8: 30, //
+        9: 29, 10: 35, 11: 34, 12: 31, 13: 41,
+      };
+
+      for (final lesson in perLesson.entries) {
+        expect(
+          added.where((e) => e.step == lesson.key),
+          hasLength(lesson.value),
+          reason: "Lektion ${lesson.key}",
+        );
+      }
+
+      expect(added.every((e) => perLesson.containsKey(e.step)), isTrue);
+      // Wortschatzteile sind für diese Lektionen nicht bekannt.
+      expect(added.every((e) => e.substep == 1), isTrue);
+    });
+
+    test("Wiederholungen aus späteren Lektionen stehen in der Notiz", () {
+      final byLemma = {for (final e in _entries()) "${e.lemma}|${e.type}": e};
+
+      expect(byLemma["esse|verb"]!.note, contains("sum, fuī"));
+      expect(byLemma["in|preposition"]!.note, contains("mit Ablativ"));
+      expect(byLemma["dīcere|verb"]!.step, 5);
+      expect(byLemma["dīcere|verb"]!.note, contains("dīxī"));
+    });
+
+    test("Wörter mit zwei Genera akzeptieren beide Angaben", () {
+      final parens = _entries().firstWhere((e) => e.lemma == "parēns");
+
+      for (final input in ["m", "f", "m/f"]) {
+        expect(
+          LatinVocabularyAnswerChecker.check(
+            entry: parens,
+            translationInput: "der Vater",
+            requireOnlyOneTranslation: true,
+            formInput: "parentis",
+            genderInput: input,
+          ).correct,
+          isTrue,
+          reason: input,
+        );
+      }
+
+      expect(
+        LatinVocabularyAnswerChecker.check(
+          entry: parens,
+          translationInput: "der Vater",
+          requireOnlyOneTranslation: true,
+          formInput: "parentis",
+          genderInput: "n",
+        ).genderCorrect,
+        isFalse,
+      );
+    });
+
+    test("Stammformen werden ohne Längen als richtig erkannt", () {
+      final tenere = _entries().firstWhere((e) => e.lemma == "tenēre");
+
+      final result = LatinVocabularyAnswerChecker.check(
+        entry: tenere,
+        translationInput: "halten",
+        requireOnlyOneTranslation: true,
+        formInput: "teneo, tenui",
+      );
+
+      expect(result.formCorrect, isTrue);
+      expect(result.correct, isTrue);
     });
 
     test("Zusatzformen werden im Trainer abgefragt", () {
@@ -272,19 +358,24 @@ void main() {
     testWidgets("eine neue Lektion erscheint ohne Codeänderung im Filter", (
       tester,
     ) async {
-      // Simuliert eine spätere Ergänzung (Lektion 4, neue ID am Ende):
+      // Hoch genug, damit das Schritt-Menü alle Einträge zeigt.
+      tester.view.physicalSize = const Size(1200, 3000);
+      tester.view.devicePixelRatio = 1;
+      addTearDown(tester.view.reset);
+
+      // Simuliert eine spätere Ergänzung (Lektion 14, neue ID am Ende):
       // Übersicht und Schrittfilter lesen die Schritte aus den Daten.
       final entries = [
         ..._entries(),
         LatinVocabularyEntry.fromJson({
-          "id": 103,
-          "step": 4,
+          "id": _entries().length + 1,
+          "step": 14,
           "substep": 1,
           "type": "noun",
-          "lemma": "porta",
-          "principalForm": "portae",
-          "gender": "f",
-          "translations": ["Tor"],
+          "lemma": "nauta",
+          "principalForm": "nautae",
+          "gender": "m",
+          "translations": ["der Seemann"],
         }),
       ];
 
@@ -295,10 +386,10 @@ void main() {
 
       await tester.tap(find.text("Alle"));
       await tester.pumpAndSettle();
-      await tester.tap(find.text("Schritt 4").last);
+      await tester.tap(find.text("Schritt 14").last);
       await tester.pumpAndSettle();
 
-      expect(find.text("porta"), findsOneWidget);
+      expect(find.text("nauta"), findsOneWidget);
       expect(find.text("1 von ${entries.length} Vokabeln"), findsOneWidget);
     });
 

@@ -32,7 +32,8 @@
         "translations": [
             "sein",
             "sich befinden"
-        ]
+        ],
+        "note": "Stammformen: sum, fuī (Lektion 8)"
     },
     {
         "id": 4,
@@ -53,7 +54,8 @@
         "principalForm": "venit",
         "translations": [
             "kommen"
-        ]
+        ],
+        "note": "Stammformen: veniō, vēnī (Lektion 11)"
     },
     {
         "id": 6,
@@ -120,7 +122,8 @@
         "translations": [
             "stehen",
             "dastehen"
-        ]
+        ],
+        "note": "Stammformen: stō, stetī (Lektion 11)"
     },
     {
         "id": 12,
@@ -211,7 +214,8 @@
         "principalForm": "videt",
         "translations": [
             "sehen"
-        ]
+        ],
+        "note": "Stammformen: videō, vīdī (Lektion 11)"
     },
     {
         "id": 20,
@@ -335,7 +339,8 @@
         "translations": [
             "lachen",
             "auslachen"
-        ]
+        ],
+        "note": "Stammformen: rīdeō, rīsī (Lektion 11)"
     },
     {
         "id": 31,
@@ -379,7 +384,8 @@
         "translations": [
             "da sein",
             "helfen"
-        ]
+        ],
+        "note": "Stammformen: adsum, adfuī (Lektion 9)"
     },
     {
         "id": 35,
@@ -392,7 +398,8 @@
             "müssen",
             "sollen",
             "schulden"
-        ]
+        ],
+        "note": "Stammformen: dēbeō, dēbuī (Lektion 9)"
     },
     {
         "id": 36,
@@ -544,7 +551,8 @@
         "principalForm": "audit",
         "translations": [
             "hören"
-        ]
+        ],
+        "note": "Stammformen: audiō, audīvī (Lektion 8)"
     },
     {
         "id": 49,
@@ -642,7 +650,8 @@
         "lemma": "nōs",
         "translations": [
             "uns"
-        ]
+        ],
+        "note": "auch: wir (Lektion 9)"
     },
     {
         "id": 58,
@@ -666,7 +675,8 @@
         "translations": [
             "rufen",
             "nennen"
-        ]
+        ],
+        "note": "Stammformen: vocō, vocāvī; auch: bezeichnen als (Lektion 11)"
     },
     {
         "id": 60,
@@ -1024,7 +1034,8 @@
             "in (… hinein)",
             "nach (wohin?)",
             "gegen"
-        ]
+        ],
+        "note": "mit Ablativ (wo?): in, an, auf, bei (Lektion 4)"
     },
     {
         "id": 92,
@@ -1153,6 +1164,3796 @@
         "principalForm": "laudō",
         "translations": [
             "loben"
+        ]
+    },
+    {
+        "id": 103,
+        "step": 4,
+        "substep": 1,
+        "type": "preposition",
+        "lemma": "dē",
+        "translations": [
+            "über",
+            "von",
+            "von … her",
+            "von … herab"
+        ],
+        "note": "mit Ablativ"
+    },
+    {
+        "id": 104,
+        "step": 4,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "lūdus",
+        "gender": "m",
+        "translations": [
+            "das Spiel",
+            "die Schule"
+        ],
+        "note": "Plural: die Wettkämpfe, die Spiele"
+    },
+    {
+        "id": 105,
+        "step": 4,
+        "substep": 1,
+        "type": "preposition",
+        "lemma": "sine",
+        "translations": [
+            "ohne"
+        ],
+        "note": "mit Ablativ"
+    },
+    {
+        "id": 106,
+        "step": 4,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "timor",
+        "gender": "m",
+        "translations": [
+            "die Angst",
+            "die Furcht"
+        ]
+    },
+    {
+        "id": 107,
+        "step": 4,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "pugnāre",
+        "principalForm": "pugnō",
+        "translations": [
+            "kämpfen"
+        ]
+    },
+    {
+        "id": 108,
+        "step": 4,
+        "substep": 1,
+        "type": "conjunction",
+        "lemma": "quod",
+        "translations": [
+            "dass",
+            "weil"
+        ],
+        "note": "Subjunktion"
+    },
+    {
+        "id": 109,
+        "step": 4,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "movēre",
+        "principalForm": "moveō",
+        "translations": [
+            "bewegen",
+            "beeindrucken"
+        ]
+    },
+    {
+        "id": 110,
+        "step": 4,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "turba",
+        "gender": "f",
+        "translations": [
+            "die Menge",
+            "die Menschenmenge",
+            "der Lärm"
+        ]
+    },
+    {
+        "id": 111,
+        "step": 4,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "porta",
+        "gender": "f",
+        "translations": [
+            "das Tor",
+            "die Tür"
+        ]
+    },
+    {
+        "id": 112,
+        "step": 4,
+        "substep": 1,
+        "type": "conjunction",
+        "lemma": "-que",
+        "translations": [
+            "und"
+        ],
+        "note": "angehängt"
+    },
+    {
+        "id": 113,
+        "step": 4,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "gaudium",
+        "gender": "n",
+        "translations": [
+            "die Freude"
+        ]
+    },
+    {
+        "id": 114,
+        "step": 4,
+        "substep": 1,
+        "type": "conjunction",
+        "lemma": "dum",
+        "translations": [
+            "während",
+            "solange"
+        ],
+        "note": "Subjunktion"
+    },
+    {
+        "id": 115,
+        "step": 4,
+        "substep": 1,
+        "type": "adverb",
+        "lemma": "tandem",
+        "translations": [
+            "endlich",
+            "schließlich"
+        ]
+    },
+    {
+        "id": 116,
+        "step": 4,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "gladius",
+        "gender": "m",
+        "translations": [
+            "das Schwert"
+        ]
+    },
+    {
+        "id": 117,
+        "step": 4,
+        "substep": 1,
+        "type": "preposition",
+        "lemma": "cum",
+        "translations": [
+            "mit",
+            "zusammen mit"
+        ],
+        "note": "mit Ablativ"
+    },
+    {
+        "id": 118,
+        "step": 4,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "temptāre",
+        "principalForm": "temptō",
+        "translations": [
+            "angreifen",
+            "versuchen",
+            "prüfen"
+        ]
+    },
+    {
+        "id": 119,
+        "step": 4,
+        "substep": 1,
+        "type": "adverb",
+        "lemma": "simul",
+        "translations": [
+            "gleichzeitig",
+            "zugleich"
+        ]
+    },
+    {
+        "id": 120,
+        "step": 4,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "continēre",
+        "principalForm": "contineō",
+        "translations": [
+            "festhalten",
+            "zurückhalten"
+        ]
+    },
+    {
+        "id": 121,
+        "step": 4,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "scelerātus",
+        "gender": "m",
+        "translations": [
+            "der Verbrecher"
+        ]
+    },
+    {
+        "id": 122,
+        "step": 4,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "iniūria",
+        "gender": "f",
+        "translations": [
+            "das Unrecht",
+            "die Gewalttat",
+            "die Beleidigung"
+        ]
+    },
+    {
+        "id": 123,
+        "step": 4,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "auxilium",
+        "gender": "n",
+        "translations": [
+            "die Hilfe"
+        ]
+    },
+    {
+        "id": 124,
+        "step": 4,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "manēre",
+        "principalForm": "maneō",
+        "translations": [
+            "bleiben"
+        ],
+        "note": "Stammformen: maneō, mānsī (Lektion 11)"
+    },
+    {
+        "id": 125,
+        "step": 4,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "fuga",
+        "gender": "f",
+        "translations": [
+            "die Flucht"
+        ]
+    },
+    {
+        "id": 126,
+        "step": 4,
+        "substep": 1,
+        "type": "preposition",
+        "lemma": "ē/ex",
+        "translations": [
+            "aus",
+            "von … her"
+        ],
+        "note": "mit Ablativ"
+    },
+    {
+        "id": 127,
+        "step": 4,
+        "substep": 1,
+        "type": "adverb",
+        "lemma": "adhūc",
+        "translations": [
+            "bis jetzt",
+            "(immer) noch"
+        ]
+    },
+    {
+        "id": 128,
+        "step": 5,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "uxor",
+        "gender": "f",
+        "translations": [
+            "die Ehefrau",
+            "die Gattin"
+        ]
+    },
+    {
+        "id": 129,
+        "step": 5,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "relinquere",
+        "principalForm": "relinquō",
+        "translations": [
+            "verlassen",
+            "zurücklassen"
+        ],
+        "note": "Stammformen: relinquō, relīquī (Lektion 11)"
+    },
+    {
+        "id": 130,
+        "step": 5,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "velle",
+        "principalForm": "volō",
+        "translations": [
+            "wollen"
+        ],
+        "note": "Stammformen: volō, voluī (Lektion 8)"
+    },
+    {
+        "id": 131,
+        "step": 5,
+        "substep": 1,
+        "type": "preposition",
+        "lemma": "post",
+        "translations": [
+            "hinter",
+            "nach"
+        ],
+        "note": "mit Akkusativ"
+    },
+    {
+        "id": 132,
+        "step": 5,
+        "substep": 1,
+        "type": "conjunction",
+        "lemma": "nam",
+        "translations": [
+            "denn",
+            "nämlich"
+        ]
+    },
+    {
+        "id": 133,
+        "step": 5,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "oculus",
+        "gender": "m",
+        "translations": [
+            "das Auge"
+        ]
+    },
+    {
+        "id": 134,
+        "step": 5,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "vertere",
+        "principalForm": "vertō",
+        "translations": [
+            "drehen",
+            "wenden"
+        ]
+    },
+    {
+        "id": 135,
+        "step": 5,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "nōn dēbēre",
+        "principalForm": "nōn dēbeō",
+        "translations": [
+            "nicht dürfen",
+            "nicht müssen"
+        ]
+    },
+    {
+        "id": 136,
+        "step": 5,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "lūx",
+        "gender": "f",
+        "translations": [
+            "das Licht",
+            "das Tageslicht"
+        ]
+    },
+    {
+        "id": 137,
+        "step": 5,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "petere",
+        "principalForm": "petō",
+        "translations": [
+            "bitten",
+            "verlangen",
+            "eilen (zu/nach)",
+            "aufsuchen",
+            "angreifen"
+        ],
+        "note": "Stammformen: petō, petīvī (Lektion 8)"
+    },
+    {
+        "id": 138,
+        "step": 5,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "timēre",
+        "principalForm": "timeō",
+        "translations": [
+            "fürchten",
+            "Angst haben"
+        ]
+    },
+    {
+        "id": 139,
+        "step": 5,
+        "substep": 1,
+        "type": "conjunction",
+        "lemma": "quoniam",
+        "translations": [
+            "da ja",
+            "weil ja"
+        ]
+    },
+    {
+        "id": 140,
+        "step": 5,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "dīcere",
+        "principalForm": "dīcō",
+        "translations": [
+            "sagen",
+            "sprechen"
+        ],
+        "note": "Stammformen: dīcō, dīxī (Lektion 11)"
+    },
+    {
+        "id": 141,
+        "step": 5,
+        "substep": 1,
+        "type": "phrase",
+        "lemma": "tēcum",
+        "translations": [
+            "mit dir"
+        ],
+        "note": "= cum tē"
+    },
+    {
+        "id": 142,
+        "step": 5,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "dūcere",
+        "principalForm": "dūcō",
+        "translations": [
+            "führen",
+            "ziehen"
+        ],
+        "note": "Stammformen: dūcō, dūxī (Lektion 11)"
+    },
+    {
+        "id": 143,
+        "step": 5,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "umbra",
+        "gender": "f",
+        "translations": [
+            "der Schatten"
+        ]
+    },
+    {
+        "id": 144,
+        "step": 5,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "respondēre",
+        "principalForm": "respondeō",
+        "translations": [
+            "antworten"
+        ],
+        "note": "Stammformen: respondeō, respondī (Lektion 12)"
+    },
+    {
+        "id": 145,
+        "step": 5,
+        "substep": 1,
+        "type": "question_word",
+        "lemma": "nōnne?",
+        "translations": [
+            "(etwa) nicht?"
+        ]
+    },
+    {
+        "id": 146,
+        "step": 5,
+        "substep": 1,
+        "type": "adverb",
+        "lemma": "quoque",
+        "translations": [
+            "auch"
+        ]
+    },
+    {
+        "id": 147,
+        "step": 5,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "nōlle",
+        "principalForm": "nōlō",
+        "translations": [
+            "nicht wollen"
+        ],
+        "note": "Stammformen: nōlō, nōluī (Lektion 8)"
+    },
+    {
+        "id": 148,
+        "step": 5,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "remanēre",
+        "principalForm": "remaneō",
+        "translations": [
+            "zurückbleiben"
+        ]
+    },
+    {
+        "id": 149,
+        "step": 5,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "accēdere",
+        "principalForm": "accēdō",
+        "translations": [
+            "herbeikommen",
+            "hingehen"
+        ],
+        "note": "Stammformen: accēdō, accessī (Lektion 11)"
+    },
+    {
+        "id": 150,
+        "step": 5,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "contendere",
+        "principalForm": "contendō",
+        "translations": [
+            "eilen",
+            "sich anstrengen",
+            "kämpfen"
+        ]
+    },
+    {
+        "id": 151,
+        "step": 5,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "salūs",
+        "gender": "f",
+        "translations": [
+            "die Gesundheit",
+            "die Rettung",
+            "das Glück",
+            "der Gruß"
+        ]
+    },
+    {
+        "id": 152,
+        "step": 5,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "ostendere",
+        "principalForm": "ostendō",
+        "translations": [
+            "zeigen",
+            "erklären"
+        ]
+    },
+    {
+        "id": 153,
+        "step": 5,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "amor",
+        "gender": "m",
+        "translations": [
+            "die Liebe"
+        ]
+    },
+    {
+        "id": 154,
+        "step": 5,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "dextera",
+        "gender": "f",
+        "translations": [
+            "die Rechte",
+            "die rechte Hand"
+        ]
+    },
+    {
+        "id": 155,
+        "step": 5,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "tollere",
+        "translations": [
+            "aufheben",
+            "in die Höhe heben",
+            "wegnehmen"
+        ]
+    },
+    {
+        "id": 156,
+        "step": 5,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "tendere",
+        "translations": [
+            "(aus)strecken",
+            "sich anstrengen"
+        ]
+    },
+    {
+        "id": 157,
+        "step": 5,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "cēdere",
+        "translations": [
+            "gehen",
+            "zurückweichen",
+            "nachgeben"
+        ]
+    },
+    {
+        "id": 158,
+        "step": 6,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "fīlius",
+        "principalForm": "fīliī",
+        "gender": "m",
+        "translations": [
+            "der Sohn"
+        ]
+    },
+    {
+        "id": 159,
+        "step": 6,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "fīlia",
+        "principalForm": "fīliae",
+        "gender": "f",
+        "translations": [
+            "die Tochter"
+        ]
+    },
+    {
+        "id": 160,
+        "step": 6,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "pater",
+        "principalForm": "patris",
+        "gender": "m",
+        "translations": [
+            "der Vater"
+        ]
+    },
+    {
+        "id": 161,
+        "step": 6,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "puer",
+        "principalForm": "puerī",
+        "gender": "m",
+        "translations": [
+            "der Junge"
+        ]
+    },
+    {
+        "id": 162,
+        "step": 6,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "puella",
+        "principalForm": "puellae",
+        "gender": "f",
+        "translations": [
+            "das Mädchen"
+        ]
+    },
+    {
+        "id": 163,
+        "step": 6,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "cūra",
+        "principalForm": "cūrae",
+        "gender": "f",
+        "translations": [
+            "die Sorge",
+            "die Pflege"
+        ]
+    },
+    {
+        "id": 164,
+        "step": 6,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "impellere",
+        "principalForm": "impellō",
+        "translations": [
+            "antreiben",
+            "veranlassen"
+        ]
+    },
+    {
+        "id": 165,
+        "step": 6,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "aura",
+        "principalForm": "aurae",
+        "gender": "f",
+        "translations": [
+            "die Luft",
+            "die Gunst"
+        ]
+    },
+    {
+        "id": 166,
+        "step": 6,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "dēlectāre",
+        "principalForm": "dēlectō",
+        "translations": [
+            "erfreuen",
+            "Freude machen"
+        ]
+    },
+    {
+        "id": 167,
+        "step": 6,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "templum",
+        "principalForm": "templī",
+        "gender": "n",
+        "translations": [
+            "der Tempel"
+        ]
+    },
+    {
+        "id": 168,
+        "step": 6,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "deus",
+        "principalForm": "deī",
+        "gender": "m",
+        "translations": [
+            "der Gott",
+            "die Gottheit"
+        ]
+    },
+    {
+        "id": 169,
+        "step": 6,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "vīlla",
+        "principalForm": "vīllae",
+        "gender": "f",
+        "translations": [
+            "das Haus",
+            "das Landhaus"
+        ]
+    },
+    {
+        "id": 170,
+        "step": 6,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "cognōscere",
+        "principalForm": "cognōscō",
+        "translations": [
+            "erkennen",
+            "kennenlernen"
+        ]
+    },
+    {
+        "id": 171,
+        "step": 6,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "ager",
+        "principalForm": "agrī",
+        "gender": "m",
+        "translations": [
+            "der Acker",
+            "das Feld",
+            "das Gebiet"
+        ]
+    },
+    {
+        "id": 172,
+        "step": 6,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "īnsula",
+        "principalForm": "īnsulae",
+        "gender": "f",
+        "translations": [
+            "die Insel",
+            "der Wohnblock"
+        ]
+    },
+    {
+        "id": 173,
+        "step": 6,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "cōpia",
+        "principalForm": "cōpiae",
+        "gender": "f",
+        "translations": [
+            "die Menge",
+            "der Vorrat"
+        ]
+    },
+    {
+        "id": 174,
+        "step": 6,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "vir",
+        "principalForm": "virī",
+        "gender": "m",
+        "translations": [
+            "der Mann"
+        ]
+    },
+    {
+        "id": 175,
+        "step": 6,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "probāre",
+        "principalForm": "probō",
+        "translations": [
+            "beweisen",
+            "gut finden",
+            "prüfen"
+        ]
+    },
+    {
+        "id": 176,
+        "step": 6,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "aqua",
+        "principalForm": "aquae",
+        "gender": "f",
+        "translations": [
+            "das Wasser"
+        ]
+    },
+    {
+        "id": 177,
+        "step": 6,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "attingere",
+        "principalForm": "attingō",
+        "translations": [
+            "berühren"
+        ]
+    },
+    {
+        "id": 178,
+        "step": 6,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "dubitāre",
+        "principalForm": "dubitō",
+        "translations": [
+            "zögern",
+            "zweifeln"
+        ]
+    },
+    {
+        "id": 179,
+        "step": 6,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "sōl",
+        "principalForm": "sōlis",
+        "gender": "m",
+        "translations": [
+            "die Sonne"
+        ]
+    },
+    {
+        "id": 180,
+        "step": 6,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "parēns",
+        "principalForm": "parentis",
+        "gender": "m/f",
+        "translations": [
+            "der Vater",
+            "die Mutter"
+        ]
+    },
+    {
+        "id": 181,
+        "step": 6,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "parentēs",
+        "principalForm": "parentum",
+        "gender": "m/f",
+        "translations": [
+            "die Eltern"
+        ],
+        "note": "Plural"
+    },
+    {
+        "id": 182,
+        "step": 6,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "līberī",
+        "principalForm": "līberōrum",
+        "gender": "m",
+        "translations": [
+            "die Kinder"
+        ],
+        "note": "Plural"
+    },
+    {
+        "id": 183,
+        "step": 6,
+        "substep": 1,
+        "type": "adverb",
+        "lemma": "numquam",
+        "translations": [
+            "nie",
+            "niemals"
+        ]
+    },
+    {
+        "id": 184,
+        "step": 6,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "adulēscēns",
+        "principalForm": "adulēscentis",
+        "gender": "m",
+        "translations": [
+            "der junge Mann"
+        ]
+    },
+    {
+        "id": 185,
+        "step": 6,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "pars",
+        "principalForm": "partis",
+        "gender": "f",
+        "translations": [
+            "der Teil",
+            "die Seite",
+            "die Richtung"
+        ]
+    },
+    {
+        "id": 186,
+        "step": 6,
+        "substep": 1,
+        "type": "adverb",
+        "lemma": "dēnique",
+        "translations": [
+            "schließlich",
+            "zuletzt"
+        ]
+    },
+    {
+        "id": 187,
+        "step": 7,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "surgere",
+        "principalForm": "surgō",
+        "translations": [
+            "aufstehen",
+            "sich erheben"
+        ]
+    },
+    {
+        "id": 188,
+        "step": 7,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "capere",
+        "principalForm": "capiō",
+        "translations": [
+            "nehmen",
+            "ergreifen",
+            "fassen",
+            "erobern"
+        ],
+        "note": "Stammformen: capiō, cēpī; auch: fangen (Lektion 11)"
+    },
+    {
+        "id": 189,
+        "step": 7,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "aedēs",
+        "principalForm": "aedium",
+        "gender": "f",
+        "translations": [
+            "das Haus",
+            "das Gebäude"
+        ]
+    },
+    {
+        "id": 190,
+        "step": 7,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "aspicere",
+        "principalForm": "aspiciō",
+        "translations": [
+            "erblicken",
+            "ansehen"
+        ],
+        "note": "Stammformen: aspiciō, aspexī (Lektion 11)"
+    },
+    {
+        "id": 191,
+        "step": 7,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "mulier",
+        "principalForm": "mulieris",
+        "gender": "f",
+        "translations": [
+            "die Frau"
+        ]
+    },
+    {
+        "id": 192,
+        "step": 7,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "ōrāre",
+        "principalForm": "ōrō",
+        "translations": [
+            "bitten",
+            "beten"
+        ]
+    },
+    {
+        "id": 193,
+        "step": 7,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "māter",
+        "principalForm": "mātris",
+        "gender": "f",
+        "translations": [
+            "die Mutter"
+        ]
+    },
+    {
+        "id": 194,
+        "step": 7,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "dea",
+        "principalForm": "deae",
+        "gender": "f",
+        "translations": [
+            "die Göttin"
+        ]
+    },
+    {
+        "id": 195,
+        "step": 7,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "currere",
+        "principalForm": "currō",
+        "translations": [
+            "laufen",
+            "eilen"
+        ],
+        "note": "Stammformen: currō, cucurrī (Lektion 11)"
+    },
+    {
+        "id": 196,
+        "step": 7,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "agere",
+        "principalForm": "agō",
+        "translations": [
+            "handeln",
+            "treiben",
+            "verhandeln"
+        ]
+    },
+    {
+        "id": 197,
+        "step": 7,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "familia",
+        "principalForm": "familiae",
+        "gender": "f",
+        "translations": [
+            "die Familie",
+            "die Hausgemeinschaft"
+        ]
+    },
+    {
+        "id": 198,
+        "step": 7,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "cōnsulere",
+        "translations": [
+            "sorgen für"
+        ],
+        "note": "mit Dativ"
+    },
+    {
+        "id": 199,
+        "step": 7,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "senex",
+        "principalForm": "senis",
+        "gender": "m",
+        "translations": [
+            "der Greis",
+            "der alte Mann"
+        ]
+    },
+    {
+        "id": 200,
+        "step": 7,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "cupere",
+        "principalForm": "cupiō",
+        "translations": [
+            "wollen",
+            "wünschen",
+            "verlangen"
+        ]
+    },
+    {
+        "id": 201,
+        "step": 7,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "facere",
+        "principalForm": "faciō",
+        "translations": [
+            "machen",
+            "tun",
+            "handeln"
+        ],
+        "note": "Stammformen: faciō, fēcī (Lektion 11)"
+    },
+    {
+        "id": 202,
+        "step": 7,
+        "substep": 1,
+        "type": "conjunction",
+        "lemma": "igitur",
+        "translations": [
+            "also",
+            "folglich"
+        ]
+    },
+    {
+        "id": 203,
+        "step": 7,
+        "substep": 1,
+        "type": "phrase",
+        "lemma": "mēcum",
+        "translations": [
+            "mit mir"
+        ],
+        "note": "= cum mē"
+    },
+    {
+        "id": 204,
+        "step": 7,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "placēre",
+        "principalForm": "placeō",
+        "translations": [
+            "gefallen"
+        ]
+    },
+    {
+        "id": 205,
+        "step": 7,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "gerere",
+        "principalForm": "gerō",
+        "translations": [
+            "führen",
+            "ausführen",
+            "tragen"
+        ]
+    },
+    {
+        "id": 206,
+        "step": 7,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "vīvere",
+        "principalForm": "vīvō",
+        "translations": [
+            "leben"
+        ]
+    },
+    {
+        "id": 207,
+        "step": 7,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "mittere",
+        "principalForm": "mittō",
+        "translations": [
+            "schicken",
+            "werfen"
+        ],
+        "note": "Stammformen: mittō, mīsī (Lektion 11)"
+    },
+    {
+        "id": 208,
+        "step": 7,
+        "substep": 1,
+        "type": "pronoun",
+        "lemma": "vōbīs",
+        "translations": [
+            "euch"
+        ]
+    },
+    {
+        "id": 209,
+        "step": 7,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "patēre",
+        "principalForm": "pateō",
+        "translations": [
+            "offen stehen",
+            "sich erstrecken"
+        ]
+    },
+    {
+        "id": 210,
+        "step": 7,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "iubēre",
+        "translations": [
+            "anordnen",
+            "befehlen"
+        ],
+        "note": "mit Akkusativ"
+    },
+    {
+        "id": 211,
+        "step": 7,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "gēns",
+        "principalForm": "gentis",
+        "gender": "f",
+        "translations": [
+            "der Stamm",
+            "die Familie",
+            "das Volk"
+        ]
+    },
+    {
+        "id": 212,
+        "step": 7,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "dare",
+        "principalForm": "dō",
+        "translations": [
+            "geben"
+        ],
+        "note": "Stammformen: dō, dedī (Lektion 11)"
+    },
+    {
+        "id": 213,
+        "step": 7,
+        "substep": 1,
+        "type": "adverb",
+        "lemma": "prīmō",
+        "translations": [
+            "zuerst"
+        ]
+    },
+    {
+        "id": 214,
+        "step": 7,
+        "substep": 1,
+        "type": "preposition",
+        "lemma": "prō",
+        "translations": [
+            "vor",
+            "anstelle von",
+            "für"
+        ],
+        "note": "mit Ablativ"
+    },
+    {
+        "id": 215,
+        "step": 7,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "signum",
+        "principalForm": "signī",
+        "gender": "n",
+        "translations": [
+            "das Zeichen",
+            "das Merkmal"
+        ]
+    },
+    {
+        "id": 216,
+        "step": 7,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "grātia",
+        "principalForm": "grātiae",
+        "gender": "f",
+        "translations": [
+            "das Ansehen",
+            "die Beliebtheit",
+            "der Dank"
+        ]
+    },
+    {
+        "id": 217,
+        "step": 7,
+        "substep": 1,
+        "type": "phrase",
+        "lemma": "grātiās agere",
+        "translations": [
+            "danken"
+        ]
+    },
+    {
+        "id": 218,
+        "step": 8,
+        "substep": 1,
+        "type": "phrase",
+        "lemma": "domum",
+        "translations": [
+            "nach Hause"
+        ]
+    },
+    {
+        "id": 219,
+        "step": 8,
+        "substep": 1,
+        "type": "conjunction",
+        "lemma": "ubī",
+        "translations": [
+            "sobald"
+        ]
+    },
+    {
+        "id": 220,
+        "step": 8,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "lacrima",
+        "principalForm": "lacrimae",
+        "gender": "f",
+        "translations": [
+            "die Träne"
+        ]
+    },
+    {
+        "id": 221,
+        "step": 8,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "tenēre",
+        "principalForm": "teneō, tenuī",
+        "translations": [
+            "halten",
+            "festhalten",
+            "besitzen"
+        ]
+    },
+    {
+        "id": 222,
+        "step": 8,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "posse",
+        "principalForm": "possum, potuī",
+        "translations": [
+            "können"
+        ]
+    },
+    {
+        "id": 223,
+        "step": 8,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "flēre",
+        "principalForm": "fleō, flēvī",
+        "translations": [
+            "weinen",
+            "beweinen"
+        ]
+    },
+    {
+        "id": 224,
+        "step": 8,
+        "substep": 1,
+        "type": "adverb",
+        "lemma": "hodiē",
+        "translations": [
+            "heute"
+        ]
+    },
+    {
+        "id": 225,
+        "step": 8,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "comes",
+        "principalForm": "comitis",
+        "gender": "m/f",
+        "translations": [
+            "der Begleiter",
+            "die Begleiterin",
+            "der Gefährte"
+        ]
+    },
+    {
+        "id": 226,
+        "step": 8,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "multitūdō",
+        "principalForm": "multitūdinis",
+        "gender": "f",
+        "translations": [
+            "die Menge",
+            "die große Zahl"
+        ]
+    },
+    {
+        "id": 227,
+        "step": 8,
+        "substep": 1,
+        "type": "pronoun",
+        "lemma": "sē",
+        "translations": [
+            "sich"
+        ]
+    },
+    {
+        "id": 228,
+        "step": 8,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "ōrātiō",
+        "principalForm": "ōrātiōnis",
+        "gender": "f",
+        "translations": [
+            "die Rede"
+        ]
+    },
+    {
+        "id": 229,
+        "step": 8,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "iter",
+        "principalForm": "itineris",
+        "gender": "n",
+        "translations": [
+            "die Reise",
+            "der Weg",
+            "der Marsch"
+        ]
+    },
+    {
+        "id": 230,
+        "step": 8,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "iter facere",
+        "principalForm": "iter faciō",
+        "translations": [
+            "reisen",
+            "marschieren"
+        ]
+    },
+    {
+        "id": 231,
+        "step": 8,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "sacrum",
+        "principalForm": "sacrī",
+        "gender": "n",
+        "translations": [
+            "das Opfer",
+            "das Heiligtum"
+        ]
+    },
+    {
+        "id": 232,
+        "step": 8,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "mūnus",
+        "principalForm": "mūneris",
+        "gender": "n",
+        "translations": [
+            "die Aufgabe",
+            "das Geschenk"
+        ]
+    },
+    {
+        "id": 233,
+        "step": 8,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "mūnīre",
+        "principalForm": "mūniō, mūnīvī",
+        "translations": [
+            "bauen",
+            "befestigen",
+            "schützen"
+        ]
+    },
+    {
+        "id": 234,
+        "step": 8,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "perīculum",
+        "principalForm": "perīculī",
+        "gender": "n",
+        "translations": [
+            "die Gefahr"
+        ]
+    },
+    {
+        "id": 235,
+        "step": 8,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "urbs",
+        "principalForm": "urbis",
+        "gender": "f",
+        "translations": [
+            "die Stadt",
+            "die Hauptstadt"
+        ]
+    },
+    {
+        "id": 236,
+        "step": 8,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "mūrus",
+        "principalForm": "mūrī",
+        "gender": "m",
+        "translations": [
+            "die Mauer"
+        ]
+    },
+    {
+        "id": 237,
+        "step": 8,
+        "substep": 1,
+        "type": "conjunction",
+        "lemma": "enim",
+        "translations": [
+            "denn",
+            "nämlich"
+        ]
+    },
+    {
+        "id": 238,
+        "step": 8,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "hostis",
+        "principalForm": "hostis",
+        "gender": "m",
+        "translations": [
+            "der Feind",
+            "der Landesfeind",
+            "der Staatsfeind"
+        ]
+    },
+    {
+        "id": 239,
+        "step": 8,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "agmen",
+        "principalForm": "agminis",
+        "gender": "n",
+        "translations": [
+            "der Heereszug",
+            "das Heer",
+            "der Trupp"
+        ]
+    },
+    {
+        "id": 240,
+        "step": 8,
+        "substep": 1,
+        "type": "preposition",
+        "lemma": "ā/ab",
+        "translations": [
+            "von",
+            "von … her"
+        ],
+        "note": "mit Ablativ"
+    },
+    {
+        "id": 241,
+        "step": 8,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "prohibēre",
+        "principalForm": "prohibeō, prohibuī",
+        "translations": [
+            "abhalten (von)",
+            "hindern (an)",
+            "verhindern"
+        ],
+        "note": "mit ā/ab"
+    },
+    {
+        "id": 242,
+        "step": 8,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "īra",
+        "principalForm": "īrae",
+        "gender": "f",
+        "translations": [
+            "der Zorn",
+            "die Wut"
+        ]
+    },
+    {
+        "id": 243,
+        "step": 8,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "tēlum",
+        "principalForm": "tēlī",
+        "gender": "n",
+        "translations": [
+            "die Waffe",
+            "das Geschoss"
+        ]
+    },
+    {
+        "id": 244,
+        "step": 8,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "frāter",
+        "principalForm": "frātris",
+        "gender": "m",
+        "translations": [
+            "der Bruder"
+        ]
+    },
+    {
+        "id": 245,
+        "step": 8,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "crēdere",
+        "principalForm": "crēdō",
+        "translations": [
+            "glauben",
+            "anvertrauen"
+        ]
+    },
+    {
+        "id": 246,
+        "step": 8,
+        "substep": 1,
+        "type": "pronoun",
+        "lemma": "mihi",
+        "translations": [
+            "mir",
+            "für mich"
+        ]
+    },
+    {
+        "id": 247,
+        "step": 8,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "lupa",
+        "principalForm": "lupae",
+        "gender": "f",
+        "translations": [
+            "die Wölfin"
+        ]
+    },
+    {
+        "id": 248,
+        "step": 9,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "rīpa",
+        "principalForm": "rīpae",
+        "gender": "f",
+        "translations": [
+            "das Ufer"
+        ]
+    },
+    {
+        "id": 249,
+        "step": 9,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "pōns",
+        "principalForm": "pontis",
+        "gender": "m",
+        "translations": [
+            "die Brücke"
+        ]
+    },
+    {
+        "id": 250,
+        "step": 9,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "dēfendere",
+        "principalForm": "dēfendō",
+        "translations": [
+            "abwehren",
+            "verteidigen"
+        ],
+        "note": "Stammformen: dēfendō, dēfendī (Lektion 11)"
+    },
+    {
+        "id": 251,
+        "step": 9,
+        "substep": 1,
+        "type": "adverb",
+        "lemma": "prīmum",
+        "translations": [
+            "erstens",
+            "zuerst",
+            "zum ersten Mal"
+        ]
+    },
+    {
+        "id": 252,
+        "step": 9,
+        "substep": 1,
+        "type": "adverb",
+        "lemma": "posteā",
+        "translations": [
+            "nachher",
+            "später"
+        ]
+    },
+    {
+        "id": 253,
+        "step": 9,
+        "substep": 1,
+        "type": "adverb",
+        "lemma": "procul",
+        "translations": [
+            "von fern",
+            "weit weg"
+        ]
+    },
+    {
+        "id": 254,
+        "step": 9,
+        "substep": 1,
+        "type": "adverb",
+        "lemma": "deinde",
+        "translations": [
+            "dann",
+            "darauf"
+        ]
+    },
+    {
+        "id": 255,
+        "step": 9,
+        "substep": 1,
+        "type": "adverb",
+        "lemma": "postrēmō",
+        "translations": [
+            "schließlich"
+        ]
+    },
+    {
+        "id": 256,
+        "step": 9,
+        "substep": 1,
+        "type": "adverb",
+        "lemma": "propius",
+        "translations": [
+            "näher"
+        ]
+    },
+    {
+        "id": 257,
+        "step": 9,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "flūmen",
+        "principalForm": "flūminis",
+        "gender": "n",
+        "translations": [
+            "der Fluss"
+        ]
+    },
+    {
+        "id": 258,
+        "step": 9,
+        "substep": 1,
+        "type": "adverb",
+        "lemma": "quidem",
+        "translations": [
+            "freilich",
+            "gewiss",
+            "wenigstens"
+        ]
+    },
+    {
+        "id": 259,
+        "step": 9,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "putāre",
+        "principalForm": "putō, putāvī",
+        "translations": [
+            "glauben",
+            "meinen"
+        ]
+    },
+    {
+        "id": 260,
+        "step": 9,
+        "substep": 1,
+        "type": "phrase",
+        "lemma": "mediō in ponte",
+        "translations": [
+            "in der Mitte der Brücke"
+        ]
+    },
+    {
+        "id": 261,
+        "step": 9,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "dēpōnere",
+        "principalForm": "dēpōnō, dēposuī",
+        "translations": [
+            "ablegen",
+            "niederlegen",
+            "aufgeben"
+        ]
+    },
+    {
+        "id": 262,
+        "step": 9,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "patria",
+        "principalForm": "patriae",
+        "gender": "f",
+        "translations": [
+            "die Heimat"
+        ]
+    },
+    {
+        "id": 263,
+        "step": 9,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "proelium",
+        "principalForm": "proeliī",
+        "gender": "n",
+        "translations": [
+            "der Kampf",
+            "die Schlacht"
+        ]
+    },
+    {
+        "id": 264,
+        "step": 9,
+        "substep": 1,
+        "type": "phrase",
+        "lemma": "nē … quidem",
+        "translations": [
+            "nicht einmal"
+        ]
+    },
+    {
+        "id": 265,
+        "step": 9,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "circumvenīre",
+        "principalForm": "circumveniō",
+        "translations": [
+            "umringen",
+            "umzingeln"
+        ]
+    },
+    {
+        "id": 266,
+        "step": 9,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "vōx",
+        "principalForm": "vōcis",
+        "gender": "f",
+        "translations": [
+            "die Stimme",
+            "die Äußerung",
+            "der Laut"
+        ]
+    },
+    {
+        "id": 267,
+        "step": 9,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "cōnfīdere",
+        "principalForm": "cōnfīdō",
+        "translations": [
+            "vertrauen",
+            "sich verlassen auf"
+        ]
+    },
+    {
+        "id": 268,
+        "step": 9,
+        "substep": 1,
+        "type": "conjunction",
+        "lemma": "ergō",
+        "translations": [
+            "also",
+            "deshalb"
+        ]
+    },
+    {
+        "id": 269,
+        "step": 9,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "īnstituere",
+        "principalForm": "īnstituō",
+        "translations": [
+            "beginnen",
+            "einrichten",
+            "unterrichten"
+        ],
+        "note": "Stammformen: īnstituō, īnstituī (Lektion 13)"
+    },
+    {
+        "id": 270,
+        "step": 9,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "sūmere",
+        "principalForm": "sūmō",
+        "translations": [
+            "nehmen"
+        ]
+    },
+    {
+        "id": 271,
+        "step": 9,
+        "substep": 1,
+        "type": "preposition",
+        "lemma": "contrā",
+        "translations": [
+            "gegen"
+        ]
+    },
+    {
+        "id": 272,
+        "step": 9,
+        "substep": 1,
+        "type": "adverb",
+        "lemma": "repente",
+        "translations": [
+            "plötzlich"
+        ]
+    },
+    {
+        "id": 273,
+        "step": 9,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "cōnstat",
+        "translations": [
+            "es steht fest",
+            "es ist bekannt"
+        ]
+    },
+    {
+        "id": 274,
+        "step": 9,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "vulnus",
+        "principalForm": "vulneris",
+        "gender": "n",
+        "translations": [
+            "die Wunde",
+            "der militärische Verlust"
+        ]
+    },
+    {
+        "id": 275,
+        "step": 9,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "fāma",
+        "principalForm": "fāmae",
+        "gender": "f",
+        "translations": [
+            "der Ruf",
+            "das Gerücht"
+        ]
+    },
+    {
+        "id": 276,
+        "step": 9,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "Rōmānus",
+        "principalForm": "Rōmānī",
+        "gender": "m",
+        "translations": [
+            "der Römer"
+        ]
+    },
+    {
+        "id": 277,
+        "step": 10,
+        "substep": 1,
+        "type": "adjective",
+        "lemma": "prīmus",
+        "principalForm": "prīma, prīmum",
+        "translations": [
+            "der erste"
+        ],
+        "note": "der, die, das erste"
+    },
+    {
+        "id": 278,
+        "step": 10,
+        "substep": 1,
+        "type": "phrase",
+        "lemma": "prīmā lūce",
+        "translations": [
+            "bei Tagesanbruch",
+            "bei Sonnenaufgang"
+        ]
+    },
+    {
+        "id": 279,
+        "step": 10,
+        "substep": 1,
+        "type": "adjective",
+        "lemma": "multus",
+        "principalForm": "multa, multum",
+        "translations": [
+            "viel"
+        ]
+    },
+    {
+        "id": 280,
+        "step": 10,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "multa",
+        "principalForm": "multōrum",
+        "gender": "n",
+        "translations": [
+            "viel",
+            "vieles"
+        ],
+        "note": "Neutrum Plural"
+    },
+    {
+        "id": 281,
+        "step": 10,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "socius",
+        "principalForm": "sociī",
+        "gender": "m",
+        "translations": [
+            "der Gefährte",
+            "der Verbündete"
+        ]
+    },
+    {
+        "id": 282,
+        "step": 10,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "occupāre",
+        "principalForm": "occupō, occupāvī",
+        "translations": [
+            "besetzen",
+            "einnehmen"
+        ]
+    },
+    {
+        "id": 283,
+        "step": 10,
+        "substep": 1,
+        "type": "conjunction",
+        "lemma": "et … et",
+        "translations": [
+            "sowohl … als auch"
+        ]
+    },
+    {
+        "id": 284,
+        "step": 10,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "arma",
+        "principalForm": "armōrum",
+        "gender": "n",
+        "translations": [
+            "die Waffen",
+            "das Gerät"
+        ],
+        "note": "Plural"
+    },
+    {
+        "id": 285,
+        "step": 10,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "terrēre",
+        "principalForm": "terreō, terruī",
+        "translations": [
+            "erschrecken"
+        ]
+    },
+    {
+        "id": 286,
+        "step": 10,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "homō",
+        "principalForm": "hominis",
+        "gender": "m",
+        "translations": [
+            "der Mensch"
+        ]
+    },
+    {
+        "id": 287,
+        "step": 10,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "causa",
+        "principalForm": "causae",
+        "gender": "f",
+        "translations": [
+            "die Sache",
+            "der Prozess",
+            "die Ursache"
+        ]
+    },
+    {
+        "id": 288,
+        "step": 10,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "scelus",
+        "principalForm": "sceleris",
+        "gender": "n",
+        "translations": [
+            "das Verbrechen"
+        ]
+    },
+    {
+        "id": 289,
+        "step": 10,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "rēx",
+        "principalForm": "rēgis",
+        "gender": "m",
+        "translations": [
+            "der König"
+        ]
+    },
+    {
+        "id": 290,
+        "step": 10,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "mors",
+        "principalForm": "mortis",
+        "gender": "f",
+        "translations": [
+            "der Tod"
+        ]
+    },
+    {
+        "id": 291,
+        "step": 10,
+        "substep": 1,
+        "type": "adjective",
+        "lemma": "miser",
+        "principalForm": "misera, miserum",
+        "translations": [
+            "arm",
+            "erbärmlich",
+            "unglücklich"
+        ]
+    },
+    {
+        "id": 292,
+        "step": 10,
+        "substep": 1,
+        "type": "adjective",
+        "lemma": "magnus",
+        "principalForm": "magna, magnum",
+        "translations": [
+            "groß",
+            "bedeutend"
+        ]
+    },
+    {
+        "id": 293,
+        "step": 10,
+        "substep": 1,
+        "type": "phrase",
+        "lemma": "magnā vōce",
+        "translations": [
+            "mit lauter Stimme",
+            "laut"
+        ]
+    },
+    {
+        "id": 294,
+        "step": 10,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "inquam",
+        "translations": [
+            "sage ich",
+            "sagte ich"
+        ]
+    },
+    {
+        "id": 295,
+        "step": 10,
+        "substep": 1,
+        "type": "adjective",
+        "lemma": "bonus",
+        "principalForm": "bona, bonum",
+        "translations": [
+            "gut",
+            "tüchtig"
+        ]
+    },
+    {
+        "id": 296,
+        "step": 10,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "colere",
+        "principalForm": "colō, coluī",
+        "translations": [
+            "verehren",
+            "bewirtschaften"
+        ]
+    },
+    {
+        "id": 297,
+        "step": 10,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "nox",
+        "principalForm": "noctis",
+        "gender": "f",
+        "translations": [
+            "die Nacht"
+        ]
+    },
+    {
+        "id": 298,
+        "step": 10,
+        "substep": 1,
+        "type": "phrase",
+        "lemma": "multā nocte",
+        "translations": [
+            "in tiefer Nacht"
+        ]
+    },
+    {
+        "id": 299,
+        "step": 10,
+        "substep": 1,
+        "type": "adjective",
+        "lemma": "mortuus",
+        "principalForm": "mortua, mortuum",
+        "translations": [
+            "tot",
+            "gestorben"
+        ]
+    },
+    {
+        "id": 300,
+        "step": 10,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "dolēre",
+        "principalForm": "doleō, doluī",
+        "translations": [
+            "traurig sein über",
+            "bedauern",
+            "Schmerz empfinden über"
+        ]
+    },
+    {
+        "id": 301,
+        "step": 10,
+        "substep": 1,
+        "type": "adjective",
+        "lemma": "tōtus",
+        "principalForm": "tōta, tōtum",
+        "translations": [
+            "ganz"
+        ]
+    },
+    {
+        "id": 302,
+        "step": 10,
+        "substep": 1,
+        "type": "adjective",
+        "lemma": "malus",
+        "principalForm": "mala, malum",
+        "translations": [
+            "schlecht",
+            "schlimm",
+            "böse"
+        ]
+    },
+    {
+        "id": 303,
+        "step": 10,
+        "substep": 1,
+        "type": "question_word",
+        "lemma": "num?",
+        "translations": [
+            "etwa?"
+        ]
+    },
+    {
+        "id": 304,
+        "step": 10,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "sanguis",
+        "principalForm": "sanguinis",
+        "gender": "m",
+        "translations": [
+            "das Blut"
+        ]
+    },
+    {
+        "id": 305,
+        "step": 10,
+        "substep": 1,
+        "type": "pronoun",
+        "lemma": "vester, vestra, vestrum",
+        "translations": [
+            "euer"
+        ]
+    },
+    {
+        "id": 306,
+        "step": 10,
+        "substep": 1,
+        "type": "conjunction",
+        "lemma": "sī",
+        "translations": [
+            "wenn",
+            "falls"
+        ]
+    },
+    {
+        "id": 307,
+        "step": 10,
+        "substep": 1,
+        "type": "adjective",
+        "lemma": "tūtus",
+        "principalForm": "tūta, tūtum",
+        "translations": [
+            "sicher (vor)"
+        ],
+        "note": "sicher vor: ā/ab mit Ablativ"
+    },
+    {
+        "id": 308,
+        "step": 10,
+        "substep": 1,
+        "type": "adverb",
+        "lemma": "ita",
+        "translations": [
+            "so"
+        ]
+    },
+    {
+        "id": 309,
+        "step": 10,
+        "substep": 1,
+        "type": "adjective",
+        "lemma": "ultimus",
+        "principalForm": "ultima, ultimum",
+        "translations": [
+            "der äußerste",
+            "der entfernteste",
+            "der letzte"
+        ]
+    },
+    {
+        "id": 310,
+        "step": 10,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "Rōma",
+        "gender": "f",
+        "translations": [
+            "Rom"
+        ]
+    },
+    {
+        "id": 311,
+        "step": 10,
+        "substep": 1,
+        "type": "adjective",
+        "lemma": "Rōmānus",
+        "principalForm": "Rōmāna, Rōmānum",
+        "translations": [
+            "römisch"
+        ]
+    },
+    {
+        "id": 312,
+        "step": 11,
+        "substep": 1,
+        "type": "pronoun",
+        "lemma": "suus, sua, suum",
+        "translations": [
+            "sein",
+            "ihr"
+        ]
+    },
+    {
+        "id": 313,
+        "step": 11,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "complēre",
+        "principalForm": "compleō, complēvī",
+        "translations": [
+            "anfüllen",
+            "erfüllen"
+        ]
+    },
+    {
+        "id": 314,
+        "step": 11,
+        "substep": 1,
+        "type": "conjunction",
+        "lemma": "postquam",
+        "translations": [
+            "nachdem"
+        ]
+    },
+    {
+        "id": 315,
+        "step": 11,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "legiō",
+        "principalForm": "legiōnis",
+        "gender": "f",
+        "translations": [
+            "die Legion"
+        ]
+    },
+    {
+        "id": 316,
+        "step": 11,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "vincere",
+        "principalForm": "vincō, vīcī",
+        "translations": [
+            "siegen",
+            "besiegen",
+            "übertreffen"
+        ]
+    },
+    {
+        "id": 317,
+        "step": 11,
+        "substep": 1,
+        "type": "adjective",
+        "lemma": "cūnctī",
+        "principalForm": "cūnctae, cūncta",
+        "translations": [
+            "alle (zusammen)"
+        ],
+        "note": "Plural"
+    },
+    {
+        "id": 318,
+        "step": 11,
+        "substep": 1,
+        "type": "pronoun",
+        "lemma": "meus, mea, meum",
+        "translations": [
+            "mein"
+        ]
+    },
+    {
+        "id": 319,
+        "step": 11,
+        "substep": 1,
+        "type": "pronoun",
+        "lemma": "noster, nostra, nostrum",
+        "translations": [
+            "unser"
+        ]
+    },
+    {
+        "id": 320,
+        "step": 11,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "āmittere",
+        "principalForm": "āmittō, āmīsī",
+        "translations": [
+            "aufgeben",
+            "verlieren"
+        ]
+    },
+    {
+        "id": 321,
+        "step": 11,
+        "substep": 1,
+        "type": "adjective",
+        "lemma": "alius",
+        "principalForm": "alia, aliud",
+        "translations": [
+            "ein anderer"
+        ]
+    },
+    {
+        "id": 322,
+        "step": 11,
+        "substep": 1,
+        "type": "pronoun",
+        "lemma": "tuus, tua, tuum",
+        "translations": [
+            "dein"
+        ]
+    },
+    {
+        "id": 323,
+        "step": 11,
+        "substep": 1,
+        "type": "adjective",
+        "lemma": "ūnus",
+        "principalForm": "ūna, ūnum",
+        "translations": [
+            "ein",
+            "einer",
+            "ein einziger"
+        ]
+    },
+    {
+        "id": 324,
+        "step": 11,
+        "substep": 1,
+        "type": "adverb",
+        "lemma": "tantum",
+        "translations": [
+            "nur"
+        ]
+    },
+    {
+        "id": 325,
+        "step": 11,
+        "substep": 1,
+        "type": "adverb",
+        "lemma": "sōlum",
+        "translations": [
+            "nur"
+        ]
+    },
+    {
+        "id": 326,
+        "step": 11,
+        "substep": 1,
+        "type": "phrase",
+        "lemma": "nōn sōlum … sed etiam",
+        "translations": [
+            "nicht nur … sondern auch"
+        ]
+    },
+    {
+        "id": 327,
+        "step": 11,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "cōnsul",
+        "principalForm": "cōnsulis",
+        "gender": "m",
+        "translations": [
+            "der Konsul"
+        ]
+    },
+    {
+        "id": 328,
+        "step": 11,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "bellum",
+        "principalForm": "bellī",
+        "gender": "n",
+        "translations": [
+            "der Krieg"
+        ]
+    },
+    {
+        "id": 329,
+        "step": 11,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "cōnsulere dē",
+        "principalForm": "cōnsulō, cōnsuluī",
+        "translations": [
+            "beraten über"
+        ],
+        "note": "mit Ablativ"
+    },
+    {
+        "id": 330,
+        "step": 11,
+        "substep": 1,
+        "type": "phrase",
+        "lemma": "ūnus ē/ex",
+        "translations": [
+            "einer von"
+        ],
+        "note": "mit Ablativ"
+    },
+    {
+        "id": 331,
+        "step": 11,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "labor",
+        "principalForm": "labōris",
+        "gender": "m",
+        "translations": [
+            "die Arbeit",
+            "die Anstrengung"
+        ]
+    },
+    {
+        "id": 332,
+        "step": 11,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "mīles",
+        "principalForm": "mīlitis",
+        "gender": "m",
+        "translations": [
+            "der Soldat"
+        ]
+    },
+    {
+        "id": 333,
+        "step": 11,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "oppidum",
+        "principalForm": "oppidī",
+        "gender": "n",
+        "translations": [
+            "die Stadt",
+            "die Kleinstadt"
+        ]
+    },
+    {
+        "id": 334,
+        "step": 11,
+        "substep": 1,
+        "type": "adjective",
+        "lemma": "ūllus",
+        "principalForm": "ūlla, ūllum",
+        "translations": [
+            "irgendeiner",
+            "irgendeine",
+            "irgendein"
+        ]
+    },
+    {
+        "id": 335,
+        "step": 11,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "caput",
+        "principalForm": "capitis",
+        "gender": "n",
+        "translations": [
+            "der Kopf",
+            "die Hauptstadt"
+        ]
+    },
+    {
+        "id": 336,
+        "step": 11,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "premere",
+        "principalForm": "premō, pressī",
+        "translations": [
+            "drücken",
+            "unterdrücken",
+            "bedrängen"
+        ]
+    },
+    {
+        "id": 337,
+        "step": 11,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "cēnsēre",
+        "principalForm": "cēnseō, cēnsuī",
+        "translations": [
+            "meinen",
+            "einschätzen"
+        ]
+    },
+    {
+        "id": 338,
+        "step": 11,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "aperīre",
+        "principalForm": "aperiō, aperuī",
+        "translations": [
+            "öffnen",
+            "aufdecken"
+        ]
+    },
+    {
+        "id": 339,
+        "step": 11,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "cēnsor",
+        "principalForm": "cēnsōris",
+        "gender": "m",
+        "translations": [
+            "der Zensor"
+        ]
+    },
+    {
+        "id": 340,
+        "step": 11,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "sententia",
+        "principalForm": "sententiae",
+        "gender": "f",
+        "translations": [
+            "der Antrag (im Senat)",
+            "die Meinung",
+            "der Satz",
+            "der Sinn"
+        ]
+    },
+    {
+        "id": 341,
+        "step": 11,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "moenia",
+        "principalForm": "moenium",
+        "gender": "n",
+        "translations": [
+            "die Mauern",
+            "die Stadtmauern"
+        ],
+        "note": "Plural"
+    },
+    {
+        "id": 342,
+        "step": 11,
+        "substep": 1,
+        "type": "adjective",
+        "lemma": "altus",
+        "principalForm": "alta, altum",
+        "translations": [
+            "hoch",
+            "tief"
+        ]
+    },
+    {
+        "id": 343,
+        "step": 11,
+        "substep": 1,
+        "type": "phrase",
+        "lemma": "Rōmam",
+        "translations": [
+            "nach Rom"
+        ]
+    },
+    {
+        "id": 344,
+        "step": 11,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "Alpēs",
+        "principalForm": "Alpium",
+        "gender": "f",
+        "translations": [
+            "die Alpen"
+        ],
+        "note": "Plural"
+    },
+    {
+        "id": 345,
+        "step": 11,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "Italia",
+        "principalForm": "Italiae",
+        "gender": "f",
+        "translations": [
+            "Italien"
+        ]
+    },
+    {
+        "id": 346,
+        "step": 12,
+        "substep": 1,
+        "type": "adjective",
+        "lemma": "clārus",
+        "principalForm": "clāra, clārum",
+        "translations": [
+            "klar",
+            "hell",
+            "berühmt"
+        ]
+    },
+    {
+        "id": 347,
+        "step": 12,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "imperātor",
+        "principalForm": "imperātōris",
+        "gender": "m",
+        "translations": [
+            "der Befehlshaber",
+            "der Feldherr",
+            "der Kaiser"
+        ]
+    },
+    {
+        "id": 348,
+        "step": 12,
+        "substep": 1,
+        "type": "pronoun",
+        "lemma": "quī, quae, quod",
+        "translations": [
+            "welcher",
+            "der"
+        ],
+        "note": "welcher, welche, welches; der, die, das"
+    },
+    {
+        "id": 349,
+        "step": 12,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "superāre",
+        "principalForm": "superō, superāvī",
+        "translations": [
+            "besiegen",
+            "überwinden",
+            "übertreffen"
+        ]
+    },
+    {
+        "id": 350,
+        "step": 12,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "pāx",
+        "principalForm": "pācis",
+        "gender": "f",
+        "translations": [
+            "der Frieden"
+        ]
+    },
+    {
+        "id": 351,
+        "step": 12,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "licet",
+        "principalForm": "licuit",
+        "translations": [
+            "es ist erlaubt",
+            "es ist möglich"
+        ],
+        "note": "Perfekt: licuit"
+    },
+    {
+        "id": 352,
+        "step": 12,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "dēcernere",
+        "principalForm": "dēcernō, dēcrēvī",
+        "translations": [
+            "beschließen",
+            "entscheiden"
+        ]
+    },
+    {
+        "id": 353,
+        "step": 12,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "factum",
+        "principalForm": "factī",
+        "gender": "n",
+        "translations": [
+            "die Handlung",
+            "die Tat",
+            "die Tatsache"
+        ]
+    },
+    {
+        "id": 354,
+        "step": 12,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "appellāre",
+        "principalForm": "appellō, appellāvī",
+        "translations": [
+            "rufen",
+            "anrufen",
+            "nennen"
+        ]
+    },
+    {
+        "id": 355,
+        "step": 12,
+        "substep": 1,
+        "type": "conjunction",
+        "lemma": "quia",
+        "translations": [
+            "weil"
+        ]
+    },
+    {
+        "id": 356,
+        "step": 12,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "crīmen",
+        "principalForm": "crīminis",
+        "gender": "n",
+        "translations": [
+            "die Beschuldigung",
+            "das Verbrechen",
+            "der Vorwurf"
+        ]
+    },
+    {
+        "id": 357,
+        "step": 12,
+        "substep": 1,
+        "type": "adjective",
+        "lemma": "falsus",
+        "principalForm": "falsa, falsum",
+        "translations": [
+            "falsch"
+        ]
+    },
+    {
+        "id": 358,
+        "step": 12,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "accūsāre",
+        "principalForm": "accūsō, accūsāvī",
+        "translations": [
+            "anklagen",
+            "beschuldigen"
+        ]
+    },
+    {
+        "id": 359,
+        "step": 12,
+        "substep": 1,
+        "type": "adjective",
+        "lemma": "sōlus",
+        "principalForm": "sōla, sōlum",
+        "translations": [
+            "allein",
+            "einzig"
+        ]
+    },
+    {
+        "id": 360,
+        "step": 12,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "studēre",
+        "principalForm": "studeō, studuī",
+        "translations": [
+            "sich beschäftigen mit",
+            "sich bemühen um",
+            "streben nach"
+        ]
+    },
+    {
+        "id": 361,
+        "step": 12,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "nescīre",
+        "principalForm": "nesciō, nescīvī",
+        "translations": [
+            "nicht wissen",
+            "nicht kennen",
+            "nicht verstehen"
+        ]
+    },
+    {
+        "id": 362,
+        "step": 12,
+        "substep": 1,
+        "type": "conjunction",
+        "lemma": "neque",
+        "translations": [
+            "und nicht",
+            "auch nicht"
+        ]
+    },
+    {
+        "id": 363,
+        "step": 12,
+        "substep": 1,
+        "type": "conjunction",
+        "lemma": "nec",
+        "translations": [
+            "und nicht",
+            "auch nicht"
+        ]
+    },
+    {
+        "id": 364,
+        "step": 12,
+        "substep": 1,
+        "type": "conjunction",
+        "lemma": "neque … neque",
+        "translations": [
+            "weder … noch"
+        ]
+    },
+    {
+        "id": 365,
+        "step": 12,
+        "substep": 1,
+        "type": "conjunction",
+        "lemma": "nec … nec",
+        "translations": [
+            "weder … noch"
+        ]
+    },
+    {
+        "id": 366,
+        "step": 12,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "aurum",
+        "principalForm": "aurī",
+        "gender": "n",
+        "translations": [
+            "das Gold"
+        ]
+    },
+    {
+        "id": 367,
+        "step": 12,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "pecūnia",
+        "principalForm": "pecūniae",
+        "gender": "f",
+        "translations": [
+            "das Geld",
+            "das Vermögen"
+        ]
+    },
+    {
+        "id": 368,
+        "step": 12,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "dōnum",
+        "principalForm": "dōnī",
+        "gender": "n",
+        "translations": [
+            "das Geschenk"
+        ]
+    },
+    {
+        "id": 369,
+        "step": 12,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "dīmittere",
+        "principalForm": "dīmittō, dīmīsī",
+        "translations": [
+            "aufgeben",
+            "entlassen",
+            "wegschicken"
+        ]
+    },
+    {
+        "id": 370,
+        "step": 12,
+        "substep": 1,
+        "type": "adverb",
+        "lemma": "vērō",
+        "translations": [
+            "aber",
+            "in der Tat"
+        ]
+    },
+    {
+        "id": 371,
+        "step": 12,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "exemplum",
+        "principalForm": "exemplī",
+        "gender": "n",
+        "translations": [
+            "das Beispiel",
+            "das Vorbild"
+        ]
+    },
+    {
+        "id": 372,
+        "step": 12,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "virtūs",
+        "principalForm": "virtūtis",
+        "gender": "f",
+        "translations": [
+            "die Tapferkeit",
+            "die Tüchtigkeit",
+            "die Vortrefflichkeit",
+            "die Leistung"
+        ]
+    },
+    {
+        "id": 373,
+        "step": 12,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "virtūtēs",
+        "principalForm": "virtūtum",
+        "gender": "f",
+        "translations": [
+            "die guten Eigenschaften",
+            "die Verdienste"
+        ],
+        "note": "Plural"
+    },
+    {
+        "id": 374,
+        "step": 12,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "vīta",
+        "principalForm": "vītae",
+        "gender": "f",
+        "translations": [
+            "das Leben",
+            "die Lebensweise"
+        ]
+    },
+    {
+        "id": 375,
+        "step": 12,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "Āfrica",
+        "principalForm": "Āfricae",
+        "gender": "f",
+        "translations": [
+            "Afrika"
+        ]
+    },
+    {
+        "id": 376,
+        "step": 12,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "Carthāgō",
+        "principalForm": "Carthāginis",
+        "gender": "f",
+        "translations": [
+            "Karthago"
+        ]
+    },
+    {
+        "id": 377,
+        "step": 13,
+        "substep": 1,
+        "type": "adjective",
+        "lemma": "ingēns",
+        "principalForm": "ingentis",
+        "translations": [
+            "gewaltig",
+            "riesig",
+            "ungeheuer"
+        ]
+    },
+    {
+        "id": 378,
+        "step": 13,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "numerus",
+        "principalForm": "numerī",
+        "gender": "m",
+        "translations": [
+            "die Zahl",
+            "die Menge"
+        ]
+    },
+    {
+        "id": 379,
+        "step": 13,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "convenīre",
+        "principalForm": "conveniō, convēnī",
+        "translations": [
+            "zusammenkommen",
+            "zusammenpassen",
+            "besuchen"
+        ]
+    },
+    {
+        "id": 380,
+        "step": 13,
+        "substep": 1,
+        "type": "adjective",
+        "lemma": "vehemēns",
+        "principalForm": "vehementis",
+        "translations": [
+            "energisch",
+            "heftig"
+        ]
+    },
+    {
+        "id": 381,
+        "step": 13,
+        "substep": 1,
+        "type": "phrase",
+        "lemma": "alius … alius",
+        "translations": [
+            "der eine … der andere"
+        ]
+    },
+    {
+        "id": 382,
+        "step": 13,
+        "substep": 1,
+        "type": "adjective",
+        "lemma": "potēns",
+        "principalForm": "potentis",
+        "translations": [
+            "mächtig",
+            "stark"
+        ]
+    },
+    {
+        "id": 383,
+        "step": 13,
+        "substep": 1,
+        "type": "conjunction",
+        "lemma": "atque",
+        "translations": [
+            "und",
+            "und auch"
+        ]
+    },
+    {
+        "id": 384,
+        "step": 13,
+        "substep": 1,
+        "type": "conjunction",
+        "lemma": "ac",
+        "translations": [
+            "und",
+            "und auch"
+        ]
+    },
+    {
+        "id": 385,
+        "step": 13,
+        "substep": 1,
+        "type": "adjective",
+        "lemma": "nōbilis",
+        "principalForm": "nōbilis, nōbile",
+        "translations": [
+            "adelig",
+            "vornehm",
+            "berühmt"
+        ]
+    },
+    {
+        "id": 386,
+        "step": 13,
+        "substep": 1,
+        "type": "pronoun",
+        "lemma": "is, ea, id",
+        "translations": [
+            "dieser",
+            "er"
+        ],
+        "note": "dieser, diese, dieses; er, sie, es"
+    },
+    {
+        "id": 387,
+        "step": 13,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "plūs",
+        "principalForm": "plūris",
+        "gender": "n",
+        "translations": [
+            "mehr"
+        ]
+    },
+    {
+        "id": 388,
+        "step": 13,
+        "substep": 1,
+        "type": "conjunction",
+        "lemma": "quam",
+        "translations": [
+            "als",
+            "wie"
+        ]
+    },
+    {
+        "id": 389,
+        "step": 13,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "valēre",
+        "principalForm": "valeō, valuī",
+        "translations": [
+            "gesund sein",
+            "stark sein",
+            "Einfluss haben"
+        ]
+    },
+    {
+        "id": 390,
+        "step": 13,
+        "substep": 1,
+        "type": "phrase",
+        "lemma": "plūs valēre quam",
+        "translations": [
+            "mehr gelten als"
+        ]
+    },
+    {
+        "id": 391,
+        "step": 13,
+        "substep": 1,
+        "type": "adjective",
+        "lemma": "omnis",
+        "principalForm": "omnis, omne",
+        "translations": [
+            "jeder",
+            "ganz"
+        ]
+    },
+    {
+        "id": 392,
+        "step": 13,
+        "substep": 1,
+        "type": "adjective",
+        "lemma": "omnēs",
+        "principalForm": "omnēs, omnia",
+        "translations": [
+            "alle",
+            "alles"
+        ],
+        "note": "Plural"
+    },
+    {
+        "id": 393,
+        "step": 13,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "praestāre",
+        "principalForm": "praestō, praestitī",
+        "translations": [
+            "übertreffen"
+        ]
+    },
+    {
+        "id": 394,
+        "step": 13,
+        "substep": 1,
+        "type": "adverb",
+        "lemma": "potius",
+        "translations": [
+            "eher",
+            "lieber"
+        ]
+    },
+    {
+        "id": 395,
+        "step": 13,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "nūntius",
+        "principalForm": "nūntiī",
+        "gender": "m",
+        "translations": [
+            "der Bote",
+            "die Nachricht"
+        ]
+    },
+    {
+        "id": 396,
+        "step": 13,
+        "substep": 1,
+        "type": "adjective",
+        "lemma": "vērus",
+        "principalForm": "vēra, vērum",
+        "translations": [
+            "echt",
+            "richtig",
+            "wahr"
+        ]
+    },
+    {
+        "id": 397,
+        "step": 13,
+        "substep": 1,
+        "type": "adjective",
+        "lemma": "facilis",
+        "principalForm": "facilis, facile",
+        "translations": [
+            "leicht",
+            "einfach"
+        ]
+    },
+    {
+        "id": 398,
+        "step": 13,
+        "substep": 1,
+        "type": "adjective",
+        "lemma": "fortis",
+        "principalForm": "fortis, forte",
+        "translations": [
+            "kräftig",
+            "tapfer"
+        ]
+    },
+    {
+        "id": 399,
+        "step": 13,
+        "substep": 1,
+        "type": "conjunction",
+        "lemma": "cum",
+        "translations": [
+            "als (plötzlich)",
+            "(zu der Zeit) als",
+            "(immer) wenn"
+        ],
+        "note": "Subjunktion"
+    },
+    {
+        "id": 400,
+        "step": 13,
+        "substep": 1,
+        "type": "verb",
+        "lemma": "discēdere",
+        "principalForm": "discēdō, discessī",
+        "translations": [
+            "weggehen",
+            "auseinandergehen"
+        ]
+    },
+    {
+        "id": 401,
+        "step": 13,
+        "substep": 1,
+        "type": "conjunction",
+        "lemma": "quamquam",
+        "translations": [
+            "obwohl"
+        ]
+    },
+    {
+        "id": 402,
+        "step": 13,
+        "substep": 1,
+        "type": "adjective",
+        "lemma": "inimīcus",
+        "principalForm": "inimīca, inimīcum",
+        "translations": [
+            "feindlich"
+        ]
+    },
+    {
+        "id": 403,
+        "step": 13,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "inimīcus",
+        "principalForm": "inimīcī",
+        "gender": "m",
+        "translations": [
+            "der Feind"
+        ]
+    },
+    {
+        "id": 404,
+        "step": 13,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "monumentum",
+        "principalForm": "monumentī",
+        "gender": "n",
+        "translations": [
+            "das Denkmal"
+        ]
+    },
+    {
+        "id": 405,
+        "step": 13,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "corpus",
+        "principalForm": "corporis",
+        "gender": "n",
+        "translations": [
+            "der Körper",
+            "der Leichnam"
+        ]
+    },
+    {
+        "id": 406,
+        "step": 13,
+        "substep": 1,
+        "type": "adjective",
+        "lemma": "pulcher",
+        "principalForm": "pulchra, pulchrum",
+        "translations": [
+            "schön"
+        ]
+    },
+    {
+        "id": 407,
+        "step": 13,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "nāvis",
+        "principalForm": "nāvis",
+        "gender": "f",
+        "translations": [
+            "das Schiff"
+        ]
+    },
+    {
+        "id": 408,
+        "step": 13,
+        "substep": 1,
+        "type": "adjective",
+        "lemma": "novus",
+        "principalForm": "nova, novum",
+        "translations": [
+            "neu",
+            "ungewöhnlich"
+        ]
+    },
+    {
+        "id": 409,
+        "step": 13,
+        "substep": 1,
+        "type": "adjective",
+        "lemma": "celer",
+        "principalForm": "celeris, celere",
+        "translations": [
+            "schnell"
+        ]
+    },
+    {
+        "id": 410,
+        "step": 13,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "potentia",
+        "principalForm": "potentiae",
+        "gender": "f",
+        "translations": [
+            "die Macht"
+        ]
+    },
+    {
+        "id": 411,
+        "step": 13,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "rēgnum",
+        "principalForm": "rēgnī",
+        "gender": "n",
+        "translations": [
+            "die Herrschaft",
+            "die Königsherrschaft",
+            "das Reich"
+        ]
+    },
+    {
+        "id": 412,
+        "step": 13,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "imperium",
+        "principalForm": "imperiī",
+        "gender": "n",
+        "translations": [
+            "der Befehl",
+            "die Herrschaft",
+            "das Reich"
+        ]
+    },
+    {
+        "id": 413,
+        "step": 13,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "cōpiae",
+        "principalForm": "cōpiārum",
+        "gender": "f",
+        "translations": [
+            "die Truppen"
+        ],
+        "note": "Plural"
+    },
+    {
+        "id": 414,
+        "step": 13,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "Gallia",
+        "principalForm": "Galliae",
+        "gender": "f",
+        "translations": [
+            "Gallien"
+        ]
+    },
+    {
+        "id": 415,
+        "step": 13,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "Caesar",
+        "principalForm": "Caesaris",
+        "gender": "m",
+        "translations": [
+            "Caesar"
+        ]
+    },
+    {
+        "id": 416,
+        "step": 13,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "Cleopātra",
+        "principalForm": "Cleopātrae",
+        "gender": "f",
+        "translations": [
+            "Kleopatra"
+        ]
+    },
+    {
+        "id": 417,
+        "step": 13,
+        "substep": 1,
+        "type": "noun",
+        "lemma": "Aegyptus",
+        "principalForm": "Aegyptī",
+        "gender": "f",
+        "translations": [
+            "Ägypten"
         ]
     }
 ]

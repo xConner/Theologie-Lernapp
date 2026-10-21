@@ -182,15 +182,20 @@ class AppModules {
       SourceInfo(
         title: "Vokabelliste",
         origin:
-            "Wortschatz der Lektionen 1–3 von „prima. Latein lernen“, "
-            "Band 1 (C.C. Buchner, 2020). Das Lehrbuch ist im Projekt nicht "
-            "ausdrücklich genannt; die Zuordnung beruht auf Reihenfolge, "
-            "Gliederung und Wortauswahl der Liste (siehe docs/latin.md).",
+            "Wortschatz der Lektionen 1–13 von „prima. Latein lernen“, "
+            "Band 1 (C.C. Buchner, 2020). Lektion 1–3 stammen aus der "
+            "ursprünglichen Liste des Projekts, Lektion 4–13 aus "
+            "Lernkarten-Ausdrucken „prima.kompakt Lektion 4–13“, die der "
+            "Projektinhaber bereitgestellt hat (siehe docs/latin.md).",
         processing:
             "Die Vokabeln sind in Schritte (Lektionen) und Unter-Schritte "
-            "(Wortschatzteile) gegliedert in der App hinterlegt. Die "
-            "Lektionen ab 4 fehlen noch, weil die Wortliste des Verlags "
-            "nicht frei zugänglich ist.",
+            "(Wortschatzteile) gegliedert in der App hinterlegt. Für "
+            "Lektion 4–13 sind keine Wortschatzteile bekannt; jede Lektion "
+            "bildet einen Unter-Schritt. Längenzeichen wurden nach dem "
+            "Wörterbuch ergänzt, Tippfehler der Vorlage berichtigt. Wörter, "
+            "die eine spätere Lektion wiederholt (meist mit Perfektstamm), "
+            "stehen nur einmal in der Liste; die neue Angabe steht in der "
+            "Notiz.",
       ),
     ],
     notes: [

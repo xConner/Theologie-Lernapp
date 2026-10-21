@@ -80,7 +80,9 @@ class LatinVocabularyAnswerChecker {
     bool genderCorrect = true;
 
     if (entry.type == "noun" && checkGender && entry.gender != null) {
-      genderCorrect = normalize(genderInput) == normalize(entry.gender!);
+      genderCorrect = acceptedGenders(
+        entry.gender!,
+      ).contains(normalize(genderInput));
     }
 
     final correct = translationCorrect && formCorrect && genderCorrect;
@@ -92,6 +94,15 @@ class LatinVocabularyAnswerChecker {
       formCorrect: formCorrect,
       genderCorrect: genderCorrect,
     );
+  }
+
+  /// Zulässige Eingaben für ein Genus. Bei zweigeschlechtlichen Nomen
+  /// („m/f“, z. B. parēns) zählt jedes der beiden Genera und die Angabe
+  /// selbst.
+  static Set<String> acceptedGenders(String gender) {
+    final normalized = normalize(gender);
+
+    return {normalized, ...normalized.split("/").map((g) => g.trim())};
   }
 
   static List<String> normalizeTranslations(String input) {
