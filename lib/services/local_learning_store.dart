@@ -73,7 +73,8 @@ class LocalLearningStore {
       "includeGender": _FieldType.boolean,
       "includeAdjectiveForms": _FieldType.boolean,
       "requireOnlyOneTranslation": _FieldType.boolean,
-      "enabledSteps": _FieldType.intList,
+      "disabledLessons": _FieldType.intList,
+      // Älterer Stand (Unter-Schritte je Lektion), nur noch gelesen.
       "enabledSubsteps": _FieldType.intListMap,
       "enabledTypes": _FieldType.stringList,
     },

@@ -96,13 +96,13 @@ void main() {
       expect(settings.includeGender, isTrue);
       expect(settings.includeAdjectiveForms, isTrue);
       expect(settings.requireOnlyOneTranslation, isTrue);
-      expect(settings.enabledSubsteps, isEmpty);
+      expect(settings.disabledLessons, isEmpty);
       expect(settings.enabledTypes, LatinVocabularySettings.allTypes);
       expect(settings.enabledTypes, isNot(contains("numeral")));
     });
 
     test(
-      "Gast: Unter-Schritte bleiben beim Speichern und Laden erhalten",
+      "Gast: abgewählte Lektionen bleiben beim Speichern erhalten",
       () async {
         final service = LatinVocabularySettingsService();
 
@@ -113,12 +113,7 @@ void main() {
           includeGender: false,
           includeAdjectiveForms: true,
           requireOnlyOneTranslation: false,
-          enabledSteps: [1, 3],
-          enabledSubsteps: {
-            1: [1, 2],
-            2: [],
-            3: [4],
-          },
+          disabledLessons: [2, 5],
           enabledTypes: ["noun", "verb"],
         );
 
@@ -127,14 +122,23 @@ void main() {
         expect(settings.includeVerbForm, isFalse);
         expect(settings.includeGender, isFalse);
         expect(settings.requireOnlyOneTranslation, isFalse);
-        expect(settings.enabledSubsteps, {
-          1: [1, 2],
-          2: [],
-          3: [4],
-        });
+        expect(settings.disabledLessons, [2, 5]);
         expect(settings.enabledTypes, ["noun", "verb"]);
       },
     );
+
+    test("ältere Auswahl nach Unter-Schritten wird zu Lektionen", () {
+      final settings = LatinVocabularySettings.fromMap({
+        "enabledSubsteps": {
+          "1": [1, 2],
+          "2": [],
+          "3": [3],
+        },
+      });
+
+      // Nur eine Lektion ganz ohne Unter-Schritt gilt als abgewählt.
+      expect(settings.disabledLessons, [2]);
+    });
   });
 
   group("Lernstände im Gastmodus", () {

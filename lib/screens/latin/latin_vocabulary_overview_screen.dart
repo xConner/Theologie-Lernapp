@@ -8,7 +8,7 @@ import '../../utils/latin_normalization.dart';
 import '../../widgets/info_report.dart';
 import '../../widgets/settings_access.dart';
 
-enum LatinVocabularySort { alphabet, step, type }
+enum LatinVocabularySort { alphabet, lesson, type }
 
 /// Reihenfolge der Wortarten in der Sortierung „Wortart“.
 const Map<String, int> latinTypeOrder = {
@@ -73,10 +73,10 @@ class _LatinVocabularyOverviewScreenState
   bool loading = true;
   String? loadError;
 
-  LatinVocabularySort sort = LatinVocabularySort.step;
+  LatinVocabularySort sort = LatinVocabularySort.lesson;
 
-  /// Gewählter Schritt; null = alle.
-  int? stepFilter;
+  /// Gewählte Lektion; null = alle.
+  int? lessonFilter;
 
   String search = "";
 
@@ -109,15 +109,15 @@ class _LatinVocabularyOverviewScreenState
     });
   }
 
-  List<int> get steps {
-    return entries.map((e) => e.step).toSet().toList()..sort();
+  List<int> get lessons {
+    return entries.map((e) => e.lesson).toSet().toList()..sort();
   }
 
   List<LatinVocabularyEntry> get filteredEntries {
     final query = latinSearchKey(search);
 
     final list = entries.where((entry) {
-      if (stepFilter != null && entry.step != stepFilter) {
+      if (lessonFilter != null && entry.lesson != lessonFilter) {
         return false;
       }
 
@@ -146,13 +146,10 @@ class _LatinVocabularyOverviewScreenState
       case LatinVocabularySort.alphabet:
         return _compareLemma(a, b);
 
-      case LatinVocabularySort.step:
-        // Innerhalb eines Unter-Schritts die Reihenfolge der Liste (ID).
-        final byStep = a.step.compareTo(b.step);
-        if (byStep != 0) return byStep;
-
-        final bySubstep = a.substep.compareTo(b.substep);
-        if (bySubstep != 0) return bySubstep;
+      case LatinVocabularySort.lesson:
+        // Innerhalb einer Lektion die Reihenfolge der Liste (ID).
+        final byLesson = a.lesson.compareTo(b.lesson);
+        if (byLesson != 0) return byLesson;
 
         return a.id.compareTo(b.id);
 
@@ -171,8 +168,8 @@ class _LatinVocabularyOverviewScreenState
         final key = latinSearchKey(entry.lemma);
         return key.isEmpty ? "#" : key.substring(0, 1).toUpperCase();
 
-      case LatinVocabularySort.step:
-        return "Schritt ${entry.step}.${entry.substep}";
+      case LatinVocabularySort.lesson:
+        return "Lektion ${entry.lesson}";
 
       case LatinVocabularySort.type:
         return latinTypeName(entry.type);
@@ -256,8 +253,8 @@ class _LatinVocabularyOverviewScreenState
                   ),
                   items: const [
                     DropdownMenuItem(
-                      value: LatinVocabularySort.step,
-                      child: Text("Schritte"),
+                      value: LatinVocabularySort.lesson,
+                      child: Text("Lektionen"),
                     ),
                     DropdownMenuItem(
                       value: LatinVocabularySort.alphabet,
@@ -280,10 +277,10 @@ class _LatinVocabularyOverviewScreenState
 
               Expanded(
                 child: DropdownButtonFormField<int?>(
-                  initialValue: stepFilter,
+                  initialValue: lessonFilter,
                   isExpanded: true,
                   decoration: const InputDecoration(
-                    labelText: "Schritt",
+                    labelText: "Lektion",
                     border: OutlineInputBorder(),
                   ),
                   items: [
@@ -291,15 +288,15 @@ class _LatinVocabularyOverviewScreenState
                       value: null,
                       child: Text("Alle"),
                     ),
-                    for (final step in steps)
+                    for (final lesson in lessons)
                       DropdownMenuItem<int?>(
-                        value: step,
-                        child: Text("Schritt $step"),
+                        value: lesson,
+                        child: Text("Lektion $lesson"),
                       ),
                   ],
                   onChanged: (value) {
                     setState(() {
-                      stepFilter = value;
+                      lessonFilter = value;
                     });
                   },
                 ),
@@ -347,7 +344,7 @@ class _LatinVocabularyOverviewScreenState
     );
   }
 
-  /// Zusatzangaben wie im Trainer: die im jeweiligen Schritt verlangte Form
+  /// Zusatzangaben wie im Trainer: die in der jeweiligen Lektion verlangte Form
   /// und das Genus.
   String _details(LatinVocabularyEntry entry) {
     return [

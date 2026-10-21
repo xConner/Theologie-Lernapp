@@ -1,19 +1,27 @@
+import 'dart:convert';
+import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'package:theologie_lernapp/models/latin/vocabulary/latin_vocabulary_entry.dart';
 import 'package:theologie_lernapp/screens/latin/grammar/latin_grammar_overview_screen.dart';
 import 'package:theologie_lernapp/screens/latin/grammar/latin_grammar_trainer_screen.dart';
 import 'package:theologie_lernapp/services/latin/grammar/latin_grammar_store.dart';
 import 'package:theologie_lernapp/services/latin/grammar/latin_grammar_trainer.dart';
 import 'package:theologie_lernapp/services/latin/grammar/latin_grammar_words.dart';
-import 'package:theologie_lernapp/services/latin/grammar/latin_morphology.dart';
 import 'package:theologie_lernapp/theme/app_theme.dart';
-import 'package:theologie_lernapp/utils/latin_normalization.dart';
 
 Widget _app(Widget home) => MaterialApp(theme: AppTheme.light, home: home);
+
+Future<List<LatinVocabularyEntry>> _vocabulary() async => [
+  for (final item in jsonDecode(
+    File("assets/latin_vocabulary.json").readAsStringSync(),
+  ))
+    LatinVocabularyEntry.fromJson(item),
+];
 
 void _largeView(WidgetTester tester) {
   tester.view.physicalSize = const Size(1400, 6000);
@@ -125,7 +133,13 @@ void main() {
       );
 
       await tester.pumpWidget(
-        _app(LatinGrammarTrainerScreen(store: store, random: Random(4))),
+        _app(
+          LatinGrammarTrainerScreen(
+            store: store,
+            random: Random(4),
+            vocabulary: _vocabulary(),
+          ),
+        ),
       );
       await tester.pumpAndSettle();
 
@@ -146,57 +160,65 @@ void main() {
       expect(progress.topic(LatinTrainerTopics.prepositions).correct, 1);
     });
 
-    testWidgets("Form bilden: Eingabe ohne Längen ist richtig", (tester) async {
+    testWidgets("nur Bestimmen, mit Wörtern der gewählten Lektion", (
+      tester,
+    ) async {
       _largeView(tester);
 
+      final vocabulary = await _vocabulary();
+      final lessonOf = {for (final e in vocabulary) e.id: e.lesson};
+
       final store = await storeWith(
-        const LatinGrammarSettings(
-          enabledTopics: [LatinTrainerTopics.nounsAO],
-          enabledKinds: [LatinGrammarKinds.build],
+        LatinGrammarSettings(
+          enabledTopics: const [LatinTrainerTopics.nounsAO],
+          disabledLessons: [
+            for (var lesson = 1; lesson <= 13; lesson++)
+              if (lesson != 4) lesson,
+          ],
         ),
       );
 
       await tester.pumpWidget(
-        _app(LatinGrammarTrainerScreen(store: store, random: Random(9))),
+        _app(
+          LatinGrammarTrainerScreen(
+            store: store,
+            random: Random(2),
+            vocabulary: Future.value(vocabulary),
+          ),
+        ),
       );
       await tester.pumpAndSettle();
 
-      final dictionaryForm = _bigText(tester);
-      final noun = LatinGrammarWords.nouns.firstWhere(
-        (n) => n.dictionaryForm == dictionaryForm,
+      // Kein Eingabefeld zum Bilden, sondern Merkmale zum Bestimmen.
+      expect(find.byKey(const ValueKey("latin-grammar-form")), findsNothing);
+      expect(find.text("Kasus"), findsOneWidget);
+
+      final form = _bigText(tester);
+      final nouns = LatinGrammarWords.nouns.where(
+        (n) => n.paradigm().allForms.contains(form),
       );
 
-      final hint = tester
-          .widgetList<Text>(find.textContaining("Bilde: "))
-          .first
-          .data!
-          .substring("Bilde: ".length)
-          .split(" ");
-
-      final form = noun
-          .paradigm()
-          .formsOf(NominalAnalysis(hint[0], hint[1]))
-          .first;
-
-      await tester.enterText(
-        find.byKey(const ValueKey("latin-grammar-form")),
-        stripLatinMacrons(form),
+      expect(
+        nouns.any((n) => lessonOf[n.vocabularyId] == 4),
+        isTrue,
+        reason: form,
       );
-      await tester.tap(find.text("Prüfen"));
-      await tester.pumpAndSettle();
-
-      expect(find.text("Richtig"), findsOneWidget);
     });
 
     testWidgets("ohne mögliche Aufgabe erscheint ein Hinweis", (tester) async {
       final store = await storeWith(
         const LatinGrammarSettings(
           enabledTopics: [LatinTrainerTopics.adjectives],
-          vocabularyOnly: true,
+          // Adjektive kommen erst ab Lektion 10 vor.
+          disabledLessons: [10, 11, 12, 13],
         ),
       );
 
-      await tester.pumpWidget(_app(LatinGrammarTrainerScreen(store: store)));
+      await tester.pumpWidget(
+        _app(
+          LatinGrammarTrainerScreen(store: store, vocabulary: _vocabulary()),
+        ),
+      );
       await tester.pumpAndSettle();
 
       expect(find.textContaining("keine Aufgaben verfügbar"), findsOneWidget);

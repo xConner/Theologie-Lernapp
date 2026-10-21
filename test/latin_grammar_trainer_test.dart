@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter_test/flutter_test.dart';
@@ -14,6 +16,14 @@ import 'package:theologie_lernapp/services/local_learning_store.dart';
 import 'package:theologie_lernapp/services/progress_data_service.dart';
 import 'package:theologie_lernapp/services/progress_reset.dart';
 
+List<dynamic> _vocabulary() =>
+    jsonDecode(File("assets/latin_vocabulary.json").readAsStringSync());
+
+/// Lektion je Vokabel-ID, wie sie der Trainer aus der Vokabelliste liest.
+final Map<int, int> _lessonOf = {
+  for (final entry in _vocabulary()) entry["id"] as int: entry["lesson"] as int,
+};
+
 LatinGrammarTaskGenerator _generator({
   int seed = 1,
   GrammarLearning? learning,
@@ -21,18 +31,42 @@ LatinGrammarTaskGenerator _generator({
   return LatinGrammarTaskGenerator(
     learning: learning ?? GrammarLearning(random: Random(seed)),
     random: Random(seed),
+    lessonOf: _lessonOf,
   );
 }
 
-LatinGrammarSettings _only(String topic, {List<String>? kinds}) {
+LatinGrammarSettings _only(
+  String topic, {
+  List<int> disabledLessons = const [],
+}) {
   return LatinGrammarSettings(
     enabledTopics: [topic],
-    enabledKinds: kinds ?? LatinGrammarKinds.all,
+    disabledLessons: disabledLessons,
   );
 }
 
-LatinNoun _noun(String id) =>
-    LatinGrammarWords.nouns.firstWhere((noun) => noun.id == id);
+/// Lektion eines Worts im Trainer.
+int? _lessonOfWord(LatinGrammarTask task) {
+  final vocabularyId = switch (task) {
+    NominalIdentifyTask(wordType: NominalWordType.noun) =>
+      LatinGrammarWords.nouns
+          .firstWhere((n) => n.id == task.wordId)
+          .vocabularyId,
+    NominalIdentifyTask(wordType: NominalWordType.adjective) =>
+      LatinGrammarWords.adjectives
+          .firstWhere((a) => a.id == task.wordId)
+          .vocabularyId,
+    NominalIdentifyTask() => null,
+    VerbIdentifyTask() => task.verb.vocabularyId,
+    ChoiceTask() =>
+      LatinGrammarWords.prepositions
+          .where((p) => p.lemma == task.prompt)
+          .firstOrNull
+          ?.vocabularyId,
+  };
+
+  return vocabularyId == null ? null : _lessonOf[vocabularyId];
+}
 
 LatinVerb _verb(String id) =>
     LatinGrammarWords.verbs.firstWhere((verb) => verb.id == id);
@@ -42,7 +76,12 @@ void main() {
     test("jedes Thema liefert stimmige Aufgaben", () {
       final generator = _generator();
 
-      for (final topic in LatinTrainerTopics.ids) {
+      // Die u- und e-Deklination kommt im Wortschatz noch nicht vor.
+      final topics = LatinTrainerTopics.ids.where(
+        (t) => t != LatinTrainerTopics.nounsUE,
+      );
+
+      for (final topic in topics) {
         for (var i = 0; i < 150; i++) {
           final task = generator.next(_only(topic));
 
@@ -53,20 +92,8 @@ void main() {
             case NominalIdentifyTask():
               expect(task.analyses, contains(task.target), reason: task.form);
               expect(task.lemmas, isNotEmpty);
-            case NominalBuildTask():
-              expect(task.accepted, isNotEmpty);
-
-              for (final form in task.accepted) {
-                expect(task.otherForms.keys, isNot(contains(form)));
-              }
             case VerbIdentifyTask():
               expect(task.analyses, contains(task.target), reason: task.form);
-              expect(
-                LatinGrammarTaskGenerator.topicContains(topic, task.target),
-                isTrue,
-              );
-            case VerbBuildTask():
-              expect(task.accepted, isNotEmpty);
               expect(
                 LatinGrammarTaskGenerator.topicContains(topic, task.target),
                 isTrue,
@@ -79,22 +106,21 @@ void main() {
       }
     });
 
-    test("Aufgabenarten werden beachtet", () {
+    test("es gibt nur Bestimmungs- und Auswahlaufgaben", () {
       final generator = _generator(seed: 3);
+      final settings = LatinGrammarSettings(
+        enabledTopics: LatinTrainerTopics.ids,
+      );
 
-      for (var i = 0; i < 100; i++) {
-        final identify = generator.next(
-          _only(
-            LatinTrainerTopics.verbsPresent,
-            kinds: [LatinGrammarKinds.identify],
+      for (var i = 0; i < 300; i++) {
+        expect(
+          generator.next(settings),
+          anyOf(
+            isA<NominalIdentifyTask>(),
+            isA<VerbIdentifyTask>(),
+            isA<ChoiceTask>(),
           ),
         );
-        final build = generator.next(
-          _only(LatinTrainerTopics.nounsAO, kinds: [LatinGrammarKinds.build]),
-        );
-
-        expect(identify, isA<VerbIdentifyTask>());
-        expect(build, isA<NominalBuildTask>());
       }
     });
 
@@ -106,7 +132,6 @@ void main() {
 
         final target = switch (task) {
           NominalIdentifyTask() => task.target,
-          NominalBuildTask() => task.target,
           _ => null,
         };
 
@@ -114,80 +139,119 @@ void main() {
       }
     });
 
-    test("nur Wörter aus dem Wortschatz", () {
+    test("nur Wörter der ausgewählten Lektionen", () {
       final generator = _generator(seed: 7);
 
-      const settings = LatinGrammarSettings(
-        enabledTopics: [
-          LatinTrainerTopics.nounsAO,
-          LatinTrainerTopics.nouns3,
-          LatinTrainerTopics.verbsPresent,
-          LatinTrainerTopics.verbsPerfect,
-          LatinTrainerTopics.prepositions,
+      // Nur Lektion 4 und 8.
+      final settings = LatinGrammarSettings(
+        enabledTopics: LatinTrainerTopics.ids,
+        disabledLessons: [
+          for (var lesson = 1; lesson <= 13; lesson++)
+            if (lesson != 4 && lesson != 8) lesson,
         ],
-        vocabularyOnly: true,
       );
 
-      final nounIds = {
-        for (final n in LatinGrammarWords.nouns)
-          if (n.vocabularyId != null) n.id,
-      };
+      final seen = <int>{};
 
-      for (var i = 0; i < 300; i++) {
+      for (var i = 0; i < 500; i++) {
+        final task = generator.next(settings)!;
+        final lesson = _lessonOfWord(task);
+
+        if (task.topic == LatinTrainerTopics.pronouns ||
+            task.topic == LatinTrainerTopics.syntax) {
+          // Pronomen und Satzkonstruktionen gehören zu keiner Lektion.
+          continue;
+        }
+
+        expect(lesson, isNotNull, reason: "${task.topic} ohne Lektion");
+        expect([4, 8], contains(lesson), reason: task.topic);
+        seen.add(lesson!);
+      }
+
+      expect(seen, {4, 8});
+    });
+
+    test("Musterwörter ohne Vokabel werden nicht abgefragt", () {
+      final generator = _generator(seed: 9);
+      final settings = LatinGrammarSettings(
+        enabledTopics: LatinTrainerTopics.ids,
+      );
+
+      for (var i = 0; i < 500; i++) {
         final task = generator.next(settings)!;
 
-        switch (task) {
-          case NominalIdentifyTask():
-            expect(nounIds, contains(task.wordId));
-          case NominalBuildTask():
-            expect(nounIds, contains(task.wordId));
-          case VerbIdentifyTask():
-            expect(task.verb.vocabularyId, isNotNull);
-          case VerbBuildTask():
-            expect(task.verb.vocabularyId, isNotNull);
-          case ChoiceTask():
-            final lemma = task.prompt;
-            final preposition = LatinGrammarWords.prepositions.firstWhere(
-              (p) => p.lemma == lemma,
-            );
-            expect(preposition.vocabularyId, isNotNull);
+        if (task.topic == LatinTrainerTopics.pronouns ||
+            task.topic == LatinTrainerTopics.syntax) {
+          continue;
         }
+
+        expect(_lessonOfWord(task), isNotNull, reason: task.topic);
+      }
+    });
+
+    test("Vokabel-IDs der Grammatikwörter passen zur Vokabelliste", () {
+      final lemmaOf = {
+        for (final entry in _vocabulary())
+          entry["id"] as int: "${entry["lemma"]}|${entry["type"]}",
+      };
+
+      for (final noun in LatinGrammarWords.nouns) {
+        if (noun.vocabularyId == null) continue;
+        expect(lemmaOf[noun.vocabularyId], "${noun.lemma}|noun");
+      }
+
+      for (final adjective in LatinGrammarWords.adjectives) {
+        if (adjective.vocabularyId == null) continue;
+        expect(lemmaOf[adjective.vocabularyId], "${adjective.lemma}|adjective");
+      }
+
+      for (final verb in LatinGrammarWords.verbs) {
+        if (verb.vocabularyId == null) continue;
+        // velle ist im Wortschatz der Lektion 3 als volō verzeichnet.
+        expect(
+          lemmaOf[verb.vocabularyId],
+          anyOf("${verb.infinitive}|verb", "${verb.present}|verb"),
+        );
+      }
+
+      for (final preposition in LatinGrammarWords.prepositions) {
+        if (preposition.vocabularyId == null) continue;
+        expect(
+          lemmaOf[preposition.vocabularyId],
+          "${preposition.lemma}|preposition",
+        );
       }
     });
 
     test("Themen ohne passende Wörter sind nicht verfügbar", () {
       final generator = _generator();
 
-      // Adjektive kommen im Wortschatz der Lektionen 1–3 nicht vor.
+      // Adjektive kommen erst ab Lektion 10 vor.
       expect(
         generator.availableTopics(
-          const LatinGrammarSettings(
-            enabledTopics: [LatinTrainerTopics.adjectives],
-            vocabularyOnly: true,
+          _only(
+            LatinTrainerTopics.adjectives,
+            disabledLessons: [10, 11, 12, 13],
           ),
         ),
         isEmpty,
       );
+      expect(generator.availableTopics(_only(LatinTrainerTopics.adjectives)), [
+        LatinTrainerTopics.adjectives,
+      ]);
 
-      expect(
-        generator.next(
-          const LatinGrammarSettings(
-            enabledTopics: [LatinTrainerTopics.nounsAO],
-            enabledKinds: [],
-          ),
-        ),
-        isNull,
+      // Ohne Lektionsangabe (z. B. Vokabelliste nicht geladen) bleiben nur
+      // Pronomen und Satzkonstruktionen.
+      final withoutLessons = LatinGrammarTaskGenerator(
+        learning: GrammarLearning(random: Random(1)),
+        random: Random(1),
       );
 
-      // Auswahlaufgaben brauchen keine Aufgabenart.
       expect(
-        generator.next(
-          const LatinGrammarSettings(
-            enabledTopics: [LatinTrainerTopics.prepositions],
-            enabledKinds: [],
-          ),
+        withoutLessons.availableTopics(
+          LatinGrammarSettings(enabledTopics: LatinTrainerTopics.ids),
         ),
-        isA<ChoiceTask>(),
+        [LatinTrainerTopics.pronouns, LatinTrainerTopics.syntax],
       );
     });
 
@@ -219,12 +283,7 @@ void main() {
 
       for (var i = 0; i < 1000; i++) {
         final task =
-            generator.next(
-                  _only(
-                    LatinTrainerTopics.nounsAO,
-                    kinds: [LatinGrammarKinds.identify],
-                  ),
-                )
+            generator.next(_only(LatinTrainerTopics.nounsAO))
                 as NominalIdentifyTask;
 
         counts.update(
@@ -242,176 +301,12 @@ void main() {
   });
 
   group("Antworten prüfen", () {
-    test("Längenzeichen sind beim Bilden freiwillig", () {
-      final result = checkFormAnswer(
-        input: "amas",
-        accepted: ["amās"],
-        otherForms: {"amat": "3. Sg."},
-      );
-
-      expect(result.correct, isTrue);
-      expect(result.macronMismatch, isFalse);
-    });
-
-    test("gesetzte Längen müssen die gefragte Form treffen", () {
-      final venire = _verb("venire").paradigm();
-      const present = VerbAnalysis(
-        LatinMoods.indicative,
-        LatinTenses.present,
-        LatinVoices.active,
-        "3. Sg.",
-      );
-
-      final accepted = venire.formsOf(present);
-      final others = {
-        for (final entry in venire.cells.entries)
-          if (entry.key != present)
-            for (final form in entry.value) form: entry.key.describe(),
-      };
-
-      final perfect = checkFormAnswer(
-        input: "vēnit",
-        accepted: accepted,
-        otherForms: others,
-      );
-
-      expect(perfect.correct, isFalse);
-      expect(perfect.otherAnalysis, contains(LatinTenses.perfect));
-
-      expect(
-        checkFormAnswer(
-          input: "venit",
-          accepted: accepted,
-          otherForms: others,
-        ).correct,
-        isTrue,
-      );
-    });
-
-    test("„Längenzeichen verlangen“ zählt nur exakte Formen", () {
-      final result = checkFormAnswer(
-        input: "amas",
-        accepted: ["amās"],
-        otherForms: const {},
-        requireMacrons: true,
-      );
-
-      expect(result.correct, isFalse);
-      expect(result.macronMismatch, isTrue);
-
-      expect(
-        checkFormAnswer(
-          input: "amās",
-          accepted: ["amās"],
-          otherForms: const {},
-          requireMacrons: true,
-        ).correct,
-        isTrue,
-      );
-    });
-
-    test("falsch gesetzte Längen: richtig mit Hinweis", () {
-      final result = checkFormAnswer(
-        input: "āmas",
-        accepted: ["amās"],
-        otherForms: const {},
-      );
-
-      expect(result.correct, isTrue);
-      expect(result.macronMismatch, isTrue);
-    });
-
-    test("Groß-/Kleinschreibung, j und zerlegte Längenzeichen", () {
-      expect(
-        checkFormAnswer(
-          input: "  Adjuvo ",
-          accepted: ["adiuvō"],
-          otherForms: const {},
-        ).correct,
-        isTrue,
-      );
-
-      expect(
-        checkFormAnswer(
-          input: "amās",
-          accepted: ["amās"],
-          otherForms: const {},
-          requireMacrons: true,
-        ).correct,
-        isTrue,
-      );
-    });
-
-    test("Nebenformen sind gleichwertig", () {
-      final paradigm = _verb("amare").paradigm();
-      const analysis = VerbAnalysis(
-        LatinMoods.indicative,
-        LatinTenses.present,
-        LatinVoices.passive,
-        "2. Sg.",
-      );
-
-      final accepted = paradigm.formsOf(analysis);
-
-      expect(accepted, containsAll(["amāris", "amāre"]));
-
-      for (final form in accepted) {
-        expect(
-          checkFormAnswer(
-            input: form,
-            accepted: accepted,
-            otherForms: const {},
-          ).correct,
-          isTrue,
-        );
-      }
-    });
-
-    test("andere Form des Paradigmas wird benannt, Tippfehler erkannt", () {
-      final paradigm = _noun("dominus").paradigm();
-      const target = NominalAnalysis(
-        LatinCases.accusative,
-        LatinNumbers.plural,
-      );
-      final accepted = paradigm.formsOf(target);
-      final others = {
-        for (final entry in paradigm.cells.entries)
-          if (entry.key != target)
-            for (final form in entry.value) form: entry.key.describe(),
-      };
-
-      final grammatical = checkFormAnswer(
-        input: "dominum",
-        accepted: accepted,
-        otherForms: others,
-      );
-
-      expect(grammatical.correct, isFalse);
-      expect(grammatical.otherAnalysis, "Akkusativ Singular");
-      expect(grammatical.likelyTypo, isFalse);
-
-      final typo = checkFormAnswer(
-        input: "dominoss",
-        accepted: accepted,
-        otherForms: others,
-      );
-
-      expect(typo.correct, isFalse);
-      expect(typo.likelyTypo, isTrue);
-      expect(typo.expected, "dominōs");
-    });
-
     test("mehrdeutige Formen: jede vollständige Bestimmung zählt", () {
       final generator = _generator(seed: 2);
       NominalIdentifyTask? task;
 
       for (var i = 0; i < 2000 && task == null; i++) {
-        final next = generator.next(
-          _only(
-            LatinTrainerTopics.nounsAO,
-            kinds: [LatinGrammarKinds.identify],
-          ),
-        );
+        final next = generator.next(_only(LatinTrainerTopics.nounsAO));
 
         if (next is NominalIdentifyTask && next.form == "servī") task = next;
       }
@@ -539,11 +434,9 @@ void main() {
     test("Speichern und Laden", () {
       const settings = LatinGrammarSettings(
         enabledTopics: [LatinTrainerTopics.syntax, LatinTrainerTopics.nouns3],
-        enabledKinds: [LatinGrammarKinds.build],
+        disabledLessons: [5, 2],
         askLemma: true,
-        requireMacrons: true,
         includeVocative: true,
-        vocabularyOnly: true,
       );
 
       final restored = LatinGrammarSettings.fromMap(settings.toMap());
@@ -553,11 +446,9 @@ void main() {
         LatinTrainerTopics.nouns3,
         LatinTrainerTopics.syntax,
       ]);
-      expect(restored.enabledKinds, [LatinGrammarKinds.build]);
+      expect(restored.disabledLessons, [2, 5]);
       expect(restored.askLemma, isTrue);
-      expect(restored.requireMacrons, isTrue);
       expect(restored.includeVocative, isTrue);
-      expect(restored.vocabularyOnly, isTrue);
     });
 
     test("unbekannte oder fehlende Werte fallen auf Defaults zurück", () {
@@ -567,7 +458,7 @@ void main() {
       });
 
       expect(restored.enabledTopics, [LatinTrainerTopics.nounsAO]);
-      expect(restored.enabledKinds, LatinGrammarKinds.all);
+      expect(restored.disabledLessons, isEmpty);
       expect(restored.askLemma, isFalse);
 
       expect(
@@ -577,28 +468,21 @@ void main() {
     });
 
     test("Prüfung der Auswahl", () {
+      const lessons = [1, 2, 3];
+
       expect(
-        const LatinGrammarSettings(enabledTopics: []).validate(),
+        const LatinGrammarSettings(enabledTopics: []).validate(lessons),
         isNotNull,
       );
       expect(
-        const LatinGrammarSettings(
-          enabledTopics: [LatinTrainerTopics.nounsAO],
-          enabledKinds: [],
-        ).validate(),
+        const LatinGrammarSettings(disabledLessons: lessons).validate(lessons),
         isNotNull,
       );
       expect(
-        const LatinGrammarSettings(
-          enabledTopics: [
-            LatinTrainerTopics.nounsAO,
-            LatinTrainerTopics.prepositions,
-          ],
-          enabledKinds: [],
-        ).validate(),
+        const LatinGrammarSettings(disabledLessons: [1, 2]).validate(lessons),
         isNull,
       );
-      expect(const LatinGrammarSettings().validate(), isNull);
+      expect(const LatinGrammarSettings().validate(lessons), isNull);
     });
   });
 

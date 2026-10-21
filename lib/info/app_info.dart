@@ -188,10 +188,8 @@ class AppModules {
             "Lernkarten-Ausdrucken „prima.kompakt Lektion 4–13“, die der "
             "Projektinhaber bereitgestellt hat (siehe docs/latin.md).",
         processing:
-            "Die Vokabeln sind in Schritte (Lektionen) und Unter-Schritte "
-            "(Wortschatzteile) gegliedert in der App hinterlegt. Für "
-            "Lektion 4–13 sind keine Wortschatzteile bekannt; jede Lektion "
-            "bildet einen Unter-Schritt. Längenzeichen wurden nach dem "
+            "Die Vokabeln sind nach Lektionen gegliedert in der App "
+            "hinterlegt. Längenzeichen wurden nach dem "
             "Wörterbuch ergänzt, Tippfehler der Vorlage berichtigt. Wörter, "
             "die eine spätere Lektion wiederholt (meist mit Perfektstamm), "
             "stehen nur einmal in der Liste; die neue Angabe steht in der "
@@ -209,8 +207,9 @@ class AppModules {
     title: "Latein – Grammatiktrainer",
     description:
         "Formen lateinischer Substantive, Adjektive, Pronomen und Verben "
-        "bestimmen und bilden, Präpositionen mit ihrem Kasus und "
-        "Satzkonstruktionen erkennen.",
+        "bestimmen, Präpositionen mit ihrem Kasus und Satzkonstruktionen "
+        "erkennen. Wie im Altgriechisch-Trainer lassen sich die Lektionen "
+        "auswählen, aus denen die Wörter stammen.",
     sources: [
       SourceInfo(
         title: "Formen",
@@ -227,15 +226,13 @@ class AppModules {
       SourceInfo(
         title: "Wörter",
         origin:
-            "Vokabelliste der App (siehe „Latein – Vokabeln“) und "
-            "zusätzliche, eindeutig gekennzeichnete Musterwörter für Stoff, "
-            "den der Wortschatz noch nicht abdeckt",
+            "Vokabelliste der App (siehe „Latein – Vokabeln“). Genitive und "
+            "Stammformen sind die üblichen Wörterbuchangaben. Musterwörter "
+            "für Stoff, den der Wortschatz noch nicht abdeckt, stehen nur in "
+            "der Grammatikübersicht.",
       ),
     ],
     notes: [
-      "Längenzeichen sind beim Bilden freiwillig, außer „Längenzeichen "
-          "verlangen“ ist eingeschaltet. Gesetzte Längen müssen aber stimmen, "
-          "wenn sie Formen unterscheiden (venit – vēnit).",
       "Die Reihenfolge der Themen folgt dem üblichen Lehrgang; nur die "
           "Lektionen 1–3 sind am Lehrbuch abgeglichen.",
     ],

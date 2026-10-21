@@ -83,8 +83,7 @@ void main() {
     test("nur bekannte Felder", () {
       const known = {
         "id",
-        "step",
-        "substep",
+        "lesson",
         "type",
         "lemma",
         "principalForm",
@@ -106,25 +105,11 @@ void main() {
       }
     });
 
-    test("Schritte und Unter-Schritte sind positiv und lückenlos", () {
-      final entries = _entries();
-      final steps = entries.map((e) => e.step).toSet().toList()..sort();
+    test("Lektionen sind positiv und lückenlos", () {
+      final lessons = _entries().map((e) => e.lesson).toSet().toList()..sort();
 
-      expect(steps.first, 1);
-      expect(steps.last, steps.length, reason: "Schritte ohne Lücke");
-
-      for (final step in steps) {
-        final substeps =
-            entries
-                .where((e) => e.step == step)
-                .map((e) => e.substep)
-                .toSet()
-                .toList()
-              ..sort();
-
-        expect(substeps.first, 1, reason: "Schritt $step");
-        expect(substeps.last, substeps.length, reason: "Schritt $step");
-      }
+      expect(lessons.first, 1);
+      expect(lessons.last, lessons.length, reason: "Lektionen ohne Lücke");
     });
 
     test("Wortarten sind im Trainer auswählbar", () {
@@ -219,15 +204,13 @@ void main() {
 
       for (final lesson in perLesson.entries) {
         expect(
-          added.where((e) => e.step == lesson.key),
+          added.where((e) => e.lesson == lesson.key),
           hasLength(lesson.value),
           reason: "Lektion ${lesson.key}",
         );
       }
 
-      expect(added.every((e) => perLesson.containsKey(e.step)), isTrue);
-      // Wortschatzteile sind für diese Lektionen nicht bekannt.
-      expect(added.every((e) => e.substep == 1), isTrue);
+      expect(added.every((e) => perLesson.containsKey(e.lesson)), isTrue);
     });
 
     test("Wiederholungen aus späteren Lektionen stehen in der Notiz", () {
@@ -235,7 +218,7 @@ void main() {
 
       expect(byLemma["esse|verb"]!.note, contains("sum, fuī"));
       expect(byLemma["in|preposition"]!.note, contains("mit Ablativ"));
-      expect(byLemma["dīcere|verb"]!.step, 5);
+      expect(byLemma["dīcere|verb"]!.lesson, 5);
       expect(byLemma["dīcere|verb"]!.note, contains("dīxī"));
     });
 
@@ -303,9 +286,9 @@ void main() {
     test("Standard-Einstellungen nehmen alle Vokabeln auf", () {
       const settings = LatinVocabularySettings();
 
-      // Ohne gespeicherte Auswahl sind alle Schritte aktiv (siehe Trainer)
+      // Ohne gespeicherte Auswahl sind alle Lektionen aktiv (siehe Trainer)
       // und alle Wortarten ausgewählt.
-      expect(settings.enabledSubsteps, isEmpty);
+      expect(settings.disabledLessons, isEmpty);
 
       for (final entry in _entries()) {
         expect(settings.enabledTypes, contains(entry.type));
@@ -326,7 +309,7 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.text("${entries.length} Vokabeln"), findsOneWidget);
-      expect(find.text("Schritt 1.1"), findsOneWidget);
+      expect(find.text("Lektion 1"), findsOneWidget);
     });
 
     testWidgets("Suche ohne Längenzeichen findet Lemma und Bedeutung", (
@@ -358,19 +341,18 @@ void main() {
     testWidgets("eine neue Lektion erscheint ohne Codeänderung im Filter", (
       tester,
     ) async {
-      // Hoch genug, damit das Schritt-Menü alle Einträge zeigt.
+      // Hoch genug, damit das Lektionsmenü alle Einträge zeigt.
       tester.view.physicalSize = const Size(1200, 3000);
       tester.view.devicePixelRatio = 1;
       addTearDown(tester.view.reset);
 
       // Simuliert eine spätere Ergänzung (Lektion 14, neue ID am Ende):
-      // Übersicht und Schrittfilter lesen die Schritte aus den Daten.
+      // Übersicht und Lektionsfilter lesen die Lektionen aus den Daten.
       final entries = [
         ..._entries(),
         LatinVocabularyEntry.fromJson({
           "id": _entries().length + 1,
-          "step": 14,
-          "substep": 1,
+          "lesson": 14,
           "type": "noun",
           "lemma": "nauta",
           "principalForm": "nautae",
@@ -386,7 +368,7 @@ void main() {
 
       await tester.tap(find.text("Alle"));
       await tester.pumpAndSettle();
-      await tester.tap(find.text("Schritt 14").last);
+      await tester.tap(find.text("Lektion 14").last);
       await tester.pumpAndSettle();
 
       expect(find.text("nauta"), findsOneWidget);

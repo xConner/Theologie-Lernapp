@@ -10,21 +10,22 @@ Sie folgt nach unserer Prüfung **„prima. Latein lernen“, Band 1**
 Kammerer; ISBN 978-3-661-40501-8). Band 1 enthält die Lektionen 1–14 mit
 ihren Wortschätzen, Band 2 die Lektionen 15–28.
 
-| App | Lehrbuch |
-|---|---|
-| Schritt 1–13 | Lektion 1–13 |
-| Unter-Schritt 1–3 (nur Lektion 1–3) | Wortschatzteile einer Lektion |
-| Unter-Schritt 1 (Lektion 4–13) | ganze Lektion; Wortschatzteile unbekannt |
+Jede Vokabel trägt ihre Lektion (JSON-Feld `lesson`). Die App spricht wie
+das Buch nur von Lektionen. Die frühere Gliederung in Schritte und
+Unter-Schritte (Wortschatzteile) ist seit dem 21. Oktober 2026 entfernt;
+gespeicherte Auswahlen nach Unter-Schritten werden beim Laden in eine
+Lektionsauswahl übernommen (eine Lektion ohne gewählten Unter-Schritt gilt
+als abgewählt).
 
 **Belege**
 
 * Thematische Übereinstimmung: Die Lektionen 1–4 von prima. erzählen einen
   Kriminalfall um das Pferd Incitatus (Verlagskonzeption Band 1). Der
-  Wortschatz von Schritt 1–2 passt genau dazu: equus, victor, victōria,
+  Wortschatz von Lektion 1–2 passt genau dazu: equus, victor, victōria,
   circus, furtum, mercātor, clāmor.
 * Eine von Nutzern erstellte Lernkartenliste „Prima. 2. Lektion Teil 2“
-  (quizlet.com) enthält dieselben, eher seltenen Wörter wie Schritt 2.2 der
-  App (nōn iam, iō „hurra“, iterum, itaque, exspectāre) und dieselbe
+  (quizlet.com) enthält dieselben, eher seltenen Wörter wie Teil 2 der Lektion 2
+  in der App (nōn iam, iō „hurra“, iterum, itaque, exspectāre) und dieselbe
   Gliederung in Teile.
 
 **Verlässlichkeit:** mittel bis hoch. Die Wortlisten des Verlags waren
@@ -51,7 +52,7 @@ nova, prima brevis, ROMA) weichen in Wortauswahl oder Lektionszählung ab.
   nicht abrufbar, nur Zusammenfassungen von Suchergebnissen.
 * Zum Ergänzen genügt es, die Wortschatzseiten der weiteren Lektionen (aus
   dem eigenen Buch) bereitzustellen. Neue Einträge bekommen fortlaufende
-  IDs ab 418; Schritt = Lektion, Unter-Schritt = Wortschatzteil.
+  IDs ab 418 und ihre Lektion im Feld `lesson`.
 
 **Zweite Recherche (19. Oktober 2026)**
 
@@ -66,7 +67,7 @@ hinzu, weil sich keine Lektion zuverlässig rekonstruieren ließ.
   (HTTP 403 bzw. DNS-Fehler). GitHub ist nur für dieses Repository
   freigegeben.
 * Bestätigt: Eine Quizlet-Liste „prima. Vokabeln Lektion 1“ (37 Karten) hat
-  dieselbe Größe wie Schritt 1 der App (37 Wörter). Eine Liste „prima.1
+  dieselbe Größe wie Lektion 1 der App (37 Wörter). Eine Liste „prima.1
   Lektion 4“ (28 Karten) existiert; in Ausschnitten erscheinen gaudium,
   timor, porta, simul und sceleratus. Ein Schulcurriculum nennt für
   Lektion 4 den Titel „Incitatus ist der Größte!“ und den Ablativ.
@@ -78,7 +79,7 @@ hinzu, weil sich keine Lektion zuverlässig rekonstruieren ließ.
   Trainer eine vollständige Lektion vorgetäuscht. Deshalb wurde nichts
   übernommen.
 * Für spätere Ergänzungen ist nichts im Code anzupassen: Trainer und
-  Übersicht lesen Schritte und Unter-Schritte aus den Daten, neue Schritte
+  Übersicht lesen die Lektionen aus den Daten, neue Lektionen
   sind im Trainer automatisch aktiv, Lernstände hängen an der ID (Test
   „eine neue Lektion erscheint ohne Codeänderung im Filter“).
 
@@ -94,8 +95,8 @@ damit nach unserer Annahme zu prima. Band 1.
 
 **Übernahme**
 
-* 315 neue Einträge, IDs 103–417, Schritt = Lektion, Unter-Schritt 1. Die
-  Vorlage gliedert die Lektionen nicht in Wortschatzteile.
+* 315 neue Einträge, IDs 103–417. Die Vorlage gliedert die Lektionen nicht
+  in Wortschatzteile.
 * Bedeutungen, Genus und Zusatzformen wie in der Vorlage. Die Zusatzform
   wechselt wie im Buch: Lektion 4–7 1. Person Singular, ab Lektion 8 mit
   Perfekt (teneō, tenuī); Nomen ab Lektion 6 mit Genitiv, in Lektion 4–5
@@ -123,9 +124,9 @@ Wörter aus Lektion 1–3 (esse, vidēre, venīre …) und in mit Ablativ
 ohne neue Angabe. Die Perfektformen fragt der Vokabeltrainer deshalb
 nicht ab.
 
-**Grammatiktrainer:** Die Einstellung „Nur Wörter aus dem Wortschatz“
-nutzt weiterhin die Wörter der Lektionen 1–3; die Musterwörter (rēx, urbs,
-mittere …) sind nicht mit den neuen Einträgen verknüpft.
+**Grammatiktrainer:** Substantive, Adjektive, Verben und Präpositionen
+der Lektionen 4–13 sind mit Genitiv bzw. Stammformen nach dem Wörterbuch
+in `latin_grammar_words.dart` aufgenommen (siehe unten).
 
 ## Grammatikübersicht und Grammatiktrainer
 
@@ -135,11 +136,22 @@ die Pronomen sind Tabellen. Übersicht und Trainer verwenden dieselben
 Paradigmen. `test/latin_grammar_morphology_test.dart` prüft sie gegen
 Standardparadigmen.
 
-Die Wörter stehen in `latin_grammar_words.dart`: Substantive und Verben
-aus dem Wortschatz (mit `vocabularyId`) und zusätzliche Musterwörter für
-Stoff, den der Wortschatz der Lektionen 1–3 noch nicht abdeckt (rēx,
-urbs, senātus, rēs, mittere, capere, Adjektive …). Mit „Nur Wörter aus dem
-Wortschatz“ übt der Trainer nur die erste Gruppe.
+Die Wörter stehen in `latin_grammar_words.dart`: Substantive, Adjektive,
+Verben und Präpositionen aus dem Wortschatz (mit `vocabularyId`) und
+Musterwörter für Stoff, den der Wortschatz noch nicht abdeckt (senātus,
+manus, rēs, diēs, legere, īre, laetus …). Der Trainer fragt wie der
+Altgriechisch-Trainer nur Wörter der gewählten Lektionen ab; die Lektion
+eines Worts kommt über `vocabularyId` aus der Vokabelliste. Musterwörter
+stehen nur in der Grammatikübersicht. Pronomen und Satzkonstruktionen
+gehören zu keiner Lektion und werden über die Themen ein- und
+ausgeschaltet. Nicht aufgenommen sind Vokabeln, deren Formen die
+Formenbildung nicht abbildet (deus, fīlia, dea, dare, tōtus, sōlus …),
+Pluralwörter, Wörter mit zwei Genera und Eigennamen.
+
+**Aufgaben:** Formen bestimmen (Kasus, Numerus, Genus bzw. Modus, Tempus,
+Genus verbi, Person; auf Wunsch zusätzlich die Grundform), den Kasus nach
+einer Präposition und Satzkonstruktionen erkennen. Formen bilden gibt es
+seit dem 21. Oktober 2026 nicht mehr, wie im Altgriechisch-Trainer.
 
 **Reihenfolge:** Die Themen für Lektion 1–3 sind aus dem Wortschatz
 erschlossen (welche Formen er voraussetzt), nicht aus den
@@ -148,15 +160,8 @@ Reihenfolge der Schulgrammatik und sind als „weiterführend“ markiert.
 
 **Antwortprüfung** (`latin_grammar_answer_check.dart`)
 
-* Groß-/Kleinschreibung zählt nicht, j gilt als i, zerlegte Längenzeichen
-  (Vokal + U+0304) werden zusammengesetzt.
-* Längenzeichen sind beim Bilden freiwillig. Gesetzte Längen müssen aber
-  die gefragte Form treffen: vēnit (Perfekt) ist für venit (Präsens)
-  falsch. Mit „Längenzeichen verlangen“ zählen nur exakte Formen.
-* Nebenformen (amāris/amāre, -ērunt/-ēre) sind gleichwertig.
-* Eine falsche Eingabe, die eine andere Form desselben Worts ist, wird
-  benannt („Akkusativ Singular“); weicht sie nur um einen Buchstaben ab
-  und ist keine Form des Worts, gilt sie als vermutlicher Tippfehler.
+* Grundform: Groß-/Kleinschreibung und Längenzeichen zählen nicht, j gilt
+  als i; bei Verben gilt der Infinitiv oder die 1. Person Singular.
 * Beim Bestimmen zählt jede für die Form mögliche Bestimmung (servī: Gen.
   Sg. oder Nom. Pl.), aber keine Mischung aus zweien.
 

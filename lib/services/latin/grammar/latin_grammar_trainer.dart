@@ -10,28 +10,12 @@ import 'latin_morphology.dart';
 // THEMEN
 // ---------------------------------------------------------------------------
 
-/// Aufgabenarten: Formen bestimmen bzw. bilden. Präpositionen und
-/// Satzkonstruktionen sind Auswahlaufgaben und gehören zu keiner Art.
-class LatinGrammarKinds {
-  LatinGrammarKinds._();
-
-  static const String identify = "identify";
-  static const String build = "build";
-
-  static const List<String> all = [identify, build];
-
-  static const Map<String, String> labels = {
-    identify: "Formen bestimmen",
-    build: "Formen bilden",
-  };
-}
-
 class LatinTrainerTopic {
   final String id;
   final String title;
   final String description;
 
-  /// Bestimmen/Bilden möglich; sonst Auswahlaufgabe.
+  /// Formen bestimmen; sonst Auswahlaufgabe.
   final bool morphology;
 
   const LatinTrainerTopic({
@@ -148,27 +132,24 @@ class LatinTrainerTopics {
 
 class LatinGrammarSettings {
   final List<String> enabledTopics;
-  final List<String> enabledKinds;
+
+  /// Abgewählte Lektionen. Abgefragt werden nur Wörter der übrigen
+  /// Lektionen; gespeichert wird die Abwahl, damit später ergänzte
+  /// Lektionen ohne weiteres Zutun aktiv sind. Pronomen und
+  /// Satzkonstruktionen gehören zu keiner Lektion.
+  final List<int> disabledLessons;
 
   /// Beim Bestimmen zusätzlich die Grundform eingeben.
   final bool askLemma;
 
-  /// Beim Bilden zählen nur Formen mit richtigen Längenzeichen.
-  final bool requireMacrons;
-
   /// Vokativ als Kasus abfragen.
   final bool includeVocative;
 
-  /// Nur Wörter, die auch im Vokabeltrainer stehen.
-  final bool vocabularyOnly;
-
   const LatinGrammarSettings({
     this.enabledTopics = LatinTrainerTopics.defaults,
-    this.enabledKinds = LatinGrammarKinds.all,
+    this.disabledLessons = const [],
     this.askLemma = false,
-    this.requireMacrons = false,
     this.includeVocative = false,
-    this.vocabularyOnly = false,
   });
 
   /// Liest gespeicherte Einstellungen; unbekannte Werte werden verworfen,
@@ -178,12 +159,12 @@ class LatinGrammarSettings {
     if (data is! Map) {
       return LatinGrammarSettings(
         enabledTopics: List.of(LatinTrainerTopics.defaults),
-        enabledKinds: List.of(LatinGrammarKinds.all),
+        disabledLessons: [],
       );
     }
 
     final topics = data["enabledTopics"];
-    final kinds = data["enabledKinds"];
+    final lessons = data["disabledLessons"];
 
     bool flag(String key, bool fallback) {
       final value = data[key];
@@ -197,62 +178,45 @@ class LatinGrammarSettings {
                 if (topics.contains(id)) id,
             ]
           : List.of(LatinTrainerTopics.defaults),
-      enabledKinds: kinds is List
-          ? [
-              for (final kind in LatinGrammarKinds.all)
-                if (kinds.contains(kind)) kind,
-            ]
-          : List.of(LatinGrammarKinds.all),
+      disabledLessons: lessons is List
+          ? (lessons.whereType<num>().map((n) => n.toInt()).toSet().toList()
+              ..sort())
+          : [],
       askLemma: flag("askLemma", false),
-      requireMacrons: flag("requireMacrons", false),
       includeVocative: flag("includeVocative", false),
-      vocabularyOnly: flag("vocabularyOnly", false),
     );
   }
 
   Map<String, dynamic> toMap() => {
     "enabledTopics": enabledTopics,
-    "enabledKinds": enabledKinds,
+    "disabledLessons": disabledLessons,
     "askLemma": askLemma,
-    "requireMacrons": requireMacrons,
     "includeVocative": includeVocative,
-    "vocabularyOnly": vocabularyOnly,
   };
 
   LatinGrammarSettings copyWith({
     List<String>? enabledTopics,
-    List<String>? enabledKinds,
+    List<int>? disabledLessons,
     bool? askLemma,
-    bool? requireMacrons,
     bool? includeVocative,
-    bool? vocabularyOnly,
   }) {
     return LatinGrammarSettings(
       enabledTopics: enabledTopics ?? this.enabledTopics,
-      enabledKinds: enabledKinds ?? this.enabledKinds,
+      disabledLessons: disabledLessons ?? this.disabledLessons,
       askLemma: askLemma ?? this.askLemma,
-      requireMacrons: requireMacrons ?? this.requireMacrons,
       includeVocative: includeVocative ?? this.includeVocative,
-      vocabularyOnly: vocabularyOnly ?? this.vocabularyOnly,
     );
   }
 
   /// Fehlermeldung, wenn mit dieser Auswahl keine Aufgabe möglich ist.
-  String? validate() {
+  /// [lessons] sind die Lektionen der Vokabelliste.
+  String? validate(List<int> lessons) {
     if (enabledTopics.isEmpty) {
       return "Mindestens ein Thema muss ausgewählt sein.";
     }
 
-    final needsKind = enabledTopics.any(
-      (id) => LatinTrainerTopics.byId(id).morphology,
-    );
-
-    final onlyMorphology = enabledTopics.every(
-      (id) => LatinTrainerTopics.byId(id).morphology,
-    );
-
-    if (needsKind && enabledKinds.isEmpty && onlyMorphology) {
-      return "Mindestens eine Aufgabenart muss ausgewählt sein.";
+    if (lessons.isNotEmpty && lessons.every(disabledLessons.contains)) {
+      return "Mindestens eine Lektion muss ausgewählt sein.";
     }
 
     return null;
@@ -316,37 +280,6 @@ class NominalIdentifyTask extends LatinGrammarTask {
   }) : super(topic);
 }
 
-/// Eine nominale Form bilden; bei Adjektiven passend zu einem Substantiv
-/// (KNG-Kongruenz).
-class NominalBuildTask extends LatinGrammarTask {
-  final NominalWordType wordType;
-  final String wordId;
-  final String dictionaryForm;
-  final NominalAnalysis target;
-
-  /// Adjektiv: die Substantivform, zu der es passen soll.
-  final String? agreesWith;
-
-  final List<String> accepted;
-
-  /// Übrige Formen des Paradigmas → Bestimmung.
-  final Map<String, String> otherForms;
-
-  final String explanation;
-
-  const NominalBuildTask({
-    required String topic,
-    required this.wordType,
-    required this.wordId,
-    required this.dictionaryForm,
-    required this.target,
-    this.agreesWith,
-    required this.accepted,
-    required this.otherForms,
-    required this.explanation,
-  }) : super(topic);
-}
-
 class VerbIdentifyTask extends LatinGrammarTask {
   final LatinVerb verb;
   final String form;
@@ -360,23 +293,6 @@ class VerbIdentifyTask extends LatinGrammarTask {
     required this.form,
     required this.target,
     required this.analyses,
-    required this.explanation,
-  }) : super(topic);
-}
-
-class VerbBuildTask extends LatinGrammarTask {
-  final LatinVerb verb;
-  final VerbAnalysis target;
-  final List<String> accepted;
-  final Map<String, String> otherForms;
-  final String explanation;
-
-  const VerbBuildTask({
-    required String topic,
-    required this.verb,
-    required this.target,
-    required this.accepted,
-    required this.otherForms,
     required this.explanation,
   }) : super(topic);
 }
@@ -413,13 +329,31 @@ class ChoiceTask extends LatinGrammarTask {
 /// Gewichtet wird wie im Altgriechisch-Grammatiktrainer mit
 /// [GrammarLearning]: je Thema, Wort und grammatischem Wert (Kasus Ablativ,
 /// Tempus Imperfekt, 2. Pl. …) eine Karte. Schwache Werte kommen häufiger,
-/// sichere seltener; Filter (Themen, Aufgabenarten, Wortauswahl) gehen vor.
+/// sichere seltener; Filter (Themen, Lektionen) gehen vor.
+///
+/// Abgefragt werden wie im Altgriechisch-Trainer nur Wörter der gewählten
+/// Lektionen: Wörter mit [LatinNoun.vocabularyId] usw., deren Lektion
+/// [lessonOf] nennt. Musterwörter ohne Vokabel erscheinen nur in der
+/// Grammatikübersicht; Pronomen und Satzkonstruktionen gehören zu keiner
+/// Lektion.
 class LatinGrammarTaskGenerator {
   final GrammarLearning learning;
   final Random random;
 
-  LatinGrammarTaskGenerator({required this.learning, Random? random})
-    : random = random ?? Random();
+  /// Lektion je Vokabel-ID (aus `assets/latin_vocabulary.json`).
+  final Map<int, int> lessonOf;
+
+  LatinGrammarTaskGenerator({
+    required this.learning,
+    Random? random,
+    this.lessonOf = const {},
+  }) : random = random ?? Random();
+
+  bool _inLessons(int? vocabularyId, LatinGrammarSettings settings) {
+    final lesson = vocabularyId == null ? null : lessonOf[vocabularyId];
+
+    return lesson != null && !settings.disabledLessons.contains(lesson);
+  }
 
   /// Karten-ID eines Worts.
   static String wordCardId(String type, String id) => "word.$type.$id";
@@ -473,21 +407,13 @@ class LatinGrammarTaskGenerator {
   }
 
   bool _isAvailable(String topic, LatinGrammarSettings settings) {
-    final definition = LatinTrainerTopics.byId(topic);
-
-    if (definition.morphology && settings.enabledKinds.isEmpty) {
-      return false;
-    }
-
     switch (topic) {
       case LatinTrainerTopics.prepositions:
         return _prepositions(settings).isNotEmpty;
       case LatinTrainerTopics.syntax:
         return LatinGrammarWords.syntaxExamples.isNotEmpty;
       case LatinTrainerTopics.adjectives:
-        return LatinGrammarWords.adjectives.isNotEmpty &&
-            _nouns(settings, null).isNotEmpty &&
-            !settings.vocabularyOnly;
+        return _adjectives(settings).isNotEmpty;
       case LatinTrainerTopics.pronouns:
         return LatinGrammarWords.pronouns.isNotEmpty;
     }
@@ -525,10 +451,6 @@ class LatinGrammarTaskGenerator {
     return _verbTask(topic, settings);
   }
 
-  String _pickKind(String topic, LatinGrammarSettings settings) {
-    return learning.pickValue("kind", topic, settings.enabledKinds);
-  }
-
   List<String> _cases(LatinGrammarSettings settings) {
     return settings.includeVocative
         ? LatinCases.all
@@ -557,7 +479,7 @@ class LatinGrammarTaskGenerator {
     return [
       for (final noun in LatinGrammarWords.nouns)
         if ((declensions == null || declensions.contains(noun.declension)) &&
-            (!settings.vocabularyOnly || noun.vocabularyId != null))
+            _inLessons(noun.vocabularyId, settings))
           noun,
     ];
   }
@@ -617,23 +539,6 @@ class LatinGrammarTaskGenerator {
 
     final explanation = explainNounForm(noun, target);
 
-    if (_pickKind(topic, settings) == LatinGrammarKinds.build) {
-      return NominalBuildTask(
-        topic: topic,
-        wordType: NominalWordType.noun,
-        wordId: noun.id,
-        dictionaryForm: noun.dictionaryForm,
-        target: NominalAnalysis(
-          target.grammaticalCase,
-          target.number,
-          noun.gender,
-        ),
-        accepted: paradigm.formsOf(target),
-        otherForms: _otherForms(paradigm, target, (a) => a.describe()),
-        explanation: explanation,
-      );
-    }
-
     final form = paradigm.mainForm(target)!;
 
     return NominalIdentifyTask(
@@ -659,102 +564,25 @@ class LatinGrammarTaskGenerator {
     );
   }
 
-  /// Formen des Paradigmas außer denen der Zielbestimmung, mit
-  /// Beschreibung (für die Unterscheidung grammatisch falsch / Tippfehler).
-  Map<String, String> _otherForms<A>(
-    Paradigm<A> paradigm,
-    A target,
-    String Function(A) describe,
-  ) {
-    final accepted = paradigm.formsOf(target).toSet();
-    final result = <String, String>{};
-
-    for (final entry in paradigm.cells.entries) {
-      for (final form in entry.value) {
-        if (accepted.contains(form)) continue;
-
-        result.update(
-          form,
-          (existing) => "$existing / ${describe(entry.key)}",
-          ifAbsent: () => describe(entry.key),
-        );
-      }
-    }
-
-    return result;
-  }
-
   // -- Adjektive --------------------------------------------------------------
+
+  List<LatinAdjective> _adjectives(LatinGrammarSettings settings) {
+    return [
+      for (final adjective in LatinGrammarWords.adjectives)
+        if (_inLessons(adjective.vocabularyId, settings)) adjective,
+    ];
+  }
 
   LatinGrammarTask _adjectiveTask(LatinGrammarSettings settings) {
     const topic = LatinTrainerTopics.adjectives;
 
     final adjective = learning.pickFromGroups(
-      _groups(LatinGrammarWords.adjectives, (a) => a.adjectiveClass),
+      _groups(_adjectives(settings), (a) => a.adjectiveClass),
       (a) => wordCardId("adjective", a.id),
     );
 
     final paradigm = adjective.paradigm();
     final cases = _cases(settings);
-
-    if (_pickKind(topic, settings) == LatinGrammarKinds.build) {
-      // Kongruenz: passende Form zu einem Substantiv bilden.
-      final nouns = _nouns(settings, null);
-      final noun = nouns[random.nextInt(nouns.length)];
-      final nounParadigm = noun.paradigm();
-
-      final cells = [
-        for (final cell in nounParadigm.cells.keys)
-          if (cases.contains(cell.grammaticalCase)) cell,
-      ];
-
-      final nounCell = _pickNominalCell("adjective", cells);
-      final nounForm = nounParadigm.mainForm(nounCell)!;
-
-      final nounAnalyses = [
-        for (final a in nounParadigm.analysesOf(nounForm))
-          if (cases.contains(a.grammaticalCase)) a,
-      ];
-
-      final target = NominalAnalysis(
-        nounCell.grammaticalCase,
-        nounCell.number,
-        noun.gender,
-      );
-
-      // Ist die Substantivform mehrdeutig (servī), passt jede Form, die zu
-      // einer ihrer Bestimmungen gehört.
-      final accepted = <String>{
-        ...paradigm.formsOf(target),
-        for (final a in nounAnalyses)
-          ...paradigm.formsOf(
-            NominalAnalysis(a.grammaticalCase, a.number, noun.gender),
-          ),
-      }.toList();
-
-      return NominalBuildTask(
-        topic: topic,
-        wordType: NominalWordType.adjective,
-        wordId: adjective.id,
-        dictionaryForm: adjective.dictionaryForm,
-        target: target,
-        agreesWith: nounForm,
-        accepted: accepted,
-        otherForms: {
-          for (final entry in _otherForms(
-            paradigm,
-            target,
-            (a) => a.describe(),
-          ).entries)
-            if (!accepted.contains(entry.key)) entry.key: entry.value,
-        },
-        explanation:
-            "Das Adjektiv richtet sich in Kasus, Numerus und Genus (KNG) "
-            "nach seinem Bezugswort: $nounForm (${noun.dictionaryForm}) ist "
-            "${target.describe()} → ${accepted.first}. Die Endungen müssen "
-            "dabei nicht gleich aussehen.",
-      );
-    }
 
     final cells = [
       for (final cell in paradigm.cells.keys)
@@ -800,19 +628,6 @@ class LatinGrammarTaskGenerator {
     final explanation =
         "${pronoun.label} (${pronoun.kind}): "
         "${target.describe()} = ${paradigm.formsOf(target).join(" / ")}.";
-
-    if (_pickKind(topic, settings) == LatinGrammarKinds.build) {
-      return NominalBuildTask(
-        topic: topic,
-        wordType: NominalWordType.pronoun,
-        wordId: pronoun.id,
-        dictionaryForm: pronoun.label,
-        target: target,
-        accepted: paradigm.formsOf(target),
-        otherForms: _otherForms(paradigm, target, (a) => a.describe()),
-        explanation: explanation,
-      );
-    }
 
     final form = paradigm.mainForm(target)!;
 
@@ -872,7 +687,7 @@ class LatinGrammarTaskGenerator {
   List<LatinVerb> _verbCandidates(String topic, LatinGrammarSettings settings) {
     return [
       for (final verb in LatinGrammarWords.verbs)
-        if ((!settings.vocabularyOnly || verb.vocabularyId != null) &&
+        if (_inLessons(verb.vocabularyId, settings) &&
             verb.paradigm().cells.keys.any((a) => topicContains(topic, a)))
           verb,
     ];
@@ -906,17 +721,6 @@ class LatinGrammarTaskGenerator {
 
     final explanation = explainVerbForm(verb, target);
 
-    if (_pickKind(topic, settings) == LatinGrammarKinds.build) {
-      return VerbBuildTask(
-        topic: topic,
-        verb: verb,
-        target: target,
-        accepted: paradigm.formsOf(target),
-        otherForms: _otherForms(paradigm, target, (a) => a.describe()),
-        explanation: explanation,
-      );
-    }
-
     final form = paradigm.mainForm(target)!;
 
     return VerbIdentifyTask(
@@ -940,7 +744,7 @@ class LatinGrammarTaskGenerator {
   List<LatinPreposition> _prepositions(LatinGrammarSettings settings) {
     return [
       for (final p in LatinGrammarWords.prepositions)
-        if (!settings.vocabularyOnly || p.vocabularyId != null) p,
+        if (_inLessons(p.vocabularyId, settings)) p,
     ];
   }
 
@@ -996,8 +800,7 @@ class LatinGrammarTaskGenerator {
 /// Lernkarten einer ausgewerteten Aufgabe (Karten-ID → richtig?).
 ///
 /// Beim Bestimmen zählt jedes Feld einzeln (ein falscher Kasus erhöht den
-/// Lernbedarf dieses Kasus). Beim Bilden und bei Auswahlaufgaben zählt das
-/// Gesamtergebnis für alle Merkmale der Aufgabe.
+/// Lernbedarf dieses Kasus). Bei Auswahlaufgaben zählt das Gesamtergebnis.
 Map<String, bool> learningResults({
   required LatinGrammarTask task,
   required bool correct,
@@ -1045,32 +848,17 @@ Map<String, bool> learningResults({
           correct;
       nominal(task.wordType.name, task.target, split: true);
 
-    case NominalBuildTask():
-      results[LatinGrammarTaskGenerator.wordCardId(
-            task.wordType.name,
-            task.wordId,
-          )] =
-          correct;
-      nominal(task.wordType.name, task.target);
-
     case VerbIdentifyTask():
       results[LatinGrammarTaskGenerator.wordCardId("verb", task.verb.id)] =
           correct;
       verb(task.target, split: true);
-
-    case VerbBuildTask():
-      results[LatinGrammarTaskGenerator.wordCardId("verb", task.verb.id)] =
-          correct;
-      verb(task.target);
 
     case ChoiceTask():
       results[task.itemId] = correct;
   }
 
   results[GrammarLearning.dimensionId("kind", task.topic, switch (task) {
-        NominalIdentifyTask() ||
-        VerbIdentifyTask() => LatinGrammarKinds.identify,
-        NominalBuildTask() || VerbBuildTask() => LatinGrammarKinds.build,
+        NominalIdentifyTask() || VerbIdentifyTask() => "identify",
         ChoiceTask() => "choice",
       })] =
       correct;

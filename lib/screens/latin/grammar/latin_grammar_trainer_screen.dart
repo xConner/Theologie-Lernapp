@@ -11,6 +11,8 @@ import '../../../services/latin/grammar/latin_grammar_store.dart';
 import '../../../services/latin/grammar/latin_grammar_trainer.dart';
 import '../../../services/latin/grammar/latin_grammar_words.dart';
 import '../../../services/latin/grammar/latin_morphology.dart';
+import '../../../services/latin/vocabulary/latin_vocabulary_loader.dart';
+import '../../../models/latin/vocabulary/latin_vocabulary_entry.dart';
 import '../../../services/quiz_sound_settings.dart';
 import '../../../services/statistics/learning_statistics.dart';
 import '../../../services/streak/streak_track.dart';
@@ -23,15 +25,25 @@ import '../../../widgets/sound_volume_button.dart';
 import '../../../widgets/statistics_widgets.dart';
 import '../../../widgets/trainer_widgets.dart';
 
-/// Grammatiktrainer Latein: Formen bestimmen und bilden, Präpositionen und
-/// Satzkonstruktionen erkennen. Aufbau wie der Altgriechisch-Trainer, aber
-/// mit eigenen Formen, eigener Antwortprüfung und eigenem Lernstand.
+/// Grammatiktrainer Latein: Formen bestimmen, Präpositionen und
+/// Satzkonstruktionen erkennen. Aufbau wie der Altgriechisch-Trainer
+/// (Auswahl nach Lektionen), aber mit eigenen Formen, eigener
+/// Antwortprüfung und eigenem Lernstand.
 class LatinGrammarTrainerScreen extends StatefulWidget {
   /// Nur für Tests: Speicher (sonst nach Anmeldung) und Zufall.
   final LatinGrammarStore? store;
   final Random? random;
 
-  const LatinGrammarTrainerScreen({super.key, this.store, this.random});
+  /// Nur für Tests: Vokabelliste (sonst aus den Assets). Aus ihr stammen
+  /// die Lektionen der Wörter.
+  final Future<List<LatinVocabularyEntry>>? vocabulary;
+
+  const LatinGrammarTrainerScreen({
+    super.key,
+    this.store,
+    this.random,
+    this.vocabulary,
+  });
 
   @override
   State<LatinGrammarTrainerScreen> createState() =>
@@ -51,6 +63,10 @@ class _LatinGrammarTrainerScreenState extends State<LatinGrammarTrainerScreen> {
   late GrammarLearning learning;
   late LatinGrammarTaskGenerator generator;
 
+  /// Lektion je Vokabel-ID und die Lektionen der Vokabelliste.
+  Map<int, int> lessonOf = {};
+  List<int> lessons = [];
+
   LatinGrammarTask? task;
   bool answered = false;
   bool correct = false;
@@ -65,16 +81,13 @@ class _LatinGrammarTrainerScreenState extends State<LatinGrammarTrainerScreen> {
   String? selectedPerson;
   String? selectedChoice;
 
-  final TextEditingController formController = TextEditingController();
   final TextEditingController lemmaController = TextEditingController();
-  final FocusNode formFocusNode = FocusNode();
   final FocusNode lemmaFocusNode = FocusNode();
   final FocusNode keyboardFocusNode = FocusNode();
 
   // Ergebnisse
   IdentifyResult<Object>? identifyResult;
   bool? lemmaCorrect;
-  FormCheckResult? formResult;
 
   @override
   void initState() {
@@ -93,9 +106,7 @@ class _LatinGrammarTrainerScreenState extends State<LatinGrammarTrainerScreen> {
 
   @override
   void dispose() {
-    formController.dispose();
     lemmaController.dispose();
-    formFocusNode.dispose();
     lemmaFocusNode.dispose();
     keyboardFocusNode.dispose();
     super.dispose();
@@ -105,27 +116,29 @@ class _LatinGrammarTrainerScreenState extends State<LatinGrammarTrainerScreen> {
     try {
       final loadedSettings = await store.loadSettings();
       final progress = await store.load();
+      final vocabulary =
+          await (widget.vocabulary ?? LatinVocabularyLoader.load());
 
       if (!mounted) return;
 
       settings = loadedSettings;
       topics = Map.of(progress.topics);
+      lessonOf = {for (final entry in vocabulary) entry.id: entry.lesson};
+      lessons = lessonOf.values.toSet().toList()..sort();
       learning = GrammarLearning(
         cards: Map.of(progress.cards),
-        random: widget.random,
-      );
-      generator = LatinGrammarTaskGenerator(
-        learning: learning,
         random: widget.random,
       );
     } catch (error) {
       loadError = "Der Lernstand konnte nicht geladen werden.";
       learning = GrammarLearning(random: widget.random);
-      generator = LatinGrammarTaskGenerator(
-        learning: learning,
-        random: widget.random,
-      );
     }
+
+    generator = LatinGrammarTaskGenerator(
+      learning: learning,
+      random: widget.random,
+      lessonOf: lessonOf,
+    );
 
     if (!mounted) return;
 
@@ -155,20 +168,16 @@ class _LatinGrammarTrainerScreenState extends State<LatinGrammarTrainerScreen> {
       selectedPerson = null;
       selectedChoice = null;
 
-      formController.clear();
       lemmaController.clear();
 
       identifyResult = null;
       lemmaCorrect = null;
-      formResult = null;
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted) return;
 
       switch (task) {
-        case NominalBuildTask() || VerbBuildTask():
-          formFocusNode.requestFocus();
         case NominalIdentifyTask() || VerbIdentifyTask() when settings.askLemma:
           lemmaFocusNode.requestFocus();
         default:
@@ -268,34 +277,6 @@ class _LatinGrammarTrainerScreenState extends State<LatinGrammarTrainerScreen> {
           ok = ok && lemmaCorrect!;
         }
 
-      case NominalBuildTask():
-        if (formController.text.trim().isEmpty) {
-          _missingInput("Bitte eine Form eingeben.");
-          return;
-        }
-
-        formResult = checkFormAnswer(
-          input: formController.text,
-          accepted: task.accepted,
-          otherForms: task.otherForms,
-          requireMacrons: settings.requireMacrons,
-        );
-        ok = formResult!.correct;
-
-      case VerbBuildTask():
-        if (formController.text.trim().isEmpty) {
-          _missingInput("Bitte eine Form eingeben.");
-          return;
-        }
-
-        formResult = checkFormAnswer(
-          input: formController.text,
-          accepted: task.accepted,
-          otherForms: task.otherForms,
-          requireMacrons: settings.requireMacrons,
-        );
-        ok = formResult!.correct;
-
       case ChoiceTask():
         if (selectedChoice == null) {
           _missingInput("Bitte eine Antwort auswählen.");
@@ -371,8 +352,13 @@ class _LatinGrammarTrainerScreenState extends State<LatinGrammarTrainerScreen> {
   void openSettings() {
     var draft = settings.copyWith(
       enabledTopics: List.of(settings.enabledTopics),
-      enabledKinds: List.of(settings.enabledKinds),
     );
+
+    // Ausgewählte Lektionen; gespeichert wird die Abwahl.
+    final enabledLessons = [
+      for (final lesson in lessons)
+        if (!settings.disabledLessons.contains(lesson)) lesson,
+    ];
 
     showDialog(
       context: context,
@@ -400,12 +386,19 @@ class _LatinGrammarTrainerScreenState extends State<LatinGrammarTrainerScreen> {
                     icon: const Icon(Icons.check),
                     tooltip: "Speichern",
                     onPressed: () async {
+                      draft = draft.copyWith(
+                        disabledLessons: [
+                          for (final lesson in lessons)
+                            if (!enabledLessons.contains(lesson)) lesson,
+                        ],
+                      );
+
                       final error =
-                          draft.validate() ??
+                          draft.validate(lessons) ??
                           (generator.availableTopics(draft).isEmpty
                               ? "Mit dieser Auswahl gibt es keine Aufgaben. "
-                                    "Adjektive gibt es z. B. nur mit "
-                                    "Musterwörtern."
+                                    "Adjektive kommen z. B. erst ab "
+                                    "Lektion 10 vor."
                               : null);
 
                       if (error != null) {
@@ -448,6 +441,43 @@ class _LatinGrammarTrainerScreenState extends State<LatinGrammarTrainerScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
+                    MultiSelectSection<int>(
+                      title: "Lektionen",
+                      hint:
+                          "Abgefragt werden nur Wörter aus den ausgewählten "
+                          "Lektionen. Mehrere Lektionen können gleichzeitig "
+                          "ausgewählt sein. Pronomen und Satzkonstruktionen "
+                          "gehören zu keiner Lektion und werden nur über "
+                          "die Themen ein- oder ausgeschaltet.",
+                      options: lessons,
+                      isSelected: enabledLessons.contains,
+                      labelOf: (lesson) => "Lektion $lesson",
+                      emptyError:
+                          "Mindestens eine Lektion muss ausgewählt sein.",
+                      onToggleAll: () {
+                        setDialogState(() {
+                          if (enabledLessons.length == lessons.length) {
+                            enabledLessons.clear();
+                          } else {
+                            enabledLessons
+                              ..clear()
+                              ..addAll(lessons);
+                          }
+                        });
+                      },
+                      onChanged: (lesson, value) {
+                        setDialogState(() {
+                          if (value) {
+                            if (!enabledLessons.contains(lesson)) {
+                              enabledLessons.add(lesson);
+                            }
+                          } else {
+                            enabledLessons.remove(lesson);
+                          }
+                        });
+                      },
+                    ),
+
                     MultiSelectSection<LatinTrainerTopic>(
                       title: "Themen",
                       hint:
@@ -474,64 +504,16 @@ class _LatinGrammarTrainerScreenState extends State<LatinGrammarTrainerScreen> {
                           toggle(draft.enabledTopics, topic.id, value),
                     ),
 
-                    MultiSelectSection<String>(
-                      title: "Aufgabenarten",
-                      hint:
-                          "Gilt für Formenthemen. Präpositionen und "
-                          "Satzkonstruktionen sind immer Auswahlaufgaben.",
-                      options: LatinGrammarKinds.all,
-                      isSelected: draft.enabledKinds.contains,
-                      labelOf: (kind) => LatinGrammarKinds.labels[kind]!,
-                      emptyError:
-                          "Mindestens eine Aufgabenart muss ausgewählt sein.",
-                      onToggleAll: () {
-                        setDialogState(() {
-                          if (draft.enabledKinds.length ==
-                              LatinGrammarKinds.all.length) {
-                            draft.enabledKinds.clear();
-                          } else {
-                            draft.enabledKinds
-                              ..clear()
-                              ..addAll(LatinGrammarKinds.all);
-                          }
-                        });
-                      },
-                      onChanged: (kind, value) =>
-                          toggle(draft.enabledKinds, kind, value),
-                    ),
-
                     SettingsSection(
                       title: "Umfang und Schwierigkeit",
                       child: SettingsSwitchGroup(
                         children: [
-                          SwitchListTile(
-                            title: const Text("Nur Wörter aus dem Wortschatz"),
-                            subtitle: const Text(
-                              "Wörter der Lektionen 1–3 statt zusätzlicher "
-                              "Musterwörter",
-                            ),
-                            value: draft.vocabularyOnly,
-                            onChanged: (value) => setDialogState(() {
-                              draft = draft.copyWith(vocabularyOnly: value);
-                            }),
-                          ),
                           SwitchListTile(
                             title: const Text("Grundform abfragen"),
                             subtitle: const Text("Beim Bestimmen"),
                             value: draft.askLemma,
                             onChanged: (value) => setDialogState(() {
                               draft = draft.copyWith(askLemma: value);
-                            }),
-                          ),
-                          SwitchListTile(
-                            title: const Text("Längenzeichen verlangen"),
-                            subtitle: const Text(
-                              "Beim Bilden zählen nur Formen mit richtigen "
-                              "Längen (amās statt amas).",
-                            ),
-                            value: draft.requireMacrons,
-                            onChanged: (value) => setDialogState(() {
-                              draft = draft.copyWith(requireMacrons: value);
                             }),
                           ),
                           SwitchListTile(
@@ -775,10 +757,7 @@ class _LatinGrammarTrainerScreenState extends State<LatinGrammarTrainerScreen> {
 
   String _kindLabel(LatinGrammarTask task) {
     return switch (task) {
-      NominalIdentifyTask() || VerbIdentifyTask() =>
-        LatinGrammarKinds.labels[LatinGrammarKinds.identify]!,
-      NominalBuildTask() ||
-      VerbBuildTask() => LatinGrammarKinds.labels[LatinGrammarKinds.build]!,
+      NominalIdentifyTask() || VerbIdentifyTask() => "Formen bestimmen",
       ChoiceTask() => "Auswahl",
     };
   }
@@ -921,38 +900,6 @@ class _LatinGrammarTrainerScreenState extends State<LatinGrammarTrainerScreen> {
           if (settings.askLemma) ...[const SizedBox(height: 16), _lemmaField()],
         ];
 
-      case NominalBuildTask():
-        final prompt = switch (task.wordType) {
-          NominalWordType.adjective =>
-            "Setze ${task.dictionaryForm} passend zu „${task.agreesWith}“.",
-          NominalWordType.pronoun => "Bilde: ${task.target.describe()}",
-          NominalWordType.noun =>
-            "Bilde: ${task.target.grammaticalCase} ${task.target.number}",
-        };
-
-        return [
-          _bigForm(
-            task.wordType == NominalWordType.adjective
-                ? "${task.agreesWith} + ?"
-                : task.dictionaryForm,
-          ),
-          _hint(prompt),
-          if (task.wordType == NominalWordType.adjective)
-            _hint(
-              "Bedeutung: ${_translationsOf(task.wordType, task.wordId).join(", ")}",
-            ),
-          const SizedBox(height: 20),
-          _formField(),
-        ];
-
-      case VerbBuildTask():
-        return [
-          _bigForm(task.verb.principalParts),
-          _hint("Bilde: ${task.target.describe()}"),
-          const SizedBox(height: 20),
-          _formField(),
-        ];
-
       case ChoiceTask():
         return [
           _bigForm(task.prompt),
@@ -1013,78 +960,6 @@ class _LatinGrammarTrainerScreenState extends State<LatinGrammarTrainerScreen> {
     );
   }
 
-  Widget _formField() {
-    final resultCorrect = formResult?.correct;
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        TextField(
-          key: const ValueKey("latin-grammar-form"),
-          controller: formController,
-          focusNode: formFocusNode,
-          enabled: !answered,
-          autocorrect: false,
-          enableSuggestions: false,
-          onSubmitted: (_) => primaryAction(),
-          style: const TextStyle(fontSize: 20),
-          decoration: InputDecoration(
-            labelText: "Form",
-            helperText: settings.requireMacrons
-                ? "Mit Längenzeichen eingeben."
-                : "Längenzeichen sind freiwillig.",
-            border: const OutlineInputBorder(),
-            enabledBorder: answerResultBorder(context, resultCorrect),
-            focusedBorder: answerResultBorder(context, resultCorrect),
-            disabledBorder: answerResultBorder(context, resultCorrect),
-          ),
-        ),
-        const SizedBox(height: 8),
-        Wrap(
-          alignment: WrapAlignment.center,
-          spacing: 6,
-          children: [
-            for (final vowel in const ["ā", "ē", "ī", "ō", "ū"])
-              ActionChip(
-                label: Text(vowel, style: const TextStyle(fontSize: 18)),
-                tooltip: "$vowel einfügen",
-                onPressed: answered ? null : () => _insertMacron(vowel),
-              ),
-          ],
-        ),
-      ],
-    );
-  }
-
-  /// Fügt einen Vokal mit Längenzeichen an der Cursorposition ein. Steht
-  /// direkt vor dem Cursor derselbe Vokal ohne Länge, wird er ersetzt
-  /// (ama|s → amā|s).
-  void _insertMacron(String vowel) {
-    final value = formController.value;
-    final text = value.text;
-    final selection = value.selection;
-
-    var start = selection.isValid ? selection.start : text.length;
-    final end = selection.isValid ? selection.end : text.length;
-
-    const plain = {"ā": "a", "ē": "e", "ī": "i", "ō": "o", "ū": "u"};
-
-    if (start == end &&
-        start > 0 &&
-        text[start - 1].toLowerCase() == plain[vowel]) {
-      start -= 1;
-    }
-
-    final updated = text.replaceRange(start, end, vowel);
-
-    formController.value = TextEditingValue(
-      text: updated,
-      selection: TextSelection.collapsed(offset: start + vowel.length),
-    );
-
-    formFocusNode.requestFocus();
-  }
-
   Widget _buildFeedback(LatinGrammarTask task) {
     final lines = <Widget>[];
 
@@ -1134,12 +1009,6 @@ class _LatinGrammarTrainerScreenState extends State<LatinGrammarTrainerScreen> {
 
         line("Grundform: ${task.verb.principalParts}");
 
-      case NominalBuildTask():
-        _formFeedback(line, task.accepted);
-
-      case VerbBuildTask():
-        _formFeedback(line, task.accepted);
-
       case ChoiceTask():
         line("Richtig: ${task.answer}", strong: true);
 
@@ -1150,9 +1019,7 @@ class _LatinGrammarTrainerScreenState extends State<LatinGrammarTrainerScreen> {
 
     final explanation = switch (task) {
       NominalIdentifyTask(:final explanation) ||
-      NominalBuildTask(:final explanation) ||
       VerbIdentifyTask(:final explanation) ||
-      VerbBuildTask(:final explanation) ||
       ChoiceTask(:final explanation) => explanation,
     };
 
@@ -1177,48 +1044,10 @@ class _LatinGrammarTrainerScreenState extends State<LatinGrammarTrainerScreen> {
     );
   }
 
-  void _formFeedback(
-    void Function(String, {bool strong}) line,
-    List<String> accepted,
-  ) {
-    final result = formResult!;
-
-    line(
-      accepted.length == 1
-          ? "Richtige Form: ${accepted.first}"
-          : "Richtige Formen: ${accepted.join(" / ")}",
-      strong: true,
-    );
-
-    if (result.otherAnalysis != null) {
-      line(
-        "Deine Eingabe ist eine andere Form desselben Worts: "
-        "${result.otherAnalysis}.",
-      );
-    } else if (result.likelyTypo) {
-      line(
-        "Nur ein Buchstabe weicht ab – vielleicht ein Tippfehler. Gezählt "
-        "wird die Antwort trotzdem als falsch.",
-      );
-    }
-
-    if (result.macronMismatch) {
-      line(
-        result.correct
-            ? "Richtig, aber die Längenzeichen stimmen nicht: ${result.expected}."
-            : "Die Längenzeichen fehlen oder stimmen nicht: ${result.expected}.",
-      );
-    }
-  }
-
   String _reportDescription(LatinGrammarTask task) {
     return switch (task) {
       NominalIdentifyTask() => "${task.form} (${task.dictionaryForm})",
       VerbIdentifyTask() => "${task.form} (${task.verb.infinitive})",
-      NominalBuildTask() =>
-        "${task.dictionaryForm}: ${task.target.describe()}"
-            "${task.agreesWith == null ? "" : " zu ${task.agreesWith}"}",
-      VerbBuildTask() => "${task.verb.infinitive}: ${task.target.describe()}",
       ChoiceTask() => task.prompt,
     };
   }
@@ -1238,7 +1067,6 @@ class _LatinGrammarTrainerScreenState extends State<LatinGrammarTrainerScreen> {
         ?selectedVoice,
         if (settings.askLemma) lemmaController.text,
       ].join(" "),
-      NominalBuildTask() || VerbBuildTask() => formController.text,
       ChoiceTask() => selectedChoice ?? "",
     };
   }

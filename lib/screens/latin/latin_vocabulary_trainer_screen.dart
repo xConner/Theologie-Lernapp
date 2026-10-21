@@ -13,7 +13,6 @@ import '../../services/latin/vocabulary/latin_vocabulary_answer_checker.dart';
 import '../../services/latin/vocabulary/latin_vocabulary_settings_service.dart';
 import '../../services/learning_service.dart';
 import '../../services/quiz_sound_settings.dart';
-import '../../theme/app_theme.dart';
 import '../../widgets/answer_feedback_badge.dart';
 import '../../widgets/sound_volume_button.dart';
 import '../../services/streak/streak_track.dart';
@@ -65,14 +64,8 @@ class _LatinVocabularyTrainerScreenState
 
   bool requireOnlyOneTranslation = false;
 
-  /// Je verfügbarem Schritt die ausgewählten Unter-Schritte.
-  /// Leere Liste = Schritt abgewählt.
-  Map<int, List<int>> enabledSubsteps = {};
-
-  List<int> get enabledSteps => [
-    for (final entry in enabledSubsteps.entries)
-      if (entry.value.isNotEmpty) entry.key,
-  ]..sort();
+  /// Ausgewählte Lektionen.
+  List<int> enabledLessons = [];
 
   List<String> enabledTypes = List.of(LatinVocabularySettings.allTypes);
 
@@ -195,17 +188,11 @@ class _LatinVocabularyTrainerScreenState
 
       entries = results[1] as List<LatinVocabularyEntry>;
 
-      // Schritte ohne gespeicherte Auswahl (Standard, neue Lektionen) sind
-      // vollständig aktiviert.
-      enabledSubsteps = {
-        for (final entry in _availableSubsteps().entries)
-          entry.key:
-              settings.enabledSubsteps[entry.key]
-                  ?.where(entry.value.contains)
-                  .toSet()
-                  .toList() ??
-              List<int>.from(entry.value),
-      };
+      // Gespeichert ist nur die Abwahl: Neu ergänzte Lektionen sind aktiv.
+      enabledLessons = [
+        for (final lesson in _availableLessons())
+          if (!settings.disabledLessons.contains(lesson)) lesson,
+      ];
 
       cards = results[2] as Map<String, LearningCard>;
     } catch (e) {
@@ -230,8 +217,8 @@ class _LatinVocabularyTrainerScreenState
     });
   }
 
-  bool _substepEnabled(LatinVocabularyEntry entry) {
-    return enabledSubsteps[entry.step]?.contains(entry.substep) ?? false;
+  bool _lessonEnabled(LatinVocabularyEntry entry) {
+    return enabledLessons.contains(entry.lesson);
   }
 
   bool _currentQuestionMatchesFilters() {
@@ -241,12 +228,12 @@ class _LatinVocabularyTrainerScreenState
       return false;
     }
 
-    return _substepEnabled(q.entry) && enabledTypes.contains(q.entry.type);
+    return _lessonEnabled(q.entry) && enabledTypes.contains(q.entry.type);
   }
 
   void nextQuestion() {
     final availableEntries = entries.where((entry) {
-      return _substepEnabled(entry) && enabledTypes.contains(entry.type);
+      return _lessonEnabled(entry) && enabledTypes.contains(entry.type);
     }).toList();
 
     if (availableEntries.isEmpty) {
@@ -446,11 +433,11 @@ class _LatinVocabularyTrainerScreenState
                   IconButton(
                     icon: const Icon(Icons.check),
                     onPressed: () async {
-                      if (enabledSteps.isEmpty || enabledTypes.isEmpty) {
+                      if (enabledLessons.isEmpty || enabledTypes.isEmpty) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
                             content: Text(
-                              "Mindestens ein Schritt und eine Wortart müssen ausgewählt sein.",
+                              "Mindestens eine Lektion und eine Wortart müssen ausgewählt sein.",
                             ),
                           ),
                         );
@@ -465,8 +452,10 @@ class _LatinVocabularyTrainerScreenState
                         includeGender: includeGender,
                         includeAdjectiveForms: includeAdjectiveForms,
                         requireOnlyOneTranslation: requireOnlyOneTranslation,
-                        enabledSteps: enabledSteps,
-                        enabledSubsteps: enabledSubsteps,
+                        disabledLessons: [
+                          for (final lesson in _availableLessons())
+                            if (!enabledLessons.contains(lesson)) lesson,
+                        ],
                         enabledTypes: enabledTypes,
                       );
 
@@ -492,7 +481,7 @@ class _LatinVocabularyTrainerScreenState
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      _buildStepSelection(setDialogState),
+                      _buildLessonSelection(setDialogState),
 
                       MultiSelectSection<String>(
                         title: "Wortarten",
@@ -610,190 +599,42 @@ class _LatinVocabularyTrainerScreenState
     );
   }
 
-  /// Schrittauswahl: je Schritt eine Karte mit seinen Unter-Schritten als
-  /// direkt antippbare Chips.
-  Widget _buildStepSelection(StateSetter setDialogState) {
-    final available = _availableSubsteps();
+  /// Lektionsauswahl wie im Altgriechisch-Trainer.
+  Widget _buildLessonSelection(StateSetter setDialogState) {
+    final available = _availableLessons();
 
-    int total = 0;
-    int selected = 0;
-
-    for (final entry in available.entries) {
-      total += entry.value.length;
-      selected += enabledSubsteps[entry.key]?.length ?? 0;
-    }
-
-    return SettingsSection(
-      title: "Schritte",
+    return MultiSelectSection<int>(
+      title: "Lektionen",
       hint:
-          "Abgefragt werden nur Vokabeln aus den ausgewählten "
-          "Unter-Schritten. Mehrere können gleichzeitig ausgewählt sein.",
-      action: TextButton(
-        onPressed: () {
-          setDialogState(_toggleAllSteps);
-        },
-        child: Text(
-          _allStepsCheckboxValue() == true ? "Alle abwählen" : "Alle auswählen",
-        ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          for (final entry in available.entries)
-            _buildStepGroup(entry.key, entry.value, setDialogState),
-
-          SelectionStatus(
-            selectedCount: selected,
-            totalCount: total,
-            emptyError: "Mindestens ein Schritt muss ausgewählt sein.",
-          ),
-        ],
-      ),
+          "Abgefragt werden nur Vokabeln aus den ausgewählten Lektionen. "
+          "Mehrere Lektionen können gleichzeitig ausgewählt sein.",
+      options: available,
+      isSelected: enabledLessons.contains,
+      labelOf: (lesson) => "Lektion $lesson",
+      emptyError: "Mindestens eine Lektion muss ausgewählt sein.",
+      onToggleAll: () {
+        setDialogState(() {
+          enabledLessons = enabledLessons.length == available.length
+              ? []
+              : List.of(available);
+        });
+      },
+      onChanged: (lesson, value) {
+        setDialogState(() {
+          if (value) {
+            if (!enabledLessons.contains(lesson)) {
+              enabledLessons.add(lesson);
+            }
+          } else {
+            enabledLessons.remove(lesson);
+          }
+        });
+      },
     );
   }
 
-  Widget _buildStepGroup(
-    int step,
-    List<int> substeps,
-    StateSetter setDialogState,
-  ) {
-    final selectedSubsteps = enabledSubsteps[step] ?? [];
-
-    final allSelected =
-        selectedSubsteps.length == substeps.length && substeps.isNotEmpty;
-
-    return Card(
-      margin: const EdgeInsets.only(bottom: 8),
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(12, 4, 4, 4),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Expanded(
-                  child: Text.rich(
-                    TextSpan(
-                      text: "Schritt $step",
-                      style: Theme.of(context).textTheme.titleSmall,
-                      children: [
-                        TextSpan(
-                          text:
-                              "  ${selectedSubsteps.length} von "
-                              "${substeps.length}",
-                          style: TextStyle(
-                            color: context.colors.textSecondary,
-                            fontWeight: FontWeight.normal,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-
-                TextButton(
-                  onPressed: () {
-                    setDialogState(() {
-                      _toggleStep(step, substeps);
-                    });
-                  },
-                  child: Text(allSelected ? "Abwählen" : "Alle"),
-                ),
-              ],
-            ),
-
-            Wrap(
-              spacing: 8,
-              children: [
-                for (final substep in substeps)
-                  SelectionChip(
-                    label: "$step.$substep",
-                    selected: selectedSubsteps.contains(substep),
-                    onSelected: (value) {
-                      setDialogState(() {
-                        enabledSubsteps.putIfAbsent(step, () => []);
-
-                        if (value) {
-                          if (!enabledSubsteps[step]!.contains(substep)) {
-                            enabledSubsteps[step]!.add(substep);
-                          }
-                        } else {
-                          enabledSubsteps[step]!.remove(substep);
-                        }
-                      });
-                    },
-                  ),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Map<int, List<int>> _availableSubsteps() {
-    final result = <int, List<int>>{};
-
-    for (final entry in entries) {
-      result.putIfAbsent(entry.step, () => []);
-
-      if (!result[entry.step]!.contains(entry.substep)) {
-        result[entry.step]!.add(entry.substep);
-      }
-    }
-
-    for (final list in result.values) {
-      list.sort();
-    }
-
-    return result;
-  }
-
-  bool? _allStepsCheckboxValue() {
-    final available = _availableSubsteps();
-
-    if (available.isEmpty) {
-      return false;
-    }
-
-    int total = 0;
-    int selected = 0;
-
-    for (final entry in available.entries) {
-      final substeps = entry.value;
-      total += substeps.length;
-      selected += enabledSubsteps[entry.key]?.length ?? 0;
-    }
-
-    if (selected == 0) {
-      return false;
-    }
-
-    if (selected == total) {
-      return true;
-    }
-
-    return null;
-  }
-
-  void _toggleAllSteps() {
-    final available = _availableSubsteps();
-
-    final allSelected = _allStepsCheckboxValue() == true;
-
-    enabledSubsteps = {
-      for (final entry in available.entries)
-        entry.key: allSelected ? [] : List<int>.from(entry.value),
-    };
-  }
-
-  void _toggleStep(int step, List<int> substeps) {
-    final current = enabledSubsteps[step] ?? [];
-
-    final allSelected =
-        current.length == substeps.length && substeps.isNotEmpty;
-
-    enabledSubsteps[step] = allSelected ? [] : List<int>.from(substeps);
+  List<int> _availableLessons() {
+    return entries.map((entry) => entry.lesson).toSet().toList()..sort();
   }
 
   /// Vollständige Lösung für die Selbsteinschätzung.
@@ -1078,7 +919,7 @@ class _LatinVocabularyTrainerScreenState
                     module: AppModules.latinVocabulary,
                     reportDetails: () => {
                       "Eintrag": "${q.entry.lemma} (ID ${q.entry.id})",
-                      "Schritt": "${q.entry.step}.${q.entry.substep}",
+                      "Lektion": "${q.entry.lesson}",
                       "Wortart": q.entry.type,
                       // Lösung erst nach dem Prüfen bzw. Aufdecken, damit das
                       // Formular sie nicht verrät.

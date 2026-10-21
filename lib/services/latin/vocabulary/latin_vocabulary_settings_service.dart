@@ -24,9 +24,9 @@ class LatinVocabularySettings {
   final bool includeAdjectiveForms;
   final bool requireOnlyOneTranslation;
 
-  /// Je Schritt die ausgewählten Unter-Schritte. Schritte ohne Eintrag
-  /// haben keine gespeicherte Auswahl.
-  final Map<int, List<int>> enabledSubsteps;
+  /// Abgewählte Lektionen. Gespeichert wird die Abwahl, damit später
+  /// ergänzte Lektionen ohne weiteres Zutun aktiv sind.
+  final List<int> disabledLessons;
 
   final List<String> enabledTypes;
 
@@ -36,20 +36,31 @@ class LatinVocabularySettings {
     this.includeGender = true,
     this.includeAdjectiveForms = true,
     this.requireOnlyOneTranslation = true,
-    this.enabledSubsteps = const {},
+    this.disabledLessons = const [],
     this.enabledTypes = allTypes,
   });
 
   /// Liest das gespeicherte Feld `latin_vocabulary_settings`. Die Listen
   /// sind eigene, veränderbare Kopien.
+  ///
+  /// Ältere Stände speichern je Lektion die gewählten Unter-Schritte
+  /// (`enabledSubsteps`); eine Lektion ohne gewählten Unter-Schritt gilt
+  /// dort als abgewählt.
   factory LatinVocabularySettings.fromMap(Map<String, dynamic> data) {
-    final substeps = <int, List<int>>{};
+    final disabled = <int>{};
 
+    final savedLessons = data["disabledLessons"];
     final savedSubsteps = data["enabledSubsteps"];
 
-    if (savedSubsteps != null) {
+    if (savedLessons is List) {
+      disabled.addAll(savedLessons.whereType<num>().map((n) => n.toInt()));
+    } else if (savedSubsteps is Map) {
       for (final entry in Map<String, dynamic>.from(savedSubsteps).entries) {
-        substeps[int.parse(entry.key)] = List<int>.from(entry.value);
+        final lesson = int.tryParse(entry.key);
+
+        if (lesson != null && entry.value is List && entry.value.isEmpty) {
+          disabled.add(lesson);
+        }
       }
     }
 
@@ -59,7 +70,7 @@ class LatinVocabularySettings {
       includeGender: data["includeGender"] ?? true,
       includeAdjectiveForms: data["includeAdjectiveForms"] ?? true,
       requireOnlyOneTranslation: data["requireOnlyOneTranslation"] ?? true,
-      enabledSubsteps: substeps,
+      disabledLessons: disabled.toList()..sort(),
       enabledTypes: List<String>.from(data["enabledTypes"] ?? allTypes),
     );
   }
@@ -96,16 +107,9 @@ class LatinVocabularySettingsService {
     required bool includeGender,
     required bool includeAdjectiveForms,
     required bool requireOnlyOneTranslation,
-    required List<int> enabledSteps,
-    required Map<int, List<int>> enabledSubsteps,
+    required List<int> disabledLessons,
     required List<String> enabledTypes,
   }) async {
-    final substeps = <String, dynamic>{};
-
-    for (final entry in enabledSubsteps.entries) {
-      substeps[entry.key.toString()] = entry.value;
-    }
-
     final settings = {
       "includeVerbForm": includeVerbForm,
       "includeNounForm": includeNounForm,
@@ -113,8 +117,7 @@ class LatinVocabularySettingsService {
       "includeAdjectiveForms": includeAdjectiveForms,
       "requireOnlyOneTranslation": requireOnlyOneTranslation,
 
-      "enabledSteps": enabledSteps,
-      "enabledSubsteps": substeps,
+      "disabledLessons": disabledLessons,
       "enabledTypes": enabledTypes,
     };
 

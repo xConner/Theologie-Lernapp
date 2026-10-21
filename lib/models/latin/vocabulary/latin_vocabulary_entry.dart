@@ -1,7 +1,8 @@
 class LatinVocabularyEntry {
   final int id;
-  final int step;
-  final int substep;
+
+  /// Lektion des Lehrbuchs (JSON-Feld `lesson`).
+  final int lesson;
   final String type;
 
   /// Grundform:
@@ -37,8 +38,7 @@ class LatinVocabularyEntry {
 
   const LatinVocabularyEntry({
     required this.id,
-    required this.step,
-    required this.substep,
+    required this.lesson,
     required this.type,
     required this.lemma,
     this.form,
@@ -52,8 +52,7 @@ class LatinVocabularyEntry {
   factory LatinVocabularyEntry.fromJson(Map<String, dynamic> json) {
     return LatinVocabularyEntry(
       id: json["id"],
-      step: int.parse(json["step"].toString()),
-      substep: int.parse(json["substep"].toString()),
+      lesson: int.parse(json["lesson"].toString()),
       type: json["type"],
       lemma: json["lemma"],
       form: json["principalForm"],
