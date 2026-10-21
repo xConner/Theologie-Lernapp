@@ -24,6 +24,17 @@ bleiben erhalten, und es läuft immer nur ein Zurücksetzen zur Zeit.
 Streaks, Tagesstatistik, Lesepläne und Klausur-Markierungen gehören nicht
 dazu.
 
+Streaks berechnet nur `StreakCalculator` (`services/streak/streak_state.dart`)
+auf lokalen Kalendertagen; `StreakService` lädt, zählt und speichert sie für
+alle Lernbereiche. Ein leerer Firestore-Cache (offline, im Web nach jedem
+Neuladen) gilt als Ladefehler, nicht als „keine Streak“: Bis der Stand
+gelesen ist, wird nichts gespeichert, und offline gezählte Antworten werden
+danach nachgetragen. Beim Neuladen gewinnt je Track der weiter
+fortgeschrittene Stand (`StreakCalculator.merge`), und vor dem Zählen wird
+ein Stand von einem früheren Tag oder älter als 15 Minuten neu geladen,
+damit ein offener Tab keine auf einem anderen Gerät fortgeführte Streak
+zurücksetzt.
+
 `uid == null` bedeutet überall Gastmodus: dieselben Datenstrukturen, lokal
 über `LocalLearningStore` statt in Firestore. Die Collection-Namen stehen
 einmal in `LocalLearningStore.cardCollections`.
@@ -39,6 +50,7 @@ Einstellungs-Service (ein Lesezugriff je Öffnen) und seine Antwortprüfung.
 | Latein-Vokabeln | `services/latin/vocabulary/latin_vocabulary_settings_service.dart` | `latin_vocabulary_answer_checker.dart` |
 | Griechisch-Grammatik | `services/greek/grammar/grammar_settings_service.dart` | `grammar_answer_check.dart` |
 | Latein-Grammatik | `services/latin/grammar/latin_grammar_store.dart` | `latin_grammar_answer_check.dart` (siehe [latin.md](latin.md)) |
+| Kirchengeschichte | `services/church_history/church_history_store.dart` | `church_history_quiz.dart` (siehe [church-history.md](church-history.md)) |
 | Perikopenquiz | `services/settings_service.dart` | im `quiz_screen.dart` (Vergleich der Stellen) |
 | Bücher systematisch lernen | `services/book_learning_storage.dart` | `quiz/books/reference_answer.dart` (siehe [pericope-books.md](pericope-books.md)) |
 

@@ -141,7 +141,12 @@ class StreakUpdate {
 class StreakCalculator {
   StreakCalculator._();
 
+  /// Lokaler Kalendertag von [date]. UTC-Zeitpunkte werden vorher in die
+  /// lokale Zeit umgerechnet, damit jede Lerneinheit dem Kalendertag des
+  /// Nutzers zugeordnet wird.
   static String dateKey(DateTime date) {
+    date = date.toLocal();
+
     final y = date.year.toString().padLeft(4, "0");
     final m = date.month.toString().padLeft(2, "0");
     final d = date.day.toString().padLeft(2, "0");
@@ -151,6 +156,8 @@ class StreakCalculator {
 
   /// Vorheriger Kalendertag (unabhängig von Sommerzeit-Umstellungen).
   static String previousDateKey(DateTime date) {
+    date = date.toLocal();
+
     return dateKey(DateTime(date.year, date.month, date.day - 1));
   }
 
@@ -187,6 +194,15 @@ class StreakCalculator {
     int dailyGoal = 10,
   }) {
     final today = dateKey(now);
+
+    // Liegt der Tag vor dem zuletzt gespeicherten (Uhr zurückgestellt,
+    // Reise nach Westen, verspätet nachgetragene Antwort), bleibt der Stand
+    // unverändert, statt einen neueren Tag zu überschreiben.
+    final last = state.lastActivityDate;
+
+    if (last != null && today.compareTo(last) < 0) {
+      return StreakUpdate(state: state, changed: false, goalReachedNow: false);
+    }
 
     if (state.lastCompletedDate == today ||
         (state.lastActivityDate == today && state.streakCompletedToday)) {
@@ -235,5 +251,49 @@ class StreakCalculator {
       changed: true,
       goalReachedNow: true,
     );
+  }
+
+  /// Führt zwei Stände desselben Tracks zusammen (z. B. Speicher im
+  /// Arbeitsspeicher und neu geladene Daten). Es gewinnt der weiter
+  /// fortgeschrittene Stand: späterer Lerntag, dann späterer erfüllter Tag,
+  /// dann mehr richtige Antworten, dann die längere Streak. Bei Gleichstand
+  /// bleibt [a]. Die längste Streak geht nie verloren.
+  static StreakState merge(StreakState a, StreakState b) {
+    final newer = compareProgress(b, a) > 0 ? b : a;
+
+    final longest = max(a.longestStreak, b.longestStreak);
+
+    if (newer.longestStreak == longest) {
+      return newer;
+    }
+
+    return StreakState(
+      trackId: newer.trackId,
+      currentStreak: newer.currentStreak,
+      longestStreak: longest,
+      lastActivityDate: newer.lastActivityDate,
+      lastCompletedDate: newer.lastCompletedDate,
+      todayCorrectAnswers: newer.todayCorrectAnswers,
+      todaySources: newer.todaySources,
+      streakCompletedToday: newer.streakCompletedToday,
+    );
+  }
+
+  /// > 0, wenn [a] weiter fortgeschritten ist als [b] (siehe [merge]).
+  static int compareProgress(StreakState a, StreakState b) {
+    final activity = (a.lastActivityDate ?? "").compareTo(
+      b.lastActivityDate ?? "",
+    );
+    if (activity != 0) return activity;
+
+    final completed = (a.lastCompletedDate ?? "").compareTo(
+      b.lastCompletedDate ?? "",
+    );
+    if (completed != 0) return completed;
+
+    final answers = a.todayCorrectAnswers.compareTo(b.todayCorrectAnswers);
+    if (answers != 0) return answers;
+
+    return a.currentStreak.compareTo(b.currentStreak);
   }
 }

@@ -51,6 +51,13 @@ class StreakTrack {
     sources: [StreakSource.perikopenQuiz],
   );
 
+  /// Kirchengeschichte: Wissensquiz und Chronologietrainer.
+  static const StreakTrack churchHistory = StreakTrack(
+    id: "church_history",
+    label: "Kirchengeschichte",
+    sources: [StreakSource.knowledgeQuiz, StreakSource.chronology],
+  );
+
   /// Texte auswendig lernen: Das Tagesziel sind zehn wortgetreu richtige
   /// Eingaben (siehe `MemorizationStreakRule`), unabhängig von der Zahl der
   /// Texte und vom Wiederholungsplan.
@@ -76,6 +83,7 @@ class StreakTrack {
     greek,
     latin,
     perikope,
+    churchHistory,
     memorization,
     bible,
   ];
@@ -91,6 +99,8 @@ class StreakSource {
   static const String memorization = "memorization";
   static const String bibleReading = "bible_reading";
   static const String readingPlan = "reading_plan";
+  static const String knowledgeQuiz = "knowledge_quiz";
+  static const String chronology = "chronology";
 
   static const Map<String, String> labels = {
     vocabulary: "Vokabeln",
@@ -99,6 +109,8 @@ class StreakSource {
     memorization: "Texte auswendig lernen",
     bibleReading: "Freie Lesung",
     readingPlan: "Leseplan",
+    knowledgeQuiz: "Wissensquiz",
+    chronology: "Chronologietrainer",
   };
 
   static String label(String source) => labels[source] ?? source;

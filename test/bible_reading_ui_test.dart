@@ -45,6 +45,8 @@ void main() {
       translations: repository.translations,
     );
 
+    StreakService.instance.resetForTesting();
+
     await tester.runAsync(
       () => StreakService.instance.load(null, refresh: true),
     );

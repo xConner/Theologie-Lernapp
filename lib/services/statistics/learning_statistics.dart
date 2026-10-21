@@ -36,12 +36,18 @@ class StatisticsTrainer {
     label: "Perikopenquiz",
   );
 
+  static const StatisticsTrainer churchHistory = StatisticsTrainer(
+    id: "church_history",
+    label: "Kirchengeschichte",
+  );
+
   static const List<StatisticsTrainer> all = [
     greekVocabulary,
     greekGrammar,
     latinVocabulary,
     latinGrammar,
     perikopenQuiz,
+    churchHistory,
   ];
 }
 

@@ -177,6 +177,11 @@ class ProgressDataService {
       writes.add((batch) => batch.delete(books));
       writes.add((batch) => batch.delete(logic));
       writes.add((batch) => batch.delete(latinGrammar));
+      writes.add(
+        (batch) => batch.delete(
+          _quizSettingsDoc(uid, LocalLearningStore.churchHistory),
+        ),
+      );
 
       await _commitInBatches(writes);
     });

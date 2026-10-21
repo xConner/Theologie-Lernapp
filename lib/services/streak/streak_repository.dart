@@ -23,6 +23,15 @@ abstract class StreakRepository {
   }
 }
 
+/// Gespeicherte Streaks sind gerade nicht verfügbar (z. B. offline ohne
+/// Cache). Kein Hinweis darauf, dass keine Streaks existieren.
+class StreakDataUnavailable implements Exception {
+  const StreakDataUnavailable();
+
+  @override
+  String toString() => "Streak-Daten nicht verfügbar (offline, kein Cache)";
+}
+
 /// `users/{uid}/streaks/{trackId}` – eigene Subcollection, bestehende
 /// Dokumente bleiben unberührt.
 class FirestoreStreakRepository implements StreakRepository {
@@ -41,18 +50,38 @@ class FirestoreStreakRepository implements StreakRepository {
   Future<Map<String, StreakState>> loadAll() async {
     final snapshot = await _collection.get();
 
+    return statesFromDocuments({
+      for (final doc in snapshot.docs) doc.id: doc.data(),
+    }, fromCache: snapshot.metadata.isFromCache);
+  }
+
+  /// Wandelt gelesene Dokumente in Stände um. Ohne Serververbindung liefert
+  /// Firestore den lokalen Cache – im Web nach jedem Neuladen leer. Ein
+  /// leerer Cache beweist nicht, dass es keine Streaks gibt; er wird daher
+  /// als Ladefehler behandelt, damit keine Streak mit 1 neu beginnt und den
+  /// Serverstand später überschreibt.
+  static Map<String, StreakState> statesFromDocuments(
+    Map<String, Map<String, dynamic>> documents, {
+    required bool fromCache,
+  }) {
+    if (fromCache && documents.isEmpty) {
+      throw const StreakDataUnavailable();
+    }
+
     return {
-      for (final doc in snapshot.docs)
-        doc.id: StreakState.fromMap(doc.id, doc.data()),
+      for (final entry in documents.entries)
+        entry.key: StreakState.fromMap(entry.key, entry.value),
     };
   }
 
+  /// Ersetzt das Dokument vollständig: Mit `merge` würden Quellen eines
+  /// früheren Tages in `todaySources` erhalten bleiben.
   @override
   Future<void> save(StreakState state) {
     return _collection.doc(state.trackId).set({
       ...state.toMap(),
       "updatedAt": FieldValue.serverTimestamp(),
-    }, SetOptions(merge: true));
+    });
   }
 }
 
@@ -61,8 +90,16 @@ class FirestoreStreakRepository implements StreakRepository {
 class LocalStreakRepository implements StreakRepository {
   static const String storageKey = "guest.v1.streaks";
 
+  /// Wartet auf laufende Speichervorgänge, damit nie ein älterer Stand
+  /// gelesen wird.
   @override
   Future<Map<String, StreakState>> loadAll() async {
+    if (_writes > 0) await _pending;
+
+    return _read();
+  }
+
+  Future<Map<String, StreakState>> _read() async {
     final prefs = await SharedPreferences.getInstance();
 
     final raw = prefs.getString(storageKey);
@@ -95,18 +132,24 @@ class LocalStreakRepository implements StreakRepository {
   // Speichervorgänge nacheinander ausführen, damit sich zwei Schreibvorgänge
   // (Lesen → Ändern → Schreiben der gesamten Map) nicht überholen.
   static Future<void> _pending = Future.value();
+  static int _writes = 0;
 
   @override
   Future<void> save(StreakState state) {
+    _writes++;
+
     final result = _pending.then((_) => _write(state));
 
-    _pending = result.then((_) {}, onError: (_) {});
+    _pending = result.then<void>(
+      (_) => _writes--,
+      onError: (Object _) => _writes--,
+    );
 
     return result;
   }
 
   Future<void> _write(StreakState state) async {
-    final all = await loadAll();
+    final all = await _read();
 
     all[state.trackId] = state;
 

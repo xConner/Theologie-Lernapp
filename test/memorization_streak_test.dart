@@ -425,6 +425,7 @@ void main() {
         "greek",
         "latin",
         "perikope",
+        "church_history",
         "memorization",
         "bible",
       ]);
@@ -452,6 +453,8 @@ void main() {
     testWidgets("Menü zeigt den Tagesfortschritt: „7 von 10 richtigen "
         "Antworten“", (tester) async {
       SharedPreferences.setMockInitialValues({});
+
+      StreakService.instance.resetForTesting();
 
       await tester.runAsync(() async {
         await StreakService.instance.load(null, refresh: true);
@@ -511,6 +514,8 @@ void main() {
     testWidgets("Lernrunde: Selbsteinschätzung und falsche Eingaben zählen "
         "nicht, jede richtige Eingabe genau einmal (Gast)", (tester) async {
       SharedPreferences.setMockInitialValues({});
+
+      StreakService.instance.resetForTesting();
 
       await tester.runAsync(
         () => StreakService.instance.load(null, refresh: true),

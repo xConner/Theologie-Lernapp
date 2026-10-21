@@ -13,6 +13,8 @@ rules_version = '2';
 //   users/{uid}/quiz_settings/logic_course     (Einführung in die Logik: Fortschritt)
 //   users/{uid}/quiz_settings/{latin_grammar|latin_grammar_settings}
 //                                              (Latein-Grammatiktrainer)
+//   users/{uid}/quiz_settings/{church_history|church_history_settings}
+//                                              (Kirchengeschichte)
 //   users/{uid}/vocabulary/{vocabularyId}
 //   users/{uid}/learning_cards/{cardId}
 //   users/{uid}/latin_vocabulary/{cardId}
