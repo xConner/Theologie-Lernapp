@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import '../../algorithms/learning_selector.dart';
+import '../../algorithms/ordered_introduction.dart';
 import '../../algorithms/review_state.dart' as review;
 import '../../algorithms/spaced_repetition.dart';
 import '../../models/church_history/church_history.dart';
@@ -538,16 +539,59 @@ class ChurchHistoryQuiz {
         .length;
   }
 
+  /// Position in Lehrreihenfolge: Index (in `data.units`) der ersten
+  /// Vorlesung bzw. Sitzung, die den Inhalt enthält oder nennt. Epochen
+  /// gehören zur Vorlesung mit ihren Folien.
+  late final Map<String, int> _unitPositions = () {
+    final positions = <String, int>{};
+
+    for (var i = 0; i < data.units.length; i++) {
+      final unit = data.units[i];
+      for (final q in unit.questions) {
+        positions.putIfAbsent(q.id, () => i);
+      }
+      for (final l in unit.lists) {
+        positions.putIfAbsent(l.id, () => i);
+      }
+      for (final id in unit.entryIds) {
+        positions.putIfAbsent(id, () => i);
+      }
+      if (unit.kind == CourseKind.lecture) {
+        final slides = {for (final s in unit.slides) s.number};
+        for (final e in data.epochs) {
+          if (e.lectureSlides.any(slides.contains)) {
+            positions.putIfAbsent(e.id, () => i);
+          }
+        }
+      }
+    }
+
+    return positions;
+  }();
+
+  /// Position von [candidate] in Lehrreihenfolge; ohne Zuordnung hinten.
+  int positionOf(QuizCandidate candidate) =>
+      _unitPositions[candidate.cardId.split("|").first] ?? data.units.length;
+
   /// Nächste Aufgabe; null, wenn der Umfang keine Aufgabe hergibt.
+  /// [inOrder]: neue Inhalte nur in Lehrreihenfolge ([orderedIntroduction]).
   QuizQuestion? next(
     LearningScope scope,
     Set<QuizKind> kinds, {
     bool onlyDifficult = false,
+    bool inOrder = false,
   }) {
     var pool = candidates(scope, kinds);
 
     if (onlyDifficult) {
       pool = pool.where((c) => isDifficult(c.cardId)).toList();
+    } else if (inOrder) {
+      pool = orderedIntroduction(
+        pool,
+        idOf: (c) => c.cardId,
+        cards: cards,
+        positionOf: positionOf,
+      );
     }
 
     while (pool.isNotEmpty) {

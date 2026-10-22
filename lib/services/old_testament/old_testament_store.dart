@@ -13,10 +13,15 @@ class OldTestamentSettings {
   final Set<OtQuizKind> disabledKinds;
   final bool onlyDifficult;
 
+  /// Neue Inhalte in der Reihenfolge der Einheiten einführen
+  /// (`OldTestamentQuiz.next`, `orderedIntroduction`).
+  final bool inOrder;
+
   const OldTestamentSettings({
     this.scope = "all",
     this.disabledKinds = const {},
     this.onlyDifficult = false,
+    this.inOrder = false,
   });
 
   Set<OtQuizKind> get kinds =>
@@ -26,6 +31,7 @@ class OldTestamentSettings {
     String? scope,
     Set<OtQuizKind>? kinds,
     bool? onlyDifficult,
+    bool? inOrder,
   }) {
     return OldTestamentSettings(
       scope: scope ?? this.scope,
@@ -33,6 +39,7 @@ class OldTestamentSettings {
           ? disabledKinds
           : OtQuizKind.values.toSet().difference(kinds),
       onlyDifficult: onlyDifficult ?? this.onlyDifficult,
+      inOrder: inOrder ?? this.inOrder,
     );
   }
 
@@ -54,6 +61,7 @@ class OldTestamentSettings {
           ? const {}
           : disabled,
       onlyDifficult: raw["onlyDifficult"] == true,
+      inOrder: raw["inOrder"] == true,
     );
   }
 
@@ -64,6 +72,7 @@ class OldTestamentSettings {
         if (disabledKinds.contains(k)) k.name,
     ],
     "onlyDifficult": onlyDifficult,
+    "inOrder": inOrder,
   };
 }
 
@@ -73,7 +82,7 @@ class OldTestamentSettings {
 ///
 /// ```text
 /// old_testament:          cards:    {kartenId: {difficulty, stability, lastReviewed: ms}}
-/// old_testament_settings: settings: {scope, disabledKinds, onlyDifficult}
+/// old_testament_settings: settings: {scope, disabledKinds, onlyDifficult, inOrder}
 /// ```
 ///
 /// Kartenschlüssel sind `<Inhalts-ID>|<Art>`. Neue Einheiten bringen neue

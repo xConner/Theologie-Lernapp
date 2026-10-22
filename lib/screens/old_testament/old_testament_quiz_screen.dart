@@ -136,6 +136,7 @@ class _OldTestamentQuizScreenState extends State<OldTestamentQuizScreen> {
       scope,
       settings.kinds,
       onlyDifficult: settings.onlyDifficult,
+      inOrder: settings.inOrder,
     );
 
     setState(() {
@@ -259,6 +260,7 @@ class _OldTestamentQuizScreenState extends State<OldTestamentQuizScreen> {
     final options = _availableKinds;
     var draftKinds = settings.kinds.intersection(options.toSet());
     var draftDifficult = settings.onlyDifficult;
+    var draftInOrder = settings.inOrder;
 
     showDialog(
       context: context,
@@ -297,6 +299,7 @@ class _OldTestamentQuizScreenState extends State<OldTestamentQuizScreen> {
                           ...draftKinds,
                         },
                         onlyDifficult: draftDifficult,
+                        inOrder: draftInOrder,
                       );
 
                       try {
@@ -357,6 +360,25 @@ class _OldTestamentQuizScreenState extends State<OldTestamentQuizScreen> {
                         draftKinds = {...draftKinds};
                         v ? draftKinds.add(k) : draftKinds.remove(k);
                       }),
+                    ),
+                    SettingsSection(
+                      title: "Neue Inhalte",
+                      child: SettingsSwitchGroup(
+                        children: [
+                          SwitchListTile(
+                            key: const ValueKey("in-order"),
+                            title: const Text("In Reihenfolge der Vorlesung einführen"),
+                            subtitle: const Text(
+                              "Noch nicht geübte Inhalte kommen der Reihe nach "
+                              "dazu, Einheit für Einheit; Geübtes wird weiter "
+                              "wiederholt.",
+                            ),
+                            value: draftInOrder,
+                            onChanged: (v) =>
+                                setDialogState(() => draftInOrder = v),
+                          ),
+                        ],
+                      ),
                     ),
                     SettingsSection(
                       title: "Schwierige Inhalte",

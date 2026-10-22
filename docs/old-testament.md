@@ -91,6 +91,11 @@ Trainer; „schwierig“ und die Fortschrittszustände („Noch nicht geübt“,
 Kirchengeschichte (`algorithms/review_state.dart`). Keine Punkte oder
 Level.
 
+„In Reihenfolge der Vorlesung einführen“ (`inOrder`) funktioniert wie in der
+Kirchengeschichte (`algorithms/ordered_introduction.dart`): Geübtes bleibt,
+von den noch nie gefragten Inhalten kommen nur die ersten drei hinzu, in der
+Reihenfolge der Einheiten (ein Begriff bei seiner ersten Einheit).
+
 ## Bibelstellen und Verknüpfungen
 
 Bibelstellen öffnen den Bibel-Reader der App (`BibleReaderScreen`) über

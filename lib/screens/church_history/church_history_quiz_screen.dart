@@ -147,7 +147,12 @@ class _ChurchHistoryQuizScreenState extends State<ChurchHistoryQuizScreen> {
   // ==========================
 
   void nextQuestion() {
-    final next = quiz.next(scope, kinds, onlyDifficult: settings.onlyDifficult);
+    final next = quiz.next(
+      scope,
+      kinds,
+      onlyDifficult: settings.onlyDifficult,
+      inOrder: settings.inOrder,
+    );
 
     setState(() {
       question = next;
@@ -276,6 +281,7 @@ class _ChurchHistoryQuizScreenState extends State<ChurchHistoryQuizScreen> {
     var draftScope = scope;
     var draftKinds = {...kinds};
     var draftDifficult = settings.onlyDifficult;
+    var draftInOrder = settings.inOrder;
 
     final options = QuizKind.values.where(widget.mode.kinds.contains).toList();
 
@@ -316,6 +322,7 @@ class _ChurchHistoryQuizScreenState extends State<ChurchHistoryQuizScreen> {
                           ...draftKinds,
                         },
                         onlyDifficult: draftDifficult,
+                        inOrder: draftInOrder,
                       );
 
                       try {
@@ -376,6 +383,25 @@ class _ChurchHistoryQuizScreenState extends State<ChurchHistoryQuizScreen> {
                         draftKinds = {...draftKinds};
                         v ? draftKinds.add(k) : draftKinds.remove(k);
                       }),
+                    ),
+                    SettingsSection(
+                      title: "Neue Inhalte",
+                      child: SettingsSwitchGroup(
+                        children: [
+                          SwitchListTile(
+                            key: const ValueKey("in-order"),
+                            title: const Text("In Vorlesungsreihenfolge einführen"),
+                            subtitle: const Text(
+                              "Noch nicht geübte Inhalte kommen der Reihe nach "
+                              "dazu, Vorlesung für Vorlesung bzw. Sitzung für "
+                              "Sitzung; Geübtes wird weiter wiederholt.",
+                            ),
+                            value: draftInOrder,
+                            onChanged: (v) =>
+                                setDialogState(() => draftInOrder = v),
+                          ),
+                        ],
+                      ),
                     ),
                     SettingsSection(
                       title: "Schwierige Inhalte",

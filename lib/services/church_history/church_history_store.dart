@@ -10,21 +10,28 @@ class ChurchHistorySettings {
   final Set<QuizKind> kinds;
   final bool onlyDifficult;
 
+  /// Neue Inhalte in Vorlesungsreihenfolge einführen
+  /// (`ChurchHistoryQuiz.next`, `orderedIntroduction`).
+  final bool inOrder;
+
   ChurchHistorySettings({
     this.scope = "all",
     Set<QuizKind>? kinds,
     this.onlyDifficult = false,
+    this.inOrder = false,
   }) : kinds = kinds ?? QuizKind.values.toSet();
 
   ChurchHistorySettings copyWith({
     String? scope,
     Set<QuizKind>? kinds,
     bool? onlyDifficult,
+    bool? inOrder,
   }) {
     return ChurchHistorySettings(
       scope: scope ?? this.scope,
       kinds: kinds ?? this.kinds,
       onlyDifficult: onlyDifficult ?? this.onlyDifficult,
+      inOrder: inOrder ?? this.inOrder,
     );
   }
 
@@ -43,6 +50,7 @@ class ChurchHistorySettings {
       scope: raw["scope"] is String ? raw["scope"] as String : "all",
       kinds: kinds == null || kinds.isEmpty ? null : kinds,
       onlyDifficult: raw["onlyDifficult"] == true,
+      inOrder: raw["inOrder"] == true,
     );
   }
 
@@ -53,6 +61,7 @@ class ChurchHistorySettings {
         if (kinds.contains(k)) k.name,
     ],
     "onlyDifficult": onlyDifficult,
+    "inOrder": inOrder,
   };
 }
 
@@ -66,7 +75,7 @@ class ChurchHistorySettings {
 ///
 /// ```text
 /// church_history:          cards:    {kartenId: {difficulty, stability, lastReviewed: ms}}
-/// church_history_settings: settings: {scope, kinds, onlyDifficult}
+/// church_history_settings: settings: {scope, kinds, onlyDifficult, inOrder}
 /// ```
 ///
 /// Zurückgesetzt wird über `ProgressArea.churchHistory` (nur

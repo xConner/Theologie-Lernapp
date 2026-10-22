@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import '../../algorithms/learning_selector.dart';
+import '../../algorithms/ordered_introduction.dart';
 import '../../algorithms/review_state.dart';
 import '../../algorithms/spaced_repetition.dart';
 import '../../models/greek/vocabulary/learning_card.dart';
@@ -315,15 +316,28 @@ class OldTestamentQuiz {
   }
 
   /// Nächste Aufgabe; null, wenn der Umfang keine Aufgabe hergibt.
+  /// [inOrder]: neue Inhalte nur in Lehrreihenfolge ([orderedIntroduction]);
+  /// [candidates] liefert die Inhalte bereits nach Einheiten geordnet.
   OtQuestion? next(
     OtScope scope,
     Set<OtQuizKind> kinds, {
     bool onlyDifficult = false,
+    bool inOrder = false,
   }) {
     var pool = candidates(scope, kinds);
 
     if (onlyDifficult) {
       pool = pool.where((c) => isDifficult(c.cardId)).toList();
+    } else if (inOrder) {
+      // Die Liste ist schon in Lehrreihenfolge (Einheit für Einheit, ein
+      // Begriff bei seiner ersten Einheit).
+      final position = {for (var i = 0; i < pool.length; i++) pool[i]: i};
+      pool = orderedIntroduction(
+        pool,
+        idOf: (c) => c.cardId,
+        cards: cards,
+        positionOf: (c) => position[c]!,
+      );
     }
 
     while (pool.isNotEmpty) {

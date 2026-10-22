@@ -132,6 +132,14 @@ Die Auswahl verwendet `LearningSelector` und `SpacedRepetition` wie die
 gewertet. Der Fortschritt zeigt nur „Noch nicht geübt“, „Zum Wiederholen“
 und „Zuletzt sicher“, ohne Punkte, Level oder Aussagen über Beherrschung.
 
+„In Vorlesungsreihenfolge einführen“ (Einstellung `inOrder`) hält noch nie
+gefragte Inhalte zurück, bis sie an der Reihe sind: Geübtes bleibt im Pool,
+von den neuen kommen nur die ersten drei hinzu, geordnet nach der ersten
+Vorlesung bzw. Sitzung, die sie enthält oder nennt (`positionOf`,
+`algorithms/ordered_introduction.dart`). Gespeichert wird dafür nichts
+weiter; „eingeführt“ heißt, dass es eine Lernkarte gibt. Mit „Nur schwierige
+Inhalte“ gilt die Einstellung nicht.
+
 ## Speicherung
 
 `ChurchHistoryStore`: angemeldet unter
