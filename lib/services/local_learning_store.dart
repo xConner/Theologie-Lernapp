@@ -128,6 +128,15 @@ class LocalLearningStore {
   static const String oldTestament = "old_testament";
   static const String oldTestamentSettings = "old_testament_settings";
 
+  /// Lernplan der lateinischen Vokabeln und die Einführungen im Plan
+  /// (`quiz_settings/latin_vocabulary_plan` bzw.
+  /// `latin_vocabulary_plan_progress`, siehe `LatinVocabularyPlanStore`).
+  /// Der Lernstand je Vokabel liegt wie im Vokabeltrainer in der Collection
+  /// `latin_vocabulary`.
+  static const String latinVocabularyPlan = "latin_vocabulary_plan";
+  static const String latinVocabularyPlanProgress =
+      "latin_vocabulary_plan_progress";
+
   /// Alle Dokumente unter `quiz_settings`, die bei der Übernahme von
   /// Gastdaten übertragen und beim Löschen der Gastdaten entfernt werden.
   static const List<String> quizDocuments = [
@@ -139,6 +148,8 @@ class LocalLearningStore {
     churchHistorySettings,
     oldTestament,
     oldTestamentSettings,
+    latinVocabularyPlan,
+    latinVocabularyPlanProgress,
   ];
 
   static String _quizDocumentKey(String name) =>
@@ -448,6 +459,7 @@ class LocalLearningStore {
     await prefs.remove(_quizDocumentKey(latinGrammar));
     await prefs.remove(_quizDocumentKey(churchHistory));
     await prefs.remove(_quizDocumentKey(oldTestament));
+    await prefs.remove(_quizDocumentKey(latinVocabularyPlanProgress));
 
     for (final collection in cardCollections) {
       await resetCollection(collection);

@@ -8,8 +8,7 @@ import '../../models/old_testament/old_testament.dart';
 import '../../services/old_testament/old_testament_quiz.dart';
 import '../../services/old_testament/old_testament_store.dart';
 import '../../theme/app_theme.dart';
-import '../church_history/church_history_progress_screen.dart'
-    show ProgressSummaryTile;
+import '../../widgets/progress_summary_tile.dart';
 import 'old_testament_widgets.dart';
 
 /// Lernstand je Einheit und Aufgabenart, schwierige Inhalte und

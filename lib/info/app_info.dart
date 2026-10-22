@@ -176,8 +176,11 @@ class AppModules {
     id: "latin_vocabulary",
     title: "Latein – Vokabeln",
     description:
-        "Vokabeltrainer und Vokabelübersicht für Latein. Abgefragt werden "
-        "Übersetzung und – je nach Einstellung – Zusatzformen und Genus.",
+        "Vokabeltrainer, Vokabel-Lernplan und Vokabelübersicht für Latein. "
+        "Abgefragt werden Übersetzung und – je nach Einstellung – "
+        "Zusatzformen und Genus. Der Lernplan führt die Vokabeln Lektion für "
+        "Lektion ein und wiederholt sie mit demselben Lernstand wie der "
+        "Trainer.",
     sources: [
       SourceInfo(
         title: "Vokabelliste",

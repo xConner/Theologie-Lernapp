@@ -17,6 +17,8 @@ rules_version = '2';
 //                                              (Kirchengeschichte)
 //   users/{uid}/quiz_settings/{old_testament|old_testament_settings}
 //                                              (Altes Testament)
+//   users/{uid}/quiz_settings/{latin_vocabulary_plan|latin_vocabulary_plan_progress}
+//                                              (Latein: Vokabel-Lernplan)
 //   users/{uid}/vocabulary/{vocabularyId}
 //   users/{uid}/learning_cards/{cardId}
 //   users/{uid}/latin_vocabulary/{cardId}

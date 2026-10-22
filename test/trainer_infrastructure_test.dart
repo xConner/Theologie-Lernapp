@@ -106,15 +106,17 @@ void main() {
       () async {
         final service = LatinVocabularySettingsService();
 
-        await service.saveSettings(
-          uid: null,
-          includeVerbForm: false,
-          includeNounForm: true,
-          includeGender: false,
-          includeAdjectiveForms: true,
-          requireOnlyOneTranslation: false,
-          disabledLessons: [2, 5],
-          enabledTypes: ["noun", "verb"],
+        await service.save(
+          null,
+          const LatinVocabularySettings(
+            includeVerbForm: false,
+            includeNounForm: true,
+            includeGender: false,
+            includeAdjectiveForms: true,
+            requireOnlyOneTranslation: false,
+            disabledLessons: [2, 5],
+            enabledTypes: ["noun", "verb"],
+          ),
         );
 
         final settings = await service.load(null);

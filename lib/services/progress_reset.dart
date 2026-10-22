@@ -16,6 +16,7 @@ enum ProgressArea {
     label: "Latein-Vokabeln",
     resetTitle: "Latein-Vokabelfortschritt zurücksetzen",
     collection: LocalLearningStore.latinVocabulary,
+    documents: [LocalLearningStore.latinVocabularyPlanProgress],
   ),
   latinGrammar(
     label: "Lateinische Grammatik",
@@ -83,7 +84,9 @@ enum ProgressArea {
   String get scopeDescription {
     switch (this) {
       case ProgressArea.latinVocabulary:
-        return "Die Lernstände aller lateinischen Vokabeln.";
+        return "Die Lernstände aller lateinischen Vokabeln, im Vokabeltrainer "
+            "und im Lernplan. Die Einstellungen des Lernplans bleiben "
+            "erhalten.";
       case ProgressArea.latinGrammar:
         return "Die Lernstände und Antworten des Grammatiktrainers (Latein). "
             "Die Einstellungen bleiben erhalten.";

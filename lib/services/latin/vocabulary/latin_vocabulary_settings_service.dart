@@ -74,6 +74,40 @@ class LatinVocabularySettings {
       enabledTypes: List<String>.from(data["enabledTypes"] ?? allTypes),
     );
   }
+
+  LatinVocabularySettings copyWith({
+    bool? includeVerbForm,
+    bool? includeNounForm,
+    bool? includeGender,
+    bool? includeAdjectiveForms,
+    bool? requireOnlyOneTranslation,
+    List<int>? disabledLessons,
+    List<String>? enabledTypes,
+  }) {
+    return LatinVocabularySettings(
+      includeVerbForm: includeVerbForm ?? this.includeVerbForm,
+      includeNounForm: includeNounForm ?? this.includeNounForm,
+      includeGender: includeGender ?? this.includeGender,
+      includeAdjectiveForms:
+          includeAdjectiveForms ?? this.includeAdjectiveForms,
+      requireOnlyOneTranslation:
+          requireOnlyOneTranslation ?? this.requireOnlyOneTranslation,
+      disabledLessons: disabledLessons ?? this.disabledLessons,
+      enabledTypes: enabledTypes ?? this.enabledTypes,
+    );
+  }
+
+  /// Gespeichertes Format (Feld `latin_vocabulary_settings`).
+  Map<String, dynamic> toMap() => {
+    "includeVerbForm": includeVerbForm,
+    "includeNounForm": includeNounForm,
+    "includeGender": includeGender,
+    "includeAdjectiveForms": includeAdjectiveForms,
+    "requireOnlyOneTranslation": requireOnlyOneTranslation,
+
+    "disabledLessons": disabledLessons,
+    "enabledTypes": enabledTypes,
+  };
 }
 
 /// uid == null bedeutet Gastmodus (lokale Speicherung).
@@ -100,26 +134,8 @@ class LatinVocabularySettingsService {
     return LatinVocabularySettings.fromMap(data?[_group] ?? {});
   }
 
-  Future<void> saveSettings({
-    required String? uid,
-    required bool includeVerbForm,
-    required bool includeNounForm,
-    required bool includeGender,
-    required bool includeAdjectiveForms,
-    required bool requireOnlyOneTranslation,
-    required List<int> disabledLessons,
-    required List<String> enabledTypes,
-  }) async {
-    final settings = {
-      "includeVerbForm": includeVerbForm,
-      "includeNounForm": includeNounForm,
-      "includeGender": includeGender,
-      "includeAdjectiveForms": includeAdjectiveForms,
-      "requireOnlyOneTranslation": requireOnlyOneTranslation,
-
-      "disabledLessons": disabledLessons,
-      "enabledTypes": enabledTypes,
-    };
+  Future<void> save(String? uid, LatinVocabularySettings value) async {
+    final settings = value.toMap();
 
     if (uid == null) {
       return LocalLearningStore.instance.saveSettingsGroup(_group, settings);

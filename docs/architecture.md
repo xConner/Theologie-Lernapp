@@ -47,7 +47,7 @@ Einstellungs-Service (ein Lesezugriff je Öffnen) und seine Antwortprüfung.
 | Trainer | Einstellungen | Antwortprüfung |
 |---|---|---|
 | Griechisch-Vokabeln | `services/greek/vocabulary/vocabulary_settings_service.dart` | `vocabulary_answer_checker.dart` |
-| Latein-Vokabeln | `services/latin/vocabulary/latin_vocabulary_settings_service.dart` | `latin_vocabulary_answer_checker.dart` |
+| Latein-Vokabeln (Trainer und Lernplan) | `services/latin/vocabulary/latin_vocabulary_settings_service.dart`, Plan: `latin_vocabulary_plan_store.dart` | `latin_vocabulary_answer_checker.dart` (siehe [latin.md](latin.md)) |
 | Griechisch-Grammatik | `services/greek/grammar/grammar_settings_service.dart` | `grammar_answer_check.dart` |
 | Latein-Grammatik | `services/latin/grammar/latin_grammar_store.dart` | `latin_grammar_answer_check.dart` (siehe [latin.md](latin.md)) |
 | Kirchengeschichte | `services/church_history/church_history_store.dart` | `church_history_quiz.dart` (siehe [church-history.md](church-history.md)) |

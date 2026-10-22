@@ -187,6 +187,11 @@ class ProgressDataService {
           _quizSettingsDoc(uid, LocalLearningStore.oldTestament),
         ),
       );
+      writes.add(
+        (batch) => batch.delete(
+          _quizSettingsDoc(uid, LocalLearningStore.latinVocabularyPlanProgress),
+        ),
+      );
 
       await _commitInBatches(writes);
     });

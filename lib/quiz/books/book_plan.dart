@@ -1,15 +1,17 @@
-import 'dart:math' as math;
+import '../../algorithms/daily_new_plan.dart';
 
 /// Lernplan für ein Buch: wie viele neue Perikopen am Tag, optional bis zu
 /// einem Zieldatum. Der Plan schlägt nur vor; jede Perikope bleibt frei
 /// wählbar, und das Endlos-Quiz ist davon unberührt.
-class BookPlan {
+class BookPlan with DailyNewPlan {
   final String book;
 
   /// Gewünschte neue Perikopen pro Tag (1–50).
+  @override
   final int dailyNew;
 
   /// Bis wann alle Perikopen eingeführt sein sollen (Datum ohne Uhrzeit).
+  @override
   final DateTime? targetDate;
 
   final bool paused;
@@ -72,34 +74,5 @@ class BookPlan {
     "paused": paused,
   };
 
-  static DateTime dayOf(DateTime time) =>
-      DateTime(time.year, time.month, time.day);
-
-  /// Verbleibende Lerntage bis einschließlich Zieldatum (mindestens 1).
-  int? daysLeft(DateTime now) {
-    final target = targetDate;
-
-    if (target == null) return null;
-
-    final days = dayOf(target).difference(dayOf(now)).inDays + 1;
-
-    return math.max(1, days);
-  }
-
-  /// Neue Perikopen pro Tag, die für das Zieldatum nötig wären.
-  int? requiredPerDay(int remainingNew, DateTime now) {
-    final days = daysLeft(now);
-
-    if (days == null) return null;
-
-    return (remainingNew / days).ceil();
-  }
-
-  /// Wie viele neue Perikopen heute vorgeschlagen werden: die gewünschte
-  /// Menge, mit Zieldatum mindestens die dafür nötige.
-  int dailyTarget(int remainingNew, DateTime now) {
-    final required = requiredPerDay(remainingNew, now) ?? 0;
-
-    return math.max(dailyNew, required);
-  }
+  static DateTime dayOf(DateTime time) => DailyNewPlan.dayOf(time);
 }

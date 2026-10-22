@@ -128,6 +128,55 @@ nicht ab.
 der Lektionen 4–13 sind mit Genitiv bzw. Stammformen nach dem Wörterbuch
 in `latin_grammar_words.dart` aufgenommen (siehe unten).
 
+## Vokabel-Lernplan
+
+Neben dem freien Vokabeltrainer gibt es im Latein-Bereich einen
+planbasierten Lernmodus („Vokabel-Lernplan“), angelehnt an „Bücher
+systematisch lernen“ in der Bibelkunde. Der Trainer bleibt unverändert
+nutzbar; Lektions- und Wortartfilter des Trainers wirken nicht auf den Plan.
+
+| Aufgabe | Ort |
+|---|---|
+| Plan (neue pro Tag, Zieldatum, Lektionen, Pause) | `models/latin/vocabulary/latin_vocabulary_plan.dart` |
+| Tagesrechnung (gemeinsam mit den Bibelkunde-Plänen) | `algorithms/daily_new_plan.dart` |
+| Status, Tagesmenge, Fortschritt, Lerneinheit | `services/latin/vocabulary/latin_vocabulary_plan_state.dart` |
+| Laden und Speichern | `latin_vocabulary_plan_service.dart`, `latin_vocabulary_plan_store.dart` |
+| Abfrage einer Vokabel (Trainer und Plan) | `screens/latin/latin_vocabulary_answer_view.dart` |
+| Screens | `screens/latin/plan/` |
+
+Regeln:
+
+* **Ein Lernstand.** Plan und Trainer verbuchen dieselbe `LearningCard` je
+  Vokabel (Collection `latin_vocabulary`) mit derselben `SpacedRepetition`.
+  Es gibt keine zweite Bewertungsskala und keine Meisterschaftsstufen.
+* **Status.** „Noch nicht eingeführt“ oder der `ReviewState` der
+  Wissensbereiche: „Zum Wiederholen“ (Wiederholungsabstand abgelaufen,
+  erhöhter Lernbedarf oder eingeführt, aber noch nie abgefragt) bzw.
+  „Zuletzt sicher“. Eine Vokabel gilt als eingeführt, wenn der Plan sie
+  vorgestellt hat oder sie (etwa im Trainer) schon beantwortet wurde –
+  vorhandene Lernstände werden so übernommen.
+* **Tagesmenge.** Neue Vokabeln pro Tag (1–50, Vorgabe 10), mit Zieldatum
+  mindestens `⌈verbleibende / verbleibende Tage⌉`. Die heute schon
+  eingeführten zählen mit; ein pausierter oder beendeter Plan führt nichts
+  Neues ein. Neu sind die nächsten noch nicht eingeführten Vokabeln in
+  Lehrbuchreihenfolge (Lektion, dann ID) – die Lektionen sind die
+  Lerneinheiten.
+* **Lerneinheit.** Wie `AdaptiveStudyQueue`: neue Vokabeln werden
+  vorgestellt und zwei Aufgaben später abgefragt; Wiederholungen wählt der
+  `LearningSelector` des Trainers gewichtet aus allen eingeführten Vokabeln
+  des Plans (fällige und schwierige zuerst, nicht chronologisch). Je Einheit
+  höchstens 15 geplante Abfragen, jede Vokabel einmal, nach einem Fehler
+  genau einmal mehr. Jede Antwort wird sofort gespeichert; nach einem
+  Neustart setzt der Plan am gespeicherten Stand an.
+* **Speicherung.** `users/{uid}/quiz_settings/latin_vocabulary_plan`
+  (`{plan: {dailyNew, targetDate, paused, createdAt, disabledLessons}}`) und
+  `latin_vocabulary_plan_progress` (`{introduced: {vokabelId: ms}}`), Gäste
+  lokal. Einführungen sind nach ID geschlüsselt und werden nur beim ersten
+  Mal geschrieben; doppeltes Öffnen oder Speichern erzeugt keine Doppel.
+  Planänderungen und „Plan beenden“ lassen Einführungen und Lernstände
+  unberührt. Das Zurücksetzen der Latein-Vokabeln löscht Karten und
+  Einführungen, der Plan bleibt.
+
 ## Grammatikübersicht und Grammatiktrainer
 
 Die Formen werden in `lib/services/latin/grammar/latin_morphology.dart`

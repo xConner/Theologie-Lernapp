@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import 'grammar/latin_grammar_overview_screen.dart';
 import 'grammar/latin_grammar_trainer_screen.dart';
+import 'plan/latin_vocabulary_plan_screen.dart';
 import 'latin_vocabulary_trainer_screen.dart';
 import 'latin_vocabulary_overview_screen.dart';
 
@@ -57,6 +58,25 @@ class LatinHomeScreen extends StatelessWidget {
                     },
                     icon: const Icon(Icons.style_rounded),
                     label: const Text("Vokabeltrainer"),
+                  ),
+                ),
+
+                const SizedBox(height: 16),
+
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton.icon(
+                    key: const ValueKey("latin-vocabulary-plan"),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const LatinVocabularyPlanScreen(),
+                        ),
+                      );
+                    },
+                    icon: const Icon(Icons.event_note_rounded),
+                    label: const Text("Vokabel-Lernplan"),
                   ),
                 ),
 
