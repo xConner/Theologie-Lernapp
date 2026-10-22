@@ -12,11 +12,14 @@ import '../../services/memorization/memorization_session.dart';
 import '../../services/memorization/memorization_streak_rule.dart';
 import '../../services/memorization/text_evaluator.dart';
 import '../../services/speech/routing_speech_recognition_service.dart';
+import '../../services/statistics/learning_statistics.dart';
+import '../../services/statistics/statistics_service.dart';
 import '../../services/speech/speech_recognition_service.dart';
 import '../../services/streak/streak_track.dart';
 import '../../theme/app_theme.dart';
 import '../../widgets/info_report.dart';
 import '../../widgets/memorization_widgets.dart';
+import '../../widgets/statistics_widgets.dart';
 import '../../widgets/streak_widgets.dart';
 
 /// Wie der Nutzer einen Abschnitt wiedergibt.
@@ -252,7 +255,25 @@ class _MemorizationPracticeScreenState
       );
     });
 
+    _reportStatistics(practiced, result);
     _reportStreak(practiced, result);
+  }
+
+  /// Statistik „Texte auswendig lernen“: jede ausgewertete Eingabe genau
+  /// einmal ([_check] wertet nur einmal aus).
+  void _reportStatistics(HintLevel practiced, EvaluationResult? result) {
+    if (!MemorizationStreakRule.countsForStatistics(
+      practiced: practiced,
+      result: result,
+    )) {
+      return;
+    }
+
+    LearningStatisticsService.instance.recordAnswer(
+      uid: widget.repository.uid,
+      trainer: StatisticsTrainer.memorization,
+      correct: result!.outcome == RecallOutcome.correct,
+    );
   }
 
   /// Meldet der Streak eine wortgetreu richtige Eingabe
@@ -1265,6 +1286,10 @@ class _MemorizationPracticeScreenState
           child: Text("Texte auswendig lernen"),
         ),
         actions: [
+          StatisticsButton(
+            uid: widget.repository.uid,
+            trainer: StatisticsTrainer.memorization,
+          ),
           InfoButton(
             module: AppModules.memorization,
             reportDetails: () => {

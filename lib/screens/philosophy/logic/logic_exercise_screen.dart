@@ -4,8 +4,11 @@ import '../../../models/logic/logic_exercise.dart';
 import '../../../services/logic/exercise_generator.dart';
 import '../../../services/logic/logic_progress_store.dart';
 import '../../../services/logic/logic_streak_rule.dart';
+import '../../../services/statistics/learning_statistics.dart';
+import '../../../services/statistics/statistics_service.dart';
 import '../../../services/streak/streak_track.dart';
 import '../../../theme/app_theme.dart';
+import '../../../widgets/statistics_widgets.dart';
 import '../../../widgets/streak_widgets.dart';
 import 'exercise_views.dart';
 
@@ -66,11 +69,22 @@ class _LogicExerciseScreenState extends State<LogicExerciseScreen> {
   /// nicht noch einmal.
   final Set<int> _streakCounted = {};
 
+  /// Übungen dieser Runde, die schon in der Statistik stehen: wie in den
+  /// Trainern zählt nur die erste Bewertung.
+  final Set<int> _statisticsCounted = {};
+
   Future<void> _record(int index, LogicExercise e, bool ok) async {
     setState(() {
       answered++;
       if (ok) correct++;
     });
+    if (LogicStreakRule.countsForStatistics(e) && _statisticsCounted.add(index)) {
+      LearningStatisticsService.instance.recordAnswer(
+        uid: widget.uid,
+        trainer: StatisticsTrainer.logic,
+        correct: ok,
+      );
+    }
     if (LogicStreakRule.counts(e, correct: ok) && _streakCounted.add(index)) {
       recordStreakAnswer(
         context,
@@ -112,6 +126,7 @@ class _LogicExerciseScreenState extends State<LogicExerciseScreen> {
       appBar: AppBar(
         title: Text(widget.title),
         actions: [
+          StatisticsButton(uid: widget.uid, trainer: StatisticsTrainer.logic),
           Center(
             child: Padding(
               padding: const EdgeInsets.only(right: 16),

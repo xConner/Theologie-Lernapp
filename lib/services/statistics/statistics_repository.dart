@@ -124,6 +124,9 @@ class LocalStatisticsRepository implements StatisticsRepository {
   /// sind.
   static Future<void> get pendingWrites => _pending;
 
+  /// Nur für Tests (siehe [LearningStatisticsService.resetForTesting]).
+  static void resetForTesting() => _pending = Future.value();
+
   @override
   Future<void> recordAnswer(String trainerId, String date, bool correct) {
     final result = _pending.then((_) => _write(trainerId, date, correct));

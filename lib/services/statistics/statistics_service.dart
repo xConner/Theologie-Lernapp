@@ -28,6 +28,19 @@ class LearningStatisticsService extends ChangeNotifier {
 
   Future<void> _queue = Future.value();
 
+  /// Verwirft alle Stände im Arbeitsspeicher (nicht den Speicher) und die
+  /// Warteschlangen, damit Tests mit dem gemeinsamen [instance] unabhängig
+  /// voneinander starten (wie `StreakService.resetForTesting`).
+  @visibleForTesting
+  void resetForTesting() {
+    _queue = Future.value();
+    LocalStatisticsRepository.resetForTesting();
+    _uid = null;
+    _loaded = false;
+    _repository = null;
+    _days = {};
+  }
+
   /// Sind die Daten für [uid] geladen?
   bool isLoadedFor(String? uid) => _loaded && _uid == uid;
 

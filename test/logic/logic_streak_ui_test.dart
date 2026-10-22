@@ -5,6 +5,8 @@ import 'package:theologie_lernapp/models/logic/logic_course.dart';
 import 'package:theologie_lernapp/screens/philosophy/logic/logic_course_screen.dart';
 import 'package:theologie_lernapp/services/logic/logic_course_loader.dart';
 import 'package:theologie_lernapp/services/logic/logic_progress_store.dart';
+import 'package:theologie_lernapp/services/statistics/learning_statistics.dart';
+import 'package:theologie_lernapp/services/statistics/statistics_service.dart';
 import 'package:theologie_lernapp/services/streak/streak_repository.dart';
 import 'package:theologie_lernapp/services/streak/streak_service.dart';
 import 'package:theologie_lernapp/services/streak/streak_track.dart';
@@ -32,6 +34,7 @@ void main() {
   setUp(() {
     SharedPreferences.setMockInitialValues({});
     StreakService.instance.resetForTesting();
+    LearningStatisticsService.instance.resetForTesting();
   });
 
   Future<void> pumpCourse(WidgetTester tester) async {
@@ -74,8 +77,19 @@ void main() {
 
     /// Wie in den übrigen Streak-UI-Tests: den gemeinsamen Service vor dem
     /// Test außerhalb der Fake-Zeit laden.
-    Future<void> loadStreaks(WidgetTester tester) =>
-        tester.runAsync(() => StreakService.instance.load(null, refresh: true));
+    Future<void> loadStreaks(WidgetTester tester) => tester.runAsync(() async {
+      await StreakService.instance.load(null, refresh: true);
+      await LearningStatisticsService.instance.load(null, refresh: true);
+    });
+
+    // Stand im Speicher; ein erneutes Laden würde hier auf Vorgänge aus der
+    // Fake-Zeit warten.
+    Future<DailyStatistics> statistics(WidgetTester tester) async {
+      await tester.pumpAndSettle();
+      return LearningStatisticsService.instance
+          .lastSevenDays(null, StatisticsTrainer.logic)
+          .last;
+    }
 
     Future<void> openExercise(WidgetTester tester) async {
       await tester.tap(key("logic-lesson-l1"));
@@ -155,6 +169,11 @@ void main() {
       await answer(tester, "answer-no-sentence");
       expect(key("logic-outcome"), findsOneWidget);
       expect(todayLogic(), 1);
+
+      // Statistik: nur die erste Bewertung der Übung.
+      final today = await statistics(tester);
+      expect(today.correct, 1);
+      expect(today.wrong, 0);
     });
 
     testWidgets("falsche Lösung zählt nicht", (tester) async {
@@ -169,6 +188,11 @@ void main() {
 
       final p = await tester.runAsync(store.load);
       expect(p!.task("l1.k1.iii").lastCorrect, isFalse);
+
+      // In der Statistik zählt die falsche Lösung.
+      final today = await statistics(tester);
+      expect(today.correct, 0);
+      expect(today.wrong, 1);
     });
 
     testWidgets("Lektion als bearbeitet markieren zählt nicht", (tester) async {

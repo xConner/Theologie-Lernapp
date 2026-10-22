@@ -9,6 +9,8 @@ import 'package:theologie_lernapp/services/memorization/memorization_repository.
 import 'package:theologie_lernapp/services/memorization/memorization_scheduler.dart';
 import 'package:theologie_lernapp/services/memorization/memorization_streak_rule.dart';
 import 'package:theologie_lernapp/services/memorization/text_evaluator.dart';
+import 'package:theologie_lernapp/services/statistics/learning_statistics.dart';
+import 'package:theologie_lernapp/services/statistics/statistics_service.dart';
 import 'package:theologie_lernapp/services/streak/streak_repository.dart';
 import 'package:theologie_lernapp/services/streak/streak_service.dart';
 import 'package:theologie_lernapp/services/streak/streak_state.dart';
@@ -98,6 +100,35 @@ void main() {
         ),
         isFalse,
       );
+    });
+
+    test("Statistik: jede ausgewertete Eingabe, kein Mitlesen und keine "
+        "Selbsteinschätzung", () {
+      final wrong = typed("etwas ganz anderes");
+
+      for (final result in [correct, wrong]) {
+        expect(
+          MemorizationStreakRule.countsForStatistics(
+            practiced: HintLevel.free,
+            result: result,
+          ),
+          isTrue,
+        );
+        expect(
+          MemorizationStreakRule.countsForStatistics(
+            practiced: HintLevel.read,
+            result: result,
+          ),
+          isFalse,
+        );
+      }
+      for (final level in HintLevel.values) {
+        expect(
+          MemorizationStreakRule.countsForStatistics(practiced: level),
+          isFalse,
+          reason: level.name,
+        );
+      }
     });
 
     test("Selbsteinschätzung im Kopf zählt auf keiner Hilfestufe", () {
@@ -519,9 +550,10 @@ void main() {
 
       StreakService.instance.resetForTesting();
 
-      await tester.runAsync(
-        () => StreakService.instance.load(null, refresh: true),
-      );
+      await tester.runAsync(() async {
+        await StreakService.instance.load(null, refresh: true);
+        await LearningStatisticsService.instance.load(null, refresh: true);
+      });
 
       // Zwölf gleichlautende Abschnitte: Jede Übung erwartet dieselbe
       // Eingabe, unabhängig von der Reihenfolge der Runde.
@@ -623,6 +655,16 @@ void main() {
       final stored = await tester.runAsync(LocalStreakRepository().loadAll);
       expect(stored!["memorization"]!.streakCompletedToday, isTrue);
       expect(stored["memorization"]!.todayCorrectAnswers, 10);
+
+      // Statistik: jede ausgewertete Eingabe einmal, „Im Kopf“ nicht.
+      await tester.runAsync(
+        () => LearningStatisticsService.instance.load(null, refresh: true),
+      );
+      final today = LearningStatisticsService.instance
+          .lastSevenDays(null, StatisticsTrainer.memorization)
+          .last;
+      expect(today.correct, 10);
+      expect(today.wrong, 1);
     });
   });
 }

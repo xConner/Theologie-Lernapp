@@ -14,6 +14,13 @@ import '../../models/logic/logic_exercise.dart';
 class LogicStreakRule {
   LogicStreakRule._();
 
+  /// Statistik (richtig/falsch je Tag): jede von der App geprüfte Übung,
+  /// auch falsch gelöste; offene Aufgaben nicht, weil dort keine Bewertung
+  /// der App vorliegt.
+  static bool countsForStatistics(LogicExercise exercise) {
+    return exercise is! OpenExercise;
+  }
+
   static bool counts(LogicExercise exercise, {required bool correct}) {
     return correct && exercise is! OpenExercise;
   }

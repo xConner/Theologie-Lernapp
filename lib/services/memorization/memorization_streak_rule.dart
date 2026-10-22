@@ -21,6 +21,16 @@ import 'text_evaluator.dart';
 class MemorizationStreakRule {
   MemorizationStreakRule._();
 
+  /// Zählt die Übung auf Stufe [practiced] für die Statistik (richtig oder
+  /// falsch)? Nur Eingaben, die der Wortvergleich bewertet hat; Mitlesen und
+  /// Selbsteinschätzung nicht. Richtig ist nur [RecallOutcome.correct].
+  static bool countsForStatistics({
+    required HintLevel practiced,
+    EvaluationResult? result,
+  }) {
+    return practiced != HintLevel.read && result != null;
+  }
+
   /// Zählt die Übung auf Stufe [practiced] für die Streak? [result] ist der
   /// Wortvergleich (getippt/gesprochen), null bei Mitlesen und
   /// Selbsteinschätzung.

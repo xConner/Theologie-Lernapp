@@ -2,6 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'package:theologie_lernapp/models/logic/logic_exercise.dart';
 import 'package:theologie_lernapp/services/logic/logic_streak_rule.dart';
+import 'package:theologie_lernapp/services/statistics/learning_statistics.dart';
 import 'package:theologie_lernapp/services/streak/streak_repository.dart';
 import 'package:theologie_lernapp/services/streak/streak_service.dart';
 import 'package:theologie_lernapp/services/streak/streak_state.dart';
@@ -139,6 +140,29 @@ void main() {
       expect(LogicStreakRule.counts(proof, correct: false), isFalse);
       expect(LogicStreakRule.counts(open, correct: true), isFalse);
       expect(LogicStreakRule.counts(open, correct: false), isFalse);
+    });
+
+    test("Statistik: jede automatisch geprüfte Übung, offene nicht", () {
+      const proof = ProofExercise(
+        id: "l4.k1.a",
+        origin: ExerciseOrigin.course,
+        group: "Übung 1",
+        theorem: "p ⊢ p",
+        system: "l4",
+        solution: [],
+      );
+      const open = OpenExercise(
+        id: "l1.open",
+        origin: ExerciseOrigin.course,
+        group: "Übung 1",
+        question: "Warum?",
+        sample: "Darum.",
+      );
+
+      expect(LogicStreakRule.countsForStatistics(proof), isTrue);
+      expect(LogicStreakRule.countsForStatistics(open), isFalse);
+      expect(StatisticsTrainer.all, contains(StatisticsTrainer.logic));
+      expect(StatisticsTrainer.all, contains(StatisticsTrainer.memorization));
     });
   });
 

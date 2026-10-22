@@ -46,6 +46,16 @@ class StatisticsTrainer {
     label: "Altes Testament",
   );
 
+  static const StatisticsTrainer memorization = StatisticsTrainer(
+    id: "memorization",
+    label: "Texte auswendig lernen",
+  );
+
+  static const StatisticsTrainer logic = StatisticsTrainer(
+    id: "logic",
+    label: "Logik",
+  );
+
   static const List<StatisticsTrainer> all = [
     greekVocabulary,
     greekGrammar,
@@ -54,6 +64,8 @@ class StatisticsTrainer {
     perikopenQuiz,
     churchHistory,
     oldTestament,
+    memorization,
+    logic,
   ];
 }
 
@@ -67,11 +79,7 @@ class DailyStatistics {
   final int correct;
   final int wrong;
 
-  const DailyStatistics({
-    required this.date,
-    this.correct = 0,
-    this.wrong = 0,
-  });
+  const DailyStatistics({required this.date, this.correct = 0, this.wrong = 0});
 
   int get answered => correct + wrong;
 

@@ -6,10 +6,12 @@ import '../../../models/logic/logic_course.dart';
 import '../../../models/logic/logic_exercise.dart';
 import '../../../services/logic/logic_course_loader.dart';
 import '../../../services/logic/logic_progress_store.dart';
+import '../../../services/statistics/learning_statistics.dart';
 import '../../../services/streak/streak_track.dart';
 import '../../../theme/app_theme.dart';
 import '../../../widgets/info_report.dart';
 import '../../../widgets/logic/lesson_blocks.dart';
+import '../../../widgets/statistics_widgets.dart';
 import '../../../widgets/streak_widgets.dart';
 import 'logic_exercise_screen.dart';
 import 'logic_lesson_screen.dart';
@@ -89,7 +91,10 @@ class _LogicCourseScreenState extends State<LogicCourseScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Einführung in die Logik"),
-        actions: const [InfoButton(module: AppModules.logic)],
+        actions: [
+          StatisticsButton(uid: widget.uid, trainer: StatisticsTrainer.logic),
+          const InfoButton(module: AppModules.logic),
+        ],
       ),
       body: error != null
           ? const Center(child: Text("Die Inhalte konnten nicht geladen werden."))
