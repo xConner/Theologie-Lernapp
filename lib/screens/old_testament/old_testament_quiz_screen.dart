@@ -705,6 +705,8 @@ class _OldTestamentQuizScreenState extends State<OldTestamentQuizScreen> {
             const SizedBox(height: 8),
           ],
           Text(q.explanation, key: const ValueKey("quiz-explanation")),
+          if (passage != null && passage.pericopeKeys.isNotEmpty)
+            PericopeLinksNote(passage),
           if (q.supplement)
             Padding(
               padding: const EdgeInsets.only(top: 6),

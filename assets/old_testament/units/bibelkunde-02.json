@@ -1,0 +1,2353 @@
+{
+  "id": "bk.02",
+  "course": "bibelkunde",
+  "number": 2,
+  "title": "Pentateuch und Genesis",
+  "scope": "2. Sitzung der Übung (29.10.2026, Genesis), 16 Folien; Präsentation von Ronja Koch, die Tonspur ist nicht enthalten",
+  "file": "Genesis.pdf",
+  "related": [
+    "bk.01"
+  ],
+  "slides": [
+    {
+      "number": 1,
+      "title": "Bibelkunde Altes Testament",
+      "text": "Bibelkunde\nAltes Testament\nRonja Koch\n(Raum, Telefon und E-Mail stehen auf der Originalfolie und werden hier nicht wiedergegeben.)",
+      "figure": "Titelfolie mit CAU-Logo."
+    },
+    {
+      "number": 2,
+      "title": "Der Pentateuch",
+      "image": "assets/old_testament/slides/bk02-folie-02.png",
+      "text": "Der Pentateuch\n• Der erste Teil der Bibel\n• In der Lutherbibel bekannt als die „5 Bücher Mose“\n1. Buch Mose → Genesis\n2. Buch Mose → Exodus\n3. Buch Mose → Leviticus\n4. Buch Mose → Numeri\n5. Buch Mose → Deuteronomium\n➢ In der Wissenschaft werden die griechisch-lateinischen Begriffe gebraucht.",
+      "figure": "Lautsprechersymbol oben rechts: Die Präsentation hat eine Tonspur; sie ist im PDF nicht enthalten."
+    },
+    {
+      "number": 3,
+      "title": "Der Pentateuch",
+      "image": "assets/old_testament/slides/bk02-folie-03.png",
+      "text": "Der Pentateuch\n• Pentateuch = wörtlich: Fünf-Gefäß → fünf Rollen\n• Hebräische Bibel → Tora = „Weisung“\n• LXX übersetzt mit νόμος (nomos) = „Gesetz“\n• Mose ist nicht der Verfasser, sondern die Hauptperson\n• Wissenschaftliche Bezeichnung der Bücher\n  – Genesis = Schöpfung → Gen\n  – Exodus = Auszug (aus Ägypten) → Ex\n  – Leviticus = Levitische („priesterliche“) Gesetzgebung → Lev\n  – Numeri = Zahlen (der Israeliten) → Num\n  – Deuteronomium = Zweites Gesetz → Dtn\n• In jüdischer Tradition werden die Bücher entsprechend des Beginns des ersten Verses benannt",
+      "figure": "Lautsprechersymbol oben rechts: Die Präsentation hat eine Tonspur; sie ist im PDF nicht enthalten."
+    },
+    {
+      "number": 4,
+      "title": "Inhalt",
+      "image": "assets/old_testament/slides/bk02-folie-04.png",
+      "text": "Inhalt\n• Werk über die wichtigsten Geschichtstraditionen und Gesetzesüberlieferungen Israels\n• Sammlung unterschiedlicher Textformen und Erzählzusammenhänge\n• Erzählstrang von Beginn der Welt bis zum Beginn der Einwanderung der (späteren) Israeliten in ihr Land\n• Mittelpunkt: Gottes Offenbarung am Sinai\n• Übergeordneter Erzählrahmen:\n  – geschichtliche Führung Israels durch den Gott Israels von Abraham bis zur Landnahme\n  – Empfang des Religionsgesetzes Israels am Sinai",
+      "figure": "Lautsprechersymbol oben rechts: Die Präsentation hat eine Tonspur; sie ist im PDF nicht enthalten."
+    },
+    {
+      "number": 5,
+      "title": "Die Führung Israels",
+      "image": "assets/old_testament/slides/bk02-folie-05.png",
+      "text": "Die Führung Israels\n• Beginn mit Gen 12 → Gen 1-11 = Urgeschichte\n• Von Abraham bis zur Landnahme Kanaan\n• Spannungsbogen über Pentateuch hinaus bis ins Josuabuch\n• Thema und Erzählmotive:\n  – Erzelterngeschichte → Verheißung von Nachkommenschaft, Land und Segen (Gen 12-36 und 38)\n  – Josefsgeschichte → Wie kam Israel nach Ägypten? (Gen 37-50)\n  – Auszug aus Ägypten → Gott erwählt sein Volk (Ex 1-15)\n  – Wüstenwanderung → Motiv des Murrens (Ex 15,22-18,27 und Num 10,11-36,13)\n  – Aufenthalt am Sinai → Gott gibt seinem Volk die Tora (Ex 19,1 – Num 10,10)\n  – Abschiedsrede des Mose → Mose gibt erneut die Tora bekannt (Dtn 1-30)\n  – Tod des Mose (Dtn 31-34)",
+      "figure": "Lautsprechersymbol oben rechts: Die Präsentation hat eine Tonspur; sie ist im PDF nicht enthalten."
+    },
+    {
+      "number": 6,
+      "title": "Empfang des Gesetzes",
+      "image": "assets/old_testament/slides/bk02-folie-06.png",
+      "text": "Empfang des Gesetzes\n• Größter geschlossener narrativer Raum in Pentateuch = Aufenthalt am Sinai mit Gesetzesüberlieferung in Ex 19 – Num 10,10\n• Deuteronomium = Gesetzeswiederholung zur Einschärfung\n  – Soziale Akzentuierung des Gesetzes Israels\n• Einbettung dreier großer rechtlicher Text im Pentateuch\n  – Das Bundesbuch (Ex 20,22-23,19)\n  – Das Heiligkeitsgesetz (Lev 17-26)\n  – Das deuteronomische Gesetz (Dtn 12-25)\n• Programmatischer Charakter der Gesetzestexte im Alten Orient → Beschreibung einer Idealität anstelle einer Realität",
+      "figure": "Lautsprechersymbol oben rechts: Die Präsentation hat eine Tonspur; sie ist im PDF nicht enthalten."
+    },
+    {
+      "number": 7,
+      "title": "Genesis",
+      "image": "assets/old_testament/slides/bk02-folie-07.png",
+      "text": "Genesis\nGrobgliederung\n1-11 – Urgeschichte\n12-36 – Erzelterngeschichte\n    12-25: Abraham\n    26(+27): Isaak\n    27-36: Jakob\n37-50 – Josephsgeschichte\n    → Ohne 38 (Teil der Erzelterngeschichte)",
+      "highlights": [
+        "Grobgliederung"
+      ],
+      "figure": "Zweispaltige Übersicht (Kapitel – Teil); „Grobgliederung“ unterstrichen, die Unterteilung der Erzelterngeschichte kursiv. Lautsprechersymbol oben rechts: Die Präsentation hat eine Tonspur; sie ist im PDF nicht enthalten."
+    },
+    {
+      "number": 8,
+      "title": "Urgeschichte",
+      "image": "assets/old_testament/slides/bk02-folie-08.png",
+      "text": "Urgeschichte\n1,1 – 2,4a – 1. Schöpfungsbericht\n2,4b – 3,24 – 2. Schöpfungsbericht\n4 – Kain und Abel, Kainitenstammbaum\n5 – Stammbaum von Adam bis Noah\n6,1-4 – Engelehen und Göttersöhne\n6,5 – 8,22 – Sintfluterzählung\n9,1-17 – Noahbund\n9,18-29 – Noah im Weinberg, Noahs Söhne\n10 – Völkertafel\n11,1-9 – Turmbau zu Babel\n11,10-26 – Stammbaum von Noah bis Abraham\n11,27-32 – Übergang zur Erzelterngeschichte",
+      "figure": "Tabelle: Stelle (Kapitel,Vers) – Inhalt."
+    },
+    {
+      "number": 9,
+      "title": "Inhalt",
+      "image": "assets/old_testament/slides/bk02-folie-09.png",
+      "text": "Inhalt\n• Prolog zur Vorgeschichte in der Genesis ab Kapitel 12\n• Viele außerbiblische Parallelen\n• Unterschiedliche Überlieferungen wegen der Dopplungen und Spannungen\n  – Zwei verschieden Schöpfungsgeschichten\n  – Sintfluterzählung mit inneren Spannungen\n• Viele unterschiedliche Gattungen\n• Genealogien – Toledot → Gliedern die Genesis\n• Cliffhanger zu den Erzeltern in Gen 11,30",
+      "figure": "Lautsprechersymbol oben rechts: Die Präsentation hat eine Tonspur; sie ist im PDF nicht enthalten."
+    },
+    {
+      "number": 10,
+      "title": "Erzelterngeschichte",
+      "image": "assets/old_testament/slides/bk02-folie-10.png",
+      "text": "Erzelterngeschichte\n12,1-9 – Verheißung an Abram\n    10-12 – Gefährdung der Ahnfrau\n13 – 14 – Abram und Lot\n15 – Gottes Bund mit Abram\n16 – Sarai und Hagar\n17 – Gottes Bund mit Abraham (Namenswechsel)\n18,1-15 – Die drei Männer bei Abraham in Mamre\n    16-33 – Fürbitte Abrahams für Sodom\n19 – Sodom und Gomorra, Lots Töchter\n20 – Gefährdung der Ahnfrau\n21,1-21 – Geburt Isaaks, Vertreibung Hagars\n    22-34 – Brunnenstreit",
+      "figure": "Tabelle: Stelle – Inhalt. Alle Zeilen in Dunkelblau, der Farbe Abrahams (vgl. Folie 13). Eingerückte Angaben setzen das Kapitel der Zeile darüber fort."
+    },
+    {
+      "number": 11,
+      "title": "Erzelterngeschichte (Fortsetzung)",
+      "image": "assets/old_testament/slides/bk02-folie-11.png",
+      "text": "22 – Isaaks Bindung, Nachkommen des Nahor\n23 – Saras Tod\n24 – Rebekkas Werbung für Isaak\n25,1-18 – Abrahams 3. Frau Ketura, Abrahams Tod, Stammbaum der Ismaeliter\n25,19-28 – Geburt Jakobs und Esaus\n    29-34 – Verkauf des Erstgeburtrechts\n26 – Gefährdung der Ahnfrau Rebekka\n27,1-45 – Segen Isaaks an Jakob\n27,46 – 28,5 – Verbot der Ehe mit Kanaanäerinnen\n28,6-9 – Esaus Frauen\n    10-22 – Jakobs Traum",
+      "figure": "Fortsetzung der Tabelle ohne Überschrift. Farben: 22 – 25,18 dunkelblau (Abraham), 25,19 – 26 mittelblau (Isaak), ab 27,1 hellblau (Jakob-Esau), vgl. Folie 13."
+    },
+    {
+      "number": 12,
+      "title": "Erzelterngeschichte (Fortsetzung)",
+      "image": "assets/old_testament/slides/bk02-folie-12.png",
+      "text": "29,1-30 – Dienst um Lea und Rahel\n29,31 – 30,24 – Jakobs Kinder\n30,25-43 – Jakobs Wohlstand\n31 – Jakobs Trennung von Laban\n32 – Jakobs Rückkehr, Kampf am Jabbok\n33 – Aussöhnung mit Esau, Altarbau in Sichem\n34 – Blutbad in Sichem\n35,1-15 – Jakobs Zug nach Bet-El\n    16-26 – Geburt Benjamins und Tod Rahels\n    27-29 – Tod Isaaks\n36 – Nachkommen Esaus",
+      "figure": "Fortsetzung der Tabelle ohne Überschrift. Alle Zeilen hellblau (Jakob-Esau) außer 35,27-29 „Tod Isaaks“ in Mittelblau (Isaak), vgl. Folie 13."
+    },
+    {
+      "number": 13,
+      "title": "Inhalt",
+      "image": "assets/old_testament/slides/bk02-folie-13.png",
+      "text": "Inhalt\n• Abraham – Isaak – Jakob-Esau\n• Ursprünglich mal einzelne Geschichten an den unterschiedlichen Kultorten, später zu einem Erzählzusammenhang kombiniert\n• Verheißungen sind wichtig bei den Erzeltern: Segen, Land, Söhne, Nachkommen, Beistand JHWHs\n• Gen 12: Beginn mit Verheißung und Segen\n• Gen 17: erneuter Bundesschluss, diesmal mit Bundeszeichen und Namenswechsel\n• Gen 19: Sodom & Gomorra als Zeichen für Gottes Gerichtswillen\n• Gen 27 ist wichtig für Verständnis des Segens → besondere Rolle des Jakobs als Betrüger\n• Jakobs Kinder → Söhne als Stämme",
+      "highlights": [
+        "Abraham – Isaak – Jakob-Esau"
+      ],
+      "figure": "Die drei Namen der ersten Zeile in drei Blautönen (Abraham dunkel, Isaak mittel, Jakob-Esau hell) – dieselben Farben wie in den Tabellen der Folien 10–12. Lautsprechersymbol oben rechts: Die Präsentation hat eine Tonspur; sie ist im PDF nicht enthalten."
+    },
+    {
+      "number": 14,
+      "title": "Josephsgeschichte",
+      "image": "assets/old_testament/slides/bk02-folie-14.png",
+      "text": "Josephsgeschichte\n37 – Joseph und seine Brüder\n[38 – Juda-Tamar-Geschichte]\n39,1-19 – Joseph bei Potifar\n39,20 – 40 – Joseph im Gefängnis\n41 – Deutung der Träume des Pharaos\n42 – Hungersnot in Kanaan\n43 – 45 – Zweite Reise der Brüder nach Ägypten\n46 – 47 – Jakob reist nach Ägypten\n48 – Jakob segnet Ephraim und Manasse\n49,1-28 – Jakobs Segen: Stammessprüche\n49,29 – 50,14 – Jakobs Tod\n50,15-26 – Aussöhnung der Brüder, Josephs Tod",
+      "figure": "Tabelle: Stelle – Inhalt; die Zeile zu Gen 38 kursiv und in eckigen Klammern."
+    },
+    {
+      "number": 15,
+      "title": "Inhalt",
+      "image": "assets/old_testament/slides/bk02-folie-15.png",
+      "text": "Inhalt\n• Novelle, Weisheitserzählung\n• Eigene Erzählform in sich, die eine geschlossene Geschichte abbildet\n• Erklärt, wie sich ein paradigmatischer Weiser verhält → durch sein Verhalten widerfährt ihm Gutes\n• Führung Gottes zum Guten\n• Erklärt und leitet über zum Beginn des Buches Exodus",
+      "figure": "Lautsprechersymbol oben rechts: Die Präsentation hat eine Tonspur; sie ist im PDF nicht enthalten."
+    },
+    {
+      "number": 16,
+      "title": "Gen 38",
+      "image": "assets/old_testament/slides/bk02-folie-16.png",
+      "text": "Gen 38\n• Juda-Tamar-Geschichte\n• Onan\n• Leviratsehe\n• Verknüpfung zum Buch Rut\n• Stammbaum Jesu",
+      "figure": "Lautsprechersymbol oben rechts: Die Präsentation hat eine Tonspur; sie ist im PDF nicht enthalten."
+    }
+  ],
+  "keyPoints": [
+    {
+      "text": "Der Pentateuch ist der erste Teil der Bibel, in der Lutherbibel die „5 Bücher Mose“; die Wissenschaft gebraucht die griechisch-lateinischen Namen Genesis, Exodus, Leviticus, Numeri, Deuteronomium (Gen, Ex, Lev, Num, Dtn).",
+      "slides": [
+        2,
+        3
+      ]
+    },
+    {
+      "text": "Pentateuch heißt wörtlich „Fünf-Gefäß“ (fünf Rollen); die Hebräische Bibel spricht von der Tora („Weisung“), die LXX übersetzt mit nomos („Gesetz“). Nach der Folie ist Mose nicht der Verfasser, sondern die Hauptperson.",
+      "slides": [
+        3
+      ]
+    },
+    {
+      "text": "Der Pentateuch erzählt vom Beginn der Welt bis zum Beginn der Einwanderung ins Land; sein Mittelpunkt ist Gottes Offenbarung am Sinai. Übergeordneter Rahmen: Führung Israels von Abraham bis zur Landnahme und Empfang des Religionsgesetzes am Sinai.",
+      "slides": [
+        4,
+        5
+      ]
+    },
+    {
+      "text": "Der Aufenthalt am Sinai (Ex 19 – Num 10,10) ist der größte geschlossene narrative Raum; eingebettet sind drei große Rechtstexte: Bundesbuch (Ex 20,22-23,19), Heiligkeitsgesetz (Lev 17-26), deuteronomisches Gesetz (Dtn 12-25).",
+      "slides": [
+        6
+      ]
+    },
+    {
+      "text": "Grobgliederung der Genesis: 1-11 Urgeschichte, 12-36 Erzelterngeschichte (12-25 Abraham, 26(+27) Isaak, 27-36 Jakob), 37-50 Josephsgeschichte – ohne Gen 38, das zur Erzelterngeschichte gehört.",
+      "slides": [
+        7
+      ]
+    },
+    {
+      "text": "Die Urgeschichte ist Prolog zur Geschichte ab Gen 12: viele außerbiblische Parallelen, Dopplungen und Spannungen (zwei Schöpfungsgeschichten, Sintfluterzählung), viele Gattungen; die Toledot gliedern die Genesis; Gen 11,30 ist der Cliffhanger zu den Erzeltern.",
+      "slides": [
+        8,
+        9
+      ]
+    },
+    {
+      "text": "In der Erzelterngeschichte (Abraham – Isaak – Jakob-Esau) sind die Verheißungen zentral: Segen, Land, Söhne, Nachkommen, Beistand JHWHs. Schlüsselstellen: Gen 12 (Verheißung und Segen), Gen 17 (Bundeszeichen, Namenswechsel), Gen 19 (Gericht), Gen 27 (Segen, Jakob als Betrüger).",
+      "slides": [
+        10,
+        11,
+        12,
+        13
+      ]
+    },
+    {
+      "text": "Die Josephsgeschichte ist eine Novelle bzw. Weisheitserzählung über einen paradigmatischen Weisen und Gottes Führung zum Guten; sie leitet zum Buch Exodus über. Gen 38 (Juda und Tamar) verbindet die Folie mit Onan, der Leviratsehe, dem Buch Rut und dem Stammbaum Jesu.",
+      "slides": [
+        14,
+        15,
+        16
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "title": "Der Pentateuch: Namen und Bücher",
+      "slides": [
+        2,
+        3
+      ],
+      "points": [
+        "Der Pentateuch ist der erste Teil der Bibel; in der Lutherbibel heißen die Bücher „5 Bücher Mose“ (1.–5. Buch Mose).",
+        "In der Wissenschaft werden die griechisch-lateinischen Namen gebraucht: Genesis = Schöpfung (Gen), Exodus = Auszug (aus Ägypten) (Ex), Leviticus = Levitische („priesterliche“) Gesetzgebung (Lev), Numeri = Zahlen (der Israeliten) (Num), Deuteronomium = Zweites Gesetz (Dtn).",
+        "Pentateuch heißt wörtlich „Fünf-Gefäß“, d. h. fünf Rollen. Die Hebräische Bibel nennt diesen Teil Tora („Weisung“), die LXX übersetzt mit νόμος (nomos) = „Gesetz“.",
+        "In jüdischer Tradition werden die Bücher nach dem Beginn des ersten Verses benannt.",
+        "Nach der Folie ist Mose nicht der Verfasser, sondern die Hauptperson des Pentateuch."
+      ],
+      "supplement": "Diese Einschätzung entspricht der historisch-kritischen Forschung, ist aber nicht unumstritten: Die jüdische und kirchliche Tradition sah in Mose den Verfasser der fünf Bücher (vgl. die Rede vom „Buch des Mose“ in Mk 12,26 und Joh 5,46), und konservative Ausleger rechnen bis heute mit einem mosaischen Kern. Unbestritten ist: Mose ist die Hauptperson von Exodus bis Deuteronomium."
+    },
+    {
+      "title": "Inhalt und Erzählrahmen des Pentateuch",
+      "slides": [
+        4,
+        5
+      ],
+      "points": [
+        "Werk über die wichtigsten Geschichtstraditionen und Gesetzesüberlieferungen Israels; Sammlung unterschiedlicher Textformen und Erzählzusammenhänge.",
+        "Erzählstrang vom Beginn der Welt bis zum Beginn der Einwanderung der (späteren) Israeliten in ihr Land; Mittelpunkt: Gottes Offenbarung am Sinai.",
+        "Übergeordneter Erzählrahmen: die geschichtliche Führung Israels durch den Gott Israels von Abraham bis zur Landnahme und der Empfang des Religionsgesetzes Israels am Sinai.",
+        "Die Führung Israels beginnt mit Gen 12; Gen 1-11 ist die Urgeschichte. Der Spannungsbogen von Abraham bis zur Landnahme Kanaans reicht über den Pentateuch hinaus bis ins Josuabuch.",
+        "Thema und Erzählmotive: Erzelterngeschichte → Verheißung von Nachkommenschaft, Land und Segen (Gen 12-36 und 38); Josefsgeschichte → Wie kam Israel nach Ägypten? (Gen 37-50); Auszug aus Ägypten → Gott erwählt sein Volk (Ex 1-15); Wüstenwanderung → Motiv des Murrens (Ex 15,22-18,27 und Num 10,11-36,13); Aufenthalt am Sinai → Gott gibt seinem Volk die Tora (Ex 19,1 – Num 10,10); Abschiedsrede des Mose → Mose gibt erneut die Tora bekannt (Dtn 1-30); Tod des Mose (Dtn 31-34)."
+      ],
+      "supplement": "Exodus bis Deuteronomium behandelt die Übung in den folgenden Sitzungen (05.11. und 12.11.2026); hier steht nur, was diese Folien dazu sagen."
+    },
+    {
+      "title": "Empfang des Gesetzes",
+      "slides": [
+        6
+      ],
+      "points": [
+        "Der größte geschlossene narrative Raum im Pentateuch ist der Aufenthalt am Sinai mit der Gesetzesüberlieferung in Ex 19 – Num 10,10.",
+        "Deuteronomium = Gesetzeswiederholung zur Einschärfung, mit sozialer Akzentuierung des Gesetzes Israels.",
+        "In den Pentateuch sind drei große rechtliche Texte eingebettet: das Bundesbuch (Ex 20,22-23,19), das Heiligkeitsgesetz (Lev 17-26) und das deuteronomische Gesetz (Dtn 12-25).",
+        "Gesetzestexte im Alten Orient haben programmatischen Charakter: Sie beschreiben eine Idealität anstelle einer Realität."
+      ]
+    },
+    {
+      "title": "Genesis: Grobgliederung",
+      "slides": [
+        7,
+        10,
+        11,
+        12,
+        13
+      ],
+      "points": [
+        "1-11 Urgeschichte.",
+        "12-36 Erzelterngeschichte, unterteilt in 12-25 Abraham, 26(+27) Isaak und 27-36 Jakob.",
+        "37-50 Josephsgeschichte, ohne Gen 38: Die Juda-Tamar-Geschichte ist Teil der Erzelterngeschichte.",
+        "Die Tabellen der Folien 10–12 färben die Zeilen nach den Erzeltern (Folie 13): dunkelblau Abraham (12,1 – 25,18), mittelblau Isaak (25,19 – 26 und 35,27-29 „Tod Isaaks“), hellblau Jakob-Esau (27,1 – 36)."
+      ],
+      "unclear": "Die Grobgliederung (Folie 7) rechnet Kapitel 25 ganz zu Abraham und Kapitel 27 sowohl zu Isaak („26(+27)“) als auch zu Jakob („27-36“); die Farben der Tabelle beginnen den Isaak-Teil schon bei 25,19 und den Jakob-Teil bei 27,1. Abgefragt wird nur die Grobgliederung."
+    },
+    {
+      "title": "Urgeschichte (Gen 1–11)",
+      "slides": [
+        8,
+        9
+      ],
+      "points": [
+        "Abfolge: 1. Schöpfungsbericht (1,1 – 2,4a), 2. Schöpfungsbericht (2,4b – 3,24), Kain und Abel mit Kainitenstammbaum (4), Stammbaum von Adam bis Noah (5), Engelehen und Göttersöhne (6,1-4), Sintfluterzählung (6,5 – 8,22), Noahbund (9,1-17), Noah im Weinberg und Noahs Söhne (9,18-29), Völkertafel (10), Turmbau zu Babel (11,1-9), Stammbaum von Noah bis Abraham (11,10-26), Übergang zur Erzelterngeschichte (11,27-32).",
+        "Die Urgeschichte ist Prolog zur Vorgeschichte in der Genesis ab Kapitel 12.",
+        "Viele außerbiblische Parallelen.",
+        "Nach der Folie lassen Dopplungen und Spannungen auf unterschiedliche Überlieferungen schließen: zwei verschiedene Schöpfungsgeschichten, eine Sintfluterzählung mit inneren Spannungen.",
+        "Viele unterschiedliche Gattungen; die Genealogien (Toledot) gliedern die Genesis.",
+        "Gen 11,30 ist der Cliffhanger zu den Erzeltern."
+      ],
+      "supplement": "Außerbiblische Parallelen sind etwa die mesopotamischen Flutberichte im Atrahasis-Epos und im Gilgamesch-Epos (Tafel XI). Zu den Dopplungen: Diese Einschätzung entspricht der historisch-kritischen Forschung, ist aber nicht unumstritten: Andere lesen Gen 2 nicht als zweiten, konkurrierenden Bericht, sondern als vertiefende Nahaufnahme der Erschaffung des Menschen, und die Sintfluterzählung als bewusst komponierte Einheit. Die Grenze „2,4a/2,4b“ teilt einen Vers; deine Perikopenliste kennt keine Halbverse und lässt „Die Erschaffung der Welt“ deshalb mit 2,3 enden."
+    },
+    {
+      "title": "Erzelterngeschichte (Gen 12–36)",
+      "slides": [
+        10,
+        11,
+        12,
+        13
+      ],
+      "points": [
+        "Abraham: Verheißung an Abram (12,1-9), Gefährdung der Ahnfrau (12,10-20), Abram und Lot (13–14), Gottes Bund mit Abram (15), Sarai und Hagar (16), Gottes Bund mit Abraham mit Namenswechsel (17), die drei Männer in Mamre (18,1-15), Fürbitte für Sodom (18,16-33), Sodom und Gomorra und Lots Töchter (19), Gefährdung der Ahnfrau (20), Geburt Isaaks und Vertreibung Hagars (21,1-21), Brunnenstreit (21,22-34), Isaaks Bindung und Nachkommen Nahors (22), Saras Tod (23), Rebekkas Werbung für Isaak (24), Ketura, Abrahams Tod und Stammbaum der Ismaeliter (25,1-18).",
+        "Isaak: Geburt Jakobs und Esaus (25,19-28), Verkauf des Erstgeburtsrechts (25,29-34), Gefährdung der Ahnfrau Rebekka (26); Tod Isaaks (35,27-29).",
+        "Jakob(-Esau): Segen Isaaks an Jakob (27,1-45), Verbot der Ehe mit Kanaanäerinnen (27,46 – 28,5), Esaus Frauen (28,6-9), Jakobs Traum (28,10-22), Dienst um Lea und Rahel (29,1-30), Jakobs Kinder (29,31 – 30,24), Jakobs Wohlstand (30,25-43), Trennung von Laban (31), Rückkehr und Kampf am Jabbok (32), Aussöhnung mit Esau und Altarbau in Sichem (33), Blutbad in Sichem (34), Zug nach Bet-El (35,1-15), Geburt Benjamins und Tod Rahels (35,16-26), Nachkommen Esaus (36).",
+        "Nach der Folie ursprünglich einzelne Geschichten an den unterschiedlichen Kultorten, später zu einem Erzählzusammenhang kombiniert.",
+        "Die Verheißungen sind bei den Erzeltern wichtig: Segen, Land, Söhne, Nachkommen, Beistand JHWHs.",
+        "Gen 12: Beginn mit Verheißung und Segen. Gen 17: erneuter Bundesschluss, diesmal mit Bundeszeichen und Namenswechsel. Gen 19: Sodom & Gomorra als Zeichen für Gottes Gerichtswillen. Gen 27: wichtig für das Verständnis des Segens – besondere Rolle Jakobs als Betrüger. Jakobs Kinder: die Söhne als Stämme."
+      ],
+      "unclear": "Folie 10 gibt die erste „Gefährdung der Ahnfrau“ als „10-12“ an. Nach der Abfolge der Tabelle (12,1-9, danach Kapitel 13) ist Gen 12,10-20 gemeint; die App führt die Stelle so, fragt sie aber nicht als Bibelstelle ab.",
+      "supplement": "Bundeszeichen in Gen 17 ist die Beschneidung; Abram wird zu Abraham, Sarai zu Sara (Gen 17,5.15). Die dreifache „Gefährdung der Ahnfrau“ spielt in Ägypten beim Pharao (Gen 12), in Gerar bei Abimelech (Gen 20) und mit Isaak und Rebekka wieder in Gerar (Gen 26). Zur Entstehung aus Einzelgeschichten an Kultorten: Diese Einschätzung entspricht der historisch-kritischen Forschung, ist aber nicht unumstritten: Andere sehen in den Erzelterngeschichten von Anfang an zusammenhängende Familienüberlieferungen."
+    },
+    {
+      "title": "Josephsgeschichte (Gen 37–50)",
+      "slides": [
+        14,
+        15
+      ],
+      "points": [
+        "Abfolge: Joseph und seine Brüder (37), [Juda-Tamar-Geschichte (38)], Joseph bei Potifar (39,1-19), Joseph im Gefängnis (39,20 – 40), Deutung der Träume des Pharaos (41), Hungersnot in Kanaan (42), zweite Reise der Brüder nach Ägypten (43–45), Jakob reist nach Ägypten (46–47), Jakob segnet Ephraim und Manasse (48), Jakobs Segen: Stammessprüche (49,1-28), Jakobs Tod (49,29 – 50,14), Aussöhnung der Brüder und Josephs Tod (50,15-26).",
+        "Gattung: Novelle, Weisheitserzählung – eine eigene Erzählform, die eine geschlossene Geschichte abbildet.",
+        "Sie erklärt, wie sich ein paradigmatischer Weiser verhält: Durch sein Verhalten widerfährt ihm Gutes. Thema ist die Führung Gottes zum Guten.",
+        "Sie erklärt den Beginn des Buches Exodus und leitet zu ihm über."
+      ],
+      "supplement": "Die Führung Gottes zum Guten fasst Joseph selbst in Gen 50,20 zusammen: „Ihr gedachtet es böse mit mir zu machen; aber Gott gedachte es gut zu machen.“ Die Folien schreiben teils „Joseph“, teils „Josef“ (Folie 5); deine Perikopenliste schreibt „Josef“."
+    },
+    {
+      "title": "Gen 38: Juda und Tamar",
+      "slides": [
+        7,
+        14,
+        16
+      ],
+      "points": [
+        "Die Juda-Tamar-Geschichte steht mitten in der Josephsgeschichte, gehört aber zur Erzelterngeschichte.",
+        "Die Folie nennt dazu Onan, die Leviratsehe, die Verknüpfung zum Buch Rut und den Stammbaum Jesu."
+      ],
+      "supplement": "Onan, Judas zweiter Sohn, entzieht sich der Pflicht, mit Tamar, der Witwe seines Bruders, einen Nachkommen zu zeugen (Gen 38,8-10) – das ist der Fall der Leviratsehe (Dtn 25,5-10). Rut: Die Ehe von Boas und Rut folgt einem verwandten Gedanken; Rut 4,12 nennt Perez, den Tamar dem Juda gebar, und der Stammbaum Rut 4,18-22 führt von Perez bis David. Stammbaum Jesu: Mt 1,3 nennt „Juda zeugte Perez und Serah von der Tamar“."
+    }
+  ],
+  "terms": [
+    {
+      "term": "term.pentateuch",
+      "slides": [
+        2,
+        3
+      ],
+      "text": "Der erste Teil der Bibel, in der Lutherbibel bekannt als die „5 Bücher Mose“; Pentateuch = wörtlich: Fünf-Gefäß → fünf Rollen"
+    },
+    {
+      "term": "term.tora",
+      "slides": [
+        3,
+        5
+      ],
+      "text": "Hebräische Bibel → Tora = „Weisung“"
+    },
+    {
+      "term": "term.nomos",
+      "slides": [
+        3
+      ],
+      "text": "LXX übersetzt mit νόμος (nomos) = „Gesetz“"
+    },
+    {
+      "term": "term.septuaginta",
+      "slides": [
+        3
+      ],
+      "text": "LXX übersetzt [Tora] mit νόμος (nomos) = „Gesetz“"
+    },
+    {
+      "term": "term.urgeschichte",
+      "slides": [
+        5,
+        7,
+        8,
+        9
+      ],
+      "text": "Beginn [der Führung Israels] mit Gen 12 → Gen 1-11 = Urgeschichte; Prolog zur Vorgeschichte in der Genesis ab Kapitel 12"
+    },
+    {
+      "term": "term.erzelterngeschichte",
+      "slides": [
+        5,
+        7,
+        10,
+        13
+      ],
+      "text": "Erzelterngeschichte → Verheißung von Nachkommenschaft, Land und Segen (Gen 12-36 und 38); 12-25: Abraham, 26(+27): Isaak, 27-36: Jakob"
+    },
+    {
+      "term": "term.josephsgeschichte",
+      "slides": [
+        5,
+        7,
+        14,
+        15
+      ],
+      "text": "Josefsgeschichte → Wie kam Israel nach Ägypten? (Gen 37-50); ohne 38; Novelle, Weisheitserzählung"
+    },
+    {
+      "term": "term.toledot",
+      "slides": [
+        9
+      ],
+      "text": "Genealogien – Toledot → Gliedern die Genesis"
+    },
+    {
+      "term": "term.bundesbuch",
+      "slides": [
+        6
+      ],
+      "text": "Das Bundesbuch (Ex 20,22-23,19)"
+    },
+    {
+      "term": "term.heiligkeitsgesetz",
+      "slides": [
+        6
+      ],
+      "text": "Das Heiligkeitsgesetz (Lev 17-26)"
+    },
+    {
+      "term": "term.deuteronomisches_gesetz",
+      "slides": [
+        6
+      ],
+      "text": "Das deuteronomische Gesetz (Dtn 12-25)"
+    },
+    {
+      "term": "term.leviratsehe",
+      "slides": [
+        16
+      ],
+      "text": "Gen 38: Juda-Tamar-Geschichte – Onan – Leviratsehe"
+    }
+  ],
+  "passages": [
+    {
+      "id": "passage.bk02.gen_1_11",
+      "label": "Gen 1-11",
+      "slides": [
+        5,
+        7
+      ],
+      "context": "Grobgliederung: Urgeschichte. Nach Folie 5 beginnt die Führung Israels erst mit Gen 12; Gen 1-11 ist die Urgeschichte.",
+      "clue": "Urgeschichte (Grobgliederung der Genesis)"
+    },
+    {
+      "id": "passage.bk02.gen_12_36",
+      "label": "Gen 12-36",
+      "slides": [
+        5,
+        7
+      ],
+      "context": "Grobgliederung: Erzelterngeschichte (Abraham, Isaak, Jakob); dazu gehört auch Gen 38. Thema nach Folie 5: Verheißung von Nachkommenschaft, Land und Segen.",
+      "clue": "Erzelterngeschichte – ohne das Kapitel, das in der Josephsgeschichte steht (Grobgliederung)"
+    },
+    {
+      "id": "passage.bk02.gen_12_25",
+      "label": "Gen 12-25",
+      "slides": [
+        7
+      ],
+      "context": "Grobgliederung der Erzelterngeschichte: Abraham.",
+      "clue": "Abraham (Unterteilung der Erzelterngeschichte in der Grobgliederung)"
+    },
+    {
+      "id": "passage.bk02.gen_27_36",
+      "label": "Gen 27-36",
+      "slides": [
+        7
+      ],
+      "context": "Grobgliederung der Erzelterngeschichte: Jakob.",
+      "clue": "Jakob (Unterteilung der Erzelterngeschichte in der Grobgliederung)"
+    },
+    {
+      "id": "passage.bk02.gen_37_50",
+      "label": "Gen 37-50",
+      "slides": [
+        5,
+        7
+      ],
+      "context": "Grobgliederung: Josephsgeschichte, ohne Gen 38 (Teil der Erzelterngeschichte). Nach Folie 5 beantwortet sie die Frage: Wie kam Israel nach Ägypten?",
+      "clue": "Josephsgeschichte (Grobgliederung; Gen 38 gehört nicht dazu)"
+    },
+    {
+      "id": "passage.bk02.ex_1_15",
+      "label": "Ex 1-15",
+      "slides": [
+        5
+      ],
+      "context": "Erzählmotiv: Auszug aus Ägypten → Gott erwählt sein Volk.",
+      "clue": "Auszug aus Ägypten: Gott erwählt sein Volk"
+    },
+    {
+      "id": "passage.bk02.ex_15_22_18_27",
+      "label": "Ex 15,22-18,27",
+      "slides": [
+        5
+      ],
+      "context": "Erzählmotiv: Wüstenwanderung → Motiv des Murrens (erster Teil, vor dem Sinai).",
+      "clue": "Wüstenwanderung mit dem Motiv des Murrens – der Teil im Buch Exodus"
+    },
+    {
+      "id": "passage.bk02.num_10_11_36_13",
+      "label": "Num 10,11-36,13",
+      "slides": [
+        5
+      ],
+      "context": "Erzählmotiv: Wüstenwanderung → Motiv des Murrens (zweiter Teil, nach dem Sinai).",
+      "clue": "Wüstenwanderung mit dem Motiv des Murrens – der Teil im Buch Numeri"
+    },
+    {
+      "id": "passage.bk02.ex_19_1_num_10_10",
+      "label": "Ex 19,1-Num 10,10",
+      "open": "Ex 19",
+      "slides": [
+        5,
+        6
+      ],
+      "context": "Erzählmotiv: Aufenthalt am Sinai → Gott gibt seinem Volk die Tora. Nach Folie 6 der größte geschlossene narrative Raum im Pentateuch.",
+      "clue": "Aufenthalt am Sinai: Gott gibt seinem Volk die Tora"
+    },
+    {
+      "id": "passage.bk02.dtn_1_30",
+      "label": "Dtn 1-30",
+      "slides": [
+        5
+      ],
+      "context": "Erzählmotiv: Abschiedsrede des Mose → Mose gibt erneut die Tora bekannt.",
+      "clue": "Abschiedsrede des Mose: Mose gibt erneut die Tora bekannt"
+    },
+    {
+      "id": "passage.bk02.dtn_31_34",
+      "label": "Dtn 31-34",
+      "slides": [
+        5
+      ],
+      "context": "Erzählmotiv: Tod des Mose.",
+      "clue": "Tod des Mose"
+    },
+    {
+      "id": "passage.bk02.ex_20_22_23_19",
+      "label": "Ex 20,22-23,19",
+      "slides": [
+        6
+      ],
+      "context": "Das Bundesbuch – einer der drei großen rechtlichen Texte im Pentateuch.",
+      "clue": "Das Bundesbuch"
+    },
+    {
+      "id": "passage.bk02.lev_17_26",
+      "label": "Lev 17-26",
+      "slides": [
+        6
+      ],
+      "context": "Das Heiligkeitsgesetz – einer der drei großen rechtlichen Texte im Pentateuch.",
+      "clue": "Das Heiligkeitsgesetz"
+    },
+    {
+      "id": "passage.bk02.dtn_12_25",
+      "label": "Dtn 12-25",
+      "slides": [
+        6
+      ],
+      "context": "Das deuteronomische Gesetz – einer der drei großen rechtlichen Texte im Pentateuch.",
+      "clue": "Das deuteronomische Gesetz"
+    },
+    {
+      "id": "passage.bk02.gen_1_1_2_4a",
+      "label": "Gen 1,1-2,4a",
+      "open": "Gen 1,1-2,4",
+      "slides": [
+        8
+      ],
+      "context": "1. Schöpfungsbericht.",
+      "clue": "1. Schöpfungsbericht",
+      "pericopes": [
+        "Gen|die_erschaffung_der_welt|1,1"
+      ]
+    },
+    {
+      "id": "passage.bk02.gen_2_4b_3_24",
+      "label": "Gen 2,4b-3,24",
+      "open": "Gen 2,4-3,24",
+      "slides": [
+        8
+      ],
+      "context": "2. Schöpfungsbericht.",
+      "clue": "2. Schöpfungsbericht",
+      "pericopes": [
+        "Gen|das_paradies|2,4",
+        "Gen|der_fall_des_menschen|3,1"
+      ]
+    },
+    {
+      "id": "passage.bk02.gen_4",
+      "label": "Gen 4",
+      "slides": [
+        8
+      ],
+      "context": "Kain und Abel, Kainitenstammbaum.",
+      "clue": "Kain und Abel, Kainitenstammbaum",
+      "pericopes": [
+        "Gen|kain_und_abel|4,1",
+        "Gen|die_nachkommen_kains|4,17",
+        "Gen|die_nachkommen_sets|4,25"
+      ]
+    },
+    {
+      "id": "passage.bk02.gen_5",
+      "label": "Gen 5",
+      "slides": [
+        8
+      ],
+      "context": "Stammbaum von Adam bis Noah.",
+      "clue": "Stammbaum von Adam bis Noah",
+      "pericopes": [
+        "Gen|adam_bis_noah|5,1"
+      ]
+    },
+    {
+      "id": "passage.bk02.gen_6_1_4",
+      "label": "Gen 6,1-4",
+      "slides": [
+        8
+      ],
+      "context": "Engelehen und Göttersöhne.",
+      "clue": "Engelehen und Göttersöhne",
+      "pericopes": [
+        "Gen|die_bosheit_der_menschen|6,1"
+      ]
+    },
+    {
+      "id": "passage.bk02.gen_6_5_8_22",
+      "label": "Gen 6,5-8,22",
+      "slides": [
+        8,
+        9
+      ],
+      "context": "Sintfluterzählung. Nach Folie 9 eine Erzählung mit inneren Spannungen.",
+      "clue": "Sintfluterzählung",
+      "pericopes": [
+        "Gen|die_bosheit_der_menschen|6,1",
+        "Gen|die_bosheit_der_menschen|6,9",
+        "Gen|die_grosse_flut|7,1",
+        "Gen|noahs_opfer|8,1"
+      ]
+    },
+    {
+      "id": "passage.bk02.gen_9_1_17",
+      "label": "Gen 9,1-17",
+      "slides": [
+        8
+      ],
+      "context": "Noahbund.",
+      "clue": "Noahbund",
+      "pericopes": [
+        "Gen|gottes_bund_mit_noach|9,1"
+      ]
+    },
+    {
+      "id": "passage.bk02.gen_9_18_29",
+      "label": "Gen 9,18-29",
+      "slides": [
+        8
+      ],
+      "context": "Noah im Weinberg, Noahs Söhne.",
+      "clue": "Noah im Weinberg, Noahs Söhne",
+      "pericopes": [
+        "Gen|noachs_fluch_und_segen|9,18"
+      ]
+    },
+    {
+      "id": "passage.bk02.gen_10",
+      "label": "Gen 10",
+      "slides": [
+        8
+      ],
+      "context": "Völkertafel.",
+      "clue": "Völkertafel",
+      "pericopes": [
+        "Gen|die_nachkommen_noachs_voelkertafel|10,1"
+      ]
+    },
+    {
+      "id": "passage.bk02.gen_11_1_9",
+      "label": "Gen 11,1-9",
+      "slides": [
+        8
+      ],
+      "context": "Turmbau zu Babel.",
+      "clue": "Turmbau zu Babel",
+      "pericopes": [
+        "Gen|der_turmbau_zu_babel|11,1"
+      ]
+    },
+    {
+      "id": "passage.bk02.gen_11_10_26",
+      "label": "Gen 11,10-26",
+      "slides": [
+        8
+      ],
+      "context": "Stammbaum von Noah bis Abraham.",
+      "clue": "Stammbaum von Noah bis Abraham",
+      "pericopes": [
+        "Gen|die_vorfahren_abrahams|11,10"
+      ]
+    },
+    {
+      "id": "passage.bk02.gen_11_27_32",
+      "label": "Gen 11,27-32",
+      "slides": [
+        8
+      ],
+      "context": "Übergang zur Erzelterngeschichte.",
+      "clue": "Übergang zur Erzelterngeschichte (Ende der Urgeschichte)",
+      "pericopes": [
+        "Gen|die_vorfahren_abrahams|11,10"
+      ]
+    },
+    {
+      "id": "passage.bk02.gen_11_30",
+      "label": "Gen 11,30",
+      "slides": [
+        9
+      ],
+      "context": "Nach Folie 9 der Cliffhanger zu den Erzeltern. Ergänzung: Der Vers sagt, dass Sarai unfruchtbar ist und kein Kind hat – unmittelbar bevor Gott Abram in Gen 12 Nachkommen verheißt.",
+      "clue": "Cliffhanger zu den Erzeltern",
+      "pericopes": [
+        "Gen|die_vorfahren_abrahams|11,10"
+      ]
+    },
+    {
+      "id": "passage.bk02.gen_12_1_9",
+      "label": "Gen 12,1-9",
+      "slides": [
+        10,
+        13
+      ],
+      "context": "Verheißung an Abram. Nach Folie 13 beginnt Gen 12 mit Verheißung und Segen.",
+      "clue": "Verheißung an Abram",
+      "pericopes": [
+        "Gen|abrahams_berufung_und_wanderung_nach_kanaan|12,1"
+      ]
+    },
+    {
+      "id": "passage.bk02.gen_12_10_20",
+      "label": "Gen 12,10-20",
+      "slides": [
+        10
+      ],
+      "context": "Gefährdung der Ahnfrau (erstes Vorkommen). Die Folie schreibt „10-12“; gemeint ist nach der Abfolge der Tabelle (12,1-9, danach Kapitel 13) Gen 12,10-20.",
+      "pericopes": [
+        "Gen|abraham_und_sara_in_aegypten|12,10"
+      ]
+    },
+    {
+      "id": "passage.bk02.gen_13_14",
+      "label": "Gen 13-14",
+      "slides": [
+        10
+      ],
+      "context": "Abram und Lot.",
+      "clue": "Abram und Lot",
+      "pericopes": [
+        "Gen|abraham_und_lot|13,1",
+        "Gen|gottes_verheissung_an_abraham|13,14",
+        "Gen|abraham_und_melchisedek|14,1"
+      ]
+    },
+    {
+      "id": "passage.bk02.gen_15",
+      "label": "Gen 15",
+      "slides": [
+        10
+      ],
+      "context": "Gottes Bund mit Abram (der erste Bundesschluss; vgl. Gen 17).",
+      "clue": "Gottes Bund mit Abram – der erste Bundesschluss, noch ohne Namenswechsel",
+      "pericopes": [
+        "Gen|gottes_bund_mit_abraham|15,1"
+      ]
+    },
+    {
+      "id": "passage.bk02.gen_16",
+      "label": "Gen 16",
+      "slides": [
+        10
+      ],
+      "context": "Sarai und Hagar.",
+      "clue": "Sarai und Hagar",
+      "pericopes": [
+        "Gen|ismaels_geburt|16,1"
+      ]
+    },
+    {
+      "id": "passage.bk02.gen_17",
+      "label": "Gen 17",
+      "slides": [
+        10,
+        13
+      ],
+      "context": "Gottes Bund mit Abraham (Namenswechsel). Nach Folie 13 ein erneuter Bundesschluss, diesmal mit Bundeszeichen und Namenswechsel.",
+      "clue": "Gottes Bund mit Abraham: erneuter Bundesschluss mit Bundeszeichen und Namenswechsel",
+      "pericopes": [
+        "Gen|die_beschneidung_als_bundeszeichen|17,1"
+      ]
+    },
+    {
+      "id": "passage.bk02.gen_18_1_15",
+      "label": "Gen 18,1-15",
+      "slides": [
+        10
+      ],
+      "context": "Die drei Männer bei Abraham in Mamre.",
+      "clue": "Die drei Männer bei Abraham in Mamre",
+      "pericopes": [
+        "Gen|gott_zu_gast_bei_abraham|18,1"
+      ]
+    },
+    {
+      "id": "passage.bk02.gen_18_16_33",
+      "label": "Gen 18,16-33",
+      "slides": [
+        10
+      ],
+      "context": "Fürbitte Abrahams für Sodom.",
+      "clue": "Fürbitte Abrahams für Sodom",
+      "pericopes": [
+        "Gen|gott_zu_gast_bei_abraham|18,1"
+      ]
+    },
+    {
+      "id": "passage.bk02.gen_19",
+      "label": "Gen 19",
+      "slides": [
+        10,
+        13
+      ],
+      "context": "Sodom und Gomorra, Lots Töchter. Nach Folie 13 ist Sodom & Gomorra Zeichen für Gottes Gerichtswillen.",
+      "clue": "Sodom und Gomorra, Lots Töchter",
+      "pericopes": [
+        "Gen|das_gericht_ueber_sodom_und_die_rettung_lots|19,1",
+        "Gen|die_stammvaeter_der_moabiter_und_ammoniter|19,30"
+      ]
+    },
+    {
+      "id": "passage.bk02.gen_20",
+      "label": "Gen 20",
+      "slides": [
+        10
+      ],
+      "context": "Gefährdung der Ahnfrau (zweites Vorkommen).",
+      "clue": "Gefährdung der Ahnfrau – das Vorkommen nach Sodom und Gomorra, vor der Geburt Isaaks",
+      "pericopes": [
+        "Gen|abraham_in_gerar|20,1"
+      ]
+    },
+    {
+      "id": "passage.bk02.gen_21_1_21",
+      "label": "Gen 21,1-21",
+      "slides": [
+        10
+      ],
+      "context": "Geburt Isaaks, Vertreibung Hagars.",
+      "clue": "Geburt Isaaks, Vertreibung Hagars",
+      "pericopes": [
+        "Gen|isaaks_geburt|21,1",
+        "Gen|hagar_und_ismael|21,8"
+      ]
+    },
+    {
+      "id": "passage.bk02.gen_21_22_34",
+      "label": "Gen 21,22-34",
+      "slides": [
+        10
+      ],
+      "context": "Brunnenstreit.",
+      "clue": "Brunnenstreit",
+      "pericopes": [
+        "Gen|der_vertrag_abrahams_mit_abimelech|21,22"
+      ]
+    },
+    {
+      "id": "passage.bk02.gen_22",
+      "label": "Gen 22",
+      "slides": [
+        11
+      ],
+      "context": "Isaaks Bindung, Nachkommen des Nahor.",
+      "clue": "Isaaks Bindung, Nachkommen des Nahor",
+      "pericopes": [
+        "Gen|abrahams_opfer|22,1",
+        "Gen|abrahams_verwandtschaft|22,20"
+      ]
+    },
+    {
+      "id": "passage.bk02.gen_23",
+      "label": "Gen 23",
+      "slides": [
+        11
+      ],
+      "context": "Saras Tod.",
+      "clue": "Saras Tod",
+      "pericopes": [
+        "Gen|saras_tod_und_grabstaette|23,1"
+      ]
+    },
+    {
+      "id": "passage.bk02.gen_24",
+      "label": "Gen 24",
+      "slides": [
+        11
+      ],
+      "context": "Rebekkas Werbung für Isaak.",
+      "clue": "Rebekkas Werbung für Isaak",
+      "pericopes": [
+        "Gen|isaak_und_rebekka|24,1"
+      ]
+    },
+    {
+      "id": "passage.bk02.gen_25_1_18",
+      "label": "Gen 25,1-18",
+      "slides": [
+        11
+      ],
+      "context": "Abrahams 3. Frau Ketura, Abrahams Tod, Stammbaum der Ismaeliter.",
+      "clue": "Abrahams 3. Frau Ketura, Abrahams Tod, Stammbaum der Ismaeliter",
+      "pericopes": [
+        "Gen|die_nachkommen_abrahams|25,1",
+        "Gen|abrahams_tod_und_begraebnis|25,7",
+        "Gen|der_stammbaum_der_ismaeliter|25,12"
+      ]
+    },
+    {
+      "id": "passage.bk02.gen_25_19_28",
+      "label": "Gen 25,19-28",
+      "slides": [
+        11
+      ],
+      "context": "Geburt Jakobs und Esaus.",
+      "clue": "Geburt Jakobs und Esaus",
+      "pericopes": [
+        "Gen|geburt_esaus_und_jakobs|25,19",
+        "Gen|verkauf_des_erstgeburtsrechts_an_jakob|25,27"
+      ]
+    },
+    {
+      "id": "passage.bk02.gen_25_29_34",
+      "label": "Gen 25,29-34",
+      "slides": [
+        11
+      ],
+      "context": "Verkauf des Erstgeburtsrechts (Folie: „Erstgeburtrechts“).",
+      "clue": "Verkauf des Erstgeburtsrechts",
+      "pericopes": [
+        "Gen|verkauf_des_erstgeburtsrechts_an_jakob|25,27"
+      ]
+    },
+    {
+      "id": "passage.bk02.gen_26",
+      "label": "Gen 26",
+      "slides": [
+        11
+      ],
+      "context": "Gefährdung der Ahnfrau Rebekka (drittes Vorkommen).",
+      "clue": "Gefährdung der Ahnfrau Rebekka",
+      "pericopes": [
+        "Gen|isaak_in_gerar|26,1",
+        "Gen|isaak_in_beerscheba|26,23"
+      ]
+    },
+    {
+      "id": "passage.bk02.gen_27_1_45",
+      "label": "Gen 27,1-45",
+      "slides": [
+        11,
+        13
+      ],
+      "context": "Segen Isaaks an Jakob. Nach Folie 13 wichtig für das Verständnis des Segens; besondere Rolle Jakobs als Betrüger.",
+      "clue": "Segen Isaaks an Jakob",
+      "pericopes": [
+        "Gen|der_erstgeburtssegen|27,1",
+        "Gen|jakobs_flucht_nach_haran|27,41"
+      ]
+    },
+    {
+      "id": "passage.bk02.gen_27_46_28_5",
+      "label": "Gen 27,46-28,5",
+      "slides": [
+        11
+      ],
+      "context": "Verbot der Ehe mit Kanaanäerinnen.",
+      "clue": "Verbot der Ehe mit Kanaanäerinnen",
+      "pericopes": [
+        "Gen|jakobs_flucht_nach_haran|27,41"
+      ]
+    },
+    {
+      "id": "passage.bk02.gen_28_6_9",
+      "label": "Gen 28,6-9",
+      "slides": [
+        11
+      ],
+      "context": "Esaus Frauen.",
+      "clue": "Esaus Frauen",
+      "pericopes": [
+        "Gen|jakobs_flucht_nach_haran|27,41"
+      ]
+    },
+    {
+      "id": "passage.bk02.gen_28_10_22",
+      "label": "Gen 28,10-22",
+      "slides": [
+        11
+      ],
+      "context": "Jakobs Traum.",
+      "clue": "Jakobs Traum",
+      "pericopes": [
+        "Gen|jakobs_flucht_nach_haran|27,41"
+      ]
+    },
+    {
+      "id": "passage.bk02.gen_29_1_30",
+      "label": "Gen 29,1-30",
+      "slides": [
+        12
+      ],
+      "context": "Dienst um Lea und Rahel.",
+      "clue": "Dienst um Lea und Rahel",
+      "pericopes": [
+        "Gen|jakobs_frauen_und_soehne|29,1"
+      ]
+    },
+    {
+      "id": "passage.bk02.gen_29_31_30_24",
+      "label": "Gen 29,31-30,24",
+      "slides": [
+        12,
+        13
+      ],
+      "context": "Jakobs Kinder. Nach Folie 13 stehen Jakobs Söhne für die Stämme.",
+      "clue": "Jakobs Kinder",
+      "pericopes": [
+        "Gen|jakobs_frauen_und_soehne|29,1"
+      ]
+    },
+    {
+      "id": "passage.bk02.gen_30_25_43",
+      "label": "Gen 30,25-43",
+      "slides": [
+        12
+      ],
+      "context": "Jakobs Wohlstand.",
+      "clue": "Jakobs Wohlstand",
+      "pericopes": [
+        "Gen|jakobs_list_gegen_laban|30,25"
+      ]
+    },
+    {
+      "id": "passage.bk02.gen_31",
+      "label": "Gen 31",
+      "slides": [
+        12
+      ],
+      "context": "Jakobs Trennung von Laban.",
+      "clue": "Jakobs Trennung von Laban",
+      "pericopes": [
+        "Gen|jakobs_trennung_von_laban|31,1"
+      ]
+    },
+    {
+      "id": "passage.bk02.gen_32",
+      "label": "Gen 32",
+      "slides": [
+        12
+      ],
+      "context": "Jakobs Rückkehr, Kampf am Jabbok.",
+      "clue": "Jakobs Rückkehr, Kampf am Jabbok",
+      "pericopes": [
+        "Gen|die_boten_und_geschenke_fuer_esau|32,1",
+        "Gen|jakobs_kampf_mit_gott|32,23"
+      ]
+    },
+    {
+      "id": "passage.bk02.gen_33",
+      "label": "Gen 33",
+      "slides": [
+        12
+      ],
+      "context": "Aussöhnung mit Esau, Altarbau in Sichem.",
+      "clue": "Aussöhnung mit Esau, Altarbau in Sichem",
+      "pericopes": [
+        "Gen|jakobs_versoehnung_mit_esau|33,1"
+      ]
+    },
+    {
+      "id": "passage.bk02.gen_34",
+      "label": "Gen 34",
+      "slides": [
+        12
+      ],
+      "context": "Blutbad in Sichem.",
+      "clue": "Blutbad in Sichem",
+      "pericopes": [
+        "Gen|die_rache_der_jakobssoehne_an_den_sichemiten|34,1"
+      ]
+    },
+    {
+      "id": "passage.bk02.gen_35_1_15",
+      "label": "Gen 35,1-15",
+      "slides": [
+        12
+      ],
+      "context": "Jakobs Zug nach Bet-El.",
+      "clue": "Jakobs Zug nach Bet-El",
+      "pericopes": [
+        "Gen|jakob_wieder_in_betel|35,1"
+      ]
+    },
+    {
+      "id": "passage.bk02.gen_35_16_26",
+      "label": "Gen 35,16-26",
+      "slides": [
+        12
+      ],
+      "context": "Geburt Benjamins und Tod Rahels.",
+      "clue": "Geburt Benjamins und Tod Rahels",
+      "pericopes": [
+        "Gen|benjamins_geburt_und_rahels_tod|35,16",
+        "Gen|die_soehne_jakobs_und_der_tod_isaaks|35,21"
+      ]
+    },
+    {
+      "id": "passage.bk02.gen_35_27_29",
+      "label": "Gen 35,27-29",
+      "slides": [
+        12
+      ],
+      "context": "Tod Isaaks (auf der Folie in der Farbe Isaaks).",
+      "clue": "Tod Isaaks",
+      "pericopes": [
+        "Gen|die_soehne_jakobs_und_der_tod_isaaks|35,21"
+      ]
+    },
+    {
+      "id": "passage.bk02.gen_36",
+      "label": "Gen 36",
+      "slides": [
+        12
+      ],
+      "context": "Nachkommen Esaus.",
+      "clue": "Nachkommen Esaus",
+      "pericopes": [
+        "Gen|die_nachkommen_esaus|36,1"
+      ]
+    },
+    {
+      "id": "passage.bk02.gen_37",
+      "label": "Gen 37",
+      "slides": [
+        14
+      ],
+      "context": "Joseph und seine Brüder.",
+      "clue": "Joseph und seine Brüder",
+      "pericopes": [
+        "Gen|josef_und_seine_brueder|37,1"
+      ]
+    },
+    {
+      "id": "passage.bk02.gen_38",
+      "label": "Gen 38",
+      "slides": [
+        14,
+        7,
+        16
+      ],
+      "context": "Juda-Tamar-Geschichte. Steht in der Josephsgeschichte, gehört nach Folie 7 aber zur Erzelterngeschichte (auf Folie 14 in eckigen Klammern).",
+      "clue": "Juda-Tamar-Geschichte",
+      "pericopes": [
+        "Gen|die_familiengeschichte_judas|38,1"
+      ]
+    },
+    {
+      "id": "passage.bk02.gen_39_1_19",
+      "label": "Gen 39,1-19",
+      "slides": [
+        14
+      ],
+      "context": "Joseph bei Potifar.",
+      "clue": "Joseph bei Potifar",
+      "pericopes": [
+        "Gen|josef_als_sklave_in_aegypten|39,1"
+      ]
+    },
+    {
+      "id": "passage.bk02.gen_39_20_40_23",
+      "label": "Gen 39,20-40,23",
+      "slides": [
+        14
+      ],
+      "context": "Joseph im Gefängnis (Folie: „39,20 – 40“, also bis zum Ende von Kapitel 40).",
+      "clue": "Joseph im Gefängnis",
+      "pericopes": [
+        "Gen|josef_als_sklave_in_aegypten|39,1",
+        "Gen|josef_im_gefaengnis|39,22"
+      ]
+    },
+    {
+      "id": "passage.bk02.gen_41",
+      "label": "Gen 41",
+      "slides": [
+        14
+      ],
+      "context": "Deutung der Träume des Pharaos.",
+      "clue": "Deutung der Träume des Pharaos",
+      "pericopes": [
+        "Gen|der_traum_des_pharao_und_seine_deutung|41,1",
+        "Gen|josefs_macht_ueber_aegypten|41,37"
+      ]
+    },
+    {
+      "id": "passage.bk02.gen_42",
+      "label": "Gen 42",
+      "slides": [
+        14
+      ],
+      "context": "Hungersnot in Kanaan.",
+      "clue": "Hungersnot in Kanaan",
+      "pericopes": [
+        "Gen|die_erste_reise_der_brueder_josefs_nach_aegypten|42,1"
+      ]
+    },
+    {
+      "id": "passage.bk02.gen_43_45",
+      "label": "Gen 43-45",
+      "slides": [
+        14
+      ],
+      "context": "Zweite Reise der Brüder nach Ägypten.",
+      "clue": "Zweite Reise der Brüder nach Ägypten",
+      "pericopes": [
+        "Gen|die_zweite_reise_der_brueder_josefs_nach_aegypten|43,1",
+        "Gen|gen_44|44,1",
+        "Gen|josef_gibt_sich_seinen_bruedern_zu_erkennen|45,1"
+      ]
+    },
+    {
+      "id": "passage.bk02.gen_46_47",
+      "label": "Gen 46-47",
+      "slides": [
+        14
+      ],
+      "context": "Jakob reist nach Ägypten.",
+      "clue": "Jakob reist nach Ägypten",
+      "pericopes": [
+        "Gen|jakobs_familie_in_aegypten|46,1",
+        "Gen|josefs_verwaltung_in_aegypten|47,13",
+        "Gen|jakobs_letzter_wille|47,27"
+      ]
+    },
+    {
+      "id": "passage.bk02.gen_48",
+      "label": "Gen 48",
+      "slides": [
+        14
+      ],
+      "context": "Jakob segnet Ephraim und Manasse.",
+      "clue": "Jakob segnet Ephraim und Manasse",
+      "pericopes": [
+        "Gen|jakobs_segen_ueber_ephrain_und_manasse|48,1"
+      ]
+    },
+    {
+      "id": "passage.bk02.gen_49_1_28",
+      "label": "Gen 49,1-28",
+      "slides": [
+        14
+      ],
+      "context": "Jakobs Segen: Stammessprüche.",
+      "clue": "Jakobs Segen: Stammessprüche",
+      "pericopes": [
+        "Gen|der_segen_jakobs|49,1",
+        "Gen|jakobs_tod_und_begraebnis|49,28"
+      ]
+    },
+    {
+      "id": "passage.bk02.gen_49_29_50_14",
+      "label": "Gen 49,29-50,14",
+      "slides": [
+        14
+      ],
+      "context": "Jakobs Tod.",
+      "clue": "Jakobs Tod",
+      "pericopes": [
+        "Gen|jakobs_tod_und_begraebnis|49,28",
+        "Gen|josefs_letzte_lebensjahre_und_sein_tod|50,14"
+      ]
+    },
+    {
+      "id": "passage.bk02.gen_50_15_26",
+      "label": "Gen 50,15-26",
+      "slides": [
+        14
+      ],
+      "context": "Aussöhnung der Brüder, Josephs Tod.",
+      "clue": "Aussöhnung der Brüder, Josephs Tod",
+      "pericopes": [
+        "Gen|josefs_letzte_lebensjahre_und_sein_tod|50,14"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "text": "Die Josephsgeschichte erklärt, wie Israel nach Ägypten kam, und leitet zum Beginn des Buches Exodus über.",
+      "slides": [
+        5,
+        15
+      ]
+    },
+    {
+      "text": "Gen 38 gehört zur Erzelterngeschichte, obwohl es in der Josephsgeschichte steht, und ist mit dem Buch Rut und dem Stammbaum Jesu verknüpft.",
+      "slides": [
+        7,
+        16
+      ]
+    },
+    {
+      "text": "Die Verheißungen an die Erzeltern (Nachkommen, Land, Segen) tragen den Spannungsbogen von Abraham bis zur Landnahme, der über den Pentateuch hinaus ins Josuabuch reicht.",
+      "slides": [
+        5,
+        13
+      ]
+    },
+    {
+      "text": "Gen 11,30 (Cliffhanger) und Gen 12 (Verheißung und Segen) verbinden Urgeschichte und Erzelterngeschichte.",
+      "slides": [
+        9,
+        13
+      ]
+    },
+    {
+      "text": "Der Erzählbogen der Hebräischen Bibel aus Sitzung 1 (Schöpfung, Urgeschichte und Erzeltern in Gen; Ägyptenaufenthalt und Auszug in Ex; Wüstenwanderung und Gesetzgebung in Ex bis Dtn; Inbesitznahme des Landes in Jos) wird hier für den Pentateuch genauer.",
+      "supplement": true
+    },
+    {
+      "text": "Deine Perikopenliste teilt die Genesis meist feiner als die Folie. Unter „Begriffe und Stellen“ steht bei jeder Folienzeile, welche Perikopen deiner Liste sie umfasst; „Bücher systematisch lernen“ gliedert die Genesis nach der Grobgliederung der Folie.",
+      "supplement": true
+    }
+  ],
+  "lists": [
+    {
+      "id": "list.bk02.buecher_mose",
+      "title": "Die fünf Bücher Mose",
+      "prompt": "Nenne die fünf Bücher Mose in ihrer Reihenfolge mit wissenschaftlichem Namen, Abkürzung und Bedeutung des Namens.",
+      "slides": [
+        2,
+        3
+      ],
+      "ordered": true,
+      "items": [
+        "Genesis",
+        "Exodus",
+        "Leviticus",
+        "Numeri",
+        "Deuteronomium"
+      ],
+      "details": [
+        "1. Buch Mose; Gen; „Schöpfung“",
+        "2. Buch Mose; Ex; „Auszug (aus Ägypten)“",
+        "3. Buch Mose; Lev; „Levitische (priesterliche) Gesetzgebung“",
+        "4. Buch Mose; Num; „Zahlen (der Israeliten)“",
+        "5. Buch Mose; Dtn; „Zweites Gesetz“"
+      ]
+    },
+    {
+      "id": "list.bk02.erzaehlrahmen",
+      "title": "Übergeordneter Erzählrahmen des Pentateuch",
+      "prompt": "Nenne die beiden Stränge des übergeordneten Erzählrahmens des Pentateuch.",
+      "slides": [
+        4
+      ],
+      "items": [
+        "Geschichtliche Führung Israels durch den Gott Israels von Abraham bis zur Landnahme",
+        "Empfang des Religionsgesetzes Israels am Sinai"
+      ]
+    },
+    {
+      "id": "list.bk02.erzaehlmotive",
+      "title": "Thema und Erzählmotive des Pentateuch",
+      "prompt": "Nenne die Teile des Pentateuch mit ihrem Thema bzw. Erzählmotiv in der Reihenfolge der Folie.",
+      "slides": [
+        5
+      ],
+      "ordered": true,
+      "items": [
+        "Erzelterngeschichte",
+        "Josefsgeschichte",
+        "Auszug aus Ägypten",
+        "Wüstenwanderung",
+        "Aufenthalt am Sinai",
+        "Abschiedsrede des Mose",
+        "Tod des Mose"
+      ],
+      "details": [
+        "Verheißung von Nachkommenschaft, Land und Segen; Gen 12-36 und 38",
+        "Wie kam Israel nach Ägypten?; Gen 37-50",
+        "Gott erwählt sein Volk; Ex 1-15",
+        "Motiv des Murrens; Ex 15,22-18,27 und Num 10,11-36,13",
+        "Gott gibt seinem Volk die Tora; Ex 19,1 – Num 10,10",
+        "Mose gibt erneut die Tora bekannt; Dtn 1-30",
+        "Dtn 31-34"
+      ]
+    },
+    {
+      "id": "list.bk02.rechtstexte",
+      "title": "Die drei großen rechtlichen Texte im Pentateuch",
+      "prompt": "Nenne die drei großen rechtlichen Texte, die in den Pentateuch eingebettet sind, in ihrer biblischen Reihenfolge mit Stelle.",
+      "slides": [
+        6
+      ],
+      "ordered": true,
+      "items": [
+        "Das Bundesbuch",
+        "Das Heiligkeitsgesetz",
+        "Das deuteronomische Gesetz"
+      ],
+      "details": [
+        "Ex 20,22-23,19",
+        "Lev 17-26",
+        "Dtn 12-25"
+      ]
+    },
+    {
+      "id": "list.bk02.grobgliederung",
+      "title": "Grobgliederung der Genesis",
+      "prompt": "Nenne die drei Teile der Genesis nach der Grobgliederung in ihrer Reihenfolge mit Kapiteln.",
+      "slides": [
+        7
+      ],
+      "ordered": true,
+      "items": [
+        "Urgeschichte",
+        "Erzelterngeschichte",
+        "Josephsgeschichte"
+      ],
+      "details": [
+        "Gen 1-11",
+        "Gen 12-36 (dazu Gen 38)",
+        "Gen 37-50 (ohne Gen 38)"
+      ]
+    },
+    {
+      "id": "list.bk02.erzeltern",
+      "title": "Unterteilung der Erzelterngeschichte",
+      "prompt": "Nenne die Erzväter, nach denen die Grobgliederung die Erzelterngeschichte unterteilt, in ihrer Reihenfolge mit Kapiteln.",
+      "slides": [
+        7,
+        13
+      ],
+      "ordered": true,
+      "items": [
+        "Abraham",
+        "Isaak",
+        "Jakob(-Esau)"
+      ],
+      "details": [
+        "Gen 12-25",
+        "Gen 26 (+27)",
+        "Gen 27-36"
+      ]
+    },
+    {
+      "id": "list.bk02.verheissungen",
+      "title": "Verheißungen an die Erzeltern",
+      "prompt": "Nenne die Verheißungen, die nach der Folie bei den Erzeltern wichtig sind.",
+      "slides": [
+        13
+      ],
+      "items": [
+        "Segen",
+        "Land",
+        "Söhne",
+        "Nachkommen",
+        "Beistand JHWHs"
+      ]
+    },
+    {
+      "id": "list.bk02.urgeschichte_1",
+      "title": "Urgeschichte I: Gen 1,1 – 6,4",
+      "prompt": "Nenne die Abschnitte der Urgeschichte von der Schöpfung bis zu den Göttersöhnen in ihrer Reihenfolge mit Stelle.",
+      "slides": [
+        8
+      ],
+      "ordered": true,
+      "items": [
+        "1. Schöpfungsbericht",
+        "2. Schöpfungsbericht",
+        "Kain und Abel, Kainitenstammbaum",
+        "Stammbaum von Adam bis Noah",
+        "Engelehen und Göttersöhne"
+      ],
+      "details": [
+        "1,1 – 2,4a",
+        "2,4b – 3,24",
+        "4",
+        "5",
+        "6,1-4"
+      ]
+    },
+    {
+      "id": "list.bk02.urgeschichte_2",
+      "title": "Urgeschichte II: Gen 6,5 – 11,32",
+      "prompt": "Nenne die Abschnitte der Urgeschichte von der Sintflut bis zum Übergang zur Erzelterngeschichte in ihrer Reihenfolge mit Stelle.",
+      "slides": [
+        8
+      ],
+      "ordered": true,
+      "items": [
+        "Sintfluterzählung",
+        "Noahbund",
+        "Noah im Weinberg, Noahs Söhne",
+        "Völkertafel",
+        "Turmbau zu Babel",
+        "Stammbaum von Noah bis Abraham",
+        "Übergang zur Erzelterngeschichte"
+      ],
+      "details": [
+        "6,5 – 8,22",
+        "9,1-17",
+        "9,18-29",
+        "10",
+        "11,1-9",
+        "11,10-26",
+        "11,27-32"
+      ]
+    },
+    {
+      "id": "list.bk02.abraham_1",
+      "title": "Abraham I: Gen 12 – 18,15",
+      "prompt": "Nenne die Abschnitte der Abrahamgeschichte von der Verheißung bis zu den drei Männern in Mamre in ihrer Reihenfolge mit Stelle.",
+      "slides": [
+        10
+      ],
+      "ordered": true,
+      "items": [
+        "Verheißung an Abram",
+        "Gefährdung der Ahnfrau",
+        "Abram und Lot",
+        "Gottes Bund mit Abram",
+        "Sarai und Hagar",
+        "Gottes Bund mit Abraham (Namenswechsel)",
+        "Die drei Männer bei Abraham in Mamre"
+      ],
+      "details": [
+        "12,1-9",
+        "12,10-20 (Folie: „10-12“)",
+        "13 – 14",
+        "15",
+        "16",
+        "17",
+        "18,1-15"
+      ]
+    },
+    {
+      "id": "list.bk02.abraham_2",
+      "title": "Abraham II: Gen 18,16 – 21,34",
+      "prompt": "Nenne die Abschnitte der Abrahamgeschichte von der Fürbitte für Sodom bis zum Brunnenstreit in ihrer Reihenfolge mit Stelle.",
+      "slides": [
+        10
+      ],
+      "ordered": true,
+      "items": [
+        "Fürbitte Abrahams für Sodom",
+        "Sodom und Gomorra, Lots Töchter",
+        "Gefährdung der Ahnfrau",
+        "Geburt Isaaks, Vertreibung Hagars",
+        "Brunnenstreit"
+      ],
+      "details": [
+        "18,16-33",
+        "19",
+        "20",
+        "21,1-21",
+        "21,22-34"
+      ]
+    },
+    {
+      "id": "list.bk02.abraham_3",
+      "title": "Abraham III: Gen 22 – 25,18",
+      "prompt": "Nenne die Abschnitte vom Ende der Abrahamgeschichte (Gen 22 – 25,18) in ihrer Reihenfolge mit Stelle.",
+      "slides": [
+        11
+      ],
+      "ordered": true,
+      "items": [
+        "Isaaks Bindung, Nachkommen des Nahor",
+        "Saras Tod",
+        "Rebekkas Werbung für Isaak",
+        "Abrahams 3. Frau Ketura, Abrahams Tod, Stammbaum der Ismaeliter"
+      ],
+      "details": [
+        "22",
+        "23",
+        "24",
+        "25,1-18"
+      ]
+    },
+    {
+      "id": "list.bk02.isaak",
+      "title": "Isaak (Farbe Isaaks auf den Folien)",
+      "prompt": "Nenne die Abschnitte, die die Folien in der Farbe Isaaks markieren, in ihrer Reihenfolge mit Stelle.",
+      "slides": [
+        11,
+        12,
+        13
+      ],
+      "ordered": true,
+      "items": [
+        "Geburt Jakobs und Esaus",
+        "Verkauf des Erstgeburtsrechts",
+        "Gefährdung der Ahnfrau Rebekka",
+        "Tod Isaaks"
+      ],
+      "details": [
+        "25,19-28",
+        "25,29-34",
+        "26",
+        "35,27-29"
+      ]
+    },
+    {
+      "id": "list.bk02.jakob_1",
+      "title": "Jakob I: Gen 27 – 30",
+      "prompt": "Nenne die Abschnitte der Jakobgeschichte vom Segen Isaaks bis zu Jakobs Wohlstand in ihrer Reihenfolge mit Stelle.",
+      "slides": [
+        11,
+        12
+      ],
+      "ordered": true,
+      "items": [
+        "Segen Isaaks an Jakob",
+        "Verbot der Ehe mit Kanaanäerinnen",
+        "Esaus Frauen",
+        "Jakobs Traum",
+        "Dienst um Lea und Rahel",
+        "Jakobs Kinder",
+        "Jakobs Wohlstand"
+      ],
+      "details": [
+        "27,1-45",
+        "27,46 – 28,5",
+        "28,6-9",
+        "28,10-22",
+        "29,1-30",
+        "29,31 – 30,24",
+        "30,25-43"
+      ]
+    },
+    {
+      "id": "list.bk02.jakob_2",
+      "title": "Jakob II: Gen 31 – 36",
+      "prompt": "Nenne die Abschnitte der Jakobgeschichte von der Trennung von Laban bis zu den Nachkommen Esaus in ihrer Reihenfolge mit Stelle (ohne den Tod Isaaks).",
+      "slides": [
+        12
+      ],
+      "ordered": true,
+      "items": [
+        "Jakobs Trennung von Laban",
+        "Jakobs Rückkehr, Kampf am Jabbok",
+        "Aussöhnung mit Esau, Altarbau in Sichem",
+        "Blutbad in Sichem",
+        "Jakobs Zug nach Bet-El",
+        "Geburt Benjamins und Tod Rahels",
+        "Nachkommen Esaus"
+      ],
+      "details": [
+        "31",
+        "32",
+        "33",
+        "34",
+        "35,1-15",
+        "35,16-26",
+        "36"
+      ]
+    },
+    {
+      "id": "list.bk02.joseph_1",
+      "title": "Josephsgeschichte I: Gen 37 – 41",
+      "prompt": "Nenne die Abschnitte von Gen 37 bis Gen 41 in ihrer Reihenfolge mit Stelle (mit Gen 38).",
+      "slides": [
+        14
+      ],
+      "ordered": true,
+      "items": [
+        "Joseph und seine Brüder",
+        "[Juda-Tamar-Geschichte]",
+        "Joseph bei Potifar",
+        "Joseph im Gefängnis",
+        "Deutung der Träume des Pharaos"
+      ],
+      "details": [
+        "37",
+        "38",
+        "39,1-19",
+        "39,20 – 40",
+        "41"
+      ]
+    },
+    {
+      "id": "list.bk02.joseph_2",
+      "title": "Josephsgeschichte II: Gen 42 – 50",
+      "prompt": "Nenne die Abschnitte der Josephsgeschichte von der Hungersnot bis zu Josephs Tod in ihrer Reihenfolge mit Stelle.",
+      "slides": [
+        14
+      ],
+      "ordered": true,
+      "items": [
+        "Hungersnot in Kanaan",
+        "Zweite Reise der Brüder nach Ägypten",
+        "Jakob reist nach Ägypten",
+        "Jakob segnet Ephraim und Manasse",
+        "Jakobs Segen: Stammessprüche",
+        "Jakobs Tod",
+        "Aussöhnung der Brüder, Josephs Tod"
+      ],
+      "details": [
+        "42",
+        "43 – 45",
+        "46 – 47",
+        "48",
+        "49,1-28",
+        "49,29 – 50,14",
+        "50,15-26"
+      ]
+    },
+    {
+      "id": "list.bk02.gen38",
+      "title": "Stichworte zu Gen 38",
+      "prompt": "Nenne die Stichworte, die die Folie zu Gen 38 aufführt.",
+      "slides": [
+        16
+      ],
+      "items": [
+        "Juda-Tamar-Geschichte",
+        "Onan",
+        "Leviratsehe",
+        "Verknüpfung zum Buch Rut",
+        "Stammbaum Jesu"
+      ]
+    }
+  ],
+  "shared": [
+    "q.u01.tora_namen"
+  ],
+  "questions": [
+    {
+      "id": "q.bk02.wissenschaft_namen",
+      "prompt": "Welche Buchnamen des Pentateuch werden nach der Folie in der Wissenschaft gebraucht?",
+      "answer": "Die griechisch-lateinischen: Genesis, Exodus, Leviticus, Numeri, Deuteronomium",
+      "distractors": [
+        "Die deutschen Namen der Lutherbibel: 1. bis 5. Buch Mose",
+        "Die hebräischen Namen nach dem Anfangswort, z. B. Berešit",
+        "Die Namen nach den vermuteten Verfassern"
+      ],
+      "explanation": "Folie 2: In der Lutherbibel heißen sie die „5 Bücher Mose“; „In der Wissenschaft werden die griechisch-lateinischen Begriffe gebraucht.“ Folie 3 gibt dazu die Abkürzungen Gen, Ex, Lev, Num, Dtn.",
+      "slides": [
+        2,
+        3
+      ]
+    },
+    {
+      "id": "q.bk02.pentateuch_woertlich",
+      "prompt": "Was heißt „Pentateuch“ nach der Folie wörtlich?",
+      "answer": "„Fünf-Gefäß“, also fünf Rollen",
+      "distractors": [
+        "„Fünf Gesetze“",
+        "„Zweites Gesetz“",
+        "„Weisung“"
+      ],
+      "explanation": "Folie 3: „Pentateuch = wörtlich: Fünf-Gefäß → fünf Rollen“. „Zweites Gesetz“ ist die Bedeutung von Deuteronomium, „Weisung“ die von Tora. Ergänzung: Sitzung 1 gibt das Wort als „das Fünfteilige“ wieder; gemeint sind die fünf Buchrollen.",
+      "slides": [
+        3
+      ],
+      "terms": [
+        "term.pentateuch"
+      ]
+    },
+    {
+      "id": "q.bk02.tora_nomos",
+      "prompt": "Wie heißt der erste Teil der Bibel in der Hebräischen Bibel und wie in der LXX?",
+      "answer": "Tora („Weisung“) – in der LXX übersetzt mit nomos („Gesetz“)",
+      "distractors": [
+        "Nomos („Gesetz“) – in der LXX übersetzt mit Tora („Weisung“)",
+        "Miqra („was gelesen wird“) – in der LXX übersetzt mit biblia („Bücher“)",
+        "Tora („Weisung“) – in der LXX übersetzt mit kanon („Richtschnur“)"
+      ],
+      "explanation": "Folie 3: „Hebräische Bibel → Tora = „Weisung““ und „LXX übersetzt mit νόμος (nomos) = „Gesetz““.",
+      "slides": [
+        3
+      ],
+      "terms": [
+        "term.tora",
+        "term.nomos"
+      ]
+    },
+    {
+      "id": "q.bk02.mose_rolle",
+      "prompt": "Welche Rolle hat Mose im Pentateuch nach der Folie?",
+      "answer": "Er ist nach der Folie die Hauptperson, nicht der Verfasser",
+      "distractors": [
+        "Er ist nach der Folie der Verfasser aller fünf Bücher",
+        "Er kommt erst im Deuteronomium vor",
+        "Er ist nach der Folie der Übersetzer der LXX"
+      ],
+      "explanation": "Folie 3: „Mose ist nicht der Verfasser, sondern die Hauptperson“. Ergänzung: Das entspricht der historisch-kritischen Forschung, ist aber nicht unumstritten; die jüdische und kirchliche Tradition sah in Mose den Verfasser (vgl. Mk 12,26; Joh 5,46), konservative Ausleger rechnen mit einem mosaischen Kern.",
+      "slides": [
+        3
+      ]
+    },
+    {
+      "id": "q.bk02.genesis_bedeutung",
+      "prompt": "Was bedeutet der Buchname „Genesis“ nach der Folie?",
+      "answer": "Schöpfung",
+      "distractors": [
+        "Auszug",
+        "Zahlen",
+        "Zweites Gesetz"
+      ],
+      "explanation": "Folie 3: Genesis = Schöpfung (Gen); Exodus = Auszug (aus Ägypten); Numeri = Zahlen (der Israeliten); Deuteronomium = Zweites Gesetz.",
+      "slides": [
+        3
+      ]
+    },
+    {
+      "id": "q.bk02.leviticus_bedeutung",
+      "prompt": "Wofür steht der Buchname „Leviticus“ nach der Folie?",
+      "answer": "Für die levitische („priesterliche“) Gesetzgebung",
+      "distractors": [
+        "Für die Zählung der Israeliten",
+        "Für die Gesetzeswiederholung vor dem Einzug ins Land",
+        "Für den Auszug aus Ägypten"
+      ],
+      "explanation": "Folie 3: Leviticus = Levitische („priesterliche“) Gesetzgebung → Lev. Die Zählung steckt in Numeri, die Gesetzeswiederholung im Deuteronomium, der Auszug in Exodus.",
+      "slides": [
+        3
+      ]
+    },
+    {
+      "id": "q.bk02.deuteronomium",
+      "prompt": "Wie beschreibt die Folie das Deuteronomium?",
+      "answer": "„Zweites Gesetz“: Gesetzeswiederholung zur Einschärfung mit sozialer Akzentuierung",
+      "distractors": [
+        "„Erstes Gesetz“: die Gesetzgebung am Sinai",
+        "„Priesterliche Gesetzgebung“ für den Kult",
+        "„Zahlen“: Musterung der Stämme in der Wüste"
+      ],
+      "explanation": "Folie 3: Deuteronomium = Zweites Gesetz → Dtn. Folie 6: „Deuteronomium = Gesetzeswiederholung zur Einschärfung“ mit „sozialer Akzentuierung des Gesetzes Israels“.",
+      "slides": [
+        3,
+        6
+      ]
+    },
+    {
+      "id": "q.bk02.erzaehlstrang",
+      "prompt": "Welchen Zeitraum umfasst der Erzählstrang des Pentateuch nach der Folie?",
+      "answer": "Vom Beginn der Welt bis zum Beginn der Einwanderung der (späteren) Israeliten in ihr Land",
+      "distractors": [
+        "Von Abraham bis zum Babylonischen Exil",
+        "Vom Auszug aus Ägypten bis zur Königszeit",
+        "Von der Schöpfung bis zum Bau des Tempels"
+      ],
+      "explanation": "Folie 4: „Erzählstrang von Beginn der Welt bis zum Beginn der Einwanderung der (späteren) Israeliten in ihr Land“.",
+      "slides": [
+        4
+      ]
+    },
+    {
+      "id": "q.bk02.mittelpunkt",
+      "prompt": "Was ist nach der Folie der Mittelpunkt des Pentateuch?",
+      "answer": "Gottes Offenbarung am Sinai",
+      "distractors": [
+        "Die Erschaffung der Welt",
+        "Die Verheißung an Abram",
+        "Der Tod des Mose"
+      ],
+      "explanation": "Folie 4: „Mittelpunkt: Gottes Offenbarung am Sinai“. Folie 6 ergänzt: Der Aufenthalt am Sinai (Ex 19 – Num 10,10) ist der größte geschlossene narrative Raum im Pentateuch.",
+      "slides": [
+        4,
+        6
+      ]
+    },
+    {
+      "id": "q.bk02.fuehrung_beginn",
+      "prompt": "Mit welchem Kapitel beginnt nach der Folie die Erzählung von der Führung Israels?",
+      "answer": "Mit Gen 12 – Gen 1-11 ist die Urgeschichte",
+      "distractors": [
+        "Mit Gen 1 – die Schöpfung gehört schon zur Führung Israels",
+        "Mit Ex 1 – erst in Ägypten wird Israel ein Volk",
+        "Mit Gen 37 – mit der Josephsgeschichte"
+      ],
+      "explanation": "Folie 5: „Beginn mit Gen 12 → Gen 1-11 = Urgeschichte“; die Führung Israels reicht von Abraham bis zur Landnahme Kanaans.",
+      "slides": [
+        5
+      ],
+      "terms": [
+        "term.urgeschichte"
+      ]
+    },
+    {
+      "id": "q.bk02.spannungsbogen",
+      "prompt": "Wie weit reicht der Spannungsbogen von Abraham bis zur Landnahme nach der Folie?",
+      "answer": "Über den Pentateuch hinaus bis ins Josuabuch",
+      "distractors": [
+        "Er endet mit dem Tod des Mose in Dtn 34",
+        "Er endet mit der Josephsgeschichte in Gen 50",
+        "Er reicht bis zum Ende der Königsbücher"
+      ],
+      "explanation": "Folie 5: „Spannungsbogen über Pentateuch hinaus bis ins Josuabuch“. Ergänzung: Erst im Josuabuch nimmt Israel das verheißene Land in Besitz (vgl. den Erzählbogen aus Sitzung 1).",
+      "slides": [
+        5
+      ]
+    },
+    {
+      "id": "q.bk02.motiv_josef",
+      "prompt": "Welche Frage beantwortet die Josefsgeschichte nach der Folie?",
+      "answer": "Wie kam Israel nach Ägypten?",
+      "distractors": [
+        "Warum erwählte Gott sein Volk?",
+        "Warum murrte das Volk in der Wüste?",
+        "Wie kam Israel in das Land Kanaan?"
+      ],
+      "explanation": "Folie 5: „Josefsgeschichte → Wie kam Israel nach Ägypten? (Gen 37-50)“. Folie 15: Sie erklärt den Beginn des Buches Exodus und leitet zu ihm über.",
+      "slides": [
+        5,
+        15
+      ],
+      "terms": [
+        "term.josephsgeschichte"
+      ]
+    },
+    {
+      "id": "q.bk02.motiv_auszug",
+      "prompt": "Welches Thema verbindet die Folie mit dem Auszug aus Ägypten (Ex 1-15)?",
+      "answer": "Gott erwählt sein Volk",
+      "distractors": [
+        "Gott gibt seinem Volk die Tora",
+        "Das Murren des Volkes",
+        "Die Verheißung von Land und Segen"
+      ],
+      "explanation": "Folie 5: „Auszug aus Ägypten → Gott erwählt sein Volk (Ex 1-15)“. Die Tora gibt Gott am Sinai, das Murren gehört zur Wüstenwanderung, die Verheißung zur Erzelterngeschichte.",
+      "slides": [
+        5
+      ]
+    },
+    {
+      "id": "q.bk02.motiv_wueste",
+      "prompt": "Welches Motiv verbindet die Folie mit der Wüstenwanderung?",
+      "answer": "Das Murren",
+      "distractors": [
+        "Die Erwählung des Volkes",
+        "Die erneute Bekanntgabe der Tora",
+        "Der Betrug um den Segen"
+      ],
+      "explanation": "Folie 5: „Wüstenwanderung → Motiv des Murrens (Ex 15,22-18,27 und Num 10,11-36,13)“ – also vor und nach dem Aufenthalt am Sinai.",
+      "slides": [
+        5
+      ]
+    },
+    {
+      "id": "q.bk02.motiv_abschied",
+      "prompt": "Was geschieht nach der Folie in der Abschiedsrede des Mose (Dtn 1-30)?",
+      "answer": "Mose gibt erneut die Tora bekannt",
+      "distractors": [
+        "Mose führt das Volk aus Ägypten",
+        "Mose segnet Ephraim und Manasse",
+        "Mose empfängt die Tora zum ersten Mal am Sinai"
+      ],
+      "explanation": "Folie 5: „Abschiedsrede des Mose → Mose gibt erneut die Tora bekannt (Dtn 1-30)“; danach der Tod des Mose (Dtn 31-34). Ephraim und Manasse segnet Jakob (Gen 48).",
+      "slides": [
+        5
+      ]
+    },
+    {
+      "id": "q.bk02.sinai_raum",
+      "prompt": "Was ist nach der Folie der größte geschlossene narrative Raum im Pentateuch?",
+      "answer": "Der Aufenthalt am Sinai mit der Gesetzesüberlieferung (Ex 19 – Num 10,10)",
+      "distractors": [
+        "Die Wüstenwanderung (Ex 15,22 – Num 36,13)",
+        "Die Erzelterngeschichte (Gen 12-36)",
+        "Die Abschiedsrede des Mose (Dtn 1-30)"
+      ],
+      "explanation": "Folie 6: „Größter geschlossener narrativer Raum in Pentateuch = Aufenthalt am Sinai mit Gesetzesüberlieferung in Ex 19 – Num 10,10“.",
+      "slides": [
+        5,
+        6
+      ]
+    },
+    {
+      "id": "q.bk02.programmatisch",
+      "prompt": "Was beschreiben Gesetzestexte im Alten Orient nach der Folie?",
+      "answer": "Eine Idealität anstelle einer Realität – sie haben programmatischen Charakter",
+      "distractors": [
+        "Die tatsächlich gelebte Rechtspraxis bis ins Detail",
+        "Nur die Rechte der Priester",
+        "Die Strafen der Könige gegen fremde Völker"
+      ],
+      "explanation": "Folie 6: „Programmatischer Charakter der Gesetzestexte im Alten Orient → Beschreibung einer Idealität anstelle einer Realität“.",
+      "slides": [
+        6
+      ]
+    },
+    {
+      "id": "q.bk02.rechtstext_lev",
+      "prompt": "Welcher der großen rechtlichen Texte steht im Buch Levitikus?",
+      "answer": "Das Heiligkeitsgesetz",
+      "distractors": [
+        "Das Bundesbuch",
+        "Das deuteronomische Gesetz",
+        "Die Völkertafel"
+      ],
+      "explanation": "Folie 6: das Bundesbuch (Ex 20,22-23,19), das Heiligkeitsgesetz (Lev 17-26), das deuteronomische Gesetz (Dtn 12-25).",
+      "slides": [
+        6
+      ],
+      "terms": [
+        "term.heiligkeitsgesetz"
+      ]
+    },
+    {
+      "id": "q.bk02.gen38_ort",
+      "prompt": "Zu welchem Teil der Genesis gehört Gen 38 nach der Folie?",
+      "answer": "Zur Erzelterngeschichte, obwohl es in der Josephsgeschichte steht",
+      "distractors": [
+        "Zur Josephsgeschichte, deren zweites Kapitel es ist",
+        "Zur Urgeschichte",
+        "Zu keinem Teil – es ist ein späterer Nachtrag ohne Zuordnung"
+      ],
+      "explanation": "Folie 7: „37-50 Josephsgeschichte → Ohne 38 (Teil der Erzelterngeschichte)“. Folie 5 rechnet die Erzelterngeschichte entsprechend als „Gen 12-36 und 38“; Folie 14 setzt die Zeile zu Gen 38 in eckige Klammern.",
+      "slides": [
+        5,
+        7,
+        14
+      ],
+      "terms": [
+        "term.erzelterngeschichte"
+      ]
+    },
+    {
+      "id": "q.bk02.isaak_kapitel",
+      "prompt": "Welche Kapitel weist die Grobgliederung Isaak zu?",
+      "answer": "Gen 26 (+27)",
+      "distractors": [
+        "Gen 12-25",
+        "Gen 27-36",
+        "Gen 37-50"
+      ],
+      "explanation": "Folie 7: Erzelterngeschichte 12-36 mit 12-25: Abraham, 26(+27): Isaak, 27-36: Jakob. Kapitel 27 (Segen Isaaks an Jakob) zählt also zu beiden.",
+      "slides": [
+        7
+      ]
+    },
+    {
+      "id": "q.bk02.urgeschichte_funktion",
+      "prompt": "Welche Funktion hat die Urgeschichte nach der Folie?",
+      "answer": "Sie ist Prolog zur Geschichte, die in der Genesis ab Kapitel 12 erzählt wird",
+      "distractors": [
+        "Sie ist ein Anhang zur Josephsgeschichte",
+        "Sie ist die Fortsetzung der Erzelterngeschichte",
+        "Sie ist eine Sammlung von Gesetzen für die Priester"
+      ],
+      "explanation": "Folie 9: „Prolog zur Vorgeschichte in der Genesis ab Kapitel 12“. Folie 5: Die Führung Israels beginnt mit Gen 12; Gen 1-11 ist die Urgeschichte.",
+      "slides": [
+        5,
+        9
+      ],
+      "terms": [
+        "term.urgeschichte"
+      ]
+    },
+    {
+      "id": "q.bk02.dopplungen",
+      "prompt": "Woraus schließt die Folie auf unterschiedliche Überlieferungen in der Urgeschichte?",
+      "answer": "Aus Dopplungen und Spannungen, z. B. zwei Schöpfungsgeschichten und einer Sintfluterzählung mit inneren Spannungen",
+      "distractors": [
+        "Aus Unterschieden zwischen hebräischem Text und LXX",
+        "Aus den Überschriften der Lutherbibel",
+        "Aus den Namen der Bücher in jüdischer Tradition"
+      ],
+      "explanation": "Folie 9: „Unterschiedliche Überlieferungen wegen der Dopplungen und Spannungen – Zwei verschieden Schöpfungsgeschichten – Sintfluterzählung mit inneren Spannungen“. Ergänzung: Diese Folgerung ist in der Forschung verbreitet, aber nicht unumstritten; andere lesen Gen 2 als vertiefende Nahaufnahme der Erschaffung des Menschen und die Flutgeschichte als bewusst komponierte Einheit.",
+      "slides": [
+        9
+      ]
+    },
+    {
+      "id": "q.bk02.schoepfung_grenze",
+      "prompt": "Wo endet der 1. Schöpfungsbericht nach der Folie?",
+      "answer": "Mitten in Gen 2,4: mit 2,4a",
+      "distractors": [
+        "Mit Gen 1,31",
+        "Mit Gen 2,3",
+        "Mit Gen 3,24"
+      ],
+      "explanation": "Folie 8: „1,1 – 2,4a 1. Schöpfungsbericht“, „2,4b – 3,24 2. Schöpfungsbericht“. Die Grenze teilt Vers 4. Ergänzung: Deine Perikopenliste kennt keine Halbverse und lässt „Die Erschaffung der Welt“ deshalb mit 2,3 enden.",
+      "slides": [
+        8
+      ]
+    },
+    {
+      "id": "q.bk02.cliffhanger",
+      "prompt": "Warum ist Gen 11,30 ein Cliffhanger zu den Erzeltern?",
+      "answer": "Sarai ist unfruchtbar – doch gleich danach verheißt Gott Abram Nachkommen",
+      "distractors": [
+        "Abram stirbt kinderlos, bevor die Verheißung ergeht",
+        "Der Turm zu Babel bleibt unvollendet",
+        "Noah verflucht Kanaan"
+      ],
+      "explanation": "Folie 9 nennt Gen 11,30 den „Cliffhanger zu den Erzeltern“; Folie 13: Die Verheißungen (u. a. Söhne, Nachkommen) sind bei den Erzeltern wichtig, Gen 12 beginnt mit Verheißung und Segen. Ergänzung: Gen 11,30 lautet „Aber Sarai war unfruchtbar und hatte kein Kind.“",
+      "slides": [
+        9,
+        13
+      ]
+    },
+    {
+      "id": "q.bk02.kultorte",
+      "prompt": "Wie ist die Erzelterngeschichte nach der Folie entstanden?",
+      "answer": "Nach der Folie aus einzelnen Geschichten an unterschiedlichen Kultorten, die später zu einem Erzählzusammenhang kombiniert wurden",
+      "distractors": [
+        "Als ein von Anfang an geschlossener Bericht eines einzigen Verfassers",
+        "Als Übersetzung einer griechischen Vorlage",
+        "Als Sammlung von Gesetzestexten mit erzählendem Rahmen"
+      ],
+      "explanation": "Folie 13: „Ursprünglich mal einzelne Geschichten an den unterschiedlichen Kultorten, später zu einem Erzählzusammenhang kombiniert“. Ergänzung: Diese Sicht ist in der Forschung verbreitet, aber nicht unumstritten; andere sehen in den Erzelterngeschichten von Anfang an zusammenhängende Familienüberlieferungen.",
+      "slides": [
+        13
+      ],
+      "terms": [
+        "term.erzelterngeschichte"
+      ]
+    },
+    {
+      "id": "q.bk02.gen12",
+      "prompt": "Womit beginnt die Erzelterngeschichte in Gen 12?",
+      "answer": "Mit Verheißung und Segen",
+      "distractors": [
+        "Mit einem Bundesschluss mit Bundeszeichen",
+        "Mit Gottes Gericht über Sodom",
+        "Mit dem Streit um einen Brunnen"
+      ],
+      "explanation": "Folie 13: „Gen 12: Beginn mit Verheißung und Segen“; Folie 10: 12,1-9 „Verheißung an Abram“.",
+      "slides": [
+        10,
+        13
+      ]
+    },
+    {
+      "id": "q.bk02.gen17",
+      "prompt": "Was ist neu am Bundesschluss in Gen 17 gegenüber Gen 15?",
+      "answer": "Bundeszeichen und Namenswechsel",
+      "distractors": [
+        "Die erste Verheißung von Land",
+        "Die Fürbitte Abrahams",
+        "Die Geburt Isaaks"
+      ],
+      "explanation": "Folie 10: 15 „Gottes Bund mit Abram“, 17 „Gottes Bund mit Abraham (Namenswechsel)“. Folie 13: „Gen 17: erneuter Bundesschluss, diesmal mit Bundeszeichen und Namenswechsel“. Ergänzung: Das Bundeszeichen ist die Beschneidung; Abram wird zu Abraham, Sarai zu Sara (Gen 17,5.15).",
+      "slides": [
+        10,
+        13
+      ]
+    },
+    {
+      "id": "q.bk02.gen19",
+      "prompt": "Wofür steht Sodom und Gomorra (Gen 19) nach der Folie?",
+      "answer": "Als Zeichen für Gottes Gerichtswillen",
+      "distractors": [
+        "Als Zeichen für Gottes Verheißung von Land",
+        "Als Beispiel für die Gefährdung der Ahnfrau",
+        "Als Ort von Jakobs Traum"
+      ],
+      "explanation": "Folie 13: „Gen 19: Sodom & Gomorra als Zeichen für Gottes Gerichtswillen“. Vorausgeht in 18,16-33 die Fürbitte Abrahams für Sodom (Folie 10).",
+      "slides": [
+        10,
+        13
+      ]
+    },
+    {
+      "id": "q.bk02.gen27",
+      "prompt": "Wofür ist Gen 27 nach der Folie wichtig?",
+      "answer": "Für das Verständnis des Segens – mit der besonderen Rolle Jakobs als Betrüger",
+      "distractors": [
+        "Für das Verständnis des Bundeszeichens",
+        "Für die Frage, wie Israel nach Ägypten kam",
+        "Für die Gliederung der Genesis durch Genealogien"
+      ],
+      "explanation": "Folie 13: „Gen 27 ist wichtig für Verständnis des Segens → besondere Rolle des Jakobs als Betrüger“. Folie 11: 27,1-45 „Segen Isaaks an Jakob“.",
+      "slides": [
+        11,
+        13
+      ]
+    },
+    {
+      "id": "q.bk02.staemme",
+      "prompt": "Wofür stehen Jakobs Söhne nach der Folie?",
+      "answer": "Für die Stämme",
+      "distractors": [
+        "Für die Kultorte der Erzeltern",
+        "Für die fünf Bücher Mose",
+        "Für die Völker der Völkertafel"
+      ],
+      "explanation": "Folie 13: „Jakobs Kinder → Söhne als Stämme“; Folie 12: 29,31 – 30,24 „Jakobs Kinder“, Folie 14: 49,1-28 „Jakobs Segen: Stammessprüche“.",
+      "slides": [
+        12,
+        13,
+        14
+      ]
+    },
+    {
+      "id": "q.bk02.ahnfrau",
+      "prompt": "Welche Erzählung erscheint in der Erzelterngeschichte nach der Folie dreimal?",
+      "answer": "Die Gefährdung der Ahnfrau (Gen 12; 20; 26)",
+      "distractors": [
+        "Gottes Bund mit Abram (Gen 15; 17; 22)",
+        "Der Verkauf des Erstgeburtsrechts (Gen 25; 27; 33)",
+        "Jakobs Traum (Gen 28; 32; 35)"
+      ],
+      "explanation": "Folien 10–11: „Gefährdung der Ahnfrau“ bei 12,10ff. und 20 (Sara), „Gefährdung der Ahnfrau Rebekka“ in 26. Ergänzung: Ein Beispiel für die Dopplungen, die Folie 9 für die Urgeschichte nennt; die Szenen spielen in Ägypten beim Pharao (Gen 12), in Gerar bei Abimelech (Gen 20) und mit Isaak und Rebekka wieder in Gerar (Gen 26).",
+      "slides": [
+        10,
+        11
+      ]
+    },
+    {
+      "id": "q.bk02.ketura",
+      "prompt": "Wer ist nach der Folie Abrahams dritte Frau?",
+      "answer": "Ketura",
+      "distractors": [
+        "Hagar",
+        "Rebekka",
+        "Lea"
+      ],
+      "explanation": "Folie 11: 25,1-18 „Abrahams 3. Frau Ketura, Abrahams Tod, Stammbaum der Ismaeliter“. Sara und Hagar (Gen 16) gehen voraus; Rebekka ist Isaaks Frau, Lea eine Frau Jakobs.",
+      "slides": [
+        11
+      ]
+    },
+    {
+      "id": "q.bk02.mamre",
+      "prompt": "Wo begegnen Abraham nach der Folie die drei Männer?",
+      "answer": "In Mamre",
+      "distractors": [
+        "In Bet-El",
+        "In Sichem",
+        "Am Jabbok"
+      ],
+      "explanation": "Folie 10: 18,1-15 „Die drei Männer bei Abraham in Mamre“. Bet-El (35,1-15), Sichem (33–34) und der Jabbok (32) gehören zur Jakobgeschichte.",
+      "slides": [
+        10
+      ]
+    },
+    {
+      "id": "q.bk02.jabbok",
+      "prompt": "Wo kämpft Jakob nach der Folie bei seiner Rückkehr?",
+      "answer": "Am Jabbok",
+      "distractors": [
+        "In Mamre",
+        "In Bet-El",
+        "In Sichem"
+      ],
+      "explanation": "Folie 12: 32 „Jakobs Rückkehr, Kampf am Jabbok“. Danach Aussöhnung mit Esau und Altarbau in Sichem (33), Blutbad in Sichem (34), Zug nach Bet-El (35,1-15).",
+      "slides": [
+        12
+      ]
+    },
+    {
+      "id": "q.bk02.sichem",
+      "prompt": "Was verbindet die Folie mit Sichem?",
+      "answer": "Jakobs Altarbau nach der Aussöhnung mit Esau und das Blutbad (Gen 33–34)",
+      "distractors": [
+        "Die Fürbitte Abrahams und die drei Männer (Gen 18)",
+        "Jakobs Traum und Isaaks Segen (Gen 27–28)",
+        "Benjamins Geburt und Rahels Tod (Gen 35)"
+      ],
+      "explanation": "Folie 12: 33 „Aussöhnung mit Esau, Altarbau in Sichem“; 34 „Blutbad in Sichem“.",
+      "slides": [
+        12
+      ]
+    },
+    {
+      "id": "q.bk02.tod_isaaks",
+      "prompt": "Wo steht Isaaks Tod, und wie markiert die Folie ihn?",
+      "answer": "Gen 35,27-29 – inmitten der Jakobgeschichte, aber in der Farbe Isaaks",
+      "distractors": [
+        "Gen 25,7-11 – am Ende der Abrahamgeschichte",
+        "Gen 27,1-45 – direkt nach dem Segen an Jakob",
+        "Gen 49,29 – 50,14 – zusammen mit Jakobs Tod"
+      ],
+      "explanation": "Folie 12: 35,27-29 „Tod Isaaks“ – als einzige Zeile der Folie im Blau Isaaks (Farben nach Folie 13), die übrigen Zeilen in der Farbe Jakob-Esau. Abrahams Tod steht in 25,1-18, Jakobs Tod in 49,29 – 50,14.",
+      "slides": [
+        11,
+        12,
+        13
+      ]
+    },
+    {
+      "id": "q.bk02.joseph_gattung",
+      "prompt": "Welcher Gattung ordnet die Folie die Josephsgeschichte zu?",
+      "answer": "Novelle, Weisheitserzählung",
+      "distractors": [
+        "Genealogie (Toledot)",
+        "Rechtstext",
+        "Schöpfungsbericht"
+      ],
+      "explanation": "Folie 15: „Novelle, Weisheitserzählung“ – eine eigene Erzählform, die eine geschlossene Geschichte abbildet.",
+      "slides": [
+        15
+      ],
+      "terms": [
+        "term.josephsgeschichte"
+      ]
+    },
+    {
+      "id": "q.bk02.joseph_weiser",
+      "prompt": "Was zeigt die Josephsgeschichte nach der Folie an Joseph?",
+      "answer": "Wie sich ein paradigmatischer Weiser verhält – durch sein Verhalten widerfährt ihm Gutes",
+      "distractors": [
+        "Wie ein Betrüger den Segen erlangt",
+        "Wie ein Prophet das Gericht über Sodom ankündigt",
+        "Wie Gott durch Bundeszeichen und Namenswechsel einen Bund erneuert"
+      ],
+      "explanation": "Folie 15: „Erklärt, wie sich ein paradigmatischer Weiser verhält → durch sein Verhalten widerfährt ihm Gutes“; „Führung Gottes zum Guten“. Ergänzung: Joseph fasst das in Gen 50,20 zusammen: „Ihr gedachtet es böse mit mir zu machen; aber Gott gedachte es gut zu machen.“",
+      "slides": [
+        15
+      ]
+    },
+    {
+      "id": "q.bk02.joseph_funktion",
+      "prompt": "Welche Funktion hat die Josephsgeschichte im Aufbau des Pentateuch?",
+      "answer": "Sie erklärt den Beginn des Buches Exodus und leitet zu ihm über",
+      "distractors": [
+        "Sie leitet von der Urgeschichte zu Abraham über",
+        "Sie schließt den Pentateuch mit dem Tod des Mose ab",
+        "Sie bildet die Mitte des Pentateuch am Sinai"
+      ],
+      "explanation": "Folie 15: „Erklärt und leitet über zum Beginn des Buches Exodus“; Folie 5: Wie kam Israel nach Ägypten?",
+      "slides": [
+        5,
+        15
+      ]
+    },
+    {
+      "id": "q.bk02.leviratsehe",
+      "prompt": "Welche Rechtsinstitution nennt die Folie zu Gen 38 neben Onan?",
+      "answer": "Die Leviratsehe",
+      "distractors": [
+        "Die Beschneidung als Bundeszeichen",
+        "Das Erstgeburtsrecht",
+        "Das Bundesbuch"
+      ],
+      "explanation": "Folie 16: „Juda-Tamar-Geschichte – Onan – Leviratsehe – Verknüpfung zum Buch Rut – Stammbaum Jesu“. Ergänzung: Onan entzieht sich der Pflicht, mit Tamar, der Witwe seines Bruders, einen Nachkommen zu zeugen (Gen 38,8-10); die Regel steht in Dtn 25,5-10.",
+      "slides": [
+        16
+      ],
+      "terms": [
+        "term.leviratsehe"
+      ]
+    },
+    {
+      "id": "q.bk02.gen38_bezug",
+      "prompt": "Mit welchen Texten verknüpft die Folie Gen 38?",
+      "answer": "Mit dem Buch Rut und dem Stammbaum Jesu",
+      "distractors": [
+        "Mit dem Bundesbuch und dem Heiligkeitsgesetz",
+        "Mit der Völkertafel und dem Turmbau zu Babel",
+        "Mit dem Auszug aus Ägypten und der Wüstenwanderung"
+      ],
+      "explanation": "Folie 16: „Verknüpfung zum Buch Rut“, „Stammbaum Jesu“. Ergänzung: Rut 4,12 nennt Perez, den Tamar dem Juda gebar, Rut 4,18-22 führt von Perez bis David; Mt 1,3 nennt Tamar im Stammbaum Jesu.",
+      "slides": [
+        16
+      ]
+    }
+  ]
+}

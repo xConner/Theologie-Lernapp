@@ -4,6 +4,7 @@ import '../../models/bible/bible_reference.dart';
 import '../../models/old_testament/old_testament.dart';
 import '../../services/bible/bible_reference_parser.dart';
 import '../../services/old_testament/old_testament_loader.dart';
+import '../../services/old_testament/pericope_links.dart';
 import '../../theme/app_theme.dart';
 import '../bible/bible_reader_screen.dart';
 import '../../widgets/content_page.dart';
@@ -135,6 +136,7 @@ class PassageTile extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(passage.context),
+            if (passage.pericopeKeys.isNotEmpty) PericopeLinksNote(passage),
             Text(source, style: secondary.copyWith(fontSize: 12)),
           ],
         ),
@@ -147,6 +149,47 @@ class PassageTile extends StatelessWidget {
               )
             : null,
         onTap: canOpen ? () => openBiblePassage(context, passage) : null,
+      ),
+    );
+  }
+}
+
+/// Die Perikopen der Perikopenliste, die eine Stelle der Folie umfasst –
+/// mit ihren eigenen Titeln und Grenzen, damit Abweichungen sichtbar sind.
+class PericopeLinksNote extends StatelessWidget {
+  final PassageRef passage;
+
+  /// Nur für Tests: Perikopen ohne Laden aus den Assets.
+  final OtPericopeLinks? links;
+
+  const PericopeLinksNote(this.passage, {super.key, this.links});
+
+  @override
+  Widget build(BuildContext context) {
+    final given = links;
+    if (given != null) return _text(context, given);
+
+    return FutureBuilder<OtPericopeLinks>(
+      future: OtPericopeLinks.load(),
+      builder: (context, snapshot) {
+        final loaded = snapshot.data;
+        return loaded == null
+            ? const SizedBox.shrink()
+            : _text(context, loaded);
+      },
+    );
+  }
+
+  Widget _text(BuildContext context, OtPericopeLinks links) {
+    final perikopen = links.of(passage);
+    if (perikopen.isEmpty) return const SizedBox.shrink();
+
+    return Padding(
+      padding: const EdgeInsets.only(top: 4),
+      child: Text(
+        "Deine Perikopen: ${[for (final p in perikopen) "${p.title} (${OtPericopeLinks.rangeOf(p)})"].join(" · ")}",
+        key: ValueKey("pericopes-${passage.id}"),
+        style: TextStyle(color: context.colors.textSecondary, fontSize: 13),
       ),
     );
   }

@@ -1168,9 +1168,9 @@ void main() {
     );
 
     test("ohne Gliederung: automatisch nach ganzen Kapiteln", () {
-      expect(outlines.hasDefined("Gen"), isFalse);
+      expect(outlines.hasDefined("Ex"), isFalse);
 
-      final outline = outlines.outlineFor(catalog, "Gen");
+      final outline = outlines.outlineFor(catalog, "Ex");
 
       expect(outline.automatic, isTrue);
       expect(outline.sections, isNotEmpty);
@@ -1180,7 +1180,7 @@ void main() {
           ...pericopesOfSection(catalog, section),
       ];
 
-      expect(all, catalog.pericopesOf("Gen"));
+      expect(all, catalog.pericopesOf("Ex"));
 
       for (final section in outline.sections) {
         expect(section.start.verse, isNull);

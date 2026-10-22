@@ -1,6 +1,18 @@
 {
   "_comment": "Gliederungen für „Bücher systematisch lernen“ (siehe docs/pericope-books.md). Je Buch (Abkürzung der Perikopenliste) eine geordnete Folge von Abschnitten mit eindeutiger id, title, start und end („Kapitel“ oder „Kapitel,Vers“, deutsche Zählung). Perikopen werden nach ihrem Anfang zugeordnet. Bücher ohne Eintrag erhalten automatisch Abschnitte nach Kapiteln. Einträge mit provisional=true sind vorläufige Beispiele und keine verbindliche Gliederung.",
   "books": {
+    "Gen": {
+      "note": "Nach der Grobgliederung der Übung Bibelkunde AT (Sitzung 2, Folie 7) und den Farben der Tabellen (Folien 10–13): Isaak ab 25,19, Gen 38 als Teil der Erzelterngeschichte.",
+      "sections": [
+        { "id": "gen-urgeschichte", "title": "Urgeschichte", "start": "1", "end": "11" },
+        { "id": "gen-abraham", "title": "Erzelterngeschichte: Abraham", "start": "12", "end": "25,18" },
+        { "id": "gen-isaak", "title": "Erzelterngeschichte: Isaak", "start": "25,19", "end": "26" },
+        { "id": "gen-jakob", "title": "Erzelterngeschichte: Jakob und Esau", "start": "27", "end": "36" },
+        { "id": "gen-joseph-brueder", "title": "Josephsgeschichte: Joseph und seine Brüder", "start": "37", "end": "37" },
+        { "id": "gen-juda-tamar", "title": "Juda und Tamar (Teil der Erzelterngeschichte)", "start": "38", "end": "38" },
+        { "id": "gen-joseph-aegypten", "title": "Josephsgeschichte: Joseph in Ägypten", "start": "39", "end": "50" }
+      ]
+    },
     "Mk": {
       "provisional": true,
       "note": "Vorläufige Beispielgliederung zum Ausprobieren, keine verbindliche Gliederung.",

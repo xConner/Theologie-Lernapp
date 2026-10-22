@@ -103,6 +103,11 @@ class OldTestamentLoader {
   static final RegExp _unitId = RegExp(r'^([a-z]+)\.(\d{2})$');
   static final RegExp _termId = RegExp(r'^term\.[a-z0-9_]+$');
 
+  /// Verweis auf eine Perikope der Perikopenliste (`BookPericope.key`).
+  static final RegExp _pericopeKey = RegExp(
+    r'^[1-4]?[A-Za-z]+\|[a-z0-9_]+\|\d+,\d+$',
+  );
+
   /// Alle Probleme der Daten (leer = in Ordnung).
   static List<String> validate(OldTestamentData data) {
     final errors = <String>[];
@@ -197,6 +202,14 @@ class OldTestamentLoader {
       for (final p in u.passages) {
         prefixed(p.id, "passage");
         slides(p.id, p.slides);
+        for (final k in p.pericopeKeys) {
+          if (!_pericopeKey.hasMatch(k)) {
+            errors.add("${p.id}: ungültiger Perikopenverweis $k");
+          }
+        }
+        if (p.pericopeKeys.toSet().length != p.pericopeKeys.length) {
+          errors.add("${p.id}: Perikope doppelt zugeordnet");
+        }
       }
 
       for (final l in u.lists) {
@@ -346,6 +359,7 @@ class OldTestamentLoader {
             context: p["context"] as String,
             clue: p["clue"] as String?,
             slides: _ints(p["slides"]),
+            pericopeKeys: _strings(p["pericopes"]),
           ),
       ],
       connections: [

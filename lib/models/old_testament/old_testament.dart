@@ -155,6 +155,12 @@ class PassageRef {
 
   final List<int> slides;
 
+  /// Perikopen der Perikopenliste (`assets/perikopen.json`), die die Stelle
+  /// umfasst oder anschneidet, als `Buch|ID|Kapitel,Vers` wie
+  /// `BookPericope.key`. Die Folie kann gröber oder feiner teilen als die
+  /// Liste; die Liste bleibt unverändert, die Zuordnung verweist nur.
+  final List<String> pericopeKeys;
+
   const PassageRef({
     required this.id,
     required this.label,
@@ -162,6 +168,7 @@ class PassageRef {
     required this.context,
     this.clue,
     required this.slides,
+    this.pericopeKeys = const [],
   });
 
   String get openText => open ?? label;

@@ -147,6 +147,22 @@ Bibelstellen öffnen den Bibel-Reader der App (`BibleReaderScreen`) über
 Ausgabe fehlen (1 Makk in der Lutherbibel 1912), bietet der Reader in
 einer anderen Ausgabe an.
 
+### Verweise auf die Perikopenliste
+
+Eine Bibelstelle kann unter `pericopes` die Perikopen der Perikopenliste
+(`assets/perikopen.json`) nennen, die sie umfasst oder anschneidet – als
+`Buch|ID|Kapitel,Vers` wie `BookPericope.key` in „Bücher systematisch
+lernen“. Der Schlüssel mit Anfangsstelle unterscheidet auch Einträge mit
+gleicher ID (z. B. zweimal `die_bosheit_der_menschen` in Gen 6). Die Liste
+selbst wird dafür nicht verändert: Teilt die Folie gröber, verweist eine
+Stelle auf mehrere Perikopen; teilt sie feiner, verweisen mehrere Stellen
+auf dieselbe. Angezeigt wird das als „Deine Perikopen: …“ unter der Stelle
+und nach der Antwort im Lernmodus (`PericopeLinksNote`, Titel aus der
+ausgelieferten Liste über `OtPericopeLinks`). Der Loader prüft das Format,
+`test/old_testament/bibelkunde_genesis_test.dart` gegen die Liste
+(Eintrag vorhanden, Stellen überschneiden sich, jede Genesis-Perikope
+zugeordnet).
+
 Verknüpfungen zu anderen Bereichen werden nicht automatisch erzeugt; sie
 stehen als Ergänzung unter „Zusammenhänge“.
 
@@ -182,3 +198,4 @@ Antwortknöpfe kommen aus der Kirchengeschichte.
 |---|---|---|
 | 1 | 1–21 | Grundlagen: Der alttestamentliche Kanon und die Geschichte Israels (Bibel/AT als Bezeichnungen, jüdischer und christlicher Kanon, Textüberlieferung, Geschichte und Literaturgeschichte) |
 | Übung, Sitzung 1 | 1–28 | Einführung Bibelkunde AT: Ziele, Organisatorisches, Bibelstellen lesen, Begriffe, Kanon (jüdisch, LXX, Lutherbibel), Text und Übersetzungen, Erzählbogen, Entstehung, Eckdaten; 23 Inhalte mit Einheit 1 geteilt |
+| Übung, Sitzung 2 | 1–16 | Pentateuch und Genesis (Präsentation von Ronja Koch, ohne Tonspur): Namen der fünf Bücher, Tora/nomos, Erzählrahmen und Erzählmotive, drei Rechtstexte, Grobgliederung der Genesis, alle Tabellenzeilen von Ur-, Erzeltern- und Josephsgeschichte als Bibelstellen mit Verweis auf die Perikopenliste, Gen 38 |

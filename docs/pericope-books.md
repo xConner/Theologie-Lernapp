@@ -212,8 +212,13 @@ ohne Code zu ändern:
   Perikopen“. Ungültige Abschnitte (fehlende Felder, doppelte ID, Ende vor
   Anfang) werden übergangen und protokolliert.
 * `provisional: true` kennzeichnet vorläufige Daten; die App zeigt das an.
-  Hinterlegt ist bisher nur eine **vorläufige Beispielgliederung für
-  Markus** zum Ausprobieren – keine verbindliche Gliederung.
+  Hinterlegt sind eine **vorläufige Beispielgliederung für Markus** zum
+  Ausprobieren und die **Genesis nach der Übung Bibelkunde AT** (Sitzung 2,
+  Folie 7): Urgeschichte (1–11), Erzelterngeschichte Abraham (12–25,18),
+  Isaak (25,19–26), Jakob und Esau (27–36), Josephsgeschichte (37), Juda und
+  Tamar (38, nach der Folie Teil der Erzelterngeschichte),
+  Josephsgeschichte (39–50). Die Grenzen 25,18/25,19 folgen den Farben der
+  Folientabellen.
 * Bücher ohne Eintrag erhalten automatisch Abschnitte aus ganzen Kapiteln
   mit je etwa 10 Perikopen; sie sind als automatisch gebildet
   gekennzeichnet.

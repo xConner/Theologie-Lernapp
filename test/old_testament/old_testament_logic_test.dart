@@ -171,6 +171,7 @@ void main() {
       expect(extended.unitsOfTerm("term.tora").map((u) => u.id), [
         "unit.01",
         "bk.01",
+        "bk.02",
         "unit.02",
       ]);
     });
