@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../algorithms/grammar_learning.dart';
+import '../../widgets/greek_grammar_progress_view.dart';
 import '../../models/greek/grammar/pronoun_paradigm.dart';
 import '../../models/greek/vocabulary/greek_vocabulary_entry.dart';
 import '../../models/greek/vocabulary/learning_card.dart';
@@ -2195,6 +2196,22 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
   // BUILD
   // ---------------------------------------------------------------------------
 
+  /// Lernbedarf je Merkmal (GreekGrammarProgressView).
+  void openProgress() {
+    showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      showDragHandle: true,
+      builder: (context) => DraggableScrollableSheet(
+        expand: false,
+        initialChildSize: 0.75,
+        maxChildSize: 0.95,
+        builder: (context, controller) =>
+            GreekGrammarProgressView(controller: controller, learning: grammar),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     if (loading) {
@@ -2206,6 +2223,12 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
     final appBar = AppBar(
       title: const Text("Grammatiktrainer"),
       actions: [
+        IconButton(
+          key: const ValueKey("greek-grammar-progress"),
+          icon: const Icon(Icons.insights_rounded),
+          tooltip: "Fortschritt",
+          onPressed: openProgress,
+        ),
         StatisticsButton(
           uid: _auth.currentUser?.uid,
           trainer: StatisticsTrainer.greekGrammar,
