@@ -6,6 +6,7 @@ import '../../../models/logic/logic_course.dart';
 import '../../../models/logic/logic_exercise.dart';
 import '../../../services/logic/logic_course_loader.dart';
 import '../../../services/logic/logic_progress_store.dart';
+import '../../../services/logic/logic_review.dart';
 import '../../../services/statistics/learning_statistics.dart';
 import '../../../services/streak/streak_track.dart';
 import '../../../theme/app_theme.dart';
@@ -134,10 +135,8 @@ class _LogicCourseScreenState extends State<LogicCourseScreen> {
   }
 
   Widget _actions(BuildContext context, LogicCourse c) {
-    final wrong = [
-      for (final e in c.allExercises)
-        if (e.id != null && progress.task(e.id!).lastCorrect == false) e,
-    ];
+    // Falsch gelöste und lange nicht geübte Übungen (LogicReview).
+    final wrong = LogicReview.select(c.allExercises, progress, DateTime.now());
 
     return Wrap(
       spacing: 8,

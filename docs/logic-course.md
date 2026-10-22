@@ -53,6 +53,23 @@ letzte Ergebnis. Zurücksetzen: Einstellungen → Lernbereich zurücksetzen →
 zurücksetzen“ umfasst den Bereich. Gastdaten werden bei der Anmeldung mit
 übernommen.
 
+## Wiederholen
+
+„Wiederholen“ in der Kursübersicht (`LogicReview`) enthält zuerst die zuletzt
+falsch gelösten Übungen, dann zuletzt richtig gelöste, die länger nicht geübt
+wurden: fällig 3, 7, 14, 30 und danach 60 lokale Kalendertage nach der
+letzten Antwort, je nach Zahl der richtigen Lösungen. Es braucht kein neues
+Speicherfeld (`TaskProgress.correct`, `lastCorrect`, `at`). Ungeübte und
+erzeugte Übungen gehören nicht dazu. In der Lektion bleibt „Falsch
+beantwortete“ unverändert.
+
+## Statistik
+
+`StatisticsTrainer.logic` zählt jede von der App geprüfte Übung einmal je
+Bearbeitung, richtig oder falsch (`LogicStreakRule.countsForStatistics`);
+offene Aufgaben nicht. Der Statistik-Knopf steht in der Kursübersicht und in
+jeder Übungsrunde.
+
 ## Streak
 
 Der Bereich hat einen eigenen Track `StreakTrack.logic` (Tagesziel fünf,
