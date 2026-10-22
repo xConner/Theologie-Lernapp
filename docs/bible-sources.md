@@ -88,6 +88,19 @@ unverändert bleiben. Daraus folgt für die App:
 **World English Bible.** Gemeinfrei; der Name ist eine Marke von eBible.org
 und darf nur für den unveränderten Text verwendet werden.
 
+### Bibelstellen in „Texte auswendig lernen“
+
+Die kuratierten Stellen in `lib/services/memorization/bible_passages.dart`
+(Psalm 23, Johannes 3,16, Römer 3,21–28 u. a.) kommen ausschließlich aus
+`deu1912` (gemeinfrei), damit beim Lernen keine Lizenzbedingungen greifen.
+Der Wortlaut bleibt unverändert; nur Zeilenumbrüche poetischer Texte werden
+zu Leerzeichen, und je Vers entsteht ein Abschnitt. Die Verszahlen folgen
+der Zählung dieser Ausgabe (Psalmen wie in englischen Bibeln, z. B. Psalm
+51,10 „Schaffe in mir, Gott, ein reines Herz“). Lernstand-IDs:
+`bible.<Stelle>.de.v<Vers>`; die Kennung einer Stelle wird nie umbenannt.
+Weitere Ausgaben (z. B. Vulgata) sind möglich, brauchen aber je Stelle eine
+eigene Zählung und einen Umgang mit den Klammern der Vulgata Clementina.
+
 ## Geprüft und nicht integriert
 
 | Text | Grund |
