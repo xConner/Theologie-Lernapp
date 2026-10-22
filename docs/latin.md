@@ -139,7 +139,7 @@ nutzbar; Lektions- und Wortartfilter des Trainers wirken nicht auf den Plan.
 |---|---|
 | Plan (neue pro Tag, Zieldatum, Lektionen, Pause) | `models/latin/vocabulary/latin_vocabulary_plan.dart` |
 | Tagesrechnung (gemeinsam mit den Bibelkunde-Plänen) | `algorithms/daily_new_plan.dart` |
-| Status, Tagesmenge, Fortschritt, Lerneinheit | `services/latin/vocabulary/latin_vocabulary_plan_state.dart` |
+| Status, Tagesmenge, Fortschritt, Lerneinheit (gemeinsam mit Griechisch) | `algorithms/vocabulary_plan.dart`; Latein-Anbindung in `services/latin/vocabulary/latin_vocabulary_plan_state.dart` |
 | Laden und Speichern | `latin_vocabulary_plan_service.dart`, `latin_vocabulary_plan_store.dart` |
 | Abfrage einer Vokabel (Trainer und Plan) | `screens/latin/latin_vocabulary_answer_view.dart` |
 | Screens | `screens/latin/plan/` |

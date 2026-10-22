@@ -28,6 +28,7 @@ enum ProgressArea {
     label: "Altgriechisch-Vokabeln",
     resetTitle: "Altgriechischen Vokabelfortschritt zurücksetzen",
     collection: LocalLearningStore.greekVocabulary,
+    documents: [LocalLearningStore.greekVocabularyPlanProgress],
   ),
   greekGrammar(
     label: "Altgriechische Grammatik",

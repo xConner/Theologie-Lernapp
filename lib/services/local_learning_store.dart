@@ -139,6 +139,13 @@ class LocalLearningStore {
   static const String latinVocabularyPlanProgress =
       "latin_vocabulary_plan_progress";
 
+  /// Lernplan der griechischen Vokabeln, wie beim Latein-Lernplan
+  /// (`GreekVocabularyPlanStore`). Der Lernstand je Vokabel liegt wie im
+  /// Vokabeltrainer in der Collection `vocabulary`.
+  static const String greekVocabularyPlan = "greek_vocabulary_plan";
+  static const String greekVocabularyPlanProgress =
+      "greek_vocabulary_plan_progress";
+
   /// Alle Dokumente unter `quiz_settings`, die bei der Übernahme von
   /// Gastdaten übertragen und beim Löschen der Gastdaten entfernt werden.
   static const List<String> quizDocuments = [
@@ -152,6 +159,8 @@ class LocalLearningStore {
     oldTestamentSettings,
     latinVocabularyPlan,
     latinVocabularyPlanProgress,
+    greekVocabularyPlan,
+    greekVocabularyPlanProgress,
   ];
 
   /// Dokumente unter `quiz_settings`, die nur Lernfortschritt enthalten und
@@ -165,6 +174,7 @@ class LocalLearningStore {
     churchHistory,
     oldTestament,
     latinVocabularyPlanProgress,
+    greekVocabularyPlanProgress,
   ];
 
   static String _quizDocumentKey(String name) =>

@@ -153,6 +153,23 @@ nach Gehör schreibt, gleicht `LatinSpeechMatcher` das Transkript vor dem
 Wortvergleich lautlich mit dem Lerntext ab. Im Web braucht die Aufnahme
 `microphone=(self)` in der `Permissions-Policy` (`vercel.json`).
 
+## Vokabel-Lernplan (Altgriechisch)
+
+Der Griechisch-Lernplan („Vokabel-Lernplan“ auf der Altgriechisch-Startseite)
+nutzt denselben Kern wie der Latein-Lernplan (`algorithms/vocabulary_plan.dart`,
+Regeln in docs/latin.md, Abschnitt „Vokabel-Lernplan“). Unterschiede:
+
+* Einheiten sind die Lernschritte 1–8 der Vokabelliste statt Lektionen
+  (`GreekVocabularyPlan.disabledSteps`).
+* Die Lerneinheit fragt mit Selbsteinschätzung ab (Griechisch → Deutsch,
+  Lösung mit Artikel, Genitiv bzw. Aorist, dann „Gewusst“/„Nicht gewusst“).
+  Getippte Antworten mit griechischer Tastatur gibt es weiter im freien
+  Vokabeltrainer.
+* Gespeichert unter `quiz_settings/greek_vocabulary_plan` und
+  `greek_vocabulary_plan_progress`; der Lernstand je Vokabel ist die Karte
+  des Vokabeltrainers (Collection `vocabulary`). `ProgressArea.greekVocabulary`
+  löscht Karten und Einführungen, nicht den Plan.
+
 ## Klausurersteller (Altgriechisch)
 
 Erstellt Graecum-ähnliche Übungsklausuren aus griechischen Bibeltexten. Die

@@ -6,6 +6,7 @@ import 'vocabulary_overview_screen.dart';
 import 'grammar_overview_screen.dart';
 import 'grammar_trainer_screen.dart';
 import 'exam/exam_builder_screen.dart';
+import 'plan/greek_vocabulary_plan_screen.dart';
 
 import '../../theme/app_theme.dart';
 import '../../services/streak/streak_track.dart';
@@ -58,6 +59,25 @@ class GreekHomeScreen extends StatelessWidget {
                     },
                     icon: const Icon(Icons.style_rounded),
                     label: const Text("Vokabeltrainer"),
+                  ),
+                ),
+
+                const SizedBox(height: 16),
+
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton.icon(
+                    key: const ValueKey("greek-vocabulary-plan"),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const GreekVocabularyPlanScreen(),
+                        ),
+                      );
+                    },
+                    icon: const Icon(Icons.event_note_rounded),
+                    label: const Text("Vokabel-Lernplan"),
                   ),
                 ),
 
