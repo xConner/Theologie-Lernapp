@@ -324,6 +324,7 @@ void main() {
       expect(AppDeepLink.parse(" /perikopen/ ")?.path, "/perikopen");
       expect(AppDeepLink.parse("/greek/grammar")?.isExternal, isFalse);
       expect(AppDeepLink.parse("/")?.path, AppDeepLink.home);
+      expect(AppDeepLink.parse("/logic")?.path, AppDeepLink.logic);
       expect(AppDeepLink.parse("/bible")?.path, AppDeepLink.bible);
     });
 

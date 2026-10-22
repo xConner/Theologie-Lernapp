@@ -45,9 +45,10 @@ die erste richtige Prüfung einer Aufgabe im Klausurersteller (Track
 Altgriechisch) und richtig gelöste, automatisch geprüfte Logik-Übungen
 (Track `logic`, Tagesziel 5). Ein neuer Bereich bekommt einen
 `StreakTrack` in `StreakTrack.all` – die tägliche Erinnerung
-(`api/_lib/reminders.ts`) kennt ihre Tracks aber getrennt und ist bisher
-nur für Bibellesen, Auswendiglernen, Altgriechisch, Latein und Perikopen
-eingerichtet.
+(`api/_lib/reminders.ts`) kennt ihre Tracks aber getrennt (`TrainerKind`
+plus Deep Link); eingerichtet ist sie für alle Tracks: Bibel,
+Auswendiglernen, Altgriechisch, Latein, Perikopen, Kirchengeschichte, Altes
+Testament und Logik.
 
 `uid == null` bedeutet überall Gastmodus: dieselben Datenstrukturen, lokal
 über `LocalLearningStore` statt in Firestore. Die Collection-Namen stehen

@@ -37,7 +37,8 @@ class NotificationPreferences {
   /// Texte auswendig lernen.
   final bool memorization;
 
-  /// Sprachtrainer (Altgriechisch, Latein) und Perikopenquiz.
+  /// Trainer und Lernbereiche mit Tagesziel: Altgriechisch, Latein,
+  /// Perikopenquiz, Kirchengeschichte, Altes Testament, Logik.
   final bool trainers;
 
   final bool newContent;

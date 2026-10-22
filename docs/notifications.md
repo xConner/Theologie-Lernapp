@@ -171,7 +171,7 @@ gespeichert hat; die Kalendertage sind lokale Tage des Nutzers.
 | Bibelleseplan (`readingPlan`) | ein begonnener Plan nicht pausiert und nicht abgeschlossen ist (`complete`) und heute keine Lesung daraus bestätigt wurde | der Plan (`/bible/plan/<id>`) |
 | Bibellese (`bibleReading`) | Track `bible` heute nicht erreicht (`lastCompletedDate` ≠ heute); entfällt, wenn schon an eine Planlesung erinnert wird | Bibel-Startseite |
 | Texte auswendig lernen (`memorization`) | Track `memorization` heute nicht erreicht | `/memorize` |
-| Sprachtrainer und Perikopenquiz (`trainers`) | Track `greek`, `latin` bzw. `perikope` heute nicht erreicht | `/greek`, `/latin`, `/perikopen` |
+| Trainer und Lernbereiche (`trainers`) | Track `greek`, `latin`, `perikope`, `church_history`, `old_testament` bzw. `logic` heute nicht erreicht | `/greek`, `/latin`, `/perikopen`, `/church-history`, `/old-testament`, `/logic` |
 
 Zusätzlich gilt überall: Der Bereich wurde in den letzten 14 Tagen genutzt
 (letzte Aktivität des Tracks bzw. letzte Änderung des Plans). Wer einen

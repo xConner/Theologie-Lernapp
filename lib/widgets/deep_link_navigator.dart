@@ -19,6 +19,7 @@ import '../screens/memorization/memorization_home_screen.dart';
 import '../screens/notification_settings_screen.dart';
 import '../screens/old_testament/old_testament_home_screen.dart';
 import '../screens/pericope_quiz/quiz_screen.dart';
+import '../screens/philosophy/logic/logic_course_screen.dart';
 import '../screens/prayers_screen.dart';
 import '../screens/settings_screen.dart';
 import '../services/bible/bible_reading_service.dart';
@@ -47,6 +48,8 @@ final Map<String, Future<Widget?> Function()> _screens = {
   AppDeepLink.latinGrammar: () async => const LatinGrammarTrainerScreen(),
   AppDeepLink.churchHistory: () async => const ChurchHistoryHomeScreen(),
   AppDeepLink.oldTestament: () async => const OldTestamentHomeScreen(),
+  AppDeepLink.logic: () async =>
+      LogicCourseScreen(uid: FirebaseAuth.instance.currentUser?.uid),
   AppDeepLink.calendar: () async => const LiturgicalCalendarScreen(),
   AppDeepLink.hymns: () async => const HymnalsScreen(),
   AppDeepLink.confessions: () async => const ConfessionsScreen(),

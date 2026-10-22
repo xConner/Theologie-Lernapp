@@ -41,7 +41,7 @@ export type ReminderInput = {
 };
 
 export type Reason = {
-    kind: 'plan' | 'bible' | 'memorization' | 'greek' | 'latin' | 'perikope';
+    kind: 'plan' | 'bible' | 'memorization' | TrainerKind;
     /** Kurzname für die zusammengefasste Nachricht. */
     label: string;
     title: string;
@@ -49,6 +49,15 @@ export type Reason = {
     /** App-Pfad (lib/services/notifications/app_deep_link.dart). */
     link: string;
 };
+
+/** Streak-Tracks der Kategorie `trainers` (IDs wie `StreakTrack` in der App). */
+export type TrainerKind =
+    | 'greek'
+    | 'latin'
+    | 'perikope'
+    | 'church_history'
+    | 'old_testament'
+    | 'logic';
 
 export type PushMessage = {
     title: string;
@@ -144,7 +153,7 @@ function openPlan(input: ReminderInput): string | null {
 }
 
 function trainerReason(
-    kind: 'greek' | 'latin' | 'perikope',
+    kind: TrainerKind,
     label: string,
     link: string,
     input: ReminderInput,
@@ -221,6 +230,19 @@ export function reasonsFor(input: ReminderInput): Reason[] {
             trainerReason('greek', 'Altgriechisch', '/greek', input),
             trainerReason('latin', 'Latein', '/latin', input),
             trainerReason('perikope', 'Perikopenquiz', '/perikopen', input),
+            trainerReason(
+                'church_history',
+                'Kirchengeschichte',
+                '/church-history',
+                input,
+            ),
+            trainerReason(
+                'old_testament',
+                'Altes Testament',
+                '/old-testament',
+                input,
+            ),
+            trainerReason('logic', 'Logik', '/logic', input),
         ];
 
         for (const reason of trainers) {

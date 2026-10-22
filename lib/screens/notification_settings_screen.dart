@@ -465,10 +465,11 @@ class _NotificationSettingsScreenState
                   const Divider(height: 1),
                   category(
                     icon: Icons.local_fire_department_outlined,
-                    title: "Sprachtrainer und Perikopenquiz",
+                    title: "Trainer und Lernbereiche",
                     subtitle:
-                        "Wenn das Tagesziel in Altgriechisch, Latein oder im "
-                        "Perikopenquiz noch offen ist.",
+                        "Wenn das Tagesziel in Altgriechisch, Latein, "
+                        "Perikopenquiz, Kirchengeschichte, Altem Testament "
+                        "oder Logik noch offen ist.",
                     value: prefs.trainers,
                     change: (value) => prefs.copyWith(trainers: value),
                   ),

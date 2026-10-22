@@ -150,6 +150,43 @@ test('ausgeschaltete Kategorien erzeugen keine Erinnerung', () => {
     );
 });
 
+test('Kirchengeschichte, Altes Testament und Logik gehören zu den Trainern', () => {
+    const streaks = {
+        church_history: { lastCompletedDate: '2026-10-09', currentStreak: 4 },
+        old_testament: { lastActivityDate: '2026-10-05' },
+        logic: { lastCompletedDate: today },
+    };
+
+    const reasons = reasonsFor(input({ streaks }));
+
+    assert.deepEqual(
+        reasons.map((r) => [r.kind, r.link]),
+        [
+            ['church_history', '/church-history'],
+            ['old_testament', '/old-testament'],
+        ],
+    );
+    assert.equal(
+        reasons[0].body,
+        'Deine Streak (4 Tage) wartet – dein Tagesziel ist noch offen.',
+    );
+
+    // Logik offen, aber seit über 14 Tagen nicht genutzt: keine Erinnerung.
+    assert.deepEqual(
+        kinds(input({ streaks: { logic: { lastActivityDate: '2026-09-20' } } })),
+        [],
+    );
+    assert.deepEqual(
+        kinds(input({ streaks: { logic: { lastActivityDate: '2026-10-09' } } })),
+        ['logic'],
+    );
+
+    assert.deepEqual(
+        kinds(input({ streaks, categories: { ...all, trainers: false } })),
+        [],
+    );
+});
+
 test('mehrere Gründe ergeben eine einzige Nachricht', () => {
     assert.equal(composeMessage([]), null);
 
