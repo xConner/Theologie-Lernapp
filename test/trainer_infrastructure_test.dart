@@ -49,6 +49,7 @@ void main() {
       expect(settings.enabledSteps, [1, 2, 3, 4, 5, 6, 7, 8]);
       expect(settings.enabledTypes, VocabularySettings.allTypes);
       expect(settings.enabledTypes, contains("numeral"));
+      expect(settings.onlyDifficult, isFalse);
     });
 
     test("Listen sind eigene, veränderbare Kopien", () {
@@ -84,6 +85,24 @@ void main() {
       expect(settings.requireOnlyOneTranslation, isTrue);
       expect(settings.enabledSteps, [2, 4]);
       expect(settings.enabledTypes, ["verb"]);
+      expect(settings.onlyDifficult, isFalse);
+    });
+
+    test("Gast: „Nur schwierige“ wird gespeichert", () async {
+      final service = VocabularySettingsService();
+
+      await service.saveSettings(
+        uid: null,
+        includeArticle: true,
+        includeGenitive: true,
+        includeAorist: true,
+        requireOnlyOneTranslation: false,
+        enabledSteps: [1],
+        enabledTypes: ["noun"],
+        onlyDifficult: true,
+      );
+
+      expect((await service.load(null)).onlyDifficult, isTrue);
     });
   });
 
@@ -99,6 +118,21 @@ void main() {
       expect(settings.disabledLessons, isEmpty);
       expect(settings.enabledTypes, LatinVocabularySettings.allTypes);
       expect(settings.enabledTypes, isNot(contains("numeral")));
+      expect(settings.onlyDifficult, isFalse);
+    });
+
+    test("„Nur schwierige“ übersteht Speichern und copyWith", () async {
+      final service = LatinVocabularySettingsService();
+
+      await service.save(
+        null,
+        const LatinVocabularySettings().copyWith(onlyDifficult: true),
+      );
+
+      final settings = await service.load(null);
+      expect(settings.onlyDifficult, isTrue);
+      expect(settings.copyWith(includeGender: false).onlyDifficult, isTrue);
+      expect(settings.copyWith(onlyDifficult: false).onlyDifficult, isFalse);
     });
 
     test(

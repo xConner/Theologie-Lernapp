@@ -68,6 +68,50 @@ void reportTrainerAnswer(
   }
 }
 
+/// Abschnitt „Wiederholen“ eines Trainer-Einstellungsdialogs: nur Inhalte
+/// mit erhöhtem Lernbedarf abfragen (`isDifficultCard`, dieselbe Schwelle
+/// wie in Kirchengeschichte und Altem Testament). [noun] im Plural, z. B.
+/// „Vokabeln“.
+class OnlyDifficultSettingsSection extends StatelessWidget {
+  final String noun;
+  final bool value;
+  final ValueChanged<bool> onChanged;
+
+  const OnlyDifficultSettingsSection({
+    super.key,
+    required this.noun,
+    required this.value,
+    required this.onChanged,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SettingsSection(
+      title: "Wiederholen",
+      child: SettingsSwitchGroup(
+        children: [
+          SwitchListTile(
+            key: const ValueKey("only-difficult"),
+            title: Text("Nur schwierige $noun"),
+            subtitle: const Text(
+              "Abgefragt wird nur, was zuletzt öfter falsch als sicher "
+              "beantwortet wurde. Richtige Antworten nehmen es wieder heraus.",
+            ),
+            value: value,
+            onChanged: onChanged,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// Hinweis, wenn „Nur schwierige“ eingeschaltet ist, aber nichts schwierig
+/// ist.
+String onlyDifficultEmptyMessage(String noun) =>
+    "Zurzeit gibt es keine schwierigen $noun. Schalte „Nur schwierige "
+    "$noun“ in den Einstellungen aus, um weiterzulernen.";
+
 /// Abschnitt „Sounds“ eines Trainer-Einstellungsdialogs: Richtig- und
 /// Falsch-Sound des Moduls. Die Schalter wirken sofort (lokal gespeichert).
 class SoundSettingsSection extends StatelessWidget {

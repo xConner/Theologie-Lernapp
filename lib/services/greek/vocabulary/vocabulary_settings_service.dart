@@ -33,6 +33,9 @@ class VocabularySettings {
   final List<int> enabledSteps;
   final List<String> enabledTypes;
 
+  /// Nur Vokabeln mit erhöhtem Lernbedarf abfragen (`isDifficultCard`).
+  final bool onlyDifficult;
+
   const VocabularySettings({
     this.includeArticle = true,
     this.includeGenitive = true,
@@ -40,6 +43,7 @@ class VocabularySettings {
     this.requireOnlyOneTranslation = false,
     this.enabledSteps = allSteps,
     this.enabledTypes = allTypes,
+    this.onlyDifficult = false,
   });
 
   /// Liest das gespeicherte Feld `vocabulary_settings`. Die Listen sind
@@ -55,6 +59,7 @@ class VocabularySettings {
       requireOnlyOneTranslation: data["requireOnlyOneTranslation"] ?? false,
       enabledSteps: List<int>.from(steps ?? allSteps),
       enabledTypes: List<String>.from(types ?? allTypes),
+      onlyDifficult: data["onlyDifficult"] == true,
     );
   }
 }
@@ -91,6 +96,7 @@ class VocabularySettingsService {
     required bool requireOnlyOneTranslation,
     required List<int> enabledSteps,
     required List<String> enabledTypes,
+    bool onlyDifficult = false,
   }) async {
     final settings = {
       "includeArticle": includeArticle,
@@ -101,6 +107,7 @@ class VocabularySettingsService {
       "enabledSteps": enabledSteps,
 
       "enabledTypes": enabledTypes,
+      "onlyDifficult": onlyDifficult,
     };
 
     if (uid == null) {

@@ -66,6 +66,7 @@ class LocalLearningStore {
       "requireOnlyOneTranslation": _FieldType.boolean,
       "enabledSteps": _FieldType.intList,
       "enabledTypes": _FieldType.stringList,
+      "onlyDifficult": _FieldType.boolean,
     },
     "latin_vocabulary_settings": {
       "includeVerbForm": _FieldType.boolean,
@@ -77,6 +78,7 @@ class LocalLearningStore {
       // Älterer Stand (Unter-Schritte je Lektion), nur noch gelesen.
       "enabledSubsteps": _FieldType.intListMap,
       "enabledTypes": _FieldType.stringList,
+      "onlyDifficult": _FieldType.boolean,
     },
     "greek_grammar_settings": {
       "enabledSteps": _FieldType.intList,

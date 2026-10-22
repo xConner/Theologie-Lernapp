@@ -30,6 +30,10 @@ class LatinVocabularySettings {
 
   final List<String> enabledTypes;
 
+  /// Nur Vokabeln mit erhöhtem Lernbedarf abfragen (`isDifficultCard`).
+  /// Gilt nur im freien Trainer, nicht im Lernplan.
+  final bool onlyDifficult;
+
   const LatinVocabularySettings({
     this.includeVerbForm = true,
     this.includeNounForm = true,
@@ -38,6 +42,7 @@ class LatinVocabularySettings {
     this.requireOnlyOneTranslation = true,
     this.disabledLessons = const [],
     this.enabledTypes = allTypes,
+    this.onlyDifficult = false,
   });
 
   /// Liest das gespeicherte Feld `latin_vocabulary_settings`. Die Listen
@@ -72,6 +77,7 @@ class LatinVocabularySettings {
       requireOnlyOneTranslation: data["requireOnlyOneTranslation"] ?? true,
       disabledLessons: disabled.toList()..sort(),
       enabledTypes: List<String>.from(data["enabledTypes"] ?? allTypes),
+      onlyDifficult: data["onlyDifficult"] == true,
     );
   }
 
@@ -83,6 +89,7 @@ class LatinVocabularySettings {
     bool? requireOnlyOneTranslation,
     List<int>? disabledLessons,
     List<String>? enabledTypes,
+    bool? onlyDifficult,
   }) {
     return LatinVocabularySettings(
       includeVerbForm: includeVerbForm ?? this.includeVerbForm,
@@ -94,6 +101,7 @@ class LatinVocabularySettings {
           requireOnlyOneTranslation ?? this.requireOnlyOneTranslation,
       disabledLessons: disabledLessons ?? this.disabledLessons,
       enabledTypes: enabledTypes ?? this.enabledTypes,
+      onlyDifficult: onlyDifficult ?? this.onlyDifficult,
     );
   }
 
@@ -107,6 +115,7 @@ class LatinVocabularySettings {
 
     "disabledLessons": disabledLessons,
     "enabledTypes": enabledTypes,
+    "onlyDifficult": onlyDifficult,
   };
 }
 

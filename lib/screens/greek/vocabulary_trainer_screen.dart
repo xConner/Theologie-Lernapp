@@ -6,6 +6,7 @@ import '../../models/greek/vocabulary/greek_vocabulary_question.dart';
 import '../../models/greek/vocabulary/learning_card.dart';
 
 import '../../algorithms/learning_selector.dart';
+import '../../algorithms/review_state.dart';
 
 import '../../services/greek/vocabulary/greek_vocabulary_loader.dart';
 import '../../services/greek/vocabulary/vocabulary_answer_checker.dart';
@@ -68,6 +69,8 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
   List<int> enabledSteps = List.of(VocabularySettings.allSteps);
 
   List<String> enabledTypes = List.of(VocabularySettings.allTypes);
+
+  bool onlyDifficult = false;
 
   static const List<String> allTypes = VocabularySettings.allTypes;
 
@@ -146,8 +149,13 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
       return true;
     }
 
-    return enabledSteps.contains(q.entry.step) &&
-        enabledTypes.contains(q.entry.type);
+    return _matchesFilters(q.entry);
+  }
+
+  bool _matchesFilters(GreekVocabularyEntry entry) {
+    return enabledSteps.contains(entry.step) &&
+        enabledTypes.contains(entry.type) &&
+        (!onlyDifficult || isDifficultCard(cards[entry.id.toString()]));
   }
 
   Future<void> load() async {
@@ -173,6 +181,7 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
       requireOnlyOneTranslation = settings.requireOnlyOneTranslation;
       enabledSteps = settings.enabledSteps;
       enabledTypes = settings.enabledTypes;
+      onlyDifficult = settings.onlyDifficult;
 
       entries = results[1] as List<GreekVocabularyEntry>;
 
@@ -204,10 +213,7 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
       return;
     }
 
-    final availableEntries = entries.where((entry) {
-      return enabledSteps.contains(entry.step) &&
-          enabledTypes.contains(entry.type);
-    }).toList();
+    final availableEntries = entries.where(_matchesFilters).toList();
 
     if (availableEntries.isEmpty) {
       question = null;
@@ -471,6 +477,8 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
                         enabledSteps: enabledSteps,
 
                         enabledTypes: enabledTypes,
+
+                        onlyDifficult: onlyDifficult,
                       );
 
                       if (!context.mounted) {
@@ -625,6 +633,14 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
                         ),
                       ),
 
+                      OnlyDifficultSettingsSection(
+                        noun: "Vokabeln",
+                        value: onlyDifficult,
+                        onChanged: (v) {
+                          setDialogState(() => onlyDifficult = v);
+                        },
+                      ),
+
                       const SoundSettingsSection(
                         module: SoundModule.greekVocabulary,
                       ),
@@ -662,7 +678,10 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
         body: Center(
           child: Text(
             loadError ??
-                "Mit den aktuellen Filtern sind keine Vokabeln verfügbar.",
+                (onlyDifficult
+                    ? onlyDifficultEmptyMessage("Vokabeln")
+                    : "Mit den aktuellen Filtern sind keine Vokabeln "
+                          "verfügbar."),
             textAlign: TextAlign.center,
           ),
         ),

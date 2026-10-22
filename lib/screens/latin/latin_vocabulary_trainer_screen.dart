@@ -5,6 +5,7 @@ import '../../models/latin/vocabulary/latin_vocabulary_entry.dart';
 import '../../models/greek/vocabulary/learning_card.dart';
 
 import '../../algorithms/learning_selector.dart';
+import '../../algorithms/review_state.dart';
 
 import '../../services/latin/vocabulary/latin_vocabulary_loader.dart';
 import '../../services/latin/vocabulary/latin_vocabulary_settings_service.dart';
@@ -124,7 +125,9 @@ class _LatinVocabularyTrainerScreenState
 
   bool _matchesFilters(LatinVocabularyEntry entry) {
     return enabledLessons.contains(entry.lesson) &&
-        enabledTypes.contains(entry.type);
+        enabledTypes.contains(entry.type) &&
+        (!settings.onlyDifficult ||
+            isDifficultCard(cards[entry.id.toString()]));
   }
 
   void nextQuestion() {
@@ -320,6 +323,17 @@ class _LatinVocabularyTrainerScreenState
                         },
                       ),
 
+                      OnlyDifficultSettingsSection(
+                        noun: "Vokabeln",
+                        value: settings.onlyDifficult,
+                        onChanged: (v) {
+                          setDialogState(
+                            () =>
+                                settings = settings.copyWith(onlyDifficult: v),
+                          );
+                        },
+                      ),
+
                       const SoundSettingsSection(
                         module: SoundModule.latinVocabulary,
                       ),
@@ -395,7 +409,10 @@ class _LatinVocabularyTrainerScreenState
         body: Center(
           child: Text(
             loadError ??
-                "Mit den aktuellen Filtern sind keine Vokabeln verfügbar.",
+                (settings.onlyDifficult
+                    ? onlyDifficultEmptyMessage("Vokabeln")
+                    : "Mit den aktuellen Filtern sind keine Vokabeln "
+                          "verfügbar."),
             textAlign: TextAlign.center,
           ),
         ),
