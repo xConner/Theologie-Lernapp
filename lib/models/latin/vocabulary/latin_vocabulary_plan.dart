@@ -1,4 +1,4 @@
-import '../../../algorithms/daily_new_plan.dart';
+import '../../../algorithms/vocabulary_plan.dart';
 
 /// Lernplan für die lateinischen Vokabeln: wie viele neue Vokabeln am Tag,
 /// optional bis zu einem Zieldatum, und welche Lektionen dazugehören.
@@ -7,13 +7,14 @@ import '../../../algorithms/daily_new_plan.dart';
 /// einführen darf; Wiederholungen wählt das Verfahren des Vokabeltrainers
 /// (`LearningSelector`) nach Lernbedarf und Fälligkeit. Der freie
 /// Vokabeltrainer bleibt davon unberührt.
-class LatinVocabularyPlan with DailyNewPlan {
+class LatinVocabularyPlan extends VocabularyPlanRules {
   @override
   final int dailyNew;
 
   @override
   final DateTime? targetDate;
 
+  @override
   final bool paused;
 
   final DateTime createdAt;
@@ -35,6 +36,9 @@ class LatinVocabularyPlan with DailyNewPlan {
   });
 
   bool includesLesson(int lesson) => !disabledLessons.contains(lesson);
+
+  @override
+  bool includesUnit(int unit) => includesLesson(unit);
 
   LatinVocabularyPlan copyWith({
     int? dailyNew,
