@@ -167,31 +167,10 @@ class ProgressDataService {
         writes.addAll(await _collectionResetWrites(uid, collection));
       }
 
-      final books = _quizSettingsDoc(uid, LocalLearningStore.pericopeBooks);
-      final logic = _quizSettingsDoc(uid, LocalLearningStore.logicCourse);
-      final latinGrammar = _quizSettingsDoc(
-        uid,
-        LocalLearningStore.latinGrammar,
-      );
-
-      writes.add((batch) => batch.delete(books));
-      writes.add((batch) => batch.delete(logic));
-      writes.add((batch) => batch.delete(latinGrammar));
-      writes.add(
-        (batch) => batch.delete(
-          _quizSettingsDoc(uid, LocalLearningStore.churchHistory),
-        ),
-      );
-      writes.add(
-        (batch) => batch.delete(
-          _quizSettingsDoc(uid, LocalLearningStore.oldTestament),
-        ),
-      );
-      writes.add(
-        (batch) => batch.delete(
-          _quizSettingsDoc(uid, LocalLearningStore.latinVocabularyPlanProgress),
-        ),
-      );
+      for (final name in LocalLearningStore.progressDocuments) {
+        final ref = _quizSettingsDoc(uid, name);
+        writes.add((batch) => batch.delete(ref));
+      }
 
       await _commitInBatches(writes);
     });

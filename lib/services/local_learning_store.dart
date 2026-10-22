@@ -152,6 +152,19 @@ class LocalLearningStore {
     latinVocabularyPlanProgress,
   ];
 
+  /// Dokumente unter `quiz_settings`, die nur Lernfortschritt enthalten und
+  /// beim Zurücksetzen aller Lernfortschritte gelöscht werden (Konto und
+  /// Gast). Einstellungen, Verspräzisierungen und Lernpläne gehören nicht
+  /// dazu. Entspricht den Dokumenten aller `ProgressArea`s (Test).
+  static const List<String> progressDocuments = [
+    pericopeBooks,
+    logicCourse,
+    latinGrammar,
+    churchHistory,
+    oldTestament,
+    latinVocabularyPlanProgress,
+  ];
+
   static String _quizDocumentKey(String name) =>
       "${_prefix}quiz_settings.$name";
 
@@ -454,12 +467,9 @@ class LocalLearningStore {
   Future<void> resetProgress() async {
     final prefs = await SharedPreferences.getInstance();
 
-    await prefs.remove(_quizDocumentKey(pericopeBooks));
-    await prefs.remove(_quizDocumentKey(logicCourse));
-    await prefs.remove(_quizDocumentKey(latinGrammar));
-    await prefs.remove(_quizDocumentKey(churchHistory));
-    await prefs.remove(_quizDocumentKey(oldTestament));
-    await prefs.remove(_quizDocumentKey(latinVocabularyPlanProgress));
+    for (final name in progressDocuments) {
+      await prefs.remove(_quizDocumentKey(name));
+    }
 
     for (final collection in cardCollections) {
       await resetCollection(collection);

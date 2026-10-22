@@ -109,6 +109,22 @@ void main() {
   }
 
   group("Lernbereiche einzeln", () {
+    test("„Alle zurücksetzen“ umfasst genau die Bereiche", () {
+      expect(LocalLearningStore.progressDocuments.toSet(), {
+        for (final area in ProgressArea.values) ...area.documents,
+      });
+
+      expect(LocalLearningStore.cardCollections.toSet(), {
+        for (final area in ProgressArea.values) ?area.collection,
+      });
+
+      // Fortschrittsdokumente werden auch bei der Übernahme von Gastdaten
+      // kopiert.
+      for (final name in LocalLearningStore.progressDocuments) {
+        expect(LocalLearningStore.quizDocuments, contains(name));
+      }
+    });
+
     test("Latein-Vokabeln: Griechisch bleibt unverändert", () async {
       await seedAll();
 
