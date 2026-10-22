@@ -162,10 +162,15 @@ void main() {
 
     test("zweite Einheit wird geladen und verknüpft", () {
       expect(extended.units.map((u) => u.id), ["unit.01", "unit.02"]);
-      expect(extended.relatedUnitsOf("unit.01").map((u) => u.id), ["unit.02"]);
+      // Verwandt ist auch die Sitzung der Übung Bibelkunde.
+      expect(
+        extended.relatedUnitsOf("unit.01").map((u) => u.id),
+        unorderedEquals(["unit.02", "bk.01"]),
+      );
       // Ein Begriff, zwei Einheiten – kein doppelter Eintrag.
       expect(extended.unitsOfTerm("term.tora").map((u) => u.id), [
         "unit.01",
+        "bk.01",
         "unit.02",
       ]);
     });

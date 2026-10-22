@@ -3,7 +3,15 @@
     "title": "Einführung in das Alte Testament",
     "lecturer": "Prof. Dr. Christoph Berner"
   },
+  "courses": {
+    "bibelkunde": {
+      "title": "Bibelkunde Altes Testament (Übung)",
+      "lecturer": "Louisa Thomsen",
+      "semester": "WiSe 2026/27"
+    }
+  },
   "units": [
-    "units/einheit-01.json"
+    "units/einheit-01.json",
+    "units/bibelkunde-01.json"
   ]
 }

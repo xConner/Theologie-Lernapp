@@ -4,7 +4,9 @@ Ergänzung zum Perikopenquiz: die Perikopen ganzer Bibelbücher schrittweise
 lernen, ihre Reihenfolge üben, fällige Wiederholungen bearbeiten und den
 Fortschritt je Buch, Abschnitt und Kapitel sehen. Einstieg auf der
 Startseite unter „Bibelkunde“ (`BibelkundeScreen`), dort neben dem
-Perikopenquiz.
+Perikopenquiz. Der dritte Knopf dort, „Grundlagen der Bibelkunde“, öffnet
+die Sitzungen der Übung Bibelkunde AT; sie liegen in der Datenbasis des
+Alten Testaments (siehe [old-testament.md](old-testament.md)).
 
 Das bisherige Perikopenquiz (Endlos-Lernmodus) bleibt unverändert: eigener
 Screen, eigene Karten (`learning_cards`), eigene Buchauswahl, eigene

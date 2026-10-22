@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 
 import '../../models/greek/perikope.dart';
+import '../../models/old_testament/old_testament.dart';
 import '../../services/streak/streak_track.dart';
 import '../../theme/app_theme.dart';
 import '../../widgets/settings_access.dart';
 import '../../widgets/streak_widgets.dart';
+import '../old_testament/old_testament_home_screen.dart';
 import 'books/books_overview_screen.dart';
 import 'quiz_screen.dart';
 
 /// Bereich „Bibelkunde“: Perikopenquiz (Endlos-Lernmodus) und „Bücher
-/// systematisch lernen“ – beide mit denselben Perikopen und derselben Streak.
+/// systematisch lernen“ – beide mit denselben Perikopen und derselben Streak –
+/// sowie die „Grundlagen der Bibelkunde“ (Übung Bibelkunde AT: Begriffe,
+/// Kanon, Text, Entstehung). Die Grundlagen nutzen Inhalte und Lernstand
+/// des Bereichs Altes Testament mit (`OtCourseId.bibelkunde`).
 ///
 /// Aufbau wie die übrigen Lernbereiche (z. B. Latein): Symbol, Streak-Karte,
 /// je Funktion ein Knopf.
@@ -109,6 +114,38 @@ class BibelkundeScreen extends StatelessWidget {
                 Text(
                   "Ein Buch abschnittsweise lernen, mit Lernplan, "
                   "Wiederholungen und Prüfung",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: context.colors.textSecondary,
+                    fontSize: 12.5,
+                  ),
+                ),
+
+                const SizedBox(height: 16),
+
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton.icon(
+                    key: const ValueKey("bibelkunde-basics"),
+                    // Braucht keine Perikopen.
+                    onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => const OldTestamentHomeScreen(
+                          course: OtCourseId.bibelkunde,
+                        ),
+                      ),
+                    ),
+                    icon: const Icon(Icons.school_outlined),
+                    label: const Text("Grundlagen der Bibelkunde"),
+                  ),
+                ),
+
+                const SizedBox(height: 6),
+
+                Text(
+                  "Begriffe, Kanon, Text und Entstehung nach den Folien der "
+                  "Übung, mit Lernmodus",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: context.colors.textSecondary,

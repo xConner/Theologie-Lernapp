@@ -1,4 +1,5 @@
 import '../../models/greek/vocabulary/learning_card.dart';
+import '../../models/old_testament/old_testament.dart';
 import '../local_learning_store.dart';
 import '../quiz_documents.dart';
 import 'old_testament_quiz.dart';
@@ -83,10 +84,13 @@ class OldTestamentSettings {
 /// ```text
 /// old_testament:          cards:    {kartenId: {difficulty, stability, lastReviewed: ms}}
 /// old_testament_settings: settings: {scope, disabledKinds, onlyDifficult, inOrder}
+/// old_testament_bibelkunde_settings: settings: {…} (Grundlagen der Bibelkunde)
 /// ```
 ///
 /// Kartenschlüssel sind `<Inhalts-ID>|<Art>`. Neue Einheiten bringen neue
-/// IDs mit; vorhandene Karten bleiben unberührt.
+/// IDs mit; vorhandene Karten bleiben unberührt. Vorlesung und Übung
+/// Bibelkunde teilen die Karten (ein Begriff, eine Karte), haben aber
+/// eigene Einstellungen ([settingsDocument]).
 class OldTestamentStore {
   final QuizDocuments documents;
 
@@ -98,7 +102,11 @@ class OldTestamentStore {
       : OldTestamentStore(FirestoreQuizDocuments(uid));
 
   static const String _doc = LocalLearningStore.oldTestament;
-  static const String _settingsDoc = LocalLearningStore.oldTestamentSettings;
+
+  static String settingsDocument(OtCourseId course) => switch (course) {
+    OtCourseId.lecture => LocalLearningStore.oldTestamentSettings,
+    OtCourseId.bibelkunde => LocalLearningStore.bibelkundeBasicsSettings,
+  };
 
   QuizCardDocument get _cards => QuizCardDocument(documents, _doc);
 
@@ -108,13 +116,22 @@ class OldTestamentStore {
 
   Future<void> resetCards(Iterable<String> cardIds) => _cards.reset(cardIds);
 
-  Future<OldTestamentSettings> loadSettings() async {
-    final doc = await documents.load(_settingsDoc);
+  Future<OldTestamentSettings> loadSettings({
+    OtCourseId course = OtCourseId.lecture,
+  }) async {
+    final doc = await documents.load(settingsDocument(course));
     return OldTestamentSettings.fromMap(doc["settings"]);
   }
 
-  Future<void> saveSettings(OldTestamentSettings settings) {
-    return documents.replaceField(_settingsDoc, "settings", settings.toMap());
+  Future<void> saveSettings(
+    OldTestamentSettings settings, {
+    OtCourseId course = OtCourseId.lecture,
+  }) {
+    return documents.replaceField(
+      settingsDocument(course),
+      "settings",
+      settings.toMap(),
+    );
   }
 }
 

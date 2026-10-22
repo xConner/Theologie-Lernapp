@@ -224,6 +224,123 @@
       ],
       "fromSlides": true,
       "definition": "Folge des Untergangs des Südreiches 587 v. Chr. (Eroberung durch die Neubabylonier); ab 539 v. Chr. kehrten unter persischer Herrschaft einige Exulanten zurück."
+    },
+    {
+      "id": "term.hebraeische_bibel",
+      "name": "Hebräische Bibel",
+      "aliases": [
+        "HB",
+        "Hebrew Bible"
+      ],
+      "fromSlides": true,
+      "confusable": [
+        "term.tanak",
+        "term.miqra",
+        "term.erstes_testament"
+      ],
+      "definition": "Bezeichnung der Schriften des Alten Testaments, die im Judentum, international (englisch Hebrew Bible) und interreligiös gebräuchlich ist."
+    },
+    {
+      "id": "term.erstes_testament",
+      "name": "Erstes Testament",
+      "fromSlides": true,
+      "confusable": [
+        "term.hebraeische_bibel",
+        "term.tanak",
+        "term.miqra",
+        "term.testamentum"
+      ],
+      "definition": "Alternative Bezeichnung für das Alte Testament; die Folie nennt sie nach der Kritik, „alt“ könne als „veraltet“ verstanden werden.",
+      "supplement": "Vorgeschlagen vor allem von Erich Zenger. Andere halten an „Altes Testament“ fest: Der Begriff ist kirchlich eingeführt, geht auf 2 Kor 3,14 zurück, und „alt“ meint dort nicht „überholt“, sondern den Bund, auf den der neue folgt."
+    },
+    {
+      "id": "term.megillot",
+      "name": "Megillot / Festrollen",
+      "aliases": [
+        "Megillot",
+        "Festrollen"
+      ],
+      "fromSlides": true,
+      "confusable": [
+        "term.ketubim"
+      ],
+      "definition": "Fünf Bücher der Ketubim, die je einem Fest bzw. Gedenktag zugeordnet sind: Rut (Wochenfest), Hohelied (Passa), Kohelet/Prediger (Laubhüttenfest), Klagelieder (Tempelzerstörung), Ester (Purim)."
+    },
+    {
+      "id": "term.vordere_propheten",
+      "name": "Vordere Propheten",
+      "fromSlides": true,
+      "confusable": [
+        "term.nebiim",
+        "term.hintere_propheten"
+      ],
+      "definition": "Erster Teil der Nebiim: die Bücher Josua bis 2. Könige (Jos – 2 Kön)."
+    },
+    {
+      "id": "term.hintere_propheten",
+      "name": "Hintere Propheten",
+      "fromSlides": true,
+      "confusable": [
+        "term.nebiim",
+        "term.vordere_propheten",
+        "term.dodekapropheton"
+      ],
+      "definition": "Zweiter Teil der Nebiim: Jesaja bis Maleachi (Jes – Mal), gegliedert in die „großen“ (Jes, Jer, Ez) und die „kleinen“ Propheten (Hos – Mal)."
+    },
+    {
+      "id": "term.dodekapropheton",
+      "name": "Dodekapropheton / Zwölfprophetenbuch",
+      "aliases": [
+        "Dodekapropheton",
+        "Zwölfprophetenbuch"
+      ],
+      "fromSlides": true,
+      "confusable": [
+        "term.hintere_propheten",
+        "term.nebiim"
+      ],
+      "definition": "Die „kleinen Propheten“ Hosea bis Maleachi, als ein Buch zusammengefasst."
+    },
+    {
+      "id": "term.bhq",
+      "name": "Biblia Hebraica Quinta (BHQ)",
+      "aliases": [
+        "BHQ",
+        "Biblia Hebraica Quinta"
+      ],
+      "fromSlides": true,
+      "confusable": [
+        "term.bhs",
+        "term.leningradensis"
+      ],
+      "definition": "Kritische Textausgabe der Hebräischen Bibel, die wie die Stuttgartensia auf dem Codex Leningradensis beruht.",
+      "supplement": "Die BHQ ist die Nachfolgeausgabe der BHS und erscheint seit 2004 in einzelnen Lieferungen."
+    },
+    {
+      "id": "term.targum",
+      "name": "Targum",
+      "aliases": [
+        "Targume",
+        "Targumim"
+      ],
+      "fromSlides": true,
+      "definition": "Aramäische Übersetzung der Hebräischen Bibel; die frühesten gibt es bereits ab dem 2. Jh. v. Chr."
+    },
+    {
+      "id": "term.peschitta",
+      "name": "Peschitta",
+      "fromSlides": true,
+      "definition": "Syrische Bibelübersetzung (ab dem 2. Jh. n. Chr.)."
+    },
+    {
+      "id": "term.vetus_latina",
+      "name": "Vetus Latina",
+      "fromSlides": true,
+      "confusable": [
+        "term.vulgata"
+      ],
+      "definition": "Frühe lateinische Bibelübersetzung (ab dem 2./3. Jh. n. Chr.), älter als die Vulgata (um 400 n. Chr.).",
+      "supplement": "„Die alte Lateinische“: Sammelname für die lateinischen Übersetzungen vor der Vulgata des Hieronymus."
     }
   ]
 }

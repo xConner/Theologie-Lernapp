@@ -20,6 +20,13 @@ enum OtQuizKind {
 
   const OtQuizKind(this.label);
 
+  /// Bezeichnung in einer Veranstaltung: Die Übung Bibelkunde hat keine
+  /// „Vorlesung“, ihre Auswahlfragen heißen „Wissensfragen“.
+  String labelIn(OtCourseId course) =>
+      this == lecture && course == OtCourseId.bibelkunde
+      ? "Wissensfragen"
+      : label;
+
   static OtQuizKind? tryParse(Object? name) {
     for (final k in values) {
       if (k.name == name) return k;
@@ -42,18 +49,21 @@ class OtScope {
   /// Gespeicherte Form: `all` bzw. `unit:unit.01`.
   String get key => unitId == null ? "all" : "unit:$unitId";
 
-  /// Unbekannte oder entfernte Einheiten fallen auf „alle“ zurück.
+  /// Unbekannte oder entfernte Einheiten und Einheiten der anderen
+  /// Veranstaltung fallen auf „alle“ zurück.
   static OtScope parse(String? key, OldTestamentData data) {
     if (key != null && key.startsWith("unit:")) {
       final id = key.substring(5);
-      if (data.unit(id) != null) return OtScope.unit(id);
+      if (data.units.any((u) => u.id == id)) return OtScope.unit(id);
     }
     return all;
   }
 
   String label(OldTestamentData data) {
     final u = unitId == null ? null : data.unit(unitId!);
-    return u == null ? "Alle Einheiten" : "${u.label}: ${u.title}";
+    return u == null
+        ? "Alle ${data.courseId.unitName}en"
+        : "${u.label}: ${u.title}";
   }
 
   @override
@@ -229,14 +239,28 @@ class OldTestamentQuiz {
   /// Mindestzahl eindeutiger Ablenker für automatisch erzeugte Fragen.
   static const int minDistractors = 2;
 
-  /// Alle Aufgabeninhalte im Umfang für die gewählten Arten.
+  /// Alle Aufgabeninhalte im Umfang für die gewählten Arten. Geteilte
+  /// Inhalte ([LectureUnit.sharedIds]) stehen bei der Einheit, die sie
+  /// teilt, mit derselben Karte wie in ihrer Herkunftseinheit.
   List<OtCandidate> candidates(OtScope scope, Set<OtQuizKind> kinds) {
     final result = <OtCandidate>[];
     final seenTerms = <String>{};
 
     for (final u in unitsIn(scope)) {
+      final questions = [
+        ...u.questions,
+        for (final id in u.sharedIds) ?data.question(id),
+      ];
+      final lists = [...u.lists, for (final id in u.sharedIds) ?data.list(id)];
+      final passages = [
+        for (final p in u.passages) (u, p),
+        for (final id in u.sharedIds)
+          if (data.passage(id) != null)
+            (data.unitOfPassage(id)!, data.passage(id)!),
+      ];
+
       if (kinds.contains(OtQuizKind.lecture)) {
-        for (final q in u.questions) {
+        for (final q in questions) {
           result.add(
             OtCandidate(
               cardId: cardId(q.id, OtQuizKind.lecture),
@@ -273,19 +297,19 @@ class OldTestamentQuiz {
       }
 
       if (kinds.contains(OtQuizKind.passage)) {
-        for (final p in u.passages) {
+        for (final (owner, p) in passages) {
           if (p.clue == null) continue;
           result.add(
             OtCandidate(
               cardId: cardId(p.id, OtQuizKind.passage),
               kind: OtQuizKind.passage,
-              build: (r) => _passage(p, u, r),
+              build: (r) => _passage(p, owner, r),
             ),
           );
         }
       }
 
-      for (final l in u.lists) {
+      for (final l in lists) {
         if (kinds.contains(OtQuizKind.recall)) {
           result.add(
             OtCandidate(
@@ -306,6 +330,10 @@ class OldTestamentQuiz {
         }
       }
     }
+
+    // Geteilte Inhalte nur einmal (bei mehreren Einheiten im Umfang).
+    final seen = <String>{};
+    result.retainWhere((c) => seen.add(c.cardId));
 
     // Nur Inhalte, für die sich auch eine Aufgabe bilden lässt (genug
     // Ablenker); so zeigt der Fortschritt keine unerreichbaren Karten.

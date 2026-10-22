@@ -1,9 +1,11 @@
-/// Statische Inhalte des Lernbereichs „Altes Testament“.
+/// Statische Inhalte des Lernbereichs „Altes Testament“ und der Grundlagen
+/// der Bibelkunde (Übung „Bibelkunde Altes Testament“).
 ///
 /// Alle Inhalte stehen in `assets/old_testament/` und werden über stabile
 /// IDs verknüpft (siehe `docs/old-testament.md`). Jede Aussage gehört zu
-/// genau einer Vorlesungseinheit und nennt ihre Folien. Der Lernstand des
-/// Nutzers liegt getrennt davon (`OldTestamentStore`).
+/// genau einer Einheit (Vorlesung) bzw. Sitzung (Übung) und nennt ihre
+/// Folien. Beide Veranstaltungen teilen Begriffe, geteilte Fragen und den
+/// Lernstand (`OldTestamentStore`), der getrennt von den Inhalten liegt.
 ///
 /// Drei Ebenen werden überall unterschieden:
 /// * Folieninhalt: Abschrift ([UnitSlide.text]) und alles, was nur
@@ -243,9 +245,59 @@ class CuratedQuestion {
   });
 }
 
-/// Eine Vorlesungseinheit: das Material einer hochgeladenen Foliendatei.
+/// Veranstaltung, zu der eine Einheit gehört. Beide nutzen dieselben
+/// Begriffe, Aufgaben und Lernkarten; ein Inhalt steht nur einmal in den
+/// Daten.
+enum OtCourseId {
+  /// Vorlesung „Einführung in das Alte Testament“: Einheiten `unit.NN`.
+  lecture(
+    unitPrefix: "unit",
+    shortPrefix: "u",
+    unitName: "Einheit",
+    shortLabel: "Vorlesung AT",
+  ),
+
+  /// Übung „Bibelkunde Altes Testament“ (Bereich Bibelkunde): Sitzungen
+  /// `bk.NN`.
+  bibelkunde(
+    unitPrefix: "bk",
+    shortPrefix: "bk",
+    unitName: "Sitzung",
+    shortLabel: "Bibelkunde AT",
+  );
+
+  /// ID einer Einheit: `<unitPrefix>.NN`.
+  final String unitPrefix;
+
+  /// Teil der Inhalts-IDs: `q.<shortPrefix>NN.…`.
+  final String shortPrefix;
+
+  /// „Einheit“ bzw. „Sitzung“.
+  final String unitName;
+
+  /// Kurzname für Fundstellen aus der jeweils anderen Veranstaltung.
+  final String shortLabel;
+
+  const OtCourseId({
+    required this.unitPrefix,
+    required this.shortPrefix,
+    required this.unitName,
+    required this.shortLabel,
+  });
+
+  static OtCourseId? tryParse(Object? name) {
+    for (final c in values) {
+      if (c.name == name) return c;
+    }
+    return null;
+  }
+}
+
+/// Eine Vorlesungseinheit bzw. Sitzung der Übung: das Material einer
+/// hochgeladenen Foliendatei.
 class LectureUnit {
   final String id;
+  final OtCourseId course;
   final int number;
   final String title;
 
@@ -270,8 +322,14 @@ class LectureUnit {
   /// [OldTestamentData.relatedUnitsOf]).
   final List<String> relatedUnitIds;
 
+  /// IDs von Fragen, Merklisten und Bibelstellen einer anderen Einheit, die
+  /// diese Einheit ebenso behandelt. Sie werden nicht kopiert, sondern
+  /// mitgelernt: gleiche Lernkarte, Fundstelle bleibt die Herkunft.
+  final List<String> sharedIds;
+
   const LectureUnit({
     required this.id,
+    this.course = OtCourseId.lecture,
     required this.number,
     required this.title,
     this.scope,
@@ -286,11 +344,13 @@ class LectureUnit {
     this.lists = const [],
     this.questions = const [],
     this.relatedUnitIds = const [],
+    this.sharedIds = const [],
   });
 
-  String get label => "Einheit $number";
+  String get label => "${course.unitName} $number";
 
   bool get hasLearningContent =>
+      sharedIds.isNotEmpty ||
       questions.isNotEmpty ||
       lists.isNotEmpty ||
       terms.isNotEmpty ||
@@ -321,27 +381,102 @@ class OldTestamentCourse {
   String get subtitle => [title, ?lecturer, ?semester].join(" · ");
 }
 
-/// Alle Inhalte mit Indizes.
+/// Alle Inhalte mit Indizes, gesehen aus einer Veranstaltung ([courseId]).
+///
+/// [units] und [terms] enthalten nur, was zu dieser Veranstaltung gehört;
+/// Nachschlagen ([unit], [term], [question] …), Begriffsherkunft und
+/// verwandte Einheiten reichen über beide Veranstaltungen, damit geteilte
+/// Inhalte und Verweise funktionieren. [forCourse] wechselt die Sicht.
 class OldTestamentData {
-  final OldTestamentCourse course;
-  final List<Term> terms;
-  final List<LectureUnit> units;
+  final OtCourseId courseId;
+  final Map<OtCourseId, OldTestamentCourse> courses;
 
-  late final Map<String, Term> _terms = {for (final t in terms) t.id: t};
-  late final Map<String, LectureUnit> _units = {for (final u in units) u.id: u};
+  /// Alle Begriffe und Einheiten beider Veranstaltungen.
+  final List<Term> allTerms;
+  final List<LectureUnit> allUnits;
+
+  late final List<LectureUnit> units = [
+    for (final u in allUnits)
+      if (u.course == courseId) u,
+  ];
+
+  /// Begriffe, die eine Einheit dieser Veranstaltung nennt.
+  late final List<Term> terms = [
+    for (final t in allTerms)
+      if (units.any((u) => u.mentionOf(t.id) != null)) t,
+  ];
+
+  late final Map<String, Term> _terms = {for (final t in allTerms) t.id: t};
+  late final Map<String, LectureUnit> _units = {
+    for (final u in allUnits) u.id: u,
+  };
+  late final Map<String, CuratedQuestion> _questions = {
+    for (final u in allUnits)
+      for (final q in u.questions) q.id: q,
+  };
+  late final Map<String, RecallList> _lists = {
+    for (final u in allUnits)
+      for (final l in u.lists) l.id: l,
+  };
+  late final Map<String, (LectureUnit, PassageRef)> _passages = {
+    for (final u in allUnits)
+      for (final p in u.passages) p.id: (u, p),
+  };
 
   OldTestamentData({
-    required this.course,
-    required this.terms,
-    required this.units,
+    required OldTestamentCourse course,
+    required List<Term> terms,
+    required List<LectureUnit> units,
+    Map<OtCourseId, OldTestamentCourse> otherCourses = const {},
+  }) : this._(
+         courseId: OtCourseId.lecture,
+         courses: {...otherCourses, OtCourseId.lecture: course},
+         allTerms: terms,
+         allUnits: units,
+       );
+
+  OldTestamentData._({
+    required this.courseId,
+    required this.courses,
+    required this.allTerms,
+    required this.allUnits,
   });
+
+  /// Dieselben Inhalte aus Sicht der Veranstaltung [id].
+  OldTestamentData forCourse(OtCourseId id) => id == courseId
+      ? this
+      : OldTestamentData._(
+          courseId: id,
+          courses: courses,
+          allTerms: allTerms,
+          allUnits: allUnits,
+        );
+
+  /// Die Veranstaltung dieser Sicht.
+  OldTestamentCourse get course =>
+      courses[courseId] ?? courses[OtCourseId.lecture]!;
+
+  OldTestamentCourse courseOf(LectureUnit unit) =>
+      courses[unit.course] ?? course;
 
   Term? term(String id) => _terms[id];
   LectureUnit? unit(String id) => _units[id];
+  CuratedQuestion? question(String id) => _questions[id];
+  RecallList? list(String id) => _lists[id];
+  PassageRef? passage(String id) => _passages[id]?.$2;
 
-  /// Einheiten, die einen Begriff behandeln.
+  /// Einheit, zu der eine Bibelstelle gehört.
+  LectureUnit? unitOfPassage(String id) => _passages[id]?.$1;
+
+  /// Ob es zu der ID eine Frage, Merkliste oder Bibelstelle gibt.
+  bool isShareable(String id) =>
+      _questions.containsKey(id) ||
+      _lists.containsKey(id) ||
+      _passages.containsKey(id);
+
+  /// Einheiten, die einen Begriff behandeln (beide Veranstaltungen).
   List<LectureUnit> unitsOfTerm(String termId) => [
-    for (final u in units)
+    for (final u in allUnits)
       if (u.mentionOf(termId) != null) u,
   ];
 
@@ -360,24 +495,33 @@ class OldTestamentData {
       [...terms]
         ..sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
 
-  /// Verwandte Einheiten in beide Richtungen.
+  /// Verwandte Einheiten in beide Richtungen, auch aus der anderen
+  /// Veranstaltung.
   List<LectureUnit> relatedUnitsOf(String unitId) {
     final ids = <String>{
       ...?unit(unitId)?.relatedUnitIds,
-      for (final u in units)
+      for (final u in allUnits)
         if (u.relatedUnitIds.contains(unitId)) u.id,
     }..remove(unitId);
 
     return [
-      for (final u in units)
+      for (final u in allUnits)
         if (ids.contains(u.id)) u,
     ];
   }
 
+  /// Bezeichnung einer Einheit; aus der anderen Veranstaltung mit deren
+  /// Kurznamen („Bibelkunde AT · Sitzung 1“).
+  String unitLabel(LectureUnit u) =>
+      u.course == courseId ? u.label : "${u.course.shortLabel} · ${u.label}";
+
   /// Fundstelle für die Anzeige: „Einheit 1, Folie 3“.
   String sourceLabel(String unitId, List<int> slides) {
     final u = unit(unitId);
-    return [?u?.label, if (slides.isNotEmpty) slidesLabel(slides)].join(", ");
+    return [
+      if (u != null) unitLabel(u),
+      if (slides.isNotEmpty) slidesLabel(slides),
+    ].join(", ");
   }
 }
 

@@ -18,18 +18,36 @@ import 'unit_detail_screen.dart';
 /// Lernbereich „Altes Testament“: Lernmodus, Fortschritt und die
 /// Vorlesungseinheiten direkt auf der Startseite des Bereichs. Weitere
 /// Zugänge (Fachbegriffe) erscheinen erst, wenn es Inhalte dafür gibt.
+///
+/// Mit [course] = [OtCourseId.bibelkunde] dieselbe Seite für die
+/// „Grundlagen der Bibelkunde“ im Bereich Bibelkunde: Sitzungen der Übung
+/// statt Vorlesungseinheiten, gemeinsamer Lernstand.
 class OldTestamentHomeScreen extends StatelessWidget {
+  final OtCourseId course;
+
   /// Nur für Tests: Daten und Speicher ohne Assets bzw. Anmeldung.
   final OldTestamentData? data;
   final OldTestamentStore? store;
   final String? uid;
 
-  const OldTestamentHomeScreen({super.key, this.data, this.store, this.uid});
+  const OldTestamentHomeScreen({
+    super.key,
+    this.course = OtCourseId.lecture,
+    this.data,
+    this.store,
+    this.uid,
+  });
+
+  static String titleOf(OtCourseId course) => switch (course) {
+    OtCourseId.lecture => "Altes Testament",
+    OtCourseId.bibelkunde => "Grundlagen der Bibelkunde",
+  };
 
   @override
   Widget build(BuildContext context) {
     return OldTestamentDataBuilder(
-      title: "Altes Testament",
+      title: titleOf(course),
+      course: course,
       data: data,
       builder: (context, data) => _Home(
         data: data,
@@ -76,10 +94,11 @@ class _Home extends StatelessWidget {
   Widget build(BuildContext context) {
     final secondary = TextStyle(color: context.colors.textSecondary);
     final learnable = data.units.any((u) => u.hasLearningContent);
+    final lecture = data.courseId == OtCourseId.lecture;
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Altes Testament"),
+        title: Text(OldTestamentHomeScreen.titleOf(data.courseId)),
         actions: const [SettingsButton()],
       ),
       body: Center(
@@ -133,11 +152,17 @@ class _Home extends StatelessWidget {
                     screen: () => GlossaryScreen(data: data),
                   ),
 
-                const ContentSectionTitle("Vorlesungseinheiten"),
+                ContentSectionTitle(
+                  lecture ? "Vorlesungseinheiten" : "Sitzungen der Übung",
+                ),
                 if (data.units.isEmpty)
-                  const EmptyHint(
-                    "Noch keine Vorlesungseinheit hinterlegt. Neue Einheiten "
-                    "entstehen aus hochgeladenen Vorlesungsfolien.",
+                  EmptyHint(
+                    lecture
+                        ? "Noch keine Vorlesungseinheit hinterlegt. Neue "
+                              "Einheiten entstehen aus hochgeladenen "
+                              "Vorlesungsfolien."
+                        : "Noch keine Sitzung hinterlegt. Neue Sitzungen "
+                              "entstehen aus hochgeladenen Folien der Übung.",
                   ),
                 for (final u in data.units)
                   Card(
@@ -166,8 +191,16 @@ class _Home extends StatelessWidget {
 
                 const SizedBox(height: 12),
                 Text(
-                  "Inhalte geben die Vorlesungsfolien wieder; Erklärungen "
-                  "der App sind als „Ergänzung“ gekennzeichnet.",
+                  lecture
+                      ? "Inhalte geben die Vorlesungsfolien wieder; "
+                            "Erklärungen der App sind als „Ergänzung“ "
+                            "gekennzeichnet."
+                      : "Inhalte geben die Folien der Übung wieder; "
+                            "Erklärungen der App sind als „Ergänzung“ "
+                            "gekennzeichnet. Was die Vorlesung „Einführung in "
+                            "das Alte Testament“ ebenso behandelt, steht nur "
+                            "einmal in der App und hat einen gemeinsamen "
+                            "Lernstand.",
                   textAlign: TextAlign.center,
                   style: secondary.copyWith(fontSize: 12.5),
                 ),

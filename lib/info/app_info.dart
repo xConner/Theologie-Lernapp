@@ -312,7 +312,8 @@ class AppModules {
     description:
         "Vorlesungseinheiten mit Originalfolien und Abschrift, Kernpunkten, "
         "Gliederung, Fachbegriffen und Bibelstellen; Lernmodus mit "
-        "Auswahlfragen, Merklisten und Gliederungen.",
+        "Auswahlfragen, Merklisten und Gliederungen. Dieselben Inhalte "
+        "tragen die „Grundlagen der Bibelkunde“ im Bereich Bibelkunde.",
     sources: [
       SourceInfo(
         title: "Vorlesungsfolien",
@@ -327,6 +328,19 @@ class AppModules {
             "vollständige Abschrift hinterlegt, Tabellen und Schaubilder "
             "abgeschrieben. Kernpunkte, Gliederung und Fragen geben den "
             "Folieninhalt mit Folienangabe wieder.",
+      ),
+      SourceInfo(
+        title: "Folien der Übung Bibelkunde",
+        origin:
+            "Louisa Thomsen, „Bibelkunde Altes Testament“ (WiSe 2026/27), "
+            "1. Sitzung: Einführung (28 Folien). Die Tabellen der Folien 17 "
+            "und 18 stammen nach Angabe der Folien aus M. Köhlmoos, Altes "
+            "Testament (2011).",
+        processing:
+            "Wie bei der Vorlesung: Bilder und vollständige Abschrift (die "
+            "Titelfolie ohne Kontaktdaten), Zusammenfassung mit Folienangabe. "
+            "Was die Vorlesung ebenso sagt, ist nicht doppelt hinterlegt, "
+            "sondern mit ihr geteilt.",
       ),
       SourceInfo(
         title: "Erläuterungen und Ergänzungen",

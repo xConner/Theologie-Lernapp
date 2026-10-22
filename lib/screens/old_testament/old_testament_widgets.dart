@@ -14,9 +14,11 @@ import '../../widgets/content_page.dart';
 /// gleich aussehen.
 export '../../widgets/content_page.dart';
 
-/// Lädt die Inhalte und zeigt Lade- und Fehlerzustand.
+/// Lädt die Inhalte und zeigt Lade- und Fehlerzustand. [builder] erhält
+/// die Inhalte aus Sicht von [course].
 class OldTestamentDataBuilder extends StatefulWidget {
   final String title;
+  final OtCourseId course;
   final Widget Function(BuildContext context, OldTestamentData data) builder;
 
   /// Nur für Tests: Daten ohne Laden aus den Assets.
@@ -26,6 +28,7 @@ class OldTestamentDataBuilder extends StatefulWidget {
     super.key,
     required this.title,
     required this.builder,
+    this.course = OtCourseId.lecture,
     this.data,
   });
 
@@ -55,7 +58,9 @@ class _OldTestamentDataBuilderState extends State<OldTestamentDataBuilder> {
       builder: (context, snapshot) {
         final data = snapshot.data;
 
-        if (data != null) return widget.builder(context, data);
+        if (data != null) {
+          return widget.builder(context, data.forCourse(widget.course));
+        }
 
         return Scaffold(
           appBar: AppBar(title: Text(widget.title)),
@@ -67,8 +72,7 @@ class _OldTestamentDataBuilderState extends State<OldTestamentDataBuilder> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         const Text(
-                          "Die Inhalte zum Alten Testament konnten nicht "
-                          "geladen werden.",
+                          "Die Inhalte konnten nicht geladen werden.",
                           textAlign: TextAlign.center,
                         ),
                         const SizedBox(height: 12),
@@ -246,6 +250,7 @@ class TermCard extends StatelessWidget {
                     for (final u in units)
                       Tag(
                         data.sourceLabel(u.id, u.mentionOf(term.id)!.slides),
+                        key: ValueKey("term-source-${term.id}-${u.id}"),
                         color: context.colors.primary,
                         icon: Icons.school_outlined,
                       ),

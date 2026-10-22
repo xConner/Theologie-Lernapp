@@ -7,9 +7,10 @@ import '../../theme/app_theme.dart';
 import 'old_testament_quiz_screen.dart';
 import 'old_testament_widgets.dart';
 
-/// Eine Vorlesungseinheit in drei Tabs:
+/// Eine Vorlesungseinheit bzw. Sitzung der Übung in drei Tabs:
 /// * Überblick: Kernpunkte, Gliederung, Zusammenhänge, Merklisten,
-///   Literatur – jeweils mit Folienangabe
+///   Literatur – jeweils mit Folienangabe – und Inhalte, die die Einheit
+///   mit der anderen Veranstaltung teilt
 /// * Begriffe und Stellen: Fachbegriffe und Bibelstellen (aufschlagbar)
 /// * Originalfolien: Folienbilder und vollständige Abschrift
 ///
@@ -72,7 +73,7 @@ class _UnitDetailScreenState extends State<UnitDetailScreen> {
       context,
       MaterialPageRoute(
         builder: (_) => OldTestamentQuizScreen(
-          data: data,
+          data: data.forCourse(unit.course),
           scope: OtScope.unit(unit.id),
           store: widget.store,
         ),
@@ -91,7 +92,11 @@ class _UnitDetailScreenState extends State<UnitDetailScreen> {
       );
     }
 
-    final hasReference = unit.terms.isNotEmpty || unit.passages.isNotEmpty;
+    final sharedPassages = [for (final id in unit.sharedIds) ?data.passage(id)];
+    final hasReference =
+        unit.terms.isNotEmpty ||
+        unit.passages.isNotEmpty ||
+        sharedPassages.isNotEmpty;
     final hasSlides = unit.slides.isNotEmpty;
     final slideTab = hasReference ? 2 : 1;
 
@@ -115,13 +120,13 @@ class _UnitDetailScreenState extends State<UnitDetailScreen> {
                 key: const ValueKey("unit-learn"),
                 onPressed: () => _learn(unit),
                 icon: const Icon(Icons.quiz_rounded),
-                label: const Text("Einheit lernen"),
+                label: Text("${unit.course.unitName} lernen"),
               )
             : null,
         body: TabBarView(
           children: [
             Builder(builder: (context) => _overview(context, unit, slideTab)),
-            if (hasReference) _reference(context, unit),
+            if (hasReference) _reference(context, unit, sharedPassages),
             if (hasSlides) _slides(context, unit),
           ],
         ),
@@ -129,13 +134,18 @@ class _UnitDetailScreenState extends State<UnitDetailScreen> {
     );
   }
 
+  /// Steht in einer Zeile neben Text; lange Angaben („Folien 5, 6, 8, 9“)
+  /// brechen um, statt die Zeile zu sprengen.
   Widget _slideButton(BuildContext context, List<int> slides, int slideTab) {
     if (slides.isEmpty) return const SizedBox.shrink();
-    return TextButton(
-      onPressed: data.unit(widget.unitId)!.slides.isEmpty
-          ? null
-          : () => _showSlide(context, slideTab, slides.first),
-      child: Text(slidesLabel(slides)),
+    return ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 132),
+      child: TextButton(
+        onPressed: data.unit(widget.unitId)!.slides.isEmpty
+            ? null
+            : () => _showSlide(context, slideTab, slides.first),
+        child: Text(slidesLabel(slides), textAlign: TextAlign.end),
+      ),
     );
   }
 
@@ -146,7 +156,10 @@ class _UnitDetailScreenState extends State<UnitDetailScreen> {
 
     return ContentBody(
       children: [
-        Text([data.course.subtitle, ?unit.scope].join(" · "), style: secondary),
+        Text(
+          [data.courseOf(unit).subtitle, ?unit.scope].join(" · "),
+          style: secondary,
+        ),
         const SizedBox(height: 4),
         Text(
           "Kernpunkte und Gliederung fassen die Folien zusammen und nennen "
@@ -248,6 +261,8 @@ class _UnitDetailScreenState extends State<UnitDetailScreen> {
             ),
         ],
 
+        if (unit.sharedIds.isNotEmpty) ..._shared(context, unit),
+
         if (unit.literature.isNotEmpty) ...[
           const ContentSectionTitle("Quellen und Literatur"),
           Text("Angaben wie auf den Folien.", style: secondary),
@@ -270,12 +285,12 @@ class _UnitDetailScreenState extends State<UnitDetailScreen> {
             ListTile(
               contentPadding: EdgeInsets.zero,
               leading: const Icon(Icons.link_rounded),
-              title: Text("${r.label}: ${r.title}"),
+              title: Text("${data.unitLabel(r)}: ${r.title}"),
               onTap: () => Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (_) => UnitDetailScreen(
-                    data: data,
+                    data: data.forCourse(r.course),
                     unitId: r.id,
                     store: widget.store,
                   ),
@@ -287,7 +302,67 @@ class _UnitDetailScreenState extends State<UnitDetailScreen> {
     );
   }
 
-  Widget _reference(BuildContext context, LectureUnit unit) {
+  /// Fragen, Merklisten und Stellen, die die Einheit aus einer anderen
+  /// übernimmt: einmal gepflegt, gemeinsamer Lernstand, Fundstelle der
+  /// Herkunft.
+  List<Widget> _shared(BuildContext context, LectureUnit unit) {
+    final secondary = TextStyle(color: context.colors.textSecondary);
+    final owners = {
+      for (final id in unit.sharedIds)
+        ?data.unit(
+          data.question(id)?.unitId ??
+              data.list(id)?.unitId ??
+              data.unitOfPassage(id)?.id ??
+              "",
+        ),
+    };
+    final ownerNames = [
+      for (final o in owners) "${data.unitLabel(o)} („${o.title}“)",
+    ].join(", ");
+
+    return [
+      const ContentSectionTitle("Gemeinsame Inhalte"),
+      Text(
+        "Diese Inhalte behandelt auch $ownerNames. Sie stehen nur einmal in "
+        "der App; Lernmodus und Fortschritt zählen sie für beide "
+        "gemeinsam. Die Fundstelle nennt die Herkunft.",
+        style: secondary,
+      ),
+      for (final id in unit.sharedIds)
+        Builder(
+          builder: (context) {
+            final q = data.question(id);
+            final l = data.list(id);
+            final p = data.passage(id);
+            final (title, source) = q != null
+                ? (q.prompt, data.sourceLabel(q.unitId, q.slides))
+                : l != null
+                ? (
+                    "Merkliste: ${l.title}",
+                    data.sourceLabel(l.unitId, l.slides),
+                  )
+                : (
+                    "Bibelstelle: ${p!.label}",
+                    data.sourceLabel(data.unitOfPassage(id)!.id, p.slides),
+                  );
+            return ListTile(
+              key: ValueKey("shared-$id"),
+              dense: true,
+              contentPadding: EdgeInsets.zero,
+              leading: const Icon(Icons.link_rounded),
+              title: Text(title),
+              subtitle: Text(source),
+            );
+          },
+        ),
+    ];
+  }
+
+  Widget _reference(
+    BuildContext context,
+    LectureUnit unit,
+    List<PassageRef> sharedPassages,
+  ) {
     final secondary = TextStyle(color: context.colors.textSecondary);
 
     return ContentBody(
@@ -313,6 +388,14 @@ class _UnitDetailScreenState extends State<UnitDetailScreen> {
             PassageTile(
               passage: p,
               source: data.sourceLabel(unit.id, p.slides),
+            ),
+        ],
+        if (sharedPassages.isNotEmpty) ...[
+          if (unit.passages.isEmpty) const ContentSectionTitle("Bibelstellen"),
+          for (final p in sharedPassages)
+            PassageTile(
+              passage: p,
+              source: data.sourceLabel(data.unitOfPassage(p.id)!.id, p.slides),
             ),
         ],
       ],

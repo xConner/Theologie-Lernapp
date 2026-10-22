@@ -9,6 +9,7 @@ import '../../services/old_testament/old_testament_quiz.dart';
 import '../../services/old_testament/old_testament_store.dart';
 import '../../theme/app_theme.dart';
 import '../../widgets/progress_summary_tile.dart';
+import 'old_testament_home_screen.dart';
 import 'old_testament_widgets.dart';
 
 /// Lernstand je Einheit und Aufgabenart, schwierige Inhalte und
@@ -72,14 +73,46 @@ class _OldTestamentProgressScreenState
         .toList();
   }
 
+  /// Karten, die nur zur anderen Veranstaltung gehören. „Alle“
+  /// zurücksetzen lässt sie stehen; gemeinsame Karten (Begriffe, geteilte
+  /// Fragen) gehören beiden.
+  Set<String> _otherCoursesOnly() {
+    final own = _ids(OtScope.all).toSet();
+    return {
+      for (final c in OtCourseId.values)
+        if (c != data.courseId)
+          for (final candidate in OldTestamentQuiz(
+            data: data.forCourse(c),
+          ).candidates(OtScope.all, OtQuizKind.values.toSet()))
+            if (!own.contains(candidate.cardId)) candidate.cardId,
+    };
+  }
+
+  /// Ob unter [ids] Karten sind, die auch die andere Veranstaltung nutzt.
+  bool _touchesOtherCourse(List<String> ids) {
+    for (final c in OtCourseId.values) {
+      if (c == data.courseId) continue;
+      final other = OldTestamentQuiz(data: data.forCourse(c))
+          .candidates(OtScope.all, OtQuizKind.values.toSet())
+          .map((candidate) => candidate.cardId)
+          .toSet();
+      if (ids.any(other.contains)) return true;
+    }
+    return false;
+  }
+
   Future<void> _reset(String label, List<String> ids) async {
+    final otherName = data.courseId == OtCourseId.lecture
+        ? "in den Grundlagen der Bibelkunde"
+        : "in der Vorlesung Altes Testament";
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
         title: const Text("Fortschritt zurücksetzen?"),
         content: Text(
           "Der Lernstand für „$label“ wird gelöscht. Inhalte und "
-          "Einstellungen bleiben erhalten.",
+          "Einstellungen bleiben erhalten."
+          "${_touchesOtherCourse(ids) ? " Gemeinsame Inhalte (z. B. Fachbegriffe) werden auch $otherName zurückgesetzt." : ""}",
         ),
         actions: [
           TextButton(
@@ -123,17 +156,12 @@ class _OldTestamentProgressScreenState
           : term.name;
     }
 
-    for (final u in data.units) {
-      for (final q in u.questions) {
-        if (q.id == itemId) return q.prompt;
-      }
-      for (final l in u.lists) {
-        if (l.id == itemId) return "Merkliste: ${l.title}";
-      }
-      for (final p in u.passages) {
-        if (p.id == itemId) return "Bibelstelle: ${p.label}";
-      }
-    }
+    final question = data.question(itemId);
+    if (question != null) return question.prompt;
+    final list = data.list(itemId);
+    if (list != null) return "Merkliste: ${list.title}";
+    final passage = data.passage(itemId);
+    if (passage != null) return "Bibelstelle: ${passage.label}";
 
     return itemId;
   }
@@ -175,14 +203,20 @@ class _OldTestamentProgressScreenState
         const ContentSectionTitle("Gesamt"),
         ProgressSummaryTile(
           key: const ValueKey("progress-all"),
-          title: "Alle Einheiten",
+          title: OtScope.all.label(data),
           summary: ProgressSummary.of(allIds, cards, algorithm),
           onReset: cards.isEmpty
               ? null
-              : () => _reset("Altes Testament", cards.keys.toList()),
+              : () {
+                  final other = _otherCoursesOnly();
+                  _reset(OldTestamentHomeScreen.titleOf(data.courseId), [
+                    for (final id in cards.keys)
+                      if (!other.contains(id)) id,
+                  ]);
+                },
         ),
 
-        const ContentSectionTitle("Nach Einheit"),
+        ContentSectionTitle("Nach ${data.courseId.unitName}"),
         for (final u in data.units.where((u) => u.hasLearningContent))
           Builder(
             builder: (_) {
@@ -210,7 +244,10 @@ class _OldTestamentProgressScreenState
               );
               return summary.isEmpty
                   ? const SizedBox.shrink()
-                  : ProgressSummaryTile(title: kind.label, summary: summary);
+                  : ProgressSummaryTile(
+                      title: kind.labelIn(data.courseId),
+                      summary: summary,
+                    );
             },
           ),
 
@@ -228,7 +265,7 @@ class _OldTestamentProgressScreenState
               title: Text(describe(id)),
               subtitle: Text(
                 (OtQuizKind.tryParse(id.split("|").last) ?? OtQuizKind.term)
-                    .label,
+                    .labelIn(data.courseId),
               ),
             ),
       ],

@@ -108,8 +108,9 @@ enum ProgressArea {
             "bleiben erhalten.";
       case ProgressArea.oldTestament:
         return "Die Lernstände aller Fragen, Fachbegriffe, Bibelstellen und "
-            "Merklisten zum Alten Testament. Die Einstellungen bleiben "
-            "erhalten.";
+            "Merklisten zum Alten Testament, einschließlich der Grundlagen "
+            "der Bibelkunde (gemeinsamer Lernstand). Die Einstellungen "
+            "bleiben erhalten.";
       case ProgressArea.logic:
         return "Welche Lektionen geöffnet oder als bearbeitet markiert sind "
             "und die gespeicherten Antworten zu den Übungen.";

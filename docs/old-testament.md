@@ -8,6 +8,10 @@ Der Bereich wächst mit den Vorlesungsfolien: Jede hochgeladene Foliendatei
 wird eine **Vorlesungseinheit**. Er enthält nur, was die Folien hergeben,
 und keine allgemeine Wissensdatenbank zum Alten Testament.
 
+Dieselbe Datenbasis trägt die **Grundlagen der Bibelkunde** (Übung
+„Bibelkunde Altes Testament“, Louisa Thomsen) im Bereich Bibelkunde, siehe
+[Zwei Veranstaltungen, eine Datenbasis](#zwei-veranstaltungen-eine-datenbasis).
+
 ## Inhalte
 
 Alle Inhalte liegen als JSON in `assets/old_testament/`, getrennt vom
@@ -17,8 +21,9 @@ Lernstand:
 |---|---|
 | `course.json` | Veranstaltung und Liste der Einheiten-Dateien |
 | `terms.json` | Fachbegriffe aller Einheiten (je Begriff ein Eintrag) |
-| `units/einheit-NN.json` | eine Einheit: Folien (Abschrift, Hervorhebungen, Abbildungsbeschreibung, Bild), Kernpunkte, Gliederung, Begriffsnennungen, Bibelstellen, Zusammenhänge, Literatur, Merklisten, Fragen |
-| `slides/eNN-folie-MM.*` | verkleinerte Bilder der Originalfolien (Einheit NN, Folie MM) |
+| `units/einheit-NN.json` | eine Einheit der Vorlesung: Folien (Abschrift, Hervorhebungen, Abbildungsbeschreibung, Bild), Kernpunkte, Gliederung, Begriffsnennungen, Bibelstellen, Zusammenhänge, Literatur, Merklisten, Fragen |
+| `units/bibelkunde-NN.json` | eine Sitzung der Übung Bibelkunde (gleicher Aufbau, `course: "bibelkunde"`, dazu `shared`) |
+| `slides/eNN-folie-MM.*`, `slides/bkNN-folie-MM.*` | verkleinerte Bilder der Originalfolien (Einheit bzw. Sitzung NN, Folie MM) |
 
 Die Original-PDFs liegen nicht in der App.
 
@@ -40,6 +45,7 @@ Vorlesung“ und die Erklärung nennt andere Positionen.
 | Inhalt | Form | Beispiel |
 |---|---|---|
 | Einheit | `unit.NN` (passt zu `number`) | `unit.01` |
+| Sitzung der Übung | `bk.NN`, Inhalte `q.bkNN.*`, `list.bkNN.*`, `passage.bkNN.*` | `bk.01`, `q.bk01.ziel` |
 | Begriff | `term.<name>` | `term.tanak` |
 | Frage | `q.uNN.<name>` | `q.u01.luther` |
 | Merkliste | `list.uNN.<name>` | `list.u01.tanak` |
@@ -70,6 +76,43 @@ Antwortmöglichkeiten und verwandte Einheiten.
 
 Code muss dafür nicht geändert werden. Vorhandener Lernstand bleibt, weil
 neue Einheiten nur neue IDs mitbringen.
+
+## Zwei Veranstaltungen, eine Datenbasis
+
+Die Übung „Bibelkunde Altes Testament“ überschneidet sich in ihren
+Grundlagen (Bezeichnungen, Kanon, Textüberlieferung, Eckdaten der
+Geschichte) stark mit Einheit 1 der Vorlesung. Damit nichts doppelt gepflegt
+wird, liegt sie in denselben Daten:
+
+* `course.json` nennt unter `courses.bibelkunde` die Übung; ihre Sitzungen
+  tragen `"course": "bibelkunde"` (`OtCourseId`).
+* **Begriffe** stehen einmal in `terms.json`. Eine Sitzung nennt sie nur
+  (`terms: [{term, slides, text}]`, mit dem Wortlaut ihrer Folie). Lernkarte
+  `term.kanon|term` gilt für beide Veranstaltungen.
+* **Geteilte Inhalte**: `shared: ["q.u01.luther", "list.u01.tanak", …]` in
+  einer Sitzung übernimmt Fragen, Merklisten und Bibelstellen einer
+  Vorlesungseinheit, die die Folie der Übung ebenso aussagt. Sie werden nicht
+  kopiert: gleiche Karte, Fundstelle bleibt die Vorlesung („Vorlesung AT ·
+  Einheit 1, Folie 11“). Die Detailansicht zeigt sie unter „Gemeinsame
+  Inhalte“. Eigene Fragen der Übung nur für das, was die Vorlesung nicht oder
+  anders sagt (ein Test prüft, dass keine Frage einer Vorlesungsfrage
+  gleicht).
+* **Sicht**: `OldTestamentData.forCourse(course)` liefert Einheiten und
+  Begriffe einer Veranstaltung; Nachschlagen, Begriffsherkunft und
+  „Verwandte Einheiten“ reichen über beide. Alle Bildschirme des Bereichs
+  arbeiten mit einer Sicht (`OldTestamentHomeScreen(course: …)`), die
+  Vorlesung sieht nichts von der Übung außer dem Verweis unter „Verwandte
+  Einheiten“.
+* **Lernstand** gemeinsam in `old_testament`, **Einstellungen** getrennt
+  (`old_testament_settings` bzw. `old_testament_bibelkunde_settings`).
+  „Alle zurücksetzen“ im Fortschritt einer Veranstaltung lässt die Karten
+  stehen, die nur die andere hat; gemeinsame Karten werden für beide
+  zurückgesetzt (der Dialog sagt das).
+* Serie und Statistik: Antworten zählen wie im Alten Testament
+  (`StreakTrack.oldTestament`), weil es dieselben Karten sind.
+
+Nicht in die Grundlagen gehören die Bücher im Einzelnen; sie folgen in
+späteren Sitzungen bzw. liegen unter „Bücher systematisch lernen“.
 
 ## Lernen
 
@@ -138,3 +181,4 @@ Antwortknöpfe kommen aus der Kirchengeschichte.
 | Einheit | Folien | Inhalt |
 |---|---|---|
 | 1 | 1–21 | Grundlagen: Der alttestamentliche Kanon und die Geschichte Israels (Bibel/AT als Bezeichnungen, jüdischer und christlicher Kanon, Textüberlieferung, Geschichte und Literaturgeschichte) |
+| Übung, Sitzung 1 | 1–28 | Einführung Bibelkunde AT: Ziele, Organisatorisches, Bibelstellen lesen, Begriffe, Kanon (jüdisch, LXX, Lutherbibel), Text und Übersetzungen, Erzählbogen, Entstehung, Eckdaten; 23 Inhalte mit Einheit 1 geteilt |

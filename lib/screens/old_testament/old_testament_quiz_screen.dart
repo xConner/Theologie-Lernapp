@@ -21,6 +21,7 @@ import '../../widgets/settings_selection.dart';
 import '../../widgets/sound_volume_button.dart';
 import '../../widgets/statistics_widgets.dart';
 import '../../widgets/trainer_widgets.dart';
+import 'old_testament_home_screen.dart';
 import 'old_testament_progress_screen.dart';
 import 'old_testament_widgets.dart';
 import 'unit_detail_screen.dart';
@@ -102,7 +103,7 @@ class _OldTestamentQuizScreenState extends State<OldTestamentQuizScreen> {
 
   Future<void> _load() async {
     try {
-      settings = await store.loadSettings();
+      settings = await store.loadSettings(course: data.courseId);
       final cards = await store.loadCards();
       quiz = OldTestamentQuiz(data: data, cards: cards, random: widget.random);
     } catch (_) {
@@ -269,7 +270,7 @@ class _OldTestamentQuizScreenState extends State<OldTestamentQuizScreen> {
         return StatefulBuilder(
           builder: (context, setDialogState) {
             return ModuleSettingsDialog(
-              moduleLabel: "Altes Testament",
+              moduleLabel: OldTestamentHomeScreen.titleOf(data.courseId),
               onProgressReset: _reloadProgress,
               title: Row(
                 children: [
@@ -303,7 +304,7 @@ class _OldTestamentQuizScreenState extends State<OldTestamentQuizScreen> {
                       );
 
                       try {
-                        await store.saveSettings(saved);
+                        await store.saveSettings(saved, course: data.courseId);
                       } catch (_) {
                         // Die Auswahl gilt trotzdem für diese Sitzung.
                       }
@@ -348,7 +349,7 @@ class _OldTestamentQuizScreenState extends State<OldTestamentQuizScreen> {
                       title: "Aufgabenarten",
                       options: options,
                       isSelected: draftKinds.contains,
-                      labelOf: (k) => k.label,
+                      labelOf: (k) => k.labelIn(data.courseId),
                       emptyError:
                           "Mindestens eine Aufgabenart muss ausgewählt sein.",
                       onToggleAll: () => setDialogState(() {
@@ -367,10 +368,15 @@ class _OldTestamentQuizScreenState extends State<OldTestamentQuizScreen> {
                         children: [
                           SwitchListTile(
                             key: const ValueKey("in-order"),
-                            title: const Text("In Reihenfolge der Vorlesung einführen"),
-                            subtitle: const Text(
+                            title: Text(
+                              data.courseId == OtCourseId.lecture
+                                  ? "In Reihenfolge der Vorlesung einführen"
+                                  : "In Reihenfolge der Übung einführen",
+                            ),
+                            subtitle: Text(
                               "Noch nicht geübte Inhalte kommen der Reihe nach "
-                              "dazu, Einheit für Einheit; Geübtes wird weiter "
+                              "dazu, ${data.courseId.unitName} für "
+                              "${data.courseId.unitName}; Geübtes wird weiter "
                               "wiederholt.",
                             ),
                             value: draftInOrder,
@@ -509,7 +515,7 @@ class _OldTestamentQuizScreenState extends State<OldTestamentQuizScreen> {
                         const SizedBox(height: 8),
                       ],
                       Text(
-                        "${scope.label(data)} · ${q.kind.label}",
+                        "${scope.label(data)} · ${q.kind.labelIn(data.courseId)}",
                         textAlign: TextAlign.center,
                         style: TextStyle(color: context.colors.textSecondary),
                       ),
@@ -724,7 +730,9 @@ class _OldTestamentQuizScreenState extends State<OldTestamentQuizScreen> {
                   context,
                   MaterialPageRoute(
                     builder: (_) => UnitDetailScreen(
-                      data: data,
+                      data: data.forCourse(
+                        data.unit(q.unitId)?.course ?? data.courseId,
+                      ),
                       unitId: q.unitId,
                       initialSlide: q.slides.firstOrNull,
                       store: store,

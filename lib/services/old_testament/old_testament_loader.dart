@@ -7,8 +7,10 @@ import '../../models/old_testament/old_testament.dart';
 /// Lädt die Inhalte aus `assets/old_testament/` und prüft sie.
 ///
 /// Aufbau:
-/// * `course.json`: Veranstaltung und Liste der Einheiten-Dateien
-///   (`units/einheit-NN.json`, eine je hochgeladener Foliendatei)
+/// * `course.json`: Vorlesung (`course`), weitere Veranstaltungen
+///   (`courses`, z. B. die Übung Bibelkunde) und Liste der Einheiten-Dateien
+///   (`units/einheit-NN.json` bzw. `units/bibelkunde-NN.json`, eine je
+///   hochgeladener Foliendatei)
 /// * `terms.json`: Fachbegriffe aller Einheiten (je Begriff ein Eintrag)
 ///
 /// Ein Fehler in den Daten (doppelte oder falsch gebildete ID, Folie, die es
@@ -62,19 +64,33 @@ class OldTestamentLoader {
     required Map<String, dynamic> terms,
     required List<Map<String, dynamic>> units,
   }) {
-    final c = course["course"] as Map<String, dynamic>;
-
-    final data = OldTestamentData(
-      course: OldTestamentCourse(
-        title: c["title"] as String,
-        lecturer: c["lecturer"] as String?,
-        semester: c["semester"] as String?,
-      ),
-      terms: [for (final t in _list(terms["terms"])) _term(t)],
-      units: [for (final u in units) _unit(u)],
+    OldTestamentCourse info(Map<String, dynamic> c) => OldTestamentCourse(
+      title: c["title"] as String,
+      lecturer: c["lecturer"] as String?,
+      semester: c["semester"] as String?,
     );
 
-    final errors = validate(data);
+    final others = <OtCourseId, OldTestamentCourse>{};
+    final errors = <String>[];
+    final rawCourses = course["courses"] as Map<String, dynamic>? ?? const {};
+    for (final e in rawCourses.entries) {
+      final id = OtCourseId.tryParse(e.key);
+      if (id == null || id == OtCourseId.lecture) {
+        errors.add("Unbekannte Veranstaltung: ${e.key}");
+        continue;
+      }
+      others[id] = info(e.value as Map<String, dynamic>);
+    }
+
+    final data = OldTestamentData(
+      course: info(course["course"] as Map<String, dynamic>),
+      otherCourses: others,
+      terms: [for (final t in _list(terms["terms"])) _term(t)],
+      units: [for (final u in units) _unit(u, errors)],
+    );
+
+    errors.addAll(validate(data));
+
     if (errors.isNotEmpty) {
       throw FormatException(
         "Inhalte zum Alten Testament fehlerhaft:\n${errors.join("\n")}",
@@ -84,7 +100,7 @@ class OldTestamentLoader {
     return data;
   }
 
-  static final RegExp _unitId = RegExp(r'^unit\.(\d{2})$');
+  static final RegExp _unitId = RegExp(r'^([a-z]+)\.(\d{2})$');
   static final RegExp _termId = RegExp(r'^term\.[a-z0-9_]+$');
 
   /// Alle Probleme der Daten (leer = in Ordnung).
@@ -96,7 +112,7 @@ class OldTestamentLoader {
       if (!ids.add(id)) errors.add("Doppelte ID: $id");
     }
 
-    for (final t in data.terms) {
+    for (final t in data.allTerms) {
       unique(t.id);
       if (!_termId.hasMatch(t.id)) errors.add("Ungültige Begriffs-ID: ${t.id}");
       if (t.definition.trim().isEmpty) errors.add("${t.id}: ohne Erklärung");
@@ -108,18 +124,26 @@ class OldTestamentLoader {
       }
     }
 
-    final numbers = <int>{};
+    final numbers = <(OtCourseId, int)>{};
 
-    for (final u in data.units) {
+    for (final u in data.allUnits) {
       unique(u.id);
 
       final match = _unitId.firstMatch(u.id);
-      if (match == null || int.parse(match.group(1)!) != u.number) {
+      if (match == null ||
+          match.group(1) != u.course.unitPrefix ||
+          int.parse(match.group(2)!) != u.number) {
         errors.add("${u.id}: ID passt nicht zu Nummer ${u.number}");
       }
-      if (!numbers.add(u.number)) errors.add("Doppelte Einheit ${u.number}");
+      if (!data.courses.containsKey(u.course)) {
+        errors.add("${u.id}: Veranstaltung ${u.course.name} fehlt");
+      }
+      if (!numbers.add((u.course, u.number))) {
+        errors.add("Doppelte ${u.course.unitName} ${u.number}");
+      }
 
-      final short = "u${u.number.toString().padLeft(2, "0")}";
+      final short =
+          "${u.course.shortPrefix}${u.number.toString().padLeft(2, "0")}";
       final slideNumbers = {for (final s in u.slides) s.number};
 
       if (slideNumbers.length != u.slides.length) {
@@ -213,10 +237,26 @@ class OldTestamentLoader {
           errors.add("${u.id}: unbekannte verwandte Einheit $r");
         }
       }
+
+      // Geteilt wird nur, was eine andere Einheit selbst enthält.
+      final shared = <String>{};
+      for (final id in u.sharedIds) {
+        if (!shared.add(id)) errors.add("${u.id}: $id doppelt geteilt");
+        if (!data.isShareable(id)) {
+          errors.add("${u.id}: unbekannter geteilter Inhalt $id");
+        } else if (_ownerOf(data, id) == u.id) {
+          errors.add("${u.id}: $id gehört zur Einheit selbst");
+        }
+      }
     }
 
     return errors;
   }
+
+  static String? _ownerOf(OldTestamentData data, String id) =>
+      data.question(id)?.unitId ??
+      data.list(id)?.unitId ??
+      data.unitOfPassage(id)?.id;
 
   // ==========================
   // EINLESEN
@@ -250,11 +290,16 @@ class OldTestamentLoader {
     );
   }
 
-  static LectureUnit _unit(Map<String, dynamic> json) {
+  static LectureUnit _unit(Map<String, dynamic> json, List<String> errors) {
     final id = json["id"] as String;
+    final course = json["course"] == null
+        ? OtCourseId.lecture
+        : OtCourseId.tryParse(json["course"]);
+    if (course == null) errors.add("$id: unbekannte Veranstaltung");
 
     return LectureUnit(
       id: id,
+      course: course ?? OtCourseId.lecture,
       number: json["number"] as int,
       title: json["title"] as String,
       scope: json["scope"] as String?,
@@ -342,6 +387,7 @@ class OldTestamentLoader {
           ),
       ],
       relatedUnitIds: _strings(json["related"]),
+      sharedIds: _strings(json["shared"]),
     );
   }
 }

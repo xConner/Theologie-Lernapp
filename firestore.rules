@@ -15,8 +15,9 @@ rules_version = '2';
 //                                              (Latein-Grammatiktrainer)
 //   users/{uid}/quiz_settings/{church_history|church_history_settings}
 //                                              (Kirchengeschichte)
-//   users/{uid}/quiz_settings/{old_testament|old_testament_settings}
-//                                              (Altes Testament)
+//   users/{uid}/quiz_settings/{old_testament|old_testament_settings|
+//                               old_testament_bibelkunde_settings}
+//                                              (Altes Testament, Grundlagen der Bibelkunde)
 //   users/{uid}/quiz_settings/{latin_vocabulary_plan|latin_vocabulary_plan_progress}
 //                                              (Latein: Vokabel-Lernplan)
 //   users/{uid}/vocabulary/{vocabularyId}

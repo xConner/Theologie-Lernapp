@@ -130,6 +130,12 @@ class LocalLearningStore {
   static const String oldTestament = "old_testament";
   static const String oldTestamentSettings = "old_testament_settings";
 
+  /// Einstellungen des Lernmodus „Grundlagen der Bibelkunde“. Der
+  /// Lernstand liegt mit dem des Alten Testaments in [oldTestament]
+  /// (gemeinsame Inhalte, gemeinsame Karten).
+  static const String bibelkundeBasicsSettings =
+      "old_testament_bibelkunde_settings";
+
   /// Lernplan der lateinischen Vokabeln und die Einführungen im Plan
   /// (`quiz_settings/latin_vocabulary_plan` bzw.
   /// `latin_vocabulary_plan_progress`, siehe `LatinVocabularyPlanStore`).
@@ -157,6 +163,7 @@ class LocalLearningStore {
     churchHistorySettings,
     oldTestament,
     oldTestamentSettings,
+    bibelkundeBasicsSettings,
     latinVocabularyPlan,
     latinVocabularyPlanProgress,
     greekVocabularyPlan,
