@@ -3,12 +3,17 @@ import 'package:flutter/material.dart';
 import '../../../models/logic/logic_exercise.dart';
 import '../../../services/logic/exercise_generator.dart';
 import '../../../services/logic/logic_progress_store.dart';
+import '../../../services/logic/logic_streak_rule.dart';
+import '../../../services/streak/streak_track.dart';
 import '../../../theme/app_theme.dart';
+import '../../../widgets/streak_widgets.dart';
 import 'exercise_views.dart';
 
 /// Übungen nacheinander bearbeiten. Mit [generatorKind] werden neue,
 /// geprüfte Aufgaben erzeugt, solange man weitermacht.
 class LogicExerciseScreen extends StatefulWidget {
+  /// null = Gastmodus; bestimmt, wessen Streak eine gelöste Übung zählt.
+  final String? uid;
   final String title;
   final List<LogicExercise> exercises;
   final int initialIndex;
@@ -19,6 +24,7 @@ class LogicExerciseScreen extends StatefulWidget {
 
   const LogicExerciseScreen({
     super.key,
+    required this.uid,
     required this.title,
     required this.exercises,
     required this.store,
@@ -55,11 +61,24 @@ class _LogicExerciseScreenState extends State<LogicExerciseScreen> {
     }
   }
 
-  Future<void> _record(LogicExercise e, bool ok) async {
+  /// Übungen dieser Runde, die schon für die Streak gezählt haben. Wer mit
+  /// „Zurück“ zu einer gelösten Übung geht und sie erneut löst, zählt sie
+  /// nicht noch einmal.
+  final Set<int> _streakCounted = {};
+
+  Future<void> _record(int index, LogicExercise e, bool ok) async {
     setState(() {
       answered++;
       if (ok) correct++;
     });
+    if (LogicStreakRule.counts(e, correct: ok) && _streakCounted.add(index)) {
+      recordStreakAnswer(
+        context,
+        uid: widget.uid,
+        track: StreakTrack.logic,
+        source: StreakSource.logicExercise,
+      );
+    }
     try {
       final id = e.id;
       if (id != null) {
@@ -125,7 +144,7 @@ class _LogicExerciseScreenState extends State<LogicExerciseScreen> {
                     LogicExerciseView(
                       key: ValueKey("exercise-view-$index"),
                       exercise: items[index],
-                      onResult: (ok) => _record(items[index], ok),
+                      onResult: (ok) => _record(index, items[index], ok),
                     ),
                     const SizedBox(height: 20),
                     Row(

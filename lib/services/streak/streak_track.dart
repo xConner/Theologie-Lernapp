@@ -33,10 +33,12 @@ class StreakTrack {
 
   static const int defaultDailyGoal = 10;
 
+  /// Altgriechisch: Vokabel- und Grammatiktrainer sowie die erste Prüfung
+  /// jeder Aufgabe im Klausurersteller.
   static const StreakTrack greek = StreakTrack(
     id: "greek",
     label: "Altgriechisch",
-    sources: [StreakSource.vocabulary, StreakSource.grammar],
+    sources: [StreakSource.vocabulary, StreakSource.grammar, StreakSource.exam],
   );
 
   static const StreakTrack latin = StreakTrack(
@@ -86,6 +88,16 @@ class StreakTrack {
     dailyGoal: 1,
   );
 
+  /// Einführung in die Logik: richtig gelöste, automatisch geprüfte Übungen
+  /// (siehe `LogicStreakRule`). Eine Übung – etwa ein Beweis – ist
+  /// aufwendiger als eine Vokabel, daher fünf statt zehn am Tag.
+  static const StreakTrack logic = StreakTrack(
+    id: "logic",
+    label: "Logik",
+    sources: [StreakSource.logicExercise],
+    dailyGoal: 5,
+  );
+
   /// Alle in der App verfügbaren Tracks (Reihenfolge = Anzeige-Reihenfolge).
   static const List<StreakTrack> all = [
     greek,
@@ -95,6 +107,7 @@ class StreakTrack {
     oldTestament,
     memorization,
     bible,
+    logic,
   ];
 }
 
@@ -111,6 +124,8 @@ class StreakSource {
   static const String knowledgeQuiz = "knowledge_quiz";
   static const String chronology = "chronology";
   static const String oldTestamentQuiz = "old_testament_quiz";
+  static const String exam = "exam";
+  static const String logicExercise = "logic_exercise";
 
   static const Map<String, String> labels = {
     vocabulary: "Vokabeln",
@@ -122,6 +137,8 @@ class StreakSource {
     knowledgeQuiz: "Wissensquiz",
     chronology: "Chronologietrainer",
     oldTestamentQuiz: "Lernmodus",
+    exam: "Klausurersteller",
+    logicExercise: "Übungen",
   };
 
   static String label(String source) => labels[source] ?? source;

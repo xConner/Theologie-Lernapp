@@ -33,8 +33,13 @@ class GreekExamBuilderScreen extends StatefulWidget {
   final Future<List<GreekVocabularyEntry>> Function()? loadVocabulary;
   final Random? random;
 
+  /// Mit eingesetztem [store] gilt dieser Nutzer (Tests ohne Firebase),
+  /// sonst der angemeldete.
+  final String? uid;
+
   const GreekExamBuilderScreen({
     super.key,
+    this.uid,
     this.source,
     this.store,
     this.loadVocabulary,
@@ -48,9 +53,11 @@ class GreekExamBuilderScreen extends StatefulWidget {
 class _GreekExamBuilderScreenState extends State<GreekExamBuilderScreen> {
   late final ExamCorpusSource source =
       widget.source ?? AssetExamCorpusSource();
-  late final ExamStore store =
-      widget.store ??
-      ExamStore.forUser(FirebaseAuth.instance.currentUser?.uid);
+  // uid == null: Gastmodus.
+  late final String? uid = widget.store == null
+      ? FirebaseAuth.instance.currentUser?.uid
+      : widget.uid;
+  late final ExamStore store = widget.store ?? ExamStore.forUser(uid);
   late final ExamGenerator generator = ExamGenerator(
     source: source,
     random: widget.random,
@@ -202,6 +209,7 @@ class _GreekExamBuilderScreenState extends State<GreekExamBuilderScreen> {
             context,
             MaterialPageRoute(
               builder: (_) => GreekExamScreen(
+                uid: uid,
                 exam: exam,
                 generator: generator,
                 store: store,

@@ -429,6 +429,7 @@ void main() {
         "old_testament",
         "memorization",
         "bible",
+        "logic",
       ]);
     });
   });

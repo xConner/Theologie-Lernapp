@@ -62,8 +62,13 @@ class StreakService extends ChangeNotifier {
 
   /// Verwirft alle Stände im Arbeitsspeicher (nicht den Speicher), damit
   /// Tests mit dem gemeinsamen [instance] unabhängig voneinander starten.
+  /// Auch die Warteschlangen (Service und Gast-Speicher) beginnen neu: Ein
+  /// Vorgang, den ein beendeter Widget-Test (Fake-Zeit) offen gelassen hat,
+  /// hielte sonst alle weiteren auf.
   @visibleForTesting
   void resetForTesting() {
+    _queue = Future.value();
+    LocalStreakRepository.resetForTesting();
     _uid = null;
     _loaded = false;
     _repository = null;

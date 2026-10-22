@@ -53,6 +53,16 @@ letzte Ergebnis. Zurücksetzen: Einstellungen → Lernbereich zurücksetzen →
 zurücksetzen“ umfasst den Bereich. Gastdaten werden bei der Anmeldung mit
 übernommen.
 
+## Streak
+
+Der Bereich hat einen eigenen Track `StreakTrack.logic` (Tagesziel fünf,
+weil eine Übung wie ein Beweis aufwendiger ist als eine Vokabel). Es zählt
+jede Übung, die die App selbst prüft und als richtig bewertet, einmal je
+Bearbeitung (`LogicStreakRule`, gemeldet in `LogicExerciseScreen`). Offene
+Aufgaben mit Selbsteinschätzung, falsche Lösungen, das Öffnen oder Lesen
+einer Lektion und „Lektion als bearbeitet markieren“ zählen nicht. Die
+Anzeige steht oben in der Kursübersicht (`StreakDetailCard`).
+
 ## Tests
 
 `test/logic/logic_course_content_test.dart` prüft den gesamten Inhalt: jede

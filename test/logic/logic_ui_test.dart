@@ -6,6 +6,7 @@ import 'package:theologie_lernapp/screens/philosophy/logic/logic_course_screen.d
 import 'package:theologie_lernapp/screens/philosophy/philosophy_home_screen.dart';
 import 'package:theologie_lernapp/services/logic/logic_course_loader.dart';
 import 'package:theologie_lernapp/services/logic/logic_progress_store.dart';
+import 'package:theologie_lernapp/services/streak/streak_service.dart';
 import 'package:theologie_lernapp/theme/app_theme.dart';
 
 import '../test_asset_bundle.dart';
@@ -24,6 +25,7 @@ void main() {
 
   setUp(() {
     SharedPreferences.setMockInitialValues({});
+    StreakService.instance.resetForTesting();
   });
 
   Future<void> pumpCourse(WidgetTester tester, {Size size = const Size(390, 844)}) async {
@@ -60,9 +62,18 @@ void main() {
     expect(find.text("offen"), findsWidgets);
   });
 
+  /// Die Streak-Karte steht über den Lektionen; die Lektion erst sichtbar
+  /// machen.
+  Future<void> showLesson(WidgetTester tester, String id) async {
+    await tester.scrollUntilVisible(key("logic-lesson-$id"), 200);
+    await tester.ensureVisible(key("logic-lesson-$id"));
+    await tester.pumpAndSettle();
+  }
+
   testWidgets("Lehrtext öffnen, Übung lösen, Fortschritt wird gespeichert", (tester) async {
     await pumpCourse(tester);
 
+    await showLesson(tester, "l1");
     await tester.tap(key("logic-lesson-l1"));
     await tester.runAsync(() => Future<void>.delayed(const Duration(milliseconds: 50)));
     await tester.pumpAndSettle();

@@ -37,6 +37,18 @@ ein Stand von einem früheren Tag oder älter als 15 Minuten neu geladen,
 damit ein offener Tab keine auf einem anderen Gerät fortgeführte Streak
 zurücksetzt.
 
+Gezählt wird nur eine abgeschlossene, bewertete Lernaktivität, nie das
+Öffnen eines Bereichs oder eine Einstellung: richtige Antworten in den
+Trainern, Kirchengeschichte und Altem Testament (`reportTrainerAnswer`),
+wortgetreu richtige Eingaben beim Auswendiglernen, bestätigte Lesungen,
+die erste richtige Prüfung einer Aufgabe im Klausurersteller (Track
+Altgriechisch) und richtig gelöste, automatisch geprüfte Logik-Übungen
+(Track `logic`, Tagesziel 5). Ein neuer Bereich bekommt einen
+`StreakTrack` in `StreakTrack.all` – die tägliche Erinnerung
+(`api/_lib/reminders.ts`) kennt ihre Tracks aber getrennt und ist bisher
+nur für Bibellesen, Auswendiglernen, Altgriechisch, Latein und Perikopen
+eingerichtet.
+
 `uid == null` bedeutet überall Gastmodus: dieselben Datenstrukturen, lokal
 über `LocalLearningStore` statt in Firestore. Die Collection-Namen stehen
 einmal in `LocalLearningStore.cardCollections`.
@@ -166,6 +178,7 @@ ohne Umbau hinzukommen:
 | Klausur erstellen, Aufgaben austauschen | `services/greek/exam/exam_generator.dart` |
 | Antwortprüfung mit Mehrdeutigkeiten | `services/greek/exam/exam_answer_check.dart` |
 | Konfiguration und bearbeitete Texte (Konto: `users/{uid}/greek_exam`, Gast: lokal) | `services/greek/exam/exam_store.dart` |
+| Streak: erste Prüfung je Aufgabe(nteil), richtig → Track `greek`, Quelle `exam` | `GreekExamScreen._onChecked` |
 | Screens | `screens/greek/exam/` |
 | Herkunft, Lizenzen, Grenzen der Daten | `docs/greek-exam-sources.md` |
 

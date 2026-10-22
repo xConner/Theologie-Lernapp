@@ -10,7 +10,9 @@ import '../../../services/greek/exam/exam_generator.dart';
 import '../../../services/greek/exam/exam_store.dart';
 import '../../../services/greek/exam/exam_task_types.dart';
 import '../../../services/greek/exam/grammar_phenomena.dart';
+import '../../../services/streak/streak_track.dart';
 import '../../../theme/app_theme.dart';
+import '../../../widgets/streak_widgets.dart';
 import 'exam_diagnosis_view.dart';
 import 'exam_task_widgets.dart';
 
@@ -25,6 +27,8 @@ String passageTitle(PassageRef ref, TextCorpus? corpus) {
 /// Aufgaben 3 und 4. Jede Aufgabe lässt sich einzeln austauschen; als
 /// bearbeitet markiert wird der Text nur über die Schaltfläche am Ende.
 class GreekExamScreen extends StatefulWidget {
+  /// null = Gastmodus; bestimmt, wessen Streak geprüfte Aufgaben zählen.
+  final String? uid;
   final GreekExam exam;
   final ExamGenerator generator;
   final ExamStore store;
@@ -32,6 +36,7 @@ class GreekExamScreen extends StatefulWidget {
 
   const GreekExamScreen({
     super.key,
+    required this.uid,
     required this.exam,
     required this.generator,
     required this.store,
@@ -69,6 +74,22 @@ class _GreekExamScreenState extends State<GreekExamScreen> {
   }
 
   bool get isDone => done.containsKey(exam.passage.ref);
+
+  /// Bereits geprüfte Aufgabenteile (Version der Aufgabe und Wort). Für die
+  /// Streak zählt nur die erste Prüfung: „Nochmal“ und erneutes Prüfen
+  /// derselben Aufgabe zählen nicht, eine ausgetauschte Aufgabe ist neu.
+  final Set<String> _checked = {};
+
+  void _onChecked(String key, bool correct) {
+    if (!_checked.add(key) || !correct) return;
+
+    recordStreakAnswer(
+      context,
+      uid: widget.uid,
+      track: StreakTrack.greek,
+      source: StreakSource.exam,
+    );
+  }
 
   void _message(String text) {
     ScaffoldMessenger.of(context)
@@ -471,6 +492,8 @@ class _GreekExamScreenState extends State<GreekExamScreen> {
               key: ValueKey("$version-${item.tokenIndex}"),
               item: item,
               verb: true,
+              onChecked: (ok) =>
+                  _onChecked("$version-${item.tokenIndex}", ok),
             ),
         ],
       ),
@@ -484,6 +507,8 @@ class _GreekExamScreenState extends State<GreekExamScreen> {
               key: ValueKey("$version-${item.tokenIndex}"),
               item: item,
               verb: false,
+              onChecked: (ok) =>
+                  _onChecked("$version-${item.tokenIndex}", ok),
             ),
         ],
       ),
@@ -491,11 +516,13 @@ class _GreekExamScreenState extends State<GreekExamScreen> {
         key: ValueKey(version),
         passage: exam.passage,
         task: task,
+        onChecked: (ok) => _onChecked(version, ok),
       ),
       ChoiceTask() => ChoiceTaskView(
         key: ValueKey(version),
         passage: exam.passage,
         task: task,
+        onChecked: (token, ok) => _onChecked("$version-$token", ok),
       ),
       UnavailableTask(:final reason) => Text(
         reason,

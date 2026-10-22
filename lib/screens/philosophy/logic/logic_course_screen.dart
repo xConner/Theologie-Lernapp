@@ -6,9 +6,11 @@ import '../../../models/logic/logic_course.dart';
 import '../../../models/logic/logic_exercise.dart';
 import '../../../services/logic/logic_course_loader.dart';
 import '../../../services/logic/logic_progress_store.dart';
+import '../../../services/streak/streak_track.dart';
 import '../../../theme/app_theme.dart';
 import '../../../widgets/info_report.dart';
 import '../../../widgets/logic/lesson_blocks.dart';
+import '../../../widgets/streak_widgets.dart';
 import 'logic_exercise_screen.dart';
 import 'logic_lesson_screen.dart';
 
@@ -101,6 +103,17 @@ class _LogicCourseScreenState extends State<LogicCourseScreen> {
                   children: [
                     Text(c.description, style: Theme.of(context).textTheme.bodyMedium),
                     const SizedBox(height: 12),
+                    StreakDetailCard(
+                      uid: widget.uid,
+                      track: StreakTrack.logic,
+                      // Regel: LogicStreakRule.
+                      goalNoun: "richtig gelösten Übungen",
+                      todayHint:
+                          "Für die Streak zählen fünf richtig gelöste Übungen "
+                          "am Tag, die die App selbst prüft. Offene Aufgaben "
+                          "mit Selbsteinschätzung zählen dafür nicht.",
+                    ),
+                    const SizedBox(height: 12),
                     _actions(context, c),
                     const SizedBox(height: 16),
                     Text("Lektionen", style: Theme.of(context).textTheme.titleMedium),
@@ -145,6 +158,7 @@ class _LogicCourseScreenState extends State<LogicCourseScreen> {
               ? null
               : () => _open(
                   LogicExerciseScreen(
+                    uid: widget.uid,
                     title: "Wiederholen",
                     exercises: wrong,
                     store: store,
@@ -158,7 +172,9 @@ class _LogicCourseScreenState extends State<LogicCourseScreen> {
         if (c.exam != null)
           OutlinedButton.icon(
             key: const ValueKey("logic-exam"),
-            onPressed: () => _open(LogicExamScreen(exam: c.exam!, store: store)),
+            onPressed: () => _open(
+              LogicExamScreen(uid: widget.uid, exam: c.exam!, store: store),
+            ),
             icon: const Icon(Icons.assignment_outlined, size: 18),
             label: Text(c.exam!.title),
           ),
@@ -184,7 +200,12 @@ class _LogicCourseScreenState extends State<LogicCourseScreen> {
       key: ValueKey("logic-lesson-${lesson.id}"),
       child: InkWell(
         onTap: () => _open(
-          LogicLessonScreen(course: c, lesson: lesson, store: store),
+          LogicLessonScreen(
+            uid: widget.uid,
+            course: c,
+            lesson: lesson,
+            store: store,
+          ),
         ),
         child: Padding(
           padding: const EdgeInsets.all(14),
@@ -340,10 +361,16 @@ class LogicRulesScreen extends StatelessWidget {
 
 /// Übungsklausur: Hinweise und Beweisaufgaben.
 class LogicExamScreen extends StatelessWidget {
+  final String? uid;
   final LogicMockExam exam;
   final LogicProgressStore store;
 
-  const LogicExamScreen({super.key, required this.exam, required this.store});
+  const LogicExamScreen({
+    super.key,
+    required this.uid,
+    required this.exam,
+    required this.store,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -376,6 +403,7 @@ class LogicExamScreen extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (_) => LogicExerciseScreen(
+                          uid: uid,
                           title: exam.title,
                           exercises: exam.tasks,
                           initialIndex: i,

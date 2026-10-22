@@ -12,12 +12,14 @@ import 'logic_exercise_screen.dart';
 /// Eine Lektion: Lehrtext (mit Lernzielen und typischen Fehlern) und
 /// Übungen (Kursübungen, Zusatzübungen, erzeugte Übungen).
 class LogicLessonScreen extends StatefulWidget {
+  final String? uid;
   final LogicCourse course;
   final LogicLesson lesson;
   final LogicProgressStore store;
 
   const LogicLessonScreen({
     super.key,
+    required this.uid,
     required this.course,
     required this.lesson,
     required this.store,
@@ -72,6 +74,7 @@ class _LogicLessonScreenState extends State<LogicLessonScreen> {
       context,
       MaterialPageRoute(
         builder: (_) => LogicExerciseScreen(
+          uid: widget.uid,
           title: title,
           exercises: exercises,
           initialIndex: initial,

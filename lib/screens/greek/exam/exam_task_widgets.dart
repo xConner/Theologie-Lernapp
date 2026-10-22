@@ -241,7 +241,15 @@ class ParsingItemCard extends StatefulWidget {
   final ParsingItem item;
   final bool verb;
 
-  const ParsingItemCard({super.key, required this.item, required this.verb});
+  /// Nach jeder Prüfung: ob die Bestimmung richtig war.
+  final ValueChanged<bool>? onChecked;
+
+  const ParsingItemCard({
+    super.key,
+    required this.item,
+    required this.verb,
+    this.onChecked,
+  });
 
   @override
   State<ParsingItemCard> createState() => _ParsingItemCardState();
@@ -303,11 +311,12 @@ class _ParsingItemCardState extends State<ParsingItemCard> {
       gender: gender,
     );
 
-    setState(() {
-      result = widget.verb
-          ? ExamAnswerCheck.checkVerb(widget.item, answer)
-          : ExamAnswerCheck.checkNominal(widget.item, answer);
-    });
+    final checked = widget.verb
+        ? ExamAnswerCheck.checkVerb(widget.item, answer)
+        : ExamAnswerCheck.checkNominal(widget.item, answer);
+
+    setState(() => result = checked);
+    widget.onChecked?.call(checked.correct);
   }
 
   void reset() {
@@ -507,7 +516,16 @@ class FindFormsView extends StatefulWidget {
   final ExamPassage passage;
   final FindFormsTask task;
 
-  const FindFormsView({super.key, required this.passage, required this.task});
+  /// Nach jeder Prüfung: ob alle Formen gefunden und keine falsch markiert
+  /// wurden.
+  final ValueChanged<bool>? onChecked;
+
+  const FindFormsView({
+    super.key,
+    required this.passage,
+    required this.task,
+    this.onChecked,
+  });
 
   @override
   State<FindFormsView> createState() => _FindFormsViewState();
@@ -554,9 +572,16 @@ class _FindFormsViewState extends State<FindFormsView> {
             alignment: Alignment.centerRight,
             child: FilledButton(
               key: const ValueKey("check-find-forms"),
-              onPressed: () => setState(() {
-                result = ExamAnswerCheck.checkFindForms(widget.task, selected);
-              }),
+              onPressed: () {
+                final checked = ExamAnswerCheck.checkFindForms(
+                  widget.task,
+                  selected,
+                );
+                setState(() => result = checked);
+                widget.onChecked?.call(
+                  checked.missed.isEmpty && checked.wrong.isEmpty,
+                );
+              },
               child: const Text("Prüfen"),
             ),
           )
@@ -604,7 +629,16 @@ class ChoiceTaskView extends StatefulWidget {
   final ExamPassage passage;
   final ChoiceTask task;
 
-  const ChoiceTaskView({super.key, required this.passage, required this.task});
+  /// Nach jeder Prüfung einer Frage (Wort [ChoiceItem.tokenIndex]): ob die
+  /// Antwort richtig war.
+  final void Function(int tokenIndex, bool correct)? onChecked;
+
+  const ChoiceTaskView({
+    super.key,
+    required this.passage,
+    required this.task,
+    this.onChecked,
+  });
 
   @override
   State<ChoiceTaskView> createState() => _ChoiceTaskViewState();
@@ -668,7 +702,10 @@ class _ChoiceTaskViewState extends State<ChoiceTaskView> {
                   key: ValueKey("check-choice-${item.tokenIndex}"),
                   onPressed: answer == null
                       ? null
-                      : () => setState(() => checked.add(item.tokenIndex)),
+                      : () {
+                          setState(() => checked.add(item.tokenIndex));
+                          widget.onChecked?.call(item.tokenIndex, correct);
+                        },
                   child: const Text("Prüfen"),
                 ),
               )

@@ -134,6 +134,15 @@ class LocalStreakRepository implements StreakRepository {
   static Future<void> _pending = Future.value();
   static int _writes = 0;
 
+  /// Vergisst offene Schreibvorgänge. Nur für Tests (über
+  /// `StreakService.resetForTesting`): Ein beendeter Widget-Test (Fake-Zeit)
+  /// kann einen Vorgang hinterlassen, der nie abschließt; jedes weitere
+  /// Lesen würde sonst darauf warten.
+  static void resetForTesting() {
+    _pending = Future.value();
+    _writes = 0;
+  }
+
   @override
   Future<void> save(StreakState state) {
     _writes++;
