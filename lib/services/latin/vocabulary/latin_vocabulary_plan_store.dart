@@ -1,7 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 import '../../../models/latin/vocabulary/latin_vocabulary_plan.dart';
 import '../../local_learning_store.dart';
+import '../../quiz_documents.dart';
 
 /// Gespeicherter Stand des Latein-Lernplans.
 class LatinVocabularyPlanData {
@@ -55,100 +54,51 @@ class LatinVocabularyPlanData {
 /// `latin_vocabulary`, über `LearningService`); Plan und Trainer teilen ihn.
 /// Zurückgesetzt werden mit `ProgressArea.latinVocabulary` die Karten und
 /// die Einführungen; der Plan selbst bleibt.
-abstract class LatinVocabularyPlanStore {
-  Future<LatinVocabularyPlanData> load();
+class LatinVocabularyPlanStore {
+  final QuizDocuments documents;
 
-  /// `null` beendet den Plan; die Einführungen bleiben erhalten.
-  Future<void> savePlan(LatinVocabularyPlan? plan);
+  LatinVocabularyPlanStore(this.documents);
 
-  /// Ergänzt Einführungen (Merge, je Vokabel ein Eintrag).
-  Future<void> saveIntroduced(Map<int, DateTime> introduced);
-
+  /// uid == null bedeutet Gastmodus (lokale Speicherung).
   factory LatinVocabularyPlanStore.forUser(String? uid) => uid == null
       ? LocalLatinVocabularyPlanStore()
-      : FirestoreLatinVocabularyPlanStore(uid);
-}
-
-class LocalLatinVocabularyPlanStore implements LatinVocabularyPlanStore {
-  LocalLearningStore get _store => LocalLearningStore.instance;
+      : LatinVocabularyPlanStore(FirestoreQuizDocuments(uid));
 
   static const String _planDoc = LocalLearningStore.latinVocabularyPlan;
   static const String _progressDoc =
       LocalLearningStore.latinVocabularyPlanProgress;
 
-  @override
   Future<LatinVocabularyPlanData> load() async {
+    final results = await Future.wait([
+      documents.load(_planDoc),
+      documents.load(_progressDoc),
+    ]);
+
     return LatinVocabularyPlanData.fromDocuments(
-      plan: await _store.loadQuizDocument(_planDoc),
-      progress: await _store.loadQuizDocument(_progressDoc),
+      plan: results[0],
+      progress: results[1],
     );
   }
 
-  @override
+  /// `null` beendet den Plan; die Einführungen bleiben erhalten. Der Plan
+  /// wird als Ganzes gespeichert (abgewählte Lektionen sind eine Liste,
+  /// `targetDate: null` entfernt das Zieldatum).
   Future<void> savePlan(LatinVocabularyPlan? plan) {
-    if (plan == null) return _store.removeQuizDocument(_planDoc);
+    if (plan == null) return documents.remove(_planDoc);
 
-    // Jedes Feld wird ersetzt; `targetDate: null` entfernt das Zieldatum.
-    return _store.mergeQuizDocument(_planDoc, "plan", plan.toJson());
+    return documents.replaceField(_planDoc, "plan", plan.toJson());
   }
 
-  @override
+  /// Ergänzt Einführungen (Merge, je Vokabel ein Eintrag).
   Future<void> saveIntroduced(Map<int, DateTime> introduced) {
-    if (introduced.isEmpty) return Future.value();
-
-    return _store.mergeQuizDocument(_progressDoc, "introduced", {
+    return documents.mergeEntries(_progressDoc, "introduced", {
       for (final entry in introduced.entries)
         "${entry.key}": entry.value.millisecondsSinceEpoch,
     });
   }
 }
 
-class FirestoreLatinVocabularyPlanStore implements LatinVocabularyPlanStore {
-  final String uid;
-
-  FirestoreLatinVocabularyPlanStore(this.uid);
-
-  DocumentReference<Map<String, dynamic>> _doc(String name) {
-    return FirebaseFirestore.instance
-        .collection("users")
-        .doc(uid)
-        .collection("quiz_settings")
-        .doc(name);
-  }
-
-  @override
-  Future<LatinVocabularyPlanData> load() async {
-    final results = await Future.wait([
-      _doc(LocalLearningStore.latinVocabularyPlan).get(),
-      _doc(LocalLearningStore.latinVocabularyPlanProgress).get(),
-    ]);
-
-    return LatinVocabularyPlanData.fromDocuments(
-      plan: results[0].data(),
-      progress: results[1].data(),
-    );
-  }
-
-  @override
-  Future<void> savePlan(LatinVocabularyPlan? plan) {
-    final doc = _doc(LocalLearningStore.latinVocabularyPlan);
-
-    // Ganzer Plan statt Merge: abgewählte Lektionen sind eine Liste, die
-    // sonst nicht verkleinert werden könnte.
-    return plan == null ? doc.delete() : doc.set({"plan": plan.toJson()});
-  }
-
-  @override
-  Future<void> saveIntroduced(Map<int, DateTime> introduced) {
-    if (introduced.isEmpty) return Future.value();
-
-    // Gleiches Format wie lokal, damit die Übernahme von Gastdaten das
-    // Dokument unverändert kopiert.
-    return _doc(LocalLearningStore.latinVocabularyPlanProgress).set({
-      "introduced": {
-        for (final entry in introduced.entries)
-          "${entry.key}": entry.value.millisecondsSinceEpoch,
-      },
-    }, SetOptions(merge: true));
-  }
+/// Gastmodus (lokale Speicherung).
+class LocalLatinVocabularyPlanStore extends LatinVocabularyPlanStore {
+  LocalLatinVocabularyPlanStore() : super(LocalQuizDocuments());
 }

@@ -1,9 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 import '../quiz/books/book_learning_status.dart';
 import '../quiz/books/book_plan.dart';
 import '../quiz/books/verse_precision.dart';
 import 'local_learning_store.dart';
+import 'quiz_documents.dart';
 
 /// Gespeicherte Daten von „Bücher systematisch lernen“.
 class BookLearningData {
@@ -87,111 +86,54 @@ class BookLearningData {
 /// Geschrieben werden immer nur die geänderten Einträge (Merge), damit
 /// gleichzeitige Änderungen anderer Einträge erhalten bleiben. Die Karten
 /// des Endlos-Quiz (`learning_cards`) werden nie geschrieben.
-abstract class BookLearningStorage {
-  Future<BookLearningData> load();
+class BookLearningStorage {
+  final QuizDocuments documents;
 
-  Future<void> saveCards(List<BookCard> cards);
-
-  /// `null` entfernt die Präzisierung.
-  Future<void> savePrecision(String key, VersePrecision? precision);
-
-  /// `null` entfernt den Plan des Buchs.
-  Future<void> savePlan(String book, BookPlan? plan);
+  BookLearningStorage(this.documents);
 
   /// uid == null bedeutet Gastmodus (lokale Speicherung).
-  factory BookLearningStorage.forUser(String? uid) {
-    return uid == null
-        ? LocalBookLearningStorage()
-        : FirestoreBookLearningStorage(uid);
-  }
-}
+  factory BookLearningStorage.forUser(String? uid) => uid == null
+      ? LocalBookLearningStorage()
+      : BookLearningStorage(FirestoreQuizDocuments(uid));
 
-class LocalBookLearningStorage implements BookLearningStorage {
-  LocalLearningStore get _store => LocalLearningStore.instance;
-
-  @override
   Future<BookLearningData> load() async {
+    final results = await Future.wait([
+      documents.load(LocalLearningStore.pericopeBooks),
+      documents.load(LocalLearningStore.pericopePrecision),
+      documents.load(LocalLearningStore.pericopePlans),
+    ]);
+
     return BookLearningData.fromDocuments(
-      books: await _store.loadQuizDocument(LocalLearningStore.pericopeBooks),
-      precision: await _store.loadQuizDocument(
-        LocalLearningStore.pericopePrecision,
-      ),
-      plans: await _store.loadQuizDocument(LocalLearningStore.pericopePlans),
+      books: results[0],
+      precision: results[1],
+      plans: results[2],
     );
   }
 
-  @override
   Future<void> saveCards(List<BookCard> cards) {
-    return _store.mergeQuizDocument(LocalLearningStore.pericopeBooks, "cards", {
+    return documents.mergeEntries(LocalLearningStore.pericopeBooks, "cards", {
       for (final card in cards) card.id: card.toJson(),
     });
   }
 
-  @override
+  /// `null` entfernt die Präzisierung.
   Future<void> savePrecision(String key, VersePrecision? precision) {
-    return _store.mergeQuizDocument(
+    return documents.mergeEntries(
       LocalLearningStore.pericopePrecision,
       "items",
       {key: precision?.toJson()},
     );
   }
 
-  @override
+  /// `null` entfernt den Plan des Buchs.
   Future<void> savePlan(String book, BookPlan? plan) {
-    return _store.mergeQuizDocument(LocalLearningStore.pericopePlans, "plans", {
+    return documents.mergeEntries(LocalLearningStore.pericopePlans, "plans", {
       book: plan?.toJson(),
     });
   }
 }
 
-class FirestoreBookLearningStorage implements BookLearningStorage {
-  final String uid;
-
-  FirestoreBookLearningStorage(this.uid);
-
-  DocumentReference<Map<String, dynamic>> _doc(String name) {
-    return FirebaseFirestore.instance
-        .collection("users")
-        .doc(uid)
-        .collection("quiz_settings")
-        .doc(name);
-  }
-
-  @override
-  Future<BookLearningData> load() async {
-    final results = await Future.wait([
-      _doc(LocalLearningStore.pericopeBooks).get(),
-      _doc(LocalLearningStore.pericopePrecision).get(),
-      _doc(LocalLearningStore.pericopePlans).get(),
-    ]);
-
-    return BookLearningData.fromDocuments(
-      books: results[0].data(),
-      precision: results[1].data(),
-      plans: results[2].data(),
-    );
-  }
-
-  @override
-  Future<void> saveCards(List<BookCard> cards) {
-    if (cards.isEmpty) return Future.value();
-
-    return _doc(LocalLearningStore.pericopeBooks).set({
-      "cards": {for (final card in cards) card.id: card.toJson()},
-    }, SetOptions(merge: true));
-  }
-
-  @override
-  Future<void> savePrecision(String key, VersePrecision? precision) {
-    return _doc(LocalLearningStore.pericopePrecision).set({
-      "items": {key: precision?.toJson() ?? FieldValue.delete()},
-    }, SetOptions(merge: true));
-  }
-
-  @override
-  Future<void> savePlan(String book, BookPlan? plan) {
-    return _doc(LocalLearningStore.pericopePlans).set({
-      "plans": {book: plan?.toJson() ?? FieldValue.delete()},
-    }, SetOptions(merge: true));
-  }
+/// Gastmodus (lokale Speicherung).
+class LocalBookLearningStorage extends BookLearningStorage {
+  LocalBookLearningStorage() : super(LocalQuizDocuments());
 }

@@ -1,7 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 import '../../models/greek/vocabulary/learning_card.dart';
 import '../local_learning_store.dart';
+import '../quiz_documents.dart';
 import 'old_testament_quiz.dart';
 
 /// Einstellungen des Lernmodus: zuletzt gewählter Umfang, Aufgabenarten und
@@ -79,116 +78,38 @@ class OldTestamentSettings {
 ///
 /// Kartenschlüssel sind `<Inhalts-ID>|<Art>`. Neue Einheiten bringen neue
 /// IDs mit; vorhandene Karten bleiben unberührt.
-abstract class OldTestamentStore {
-  Future<Map<String, LearningCard>> loadCards();
+class OldTestamentStore {
+  final QuizDocuments documents;
 
-  Future<void> saveCards(Iterable<LearningCard> cards);
+  OldTestamentStore(this.documents);
 
-  Future<void> resetCards(Iterable<String> cardIds);
-
-  Future<OldTestamentSettings> loadSettings();
-
-  Future<void> saveSettings(OldTestamentSettings settings);
-
-  factory OldTestamentStore.forUser(String? uid) =>
-      uid == null ? LocalOldTestamentStore() : FirestoreOldTestamentStore(uid);
-}
-
-Map<String, LearningCard> _cardsFrom(Map<String, dynamic>? doc) {
-  final raw = doc?["cards"];
-
-  return {
-    if (raw is Map)
-      for (final entry in raw.entries)
-        if (entry.value is Map)
-          entry.key.toString(): LearningCard.fromJson(
-            entry.key.toString(),
-            Map<String, dynamic>.from(entry.value as Map),
-          ),
-  };
-}
-
-class LocalOldTestamentStore implements OldTestamentStore {
-  LocalLearningStore get _store => LocalLearningStore.instance;
+  /// uid == null bedeutet Gastmodus (lokale Speicherung).
+  factory OldTestamentStore.forUser(String? uid) => uid == null
+      ? LocalOldTestamentStore()
+      : OldTestamentStore(FirestoreQuizDocuments(uid));
 
   static const String _doc = LocalLearningStore.oldTestament;
   static const String _settingsDoc = LocalLearningStore.oldTestamentSettings;
 
-  @override
-  Future<Map<String, LearningCard>> loadCards() async =>
-      _cardsFrom(await _store.loadQuizDocument(_doc));
+  QuizCardDocument get _cards => QuizCardDocument(documents, _doc);
 
-  @override
-  Future<void> saveCards(Iterable<LearningCard> cards) {
-    return _store.mergeQuizDocument(_doc, "cards", {
-      for (final card in cards) card.id: card.toJson(),
-    });
-  }
+  Future<Map<String, LearningCard>> loadCards() => _cards.load();
 
-  @override
-  Future<void> resetCards(Iterable<String> cardIds) {
-    return _store.mergeQuizDocument(_doc, "cards", {
-      for (final id in cardIds) id: null,
-    });
-  }
+  Future<void> saveCards(Iterable<LearningCard> cards) => _cards.save(cards);
 
-  @override
+  Future<void> resetCards(Iterable<String> cardIds) => _cards.reset(cardIds);
+
   Future<OldTestamentSettings> loadSettings() async {
-    final doc = await _store.loadQuizDocument(_settingsDoc);
+    final doc = await documents.load(_settingsDoc);
     return OldTestamentSettings.fromMap(doc["settings"]);
   }
 
-  @override
   Future<void> saveSettings(OldTestamentSettings settings) {
-    return _store.mergeQuizDocument(_settingsDoc, "settings", settings.toMap());
+    return documents.replaceField(_settingsDoc, "settings", settings.toMap());
   }
 }
 
-class FirestoreOldTestamentStore implements OldTestamentStore {
-  final String uid;
-
-  FirestoreOldTestamentStore(this.uid);
-
-  CollectionReference<Map<String, dynamic>> get _collection => FirebaseFirestore
-      .instance
-      .collection("users")
-      .doc(uid)
-      .collection("quiz_settings");
-
-  DocumentReference<Map<String, dynamic>> get _doc =>
-      _collection.doc(LocalLearningStore.oldTestament);
-
-  DocumentReference<Map<String, dynamic>> get _settingsDoc =>
-      _collection.doc(LocalLearningStore.oldTestamentSettings);
-
-  @override
-  Future<Map<String, LearningCard>> loadCards() async =>
-      _cardsFrom((await _doc.get()).data());
-
-  @override
-  Future<void> saveCards(Iterable<LearningCard> cards) {
-    // Gleiches Format wie lokal, damit die Übernahme von Gastdaten das
-    // Dokument unverändert kopiert.
-    return _doc.set({
-      "cards": {for (final card in cards) card.id: card.toJson()},
-    }, SetOptions(merge: true));
-  }
-
-  @override
-  Future<void> resetCards(Iterable<String> cardIds) {
-    return _doc.set({
-      "cards": {for (final id in cardIds) id: FieldValue.delete()},
-    }, SetOptions(merge: true));
-  }
-
-  @override
-  Future<OldTestamentSettings> loadSettings() async {
-    final data = (await _settingsDoc.get()).data();
-    return OldTestamentSettings.fromMap(data?["settings"]);
-  }
-
-  @override
-  Future<void> saveSettings(OldTestamentSettings settings) {
-    return _settingsDoc.set({"settings": settings.toMap()});
-  }
+/// Gastmodus (lokale Speicherung).
+class LocalOldTestamentStore extends OldTestamentStore {
+  LocalOldTestamentStore() : super(LocalQuizDocuments());
 }

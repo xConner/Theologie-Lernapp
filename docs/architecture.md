@@ -9,6 +9,7 @@ Infrastruktur + trainer-spezifische Fachlogik – kein „Universaltrainer“.
 |---|---|
 | Lernstand je Karte (`stability`, `difficulty`, `lastReviewed`, Lernhilfe) | `models/greek/vocabulary/learning_card.dart` |
 | Laden/Speichern der Lernstände, Konto (Firestore) oder Gast (lokal) | `services/learning_service.dart`, `services/local_learning_store.dart` |
+| Dokumente unter `quiz_settings` (Bücher lernen, Kirchengeschichte, Altes Testament, Latein-Lernplan), Konto oder Gast, Kartenfeld `cards` | `services/quiz_documents.dart` (`QuizDocuments`, `QuizCardDocument`) |
 | Auswahl der nächsten Frage (Vokabeln, Perikopen) | `algorithms/learning_selector.dart`, `algorithms/spaced_repetition.dart` |
 | Auswahl nach grammatischer Bestimmung | `algorithms/grammar_learning.dart` |
 | Sound, Tagesstatistik, Streak nach einer Antwort | `reportTrainerAnswer` in `widgets/trainer_widgets.dart` |

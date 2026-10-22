@@ -1,7 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 import '../../models/greek/vocabulary/learning_card.dart';
 import '../local_learning_store.dart';
+import '../quiz_documents.dart';
 import 'church_history_quiz.dart';
 
 /// Einstellungen des Lernbereichs: zuletzt gewählter Umfang, Aufgabenarten
@@ -73,117 +72,38 @@ class ChurchHistorySettings {
 /// Zurückgesetzt wird über `ProgressArea.churchHistory` (nur
 /// `church_history`; die Einstellungen bleiben) oder je Umfang
 /// ([resetCards]).
-abstract class ChurchHistoryStore {
-  Future<Map<String, LearningCard>> loadCards();
+class ChurchHistoryStore {
+  final QuizDocuments documents;
 
-  Future<void> saveCards(Iterable<LearningCard> cards);
+  ChurchHistoryStore(this.documents);
 
-  Future<void> resetCards(Iterable<String> cardIds);
-
-  Future<ChurchHistorySettings> loadSettings();
-
-  Future<void> saveSettings(ChurchHistorySettings settings);
-
+  /// uid == null bedeutet Gastmodus (lokale Speicherung).
   factory ChurchHistoryStore.forUser(String? uid) => uid == null
       ? LocalChurchHistoryStore()
-      : FirestoreChurchHistoryStore(uid);
-}
-
-Map<String, LearningCard> _cardsFrom(Map<String, dynamic>? doc) {
-  final raw = doc?["cards"];
-
-  return {
-    if (raw is Map)
-      for (final entry in raw.entries)
-        if (entry.value is Map)
-          entry.key.toString(): LearningCard.fromJson(
-            entry.key.toString(),
-            Map<String, dynamic>.from(entry.value as Map),
-          ),
-  };
-}
-
-class LocalChurchHistoryStore implements ChurchHistoryStore {
-  LocalLearningStore get _store => LocalLearningStore.instance;
+      : ChurchHistoryStore(FirestoreQuizDocuments(uid));
 
   static const String _doc = LocalLearningStore.churchHistory;
   static const String _settingsDoc = LocalLearningStore.churchHistorySettings;
 
-  @override
-  Future<Map<String, LearningCard>> loadCards() async =>
-      _cardsFrom(await _store.loadQuizDocument(_doc));
+  QuizCardDocument get _cards => QuizCardDocument(documents, _doc);
 
-  @override
-  Future<void> saveCards(Iterable<LearningCard> cards) {
-    return _store.mergeQuizDocument(_doc, "cards", {
-      for (final card in cards) card.id: card.toJson(),
-    });
-  }
+  Future<Map<String, LearningCard>> loadCards() => _cards.load();
 
-  @override
-  Future<void> resetCards(Iterable<String> cardIds) {
-    return _store.mergeQuizDocument(_doc, "cards", {
-      for (final id in cardIds) id: null,
-    });
-  }
+  Future<void> saveCards(Iterable<LearningCard> cards) => _cards.save(cards);
 
-  @override
+  Future<void> resetCards(Iterable<String> cardIds) => _cards.reset(cardIds);
+
   Future<ChurchHistorySettings> loadSettings() async {
-    final doc = await _store.loadQuizDocument(_settingsDoc);
+    final doc = await documents.load(_settingsDoc);
     return ChurchHistorySettings.fromMap(doc["settings"]);
   }
 
-  @override
   Future<void> saveSettings(ChurchHistorySettings settings) {
-    return _store.mergeQuizDocument(_settingsDoc, "settings", settings.toMap());
+    return documents.replaceField(_settingsDoc, "settings", settings.toMap());
   }
 }
 
-class FirestoreChurchHistoryStore implements ChurchHistoryStore {
-  final String uid;
-
-  FirestoreChurchHistoryStore(this.uid);
-
-  CollectionReference<Map<String, dynamic>> get _collection => FirebaseFirestore
-      .instance
-      .collection("users")
-      .doc(uid)
-      .collection("quiz_settings");
-
-  DocumentReference<Map<String, dynamic>> get _doc =>
-      _collection.doc(LocalLearningStore.churchHistory);
-
-  DocumentReference<Map<String, dynamic>> get _settingsDoc =>
-      _collection.doc(LocalLearningStore.churchHistorySettings);
-
-  @override
-  Future<Map<String, LearningCard>> loadCards() async =>
-      _cardsFrom((await _doc.get()).data());
-
-  @override
-  Future<void> saveCards(Iterable<LearningCard> cards) {
-    // Karten im selben Format wie lokal (Zeitstempel in Millisekunden),
-    // damit die Übernahme von Gastdaten das Dokument unverändert kopiert.
-    return _doc.set({
-      "cards": {for (final card in cards) card.id: card.toJson()},
-    }, SetOptions(merge: true));
-  }
-
-  @override
-  Future<void> resetCards(Iterable<String> cardIds) {
-    return _doc.set({
-      "cards": {for (final id in cardIds) id: FieldValue.delete()},
-    }, SetOptions(merge: true));
-  }
-
-  @override
-  Future<ChurchHistorySettings> loadSettings() async {
-    final data = (await _settingsDoc.get()).data();
-    return ChurchHistorySettings.fromMap(data?["settings"]);
-  }
-
-  @override
-  Future<void> saveSettings(ChurchHistorySettings settings) {
-    return _settingsDoc.set({"settings": settings.toMap()});
-  }
+/// Gastmodus (lokale Speicherung).
+class LocalChurchHistoryStore extends ChurchHistoryStore {
+  LocalChurchHistoryStore() : super(LocalQuizDocuments());
 }
