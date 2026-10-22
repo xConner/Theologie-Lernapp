@@ -45,7 +45,7 @@ class _EntriesScreenState extends State<EntriesScreen> {
           e,
     ];
 
-    return ChurchHistoryPage(
+    return ContentPage(
       title: "Personen, Ereignisse, Begriffe",
       children: [
         TextField(

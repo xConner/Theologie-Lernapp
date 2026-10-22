@@ -55,9 +55,7 @@ class _EpochList extends StatelessWidget {
       children: [
         Center(
           child: ConstrainedBox(
-            constraints: const BoxConstraints(
-              maxWidth: ChurchHistoryPage.maxWidth,
-            ),
+            constraints: const BoxConstraints(maxWidth: ContentPage.maxWidth),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -113,7 +111,7 @@ class EpochDetailScreen extends StatelessWidget {
     final epoch = data.epoch(epochId);
 
     if (epoch == null) {
-      return const ChurchHistoryPage(
+      return const ContentPage(
         title: "Epoche",
         children: [EmptyHint("Diese Epoche ist nicht vorhanden.")],
       );
@@ -127,7 +125,7 @@ class EpochDetailScreen extends StatelessWidget {
         )
         .firstOrNull;
 
-    return ChurchHistoryPage(
+    return ContentPage(
       title: epoch.title,
       children: [
         Text(epoch.title, style: Theme.of(context).textTheme.headlineSmall),
@@ -154,7 +152,7 @@ class EpochDetailScreen extends StatelessWidget {
         SupplementBox(epoch.summary),
 
         for (final part in parts) ...[
-          SectionTitle("Themen der Vorlesung (Teil ${part.part})"),
+          ContentSectionTitle("Themen der Vorlesung (Teil ${part.part})"),
           for (final topic in part.topics)
             Padding(
               padding: const EdgeInsets.only(left: 4, bottom: 4),
@@ -168,7 +166,7 @@ class EpochDetailScreen extends StatelessWidget {
             ),
         ],
 
-        const SectionTitle("Einträge"),
+        const ContentSectionTitle("Einträge"),
         if (entries.isEmpty)
           const EmptyHint(
             "Zu dieser Epoche gibt es noch keine Einträge. Sie kommen mit "

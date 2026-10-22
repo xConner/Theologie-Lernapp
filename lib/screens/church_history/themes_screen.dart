@@ -19,7 +19,7 @@ class ThemesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final themes = data.usedThemes;
 
-    return ChurchHistoryPage(
+    return ContentPage(
       title: "Themen",
       children: [
         if (themes.isEmpty) const EmptyHint("Noch keine Themen mit Inhalten."),
@@ -64,7 +64,7 @@ class ThemeDetailScreen extends StatelessWidget {
     final theme = data.theme(themeId);
 
     if (theme == null) {
-      return const ChurchHistoryPage(
+      return const ContentPage(
         title: "Thema",
         children: [EmptyHint("Dieses Thema ist nicht vorhanden.")],
       );
@@ -76,7 +76,7 @@ class ThemeDetailScreen extends StatelessWidget {
         if (l.themeIds.contains(theme.id)) l,
     ];
 
-    return ChurchHistoryPage(
+    return ContentPage(
       title: theme.title,
       children: [
         Text(theme.description),
@@ -115,7 +115,7 @@ class ThemeDetailScreen extends StatelessWidget {
           ],
         ),
         if (lectures.isNotEmpty) ...[
-          const SectionTitle("In den Veranstaltungen"),
+          const ContentSectionTitle("In den Veranstaltungen"),
           for (final l in lectures)
             ListTile(
               leading: const Icon(Icons.school_outlined),
@@ -132,7 +132,7 @@ class ThemeDetailScreen extends StatelessWidget {
         ],
         for (final type in EntryType.values)
           if (entries.any((e) => e.type == type)) ...[
-            SectionTitle(type.plural),
+            ContentSectionTitle(type.plural),
             for (final e in entries.where((e) => e.type == type))
               EntryTile(data: data, entry: e),
           ],

@@ -85,7 +85,7 @@ class _UnitDetailScreenState extends State<UnitDetailScreen> {
     final unit = data.unit(widget.unitId);
 
     if (unit == null) {
-      return const ChurchHistoryPage(
+      return const ContentPage(
         title: "Einheit",
         children: [EmptyHint("Diese Einheit ist nicht vorhanden.")],
       );
@@ -144,7 +144,7 @@ class _UnitDetailScreenState extends State<UnitDetailScreen> {
     final secondary = TextStyle(color: context.colors.textSecondary);
     final related = data.relatedUnitsOf(unit.id);
 
-    return ChurchHistoryBody(
+    return ContentBody(
       children: [
         Text([data.course.subtitle, ?unit.scope].join(" · "), style: secondary),
         const SizedBox(height: 4),
@@ -157,7 +157,7 @@ class _UnitDetailScreenState extends State<UnitDetailScreen> {
         ),
 
         if (unit.keyPoints.isNotEmpty) ...[
-          const SectionTitle("Kernpunkte"),
+          const ContentSectionTitle("Kernpunkte"),
           for (final k in unit.keyPoints)
             Padding(
               padding: const EdgeInsets.only(bottom: 2),
@@ -184,7 +184,7 @@ class _UnitDetailScreenState extends State<UnitDetailScreen> {
             ),
         ],
 
-        if (unit.sections.isNotEmpty) const SectionTitle("Gliederung"),
+        if (unit.sections.isNotEmpty) const ContentSectionTitle("Gliederung"),
         for (final section in unit.sections) ...[
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 12, 0, 4),
@@ -208,7 +208,7 @@ class _UnitDetailScreenState extends State<UnitDetailScreen> {
         ],
 
         if (unit.connections.isNotEmpty) ...[
-          const SectionTitle("Zusammenhänge"),
+          const ContentSectionTitle("Zusammenhänge"),
           for (final c in unit.connections)
             c.supplement
                 ? SupplementBox(c.text)
@@ -219,7 +219,7 @@ class _UnitDetailScreenState extends State<UnitDetailScreen> {
         ],
 
         if (unit.lists.isNotEmpty) ...[
-          const SectionTitle("Merklisten"),
+          const ContentSectionTitle("Merklisten"),
           Text(
             "Diese Aufzählungen fragt der Lernmodus zum Abrufen aus dem "
             "Gedächtnis ab.",
@@ -249,7 +249,7 @@ class _UnitDetailScreenState extends State<UnitDetailScreen> {
         ],
 
         if (unit.literature.isNotEmpty) ...[
-          const SectionTitle("Quellen und Literatur"),
+          const ContentSectionTitle("Quellen und Literatur"),
           Text("Angaben wie auf den Folien.", style: secondary),
           for (final l in unit.literature)
             Padding(
@@ -265,7 +265,7 @@ class _UnitDetailScreenState extends State<UnitDetailScreen> {
         ],
 
         if (related.isNotEmpty) ...[
-          const SectionTitle("Verwandte Einheiten"),
+          const ContentSectionTitle("Verwandte Einheiten"),
           for (final r in related)
             ListTile(
               contentPadding: EdgeInsets.zero,
@@ -290,10 +290,10 @@ class _UnitDetailScreenState extends State<UnitDetailScreen> {
   Widget _reference(BuildContext context, LectureUnit unit) {
     final secondary = TextStyle(color: context.colors.textSecondary);
 
-    return ChurchHistoryBody(
+    return ContentBody(
       children: [
         if (unit.terms.isNotEmpty) ...[
-          const SectionTitle("Fachbegriffe"),
+          const ContentSectionTitle("Fachbegriffe"),
           for (final m in unit.terms)
             if (data.term(m.termId) != null)
               TermCard(
@@ -304,7 +304,7 @@ class _UnitDetailScreenState extends State<UnitDetailScreen> {
               ),
         ],
         if (unit.passages.isNotEmpty) ...[
-          const SectionTitle("Bibelstellen"),
+          const ContentSectionTitle("Bibelstellen"),
           Text(
             "Antippen öffnet die Stelle in der Bibel der App.",
             style: secondary,
@@ -320,7 +320,7 @@ class _UnitDetailScreenState extends State<UnitDetailScreen> {
   }
 
   Widget _slides(BuildContext context, LectureUnit unit) {
-    return ChurchHistoryBody(
+    return ContentBody(
       children: [
         if (unit.file != null)
           Padding(

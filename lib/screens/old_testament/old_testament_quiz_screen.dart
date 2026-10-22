@@ -14,14 +14,13 @@ import '../../services/streak/streak_track.dart';
 import '../../theme/app_theme.dart';
 import '../../widgets/answer_feedback_badge.dart';
 import '../../widgets/info_report.dart';
+import '../../widgets/quiz_option_button.dart';
 import '../../widgets/self_assessment.dart';
 import '../../widgets/settings_access.dart';
 import '../../widgets/settings_selection.dart';
 import '../../widgets/sound_volume_button.dart';
 import '../../widgets/statistics_widgets.dart';
 import '../../widgets/trainer_widgets.dart';
-import '../church_history/church_history_quiz_screen.dart'
-    show QuizOptionButton;
 import 'old_testament_progress_screen.dart';
 import 'old_testament_widgets.dart';
 import 'unit_detail_screen.dart';

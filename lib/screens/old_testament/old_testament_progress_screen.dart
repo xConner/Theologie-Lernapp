@@ -143,7 +143,7 @@ class _OldTestamentProgressScreenState
     final cards = this.cards;
 
     if (cards == null) {
-      return ChurchHistoryPage(
+      return ContentPage(
         title: "Fortschritt",
         children: [
           failed
@@ -162,7 +162,7 @@ class _OldTestamentProgressScreenState
         if (isDifficultCard(cards[id])) id,
     ]..sort((a, b) => cards[b]!.difficulty.compareTo(cards[a]!.difficulty));
 
-    return ChurchHistoryPage(
+    return ContentPage(
       title: "Fortschritt",
       children: [
         Text(
@@ -172,7 +172,7 @@ class _OldTestamentProgressScreenState
           style: TextStyle(color: context.colors.textSecondary),
         ),
 
-        const SectionTitle("Gesamt"),
+        const ContentSectionTitle("Gesamt"),
         ProgressSummaryTile(
           key: const ValueKey("progress-all"),
           title: "Alle Einheiten",
@@ -182,7 +182,7 @@ class _OldTestamentProgressScreenState
               : () => _reset("Altes Testament", cards.keys.toList()),
         ),
 
-        const SectionTitle("Nach Einheit"),
+        const ContentSectionTitle("Nach Einheit"),
         for (final u in data.units.where((u) => u.hasLearningContent))
           Builder(
             builder: (_) {
@@ -199,7 +199,7 @@ class _OldTestamentProgressScreenState
             },
           ),
 
-        const SectionTitle("Nach Aufgabenart"),
+        const ContentSectionTitle("Nach Aufgabenart"),
         for (final kind in OtQuizKind.values)
           Builder(
             builder: (_) {
@@ -214,7 +214,7 @@ class _OldTestamentProgressScreenState
             },
           ),
 
-        const SectionTitle("Schwierige Inhalte"),
+        const ContentSectionTitle("Schwierige Inhalte"),
         if (difficult.isEmpty)
           const EmptyHint("Zurzeit keine.")
         else

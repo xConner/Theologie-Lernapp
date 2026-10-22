@@ -25,7 +25,7 @@ class EntryDetailScreen extends StatelessWidget {
     final entry = data.entry(entryId);
 
     if (entry == null) {
-      return const ChurchHistoryPage(
+      return const ContentPage(
         title: "Eintrag",
         children: [EmptyHint("Dieser Eintrag ist nicht (mehr) vorhanden.")],
       );
@@ -37,7 +37,7 @@ class EntryDetailScreen extends StatelessWidget {
     final dating = entry.dating;
     final course = data.contextOf(entry.id);
 
-    return ChurchHistoryPage(
+    return ContentPage(
       title: entry.type.label,
       children: [
         Text(entry.name, style: textTheme.headlineSmall),
@@ -84,7 +84,7 @@ class EntryDetailScreen extends StatelessWidget {
         ],
 
         if (mentions.isNotEmpty) ...[
-          SectionTitle(
+          ContentSectionTitle(
             data.seminar == null
                 ? "In der Vorlesung"
                 : "In den Veranstaltungen",
@@ -106,7 +106,7 @@ class EntryDetailScreen extends StatelessWidget {
             ),
         ],
 
-        const SectionTitle("Erläuterung"),
+        const ContentSectionTitle("Erläuterung"),
         SupplementBox(
           "${entry.summary}\n\n${entry.significance}",
           label: switch (course) {
@@ -127,7 +127,7 @@ class EntryDetailScreen extends StatelessWidget {
           ),
 
         if (related.isNotEmpty) ...[
-          const SectionTitle("Verknüpft"),
+          const ContentSectionTitle("Verknüpft"),
           for (final type in EntryType.values)
             if (related.any((r) => r.type == type)) ...[
               Padding(
@@ -140,7 +140,7 @@ class EntryDetailScreen extends StatelessWidget {
         ],
 
         if (entry.epochIds.isNotEmpty || entry.themeIds.isNotEmpty) ...[
-          const SectionTitle("Einordnung"),
+          const ContentSectionTitle("Einordnung"),
           Wrap(
             spacing: 8,
             runSpacing: 8,
@@ -176,7 +176,7 @@ class EntryDetailScreen extends StatelessWidget {
         ],
 
         if (entry.references.isNotEmpty) ...[
-          const SectionTitle("Quellen und Literatur"),
+          const ContentSectionTitle("Quellen und Literatur"),
           for (final r in entry.references)
             Padding(
               padding: const EdgeInsets.only(bottom: 4, left: 4),

@@ -15,6 +15,7 @@ Infrastruktur + trainer-spezifische Fachlogik – kein „Universaltrainer“.
 | Sound, Tagesstatistik, Streak nach einer Antwort | `reportTrainerAnswer` in `widgets/trainer_widgets.dart` |
 | Lernhilfe, Sound-Schalter, Ergebnis-Rahmen | `widgets/trainer_widgets.dart` |
 | Auswahl-Bausteine der Einstellungsdialoge | `widgets/settings_selection.dart`, `widgets/settings_access.dart` |
+| Seitenbausteine der Wissensbereiche (Seitengerüst, Ergänzung, Zitat, Leerzustand), Auswahlknopf, Lernstand-Verteilung | `widgets/content_page.dart`, `widgets/quiz_option_button.dart`, `widgets/progress_summary_tile.dart` |
 
 Lernfortschritte zurücksetzen – alle, je Lernbereich oder die
 Perikopenkenntnisse eines Bibelbuchs – geschieht zentral in

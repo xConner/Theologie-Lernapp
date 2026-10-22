@@ -137,7 +137,7 @@ class _ChurchHistoryProgressScreenState
     final cards = this.cards;
 
     if (cards == null) {
-      return ChurchHistoryPage(
+      return ContentPage(
         title: "Fortschritt",
         children: [
           failed
@@ -158,7 +158,7 @@ class _ChurchHistoryProgressScreenState
           id,
     ]..sort((a, b) => cards[b]!.difficulty.compareTo(cards[a]!.difficulty));
 
-    return ChurchHistoryPage(
+    return ContentPage(
       title: "Fortschritt",
       children: [
         Text(
@@ -168,7 +168,7 @@ class _ChurchHistoryProgressScreenState
           style: TextStyle(color: context.colors.textSecondary),
         ),
 
-        const SectionTitle("Gesamt"),
+        const ContentSectionTitle("Gesamt"),
         ProgressSummaryTile(
           title: "Alle Inhalte",
           summary: ProgressSummary.of(allIds, cards, algorithm),
@@ -178,7 +178,7 @@ class _ChurchHistoryProgressScreenState
         ),
 
         if (data.seminar != null) ...[
-          const SectionTitle("Nach Veranstaltung"),
+          const ContentSectionTitle("Nach Veranstaltung"),
           for (final scope in [
             LearningScope.allLectures,
             LearningScope.seminar,
@@ -199,7 +199,7 @@ class _ChurchHistoryProgressScreenState
             ),
         ],
 
-        SectionTitle(
+        ContentSectionTitle(
           data.seminar == null
               ? "Nach Vorlesung"
               : "Nach Vorlesung und Sitzung",
@@ -222,7 +222,7 @@ class _ChurchHistoryProgressScreenState
             },
           ),
 
-        const SectionTitle("Nach Aufgabenart"),
+        const ContentSectionTitle("Nach Aufgabenart"),
         for (final kind in QuizKind.values)
           Builder(
             builder: (_) {
@@ -237,7 +237,7 @@ class _ChurchHistoryProgressScreenState
             },
           ),
 
-        const SectionTitle("Schwierige Inhalte"),
+        const ContentSectionTitle("Schwierige Inhalte"),
         if (difficult.isEmpty)
           const EmptyHint("Zurzeit keine.")
         else

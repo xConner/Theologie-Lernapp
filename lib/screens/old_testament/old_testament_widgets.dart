@@ -6,20 +6,13 @@ import '../../services/bible/bible_reference_parser.dart';
 import '../../services/old_testament/old_testament_loader.dart';
 import '../../theme/app_theme.dart';
 import '../bible/bible_reader_screen.dart';
-import '../church_history/church_history_widgets.dart';
+import '../../widgets/content_page.dart';
 
 /// Gemeinsame Bausteine des Bereichs Altes Testament. Seitengerüst,
-/// Überschriften, Ergänzungskasten und Zitat stammen aus der
-/// Kirchengeschichte, damit beide Bereiche gleich aussehen.
-export '../church_history/church_history_widgets.dart'
-    show
-        ChurchHistoryBody,
-        ChurchHistoryPage,
-        EmptyHint,
-        LectureQuote,
-        SectionTitle,
-        SupplementBox,
-        Tag;
+/// Überschriften, Ergänzungskasten und Zitat teilt er mit der
+/// Kirchengeschichte (`widgets/content_page.dart`), damit beide Bereiche
+/// gleich aussehen.
+export '../../widgets/content_page.dart';
 
 /// Lädt die Inhalte und zeigt Lade- und Fehlerzustand.
 class OldTestamentDataBuilder extends StatefulWidget {

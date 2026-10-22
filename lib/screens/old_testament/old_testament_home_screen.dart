@@ -133,7 +133,7 @@ class _Home extends StatelessWidget {
                     screen: () => GlossaryScreen(data: data),
                   ),
 
-                const SectionTitle("Vorlesungseinheiten"),
+                const ContentSectionTitle("Vorlesungseinheiten"),
                 if (data.units.isEmpty)
                   const EmptyHint(
                     "Noch keine Vorlesungseinheit hinterlegt. Neue Einheiten "

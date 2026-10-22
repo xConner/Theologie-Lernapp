@@ -33,7 +33,7 @@ class _GlossaryScreenState extends State<GlossaryScreen> {
   Widget build(BuildContext context) {
     final terms = widget.data.sortedTerms.where(_matches).toList();
 
-    return ChurchHistoryPage(
+    return ContentPage(
       title: "Fachbegriffe",
       children: [
         TextField(

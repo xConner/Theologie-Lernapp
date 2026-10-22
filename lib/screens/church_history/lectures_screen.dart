@@ -50,7 +50,7 @@ class LecturesScreen extends StatelessWidget {
     final courses = data.courses;
 
     if (courses.length == 1) {
-      return ChurchHistoryPage(
+      return ContentPage(
         title: "Vorlesungen",
         children: _course(context, courses.single),
       );
@@ -75,7 +75,7 @@ class LecturesScreen extends StatelessWidget {
           child: TabBarView(
             children: [
               for (final c in courses)
-                ChurchHistoryBody(children: _course(context, c)),
+                ContentBody(children: _course(context, c)),
             ],
           ),
         ),
@@ -109,7 +109,7 @@ class LecturesScreen extends StatelessWidget {
     return [
       _header(context, course),
 
-      const SectionTitle("Vorlesungen mit Folien"),
+      const ContentSectionTitle("Vorlesungen mit Folien"),
       if (lectures.isEmpty)
         const EmptyHint("Noch keine Vorlesungsfolien hinterlegt."),
       for (final l in lectures)
@@ -137,7 +137,7 @@ class LecturesScreen extends StatelessWidget {
         ),
       ],
 
-      const SectionTitle("Gliederung der Vorlesung"),
+      const ContentSectionTitle("Gliederung der Vorlesung"),
       Text(
         "Nach den Folien 6 und 7. Themen mit Folien lassen sich öffnen; "
         "für die übrigen sind noch keine Folien hinterlegt.",
@@ -210,7 +210,7 @@ class LecturesScreen extends StatelessWidget {
         onPressed: () => _learn(context, LearningScope.seminar),
       ),
 
-      const SectionTitle("Sitzungen"),
+      const ContentSectionTitle("Sitzungen"),
       Text(
         "Nach dem Seminarplan. Fragen und Merklisten gibt es zu den Sitzungen, "
         "deren Stoff im Material greifbar ist.",
@@ -237,7 +237,7 @@ class LecturesScreen extends StatelessWidget {
         ),
 
       if (course.sections.isNotEmpty) ...[
-        const SectionTitle("Prüfung, Formalia und Literatur"),
+        const ContentSectionTitle("Prüfung, Formalia und Literatur"),
         for (final section in course.sections)
           Card(
             margin: const EdgeInsets.symmetric(vertical: 4),
@@ -258,7 +258,7 @@ class LecturesScreen extends StatelessWidget {
                 if (section.supplement != null)
                   SupplementBox(
                     section.supplement!,
-                    label: SupplementBox.labelFor(course.kind),
+                    label: supplementLabelFor(course.kind),
                   ),
               ],
             ),
@@ -266,7 +266,7 @@ class LecturesScreen extends StatelessWidget {
       ],
 
       if (course.materials.isNotEmpty) ...[
-        const SectionTitle("Material"),
+        const ContentSectionTitle("Material"),
         Text(
           "Die Dokumente selbst liegen nicht in der App. Fundstellen wie "
           "„Schwartz 1939, S. 7“ beziehen sich auf diese Liste.",

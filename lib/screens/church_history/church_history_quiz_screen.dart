@@ -12,6 +12,7 @@ import '../../services/quiz_sound_settings.dart';
 import '../../services/statistics/learning_statistics.dart';
 import '../../services/streak/streak_track.dart';
 import '../../theme/app_theme.dart';
+import '../../widgets/quiz_option_button.dart';
 import '../../widgets/answer_feedback_badge.dart';
 import '../../widgets/info_report.dart';
 import '../../widgets/self_assessment.dart';
@@ -740,60 +741,6 @@ class _ChurchHistoryQuizScreenState extends State<ChurchHistoryQuizScreen> {
                       onPressed: () => openEntry(context, data, id),
                     ),
               ],
-            ),
-        ],
-      ),
-    );
-  }
-}
-
-/// Antwortmöglichkeit einer Auswahlfrage (auch im Bereich Altes
-/// Testament verwendet).
-class QuizOptionButton extends StatelessWidget {
-  final String text;
-
-  /// null: neutral; true: richtige Antwort; false: falsch gewählt.
-  final bool? state;
-  final VoidCallback? onPressed;
-
-  const QuizOptionButton({
-    super.key,
-    required this.text,
-    required this.state,
-    required this.onPressed,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final colors = context.colors;
-
-    final color = switch (state) {
-      true => colors.success,
-      false => colors.error,
-      null => colors.divider,
-    };
-
-    return OutlinedButton(
-      style: OutlinedButton.styleFrom(
-        alignment: Alignment.centerLeft,
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-        side: BorderSide(color: color, width: state == null ? 1 : 2),
-        foregroundColor: colors.textPrimary,
-        disabledForegroundColor: colors.textPrimary,
-        backgroundColor: switch (state) {
-          true => colors.successBackground,
-          false => colors.errorBackground,
-          null => null,
-        },
-      ),
-      onPressed: onPressed,
-      child: Row(
-        children: [
-          Expanded(child: Text(text, style: const TextStyle(fontSize: 16))),
-          if (state != null)
-            Icon(
-              state! ? Icons.check_circle_rounded : Icons.cancel_rounded,
-              color: color,
             ),
         ],
       ),

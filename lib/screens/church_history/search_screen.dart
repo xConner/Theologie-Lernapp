@@ -71,7 +71,7 @@ class _ChurchHistorySearchScreenState extends State<ChurchHistorySearchScreen> {
   Widget build(BuildContext context) {
     final hits = ChurchHistorySearch(widget.data).search(query);
 
-    return ChurchHistoryPage(
+    return ContentPage(
       title: "Suche",
       children: [
         TextField(

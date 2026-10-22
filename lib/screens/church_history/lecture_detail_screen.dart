@@ -70,7 +70,7 @@ class _LectureDetailScreenState extends State<LectureDetailScreen> {
     final lecture = data.lecture(widget.lectureId);
 
     if (lecture == null) {
-      return const ChurchHistoryPage(
+      return const ContentPage(
         title: "Vorlesung",
         children: [EmptyHint("Diese Vorlesung ist nicht vorhanden.")],
       );
@@ -117,9 +117,7 @@ class _LectureDetailScreenState extends State<LectureDetailScreen> {
       padding: const EdgeInsets.fromLTRB(16, 16, 16, 96),
       child: Center(
         child: ConstrainedBox(
-          constraints: const BoxConstraints(
-            maxWidth: ChurchHistoryPage.maxWidth,
-          ),
+          constraints: const BoxConstraints(maxWidth: ContentPage.maxWidth),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: children,
@@ -192,12 +190,12 @@ class _LectureDetailScreenState extends State<LectureDetailScreen> {
         if (section.supplement != null)
           SupplementBox(
             section.supplement!,
-            label: SupplementBox.labelFor(lecture.kind),
+            label: supplementLabelFor(lecture.kind),
           ),
       ],
 
       if (lecture.lists.isNotEmpty) ...[
-        const SectionTitle("Merklisten"),
+        const ContentSectionTitle("Merklisten"),
         Text(
           "Diese Aufzählungen fragt das Wissensquiz zum Abrufen aus dem "
           "Gedächtnis ab.",
@@ -227,7 +225,7 @@ class _LectureDetailScreenState extends State<LectureDetailScreen> {
       ],
 
       if (dated) ...[
-        const SectionTitle("Zeitliche Einordnung"),
+        const ContentSectionTitle("Zeitliche Einordnung"),
         OutlinedButton.icon(
           icon: const Icon(Icons.timeline_rounded),
           label: const Text("Auf der Zeitleiste anzeigen"),
@@ -326,7 +324,7 @@ class _LectureDetailScreenState extends State<LectureDetailScreen> {
     return _frame([
       for (final type in EntryType.values)
         if (entries.any((e) => e.type == type)) ...[
-          SectionTitle(type.plural),
+          ContentSectionTitle(type.plural),
           for (final e in entries.where((e) => e.type == type))
             EntryTile(data: data, entry: e, detail: mentionOf(e.id)),
         ],
