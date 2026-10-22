@@ -5,8 +5,6 @@ import '../../../quiz/books/book_plan.dart';
 import '../../../theme/app_theme.dart';
 import '../../../utils/date_input.dart';
 
-export '../../../utils/date_input.dart';
-
 /// Ergebnis des Plan-Dialogs.
 class PlanDialogResult {
   final BookPlan? plan;

@@ -106,22 +106,8 @@ class LatinVocabularyPlanState {
     return ReviewState.of(card, algorithm);
   }
 
-  ProgressSummary progressOf(Iterable<LatinVocabularyEntry> words) {
-    var fresh = 0, due = 0, stable = 0;
-
-    for (final e in words) {
-      switch (statusOf(e)) {
-        case ReviewState.fresh:
-          fresh++;
-        case ReviewState.due:
-          due++;
-        case ReviewState.stable:
-          stable++;
-      }
-    }
-
-    return ProgressSummary(fresh: fresh, due: due, stable: stable);
-  }
+  ProgressSummary progressOf(Iterable<LatinVocabularyEntry> words) =>
+      ProgressSummary.ofStates(words.map(statusOf));
 
   /// Fällige Wiederholungen im Plan, die dringendsten zuerst.
   List<LatinVocabularyEntry> get dueReviews {

@@ -59,10 +59,18 @@ class ProgressSummary {
     Map<String, LearningCard> cards,
     SpacedRepetition algorithm,
   ) {
+    return ofStates([
+      for (final id in cardIds.toSet()) ReviewState.of(cards[id], algorithm),
+    ]);
+  }
+
+  /// Zählt bereits ermittelte Stände (z. B. im Latein-Lernplan, der noch
+  /// nicht eingeführte Inhalte selbst erkennt).
+  static ProgressSummary ofStates(Iterable<ReviewState> states) {
     var fresh = 0, due = 0, stable = 0;
 
-    for (final id in cardIds.toSet()) {
-      switch (ReviewState.of(cards[id], algorithm)) {
+    for (final state in states) {
+      switch (state) {
         case ReviewState.fresh:
           fresh++;
         case ReviewState.due:
