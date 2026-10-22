@@ -9,6 +9,8 @@ import 'package:theologie_lernapp/models/greek/vocabulary/learning_card.dart';
 import 'package:theologie_lernapp/models/old_testament/old_testament.dart';
 import 'package:theologie_lernapp/quiz/books/book_catalog.dart';
 import 'package:theologie_lernapp/quiz/books/book_outline.dart';
+import 'package:theologie_lernapp/quiz/pericope_id_migration.dart';
+import 'package:theologie_lernapp/services/book_learning_storage.dart';
 import 'package:theologie_lernapp/screens/old_testament/old_testament_widgets.dart';
 import 'package:theologie_lernapp/services/bible/bible_reference_parser.dart';
 import 'package:theologie_lernapp/services/old_testament/old_testament_quiz.dart';
@@ -19,9 +21,10 @@ import 'old_testament_test_data.dart';
 
 final _allKinds = OtQuizKind.values.toSet();
 
-/// Alle Einträge der Genesis in der Perikopenliste vor dieser Sitzung
-/// (`Buch|ID|Kapitel,Vers`). Die Zuordnung zur Folie darf keinen davon
-/// verändern, entfernen oder verdoppeln.
+/// Alle Einträge der Genesis in der Perikopenliste (`Buch|ID|Kapitel,Vers`).
+/// Die Zuordnung zur Folie darf keinen davon verändern, entfernen oder
+/// verdoppeln. Einzige Änderung: Gen 6,9 hat statt der doppelten ID
+/// `die_bosheit_der_menschen` eine eigene ([PericopeIdMigration]).
 const _genesisKeys = [
   "Gen|die_erschaffung_der_welt|1,1",
   "Gen|das_paradies|2,4",
@@ -31,7 +34,7 @@ const _genesisKeys = [
   "Gen|die_nachkommen_sets|4,25",
   "Gen|adam_bis_noah|5,1",
   "Gen|die_bosheit_der_menschen|6,1",
-  "Gen|die_bosheit_der_menschen|6,9",
+  "Gen|noahs_erwaehlung_und_bau_der_arche|6,9",
   "Gen|die_grosse_flut|7,1",
   "Gen|noahs_opfer|8,1",
   "Gen|gottes_bund_mit_noach|9,1",
@@ -262,16 +265,18 @@ void main() {
       expect(of("Gen 1,1-2,4a"), ["Die Erschaffung der Welt"]);
     });
 
-    test("doppelte ID der Liste wird über die Stelle unterschieden", () {
-      final bosheit = [
-        for (final g in genesis)
-          if (g.id == "die_bosheit_der_menschen") BookPericope.keyOf(g),
-      ];
-      expect(bosheit, hasLength(2));
+    test("keine doppelten IDs mehr in der Genesis", () {
+      final ids = genesis.map((g) => g.id).toList();
+      expect(ids.toSet().length, ids.length);
       final flut = session.passages.firstWhere(
         (p) => p.label == "Gen 6,5-8,22",
       );
-      expect(flut.pericopeKeys, containsAll(bosheit));
+      expect(flut.pericopeKeys, [
+        "Gen|die_bosheit_der_menschen|6,1",
+        "Gen|noahs_erwaehlung_und_bau_der_arche|6,9",
+        "Gen|die_grosse_flut|7,1",
+        "Gen|noahs_opfer|8,1",
+      ]);
     });
 
     test("ungültiger Verweis wird beim Laden abgelehnt", () {
@@ -293,6 +298,92 @@ void main() {
       expect(
         find.textContaining("Set und Enosch (Gen 4,25-26)"),
         findsOneWidget,
+      );
+    });
+  });
+
+  group("Eigene ID für Gen 6,9-22: Lernstand bleibt", () {
+    test("umbenannte Schlüssel zeigen auf die Liste", () {
+      final keys = genesis.map(BookPericope.keyOf).toSet();
+      for (final e in PericopeIdMigration.renamedKeys.entries) {
+        expect(keys, contains(e.key));
+        expect(keys, isNot(contains(e.value)));
+      }
+      for (final e in PericopeIdMigration.renamedIds.entries) {
+        expect(genesis.map((g) => g.id), containsAll([e.key, e.value]));
+      }
+      expect(
+        links.byKey("Gen|noahs_erwaehlung_und_bau_der_arche|6,9")!.title,
+        "Noahs Erwählung. Bau der Arche",
+      );
+    });
+
+    test("Endlos-Quiz: Karte der früheren ID gilt für die neue", () {
+      final reviewed = DateTime(2026, 10, 1);
+      final cards = {
+        "die_bosheit_der_menschen": LearningCard(
+          id: "die_bosheit_der_menschen",
+          stability: 7,
+          difficulty: 4,
+          lastReviewed: reviewed,
+          mnemonic: "Arche",
+        ),
+      };
+      PericopeIdMigration.perikopeCards(cards);
+
+      final copy = cards["noahs_erwaehlung_und_bau_der_arche"]!;
+      expect(copy.id, "noahs_erwaehlung_und_bau_der_arche");
+      expect(
+        (copy.stability, copy.difficulty, copy.lastReviewed, copy.mnemonic),
+        (7.0, 4.0, reviewed, "Arche"),
+      );
+      // Die frühere Karte bleibt für Gen 6,1-8.
+      expect(cards["die_bosheit_der_menschen"]!.stability, 7);
+
+      // Eine eigene Karte der neuen ID wird nie überschrieben.
+      final own = {
+        ...cards,
+        "noahs_erwaehlung_und_bau_der_arche": LearningCard(
+          id: "noahs_erwaehlung_und_bau_der_arche",
+          stability: 2,
+        ),
+      };
+      PericopeIdMigration.perikopeCards(own);
+      expect(own["noahs_erwaehlung_und_bau_der_arche"]!.stability, 2);
+    });
+
+    test("Bücher lernen: Karte und Präzisierung werden übernommen", () {
+      final data = BookLearningData.fromDocuments(
+        books: {
+          "cards": {
+            "Gen|die_bosheit_der_menschen|6,9": {
+              "s": 9.0,
+              "d": 3.0,
+              "r": DateTime(2026, 10, 1).millisecondsSinceEpoch,
+              "n": 2,
+            },
+          },
+        },
+        precision: {
+          "items": {
+            "Gen|die_bosheit_der_menschen|6,9": {
+              "startChapter": 6,
+              "startVerse": 9,
+              "endChapter": 6,
+              "endVerse": 22,
+            },
+          },
+        },
+      );
+      const key = "Gen|noahs_erwaehlung_und_bau_der_arche|6,9";
+      final old = data.cards["Gen|die_bosheit_der_menschen|6,9"]!;
+      final copy = data.cards[key]!;
+      expect(copy.id, key);
+      expect(copy.toJson(), old.toJson());
+      expect(data.precisions[key], isNotNull);
+      expect(
+        data.precisions[key],
+        data.precisions["Gen|die_bosheit_der_menschen|6,9"],
       );
     });
   });

@@ -1,6 +1,7 @@
 import '../quiz/books/book_learning_status.dart';
 import '../quiz/books/book_plan.dart';
 import '../quiz/books/verse_precision.dart';
+import '../quiz/pericope_id_migration.dart';
 import 'local_learning_store.dart';
 import 'quiz_documents.dart';
 
@@ -67,6 +68,8 @@ class BookLearningData {
         if (value != null) data.plans[value.book] = value;
       }
     }
+
+    PericopeIdMigration.bookData(data);
 
     return data;
   }

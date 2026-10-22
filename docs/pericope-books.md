@@ -219,6 +219,13 @@ ohne Code zu ändern:
   Tamar (38, nach der Folie Teil der Erzelterngeschichte),
   Josephsgeschichte (39–50). Die Grenzen 25,18/25,19 folgen den Farben der
   Folientabellen.
+* Bekommt eine Perikope der Liste nachträglich eine eigene ID, trägt
+  `PericopeIdMigration` (`lib/quiz/pericope_id_migration.dart`) alte und
+  neue ID bzw. alten und neuen Schlüssel ein. Beim Laden gilt dann eine
+  Kopie der alten Karte (Endlos-Quiz, Buch-Karte, Präzisierung), solange
+  die neue noch keine eigene hat; gelöscht wird nichts. Bisher betrifft das
+  Gen 6,9-22 (`noahs_erwaehlung_und_bau_der_arche`, früher wie Gen 6,1-8
+  `die_bosheit_der_menschen`).
 * Bücher ohne Eintrag erhalten automatisch Abschnitte aus ganzen Kapiteln
   mit je etwa 10 Perikopen; sie sind als automatisch gebildet
   gekennzeichnet.

@@ -152,8 +152,7 @@ einer anderen Ausgabe an.
 Eine Bibelstelle kann unter `pericopes` die Perikopen der Perikopenliste
 (`assets/perikopen.json`) nennen, die sie umfasst oder anschneidet – als
 `Buch|ID|Kapitel,Vers` wie `BookPericope.key` in „Bücher systematisch
-lernen“. Der Schlüssel mit Anfangsstelle unterscheidet auch Einträge mit
-gleicher ID (z. B. zweimal `die_bosheit_der_menschen` in Gen 6). Die Liste
+lernen“. Die Liste
 selbst wird dafür nicht verändert: Teilt die Folie gröber, verweist eine
 Stelle auf mehrere Perikopen; teilt sie feiner, verweisen mehrere Stellen
 auf dieselbe. Angezeigt wird das als „Deine Perikopen: …“ unter der Stelle

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../models/greek/vocabulary/learning_card.dart';
 import '../models/memorization/memorization_card.dart';
+import '../quiz/pericope_id_migration.dart';
 import 'local_learning_store.dart';
 
 /// Lernstände der Trainer, je Trainer eine Collection unter `users/{uid}`
@@ -27,8 +28,12 @@ class LearningService {
 
   // Perikopen
 
-  Future<Map<String, LearningCard>> loadPerikopeCards(String? uid) {
-    return _loadCards(uid, LocalLearningStore.perikopen);
+  /// Mit Kopien für Perikopen, die eine eigene ID bekommen haben
+  /// ([PericopeIdMigration]).
+  Future<Map<String, LearningCard>> loadPerikopeCards(String? uid) async {
+    return PericopeIdMigration.perikopeCards(
+      await _loadCards(uid, LocalLearningStore.perikopen),
+    );
   }
 
   Future<void> savePerikopeCard(String? uid, LearningCard card) {
