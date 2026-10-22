@@ -24,6 +24,7 @@ Der Schwerpunkt liegt auf aktivem Lernen: Die Trainer fragen ab, merken sich dei
 - **Altgriechisch** – Vokabeltrainer, Grammatiktrainer (Formen bestimmen), Vokabel- und Grammatikübersichten, griechische Bildschirmtastatur.
 - **Latein** – Vokabeltrainer mit Zusatzformen und Genus, Vokabelübersicht, Grammatikübersicht und Grammatiktrainer (Formen bestimmen und bilden, Präpositionen, Satzkonstruktionen); Wortschatz der Lektionen 1–3 von „prima. Latein lernen“ ([Details](docs/latin.md)).
 - **Kirchengeschichte** – Vorlesungen mit Originalfolien und Abschrift, Epochen und Zeitleiste, verknüpfte Personen, Ereignisse, Begriffe und Quellen, Suche; Wissensquiz und Chronologietrainer nach Vorlesung, Epoche oder Thema ([Details](docs/church-history.md)).
+- **Altes Testament** – Vorlesungseinheiten mit Originalfolien und Abschrift, Kernpunkten, Gliederung, Fachbegriffen und aufschlagbaren Bibelstellen; Lernmodus mit Fragen, Merklisten und Gliederungen, Wiederholung schwieriger Inhalte ([Details](docs/old-testament.md)).
 - **Philosophie** – *Einführung in die Logik*: Aussagen- und Prädikatenlogik in neun Lektionen mit Lehrtexten, Wahrheitstafeln, Syntaxbäumen, automatisch geprüften Übungen und einem Beweisprüfer für formale Beweise ([Details](docs/logic-course.md)).
 - **Texte auswendig lernen** – Gebete, liturgische Texte und Bekenntnisse abschnittsweise lernen: vom Mitlesen über Lücken und Anfangsbuchstaben bis zum freien Aufsagen oder Schreiben.
 

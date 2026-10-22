@@ -41,6 +41,11 @@ class StatisticsTrainer {
     label: "Kirchengeschichte",
   );
 
+  static const StatisticsTrainer oldTestament = StatisticsTrainer(
+    id: "old_testament",
+    label: "Altes Testament",
+  );
+
   static const List<StatisticsTrainer> all = [
     greekVocabulary,
     greekGrammar,
@@ -48,6 +53,7 @@ class StatisticsTrainer {
     latinGrammar,
     perikopenQuiz,
     churchHistory,
+    oldTestament,
   ];
 }
 

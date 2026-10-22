@@ -1,0 +1,229 @@
+{
+  "terms": [
+    {
+      "id": "term.ta_biblia",
+      "name": "ta biblia",
+      "aliases": [
+        "Bibel",
+        "biblia"
+      ],
+      "fromSlides": true,
+      "definition": "Griechische Pluralform „die Schriftrollen / Bücher“, auf die das deutsche Wort für die Heilige Schrift zurückgeht; etymologisch nach der Hafenstadt Byblos, wo Papyrus zu Schriftrollen verarbeitet wurde."
+    },
+    {
+      "id": "term.diatheke",
+      "name": "diatheke",
+      "fromSlides": true,
+      "confusable": [
+        "term.testamentum"
+      ],
+      "definition": "Griechisch „Bund“, auch „Willensverfügung“ bzw. schriftliche „Hinterlassenschaft“; 2 Kor 3,14 unterscheidet palaia und kaine … (alter und neuer Bund)."
+    },
+    {
+      "id": "term.testamentum",
+      "name": "testamentum",
+      "fromSlides": true,
+      "definition": "Lateinisches Gegenstück zum griechischen Wort für „Bund“; als vetus und novum … Bezeichnung der beiden Schriftensammlungen, daher „Altes“ und „Neues Testament“."
+    },
+    {
+      "id": "term.kanon",
+      "name": "Kanon",
+      "aliases": [
+        "kanonisch"
+      ],
+      "fromSlides": true,
+      "definition": "Griechisch „Richtschnur“, übertragen „autorisierte Schriftensammlung“: die Auswahl der als autoritativ erachteten heiligen Texte."
+    },
+    {
+      "id": "term.miqra",
+      "name": "Miqra",
+      "fromSlides": true,
+      "definition": "Jüdische Bezeichnung der Hebräischen Bibel: „was gelesen wird“."
+    },
+    {
+      "id": "term.tanak",
+      "name": "TaNaK",
+      "fromSlides": true,
+      "confusable": [
+        "term.tora",
+        "term.nebiim",
+        "term.ketubim"
+      ],
+      "definition": "Kunstwort aus den Anfangsbuchstaben der drei Kanonteile der jüdischen Bibel (Weisung, Propheten, Schriften)."
+    },
+    {
+      "id": "term.tora",
+      "name": "Tora",
+      "fromSlides": true,
+      "confusable": [
+        "term.pentateuch"
+      ],
+      "definition": "„Weisung“: erster Teil des jüdischen Kanons mit den fünf Büchern Mose; die hebräischen Buchnamen richten sich nach dem Anfangswort."
+    },
+    {
+      "id": "term.nebiim",
+      "name": "Nebiim",
+      "fromSlides": true,
+      "definition": "„Propheten“: zweiter Teil des jüdischen Kanons (u. a. Josua, Richter, Könige, Jesaja, Jeremia, Ezechiel, die Zwölf)."
+    },
+    {
+      "id": "term.ketubim",
+      "name": "Ketubim",
+      "fromSlides": true,
+      "definition": "„Schriften“: dritter Teil des jüdischen Kanons (u. a. Psalmen, Hiob, Sprüche, Chronik); die Reihenfolge der Bücher kann variieren."
+    },
+    {
+      "id": "term.pentateuch",
+      "name": "Pentateuch",
+      "fromSlides": true,
+      "definition": "„Das Fünfteilige“: die fünf Bücher Mose (Gen–Dtn) als erster Schriftenteil der Septuaginta; die griechischen Buchnamen richten sich nach dem Hauptinhalt."
+    },
+    {
+      "id": "term.septuaginta",
+      "name": "Septuaginta",
+      "aliases": [
+        "LXX"
+      ],
+      "fromSlides": true,
+      "confusable": [
+        "term.apokryph"
+      ],
+      "definition": "Älteste griechische Übersetzung des Alten Testaments, schrittweise entstanden (ca. 250 v. Chr. – 100 n. Chr.); ihr Kanon umfasst 45 Schriften."
+    },
+    {
+      "id": "term.apokryph",
+      "name": "apokryph / deuterokanonisch",
+      "aliases": [
+        "apokryph",
+        "deuterokanonisch",
+        "Apokryphen"
+      ],
+      "fromSlides": true,
+      "definition": "„Verborgen“: Bücher des Septuagintakanons, die nicht zur Hebräischen Bibel gehören, z. B. die Makkabäerbücher oder die Weisheit Salomos."
+    },
+    {
+      "id": "term.vulgata",
+      "name": "Vulgata",
+      "fromSlides": true,
+      "definition": "Lateinische Bibelübersetzung auf der Grundlage des Septuagintakanons, die sich in der katholischen Kirche als autoritativ durchsetzte."
+    },
+    {
+      "id": "term.leningradensis",
+      "name": "Codex Petropolitanus / Leningradensis",
+      "aliases": [
+        "Codex Leningradensis",
+        "Codex Petropolitanus",
+        "Leningradensis",
+        "Petropolitanus"
+      ],
+      "fromSlides": true,
+      "confusable": [
+        "term.bhs"
+      ],
+      "definition": "Älteste vollständige Handschrift der Hebräischen Bibel (1008 n. Chr.); überliefert den Masoretischen Text lückenlos."
+    },
+    {
+      "id": "term.bhs",
+      "name": "Biblia Hebraica Stuttgartensia (BHS)",
+      "aliases": [
+        "BHS",
+        "Biblia Hebraica Stuttgartensia"
+      ],
+      "fromSlides": true,
+      "definition": "Im deutschsprachigen Raum gängige kritische Druckausgabe des hebräischen Textes (1967): Abschrift der ältesten vollständigen Handschrift (1008 n. Chr.) plus kritischer Apparat."
+    },
+    {
+      "id": "term.aleppo",
+      "name": "Kodex von Aleppo",
+      "fromSlides": true,
+      "definition": "Ältere hebräische Handschrift aus dem 10. Jh. n. Chr.; unvollständig erhalten."
+    },
+    {
+      "id": "term.cairensis",
+      "name": "Codex Cairensis",
+      "fromSlides": true,
+      "definition": "Hebräische Handschrift von 895 n. Chr.; umfasst nur die vorderen und hinteren Propheten."
+    },
+    {
+      "id": "term.geniza",
+      "name": "Kairoer Geniza",
+      "aliases": [
+        "Geniza"
+      ],
+      "fromSlides": true,
+      "definition": "Fundort einer Reihe hebräischer Fragmente, die bis ins 5. Jh. n. Chr. zurückreichen."
+    },
+    {
+      "id": "term.qumran",
+      "name": "Qumran",
+      "aliases": [
+        "Qumranhöhlen"
+      ],
+      "fromSlides": true,
+      "definition": "1947 entdeckte Höhlen mit den bei weitem ältesten Textzeugen: weit über hundert, meist sehr fragmentarische Abschriften biblischer Bücher, überwiegend aus dem 2.–1. Jh. v. Chr."
+    },
+    {
+      "id": "term.masoreten",
+      "name": "Masoreten",
+      "fromSlides": true,
+      "confusable": [
+        "term.masoretischer_text",
+        "term.protomasoretisch"
+      ],
+      "definition": "Gruppe jüdischer Gelehrter, die sich seit der Spätantike der buchstabengetreuen Weitergabe des hebräischen Textes verschrieb und Methoden der Überlieferungssicherung (Wortstatistik etc.) entwickelte."
+    },
+    {
+      "id": "term.masoretischer_text",
+      "name": "Masoretischer Text",
+      "aliases": [
+        "masoretischer Text",
+        "MT"
+      ],
+      "fromSlides": true,
+      "confusable": [
+        "term.protomasoretisch",
+        "term.leningradensis"
+      ],
+      "definition": "Der von jüdischen Gelehrten überlieferte Texttyp der Hebräischen Bibel, der sich im Judentum als autoritativ durchsetzte; einer von mehreren hebräischen Texttypen."
+    },
+    {
+      "id": "term.protomasoretisch",
+      "name": "protomasoretischer Text",
+      "aliases": [
+        "proto-masoretischer Text"
+      ],
+      "fromSlides": true,
+      "definition": "Einer der verschiedenen „Urtexte“ des 1. Jh. v. – 1. Jh. n. Chr. neben der hebräischen Vorlage der Septuaginta und weiteren Texttypen (z. B. Qumran); setzt sich um 100 n. Chr. im Judentum durch."
+    },
+    {
+      "id": "term.textkritik",
+      "name": "Textkritik",
+      "fromSlides": true,
+      "confusable": [
+        "term.literarkritik"
+      ],
+      "definition": "Methode, deren Gegenstand die Überlieferung des hebräischen Textes ist.",
+      "supplement": "Sie vergleicht die Textzeugen (Handschriften, Übersetzungen), um Abweichungen zu erklären und eine möglichst ursprüngliche Textgestalt zu ermitteln."
+    },
+    {
+      "id": "term.literarkritik",
+      "name": "Literarkritik und Redaktionsgeschichte",
+      "aliases": [
+        "Literarkritik",
+        "Redaktionsgeschichte"
+      ],
+      "fromSlides": true,
+      "definition": "Methoden, deren Gegenstand das produktive Textwachstum ist: wie die einzelnen alttestamentlichen Bücher entstehen und zu ihrem aktuellen Umfang anwachsen.",
+      "supplement": "Literarkritik fragt nach Spannungen und Brüchen im Text und unterscheidet Schichten; Redaktionsgeschichte fragt, wie diese Schichten zum heutigen Text verbunden wurden."
+    },
+    {
+      "id": "term.exil",
+      "name": "Babylonisches Exil",
+      "aliases": [
+        "Exil"
+      ],
+      "fromSlides": true,
+      "definition": "Folge des Untergangs des Südreiches 587 v. Chr. (Eroberung durch die Neubabylonier); ab 539 v. Chr. kehrten unter persischer Herrschaft einige Exulanten zurück."
+    }
+  ]
+}

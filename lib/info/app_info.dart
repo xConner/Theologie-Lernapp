@@ -303,6 +303,47 @@ class AppModules {
     ],
   );
 
+  static const ModuleInfo oldTestament = ModuleInfo(
+    id: "old_testament",
+    title: "Altes Testament",
+    description:
+        "Vorlesungseinheiten mit Originalfolien und Abschrift, Kernpunkten, "
+        "Gliederung, Fachbegriffen und Bibelstellen; Lernmodus mit "
+        "Auswahlfragen, Merklisten und Gliederungen.",
+    sources: [
+      SourceInfo(
+        title: "Vorlesungsfolien",
+        origin:
+            "Prof. Dr. Christoph Berner, „Einführung in das Alte "
+            "Testament“, Einheit I: Grundlagen – Der alttestamentliche Kanon "
+            "und die Geschichte Israels (21 Folien). Die Tabellen der Folien "
+            "stammen nach Angabe der Folien aus M. Köhlmoos, Altes Testament, "
+            "und L. Borman[n], Bibelkunde.",
+        processing:
+            "Die Folien sind als Bilder (Originalansicht) und als "
+            "vollständige Abschrift hinterlegt, Tabellen und Schaubilder "
+            "abgeschrieben. Kernpunkte, Gliederung und Fragen geben den "
+            "Folieninhalt mit Folienangabe wieder.",
+      ),
+      SourceInfo(
+        title: "Erläuterungen und Ergänzungen",
+        processing:
+            "Als „Ergänzung“ markierte Kästen und Hinweise in Erklärungen "
+            "sind nicht Teil der Vorlesung. Stellen, die die Folien nicht "
+            "eindeutig machen, sind als „Nicht eindeutig“ gekennzeichnet "
+            "und werden nicht abgefragt.",
+        aiNote:
+            "Zusammenfassungen, Fragen und Ergänzungen wurden mit "
+            "KI-Unterstützung aus den Folien erarbeitet.",
+      ),
+    ],
+    notes: [
+      "Wo die Vorlesung eine Forschungsposition vertritt (etwa zur "
+          "Datierung der Bücher), nennt die App sie als Position der "
+          "Vorlesung und weist auf andere Positionen hin.",
+    ],
+  );
+
   static const ModuleInfo confessions = ModuleInfo(
     id: "confessions",
     title: "Bekenntnisse",
@@ -712,6 +753,7 @@ class AppModules {
     latinGrammarTrainer,
     latinGrammarOverview,
     churchHistory,
+    oldTestament,
     logic,
     timetable,
   ];

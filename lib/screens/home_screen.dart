@@ -17,6 +17,7 @@ import 'prayers_screen.dart';
 import 'memorization/memorization_home_screen.dart';
 
 import 'church_history/church_history_home_screen.dart';
+import 'old_testament/old_testament_home_screen.dart';
 import 'latin/latin_home_screen.dart';
 import 'philosophy/philosophy_home_screen.dart';
 import 'study/study_organization_screen.dart';
@@ -473,6 +474,25 @@ class _HomeScreenState extends State<HomeScreen> {
                           },
                           icon: const Icon(Icons.account_balance_rounded),
                           label: const Text("Kirchengeschichte"),
+                        ),
+                      ),
+
+                      const SizedBox(height: 16),
+
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton.icon(
+                          key: const ValueKey("open-old-testament"),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => const OldTestamentHomeScreen(),
+                              ),
+                            );
+                          },
+                          icon: const Icon(Icons.auto_stories_rounded),
+                          label: const Text("Altes Testament"),
                         ),
                       ),
 

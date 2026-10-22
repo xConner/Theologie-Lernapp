@@ -58,6 +58,14 @@ class StreakTrack {
     sources: [StreakSource.knowledgeQuiz, StreakSource.chronology],
   );
 
+  /// Altes Testament: Lernmodus zu den Vorlesungseinheiten.
+  static const StreakTrack oldTestament = StreakTrack(
+    id: "old_testament",
+    label: "Altes Testament",
+    sources: [StreakSource.oldTestamentQuiz],
+    streakStartedMessage: "Streak für „Altes Testament“ gestartet!",
+  );
+
   /// Texte auswendig lernen: Das Tagesziel sind zehn wortgetreu richtige
   /// Eingaben (siehe `MemorizationStreakRule`), unabhängig von der Zahl der
   /// Texte und vom Wiederholungsplan.
@@ -84,6 +92,7 @@ class StreakTrack {
     latin,
     perikope,
     churchHistory,
+    oldTestament,
     memorization,
     bible,
   ];
@@ -101,6 +110,7 @@ class StreakSource {
   static const String readingPlan = "reading_plan";
   static const String knowledgeQuiz = "knowledge_quiz";
   static const String chronology = "chronology";
+  static const String oldTestamentQuiz = "old_testament_quiz";
 
   static const Map<String, String> labels = {
     vocabulary: "Vokabeln",
@@ -111,6 +121,7 @@ class StreakSource {
     readingPlan: "Leseplan",
     knowledgeQuiz: "Wissensquiz",
     chronology: "Chronologietrainer",
+    oldTestamentQuiz: "Lernmodus",
   };
 
   static String label(String source) => labels[source] ?? source;

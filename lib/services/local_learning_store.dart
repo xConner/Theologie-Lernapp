@@ -19,8 +19,8 @@ import '../models/memorization/memorization_card.dart';
 ///   * `quiz_settings/perikopen`
 ///   * die Dokumente von „Bücher systematisch lernen“, der Fortschritt in
 ///     „Einführung in die Logik“, Lernstand/Einstellungen des lateinischen
-///     Grammatiktrainers und des Bereichs Kirchengeschichte unter
-///     `quiz_settings` ([quizDocuments])
+///     Grammatiktrainers und der Bereiche Kirchengeschichte und Altes
+///     Testament unter `quiz_settings` ([quizDocuments])
 ///
 /// Alle Keys sind versioniert (`guest.v1.`), damit sich das Format später
 /// migrieren lässt. Fehlende oder ungültige Daten werden als "nicht
@@ -122,6 +122,12 @@ class LocalLearningStore {
   static const String churchHistory = "church_history";
   static const String churchHistorySettings = "church_history_settings";
 
+  /// Lernstand und Einstellungen im Bereich Altes Testament
+  /// (`quiz_settings/old_testament` bzw. `old_testament_settings`, siehe
+  /// `OldTestamentStore`).
+  static const String oldTestament = "old_testament";
+  static const String oldTestamentSettings = "old_testament_settings";
+
   /// Alle Dokumente unter `quiz_settings`, die bei der Übernahme von
   /// Gastdaten übertragen und beim Löschen der Gastdaten entfernt werden.
   static const List<String> quizDocuments = [
@@ -131,6 +137,8 @@ class LocalLearningStore {
     latinGrammarSettings,
     churchHistory,
     churchHistorySettings,
+    oldTestament,
+    oldTestamentSettings,
   ];
 
   static String _quizDocumentKey(String name) =>
@@ -439,6 +447,7 @@ class LocalLearningStore {
     await prefs.remove(_quizDocumentKey(logicCourse));
     await prefs.remove(_quizDocumentKey(latinGrammar));
     await prefs.remove(_quizDocumentKey(churchHistory));
+    await prefs.remove(_quizDocumentKey(oldTestament));
 
     for (final collection in cardCollections) {
       await resetCollection(collection);

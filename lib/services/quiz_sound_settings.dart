@@ -14,6 +14,7 @@ enum SoundModule {
   latinVocabulary,
   latinGrammar,
   churchHistory,
+  oldTestament,
 }
 
 /// Persistiert die Nutzer-Einstellungen für die Antwort-Sounds im Quizsystem

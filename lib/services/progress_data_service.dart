@@ -182,6 +182,11 @@ class ProgressDataService {
           _quizSettingsDoc(uid, LocalLearningStore.churchHistory),
         ),
       );
+      writes.add(
+        (batch) => batch.delete(
+          _quizSettingsDoc(uid, LocalLearningStore.oldTestament),
+        ),
+      );
 
       await _commitInBatches(writes);
     });

@@ -1,0 +1,9 @@
+{
+  "course": {
+    "title": "Einführung in das Alte Testament",
+    "lecturer": "Prof. Dr. Christoph Berner"
+  },
+  "units": [
+    "units/einheit-01.json"
+  ]
+}

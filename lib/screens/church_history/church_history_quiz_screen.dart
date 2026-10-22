@@ -559,7 +559,7 @@ class _ChurchHistoryQuizScreenState extends State<ChurchHistoryQuizScreen> {
           for (var i = 0; i < q.options.length; i++)
             Padding(
               padding: const EdgeInsets.only(bottom: 8),
-              child: _OptionButton(
+              child: QuizOptionButton(
                 key: ValueKey("option-$i"),
                 text: q.options[i],
                 state: !answered
@@ -747,14 +747,16 @@ class _ChurchHistoryQuizScreenState extends State<ChurchHistoryQuizScreen> {
   }
 }
 
-class _OptionButton extends StatelessWidget {
+/// Antwortmöglichkeit einer Auswahlfrage (auch im Bereich Altes
+/// Testament verwendet).
+class QuizOptionButton extends StatelessWidget {
   final String text;
 
   /// null: neutral; true: richtige Antwort; false: falsch gewählt.
   final bool? state;
   final VoidCallback? onPressed;
 
-  const _OptionButton({
+  const QuizOptionButton({
     super.key,
     required this.text,
     required this.state,

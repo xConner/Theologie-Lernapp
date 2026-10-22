@@ -107,6 +107,11 @@ flutter:
       # Folienbilder (siehe docs/church-history.md).
       - assets/church_history/
       - assets/church_history/slides/
+      # Altes Testament: Veranstaltung, Fachbegriffe, Einheiten und
+      # Folienbilder (siehe docs/old-testament.md).
+      - assets/old_testament/
+      - assets/old_testament/units/
+      - assets/old_testament/slides/
       - assets/eg_lieder.json
       # Gesangbücher und Liedsammlungen: Katalog und Lieder der Regionalteile
       # und Ergänzungshefte (siehe docs/hymnals.md).

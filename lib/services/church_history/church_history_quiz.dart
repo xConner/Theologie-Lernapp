@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import '../../algorithms/learning_selector.dart';
+import '../../algorithms/review_state.dart' as review;
 import '../../algorithms/spaced_repetition.dart';
 import '../../models/church_history/church_history.dart';
 import '../../models/greek/vocabulary/learning_card.dart';
@@ -295,10 +296,9 @@ class ChurchHistoryQuiz {
 
   static String cardId(String itemId, QuizKind kind) => "$itemId|${kind.name}";
 
-  /// Ab dieser Schwierigkeit gilt ein Inhalt als „schwierig“ (mehr Fehler
-  /// als sichere Antworten in letzter Zeit). Eine einzelne falsche Antwort
-  /// hebt sie von 5 auf 6; richtige Antworten senken sie wieder.
-  static const double difficultThreshold = 5.5;
+  /// Ab dieser Schwierigkeit gilt ein Inhalt als „schwierig“ (siehe
+  /// `algorithms/review_state.dart`).
+  static const double difficultThreshold = review.difficultThreshold;
 
   bool isDifficult(String id) {
     final card = cards[id];

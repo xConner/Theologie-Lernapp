@@ -50,6 +50,12 @@ enum ProgressArea {
     collection: null,
     documents: [LocalLearningStore.churchHistory],
   ),
+  oldTestament(
+    label: "Altes Testament",
+    resetTitle: "Fortschritt im Alten Testament zurücksetzen",
+    collection: null,
+    documents: [LocalLearningStore.oldTestament],
+  ),
   logic(
     label: "Einführung in die Logik",
     resetTitle: "Fortschritt in „Einführung in die Logik“ zurücksetzen",
@@ -96,6 +102,10 @@ enum ProgressArea {
         return "Die Lernstände aller Fragen, Merklisten und "
             "Reihenfolge-Aufgaben zur Kirchengeschichte. Die Einstellungen "
             "bleiben erhalten.";
+      case ProgressArea.oldTestament:
+        return "Die Lernstände aller Fragen, Fachbegriffe, Bibelstellen und "
+            "Merklisten zum Alten Testament. Die Einstellungen bleiben "
+            "erhalten.";
       case ProgressArea.logic:
         return "Welche Lektionen geöffnet oder als bearbeitet markiert sind "
             "und die gespeicherten Antworten zu den Übungen.";

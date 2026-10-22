@@ -168,7 +168,7 @@ class _ChurchHistoryProgressScreenState
         ),
 
         const SectionTitle("Gesamt"),
-        _SummaryTile(
+        ProgressSummaryTile(
           title: "Alle Inhalte",
           summary: ProgressSummary.of(allIds, cards, algorithm),
           onReset: cards.isEmpty
@@ -186,7 +186,7 @@ class _ChurchHistoryProgressScreenState
               builder: (_) {
                 final ids = _ids(scope);
                 final summary = ProgressSummary.of(ids, cards, algorithm);
-                return _SummaryTile(
+                return ProgressSummaryTile(
                   key: ValueKey("progress-${scope.key}"),
                   title: scope.label(data),
                   summary: summary,
@@ -208,7 +208,7 @@ class _ChurchHistoryProgressScreenState
             builder: (_) {
               final ids = _ids(LearningScope.lecture(l.id));
               final summary = ProgressSummary.of(ids, cards, algorithm);
-              return _SummaryTile(
+              return ProgressSummaryTile(
                 key: ValueKey("progress-${l.id}"),
                 title: l.kind == CourseKind.lecture
                     ? "${l.label}: ${l.title}"
@@ -232,7 +232,7 @@ class _ChurchHistoryProgressScreenState
               );
               return summary.isEmpty
                   ? const SizedBox.shrink()
-                  : _SummaryTile(title: kind.label, summary: summary);
+                  : ProgressSummaryTile(title: kind.label, summary: summary);
             },
           ),
 
@@ -266,12 +266,14 @@ class _ChurchHistoryProgressScreenState
   };
 }
 
-class _SummaryTile extends StatelessWidget {
+/// Verteilung der Lernstände eines Umfangs (auch im Bereich Altes
+/// Testament verwendet).
+class ProgressSummaryTile extends StatelessWidget {
   final String title;
   final ProgressSummary summary;
   final VoidCallback? onReset;
 
-  const _SummaryTile({
+  const ProgressSummaryTile({
     super.key,
     required this.title,
     required this.summary,
