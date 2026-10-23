@@ -29,7 +29,8 @@ rules_version = '2';
 //   users/{uid}/streaks/{trackId}
 //   users/{uid}/statistics/{trainerId}          (Tagesstatistik je Trainer)
 //   users/{uid}/bible_reading/{documentId}     (Leseverlauf, Fortschritt der
-//                                               Lesepläne, eigene Lesepläne)
+//                                               Lesepläne, eigene Lesepläne,
+//                                               Lesepläne zu Lehrveranstaltungen)
 //   users/{uid}/greek_exam/{settings|progress} (Klausurersteller: Konfiguration,
 //                                               als bearbeitet markierte Texte)
 //   users/{uid}/timetable/{entryId}            (persönlicher Stundenplan: Verweis

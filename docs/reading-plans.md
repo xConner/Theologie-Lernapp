@@ -89,6 +89,7 @@ Kapitel und Vers. Listen von Stellen je Tag verwendet auch
 | `nt-90-days` | 90 Tage | Neues Testament fortlaufend |
 | `gospels-30-days` | 30 Tage | die vier Evangelien |
 | `bible-marathon-30-days` | 30 Tage | ganze Bibel fortlaufend (extrem) |
+| `course-bibelkunde-at-wise-2026` | 14 Sitzungen | zur Übung Bibelkunde AT (siehe unten), im Bereich Bibelkunde unter „Leseplan zur Übung“ |
 
 Die Pläne sind eigene Einteilungen: `tool/reading_plans/build_plans.py`
 verteilt die Kapitel anhand der Verszahlen aus
@@ -100,6 +101,92 @@ sich jede Lesung in jeder Ausgabe aufschlagen lässt, die das Buch enthält.
 ```
 python tool/reading_plans/build_plans.py
 ```
+
+## Lesepläne zu Lehrveranstaltungen
+
+Ein Plan zu einer Lehrveranstaltung richtet sich nicht nach fortlaufenden
+Plantagen, sondern nach Sitzungsterminen: Bis zu jeder Sitzung sind ihre
+Texte gelesen. Die Dateien liegen ebenfalls unter `assets/reading_plans/`
+und stehen in `index.json` unter `coursePlans`; gelesen werden sie von
+`CourseReadingPlan.fromJson` (`lib/models/bible/course_reading_plan.dart`),
+geplant von `CourseSchedule` (`lib/services/bible/course_reading_schedule.dart`).
+
+```json
+{
+  "format": "theologie.app/course-reading-plan",
+  "formatVersion": 1,
+  "id": "course-bibelkunde-at-wise-2026",
+  "name": "Lesen zur Übung Bibelkunde AT",
+  "course": "Bibelkunde Altes Testament (Übung)",
+  "source": "Sitzung 1, Folie 5 und 7",
+  "sessions": [
+    {
+      "id": "bk.02", "number": 2, "date": "2026-10-29", "topic": "Genesis",
+      "unit": "bk.02", "readingSource": "slides", "readings": ["GEN"],
+      "note": "Folie 7: „Gen (ganz)“"
+    }
+  ],
+  "milestones": [
+    { "start": "2026-11-13", "end": "2026-11-16", "title": "1. Zwischentest" }
+  ]
+}
+```
+
+| Feld | Bedeutung |
+|---|---|
+| `sessions[].id` | Stabile Kennung; eigene Änderungen hängen an ihr. Bei der Bibelkunde = ID der Sitzung im Bereich Altes Testament (`bk.NN`). |
+| `sessions[].date` | Sitzungstermin (`yyyy-MM-dd`), spätester Abschlusstermin. |
+| `sessions[].readings` | Stellen in der Schreibweise oben; leer nur bei `readingSource: "none"`. |
+| `sessions[].readingSource` | `slides` (Stellen stehen in den Folien), `provisional` (nur das Thema ist bekannt, Umfang vorläufig angenommen), `none` (keine Lektüre). |
+| `sessions[].unit` | Optional: Sitzung im Bereich Altes Testament, deren Folien verlinkt werden. |
+| `sessions[].note` | Fundstelle bzw. Begründung, wird angezeigt. |
+| `milestones` | Termine ohne Lektüre (Zwischentests, Prüfungszeitraum). |
+
+### Planung
+
+* Jede Lesung wird in **Lesestücke** zerlegt: ganze Kapitel, Versbereiche
+  nur innerhalb eines Kapitels (`NUM 10:11-12`). Ein gelesenes Kapitel deckt
+  seine Versbereiche ab.
+* Der **Lesezeitraum** einer Sitzung beginnt am Tag nach dem geplanten
+  Abschluss der vorigen (bzw. am Starttag des Plans) und endet am
+  **Vorabend** der Sitzung – abschaltbar, dann am Sitzungstag. Am
+  Sitzungstag selbst ist der Sitzungstag spätester Termin.
+* Das Offene wird nach **Versen** gleichmäßig auf die verbleibenden Tage
+  verteilt (ein Kapitel kommt auf den Tag, in den die Mitte seines Umfangs
+  fällt). Jeden Tag wird neu verteilt; was heute abgehakt wurde, bleibt im
+  heutigen Pensum stehen. Lesezeit: 9 Verse je Minute
+  (`ReadingPlanExtent.versesPerMinute`).
+* **Im Plan / Rückstand**: Vergleich mit einer gleichmäßigen Verteilung über
+  den ganzen Zeitraum bis gestern. **Knapp** ab 45 Minuten am Tag, **sehr
+  knapp** ab 75 Minuten – die Aufteilung wird trotzdem angezeigt.
+* Ist eine Sitzung vorbei, steht Offenes unter „Aus vergangenen Sitzungen
+  offen“ und wird nicht in den Tagesplan der nächsten Sitzung gerechnet.
+* Plant eine spätere Sitzung einen schon eingeplanten Text erneut, ist er
+  dort nur **gezielte Wiederholung** (optional, eigener Haken) und zählt
+  nicht noch einmal.
+
+### Fortschritt und Änderungen
+
+Gespeichert im Dokument `course_<Plan>` der Bibellese-Daten
+(`users/{uid}/bible_reading`, Gäste lokal): erledigte Lesestücke mit Datum,
+Wiederholungen, die Einstellung „Vorabend“ und **eigene Änderungen** je
+Sitzung (Termin, Stellen). Weil je Lesestück und nicht je Plantag
+gespeichert wird, gehen bei neuen Terminen oder Stellen keine erledigten
+Texte verloren; nur das Offene wird neu verteilt.
+
+Eine eigene Änderung merkt sich die Empfehlung, auf der sie beruht. Ändert
+eine neue Plandatei die Empfehlung dieser Sitzung, gilt die eigene Änderung
+weiter, und die App zeigt „Empfehlung aktualisiert“ mit den Wahlmöglichkeiten
+„Empfehlung übernehmen“ oder „Meine Änderung behalten“. Ohne eigene Änderung
+gilt die neue Empfehlung sofort.
+
+### Neue Folien oder Termine
+
+Termine oder Stellen in der Plandatei ändern (`readingSource` auf `slides`
+setzen, sobald die Stellen aus den Folien bzw. dem Bibelleseplan der
+Veranstaltung stammen). IDs der Sitzungen nie ändern. Die Tests in
+`test/course_reading_plan_test.dart` gleichen Termine und Themen mit der
+Abschrift des Seminarplans (Folie 5 von `bk.01`) ab.
 
 ## Eigene Pläne
 

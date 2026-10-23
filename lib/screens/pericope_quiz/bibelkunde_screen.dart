@@ -6,6 +6,7 @@ import '../../services/streak/streak_track.dart';
 import '../../theme/app_theme.dart';
 import '../../widgets/settings_access.dart';
 import '../../widgets/streak_widgets.dart';
+import '../bible/course_reading_plan_screen.dart';
 import '../old_testament/old_testament_home_screen.dart';
 import 'books/books_overview_screen.dart';
 import 'quiz_screen.dart';
@@ -14,11 +15,15 @@ import 'quiz_screen.dart';
 /// systematisch lernen“ – beide mit denselben Perikopen und derselben Streak –
 /// sowie die „Grundlagen der Bibelkunde“ (Übung Bibelkunde AT: Begriffe,
 /// Kanon, Text, Entstehung). Die Grundlagen nutzen Inhalte und Lernstand
-/// des Bereichs Altes Testament mit (`OtCourseId.bibelkunde`).
+/// des Bereichs Altes Testament mit (`OtCourseId.bibelkunde`). Dazu der
+/// Leseplan zur Übung: die Bibeltexte jeder Sitzung bis zu ihrem Termin.
 ///
 /// Aufbau wie die übrigen Lernbereiche (z. B. Latein): Symbol, Streak-Karte,
 /// je Funktion ein Knopf.
 class BibelkundeScreen extends StatelessWidget {
+  /// Leseplan zur Übung Bibelkunde AT (`assets/reading_plans/`).
+  static const String readingPlanId = "course-bibelkunde-at-wise-2026";
+
   final List<Perikope> perikopen;
 
   // null = Gastmodus (lokale Speicherung).
@@ -146,6 +151,37 @@ class BibelkundeScreen extends StatelessWidget {
                 Text(
                   "Begriffe, Kanon, Text und Entstehung nach den Folien der "
                   "Übung, mit Lernmodus",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: context.colors.textSecondary,
+                    fontSize: 12.5,
+                  ),
+                ),
+
+                const SizedBox(height: 16),
+
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton.icon(
+                    key: const ValueKey("bibelkunde-reading-plan"),
+                    onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => CourseReadingPlanScreen(
+                          uid: uid,
+                          planId: readingPlanId,
+                        ),
+                      ),
+                    ),
+                    icon: const Icon(Icons.event_available_rounded),
+                    label: const Text("Leseplan zur Übung"),
+                  ),
+                ),
+
+                const SizedBox(height: 6),
+
+                Text(
+                  "Die Bibeltexte jeder Sitzung bis zum Sitzungstermin lesen",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: context.colors.textSecondary,

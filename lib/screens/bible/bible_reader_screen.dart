@@ -5,6 +5,7 @@ import '../../info/app_info.dart';
 import '../../models/bible/bible_reference.dart';
 import '../../models/bible/bible_text.dart';
 import '../../models/bible/bible_translation.dart';
+import '../../models/bible/reading_plan.dart';
 import '../../services/bible/bible_books.dart';
 import '../../services/bible/bible_reader_settings.dart';
 import '../../services/bible/bible_reading_service.dart';
@@ -30,7 +31,9 @@ import 'bible_translation_sheet.dart';
 ///
 /// Gelesen ist ein Text erst, wenn der Nutzer es bestätigt: Mit
 /// [trackReading] steht unter dem Kapitel „Als gelesen markieren“, mit
-/// [planDay] lässt sich dort die aufgeschlagene Lesung des Plans erledigen.
+/// [planDay] lässt sich dort die aufgeschlagene Lesung des Plans erledigen,
+/// mit [coursePlan] das aufgeschlagene Lesestück eines Leseplans zur
+/// Lehrveranstaltung.
 /// Das Aufschlagen allein zählt nie.
 class BibleReaderScreen extends StatefulWidget {
   final List<BiblePassage> passages;
@@ -58,6 +61,10 @@ class BibleReaderScreen extends StatefulWidget {
   /// Reihenfolge) und lassen sich hier als erledigt markieren.
   final ({String planId, int day})? planDay;
 
+  /// Die [passages] sind Lesestücke (gleiche Reihenfolge) dieses Leseplans
+  /// zur Lehrveranstaltung und lassen sich hier als gelesen markieren.
+  final ({String planId, List<PlanReading> pieces})? coursePlan;
+
   // Nur für Tests ersetzbar.
   final BibleReadingService? readingService;
 
@@ -71,6 +78,7 @@ class BibleReaderScreen extends StatefulWidget {
     this.uid,
     this.trackReading = false,
     this.planDay,
+    this.coursePlan,
     this.readingService,
   });
 
@@ -125,7 +133,11 @@ class _BibleReaderScreenState extends State<BibleReaderScreen> {
 
   bool get _fromPassages => widget.passages.isNotEmpty;
 
-  bool get _tracksReading => widget.trackReading || widget.planDay != null;
+  bool get _tracksReading => widget.trackReading || _planChecklist;
+
+  /// Lesungen eines Plans werden hier abgehakt (statt frei bestätigt).
+  bool get _planChecklist =>
+      widget.planDay != null || widget.coursePlan != null;
 
   late final BibleReadingService _reading =
       widget.readingService ?? BibleReadingService.instance;
@@ -551,6 +563,17 @@ class _BibleReaderScreenState extends State<BibleReaderScreen> {
 
   /// Ob Lesung [index] des Plantags schon erledigt ist.
   bool _planReadingDone(int index) {
+    final course = widget.coursePlan;
+
+    if (course != null) {
+      if (index < 0 || index >= course.pieces.length) return false;
+
+      return _reading
+              .courseProgressOf(widget.uid, course.planId)
+              ?.isDone(course.pieces[index]) ??
+          false;
+    }
+
     final plan = widget.planDay;
 
     if (plan == null) return false;
@@ -565,6 +588,9 @@ class _BibleReaderScreenState extends State<BibleReaderScreen> {
   /// „Als gelesen markieren“, bei einem Leseplan die aufgeschlagene Lesung.
   Widget _readButton() {
     final plan = widget.planDay;
+    final course = widget.coursePlan;
+
+    if (course != null) return _courseReadButton(course);
 
     if (plan == null) {
       return OutlinedButton.icon(
@@ -624,6 +650,47 @@ class _BibleReaderScreenState extends State<BibleReaderScreen> {
     );
   }
 
+  Widget _courseReadButton(({String planId, List<PlanReading> pieces}) course) {
+    final label = widget.passages[passageIndex].label;
+    final progress = _reading.courseProgressOf(widget.uid, course.planId);
+
+    if (_planReadingDone(passageIndex)) {
+      return Row(
+        key: const ValueKey("bible-course-reading-done"),
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(Icons.check_circle_rounded, color: context.colors.success),
+          const SizedBox(width: 8),
+          Flexible(child: Text("„$label“ gelesen")),
+        ],
+      );
+    }
+
+    return FilledButton.icon(
+      key: const ValueKey("bible-course-mark-read"),
+      onPressed: progress == null || passageIndex >= course.pieces.length
+          ? null
+          : () async {
+              final messenger = ScaffoldMessenger.maybeOf(context);
+
+              final result = await _reading.setCoursePieces(
+                uid: widget.uid,
+                planId: course.planId,
+                pieces: [course.pieces[passageIndex]],
+                done: true,
+              );
+
+              showReadingFeedback(
+                messenger,
+                result,
+                confirmation: "Als gelesen markiert.",
+              );
+            },
+      icon: const Icon(Icons.check_rounded),
+      label: Text("„$label“ als gelesen markieren"),
+    );
+  }
+
   /// Hinweis, wenn die gewählte Ausgabe eine Stelle anders zählt: wo sie
   /// dort steht oder dass sie sich nicht sicher zuordnen lässt.
   String? _passageHint(BiblePassage passage) {
@@ -631,7 +698,7 @@ class _BibleReaderScreenState extends State<BibleReaderScreen> {
 
     // Lesepläne nennen Kapitel bzw. ganze Bücher; die Hinweise beziehen sich
     // auf die Perikopenliste.
-    if (t == null || widget.planDay != null) return null;
+    if (t == null || _planChecklist) return null;
 
     final resolved = BibleBooks.resolveIn(t, passage.reference.bookId);
 
@@ -802,7 +869,7 @@ class _BibleReaderScreenState extends State<BibleReaderScreen> {
           body: Column(
             children: [
               if (_fromPassages && t != null)
-                widget.planDay == null
+                !_planChecklist
                     ? _passageBar(t)
                     : ListenableBuilder(
                         listenable: _reading,
@@ -1031,7 +1098,7 @@ class _BibleReaderScreenState extends State<BibleReaderScreen> {
                                 color: colors.success,
                               )
                             : null,
-                        showCheckmark: widget.planDay == null,
+                        showCheckmark: !_planChecklist,
                         label: Text(widget.passages[i].label),
                         // Ausgewählt, solange die Stelle aufgeschlagen
                         // und hervorgehoben ist; erneutes Antippen blendet

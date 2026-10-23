@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 
 import '../../models/bible/bible_translation.dart';
+import '../../models/bible/course_reading_plan.dart';
 import '../../models/bible/reading_plan.dart';
 import '../../services/bible/bible_reading_service.dart';
 import '../../services/bible/bible_repository.dart';
 import '../../theme/app_theme.dart';
 import '../../widgets/bible/bible_reading_widgets.dart';
+import 'course_reading_plan_screen.dart';
 import 'reading_plan_detail_screen.dart';
 import 'reading_plan_editor_screen.dart';
 import 'reading_plan_import_screen.dart';
 
-/// Übersicht der Lesepläne: begonnene, integrierte und eigene Pläne;
-/// außerdem Import und Erstellung eigener Pläne.
+/// Übersicht der Lesepläne: begonnene, integrierte und eigene Pläne,
+/// Lesepläne zu Lehrveranstaltungen; außerdem Import und Erstellung eigener
+/// Pläne.
 class ReadingPlansScreen extends StatefulWidget {
   /// null = Gast.
   final String? uid;
@@ -173,6 +176,12 @@ class _ReadingPlansScreenState extends State<ReadingPlansScreen> {
 
         for (final plan in available) _tile(context, plan),
 
+        if (service.coursePlans.isNotEmpty) ...[
+          const SizedBox(height: 16),
+          heading("Zu Lehrveranstaltungen"),
+          for (final plan in service.coursePlans) _courseTile(context, plan),
+        ],
+
         const SizedBox(height: 12),
 
         Text(
@@ -183,6 +192,56 @@ class _ReadingPlansScreenState extends State<ReadingPlansScreen> {
           ),
         ),
       ],
+    );
+  }
+
+  Widget _courseTile(BuildContext context, CourseReadingPlan plan) {
+    final textTheme = Theme.of(context).textTheme;
+    final started = service.courseProgressOf(uid, plan.id) != null;
+    final next = service.courseSchedule(uid, plan.id)?.next;
+
+    return Card(
+      key: ValueKey("course-plan-${plan.id}"),
+      margin: const EdgeInsets.only(bottom: 12),
+      clipBehavior: Clip.antiAlias,
+      child: InkWell(
+        onTap: () => Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => CourseReadingPlanScreen(
+              uid: uid,
+              planId: plan.id,
+              service: service,
+              repository: widget.repository,
+            ),
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Text(plan.name, style: textTheme.titleMedium),
+              const SizedBox(height: 4),
+              Text(
+                [plan.course, ?plan.semester].join(" · "),
+                style: textTheme.bodySmall?.copyWith(
+                  color: context.colors.textSecondary,
+                ),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                next != null
+                    ? "Nächste Sitzung ${CourseDates.label(next.date, year: false)}: "
+                          "${next.session.topic} · ${next.pace.label}"
+                    : started
+                    ? "Begonnen"
+                    : "${plan.sessions.length} Sitzungen nach dem Seminarplan",
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 

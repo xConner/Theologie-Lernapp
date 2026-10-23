@@ -114,6 +114,13 @@ wird, liegt sie in denselben Daten:
 Nicht in die Grundlagen gehören die Bücher im Einzelnen; sie folgen in
 späteren Sitzungen bzw. liegen unter „Bücher systematisch lernen“.
 
+**Leseplan zur Übung**: Termine und Bibelstellen der Sitzungen stehen
+zusätzlich im Leseplan `assets/reading_plans/course-bibelkunde-at-wise-2026.json`
+(Bereich Bibelkunde → „Leseplan zur Übung“, siehe `docs/reading-plans.md`).
+Seine Sitzungen tragen dieselben IDs (`bk.NN`) und verlinken die Folien.
+Kommt eine Sitzung mit Lesestellen hinzu, dort die Stellen eintragen und
+`readingSource` auf `slides` setzen.
+
 ## Lernen
 
 Ein Lernmodus mit Umfang „Alle Einheiten“ oder eine Einheit, wählbaren
