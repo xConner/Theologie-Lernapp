@@ -159,10 +159,12 @@ einer anderen Ausgabe an.
 Eine Bibelstelle kann unter `pericopes` die Perikopen der Perikopenliste
 (`assets/perikopen.json`) nennen, die sie umfasst oder anschneidet – als
 `Buch|ID|Kapitel,Vers` wie `BookPericope.key` in „Bücher systematisch
-lernen“. Die Liste
-selbst wird dafür nicht verändert: Teilt die Folie gröber, verweist eine
-Stelle auf mehrere Perikopen; teilt sie feiner, verweisen mehrere Stellen
-auf dieselbe. Angezeigt wird das als „Deine Perikopen: …“ unter der Stelle
+lernen“. Teilt die Folie gröber, verweist eine Stelle auf mehrere
+Perikopen. Für die Genesis übernimmt die Liste seit 24.10.2026 die
+Überschriften, Grenzen und feinere Teilung der Folientabellen von
+Sitzung 2, wo eindeutig dieselbe Perikope gemeint ist (Bericht im
+Projektordner `bibelkunde/perikopenabgleich-bericht.md`); geteilte
+Perikopen behalten ihren Lernstand über `PericopeIdMigration`. Angezeigt wird das als „Deine Perikopen: …“ unter der Stelle
 und nach der Antwort im Lernmodus (`PericopeLinksNote`, Titel aus der
 ausgelieferten Liste über `OtPericopeLinks`). Der Loader prüft das Format,
 `test/old_testament/bibelkunde_genesis_test.dart` gegen die Liste
