@@ -13,6 +13,7 @@ import 'hymnals_screen.dart';
 import 'bible/bible_home_screen.dart';
 
 import 'confessions_screen.dart';
+import 'fathers/fathers_home_screen.dart';
 import 'prayers_screen.dart';
 import 'memorization/memorization_home_screen.dart';
 
@@ -419,6 +420,25 @@ class _HomeScreenState extends State<HomeScreen> {
                           },
                           icon: const Icon(Icons.menu_book_rounded),
                           label: const Text("Bekenntnisse"),
+                        ),
+                      ),
+
+                      const SizedBox(height: 16),
+
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton.icon(
+                          key: const ValueKey("open-fathers"),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => const FathersHomeScreen(),
+                              ),
+                            );
+                          },
+                          icon: const Icon(Icons.history_edu_rounded),
+                          label: const Text("Kirchenväter & Schriften"),
                         ),
                       ),
 

@@ -13,10 +13,12 @@ import '../../services/bible/bible_reference_parser.dart';
 import '../../services/bible/bible_repository.dart';
 import '../../services/bible/pericope_headings.dart';
 import '../../services/bible/versification_map.dart';
+import '../../services/fathers/fathers_repository.dart';
 import '../../theme/app_theme.dart';
 import '../../widgets/bible/bible_chapter_view.dart';
 import '../../widgets/bible/bible_reading_widgets.dart';
 import '../../widgets/info_report.dart';
+import '../fathers/verse_detail_sheet.dart';
 import 'bible_navigation_screen.dart';
 import 'bible_search_screen.dart';
 import 'bible_translation_sheet.dart';
@@ -68,6 +70,9 @@ class BibleReaderScreen extends StatefulWidget {
   // Nur für Tests ersetzbar.
   final BibleReadingService? readingService;
 
+  // Nur für Tests ersetzbar; Daten der Versdetailansicht.
+  final FathersRepository? fathersRepository;
+
   const BibleReaderScreen({
     super.key,
     this.passages = const [],
@@ -80,6 +85,7 @@ class BibleReaderScreen extends StatefulWidget {
     this.planDay,
     this.coursePlan,
     this.readingService,
+    this.fathersRepository,
   });
 
   @override
@@ -477,6 +483,24 @@ class _BibleReaderScreenState extends State<BibleReaderScreen> {
       reference,
       highlighted: reference.hasVerses ? reference : null,
       scrollToVerse: reference.verse,
+    );
+  }
+
+  void _showVerseDetails(int verse) {
+    final t = translation;
+
+    if (t == null) return;
+
+    showVerseDetails(
+      context,
+      translation: t,
+      translations: translations,
+      bookId: bookId,
+      chapter: chapter,
+      verse: verse,
+      headings: headings,
+      onOpenReference: (reference) => _openChosen(_inEdition(reference)),
+      repository: widget.fathersRepository,
     );
   }
 
@@ -945,6 +969,9 @@ class _BibleReaderScreenState extends State<BibleReaderScreen> {
                         // Weiterlesen lässt sie sich wegtippen. Die Stelle
                         // in der Leiste des Quiz hebt sie erneut hervor.
                         onHighlightTap: () => setState(() => highlight = null),
+                        // Kirchenväter, verwandte Stellen und Perikope zum
+                        // angetippten Vers.
+                        onVerseTap: _showVerseDetails,
                         fontScale: settings.fontScale,
                         showNotes: settings.showNotes,
                         pericopeHeadings: chapterHeadings,

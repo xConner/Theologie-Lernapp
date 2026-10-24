@@ -308,6 +308,14 @@ Ausnahmen stehen dort mit Begründung.
 Ausgabe, Lesestand und Schriftgröße gehören zum Gerät und liegen wie das
 Erscheinungsbild in den `SharedPreferences`.
 
+Ein angetippter Vers öffnet die Versdetailansicht von „Kirchenväter &
+Schriften“ (`screens/fathers/verse_detail_sheet.dart`): Kirchenväter zur
+Stelle, verwandte Bibelstellen und Perikopenkontext. Sie nutzt dieselben
+Stellen (`BibleReference`), Perikopen (`PericopeHeadings.containing`) und
+Zählungen (`ListVersification.toList`) wie der Reader; die Daten liegen
+getrennt unter `assets/fathers/` und werden erst beim Antippen geladen.
+Aufbau, Rechte und Quellen: `docs/church-fathers.md`.
+
 ## Bibellesen: Streak und Lesepläne
 
 Ob jemand gelesen hat, kann die App nicht feststellen. Eine Lesung zählt

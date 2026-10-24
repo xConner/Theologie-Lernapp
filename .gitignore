@@ -55,3 +55,6 @@ app.*.map.json
 
 # npm – Abhängigkeiten werden aus package-lock.json installiert, nicht versioniert
 node_modules/
+
+# Python-Zwischendateien der Import-Werkzeuge
+__pycache__/

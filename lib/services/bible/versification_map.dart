@@ -257,6 +257,46 @@ class ListVersification {
     return null;
   }
 
+  /// Umkehrung von [locate]: Wo Vers [verse] in Kapitel [chapter] von
+  /// [translation] in der Zählung der Perikopenliste steht; `null`, wenn
+  /// sich das nicht sicher sagen lässt (z. B. Psalmen der Septuaginta).
+  ///
+  /// So finden Daten, die deutsch zählen (Kirchenväter-Stellen,
+  /// Querverweise), den Vers, den der Nutzer in einer anders gezählten
+  /// Ausgabe angetippt hat. Jedes Ergebnis wird mit [locate] gegengeprüft.
+  static ({int chapter, int verse})? toList({
+    required BibleTranslation translation,
+    required List<BibleTranslation> translations,
+    required String bookId,
+    required int chapter,
+    required int verse,
+  }) {
+    var candidate = (chapter: chapter, verse: verse);
+
+    if (translation.versification == BibleVersification.english &&
+        bookId != "PSA") {
+      for (final shift in _byBook[bookId] ?? const <_Shift>[]) {
+        final offset = verse - shift.toVerse;
+        final german = shift.from + offset;
+
+        if (shift.toChapter == chapter && offset >= 0 && german <= shift.to) {
+          candidate = (chapter: shift.chapter, verse: german);
+          break;
+        }
+      }
+    }
+
+    final back = locate(
+      translation: translation,
+      translations: translations,
+      bookId: bookId,
+      chapter: candidate.chapter,
+      verse: candidate.verse,
+    );
+
+    return back == (chapter: chapter, verse: verse) ? candidate : null;
+  }
+
   /// [reference] (Zählung der Perikopenliste) in der Zählung von
   /// [translation]; `null`, wenn sich die Stelle nicht sicher übertragen
   /// lässt. Kapitelangaben ohne Verse werden nicht übertragen.

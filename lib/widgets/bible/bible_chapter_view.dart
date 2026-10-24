@@ -20,6 +20,10 @@ class BibleChapterView extends StatefulWidget {
   /// auszublenden.
   final VoidCallback? onHighlightTap;
 
+  /// Antippen eines Verses (Versnummer oder nicht hinterlegter Text), z. B.
+  /// für die Versdetailansicht. Die Nummer ist die der Ausgabe.
+  final void Function(int verse)? onVerseTap;
+
   final double fontScale;
 
   /// Anmerkungszeichen im Text und Liste der Anmerkungen am Kapitelende.
@@ -35,6 +39,7 @@ class BibleChapterView extends StatefulWidget {
     required this.chapter,
     required this.isHighlighted,
     this.onHighlightTap,
+    this.onVerseTap,
     this.fontScale = 1,
     this.showNotes = true,
     this.pericopeHeadings = const {},
@@ -73,9 +78,22 @@ class BibleChapterViewState extends State<BibleChapterView> {
   late final TapGestureRecognizer _highlightTap = TapGestureRecognizer()
     ..onTap = () => widget.onHighlightTap?.call();
 
+  // Je Vers ein Erkenner für [BibleChapterView.onVerseTap].
+  final Map<int, TapGestureRecognizer> _verseTaps = {};
+
+  TapGestureRecognizer? _verseTap(int verse) {
+    if (widget.onVerseTap == null) return null;
+
+    return _verseTaps[verse] ??= TapGestureRecognizer()
+      ..onTap = () => widget.onVerseTap?.call(verse);
+  }
+
   @override
   void dispose() {
     _highlightTap.dispose();
+    for (final r in _verseTaps.values) {
+      r.dispose();
+    }
     super.dispose();
   }
 
@@ -360,18 +378,26 @@ class BibleChapterViewState extends State<BibleChapterView> {
 
     int offset = 0;
 
-    void add(String text, [TextStyle? style]) {
+    void add(String text, [TextStyle? style, int? verse, bool number = false]) {
       if (text.isEmpty) return;
 
       final tappable =
           style?.backgroundColor != null && widget.onHighlightTap != null;
 
+      // Die Versnummer öffnet immer den Vers; der Text nur, wenn er nicht
+      // hinterlegt ist (dort blendet Antippen die Hervorhebung aus).
+      final verseTap = verse == null || (tappable && !number)
+          ? null
+          : _verseTap(verse);
+
+      final recognizer = verseTap ?? (tappable ? _highlightTap : null);
+
       spans.add(
         TextSpan(
           text: text,
           style: style,
-          recognizer: tappable ? _highlightTap : null,
-          mouseCursor: tappable ? SystemMouseCursors.click : null,
+          recognizer: recognizer,
+          mouseCursor: recognizer != null ? SystemMouseCursors.click : null,
         ),
       );
 
@@ -423,6 +449,8 @@ class BibleChapterViewState extends State<BibleChapterView> {
             color: highlighted ? colors.primary : colors.textSecondary,
             backgroundColor: style?.backgroundColor,
           ),
+          verse.number,
+          true,
         );
       }
 
@@ -434,7 +462,11 @@ class BibleChapterViewState extends State<BibleChapterView> {
       for (final note in verse.notes) {
         if (!widget.showNotes) break;
 
-        add(shown(verse.text.substring(position, note.offset)), style);
+        add(
+          shown(verse.text.substring(position, note.offset)),
+          style,
+          verse.number,
+        );
 
         position = note.offset;
 
@@ -443,7 +475,7 @@ class BibleChapterViewState extends State<BibleChapterView> {
         notes.add((verse: verse.displayNumber, text: note.text));
       }
 
-      add(shown(verse.text.substring(position)), style);
+      add(shown(verse.text.substring(position)), style, verse.number);
     }
 
     return TextSpan(style: base, children: spans);

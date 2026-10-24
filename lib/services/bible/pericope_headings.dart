@@ -89,6 +89,49 @@ class PericopeHeadings {
     ]);
   }
 
+  Iterable<Perikope> _inBook(String bookId) sync* {
+    for (final chapter in (_starts[bookId] ?? const {}).values) {
+      for (final list in chapter.values) {
+        yield* list;
+      }
+    }
+  }
+
+  /// Perikopen, deren Stelle Vers [verse] in Kapitel [chapter] umfasst
+  /// (Zählung der Liste), die kürzeste zuerst.
+  List<Perikope> containing(String bookId, int chapter, int verse) {
+    int position(int c, int v) => c * 1000 + v;
+
+    final at = position(chapter, verse);
+
+    final found = [
+      for (final p in _inBook(bookId))
+        if (position(p.startChapter, p.startVerse < 1 ? 1 : p.startVerse) <=
+                at &&
+            at <= position(p.endChapter, p.endVerse < 1 ? 999 : p.endVerse))
+          p,
+    ];
+
+    int length(Perikope p) =>
+        position(p.endChapter, p.endVerse) -
+        position(p.startChapter, p.startVerse);
+
+    found.sort((a, b) => length(a).compareTo(length(b)));
+
+    return found;
+  }
+
+  /// Weitere Stellen derselben Perikope (gleiche Kennung) in anderen
+  /// Büchern, z. B. synoptische Parallelen.
+  List<Perikope> sameIdElsewhere(Perikope p, {required String bookId}) {
+    return [
+      for (final b in _starts.keys)
+        if (b != bookId)
+          for (final other in _inBook(b))
+            if (other.id == p.id) other,
+    ];
+  }
+
   /// Ob die Liste in diesem Kapitel (in ihrer eigenen Zählung) Perikopen
   /// beginnen lässt.
   bool hasAny(String bookId, int chapter) {

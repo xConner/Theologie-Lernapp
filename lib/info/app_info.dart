@@ -701,6 +701,72 @@ class AppModules {
     ],
   );
 
+  static const ModuleInfo fathers = ModuleInfo(
+    id: "church_fathers",
+    title: "Kirchenväter & Schriften",
+    description:
+        "Bibliothek der Kirchenväter und weiterer christlicher Autoren mit "
+        "Suche und Filtern, Volltexten gemeinfreier deutscher Übersetzungen "
+        "und Verweisen auf weitere Werke. Im Bibel-Reader zeigt ein "
+        "angetippter Vers die Abschnitte, die eine Ausgabe diesem Vers "
+        "zuordnet, dazu verwandte Bibelstellen und den Perikopenkontext.",
+    sources: [
+      SourceInfo(
+        title: "Katalog und Texte",
+        origin:
+            "Bibliothek der Kirchenväter (BKV), Universität Freiburg/Schweiz, "
+            "mit den deutschen Übersetzungen der Reihen von 1831–1854, "
+            "1869–1888 und 1911–1938. Ausgabe, Übersetzer und Jahr stehen "
+            "bei jeder Fassung.",
+        processing:
+            "Volltexte nur von Fassungen, deren Übersetzer nachweislich vor "
+            "mehr als 70 Jahren gestorben sind; sonst nur Angaben und Link. "
+            "Der Wortlaut ist unverändert. Die Seitenzahlen der Druckausgabe "
+            "stehen beim Abschnitt statt im Text, Anmerkungszeichen erscheinen "
+            "als [n], über eine Seite fortgesetzte Absätze sind zusammengefügt.",
+        url: "https://bkv.unifr.ch/",
+      ),
+      SourceInfo(
+        title: "Zuordnung zu Bibelstellen",
+        processing:
+            "Nur aus Angaben der Ausgaben selbst: Überschriften, die den "
+            "ausgelegten Abschnitt nennen, und Stellenangaben im Text oder in "
+            "den Anmerkungen. Jede Zuordnung nennt Art, Herkunft und "
+            "Sicherheit.",
+        aiNote:
+            "Die Zuordnungen werden automatisch aus den Ausgaben gelesen, "
+            "nicht von einer KI erzeugt. Es gibt keine KI-Übersetzungen oder "
+            "-Zusammenfassungen.",
+      ),
+      SourceInfo(
+        title: "Verwandte Bibelstellen",
+        origin:
+            "OpenBible.info Cross References (beruhend auf dem Treasury of "
+            "Scripture Knowledge, mit Nutzerbewertungen)",
+        license: "CC BY",
+        url: "https://www.openbible.info/labs/cross-references/",
+      ),
+      SourceInfo(
+        title: "Parallelstellen",
+        origin:
+            "Perikopen-Datensatz von theologie.app (synoptische Parallelen)",
+      ),
+    ],
+    notes: [
+      "Die Bibliothek ist nicht vollständig. Viele Werke sind nur verzeichnet "
+          "und verweisen auf die Quelle; welche Texte enthalten sind, steht "
+          "im Katalog und in docs/church-fathers.md.",
+      "Historische Übersetzungen sind keine heutigen wissenschaftlichen "
+          "Standardübersetzungen und können vom Originaltext abweichen.",
+      "Kirchenväter, mittelalterliche Theologen und Reformatoren sind "
+          "getrennt eingeordnet; nicht jeder Autor ist ein Kirchenvater.",
+      "Die Väter legen nicht einheitlich aus. Die App zeigt, was eine "
+          "Ausgabe einer Stelle zuordnet, und keine geschlossene Lehrmeinung.",
+      "Psalmen zählen die Väter meist nach Septuaginta und Vulgata; solche "
+          "Zuordnungen sind als unsicher gekennzeichnet.",
+    ],
+  );
+
   static const ModuleInfo logic = ModuleInfo(
     id: "philosophy_logic",
     title: "Einführung in die Logik",
@@ -759,6 +825,7 @@ class AppModules {
   static const List<ModuleInfo> all = [
     pericopeQuiz,
     bible,
+    fathers,
     calendar,
     hymns,
     confessions,
