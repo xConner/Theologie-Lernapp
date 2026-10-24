@@ -220,7 +220,13 @@ void main() {
       expect(find_(hymnal.id, "1300").title, "So nimm denn meine Hände");
       for (final hymn in hymns) {
         expect(hymn.source, isNotNull, reason: hymn.key);
+        final stanzas = hymn.lyrics.map((l) => "${l.stanza}").toList();
+        expect(stanzas.toSet().length, stanzas.length, reason: hymn.key);
       }
+      expect(hymns.where((h) => h.lyrics.isNotEmpty), hasLength(1300));
+      expect(find_(hymnal.id, "1").lyrics, hasLength(11));
+      expect(find_(hymnal.id, "343").lyrics, isEmpty);
+      expect(find_(hymnal.id, "343").lyricsNote, isNotEmpty);
     });
   });
 
@@ -243,9 +249,10 @@ void main() {
         "eg_ergaenzungsheft:10",
       );
       expect(library.index.search("EG 10").first.hymn.key, "eg:10");
-      expect(keys(library.index.search("EG 786,5")), [
+      expect(
+        library.index.search("EG 786,5").first.hymn.key,
         "eg_niedersachsen_bremen:786.5",
-      ]);
+      );
     });
 
     test("Liedtext: Fundstelle mit Strophe", () {
@@ -271,7 +278,11 @@ void main() {
 
     test("mehrere Wörter in verschiedenen Feldern", () {
       // „Weissel“ steht in der Textangabe, „Herrlichkeit“ im Liedtext.
-      expect(keys(library.index.search("Weissel Herrlichkeit")), ["eg:1"]);
+      // Der Liederschatz führt das Lied mit demselben Text unter Nr. 72.
+      expect(keys(library.index.search("Weissel Herrlichkeit")), [
+        "eg:1",
+        "geistlicher_liederschatz:72",
+      ]);
     });
 
     test("Dichter und Bibelstellen", () {
@@ -453,7 +464,10 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      expect(find.textContaining("Str. 3: O wohl dem Land"), findsOneWidget);
+      expect(
+        find.textContaining("EG Stammteil\nStr. 3: O wohl dem Land"),
+        findsOneWidget,
+      );
     });
 
     testWidgets("vom Treffer ins Lied und zurück", (tester) async {

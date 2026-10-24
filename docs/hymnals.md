@@ -16,7 +16,7 @@ beschreibt.
 | EG – Regionalteil Nordelbien (Nordkirche: Hamburg, Schleswig-Holstein) | noch nicht integriert | nur Beschreibung | keine zulässige Quelle mit Nummern |
 | EG – Regionalteil Mecklenburg und Pommern (Nordkirche) | noch nicht integriert | nur Beschreibung | keine zulässige Quelle |
 | Ergänzungsheft zum EG (EG.E, 2018) | teilweise | 15 von 32 Liedern, nur Nummer und Titel | Wochenlieder im liturgischen Kalender der App |
-| Geistlicher Liederschatz (Brüdergemeinden) | teilweise | 1300 Nummern (1304 Einträge) mit Titel und Textdichter, ohne Text und Noten | Inhaltsverzeichnis von evangeliums.net |
+| Geistlicher Liederschatz (Brüdergemeinden) | teilweise | 1300 Nummern (1304 Einträge) mit Titel, Textdichter, Melodieangabe und Text (außer Nr. 343, 344, 447, 563), ohne Noten | evangeliums.net; Texte freigegeben von der Kirchlichen Gemeinschaft |
 
 „Stand“ steht so auch in der App (`status` in `assets/hymnals/catalog.json`);
 ein Test hält fest, dass er zu den Daten passt (vollständig = alle Lieder,
@@ -85,17 +85,23 @@ Gemeint ist das Gesangbuch der evangelisch-lutherischen Brüdergemeinden
 Notenausgabe 2000, Jubiläumsausgabe 2020, 1300 Lieder. Bibliografie,
 Quellen und Prüfstatus stehen in `docs/liederschatz/`.
 
-**Rechte.** Conner hat am 24. Oktober 2026 erklärt, alle Rechte zu haben.
-Ein schriftlicher Beleg liegt im Repository nicht vor. Übernommen sind deshalb
-vorerst nur Nummer, Titel und Textdichter; Liedtexte folgen, sobald geklärt
-ist, dass die Rechte auch die Texte von evangeliums.net abdecken.
+**Rechte.** Conner am 24. Oktober 2026: „Die Kirchliche Gemeinschaft hat mir
+die Texte für die App freigegeben.“ Darauf beruht die Übernahme der Texte; ein
+schriftlicher Beleg liegt im Repository nicht vor. Fünf Texte sind jünger als
+1957 (Nr. 224, 323, 346, 567, 1211); ob die Freigabe auch Rechte Dritter
+(Verlage, Erben) abdeckt, ist am Einzelfall zu prüfen.
 
 **Was integriert ist.** `assets/hymnals/geistlicher_liederschatz.json`
 erzeugt `python tool/liederschatz/build_liederschatz.py`:
 
 - Grundlage für jede Nummer sind Nummer, Titel und Textdichter aus dem
   Inhaltsverzeichnis von evangeliums.net.
-- Liedtexte fehlen noch; die Liedansicht nennt die Liedseite als Quelle.
+- Liedtext und Melodieangabe kommen von der jeweiligen Liedseite
+  (`tool/liederschatz/quellen/liedtexte.json`, abgerufen am 24. Oktober 2026).
+  Der Wortlaut kann von der gedruckten Ausgabe abweichen. Alternative
+  Textfassungen der Seite sind nicht übernommen; was beim Übernehmen bereinigt
+  wurde, steht beim Lied (`lyricsNote`).
+- Vier Seiten zeigen keinen Text (Nr. 343, 344, 447, 563).
 - Unter Nr. 108, 116, 153 und 201 führt die Quelle je zwei Lieder. Das zweite
   heißt in der App „108a“ usw.
 - Noten fehlen; die Notenausgabe 2000 liegt nicht digital vor.

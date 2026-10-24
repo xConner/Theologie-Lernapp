@@ -634,8 +634,8 @@ class AppModules {
           "Gründen nicht angezeigt.",
       "Regionalteile und Ergänzungsheft sind nur teilweise verzeichnet, "
           "ohne Text und Noten; die nordkirchlichen Regionalteile sind noch "
-          "nicht integriert. Der Geistliche Liederschatz verzeichnet alle 1300 "
-          "Nummern mit Titel und Textdichter, noch ohne Text und Noten. Der "
+          "nicht integriert. Der Geistliche Liederschatz hat alle 1300 "
+          "Nummern mit Text (bis auf vier Lieder), aber noch ohne Noten. Der "
           "Stand steht bei jeder Sammlung.",
       "Erklärungen, Schlagworte und Bibelstellen sind nicht bei allen "
           "Liedern vorhanden.",

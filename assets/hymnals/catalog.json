@@ -175,8 +175,8 @@
       "asset": "assets/hymnals/geistlicher_liederschatz.json",
       "status": "partial",
       "description": "Gesangbuch der evangelisch-lutherischen Brüdergemeinden mit Chorälen und vor allem Erweckungsliedern aus dem 18. bis Anfang des 20. Jahrhunderts, gesammelt aus Liederbüchern der deutschsprachigen Gemeinden in der ehemaligen Sowjetunion.",
-      "statusNote": "Alle 1300 Nummern sind mit Titel und Textdichter verzeichnet. Liedtexte und Noten fehlen noch.",
-      "lyricsNote": "Der Liedtext ist noch nicht in der App.",
+      "statusNote": "Alle 1300 Nummern mit Titel, Textdichter und Melodieangabe; Liedtexte bei 1300 von 1304 Einträgen, im Wortlaut von evangeliums.net, der von der gedruckten Ausgabe abweichen kann. Texte für die App freigegeben von der Kirchlichen Gemeinschaft. Noten fehlen.",
+      "lyricsNote": "Zu diesem Lied liegt kein Text vor.",
       "sources": [
         {
           "title": "Kirchliche Gemeinschaft e.V.: Geistlicher Liederschatz",

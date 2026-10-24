@@ -227,6 +227,62 @@ def app_number(record):
     return f"{record['nummer']}{'abcdefgh'['abcdefgh'.index(suffix) - 1]}"
 
 
+# Liedseiten, auf denen nach dem Lied Strophen eines anderen Textes folgen.
+CUT_AFTER_RESTART = {738}
+
+
+def clean_lyrics(entry):
+    """Strophen einer Liedseite für die App; gibt (Strophen, Hinweise) zurück.
+
+    * „5. …“ am Textanfang ist die Strophennummer.
+    * Beginnt die Zählung wieder bei 1, folgt ein alternativer Text; er wird
+      nicht übernommen.
+    * Wiederholte Strophen mit gleichem Text entfallen; eine weitere Strophe
+      mit schon vergebener Nummer wird fortlaufend weitergezählt.
+    * Ein zweiter, abweichender Refrain wird an die Strophe davor angehängt
+      (jede Strophenkennung kommt in der App nur einmal vor).
+    """
+    verses, notes, seen = [], [], set()
+    highest = 0
+    for verse in entry.get("lyrics", []):
+        stanza, text = verse["stanza"], verse.get("text", "").strip()
+        if not text:
+            continue
+        match = re.match(r"^(\d+)\.\s+", text)
+        if isinstance(stanza, int) and match:
+            stanza, text = int(match.group(1)), text[match.end():]
+        if text in seen:
+            notes.append("wiederholte Strophe ausgelassen")
+            continue
+        if stanza == "Ref" and any(v["stanza"] == "Ref" for v in verses):
+            if verses:
+                verses[-1]["text"] += "\n\n" + text
+                notes.append("zweiter Refrain an die Strophe davor angehängt")
+            continue
+        if isinstance(stanza, int) and stanza <= highest:
+            if stanza == 1 or entry["nrs"][0] in CUT_AFTER_RESTART:
+                notes.append("alternativer Text der Liedseite nicht übernommen")
+                break
+            notes.append(f"Strophe {stanza} doppelt nummeriert, als {highest + 1} gezählt")
+            stanza = highest + 1
+        if isinstance(stanza, int):
+            highest = stanza
+        seen.add(text)
+        verses.append({"stanza": stanza, "text": text})
+    return verses, sorted(set(notes))
+
+
+def melody(page):
+    """Melodieangabe der Liedseite, alternative Melodien angehängt."""
+    if not page:
+        return ""
+    main_tune = page.get("melodie") or ""
+    other = page.get("alternative_melodie")
+    if other:
+        return f"{main_tune} (auch: {other})" if main_tune else f"auch: {other}"
+    return main_tune
+
+
 def load_lyrics():
     """Liedtexte von den Liedseiten, je URL (fehlt die Datei: keine Texte)."""
     if not LYRICS.exists():
@@ -234,7 +290,8 @@ def load_lyrics():
     texts = {}
     for entry in json.loads(LYRICS.read_text(encoding="utf-8")):
         if entry.get("status") == "ok" and entry.get("lyrics"):
-            texts[entry["url"]] = entry
+            verses, notes = clean_lyrics(entry)
+            texts[entry["url"]] = {**entry, "lyrics": verses, "bereinigung": notes}
     return texts
 
 
@@ -250,9 +307,18 @@ def write_app_asset(records):
         notes = []
         if not page:
             notes.append(
-                "Nummer, Titel und Textdichter laut Inhaltsverzeichnis des "
+                "evangeliums.net zeigt zu diesem Lied keinen Text; er steht im "
+                "gedruckten Liederschatz."
+                if record["nummer"] in WITHOUT_TEXT
+                else "Nummer, Titel und Textdichter laut Inhaltsverzeichnis des "
                 "Geistlichen Liederschatzes auf evangeliums.net. Der Liedtext "
                 "ist noch nicht in der App."
+            )
+        if page and page["bereinigung"]:
+            notes.append(
+                "Text von evangeliums.net, beim Übernehmen bereinigt: "
+                + "; ".join(page["bereinigung"])
+                + "."
             )
         if record["nummer_zusatz"]:
             notes.append(
@@ -275,12 +341,8 @@ def write_app_asset(records):
                 "number": app_number(record),
                 "title": record["titel"],
                 "text": record["textangabe"],
-                "melody": (page or {}).get("melodie") or "",
-                "lyrics": [
-                    {"stanza": verse["stanza"], "text": verse["text"].strip()}
-                    for verse in (page or {}).get("lyrics", [])
-                    if verse.get("text", "").strip()
-                ],
+                "melody": melody(page),
+                "lyrics": (page or {}).get("lyrics", []),
                 "tags": [],
                 "bibleReferences": [],
                 "explanation": "",
