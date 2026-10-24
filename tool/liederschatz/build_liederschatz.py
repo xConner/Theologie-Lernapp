@@ -35,6 +35,7 @@ SOURCES = Path(__file__).resolve().parent / "quellen"
 TOC = SOURCES / "inhaltsverzeichnis_evangeliums_net.tsv"
 SAMPLE = SOURCES / "stichprobe_liedseiten.tsv"
 SEARCH_HITS = SOURCES / "suchtreffer.tsv"
+LYRICS = SOURCES / "liedtexte.json"
 EG_HYMNS = ROOT / "assets" / "eg_lieder.json"
 EG_INVENTORY = ROOT / "docs" / "hymn-scores" / "eg_noten_inventar.json"
 EG_SNAPSHOT = ROOT / "docs" / "hymn-scores" / "quellen_snapshot.json"
@@ -57,6 +58,14 @@ SAFE_WORK_YEAR = 1850
 # Liedseiten ohne Liedtext laut Inhaltsverzeichnis (Spalte text_verfuegbar
 # der Abrufdatei auf dem Rechner des Nutzers).
 WITHOUT_TEXT = {343, 344, 447, 563}
+
+# Grundlage der Integration in die App: Conners Angabe im Projekt vom
+# 2026-10-24. Ein schriftlicher Beleg liegt im Repository nicht vor, deshalb
+# bleibt license_verified ungesetzt.
+RIGHTS_STATEMENT = (
+    "Laut Conner (2026-10-24): „Die Kirchliche Gemeinschaft hat mir die "
+    "Texte für die App freigegeben.“"
+)
 
 # Die einzigen Statuswerte. Jeder wird nur gesetzt, wenn er geprüft wurde.
 STATUSES = [
@@ -218,40 +227,65 @@ def app_number(record):
     return f"{record['nummer']}{'abcdefgh'['abcdefgh'.index(suffix) - 1]}"
 
 
-def write_app_asset(records):
-    """Liedliste für die App: Nummer, Titel, Textangabe, Beleg.
+def load_lyrics():
+    """Liedtexte von den Liedseiten, je URL (fehlt die Datei: keine Texte)."""
+    if not LYRICS.exists():
+        return {}
+    texts = {}
+    for entry in json.loads(LYRICS.read_text(encoding="utf-8")):
+        if entry.get("status") == "ok" and entry.get("lyrics"):
+            texts[entry["url"]] = entry
+    return texts
 
-    Rechte laut Conner (Inhaber der Rechte, Angabe vom 2026-10-24). Texte
-    und Noten liegen noch nicht vor; die Liedansicht zeigt dann den Hinweis.
+
+def write_app_asset(records):
+    """Liedliste für die App: Nummer, Titel, Textangabe, Liedtext, Beleg.
+
+    Freigabe der Texte: siehe RIGHTS_STATEMENT. Noten liegen nicht vor.
     """
+    lyrics = load_lyrics()
     hymns = []
     for record in records:
-        notes = [
-            "Nummer, Titel und Textdichter laut Inhaltsverzeichnis des "
-            "Geistlichen Liederschatzes auf evangeliums.net. Der Liedtext ist "
-            "noch nicht in der App."
-        ]
+        page = lyrics.get(record["liedseite"])
+        notes = []
+        if not page:
+            notes.append(
+                "Nummer, Titel und Textdichter laut Inhaltsverzeichnis des "
+                "Geistlichen Liederschatzes auf evangeliums.net. Der Liedtext "
+                "ist noch nicht in der App."
+            )
         if record["nummer_zusatz"]:
             notes.append(
-                f"Unter Nr. {record['nummer']} stehen dort zwei Lieder; die "
-                "Zuordnung ist am Buch noch zu prüfen."
+                f"Unter Nr. {record['nummer']} stehen auf evangeliums.net zwei "
+                "Lieder; die Zuordnung ist am Buch noch zu prüfen."
+            )
+        source = {
+            "name": "evangeliums.net, Liederbuch „Geistlicher Liederschatz“",
+            "url": record["liedseite"],
+            "statement": f"{record['nummer']}. {record['titel']}",
+        }
+        if page:
+            source["license"] = (
+                "Text laut Rechteinhaber für die App freigegeben (Kirchliche "
+                "Gemeinschaft); Wortlaut von evangeliums.net, kann von der "
+                "gedruckten Ausgabe abweichen"
             )
         hymns.append(
             {
                 "number": app_number(record),
                 "title": record["titel"],
                 "text": record["textangabe"],
-                "melody": "",
-                "lyrics": [],
+                "melody": (page or {}).get("melodie") or "",
+                "lyrics": [
+                    {"stanza": verse["stanza"], "text": verse["text"].strip()}
+                    for verse in (page or {}).get("lyrics", [])
+                    if verse.get("text", "").strip()
+                ],
                 "tags": [],
                 "bibleReferences": [],
                 "explanation": "",
                 "lyricsNote": " ".join(notes),
-                "source": {
-                    "name": "evangeliums.net, Liederbuch „Geistlicher Liederschatz“",
-                    "url": record["liedseite"],
-                    "statement": f"{record['nummer']}. {record['titel']}",
-                },
+                "source": source,
             }
         )
     numbers = [h["number"] for h in hymns]
@@ -260,6 +294,7 @@ def write_app_asset(records):
     APP_ASSET.write_text(
         json.dumps(hymns, ensure_ascii=False, indent=1) + "\n", encoding="utf-8"
     )
+    return sum(1 for h in hymns if h["lyrics"])
 
 
 def main():
@@ -374,7 +409,8 @@ def main():
                     "und Verzeichnis als Sammlung bzw. Datenbank geschützt"
                 ),
                 "lizenz": None,
-                "in_app_erlaubt": False,
+                "freigabe": RIGHTS_STATEMENT,
+                "in_app_erlaubt": True,
             }
         )
 
@@ -424,7 +460,7 @@ def main():
         ),
     }
     write_json("abdeckung.json", summary)
-    write_app_asset(records)
+    print("Lieder mit Text in der App:", write_app_asset(records))
     print(json.dumps(summary, ensure_ascii=False, indent=1))
 
 

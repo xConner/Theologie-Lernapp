@@ -5,9 +5,11 @@ evangelisch-lutherischen Brüdergemeinden (Textausgabe 1989, Notenausgabe 2000,
 1300 Lieder). Nicht gemeint ist der gleichnamige Berliner Liederschatz von
 1832 aus `assets/hymnals/catalog.json` (siehe `docs/hymnals.md`).
 
-Die App liest keine dieser Dateien. Sie enthalten keine Liedtexte und keine
-Noten, nur Verzeichnisangaben, Links und Prüfvermerke. Nichts davon ist für die
-App freigegeben.
+Die App liest diese Dateien nicht; sie enthalten keine Liedtexte und keine
+Noten. Die Liedliste der App (`assets/hymnals/geistlicher_liederschatz.json`)
+erzeugt dasselbe Skript. Grundlage der Freigabe ist Conners Angabe vom
+2026-10-24: „Die Kirchliche Gemeinschaft hat mir die Texte für die App
+freigegeben.“
 
 Bericht: [abschlussbericht.md](abschlussbericht.md).
 
@@ -21,7 +23,7 @@ Bericht: [abschlussbericht.md](abschlussbericht.md).
 | `lieder.json` | ein Datensatz je Lied | Skript |
 | `textquellen.json` | Textfundstelle je Lied | Skript |
 | `notenquellen.json` | Notenkandidaten aus dem EG (andere Ausgabe) | Skript |
-| `rechte.json` | Einschätzung je Lied, `in_app_erlaubt` immer `false` | Skript |
+| `rechte.json` | Einschätzung je Lied und Freigabe für die App | Skript |
 | `pruefstatus.json` | Status je Lied, Belege, offene Prüfungen | Skript |
 | `abdeckung.json` | Zählung der Status | Skript |
 

@@ -5,9 +5,8 @@ import 'package:flutter_test/flutter_test.dart';
 
 /// Prüft die Recherchedaten zum Geistlichen Liederschatz (docs/liederschatz).
 ///
-/// Die Daten gehören nicht zur App. Die Tests halten fest, dass jede Nummer
-/// des Buchs genau einmal belegt ist, die Dateien zueinander passen und kein
-/// Eintrag als lizenziert oder in der App nutzbar gilt.
+/// Die Tests halten fest, dass jede Nummer des Buchs genau einmal belegt ist,
+/// die Dateien zueinander passen und die Freigabe für die App begründet ist.
 void main() {
   List<dynamic> load(String name) =>
       jsonDecode(File("docs/liederschatz/$name").readAsStringSync())
@@ -84,14 +83,15 @@ void main() {
     }
   });
 
-  test("Nichts ist lizenziert oder für die App freigegeben", () {
+  test("Freigabe beruht auf der Angabe zum Rechteinhaber", () {
     for (final row in rights) {
       expect(row["lizenz"], isNull, reason: "${row["lied"]}");
-      expect(row["in_app_erlaubt"], isFalse, reason: "${row["lied"]}");
+      expect(row["freigabe"], contains("Kirchliche Gemeinschaft"));
+      expect(row["in_app_erlaubt"], isTrue, reason: "${row["lied"]}");
     }
   });
 
-  test("Das Berliner Werk von 1832 bleibt ein eigener Katalogeintrag", () {
+  test("Das Berliner Werk von 1832 bleibt abgegrenzt", () {
     final bibliography =
         jsonDecode(
               File("docs/liederschatz/bibliografie.json").readAsStringSync(),
