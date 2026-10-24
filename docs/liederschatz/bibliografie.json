@@ -1,0 +1,71 @@
+{
+ "abgerufen": "2026-10-24",
+ "werke": [
+  {
+   "id": "gls_bg",
+   "gemeint": true,
+   "titel": "Geistlicher Liederschatz",
+   "herausgeber": "Kirchliche Gemeinschaft der evangelisch-lutherischen Brüdergemeinden e.V.",
+   "herausgeber_frueher": "Kirchliche Gemeinschaft der Ev.-Luth. Deutschen aus Russland e.V. (so im Amazon-Eintrag zum Textband)",
+   "anschrift": "Am Haintor 13, 37242 Bad Sooden-Allendorf (Vereinsregister 1483, Amtsgericht Eschwege)",
+   "kontakt": "info@kg-bsa.de",
+   "druck": "St.-Johannis-Druckerei (laut Antiquariatseintrag zur Ausgabe 1989; nicht am Buch geprüft)",
+   "umfang": "1300 Lieder",
+   "inhalt": "Choräle und vor allem Erweckungslieder aus dem 18. bis Anfang des 20. Jahrhunderts, gesammelt aus Liederbüchern der deutschsprachigen Gemeinden in der ehemaligen Sowjetunion",
+   "isbn": null,
+   "isbn_hinweis": "Auf keiner geprüften Seite angegeben; Amazon führt den Textband ohne ISBN unter ASIN B004EC3E8A.",
+   "ausgaben": [
+    {
+     "id": "gls_bg.text1989",
+     "art": "Textausgabe (Buchausgabe)",
+     "erstauflage": 1989,
+     "auflagen": "21 Auflagen, annähernd 100.000 Exemplare (Stand der Verlagsseite)",
+     "bibliothek": "WLB Stuttgart, Gesangbuchsammlung, Signatur 1989-502 („Geistlicher Liederschatz [Deutsche aus Russland]“; nur als Suchtreffer gesehen)",
+     "belege": [
+      "https://kirchlichegemeinschaft.de/geistlicher-liederschatz/",
+      "https://www.evangeliums.net/lieder/liederbuch_geistlicher_liederschatz.html"
+     ]
+    },
+    {
+     "id": "gls_bg.noten2000",
+     "art": "Notenausgabe (Parallelausgabe zur Textausgabe)",
+     "erstauflage": 2000,
+     "auflagen": "lange vergriffen, laut Verlagsseite wieder lieferbar",
+     "satz": "„meist vierstimmige Sätze“ (Verlagsseite)",
+     "baende": "Ein Händler nennt zwei Bände (Band I/II, 75 €); vom Verlag nicht bestätigt",
+     "bibliothek": "WLB Stuttgart, Signatur 2000-001 (nur als Suchtreffer gesehen; PDF https://www.wlb-stuttgart.de/referate/musik/gb/pdf/2000-001.pdf nicht abgerufen)",
+     "belege": [
+      "https://kirchlichegemeinschaft.de/geistlicher-liederschatz/"
+     ]
+    },
+    {
+     "id": "gls_bg.jubilaeum2020",
+     "art": "Jubiläumsausgabe",
+     "erstauflage": 2020,
+     "angekuendigt": "2020-11-21",
+     "aenderungen": "„Der Inhalt, d.h. die Lieder und die Liedtexte sind geblieben, aber sie wurden überarbeitet und mit vielen weiteren Angaben ergänzt“",
+     "nummerierung": "vermutlich unverändert (Schluss aus „Inhalt … geblieben“, nicht geprüft)",
+     "luecke": "Die Detailbilder GLS-Jubilaeumsausgabe-1…4.jpg und das PDF Geistlicher-Liederschatz_Jubilaeumsausgabe_Vorstellung-Nov-2020.pdf geben HTTP 404 zurück; Umfang, ISBN und Preis fehlen.",
+     "belege": [
+      "https://kirchlichegemeinschaft.de/jubilaeumsausgabe-vom-geistlichen-liederschatz-nun-erhaeltlich/"
+     ]
+    }
+   ],
+   "nummerierung_der_daten": "Nummern laut Liederbuchseite von evangeliums.net, die als Erscheinungsjahr 2000 nennt. Ob Text- und Notenausgabe dieselben Nummern haben, ist nicht am Buch geprüft."
+  },
+  {
+   "id": "gls_berlin1832",
+   "gemeint": false,
+   "titel": "Geistlicher Liederschatz. Sammlung der vorzüglichsten geistlichen Lieder für Kirche, Schule und Haus",
+   "ort_verlag": "Berlin, Samuel Elsner",
+   "erstauflage": 1832,
+   "abgrenzung": "Anderes Werk mit gleichem Titel (der „Berliner Liederschatz“). Eigene Nummerierung, keine Noten. Steht in assets/hymnals/catalog.json als geistlicher_liederschatz und in docs/hymnals.md; diese Daten beziehen sich nicht darauf."
+  },
+  {
+   "id": "gls_apps",
+   "gemeint": false,
+   "titel": "Geistlicher Liederschatz (Apps)",
+   "abgrenzung": "Drittanbieter-Apps zum Brüdergemeinden-Gesangbuch: Android von Andreas Mogelnitzki (lässt urheberrechtlich geschützte Texte laut Store-Text weg), Android/iOS von Artur Gräfenstein. Keine Ausgabe des Verlags; nicht als Quelle verwendet."
+  }
+ ]
+}

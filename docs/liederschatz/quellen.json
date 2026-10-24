@@ -1,0 +1,55 @@
+{
+ "abgerufen": "2026-10-24",
+ "hinweis": "Nur Quellen, die tatsächlich abgerufen oder über Suchtreffer gesehen wurden. Das ist keine Durchsuchung des ganzen Internets.",
+ "quellen": [
+  {
+   "id": "evangeliums_net",
+   "name": "evangeliums.net, Liederbuchseite „Geistlicher Liederschatz“",
+   "url": "https://www.evangeliums.net/lieder/liederbuch_geistlicher_liederschatz.html",
+   "betreiber": "Markus Mayer, Wien (private, nicht kommerzielle Website)",
+   "zugriff": "vollständig abgerufen, vom Rechner des Nutzers aus (höchstens eine Anfrage pro Sekunde, ohne Login)",
+   "inhalt": "Inhaltsverzeichnis mit 1306 Zeilen (Nr. 1–1300), Liedtexte auf den Liedseiten, 337 MP3-Aufnahmen, keine Noten",
+   "nutzungsbedingungen": "keine; nur Seitenfuß „© 2004 - 2026 Evangeliums.net“. Datenbankherstellerrecht (§§ 87a ff. UrhG, § 76c öst. UrhG) möglich.",
+   "verwendet_fuer": ["lieder.json", "textquellen.json"]
+  },
+  {
+   "id": "evangeliums_net_liedseiten",
+   "name": "evangeliums.net, 30 Liedseiten (Nr. 1, 45, 90 … 1260, 1300)",
+   "zugriff": "einzeln abgerufen",
+   "inhalt": "alle 30 mit Liedtext, keine mit Noten (kein Bild, PDF oder MIDI); 4 mit MP3 (Sermon-Online, Gemeinde Gottes Eppingen); 3 mit CCLI-Nummer; kein Copyright-Vermerk zum Lied",
+   "verwendet_fuer": ["pruefstatus.json (verified_match)", "lieder.json (Melodieangabe)"]
+  },
+  {
+   "id": "kirchlichegemeinschaft",
+   "name": "Kirchliche Gemeinschaft e.V., Seiten zum Liederschatz und Impressum",
+   "url": "https://kirchlichegemeinschaft.de/geistlicher-liederschatz/",
+   "zugriff": "abgerufen vom Rechner des Nutzers",
+   "inhalt": "Ausgaben, Bestellformular ohne Preise, keine ISBN, keine Rechteangaben zu Texten und Noten",
+   "nutzungsbedingungen": "allgemeiner Urheberrechtshinweis der Website: „Downloads und Kopien dieser Seite sind nur für den privaten, nicht kommerziellen Gebrauch gestattet.“",
+   "verwendet_fuer": ["bibliografie.json", "rechte.json"]
+  },
+  {
+   "id": "suchmaschine",
+   "name": "Websuche (Trefferauszüge)",
+   "zugriff": "nur Trefferauszüge, Seiten selbst nicht geöffnet",
+   "inhalt": "87 Liedseiten mit GLS-Nummer, Amazon-ASIN, WLB-Signaturen, Store-Einträge der Apps, Händlerangabe zur Notenausgabe",
+   "verwendet_fuer": ["pruefstatus.json (verified_match)", "bibliografie.json"]
+  },
+  {
+   "id": "eg_bestand",
+   "name": "Repository: assets/eg_lieder.json und docs/hymn-scores",
+   "zugriff": "lokal",
+   "inhalt": "Titelabgleich mit dem EG, Notenquellen und Lizenzen dieser anderen Ausgabe, Lebensdaten aus Wikidata",
+   "verwendet_fuer": ["notenquellen.json", "rechte.json"]
+  }
+ ],
+ "nicht_erreichbar": [
+  {"host": "archive.org, HathiTrust, digitale-sammlungen.de, Google Books", "grund": "vom Netz der Arbeitsumgebung gesperrt; betrifft vor allem das Berliner Werk von 1832"},
+  {"host": "hymnary.org", "grund": "gesperrt; Suchtreffer zeigen nur andere Liederbücher (z. B. GLSL1890, GL2001) mit anderer Nummerierung"},
+  {"host": "commons.wikimedia.org, de.wikipedia.org", "grund": "gesperrt; Commons-Angaben stammen aus dem vorhandenen Schnappschuss docs/hymn-scores/quellen_snapshot.json"},
+  {"host": "kirchlichegemeinschaft.de, Detailbilder und PDF der Jubiläumsausgabe 2020", "grund": "HTTP 404"},
+  {"host": "evangeliums.net, PDF-Inhaltsverzeichnis, Herunterladen (pdf.php) und Drucken (drucken.php)", "grund": "bewusst nicht abgerufen; enthielte nur Liedtexte"},
+  {"host": "WLB Stuttgart, PDF 2000-001", "grund": "nicht abgerufen"},
+  {"host": "Notenausgabe 2000 selbst", "grund": "nicht online; nur gedruckt über den Verlag"}
+ ]
+}

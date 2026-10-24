@@ -1,0 +1,22 @@
+{
+ "abgerufen": "2026-10-24",
+ "zeilen_im_verzeichnis": 1306,
+ "nummern": 1300,
+ "eintraege": 1304,
+ "status": {
+  "verified_match": 116,
+  "text_found": 1300,
+  "notation_found": 73,
+  "complete_notation_found": 0,
+  "license_verified": 0,
+  "rights_review_required": 1304,
+  "not_found": 4
+ },
+ "textdichter_status": {
+  "gemeinfrei": 223,
+  "ungeklaert": 1073,
+  "geschuetzt": 8
+ },
+ "notenkandidaten_eg": 78,
+ "notenkandidaten_mit_freier_lizenz": 60
+}

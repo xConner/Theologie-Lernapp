@@ -91,6 +91,11 @@ Werk ist gemeinfrei. Es enthält Texte, keine Noten.
 Kirche und Haus* (1837 ff.); *Christen-Lieder … Evangelischer Liederschatz für
 Kirche, Schule und Haus* (Stuttgart: Steinkopf 1841).
 
+Gleicher Titel, anderes Werk: der *Geistliche Liederschatz* der
+evangelisch-lutherischen Brüdergemeinden (Textausgabe 1989, Notenausgabe
+2000, 1300 Lieder). Er ist nicht im Katalog; die Recherche dazu (Bibliografie,
+Liedverzeichnis, Quellen, Rechte) steht in `docs/liederschatz/`.
+
 Digitalisate: HathiTrust (Ausgabe 1832), Internet Archive (`geiliede00berl`,
 Ausgabe 1846), Münchener Digitalisierungszentrum (`bsb10592427`), Google
 Books. Die Links stehen im Katalog und in der App. Die Nutzungsbedingungen

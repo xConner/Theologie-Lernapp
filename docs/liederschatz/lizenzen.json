@@ -1,0 +1,43 @@
+{
+ "abgerufen": "2026-10-24",
+ "hinweis": "Nur Angaben, die eine Quelle selbst macht. Wo keine Lizenz steht, steht hier keine. Keine Rechtsberatung.",
+ "stichjahr": "Wer bis Ende 1955 gestorben ist, ist seit dem 1.1.2026 gemeinfrei (§ 64 UrhG); vgl. docs/hymn-scores/README.md",
+ "lizenzen": [
+  {
+   "gegenstand": "Liedtexte und Datenbank auf evangeliums.net",
+   "lizenz": null,
+   "angabe_der_quelle": "keine Nutzungsbedingungen; Impressum sucht ausdrücklich „rechtefreien Content“; Texte des 20. Jahrhunderts (Nr. 343, 344, 447, 563) werden nicht angezeigt",
+   "ergebnis": "Rechteklärung erforderlich"
+  },
+  {
+   "gegenstand": "MP3-Aufnahmen auf evangeliums.net",
+   "lizenz": null,
+   "angabe_der_quelle": "„von Sermon-Online zur Verfügung gestellt“ bzw. „von der Gemeinde Gottes Eppingen zur Verfügung gestellt“; Player mit controlsList=nodownload",
+   "ergebnis": "Rechteklärung erforderlich; nicht verwenden"
+  },
+  {
+   "gegenstand": "Textausgabe 1989, Jubiläumsausgabe 2020",
+   "lizenz": null,
+   "angabe_der_quelle": "keine; 2020 „überarbeitet und mit vielen weiteren Angaben ergänzt“",
+   "ergebnis": "Rechteklärung erforderlich (Sammlung § 4 UrhG, Bearbeitungen § 3 UrhG)"
+  },
+  {
+   "gegenstand": "Notenausgabe 2000 (meist vierstimmige Sätze)",
+   "lizenz": null,
+   "angabe_der_quelle": "keine",
+   "ergebnis": "Rechteklärung erforderlich; Sätze als Bearbeitungen wahrscheinlich geschützt, Notenbilder nie kopieren"
+  },
+  {
+   "gegenstand": "Website kirchlichegemeinschaft.de",
+   "lizenz": null,
+   "angabe_der_quelle": "„Downloads und Kopien dieser Seite sind nur für den privaten, nicht kommerziellen Gebrauch gestattet.“",
+   "ergebnis": "keine Freigabe für die App"
+  },
+  {
+   "gegenstand": "Notenquellen zum EG (andere Ausgabe)",
+   "lizenz": "je Datei in docs/hymn-scores/eg_noten_inventar.json (z. B. Public domain, CC0, CC BY-SA)",
+   "angabe_der_quelle": "Lizenz der Commons-Datei laut Schnappschuss",
+   "ergebnis": "gilt nur für die EG-Fassung; ob das GLS dieselbe Melodie singt, ist ungeprüft"
+  }
+ ]
+}
