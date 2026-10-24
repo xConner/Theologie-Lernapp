@@ -166,35 +166,25 @@
       "group": "other",
       "part": "collection",
       "title": "Geistlicher Liederschatz",
-      "fullTitle": "Geistlicher Liederschatz. Sammlung der vorzüglichsten geistlichen Lieder für Kirche, Schule und Haus und alle Lebensverhältnisse",
+      "fullTitle": "Geistlicher Liederschatz – Gesangbuch der evangelisch-lutherischen Brüdergemeinden",
       "shortTitle": "Geistlicher Liederschatz",
       "numberPrefix": "GLS",
-      "region": "Berlin, hrsg. von Samuel Elsner",
-      "edition": "1. Auflage 1832 (xxxi, 920, 72 S.); weitere Auflagen 1840, 1842, 1846",
-      "year": "1832",
-      "status": "notIntegrated",
-      "description": "Umfangreiche Sammlung geistlicher Lieder, der „Berliner Liederschatz“. Das Werk ist gemeinfrei; digitalisierte Drucke sind über Bibliotheken zugänglich.",
-      "statusNote": "Die Digitalisate sind Seitenscans in Frakturschrift. Für die App braucht es eine geprüfte Abschrift jedes Liedes mit Nummer; sie liegt noch nicht vor. Noten enthält die Sammlung nicht.",
+      "region": "Kirchliche Gemeinschaft der evangelisch-lutherischen Brüdergemeinden e.V., Bad Sooden-Allendorf",
+      "edition": "Textausgabe 1989 (21 Auflagen), Notenausgabe 2000, Jubiläumsausgabe 2020; 1300 Lieder",
+      "year": "1989",
+      "asset": "assets/hymnals/geistlicher_liederschatz.json",
+      "status": "partial",
+      "description": "Gesangbuch der evangelisch-lutherischen Brüdergemeinden mit Chorälen und vor allem Erweckungsliedern aus dem 18. bis Anfang des 20. Jahrhunderts, gesammelt aus Liederbüchern der deutschsprachigen Gemeinden in der ehemaligen Sowjetunion.",
+      "statusNote": "Alle 1300 Nummern sind mit Titel und Textdichter verzeichnet. Liedtexte und Noten fehlen noch.",
+      "lyricsNote": "Der Liedtext ist noch nicht in der App.",
       "sources": [
         {
-          "title": "HathiTrust: Katalogeintrag der Ausgabe 1832",
-          "url": "https://catalog.hathitrust.org/Record/009717778",
-          "license": "gemeinfrei; Nutzungsbedingungen des Digitalisats beachten"
+          "title": "Kirchliche Gemeinschaft e.V.: Geistlicher Liederschatz",
+          "url": "https://kirchlichegemeinschaft.de/geistlicher-liederschatz/"
         },
         {
-          "title": "Internet Archive: Digitalisat der Ausgabe 1846",
-          "url": "https://archive.org/details/geiliede00berl",
-          "license": "gemeinfrei; Nutzungsbedingungen des Digitalisats beachten"
-        },
-        {
-          "title": "Münchener Digitalisierungszentrum (BSB)",
-          "url": "https://reader.digitale-sammlungen.de/de/fs1/object/display/bsb10592427_00005.html",
-          "license": "gemeinfrei; Nutzungsbedingungen des Digitalisats beachten"
-        },
-        {
-          "title": "Google Books",
-          "url": "https://books.google.com/books/about/Geistlicher_Liederschatz.html?id=6CsLAAAAYAAJ",
-          "license": "gemeinfrei; Nutzungsbedingungen des Digitalisats beachten"
+          "title": "evangeliums.net: Liederbuch „Geistlicher Liederschatz“ (Inhaltsverzeichnis)",
+          "url": "https://www.evangeliums.net/lieder/liederbuch_geistlicher_liederschatz.html"
         }
       ]
     }

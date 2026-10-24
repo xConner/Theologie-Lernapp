@@ -62,7 +62,7 @@ void main() {
   test("Statuswerte sind gültig und belegt", () {
     final withScores = {
       for (final c in scores)
-        if (c["fundstelle"] != null) c["lied"],
+        if ((c["fundstelle"] ?? "") != "") c["lied"],
     };
     for (var i = 0; i < review.length; i++) {
       final row = review[i];

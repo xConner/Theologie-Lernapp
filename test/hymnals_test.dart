@@ -206,12 +206,21 @@ void main() {
       }
     });
 
-    test("Geistlicher Liederschatz ist beschrieben, aber ohne Lieder", () {
+    test("Geistlicher Liederschatz verzeichnet alle 1300 Nummern", () {
       final hymnal = library.hymnal("geistlicher_liederschatz")!;
-      expect(hymnal.status, HymnalStatus.notIntegrated);
-      expect(hymnal.year, "1832");
+      expect(hymnal.status, HymnalStatus.partial);
+      expect(hymnal.year, "1989");
       expect(hymnal.sources, isNotEmpty);
-      expect(library.hymnsOf(hymnal.id), isEmpty);
+      final hymns = library.hymnsOf(hymnal.id);
+      final numbers = {
+        for (final hymn in hymns) int.parse(hymn.number!.replaceAll("a", "")),
+      };
+      expect(numbers, {for (var n = 1; n <= 1300; n++) n});
+      expect(find_(hymnal.id, "1").title, "Großer Gott, wir loben dich");
+      expect(find_(hymnal.id, "1300").title, "So nimm denn meine Hände");
+      for (final hymn in hymns) {
+        expect(hymn.source, isNotNull, reason: hymn.key);
+      }
     });
   });
 
@@ -291,7 +300,9 @@ void main() {
       expect(
         library.index.search(
           "Macht hoch",
-          where: (h) => h.collectionId != "eg",
+          where: (h) =>
+              h.collectionId != "eg" &&
+              h.collectionId != "geistlicher_liederschatz",
         ),
         isEmpty,
       );
@@ -347,7 +358,7 @@ void main() {
       );
 
       await tester.scrollUntilVisible(
-        find.byKey(const ValueKey("hymnal-geistlicher_liederschatz")),
+        find.byKey(const ValueKey("hymnal-eg_nordelbien")),
         200,
         scrollable: find.descendant(
           of: find.byKey(const Key("hymnals_overview")),
@@ -356,7 +367,7 @@ void main() {
       );
       expect(
         find.descendant(
-          of: find.byKey(const ValueKey("hymnal-geistlicher_liederschatz")),
+          of: find.byKey(const ValueKey("hymnal-eg_nordelbien")),
           matching: find.text("noch nicht integriert"),
         ),
         findsOneWidget,
@@ -402,14 +413,6 @@ void main() {
 
       expect(find.text("EG 593 · Weil ich Jesu Schäflein bin"), findsOneWidget);
       expect(find.text("EG 593 · Harre, meine Seele"), findsNothing);
-
-      // Ohne Lieder: ein Hinweis statt einer leeren Liste.
-      await tapScope(tester, "hymnal:geistlicher_liederschatz");
-      expect(find.byKey(const Key("hymnals_no_results")), findsOneWidget);
-      expect(
-        find.textContaining("Noch ohne Lieder in der App: Geistlicher"),
-        findsOneWidget,
-      );
     });
 
     testWidgets("Filter ohne Suchbegriff listet die Sammlung", (tester) async {
@@ -422,6 +425,23 @@ void main() {
         findsOneWidget,
       );
       expect(find.textContaining("EG 1 ·"), findsNothing);
+    });
+
+    testWidgets("ohne Treffer: Hinweis nennt Sammlungen ohne Lieder", (
+      tester,
+    ) async {
+      await pumpHub(tester);
+
+      await tapScope(tester, "part:eg:regional");
+      await tester.enterText(find.byKey(const Key("hymnals_search")), "xqzv");
+      await tester.pumpAndSettle();
+      expect(find.byKey(const Key("hymnals_no_results")), findsOneWidget);
+      expect(
+        find.textContaining(
+          "Noch ohne Lieder in der App: Regionalteil Nordelbien",
+        ),
+        findsOneWidget,
+      );
     });
 
     testWidgets("Treffer im Liedtext zeigt die Fundstelle", (tester) async {
@@ -535,14 +555,14 @@ void main() {
       await tester.pumpWidget(
         app(
           HymnScreen(
-            hymnalId: "geistlicher_liederschatz",
+            hymnalId: "eg_nordelbien",
             loadLibrary: () async => library,
           ),
         ),
       );
       await tester.pumpAndSettle();
 
-      expect(find.text("Geistlicher Liederschatz"), findsOneWidget);
+      expect(find.text("Regionalteil Nordelbien"), findsWidgets);
       expect(find.text("noch nicht integriert"), findsOneWidget);
       expect(find.text("Noch keine Lieder in der App"), findsOneWidget);
       expect(find.byType(TextField), findsNothing);

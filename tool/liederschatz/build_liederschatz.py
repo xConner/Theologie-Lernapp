@@ -39,6 +39,7 @@ EG_HYMNS = ROOT / "assets" / "eg_lieder.json"
 EG_INVENTORY = ROOT / "docs" / "hymn-scores" / "eg_noten_inventar.json"
 EG_SNAPSHOT = ROOT / "docs" / "hymn-scores" / "quellen_snapshot.json"
 OUT = ROOT / "docs" / "liederschatz"
+APP_ASSET = ROOT / "assets" / "hymnals" / "geistlicher_liederschatz.json"
 
 RETRIEVED = "2026-10-24"
 WORK_ID = "gls_bg"
@@ -209,6 +210,58 @@ def author_rights(text, persons):
     return "ungeklaert", "Lebensdaten von " + ", ".join(unresolved) + " nicht belegt"
 
 
+def app_number(record):
+    """Nummer in der App: das zweite Lied unter einer Nummer bekommt „a“."""
+    suffix = record["nummer_zusatz"]
+    if suffix in (None, "a"):
+        return str(record["nummer"])
+    return f"{record['nummer']}{'abcdefgh'['abcdefgh'.index(suffix) - 1]}"
+
+
+def write_app_asset(records):
+    """Liedliste für die App: Nummer, Titel, Textangabe, Beleg.
+
+    Rechte laut Conner (Inhaber der Rechte, Angabe vom 2026-10-24). Texte
+    und Noten liegen noch nicht vor; die Liedansicht zeigt dann den Hinweis.
+    """
+    hymns = []
+    for record in records:
+        notes = [
+            "Nummer, Titel und Textdichter laut Inhaltsverzeichnis des "
+            "Geistlichen Liederschatzes auf evangeliums.net. Der Liedtext ist "
+            "noch nicht in der App."
+        ]
+        if record["nummer_zusatz"]:
+            notes.append(
+                f"Unter Nr. {record['nummer']} stehen dort zwei Lieder; die "
+                "Zuordnung ist am Buch noch zu prüfen."
+            )
+        hymns.append(
+            {
+                "number": app_number(record),
+                "title": record["titel"],
+                "text": record["textangabe"],
+                "melody": "",
+                "lyrics": [],
+                "tags": [],
+                "bibleReferences": [],
+                "explanation": "",
+                "lyricsNote": " ".join(notes),
+                "source": {
+                    "name": "evangeliums.net, Liederbuch „Geistlicher Liederschatz“",
+                    "url": record["liedseite"],
+                    "statement": f"{record['nummer']}. {record['titel']}",
+                },
+            }
+        )
+    numbers = [h["number"] for h in hymns]
+    if len(set(numbers)) != len(numbers):
+        sys.exit("Nummern in der App nicht eindeutig")
+    APP_ASSET.write_text(
+        json.dumps(hymns, ensure_ascii=False, indent=1) + "\n", encoding="utf-8"
+    )
+
+
 def main():
     rows = read_tsv(TOC)
     if len(rows) != 1306:
@@ -371,6 +424,7 @@ def main():
         ),
     }
     write_json("abdeckung.json", summary)
+    write_app_asset(records)
     print(json.dumps(summary, ensure_ascii=False, indent=1))
 
 

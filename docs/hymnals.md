@@ -16,7 +16,7 @@ beschreibt.
 | EG – Regionalteil Nordelbien (Nordkirche: Hamburg, Schleswig-Holstein) | noch nicht integriert | nur Beschreibung | keine zulässige Quelle mit Nummern |
 | EG – Regionalteil Mecklenburg und Pommern (Nordkirche) | noch nicht integriert | nur Beschreibung | keine zulässige Quelle |
 | Ergänzungsheft zum EG (EG.E, 2018) | teilweise | 15 von 32 Liedern, nur Nummer und Titel | Wochenlieder im liturgischen Kalender der App |
-| Geistlicher Liederschatz (Berlin 1832) | noch nicht integriert | Beschreibung mit Links zu Digitalisaten | – |
+| Geistlicher Liederschatz (Brüdergemeinden) | teilweise | 1300 Nummern (1304 Einträge) mit Titel und Textdichter, ohne Text und Noten | Inhaltsverzeichnis von evangeliums.net |
 
 „Stand“ steht so auch in der App (`status` in `assets/hymnals/catalog.json`);
 ein Test hält fest, dass er zu den Daten passt (vollständig = alle Lieder,
@@ -80,7 +80,31 @@ sind nicht aufgenommen (keine zulässige Quelle).
 
 ## Geistlicher Liederschatz
 
-Gemeint ist: *Geistlicher Liederschatz. Sammlung der vorzüglichsten
+Gemeint ist das Gesangbuch der evangelisch-lutherischen Brüdergemeinden
+(Kirchliche Gemeinschaft e.V., Bad Sooden-Allendorf): Textausgabe 1989,
+Notenausgabe 2000, Jubiläumsausgabe 2020, 1300 Lieder. Bibliografie,
+Quellen und Prüfstatus stehen in `docs/liederschatz/`.
+
+**Rechte.** Conner hat am 24. Oktober 2026 erklärt, alle Rechte zu haben.
+Ein schriftlicher Beleg liegt im Repository nicht vor. Übernommen sind deshalb
+vorerst nur Nummer, Titel und Textdichter; Liedtexte folgen, sobald geklärt
+ist, dass die Rechte auch die Texte von evangeliums.net abdecken.
+
+**Was integriert ist.** `assets/hymnals/geistlicher_liederschatz.json`
+erzeugt `python tool/liederschatz/build_liederschatz.py`:
+
+- Grundlage für jede Nummer sind Nummer, Titel und Textdichter aus dem
+  Inhaltsverzeichnis von evangeliums.net.
+- Liedtexte fehlen noch; die Liedansicht nennt die Liedseite als Quelle.
+- Unter Nr. 108, 116, 153 und 201 führt die Quelle je zwei Lieder. Das zweite
+  heißt in der App „108a“ usw.
+- Noten fehlen; die Notenausgabe 2000 liegt nicht digital vor.
+
+**Nicht gemeint: Berliner Liederschatz.** Der Katalogeintrag
+`geistlicher_liederschatz` beschrieb bis dahin ein anderes Werk mit gleichem
+Titel. Die Angaben dazu bleiben hier zur Abgrenzung:
+
+*Geistlicher Liederschatz. Sammlung der vorzüglichsten
 geistlichen Lieder für Kirche, Schule und Haus und alle Lebensverhältnisse*,
 Berlin: Samuel Elsner 1832 (xxxi, 920, 72 S.; mit Dichterbiographien und
 Gebeten), der sogenannte Berliner Liederschatz. Weitere Auflagen: 2. Aufl.
@@ -91,27 +115,18 @@ Werk ist gemeinfrei. Es enthält Texte, keine Noten.
 Kirche und Haus* (1837 ff.); *Christen-Lieder … Evangelischer Liederschatz für
 Kirche, Schule und Haus* (Stuttgart: Steinkopf 1841).
 
-Gleicher Titel, anderes Werk: der *Geistliche Liederschatz* der
-evangelisch-lutherischen Brüdergemeinden (Textausgabe 1989, Notenausgabe
-2000, 1300 Lieder). Er ist nicht im Katalog; die Recherche dazu (Bibliografie,
-Liedverzeichnis, Quellen, Rechte) steht in `docs/liederschatz/`.
-
 Digitalisate: HathiTrust (Ausgabe 1832), Internet Archive (`geiliede00berl`,
 Ausgabe 1846), Münchener Digitalisierungszentrum (`bsb10592427`), Google
-Books. Die Links stehen im Katalog und in der App. Die Nutzungsbedingungen
+Books (HathiTrust Record/009717778, BSB bsb10592427, Google Books
+id=6CsLAAAAYAAJ). Die Nutzungsbedingungen
 der Digitalisate sind je Bibliothek zu prüfen (der Text selbst ist frei).
 
-**Warum nicht integriert:** Die Digitalisate sind Seitenscans in Fraktur;
+**Warum er nicht integriert war:** Die Digitalisate sind Seitenscans in Fraktur;
 eine maschinenlesbare, geprüfte Abschrift mit Liednummern gibt es nicht.
 Texte aus dem Gedächtnis, aus anderen Ausgaben oder aus heutigen Gesangbüchern
 einzusetzen, hätte eine andere Fassung als die des Liederschatzes ergeben. Bei
 dieser Umsetzung waren die Bibliotheksserver zudem aus der Arbeitsumgebung
 nicht erreichbar.
-
-**So kommt er hinzu:** Abschrift (oder OCR mit Korrektur) einer Auflage –
-1832 als Erstausgabe – in das Format unten, je Lied mit Seitenangabe in
-`source`; dann im Katalog `asset` setzen und `status` anpassen. Suche,
-Filter und Liedansicht brauchen keine Änderung.
 
 ## Datenmodell
 
