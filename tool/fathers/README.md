@@ -12,6 +12,7 @@ Benötigt Python 3.10+ mit `beautifulsoup4` und `lxml`.
 | `crossrefs.py <cross_references.txt>` | OpenBible-Verweise → `assets/fathers/xrefs/<BUCH>.json`, Bericht `reports/crossrefs.json` |
 | `import_bkv.py <Rohdaten>` | BKV-Abruf → Katalog, Texte, Zuordnungen, Manifest; Bericht `reports/bkv_import.json` |
 | `import_bkv.py --ohne-bkv` | nur die redaktionell gepflegten Autoren (ohne BKV-Abruf) |
+| `import_bkv.py [<Rohdaten>] --epub <Ordner>` | dazu die EPUB-Exporte der BKV in `<Ordner>` (siehe unten) |
 | `import_bkv.py <Rohdaten> --check` | schreibt nichts; Fehler, wenn Kennungen wegfallen würden |
 | `test_import_bkv.py` | prüft den Import an erfundenen Seiten in `testdata/bkv/` |
 
@@ -26,12 +27,28 @@ Kuratierung in `curation/`:
   vorhandene Bekenntnistexte.
 - `bkv_authors.json` – Einordnung der BKV-Autoren (Gruppe, Tradition,
   Sprachen), Schlüssel = Name wie in der BKV.
-- `rights.json` – begründete Ausnahmen von der GND-Regel.
+- `rights.json` – Rechte je Fassung mit Begründung; `default` für BKV-Fassungen, die nicht nach GND gemeinfrei sind (Nutzungserlaubnis laut Conner, 24.10.2026).
 - `book_aliases.json` (eine Ebene höher) – historische Buchabkürzungen →
   USFM; `?KINGS1/2` für „1/2 Kön.“, deren Zählung (Vulgata oder Luther) der
   Import je Fassung bestimmt.
 
-## Abruf der BKV-Rohdaten
+## EPUB-Exporte der BKV
+
+Auf der Fassungsseite der BKV von Hand „EPUB“ herunterladen (KI-Agenten
+dürfen das laut `robots.txt` nicht) und alle Dateien in einen Ordner legen;
+Dateinamen bleiben, wie die BKV sie vergibt (`<Titel>_deutsch_<Nr>.epub`).
+`bkv_epub.py` liest Werk, Autor, Schlüssel (CPL/CPG) und Bibliographie aus
+`ch001.xhtml` und die Gliederung aus den pandoc-Abschnitten. Kennungen:
+Werk `bkv.<cpl-123>`, Fassung `bkv.v<Nr>` (Nummer der BKV-Fassung aus den
+Seitenlinks). Rechte aus `curation/rights.json` (Einzelangabe, sonst
+`default`).
+
+    python3 tool/fathers/import_bkv.py --epub ~/bkv-epub
+
+Der Import ersetzt den ganzen Katalog: bei jedem Lauf alle EPUBs (und ggf.
+die Rohdaten) mitgeben.
+
+## Abruf der BKV-Rohdaten (Abschnittsseiten)
 
 Nur von einem Rechner, der bkv.unifr.ch erreicht, und nur so, wie
 `robots.txt` es erlaubt: keine Exporte unter `/files/`, keine Scans, höchstens

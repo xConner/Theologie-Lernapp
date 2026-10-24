@@ -12,11 +12,16 @@ Perikopenkontext). Datenformat und Import: `tool/fathers/README.md`.
   zeigt die App „noch kein Abschnitt“ und keinen Ersatz.
 - **Keine KI-Texte.** Es gibt keine automatischen Übersetzungen oder
   Zusammenfassungen. Englische Kirchenväter-Texte werden nicht übersetzt.
-- **Volltext nur bei geklärten Rechten.** Eine Fassung wird nur dann mit
-  Text ausgeliefert, wenn alle Übersetzer eindeutig in der GND stehen und vor
-  1956 gestorben sind (70 Jahre nach dem Tod, Stand 2026) oder eine
-  begründete Ausnahme in `tool/fathers/curation/rights.json` steht. Sonst
-  erscheinen nur Angaben und der Link zur Quelle.
+- **Volltext nur bei geklärten Rechten.** Eine Fassung wird mit Text
+  ausgeliefert, wenn alle Übersetzer eindeutig in der GND stehen und vor
+  1956 gestorben sind (70 Jahre nach dem Tod, Stand 2026; `publicDomain`)
+  oder eine Nutzungserlaubnis der Rechteinhaber vorliegt (`permission`).
+  Für die deutschen BKV-Fassungen hat der Betreiber der App (Conner) am
+  24.10.2026 erklärt, diese Erlaubnis aller Rechteinhaber zu haben; die
+  Belege liegen bei ihm, eingetragen ist das als `default` in
+  `tool/fathers/curation/rights.json`. Die App nennt bei jeder Fassung, ob
+  sie gemeinfrei ist oder mit Erlaubnis erscheint. Texte unklarer Herkunft
+  (ohne Übersetzer und Ausgabe) werden nicht übernommen.
 - **Werk und Auszug getrennt.** Eine Zuordnung zeigt auf Absätze eines
   Abschnitts einer bestimmten Fassung; die Versdetailansicht zeigt einen
   gekürzten Auszug und führt zum vollständigen Werk an dieser Stelle.
@@ -92,29 +97,29 @@ Ausgeliefert sind derzeit:
   6 mit Verweis auf die Bekenntnisse),
 - die verwandten Bibelstellen (OpenBible, 66 Bücher mit Verweisen).
 
-**Noch nicht ausgeliefert: die BKV-Texte.** Der Abruf der freigegebenen
-Abschnittsseiten läuft auf dem PC des Nutzers (etwa 3 900 Seiten im
-10-s-Takt). Ausgewählt nach Rechtelage und Nutzen für die Auslegung:
+Dazu die BKV-Texte, die als EPUB-Export vorliegen (von Hand
+heruntergeladen, weil `robots.txt` KI-Agenten die Exporte sperrt; Import
+siehe `tool/fathers/README.md`):
 
-| Werk (Schlüssel der BKV) | Übersetzer (GND) | Lage |
-|---|---|---|
-| Tertullian (CPL 7) | Karl Adam Heinrich Kellner † 1915 | gemeinfrei |
-| Justin, Apologien (CPG 1073a/b) | Gerhard Rauschen † 1917 | gemeinfrei |
-| Augustinus, Vorträge über das Johannesevangelium (CPL 278) | Thomas Specht † 1918 | gemeinfrei |
-| Ambrosius, Lukaskommentar (CPL 143) und CPL 123 | Johann Ev. Niederhuber † 1932 | gemeinfrei |
-| Johannes Chrysostomus (CPG 4427) | Josef Jatsch † 1932 | gemeinfrei |
-| Irenäus, Gegen die Häresien (CPG 1306) | Ernst Klebba † 1930 | gemeinfrei |
-| Augustinus (CPL 251) | Alfred Hofmann (1879–1950) – GND-Zuordnung nur wahrscheinlich | bis zur Klärung nur Link (`curation/rights.json`) |
+| Werk | Fassung (BKV) | Übersetzer | Rechte |
+|---|---|---|---|
+| Ambrosius, Exameron (CPL 123) | BKV 1. Reihe, Bd. 17, München 1914 | Joh. Ev. Niederhuber † 1932 | gemeinfrei |
+| Basilius, Homilien über das Hexaemeron (CPG 2835) | BKV 1. Reihe, Bd. 47, 1925 | in der Ausgabe nicht genannt | Nutzungserlaubnis |
+| Basilius, Einleitung zum Hexaemeron (Einleitung der Ausgabe, kein Text des Basilius; ohne Bibelstellen-Zuordnungen) | ebd. | – | Nutzungserlaubnis |
+| Gregor von Nyssa, Über die Ausstattung des Menschen (CPG 3154) | BKV 1. Serie, Bd. 24, Kempten 1874 | Heinrich Hand | Nutzungserlaubnis |
 
-Ob ein Werk als ganz oder teilweise lesbar gilt, entscheidet der Import nach
-den tatsächlich abgerufenen Abschnitten (`availability`).
+Beim Exameron nennen die Überschriften der Ausgabe die ausgelegten
+Verse („IV. Kapitel. ‚Im Anfang‘ (Gen 1,1)“); daraus entstehen die
+Zuordnungen „Auslegung des Abschnitts“. Bei Basilius und Gregor fehlen
+solche Angaben; dort gibt es nur Zitate und Verweise aus den Anmerkungen.
 
-Nicht übernommen, weil der Übersetzer nach 1955 starb (Baur, Haeuser,
-Stegmann, Fritz Hofmann), nicht eindeutig bestimmbar ist (Zeller, Julius
-Baer, Steeger) oder nicht genannt wird (Basilius, Hexaemeron; Gregor von
-Nyssa, Vaterunser; Augustinus, De doctrina christiana und Enchiridion).
-In der BKV nicht deutsch vorhanden: CPL 279, CPL 274, CPG 4425, CPG 4409,
-Gregor d. Gr., Homiliae in Evangelia.
+Nicht übernommen: drei als PDF gelieferte „Homilien über Genesis“ des
+Johannes Chrysostomus in heutigem Deutsch ohne Übersetzer und Ausgabe; ihr
+Wortlaut folgt der englischen Übersetzung von R. C. Hill (1986), es handelt
+sich vermutlich um eine maschinelle Übersetzung.
+
+Der ältere Weg über einzelne Abschnittsseiten der BKV (10-s-Takt, PC des
+Nutzers) ist im Import weiter enthalten, wird aber nicht mehr verfolgt.
 
 Für die späteren Autoren fehlen geprüfte gemeinfreie Ausgaben in
 maschinenlesbarer Form (z. B. Luther-Auslegungen der Walch-Ausgabe,

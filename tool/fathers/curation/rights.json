@@ -1,4 +1,13 @@
 {
-  "_note": "Ausnahmen von der GND-Regel (Übersetzer eindeutig und vor 1956 gestorben). Nur mit Begründung und Beleg eintragen; rights: publicDomain | unclear | protected. Schlüssel = Fassungs-ID der App (bkv.<versions-slug>).",
-  "versions": {}
+  "_note": "Rechte der BKV-Fassungen. 'default' gilt für jede deutsche BKV-Fassung, deren Übersetzer nicht nach GND gemeinfrei ist: Conner hat am 24.10.2026 erklärt, ausdrückliche Nutzungserlaubnis aller Rechteinhaber zu haben (rights 'permission'; schriftliche Belege bei Conner). 'versions': Einzelangaben mit Begründung, Schlüssel = Fassungs-ID der App; rights: publicDomain | permission | unclear | protected.",
+  "versions": {
+    "bkv.v77": {
+      "rights": "publicDomain",
+      "note": "Übersetzer Johann Ev. Niederhuber † 1932 (GND-Abfrage vom 24.10.2026) – gemeinfrei (70 Jahre nach dem Tod)"
+    }
+  },
+  "default": {
+    "rights": "permission",
+    "note": "Nutzungserlaubnis der Rechteinhaber laut Conner (Erklärung vom 24.10.2026)"
+  }
 }

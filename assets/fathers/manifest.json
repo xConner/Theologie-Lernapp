@@ -1,8 +1,49 @@
 {
  "generated": "2026-10-24",
- "dataVersion": "2a7cf27283",
+ "dataVersion": "3cb9bd898d",
  "files": {
-  "links": [],
+  "links": [
+   "1CO",
+   "1JN",
+   "1KI",
+   "1TH",
+   "1TI",
+   "2CO",
+   "2KI",
+   "ACT",
+   "AMO",
+   "BAR",
+   "COL",
+   "DAN",
+   "DEU",
+   "ECC",
+   "EPH",
+   "EXO",
+   "GAL",
+   "GEN",
+   "HAG",
+   "HEB",
+   "ISA",
+   "JER",
+   "JHN",
+   "JOB",
+   "JOL",
+   "JOS",
+   "LEV",
+   "LUK",
+   "MAL",
+   "MAT",
+   "MRK",
+   "NUM",
+   "PHP",
+   "PRO",
+   "PSA",
+   "REV",
+   "ROM",
+   "SIR",
+   "SNG",
+   "WIS"
+  ],
   "xrefs": [
    "1CH",
    "1CO",
@@ -73,14 +114,19 @@
   ]
  },
  "counts": {
-  "authors": 12,
-  "works": 25,
-  "versions": 25,
-  "versionsWithText": 0,
-  "sections": 0,
-  "links": 0,
-  "linksByKind": {},
-  "bibleBooksWithLinks": 0,
+  "authors": 15,
+  "works": 28,
+  "versions": 29,
+  "versionsWithText": 4,
+  "sections": 117,
+  "links": 588,
+  "linksByKind": {
+   "quotation": 501,
+   "reference": 53,
+   "sectionCommentary": 17,
+   "verseCommentary": 17
+  },
+  "bibleBooksWithLinks": 40,
   "crossReferences": 198933
  },
  "sources": [
@@ -89,7 +135,7 @@
    "name": "Bibliothek der Kirchenväter (BKV)",
    "url": "https://bkv.unifr.ch",
    "license": "Laut Anbieter nach seinem Wissen urheberrechtsfrei; Volltexte in der App nur bei gemeinfreien Übersetzungen (Übersetzer vor 1956 gestorben)",
-   "coverage": "25 Werke im Katalog, 0 Fassungen mit Text"
+   "coverage": "28 Werke im Katalog, 4 Fassungen mit Text"
   },
   {
    "id": "openbible",

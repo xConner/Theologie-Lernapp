@@ -706,7 +706,7 @@ class AppModules {
     title: "Kirchenväter & Schriften",
     description:
         "Bibliothek der Kirchenväter und weiterer christlicher Autoren mit "
-        "Suche und Filtern, Volltexten gemeinfreier deutscher Übersetzungen "
+        "Suche und Filtern, Volltexten historischer deutscher Übersetzungen "
         "und Verweisen auf weitere Werke. Im Bibel-Reader zeigt ein "
         "angetippter Vers die Abschnitte, die eine Ausgabe diesem Vers "
         "zuordnet, dazu verwandte Bibelstellen und den Perikopenkontext.",
@@ -719,8 +719,10 @@ class AppModules {
             "1869–1888 und 1911–1938. Ausgabe, Übersetzer und Jahr stehen "
             "bei jeder Fassung.",
         processing:
-            "Volltexte nur von Fassungen, deren Übersetzer nachweislich vor "
-            "mehr als 70 Jahren gestorben sind; sonst nur Angaben und Link. "
+            "Volltexte von Fassungen, deren Übersetzer nachweislich vor mehr "
+            "als 70 Jahren gestorben sind, oder mit Nutzungserlaubnis der "
+            "Rechteinhaber; das steht bei jeder Fassung. Sonst nur Angaben "
+            "und Link. "
             "Der Wortlaut ist unverändert. Die Seitenzahlen der Druckausgabe "
             "stehen beim Abschnitt statt im Text, Anmerkungszeichen erscheinen "
             "als [n], über eine Seite fortgesetzte Absätze sind zusammengefügt.",

@@ -146,6 +146,10 @@ enum RightsStatus {
   /// Gemeinfrei: Übersetzer seit mehr als 70 Jahren verstorben (belegt).
   publicDomain("Gemeinfrei"),
 
+  /// Nicht gemeinfrei, aber mit Erlaubnis der Rechteinhaber ausgeliefert
+  /// (Beleg in `tool/fathers/curation/rights.json`).
+  permission("Mit Nutzungserlaubnis"),
+
   /// Nur Metadaten und Link; der Volltext wird nicht ausgeliefert, weil die
   /// Rechte an der Fassung nicht geklärt sind.
   unclear("Rechte ungeklärt – nur Verweis"),
@@ -251,7 +255,8 @@ class WorkVersion {
   /// Der Text liegt in der Bibliothek vor (und darf es).
   bool get hasText =>
       availability != Availability.external &&
-      rights == RightsStatus.publicDomain;
+      (rights == RightsStatus.publicDomain ||
+          rights == RightsStatus.permission);
 
   factory WorkVersion.fromJson(Map<String, dynamic> json) {
     return WorkVersion(

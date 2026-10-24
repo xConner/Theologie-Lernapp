@@ -106,6 +106,16 @@ def _alias(book: str) -> str | None:
     return None
 
 
+# „I. Kor.“ → „1 Kor.“; „Das. [Gen.] 1, 22“ (daselbst, Buch ergänzt) → „Gen. 1, 22“.
+_ROMAN = re.compile(r"(?<![\w.])(III|II|I)\.?\s+(?=[A-ZÄÖÜ][a-zäöü]+\.?\s*\d)")
+_DAS = re.compile(r"(?<!\w)Das(?:elbst)?\.\s*\[([^\]]{2,15})\]\s*")
+
+
+def normalize(text: str) -> str:
+    text = _DAS.sub(lambda m: m[1].strip() + " ", text)
+    return _ROMAN.sub(lambda m: f"{len(m[1])} ", text)
+
+
 class RefReader:
     """Liest alle Stellen aus einem Text (Anmerkung, Überschrift, Absatz).
 
@@ -119,6 +129,7 @@ class RefReader:
         self.last: Ref | None = None
 
     def read(self, text: str) -> list[Ref]:
+        text = normalize(text)
         refs: list[Ref] = []
         spans: list[tuple[int, int]] = []
 
@@ -156,6 +167,10 @@ class RefReader:
         verse = int(m["verse"])
         end_chapter = int(m["endchapter"]) if m["endchapter"] else chapter
         end_verse = int(m["endverse"]) if m["endverse"] else verse
+        if end_chapter - chapter > 2:
+            # „2, 17—13, 3“: eher zwei Angaben als ein Bereich über elf Kapitel.
+            end_chapter, end_verse = chapter, verse
+            note = "Bereich unklar – nur die erste Angabe"
         if m["ff"]:
             # „ff.“: offenes Ende – nur der Anfangsvers ist belegt.
             end_chapter, end_verse = chapter, verse
@@ -178,7 +193,7 @@ class RefReader:
             alt = m["alt"]
             alt_ref = None
             if alt:
-                am = re.match(rf"\s*(?:Ps\.?)?\s*(\d{{1,3}})\s*,\s*(\d{{1,3}})(?:\s*[{DASH}]\s*(\d{{1,3}}))?", alt)
+                am = re.match(rf"\s*(?:Hebr\.?\s*)?(?:Ps\.?)?\s*(\d{{1,3}})\s*,\s*(\d{{1,3}})(?:\s*[{DASH}]\s*(\d{{1,3}}))?", alt)
                 if am:
                     alt_ref = (int(am[1]), int(am[2]), int(am[3] or am[2]))
             if alt_ref:

@@ -100,7 +100,7 @@ void main() {
       for (final f in Directory("$root/texts").listSync()) {
         final name = f.uri.pathSegments.last;
 
-      if (!name.endsWith(".json")) continue;
+        if (!name.endsWith(".json")) continue;
         final id = name.replaceFirst(RegExp(r"\.(toc|links|\d+)\.json$"), "");
 
         expect(readable, contains(id), reason: name);
@@ -180,5 +180,28 @@ void main() {
     expect(byCategory[AuthorCategory.reformer], greaterThan(0));
     expect(byCategory[AuthorCategory.lutheran], greaterThan(0));
     expect(byCategory[AuthorCategory.medieval], greaterThan(0));
+  });
+
+  test("Gen 1,1: Auslegung aus dem Exameron des Ambrosius", () async {
+    final links = await repo.linksForVerse("GEN", 1, 1);
+    final library = await repo.library();
+
+    expect(
+      links.where(
+        (l) =>
+            l.kind == LinkKind.sectionCommentary &&
+            library.author(l.authorId)?.name == "Ambrosius von Mailand",
+      ),
+      isNotEmpty,
+    );
+
+    // Texte mit Erlaubnis statt Gemeinfreiheit nennen den Grund.
+    for (final w in library.works) {
+      for (final v in w.versions) {
+        if (v.rights == RightsStatus.permission) {
+          expect(v.rightsNote, contains("Nutzungserlaubnis"), reason: v.id);
+        }
+      }
+    }
   });
 }

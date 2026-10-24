@@ -1,33 +1,189 @@
 {
   "_note": "Einordnung der BKV-Autoren, Schlüssel = Name wie in der BKV-Werkübersicht (ohne Lebensdaten). Fehlt ein Autor, gilt 'churchFather' ohne Tradition; der Import meldet Autoren nach 800 ohne Einordnung in reports/bkv_import.json. Tradition: Ost = griechisch/syrisch, West = lateinisch.",
   "authors": {
-    "Augustinus von Hippo": {"tradition": "West", "languages": ["la"]},
-    "Ambrosius von Mailand": {"tradition": "West", "languages": ["la"]},
-    "Hieronymus": {"tradition": "West", "languages": ["la"]},
-    "Tertullian": {"tradition": "West", "languages": ["la"]},
-    "Cyprian von Karthago": {"tradition": "West", "languages": ["la"]},
-    "Gregor der Große": {"tradition": "West", "languages": ["la"]},
-    "Leo der Große": {"tradition": "West", "languages": ["la"]},
-    "Johannes Cassian": {"tradition": "West", "languages": ["la"]},
-    "Laktanz": {"tradition": "West", "languages": ["la"]},
-    "Johannes Chrysostomus": {"tradition": "Ost", "languages": ["grc"]},
-    "Athanasius von Alexandrien": {"tradition": "Ost", "languages": ["grc"]},
-    "Basilius von Caesarea": {"tradition": "Ost", "languages": ["grc"]},
-    "Gregor von Nazianz": {"tradition": "Ost", "languages": ["grc"]},
-    "Gregor von Nyssa": {"tradition": "Ost", "languages": ["grc"]},
-    "Kyrill von Jerusalem": {"tradition": "Ost", "languages": ["grc"]},
-    "Kyrill von Alexandrien": {"tradition": "Ost", "languages": ["grc"]},
-    "Irenäus von Lyon": {"tradition": "Ost", "languages": ["grc"]},
-    "Justin der Märtyrer": {"tradition": "Ost", "languages": ["grc"]},
-    "Origenes": {"tradition": "Ost", "languages": ["grc"]},
-    "Eusebius von Caesarea": {"tradition": "Ost", "languages": ["grc"]},
-    "Ignatius von Antiochien": {"tradition": "Ost", "languages": ["grc"]},
-    "Ephräm der Syrer": {"tradition": "Ost", "languages": ["syc"]},
-    "Aphrahat": {"tradition": "Ost", "languages": ["syc"]},
-    "Johannes von Damaskus": {"tradition": "Ost", "languages": ["grc"]},
-    "Bonaventura": {"category": "medieval", "tradition": "West", "languages": ["la"]},
-    "Thomas von Aquin": {"category": "medieval", "tradition": "West", "languages": ["la"]},
-    "Bernhard von Clairvaux": {"category": "medieval", "tradition": "West", "languages": ["la"]},
-    "Anselm von Canterbury": {"category": "medieval", "tradition": "West", "languages": ["la"]}
+    "Augustinus von Hippo": {
+      "tradition": "West",
+      "languages": [
+        "la"
+      ]
+    },
+    "Ambrosius von Mailand": {
+      "tradition": "West",
+      "languages": [
+        "la"
+      ],
+      "lifeDates": "um 339–397",
+      "deathYear": 397
+    },
+    "Hieronymus": {
+      "tradition": "West",
+      "languages": [
+        "la"
+      ]
+    },
+    "Tertullian": {
+      "tradition": "West",
+      "languages": [
+        "la"
+      ]
+    },
+    "Cyprian von Karthago": {
+      "tradition": "West",
+      "languages": [
+        "la"
+      ]
+    },
+    "Gregor der Große": {
+      "tradition": "West",
+      "languages": [
+        "la"
+      ]
+    },
+    "Leo der Große": {
+      "tradition": "West",
+      "languages": [
+        "la"
+      ]
+    },
+    "Johannes Cassian": {
+      "tradition": "West",
+      "languages": [
+        "la"
+      ]
+    },
+    "Laktanz": {
+      "tradition": "West",
+      "languages": [
+        "la"
+      ]
+    },
+    "Johannes Chrysostomus": {
+      "tradition": "Ost",
+      "languages": [
+        "grc"
+      ]
+    },
+    "Athanasius von Alexandrien": {
+      "tradition": "Ost",
+      "languages": [
+        "grc"
+      ]
+    },
+    "Gregor von Nazianz": {
+      "tradition": "Ost",
+      "languages": [
+        "grc"
+      ]
+    },
+    "Gregor von Nyssa": {
+      "tradition": "Ost",
+      "languages": [
+        "grc"
+      ]
+    },
+    "Kyrill von Jerusalem": {
+      "tradition": "Ost",
+      "languages": [
+        "grc"
+      ]
+    },
+    "Kyrill von Alexandrien": {
+      "tradition": "Ost",
+      "languages": [
+        "grc"
+      ]
+    },
+    "Irenäus von Lyon": {
+      "tradition": "Ost",
+      "languages": [
+        "grc"
+      ]
+    },
+    "Justin der Märtyrer": {
+      "tradition": "Ost",
+      "languages": [
+        "grc"
+      ]
+    },
+    "Origenes": {
+      "tradition": "Ost",
+      "languages": [
+        "grc"
+      ]
+    },
+    "Eusebius von Caesarea": {
+      "tradition": "Ost",
+      "languages": [
+        "grc"
+      ]
+    },
+    "Ignatius von Antiochien": {
+      "tradition": "Ost",
+      "languages": [
+        "grc"
+      ]
+    },
+    "Ephräm der Syrer": {
+      "tradition": "Ost",
+      "languages": [
+        "syc"
+      ]
+    },
+    "Aphrahat": {
+      "tradition": "Ost",
+      "languages": [
+        "syc"
+      ]
+    },
+    "Johannes von Damaskus": {
+      "tradition": "Ost",
+      "languages": [
+        "grc"
+      ]
+    },
+    "Bonaventura": {
+      "category": "medieval",
+      "tradition": "West",
+      "languages": [
+        "la"
+      ]
+    },
+    "Thomas von Aquin": {
+      "category": "medieval",
+      "tradition": "West",
+      "languages": [
+        "la"
+      ]
+    },
+    "Bernhard von Clairvaux": {
+      "category": "medieval",
+      "tradition": "West",
+      "languages": [
+        "la"
+      ]
+    },
+    "Anselm von Canterbury": {
+      "category": "medieval",
+      "tradition": "West",
+      "languages": [
+        "la"
+      ]
+    },
+    "Basilius von Cäsarea": {
+      "tradition": "Ost",
+      "languages": [
+        "grc"
+      ],
+      "lifeDates": "um 330–379",
+      "deathYear": 379
+    },
+    "Gregor v. Nyssa": {
+      "tradition": "Ost",
+      "languages": [
+        "grc"
+      ],
+      "lifeDates": "um 335–nach 394",
+      "deathYear": 394
+    }
   }
 }

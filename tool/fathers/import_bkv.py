@@ -37,6 +37,7 @@ from bs4 import BeautifulSoup, NavigableString, Tag
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
+import bkv_epub  # noqa: E402
 from bible_refs import RefReader, uses_vulgate_kings  # noqa: E402
 from common import ASSETS, stable_id, write_json  # noqa: E402
 
@@ -45,6 +46,8 @@ REPORTS = HERE / "reports"
 BKV = "https://bkv.unifr.ch"
 PD_DEATH_YEAR = datetime.date.today().year - 71
 CHUNK_BYTES = 150_000
+# Fassungen, deren Text ausgeliefert werden darf.
+READABLE = ("publicDomain", "permission")
 
 report: dict = collections.defaultdict(list)
 
@@ -188,24 +191,25 @@ def read_version_page(path: Path) -> dict:
 def translators_from(biblio: str | None) -> list[str]:
     if not biblio:
         return []
-    m = re.search(r"übers(?:etzt|\.)?[^/()]*?\bvon\s+([^/(;]+?)(?:\.\s*\(|\.\s*$|\s*\(|;|$)", biblio)
+    m = re.search(r"übers(?:etzt|\.)?[^/()]*?\bvon\s+([^/(;]+?)(?:\.\s*\(|\.\s*$|\s*\(|;|$)", biblio, re.I)
     if not m:
         return []
     names = re.split(r"\s*(?:,| und | u\. )\s*", m[1])
-    return [clean(n).rstrip(".") for n in names if len(clean(n)) > 3]
+    names = [re.sub(r"^(?:Dr|Prof|P)\.\s*", "", clean(n)).rstrip(".") for n in names]
+    return [n for n in names if len(n) > 3]
 
 
 def series_from(biblio: str | None):
     if not biblio:
         return None, None
     series = None
-    m = re.search(r"(Bibliothek der Kirchenväter,\s*\d\.\s*Reihe,\s*Band[^)]*)", biblio)
+    m = re.search(r"(Bibliothek der Kirchenväter,\s*\d\.?\s*(?:Reihe|Serie),\s*Band[^)]*)", biblio)
     if m:
         series = clean(m[1])
     elif "Kempten" in biblio:
         series = "Bibliothek der Kirchenväter (Kempten)"
     published = None
-    m = re.search(r"\)\s*([A-ZÄÖÜ][^.()]*?\d{4}(?:\s*[-–]\s*\d{4})?)\.", biblio)
+    m = re.search(r"\)\s*,?\s*([A-ZÄÖÜ][^.()]*?\d{4}(?:\s*[-–]\s*\d{4})?)\.", biblio)
     if m:
         published = clean(m[1])
     return series, published
@@ -312,12 +316,9 @@ def division_text(path: Path, title: str):
                 refs_here.append(len(shown_notes) - 1)
             sup.replace_with(NavigableString(f"[{len(shown_notes)}]"))
         text = clean(p.get_text(""))
-        continued = re.match(r"^\[Forts\. v\.\s*(?:S\.\s*\d+)?\s*\]\s*", text)
-        if continued and paragraphs:
-            text = text[continued.end():]
-            paragraphs[-1] = f"{paragraphs[-1]} {text}".strip()
-            marks.setdefault(len(paragraphs) - 1, []).extend(refs_here)
-            continue
+        # „[Forts. v. S. n]“ nennt nur die Seite, auf der der Abschnitt
+        # beginnt; der Absatz selbst ist ein neuer.
+        text = FORTS.sub("", text).strip()
         if not text:
             continue
         paragraphs.append(text)
@@ -327,6 +328,7 @@ def division_text(path: Path, title: str):
     return paragraphs, shown_notes, marks, pages
 
 
+FORTS = re.compile(r"^\[Forts\. v\.\s*(?:S\.\s*\d+)?\s*\]\s*")
 INTRO = re.compile(r"^(?:Über|Zu|Auslegung) (?:die|den|der) (?:Stelle|Worte|Vers|Text)")
 
 
@@ -341,6 +343,67 @@ def passage_of(paragraphs: list[str], reader: RefReader):
 
 
 # ------------------------------------------------------------------ Import
+
+def extract_links(vid: str, wid: str, aid: str, sections: list[dict], reader: RefReader):
+    """Zuordnungen einer Fassung zu Bibelstellen.
+
+    Je Abschnitt: „heads“ = [(Stelle, Überschrift)] für Einheiten, deren
+    ausgelegten Abschnitt die Ausgabe nennt und die mit diesem Abschnitt
+    beginnen; „passage“ = engster solcher Abschnitt, in dem er steht.
+    Dazu die Stellenangaben in den Anmerkungen und in Klammern im Text.
+    """
+    links = []
+    seen = set()
+
+    def add(section, first, last, ref, kind, method, cited, extra_note=None):
+        key = (section["n"], first, ref.book, tuple(ref.compact()), kind)
+        if key in seen:
+            report["duplicate_links"].append(f"{vid}:{key}")
+            return
+        seen.add(key)
+        link = {
+            "id": stable_id(vid, *key),
+            "b": ref.book, "v": vid, "w": wid, "a": aid,
+            "s": section["n"], "p": [first, last], "r": ref.compact(),
+            "k": kind, "m": method, "c": ref.confidence, "cited": cited,
+        }
+        note = "; ".join(n for n in [ref.note, extra_note] if n)
+        if note:
+            link["note"] = note
+        links.append(link)
+
+    for s in sections:
+        for ref, title in s.get("heads", []):
+            add(s, 0, min(2, len(s["p"]) - 1), ref, "sectionCommentary",
+                "editionHeading", ref.cited,
+                f"Abschnittsangabe der Ausgabe zu „{title}“")
+
+    for s in sections:
+        passage = s.get("passage")
+        passages = s.get("passages") or ([passage] if passage else [])
+        for i, paragraph in enumerate(s["p"]):
+            cited = [(s["notes"][k], True) for k in s["marks"].get(i, [])]
+            cited += [(m.group(1), False) for m in re.finditer(r"\(([^()]{4,60})\)", paragraph)]
+            for text, is_note in cited:
+                for ref in reader.read(text):
+                    if passage is not None and ref.book == passage.book and ref.compact() == passage.compact():
+                        continue  # schon als Auslegung des Abschnitts verzeichnet
+                    if any(p.contains(ref) for p in passages):
+                        kind = "verseCommentary"
+                    elif ref.confer:
+                        kind = "reference"
+                    else:
+                        kind = "quotation"
+                    add(s, i, i, ref, kind, "editionCitation",
+                        text if is_note else ref.cited)
+
+    for s in sections:
+        for note in s["notes"]:
+            if re.search(r"\d+\s*,\s*\d+", note) and not reader.read(note):
+                report["unparsed_references"].append({"version": vid, "note": note})
+
+    return links
+
 
 
 def import_version(raw: Path, work: dict, version: dict, page: dict, author_id: str):
@@ -395,67 +458,115 @@ def import_version(raw: Path, work: dict, version: dict, page: dict, author_id: 
     all_text = [p for s in sections for p in s["p"] + s["notes"]]
     reader = RefReader(uses_vulgate_kings(all_text))
 
-    links = []
-    seen = set()
+    # Ausgelegter Abschnitt je Einheit (z. B. „1. Vortrag“), wie ihn die
+    # Ausgabe am Anfang der Einheit nennt.
     unit_passage: dict = {}
-
-    def add(section, first, last, ref, kind, method, cited, extra_note=None):
-        key = (section["n"], first, ref.book, tuple(ref.compact()), kind)
-        if key in seen:
-            report["duplicate_links"].append(f"{vid}:{key}")
-            return
-        seen.add(key)
-        link = {
-            "id": stable_id(vid, *key),
-            "b": ref.book, "v": vid, "w": f"bkv.{work['slug']}", "a": author_id,
-            "s": section["n"], "p": [first, last], "r": ref.compact(),
-            "k": kind, "m": method, "c": ref.confidence, "cited": cited,
-        }
-        note = "; ".join(n for n in [ref.note, extra_note] if n)
-        if note:
-            link["note"] = note
-        links.append(link)
-
-    # Ausgelegter Abschnitt je Einheit (z. B. „1. Vortrag“).
     for s in sections:
         if s["unit"] is None or s["unit"] in unit_passage:
             continue
-        ref, text = passage_of(s["p"], reader)
+        ref, _ = passage_of(s["p"], reader)
         if ref is not None:
             unit_passage[s["unit"]] = (ref, s)
 
     for unit, (ref, intro) in unit_passage.items():
         body = [s for s in sections if s["unit"] == unit and s is not intro]
         target = body[0] if body else intro
-        add(target, 0, min(2, len(target["p"]) - 1), ref, "sectionCommentary",
-            "editionHeading", ref.cited,
-            f"Abschnittsangabe der Ausgabe zu „{clean(nodes[unit]['title'])}“")
+        target.setdefault("heads", []).append((ref, clean(nodes[unit]["title"])))
+        for s in sections:
+            if s["unit"] == unit:
+                s["passage"] = ref
 
-    # Stellenangaben in den Anmerkungen und in Klammern im Text.
-    for s in sections:
-        passage = unit_passage.get(s["unit"], (None, None))[0]
-        for i, paragraph in enumerate(s["p"]):
-            cited = [(s["notes"][k], True) for k in s["marks"].get(i, [])]
-            cited += [(m.group(1), False) for m in re.finditer(r"\(([^()]{4,60})\)", paragraph)]
-            for text, is_note in cited:
-                for ref in reader.read(text):
-                    if passage is not None and ref.book == passage.book and ref.compact() == passage.compact():
-                        continue  # schon als Auslegung des Abschnitts verzeichnet
-                    if passage is not None and passage.contains(ref):
-                        kind = "verseCommentary"
-                    elif ref.confer:
-                        kind = "reference"
-                    else:
-                        kind = "quotation"
-                    add(s, i, i, ref, kind, "editionCitation",
-                        text if is_note else ref.cited)
-
-    for s in sections:
-        for note in s["notes"]:
-            if re.search(r"\d+\s*,\s*\d+", note) and not reader.read(note):
-                report["unparsed_references"].append({"version": vid, "note": note})
-
+    links = extract_links(vid, f"bkv.{work['slug']}", author_id, sections, reader)
     return vid, sections, links
+
+
+def import_epub(path, authors, later_ids, works_out, links_out, imported,
+                overrides, default_rights):
+    data = bkv_epub.read(path)
+    meta = {k: v[0] for k, v in data["meta"].items() if k != "Tag"}
+    tags = data["meta"].get("Tag", [])
+    name = meta.get("Autor")
+    title = meta.get("Titel Version")
+    if not name or not title or data["versionNo"] is None:
+        report["epub_unreadable"].append(path.name)
+        return
+    author_id = later_ids.get(name) or slug(name)
+    if author_id not in later_ids.values():
+        authors.setdefault(author_id, {"id": author_id, "name": name})
+
+    clavis = meta.get("Identifier")
+    wid = f"bkv.{slug(clavis).replace('_', '-')}" if clavis else f"bkv.w{data['workNo']}"
+    vid = f"bkv.v{data['versionNo']}"
+    biblio = meta.get("Bibliographie")
+    translators = translators_from(biblio)
+    series, published = series_from(biblio)
+    if vid in overrides:
+        rights, note = overrides[vid]["rights"], overrides[vid]["note"]
+    elif default_rights:
+        rights, note = default_rights["rights"], default_rights["note"]
+    else:
+        rights, note = "unclear", "Rechte nicht geprüft"
+
+    work_no = data["workNo"]
+    base = f"{BKV}/works/{work_no}/versions/{data['versionNo']}" if work_no else BKV
+    sections = data["sections"]
+    for s in sections:
+        s["url"] = f"{base}/divisions"
+
+    entry = {
+        "id": vid, "title": title, "language": "de", "kind": "historicalTranslation",
+        "translator": ", ".join(translators) or None, "series": series,
+        "published": published, "biblio": biblio,
+        "sourceName": "Bibliothek der Kirchenväter (Universität Freiburg/Schweiz), EPUB-Export",
+        "sourceUrl": f"{base}/divisions", "rights": rights, "rightsNote": note,
+        "availability": "external",
+    }
+    if meta.get("Unter der Mitarbeit von"):
+        entry["digitizedBy"] = meta["Unter der Mitarbeit von"]
+
+    links = []
+    if rights in READABLE and sections:
+        all_text = [p for s in sections for p in s["p"] + s["notes"]]
+        reader = RefReader(uses_vulgate_kings(all_text))
+        # Bibelstellen in den Überschriften der Ausgabe („IV. Kapitel. ‚Im
+        # Anfang' (Gen 1,1)“): ausgelegter Abschnitt aller Abschnitte darunter.
+        heading_refs = {}
+        for s in sections:
+            for t in s["path"] + [s["t"]]:
+                if t not in heading_refs:
+                    refs = [r for r in reader.read(t) if r.confidence != "low"]
+                    heading_refs[t] = refs[0] if refs else None
+            s["passages"] = [heading_refs[t] for t in s["path"] + [s["t"]] if heading_refs[t]]
+            s["passage"] = s["passages"][-1] if s["passages"] else None
+            s["heads"] = [(heading_refs[t], t) for t in s["heads"] if heading_refs.get(t)]
+        # Einleitungen der Übersetzer sind kein Text des Kirchenvaters.
+        if not title.startswith("Einleitung"):
+            links = extract_links(vid, wid, author_id, sections, reader)
+        write_texts(vid, sections)
+        entry.update({"availability": "full", "sections": len(sections),
+                      "links": len(links), "books": sorted({l["b"] for l in links})})
+        write_json(ASSETS / "texts" / f"{vid}.links.json", {"links": links})
+        links_out.extend(links)
+        imported.append({"version": vid, "file": path.name, "sections": len(sections),
+                         "links": len(links)})
+    entry = {k: v for k, v in entry.items() if v is not None}
+
+    work = next((w for w in works_out if w["id"] == wid), None)
+    if work is None:
+        genre = "Kommentar" if "Bibelkommentar" in tags else genre_of(title)
+        work = {"id": wid, "author": author_id, "title": meta.get("Titel Werk", title),
+                "clavis": clavis, "genre": genre,
+                "originalLanguage": language_of(slug(clavis or "").replace("_", "-")),
+                "versions": []}
+        works_out.append({k: v for k, v in work.items() if v is not None})
+        work = works_out[-1]
+    if any(v["id"] == vid for v in work["versions"]):
+        report["duplicate_versions"].append(vid)
+        return
+    # Der Text des Kirchenvaters vor Einleitungen.
+    work["versions"].append(entry)
+    work["versions"].sort(key=lambda v: v["title"].startswith("Einleitung"))
+
 
 
 def write_texts(vid: str, sections: list[dict]):
@@ -493,14 +604,22 @@ def write_texts(vid: str, sections: list[dict]):
 
 
 def main() -> None:
-    args = [a for a in sys.argv[1:] if not a.startswith("--")]
-    check = "--check" in sys.argv
-    if len(args) > 1 or (not args and "--ohne-bkv" not in sys.argv):
+    argv = sys.argv[1:]
+    epub_dir = None
+    if "--epub" in argv:
+        i = argv.index("--epub")
+        epub_dir = Path(argv[i + 1])
+        del argv[i:i + 2]
+    args = [a for a in argv if not a.startswith("--")]
+    check = "--check" in argv
+    if len(args) > 1 or (not args and "--ohne-bkv" not in argv and epub_dir is None):
         raise SystemExit(__doc__)
     raw = Path(args[0]) if args else None
 
     curation = json.loads((HERE / "curation" / "bkv_authors.json").read_text(encoding="utf-8"))
-    overrides = json.loads((HERE / "curation" / "rights.json").read_text(encoding="utf-8"))["versions"]
+    rights_file = json.loads((HERE / "curation" / "rights.json").read_text(encoding="utf-8"))
+    overrides = rights_file["versions"]
+    default_rights = rights_file.get("default")
     later = json.loads((HERE / "curation" / "later_authors.json").read_text(encoding="utf-8"))
 
     authors, index_works, gnd, pages = {}, [], {}, {}
@@ -553,12 +672,14 @@ def main() -> None:
                 translators = translators_from(page["biblio"])
                 series, published = series_from(page["biblio"])
                 rights, note = rights_of(vid, translators, gnd, overrides)
+                if rights != "publicDomain" and default_rights and vid not in overrides:
+                    rights, note = default_rights["rights"], f"{default_rights['note']} ({note})"
                 entry.update({
                     "translator": ", ".join(translators) or None,
                     "series": series, "published": published,
                     "biblio": page["biblio"], "rights": rights, "rightsNote": note,
                 })
-                if rights == "publicDomain":
+                if rights in READABLE:
                     _, sections, links = import_version(raw, work, version, page, author_id)
                     if sections:
                         write_texts(vid, sections)
@@ -583,6 +704,11 @@ def main() -> None:
             "originalLanguage": language_of(work["slug"]), "versions": versions_out,
         })
         works_out[-1] = {k: v for k, v in works_out[-1].items() if v is not None}
+
+    # EPUB-Exporte der BKV (von Hand heruntergeladen, siehe README.md).
+    for path in sorted(epub_dir.glob("*.epub")) if epub_dir is not None else []:
+        import_epub(path, authors, later_ids, works_out, links_out, imported,
+                    overrides, default_rights)
 
     # Autoren: Einordnung aus der Kuratierung, sonst Alte Kirche (BKV).
     authors_out = []
@@ -650,7 +776,7 @@ def main() -> None:
 
     xrefs = json.loads((REPORTS / "crossrefs.json").read_text(encoding="utf-8"))
     kinds = collections.Counter(l["k"] for l in links_out)
-    readable = [v for w in works_out for v in w["versions"] if v.get("availability") in ("full", "partial") and v.get("rights") == "publicDomain"]
+    readable = [v for w in works_out for v in w["versions"] if v.get("availability") in ("full", "partial") and v.get("rights") in READABLE]
     manifest = {
         "generated": datetime.date.today().isoformat(),
         "dataVersion": stable_id(*sorted(new_ids), length=10),
