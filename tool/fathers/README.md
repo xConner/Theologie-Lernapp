@@ -13,6 +13,7 @@ Benötigt Python 3.10+ mit `beautifulsoup4` und `lxml`.
 | `import_bkv.py <Rohdaten>` | BKV-Abruf → Katalog, Texte, Zuordnungen, Manifest; Bericht `reports/bkv_import.json` |
 | `import_bkv.py --ohne-bkv` | nur die redaktionell gepflegten Autoren (ohne BKV-Abruf) |
 | `import_bkv.py [<Rohdaten>] --epub <Ordner>` | dazu die EPUB-Exporte der BKV in `<Ordner>` (siehe unten) |
+| `… --pdf <Ordner>` | dazu Texte aus PDF-Drucken nach `curation/pdf_texts.json` (`pdf_text.py`) |
 | `import_bkv.py <Rohdaten> --check` | schreibt nichts; Fehler, wenn Kennungen wegfallen würden |
 | `test_import_bkv.py` | prüft den Import an erfundenen Seiten in `testdata/bkv/` |
 
@@ -45,8 +46,8 @@ Seitenlinks). Rechte aus `curation/rights.json` (Einzelangabe, sonst
 
     python3 tool/fathers/import_bkv.py --epub ~/bkv-epub
 
-Der Import ersetzt den ganzen Katalog: bei jedem Lauf alle EPUBs (und ggf.
-die Rohdaten) mitgeben.
+Der Import ersetzt den ganzen Katalog: bei jedem Lauf alle Quellen
+mitgeben (Rohdaten, `--epub`, `--pdf`).
 
 ## Abruf der BKV-Rohdaten (Abschnittsseiten)
 

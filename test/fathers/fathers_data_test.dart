@@ -79,7 +79,12 @@ void main() {
           if (v.hasText) {
             expect(toc.existsSync(), isTrue, reason: v.id);
             expect(v.rightsNote, isNotNull, reason: v.id);
-            expect(v.sourceUrl, isNotNull, reason: v.id);
+            expect(v.sourceUrl ?? v.sourceName, isNotNull, reason: v.id);
+
+            // Texte ohne Übersetzer und Vorlage sagen das ausdrücklich.
+            if (v.kind == TextKind.unknownTranslation) {
+              expect(v.rightsNote, contains("nicht genannt"), reason: v.id);
+            }
           } else {
             expect(toc.existsSync(), isFalse, reason: v.id);
           }

@@ -1,0 +1,33 @@
+{
+  "_note": "Texte aus PDF-Drucken (tool/fathers/pdf_text.py). Die Drucke nennen keine Ausgabe; alle Angaben zu Werk, Fassung und Rechten stehen hier. Aufruf: import_bkv.py … --pdf <Ordner mit den Dateien>.",
+  "texts": [
+    {
+      "files": [
+        "1. Homilie über Genesis_de.pdf",
+        "2. Homilie über Genesis_de.pdf",
+        "3. Homilie über Genesis_de.pdf"
+      ],
+      "author": {
+        "id": "johannes_chrysostomus",
+        "name": "Johannes Chrysostomus"
+      },
+      "work": {
+        "id": "chrysostomus.hom_gen",
+        "title": "Homilien über die Genesis",
+        "originalTitle": "Homiliae in Genesim",
+        "clavis": "CPG 4409",
+        "genre": "Homilien",
+        "originalLanguage": "grc"
+      },
+      "version": {
+        "id": "chrysostomus.hom_gen.unbekannt",
+        "title": "Homilien 1–3 über die Genesis (deutsche Fassung unbekannter Herkunft)",
+        "language": "de",
+        "kind": "unknownTranslation",
+        "rights": "permission",
+        "rightsNote": "Von Conner bereitgestellte PDF-Drucke einer Webseite (24.10.2026). Übersetzer, Vorlage und Website sind nicht genannt. Der Wortlaut folgt der englischen Übersetzung von Robert C. Hill (The Fathers of the Church 74, 1986); vermutlich ist er maschinell aus dem Englischen übertragen und keine geprüfte Übersetzung des griechischen Textes. Aufgenommen auf Conners Wunsch; Nutzungserlaubnis laut Conner. Zwischenüberschriften der Drucke entfallen.",
+        "sourceName": "PDF-Drucke einer Webseite, bereitgestellt von Conner"
+      }
+    }
+  ]
+}

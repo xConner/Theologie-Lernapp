@@ -38,8 +38,9 @@ from bs4 import BeautifulSoup, NavigableString, Tag
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import bkv_epub  # noqa: E402
-from bible_refs import RefReader, uses_vulgate_kings  # noqa: E402
-from common import ASSETS, stable_id, write_json  # noqa: E402
+import pdf_text  # noqa: E402
+from bible_refs import Ref, RefReader, uses_vulgate_kings  # noqa: E402
+from common import ASSETS, Versification, stable_id, write_json  # noqa: E402
 
 HERE = Path(__file__).resolve().parent
 REPORTS = HERE / "reports"
@@ -344,14 +345,17 @@ def passage_of(paragraphs: list[str], reader: RefReader):
 
 # ------------------------------------------------------------------ Import
 
-def extract_links(vid: str, wid: str, aid: str, sections: list[dict], reader: RefReader):
+def extract_links(vid: str, wid: str, aid: str, sections: list[dict], reader: RefReader,
+                  read_note=None):
     """Zuordnungen einer Fassung zu Bibelstellen.
 
     Je Abschnitt: „heads“ = [(Stelle, Überschrift)] für Einheiten, deren
     ausgelegten Abschnitt die Ausgabe nennt und die mit diesem Abschnitt
     beginnen; „passage“ = engster solcher Abschnitt, in dem er steht.
     Dazu die Stellenangaben in den Anmerkungen und in Klammern im Text.
+    [read_note] liest eine Anmerkung (Vorgabe: [reader]).
     """
+    read_note = read_note or reader.read
     links = []
     seen = set()
 
@@ -385,7 +389,7 @@ def extract_links(vid: str, wid: str, aid: str, sections: list[dict], reader: Re
             cited = [(s["notes"][k], True) for k in s["marks"].get(i, [])]
             cited += [(m.group(1), False) for m in re.finditer(r"\(([^()]{4,60})\)", paragraph)]
             for text, is_note in cited:
-                for ref in reader.read(text):
+                for ref in (read_note(text) if is_note else reader.read(text)):
                     if passage is not None and ref.book == passage.book and ref.compact() == passage.compact():
                         continue  # schon als Auslegung des Abschnitts verzeichnet
                     if any(p.contains(ref) for p in passages):
@@ -399,7 +403,7 @@ def extract_links(vid: str, wid: str, aid: str, sections: list[dict], reader: Re
 
     for s in sections:
         for note in s["notes"]:
-            if re.search(r"\d+\s*,\s*\d+", note) and not reader.read(note):
+            if re.search(r"\d+\s*[,:]\s*\d+", note) and not read_note(note):
                 report["unparsed_references"].append({"version": vid, "note": note})
 
     return links
@@ -569,6 +573,64 @@ def import_epub(path, authors, later_ids, works_out, links_out, imported,
 
 
 
+def import_pdf_texts(pdf_dir: Path, authors, later_ids, works_out, links_out, imported):
+    """Texte aus PDF-Drucken nach curation/pdf_texts.json (Angaben zu Werk,
+    Fassung und Rechten stehen dort, nicht in den Drucken)."""
+    curated = json.loads((HERE / "curation" / "pdf_texts.json").read_text(encoding="utf-8"))
+    v11n = Versification()
+
+    def read_note(text):
+        found = pdf_text.parse_note(text)
+        if found is None:
+            return []
+        book, c, v, ev = found
+        start, end = v11n.english_to_german(book, c, v), v11n.english_to_german(book, c, ev)
+        if book not in v11n.german:
+            # Buch fehlt in der deutschen Vergleichsausgabe (z. B. Weisheit):
+            # Zählung übernehmen, aber als unsicher kennzeichnen.
+            return [Ref(book, c, v, c, ev, "low", text,
+                        "Stellenangabe des Drucks (englische Zählung, nicht prüfbar)")]
+        if start is None or end is None:
+            report["unconvertible_references"].append(text)
+            return []
+        return [Ref(book, start[0], start[1], end[0], end[1], "medium", text,
+                    "Stellenangabe des Drucks (englische Zählung, umgerechnet)")]
+
+    for text in curated["texts"]:
+        files = [pdf_dir / f for f in text["files"]]
+        missing = [f.name for f in files if not f.exists()]
+        if missing:
+            report["pdf_missing"].append({"version": text["version"]["id"], "files": missing})
+            continue
+        a = text["author"]
+        author_id = later_ids.get(a["name"]) or a["id"]
+        if author_id not in later_ids.values():
+            authors.setdefault(author_id, {"id": author_id, "name": a["name"]})
+
+        sections = []
+        for f in files:
+            data = pdf_text.read(f)
+            sections.append({
+                "n": len(sections) + 1, "t": data["title"], "path": [],
+                "p": data["p"], "notes": data["notes"], "marks": data["marks"],
+                "ref": None, "url": None, "heads": [],
+            })
+        version = dict(text["version"])
+        vid = version["id"]
+        wid = text["work"]["id"]
+        reader = RefReader(None)
+        links = extract_links(vid, wid, author_id, sections, reader, read_note)
+        write_texts(vid, sections)
+        write_json(ASSETS / "texts" / f"{vid}.links.json", {"links": links})
+        links_out.extend(links)
+        imported.append({"version": vid, "files": text["files"], "sections": len(sections),
+                         "links": len(links)})
+        version.update({"availability": "full", "sections": len(sections),
+                        "links": len(links), "books": sorted({l["b"] for l in links})})
+        works_out.append({**text["work"], "author": author_id, "versions": [version]})
+
+
+
 def write_texts(vid: str, sections: list[dict]):
     """Inhaltsverzeichnis und Textdateien von je etwa CHUNK_BYTES."""
     toc, chunks, current, size = [], [], [], 0
@@ -587,7 +649,8 @@ def write_texts(vid: str, sections: list[dict]):
             entry["path"] = s["path"]
         if s["ref"]:
             entry["ref"] = s["ref"]
-        entry["url"] = s["url"]
+        if s.get("url"):
+            entry["url"] = s["url"]
         toc.append(entry)
     if current:
         chunks.append(current)
@@ -605,14 +668,19 @@ def write_texts(vid: str, sections: list[dict]):
 
 def main() -> None:
     argv = sys.argv[1:]
-    epub_dir = None
-    if "--epub" in argv:
-        i = argv.index("--epub")
-        epub_dir = Path(argv[i + 1])
+    def option(name):
+        if name not in argv:
+            return None
+        i = argv.index(name)
+        value = Path(argv[i + 1])
         del argv[i:i + 2]
+        return value
+
+    epub_dir = option("--epub")
+    pdf_dir = option("--pdf")
     args = [a for a in argv if not a.startswith("--")]
     check = "--check" in argv
-    if len(args) > 1 or (not args and "--ohne-bkv" not in argv and epub_dir is None):
+    if len(args) > 1 or (not args and "--ohne-bkv" not in argv and epub_dir is None and pdf_dir is None):
         raise SystemExit(__doc__)
     raw = Path(args[0]) if args else None
 
@@ -709,6 +777,9 @@ def main() -> None:
     for path in sorted(epub_dir.glob("*.epub")) if epub_dir is not None else []:
         import_epub(path, authors, later_ids, works_out, links_out, imported,
                     overrides, default_rights)
+
+    if pdf_dir is not None:
+        import_pdf_texts(pdf_dir, authors, later_ids, works_out, links_out, imported)
 
     # Autoren: Einordnung aus der Kuratierung, sonst Alte Kirche (BKV).
     authors_out = []

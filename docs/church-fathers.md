@@ -113,10 +113,16 @@ Verse („IV. Kapitel. ‚Im Anfang‘ (Gen 1,1)“); daraus entstehen die
 Zuordnungen „Auslegung des Abschnitts“. Bei Basilius und Gregor fehlen
 solche Angaben; dort gibt es nur Zitate und Verweise aus den Anmerkungen.
 
-Nicht übernommen: drei als PDF gelieferte „Homilien über Genesis“ des
-Johannes Chrysostomus in heutigem Deutsch ohne Übersetzer und Ausgabe; ihr
-Wortlaut folgt der englischen Übersetzung von R. C. Hill (1986), es handelt
-sich vermutlich um eine maschinelle Übersetzung.
+Auf Conners ausdrücklichen Wunsch aufgenommen, aber deutlich
+gekennzeichnet: Johannes Chrysostomus, Homilien 1–3 über die Genesis (CPG
+4409), aus drei PDF-Drucken einer Webseite (`tool/fathers/pdf_text.py`,
+Angaben in `curation/pdf_texts.json`). Die Drucke nennen weder Übersetzer
+noch Vorlage; ihr Wortlaut folgt der englischen Übersetzung von R. C. Hill
+(1986) und ist vermutlich maschinell übertragen. Die App zeigt die Fassung
+als „Übersetzung unbekannter Herkunft“ (`TextKind.unknownTranslation`) mit
+dieser Erklärung; die Zwischenüberschriften der Drucke entfallen, die
+Bibelstellen der Drucke (englische Zählung) sind umgerechnet und haben
+höchstens mittlere Sicherheit.
 
 Der ältere Weg über einzelne Abschnittsseiten der BKV (10-s-Takt, PC des
 Nutzers) ist im Import weiter enthalten, wird aber nicht mehr verfolgt.

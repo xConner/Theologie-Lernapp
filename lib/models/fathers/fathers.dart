@@ -126,7 +126,11 @@ class FathersAuthor {
 enum TextKind {
   historicalTranslation("Historische deutsche Übersetzung"),
   original("Originaltext"),
-  modernTranslation("Moderne Übersetzung");
+  modernTranslation("Moderne Übersetzung"),
+
+  /// Deutscher Text ohne Angabe von Übersetzer und Vorlage, möglicherweise
+  /// maschinell übertragen; die Herkunftsangabe der Fassung sagt mehr.
+  unknownTranslation("Übersetzung unbekannter Herkunft");
 
   final String label;
 
