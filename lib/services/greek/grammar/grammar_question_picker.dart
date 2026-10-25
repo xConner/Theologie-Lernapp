@@ -110,7 +110,44 @@ class GrammarQuestionPicker {
     "3. Pl.",
   ];
 
+  /// Tempora, in denen der Trainer Verbformen kennt und abfragt.
   static const List<String> tenses = ["Präsens", "Imperfekt", "Aorist"];
+
+  /// Zeitformen, die in den Einstellungen zur Wahl stehen. Perfekt und Futur
+  /// lassen sich schon auswählen und speichern, werden aber erst abgefragt,
+  /// wenn [tenses] sie enthält.
+  static const List<String> selectableTenses = [
+    "Präsens",
+    "Imperfekt",
+    "Perfekt",
+    "Aorist",
+    "Futur",
+  ];
+
+  /// Beschriftung in den Einstellungen; Zeitformen ohne Formen im Trainer
+  /// sind als noch nicht abgefragt gekennzeichnet.
+  static String tenseLabel(String tense) {
+    return tenses.contains(tense) ? tense : "$tense (folgt)";
+  }
+
+  /// Die ausgewählten Zeitformen, die der Trainer tatsächlich abfragt.
+  static List<String> askableTenses(List<String> enabledTenses) {
+    return [
+      for (final tense in tenses)
+        if (enabledTenses.contains(tense)) tense,
+    ];
+  }
+
+  /// Ob es mit den ausgewählten Modi und Zeitformen überhaupt Verbformen
+  /// gibt (das Imperfekt etwa nur im Indikativ).
+  static bool hasVerbForms({
+    required List<String> enabledMoods,
+    required List<String> enabledTenses,
+  }) {
+    return enabledMoods.any((mood) {
+      return tensesOfMood(mood).any(enabledTenses.contains);
+    });
+  }
 
   /// Modi der Verbaufgaben, einzeln wählbar.
   static const List<String> moods = VerbMood.all;
@@ -233,14 +270,31 @@ class GrammarQuestionPicker {
   /// kann nur ein Pronomen, für das ein Paradigma vorliegt
   /// ([pronounIds]). Ebenso die Adjektivsteigerung: gefragt werden die
   /// Adjektive der gewählten Steigerungsarten ([comparisonIds]).
+  ///
+  /// Ein Verb ist nur verfügbar, wenn es in einem ausgewählten Modus eine
+  /// ausgewählte Zeitform bildet (εἰμί hat keinen Aorist); sonst gäbe es zu
+  /// ihm keine Frage.
   static bool isAvailable(
     GreekVocabularyEntry entry, {
     required List<int> enabledSteps,
     required List<String> enabledTypes,
     required Set<int> pronounIds,
     Set<int> comparisonIds = const {},
+    List<String> enabledMoods = moods,
+    List<String> enabledTenses = selectableTenses,
   }) {
     if (!enabledTypes.contains(entry.type) || blacklist.contains(entry.lemma)) {
+      return false;
+    }
+
+    if (entry.type == "verb" &&
+        !hasVerbForms(
+          enabledMoods: enabledMoods,
+          enabledTenses: [
+            for (final tense in allowedTenses(entry))
+              if (enabledTenses.contains(tense)) tense,
+          ],
+        )) {
       return false;
     }
 
@@ -508,15 +562,17 @@ class GrammarQuestionPicker {
   }
 
   /// Ob die Form zum Lernstoff des Verbs gehört: Tempus und Genus Verbi
-  /// zulässig, Modus eingeschaltet. Das Aorist Passiv wird nur im Indikativ
-  /// (Deponentien), im Infinitiv und im Partizip gefragt.
+  /// zulässig, Modus und Zeitform eingeschaltet. Das Aorist Passiv wird nur
+  /// im Indikativ (Deponentien), im Infinitiv und im Partizip gefragt.
   static bool isAskable(
     GreekVocabularyEntry entry,
     VerbParadigm paradigm,
     VerbAnalysis analysis, {
     List<String> enabledMoods = moods,
+    List<String> enabledTenses = selectableTenses,
   }) {
     return enabledMoods.contains(analysis.mood) &&
+        enabledTenses.contains(analysis.tense) &&
         allowedTenses(entry).contains(analysis.tense) &&
         allowedVoices(
           entry,
@@ -531,14 +587,15 @@ class GrammarQuestionPicker {
   }
 
   /// Wählt die Form einer Verbaufgabe aus dem Paradigma: nur Formen, die es
-  /// dort gibt und die zum Lernstoff gehören ([isAskable]). Erst die
-  /// zulässigen Werte bestimmen, dann gewichten; steht nur ein Wert zur
-  /// Wahl, wird nicht gezogen. `null`, wenn keine Form in Frage kommt.
+  /// dort gibt, zum Lernstoff gehören und deren Modus und Zeitform
+  /// eingeschaltet sind ([isAskable]). Erst die zulässigen Werte bestimmen,
+  /// dann gewichten; steht nur ein Wert zur Wahl, wird nicht gezogen. `null`, wenn keine Form in Frage kommt.
   static VerbForm? pickVerbTarget(
     GrammarLearning grammar,
     GreekVocabularyEntry entry,
     VerbParadigm paradigm, {
     List<String> enabledMoods = moods,
+    List<String> enabledTenses = selectableTenses,
   }) {
     var candidates = [
       for (final form in paradigm.forms)
@@ -547,6 +604,7 @@ class GrammarQuestionPicker {
           paradigm,
           form.analysis,
           enabledMoods: enabledMoods,
+          enabledTenses: enabledTenses,
         ))
           form,
     ];
