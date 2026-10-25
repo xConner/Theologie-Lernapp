@@ -158,6 +158,10 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
 
   List<String> enabledMoods = List.of(allMoods);
 
+  static const List<String> allTenses = GrammarQuestionPicker.selectableTenses;
+
+  List<String> enabledTenses = List.of(allTenses);
+
   // ---------------------------------------------------------------------------
   // NOMEN
   // ---------------------------------------------------------------------------
@@ -305,10 +309,17 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
     enabledPronounKinds = settings.enabledPronounKinds;
     enabledComparisonKinds = settings.enabledComparisonKinds;
     enabledMoods = settings.enabledMoods;
+    enabledTenses = settings.enabledTenses;
     askLemmaTranslation = settings.askLemmaTranslation;
   }
 
   Future<void> saveGrammarSettings() {
+    // Bei ausgeschalteten Verben prüft der Dialog die Zeitformen nicht; eine
+    // leere Auswahl wird dann auf die Standardauswahl zurückgesetzt.
+    if (!GrammarTrainerSettings.hasAskableTense(enabledTenses)) {
+      enabledTenses = List.of(allTenses);
+    }
+
     return settingsService.save(
       _auth.currentUser?.uid,
       GrammarTrainerSettings(
@@ -324,6 +335,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
         enabledPronounKinds: enabledPronounKinds,
         enabledComparisonKinds: enabledComparisonKinds,
         enabledMoods: enabledMoods,
+        enabledTenses: enabledTenses,
         askLemmaTranslation: askLemmaTranslation,
       ),
     );
@@ -441,14 +453,18 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
       enabledTypes: enabledTypes,
       pronounIds: {for (final paradigm in _enabledPronouns()) paradigm.id},
       comparisonIds: AdjectiveComparisons.idsOfKinds(enabledComparisonKinds),
+      enabledMoods: enabledMoods,
+      enabledTenses: enabledTenses,
     );
   }
 
   // Ob eine Frage zu den aktuellen Filtern gehört: bei einem Verb auch, ob
-  // der Modus der vorgelegten Form noch eingeschaltet ist.
+  // Modus und Zeitform der vorgelegten Form noch eingeschaltet sind.
   bool _isQuestionAvailable(GreekVocabularyEntry entry, VerbForm? verb) {
     return _isEntryAvailable(entry) &&
-        (verb == null || enabledMoods.contains(verb.analysis.mood));
+        (verb == null ||
+            (enabledMoods.contains(verb.analysis.mood) &&
+                enabledTenses.contains(verb.analysis.tense)));
   }
 
   // Die Pronomen der ausgewählten Pronomenarten.
@@ -1421,7 +1437,8 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
   }
 
   // Lädt das Paradigma des Verbs und wählt daraus eine Form der
-  // eingeschalteten Modi. `null`, wenn es keine zuverlässige Form gibt.
+  // eingeschalteten Modi und Zeitformen. `null`, wenn es keine zuverlässige
+  // Form gibt.
   Future<VerbForm?> _pickVerbTarget(GreekVocabularyEntry entry) async {
     final paradigm = await wiktionaryService.getVerbParadigm(entry.lemma);
 
@@ -1434,6 +1451,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
       entry,
       paradigm,
       enabledMoods: enabledMoods,
+      enabledTenses: enabledTenses,
     );
   }
 
@@ -1765,6 +1783,22 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
                         return;
                       }
 
+                      if (enabledTypes.contains("verb")) {
+                        final error =
+                            GrammarTrainerSettings.tenseSelectionError(
+                              enabledMoods: enabledMoods,
+                              enabledTenses: enabledTenses,
+                            );
+
+                        if (error != null) {
+                          ScaffoldMessenger.of(
+                            context,
+                          ).showSnackBar(SnackBar(content: Text(error)));
+
+                          return;
+                        }
+                      }
+
                       if (enabledTypes.contains(AdjectiveComparisons.type) &&
                           enabledComparisonKinds.isEmpty) {
                         ScaffoldMessenger.of(context).showSnackBar(
@@ -1927,6 +1961,45 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
                                 }
                               } else {
                                 enabledMoods.remove(mood);
+                              }
+                            });
+                          },
+                        ),
+
+                      // -------------------------------------------------------
+                      // ZEITFORMEN DER VERBEN (UNTERAUSWAHL)
+                      // -------------------------------------------------------
+                      if (enabledTypes.contains("verb"))
+                        MultiSelectSection<String>(
+                          title: "Zeitformen",
+                          hint:
+                              "Unterauswahl der Wortart Verb: Abgefragt "
+                              "werden nur Formen der ausgewählten Zeitformen. "
+                              "Das Imperfekt gibt es nur im Indikativ. "
+                              "Perfekt und Futur werden erst abgefragt, "
+                              "sobald der Trainer ihre Formen kennt.",
+                          options: allTenses,
+                          isSelected: enabledTenses.contains,
+                          labelOf: GrammarQuestionPicker.tenseLabel,
+                          emptyError:
+                              "Mindestens eine Zeitform muss ausgewählt sein.",
+                          onToggleAll: () {
+                            setDialogState(() {
+                              if (enabledTenses.length == allTenses.length) {
+                                enabledTenses.clear();
+                              } else {
+                                enabledTenses = List.of(allTenses);
+                              }
+                            });
+                          },
+                          onChanged: (tense, value) {
+                            setDialogState(() {
+                              if (value) {
+                                if (!enabledTenses.contains(tense)) {
+                                  enabledTenses.add(tense);
+                                }
+                              } else {
+                                enabledTenses.remove(tense);
                               }
                             });
                           },

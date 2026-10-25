@@ -334,6 +334,7 @@ void main() {
         'askComparisonDegree': true,
         'askComparisonForm': true,
         'enabledMoods': GrammarQuestionPicker.moods,
+        'enabledTenses': GrammarQuestionPicker.selectableTenses,
         'askLemmaTranslation': false,
       });
     });
@@ -449,6 +450,7 @@ void main() {
         'askComparisonDegree': false,
         'askComparisonForm': false,
         'enabledMoods': ["Imperativ"],
+        'enabledTenses': GrammarQuestionPicker.selectableTenses,
         'askLemmaTranslation': true,
       });
     });
