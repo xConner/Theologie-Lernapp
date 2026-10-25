@@ -85,6 +85,7 @@ class LocalLearningStore {
       "enabledTypes": _FieldType.stringList,
       "showLemmaFieldNoun": _FieldType.boolean,
       "showLemmaFieldVerb": _FieldType.boolean,
+      "enabledTenses": _FieldType.stringList,
     },
     "memorization_settings": {
       "texts": _FieldType.stringList,

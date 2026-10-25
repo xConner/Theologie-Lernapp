@@ -18,6 +18,8 @@ class GrammarTrainerSettings {
 
   static const List<String> allMoods = GrammarQuestionPicker.moods;
 
+  static const List<String> allTenses = GrammarQuestionPicker.selectableTenses;
+
   final List<int> enabledSteps;
   final List<String> enabledTypes;
 
@@ -53,6 +55,12 @@ class GrammarTrainerSettings {
   /// ausgeschaltet, bis er ausgewählt wird.
   final List<String> enabledMoods;
 
+  /// Unterauswahl der Wortart Verb: welche Zeitformen gefragt werden. Ohne
+  /// gespeicherte Auswahl gelten alle; eine gespeicherte Auswahl ohne
+  /// abfragbare Zeitform ([hasAskableTense]) wird durch alle ersetzt, damit
+  /// der Trainer nie ohne Verbformen dasteht.
+  final List<String> enabledTenses;
+
   /// Nomen und Verben: Zur vorgelegten Form wird zusätzlich die deutsche
   /// Übersetzung der Grundform gefragt. Die Adjektivsteigerung hat dafür
   /// ihren eigenen Schalter ([askComparisonTranslation]).
@@ -71,8 +79,40 @@ class GrammarTrainerSettings {
     this.askComparisonDegree = true,
     this.askComparisonForm = true,
     this.enabledMoods = allMoods,
+    this.enabledTenses = allTenses,
     this.askLemmaTranslation = false,
   });
+
+  /// Ob mindestens eine ausgewählte Zeitform tatsächlich abgefragt wird.
+  static bool hasAskableTense(List<String> tenses) {
+    return GrammarQuestionPicker.askableTenses(tenses).isNotEmpty;
+  }
+
+  /// Fehlermeldung des Einstellungsdialogs, wenn die Zeitformen bei
+  /// eingeschalteten Verben keine Frage zulassen; sonst `null`.
+  static String? tenseSelectionError({
+    required List<String> enabledMoods,
+    required List<String> enabledTenses,
+  }) {
+    if (enabledTenses.isEmpty) {
+      return "Mindestens eine Zeitform muss ausgewählt sein.";
+    }
+
+    if (!hasAskableTense(enabledTenses)) {
+      return "Perfekt und Futur werden noch nicht abgefragt. Bitte wähle "
+          "zusätzlich Präsens, Imperfekt oder Aorist aus.";
+    }
+
+    if (!GrammarQuestionPicker.hasVerbForms(
+      enabledMoods: enabledMoods,
+      enabledTenses: enabledTenses,
+    )) {
+      return "Das Imperfekt gibt es nur im Indikativ. Bitte wähle den "
+          "Indikativ oder eine weitere Zeitform aus.";
+    }
+
+    return null;
+  }
 
   /// Liest das gespeicherte Feld `greek_grammar_settings`. Unbekannte
   /// Schritte und Wortarten werden verworfen; die Listen sind eigene,
@@ -88,6 +128,7 @@ class GrammarTrainerSettings {
         enabledPronounKinds: List.of(allPronounKinds),
         enabledComparisonKinds: List.of(allComparisonKinds),
         enabledMoods: List.of(allMoods),
+        enabledTenses: List.of(allTenses),
       );
     }
 
@@ -104,7 +145,12 @@ class GrammarTrainerSettings {
     final comparisonDegree = data['askComparisonDegree'];
     final comparisonForm = data['askComparisonForm'];
     final moods = data['enabledMoods'];
+    final tenses = data['enabledTenses'];
     final lemmaTranslation = data['askLemmaTranslation'];
+
+    final storedTenses = tenses is List
+        ? tenses.whereType<String>().where(allTenses.contains).toList()
+        : null;
 
     final askTranslation = comparisonTranslation is bool
         ? comparisonTranslation
@@ -142,6 +188,10 @@ class GrammarTrainerSettings {
       enabledMoods: moods is List
           ? moods.whereType<String>().where(allMoods.contains).toList()
           : List.of(allMoods),
+      // Ohne gespeicherte oder ohne abfragbare Zeitform gelten alle.
+      enabledTenses: storedTenses != null && hasAskableTense(storedTenses)
+          ? storedTenses
+          : List.of(allTenses),
       askLemmaTranslation: lemmaTranslation is bool ? lemmaTranslation : false,
       // Ohne Übersetzung wird immer die Grundform gefragt.
       askComparisonLemma:
@@ -163,6 +213,7 @@ class GrammarTrainerSettings {
       'askComparisonDegree': askComparisonDegree,
       'askComparisonForm': askComparisonForm,
       'enabledMoods': enabledMoods,
+      'enabledTenses': enabledTenses,
       'askLemmaTranslation': askLemmaTranslation,
     };
   }
@@ -191,16 +242,20 @@ class GrammarSettingsService {
     return GrammarTrainerSettings.fromMap(data?[_group]);
   }
 
+  /// Eine Zeitformauswahl ohne abfragbare Zeitform wird nie gespeichert,
+  /// sondern durch die Standardauswahl (alle) ersetzt. Der
+  /// Einstellungsdialog weist sie bei eingeschalteten Verben vorher ab.
   Future<void> save(String? uid, GrammarTrainerSettings settings) async {
-    if (uid == null) {
-      return LocalLearningStore.instance.saveSettingsGroup(
-        _group,
-        settings.toMap(),
-      );
+    final data = settings.toMap();
+
+    if (!GrammarTrainerSettings.hasAskableTense(settings.enabledTenses)) {
+      data['enabledTenses'] = List.of(GrammarTrainerSettings.allTenses);
     }
 
-    await _document(
-      uid,
-    ).set({_group: settings.toMap()}, SetOptions(merge: true));
+    if (uid == null) {
+      return LocalLearningStore.instance.saveSettingsGroup(_group, data);
+    }
+
+    await _document(uid).set({_group: data}, SetOptions(merge: true));
   }
 }
