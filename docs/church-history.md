@@ -61,7 +61,10 @@ da ist, verweisen mit `theme` auf das Thema der App.
 
 ### Fundstellen
 
-- Vorlesung: Folien (`slides`).
+- Vorlesung: Folien (`slides`); Inhalte aus dem Vorlesungsmanuskript
+  zusätzlich mit `ref` auf das Material der Vorlesung
+  (`material.lecture_manuscript`, Seite des PDFs). Ein Eintrag darf in
+  einer Vorlesung je Quelle einmal erwähnt werden (Folien, Manuskript).
 - Proseminar: `ref` auf ein Material der eigenen Veranstaltung
   (`{"material": "material.seminar_plan", "at": "S. 2"}`). Jeder Abschnitt,
   jede Erwähnung, Merkliste und Frage einer Sitzung braucht eine

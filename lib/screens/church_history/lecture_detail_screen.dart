@@ -146,8 +146,9 @@ class _LectureDetailScreenState extends State<LectureDetailScreen> {
       const SizedBox(height: 4),
       Text(
         fromSlides
-            ? "Die Stichpunkte geben den Inhalt der Folien wieder. Grau "
-                  "hinterlegte Kästen sind Ergänzungen der App."
+            ? "Die Stichpunkte geben den Inhalt der Folien und, wo "
+                  "angegeben, des Manuskripts wieder. Grau hinterlegte "
+                  "Kästen sind Ergänzungen der App."
             : "Die Stichpunkte geben den Seminarplan wieder. Grau "
                   "hinterlegte Kästen sind Ergänzungen der App.",
         style: TextStyle(color: context.colors.textSecondary, fontSize: 13),
@@ -171,8 +172,8 @@ class _LectureDetailScreenState extends State<LectureDetailScreen> {
                     );
                   },
                   child: Text(slidesLabel(section.slides)),
-                )
-              else if (section.ref != null)
+                ),
+              if (section.ref != null)
                 Text(
                   data.materialLabel(section.ref!) ?? "",
                   style: TextStyle(
@@ -316,10 +317,11 @@ class _LectureDetailScreenState extends State<LectureDetailScreen> {
     }
 
     String? mentionOf(String id) {
-      for (final m in lecture.mentions) {
-        if (m.entryId == id) return m.text;
-      }
-      return null;
+      final texts = [
+        for (final m in lecture.mentions)
+          if (m.entryId == id) m.text,
+      ];
+      return texts.isEmpty ? null : texts.join("\n");
     }
 
     return _frame([

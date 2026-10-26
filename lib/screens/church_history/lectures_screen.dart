@@ -153,6 +153,7 @@ class LecturesScreen extends StatelessWidget {
         ),
         for (final topic in part.topics) _topic(context, topic),
       ],
+      ..._materials(context, course),
     ];
   }
 
@@ -265,21 +266,29 @@ class LecturesScreen extends StatelessWidget {
           ),
       ],
 
-      if (course.materials.isNotEmpty) ...[
-        const ContentSectionTitle("Material"),
-        Text(
-          "Die Dokumente selbst liegen nicht in der App. Fundstellen wie "
-          "„Schwartz 1939, S. 7“ beziehen sich auf diese Liste.",
-          style: secondary,
+      ..._materials(context, course),
+    ];
+  }
+
+  /// Dokumente der Veranstaltung, auf die sich Fundstellen beziehen.
+  List<Widget> _materials(BuildContext context, Course course) {
+    if (course.materials.isEmpty) return const [];
+    final secondary = TextStyle(color: context.colors.textSecondary);
+    return [
+      const ContentSectionTitle("Material"),
+      Text(
+        "Die Dokumente selbst liegen nicht in der App. Fundstellen wie "
+        "„${course.materials.first.short}, S. 1“ beziehen sich auf diese "
+        "Liste.",
+        style: secondary,
+      ),
+      for (final m in course.materials)
+        ListTile(
+          key: ValueKey("material-${m.id}"),
+          leading: const Icon(Icons.description_outlined),
+          title: Text(m.title),
+          subtitle: Text("${m.category} · ${m.description}"),
         ),
-        for (final m in course.materials)
-          ListTile(
-            key: ValueKey("material-${m.id}"),
-            leading: const Icon(Icons.description_outlined),
-            title: Text(m.title),
-            subtitle: Text("${m.category} · ${m.description}"),
-          ),
-      ],
     ];
   }
 }

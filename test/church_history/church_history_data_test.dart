@@ -198,6 +198,66 @@ void main() {
       }
     });
 
+    test("Manuskript zu Vorlesung 2: Abschnitte mit Seitenangabe", () {
+      final course = data.course;
+      expect(
+        course.materials.map((m) => m.id),
+        contains("material.lecture_manuscript"),
+      );
+      final lecture = data.lecture("lecture.02")!;
+      final fromManuscript = lecture.sections.where(
+        (s) => s.ref?.materialId == "material.lecture_manuscript",
+      );
+      // Gliederung des Manuskripts: 2. Mission, 3. Christenverfolgungen.
+      expect(fromManuscript.length, greaterThanOrEqualTo(8));
+      final pages = <int>{};
+      for (final s in fromManuscript) {
+        expect(s.slides, isNotEmpty, reason: s.title);
+        final m = RegExp(r"^S\. (\d+)(?:–(\d+))?$").firstMatch(s.ref!.at!)!;
+        final from = int.parse(m[1]!), to = int.parse(m[2] ?? m[1]!);
+        pages.addAll([for (var p = from; p <= to; p++) p]);
+      }
+      expect(pages, {for (var p = 1; p <= 12; p++) p});
+      // Folieninhalt bleibt unverändert neben dem Manuskript stehen.
+      expect(
+        lecture.sections.where((s) => s.ref == null).map((s) => s.title),
+        contains("Geschichtlicher Überblick der Verfolgungen"),
+      );
+      final questions = lecture.questions.where(
+        (q) => q.id.startsWith("q.l02.ms_"),
+      );
+      expect(questions.length, greaterThanOrEqualTo(20));
+      for (final q in questions) {
+        expect(q.ref?.materialId, "material.lecture_manuscript", reason: q.id);
+        expect(
+          data.sourceLabel(q.lectureId, q.slides, q.ref),
+          startsWith("Vorlesung 2 · Manuskript, S. "),
+        );
+      }
+    });
+
+    test(
+      "Eintrag je Vorlesung einmal aus Folien, einmal aus dem Manuskript",
+      () {
+        final mentions = data
+            .mentionsOf("event.diocletian_persecution")
+            .where((m) => m.lectureId == "lecture.02")
+            .toList();
+        expect(mentions, hasLength(2));
+        expect(mentions.first.slides, [13]);
+        expect(mentions.last.ref?.materialId, "material.lecture_manuscript");
+        expect(mentions.last.text, contains("1. Mai 305"));
+        // Neue Einträge aus dem Manuskript gehören zur Vorlesung.
+        for (final id in [
+          "person.fabian",
+          "person.tertullian",
+          "event.armenia_christianization",
+        ]) {
+          expect(data.contextOf(id), CourseContext.lecture, reason: id);
+        }
+      },
+    );
+
     test("kuratierte Fragen haben eindeutige Antwortmöglichkeiten", () {
       for (final l in data.units) {
         for (final q in l.questions) {

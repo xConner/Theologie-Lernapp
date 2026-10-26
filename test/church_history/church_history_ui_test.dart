@@ -122,6 +122,41 @@ void main() {
       }
     });
 
+    testWidgets("Vorlesung: Manuskript als Material und Fundstelle", (
+      tester,
+    ) async {
+      _largeView(tester);
+
+      await tester.pumpWidget(_app(LecturesScreen(data: data)));
+      await tester.pumpAndSettle();
+
+      final material = find.byKey(
+        const ValueKey("material-material.lecture_manuscript"),
+      );
+      await tester.scrollUntilVisible(
+        material,
+        300,
+        scrollable: find.byType(Scrollable).first,
+      );
+      expect(material, findsOneWidget);
+
+      await tester.scrollUntilVisible(
+        find.byKey(const ValueKey("lecture-lecture.02")),
+        -300,
+        scrollable: find.byType(Scrollable).first,
+      );
+      await tester.tap(find.byKey(const ValueKey("lecture-lecture.02")));
+      await tester.pumpAndSettle();
+
+      final section = find.text("Manuskript, S. 10–11");
+      await tester.scrollUntilVisible(
+        section,
+        300,
+        scrollable: find.byType(Scrollable).first,
+      );
+      expect(section, findsOneWidget);
+    });
+
     testWidgets("Veranstaltungen → Proseminar → Sitzung ohne Folien", (
       tester,
     ) async {

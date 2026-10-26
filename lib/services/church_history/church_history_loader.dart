@@ -217,12 +217,14 @@ class ChurchHistoryLoader {
       for (final s in l.sections) {
         slidesExist(s.title, s.slides, s.ref, true);
       }
+      // Je Quelle (Folien oder ein Material wie das Manuskript) höchstens
+      // eine Erwähnung eines Eintrags.
       final mentioned = <String>{};
       for (final m in l.mentions) {
         if (data.entry(m.entryId) == null) {
           problems.add("${l.id}: erwähnter Eintrag ${m.entryId} fehlt");
         }
-        if (!mentioned.add(m.entryId)) {
+        if (!mentioned.add("${m.entryId}|${m.ref?.materialId}")) {
           problems.add("${l.id}: ${m.entryId} doppelt erwähnt");
         }
         slidesExist(m.entryId, m.slides, m.ref, true);
