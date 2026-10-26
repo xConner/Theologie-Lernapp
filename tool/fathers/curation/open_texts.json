@@ -1,0 +1,3511 @@
+{
+ "_note": "Freie Textsammlungen (tool/fathers/open_texts.py). Aufruf: import_bkv.py … --open <Ordner mit den Klonen hcf/, csel-dev/, canonical-greekLit/>. Nur hier genannte Dateien werden gelesen; maschinelle Übertragungen (ChatGPT) der HCF-Sammlung sind ausgeschlossen. Werk-Kennungen „bkv.…“ hängen eine Fassung an ein vorhandenes Werk. Rechte: publicDomain (Ausgabe gemeinfrei) oder openLicense (Digitalisat unter freier Lizenz, siehe sources).",
+ "sources": {
+  "hcf": {
+   "name": "HistoricalChristianFaith Writings-Database",
+   "url": "https://github.com/HistoricalChristianFaith/Writings-Database",
+   "commit": "328918aa7054fbcb2a8068e96b326a94a97345a2",
+   "dir": "hcf",
+   "license": "Laut Sammlung gemeinfrei („All works in this repo are in the public domain“); Rechte je Übersetzung zusätzlich hier geprüft. Übertragungen „using ChatGPT“ ausgeschlossen."
+  },
+  "csel": {
+   "name": "Open Greek and Latin, csel-dev (Corpus Scriptorum Ecclesiasticorum Latinorum)",
+   "url": "https://github.com/OpenGreekAndLatin/csel-dev",
+   "commit": "2813e3a52b4206df0324299e5110e5bd0d95cee4",
+   "dir": "csel-dev",
+   "license": "CC BY-SA 4.0 (Universität Leipzig); die zugrunde liegenden CSEL-Bände (1896–1919) sind gemeinfrei"
+  },
+  "perseus": {
+   "name": "Perseus Digital Library, canonical-greekLit",
+   "url": "https://github.com/PerseusDL/canonical-greekLit",
+   "commit": "0189b9c8d8d1f148133f2f0af309b4ee90ea4332",
+   "dir": "canonical-greekLit",
+   "license": "CC BY-SA 4.0 (Perseus Digital Library)"
+  }
+ },
+ "texts": [
+  {
+   "source": "hcf",
+   "author": "johannes_chrysostomus",
+   "work": {
+    "id": "chrysostomus.de_sacerdotio",
+    "title": "Über das Priestertum",
+    "originalTitle": "De sacerdotio",
+    "clavis": "CPG 4316",
+    "genre": "Abhandlung",
+    "originalLanguage": "grc"
+   },
+   "version": {
+    "id": "npnf.chrysostomus.de_sacerdotio",
+    "title": "Treatise on the Priesthood (NPNF)",
+    "language": "en",
+    "kind": "historicalTranslation",
+    "translator": "W. R. W. Stephens",
+    "series": "Nicene and Post-Nicene Fathers, 1. Serie, Bd. 9",
+    "year": "1889",
+    "rights": "publicDomain",
+    "rightsNote": "Englische Übersetzung des 19. Jahrhunderts, erschienen 1889 (NPNF, hg. von Philip Schaff und Henry Wace). Die Übersetzer und Bearbeiter waren Gelehrte des 19. Jahrhunderts und sind nach allgemeiner Kenntnis lange vor 1956 gestorben (Lebensdaten nicht einzeln per GND geprüft, da aus der Cloud nicht erreichbar); in den USA gemeinfrei, weil vor 1931 erschienen. Digitalisat aus der Sammlung HistoricalChristianFaith (dort als gemeinfrei ausgewiesen).",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub), nach der NPNF-Ausgabe",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/John%20Chrysostom/TREATISE%20ON%20THE%20PRIESTHOOD",
+    "availability": "full"
+   },
+   "files": [
+    "John Chrysostom/TREATISE ON THE PRIESTHOOD/Book 1.html",
+    "John Chrysostom/TREATISE ON THE PRIESTHOOD/Book 2.html",
+    "John Chrysostom/TREATISE ON THE PRIESTHOOD/Book 3.html",
+    "John Chrysostom/TREATISE ON THE PRIESTHOOD/Book 4.html",
+    "John Chrysostom/TREATISE ON THE PRIESTHOOD/Book 5.html",
+    "John Chrysostom/TREATISE ON THE PRIESTHOOD/Book 6.html"
+   ],
+   "split": "auto"
+  },
+  {
+   "source": "hcf",
+   "author": "johannes_chrysostomus",
+   "work": {
+    "id": "chrysostomus.ad_theodorum",
+    "title": "Ermahnung an Theodor nach seinem Fall",
+    "originalTitle": "Ad Theodorum lapsum",
+    "genre": "Briefe",
+    "originalLanguage": "grc"
+   },
+   "version": {
+    "id": "npnf.chrysostomus.ad_theodorum",
+    "title": "An Exhortation to Theodore after his Fall (NPNF)",
+    "language": "en",
+    "kind": "historicalTranslation",
+    "translator": "W. R. W. Stephens",
+    "series": "Nicene and Post-Nicene Fathers, 1. Serie, Bd. 9",
+    "year": "1889",
+    "rights": "publicDomain",
+    "rightsNote": "Englische Übersetzung des 19. Jahrhunderts, erschienen 1889 (NPNF, hg. von Philip Schaff und Henry Wace). Die Übersetzer und Bearbeiter waren Gelehrte des 19. Jahrhunderts und sind nach allgemeiner Kenntnis lange vor 1956 gestorben (Lebensdaten nicht einzeln per GND geprüft, da aus der Cloud nicht erreichbar); in den USA gemeinfrei, weil vor 1931 erschienen. Digitalisat aus der Sammlung HistoricalChristianFaith (dort als gemeinfrei ausgewiesen).",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub), nach der NPNF-Ausgabe",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/John%20Chrysostom/An%20Exhortation%20to%20Theodore%20After%20His%20Fall",
+    "availability": "full"
+   },
+   "files": [
+    "John Chrysostom/An Exhortation to Theodore After His Fall/Letter 1.html",
+    "John Chrysostom/An Exhortation to Theodore After His Fall/Letter 2.html"
+   ],
+   "split": "auto"
+  },
+  {
+   "source": "hcf",
+   "author": "johannes_chrysostomus",
+   "work": {
+    "id": "chrysostomus.ad_viduam",
+    "title": "Brief an eine junge Witwe",
+    "originalTitle": "Ad viduam iuniorem",
+    "genre": "Briefe",
+    "originalLanguage": "grc"
+   },
+   "version": {
+    "id": "npnf.chrysostomus.ad_viduam",
+    "title": "Letter to a Young Widow (NPNF)",
+    "language": "en",
+    "kind": "historicalTranslation",
+    "translator": "W. R. W. Stephens",
+    "series": "Nicene and Post-Nicene Fathers, 1. Serie, Bd. 9",
+    "year": "1889",
+    "rights": "publicDomain",
+    "rightsNote": "Englische Übersetzung des 19. Jahrhunderts, erschienen 1889 (NPNF, hg. von Philip Schaff und Henry Wace). Die Übersetzer und Bearbeiter waren Gelehrte des 19. Jahrhunderts und sind nach allgemeiner Kenntnis lange vor 1956 gestorben (Lebensdaten nicht einzeln per GND geprüft, da aus der Cloud nicht erreichbar); in den USA gemeinfrei, weil vor 1931 erschienen. Digitalisat aus der Sammlung HistoricalChristianFaith (dort als gemeinfrei ausgewiesen).",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub), nach der NPNF-Ausgabe",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/John%20Chrysostom/Letter%20to%20a%20Young%20Widow.html",
+    "availability": "full"
+   },
+   "files": [
+    "John Chrysostom/Letter to a Young Widow.html"
+   ],
+   "split": "auto"
+  },
+  {
+   "source": "hcf",
+   "author": "johannes_chrysostomus",
+   "work": {
+    "id": "chrysostomus.quod_nemo",
+    "title": "Dass niemand geschädigt wird, der sich nicht selbst schadet",
+    "originalTitle": "Quod nemo laeditur nisi a se ipso",
+    "genre": "Abhandlung",
+    "originalLanguage": "grc"
+   },
+   "version": {
+    "id": "npnf.chrysostomus.quod_nemo",
+    "title": "A Treatise to Prove that No One Can Harm the Man Who Does Not Injure Himself (NPNF)",
+    "language": "en",
+    "kind": "historicalTranslation",
+    "series": "Nicene and Post-Nicene Fathers, 1. Serie, Bd. 9",
+    "year": "1889",
+    "rights": "publicDomain",
+    "rightsNote": "Englische Übersetzung des 19. Jahrhunderts, erschienen 1889 (NPNF, hg. von Philip Schaff und Henry Wace). Die Übersetzer und Bearbeiter waren Gelehrte des 19. Jahrhunderts und sind nach allgemeiner Kenntnis lange vor 1956 gestorben (Lebensdaten nicht einzeln per GND geprüft, da aus der Cloud nicht erreichbar); in den USA gemeinfrei, weil vor 1931 erschienen. Digitalisat aus der Sammlung HistoricalChristianFaith (dort als gemeinfrei ausgewiesen).",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub), nach der NPNF-Ausgabe",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/John%20Chrysostom/A%20Treatise%20to%20Prove%20that%20No%20One%20Can%20Harm%20the%20Man%20Who%20Does%20Not%20Injure%20Himself.html",
+    "availability": "full"
+   },
+   "files": [
+    "John Chrysostom/A Treatise to Prove that No One Can Harm the Man Who Does Not Injure Himself.html"
+   ],
+   "split": "auto"
+  },
+  {
+   "source": "hcf",
+   "author": "johannes_chrysostomus",
+   "work": {
+    "id": "chrysostomus.ad_olympiadem",
+    "title": "Briefe an Olympias",
+    "originalTitle": "Epistulae ad Olympiadem",
+    "genre": "Briefe",
+    "originalLanguage": "grc"
+   },
+   "version": {
+    "id": "npnf.chrysostomus.ad_olympiadem",
+    "title": "Letters to Olympias (NPNF, Auswahl)",
+    "language": "en",
+    "kind": "historicalTranslation",
+    "series": "Nicene and Post-Nicene Fathers, 1. Serie, Bd. 9",
+    "year": "1889",
+    "rights": "publicDomain",
+    "rightsNote": "Englische Übersetzung des 19. Jahrhunderts, erschienen 1889 (NPNF, hg. von Philip Schaff und Henry Wace). Die Übersetzer und Bearbeiter waren Gelehrte des 19. Jahrhunderts und sind nach allgemeiner Kenntnis lange vor 1956 gestorben (Lebensdaten nicht einzeln per GND geprüft, da aus der Cloud nicht erreichbar); in den USA gemeinfrei, weil vor 1931 erschienen. Digitalisat aus der Sammlung HistoricalChristianFaith (dort als gemeinfrei ausgewiesen). Die Vorlage enthält 5 der 17 überlieferten Briefe an Olympias.",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub), nach der NPNF-Ausgabe",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/John%20Chrysostom/Letters%20to%20Olympias",
+    "availability": "partial"
+   },
+   "files": [
+    "John Chrysostom/Letters to Olympias/1 - To My Lady.html",
+    "John Chrysostom/Letters to Olympias/2 - To Olympias.html",
+    "John Chrysostom/Letters to Olympias/3 - To Olympias.html",
+    "John Chrysostom/Letters to Olympias/4 - To Olympias.html",
+    "John Chrysostom/Letters to Olympias/5 - To Olympias.html"
+   ],
+   "split": "auto"
+  },
+  {
+   "source": "hcf",
+   "author": "johannes_chrysostomus",
+   "work": {
+    "id": "chrysostomus.ad_innocentium",
+    "title": "Briefwechsel mit Innozenz, Bischof von Rom",
+    "originalTitle": "Epistulae ad Innocentium papam",
+    "genre": "Briefe",
+    "originalLanguage": "grc"
+   },
+   "version": {
+    "id": "npnf.chrysostomus.ad_innocentium",
+    "title": "Correspondence with Innocent, Bishop of Rome (NPNF)",
+    "language": "en",
+    "kind": "historicalTranslation",
+    "series": "Nicene and Post-Nicene Fathers, 1. Serie, Bd. 9",
+    "year": "1889",
+    "rights": "publicDomain",
+    "rightsNote": "Englische Übersetzung des 19. Jahrhunderts, erschienen 1889 (NPNF, hg. von Philip Schaff und Henry Wace). Die Übersetzer und Bearbeiter waren Gelehrte des 19. Jahrhunderts und sind nach allgemeiner Kenntnis lange vor 1956 gestorben (Lebensdaten nicht einzeln per GND geprüft, da aus der Cloud nicht erreichbar); in den USA gemeinfrei, weil vor 1931 erschienen. Digitalisat aus der Sammlung HistoricalChristianFaith (dort als gemeinfrei ausgewiesen). Enthält auch die Antwortbriefe des Innozenz (nicht von Chrysostomus).",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub), nach der NPNF-Ausgabe",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/John%20Chrysostom/Correspondence%20of%20St.%20Chrysostom%20with%20Innocent,%20Bishop%20of%20Rome.html",
+    "availability": "full"
+   },
+   "files": [
+    "John Chrysostom/Correspondence of St. Chrysostom with Innocent, Bishop of Rome.html"
+   ],
+   "split": "auto"
+  },
+  {
+   "source": "hcf",
+   "author": "johannes_chrysostomus",
+   "work": {
+    "id": "chrysostomus.de_humilitate",
+    "title": "Über die Demut (zu Phil 1,18)",
+    "originalTitle": "In illud: Sive per occasionem, sive per veritatem",
+    "genre": "Homilien",
+    "originalLanguage": "grc"
+   },
+   "version": {
+    "id": "npnf.chrysostomus.de_humilitate",
+    "title": "Concerning Lowliness of Mind (NPNF)",
+    "language": "en",
+    "kind": "historicalTranslation",
+    "series": "Nicene and Post-Nicene Fathers, 1. Serie, Bd. 9",
+    "year": "1889",
+    "rights": "publicDomain",
+    "rightsNote": "Englische Übersetzung des 19. Jahrhunderts, erschienen 1889 (NPNF, hg. von Philip Schaff und Henry Wace). Die Übersetzer und Bearbeiter waren Gelehrte des 19. Jahrhunderts und sind nach allgemeiner Kenntnis lange vor 1956 gestorben (Lebensdaten nicht einzeln per GND geprüft, da aus der Cloud nicht erreichbar); in den USA gemeinfrei, weil vor 1931 erschienen. Digitalisat aus der Sammlung HistoricalChristianFaith (dort als gemeinfrei ausgewiesen).",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub), nach der NPNF-Ausgabe",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/John%20Chrysostom/Concerning%20Lowliness%20of%20Mind.html",
+    "availability": "full"
+   },
+   "files": [
+    "John Chrysostom/Concerning Lowliness of Mind.html"
+   ],
+   "split": "auto"
+  },
+  {
+   "source": "hcf",
+   "author": "johannes_chrysostomus",
+   "work": {
+    "id": "chrysostomus.contra_marcionistas",
+    "title": "Gegen Markioniten und Manichäer (zu Mt 26,39)",
+    "originalTitle": "In illud: Pater, si possibile est, transeat",
+    "genre": "Homilien",
+    "originalLanguage": "grc"
+   },
+   "version": {
+    "id": "npnf.chrysostomus.contra_marcionistas",
+    "title": "Against Marcionists and Manichaeans (NPNF)",
+    "language": "en",
+    "kind": "historicalTranslation",
+    "series": "Nicene and Post-Nicene Fathers, 1. Serie, Bd. 9",
+    "year": "1889",
+    "rights": "publicDomain",
+    "rightsNote": "Englische Übersetzung des 19. Jahrhunderts, erschienen 1889 (NPNF, hg. von Philip Schaff und Henry Wace). Die Übersetzer und Bearbeiter waren Gelehrte des 19. Jahrhunderts und sind nach allgemeiner Kenntnis lange vor 1956 gestorben (Lebensdaten nicht einzeln per GND geprüft, da aus der Cloud nicht erreichbar); in den USA gemeinfrei, weil vor 1931 erschienen. Digitalisat aus der Sammlung HistoricalChristianFaith (dort als gemeinfrei ausgewiesen).",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub), nach der NPNF-Ausgabe",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/John%20Chrysostom/Against%20Marcionists%20and%20Manichaeans.html",
+    "availability": "full"
+   },
+   "files": [
+    "John Chrysostom/Against Marcionists and Manichaeans.html"
+   ],
+   "split": "auto"
+  },
+  {
+   "source": "hcf",
+   "author": "johannes_chrysostomus",
+   "work": {
+    "id": "chrysostomus.de_fratrum_peccatis",
+    "title": "Dass man die Fehler der Brüder nicht öffentlich machen soll",
+    "genre": "Homilien",
+    "originalLanguage": "grc"
+   },
+   "version": {
+    "id": "npnf.chrysostomus.de_fratrum_peccatis",
+    "title": "Against Publishing the Errors of the Brethren (NPNF)",
+    "language": "en",
+    "kind": "historicalTranslation",
+    "series": "Nicene and Post-Nicene Fathers, 1. Serie, Bd. 9",
+    "year": "1889",
+    "rights": "publicDomain",
+    "rightsNote": "Englische Übersetzung des 19. Jahrhunderts, erschienen 1889 (NPNF, hg. von Philip Schaff und Henry Wace). Die Übersetzer und Bearbeiter waren Gelehrte des 19. Jahrhunderts und sind nach allgemeiner Kenntnis lange vor 1956 gestorben (Lebensdaten nicht einzeln per GND geprüft, da aus der Cloud nicht erreichbar); in den USA gemeinfrei, weil vor 1931 erschienen. Digitalisat aus der Sammlung HistoricalChristianFaith (dort als gemeinfrei ausgewiesen).",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub), nach der NPNF-Ausgabe",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/John%20Chrysostom/Homilies/Against%20Publishing%20the%20Errors%20of%20the%20Brethren.html",
+    "availability": "full"
+   },
+   "files": [
+    "John Chrysostom/Homilies/Against Publishing the Errors of the Brethren.html"
+   ],
+   "split": "auto"
+  },
+  {
+   "source": "hcf",
+   "author": "johannes_chrysostomus",
+   "work": {
+    "id": "chrysostomus.de_diabolo",
+    "title": "Dass die Dämonen die Welt nicht regieren (3 Homilien)",
+    "originalTitle": "De diabolo tentatore",
+    "genre": "Homilien",
+    "originalLanguage": "grc"
+   },
+   "version": {
+    "id": "npnf.chrysostomus.de_diabolo",
+    "title": "Concerning the Power of Demons (NPNF)",
+    "language": "en",
+    "kind": "historicalTranslation",
+    "series": "Nicene and Post-Nicene Fathers, 1. Serie, Bd. 9",
+    "year": "1889",
+    "rights": "publicDomain",
+    "rightsNote": "Englische Übersetzung des 19. Jahrhunderts, erschienen 1889 (NPNF, hg. von Philip Schaff und Henry Wace). Die Übersetzer und Bearbeiter waren Gelehrte des 19. Jahrhunderts und sind nach allgemeiner Kenntnis lange vor 1956 gestorben (Lebensdaten nicht einzeln per GND geprüft, da aus der Cloud nicht erreichbar); in den USA gemeinfrei, weil vor 1931 erschienen. Digitalisat aus der Sammlung HistoricalChristianFaith (dort als gemeinfrei ausgewiesen).",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub), nach der NPNF-Ausgabe",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/John%20Chrysostom/Homilies/Concerning%20the%20Power%20of%20Demons",
+    "availability": "full"
+   },
+   "files": [
+    "John Chrysostom/Homilies/Concerning the Power of Demons/Homily 1.html",
+    "John Chrysostom/Homilies/Concerning the Power of Demons/Homily 2.html",
+    "John Chrysostom/Homilies/Concerning the Power of Demons/Homily 3.html"
+   ],
+   "split": "auto"
+  },
+  {
+   "source": "hcf",
+   "author": "johannes_chrysostomus",
+   "work": {
+    "id": "chrysostomus.in_ignatium",
+    "title": "Lobrede auf den heiligen Märtyrer Ignatius",
+    "originalTitle": "In sanctum Ignatium martyrem",
+    "genre": "Predigten",
+    "originalLanguage": "grc"
+   },
+   "version": {
+    "id": "npnf.chrysostomus.in_ignatium",
+    "title": "Eulogy on Saint Ignatius (NPNF)",
+    "language": "en",
+    "kind": "historicalTranslation",
+    "series": "Nicene and Post-Nicene Fathers, 1. Serie, Bd. 9",
+    "year": "1889",
+    "rights": "publicDomain",
+    "rightsNote": "Englische Übersetzung des 19. Jahrhunderts, erschienen 1889 (NPNF, hg. von Philip Schaff und Henry Wace). Die Übersetzer und Bearbeiter waren Gelehrte des 19. Jahrhunderts und sind nach allgemeiner Kenntnis lange vor 1956 gestorben (Lebensdaten nicht einzeln per GND geprüft, da aus der Cloud nicht erreichbar); in den USA gemeinfrei, weil vor 1931 erschienen. Digitalisat aus der Sammlung HistoricalChristianFaith (dort als gemeinfrei ausgewiesen).",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub), nach der NPNF-Ausgabe",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/John%20Chrysostom/Eulogy%20Saint%20Ignatius.html",
+    "availability": "full"
+   },
+   "files": [
+    "John Chrysostom/Eulogy Saint Ignatius.html"
+   ],
+   "split": "auto"
+  },
+  {
+   "source": "hcf",
+   "author": "johannes_chrysostomus",
+   "work": {
+    "id": "chrysostomus.in_babylam",
+    "title": "Auf den heiligen Märtyrer Babylas",
+    "originalTitle": "In sanctum Babylam",
+    "genre": "Predigten",
+    "originalLanguage": "grc"
+   },
+   "version": {
+    "id": "npnf.chrysostomus.in_babylam",
+    "title": "On the Holy Martyr S. Babylas (NPNF)",
+    "language": "en",
+    "kind": "historicalTranslation",
+    "series": "Nicene and Post-Nicene Fathers, 1. Serie, Bd. 9",
+    "year": "1889",
+    "rights": "publicDomain",
+    "rightsNote": "Englische Übersetzung des 19. Jahrhunderts, erschienen 1889 (NPNF, hg. von Philip Schaff und Henry Wace). Die Übersetzer und Bearbeiter waren Gelehrte des 19. Jahrhunderts und sind nach allgemeiner Kenntnis lange vor 1956 gestorben (Lebensdaten nicht einzeln per GND geprüft, da aus der Cloud nicht erreichbar); in den USA gemeinfrei, weil vor 1931 erschienen. Digitalisat aus der Sammlung HistoricalChristianFaith (dort als gemeinfrei ausgewiesen).",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub), nach der NPNF-Ausgabe",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/John%20Chrysostom/On%20the%20Holy%20Martyr,%20S.%20Babylas.html",
+    "availability": "full"
+   },
+   "files": [
+    "John Chrysostom/On the Holy Martyr, S. Babylas.html"
+   ],
+   "split": "auto"
+  },
+  {
+   "source": "hcf",
+   "author": "johannes_chrysostomus",
+   "work": {
+    "id": "chrysostomus.catecheses",
+    "title": "Katechesen für die Täuflinge",
+    "originalTitle": "Catecheses ad illuminandos",
+    "genre": "Katechesen",
+    "originalLanguage": "grc"
+   },
+   "version": {
+    "id": "npnf.chrysostomus.catecheses",
+    "title": "Instructions to Catechumens (NPNF)",
+    "language": "en",
+    "kind": "historicalTranslation",
+    "series": "Nicene and Post-Nicene Fathers, 1. Serie, Bd. 9",
+    "year": "1889",
+    "rights": "publicDomain",
+    "rightsNote": "Englische Übersetzung des 19. Jahrhunderts, erschienen 1889 (NPNF, hg. von Philip Schaff und Henry Wace). Die Übersetzer und Bearbeiter waren Gelehrte des 19. Jahrhunderts und sind nach allgemeiner Kenntnis lange vor 1956 gestorben (Lebensdaten nicht einzeln per GND geprüft, da aus der Cloud nicht erreichbar); in den USA gemeinfrei, weil vor 1931 erschienen. Digitalisat aus der Sammlung HistoricalChristianFaith (dort als gemeinfrei ausgewiesen). Die Vorlage enthält die beiden in NPNF übersetzten Katechesen; weitere Katechesen des Chrysostomus (u. a. die Reihe Papadopoulos-Kerameus/Wenger) fehlen.",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub), nach der NPNF-Ausgabe",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/John%20Chrysostom/Instructions%20to%20Catechumens",
+    "availability": "partial"
+   },
+   "files": [
+    "John Chrysostom/Instructions to Catechumens/First Instruction.html",
+    "John Chrysostom/Instructions to Catechumens/Second Instruction.html"
+   ],
+   "split": "auto"
+  },
+  {
+   "source": "hcf",
+   "author": "johannes_chrysostomus",
+   "work": {
+    "id": "chrysostomus.in_paralyticum",
+    "title": "Über den Gelähmten, der durch das Dach herabgelassen wurde",
+    "originalTitle": "In paralyticum per tectum demissum",
+    "genre": "Homilien",
+    "originalLanguage": "grc"
+   },
+   "version": {
+    "id": "npnf.chrysostomus.in_paralyticum",
+    "title": "On the Paralytic Let Down Through the Roof (NPNF)",
+    "language": "en",
+    "kind": "historicalTranslation",
+    "series": "Nicene and Post-Nicene Fathers, 1. Serie, Bd. 9",
+    "year": "1889",
+    "rights": "publicDomain",
+    "rightsNote": "Englische Übersetzung des 19. Jahrhunderts, erschienen 1889 (NPNF, hg. von Philip Schaff und Henry Wace). Die Übersetzer und Bearbeiter waren Gelehrte des 19. Jahrhunderts und sind nach allgemeiner Kenntnis lange vor 1956 gestorben (Lebensdaten nicht einzeln per GND geprüft, da aus der Cloud nicht erreichbar); in den USA gemeinfrei, weil vor 1931 erschienen. Digitalisat aus der Sammlung HistoricalChristianFaith (dort als gemeinfrei ausgewiesen).",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub), nach der NPNF-Ausgabe",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/John%20Chrysostom/Homilies/On%20the%20Paralytic%20Let%20Down%20Through%20the%20Roof.html",
+    "availability": "full"
+   },
+   "files": [
+    "John Chrysostom/Homilies/On the Paralytic Let Down Through the Roof.html"
+   ],
+   "split": "auto"
+  },
+  {
+   "source": "hcf",
+   "author": "johannes_chrysostomus",
+   "work": {
+    "id": "chrysostomus.in_eutropium",
+    "title": "Homilien über Eutropius",
+    "originalTitle": "In Eutropium; De capto Eutropio",
+    "genre": "Homilien",
+    "originalLanguage": "grc"
+   },
+   "version": {
+    "id": "npnf.chrysostomus.in_eutropium",
+    "title": "Homilies on Eutropius (NPNF)",
+    "language": "en",
+    "kind": "historicalTranslation",
+    "series": "Nicene and Post-Nicene Fathers, 1. Serie, Bd. 9",
+    "year": "1889",
+    "rights": "publicDomain",
+    "rightsNote": "Englische Übersetzung des 19. Jahrhunderts, erschienen 1889 (NPNF, hg. von Philip Schaff und Henry Wace). Die Übersetzer und Bearbeiter waren Gelehrte des 19. Jahrhunderts und sind nach allgemeiner Kenntnis lange vor 1956 gestorben (Lebensdaten nicht einzeln per GND geprüft, da aus der Cloud nicht erreichbar); in den USA gemeinfrei, weil vor 1931 erschienen. Digitalisat aus der Sammlung HistoricalChristianFaith (dort als gemeinfrei ausgewiesen).",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub), nach der NPNF-Ausgabe",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/John%20Chrysostom/Homilies/On%20Eutropius",
+    "availability": "full"
+   },
+   "files": [
+    "John Chrysostom/Homilies/On Eutropius/Homily 1.html",
+    "John Chrysostom/Homilies/On Eutropius/Homily 2.html"
+   ],
+   "split": "auto"
+  },
+  {
+   "source": "hcf",
+   "author": "johannes_chrysostomus",
+   "work": {
+    "id": "chrysostomus.de_statuis",
+    "title": "Homilien über die Bildsäulen",
+    "originalTitle": "Ad populum Antiochenum de statuis",
+    "genre": "Homilien",
+    "originalLanguage": "grc"
+   },
+   "version": {
+    "id": "npnf.chrysostomus.de_statuis",
+    "title": "Homilies on the Statues (NPNF)",
+    "language": "en",
+    "kind": "historicalTranslation",
+    "series": "Nicene and Post-Nicene Fathers, 1. Serie, Bd. 9",
+    "year": "1889",
+    "rights": "publicDomain",
+    "rightsNote": "Englische Übersetzung des 19. Jahrhunderts, erschienen 1889 (NPNF, hg. von Philip Schaff und Henry Wace). Die Übersetzer und Bearbeiter waren Gelehrte des 19. Jahrhunderts und sind nach allgemeiner Kenntnis lange vor 1956 gestorben (Lebensdaten nicht einzeln per GND geprüft, da aus der Cloud nicht erreichbar); in den USA gemeinfrei, weil vor 1931 erschienen. Digitalisat aus der Sammlung HistoricalChristianFaith (dort als gemeinfrei ausgewiesen).",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub), nach der NPNF-Ausgabe",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/John%20Chrysostom/Homilies/Concerning%20the%20Statues",
+    "availability": "full"
+   },
+   "files": [
+    "John Chrysostom/Homilies/Concerning the Statues/Homily 1.html",
+    "John Chrysostom/Homilies/Concerning the Statues/Homily 2.html",
+    "John Chrysostom/Homilies/Concerning the Statues/Homily 3.html",
+    "John Chrysostom/Homilies/Concerning the Statues/Homily 4.html",
+    "John Chrysostom/Homilies/Concerning the Statues/Homily 5.html",
+    "John Chrysostom/Homilies/Concerning the Statues/Homily 6.html",
+    "John Chrysostom/Homilies/Concerning the Statues/Homily 7.html",
+    "John Chrysostom/Homilies/Concerning the Statues/Homily 8.html",
+    "John Chrysostom/Homilies/Concerning the Statues/Homily 9.html",
+    "John Chrysostom/Homilies/Concerning the Statues/Homily 10.html",
+    "John Chrysostom/Homilies/Concerning the Statues/Homily 11.html",
+    "John Chrysostom/Homilies/Concerning the Statues/Homily 12.html",
+    "John Chrysostom/Homilies/Concerning the Statues/Homily 13.html",
+    "John Chrysostom/Homilies/Concerning the Statues/Homily 14.html",
+    "John Chrysostom/Homilies/Concerning the Statues/Homily 15.html",
+    "John Chrysostom/Homilies/Concerning the Statues/Homily 16.html",
+    "John Chrysostom/Homilies/Concerning the Statues/Homily 17.html",
+    "John Chrysostom/Homilies/Concerning the Statues/Homily 18.html",
+    "John Chrysostom/Homilies/Concerning the Statues/Homily 19.html",
+    "John Chrysostom/Homilies/Concerning the Statues/Homily 20.html",
+    "John Chrysostom/Homilies/Concerning the Statues/Homily 21.html"
+   ],
+   "split": "file"
+  },
+  {
+   "source": "hcf",
+   "author": "johannes_chrysostomus",
+   "work": {
+    "id": "chrysostomus.hom_mt",
+    "title": "Homilien über das Matthäusevangelium",
+    "originalTitle": "Homiliae in Matthaeum",
+    "clavis": "CPG 4424",
+    "genre": "Homilien",
+    "originalLanguage": "grc"
+   },
+   "version": {
+    "id": "npnf.chrysostomus.hom_mt",
+    "title": "Homilies On Matthew (NPNF)",
+    "language": "en",
+    "kind": "historicalTranslation",
+    "series": "Nicene and Post-Nicene Fathers, 1. Serie, Bd. 10",
+    "year": "1888",
+    "rights": "publicDomain",
+    "rightsNote": "Englische Übersetzung des 19. Jahrhunderts, erschienen 1888 (NPNF, hg. von Philip Schaff und Henry Wace). Die Übersetzer und Bearbeiter waren Gelehrte des 19. Jahrhunderts und sind nach allgemeiner Kenntnis lange vor 1956 gestorben (Lebensdaten nicht einzeln per GND geprüft, da aus der Cloud nicht erreichbar); in den USA gemeinfrei, weil vor 1931 erschienen. Digitalisat aus der Sammlung HistoricalChristianFaith (dort als gemeinfrei ausgewiesen).",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub), nach der NPNF-Ausgabe",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/John%20Chrysostom/Homilies/On%20Matthew",
+    "availability": "full"
+   },
+   "files": [
+    "John Chrysostom/Homilies/On Matthew/Homily 1.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 2.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 3.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 4.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 5.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 6.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 7.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 8.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 9.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 10.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 11.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 12.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 13.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 14.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 15.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 16.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 17.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 18.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 19.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 20.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 21.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 22.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 23.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 24.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 25.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 26.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 27.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 28.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 29.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 30.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 31.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 32.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 33.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 34.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 35.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 36.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 37.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 38.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 39.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 40.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 41.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 42.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 43.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 44.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 45.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 46.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 47.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 48.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 49.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 50.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 51.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 52.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 53.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 54.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 55.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 56.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 57.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 58.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 59.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 60.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 61.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 62.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 63.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 64.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 65.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 66.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 67.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 68.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 69.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 70.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 71.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 72.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 73.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 74.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 75.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 76.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 77.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 78.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 79.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 80.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 81.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 82.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 83.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 84.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 85.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 86.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 87.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 88.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 89.html",
+    "John Chrysostom/Homilies/On Matthew/Homily 90.html"
+   ],
+   "split": "file",
+   "passageBook": "MAT"
+  },
+  {
+   "source": "hcf",
+   "author": "johannes_chrysostomus",
+   "work": {
+    "id": "chrysostomus.hom_jo",
+    "title": "Homilien über das Johannesevangelium",
+    "originalTitle": "Homiliae in Ioannem",
+    "clavis": "CPG 4425",
+    "genre": "Homilien",
+    "originalLanguage": "grc"
+   },
+   "version": {
+    "id": "npnf.chrysostomus.hom_jo",
+    "title": "Homilies On John (NPNF)",
+    "language": "en",
+    "kind": "historicalTranslation",
+    "series": "Nicene and Post-Nicene Fathers, 1. Serie, Bd. 14",
+    "year": "1889",
+    "rights": "publicDomain",
+    "rightsNote": "Englische Übersetzung des 19. Jahrhunderts, erschienen 1889 (NPNF, hg. von Philip Schaff und Henry Wace). Die Übersetzer und Bearbeiter waren Gelehrte des 19. Jahrhunderts und sind nach allgemeiner Kenntnis lange vor 1956 gestorben (Lebensdaten nicht einzeln per GND geprüft, da aus der Cloud nicht erreichbar); in den USA gemeinfrei, weil vor 1931 erschienen. Digitalisat aus der Sammlung HistoricalChristianFaith (dort als gemeinfrei ausgewiesen).",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub), nach der NPNF-Ausgabe",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/John%20Chrysostom/Homilies/On%20John",
+    "availability": "full"
+   },
+   "files": [
+    "John Chrysostom/Homilies/On John/Homily 1.html",
+    "John Chrysostom/Homilies/On John/Homily 2.html",
+    "John Chrysostom/Homilies/On John/Homily 3.html",
+    "John Chrysostom/Homilies/On John/Homily 4.html",
+    "John Chrysostom/Homilies/On John/Homily 5.html",
+    "John Chrysostom/Homilies/On John/Homily 6.html",
+    "John Chrysostom/Homilies/On John/Homily 7.html",
+    "John Chrysostom/Homilies/On John/Homily 8.html",
+    "John Chrysostom/Homilies/On John/Homily 9.html",
+    "John Chrysostom/Homilies/On John/Homily 10.html",
+    "John Chrysostom/Homilies/On John/Homily 11.html",
+    "John Chrysostom/Homilies/On John/Homily 12.html",
+    "John Chrysostom/Homilies/On John/Homily 13.html",
+    "John Chrysostom/Homilies/On John/Homily 14.html",
+    "John Chrysostom/Homilies/On John/Homily 15.html",
+    "John Chrysostom/Homilies/On John/Homily 16.html",
+    "John Chrysostom/Homilies/On John/Homily 17.html",
+    "John Chrysostom/Homilies/On John/Homily 18.html",
+    "John Chrysostom/Homilies/On John/Homily 19.html",
+    "John Chrysostom/Homilies/On John/Homily 20.html",
+    "John Chrysostom/Homilies/On John/Homily 21.html",
+    "John Chrysostom/Homilies/On John/Homily 22.html",
+    "John Chrysostom/Homilies/On John/Homily 23.html",
+    "John Chrysostom/Homilies/On John/Homily 24.html",
+    "John Chrysostom/Homilies/On John/Homily 25.html",
+    "John Chrysostom/Homilies/On John/Homily 26.html",
+    "John Chrysostom/Homilies/On John/Homily 27.html",
+    "John Chrysostom/Homilies/On John/Homily 28.html",
+    "John Chrysostom/Homilies/On John/Homily 29.html",
+    "John Chrysostom/Homilies/On John/Homily 30.html",
+    "John Chrysostom/Homilies/On John/Homily 31.html",
+    "John Chrysostom/Homilies/On John/Homily 32.html",
+    "John Chrysostom/Homilies/On John/Homily 33.html",
+    "John Chrysostom/Homilies/On John/Homily 34.html",
+    "John Chrysostom/Homilies/On John/Homily 35.html",
+    "John Chrysostom/Homilies/On John/Homily 36.html",
+    "John Chrysostom/Homilies/On John/Homily 37.html",
+    "John Chrysostom/Homilies/On John/Homily 38.html",
+    "John Chrysostom/Homilies/On John/Homily 39.html",
+    "John Chrysostom/Homilies/On John/Homily 40.html",
+    "John Chrysostom/Homilies/On John/Homily 41.html",
+    "John Chrysostom/Homilies/On John/Homily 42.html",
+    "John Chrysostom/Homilies/On John/Homily 43.html",
+    "John Chrysostom/Homilies/On John/Homily 44.html",
+    "John Chrysostom/Homilies/On John/Homily 45.html",
+    "John Chrysostom/Homilies/On John/Homily 46.html",
+    "John Chrysostom/Homilies/On John/Homily 47.html",
+    "John Chrysostom/Homilies/On John/Homily 48.html",
+    "John Chrysostom/Homilies/On John/Homily 49.html",
+    "John Chrysostom/Homilies/On John/Homily 50.html",
+    "John Chrysostom/Homilies/On John/Homily 51.html",
+    "John Chrysostom/Homilies/On John/Homily 52.html",
+    "John Chrysostom/Homilies/On John/Homily 53.html",
+    "John Chrysostom/Homilies/On John/Homily 54.html",
+    "John Chrysostom/Homilies/On John/Homily 55.html",
+    "John Chrysostom/Homilies/On John/Homily 56.html",
+    "John Chrysostom/Homilies/On John/Homily 57.html",
+    "John Chrysostom/Homilies/On John/Homily 58.html",
+    "John Chrysostom/Homilies/On John/Homily 59.html",
+    "John Chrysostom/Homilies/On John/Homily 60.html",
+    "John Chrysostom/Homilies/On John/Homily 61.html",
+    "John Chrysostom/Homilies/On John/Homily 62.html",
+    "John Chrysostom/Homilies/On John/Homily 63.html",
+    "John Chrysostom/Homilies/On John/Homily 64.html",
+    "John Chrysostom/Homilies/On John/Homily 65.html",
+    "John Chrysostom/Homilies/On John/Homily 66.html",
+    "John Chrysostom/Homilies/On John/Homily 67.html",
+    "John Chrysostom/Homilies/On John/Homily 68.html",
+    "John Chrysostom/Homilies/On John/Homily 69.html",
+    "John Chrysostom/Homilies/On John/Homily 70.html",
+    "John Chrysostom/Homilies/On John/Homily 71.html",
+    "John Chrysostom/Homilies/On John/Homily 72.html",
+    "John Chrysostom/Homilies/On John/Homily 73.html",
+    "John Chrysostom/Homilies/On John/Homily 74.html",
+    "John Chrysostom/Homilies/On John/Homily 75.html",
+    "John Chrysostom/Homilies/On John/Homily 76.html",
+    "John Chrysostom/Homilies/On John/Homily 77.html",
+    "John Chrysostom/Homilies/On John/Homily 78.html",
+    "John Chrysostom/Homilies/On John/Homily 79.html",
+    "John Chrysostom/Homilies/On John/Homily 80.html",
+    "John Chrysostom/Homilies/On John/Homily 81.html",
+    "John Chrysostom/Homilies/On John/Homily 82.html",
+    "John Chrysostom/Homilies/On John/Homily 83.html",
+    "John Chrysostom/Homilies/On John/Homily 84.html",
+    "John Chrysostom/Homilies/On John/Homily 85.html",
+    "John Chrysostom/Homilies/On John/Homily 86.html",
+    "John Chrysostom/Homilies/On John/Homily 87.html",
+    "John Chrysostom/Homilies/On John/Homily 88.html"
+   ],
+   "split": "file",
+   "passageBook": "JHN"
+  },
+  {
+   "source": "hcf",
+   "author": "johannes_chrysostomus",
+   "work": {
+    "id": "chrysostomus.hom_act",
+    "title": "Homilien über die Apostelgeschichte",
+    "originalTitle": "Homiliae in Acta apostolorum",
+    "clavis": "CPG 4426",
+    "genre": "Homilien",
+    "originalLanguage": "grc"
+   },
+   "version": {
+    "id": "npnf.chrysostomus.hom_act",
+    "title": "Homilies On the Acts of the Apostles (NPNF)",
+    "language": "en",
+    "kind": "historicalTranslation",
+    "series": "Nicene and Post-Nicene Fathers, 1. Serie, Bd. 11",
+    "year": "1889",
+    "rights": "publicDomain",
+    "rightsNote": "Englische Übersetzung des 19. Jahrhunderts, erschienen 1889 (NPNF, hg. von Philip Schaff und Henry Wace). Die Übersetzer und Bearbeiter waren Gelehrte des 19. Jahrhunderts und sind nach allgemeiner Kenntnis lange vor 1956 gestorben (Lebensdaten nicht einzeln per GND geprüft, da aus der Cloud nicht erreichbar); in den USA gemeinfrei, weil vor 1931 erschienen. Digitalisat aus der Sammlung HistoricalChristianFaith (dort als gemeinfrei ausgewiesen).",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub), nach der NPNF-Ausgabe",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/John%20Chrysostom/Homilies/On%20the%20Acts%20of%20the%20Apostles",
+    "availability": "full"
+   },
+   "files": [
+    "John Chrysostom/Homilies/On the Acts of the Apostles/Homily 1.html",
+    "John Chrysostom/Homilies/On the Acts of the Apostles/Homily 2.html",
+    "John Chrysostom/Homilies/On the Acts of the Apostles/Homily 3.html",
+    "John Chrysostom/Homilies/On the Acts of the Apostles/Homily 4.html",
+    "John Chrysostom/Homilies/On the Acts of the Apostles/Homily 5.html",
+    "John Chrysostom/Homilies/On the Acts of the Apostles/Homily 6.html",
+    "John Chrysostom/Homilies/On the Acts of the Apostles/Homily 7.html",
+    "John Chrysostom/Homilies/On the Acts of the Apostles/Homily 8.html",
+    "John Chrysostom/Homilies/On the Acts of the Apostles/Homily 9.html",
+    "John Chrysostom/Homilies/On the Acts of the Apostles/Homily 10.html",
+    "John Chrysostom/Homilies/On the Acts of the Apostles/Homily 11.html",
+    "John Chrysostom/Homilies/On the Acts of the Apostles/Homily 12.html",
+    "John Chrysostom/Homilies/On the Acts of the Apostles/Homily 13.html",
+    "John Chrysostom/Homilies/On the Acts of the Apostles/Homily 14.html",
+    "John Chrysostom/Homilies/On the Acts of the Apostles/Homily 15.html",
+    "John Chrysostom/Homilies/On the Acts of the Apostles/Homily 16.html",
+    "John Chrysostom/Homilies/On the Acts of the Apostles/Homily 17.html",
+    "John Chrysostom/Homilies/On the Acts of the Apostles/Homily 18.html",
+    "John Chrysostom/Homilies/On the Acts of the Apostles/Homily 19.html",
+    "John Chrysostom/Homilies/On the Acts of the Apostles/Homily 20.html",
+    "John Chrysostom/Homilies/On the Acts of the Apostles/Homily 21.html",
+    "John Chrysostom/Homilies/On the Acts of the Apostles/Homily 22.html",
+    "John Chrysostom/Homilies/On the Acts of the Apostles/Homily 23.html",
+    "John Chrysostom/Homilies/On the Acts of the Apostles/Homily 24.html",
+    "John Chrysostom/Homilies/On the Acts of the Apostles/Homily 25.html",
+    "John Chrysostom/Homilies/On the Acts of the Apostles/Homily 26.html",
+    "John Chrysostom/Homilies/On the Acts of the Apostles/Homily 27.html",
+    "John Chrysostom/Homilies/On the Acts of the Apostles/Homily 28.html",
+    "John Chrysostom/Homilies/On the Acts of the Apostles/Homily 29.html",
+    "John Chrysostom/Homilies/On the Acts of the Apostles/Homily 30.html",
+    "John Chrysostom/Homilies/On the Acts of the Apostles/Homily 31.html",
+    "John Chrysostom/Homilies/On the Acts of the Apostles/Homily 32.html",
+    "John Chrysostom/Homilies/On the Acts of the Apostles/Homily 33.html",
+    "John Chrysostom/Homilies/On the Acts of the Apostles/Homily 34.html",
+    "John Chrysostom/Homilies/On the Acts of the Apostles/Homily 35.html",
+    "John Chrysostom/Homilies/On the Acts of the Apostles/Homily 36.html",
+    "John Chrysostom/Homilies/On the Acts of the Apostles/Homily 37.html",
+    "John Chrysostom/Homilies/On the Acts of the Apostles/Homily 38.html",
+    "John Chrysostom/Homilies/On the Acts of the Apostles/Homily 39.html",
+    "John Chrysostom/Homilies/On the Acts of the Apostles/Homily 40.html",
+    "John Chrysostom/Homilies/On the Acts of the Apostles/Homily 41.html",
+    "John Chrysostom/Homilies/On the Acts of the Apostles/Homily 42.html",
+    "John Chrysostom/Homilies/On the Acts of the Apostles/Homily 43.html",
+    "John Chrysostom/Homilies/On the Acts of the Apostles/Homily 44.html",
+    "John Chrysostom/Homilies/On the Acts of the Apostles/Homily 45.html",
+    "John Chrysostom/Homilies/On the Acts of the Apostles/Homily 46.html",
+    "John Chrysostom/Homilies/On the Acts of the Apostles/Homily 47.html",
+    "John Chrysostom/Homilies/On the Acts of the Apostles/Homily 48.html",
+    "John Chrysostom/Homilies/On the Acts of the Apostles/Homily 49.html",
+    "John Chrysostom/Homilies/On the Acts of the Apostles/Homily 50.html",
+    "John Chrysostom/Homilies/On the Acts of the Apostles/Homily 51.html",
+    "John Chrysostom/Homilies/On the Acts of the Apostles/Homily 52.html",
+    "John Chrysostom/Homilies/On the Acts of the Apostles/Homily 53.html",
+    "John Chrysostom/Homilies/On the Acts of the Apostles/Homily 54.html",
+    "John Chrysostom/Homilies/On the Acts of the Apostles/Homily 55.html"
+   ],
+   "split": "file",
+   "passageBook": "ACT"
+  },
+  {
+   "source": "hcf",
+   "author": "johannes_chrysostomus",
+   "work": {
+    "id": "chrysostomus.hom_rom",
+    "title": "Homilien über den Römerbrief",
+    "originalTitle": "Homiliae in epistulam ad Romanos",
+    "clavis": "CPG 4427",
+    "genre": "Homilien",
+    "originalLanguage": "grc"
+   },
+   "version": {
+    "id": "npnf.chrysostomus.hom_rom",
+    "title": "Homilies On Romans (NPNF)",
+    "language": "en",
+    "kind": "historicalTranslation",
+    "series": "Nicene and Post-Nicene Fathers, 1. Serie, Bd. 11",
+    "year": "1889",
+    "rights": "publicDomain",
+    "rightsNote": "Englische Übersetzung des 19. Jahrhunderts, erschienen 1889 (NPNF, hg. von Philip Schaff und Henry Wace). Die Übersetzer und Bearbeiter waren Gelehrte des 19. Jahrhunderts und sind nach allgemeiner Kenntnis lange vor 1956 gestorben (Lebensdaten nicht einzeln per GND geprüft, da aus der Cloud nicht erreichbar); in den USA gemeinfrei, weil vor 1931 erschienen. Digitalisat aus der Sammlung HistoricalChristianFaith (dort als gemeinfrei ausgewiesen).",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub), nach der NPNF-Ausgabe",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/John%20Chrysostom/Homilies/On%20Romans",
+    "availability": "full"
+   },
+   "files": [
+    "John Chrysostom/Homilies/On Romans/Homily 1.html",
+    "John Chrysostom/Homilies/On Romans/Homily 2.html",
+    "John Chrysostom/Homilies/On Romans/Homily 3.html",
+    "John Chrysostom/Homilies/On Romans/Homily 4.html",
+    "John Chrysostom/Homilies/On Romans/Homily 5.html",
+    "John Chrysostom/Homilies/On Romans/Homily 6.html",
+    "John Chrysostom/Homilies/On Romans/Homily 7.html",
+    "John Chrysostom/Homilies/On Romans/Homily 8.html",
+    "John Chrysostom/Homilies/On Romans/Homily 9.html",
+    "John Chrysostom/Homilies/On Romans/Homily 10.html",
+    "John Chrysostom/Homilies/On Romans/Homily 11.html",
+    "John Chrysostom/Homilies/On Romans/Homily 12.html",
+    "John Chrysostom/Homilies/On Romans/Homily 13.html",
+    "John Chrysostom/Homilies/On Romans/Homily 14.html",
+    "John Chrysostom/Homilies/On Romans/Homily 15.html",
+    "John Chrysostom/Homilies/On Romans/Homily 16.html",
+    "John Chrysostom/Homilies/On Romans/Homily 17.html",
+    "John Chrysostom/Homilies/On Romans/Homily 18.html",
+    "John Chrysostom/Homilies/On Romans/Homily 19.html",
+    "John Chrysostom/Homilies/On Romans/Homily 20.html",
+    "John Chrysostom/Homilies/On Romans/Homily 21.html",
+    "John Chrysostom/Homilies/On Romans/Homily 22.html",
+    "John Chrysostom/Homilies/On Romans/Homily 23.html",
+    "John Chrysostom/Homilies/On Romans/Homily 24.html",
+    "John Chrysostom/Homilies/On Romans/Homily 25.html",
+    "John Chrysostom/Homilies/On Romans/Homily 26.html",
+    "John Chrysostom/Homilies/On Romans/Homily 27.html",
+    "John Chrysostom/Homilies/On Romans/Homily 28.html",
+    "John Chrysostom/Homilies/On Romans/Homily 29.html",
+    "John Chrysostom/Homilies/On Romans/Homily 30.html",
+    "John Chrysostom/Homilies/On Romans/Homily 31.html",
+    "John Chrysostom/Homilies/On Romans/Homily 32.html"
+   ],
+   "split": "file",
+   "passageBook": "ROM"
+  },
+  {
+   "source": "hcf",
+   "author": "johannes_chrysostomus",
+   "work": {
+    "id": "chrysostomus.hom_1co",
+    "title": "Homilien über den ersten Korintherbrief",
+    "originalTitle": "Homiliae in epistulam I ad Corinthios",
+    "clavis": "CPG 4428",
+    "genre": "Homilien",
+    "originalLanguage": "grc"
+   },
+   "version": {
+    "id": "npnf.chrysostomus.hom_1co",
+    "title": "Homilies On 1 Corinthians (NPNF)",
+    "language": "en",
+    "kind": "historicalTranslation",
+    "series": "Nicene and Post-Nicene Fathers, 1. Serie, Bd. 12",
+    "year": "1889",
+    "rights": "publicDomain",
+    "rightsNote": "Englische Übersetzung des 19. Jahrhunderts, erschienen 1889 (NPNF, hg. von Philip Schaff und Henry Wace). Die Übersetzer und Bearbeiter waren Gelehrte des 19. Jahrhunderts und sind nach allgemeiner Kenntnis lange vor 1956 gestorben (Lebensdaten nicht einzeln per GND geprüft, da aus der Cloud nicht erreichbar); in den USA gemeinfrei, weil vor 1931 erschienen. Digitalisat aus der Sammlung HistoricalChristianFaith (dort als gemeinfrei ausgewiesen).",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub), nach der NPNF-Ausgabe",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/John%20Chrysostom/Homilies/On%201%20Corinthians",
+    "availability": "full"
+   },
+   "files": [
+    "John Chrysostom/Homilies/On 1 Corinthians/Homily 1.html",
+    "John Chrysostom/Homilies/On 1 Corinthians/Homily 2.html",
+    "John Chrysostom/Homilies/On 1 Corinthians/Homily 3.html",
+    "John Chrysostom/Homilies/On 1 Corinthians/Homily 4.html",
+    "John Chrysostom/Homilies/On 1 Corinthians/Homily 5.html",
+    "John Chrysostom/Homilies/On 1 Corinthians/Homily 6.html",
+    "John Chrysostom/Homilies/On 1 Corinthians/Homily 7.html",
+    "John Chrysostom/Homilies/On 1 Corinthians/Homily 8.html",
+    "John Chrysostom/Homilies/On 1 Corinthians/Homily 9.html",
+    "John Chrysostom/Homilies/On 1 Corinthians/Homily 10.html",
+    "John Chrysostom/Homilies/On 1 Corinthians/Homily 11.html",
+    "John Chrysostom/Homilies/On 1 Corinthians/Homily 12.html",
+    "John Chrysostom/Homilies/On 1 Corinthians/Homily 13.html",
+    "John Chrysostom/Homilies/On 1 Corinthians/Homily 14.html",
+    "John Chrysostom/Homilies/On 1 Corinthians/Homily 15.html",
+    "John Chrysostom/Homilies/On 1 Corinthians/Homily 16.html",
+    "John Chrysostom/Homilies/On 1 Corinthians/Homily 17.html",
+    "John Chrysostom/Homilies/On 1 Corinthians/Homily 18.html",
+    "John Chrysostom/Homilies/On 1 Corinthians/Homily 19.html",
+    "John Chrysostom/Homilies/On 1 Corinthians/Homily 20.html",
+    "John Chrysostom/Homilies/On 1 Corinthians/Homily 21.html",
+    "John Chrysostom/Homilies/On 1 Corinthians/Homily 22.html",
+    "John Chrysostom/Homilies/On 1 Corinthians/Homily 23.html",
+    "John Chrysostom/Homilies/On 1 Corinthians/Homily 24.html",
+    "John Chrysostom/Homilies/On 1 Corinthians/Homily 25.html",
+    "John Chrysostom/Homilies/On 1 Corinthians/Homily 26.html",
+    "John Chrysostom/Homilies/On 1 Corinthians/Homily 27.html",
+    "John Chrysostom/Homilies/On 1 Corinthians/Homily 28.html",
+    "John Chrysostom/Homilies/On 1 Corinthians/Homily 29.html",
+    "John Chrysostom/Homilies/On 1 Corinthians/Homily 30.html",
+    "John Chrysostom/Homilies/On 1 Corinthians/Homily 31.html",
+    "John Chrysostom/Homilies/On 1 Corinthians/Homily 32.html",
+    "John Chrysostom/Homilies/On 1 Corinthians/Homily 33.html",
+    "John Chrysostom/Homilies/On 1 Corinthians/Homily 34.html",
+    "John Chrysostom/Homilies/On 1 Corinthians/Homily 35.html",
+    "John Chrysostom/Homilies/On 1 Corinthians/Homily 36.html",
+    "John Chrysostom/Homilies/On 1 Corinthians/Homily 37.html",
+    "John Chrysostom/Homilies/On 1 Corinthians/Homily 38.html",
+    "John Chrysostom/Homilies/On 1 Corinthians/Homily 39.html",
+    "John Chrysostom/Homilies/On 1 Corinthians/Homily 40.html",
+    "John Chrysostom/Homilies/On 1 Corinthians/Homily 41.html",
+    "John Chrysostom/Homilies/On 1 Corinthians/Homily 42.html",
+    "John Chrysostom/Homilies/On 1 Corinthians/Homily 43.html",
+    "John Chrysostom/Homilies/On 1 Corinthians/Homily 44.html"
+   ],
+   "split": "file",
+   "passageBook": "1CO"
+  },
+  {
+   "source": "hcf",
+   "author": "johannes_chrysostomus",
+   "work": {
+    "id": "chrysostomus.hom_2co",
+    "title": "Homilien über den zweiten Korintherbrief",
+    "originalTitle": "Homiliae in epistulam II ad Corinthios",
+    "clavis": "CPG 4429",
+    "genre": "Homilien",
+    "originalLanguage": "grc"
+   },
+   "version": {
+    "id": "npnf.chrysostomus.hom_2co",
+    "title": "Homilies On 2 Corinthians (NPNF)",
+    "language": "en",
+    "kind": "historicalTranslation",
+    "series": "Nicene and Post-Nicene Fathers, 1. Serie, Bd. 12",
+    "year": "1889",
+    "rights": "publicDomain",
+    "rightsNote": "Englische Übersetzung des 19. Jahrhunderts, erschienen 1889 (NPNF, hg. von Philip Schaff und Henry Wace). Die Übersetzer und Bearbeiter waren Gelehrte des 19. Jahrhunderts und sind nach allgemeiner Kenntnis lange vor 1956 gestorben (Lebensdaten nicht einzeln per GND geprüft, da aus der Cloud nicht erreichbar); in den USA gemeinfrei, weil vor 1931 erschienen. Digitalisat aus der Sammlung HistoricalChristianFaith (dort als gemeinfrei ausgewiesen).",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub), nach der NPNF-Ausgabe",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/John%20Chrysostom/Homilies/On%202%20Corinthians",
+    "availability": "full"
+   },
+   "files": [
+    "John Chrysostom/Homilies/On 2 Corinthians/Homily 1.html",
+    "John Chrysostom/Homilies/On 2 Corinthians/Homily 2.html",
+    "John Chrysostom/Homilies/On 2 Corinthians/Homily 3.html",
+    "John Chrysostom/Homilies/On 2 Corinthians/Homily 4.html",
+    "John Chrysostom/Homilies/On 2 Corinthians/Homily 5.html",
+    "John Chrysostom/Homilies/On 2 Corinthians/Homily 6.html",
+    "John Chrysostom/Homilies/On 2 Corinthians/Homily 7.html",
+    "John Chrysostom/Homilies/On 2 Corinthians/Homily 8.html",
+    "John Chrysostom/Homilies/On 2 Corinthians/Homily 9.html",
+    "John Chrysostom/Homilies/On 2 Corinthians/Homily 10.html",
+    "John Chrysostom/Homilies/On 2 Corinthians/Homily 11.html",
+    "John Chrysostom/Homilies/On 2 Corinthians/Homily 12.html",
+    "John Chrysostom/Homilies/On 2 Corinthians/Homily 13.html",
+    "John Chrysostom/Homilies/On 2 Corinthians/Homily 14.html",
+    "John Chrysostom/Homilies/On 2 Corinthians/Homily 15.html",
+    "John Chrysostom/Homilies/On 2 Corinthians/Homily 16.html",
+    "John Chrysostom/Homilies/On 2 Corinthians/Homily 17.html",
+    "John Chrysostom/Homilies/On 2 Corinthians/Homily 18.html",
+    "John Chrysostom/Homilies/On 2 Corinthians/Homily 19.html",
+    "John Chrysostom/Homilies/On 2 Corinthians/Homily 20.html",
+    "John Chrysostom/Homilies/On 2 Corinthians/Homily 21.html",
+    "John Chrysostom/Homilies/On 2 Corinthians/Homily 22.html",
+    "John Chrysostom/Homilies/On 2 Corinthians/Homily 23.html",
+    "John Chrysostom/Homilies/On 2 Corinthians/Homily 24.html",
+    "John Chrysostom/Homilies/On 2 Corinthians/Homily 25.html",
+    "John Chrysostom/Homilies/On 2 Corinthians/Homily 26.html",
+    "John Chrysostom/Homilies/On 2 Corinthians/Homily 27.html",
+    "John Chrysostom/Homilies/On 2 Corinthians/Homily 28.html",
+    "John Chrysostom/Homilies/On 2 Corinthians/Homily 29.html",
+    "John Chrysostom/Homilies/On 2 Corinthians/Homily 30.html"
+   ],
+   "split": "file",
+   "passageBook": "2CO"
+  },
+  {
+   "source": "hcf",
+   "author": "johannes_chrysostomus",
+   "work": {
+    "id": "chrysostomus.comm_gal",
+    "title": "Kommentar zum Galaterbrief",
+    "originalTitle": "Commentarius in epistulam ad Galatas",
+    "clavis": "CPG 4430",
+    "genre": "Kommentar",
+    "originalLanguage": "grc"
+   },
+   "version": {
+    "id": "npnf.chrysostomus.comm_gal",
+    "title": "Commentary On Galatians (NPNF)",
+    "language": "en",
+    "kind": "historicalTranslation",
+    "series": "Nicene and Post-Nicene Fathers, 1. Serie, Bd. 13",
+    "year": "1889",
+    "rights": "publicDomain",
+    "rightsNote": "Englische Übersetzung des 19. Jahrhunderts, erschienen 1889 (NPNF, hg. von Philip Schaff und Henry Wace). Die Übersetzer und Bearbeiter waren Gelehrte des 19. Jahrhunderts und sind nach allgemeiner Kenntnis lange vor 1956 gestorben (Lebensdaten nicht einzeln per GND geprüft, da aus der Cloud nicht erreichbar); in den USA gemeinfrei, weil vor 1931 erschienen. Digitalisat aus der Sammlung HistoricalChristianFaith (dort als gemeinfrei ausgewiesen).",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub), nach der NPNF-Ausgabe",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/John%20Chrysostom/Homilies/On%20Galatians.html",
+    "availability": "full"
+   },
+   "files": [
+    "John Chrysostom/Homilies/On Galatians.html"
+   ],
+   "split": "heading",
+   "passageBook": "GAL",
+   "passageMode": "chapterHeading"
+  },
+  {
+   "source": "hcf",
+   "author": "johannes_chrysostomus",
+   "work": {
+    "id": "chrysostomus.hom_eph",
+    "title": "Homilien über den Epheserbrief",
+    "originalTitle": "Homiliae in epistulam ad Ephesios",
+    "clavis": "CPG 4431",
+    "genre": "Homilien",
+    "originalLanguage": "grc"
+   },
+   "version": {
+    "id": "npnf.chrysostomus.hom_eph",
+    "title": "Homilies On Ephesians (NPNF)",
+    "language": "en",
+    "kind": "historicalTranslation",
+    "series": "Nicene and Post-Nicene Fathers, 1. Serie, Bd. 13",
+    "year": "1889",
+    "rights": "publicDomain",
+    "rightsNote": "Englische Übersetzung des 19. Jahrhunderts, erschienen 1889 (NPNF, hg. von Philip Schaff und Henry Wace). Die Übersetzer und Bearbeiter waren Gelehrte des 19. Jahrhunderts und sind nach allgemeiner Kenntnis lange vor 1956 gestorben (Lebensdaten nicht einzeln per GND geprüft, da aus der Cloud nicht erreichbar); in den USA gemeinfrei, weil vor 1931 erschienen. Digitalisat aus der Sammlung HistoricalChristianFaith (dort als gemeinfrei ausgewiesen).",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub), nach der NPNF-Ausgabe",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/John%20Chrysostom/Homilies/On%20Ephesians",
+    "availability": "full"
+   },
+   "files": [
+    "John Chrysostom/Homilies/On Ephesians/Homily 1.html",
+    "John Chrysostom/Homilies/On Ephesians/Homily 2.html",
+    "John Chrysostom/Homilies/On Ephesians/Homily 3.html",
+    "John Chrysostom/Homilies/On Ephesians/Homily 4.html",
+    "John Chrysostom/Homilies/On Ephesians/Homily 5.html",
+    "John Chrysostom/Homilies/On Ephesians/Homily 6.html",
+    "John Chrysostom/Homilies/On Ephesians/Homily 7.html",
+    "John Chrysostom/Homilies/On Ephesians/Homily 8.html",
+    "John Chrysostom/Homilies/On Ephesians/Homily 9.html",
+    "John Chrysostom/Homilies/On Ephesians/Homily 10.html",
+    "John Chrysostom/Homilies/On Ephesians/Homily 11.html",
+    "John Chrysostom/Homilies/On Ephesians/Homily 12.html",
+    "John Chrysostom/Homilies/On Ephesians/Homily 13.html",
+    "John Chrysostom/Homilies/On Ephesians/Homily 14.html",
+    "John Chrysostom/Homilies/On Ephesians/Homily 15.html",
+    "John Chrysostom/Homilies/On Ephesians/Homily 16.html",
+    "John Chrysostom/Homilies/On Ephesians/Homily 17.html",
+    "John Chrysostom/Homilies/On Ephesians/Homily 18.html",
+    "John Chrysostom/Homilies/On Ephesians/Homily 19.html",
+    "John Chrysostom/Homilies/On Ephesians/Homily 20.html",
+    "John Chrysostom/Homilies/On Ephesians/Homily 21.html",
+    "John Chrysostom/Homilies/On Ephesians/Homily 22.html",
+    "John Chrysostom/Homilies/On Ephesians/Homily 23.html",
+    "John Chrysostom/Homilies/On Ephesians/Homily 24.html"
+   ],
+   "split": "file",
+   "passageBook": "EPH"
+  },
+  {
+   "source": "hcf",
+   "author": "johannes_chrysostomus",
+   "work": {
+    "id": "chrysostomus.hom_phil",
+    "title": "Homilien über den Philipperbrief",
+    "originalTitle": "Homiliae in epistulam ad Philippenses",
+    "clavis": "CPG 4432",
+    "genre": "Homilien",
+    "originalLanguage": "grc"
+   },
+   "version": {
+    "id": "npnf.chrysostomus.hom_phil",
+    "title": "Homilies On Philippians (NPNF)",
+    "language": "en",
+    "kind": "historicalTranslation",
+    "series": "Nicene and Post-Nicene Fathers, 1. Serie, Bd. 13",
+    "year": "1889",
+    "rights": "publicDomain",
+    "rightsNote": "Englische Übersetzung des 19. Jahrhunderts, erschienen 1889 (NPNF, hg. von Philip Schaff und Henry Wace). Die Übersetzer und Bearbeiter waren Gelehrte des 19. Jahrhunderts und sind nach allgemeiner Kenntnis lange vor 1956 gestorben (Lebensdaten nicht einzeln per GND geprüft, da aus der Cloud nicht erreichbar); in den USA gemeinfrei, weil vor 1931 erschienen. Digitalisat aus der Sammlung HistoricalChristianFaith (dort als gemeinfrei ausgewiesen).",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub), nach der NPNF-Ausgabe",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/John%20Chrysostom/Homilies/On%20Philippians",
+    "availability": "full"
+   },
+   "files": [
+    "John Chrysostom/Homilies/On Philippians/Homily 1.html",
+    "John Chrysostom/Homilies/On Philippians/Homily 2.html",
+    "John Chrysostom/Homilies/On Philippians/Homily 3.html",
+    "John Chrysostom/Homilies/On Philippians/Homily 4.html",
+    "John Chrysostom/Homilies/On Philippians/Homily 5.html",
+    "John Chrysostom/Homilies/On Philippians/Homily 6.html",
+    "John Chrysostom/Homilies/On Philippians/Homily 7.html",
+    "John Chrysostom/Homilies/On Philippians/Homily 8.html",
+    "John Chrysostom/Homilies/On Philippians/Homily 9.html",
+    "John Chrysostom/Homilies/On Philippians/Homily 10.html",
+    "John Chrysostom/Homilies/On Philippians/Homily 11.html",
+    "John Chrysostom/Homilies/On Philippians/Homily 12.html",
+    "John Chrysostom/Homilies/On Philippians/Homily 13.html",
+    "John Chrysostom/Homilies/On Philippians/Homily 14.html",
+    "John Chrysostom/Homilies/On Philippians/Homily 15.html"
+   ],
+   "split": "file",
+   "passageBook": "PHP"
+  },
+  {
+   "source": "hcf",
+   "author": "johannes_chrysostomus",
+   "work": {
+    "id": "chrysostomus.hom_col",
+    "title": "Homilien über den Kolosserbrief",
+    "originalTitle": "Homiliae in epistulam ad Colossenses",
+    "clavis": "CPG 4433",
+    "genre": "Homilien",
+    "originalLanguage": "grc"
+   },
+   "version": {
+    "id": "npnf.chrysostomus.hom_col",
+    "title": "Homilies On Colossians (NPNF)",
+    "language": "en",
+    "kind": "historicalTranslation",
+    "series": "Nicene and Post-Nicene Fathers, 1. Serie, Bd. 13",
+    "year": "1889",
+    "rights": "publicDomain",
+    "rightsNote": "Englische Übersetzung des 19. Jahrhunderts, erschienen 1889 (NPNF, hg. von Philip Schaff und Henry Wace). Die Übersetzer und Bearbeiter waren Gelehrte des 19. Jahrhunderts und sind nach allgemeiner Kenntnis lange vor 1956 gestorben (Lebensdaten nicht einzeln per GND geprüft, da aus der Cloud nicht erreichbar); in den USA gemeinfrei, weil vor 1931 erschienen. Digitalisat aus der Sammlung HistoricalChristianFaith (dort als gemeinfrei ausgewiesen).",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub), nach der NPNF-Ausgabe",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/John%20Chrysostom/Homilies/On%20Colossians",
+    "availability": "full"
+   },
+   "files": [
+    "John Chrysostom/Homilies/On Colossians/Homily 1.html",
+    "John Chrysostom/Homilies/On Colossians/Homily 2.html",
+    "John Chrysostom/Homilies/On Colossians/Homily 3.html",
+    "John Chrysostom/Homilies/On Colossians/Homily 4.html",
+    "John Chrysostom/Homilies/On Colossians/Homily 5.html",
+    "John Chrysostom/Homilies/On Colossians/Homily 6.html",
+    "John Chrysostom/Homilies/On Colossians/Homily 7.html",
+    "John Chrysostom/Homilies/On Colossians/Homily 8.html",
+    "John Chrysostom/Homilies/On Colossians/Homily 9.html",
+    "John Chrysostom/Homilies/On Colossians/Homily 10.html",
+    "John Chrysostom/Homilies/On Colossians/Homily 11.html",
+    "John Chrysostom/Homilies/On Colossians/Homily 12.html"
+   ],
+   "split": "file",
+   "passageBook": "COL"
+  },
+  {
+   "source": "hcf",
+   "author": "johannes_chrysostomus",
+   "work": {
+    "id": "chrysostomus.hom_1th",
+    "title": "Homilien über den ersten Thessalonicherbrief",
+    "originalTitle": "Homiliae in epistulam I ad Thessalonicenses",
+    "clavis": "CPG 4434",
+    "genre": "Homilien",
+    "originalLanguage": "grc"
+   },
+   "version": {
+    "id": "npnf.chrysostomus.hom_1th",
+    "title": "Homilies On 1 Thessalonians (NPNF)",
+    "language": "en",
+    "kind": "historicalTranslation",
+    "series": "Nicene and Post-Nicene Fathers, 1. Serie, Bd. 13",
+    "year": "1889",
+    "rights": "publicDomain",
+    "rightsNote": "Englische Übersetzung des 19. Jahrhunderts, erschienen 1889 (NPNF, hg. von Philip Schaff und Henry Wace). Die Übersetzer und Bearbeiter waren Gelehrte des 19. Jahrhunderts und sind nach allgemeiner Kenntnis lange vor 1956 gestorben (Lebensdaten nicht einzeln per GND geprüft, da aus der Cloud nicht erreichbar); in den USA gemeinfrei, weil vor 1931 erschienen. Digitalisat aus der Sammlung HistoricalChristianFaith (dort als gemeinfrei ausgewiesen).",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub), nach der NPNF-Ausgabe",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/John%20Chrysostom/Homilies/On%201%20Thessalonians",
+    "availability": "full"
+   },
+   "files": [
+    "John Chrysostom/Homilies/On 1 Thessalonians/Homily 1.html",
+    "John Chrysostom/Homilies/On 1 Thessalonians/Homily 2.html",
+    "John Chrysostom/Homilies/On 1 Thessalonians/Homily 3.html",
+    "John Chrysostom/Homilies/On 1 Thessalonians/Homily 4.html",
+    "John Chrysostom/Homilies/On 1 Thessalonians/Homily 5.html",
+    "John Chrysostom/Homilies/On 1 Thessalonians/Homily 6.html",
+    "John Chrysostom/Homilies/On 1 Thessalonians/Homily 7.html",
+    "John Chrysostom/Homilies/On 1 Thessalonians/Homily 8.html",
+    "John Chrysostom/Homilies/On 1 Thessalonians/Homily 9.html",
+    "John Chrysostom/Homilies/On 1 Thessalonians/Homily 10.html",
+    "John Chrysostom/Homilies/On 1 Thessalonians/Homily 11.html"
+   ],
+   "split": "file",
+   "passageBook": "1TH"
+  },
+  {
+   "source": "hcf",
+   "author": "johannes_chrysostomus",
+   "work": {
+    "id": "chrysostomus.hom_2th",
+    "title": "Homilien über den zweiten Thessalonicherbrief",
+    "originalTitle": "Homiliae in epistulam II ad Thessalonicenses",
+    "clavis": "CPG 4435",
+    "genre": "Homilien",
+    "originalLanguage": "grc"
+   },
+   "version": {
+    "id": "npnf.chrysostomus.hom_2th",
+    "title": "Homilies On 2 Thessalonians (NPNF)",
+    "language": "en",
+    "kind": "historicalTranslation",
+    "series": "Nicene and Post-Nicene Fathers, 1. Serie, Bd. 13",
+    "year": "1889",
+    "rights": "publicDomain",
+    "rightsNote": "Englische Übersetzung des 19. Jahrhunderts, erschienen 1889 (NPNF, hg. von Philip Schaff und Henry Wace). Die Übersetzer und Bearbeiter waren Gelehrte des 19. Jahrhunderts und sind nach allgemeiner Kenntnis lange vor 1956 gestorben (Lebensdaten nicht einzeln per GND geprüft, da aus der Cloud nicht erreichbar); in den USA gemeinfrei, weil vor 1931 erschienen. Digitalisat aus der Sammlung HistoricalChristianFaith (dort als gemeinfrei ausgewiesen).",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub), nach der NPNF-Ausgabe",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/John%20Chrysostom/Homilies/On%202%20Thessalonians",
+    "availability": "full"
+   },
+   "files": [
+    "John Chrysostom/Homilies/On 2 Thessalonians/Homily 1.html",
+    "John Chrysostom/Homilies/On 2 Thessalonians/Homily 2.html",
+    "John Chrysostom/Homilies/On 2 Thessalonians/Homily 3.html",
+    "John Chrysostom/Homilies/On 2 Thessalonians/Homily 4.html",
+    "John Chrysostom/Homilies/On 2 Thessalonians/Homily 5.html"
+   ],
+   "split": "file",
+   "passageBook": "2TH"
+  },
+  {
+   "source": "hcf",
+   "author": "johannes_chrysostomus",
+   "work": {
+    "id": "chrysostomus.hom_1tim",
+    "title": "Homilien über den ersten Timotheusbrief",
+    "originalTitle": "Homiliae in epistulam I ad Timotheum",
+    "clavis": "CPG 4436",
+    "genre": "Homilien",
+    "originalLanguage": "grc"
+   },
+   "version": {
+    "id": "npnf.chrysostomus.hom_1tim",
+    "title": "Homilies On 1 Timothy (NPNF)",
+    "language": "en",
+    "kind": "historicalTranslation",
+    "series": "Nicene and Post-Nicene Fathers, 1. Serie, Bd. 13",
+    "year": "1889",
+    "rights": "publicDomain",
+    "rightsNote": "Englische Übersetzung des 19. Jahrhunderts, erschienen 1889 (NPNF, hg. von Philip Schaff und Henry Wace). Die Übersetzer und Bearbeiter waren Gelehrte des 19. Jahrhunderts und sind nach allgemeiner Kenntnis lange vor 1956 gestorben (Lebensdaten nicht einzeln per GND geprüft, da aus der Cloud nicht erreichbar); in den USA gemeinfrei, weil vor 1931 erschienen. Digitalisat aus der Sammlung HistoricalChristianFaith (dort als gemeinfrei ausgewiesen).",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub), nach der NPNF-Ausgabe",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/John%20Chrysostom/Homilies/On%201%20Timothy",
+    "availability": "full"
+   },
+   "files": [
+    "John Chrysostom/Homilies/On 1 Timothy/Homily 1.html",
+    "John Chrysostom/Homilies/On 1 Timothy/Homily 2.html",
+    "John Chrysostom/Homilies/On 1 Timothy/Homily 3.html",
+    "John Chrysostom/Homilies/On 1 Timothy/Homily 4.html",
+    "John Chrysostom/Homilies/On 1 Timothy/Homily 5.html",
+    "John Chrysostom/Homilies/On 1 Timothy/Homily 6.html",
+    "John Chrysostom/Homilies/On 1 Timothy/Homily 7.html",
+    "John Chrysostom/Homilies/On 1 Timothy/Homily 8.html",
+    "John Chrysostom/Homilies/On 1 Timothy/Homily 9.html",
+    "John Chrysostom/Homilies/On 1 Timothy/Homily 10.html",
+    "John Chrysostom/Homilies/On 1 Timothy/Homily 11.html",
+    "John Chrysostom/Homilies/On 1 Timothy/Homily 12.html",
+    "John Chrysostom/Homilies/On 1 Timothy/Homily 13.html",
+    "John Chrysostom/Homilies/On 1 Timothy/Homily 14.html",
+    "John Chrysostom/Homilies/On 1 Timothy/Homily 15.html",
+    "John Chrysostom/Homilies/On 1 Timothy/Homily 16.html",
+    "John Chrysostom/Homilies/On 1 Timothy/Homily 17.html",
+    "John Chrysostom/Homilies/On 1 Timothy/Homily 18.html"
+   ],
+   "split": "file",
+   "passageBook": "1TI"
+  },
+  {
+   "source": "hcf",
+   "author": "johannes_chrysostomus",
+   "work": {
+    "id": "chrysostomus.hom_2tim",
+    "title": "Homilien über den zweiten Timotheusbrief",
+    "originalTitle": "Homiliae in epistulam II ad Timotheum",
+    "clavis": "CPG 4437",
+    "genre": "Homilien",
+    "originalLanguage": "grc"
+   },
+   "version": {
+    "id": "npnf.chrysostomus.hom_2tim",
+    "title": "Homilies On 2 Timothy (NPNF)",
+    "language": "en",
+    "kind": "historicalTranslation",
+    "series": "Nicene and Post-Nicene Fathers, 1. Serie, Bd. 13",
+    "year": "1889",
+    "rights": "publicDomain",
+    "rightsNote": "Englische Übersetzung des 19. Jahrhunderts, erschienen 1889 (NPNF, hg. von Philip Schaff und Henry Wace). Die Übersetzer und Bearbeiter waren Gelehrte des 19. Jahrhunderts und sind nach allgemeiner Kenntnis lange vor 1956 gestorben (Lebensdaten nicht einzeln per GND geprüft, da aus der Cloud nicht erreichbar); in den USA gemeinfrei, weil vor 1931 erschienen. Digitalisat aus der Sammlung HistoricalChristianFaith (dort als gemeinfrei ausgewiesen).",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub), nach der NPNF-Ausgabe",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/John%20Chrysostom/Homilies/On%202%20Timothy",
+    "availability": "full"
+   },
+   "files": [
+    "John Chrysostom/Homilies/On 2 Timothy/Homily 1.html",
+    "John Chrysostom/Homilies/On 2 Timothy/Homily 2.html",
+    "John Chrysostom/Homilies/On 2 Timothy/Homily 3.html",
+    "John Chrysostom/Homilies/On 2 Timothy/Homily 4.html",
+    "John Chrysostom/Homilies/On 2 Timothy/Homily 5.html",
+    "John Chrysostom/Homilies/On 2 Timothy/Homily 6.html",
+    "John Chrysostom/Homilies/On 2 Timothy/Homily 7.html",
+    "John Chrysostom/Homilies/On 2 Timothy/Homily 8.html",
+    "John Chrysostom/Homilies/On 2 Timothy/Homily 9.html",
+    "John Chrysostom/Homilies/On 2 Timothy/Homily 10.html"
+   ],
+   "split": "file",
+   "passageBook": "2TI"
+  },
+  {
+   "source": "hcf",
+   "author": "johannes_chrysostomus",
+   "work": {
+    "id": "chrysostomus.hom_tit",
+    "title": "Homilien über den Titusbrief",
+    "originalTitle": "Homiliae in epistulam ad Titum",
+    "clavis": "CPG 4438",
+    "genre": "Homilien",
+    "originalLanguage": "grc"
+   },
+   "version": {
+    "id": "npnf.chrysostomus.hom_tit",
+    "title": "Homilies On Titus (NPNF)",
+    "language": "en",
+    "kind": "historicalTranslation",
+    "series": "Nicene and Post-Nicene Fathers, 1. Serie, Bd. 13",
+    "year": "1889",
+    "rights": "publicDomain",
+    "rightsNote": "Englische Übersetzung des 19. Jahrhunderts, erschienen 1889 (NPNF, hg. von Philip Schaff und Henry Wace). Die Übersetzer und Bearbeiter waren Gelehrte des 19. Jahrhunderts und sind nach allgemeiner Kenntnis lange vor 1956 gestorben (Lebensdaten nicht einzeln per GND geprüft, da aus der Cloud nicht erreichbar); in den USA gemeinfrei, weil vor 1931 erschienen. Digitalisat aus der Sammlung HistoricalChristianFaith (dort als gemeinfrei ausgewiesen).",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub), nach der NPNF-Ausgabe",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/John%20Chrysostom/Homilies/On%20Titus",
+    "availability": "full"
+   },
+   "files": [
+    "John Chrysostom/Homilies/On Titus/Homily 1.html",
+    "John Chrysostom/Homilies/On Titus/Homily 2.html",
+    "John Chrysostom/Homilies/On Titus/Homily 3.html",
+    "John Chrysostom/Homilies/On Titus/Homily 4.html",
+    "John Chrysostom/Homilies/On Titus/Homily 5.html",
+    "John Chrysostom/Homilies/On Titus/Homily 6.html"
+   ],
+   "split": "file",
+   "passageBook": "TIT"
+  },
+  {
+   "source": "hcf",
+   "author": "johannes_chrysostomus",
+   "work": {
+    "id": "chrysostomus.hom_phlm",
+    "title": "Homilien über den Philemonbrief",
+    "originalTitle": "Homiliae in epistulam ad Philemonem",
+    "clavis": "CPG 4439",
+    "genre": "Homilien",
+    "originalLanguage": "grc"
+   },
+   "version": {
+    "id": "npnf.chrysostomus.hom_phlm",
+    "title": "Homilies On Philemon (NPNF)",
+    "language": "en",
+    "kind": "historicalTranslation",
+    "series": "Nicene and Post-Nicene Fathers, 1. Serie, Bd. 13",
+    "year": "1889",
+    "rights": "publicDomain",
+    "rightsNote": "Englische Übersetzung des 19. Jahrhunderts, erschienen 1889 (NPNF, hg. von Philip Schaff und Henry Wace). Die Übersetzer und Bearbeiter waren Gelehrte des 19. Jahrhunderts und sind nach allgemeiner Kenntnis lange vor 1956 gestorben (Lebensdaten nicht einzeln per GND geprüft, da aus der Cloud nicht erreichbar); in den USA gemeinfrei, weil vor 1931 erschienen. Digitalisat aus der Sammlung HistoricalChristianFaith (dort als gemeinfrei ausgewiesen).",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub), nach der NPNF-Ausgabe",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/John%20Chrysostom/Homilies/On%20Philemon",
+    "availability": "full"
+   },
+   "files": [
+    "John Chrysostom/Homilies/On Philemon/Homily 1.html",
+    "John Chrysostom/Homilies/On Philemon/Homily 2.html",
+    "John Chrysostom/Homilies/On Philemon/Homily 3.html"
+   ],
+   "split": "file",
+   "passageBook": "PHM"
+  },
+  {
+   "source": "hcf",
+   "author": "johannes_chrysostomus",
+   "work": {
+    "id": "chrysostomus.hom_heb",
+    "title": "Homilien über den Hebräerbrief",
+    "originalTitle": "Homiliae in epistulam ad Hebraeos",
+    "clavis": "CPG 4440",
+    "genre": "Homilien",
+    "originalLanguage": "grc"
+   },
+   "version": {
+    "id": "npnf.chrysostomus.hom_heb",
+    "title": "Homilies On Hebrews (NPNF)",
+    "language": "en",
+    "kind": "historicalTranslation",
+    "series": "Nicene and Post-Nicene Fathers, 1. Serie, Bd. 14",
+    "year": "1889",
+    "rights": "publicDomain",
+    "rightsNote": "Englische Übersetzung des 19. Jahrhunderts, erschienen 1889 (NPNF, hg. von Philip Schaff und Henry Wace). Die Übersetzer und Bearbeiter waren Gelehrte des 19. Jahrhunderts und sind nach allgemeiner Kenntnis lange vor 1956 gestorben (Lebensdaten nicht einzeln per GND geprüft, da aus der Cloud nicht erreichbar); in den USA gemeinfrei, weil vor 1931 erschienen. Digitalisat aus der Sammlung HistoricalChristianFaith (dort als gemeinfrei ausgewiesen).",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub), nach der NPNF-Ausgabe",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/John%20Chrysostom/Homilies/On%20Hebrews",
+    "availability": "full"
+   },
+   "files": [
+    "John Chrysostom/Homilies/On Hebrews/Homily 1.html",
+    "John Chrysostom/Homilies/On Hebrews/Homily 2.html",
+    "John Chrysostom/Homilies/On Hebrews/Homily 3.html",
+    "John Chrysostom/Homilies/On Hebrews/Homily 4.html",
+    "John Chrysostom/Homilies/On Hebrews/Homily 5.html",
+    "John Chrysostom/Homilies/On Hebrews/Homily 6.html",
+    "John Chrysostom/Homilies/On Hebrews/Homily 7.html",
+    "John Chrysostom/Homilies/On Hebrews/Homily 8.html",
+    "John Chrysostom/Homilies/On Hebrews/Homily 9.html",
+    "John Chrysostom/Homilies/On Hebrews/Homily 10.html",
+    "John Chrysostom/Homilies/On Hebrews/Homily 11.html",
+    "John Chrysostom/Homilies/On Hebrews/Homily 12.html",
+    "John Chrysostom/Homilies/On Hebrews/Homily 13.html",
+    "John Chrysostom/Homilies/On Hebrews/Homily 14.html",
+    "John Chrysostom/Homilies/On Hebrews/Homily 15.html",
+    "John Chrysostom/Homilies/On Hebrews/Homily 16.html",
+    "John Chrysostom/Homilies/On Hebrews/Homily 17.html",
+    "John Chrysostom/Homilies/On Hebrews/Homily 18.html",
+    "John Chrysostom/Homilies/On Hebrews/Homily 19.html",
+    "John Chrysostom/Homilies/On Hebrews/Homily 20.html",
+    "John Chrysostom/Homilies/On Hebrews/Homily 21.html",
+    "John Chrysostom/Homilies/On Hebrews/Homily 22.html",
+    "John Chrysostom/Homilies/On Hebrews/Homily 23.html",
+    "John Chrysostom/Homilies/On Hebrews/Homily 24.html",
+    "John Chrysostom/Homilies/On Hebrews/Homily 25.html",
+    "John Chrysostom/Homilies/On Hebrews/Homily 26.html",
+    "John Chrysostom/Homilies/On Hebrews/Homily 27.html",
+    "John Chrysostom/Homilies/On Hebrews/Homily 28.html",
+    "John Chrysostom/Homilies/On Hebrews/Homily 29.html",
+    "John Chrysostom/Homilies/On Hebrews/Homily 30.html",
+    "John Chrysostom/Homilies/On Hebrews/Homily 31.html",
+    "John Chrysostom/Homilies/On Hebrews/Homily 32.html",
+    "John Chrysostom/Homilies/On Hebrews/Homily 33.html",
+    "John Chrysostom/Homilies/On Hebrews/Homily 34.html"
+   ],
+   "split": "file",
+   "passageBook": "HEB"
+  },
+  {
+   "source": "hcf",
+   "author": "johannes_chrysostomus",
+   "work": {
+    "id": "chrysostomus.de_lazaro",
+    "title": "Vier Reden, vor allem über den reichen Mann und Lazarus",
+    "originalTitle": "De Lazaro conciones 1–4",
+    "genre": "Predigten",
+    "originalLanguage": "grc"
+   },
+   "files": [
+    "John Chrysostom/Four Discourses, chiefly on the parable of the rich man and Lazarus/Discourse 1.html",
+    "John Chrysostom/Four Discourses, chiefly on the parable of the rich man and Lazarus/Discourse 2.html",
+    "John Chrysostom/Four Discourses, chiefly on the parable of the rich man and Lazarus/Discourse 3.html",
+    "John Chrysostom/Four Discourses, chiefly on the parable of the rich man and Lazarus/Discourse 4.html"
+   ],
+   "split": "file",
+   "version": {
+    "id": "allen.chrysostomus.de_lazaro",
+    "title": "Four Discourses, chiefly on the parable of the rich man and Lazarus (F. Allen 1869)",
+    "language": "en",
+    "kind": "historicalTranslation",
+    "translator": "F. Allen",
+    "published": "London: Longmans, Green, Reader, and Dyer",
+    "year": "1869",
+    "rights": "publicDomain",
+    "rightsNote": "Englische Übersetzung, London 1869; in den USA und nach dem Alter der Ausgabe gemeinfrei (Lebensdaten des Übersetzers nicht einzeln geprüft). Von Roger Pearse 2006 abgeschrieben und gemeinfrei gestellt. Die Vorrede des Übersetzers ist nicht übernommen.",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub), nach tertullian.org (Roger Pearse)",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/John%20Chrysostom/Four%20Discourses,%20chiefly%20on%20the%20parable%20of%20the%20rich%20man%20and%20Lazarus",
+    "availability": "full"
+   }
+  },
+  {
+   "source": "hcf",
+   "author": "johannes_chrysostomus",
+   "work": {
+    "id": "chrysostomus.in_natalem",
+    "title": "Predigt auf den Geburtstag unseres Erlösers",
+    "originalTitle": "In natalem Christi diem (PG 56, 385–396)",
+    "genre": "Predigten",
+    "originalLanguage": "grc",
+    "authenticity": "doubtful"
+   },
+   "files": [
+    "John Chrysostom/Homilies/2nd Homily On the birthday of our Savior.html"
+   ],
+   "split": "file",
+   "plainNotes": true,
+   "version": {
+    "id": "pearse.chrysostomus.in_natalem",
+    "title": "On the Birthday of our Savior (Sewell 2013)",
+    "language": "en",
+    "kind": "modernTranslation",
+    "translator": "Bryson Sewell",
+    "year": "2013",
+    "rights": "publicDomain",
+    "rightsNote": "Im Auftrag von Roger Pearse übersetzt und von ihm gemeinfrei gestellt („This file and all material on this page is in the public domain – copy freely“). Übersetzt aus PG 56, 385–396. Die Echtheit ist umstritten (Anmerkung 1 der Übersetzung).",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub), nach tertullian.org (Roger Pearse)",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/John%20Chrysostom/Homilies/2nd%20Homily%20On%20the%20birthday%20of%20our%20Savior.html",
+    "availability": "full"
+   }
+  },
+  {
+   "source": "hcf",
+   "author": "johannes_chrysostomus",
+   "work": {
+    "id": "chrysostomus.de_terrae_motu",
+    "title": "Homilie nach dem Erdbeben",
+    "originalTitle": "De terrae motu (PG 50, 713–716)",
+    "clavis": "CPG 4366",
+    "genre": "Homilien",
+    "originalLanguage": "grc",
+    "authenticity": "doubtful"
+   },
+   "files": [
+    "John Chrysostom/Homilies/After the Earthquake.html"
+   ],
+   "split": "file",
+   "plainNotes": true,
+   "version": {
+    "id": "pearse.chrysostomus.de_terrae_motu",
+    "title": "Homily after the Earthquake (Sewell 2013)",
+    "language": "en",
+    "kind": "modernTranslation",
+    "translator": "Bryson Sewell",
+    "year": "2013",
+    "rights": "publicDomain",
+    "rightsNote": "Im Auftrag von Roger Pearse übersetzt und von ihm gemeinfrei gestellt („This file and all material on this page is in the public domain – copy freely“). Übersetzt aus PG 50, 713–716. Die Echtheit ist umstritten (W. Mayer dafür, S. J. Voicu dagegen; Anmerkung 1 der Übersetzung).",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub), nach tertullian.org (Roger Pearse)",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/John%20Chrysostom/Homilies/After%20the%20Earthquake.html",
+    "availability": "full"
+   }
+  },
+  {
+   "source": "hcf",
+   "author": "johannes_chrysostomus",
+   "work": {
+    "id": "chrysostomus.contra_ludos",
+    "title": "Gegen die, die die Kirche für Rennbahn und Theater verlassen haben",
+    "originalTitle": "Contra ludos et theatra (PG 56, 263–270)",
+    "genre": "Homilien",
+    "originalLanguage": "grc"
+   },
+   "files": [
+    "John Chrysostom/Homilies/Against the circuses and theatres.html"
+   ],
+   "split": "file",
+   "plainNotes": true,
+   "version": {
+    "id": "pearse.chrysostomus.contra_ludos",
+    "title": "Against the circuses and theatres (Vermes 2012)",
+    "language": "en",
+    "kind": "modernTranslation",
+    "translator": "Mark Vermes",
+    "year": "2012",
+    "rights": "publicDomain",
+    "rightsNote": "Im Auftrag von Roger Pearse übersetzt und von ihm gemeinfrei gestellt („This file and all material on this page is in the public domain – copy freely“). Übersetzt aus PG 56, 263–270.",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub), nach tertullian.org (Roger Pearse)",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/John%20Chrysostom/Homilies/Against%20the%20circuses%20and%20theatres.html",
+    "availability": "full"
+   }
+  },
+  {
+   "source": "hcf",
+   "author": "johannes_chrysostomus",
+   "work": {
+    "id": "chrysostomus.in_kalendas",
+    "title": "Predigt an den Kalenden des Januar",
+    "genre": "Predigten",
+    "originalLanguage": "grc"
+   },
+   "files": [
+    "John Chrysostom/Homilies/On the kalends of January.html"
+   ],
+   "split": "file",
+   "plainNotes": true,
+   "version": {
+    "id": "pearse.chrysostomus.in_kalendas",
+    "title": "On the kalends of January (Macdonald 2010)",
+    "language": "en",
+    "kind": "modernTranslation",
+    "translator": "Seumas Macdonald",
+    "year": "2010",
+    "rights": "publicDomain",
+    "rightsNote": "Im Auftrag von Roger Pearse übersetzt und von ihm gemeinfrei gestellt („This file and all material on this page is in the public domain – copy freely“).",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub), nach tertullian.org (Roger Pearse)",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/John%20Chrysostom/Homilies/On%20the%20kalends%20of%20January.html",
+    "availability": "full"
+   }
+  },
+  {
+   "source": "hcf",
+   "author": "johannes_chrysostomus",
+   "work": {
+    "id": "chrysostomus.sermo_ordinatione",
+    "title": "Erste Predigt am Tag der Priesterweihe",
+    "originalTitle": "Sermo cum presbyter fuit ordinatus",
+    "genre": "Predigten",
+    "originalLanguage": "grc"
+   },
+   "files": [
+    "John Chrysostom/Homilies/Chrysostom's First Sermon.html"
+   ],
+   "split": "file",
+   "plainNotes": true,
+   "version": {
+    "id": "pearse.chrysostomus.sermo_ordinatione",
+    "title": "First Sermon (Pearse 2010, aus dem Französischen)",
+    "language": "en",
+    "kind": "modernTranslation",
+    "translator": "Roger Pearse",
+    "year": "2010",
+    "rights": "publicDomain",
+    "rightsNote": "Von Roger Pearse 2010 aus der französischen Übersetzung von J. Bareille (1865) ins Englische übertragen – keine Übersetzung aus dem Griechischen – und gemeinfrei gestellt.",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub), nach tertullian.org (Roger Pearse)",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/John%20Chrysostom/Homilies/Chrysostom's%20First%20Sermon.html",
+    "availability": "full"
+   }
+  },
+  {
+   "source": "hcf",
+   "author": "basilius_von_casarea",
+   "work": {
+    "id": "bkv.cpg-2835"
+   },
+   "version": {
+    "id": "npnf.basilius.hexaemeron",
+    "title": "The Hexaemeron (NPNF)",
+    "language": "en",
+    "kind": "historicalTranslation",
+    "translator": "Blomfield Jackson",
+    "series": "Nicene and Post-Nicene Fathers, 2. Serie, Bd. 8",
+    "year": "1895",
+    "rights": "publicDomain",
+    "rightsNote": "Englische Übersetzung des 19. Jahrhunderts, erschienen 1895 (NPNF, hg. von Philip Schaff und Henry Wace). Die Übersetzer und Bearbeiter waren Gelehrte des 19. Jahrhunderts und sind nach allgemeiner Kenntnis lange vor 1956 gestorben (Lebensdaten nicht einzeln per GND geprüft, da aus der Cloud nicht erreichbar); in den USA gemeinfrei, weil vor 1931 erschienen. Digitalisat aus der Sammlung HistoricalChristianFaith (dort als gemeinfrei ausgewiesen).",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub), nach der NPNF-Ausgabe",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/Basil%20of%20Caesarea/The%20Hexaemeron",
+    "availability": "full"
+   },
+   "files": [
+    "Basil of Caesarea/The Hexaemeron/Homily 1-In the Beginning God Made the Heaven and the Earth.html",
+    "Basil of Caesarea/The Hexaemeron/Homily 2-\"The Earth Was Invisible and Unfinished\".html",
+    "Basil of Caesarea/The Hexaemeron/Homily 3-On the Firmament.html",
+    "Basil of Caesarea/The Hexaemeron/Homily 4-Upon the Gathering Together of the Waters.html",
+    "Basil of Caesarea/The Hexaemeron/Homily 5-The Germination of the Earth.html",
+    "Basil of Caesarea/The Hexaemeron/Homily 6-The Creation of Luminous Bodies.html",
+    "Basil of Caesarea/The Hexaemeron/Homily 7-The Creation of Moving Creatures.html",
+    "Basil of Caesarea/The Hexaemeron/Homily 8-The Creation of Fowl and Water Animals.html",
+    "Basil of Caesarea/The Hexaemeron/Homily 9-The Creation of Terrestrial Animals.html"
+   ],
+   "split": "auto"
+  },
+  {
+   "source": "hcf",
+   "author": "basilius_von_casarea",
+   "work": {
+    "id": "basilius.de_spiritu_sancto",
+    "title": "Über den Heiligen Geist",
+    "originalTitle": "De Spiritu Sancto",
+    "clavis": "CPG 2839",
+    "genre": "Abhandlung",
+    "originalLanguage": "grc"
+   },
+   "version": {
+    "id": "npnf.basilius.de_spiritu_sancto",
+    "title": "On the Spirit (NPNF)",
+    "language": "en",
+    "kind": "historicalTranslation",
+    "translator": "Blomfield Jackson",
+    "series": "Nicene and Post-Nicene Fathers, 2. Serie, Bd. 8",
+    "year": "1895",
+    "rights": "publicDomain",
+    "rightsNote": "Englische Übersetzung des 19. Jahrhunderts, erschienen 1895 (NPNF, hg. von Philip Schaff und Henry Wace). Die Übersetzer und Bearbeiter waren Gelehrte des 19. Jahrhunderts und sind nach allgemeiner Kenntnis lange vor 1956 gestorben (Lebensdaten nicht einzeln per GND geprüft, da aus der Cloud nicht erreichbar); in den USA gemeinfrei, weil vor 1931 erschienen. Digitalisat aus der Sammlung HistoricalChristianFaith (dort als gemeinfrei ausgewiesen).",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub), nach der NPNF-Ausgabe",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/Basil%20of%20Caesarea/ON%20THE%20SPIRIT.html",
+    "availability": "full"
+   },
+   "files": [
+    "Basil of Caesarea/ON THE SPIRIT.html"
+   ],
+   "split": "auto"
+  },
+  {
+   "source": "hcf",
+   "author": "basilius_von_casarea",
+   "work": {
+    "id": "basilius.epistulae",
+    "title": "Briefe",
+    "originalTitle": "Epistulae",
+    "clavis": "CPG 2900",
+    "genre": "Briefe",
+    "originalLanguage": "grc"
+   },
+   "version": {
+    "id": "npnf.basilius.epistulae",
+    "title": "Letters (NPNF)",
+    "language": "en",
+    "kind": "historicalTranslation",
+    "translator": "Blomfield Jackson",
+    "series": "Nicene and Post-Nicene Fathers, 2. Serie, Bd. 8",
+    "year": "1895",
+    "rights": "publicDomain",
+    "rightsNote": "Englische Übersetzung des 19. Jahrhunderts, erschienen 1895 (NPNF, hg. von Philip Schaff und Henry Wace). Die Übersetzer und Bearbeiter waren Gelehrte des 19. Jahrhunderts und sind nach allgemeiner Kenntnis lange vor 1956 gestorben (Lebensdaten nicht einzeln per GND geprüft, da aus der Cloud nicht erreichbar); in den USA gemeinfrei, weil vor 1931 erschienen. Digitalisat aus der Sammlung HistoricalChristianFaith (dort als gemeinfrei ausgewiesen). In der Vorlage fehlen die Briefe 328 und 361–365.",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub), nach der NPNF-Ausgabe",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/Basil%20of%20Caesarea/Letters",
+    "availability": "partial"
+   },
+   "files": [
+    "Basil of Caesarea/Letters/Letter 1.html",
+    "Basil of Caesarea/Letters/Letter 2.html",
+    "Basil of Caesarea/Letters/Letter 3.html",
+    "Basil of Caesarea/Letters/Letter 4.html",
+    "Basil of Caesarea/Letters/Letter 5.html",
+    "Basil of Caesarea/Letters/Letter 6.html",
+    "Basil of Caesarea/Letters/Letter 7.html",
+    "Basil of Caesarea/Letters/Letter 8.html",
+    "Basil of Caesarea/Letters/Letter 9.html",
+    "Basil of Caesarea/Letters/Letter 10.html",
+    "Basil of Caesarea/Letters/Letter 11.html",
+    "Basil of Caesarea/Letters/Letter 12.html",
+    "Basil of Caesarea/Letters/Letter 13.html",
+    "Basil of Caesarea/Letters/Letter 14.html",
+    "Basil of Caesarea/Letters/Letter 15.html",
+    "Basil of Caesarea/Letters/Letter 16.html",
+    "Basil of Caesarea/Letters/Letter 17.html",
+    "Basil of Caesarea/Letters/Letter 18.html",
+    "Basil of Caesarea/Letters/Letter 19.html",
+    "Basil of Caesarea/Letters/Letter 20.html",
+    "Basil of Caesarea/Letters/Letter 21.html",
+    "Basil of Caesarea/Letters/Letter 22.html",
+    "Basil of Caesarea/Letters/Letter 23.html",
+    "Basil of Caesarea/Letters/Letter 24.html",
+    "Basil of Caesarea/Letters/Letter 25.html",
+    "Basil of Caesarea/Letters/Letter 26.html",
+    "Basil of Caesarea/Letters/Letter 27.html",
+    "Basil of Caesarea/Letters/Letter 28.html",
+    "Basil of Caesarea/Letters/Letter 29.html",
+    "Basil of Caesarea/Letters/Letter 30.html",
+    "Basil of Caesarea/Letters/Letter 31.html",
+    "Basil of Caesarea/Letters/Letter 32.html",
+    "Basil of Caesarea/Letters/Letter 33.html",
+    "Basil of Caesarea/Letters/Letter 34.html",
+    "Basil of Caesarea/Letters/Letter 35.html",
+    "Basil of Caesarea/Letters/Letter 36.html",
+    "Basil of Caesarea/Letters/Letter 37.html",
+    "Basil of Caesarea/Letters/Letter 38.html",
+    "Basil of Caesarea/Letters/Letter 39.html",
+    "Basil of Caesarea/Letters/Letter 40.html",
+    "Basil of Caesarea/Letters/Letter 41.html",
+    "Basil of Caesarea/Letters/Letter 42.html",
+    "Basil of Caesarea/Letters/Letter 43.html",
+    "Basil of Caesarea/Letters/Letter 44.html",
+    "Basil of Caesarea/Letters/Letter 45.html",
+    "Basil of Caesarea/Letters/Letter 46.html",
+    "Basil of Caesarea/Letters/Letter 47.html",
+    "Basil of Caesarea/Letters/Letter 48.html",
+    "Basil of Caesarea/Letters/Letter 49.html",
+    "Basil of Caesarea/Letters/Letter 50.html",
+    "Basil of Caesarea/Letters/Letter 51.html",
+    "Basil of Caesarea/Letters/Letter 52.html",
+    "Basil of Caesarea/Letters/Letter 53.html",
+    "Basil of Caesarea/Letters/Letter 54.html",
+    "Basil of Caesarea/Letters/Letter 55.html",
+    "Basil of Caesarea/Letters/Letter 56.html",
+    "Basil of Caesarea/Letters/Letter 57.html",
+    "Basil of Caesarea/Letters/Letter 58.html",
+    "Basil of Caesarea/Letters/Letter 59.html",
+    "Basil of Caesarea/Letters/Letter 60.html",
+    "Basil of Caesarea/Letters/Letter 61.html",
+    "Basil of Caesarea/Letters/Letter 62.html",
+    "Basil of Caesarea/Letters/Letter 63.html",
+    "Basil of Caesarea/Letters/Letter 64.html",
+    "Basil of Caesarea/Letters/Letter 65.html",
+    "Basil of Caesarea/Letters/Letter 66.html",
+    "Basil of Caesarea/Letters/Letter 67.html",
+    "Basil of Caesarea/Letters/Letter 68.html",
+    "Basil of Caesarea/Letters/Letter 69.html",
+    "Basil of Caesarea/Letters/Letter 70.html",
+    "Basil of Caesarea/Letters/Letter 71.html",
+    "Basil of Caesarea/Letters/Letter 72.html",
+    "Basil of Caesarea/Letters/Letter 73.html",
+    "Basil of Caesarea/Letters/Letter 74.html",
+    "Basil of Caesarea/Letters/Letter 75.html",
+    "Basil of Caesarea/Letters/Letter 76.html",
+    "Basil of Caesarea/Letters/Letter 77.html",
+    "Basil of Caesarea/Letters/Letter 78.html",
+    "Basil of Caesarea/Letters/Letter 79.html",
+    "Basil of Caesarea/Letters/Letter 80.html",
+    "Basil of Caesarea/Letters/Letter 81.html",
+    "Basil of Caesarea/Letters/Letter 82.html",
+    "Basil of Caesarea/Letters/Letter 83.html",
+    "Basil of Caesarea/Letters/Letter 84.html",
+    "Basil of Caesarea/Letters/Letter 85.html",
+    "Basil of Caesarea/Letters/Letter 86.html",
+    "Basil of Caesarea/Letters/Letter 87.html",
+    "Basil of Caesarea/Letters/Letter 88.html",
+    "Basil of Caesarea/Letters/Letter 89.html",
+    "Basil of Caesarea/Letters/Letter 90.html",
+    "Basil of Caesarea/Letters/Letter 91.html",
+    "Basil of Caesarea/Letters/Letter 92.html",
+    "Basil of Caesarea/Letters/Letter 93.html",
+    "Basil of Caesarea/Letters/Letter 94.html",
+    "Basil of Caesarea/Letters/Letter 95.html",
+    "Basil of Caesarea/Letters/Letter 96.html",
+    "Basil of Caesarea/Letters/Letter 97.html",
+    "Basil of Caesarea/Letters/Letter 98.html",
+    "Basil of Caesarea/Letters/Letter 99.html",
+    "Basil of Caesarea/Letters/Letter 100.html",
+    "Basil of Caesarea/Letters/Letter 101.html",
+    "Basil of Caesarea/Letters/Letter 102.html",
+    "Basil of Caesarea/Letters/Letter 103.html",
+    "Basil of Caesarea/Letters/Letter 104.html",
+    "Basil of Caesarea/Letters/Letter 105.html",
+    "Basil of Caesarea/Letters/Letter 106.html",
+    "Basil of Caesarea/Letters/Letter 107.html",
+    "Basil of Caesarea/Letters/Letter 108.html",
+    "Basil of Caesarea/Letters/Letter 109.html",
+    "Basil of Caesarea/Letters/Letter 110.html",
+    "Basil of Caesarea/Letters/Letter 111.html",
+    "Basil of Caesarea/Letters/Letter 112.html",
+    "Basil of Caesarea/Letters/Letter 113.html",
+    "Basil of Caesarea/Letters/Letter 114.html",
+    "Basil of Caesarea/Letters/Letter 115.html",
+    "Basil of Caesarea/Letters/Letter 116.html",
+    "Basil of Caesarea/Letters/Letter 117.html",
+    "Basil of Caesarea/Letters/Letter 118.html",
+    "Basil of Caesarea/Letters/Letter 119.html",
+    "Basil of Caesarea/Letters/Letter 120.html",
+    "Basil of Caesarea/Letters/Letter 121.html",
+    "Basil of Caesarea/Letters/Letter 122.html",
+    "Basil of Caesarea/Letters/Letter 123.html",
+    "Basil of Caesarea/Letters/Letter 124.html",
+    "Basil of Caesarea/Letters/Letter 125.html",
+    "Basil of Caesarea/Letters/Letter 126.html",
+    "Basil of Caesarea/Letters/Letter 127.html",
+    "Basil of Caesarea/Letters/Letter 128.html",
+    "Basil of Caesarea/Letters/Letter 129.html",
+    "Basil of Caesarea/Letters/Letter 130.html",
+    "Basil of Caesarea/Letters/Letter 131.html",
+    "Basil of Caesarea/Letters/Letter 132.html",
+    "Basil of Caesarea/Letters/Letter 133.html",
+    "Basil of Caesarea/Letters/Letter 134.html",
+    "Basil of Caesarea/Letters/Letter 135.html",
+    "Basil of Caesarea/Letters/Letter 136.html",
+    "Basil of Caesarea/Letters/Letter 137.html",
+    "Basil of Caesarea/Letters/Letter 138.html",
+    "Basil of Caesarea/Letters/Letter 139.html",
+    "Basil of Caesarea/Letters/Letter 140.html",
+    "Basil of Caesarea/Letters/Letter 141.html",
+    "Basil of Caesarea/Letters/Letter 142.html",
+    "Basil of Caesarea/Letters/Letter 143.html",
+    "Basil of Caesarea/Letters/Letter 144.html",
+    "Basil of Caesarea/Letters/Letter 145.html",
+    "Basil of Caesarea/Letters/Letter 146.html",
+    "Basil of Caesarea/Letters/Letter 147.html",
+    "Basil of Caesarea/Letters/Letter 148.html",
+    "Basil of Caesarea/Letters/Letter 149.html",
+    "Basil of Caesarea/Letters/Letter 150.html",
+    "Basil of Caesarea/Letters/Letter 151.html",
+    "Basil of Caesarea/Letters/Letter 152.html",
+    "Basil of Caesarea/Letters/Letter 153.html",
+    "Basil of Caesarea/Letters/Letter 154.html",
+    "Basil of Caesarea/Letters/Letter 155.html",
+    "Basil of Caesarea/Letters/Letter 156.html",
+    "Basil of Caesarea/Letters/Letter 157.html",
+    "Basil of Caesarea/Letters/Letter 158.html",
+    "Basil of Caesarea/Letters/Letter 159.html",
+    "Basil of Caesarea/Letters/Letter 160.html",
+    "Basil of Caesarea/Letters/Letter 161.html",
+    "Basil of Caesarea/Letters/Letter 162.html",
+    "Basil of Caesarea/Letters/Letter 163.html",
+    "Basil of Caesarea/Letters/Letter 164.html",
+    "Basil of Caesarea/Letters/Letter 165.html",
+    "Basil of Caesarea/Letters/Letter 166.html",
+    "Basil of Caesarea/Letters/Letter 167.html",
+    "Basil of Caesarea/Letters/Letter 168.html",
+    "Basil of Caesarea/Letters/Letter 169.html",
+    "Basil of Caesarea/Letters/Letter 170.html",
+    "Basil of Caesarea/Letters/Letter 171.html",
+    "Basil of Caesarea/Letters/Letter 172.html",
+    "Basil of Caesarea/Letters/Letter 173.html",
+    "Basil of Caesarea/Letters/Letter 174.html",
+    "Basil of Caesarea/Letters/Letter 175.html",
+    "Basil of Caesarea/Letters/Letter 176.html",
+    "Basil of Caesarea/Letters/Letter 177.html",
+    "Basil of Caesarea/Letters/Letter 178.html",
+    "Basil of Caesarea/Letters/Letter 179.html",
+    "Basil of Caesarea/Letters/Letter 180.html",
+    "Basil of Caesarea/Letters/Letter 181.html",
+    "Basil of Caesarea/Letters/Letter 182.html",
+    "Basil of Caesarea/Letters/Letter 183.html",
+    "Basil of Caesarea/Letters/Letter 184.html",
+    "Basil of Caesarea/Letters/Letter 185.html",
+    "Basil of Caesarea/Letters/Letter 186.html",
+    "Basil of Caesarea/Letters/Letter 187.html",
+    "Basil of Caesarea/Letters/Letter 188.html",
+    "Basil of Caesarea/Letters/Letter 189.html",
+    "Basil of Caesarea/Letters/Letter 190.html",
+    "Basil of Caesarea/Letters/Letter 191.html",
+    "Basil of Caesarea/Letters/Letter 192.html",
+    "Basil of Caesarea/Letters/Letter 193.html",
+    "Basil of Caesarea/Letters/Letter 194.html",
+    "Basil of Caesarea/Letters/Letter 195.html",
+    "Basil of Caesarea/Letters/Letter 196.html",
+    "Basil of Caesarea/Letters/Letter 197.html",
+    "Basil of Caesarea/Letters/Letter 198.html",
+    "Basil of Caesarea/Letters/Letter 199.html",
+    "Basil of Caesarea/Letters/Letter 200.html",
+    "Basil of Caesarea/Letters/Letter 201.html",
+    "Basil of Caesarea/Letters/Letter 202.html",
+    "Basil of Caesarea/Letters/Letter 203.html",
+    "Basil of Caesarea/Letters/Letter 204.html",
+    "Basil of Caesarea/Letters/Letter 205.html",
+    "Basil of Caesarea/Letters/Letter 206.html",
+    "Basil of Caesarea/Letters/Letter 207.html",
+    "Basil of Caesarea/Letters/Letter 208.html",
+    "Basil of Caesarea/Letters/Letter 209.html",
+    "Basil of Caesarea/Letters/Letter 210.html",
+    "Basil of Caesarea/Letters/Letter 211.html",
+    "Basil of Caesarea/Letters/Letter 212.html",
+    "Basil of Caesarea/Letters/Letter 213.html",
+    "Basil of Caesarea/Letters/Letter 214.html",
+    "Basil of Caesarea/Letters/Letter 215.html",
+    "Basil of Caesarea/Letters/Letter 216.html",
+    "Basil of Caesarea/Letters/Letter 217.html",
+    "Basil of Caesarea/Letters/Letter 218.html",
+    "Basil of Caesarea/Letters/Letter 219.html",
+    "Basil of Caesarea/Letters/Letter 220.html",
+    "Basil of Caesarea/Letters/Letter 221.html",
+    "Basil of Caesarea/Letters/Letter 222.html",
+    "Basil of Caesarea/Letters/Letter 223.html",
+    "Basil of Caesarea/Letters/Letter 224.html",
+    "Basil of Caesarea/Letters/Letter 225.html",
+    "Basil of Caesarea/Letters/Letter 226.html",
+    "Basil of Caesarea/Letters/Letter 227.html",
+    "Basil of Caesarea/Letters/Letter 228.html",
+    "Basil of Caesarea/Letters/Letter 229.html",
+    "Basil of Caesarea/Letters/Letter 230.html",
+    "Basil of Caesarea/Letters/Letter 231.html",
+    "Basil of Caesarea/Letters/Letter 232.html",
+    "Basil of Caesarea/Letters/Letter 233.html",
+    "Basil of Caesarea/Letters/Letter 234.html",
+    "Basil of Caesarea/Letters/Letter 235.html",
+    "Basil of Caesarea/Letters/Letter 236.html",
+    "Basil of Caesarea/Letters/Letter 237.html",
+    "Basil of Caesarea/Letters/Letter 238.html",
+    "Basil of Caesarea/Letters/Letter 239.html",
+    "Basil of Caesarea/Letters/Letter 240.html",
+    "Basil of Caesarea/Letters/Letter 241.html",
+    "Basil of Caesarea/Letters/Letter 242.html",
+    "Basil of Caesarea/Letters/Letter 243.html",
+    "Basil of Caesarea/Letters/Letter 244.html",
+    "Basil of Caesarea/Letters/Letter 245.html",
+    "Basil of Caesarea/Letters/Letter 246.html",
+    "Basil of Caesarea/Letters/Letter 247.html",
+    "Basil of Caesarea/Letters/Letter 248.html",
+    "Basil of Caesarea/Letters/Letter 249.html",
+    "Basil of Caesarea/Letters/Letter 250.html",
+    "Basil of Caesarea/Letters/Letter 251.html",
+    "Basil of Caesarea/Letters/Letter 252.html",
+    "Basil of Caesarea/Letters/Letter 253.html",
+    "Basil of Caesarea/Letters/Letter 254.html",
+    "Basil of Caesarea/Letters/Letter 255.html",
+    "Basil of Caesarea/Letters/Letter 256.html",
+    "Basil of Caesarea/Letters/Letter 257.html",
+    "Basil of Caesarea/Letters/Letter 258.html",
+    "Basil of Caesarea/Letters/Letter 259.html",
+    "Basil of Caesarea/Letters/Letter 260.html",
+    "Basil of Caesarea/Letters/Letter 261.html",
+    "Basil of Caesarea/Letters/Letter 262.html",
+    "Basil of Caesarea/Letters/Letter 263.html",
+    "Basil of Caesarea/Letters/Letter 264.html",
+    "Basil of Caesarea/Letters/Letter 265.html",
+    "Basil of Caesarea/Letters/Letter 266.html",
+    "Basil of Caesarea/Letters/Letter 267.html",
+    "Basil of Caesarea/Letters/Letter 268.html",
+    "Basil of Caesarea/Letters/Letter 269.html",
+    "Basil of Caesarea/Letters/Letter 270.html",
+    "Basil of Caesarea/Letters/Letter 271.html",
+    "Basil of Caesarea/Letters/Letter 272.html",
+    "Basil of Caesarea/Letters/Letter 273.html",
+    "Basil of Caesarea/Letters/Letter 274.html",
+    "Basil of Caesarea/Letters/Letter 275.html",
+    "Basil of Caesarea/Letters/Letter 276.html",
+    "Basil of Caesarea/Letters/Letter 277.html",
+    "Basil of Caesarea/Letters/Letter 278.html",
+    "Basil of Caesarea/Letters/Letter 279.html",
+    "Basil of Caesarea/Letters/Letter 280.html",
+    "Basil of Caesarea/Letters/Letter 281.html",
+    "Basil of Caesarea/Letters/Letter 282.html",
+    "Basil of Caesarea/Letters/Letter 283.html",
+    "Basil of Caesarea/Letters/Letter 284.html",
+    "Basil of Caesarea/Letters/Letter 285.html",
+    "Basil of Caesarea/Letters/Letter 286.html",
+    "Basil of Caesarea/Letters/Letter 287.html",
+    "Basil of Caesarea/Letters/Letter 288.html",
+    "Basil of Caesarea/Letters/Letter 289.html",
+    "Basil of Caesarea/Letters/Letter 290.html",
+    "Basil of Caesarea/Letters/Letter 291.html",
+    "Basil of Caesarea/Letters/Letter 292.html",
+    "Basil of Caesarea/Letters/Letter 293.html",
+    "Basil of Caesarea/Letters/Letter 294.html",
+    "Basil of Caesarea/Letters/Letter 295.html",
+    "Basil of Caesarea/Letters/Letter 296.html",
+    "Basil of Caesarea/Letters/Letter 297.html",
+    "Basil of Caesarea/Letters/Letter 298.html",
+    "Basil of Caesarea/Letters/Letter 299.html",
+    "Basil of Caesarea/Letters/Letter 300.html",
+    "Basil of Caesarea/Letters/Letter 301.html",
+    "Basil of Caesarea/Letters/Letter 302.html",
+    "Basil of Caesarea/Letters/Letter 303.html",
+    "Basil of Caesarea/Letters/Letter 304.html",
+    "Basil of Caesarea/Letters/Letter 305.html",
+    "Basil of Caesarea/Letters/Letter 306.html",
+    "Basil of Caesarea/Letters/Letter 307.html",
+    "Basil of Caesarea/Letters/Letter 308.html",
+    "Basil of Caesarea/Letters/Letter 309.html",
+    "Basil of Caesarea/Letters/Letter 310.html",
+    "Basil of Caesarea/Letters/Letter 311.html",
+    "Basil of Caesarea/Letters/Letter 312.html",
+    "Basil of Caesarea/Letters/Letter 313.html",
+    "Basil of Caesarea/Letters/Letter 314.html",
+    "Basil of Caesarea/Letters/Letter 315.html",
+    "Basil of Caesarea/Letters/Letter 320.html",
+    "Basil of Caesarea/Letters/Letter 321.html",
+    "Basil of Caesarea/Letters/Letter 322.html",
+    "Basil of Caesarea/Letters/Letter 323.html",
+    "Basil of Caesarea/Letters/Letter 324.html",
+    "Basil of Caesarea/Letters/Letter 325.html",
+    "Basil of Caesarea/Letters/Letter 326.html",
+    "Basil of Caesarea/Letters/Letter 327.html",
+    "Basil of Caesarea/Letters/Letter 329.html",
+    "Basil of Caesarea/Letters/Letter 334.html",
+    "Basil of Caesarea/Letters/Letter 335.html",
+    "Basil of Caesarea/Letters/Letter 336.html",
+    "Basil of Caesarea/Letters/Letter 337.html",
+    "Basil of Caesarea/Letters/Letter 338.html",
+    "Basil of Caesarea/Letters/Letter 339.html",
+    "Basil of Caesarea/Letters/Letter 340.html",
+    "Basil of Caesarea/Letters/Letter 341.html",
+    "Basil of Caesarea/Letters/Letter 342.html",
+    "Basil of Caesarea/Letters/Letter 343.html",
+    "Basil of Caesarea/Letters/Letter 344.html",
+    "Basil of Caesarea/Letters/Letter 345.html",
+    "Basil of Caesarea/Letters/Letter 346.html",
+    "Basil of Caesarea/Letters/Letter 347.html",
+    "Basil of Caesarea/Letters/Letter 348.html",
+    "Basil of Caesarea/Letters/Letter 349.html",
+    "Basil of Caesarea/Letters/Letter 350.html",
+    "Basil of Caesarea/Letters/Letter 351.html",
+    "Basil of Caesarea/Letters/Letter 352.html",
+    "Basil of Caesarea/Letters/Letter 353.html",
+    "Basil of Caesarea/Letters/Letter 354.html",
+    "Basil of Caesarea/Letters/Letter 355.html",
+    "Basil of Caesarea/Letters/Letter 356.html",
+    "Basil of Caesarea/Letters/Letter 357.html",
+    "Basil of Caesarea/Letters/Letter 358.html",
+    "Basil of Caesarea/Letters/Letter 359.html",
+    "Basil of Caesarea/Letters/Letter 360.html",
+    "Basil of Caesarea/Letters/Letter 366.html",
+    "Basil of Caesarea/Letters/Letters 316, 317, 318, 319.html",
+    "Basil of Caesarea/Letters/Letters 330, 331, 332, 333.html"
+   ],
+   "split": "auto"
+  },
+  {
+   "source": "hcf",
+   "author": "basilius_von_casarea",
+   "work": {
+    "id": "basilius.ad_adolescentes",
+    "title": "An die Jünglinge über den rechten Gebrauch der heidnischen Literatur",
+    "originalTitle": "Ad adolescentes (De legendis gentilium libris)",
+    "genre": "Abhandlung",
+    "originalLanguage": "grc"
+   },
+   "files": [
+    "Basil of Caesarea/Address to Young Men on the Right Use of Greek Literature.html"
+   ],
+   "split": "file",
+   "skipParagraphs": 1,
+   "version": {
+    "id": "padelford.basilius.ad_adolescentes",
+    "title": "Address to Young Men on the Right Use of Greek Literature (Padelford 1902)",
+    "language": "en",
+    "kind": "historicalTranslation",
+    "translator": "Frederick Morgan Padelford",
+    "series": "Yale Studies in English 15",
+    "year": "1902",
+    "rights": "publicDomain",
+    "rightsNote": "Englische Übersetzung, New York 1902; Frederick Morgan Padelford † 1942 – gemeinfrei.",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub), nach tertullian.org",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/Basil%20of%20Caesarea/Address%20to%20Young%20Men%20on%20the%20Right%20Use%20of%20Greek%20Literature.html",
+    "availability": "full"
+   }
+  },
+  {
+   "source": "hcf",
+   "author": "basilius_von_casarea",
+   "work": {
+    "id": "basilius.hom_baptisma",
+    "title": "Mahnrede zur Taufe (Homilie 13)",
+    "originalTitle": "Homilia exhortatoria ad sanctum baptisma",
+    "genre": "Homilien",
+    "originalLanguage": "grc"
+   },
+   "files": [
+    "Basil of Caesarea/Sermon 13 On holy baptism.html"
+   ],
+   "split": "file",
+   "version": {
+    "id": "kenrick.basilius.hom_baptisma",
+    "title": "Exhortation to Baptism (Kenrick 1843)",
+    "language": "en",
+    "kind": "historicalTranslation",
+    "translator": "Francis Patrick Kenrick",
+    "published": "A Treatise on Baptism",
+    "year": "1843",
+    "rights": "publicDomain",
+    "rightsNote": "Englische Übersetzung von Francis Patrick Kenrick († 1863), 1843 – gemeinfrei. Von Roger Pearse 2014 abgeschrieben und behutsam modernisiert, gemeinfrei gestellt.",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub), nach tertullian.org (Roger Pearse)",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/Basil%20of%20Caesarea/Sermon%2013%20On%20holy%20baptism.html",
+    "availability": "full"
+   }
+  },
+  {
+   "source": "hcf",
+   "author": "gregor_v_nyssa",
+   "work": {
+    "id": "gregor_nyssa.contra_eunomium",
+    "title": "Gegen Eunomius",
+    "originalTitle": "Contra Eunomium",
+    "clavis": "CPG 3135",
+    "genre": "Streitschrift",
+    "originalLanguage": "grc"
+   },
+   "version": {
+    "id": "npnf.gregor_nyssa.contra_eunomium",
+    "title": "Against Eunomius (NPNF)",
+    "language": "en",
+    "kind": "historicalTranslation",
+    "translator": "William Moore, Henry Austin Wilson",
+    "series": "Nicene and Post-Nicene Fathers, 2. Serie, Bd. 5",
+    "year": "1893",
+    "rights": "publicDomain",
+    "rightsNote": "Englische Übersetzung des 19. Jahrhunderts, erschienen 1893 (NPNF, hg. von Philip Schaff und Henry Wace). Die Übersetzer und Bearbeiter waren Gelehrte des 19. Jahrhunderts und sind nach allgemeiner Kenntnis lange vor 1956 gestorben (Lebensdaten nicht einzeln per GND geprüft, da aus der Cloud nicht erreichbar); in den USA gemeinfrei, weil vor 1931 erschienen. Digitalisat aus der Sammlung HistoricalChristianFaith (dort als gemeinfrei ausgewiesen). Gliederung und Zählung der Bücher nach NPNF (weicht von der Ausgabe W. Jaegers ab); vorangestellt die beiden Begleitbriefe.",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub), nach der NPNF-Ausgabe",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/Gregory%20of%20Nyssa/Against%20Eunomius",
+    "availability": "full"
+   },
+   "files": [
+    "Gregory of Nyssa/Against Eunomius/Letter 1.html",
+    "Gregory of Nyssa/Against Eunomius/Letter 2.html",
+    "Gregory of Nyssa/Against Eunomius/Book 1.html",
+    "Gregory of Nyssa/Against Eunomius/Book 2.html",
+    "Gregory of Nyssa/Against Eunomius/Book 3.html",
+    "Gregory of Nyssa/Against Eunomius/Book 4.html",
+    "Gregory of Nyssa/Against Eunomius/Book 5.html",
+    "Gregory of Nyssa/Against Eunomius/Book 6.html",
+    "Gregory of Nyssa/Against Eunomius/Book 7.html",
+    "Gregory of Nyssa/Against Eunomius/Book 8.html",
+    "Gregory of Nyssa/Against Eunomius/Book 9.html",
+    "Gregory of Nyssa/Against Eunomius/Book 10.html",
+    "Gregory of Nyssa/Against Eunomius/Book 11.html",
+    "Gregory of Nyssa/Against Eunomius/Book 12.html"
+   ],
+   "split": "auto"
+  },
+  {
+   "source": "hcf",
+   "author": "gregor_v_nyssa",
+   "work": {
+    "id": "gregor_nyssa.refutatio_eunomii",
+    "title": "Antwort auf das zweite Buch des Eunomius",
+    "genre": "Streitschrift",
+    "originalLanguage": "grc"
+   },
+   "version": {
+    "id": "npnf.gregor_nyssa.refutatio_eunomii",
+    "title": "Answer to Eunomius' Second Book (NPNF)",
+    "language": "en",
+    "kind": "historicalTranslation",
+    "translator": "William Moore, Henry Austin Wilson",
+    "series": "Nicene and Post-Nicene Fathers, 2. Serie, Bd. 5",
+    "year": "1893",
+    "rights": "publicDomain",
+    "rightsNote": "Englische Übersetzung des 19. Jahrhunderts, erschienen 1893 (NPNF, hg. von Philip Schaff und Henry Wace). Die Übersetzer und Bearbeiter waren Gelehrte des 19. Jahrhunderts und sind nach allgemeiner Kenntnis lange vor 1956 gestorben (Lebensdaten nicht einzeln per GND geprüft, da aus der Cloud nicht erreichbar); in den USA gemeinfrei, weil vor 1931 erschienen. Digitalisat aus der Sammlung HistoricalChristianFaith (dort als gemeinfrei ausgewiesen).",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub), nach der NPNF-Ausgabe",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/Gregory%20of%20Nyssa/Answer%20to%20Eunomius'%20Second%20Book.html",
+    "availability": "full"
+   },
+   "files": [
+    "Gregory of Nyssa/Answer to Eunomius' Second Book.html"
+   ],
+   "split": "auto"
+  },
+  {
+   "source": "hcf",
+   "author": "gregor_v_nyssa",
+   "work": {
+    "id": "gregor_nyssa.adv_macedonianos",
+    "title": "Über den Heiligen Geist gegen die Makedonianer",
+    "originalTitle": "Adversus Macedonianos de Spiritu Sancto",
+    "genre": "Streitschrift",
+    "originalLanguage": "grc"
+   },
+   "version": {
+    "id": "npnf.gregor_nyssa.adv_macedonianos",
+    "title": "On the Holy Spirit, Against the Followers of Macedonius (NPNF)",
+    "language": "en",
+    "kind": "historicalTranslation",
+    "translator": "William Moore, Henry Austin Wilson",
+    "series": "Nicene and Post-Nicene Fathers, 2. Serie, Bd. 5",
+    "year": "1893",
+    "rights": "publicDomain",
+    "rightsNote": "Englische Übersetzung des 19. Jahrhunderts, erschienen 1893 (NPNF, hg. von Philip Schaff und Henry Wace). Die Übersetzer und Bearbeiter waren Gelehrte des 19. Jahrhunderts und sind nach allgemeiner Kenntnis lange vor 1956 gestorben (Lebensdaten nicht einzeln per GND geprüft, da aus der Cloud nicht erreichbar); in den USA gemeinfrei, weil vor 1931 erschienen. Digitalisat aus der Sammlung HistoricalChristianFaith (dort als gemeinfrei ausgewiesen).",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub), nach der NPNF-Ausgabe",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/Gregory%20of%20Nyssa/On%20the%20Holy%20Spirit,%20Against%20the%20Followers%20of%20Macedonius.html",
+    "availability": "full"
+   },
+   "files": [
+    "Gregory of Nyssa/On the Holy Spirit, Against the Followers of Macedonius.html"
+   ],
+   "split": "auto"
+  },
+  {
+   "source": "hcf",
+   "author": "gregor_v_nyssa",
+   "work": {
+    "id": "gregor_nyssa.ad_eustathium",
+    "title": "Über die heilige Dreifaltigkeit",
+    "originalTitle": "Ad Eustathium de sancta Trinitate",
+    "genre": "Abhandlung",
+    "originalLanguage": "grc"
+   },
+   "version": {
+    "id": "npnf.gregor_nyssa.ad_eustathium",
+    "title": "On the Holy Trinity (NPNF)",
+    "language": "en",
+    "kind": "historicalTranslation",
+    "translator": "William Moore, Henry Austin Wilson",
+    "series": "Nicene and Post-Nicene Fathers, 2. Serie, Bd. 5",
+    "year": "1893",
+    "rights": "publicDomain",
+    "rightsNote": "Englische Übersetzung des 19. Jahrhunderts, erschienen 1893 (NPNF, hg. von Philip Schaff und Henry Wace). Die Übersetzer und Bearbeiter waren Gelehrte des 19. Jahrhunderts und sind nach allgemeiner Kenntnis lange vor 1956 gestorben (Lebensdaten nicht einzeln per GND geprüft, da aus der Cloud nicht erreichbar); in den USA gemeinfrei, weil vor 1931 erschienen. Digitalisat aus der Sammlung HistoricalChristianFaith (dort als gemeinfrei ausgewiesen).",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub), nach der NPNF-Ausgabe",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/Gregory%20of%20Nyssa/On%20the%20Holy%20Trinity,%20and%20of%20the%20Godhead%20of%20the%20Holy%20Spirit.html",
+    "availability": "full"
+   },
+   "files": [
+    "Gregory of Nyssa/On the Holy Trinity, and of the Godhead of the Holy Spirit.html"
+   ],
+   "split": "auto"
+  },
+  {
+   "source": "hcf",
+   "author": "gregor_v_nyssa",
+   "work": {
+    "id": "gregor_nyssa.ad_ablabium",
+    "title": "Dass es nicht drei Götter gibt",
+    "originalTitle": "Ad Ablabium quod non sint tres dei",
+    "genre": "Abhandlung",
+    "originalLanguage": "grc"
+   },
+   "version": {
+    "id": "npnf.gregor_nyssa.ad_ablabium",
+    "title": "On \"Not Three Gods\" (NPNF)",
+    "language": "en",
+    "kind": "historicalTranslation",
+    "translator": "William Moore, Henry Austin Wilson",
+    "series": "Nicene and Post-Nicene Fathers, 2. Serie, Bd. 5",
+    "year": "1893",
+    "rights": "publicDomain",
+    "rightsNote": "Englische Übersetzung des 19. Jahrhunderts, erschienen 1893 (NPNF, hg. von Philip Schaff und Henry Wace). Die Übersetzer und Bearbeiter waren Gelehrte des 19. Jahrhunderts und sind nach allgemeiner Kenntnis lange vor 1956 gestorben (Lebensdaten nicht einzeln per GND geprüft, da aus der Cloud nicht erreichbar); in den USA gemeinfrei, weil vor 1931 erschienen. Digitalisat aus der Sammlung HistoricalChristianFaith (dort als gemeinfrei ausgewiesen).",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub), nach der NPNF-Ausgabe",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/Gregory%20of%20Nyssa/On%20\"Not%20Three%20Gods\".html",
+    "availability": "full"
+   },
+   "files": [
+    "Gregory of Nyssa/On \"Not Three Gods\".html"
+   ],
+   "split": "auto"
+  },
+  {
+   "source": "hcf",
+   "author": "gregor_v_nyssa",
+   "work": {
+    "id": "gregor_nyssa.ad_simplicium",
+    "title": "Über den Glauben",
+    "originalTitle": "Ad Simplicium de fide",
+    "genre": "Abhandlung",
+    "originalLanguage": "grc"
+   },
+   "version": {
+    "id": "npnf.gregor_nyssa.ad_simplicium",
+    "title": "On the Faith (NPNF)",
+    "language": "en",
+    "kind": "historicalTranslation",
+    "translator": "William Moore, Henry Austin Wilson",
+    "series": "Nicene and Post-Nicene Fathers, 2. Serie, Bd. 5",
+    "year": "1893",
+    "rights": "publicDomain",
+    "rightsNote": "Englische Übersetzung des 19. Jahrhunderts, erschienen 1893 (NPNF, hg. von Philip Schaff und Henry Wace). Die Übersetzer und Bearbeiter waren Gelehrte des 19. Jahrhunderts und sind nach allgemeiner Kenntnis lange vor 1956 gestorben (Lebensdaten nicht einzeln per GND geprüft, da aus der Cloud nicht erreichbar); in den USA gemeinfrei, weil vor 1931 erschienen. Digitalisat aus der Sammlung HistoricalChristianFaith (dort als gemeinfrei ausgewiesen).",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub), nach der NPNF-Ausgabe",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/Gregory%20of%20Nyssa/On%20the%20Faith.html",
+    "availability": "full"
+   },
+   "files": [
+    "Gregory of Nyssa/On the Faith.html"
+   ],
+   "split": "auto"
+  },
+  {
+   "source": "hcf",
+   "author": "gregor_v_nyssa",
+   "work": {
+    "id": "gregor_nyssa.de_virginitate",
+    "title": "Über die Jungfräulichkeit",
+    "originalTitle": "De virginitate",
+    "genre": "Abhandlung",
+    "originalLanguage": "grc"
+   },
+   "version": {
+    "id": "npnf.gregor_nyssa.de_virginitate",
+    "title": "On Virginity (NPNF)",
+    "language": "en",
+    "kind": "historicalTranslation",
+    "translator": "William Moore, Henry Austin Wilson",
+    "series": "Nicene and Post-Nicene Fathers, 2. Serie, Bd. 5",
+    "year": "1893",
+    "rights": "publicDomain",
+    "rightsNote": "Englische Übersetzung des 19. Jahrhunderts, erschienen 1893 (NPNF, hg. von Philip Schaff und Henry Wace). Die Übersetzer und Bearbeiter waren Gelehrte des 19. Jahrhunderts und sind nach allgemeiner Kenntnis lange vor 1956 gestorben (Lebensdaten nicht einzeln per GND geprüft, da aus der Cloud nicht erreichbar); in den USA gemeinfrei, weil vor 1931 erschienen. Digitalisat aus der Sammlung HistoricalChristianFaith (dort als gemeinfrei ausgewiesen).",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub), nach der NPNF-Ausgabe",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/Gregory%20of%20Nyssa/On%20Virginity.html",
+    "availability": "full"
+   },
+   "files": [
+    "Gregory of Nyssa/On Virginity.html"
+   ],
+   "split": "auto"
+  },
+  {
+   "source": "hcf",
+   "author": "gregor_v_nyssa",
+   "work": {
+    "id": "bkv.cpg-3154"
+   },
+   "version": {
+    "id": "npnf.gregor_nyssa.de_opificio",
+    "title": "On the Making of Man (NPNF)",
+    "language": "en",
+    "kind": "historicalTranslation",
+    "translator": "William Moore, Henry Austin Wilson",
+    "series": "Nicene and Post-Nicene Fathers, 2. Serie, Bd. 5",
+    "year": "1893",
+    "rights": "publicDomain",
+    "rightsNote": "Englische Übersetzung des 19. Jahrhunderts, erschienen 1893 (NPNF, hg. von Philip Schaff und Henry Wace). Die Übersetzer und Bearbeiter waren Gelehrte des 19. Jahrhunderts und sind nach allgemeiner Kenntnis lange vor 1956 gestorben (Lebensdaten nicht einzeln per GND geprüft, da aus der Cloud nicht erreichbar); in den USA gemeinfrei, weil vor 1931 erschienen. Digitalisat aus der Sammlung HistoricalChristianFaith (dort als gemeinfrei ausgewiesen).",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub), nach der NPNF-Ausgabe",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/Gregory%20of%20Nyssa/On%20the%20Making%20of%20Man.html",
+    "availability": "full"
+   },
+   "files": [
+    "Gregory of Nyssa/On the Making of Man.html"
+   ],
+   "split": "auto"
+  },
+  {
+   "source": "hcf",
+   "author": "gregor_v_nyssa",
+   "work": {
+    "id": "gregor_nyssa.de_anima",
+    "title": "Über die Seele und die Auferstehung",
+    "originalTitle": "De anima et resurrectione",
+    "genre": "Dialog",
+    "originalLanguage": "grc"
+   },
+   "version": {
+    "id": "npnf.gregor_nyssa.de_anima",
+    "title": "On the Soul and the Resurrection (NPNF)",
+    "language": "en",
+    "kind": "historicalTranslation",
+    "translator": "William Moore, Henry Austin Wilson",
+    "series": "Nicene and Post-Nicene Fathers, 2. Serie, Bd. 5",
+    "year": "1893",
+    "rights": "publicDomain",
+    "rightsNote": "Englische Übersetzung des 19. Jahrhunderts, erschienen 1893 (NPNF, hg. von Philip Schaff und Henry Wace). Die Übersetzer und Bearbeiter waren Gelehrte des 19. Jahrhunderts und sind nach allgemeiner Kenntnis lange vor 1956 gestorben (Lebensdaten nicht einzeln per GND geprüft, da aus der Cloud nicht erreichbar); in den USA gemeinfrei, weil vor 1931 erschienen. Digitalisat aus der Sammlung HistoricalChristianFaith (dort als gemeinfrei ausgewiesen).",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub), nach der NPNF-Ausgabe",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/Gregory%20of%20Nyssa/On%20the%20Soul%20and%20the%20Resurrection.html",
+    "availability": "full"
+   },
+   "files": [
+    "Gregory of Nyssa/On the Soul and the Resurrection.html"
+   ],
+   "split": "auto"
+  },
+  {
+   "source": "hcf",
+   "author": "gregor_v_nyssa",
+   "work": {
+    "id": "gregor_nyssa.oratio_catechetica",
+    "title": "Große Katechese",
+    "originalTitle": "Oratio catechetica magna",
+    "genre": "Katechesen",
+    "originalLanguage": "grc"
+   },
+   "version": {
+    "id": "npnf.gregor_nyssa.oratio_catechetica",
+    "title": "The Great Catechism (NPNF)",
+    "language": "en",
+    "kind": "historicalTranslation",
+    "translator": "William Moore, Henry Austin Wilson",
+    "series": "Nicene and Post-Nicene Fathers, 2. Serie, Bd. 5",
+    "year": "1893",
+    "rights": "publicDomain",
+    "rightsNote": "Englische Übersetzung des 19. Jahrhunderts, erschienen 1893 (NPNF, hg. von Philip Schaff und Henry Wace). Die Übersetzer und Bearbeiter waren Gelehrte des 19. Jahrhunderts und sind nach allgemeiner Kenntnis lange vor 1956 gestorben (Lebensdaten nicht einzeln per GND geprüft, da aus der Cloud nicht erreichbar); in den USA gemeinfrei, weil vor 1931 erschienen. Digitalisat aus der Sammlung HistoricalChristianFaith (dort als gemeinfrei ausgewiesen).",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub), nach der NPNF-Ausgabe",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/Gregory%20of%20Nyssa/The%20Great%20Catechism.html",
+    "availability": "full"
+   },
+   "files": [
+    "Gregory of Nyssa/The Great Catechism.html"
+   ],
+   "split": "auto"
+  },
+  {
+   "source": "hcf",
+   "author": "gregor_v_nyssa",
+   "work": {
+    "id": "gregor_nyssa.in_meletium",
+    "title": "Leichenrede auf Meletius",
+    "originalTitle": "Oratio funebris in Meletium episcopum",
+    "genre": "Predigten",
+    "originalLanguage": "grc"
+   },
+   "version": {
+    "id": "npnf.gregor_nyssa.in_meletium",
+    "title": "Funeral Oration on Meletius (NPNF)",
+    "language": "en",
+    "kind": "historicalTranslation",
+    "translator": "William Moore, Henry Austin Wilson",
+    "series": "Nicene and Post-Nicene Fathers, 2. Serie, Bd. 5",
+    "year": "1893",
+    "rights": "publicDomain",
+    "rightsNote": "Englische Übersetzung des 19. Jahrhunderts, erschienen 1893 (NPNF, hg. von Philip Schaff und Henry Wace). Die Übersetzer und Bearbeiter waren Gelehrte des 19. Jahrhunderts und sind nach allgemeiner Kenntnis lange vor 1956 gestorben (Lebensdaten nicht einzeln per GND geprüft, da aus der Cloud nicht erreichbar); in den USA gemeinfrei, weil vor 1931 erschienen. Digitalisat aus der Sammlung HistoricalChristianFaith (dort als gemeinfrei ausgewiesen).",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub), nach der NPNF-Ausgabe",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/Gregory%20of%20Nyssa/Funeral%20Oration%20on%20Meletius.html",
+    "availability": "full"
+   },
+   "files": [
+    "Gregory of Nyssa/Funeral Oration on Meletius.html"
+   ],
+   "split": "auto"
+  },
+  {
+   "source": "hcf",
+   "author": "gregor_v_nyssa",
+   "work": {
+    "id": "gregor_nyssa.de_baptismo",
+    "title": "Auf die Taufe Christi (Predigt zum Tag der Lichter)",
+    "originalTitle": "In diem luminum (In baptismum Christi)",
+    "genre": "Predigten",
+    "originalLanguage": "grc"
+   },
+   "version": {
+    "id": "npnf.gregor_nyssa.de_baptismo",
+    "title": "On the Baptism of Christ (NPNF)",
+    "language": "en",
+    "kind": "historicalTranslation",
+    "translator": "William Moore, Henry Austin Wilson",
+    "series": "Nicene and Post-Nicene Fathers, 2. Serie, Bd. 5",
+    "year": "1893",
+    "rights": "publicDomain",
+    "rightsNote": "Englische Übersetzung des 19. Jahrhunderts, erschienen 1893 (NPNF, hg. von Philip Schaff und Henry Wace). Die Übersetzer und Bearbeiter waren Gelehrte des 19. Jahrhunderts und sind nach allgemeiner Kenntnis lange vor 1956 gestorben (Lebensdaten nicht einzeln per GND geprüft, da aus der Cloud nicht erreichbar); in den USA gemeinfrei, weil vor 1931 erschienen. Digitalisat aus der Sammlung HistoricalChristianFaith (dort als gemeinfrei ausgewiesen).",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub), nach der NPNF-Ausgabe",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/Gregory%20of%20Nyssa/On%20the%20Baptism%20of%20Christ.html",
+    "availability": "full"
+   },
+   "files": [
+    "Gregory of Nyssa/On the Baptism of Christ.html"
+   ],
+   "split": "auto"
+  },
+  {
+   "source": "hcf",
+   "author": "gregor_v_nyssa",
+   "work": {
+    "id": "gregor_nyssa.de_infantibus",
+    "title": "Über die früh verstorbenen Kinder",
+    "originalTitle": "De infantibus praemature abreptis",
+    "genre": "Abhandlung",
+    "originalLanguage": "grc"
+   },
+   "version": {
+    "id": "npnf.gregor_nyssa.de_infantibus",
+    "title": "On Infants' Early Deaths (NPNF)",
+    "language": "en",
+    "kind": "historicalTranslation",
+    "translator": "William Moore, Henry Austin Wilson",
+    "series": "Nicene and Post-Nicene Fathers, 2. Serie, Bd. 5",
+    "year": "1893",
+    "rights": "publicDomain",
+    "rightsNote": "Englische Übersetzung des 19. Jahrhunderts, erschienen 1893 (NPNF, hg. von Philip Schaff und Henry Wace). Die Übersetzer und Bearbeiter waren Gelehrte des 19. Jahrhunderts und sind nach allgemeiner Kenntnis lange vor 1956 gestorben (Lebensdaten nicht einzeln per GND geprüft, da aus der Cloud nicht erreichbar); in den USA gemeinfrei, weil vor 1931 erschienen. Digitalisat aus der Sammlung HistoricalChristianFaith (dort als gemeinfrei ausgewiesen).",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub), nach der NPNF-Ausgabe",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/Gregory%20of%20Nyssa/On%20Infants'%20Early%20Deaths.html",
+    "availability": "full"
+   },
+   "files": [
+    "Gregory of Nyssa/On Infants' Early Deaths.html"
+   ],
+   "split": "auto"
+  },
+  {
+   "source": "hcf",
+   "author": "gregor_v_nyssa",
+   "work": {
+    "id": "gregor_nyssa.de_peregrinationibus",
+    "title": "Über die Wallfahrten nach Jerusalem",
+    "originalTitle": "De iis qui adeunt Hierosolyma (Ep. 2)",
+    "genre": "Briefe",
+    "originalLanguage": "grc"
+   },
+   "version": {
+    "id": "npnf.gregor_nyssa.de_peregrinationibus",
+    "title": "On Pilgrimages (NPNF)",
+    "language": "en",
+    "kind": "historicalTranslation",
+    "translator": "William Moore, Henry Austin Wilson",
+    "series": "Nicene and Post-Nicene Fathers, 2. Serie, Bd. 5",
+    "year": "1893",
+    "rights": "publicDomain",
+    "rightsNote": "Englische Übersetzung des 19. Jahrhunderts, erschienen 1893 (NPNF, hg. von Philip Schaff und Henry Wace). Die Übersetzer und Bearbeiter waren Gelehrte des 19. Jahrhunderts und sind nach allgemeiner Kenntnis lange vor 1956 gestorben (Lebensdaten nicht einzeln per GND geprüft, da aus der Cloud nicht erreichbar); in den USA gemeinfrei, weil vor 1931 erschienen. Digitalisat aus der Sammlung HistoricalChristianFaith (dort als gemeinfrei ausgewiesen).",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub), nach der NPNF-Ausgabe",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/Gregory%20of%20Nyssa/On%20Pilgrimages.html",
+    "availability": "full"
+   },
+   "files": [
+    "Gregory of Nyssa/On Pilgrimages.html"
+   ],
+   "split": "auto"
+  },
+  {
+   "source": "hcf",
+   "author": "gregor_v_nyssa",
+   "work": {
+    "id": "gregor_nyssa.epistulae",
+    "title": "Briefe",
+    "originalTitle": "Epistulae",
+    "genre": "Briefe",
+    "originalLanguage": "grc"
+   },
+   "version": {
+    "id": "npnf.gregor_nyssa.epistulae",
+    "title": "Letters (NPNF)",
+    "language": "en",
+    "kind": "historicalTranslation",
+    "translator": "William Moore, Henry Austin Wilson",
+    "series": "Nicene and Post-Nicene Fathers, 2. Serie, Bd. 5",
+    "year": "1893",
+    "rights": "publicDomain",
+    "rightsNote": "Englische Übersetzung des 19. Jahrhunderts, erschienen 1893 (NPNF, hg. von Philip Schaff und Henry Wace). Die Übersetzer und Bearbeiter waren Gelehrte des 19. Jahrhunderts und sind nach allgemeiner Kenntnis lange vor 1956 gestorben (Lebensdaten nicht einzeln per GND geprüft, da aus der Cloud nicht erreichbar); in den USA gemeinfrei, weil vor 1931 erschienen. Digitalisat aus der Sammlung HistoricalChristianFaith (dort als gemeinfrei ausgewiesen). 18 Briefe in der Zählung von NPNF; die Ausgabe von G. Pasquali zählt 30 Briefe (anders geordnet). „Über die Wallfahrten“ steht als eigenes Werk.",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub), nach der NPNF-Ausgabe",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/Gregory%20of%20Nyssa/Letters",
+    "availability": "partial"
+   },
+   "files": [
+    "Gregory of Nyssa/Letters/Letter 1 To Eusebius.html",
+    "Gregory of Nyssa/Letters/Letter 2 To the City of Sebasteia.html",
+    "Gregory of Nyssa/Letters/Letter 3 To Ablabius.html",
+    "Gregory of Nyssa/Letters/Letter 4 To Cynegius.html",
+    "Gregory of Nyssa/Letters/Letter 5 A Testimonial.html",
+    "Gregory of Nyssa/Letters/Letter 6 To Stagirius.html",
+    "Gregory of Nyssa/Letters/Letter 7 To a Friend.html",
+    "Gregory of Nyssa/Letters/Letter 8 To a Student of the Classics.html",
+    "Gregory of Nyssa/Letters/Letter 9 An Invitation.html",
+    "Gregory of Nyssa/Letters/Letter 10 To Libanius.html",
+    "Gregory of Nyssa/Letters/Letter 11 To Libanius.html",
+    "Gregory of Nyssa/Letters/Letter 12 On His Work Against Eunomius.html",
+    "Gregory of Nyssa/Letters/Letter 13 To the Church at Nicomedia.html",
+    "Gregory of Nyssa/Letters/Letter 14 To the Bishop of Melitene.html",
+    "Gregory of Nyssa/Letters/Letter 15 To Adelphius the Lawyer.html",
+    "Gregory of Nyssa/Letters/Letter 16 To Amphilochius.html",
+    "Gregory of Nyssa/Letters/Letter 17 To Eustathia, Ambrosia, and Basilissa.html",
+    "Gregory of Nyssa/Letters/Letter 18 To Flavian.html"
+   ],
+   "split": "auto"
+  },
+  {
+   "source": "hcf",
+   "author": "ambrosius_von_mailand",
+   "work": {
+    "id": "ambrosius.de_officiis",
+    "title": "Über die Pflichten der Kleriker",
+    "originalTitle": "De officiis ministrorum",
+    "genre": "Abhandlung",
+    "originalLanguage": "la"
+   },
+   "version": {
+    "id": "npnf.ambrosius.de_officiis",
+    "title": "On the Duties of the Clergy (NPNF)",
+    "language": "en",
+    "kind": "historicalTranslation",
+    "translator": "H. de Romestin, E. de Romestin, H. T. F. Duckworth",
+    "series": "Nicene and Post-Nicene Fathers, 2. Serie, Bd. 10",
+    "year": "1896",
+    "rights": "publicDomain",
+    "rightsNote": "Englische Übersetzung des 19. Jahrhunderts, erschienen 1896 (NPNF, hg. von Philip Schaff und Henry Wace). Die Übersetzer und Bearbeiter waren Gelehrte des 19. Jahrhunderts und sind nach allgemeiner Kenntnis lange vor 1956 gestorben (Lebensdaten nicht einzeln per GND geprüft, da aus der Cloud nicht erreichbar); in den USA gemeinfrei, weil vor 1931 erschienen. Digitalisat aus der Sammlung HistoricalChristianFaith (dort als gemeinfrei ausgewiesen).",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub), nach der NPNF-Ausgabe",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/Ambrose%20of%20Milan/ON%20THE%20DUTIES%20OF%20THE%20CLERGY",
+    "availability": "full"
+   },
+   "files": [
+    "Ambrose of Milan/ON THE DUTIES OF THE CLERGY/Book 1.html",
+    "Ambrose of Milan/ON THE DUTIES OF THE CLERGY/Book 2.html",
+    "Ambrose of Milan/ON THE DUTIES OF THE CLERGY/Book 3.html"
+   ],
+   "split": "auto"
+  },
+  {
+   "source": "hcf",
+   "author": "ambrosius_von_mailand",
+   "work": {
+    "id": "ambrosius.de_spiritu_sancto",
+    "title": "Über den Heiligen Geist",
+    "originalTitle": "De Spiritu Sancto",
+    "genre": "Abhandlung",
+    "originalLanguage": "la"
+   },
+   "version": {
+    "id": "npnf.ambrosius.de_spiritu_sancto",
+    "title": "On the Holy Spirit (NPNF)",
+    "language": "en",
+    "kind": "historicalTranslation",
+    "translator": "H. de Romestin, E. de Romestin, H. T. F. Duckworth",
+    "series": "Nicene and Post-Nicene Fathers, 2. Serie, Bd. 10",
+    "year": "1896",
+    "rights": "publicDomain",
+    "rightsNote": "Englische Übersetzung des 19. Jahrhunderts, erschienen 1896 (NPNF, hg. von Philip Schaff und Henry Wace). Die Übersetzer und Bearbeiter waren Gelehrte des 19. Jahrhunderts und sind nach allgemeiner Kenntnis lange vor 1956 gestorben (Lebensdaten nicht einzeln per GND geprüft, da aus der Cloud nicht erreichbar); in den USA gemeinfrei, weil vor 1931 erschienen. Digitalisat aus der Sammlung HistoricalChristianFaith (dort als gemeinfrei ausgewiesen).",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub), nach der NPNF-Ausgabe",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/Ambrose%20of%20Milan/On%20the%20Holy%20Spirit",
+    "availability": "full"
+   },
+   "files": [
+    "Ambrose of Milan/On the Holy Spirit/Book 1.html",
+    "Ambrose of Milan/On the Holy Spirit/Book 2.html",
+    "Ambrose of Milan/On the Holy Spirit/Book 3.html"
+   ],
+   "split": "auto"
+  },
+  {
+   "source": "hcf",
+   "author": "ambrosius_von_mailand",
+   "work": {
+    "id": "ambrosius.de_excessu_fratris",
+    "title": "Über den Tod seines Bruders Satyrus",
+    "originalTitle": "De excessu fratris Satyri",
+    "genre": "Predigten",
+    "originalLanguage": "la"
+   },
+   "version": {
+    "id": "npnf.ambrosius.de_excessu_fratris",
+    "title": "On the Decease of his Brother Satyrus (NPNF)",
+    "language": "en",
+    "kind": "historicalTranslation",
+    "translator": "H. de Romestin, E. de Romestin, H. T. F. Duckworth",
+    "series": "Nicene and Post-Nicene Fathers, 2. Serie, Bd. 10",
+    "year": "1896",
+    "rights": "publicDomain",
+    "rightsNote": "Englische Übersetzung des 19. Jahrhunderts, erschienen 1896 (NPNF, hg. von Philip Schaff und Henry Wace). Die Übersetzer und Bearbeiter waren Gelehrte des 19. Jahrhunderts und sind nach allgemeiner Kenntnis lange vor 1956 gestorben (Lebensdaten nicht einzeln per GND geprüft, da aus der Cloud nicht erreichbar); in den USA gemeinfrei, weil vor 1931 erschienen. Digitalisat aus der Sammlung HistoricalChristianFaith (dort als gemeinfrei ausgewiesen).",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub), nach der NPNF-Ausgabe",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/Ambrose%20of%20Milan/On%20the%20Decease%20of%20His%20Brother%20Saytrus",
+    "availability": "full"
+   },
+   "files": [
+    "Ambrose of Milan/On the Decease of His Brother Saytrus/Book 1.html",
+    "Ambrose of Milan/On the Decease of His Brother Saytrus/Book 2.html"
+   ],
+   "split": "auto"
+  },
+  {
+   "source": "hcf",
+   "author": "ambrosius_von_mailand",
+   "work": {
+    "id": "ambrosius.de_fide",
+    "title": "Über den Glauben (an Gratian)",
+    "originalTitle": "De fide ad Gratianum",
+    "genre": "Abhandlung",
+    "originalLanguage": "la"
+   },
+   "version": {
+    "id": "npnf.ambrosius.de_fide",
+    "title": "Exposition of the Christian Faith (NPNF)",
+    "language": "en",
+    "kind": "historicalTranslation",
+    "translator": "H. de Romestin, E. de Romestin, H. T. F. Duckworth",
+    "series": "Nicene and Post-Nicene Fathers, 2. Serie, Bd. 10",
+    "year": "1896",
+    "rights": "publicDomain",
+    "rightsNote": "Englische Übersetzung des 19. Jahrhunderts, erschienen 1896 (NPNF, hg. von Philip Schaff und Henry Wace). Die Übersetzer und Bearbeiter waren Gelehrte des 19. Jahrhunderts und sind nach allgemeiner Kenntnis lange vor 1956 gestorben (Lebensdaten nicht einzeln per GND geprüft, da aus der Cloud nicht erreichbar); in den USA gemeinfrei, weil vor 1931 erschienen. Digitalisat aus der Sammlung HistoricalChristianFaith (dort als gemeinfrei ausgewiesen).",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub), nach der NPNF-Ausgabe",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/Ambrose%20of%20Milan/Exposition%20of%20the%20Christian%20Faith",
+    "availability": "full"
+   },
+   "files": [
+    "Ambrose of Milan/Exposition of the Christian Faith/Book 1.html",
+    "Ambrose of Milan/Exposition of the Christian Faith/Book 2.html",
+    "Ambrose of Milan/Exposition of the Christian Faith/Book 3.html",
+    "Ambrose of Milan/Exposition of the Christian Faith/Book 4.html",
+    "Ambrose of Milan/Exposition of the Christian Faith/Book 5.html"
+   ],
+   "split": "auto"
+  },
+  {
+   "source": "hcf",
+   "author": "ambrosius_von_mailand",
+   "work": {
+    "id": "ambrosius.de_mysteriis",
+    "title": "Über die Mysterien",
+    "originalTitle": "De mysteriis",
+    "genre": "Katechesen",
+    "originalLanguage": "la"
+   },
+   "version": {
+    "id": "npnf.ambrosius.de_mysteriis",
+    "title": "On the Mysteries (NPNF)",
+    "language": "en",
+    "kind": "historicalTranslation",
+    "translator": "H. de Romestin, E. de Romestin, H. T. F. Duckworth",
+    "series": "Nicene and Post-Nicene Fathers, 2. Serie, Bd. 10",
+    "year": "1896",
+    "rights": "publicDomain",
+    "rightsNote": "Englische Übersetzung des 19. Jahrhunderts, erschienen 1896 (NPNF, hg. von Philip Schaff und Henry Wace). Die Übersetzer und Bearbeiter waren Gelehrte des 19. Jahrhunderts und sind nach allgemeiner Kenntnis lange vor 1956 gestorben (Lebensdaten nicht einzeln per GND geprüft, da aus der Cloud nicht erreichbar); in den USA gemeinfrei, weil vor 1931 erschienen. Digitalisat aus der Sammlung HistoricalChristianFaith (dort als gemeinfrei ausgewiesen).",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub), nach der NPNF-Ausgabe",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/Ambrose%20of%20Milan/Concerning%20the%20Mysteries.html",
+    "availability": "full"
+   },
+   "files": [
+    "Ambrose of Milan/Concerning the Mysteries.html"
+   ],
+   "split": "auto"
+  },
+  {
+   "source": "hcf",
+   "author": "ambrosius_von_mailand",
+   "work": {
+    "id": "ambrosius.de_paenitentia",
+    "title": "Über die Buße",
+    "originalTitle": "De paenitentia",
+    "genre": "Abhandlung",
+    "originalLanguage": "la"
+   },
+   "version": {
+    "id": "npnf.ambrosius.de_paenitentia",
+    "title": "Concerning Repentance (NPNF)",
+    "language": "en",
+    "kind": "historicalTranslation",
+    "translator": "H. de Romestin, E. de Romestin, H. T. F. Duckworth",
+    "series": "Nicene and Post-Nicene Fathers, 2. Serie, Bd. 10",
+    "year": "1896",
+    "rights": "publicDomain",
+    "rightsNote": "Englische Übersetzung des 19. Jahrhunderts, erschienen 1896 (NPNF, hg. von Philip Schaff und Henry Wace). Die Übersetzer und Bearbeiter waren Gelehrte des 19. Jahrhunderts und sind nach allgemeiner Kenntnis lange vor 1956 gestorben (Lebensdaten nicht einzeln per GND geprüft, da aus der Cloud nicht erreichbar); in den USA gemeinfrei, weil vor 1931 erschienen. Digitalisat aus der Sammlung HistoricalChristianFaith (dort als gemeinfrei ausgewiesen).",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub), nach der NPNF-Ausgabe",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/Ambrose%20of%20Milan/Concerning%20Repentance",
+    "availability": "full"
+   },
+   "files": [
+    "Ambrose of Milan/Concerning Repentance/Book 1.html",
+    "Ambrose of Milan/Concerning Repentance/Book 2.html"
+   ],
+   "split": "auto"
+  },
+  {
+   "source": "hcf",
+   "author": "ambrosius_von_mailand",
+   "work": {
+    "id": "ambrosius.de_virginibus",
+    "title": "Über die Jungfrauen",
+    "originalTitle": "De virginibus",
+    "genre": "Abhandlung",
+    "originalLanguage": "la"
+   },
+   "version": {
+    "id": "npnf.ambrosius.de_virginibus",
+    "title": "Concerning Virgins (NPNF)",
+    "language": "en",
+    "kind": "historicalTranslation",
+    "translator": "H. de Romestin, E. de Romestin, H. T. F. Duckworth",
+    "series": "Nicene and Post-Nicene Fathers, 2. Serie, Bd. 10",
+    "year": "1896",
+    "rights": "publicDomain",
+    "rightsNote": "Englische Übersetzung des 19. Jahrhunderts, erschienen 1896 (NPNF, hg. von Philip Schaff und Henry Wace). Die Übersetzer und Bearbeiter waren Gelehrte des 19. Jahrhunderts und sind nach allgemeiner Kenntnis lange vor 1956 gestorben (Lebensdaten nicht einzeln per GND geprüft, da aus der Cloud nicht erreichbar); in den USA gemeinfrei, weil vor 1931 erschienen. Digitalisat aus der Sammlung HistoricalChristianFaith (dort als gemeinfrei ausgewiesen).",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub), nach der NPNF-Ausgabe",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/Ambrose%20of%20Milan/Concerning%20Virgins",
+    "availability": "full"
+   },
+   "files": [
+    "Ambrose of Milan/Concerning Virgins/Book 1.html",
+    "Ambrose of Milan/Concerning Virgins/Book 2.html",
+    "Ambrose of Milan/Concerning Virgins/Book 3.html"
+   ],
+   "split": "auto"
+  },
+  {
+   "source": "hcf",
+   "author": "ambrosius_von_mailand",
+   "work": {
+    "id": "ambrosius.de_viduis",
+    "title": "Über die Witwen",
+    "originalTitle": "De viduis",
+    "genre": "Abhandlung",
+    "originalLanguage": "la"
+   },
+   "version": {
+    "id": "npnf.ambrosius.de_viduis",
+    "title": "Concerning Widows (NPNF)",
+    "language": "en",
+    "kind": "historicalTranslation",
+    "translator": "H. de Romestin, E. de Romestin, H. T. F. Duckworth",
+    "series": "Nicene and Post-Nicene Fathers, 2. Serie, Bd. 10",
+    "year": "1896",
+    "rights": "publicDomain",
+    "rightsNote": "Englische Übersetzung des 19. Jahrhunderts, erschienen 1896 (NPNF, hg. von Philip Schaff und Henry Wace). Die Übersetzer und Bearbeiter waren Gelehrte des 19. Jahrhunderts und sind nach allgemeiner Kenntnis lange vor 1956 gestorben (Lebensdaten nicht einzeln per GND geprüft, da aus der Cloud nicht erreichbar); in den USA gemeinfrei, weil vor 1931 erschienen. Digitalisat aus der Sammlung HistoricalChristianFaith (dort als gemeinfrei ausgewiesen).",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub), nach der NPNF-Ausgabe",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/Ambrose%20of%20Milan/Concerning%20Widows.html",
+    "availability": "full"
+   },
+   "files": [
+    "Ambrose of Milan/Concerning Widows.html"
+   ],
+   "split": "auto"
+  },
+  {
+   "source": "hcf",
+   "author": "ambrosius_von_mailand",
+   "work": {
+    "id": "ambrosius.contra_auxentium",
+    "title": "Rede gegen Auxentius über die Übergabe der Basiliken",
+    "originalTitle": "Sermo contra Auxentium de basilicis tradendis",
+    "genre": "Predigten",
+    "originalLanguage": "la"
+   },
+   "version": {
+    "id": "npnf.ambrosius.contra_auxentium",
+    "title": "Sermon against Auxentius (NPNF)",
+    "language": "en",
+    "kind": "historicalTranslation",
+    "translator": "H. de Romestin, E. de Romestin, H. T. F. Duckworth",
+    "series": "Nicene and Post-Nicene Fathers, 2. Serie, Bd. 10",
+    "year": "1896",
+    "rights": "publicDomain",
+    "rightsNote": "Englische Übersetzung des 19. Jahrhunderts, erschienen 1896 (NPNF, hg. von Philip Schaff und Henry Wace). Die Übersetzer und Bearbeiter waren Gelehrte des 19. Jahrhunderts und sind nach allgemeiner Kenntnis lange vor 1956 gestorben (Lebensdaten nicht einzeln per GND geprüft, da aus der Cloud nicht erreichbar); in den USA gemeinfrei, weil vor 1931 erschienen. Digitalisat aus der Sammlung HistoricalChristianFaith (dort als gemeinfrei ausgewiesen).",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub), nach der NPNF-Ausgabe",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/Ambrose%20of%20Milan/Sermon%20Against%20Auxentius%20on%20the%20Giving%20Up%20of%20the%20Basilicas.html",
+    "availability": "full"
+   },
+   "files": [
+    "Ambrose of Milan/Sermon Against Auxentius on the Giving Up of the Basilicas.html"
+   ],
+   "split": "auto"
+  },
+  {
+   "source": "hcf",
+   "author": "ambrosius_von_mailand",
+   "work": {
+    "id": "ambrosius.epistulae",
+    "title": "Briefe",
+    "originalTitle": "Epistulae",
+    "genre": "Briefe",
+    "originalLanguage": "la"
+   },
+   "version": {
+    "id": "npnf.ambrosius.epistulae",
+    "title": "Letters (NPNF, Auswahl)",
+    "language": "en",
+    "kind": "historicalTranslation",
+    "translator": "H. de Romestin, E. de Romestin, H. T. F. Duckworth",
+    "series": "Nicene and Post-Nicene Fathers, 2. Serie, Bd. 10",
+    "year": "1896",
+    "rights": "publicDomain",
+    "rightsNote": "Englische Übersetzung des 19. Jahrhunderts, erschienen 1896 (NPNF, hg. von Philip Schaff und Henry Wace). Die Übersetzer und Bearbeiter waren Gelehrte des 19. Jahrhunderts und sind nach allgemeiner Kenntnis lange vor 1956 gestorben (Lebensdaten nicht einzeln per GND geprüft, da aus der Cloud nicht erreichbar); in den USA gemeinfrei, weil vor 1931 erschienen. Digitalisat aus der Sammlung HistoricalChristianFaith (dort als gemeinfrei ausgewiesen). NPNF übersetzt eine Auswahl von 12 Briefen (benediktinische Zählung). Die Denkschrift des Symmachus (Relatio III) steht in der Ausgabe zwischen den Briefen 17 und 18 und ist kein Text des Ambrosius.",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub), nach der NPNF-Ausgabe",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/Ambrose%20of%20Milan/Letters",
+    "availability": "partial"
+   },
+   "files": [
+    "Ambrose of Milan/Letters/Epistle 17.html",
+    "Ambrose of Milan/The Memorial of Symmachus.html",
+    "Ambrose of Milan/Letters/Epistle 18.html",
+    "Ambrose of Milan/Letters/Epistle 20.html",
+    "Ambrose of Milan/Letters/Letter 21.html",
+    "Ambrose of Milan/Letters/Letter 22.html",
+    "Ambrose of Milan/Letters/Letter 40.html",
+    "Ambrose of Milan/Letters/Letter 41.html",
+    "Ambrose of Milan/Letters/Letter 51.html",
+    "Ambrose of Milan/Letters/Letter 57.html",
+    "Ambrose of Milan/Letters/Letter 61.html",
+    "Ambrose of Milan/Letters/Letter 62.html",
+    "Ambrose of Milan/Letters/Epistle 63.html"
+   ],
+   "split": "auto"
+  },
+  {
+   "source": "hcf",
+   "author": "ambrosius_von_mailand",
+   "work": {
+    "id": "ambrosius.epistulae"
+   },
+   "files": [
+    "Ambrose of Milan/Letters/Letters 1-10.html",
+    "Ambrose of Milan/Letters/Letters 11-20.html",
+    "Ambrose of Milan/Letters/Letters 21-30.html",
+    "Ambrose of Milan/Letters/Letters 31-40.html",
+    "Ambrose of Milan/Letters/Letters 41-50.html",
+    "Ambrose of Milan/Letters/Letters 51-60.html",
+    "Ambrose of Milan/Letters/Letters 61-70.html",
+    "Ambrose of Milan/Letters/Letters 71-80.html",
+    "Ambrose of Milan/Letters/Letters 81-91.html"
+   ],
+   "split": "heading",
+   "boldHeads": true,
+   "version": {
+    "id": "lf.ambrosius.epistulae",
+    "title": "The Letters of S. Ambrose (Library of the Fathers, 1881)",
+    "language": "en",
+    "kind": "historicalTranslation",
+    "series": "A Library of Fathers of the Holy Catholic Church, Bd. 45",
+    "published": "Oxford: James Parker",
+    "year": "1881",
+    "rights": "publicDomain",
+    "rightsNote": "Englische Übersetzung der Briefe 1–91 (benediktinische Zählung), Oxford 1881 („translated by members of the English Church“). Nach dem Alter der Ausgabe gemeinfrei (Übersetzer nicht namentlich genannt). Von Roger Pearse 2004 digitalisiert; die Bibelstellen am Rand der Vorlage hat er nur im ersten Drittel übernommen.",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub), nach tertullian.org (Roger Pearse)",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/Ambrose%20of%20Milan/Letters",
+    "availability": "full"
+   }
+  },
+  {
+   "source": "csel",
+   "author": "ambrosius_von_mailand",
+   "work": {
+    "id": "bkv.cpl-123"
+   },
+   "bookLabel": "Buch",
+   "files": [
+    "data/stoa0022/stoa054/stoa0022.stoa054.opp-lat1.xml"
+   ],
+   "version": {
+    "id": "csel.ambrosius.exameron",
+    "title": "Exameron (CSEL, lateinisch)",
+    "language": "la",
+    "kind": "original",
+    "rights": "openLicense",
+    "availability": "full",
+    "sourceName": "Open Greek and Latin, csel-dev (GitHub)",
+    "sourceUrl": "https://github.com/OpenGreekAndLatin/csel-dev/blob/master/data/stoa0022/stoa054/stoa0022.stoa054.opp-lat1.xml"
+   }
+  },
+  {
+   "source": "csel",
+   "author": "ambrosius_von_mailand",
+   "work": {
+    "id": "ambrosius.de_paradiso",
+    "title": "Das Paradies",
+    "originalTitle": "De paradiso",
+    "genre": "Kommentar",
+    "originalLanguage": "la"
+   },
+   "bookLabel": "Buch",
+   "files": [
+    "data/stoa0022/stoa042/stoa0022.stoa042.opp-lat1.xml"
+   ],
+   "version": {
+    "id": "csel.ambrosius.de_paradiso",
+    "title": "De paradiso (CSEL, lateinisch)",
+    "language": "la",
+    "kind": "original",
+    "rights": "openLicense",
+    "availability": "full",
+    "sourceName": "Open Greek and Latin, csel-dev (GitHub)",
+    "sourceUrl": "https://github.com/OpenGreekAndLatin/csel-dev/blob/master/data/stoa0022/stoa042/stoa0022.stoa042.opp-lat1.xml"
+   }
+  },
+  {
+   "source": "csel",
+   "author": "ambrosius_von_mailand",
+   "work": {
+    "id": "ambrosius.de_cain",
+    "title": "Kain und Abel",
+    "originalTitle": "De Cain et Abel",
+    "genre": "Kommentar",
+    "originalLanguage": "la"
+   },
+   "bookLabel": "Buch",
+   "files": [
+    "data/stoa0022/stoa021/stoa0022.stoa021.opp-lat1.xml"
+   ],
+   "version": {
+    "id": "csel.ambrosius.de_cain",
+    "title": "De Cain et Abel (CSEL, lateinisch)",
+    "language": "la",
+    "kind": "original",
+    "rights": "openLicense",
+    "availability": "full",
+    "sourceName": "Open Greek and Latin, csel-dev (GitHub)",
+    "sourceUrl": "https://github.com/OpenGreekAndLatin/csel-dev/blob/master/data/stoa0022/stoa021/stoa0022.stoa021.opp-lat1.xml"
+   }
+  },
+  {
+   "source": "csel",
+   "author": "ambrosius_von_mailand",
+   "work": {
+    "id": "ambrosius.de_noe",
+    "title": "Noe",
+    "originalTitle": "De Noe",
+    "genre": "Kommentar",
+    "originalLanguage": "la"
+   },
+   "bookLabel": "Buch",
+   "files": [
+    "data/stoa0022/stoa039/stoa0022.stoa039.opp-lat1.xml"
+   ],
+   "version": {
+    "id": "csel.ambrosius.de_noe",
+    "title": "De Noe (CSEL, lateinisch)",
+    "language": "la",
+    "kind": "original",
+    "rights": "openLicense",
+    "availability": "full",
+    "sourceName": "Open Greek and Latin, csel-dev (GitHub)",
+    "sourceUrl": "https://github.com/OpenGreekAndLatin/csel-dev/blob/master/data/stoa0022/stoa039/stoa0022.stoa039.opp-lat1.xml"
+   }
+  },
+  {
+   "source": "csel",
+   "author": "ambrosius_von_mailand",
+   "work": {
+    "id": "ambrosius.de_iacob",
+    "title": "Jakob und das glückselige Leben",
+    "originalTitle": "De Iacob et vita beata",
+    "genre": "Abhandlung",
+    "originalLanguage": "la"
+   },
+   "bookLabel": "Buch",
+   "files": [
+    "data/stoa0022/stoa034/stoa0022.stoa034.opp-lat1.xml"
+   ],
+   "version": {
+    "id": "csel.ambrosius.de_iacob",
+    "title": "De Iacob et vita beata (CSEL, lateinisch)",
+    "language": "la",
+    "kind": "original",
+    "rights": "openLicense",
+    "availability": "full",
+    "sourceName": "Open Greek and Latin, csel-dev (GitHub)",
+    "sourceUrl": "https://github.com/OpenGreekAndLatin/csel-dev/blob/master/data/stoa0022/stoa034/stoa0022.stoa034.opp-lat1.xml"
+   }
+  },
+  {
+   "source": "csel",
+   "author": "ambrosius_von_mailand",
+   "work": {
+    "id": "ambrosius.de_ioseph",
+    "title": "Joseph",
+    "originalTitle": "De Ioseph",
+    "genre": "Kommentar",
+    "originalLanguage": "la"
+   },
+   "bookLabel": "Buch",
+   "files": [
+    "data/stoa0022/stoa035/stoa0022.stoa035.opp-lat1.xml"
+   ],
+   "version": {
+    "id": "csel.ambrosius.de_ioseph",
+    "title": "De Ioseph (CSEL, lateinisch)",
+    "language": "la",
+    "kind": "original",
+    "rights": "openLicense",
+    "availability": "full",
+    "sourceName": "Open Greek and Latin, csel-dev (GitHub)",
+    "sourceUrl": "https://github.com/OpenGreekAndLatin/csel-dev/blob/master/data/stoa0022/stoa035/stoa0022.stoa035.opp-lat1.xml"
+   }
+  },
+  {
+   "source": "csel",
+   "author": "ambrosius_von_mailand",
+   "work": {
+    "id": "ambrosius.de_patriarchis",
+    "title": "Die Segnungen der Patriarchen",
+    "originalTitle": "De benedictionibus patriarcharum",
+    "genre": "Kommentar",
+    "originalLanguage": "la"
+   },
+   "bookLabel": "Buch",
+   "files": [
+    "data/stoa0022/stoa019/stoa0022.stoa019.opp-lat1.xml"
+   ],
+   "version": {
+    "id": "csel.ambrosius.de_patriarchis",
+    "title": "De benedictionibus patriarcharum (CSEL, lateinisch)",
+    "language": "la",
+    "kind": "original",
+    "rights": "openLicense",
+    "availability": "full",
+    "sourceName": "Open Greek and Latin, csel-dev (GitHub)",
+    "sourceUrl": "https://github.com/OpenGreekAndLatin/csel-dev/blob/master/data/stoa0022/stoa019/stoa0022.stoa019.opp-lat1.xml"
+   }
+  },
+  {
+   "source": "csel",
+   "author": "ambrosius_von_mailand",
+   "work": {
+    "id": "ambrosius.de_fuga",
+    "title": "Die Flucht vor der Welt",
+    "originalTitle": "De fuga saeculi",
+    "genre": "Abhandlung",
+    "originalLanguage": "la"
+   },
+   "bookLabel": "Buch",
+   "files": [
+    "data/stoa0022/stoa029/stoa0022.stoa029.opp-lat1.xml"
+   ],
+   "version": {
+    "id": "csel.ambrosius.de_fuga",
+    "title": "De fuga saeculi (CSEL, lateinisch)",
+    "language": "la",
+    "kind": "original",
+    "rights": "openLicense",
+    "availability": "full",
+    "sourceName": "Open Greek and Latin, csel-dev (GitHub)",
+    "sourceUrl": "https://github.com/OpenGreekAndLatin/csel-dev/blob/master/data/stoa0022/stoa029/stoa0022.stoa029.opp-lat1.xml"
+   }
+  },
+  {
+   "source": "csel",
+   "author": "ambrosius_von_mailand",
+   "work": {
+    "id": "ambrosius.de_helia",
+    "title": "Elias und das Fasten",
+    "originalTitle": "De Helia et ieiunio",
+    "genre": "Predigten",
+    "originalLanguage": "la"
+   },
+   "bookLabel": "Buch",
+   "files": [
+    "data/stoa0022/stoa025/stoa0022.stoa025.opp-lat1.xml"
+   ],
+   "version": {
+    "id": "csel.ambrosius.de_helia",
+    "title": "De Helia et ieiunio (CSEL, lateinisch)",
+    "language": "la",
+    "kind": "original",
+    "rights": "openLicense",
+    "availability": "full",
+    "sourceName": "Open Greek and Latin, csel-dev (GitHub)",
+    "sourceUrl": "https://github.com/OpenGreekAndLatin/csel-dev/blob/master/data/stoa0022/stoa025/stoa0022.stoa025.opp-lat1.xml"
+   }
+  },
+  {
+   "source": "csel",
+   "author": "ambrosius_von_mailand",
+   "work": {
+    "id": "ambrosius.de_nabuthae",
+    "title": "Naboth",
+    "originalTitle": "De Nabuthae",
+    "genre": "Predigten",
+    "originalLanguage": "la"
+   },
+   "bookLabel": "Buch",
+   "files": [
+    "data/stoa0022/stoa038/stoa0022.stoa038.opp-lat1.xml"
+   ],
+   "version": {
+    "id": "csel.ambrosius.de_nabuthae",
+    "title": "De Nabuthae (CSEL, lateinisch)",
+    "language": "la",
+    "kind": "original",
+    "rights": "openLicense",
+    "availability": "full",
+    "sourceName": "Open Greek and Latin, csel-dev (GitHub)",
+    "sourceUrl": "https://github.com/OpenGreekAndLatin/csel-dev/blob/master/data/stoa0022/stoa038/stoa0022.stoa038.opp-lat1.xml"
+   }
+  },
+  {
+   "source": "csel",
+   "author": "ambrosius_von_mailand",
+   "work": {
+    "id": "ambrosius.de_tobia",
+    "title": "Tobias",
+    "originalTitle": "De Tobia",
+    "genre": "Predigten",
+    "originalLanguage": "la"
+   },
+   "bookLabel": "Buch",
+   "files": [
+    "data/stoa0022/stoa044/stoa0022.stoa044.opp-lat1.xml"
+   ],
+   "version": {
+    "id": "csel.ambrosius.de_tobia",
+    "title": "De Tobia (CSEL, lateinisch)",
+    "language": "la",
+    "kind": "original",
+    "rights": "openLicense",
+    "availability": "full",
+    "sourceName": "Open Greek and Latin, csel-dev (GitHub)",
+    "sourceUrl": "https://github.com/OpenGreekAndLatin/csel-dev/blob/master/data/stoa0022/stoa044/stoa0022.stoa044.opp-lat1.xml"
+   }
+  },
+  {
+   "source": "csel",
+   "author": "ambrosius_von_mailand",
+   "work": {
+    "id": "ambrosius.de_interpellatione",
+    "title": "Die Klage Ijobs und Davids",
+    "originalTitle": "De interpellatione Iob et David",
+    "genre": "Kommentar",
+    "originalLanguage": "la"
+   },
+   "bookLabel": "Buch",
+   "files": [
+    "data/stoa0022/stoa032/stoa0022.stoa032.opp-lat1.xml"
+   ],
+   "version": {
+    "id": "csel.ambrosius.de_interpellatione",
+    "title": "De interpellatione Iob et David (CSEL, lateinisch)",
+    "language": "la",
+    "kind": "original",
+    "rights": "openLicense",
+    "availability": "full",
+    "sourceName": "Open Greek and Latin, csel-dev (GitHub)",
+    "sourceUrl": "https://github.com/OpenGreekAndLatin/csel-dev/blob/master/data/stoa0022/stoa032/stoa0022.stoa032.opp-lat1.xml"
+   }
+  },
+  {
+   "source": "csel",
+   "author": "ambrosius_von_mailand",
+   "work": {
+    "id": "ambrosius.apologia_david",
+    "title": "Verteidigung des Propheten David",
+    "originalTitle": "Apologia prophetae David ad Theodosium Augustum",
+    "genre": "Kommentar",
+    "originalLanguage": "la"
+   },
+   "bookLabel": "Buch",
+   "files": [
+    "data/stoa0022/stoa015/stoa0022.stoa015.opp-lat1.xml"
+   ],
+   "version": {
+    "id": "csel.ambrosius.apologia_david",
+    "title": "Apologia prophetae David (CSEL, lateinisch)",
+    "language": "la",
+    "kind": "original",
+    "rights": "openLicense",
+    "availability": "full",
+    "sourceName": "Open Greek and Latin, csel-dev (GitHub)",
+    "sourceUrl": "https://github.com/OpenGreekAndLatin/csel-dev/blob/master/data/stoa0022/stoa015/stoa0022.stoa015.opp-lat1.xml"
+   }
+  },
+  {
+   "source": "csel",
+   "author": "ambrosius_von_mailand",
+   "work": {
+    "id": "ambrosius.apologia_david_altera",
+    "title": "Zweite Verteidigung Davids",
+    "originalTitle": "Apologia David altera",
+    "genre": "Kommentar",
+    "originalLanguage": "la",
+    "authenticity": "doubtful"
+   },
+   "bookLabel": "Buch",
+   "files": [
+    "data/stoa0022/stoa014/stoa0022.stoa014.opp-lat1.xml"
+   ],
+   "version": {
+    "id": "csel.ambrosius.apologia_david_altera",
+    "title": "Apologia David altera (CSEL, lateinisch)",
+    "language": "la",
+    "kind": "original",
+    "rights": "openLicense",
+    "availability": "full",
+    "sourceName": "Open Greek and Latin, csel-dev (GitHub)",
+    "sourceUrl": "https://github.com/OpenGreekAndLatin/csel-dev/blob/master/data/stoa0022/stoa014/stoa0022.stoa014.opp-lat1.xml"
+   }
+  },
+  {
+   "source": "csel",
+   "author": "ambrosius_von_mailand",
+   "work": {
+    "id": "ambrosius.in_lucam",
+    "title": "Auslegung des Lukasevangeliums",
+    "originalTitle": "Expositio evangelii secundum Lucan",
+    "genre": "Kommentar",
+    "originalLanguage": "la"
+   },
+   "bookLabel": "Buch",
+   "files": [
+    "data/stoa0022/stoa051/stoa0022.stoa051.opp-lat1.xml"
+   ],
+   "version": {
+    "id": "csel.ambrosius.in_lucam",
+    "title": "Expositio evangelii secundum Lucan (CSEL, lateinisch)",
+    "language": "la",
+    "kind": "original",
+    "rights": "openLicense",
+    "availability": "full",
+    "sourceName": "Open Greek and Latin, csel-dev (GitHub)",
+    "sourceUrl": "https://github.com/OpenGreekAndLatin/csel-dev/blob/master/data/stoa0022/stoa051/stoa0022.stoa051.opp-lat1.xml"
+   }
+  },
+  {
+   "source": "csel",
+   "author": "ambrosius_von_mailand",
+   "work": {
+    "id": "ambrosius.explanatio_psalmorum",
+    "title": "Erklärung von zwölf Psalmen",
+    "originalTitle": "Explanatio psalmorum XII",
+    "genre": "Kommentar",
+    "originalLanguage": "la"
+   },
+   "bookLabel": "Psalm",
+   "files": [
+    "data/stoa0022/stoa048/stoa0022.stoa048.opp-lat1.xml"
+   ],
+   "version": {
+    "id": "csel.ambrosius.explanatio_psalmorum",
+    "title": "Explanatio psalmorum XII (CSEL, lateinisch)",
+    "language": "la",
+    "kind": "original",
+    "rights": "openLicense",
+    "availability": "full",
+    "sourceName": "Open Greek and Latin, csel-dev (GitHub)",
+    "sourceUrl": "https://github.com/OpenGreekAndLatin/csel-dev/blob/master/data/stoa0022/stoa048/stoa0022.stoa048.opp-lat1.xml"
+   }
+  },
+  {
+   "source": "csel",
+   "author": "ambrosius_von_mailand",
+   "work": {
+    "id": "ambrosius.in_psalmum_118",
+    "title": "Auslegung des 118. Psalms",
+    "originalTitle": "Expositio psalmi CXVIII",
+    "genre": "Kommentar",
+    "originalLanguage": "la"
+   },
+   "bookLabel": "Predigt",
+   "files": [
+    "data/stoa0022/stoa052/stoa0022.stoa052.opp-lat1.xml"
+   ],
+   "version": {
+    "id": "csel.ambrosius.in_psalmum_118",
+    "title": "Expositio psalmi CXVIII (CSEL, lateinisch)",
+    "language": "la",
+    "kind": "original",
+    "rights": "openLicense",
+    "availability": "full",
+    "sourceName": "Open Greek and Latin, csel-dev (GitHub)",
+    "sourceUrl": "https://github.com/OpenGreekAndLatin/csel-dev/blob/master/data/stoa0022/stoa052/stoa0022.stoa052.opp-lat1.xml"
+   }
+  },
+  {
+   "source": "perseus",
+   "author": "basilius_von_casarea",
+   "work": {
+    "id": "basilius.epistulae"
+   },
+   "bookLabel": "Kapitel",
+   "files": [
+    "data/tlg2040/tlg004/tlg2040.tlg004.perseus-grc2.xml"
+   ],
+   "version": {
+    "id": "perseus.basilius.epistulae",
+    "title": "Epistulae (griechisch)",
+    "language": "grc",
+    "kind": "original",
+    "rights": "openLicense",
+    "availability": "full",
+    "sourceName": "Perseus Digital Library, canonical-greekLit (GitHub)",
+    "sourceUrl": "https://github.com/PerseusDL/canonical-greekLit/blob/master/data/tlg2040/tlg004/tlg2040.tlg004.perseus-grc2.xml"
+   }
+  },
+  {
+   "source": "perseus",
+   "author": "basilius_von_casarea",
+   "work": {
+    "id": "basilius.ad_adolescentes"
+   },
+   "bookLabel": "Kapitel",
+   "files": [
+    "data/tlg2040/tlg002/tlg2040.tlg002.perseus-grc2.xml"
+   ],
+   "version": {
+    "id": "perseus.basilius.ad_adolescentes",
+    "title": "Πρὸς τοὺς νέους (griechisch)",
+    "language": "grc",
+    "kind": "original",
+    "rights": "openLicense",
+    "availability": "full",
+    "sourceName": "Perseus Digital Library, canonical-greekLit (GitHub)",
+    "sourceUrl": "https://github.com/PerseusDL/canonical-greekLit/blob/master/data/tlg2040/tlg002/tlg2040.tlg002.perseus-grc2.xml"
+   }
+  }
+ ],
+ "catalog": [
+  {
+   "author": "johannes_chrysostomus",
+   "work": {
+    "id": "chrysostomus.adversus_iudaeos",
+    "title": "Reden gegen die Juden",
+    "originalTitle": "Adversus Iudaeos orationes 1–8",
+    "genre": "Predigten",
+    "originalLanguage": "grc"
+   },
+   "version": {
+    "id": "hcf.chrysostomus.adversus_iudaeos",
+    "title": "Against the Jews (anonyme englische Übersetzung)",
+    "language": "en",
+    "kind": "historicalTranslation",
+    "rights": "unclear",
+    "rightsNote": "Übersetzer unbekannt (vermutlich C. Mervyn Maxwell, Dissertation Chicago 1966/67); Rechte nicht geklärt – Volltext nicht integriert. Nur das 2010 übersetzte Fehlstück von Rede 2 ist sicher gemeinfrei.",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub), nach tertullian.org",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/John%20Chrysostom/Against%20the%20Jews",
+    "availability": "external"
+   }
+  },
+  {
+   "author": "basilius_von_casarea",
+   "work": {
+    "id": "basilius.regulae_fusius",
+    "title": "Die längeren Regeln",
+    "originalTitle": "Regulae fusius tractatae",
+    "genre": "Regel",
+    "originalLanguage": "grc"
+   },
+   "version": {
+    "id": "clarke.basilius.regulae_fusius",
+    "title": "The Longer Rules (W. K. L. Clarke 1925)",
+    "language": "en",
+    "kind": "historicalTranslation",
+    "translator": "W. K. Lowther Clarke",
+    "year": "1925",
+    "rights": "protected",
+    "rightsNote": "W. K. Lowther Clarke † 1968: in Deutschland bis Ende 2038 geschützt (in den USA gemeinfrei). Volltext nicht integriert.",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub)",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/Basil%20of%20Caesarea/The%20Longer%20Rules.html",
+    "availability": "external"
+   }
+  },
+  {
+   "author": "gregor_v_nyssa",
+   "work": {
+    "id": "gregor_nyssa.vita_macrinae",
+    "title": "Leben der heiligen Makrina",
+    "originalTitle": "Vita sanctae Macrinae",
+    "genre": "Hagiographie",
+    "originalLanguage": "grc"
+   },
+   "version": {
+    "id": "clarke.gregor_nyssa.vita_macrinae",
+    "title": "The Life of St. Macrina (W. K. L. Clarke 1916)",
+    "language": "en",
+    "kind": "historicalTranslation",
+    "translator": "W. K. Lowther Clarke",
+    "year": "1916",
+    "rights": "protected",
+    "rightsNote": "W. K. Lowther Clarke † 1968: in Deutschland bis Ende 2038 geschützt (in den USA gemeinfrei). Volltext nicht integriert.",
+    "sourceName": "HistoricalChristianFaith Writings-Database (GitHub)",
+    "sourceUrl": "https://github.com/HistoricalChristianFaith/Writings-Database/tree/master/Gregory%20of%20Nyssa/Life%20of%20St.%20Macrina",
+    "availability": "external"
+   }
+  }
+ ]
+}

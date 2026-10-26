@@ -1,15 +1,25 @@
 {
- "generated": "2026-10-24",
- "dataVersion": "d4629bb756",
+ "generated": "2026-10-26",
+ "dataVersion": "4d93f660b3",
  "files": {
   "links": [
+   "1CH",
    "1CO",
    "1JN",
    "1KI",
+   "1MA",
+   "1PE",
+   "1SA",
    "1TH",
    "1TI",
+   "2CH",
    "2CO",
    "2KI",
+   "2MA",
+   "2PE",
+   "2SA",
+   "2TH",
+   "2TI",
    "ACT",
    "AMO",
    "BAR",
@@ -18,33 +28,49 @@
    "DEU",
    "ECC",
    "EPH",
+   "EST",
    "EXO",
    "EZK",
+   "EZR",
    "GAL",
    "GEN",
+   "HAB",
    "HAG",
    "HEB",
+   "HOS",
    "ISA",
    "JAS",
+   "JDG",
+   "JDT",
    "JER",
    "JHN",
    "JOB",
    "JOL",
+   "JON",
    "JOS",
+   "LAM",
    "LEV",
    "LUK",
    "MAL",
    "MAT",
+   "MIC",
    "MRK",
+   "NAM",
    "NUM",
+   "PHM",
    "PHP",
    "PRO",
    "PSA",
    "REV",
    "ROM",
+   "RUT",
    "SIR",
    "SNG",
-   "WIS"
+   "TIT",
+   "TOB",
+   "WIS",
+   "ZEC",
+   "ZEP"
   ],
   "xrefs": [
    "1CH",
@@ -117,18 +143,18 @@
  },
  "counts": {
   "authors": 16,
-  "works": 29,
-  "versions": 30,
-  "versionsWithText": 5,
-  "sections": 120,
-  "links": 638,
+  "works": 115,
+  "versions": 122,
+  "versionsWithText": 94,
+  "sections": 1989,
+  "links": 24592,
   "linksByKind": {
-   "quotation": 551,
+   "quotation": 24007,
    "reference": 53,
-   "sectionCommentary": 17,
-   "verseCommentary": 17
+   "sectionCommentary": 488,
+   "verseCommentary": 44
   },
-  "bibleBooksWithLinks": 42,
+  "bibleBooksWithLinks": 68,
   "crossReferences": 198933
  },
  "sources": [
@@ -137,7 +163,7 @@
    "name": "Bibliothek der Kirchenväter (BKV)",
    "url": "https://bkv.unifr.ch",
    "license": "Laut Anbieter nach seinem Wissen urheberrechtsfrei; Volltexte in der App nur bei gemeinfreien Übersetzungen (Übersetzer vor 1956 gestorben)",
-   "coverage": "29 Werke im Katalog, 5 Fassungen mit Text"
+   "coverage": "115 Werke im Katalog, 94 Fassungen mit Text"
   },
   {
    "id": "openbible",
@@ -145,6 +171,27 @@
    "url": "https://www.openbible.info/labs/cross-references/",
    "license": "CC BY",
    "header": "From Verse\tTo Verse\tVotes\t#www.openbible.info CC-BY 2024-11-04"
+  },
+  {
+   "id": "hcf",
+   "name": "HistoricalChristianFaith Writings-Database",
+   "url": "https://github.com/HistoricalChristianFaith/Writings-Database",
+   "license": "Laut Sammlung gemeinfrei („All works in this repo are in the public domain“); Rechte je Übersetzung zusätzlich hier geprüft. Übertragungen „using ChatGPT“ ausgeschlossen.",
+   "commit": "328918aa7054fbcb2a8068e96b326a94a97345a2"
+  },
+  {
+   "id": "csel",
+   "name": "Open Greek and Latin, csel-dev (Corpus Scriptorum Ecclesiasticorum Latinorum)",
+   "url": "https://github.com/OpenGreekAndLatin/csel-dev",
+   "license": "CC BY-SA 4.0 (Universität Leipzig); die zugrunde liegenden CSEL-Bände (1896–1919) sind gemeinfrei",
+   "commit": "2813e3a52b4206df0324299e5110e5bd0d95cee4"
+  },
+  {
+   "id": "perseus",
+   "name": "Perseus Digital Library, canonical-greekLit",
+   "url": "https://github.com/PerseusDL/canonical-greekLit",
+   "license": "CC BY-SA 4.0 (Perseus Digital Library)",
+   "commit": "0189b9c8d8d1f148133f2f0af309b4ee90ea4332"
   },
   {
    "id": "pericopes",

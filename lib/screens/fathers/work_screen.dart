@@ -210,6 +210,10 @@ class _WorkViewState extends State<_WorkView> {
           ].join(" · "),
           style: TextStyle(color: colors.textSecondary),
         ),
+        if (work.authenticity.label != null) ...[
+          const SizedBox(height: 6),
+          Tag(work.authenticity.label!, icon: Icons.help_outline),
+        ],
         const SizedBox(height: 12),
         if (work.versions.length > 1)
           DropdownButton<String>(
@@ -221,6 +225,7 @@ class _WorkViewState extends State<_WorkView> {
                 DropdownMenuItem(
                   value: v.id,
                   child: Text(
+                    "${v.language == "de" ? "" : "${languageName(v.language)}: "}"
                     "${v.title}${v.translator == null ? "" : " (${v.translator})"}",
                     overflow: TextOverflow.ellipsis,
                   ),

@@ -3,6 +3,7 @@
 Aufruf:
     python3 tool/fathers/import_bkv.py <Rohdaten-Ordner> [--check]
     python3 tool/fathers/import_bkv.py --ohne-bkv   (nur redaktionelle Autoren)
+    … --epub <Ordner> --pdf <Ordner> --open <Ordner>  (weitere Quellen, siehe README.md)
 
 Der Rohdaten-Ordner ist der entpackte Abruf (siehe README.md, „Abruf“):
   - die Werkübersicht /de/works (eine HTML-Datei mit „accordion-card“),
@@ -38,6 +39,7 @@ from bs4 import BeautifulSoup, NavigableString, Tag
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import bkv_epub  # noqa: E402
+import open_texts  # noqa: E402
 import pdf_text  # noqa: E402
 from bible_refs import Ref, RefReader, uses_vulgate_kings  # noqa: E402
 from common import ASSETS, Versification, stable_id, write_json  # noqa: E402
@@ -48,7 +50,7 @@ BKV = "https://bkv.unifr.ch"
 PD_DEATH_YEAR = datetime.date.today().year - 71
 CHUNK_BYTES = 150_000
 # Fassungen, deren Text ausgeliefert werden darf.
-READABLE = ("publicDomain", "permission")
+READABLE = ("publicDomain", "permission", "openLicense")
 
 report: dict = collections.defaultdict(list)
 
@@ -484,8 +486,32 @@ def import_version(raw: Path, work: dict, version: dict, page: dict, author_id: 
     return vid, sections, links
 
 
+def title_key(text: str | None) -> str:
+    return slug(re.sub(r"\(.*?\)", "", text or ""))
+
+
+def curated_work_ids() -> dict[str, str]:
+    """Clavis bzw. Originaltitel → Werk-Kennung der freien Textsammlungen.
+    Ein EPUB desselben Werks übernimmt diese Kennung, damit ein Werk nicht
+    doppelt erscheint und seine Kennung nicht wechselt."""
+    path = HERE / "curation" / "open_texts.json"
+    if not path.exists():
+        return {}
+    ids = {}
+    for t in json.loads(path.read_text(encoding="utf-8"))["texts"]:
+        w = t["work"]
+        if w["id"].startswith("bkv.") or "title" not in w:
+            continue
+        if w.get("clavis"):
+            ids[w["clavis"]] = w["id"]
+        for title in (w.get("originalTitle"), w["title"]):
+            if title:
+                ids[f"{t['author']}|{title_key(title)}"] = w["id"]
+    return ids
+
+
 def import_epub(path, authors, later_ids, works_out, links_out, imported,
-                overrides, default_rights):
+                overrides, default_rights, curated=None):
     data = bkv_epub.read(path)
     meta = {k: v[0] for k, v in data["meta"].items() if k != "Tag"}
     tags = data["meta"].get("Tag", [])
@@ -500,6 +526,10 @@ def import_epub(path, authors, later_ids, works_out, links_out, imported,
 
     clavis = meta.get("Identifier")
     wid = f"bkv.{slug(clavis).replace('_', '-')}" if clavis else f"bkv.w{data['workNo']}"
+    curated = curated or {}
+    wid = (curated.get(clavis or "")
+           or curated.get(f"{author_id}|{title_key(meta.get('Titel Werk'))}")
+           or wid)
     vid = f"bkv.v{data['versionNo']}"
     biblio = meta.get("Bibliographie")
     translators = translators_from(biblio)
@@ -630,6 +660,125 @@ def import_pdf_texts(pdf_dir: Path, authors, later_ids, works_out, links_out, im
         works_out.append({**text["work"], "author": author_id, "versions": [version]})
 
 
+class _NoRefs:
+    def read(self, text):
+        return []
+
+
+def import_open_texts(open_dir: Path, authors, later_ids, works_out, links_out, imported):
+    """Texte aus freien Sammlungen nach curation/open_texts.json (siehe
+    open_texts.py). Gibt die Quellenangaben für das Manifest zurück."""
+    curated = json.loads((HERE / "curation" / "open_texts.json").read_text(encoding="utf-8"))
+    sources = curated["sources"]
+    v11n = Versification()
+    english = open_texts.EnglishRefReader()
+    latin = open_texts.LatinRefReader()
+    used = set()
+
+    def work_entry(text):
+        w = text["work"]
+        found = next((x for x in works_out if x["id"] == w["id"]), None)
+        if found is not None:
+            return found
+        if "title" not in w:
+            raise SystemExit(f"Werk {w['id']} fehlt (Fassung {text['version']['id']})")
+        a = authors.get(text["author"])
+        if a is None and text["author"] not in later_ids.values():
+            raise SystemExit(f"Autor {text['author']} fehlt")
+        works_out.append({**w, "author": text["author"], "versions": []})
+        return works_out[-1]
+
+    for text in curated["texts"]:
+        source = sources[text["source"]]
+        base = open_dir / source["dir"]
+        files = [base / f for f in text["files"]]
+        missing = [str(f) for f in files if not f.exists()]
+        if missing:
+            report["open_missing"].append({"version": text["version"]["id"], "files": missing[:5]})
+            continue
+        version = dict(text["version"])
+        vid = version["id"]
+        if text["source"] == "hcf":
+            sections = open_texts.read_hcf(
+                files, split=text.get("split", "auto"), titles=text.get("titles"),
+                bold_heads=text.get("boldHeads", False),
+                skip_paragraphs=text.get("skipParagraphs", 0),
+                plain_notes=text.get("plainNotes", False))
+            reader = english
+        else:
+            sections = open_texts.read_tei(files[0], keep_footnotes=text["source"] == "csel",
+                                           book_label=text.get("bookLabel", "Buch"))
+            header = open_texts.tei_header(files[0])
+            reader = latin if text["source"] == "csel" else _NoRefs()
+            edition = "; ".join(x for x in [
+                f"hg. von {header['editor']}" if header["editor"] else None,
+                header["date"]] if x)
+            version.setdefault("published", edition or None)
+            if text["source"] == "csel":
+                tree_vol = open_texts.etree.parse(str(files[0])).findall(
+                    ".//t:series/t:biblScope", open_texts.TEI)
+                if tree_vol:
+                    version.setdefault("series", "Corpus Scriptorum Ecclesiasticorum Latinorum, Bd. "
+                                       + open_texts.clean(tree_vol[0].text or ""))
+            version.setdefault("rightsNote", "; ".join(x for x in [
+                f"Edition {header['editor']} ({header['date']})" if header["editor"] else None,
+                "Digitalisat: " + (header["licence"] or source["license"]),
+                "maschinell korrigierte Texterkennung; textkritischer Apparat entfällt"
+                if text["source"] == "csel" else "textkritischer Apparat entfällt",
+            ] if x) + ".")
+        if not sections:
+            report["open_empty"].append(vid)
+            continue
+
+        for i, s in enumerate(sections, start=1):
+            s["n"] = i
+            s.setdefault("ref", None)
+            s["url"] = version.get("sourceUrl")
+            s["heads"] = []
+
+        # Ausgelegter Abschnitt am Anfang jeder Homilie bzw. Kapitelüberschrift.
+        book = text.get("passageBook")
+        if book:
+            for s in sections:
+                ref = None
+                if text.get("passageMode") == "chapterHeading":
+                    ref = open_texts.passage_from_chapter_heading(s["t"], book, v11n)
+                elif s["p"]:
+                    ref = open_texts.passage_from_start(s["p"][0], book, v11n)
+                if ref is not None:
+                    s["passage"] = ref
+                    s["heads"] = [(ref, s["t"])]
+                else:
+                    report["open_no_passage"].append(f"{vid}: {s['t']}")
+
+        work = work_entry(text)
+        links = extract_links(vid, work["id"], text["author"], sections, reader)
+        write_texts(vid, sections)
+        write_json(ASSETS / "texts" / f"{vid}.links.json", {"links": links})
+        links_out.extend(links)
+        version.update({"sections": len(sections), "links": len(links),
+                        "books": sorted({l["b"] for l in links})})
+        version = {k: v for k, v in version.items() if v is not None}
+        if any(v["id"] == vid for v in work["versions"]):
+            raise SystemExit(f"Fassung {vid} doppelt")
+        work["versions"].append(version)
+        imported.append({"version": vid, "source": text["source"], "files": len(files),
+                         "sections": len(sections), "links": len(links),
+                         "paragraphs": sum(len(s["p"]) for s in sections),
+                         "chars": sum(len(p) for s in sections for p in s["p"])})
+        used.add(text["source"])
+
+    for entry in curated.get("catalog", []):
+        work = work_entry(entry)
+        version = dict(entry["version"])
+        if any(v["id"] == version["id"] for v in work["versions"]):
+            raise SystemExit(f"Fassung {version['id']} doppelt")
+        work["versions"].append(version)
+
+    report["open_unconverted_references"] = sorted(set(english.unconverted))[:200]
+    return [{"id": key, "name": src["name"], "url": src["url"], "license": src["license"],
+             "commit": src["commit"]} for key, src in sources.items() if key in used]
+
 
 def write_texts(vid: str, sections: list[dict]):
     """Inhaltsverzeichnis und Textdateien von je etwa CHUNK_BYTES."""
@@ -678,9 +827,11 @@ def main() -> None:
 
     epub_dir = option("--epub")
     pdf_dir = option("--pdf")
+    open_dir = option("--open")
     args = [a for a in argv if not a.startswith("--")]
     check = "--check" in argv
-    if len(args) > 1 or (not args and "--ohne-bkv" not in argv and epub_dir is None and pdf_dir is None):
+    if len(args) > 1 or (not args and "--ohne-bkv" not in argv and epub_dir is None and pdf_dir is None
+                                and open_dir is None):
         raise SystemExit(__doc__)
     raw = Path(args[0]) if args else None
 
@@ -773,13 +924,27 @@ def main() -> None:
         })
         works_out[-1] = {k: v for k, v in works_out[-1].items() if v is not None}
 
+    curated = curated_work_ids()
     # EPUB-Exporte der BKV (von Hand heruntergeladen, siehe README.md).
     for path in sorted(epub_dir.glob("*.epub")) if epub_dir is not None else []:
         import_epub(path, authors, later_ids, works_out, links_out, imported,
-                    overrides, default_rights)
+                    overrides, default_rights, curated)
 
     if pdf_dir is not None:
         import_pdf_texts(pdf_dir, authors, later_ids, works_out, links_out, imported)
+
+    open_sources = []
+    if open_dir is not None:
+        open_sources = import_open_texts(open_dir, authors, later_ids, works_out, links_out, imported)
+
+    # Fassungen je Werk: deutsche Texte zuerst, dann Originale, dann andere
+    # Sprachen, Einleitungen zuletzt; Reihenfolge sonst wie eingelesen.
+    for w in works_out:
+        w["versions"].sort(key=lambda v: (
+            v["title"].startswith("Einleitung"),
+            v.get("language", "de") != "de",
+            v.get("kind") != "original",
+        ))
 
     # Autoren: Einordnung aus der Kuratierung, sonst Alte Kirche (BKV).
     authors_out = []
@@ -869,6 +1034,7 @@ def main() -> None:
              "coverage": f"{len(works_out)} Werke im Katalog, {len(readable)} Fassungen mit Text"},
             {"id": "openbible", "name": xrefs["source"], "url": xrefs["url"],
              "license": xrefs["license"], "header": xrefs["header"]},
+            *open_sources,
             {"id": "pericopes", "name": "Perikopen-Datensatz theologie.app",
              "license": "eigene Daten", "coverage": "synoptische Parallelen"},
         ],

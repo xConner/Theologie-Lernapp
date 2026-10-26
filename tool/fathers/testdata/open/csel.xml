@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0"><teiHeader><fileDesc><titleStmt><title>De Test</title></titleStmt>
+<publicationStmt><availability><licence target="https://creativecommons.org/licenses/by-sa/4.0/">Available under a Creative Commons Attribution-ShareAlike 4.0 International License</licence></availability></publicationStmt>
+<sourceDesc><biblStruct><monogr><editor><persName><name>Karl Schenkl</name></persName></editor><imprint><date>1896</date></imprint></monogr>
+<series><biblScope unit="volume">32.1</biblScope></series></biblStruct></sourceDesc></fileDesc></teiHeader>
+<text><body><div type="edition" n="urn:test">
+<div type="textpart" subtype="book" n="1">
+<div type="textpart" subtype="section" n="1"><p>In principio <note type="margin"> 145 A </note> fecit deus uide-<lb/>
+licet caelum. <note type="footnote"> 1 Gen. 1, 1 5 Ps. 32, 6 </note> <note type="footnote" rend="script"> 2 fecit] fecerat A </note></p></div>
+<div type="textpart" subtype="section" n="2"><p>Et terra <pb n="2"/> erat inanis.</p></div>
+</div>
+<div type="textpart" subtype="book" n="2"><div type="textpart" subtype="section" n="1"><p>Secundus liber.</p></div></div>
+</div></body></text></TEI>

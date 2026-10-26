@@ -121,10 +121,21 @@ class FathersAuthor {
   }
 }
 
+/// Anzeigenamen der Sprachen von Originalen und Fassungen.
+const Map<String, String> fathersLanguageNames = {
+  "de": "Deutsch",
+  "grc": "Griechisch",
+  "la": "Latein",
+  "syr": "Syrisch",
+  "en": "Englisch",
+};
+
+String languageName(String code) => fathersLanguageNames[code] ?? code;
+
 /// Art des Textes, wie ihn die App zeigt. Historische Übersetzungen werden
 /// nie als heutige Standardübersetzung ausgegeben.
 enum TextKind {
-  historicalTranslation("Historische deutsche Übersetzung"),
+  historicalTranslation("Historische Übersetzung"),
   original("Originaltext"),
   modernTranslation("Moderne Übersetzung"),
 
@@ -157,6 +168,10 @@ enum RightsStatus {
   /// Nur Metadaten und Link; der Volltext wird nicht ausgeliefert, weil die
   /// Rechte an der Fassung nicht geklärt sind.
   unclear("Rechte ungeklärt – nur Verweis"),
+
+  /// Digitalisat unter freier Lizenz (z. B. CC BY-SA); Lizenz und
+  /// Namensnennung in `rightsNote` und im Manifest.
+  openLicense("Freie Lizenz"),
 
   /// Geschützt; nur Metadaten und Link.
   protected("Geschützt – nur Verweis");
@@ -260,7 +275,8 @@ class WorkVersion {
   bool get hasText =>
       availability != Availability.external &&
       (rights == RightsStatus.publicDomain ||
-          rights == RightsStatus.permission);
+          rights == RightsStatus.permission ||
+          rights == RightsStatus.openLicense);
 
   factory WorkVersion.fromJson(Map<String, dynamic> json) {
     return WorkVersion(
@@ -302,6 +318,9 @@ class FathersWork {
 
   final String? originalLanguage;
 
+  /// Zuschreibung, wenn sie nicht gesichert ist.
+  final Authenticity authenticity;
+
   final List<WorkVersion> versions;
 
   const FathersWork({
@@ -312,6 +331,7 @@ class FathersWork {
     this.clavis,
     required this.genre,
     this.originalLanguage,
+    this.authenticity = Authenticity.authentic,
     this.versions = const [],
   });
 
@@ -328,13 +348,25 @@ class FathersWork {
     return Availability.external;
   }
 
+  /// Fassung, die das Werk öffnet: eine deutsche mit Text, sonst die erste
+  /// mit Text.
   WorkVersion? get readableVersion {
+    WorkVersion? first;
+
     for (final v in versions) {
-      if (v.hasText) return v;
+      if (!v.hasText) continue;
+      if (v.language == "de") return v;
+      first ??= v;
     }
 
-    return null;
+    return first;
   }
+
+  /// Sprachen, in denen das Werk in der App lesbar ist.
+  Set<String> get textLanguages => {
+    for (final v in versions)
+      if (v.hasText) v.language,
+  };
 
   int get linkCount => versions.fold(0, (sum, v) => sum + v.linkCount);
 
@@ -347,11 +379,35 @@ class FathersWork {
       clavis: json["clavis"] as String?,
       genre: json["genre"] as String? ?? "Schrift",
       originalLanguage: json["originalLanguage"] as String?,
+      authenticity: Authenticity.parse(json["authenticity"] as String?),
       versions: [
         for (final v in json["versions"] as List? ?? const [])
           WorkVersion.fromJson(Map<String, dynamic>.from(v as Map)),
       ],
     );
+  }
+}
+
+/// Zuschreibung eines Werks an seinen Autor.
+enum Authenticity {
+  authentic(null),
+
+  /// Die Echtheit ist in der Forschung umstritten.
+  doubtful("Echtheit umstritten"),
+
+  /// Dem Autor nur zugeschrieben (pseudepigraph).
+  spurious("Unecht (zugeschrieben)");
+
+  final String? label;
+
+  const Authenticity(this.label);
+
+  static Authenticity parse(String? value) {
+    for (final a in values) {
+      if (a.name == value) return a;
+    }
+
+    return Authenticity.authentic;
   }
 }
 

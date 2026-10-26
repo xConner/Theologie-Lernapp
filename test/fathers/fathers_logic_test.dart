@@ -288,4 +288,52 @@ void main() {
       }
     });
   });
+
+  group("Fassungen in mehreren Sprachen", () {
+    WorkVersion version(String id, String language, {bool text = true}) =>
+        WorkVersion(
+          id: id,
+          title: id,
+          language: language,
+          kind: language == "de"
+              ? TextKind.historicalTranslation
+              : TextKind.original,
+          rights: text ? RightsStatus.openLicense : RightsStatus.unclear,
+          availability: text ? Availability.full : Availability.external,
+        );
+
+    final work = FathersWork(
+      id: "w",
+      authorId: "a",
+      title: "Werk",
+      genre: "Kommentar",
+      originalLanguage: "la",
+      authenticity: Authenticity.parse("doubtful"),
+      versions: [
+        version("la", "la"),
+        version("en", "en"),
+        version("de", "de"),
+        version("grc", "grc", text: false),
+      ],
+    );
+
+    test("freie Lizenz gilt als lesbar, deutsche Fassung wird bevorzugt", () {
+      expect(work.readableVersion?.id, "de");
+      expect(work.textLanguages, {"la", "en", "de"});
+      expect(work.authenticity.label, "Echtheit umstritten");
+      expect(Authenticity.parse(null), Authenticity.authentic);
+    });
+
+    test("Sprachfilter findet Werke über die Sprache einer Fassung", () {
+      expect(
+        const FathersFilter(language: "en").workMatches(work, null),
+        isTrue,
+      );
+      expect(
+        const FathersFilter(language: "grc").workMatches(work, null),
+        isFalse,
+      );
+      expect(languageName("en"), "Englisch");
+    });
+  });
 }

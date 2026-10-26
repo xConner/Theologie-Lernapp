@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 
+import '../../models/fathers/fathers.dart';
 import '../../services/fathers/fathers_repository.dart';
 import '../../theme/app_theme.dart';
 import '../../widgets/content_page.dart';
 import 'work_screen.dart';
 
 /// Suche in allen Volltexten der App. Die Texte werden erst hier und Werk
-/// für Werk geladen; die Suche lässt sich jederzeit verlassen.
+/// für Werk geladen; die Suche lässt sich jederzeit verlassen. Gesucht wird
+/// in den Fassungen einer Sprache (zuerst Deutsch) oder in allen.
 class FullTextSearchScreen extends StatefulWidget {
   final String query;
   final FathersRepository? repository;
@@ -28,6 +30,11 @@ class _FullTextSearchScreenState extends State<FullTextSearchScreen> {
   bool done = false;
   bool failed = false;
 
+  /// Sprache der durchsuchten Fassungen; null = alle.
+  String? language = "de";
+  List<String> languages = const [];
+  int run = 0;
+
   static const int maxHits = 300;
 
   @override
@@ -36,21 +43,48 @@ class _FullTextSearchScreenState extends State<FullTextSearchScreen> {
     _run();
   }
 
+  void _setLanguage(String? value) {
+    setState(() {
+      language = value;
+      hits.clear();
+      searched = 0;
+      total = 0;
+      done = false;
+      failed = false;
+    });
+    _run();
+  }
+
   Future<void> _run() async {
+    final current = ++run;
+
     try {
       final library = await repo.library();
+
+      final available = {
+        for (final w in library.works)
+          for (final v in w.versions)
+            if (v.hasText) v.language,
+      };
 
       final versions = [
         for (final w in library.works)
           for (final v in w.versions)
-            if (v.hasText) (work: w, version: v),
+            if (v.hasText && (language == null || v.language == language))
+              (work: w, version: v),
       ];
 
-      if (!mounted) return;
-      setState(() => total = versions.length);
+      if (!mounted || current != run) return;
+      setState(() {
+        languages = [
+          for (final code in fathersLanguageNames.keys)
+            if (available.contains(code)) code,
+        ];
+        total = versions.length;
+      });
 
       for (final entry in versions) {
-        if (!mounted || hits.length >= maxHits) break;
+        if (!mounted || current != run || hits.length >= maxHits) break;
 
         final found = await repo.searchVersion(
           entry.version.id,
@@ -58,7 +92,7 @@ class _FullTextSearchScreenState extends State<FullTextSearchScreen> {
           limit: maxHits - hits.length,
         );
 
-        if (!mounted) return;
+        if (!mounted || current != run) return;
 
         final author = library.author(entry.work.authorId)?.name ?? "";
 
@@ -71,10 +105,10 @@ class _FullTextSearchScreenState extends State<FullTextSearchScreen> {
         });
       }
     } catch (_) {
-      if (mounted) setState(() => failed = true);
+      if (mounted && current == run) setState(() => failed = true);
     }
 
-    if (mounted) setState(() => done = true);
+    if (mounted && current == run) setState(() => done = true);
   }
 
   @override
@@ -85,6 +119,24 @@ class _FullTextSearchScreenState extends State<FullTextSearchScreen> {
       appBar: AppBar(title: Text("Volltextsuche: ${widget.query}")),
       body: Column(
         children: [
+          if (languages.length > 1)
+            Padding(
+              padding: const EdgeInsets.fromLTRB(12, 8, 12, 0),
+              child: Wrap(
+                spacing: 6,
+                children: [
+                  for (final code in [...languages, null])
+                    ChoiceChip(
+                      key: ValueKey("search-language-${code ?? "alle"}"),
+                      label: Text(
+                        code == null ? "Alle Sprachen" : languageName(code),
+                      ),
+                      selected: language == code,
+                      onSelected: (_) => _setLanguage(code),
+                    ),
+                ],
+              ),
+            ),
           if (!done)
             LinearProgressIndicator(
               value: total == 0 ? null : searched / total,

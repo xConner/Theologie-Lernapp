@@ -706,8 +706,9 @@ class AppModules {
     title: "Kirchenväter & Schriften",
     description:
         "Bibliothek der Kirchenväter und weiterer christlicher Autoren mit "
-        "Suche und Filtern, Volltexten historischer deutscher Übersetzungen "
-        "und Verweisen auf weitere Werke. Im Bibel-Reader zeigt ein "
+        "Suche und Filtern, Volltexten historischer deutscher Übersetzungen, "
+        "lateinischer und griechischer Originale und gemeinfreier englischer "
+        "Übersetzungen sowie Verweisen auf weitere Werke. Im Bibel-Reader zeigt ein "
         "angetippter Vers die Abschnitte, die eine Ausgabe diesem Vers "
         "zuordnet, dazu verwandte Bibelstellen und den Perikopenkontext.",
     sources: [
@@ -727,6 +728,33 @@ class AppModules {
             "stehen beim Abschnitt statt im Text, Anmerkungszeichen erscheinen "
             "als [n], über eine Seite fortgesetzte Absätze sind zusammengefügt.",
         url: "https://bkv.unifr.ch/",
+      ),
+      SourceInfo(
+        title: "Englische Übersetzungen",
+        origin:
+            "HistoricalChristianFaith Writings-Database (GitHub), vor allem "
+            "Nicene and Post-Nicene Fathers (1886–1900), Library of the "
+            "Fathers (1881) und von Roger Pearse gemeinfrei gestellte "
+            "Übersetzungen.",
+        processing:
+            "Nur einzeln geprüfte, gemeinfreie Übersetzungen. Maschinelle "
+            "Übertragungen (ChatGPT) der Sammlung sind ausgeschlossen. "
+            "Griechische Wörter in Beta-Code sind in griechische Schrift "
+            "umgesetzt.",
+        url: "https://github.com/HistoricalChristianFaith/Writings-Database",
+      ),
+      SourceInfo(
+        title: "Lateinische und griechische Originale",
+        origin:
+            "Open Greek and Latin, csel-dev (Corpus Scriptorum "
+            "Ecclesiasticorum Latinorum, Bände 1896–1919) und Perseus Digital "
+            "Library, canonical-greekLit.",
+        license: "CC BY-SA 4.0",
+        processing:
+            "Ohne textkritischen Apparat und Randangaben. Die CSEL-Texte "
+            "beruhen auf maschinell korrigierter Texterkennung und können "
+            "einzelne Lesefehler enthalten.",
+        url: "https://github.com/OpenGreekAndLatin/csel-dev",
       ),
       SourceInfo(
         title: "Zuordnung zu Bibelstellen",

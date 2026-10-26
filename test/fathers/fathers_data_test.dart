@@ -209,4 +209,152 @@ void main() {
       }
     }
   });
+
+  group("Freie Textsammlungen (tool/fathers/curation/open_texts.json)", () {
+    final curated =
+        readJson("tool/fathers/curation/open_texts.json")
+            as Map<String, dynamic>;
+    final texts = (curated["texts"] as List).cast<Map<String, dynamic>>();
+
+    test(
+      "jede kuratierte Fassung ist mit Text, Quelle und Rechten da",
+      () async {
+        final library = await repo.library();
+        final versions = {
+          for (final w in library.works)
+            for (final v in w.versions) v.id: (work: w, version: v),
+        };
+
+        for (final t in texts) {
+          final id = (t["version"] as Map<String, dynamic>)["id"] as String;
+          final found = versions[id];
+
+          expect(found, isNotNull, reason: id);
+          final v = found!.version;
+
+          expect(v.hasText, isTrue, reason: id);
+          expect(v.sourceUrl, startsWith("https://github.com/"), reason: id);
+          expect(v.rightsNote, isNotEmpty, reason: id);
+          expect(fathersLanguageNames.keys, contains(v.language), reason: id);
+          expect(
+            found.work.id,
+            (t["work"] as Map<String, dynamic>)["id"],
+            reason: id,
+          );
+
+          if (v.rights == RightsStatus.openLicense) {
+            expect(v.rightsNote, contains("Creative Commons"), reason: id);
+            expect(v.kind, TextKind.original, reason: id);
+          } else {
+            expect(v.rights, RightsStatus.publicDomain, reason: id);
+          }
+
+          // Inhaltsverzeichnis und Textdateien vollständig und in Reihenfolge.
+          final toc =
+              (readJson("$root/texts/$id.toc.json")
+                      as Map<String, dynamic>)["sections"]
+                  as List;
+          expect(toc.length, v.sectionCount, reason: id);
+
+          final numbers = [for (final e in toc) (e as Map)["n"] as int];
+          expect(numbers, [
+            for (var i = 1; i <= toc.length; i++) i,
+          ], reason: id);
+
+          final chunks = {for (final e in toc) (e as Map)["c"] as int};
+          for (final c in chunks) {
+            final sections =
+                (readJson("$root/texts/$id.$c.json")
+                        as Map<String, dynamic>)["sections"]
+                    as List;
+            for (final s in sections) {
+              final p = ((s as Map)["p"] as List).cast<String>();
+              expect(p, isNotEmpty, reason: "$id §${s["n"]}");
+
+              final notes = (s["notes"] as List?)?.length ?? 0;
+              for (final text in p) {
+                for (final m in RegExp(r"\[(\d+)\]").allMatches(text)) {
+                  expect(
+                    int.parse(m[1]!),
+                    inInclusiveRange(1, notes),
+                    reason: "$id §${s["n"]}: Anmerkung ${m[0]}",
+                  );
+                }
+              }
+            }
+          }
+        }
+      },
+    );
+
+    test("keine maschinellen Übertragungen in den Texten", () {
+      for (final f in Directory("$root/texts").listSync()) {
+        final text = File(f.path).readAsStringSync();
+        expect(
+          RegExp("ChatGPT|using GPT", caseSensitive: false).hasMatch(text),
+          isFalse,
+          reason: f.path,
+        );
+      }
+    });
+
+    test("Homilienreihen vollständig (Zahl der Homilien wie in NPNF)", () {
+      const expected = {
+        "npnf.chrysostomus.hom_mt": 90,
+        "npnf.chrysostomus.hom_jo": 88,
+        "npnf.chrysostomus.hom_act": 55,
+        "npnf.chrysostomus.hom_rom": 32,
+        "npnf.chrysostomus.hom_1co": 44,
+        "npnf.chrysostomus.hom_2co": 30,
+        "npnf.chrysostomus.hom_eph": 24,
+        "npnf.chrysostomus.hom_phil": 15,
+        "npnf.chrysostomus.hom_col": 12,
+        "npnf.chrysostomus.hom_1th": 11,
+        "npnf.chrysostomus.hom_2th": 5,
+        "npnf.chrysostomus.hom_1tim": 18,
+        "npnf.chrysostomus.hom_2tim": 10,
+        "npnf.chrysostomus.hom_tit": 6,
+        "npnf.chrysostomus.hom_phlm": 3,
+        "npnf.chrysostomus.hom_heb": 34,
+        "npnf.chrysostomus.de_statuis": 21,
+        "npnf.basilius.hexaemeron": 9,
+      };
+
+      for (final MapEntry(:key, :value) in expected.entries) {
+        final toc =
+            (readJson("$root/texts/$key.toc.json")
+                    as Map<String, dynamic>)["sections"]
+                as List;
+        expect(toc.length, value, reason: key);
+      }
+    });
+
+    test("keine doppelten Werke eines Autors", () async {
+      final library = await repo.library();
+      final seen = <String>{};
+
+      String key(String? text) =>
+          (text ?? "").toLowerCase().replaceAll(RegExp(r"[^a-zäöüß0-9]"), "");
+
+      for (final w in library.works) {
+        for (final title in {w.title, ?w.originalTitle}) {
+          if (key(title).isEmpty || title == "Briefe") continue;
+          expect(
+            seen.add("${w.authorId}|${key(title)}"),
+            isTrue,
+            reason: "${w.id}: $title",
+          );
+        }
+      }
+    });
+
+    test("Werke mit mehreren Sprachen öffnen die deutsche Fassung", () async {
+      final library = await repo.library();
+      final exameron = library.works.firstWhere((w) => w.id == "bkv.cpl-123");
+
+      expect(exameron.textLanguages, containsAll(["de", "la"]));
+      expect(exameron.readableVersion?.language, "de");
+      expect(exameron.versions.first.language, "de");
+    });
+  });
 }

@@ -93,10 +93,7 @@ void main() {
       expect(find.text("Testautor A"), findsWidgets);
       expect(find.text("Vorträge über Johannes"), findsWidgets);
       expect(find.text("Auslegung des Abschnitts"), findsOneWidget);
-      expect(
-        find.textContaining("Historische deutsche Übersetzung"),
-        findsWidgets,
-      );
+      expect(find.textContaining("Historische Übersetzung"), findsWidgets);
       expect(find.textContaining("Übers. Ü. Bersetzer"), findsWidgets);
       expect(find.textContaining("Im Anfang war das Wort"), findsWidgets);
       expect(tester.takeException(), isNull);

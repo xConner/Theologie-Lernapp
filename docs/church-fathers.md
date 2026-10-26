@@ -1,7 +1,9 @@
 # Kirchenväter & Schriften
 
 Bibliothek christlicher Autoren mit Suche, Filtern und Volltexten
-gemeinfreier deutscher Übersetzungen; im Bibel-Reader dazu die
+gemeinfreier deutscher Übersetzungen, dazu lateinischer und griechischer
+Originale und gemeinfreier englischer Übersetzungen (Entscheidung Conner,
+26.10.2026); im Bibel-Reader dazu die
 Versdetailansicht (Kirchenväter zur Stelle, verwandte Bibelstellen,
 Perikopenkontext). Datenformat und Import: `tool/fathers/README.md`.
 
@@ -75,6 +77,10 @@ Nutzers.
 | OpenBible.info Cross References | 344 799 Verweise mit Nutzerbewertung, KJV-Zählung | CC BY, Kopf „#www.openbible.info CC-BY 2024-11-04“ | 198 933 Verweise mit mindestens 3 Stimmen, je Vers höchstens 60, in deutsche Zählung umgerechnet; Quelle in der App genannt |
 | STEPBible-Daten | Lexika, Morphologie | CC BY | kein Väter- oder Verweisdatensatz; nicht verwendet |
 | GND (lobid.org) | Lebensdaten der Übersetzer | CC0 | Rechteprüfung der Übersetzungen |
+| HistoricalChristianFaith Writings-Database (GitHub) | englische Übersetzungen (v. a. NPNF 1886–1900, Library of the Fathers, von Roger Pearse gemeinfrei gestellte Übersetzungen) und maschinelle ChatGPT-Übertragungen | laut Sammlung gemeinfrei; je Übersetzung geprüft | geprüfte Übersetzungen als englische Fassungen; ChatGPT-Texte nie; W. K. L. Clarke († 1968) und die anonyme Übersetzung „Against the Jews“ nur verzeichnet |
+| Open Greek and Latin, csel-dev (GitHub) | lateinische Originale aus dem CSEL (Bände 1896–1919), maschinell korrigierte Texterkennung | CC BY-SA 4.0 | 17 Werke des Ambrosius als lateinische Fassungen |
+| Perseus canonical-greekLit (GitHub) | griechische Originale | CC BY-SA 4.0 | Basilius, Briefe und „An die Jünglinge“ |
+| archive.org, Wikisource, Gutenberg, BKV | deutsche Übersetzungen (BKV-Scans u. a.) | – | aus der Cloud nicht erreichbar (Netzwerkrichtlinie); BKV nur per EPUB von Conner |
 | Perikopenliste der App (`assets/perikopen.json`) | Perikopen, synoptische Zuordnung | eigene Daten | Perikopenkontext, synoptische Parallelen |
 | Bekenntnisse der App (`assets/confessions.json`) | Konkordienbuch | siehe `docs/content-rights-review.md` | Verweise aus Luthers und Melanchthons Werken auf die vorhandenen Texte |
 
@@ -131,6 +137,16 @@ Für die späteren Autoren fehlen geprüfte gemeinfreie Ausgaben in
 maschinenlesbarer Form (z. B. Luther-Auslegungen der Walch-Ausgabe,
 Bengels Gnomon in einer deutschen Übersetzung des 19. Jahrhunderts). Sie sind Kandidaten für
 eine spätere Beschaffung; bis dahin sind die Werke nur verzeichnet.
+
+Seit 26.10.2026 kommen dazu die freien Sammlungen (`--open`, Angaben in
+`tool/fathers/curation/open_texts.json`): für Ambrosius, Basilius, Gregor
+von Nyssa und Johannes Chrysostomus 89 Fassungen mit Text (englisch,
+lateinisch, griechisch) und 3 nur verzeichnete. Die Bestands- und
+Lückenliste je Werk steht im Projektordner
+(`kirchenvaeter/bestand-und-luecken.md`). Deutsche Fassungen stehen in der
+Werkansicht vorn und öffnen sich zuerst; die Volltextsuche sucht zuerst in
+deutschen Texten (umschaltbar). Werke mit umstrittener Echtheit tragen das
+Kennzeichen „Echtheit umstritten“.
 
 ## Grenzen
 

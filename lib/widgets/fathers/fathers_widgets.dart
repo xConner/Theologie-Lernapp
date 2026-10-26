@@ -36,6 +36,10 @@ class VersionTags extends StatelessWidget {
       children: [
         if (version.hasText || version.appLink != null)
           Tag(version.kind.label, icon: Icons.history_edu_outlined),
+        if (version.language != "de")
+          Tag(languageName(version.language), icon: Icons.translate),
+        if (version.rights == RightsStatus.openLicense)
+          Tag(version.rights.label, icon: Icons.gavel_outlined),
         Tag(
           version.hasText
               ? version.availability.label

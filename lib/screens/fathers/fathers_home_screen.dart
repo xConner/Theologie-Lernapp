@@ -12,13 +12,9 @@ import 'author_screen.dart';
 import 'fulltext_search_screen.dart';
 import 'work_screen.dart';
 
-/// Sprachen der Originale für Filter und Anzeige.
-const Map<String, String> fathersLanguages = {
-  "grc": "Griechisch",
-  "la": "Latein",
-  "syr": "Syrisch",
-  "de": "Deutsch",
-};
+/// Sprachen für den Filter: Sprache des Originals oder einer lesbaren
+/// Fassung.
+const Map<String, String> fathersLanguages = fathersLanguageNames;
 
 /// Filter der Bibliothek. Leere Werte filtern nicht.
 class FathersFilter {
@@ -54,6 +50,7 @@ class FathersFilter {
       (a == null || authorMatches(a)) &&
       (language == null ||
           w.originalLanguage == language ||
+          w.textLanguages.contains(language) ||
           (w.originalLanguage == null &&
               (a?.languages.contains(language) ?? false))) &&
       (genre == null || w.genre == genre) &&

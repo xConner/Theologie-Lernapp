@@ -14,8 +14,10 @@ Benötigt Python 3.10+ mit `beautifulsoup4` und `lxml`.
 | `import_bkv.py --ohne-bkv` | nur die redaktionell gepflegten Autoren (ohne BKV-Abruf) |
 | `import_bkv.py [<Rohdaten>] --epub <Ordner>` | dazu die EPUB-Exporte der BKV in `<Ordner>` (siehe unten) |
 | `… --pdf <Ordner>` | dazu Texte aus PDF-Drucken nach `curation/pdf_texts.json` (`pdf_text.py`) |
+| `… --open <Ordner>` | dazu Texte aus freien Sammlungen nach `curation/open_texts.json` (`open_texts.py`, siehe unten) |
 | `import_bkv.py <Rohdaten> --check` | schreibt nichts; Fehler, wenn Kennungen wegfallen würden |
 | `test_import_bkv.py` | prüft den Import an erfundenen Seiten in `testdata/bkv/` |
+| `test_open_texts.py` | prüft die Leser der freien Sammlungen an `testdata/open/` |
 
 `crossrefs.py` vor `import_bkv.py` ausführen (das Manifest übernimmt die
 Bücherliste und Lizenzangaben aus `reports/crossrefs.json`). Beide Skripte
@@ -47,7 +49,36 @@ Seitenlinks). Rechte aus `curation/rights.json` (Einzelangabe, sonst
     python3 tool/fathers/import_bkv.py --epub ~/bkv-epub
 
 Der Import ersetzt den ganzen Katalog: bei jedem Lauf alle Quellen
-mitgeben (Rohdaten, `--epub`, `--pdf`).
+mitgeben (Rohdaten, `--epub`, `--pdf`, `--open`). Ein EPUB eines Werks, das
+schon aus einer freien Sammlung kommt (gleiche Clavis oder gleicher
+Originaltitel), übernimmt dessen Kennung; so entsteht kein zweites Werk.
+
+## Freie Sammlungen (`--open`)
+
+`curation/open_texts.json` nennt je Fassung Sammlung, Dateien, Werk (neu oder
+Kennung eines vorhandenen Werks), Rechte und Gliederung. Der Ordner enthält
+Klone der Sammlungen unter den Namen aus `sources.*.dir`; die verwendeten
+Commits stehen ebenfalls dort:
+
+    mkdir open && cd open
+    git clone https://github.com/HistoricalChristianFaith/Writings-Database hcf
+    git clone https://github.com/OpenGreekAndLatin/csel-dev
+    git clone https://github.com/PerseusDL/canonical-greekLit
+    python3 tool/fathers/import_bkv.py --epub … --pdf … --open open
+
+- **hcf** (englische Übersetzungen, HTML): nur die in `open_texts.json`
+  genannten Dateien; Übertragungen „using ChatGPT“ der Sammlung bricht
+  `read_hcf` ab. Griechisch in Beta-Code wird in griechische Schrift
+  umgesetzt. `passageBook` liest bei Homilienreihen den ausgelegten
+  Abschnitt am Anfang jeder Homilie (Zuordnung „Auslegung des Abschnitts“).
+- **csel** (lateinische Originale, EpiDoc): je Buch Gruppen von Paragraphen;
+  Randangaben und textkritischer Apparat entfallen, Bibelstellen aus den
+  Fußnoten der Seite bleiben als Anmerkungen (Absatz ungefähr, Sicherheit
+  „mittel“). Die Texterkennung ist maschinell korrigiert; Restfehler bleiben.
+- **perseus** (griechische Originale, EpiDoc): ohne Apparat.
+
+Rechte: `publicDomain` (Ausgabe gemeinfrei) oder `openLicense`
+(Digitalisat unter CC BY-SA; Namensnennung in der Fassung und im Manifest).
 
 ## Abruf der BKV-Rohdaten (Abschnittsseiten)
 
