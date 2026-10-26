@@ -1,0 +1,1163 @@
+{
+  "course": {
+    "id": "course.cassian_seminar",
+    "kind": "seminar",
+    "title": "Einführung in die Kirchengeschichte: Cassian und das Menschwerden Gottes",
+    "semester": "Wintersemester 2026/27",
+    "sections": [
+      {
+        "title": "Prüfungsleistung: Seminararbeit",
+        "ref": {"material": "material.assessment", "at": "S. 1–3"},
+        "points": [
+          "Planung und Durchführung einer historisch-theologischen Fragestellung zu De incarnatione; Arbeitsgang und Ergebnis werden schriftlich dokumentiert.",
+          "Historisch ist die Fragestellung, insofern sie die Quelle als historische Quelle konstruiert: Abfassungskontexte, Überlieferung des Textes, geschichtswissenschaftliche Methodik.",
+          "Theologisch ist sie, insofern sie die Perspektive von Theologinnen und Theologen einbringt: Einordnung in die Christentumsgeschichte, Berücksichtigung der christlichen und theologischen Aspekte.",
+          "Beispiel: Welches Verhältnis bestand zwischen Cassian und Leo dem Großen? Analyse der praefatio unter Berücksichtigung der Gattungskonventionen und der Thematisierung des Amtes.",
+          "Umfang etwa 15 Seiten, Layout nach den Kieler Richtlinien; mindestens 10 Titel im Literaturverzeichnis.",
+          "Die Fragestellung wird in der Sprechstunde gefunden."
+        ]
+      },
+      {
+        "title": "Schriftliche Abgaben",
+        "ref": {"material": "material.assessment", "at": "S. 3"},
+        "points": [
+          "Mit Referat: Verschriftlichung auf 3–5 Seiten (Kieler Richtlinien) mit Verzeichnis der verwendeten Forschungsliteratur, ggf. der Quelle in kritischer Edition.",
+          "Ohne Referat: kommentierte Bibliographie zu einem Forschungsthema mit mindestens fünf Publikationen, etwa fünf Seiten.",
+          "Kommentiert werden Verfasser bzw. Verfasserin, Gegenstand, methodische oder forschungsgeschichtliche Kontexte und die Fragen, die die Publikation beleuchtet; so knapp wie möglich, so ausführlich wie nötig."
+        ]
+      },
+      {
+        "title": "Formalia nach den Kieler Richtlinien",
+        "ref": {"material": "material.kiel_guidelines", "at": "Abschnitt 1"},
+        "points": [
+          "Die Formalia machen je nach Arbeit ein Drittel oder sogar die Hälfte der Note aus.",
+          "Seitenränder oben, unten und links 2,5 cm, rechts 5 cm.",
+          "Fließtext im Blocksatz, anderthalbzeilig, Times New Roman oder Arial 12 pt.",
+          "Fußnoten durchgängig gezählt, einzeilig, 10 pt, maschinell gesetzt.",
+          "Literaturverzeichnis nach Quellen, Hilfsmittel und Sekundärliteratur gegliedert, alphabetisch nach Nachnamen.",
+          "Abkürzungen nach IATG³, biblische Bücher nach den Loccumer Richtlinien."
+        ]
+      },
+      {
+        "title": "Bibliographie: Methodik",
+        "ref": {"material": "material.bibliography", "at": "S. 1"},
+        "points": [
+          "Gerhard Ebeling, Kirchengeschichte als Geschichte der Auslegung der Heiligen Schrift (SgV 189), Tübingen 1947.",
+          "Stefan Haas, Geschichtswissenschaft. Eine Einführung (UTB 5401), Paderborn 2023.",
+          "Katharina Heyden, Martin Sallmann, Quellen auslegen. Konzepte und Methoden der Historischen Theologie, Darmstadt 2023.",
+          "Tobias Jammerthal u. a., Methodik der Kirchengeschichte. Ein Lehrbuch (UTB 5851), Tübingen 2022.",
+          "Christoph Markschies, Arbeitsbuch Kirchengeschichte (UTB 1857), Tübingen 1995.",
+          "Henri-Irénée Marrou, La connaissance historique, Paris ⁵1966 (1954).",
+          "Andreas Stegmann, Matthias A. Deuschle, Jennifer Wasmuth, Proseminar Kirchengeschichte. Einführung in die Methoden des wissenschaftlichen Arbeitens (UTB 5983), Tübingen 2022.",
+          "Wolf-Dieter Hauschild, Volker Drecoll, Lehrbuch der Kirchen- und Dogmengeschichte Bd. 1: Alte Kirche und Mittelalter, ³2023.",
+          "Klaus Koschorke, Grundzüge der Außereuropäischen Christentumsgeschichte (UTB 5934), Tübingen 2022.",
+          "Bernd Moeller, Geschichte des Christentums in Grundzügen (UTB 905), Göttingen ¹⁰2011.",
+          "Johannes Wallmann, Kirchengeschichte Deutschlands seit der Reformation (UTB 1355), Tübingen ⁸2023."
+        ]
+      },
+      {
+        "title": "Bibliographie: Cassian und Christologie in der Alten Kirche",
+        "ref": {"material": "material.bibliography", "at": "S. 1–2"},
+        "points": [
+          "Owen Chadwick, John Cassian: a study in primitive monasticism, Cambridge 1950.",
+          "Franz Dünzl, Kleine Geschichte des trinitarischen Dogmas in der Alten Kirche, Freiburg i. Br. ²2011 (2006).",
+          "Richard J. Goodrich, Contextualizing Cassian. Aristocrats, Asceticism, and Reformation in Fifth-Century Gaul, Oxford 2007.",
+          "Columba Stewart, Cassian the Monk, New York/Oxford 1998.",
+          "Torsten Krannich, Von Leporius zu Leo dem Großen. Studien zur lateinischsprachigen Christologie im fünften Jahrhundert (STAC 32), Tübingen 2005.",
+          "Aufsatz: Kurt Niederwimmer, Zur Lehre vom vierfachen Schriftsinn bei Johannes Cassian (Conl. XIV,8), in: WJT 6 (2006), S. 61–83.",
+          "Aufsatz: Marie-Anne Vannier, Jean Cassien a-t-il fait oeuvre de théologien dans le De Incarnatione Domini?, in: RevSR 66 (1992), S. 119–131.",
+          "Aufsatz: Klaus Zelzer, Cassianus natione Scytha, ein Südgallier, in: WSt 104 (1991), S. 161–168."
+        ],
+        "supplement": "Hochgestellte Auflagenziffern (⁵1966, ¹⁰2011, ⁸2023) sind in der Vorlage als normale Ziffern übertragen („51966“, „102011“, „82023“) und hier richtiggestellt."
+      }
+    ],
+    "materials": [
+      {"id": "material.seminar_plan", "short": "Seminarplan", "title": "Seminarplan zum Proseminar „Einführung in die Kirchengeschichte: Cassian und das Menschwerden Gottes“", "category": "Seminarplan", "description": "Termine, Themen, Methoden, Referate und Aufgaben der 14 Sitzungen."},
+      {"id": "material.bibliography", "short": "Bibliographie", "title": "Bibliographie zum Seminar (korrigierte Fassung)", "category": "Literaturliste", "description": "Grundlagenliteratur zu Methodik, zu Cassian und zur altkirchlichen Christologie."},
+      {"id": "material.assessment", "short": "Prüfungsleistungen", "title": "Prüfungsleistungen: Seminararbeit und schriftliche Abgaben", "category": "Hinweise zur Prüfung", "description": "Anforderungen an Seminararbeit, Referatsverschriftlichung und kommentierte Bibliographie."},
+      {"id": "material.kiel_guidelines", "short": "Kieler Richtlinien", "title": "How to do: Kieler Richtlinien (Langversion)", "category": "Arbeitshilfe", "description": "Formale Vorgaben für Seminararbeiten in der Theologie: Layout, Fußnoten, Literaturverzeichnis, Abkürzungen."},
+      {"id": "material.schwartz", "short": "Schwartz 1939", "title": "Eduard Schwartz, Lebensdaten Cassians, in: ZNW 38 (1939), S. 1–11", "category": "Forschungsliteratur", "description": "Herkunft, Lebensstationen und Datierung der Werke Cassians."},
+      {"id": "material.vannier", "short": "Vannier 1992", "title": "Marie-Anne Vannier, Jean Cassien a-t-il fait oeuvre de théologien dans le De Incarnatione Domini?, in: RevSR 66 (1992), S. 119–131", "category": "Forschungsliteratur", "description": "Anlass, Quellen, Methode und theologischer Ertrag von De incarnatione."},
+      {"id": "material.keech", "short": "Keech 2010", "title": "Dominic Keech, John Cassian and the Christology of Romans 8,3, in: VigChr 64 (2010), S. 280–299", "category": "Forschungsliteratur", "description": "Cassians Auslegung von Röm 8,3 als Aufnahme von Origenes und Augustinus."},
+      {"id": "material.paucker", "short": "Paucker 1886", "title": "Carl von Paucker, Die Latinität des Joannes Cassianus, in: Romanische Forschungen 2 (1886), S. 391–448", "category": "Forschungsliteratur", "description": "Sprachliche Untersuchung; in der Einleitung eine eigene Deutung von Cassians Herkunft."},
+      {"id": "material.tre_gennadius", "short": "TRE, Gennadius", "title": "Charles Pietri, Art. Gennadius von Marseille, in: TRE, S. 376–378", "category": "Lexikonartikel", "description": "Leben und Werke des Gennadius, besonders De viris illustribus."},
+      {"id": "material.greek_philology", "short": "Stenger 2004", "title": "Jan R. Stenger, Einführung in das Studium der Griechischen Philologie, Kiel 2004", "category": "Arbeitshilfe aus einem Nachbarfach", "description": "Hier verwendet für Textkritik und Stilfiguren."},
+      {"id": "material.ancient_history", "short": "Börm, Alte Geschichte", "title": "Henning Börm, Materialien zum Studium der Alten Geschichte (Kiel)", "category": "Arbeitshilfe aus einem Nachbarfach", "description": "Basiswissen und Hinweise zur althistorischen Proseminararbeit; nur als weiterführendes Material aufgeführt."},
+      {"id": "material.latin_guide", "short": "Cyron 2007", "title": "Alexander Cyron, Hinweise zur Abfassung von Seminararbeiten. Ein Vademecum für Studenten der Lateinischen Philologie, Kiel 2007", "category": "Arbeitshilfe aus einem Nachbarfach", "description": "Arbeitsschritte einer latinistischen Seminararbeit; nur als weiterführendes Material aufgeführt."},
+      {"id": "material.philosophy_citation", "short": "Strobach 2020", "title": "Niko Strobach, Philosophische Klassiker richtig belegen und Belege entziffern, Münster 2020", "category": "Arbeitshilfe aus einem Nachbarfach", "description": "Zitierweisen philosophischer Klassiker; nur als weiterführendes Material aufgeführt."},
+      {"id": "material.zelzer", "short": "Zelzer 1991", "title": "Klaus Zelzer, „Cassianus natione Scytha“, ein Südgallier, in: WSt 104 (1991), S. 161–168", "category": "Forschungsliteratur", "description": "Herkunft Cassians und Deutung der Angabe des Gennadius; Lektüre zur 2. Sitzung."},
+      {"id": "material.bkv_incarnation", "short": "BKV", "title": "Johannes Cassian, Sieben Bücher über die Menschwerdung Christi (De incarnatione Domini contra Nestorium), aus dem Urtext übers. von Karl Kohlhund, in: Sämtliche Schriften des ehrwürdigen Johannes Cassianus, Bd. 2 (BKV 1. Serie, Bd. 68), Kempten 1879, S. 433–631", "category": "Quelle in Übersetzung", "description": "Deutsche Übersetzung der Seminarquelle (digitale Fassung der BKV, bkv.unifr.ch); Fundstellen nach Buch, Kapitel der Übersetzung und Seite der Druckausgabe. Im Seminar wird nach der kritischen Edition (CSEL 17) zitiert."}
+    ]
+  },
+  "sessions": [
+    {
+      "id": "seminar.01",
+      "number": 1,
+      "date": "19. Oktober 2026",
+      "title": "Konstituieren und Kennenlernen der Seminargruppe",
+      "epochs": ["epoch.antiquity"],
+      "themes": ["theme.christology", "theme.discipline"],
+      "sections": [
+        {
+          "title": "Thema",
+          "ref": {"material": "material.seminar_plan", "at": "S. 1"},
+          "points": [
+            "Konstituieren und Kennenlernen der Seminargruppe.",
+            "Vorstellung der Lernziele, Austausch über Arbeitsweisen und Verlauf des Semesters."
+          ]
+        },
+        {
+          "title": "Aufgaben zur 2. Sitzung",
+          "ref": {"material": "material.seminar_plan", "at": "S. 1"},
+          "points": [
+            "Lektüre: Stegmann, Proseminar, S. 1–7; Gennadius, vir. ill. LXII; Inc. praef.; Zelzer, Cassianus natione Scytha.",
+            "Gennadius: Abriss über Leben und Werk lesen; den textkritischen Apparat zu Z. 1 und S. CXVI, Z. 8–12 genauer ansehen.",
+            "Zelzer: knapp notieren, wie er die textkritische Variante „serta“ erklärt und warum er zum Schluss kommt, Cassian sei Südgallier.",
+            "Inc. praef.: notieren, welche Informationen Cassian über seine eigene Situation gibt und wie er sein Verhältnis zu Leo kennzeichnet.",
+            "Stegmann: die Epochen der Kirchengeschichte einprägen; sich zu den drei genannten Aufgaben der Kirchengeschichte positionieren."
+          ]
+        }
+      ],
+      "mentions": [
+        {
+          "entry": "term.periodization",
+          "ref": {"material": "material.seminar_plan", "at": "S. 1"},
+          "text": "Aufgabe zu Stegmann, Proseminar, S. 1–7: die Epochen der Kirchengeschichte einprägen"
+        },
+        {
+          "entry": "term.church_history",
+          "ref": {"material": "material.seminar_plan", "at": "S. 1"},
+          "text": "Aufgabe zu Stegmann: sich zu den drei genannten Aufgaben der Kirchengeschichte positionieren"
+        },
+        {
+          "entry": "source.gennadius_vir_ill",
+          "ref": {"material": "material.seminar_plan", "at": "S. 1"},
+          "text": "Lektüre und Bearbeitung von vir. ill. LXII: Abriss über Leben und Werk, textkritischer Apparat zu Z. 1"
+        },
+        {
+          "entry": "person.gennadius",
+          "ref": {"material": "material.seminar_plan", "at": "S. 1"},
+          "text": "Gennadius' Abriss über Leben und Werk Cassians (vir. ill. LXII) als erste Lektüre"
+        },
+        {
+          "entry": "person.cassian",
+          "ref": {"material": "material.seminar_plan", "at": "S. 1"},
+          "text": "Zelzer: Cassian sei Südgallier; Inc. praef.: Cassians eigene Situation und sein Verhältnis zu Leo"
+        },
+        {
+          "entry": "person.leo_great",
+          "ref": {"material": "material.seminar_plan", "at": "S. 1"},
+          "text": "Inc. praef.: Wie kennzeichnet Cassian sein Verhältnis zum angesprochenen Leo?"
+        },
+        {
+          "entry": "term.praefatio",
+          "ref": {"material": "material.seminar_plan", "at": "S. 1"},
+          "text": "Lektüre der praefatio von De incarnatione (2 Seiten)"
+        }
+      ],
+      "questions": [
+        {
+          "id": "q.ps01.zelzer",
+          "prompt": "Zu welchem Schluss kommt Klaus Zelzer über Cassians Herkunft?",
+          "answer": "Cassian sei Südgallier gewesen",
+          "distractors": ["Cassian sei Gote gewesen", "Cassian sei Ägypter gewesen", "Cassian sei Syrer gewesen"],
+          "explanation": "Der Aufsatz heißt „Cassianus natione Scytha, ein Südgallier“ (WSt 104, 1991); der Seminarplan fragt, warum Zelzer zu diesem Schluss kommt. Andere Deutungen der Angabe „natione Scytha“ stehen beim Eintrag Johannes Cassian.",
+          "ref": {"material": "material.seminar_plan", "at": "S. 1"},
+          "entries": ["person.cassian"]
+        }
+      ]
+    },
+    {
+      "id": "seminar.02",
+      "number": 2,
+      "date": "26. Oktober 2026",
+      "title": "Arbeiten mit kritischen Editionen und Klären des Quellenbegriffs; Cassian",
+      "epochs": ["epoch.antiquity"],
+      "themes": ["theme.christology", "theme.discipline", "theme.monasticism"],
+      "sections": [
+        {
+          "title": "Thema und Methodik",
+          "ref": {"material": "material.seminar_plan", "at": "S. 1"},
+          "points": [
+            "Referat: Das Leben Cassians.",
+            "Methodik: Edition; Textkritik; Datierungen; Kirchengeschichte als Forschungsgebiet.",
+            "Inhaltlich: Gennadius, vir. ill. LXII; Inc. praefatio."
+          ]
+        },
+        {
+          "title": "Aufgaben zur 3. Sitzung",
+          "ref": {"material": "material.seminar_plan", "at": "S. 1"},
+          "points": [
+            "Lektüre: Inc. Buch I; Stegmann, Proseminar, S. 9–14; Hauschild/Drecoll, Lehrbuch I, S. 312–322.",
+            "Hauschild/Drecoll: Lebensdaten, Stationen und Positionen des Nestorius notieren.",
+            "Stegmann: nachvollziehen, wie De incarnatione in einer Fußnote zitiert würde.",
+            "Inc. I: die Wirkung der Beschreibung der Irrlehre als Hydra (I,1) beschreiben; die Beziehungen der Häresien untereinander (I,2) erklären; das Kriterium für Wahrheit (I,6) nennen."
+          ]
+        },
+        {
+          "title": "Text in deutscher Übersetzung",
+          "ref": {"material": "material.bkv_incarnation", "at": "S. 433–435"},
+          "points": [
+            "Inc. praefatio in der Übersetzung von Karl Kohlhund (BKV 1879): S. 433–435 (Vorwort an Leo)."
+          ],
+          "supplement": "Die Überschrift der Übersetzung nennt Leo „Bischof der Stadt Rom“; das wurde er erst 440, bei der Abfassung war er römischer Archidiakon. Die Übersetzung von 1879 dient zum Lesen; zitiert wird nach CSEL 17. Kapiteleinteilung und Kapitelüberschriften folgen der BKV-Ausgabe; die Anmerkungen des Übersetzers geben den Kenntnisstand von 1879 wieder (Ergänzung der App)."
+        }
+      ],
+      "mentions": [
+        {
+          "entry": "term.praefatio",
+          "ref": {"material": "material.bkv_incarnation", "at": "S. 433–435"},
+          "text": "Inc. praef.: Vorwort an Leo, in dem Cassian begründet, warum er nach den Collationes erneut schreibt"
+        },
+        {
+          "entry": "person.leo_great",
+          "ref": {"material": "material.bkv_incarnation", "at": "S. 433–434"},
+          "text": "Inc. praef.: Cassian nennt Leo „Zierde der römischen Kirche und des göttlichen Amtes“; Leo hat die Schrift verlangt und befohlen"
+        },
+        {
+          "entry": "source.gennadius_vir_ill",
+          "ref": {"material": "material.zelzer", "at": "S. 161"},
+          "text": "Zelzer zitiert den Eingangssatz von vir. ill. 62 nach Petschenigs Ausgabe (CSEL 17, S. CXV): „Cassianus natione Scytha Constantinopoli a Iohanne Magno episcopo diaconus ordinatus apud Massiliam presbyter condidit duo monasteria …“"
+        },
+        {
+          "entry": "person.cassian",
+          "ref": {"material": "material.zelzer", "at": "S. 161–162"},
+          "text": "Zelzer: Der Satz des Gennadius wirft zwei Fragen auf, nach Cassians Herkunft und nach Ort und Zeit seiner Priesterweihe; die Herkunft ist umstritten, weil Cassian seine Heimat nicht ausdrücklich nennt"
+        },
+        {
+          "entry": "term.critical_edition",
+          "ref": {"material": "material.seminar_plan", "at": "S. 1"},
+          "text": "Methodik der Sitzung: Arbeiten mit kritischen Editionen"
+        },
+        {
+          "entry": "term.textual_criticism",
+          "ref": {"material": "material.seminar_plan", "at": "S. 1"},
+          "text": "Methodik der Sitzung: Textkritik"
+        },
+        {
+          "entry": "term.historical_source",
+          "ref": {"material": "material.seminar_plan", "at": "S. 1"},
+          "text": "Thema der Sitzung: Klären des Quellenbegriffs"
+        },
+        {
+          "entry": "term.church_history",
+          "ref": {"material": "material.seminar_plan", "at": "S. 1"},
+          "text": "Methodik der Sitzung: Kirchengeschichte als Forschungsgebiet"
+        },
+        {
+          "entry": "person.germanus",
+          "ref": {"material": "material.schwartz", "at": "S. 3–7"},
+          "text": "Mit Germanus Eintritt in ein Koinobion in Bethlehem, gemeinsam in Ägypten, Konstantinopel und Rom"
+        },
+        {
+          "entry": "person.john_chrysostom",
+          "ref": {"material": "material.schwartz", "at": "S. 7"},
+          "text": "Cassian beruft sich in der Schrift gegen Nestorius (7,31) auf Johannes als den, der ihn ordiniert hat"
+        },
+        {
+          "entry": "event.origenist_controversy",
+          "ref": {"material": "material.schwartz", "at": "S. 6–7"},
+          "text": "Theophilus verurteilt Ende 399 auf einer Synode in der Nitria Origenes; Cassian und Germanus verlassen Ägypten wohl wegen ihrer origenistischen Freunde"
+        },
+        {
+          "entry": "term.cenobites_anchorites",
+          "ref": {"material": "material.schwartz", "at": "S. 3–6"},
+          "text": "Koinobion in Bethlehem, dann Anachoretenleben in der Sketis bei Paphnutius"
+        },
+        {
+          "entry": "source.cassian_institutiones",
+          "ref": {"material": "material.schwartz", "at": "S. 8–9"},
+          "text": "Castor von Apt bittet Cassian um eine Darstellung der Einrichtungen der Klöster Palästinas und Ägyptens"
+        },
+        {
+          "entry": "person.nestorius",
+          "ref": {"material": "material.seminar_plan", "at": "S. 1"},
+          "text": "Aufgabe zu Hauschild/Drecoll: Lebensdaten, Stationen und Positionen des Nestorius notieren"
+        },
+        {
+          "entry": "source.cassian_collationes",
+          "ref": {"material": "material.schwartz", "at": "S. 9"},
+          "text": "Zweiter Teil (11–17) spätestens 426 abgeschlossen, dritter Teil (18–24) 426–429"
+        }
+      ],
+      "lists": [
+        {
+          "id": "list.ps_zelzer_gaul",
+          "title": "Südgallische Herkunft nach Zelzer",
+          "prompt": "Welche Hinweise auf eine südgallische Herkunft Cassians führt Klaus Zelzer an?",
+          "ref": {"material": "material.zelzer", "at": "S. 162–165"},
+          "items": [
+            "Sprache und Bildung: anspruchsvolles, an klassischen Vorbildern orientiertes Latein; von lateinischer Bildung im unteren Donauraum ist nichts bekannt (nach Zelzer nur ein argumentum ex silentio)",
+            "inst. praef.: Im Vergleich mit König Hiram von Tyros vermeidet Cassian die Entsprechung zu „alienigena“ (auswärtig, fremd)",
+            "Marseille als Rückkehr in die Heimat: Anspielung auf die Schwester (inst. 11,18) und Sehnsucht nach Provinz und Eltern (coll. 24,1,2)",
+            "Winterkälte und Mangel an Eremiten in der Heimat (coll. 24,8,4; 24,18) entsprechen Aussagen über die Provence (coll. 11 praef. 1; 18 praef. 3)",
+            "Gennadius stellt Cassian in eine Umgebung, die fast nur aus Landsleuten besteht"
+          ]
+        },
+        {
+          "id": "list.ps_praefatio",
+          "title": "Cassians Selbstaussagen in der praefatio",
+          "prompt": "Was sagt Cassian in der praefatio von De incarnatione über seine Lage und sein Verhältnis zu Leo?",
+          "ref": {"material": "material.bkv_incarnation", "at": "S. 433–435"},
+          "items": [
+            "Er hat die Bücher der geistlichen Unterredungen (Collationes) abgeschlossen und wollte danach schweigen.",
+            "Leos Drängen und Befehl haben diesen Vorsatz überwunden.",
+            "Auch die früheren Schriften schrieb er nur auf bischöflichen Befehl.",
+            "Früher ging es um göttliche Bestrebungen, jetzt um Menschwerdung und Majestät des Herrn: vom Heiligtum ins Allerheiligste.",
+            "Er soll gegen die eben entstandene Häresie, den neuen Feind des Glaubens, kämpfen.",
+            "Er betont seine Unfähigkeit; Gehorsam und Demut entschuldigen ihn, die Verantwortung für das Gelingen liegt bei Leo."
+          ]
+        },
+        {
+          "id": "list.ps_cassian_stations",
+          "title": "Lebensstationen Cassians",
+          "prompt": "Nenne die Lebensstationen Cassians nach Eduard Schwartz in ihrer Reihenfolge.",
+          "ref": {"material": "material.schwartz", "at": "S. 1–8"},
+          "ordered": true,
+          "items": [
+            "Herkunft aus der Provinz Scythia (etwa Dobrudscha)",
+            "mit Germanus im Koinobion in Bethlehem",
+            "Ägypten: Panephysis, dann Anachoret in der Sketis",
+            "Diakon in Konstantinopel (ordiniert von Johannes Chrysostomos)",
+            "405 in Rom: Schreiben an Papst Innozenz",
+            "Presbyter in Marseille, Gründung zweier Klöster"
+          ]
+        },
+        {
+          "id": "list.ps_textual_criticism",
+          "title": "Arbeitsschritte der Textkritik",
+          "prompt": "Nenne die drei Arbeitsschritte der Textkritik.",
+          "ref": {"material": "material.greek_philology", "at": "Abschnitt Textkritik"},
+          "ordered": true,
+          "items": [
+            "recensio: die Textzeugen sichten und ihre Abhängigkeit klären",
+            "examinatio: die Überlieferung prüfen und Lesarten beurteilen",
+            "emendatio: verderbte Stellen verbessern"
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "q.ps02.zelzer_sketis",
+          "prompt": "Was bezeichnet die Angabe „natione Scytha“ bei Gennadius nach Klaus Zelzer?",
+          "answer": "Die Herkunft aus der ägyptischen Sketis, also Cassians monastische Herkunft",
+          "distractors": [
+            "Die Herkunft aus der Provinz Scythia minor an der unteren Donau",
+            "Eine gotische Abstammung Cassians",
+            "Einen Irrtum des Gennadius, der die Sketis mit Skythien verwechselte"
+          ],
+          "explanation": "Zelzer: Die Vitae patrum nennen die Sketis auch „Scythia“. „De Scythia“ in Verbindung mit Ägypten bedeute „aus der sketischen Wüste“, der Keimzelle des Mönchtums; so habe noch der Verfasser des „Aethicus Ister“ (nach Zelzer Virgil von Salzburg) die Angabe verstanden. Die Angabe des Gennadius sei daher weder fehlerhaft noch unzuverlässig, sondern nur richtig zu deuten, und Cassian sei Südgallier. Anders Schwartz und Marrou (Provinz Scythia) sowie Paucker und Abel (Irrtum, Verwechslung mit der Sketis).",
+          "ref": {"material": "material.zelzer", "at": "S. 165–168"},
+          "entries": ["person.cassian", "source.gennadius_vir_ill"]
+        },
+        {
+          "id": "q.ps02.zelzer_serta",
+          "prompt": "Wie erklärt Zelzer die Lesart „serda“ bzw. „serta“ im Gennadius-Text?",
+          "answer": "Als Rest der Glosse „deserta“, die „scytha“ verdeutlichen sollte, in den Text eindrang und das Wort verdrängte",
+          "distractors": [
+            "Als Schreibfehler, der durch Vertauschen von Buchstaben aus „Scytha“ entstand",
+            "Als ursprüngliche Lesart, die einen Ort in Südgallien bezeichnet",
+            "Als Konjektur eines mittelalterlichen Korrektors aus dem Anfang der Collationes"
+          ],
+          "explanation": "Zelzer, S. 168 Anm. 15: Die Lesart erkläre sich „am ehesten als Rest einer scytha ursprünglich verdeutlichenden Glosse deserta“ (Sketis als Wüste). Dass „Scytha“ selbst eine korrigierende Konjektur sei, hatte Smolak erwogen; Zelzer referiert das (S. 165).",
+          "ref": {"material": "material.zelzer", "at": "S. 168"},
+          "entries": ["source.gennadius_vir_ill", "term.textual_criticism"]
+        },
+        {
+          "id": "q.ps02.zelzer_landscape",
+          "prompt": "Warum taugt die Landschaftsschilderung in coll. 24,1,3 nach Zelzer nicht, um Cassians Heimat zu bestimmen?",
+          "answer": "Sie folgt dem Topos des locus amoenus und passt auf jede Ideallandschaft der Antike",
+          "distractors": [
+            "Sie beschreibt eindeutig die ägyptische Wüste",
+            "Sie ist nur in einer späten Handschrift überliefert",
+            "Sie stammt nicht von Cassian, sondern von Germanus"
+          ],
+          "explanation": "Die Schilderung galt als Stütze für die Dobrudscha. Zelzer verweist auf Smolak: Begriffe wie amoenitas, solitudinis spatia, secreta silvarum und die Verben pingere und delectare zeigen die Topik des locus amoenus; schon Petschenig bezog die Stelle auf Gallien. Auch Marrous Inschriften mit dem Namen der Κασιανοί in der Dobrudscha hält Zelzer für unsicher, weil der Name häufig ist.",
+          "ref": {"material": "material.zelzer", "at": "S. 164"},
+          "entries": ["person.cassian", "source.cassian_collationes"]
+        },
+        {
+          "id": "q.ps02.praef_collationes",
+          "prompt": "Welches Werk hatte Cassian nach der praefatio von De incarnatione kurz zuvor abgeschlossen?",
+          "answer": "Die Collationes (Bücher der geistlichen Unterredungen)",
+          "distractors": ["Die Institutiones", "Eine Schrift gegen Pelagius", "Eine Übersetzung der Vitae patrum"],
+          "explanation": "Inc. praef.: Nachdem er die „Bücher der geistlichen Unterredungen“ fertiggestellt hatte, wollte Cassian sich ins Schweigen zurückziehen; Leos Wunsch und Befehl haben diesen Vorsatz überwunden.",
+          "ref": {"material": "material.bkv_incarnation", "at": "S. 433"},
+          "entries": ["source.cassian_collationes", "term.praefatio"]
+        },
+        {
+          "id": "q.ps02.praef_leo",
+          "prompt": "Wem weist Cassian in der praefatio die Verantwortung für das Gelingen der Schrift zu?",
+          "answer": "Leo, der sie befohlen hat; ihn selbst entschuldigen Gehorsam und Demut",
+          "distractors": [
+            "Sich selbst als erfahrenem Lehrer der Kirche",
+            "Papst Coelestin, dem die Schrift gewidmet ist",
+            "Bischof Castor von Apt, seinem früheren Auftraggeber"
+          ],
+          "explanation": "Inc. praef.: „dein ist diese Angelegenheit, dein dieß Geschäft“; Leo solle bitten, dass seine Wahl durch Cassians Unfähigkeit nicht gefährlich werde. Für Cassian seien Gehorsam und Demut Entschuldigung genug. Wie sich darin das Verhältnis zu Leo zeigt, ist ein Beispiel der Prüfungshinweise für eine Seminararbeit.",
+          "ref": {"material": "material.bkv_incarnation", "at": "S. 434–435"},
+          "entries": ["person.leo_great", "term.praefatio"]
+        },
+        {
+          "id": "q.ps02.zelzer_ordination",
+          "prompt": "Was spricht nach Zelzer dafür, dass Cassian schon während seines Aufenthalts in Rom zum Presbyter geweiht wurde?",
+          "answer": "Papst Innozenz nennt in seinen Briefen 19 und 20 einen „compresbyter noster Cassianus“",
+          "distractors": [
+            "Gennadius nennt Rom ausdrücklich als Ort der Priesterweihe",
+            "Cassian bezeichnet sich in der praefatio von De incarnatione als römischen Presbyter",
+            "Johannes Chrysostomos weihte ihn nach Gennadius zum Presbyter"
+          ],
+          "explanation": "Zelzer: Gesichert ist nur, dass Cassian spätestens in Marseille Presbyter wurde, wo er nach 415 die beiden Klöster gründete. Bezieht sich Innozenz mit „compresbyter noster Cassianus“ auf ihn, was wahrscheinlich ist, fiele die Weihe in die römischen Jahre (etwa 405–415). Als Diakon kam Cassian nach Rom (Innozenz, ep. 7,1). Ein Komma nach „presbyter“ im Gennadius-Text (Richardson 1896) lehnt Zelzer ab.",
+          "ref": {"material": "material.zelzer", "at": "S. 161"},
+          "entries": ["person.cassian", "source.gennadius_vir_ill"]
+        },
+        {
+          "id": "q.ps02.scytha",
+          "prompt": "Wie deutet Eduard Schwartz (1939) die Angabe des Gennadius, Cassian sei „natione Scytha“?",
+          "answer": "Als Herkunft aus der römischen Provinz Scythia, ohne Aussage über die Volkszugehörigkeit",
+          "distractors": [
+            "Als Beleg für eine gotische Abstammung",
+            "Als Verwechslung mit der ägyptischen Sketis",
+            "Als verschlüsselten Hinweis auf Südgallien"
+          ],
+          "explanation": "Schwartz: Scythia war eine Provinz südlich der unteren Donau (etwa die Dobrudscha); Cassian stamme aus einer lateinischsprachigen Grundbesitzerfamilie. Seine frühere Ansicht, Cassian sei Gote gewesen, nimmt er zurück. Paucker (1886) hält die Angabe dagegen für eine Verwechslung mit der Sketis, Zelzer (1991) sieht in Cassian einen Südgallier.",
+          "ref": {"material": "material.schwartz", "at": "S. 1"},
+          "entries": ["person.cassian"]
+        },
+        {
+          "id": "q.ps02.ordination",
+          "prompt": "Von wem wurde Cassian nach seiner eigenen Angabe in der Schrift gegen Nestorius ordiniert?",
+          "answer": "Von Johannes Chrysostomos in Konstantinopel",
+          "distractors": [
+            "Von Theophilus von Alexandrien",
+            "Von Papst Innozenz I. in Rom",
+            "Von Bischof Castor von Apt"
+          ],
+          "explanation": "Schwartz verweist auf De inc. VII,31: Cassian beruft sich auf Johannes von Konstantinopel als den, der ihn ordiniert hat; 405 erscheint Cassian als Diakon des Konstantinopler Klerus.",
+          "ref": {"material": "material.schwartz", "at": "S. 7"},
+          "entries": ["person.john_chrysostom", "person.cassian"]
+        },
+        {
+          "id": "q.ps02.marseille",
+          "prompt": "Was gründete Cassian nach Gennadius in Marseille?",
+          "answer": "Zwei Klöster, eines für Mönche und eines für Nonnen",
+          "distractors": [
+            "Eine Bischofsschule für den gallischen Klerus",
+            "Ein Pilgerhospiz für Reisende nach Palästina",
+            "Eine Übersetzerschule für griechische Väterschriften"
+          ],
+          "explanation": "Gennadius, vir. ill. 62, nach Schwartz: Cassian wurde in Marseille Presbyter und gründete zwei Koinobien, eines für Mönche und eines für Nonnen.",
+          "ref": {"material": "material.schwartz", "at": "S. 8"},
+          "entries": ["person.cassian"]
+        },
+        {
+          "id": "q.ps02.edition",
+          "prompt": "Nach welcher kritischen Edition zitiert der Seminarplan De incarnatione?",
+          "answer": "CSEL 17",
+          "distractors": ["PL 50", "SC 109", "CSEL 13"],
+          "explanation": "Der Seminarplan gibt Stellen wie „Inc. III,3,5 (CSEL 17, S. 264, Z. 23 – S. 265, Z. 3)“ an: Corpus Scriptorum Ecclesiasticorum Latinorum, Band 17.",
+          "ref": {"material": "material.seminar_plan", "at": "S. 2"},
+          "entries": ["source.de_incarnatione", "term.critical_edition"]
+        }
+      ]
+    },
+    {
+      "id": "seminar.03",
+      "number": 3,
+      "date": "2. November 2026",
+      "title": "Umgang mit Forschungsliteratur und Zitaten",
+      "epochs": ["epoch.antiquity"],
+      "themes": ["theme.christology"],
+      "sections": [
+        {
+          "title": "Thema und Methodik",
+          "ref": {"material": "material.seminar_plan", "at": "S. 2"},
+          "points": [
+            "Referat: Pelagianischer Streit.",
+            "Methodik: Literaturrecherche, Lektüre, Umgang mit Quellenzitaten.",
+            "Inhaltlich: Inc. Buch I."
+          ]
+        },
+        {
+          "title": "Aufgaben zur 4. Sitzung",
+          "ref": {"material": "material.seminar_plan", "at": "S. 2"},
+          "points": [
+            "Lektüre: Stegmann, Proseminar, S. 15–33; Inc. Buch II.",
+            "Inc. II nach inhaltlichen Gesichtspunkten gliedern und die Entscheidung am Text begründen.",
+            "Stegmann: die vier Etappen textorientierter Quellenarbeit erläutern können.",
+            "Eine eigene historisch-theologische Fragestellung an Inc. formulieren."
+          ]
+        },
+        {
+          "title": "Text in deutscher Übersetzung",
+          "ref": {"material": "material.bkv_incarnation", "at": "S. 436–448"},
+          "points": [
+            "Inc. Buch I in der Übersetzung von Karl Kohlhund (BKV 1879): S. 436–448."
+          ],
+          "supplement": "Die Übersetzung von 1879 dient zum Lesen; zitiert wird nach CSEL 17. Kapiteleinteilung und Kapitelüberschriften folgen der BKV-Ausgabe; die Anmerkungen des Übersetzers geben den Kenntnisstand von 1879 wieder (Ergänzung der App)."
+        }
+      ],
+      "mentions": [
+        {
+          "entry": "term.incarnation",
+          "ref": {"material": "material.bkv_incarnation", "at": "S. 443–446"},
+          "text": "Inc. I,5: Cassian zitiert aus dem Schreiben des Leporius an die gallischen Bischöfe, um zu zeigen, wie man von der Menschwerdung des Wortes denken müsse"
+        },
+        {
+          "entry": "event.pelagian_controversy",
+          "ref": {"material": "material.seminar_plan", "at": "S. 2"},
+          "text": "Referat: Pelagianischer Streit"
+        },
+        {
+          "entry": "person.leporius",
+          "ref": {"material": "material.vannier", "at": "S. 125"},
+          "text": "Cassian führt in Buch I den Widerruf des Leporius als Beispiel der Umkehr an"
+        },
+        {
+          "entry": "event.nestorian_controversy",
+          "ref": {"material": "material.vannier", "at": "S. 119"},
+          "text": "428 verweigert Anastasius, ein Vertrauter des Nestorius, Maria den Titel Theotokos; Nestorius billigt das"
+        },
+        {
+          "entry": "person.celestine",
+          "ref": {"material": "material.vannier", "at": "S. 123"},
+          "text": "De incarnatione sollte Papst Coelestin über die Lehre des Nestorius unterrichten"
+        },
+        {
+          "entry": "person.cyril_alexandria",
+          "ref": {"material": "material.vannier", "at": "S. 123"},
+          "text": "Kyrills Brief an die Mönche gehört zu den wenigen Texten, aus denen Cassian Nestorius kannte"
+        }
+      ],
+      "questions": [
+        {
+          "id": "q.ps03.leporius",
+          "prompt": "Wie machte Leporius nach Inc. I,4 seinen Widerruf bekannt?",
+          "answer": "Er bekannte seinen Irrtum in Afrika und schrieb Briefe in fast alle gallischen Städte",
+          "distractors": [
+            "Er widerrief auf einer römischen Synode vor Papst Coelestin",
+            "Er widerrief in Konstantinopel vor Nestorius",
+            "Er widerrief vor Cassians Klostergemeinschaft in Marseille"
+          ],
+          "explanation": "Nach Cassian ging Leporius, „damals Mönch, jetzt Presbyter“, aus der Schule des Pelagius hervor und trat in Gallien als Lehrer dieser Häresie auf. Ermahnt und „von Gott gebessert“, bekannte er seinen Irrtum in Afrika, wo er damals war, und schrieb in fast alle gallischen Städte, damit seine Besserung dort bekannt werde, wo sein Irrtum bekannt war.",
+          "ref": {"material": "material.bkv_incarnation", "at": "S. 442–443"},
+          "entries": ["person.leporius", "event.pelagian_controversy"]
+        },
+        {
+          "id": "q.ps03.two_christs",
+          "prompt": "Welche Folge hat es nach dem Bekenntnis des Leporius (Inc. I,5), wenn man das Göttliche nur Gott und das Menschliche nur dem Menschen zuschreibt?",
+          "answer": "Man führt eine vierte Person in die Trinität ein und macht aus dem einen Sohn zwei Christus",
+          "distractors": [
+            "Man lässt den Vater selbst leiden",
+            "Man spricht Christus die menschliche Seele ab",
+            "Man macht den Sohn zum ersten Geschöpf des Vaters"
+          ],
+          "explanation": "Leporius (zitiert nach Kohlhunds Übersetzung): Wer getrennt „Das, was Gottes ist, nur Gott zuschreibt und Das, was dem Menschen gehört, nur diesem zurechnet“, führt „in der Trinität eine vierte Person“ ein und macht „aus dem einen Gott-Sohn nicht einen, sondern zwei Christus“. Er bekennt stattdessen beide Naturen und einen untrennbaren Gott und Menschen.",
+          "ref": {"material": "material.bkv_incarnation", "at": "S. 444"},
+          "entries": ["person.leporius", "term.incarnation"]
+        },
+        {
+          "id": "q.ps03.pelagius",
+          "prompt": "Mit wessen Irrlehre setzt Cassian nach Vannier die Lehre des Nestorius gleich?",
+          "answer": "Mit der des Pelagius",
+          "distractors": ["Mit der der Donatisten", "Mit der der Montanisten", "Mit der der Novatianer"],
+          "explanation": "Vannier nennt es eine Folge der einseitig polemischen Absicht: Cassian „assimile l'hérésie de Nestorius à celle de Pélage“. Pelagius ist Thema des Referats dieser Sitzung.",
+          "ref": {"material": "material.vannier", "at": "S. 124"},
+          "entries": ["event.pelagian_controversy", "person.nestorius"]
+        }
+      ]
+    },
+    {
+      "id": "seminar.04",
+      "number": 4,
+      "date": "9. November 2026",
+      "title": "Erschließung einer Quelle und Bilden einer Fragestellung",
+      "epochs": ["epoch.antiquity"],
+      "themes": ["theme.christology", "theme.discipline"],
+      "sections": [
+        {
+          "title": "Thema und Methodik",
+          "ref": {"material": "material.seminar_plan", "at": "S. 2"},
+          "points": [
+            "Methodik: Bilden eigenständiger Fragestellungen und Suche nach geeigneten Quellen und Literatur; Gliederung von Textquellen.",
+            "Inhaltlich: Inc. Buch II."
+          ]
+        },
+        {
+          "title": "Aufgaben zur 5. Sitzung",
+          "ref": {"material": "material.seminar_plan", "at": "S. 2"},
+          "points": [
+            "Lektüre: Inc. III; Krannich, Von Leporius zu Leo dem Großen, S. 76–85.",
+            "Inc. III,3,5 (CSEL 17, S. 264, Z. 23 – S. 265, Z. 3) übersetzen und beschreiben, wie natura, substantia, maiestas, infirmitas, virtus und caro zueinander ins Verhältnis gesetzt werden.",
+            "Krannich: den Begriff communicatio idiomatum recherchieren (Bedeutung, Geschichte, Auftreten).",
+            "Krannich nennt Cassians Text „keine streng systematisch-theologische Abhandlung zur Christologie“: Ist das Urteil berechtigt, warum fällt er es, und was für eine Art Text ist Inc.?"
+          ]
+        },
+        {
+          "title": "Text in deutscher Übersetzung",
+          "ref": {"material": "material.bkv_incarnation", "at": "S. 449–467"},
+          "points": [
+            "Inc. Buch II in der Übersetzung von Karl Kohlhund (BKV 1879): S. 449–467."
+          ],
+          "supplement": "Die Übersetzung von 1879 dient zum Lesen; zitiert wird nach CSEL 17. Kapiteleinteilung und Kapitelüberschriften folgen der BKV-Ausgabe; die Anmerkungen des Übersetzers geben den Kenntnisstand von 1879 wieder (Ergänzung der App)."
+        }
+      ],
+      "mentions": [
+        {
+          "entry": "term.communicatio_idiomatum",
+          "ref": {"material": "material.seminar_plan", "at": "S. 2"},
+          "text": "Rechercheauftrag zu Krannich: Bedeutung, Geschichte und Auftreten des Begriffs"
+        },
+        {
+          "entry": "source.de_incarnatione",
+          "ref": {"material": "material.seminar_plan", "at": "S. 2"},
+          "text": "Übersetzung von Inc. III,3,5 nach CSEL 17; Krannichs Urteil „keine streng systematisch-theologische Abhandlung zur Christologie“"
+        },
+        {
+          "entry": "term.theotokos",
+          "ref": {"material": "material.vannier", "at": "S. 125"},
+          "text": "Cassian will „durch die göttlichen Zeugen“ zeigen, dass Maria Mutter Gottes ist (Inc. II,2)"
+        },
+        {
+          "entry": "term.incarnation",
+          "ref": {"material": "material.seminar_plan", "at": "S. 2"},
+          "text": "Begriffe des Abschnitts Inc. III,3,5: natura, substantia, maiestas, infirmitas, virtus, caro"
+        }
+      ],
+      "questions": [
+        {
+          "id": "q.ps04.historical",
+          "prompt": "Wann ist eine Fragestellung nach den Prüfungsleistungen des Proseminars „historisch“?",
+          "answer": "Wenn sie die Quelle als historische Quelle konstruiert: Abfassungskontexte, Überlieferung und geschichtswissenschaftliche Methodik",
+          "distractors": [
+            "Wenn sie nach Ereignissen vor dem Jahr 600 fragt",
+            "Wenn sie die Quelle an heutigen Lehrsätzen misst",
+            "Wenn sie die Forschungsliteratur vollständig zusammenfasst"
+          ],
+          "explanation": "Theologisch ist die Fragestellung dagegen, insofern sie die Perspektive von Theologinnen und Theologen einbringt (Einordnung in die Christentumsgeschichte, theologische Aspekte der Quelle).",
+          "ref": {"material": "material.assessment", "at": "S. 1"},
+          "entries": ["term.historical_source"]
+        }
+      ]
+    },
+    {
+      "id": "seminar.05",
+      "number": 5,
+      "date": "16. November 2026",
+      "title": "Quellsprache und Gattungsfrage",
+      "epochs": ["epoch.antiquity"],
+      "themes": ["theme.christology", "theme.discipline"],
+      "sections": [
+        {
+          "title": "Thema und Methodik",
+          "ref": {"material": "material.seminar_plan", "at": "S. 3"},
+          "points": [
+            "Referat: Bibelverse als Belege theologischer Sätze.",
+            "Methodik: Verhältnis von Forschenden und Quellsprachen reflektieren; textinterne Signale für die Gattung einer Quelle diskutieren.",
+            "Inhaltlich: Inc. Buch III."
+          ]
+        },
+        {
+          "title": "Aufgaben zur 6. Sitzung",
+          "ref": {"material": "material.seminar_plan", "at": "S. 3"},
+          "points": [
+            "Lektüre: Inc. Buch IV; Sallmann, Quellen auslegen, S. 122–154.",
+            "Sallmann: Bedeutung und Arbeitsschritte zu Syntaktik, Rhetorik, Semantik, Traditionen und Pragmatik notieren.",
+            "Inc. IV,1,1: die rhetorischen Stilmittel markieren und benennen; welchen Effekt will Cassian erzielen?"
+          ]
+        },
+        {
+          "title": "Text in deutscher Übersetzung",
+          "ref": {"material": "material.bkv_incarnation", "at": "S. 468–497"},
+          "points": [
+            "Inc. Buch III in der Übersetzung von Karl Kohlhund (BKV 1879): S. 468–497."
+          ],
+          "supplement": "Die Übersetzung von 1879 dient zum Lesen; zitiert wird nach CSEL 17. Kapiteleinteilung und Kapitelüberschriften folgen der BKV-Ausgabe; die Anmerkungen des Übersetzers geben den Kenntnisstand von 1879 wieder (Ergänzung der App)."
+        }
+      ],
+      "lists": [
+        {
+          "id": "list.ps_sallmann",
+          "title": "Sprachliche Analyse nach Sallmann",
+          "prompt": "Nenne die fünf Hauptbegriffe der sprachlichen Analyse nach Sallmann (Quellen auslegen, S. 122–154).",
+          "ref": {"material": "material.seminar_plan", "at": "S. 3"},
+          "items": ["Syntaktik", "Rhetorik", "Semantik", "Traditionen", "Pragmatik"]
+        }
+      ]
+    },
+    {
+      "id": "seminar.06",
+      "number": 6,
+      "date": "23. November 2026",
+      "title": "Sprachliche Analyse eines Textabschnitts",
+      "epochs": ["epoch.antiquity"],
+      "themes": ["theme.christology", "theme.judaism"],
+      "sections": [
+        {
+          "title": "Thema und Methodik",
+          "ref": {"material": "material.seminar_plan", "at": "S. 3"},
+          "points": ["Methodik: die sprachlich-rhetorische Analyse.", "Inhaltlich: Inc. Buch IV."]
+        },
+        {
+          "title": "Aufgaben zur 7. Sitzung",
+          "ref": {"material": "material.seminar_plan", "at": "S. 3"},
+          "points": [
+            "Lektüre: Inc. Buch V; Nirenberg, Antijudaismus, S. 108–132.",
+            "Inc. V,11–13: Welche Lesarten der Heiligen Schrift stellt Cassian einander gegenüber, und wie hängt das mit der Christologie zusammen?",
+            "Knapp notieren: Was ist eine Allegorie? Was meint Cassian mit „a carnali audientia ad spiritalem intellegentiam traxit“ (Inc. V,11,3; CSEL 17, S. 320, Z. 1), „vom fleischlichen Hören zum geistigen Verstehen gezogen“?",
+            "Nirenberg: Welche Rolle spielt das Attribut „jüdisch/fleischlich“ in den antiken christlichen Streitfragen zu Bibelhermeneutik und Christologie?"
+          ]
+        },
+        {
+          "title": "Text in deutscher Übersetzung",
+          "ref": {"material": "material.bkv_incarnation", "at": "S. 498–518"},
+          "points": [
+            "Inc. Buch IV in der Übersetzung von Karl Kohlhund (BKV 1879): S. 498–518."
+          ],
+          "supplement": "Die Übersetzung von 1879 dient zum Lesen; zitiert wird nach CSEL 17. Kapiteleinteilung und Kapitelüberschriften folgen der BKV-Ausgabe; die Anmerkungen des Übersetzers geben den Kenntnisstand von 1879 wieder (Ergänzung der App)."
+        }
+      ],
+      "mentions": [
+        {
+          "entry": "term.anti_judaism",
+          "ref": {"material": "material.seminar_plan", "at": "S. 3"},
+          "text": "Nirenberg: die Rolle des Attributs „jüdisch/fleischlich“ in antiken Streitfragen zu Bibelhermeneutik und Christologie"
+        }
+      ],
+      "questions": [
+        {
+          "id": "q.ps06.rom83_sources",
+          "prompt": "Wessen Auslegung von Röm 8,3 nimmt Cassian nach Keech auf?",
+          "answer": "Die des Origenes und die des Augustinus zugleich",
+          "distractors": [
+            "Nur die des Pelagius",
+            "Nur die des Nestorius",
+            "Die des Hieronymus gegen die des Augustinus"
+          ],
+          "explanation": "Keech: Cassians Auslegung (Christus „in der Ähnlichkeit des sündigen Fleisches“: wahres Fleisch, aber nur die Ähnlichkeit der Sünde, De inc. IV,3–4) ist eine doppelte Rezeption von Origenes und Augustinus.",
+          "ref": {"material": "material.keech", "at": "S. 280"},
+          "entries": ["source.de_incarnatione"]
+        },
+        {
+          "id": "q.ps06.selective",
+          "prompt": "Wie kennzeichnet Keech Cassians theologisches Vorgehen?",
+          "answer": "Selektiv: Er folgt angesehenen Autoritäten, ohne ihre Gedanken zu einem geschlossenen Ganzen zu verbinden",
+          "distractors": [
+            "Synthetisch: Er verbindet Origenes und Augustinus zu einer geschlossenen Lehre",
+            "Streng antiaugustinisch: Er widerlegt Augustins Christologie",
+            "Rein philologisch: Er verzichtet auf theologische Deutungen"
+          ],
+          "explanation": "Keech: Cassian sei „theologically selective, not synthetic“; für ihn zähle die Herkunft eines Gedankens aus der Tradition. Damit widerspricht Keech neueren Versuchen, Cassian als synthetischen Theologen zu lesen.",
+          "ref": {"material": "material.keech", "at": "S. 299"},
+          "entries": ["person.cassian"]
+        }
+      ]
+    },
+    {
+      "id": "seminar.07",
+      "number": 7,
+      "date": "30. November 2026",
+      "title": "Kritische Auseinandersetzung mit christlicher Tradition",
+      "epochs": ["epoch.antiquity"],
+      "themes": ["theme.christology", "theme.judaism"],
+      "sections": [
+        {
+          "title": "Thema und Methodik",
+          "ref": {"material": "material.seminar_plan", "at": "S. 4"},
+          "points": [
+            "Referat: Vierfacher Schriftsinn in der Bibelhermeneutik.",
+            "Methodik: Wahrnehmung an, Reflexion über und kritische Arbeit an gewalttätigen christlichen Ideologemen.",
+            "Inhaltlich: Inc. Buch V."
+          ]
+        },
+        {
+          "title": "Aufgaben zur 8. Sitzung",
+          "ref": {"material": "material.seminar_plan", "at": "S. 4"},
+          "points": [
+            "Lektüre: Inc. VI; Dünzl, Kleine Geschichte, S. 132–148.",
+            "Inc. VI: den argumentativen Nutzen der Zitierung des Bekenntnisses in VI,3 erläutern; wie bestimmt Cassian mit Röm 9,28 die Funktion des Bekenntnisses?",
+            "Dünzl: Auf welchem Konzil wurde das Bekenntnis beschlossen, das Cassian zitiert? Inwiefern bilden nach Dünzl die Glaubenssätze des 4. Jahrhunderts weiterhin den Mindeststandard christlicher Theologie?",
+            "Statement (300–600 Wörter): Inwieweit fühlen Sie sich durch die Bekenntnisse der Kirchengeschichte heute verpflichtet?"
+          ]
+        },
+        {
+          "title": "Text in deutscher Übersetzung",
+          "ref": {"material": "material.bkv_incarnation", "at": "S. 519–547"},
+          "points": [
+            "Inc. Buch V in der Übersetzung von Karl Kohlhund (BKV 1879): S. 519–547."
+          ],
+          "supplement": "Die Übersetzung von 1879 dient zum Lesen; zitiert wird nach CSEL 17. Kapiteleinteilung und Kapitelüberschriften folgen der BKV-Ausgabe; die Anmerkungen des Übersetzers geben den Kenntnisstand von 1879 wieder (Ergänzung der App)."
+        }
+      ],
+      "mentions": [
+        {
+          "entry": "person.nestorius",
+          "ref": {"material": "material.bkv_incarnation", "at": "S. 519–522"},
+          "text": "Inc. V,1–2: Cassian verbindet den Lehrsatz des Nestorius mit dem pelagianischen Irrtum"
+        },
+        {
+          "entry": "event.pelagian_controversy",
+          "ref": {"material": "material.bkv_incarnation", "at": "S. 519–522"},
+          "text": "Inc. V,1–2: Die neue Häresie sei „eine Schülerin und Nachahmerin der pelagianischen“"
+        },
+        {
+          "entry": "term.fourfold_sense",
+          "ref": {"material": "material.seminar_plan", "at": "S. 4"},
+          "text": "Referat: Vierfacher Schriftsinn in der Bibelhermeneutik"
+        },
+        {
+          "entry": "term.creed",
+          "ref": {"material": "material.seminar_plan", "at": "S. 4"},
+          "text": "Inc. VI,3: Zitierung des Bekenntnisses und Bestimmung seiner Funktion mit Röm 9,28; Dünzl zum Konzil"
+        }
+      ],
+      "questions": [
+        {
+          "id": "q.ps07.nestorius_pelagius",
+          "prompt": "Welche Lehre schreibt Cassian in Inc. V,1–2 Nestorius zu, um ihn mit den Pelagianern zu verbinden?",
+          "answer": "Christus sei als bloßer Mensch geboren und nicht als Gott, sondern als Empfänger Gottes zu ehren",
+          "distractors": [
+            "Christus habe nur einen Scheinleib gehabt",
+            "Vater und Sohn seien ein und dieselbe Person",
+            "Christus habe keine menschliche Seele gehabt"
+          ],
+          "explanation": "So Cassians polemische Darstellung: Die neue Häresie lehre, Christus sei als bloßer Mensch aus der Jungfrau geboren, Maria daher nicht Gottes-, sondern Christusgebärerin; er sei zu ehren, weil er Gott in sich aufnahm. Dasselbe hätten die Pelagianer gelehrt: Christus habe durch gute Taten verdient, Gott zu besitzen. Nach Vannier kannte Cassian Nestorius nur aus wenigen Texten (vgl. 3. Sitzung).",
+          "ref": {"material": "material.bkv_incarnation", "at": "S. 519–522"},
+          "entries": ["person.nestorius", "event.pelagian_controversy", "term.theotokos"]
+        }
+      ]
+    },
+    {
+      "id": "seminar.08",
+      "number": 8,
+      "date": "7. Dezember 2026",
+      "title": "Kritische Reflexion der eigenen Positionalität in der historischen Theologie",
+      "epochs": ["epoch.antiquity"],
+      "themes": ["theme.christology"],
+      "sections": [
+        {
+          "title": "Thema und Methodik",
+          "ref": {"material": "material.seminar_plan", "at": "S. 4"},
+          "points": [
+            "Referat: Die drei altkirchlichen Bekenntnisse der Nordkirche.",
+            "Methodik: das eigene Verhältnis zur Tradition theologisch reflektieren können.",
+            "Inhaltlich: Inc. Buch VI."
+          ]
+        },
+        {
+          "title": "Aufgaben zur 9. Sitzung",
+          "ref": {"material": "material.seminar_plan", "at": "S. 4"},
+          "points": [
+            "Lektüre: Inc. Buch VII; Sallmann, Quellen auslegen, S. 165–184.",
+            "Analyse der Christus-Pantokrator-Ikone aus dem Katharinenkloster auf dem Sinai.",
+            "Inc. VII: Wer sind die in VII,24–30 genannten Kirchenväter (Lebensdaten, wichtigste Schriften, Stichworte zum Werk)?",
+            "Sallmann: die Arbeitsschritte auf die Ikone anwenden. Warum ist das Gesicht Christi so dargestellt, wie es dargestellt ist?"
+          ]
+        },
+        {
+          "title": "Text in deutscher Übersetzung",
+          "ref": {"material": "material.bkv_incarnation", "at": "S. 548–582"},
+          "points": [
+            "Inc. Buch VI in der Übersetzung von Karl Kohlhund (BKV 1879): S. 548–582."
+          ],
+          "supplement": "Die Übersetzung von 1879 dient zum Lesen; zitiert wird nach CSEL 17. Kapiteleinteilung und Kapitelüberschriften folgen der BKV-Ausgabe; die Anmerkungen des Übersetzers geben den Kenntnisstand von 1879 wieder (Ergänzung der App)."
+        }
+      ],
+      "mentions": [
+        {
+          "entry": "source.sinai_pantokrator",
+          "ref": {"material": "material.seminar_plan", "at": "S. 4"},
+          "text": "Analyse der Christus-Pantokrator-Ikone aus dem Katharinenkloster auf dem Sinai"
+        },
+        {
+          "entry": "person.john_chrysostom",
+          "ref": {"material": "material.vannier", "at": "S. 127"},
+          "text": "Cassian beschließt das Väterzeugnis in Buch VII mit Johannes Chrysostomos (VII,30–31)"
+        }
+      ],
+      "questions": [
+        {
+          "id": "q.ps08.creed",
+          "prompt": "Wie versteht Cassian das Glaubensbekenntnis nach Vannier?",
+          "answer": "Als Zusammenfassung der Schrift (verbum breviatum nach Röm 9,28)",
+          "distractors": [
+            "Als Beschluss eines römischen Bischofs",
+            "Als Ersatz für die Heilige Schrift",
+            "Als private Gebetsformel ohne Lehrautorität"
+          ],
+          "explanation": "Vannier: Neu sei bei Cassian die Deutung des Bekenntnisses als Zusammenfassung der Schrift und seine Verwendung als Argument gegen Nestorius.",
+          "ref": {"material": "material.vannier", "at": "S. 127"},
+          "entries": ["term.creed"]
+        }
+      ]
+    },
+    {
+      "id": "seminar.09",
+      "number": 9,
+      "date": "14. Dezember 2026",
+      "title": "Bildanalyse und Rückblick Lektüre Inc.",
+      "epochs": ["epoch.antiquity"],
+      "themes": ["theme.christology", "theme.discipline"],
+      "sections": [
+        {
+          "title": "Thema und Methodik",
+          "ref": {"material": "material.seminar_plan", "at": "S. 4–5"},
+          "points": [
+            "Methodik: ikonographisch-ikonologische Methode.",
+            "Inhaltlich: Inc. Buch VII.",
+            "Aufgabe zur nächsten Sitzung: Vorbereiten der kommenden Expertensitzungen."
+          ]
+        },
+        {
+          "title": "Text in deutscher Übersetzung",
+          "ref": {"material": "material.bkv_incarnation", "at": "S. 583–631"},
+          "points": [
+            "Inc. Buch VII in der Übersetzung von Karl Kohlhund (BKV 1879): S. 583–631."
+          ],
+          "supplement": "Die Übersetzung von 1879 dient zum Lesen; zitiert wird nach CSEL 17. Kapiteleinteilung und Kapitelüberschriften folgen der BKV-Ausgabe; die Anmerkungen des Übersetzers geben den Kenntnisstand von 1879 wieder (Ergänzung der App)."
+        }
+      ],
+      "mentions": [
+        {
+          "entry": "person.john_chrysostom",
+          "ref": {"material": "material.bkv_incarnation", "at": "S. 629–630"},
+          "text": "Inc. VII,31: Cassian nennt sich von Bischof Johannes (Chrysostomus) in den heiligen Dienst aufgenommen und der Stadt Konstantinopel im Geist verbunden"
+        },
+        {
+          "entry": "term.iconography",
+          "ref": {"material": "material.seminar_plan", "at": "S. 5"},
+          "text": "Methodik der Sitzung: ikonographisch-ikonologische Methode"
+        },
+        {
+          "entry": "event.council_ephesus",
+          "ref": {"material": "material.vannier", "at": "Résumé"},
+          "text": "Vannier: Am Vorabend des Konzils von Ephesus legt Cassian „aus Mangel an Zeit und Methode“ keine tragfähige Christologie vor"
+        },
+        {
+          "entry": "event.council_chalcedon",
+          "ref": {"material": "material.vannier", "at": "S. 129"},
+          "text": "Vannier: Mit der Betonung der Einheit Christi kündigt Cassian die Formel von Chalcedon an"
+        }
+      ],
+      "questions": [
+        {
+          "id": "q.ps09.constantinople",
+          "prompt": "An wen wendet sich Cassian am Schluss von De incarnatione (VII,31) mit seiner Mahnung?",
+          "answer": "An die Bewohner Konstantinopels, im alten katholischen Glauben ihrer Vorfahren zu bleiben",
+          "distractors": [
+            "An Papst Coelestin, Nestorius abzusetzen",
+            "An die Mönche Ägyptens, Kyrill beizustehen",
+            "An die gallischen Bischöfe, Leporius wieder aufzunehmen"
+          ],
+          "explanation": "Inc. VII,31: Cassian beklagt den Schlag, den Konstantinopel durch den Häretiker erlitten habe. Von Bischof Johannes (Chrysostomus) in den Dienst aufgenommen, sei er der Stadt dem Geist nach verbunden, auch wenn er dem Leib nach fern sei. Dieselbe Stelle nennt Schwartz als Beleg für Cassians Ordination (2. Sitzung).",
+          "ref": {"material": "material.bkv_incarnation", "at": "S. 629–630"},
+          "entries": ["person.john_chrysostom", "source.de_incarnatione"]
+        },
+        {
+          "id": "q.ps09.authorities",
+          "prompt": "Auf welche Autoritäten stützt sich Cassian nach Vannier in De incarnatione, und in welcher Reihenfolge?",
+          "answer": "Schrift (Bücher I–V), Glaubensbekenntnis (VI), Väter (VII)",
+          "distractors": [
+            "Väter (I–III), Schrift (IV–VI), Konzilsbeschlüsse (VII)",
+            "Glaubensbekenntnis (I), Schrift (II–VI), Väter (VII)",
+            "Schrift (I–III), Väter (IV–VI), Glaubensbekenntnis (VII)"
+          ],
+          "explanation": "Vannier: Cassian widerlegt Nestorius mit Autoritäten, der Schrift (I–V), dem Symbol (VI) und den Vätern (VII), und arbeitet dabei eher mit Häufung von Zitaten als mit Argumenten.",
+          "ref": {"material": "material.vannier", "at": "S. 124–125"},
+          "entries": ["source.de_incarnatione"]
+        },
+        {
+          "id": "q.ps09.contribution",
+          "prompt": "Worin liegt nach Vannier Cassians theologischer Beitrag in De incarnatione?",
+          "answer": "In der Thematisierung der Tradition und der Anwendung der communicatio idiomatum",
+          "distractors": [
+            "In einer genauen Definition der Einheit der Person Christi",
+            "In einer gründlichen Auswertung aller Schriften des Nestorius",
+            "In der Einführung des Marientitels Theotokos"
+          ],
+          "explanation": "Vannier: Die Einheit der Person Christi definiert Cassian gerade nicht; Nestorius kannte er nur aus wenigen Texten; den Titel Theotokos verteidigt er, führt ihn aber nicht ein.",
+          "ref": {"material": "material.vannier", "at": "S. 125–130"},
+          "entries": ["source.de_incarnatione", "term.communicatio_idiomatum"]
+        }
+      ]
+    },
+    {
+      "id": "seminar.10",
+      "number": 10,
+      "date": "4. Januar 2027",
+      "title": "Expertensitzung",
+      "epochs": ["epoch.antiquity"],
+      "themes": ["theme.christology"],
+      "sections": [
+        {
+          "title": "Thema",
+          "ref": {"material": "material.seminar_plan", "at": "S. 5"},
+          "points": ["Wird durch Studierende in Absprache festgelegt und geplant."],
+          "supplement": "Der Seminarplan nennt hier das Jahr 2026; gemeint ist offensichtlich 2027, da das Semester im Oktober 2026 beginnt."
+        }
+      ]
+    },
+    {
+      "id": "seminar.11",
+      "number": 11,
+      "date": "11. Januar 2027",
+      "title": "Expertensitzung",
+      "epochs": ["epoch.antiquity"],
+      "themes": ["theme.christology"],
+      "sections": [
+        {
+          "title": "Thema",
+          "ref": {"material": "material.seminar_plan", "at": "S. 5"},
+          "points": ["Wird durch Studierende in Absprache festgelegt und geplant."],
+          "supplement": "Der Seminarplan nennt hier das Jahr 2026; gemeint ist offensichtlich 2027, da das Semester im Oktober 2026 beginnt."
+        },
+        {
+          "title": "Aufgaben zur 12. Sitzung",
+          "ref": {"material": "material.seminar_plan", "at": "S. 5"},
+          "points": ["Lektüre: Stegmann, Proseminar, S. 57–66."]
+        }
+      ]
+    },
+    {
+      "id": "seminar.12",
+      "number": 12,
+      "date": "18. Januar 2027",
+      "title": "Das Anfertigen von Seminararbeiten im Fach Kirchengeschichte",
+      "epochs": [],
+      "themes": ["theme.discipline"],
+      "sections": [
+        {
+          "title": "Thema und Methodik",
+          "ref": {"material": "material.seminar_plan", "at": "S. 5"},
+          "points": [
+            "Methodik: Anfertigen einer Seminararbeit in der historischen Theologie.",
+            "Inhaltlich: Fragestellungen um Cassians christologische Schrift; was war an den Themen des Seminars interessant?"
+          ],
+          "supplement": "Der Seminarplan nennt hier das Jahr 2026; gemeint ist offensichtlich 2027, da das Semester im Oktober 2026 beginnt."
+        }
+      ],
+      "lists": [
+        {
+          "id": "list.ps_paper_structure",
+          "title": "Aufbau einer Seminararbeit",
+          "prompt": "Nenne die Teile einer Proseminararbeit in ihrer Reihenfolge.",
+          "ref": {"material": "material.assessment", "at": "S. 2"},
+          "ordered": true,
+          "items": [
+            "Titelblatt",
+            "Inhaltsverzeichnis",
+            "Einleitung",
+            "Quelleneinleitung und Analyse",
+            "Interpretation und Ergebnisdarstellung",
+            "Anhang: Literaturverzeichnis und Eigenständigkeitserklärung"
+          ]
+        },
+        {
+          "id": "list.ps_source_introduction",
+          "title": "Quelleneinleitung",
+          "prompt": "Nenne die Schritte der Quelleneinleitung in einer Seminararbeit.",
+          "ref": {"material": "material.assessment", "at": "S. 2"},
+          "items": [
+            "Abfassungskontexte (W-Fragen)",
+            "Datierung und Überlieferung durch Handschriften",
+            "Gattungsbestimmung",
+            "Aufbau und Inhalt der Quelle"
+          ]
+        },
+        {
+          "id": "list.ps_work_steps",
+          "title": "Arbeitsschritte der Seminararbeit",
+          "prompt": "Nenne die Arbeitsschritte einer Seminararbeit in ihrer Reihenfolge.",
+          "ref": {"material": "material.assessment", "at": "S. 3"},
+          "ordered": true,
+          "items": [
+            "Literaturrecherche",
+            "Präzisierung und Festlegung der Fragestellung",
+            "Lektüre von Quelle und Forschungsliteratur",
+            "Analyse der Quelle",
+            "Interpretation",
+            "Verfassen der Seminararbeit"
+          ]
+        },
+        {
+          "id": "list.ps_bibliography_parts",
+          "title": "Gliederung des Literaturverzeichnisses",
+          "prompt": "In welche drei Teile wird das Literaturverzeichnis nach den Kieler Richtlinien gegliedert?",
+          "ref": {"material": "material.kiel_guidelines", "at": "Abschnitt 1.6"},
+          "ordered": true,
+          "items": ["Quellen", "Hilfsmittel", "Sekundärliteratur"]
+        }
+      ],
+      "questions": [
+        {
+          "id": "q.ps12.length",
+          "prompt": "Welchen Umfang hat eine Proseminararbeit nach den Prüfungsleistungen etwa?",
+          "answer": "Etwa 15 Seiten",
+          "distractors": ["Etwa 5 Seiten", "Etwa 30 Seiten", "Etwa 50 Seiten"],
+          "explanation": "Etwa 15 Seiten bei Layout nach den Kieler Richtlinien. Fünf Seiten umfasst etwa die kommentierte Bibliographie, 3–5 Seiten die Verschriftlichung eines Referats.",
+          "ref": {"material": "material.assessment", "at": "S. 2"}
+        },
+        {
+          "id": "q.ps12.titles",
+          "prompt": "Wie viele Titel sollte das Literaturverzeichnis einer Proseminararbeit mindestens enthalten?",
+          "answer": "10",
+          "distractors": ["3", "5", "25"],
+          "explanation": "„Je nach Fragestellung, mindestens sollten Sie 10 Titel im Literaturverzeichnis haben.“ Die kommentierte Bibliographie umfasst mindestens fünf Publikationen.",
+          "ref": {"material": "material.assessment", "at": "S. 3"}
+        },
+        {
+          "id": "q.ps12.no_presentation",
+          "prompt": "Welche schriftliche Abgabe ist vorgesehen, wenn man kein Referat gehalten hat?",
+          "answer": "Eine kommentierte Bibliographie mit mindestens fünf Publikationen",
+          "distractors": [
+            "Das Protokoll einer Sitzung",
+            "Eine Übersetzung eines Buches von De incarnatione",
+            "Eine mündliche Prüfung"
+          ],
+          "explanation": "Wer ein Referat gehalten hat, verschriftlicht es auf 3–5 Seiten; sonst ist eine kommentierte Bibliographie von etwa fünf Seiten abzugeben.",
+          "ref": {"material": "material.assessment", "at": "S. 3"}
+        },
+        {
+          "id": "q.ps12.margin",
+          "prompt": "Wie breit ist der rechte Seitenrand nach den Kieler Richtlinien?",
+          "answer": "5 cm",
+          "distractors": ["2,5 cm", "3,5 cm", "1 cm"],
+          "explanation": "Oben, unten und links jeweils 2,5 cm, rechts 5 cm.",
+          "ref": {"material": "material.kiel_guidelines", "at": "Abschnitt 1.2"}
+        }
+      ]
+    },
+    {
+      "id": "seminar.13",
+      "number": 13,
+      "date": "25. Januar 2027",
+      "title": "Reservesitzung",
+      "epochs": [],
+      "themes": [],
+      "sections": [
+        {
+          "title": "Thema",
+          "ref": {"material": "material.seminar_plan", "at": "S. 5"},
+          "points": ["Reservesitzung."],
+          "supplement": "Der Seminarplan nennt hier das Jahr 2026; gemeint ist offensichtlich 2027, da das Semester im Oktober 2026 beginnt."
+        }
+      ]
+    },
+    {
+      "id": "seminar.14",
+      "number": 14,
+      "date": "1. Februar 2027",
+      "title": "Abschluss und Feedback",
+      "epochs": [],
+      "themes": [],
+      "sections": [
+        {
+          "title": "Thema",
+          "ref": {"material": "material.seminar_plan", "at": "S. 5"},
+          "points": ["Abschluss und Feedback."],
+          "supplement": "Der Seminarplan nennt hier das Jahr 2026; gemeint ist offensichtlich 2027, da das Semester im Oktober 2026 beginnt."
+        }
+      ]
+    }
+  ]
+}

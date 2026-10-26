@@ -6,7 +6,6 @@ import 'package:flutter/services.dart';
 
 import '../../info/app_info.dart';
 import '../../models/old_testament/old_testament.dart';
-import '../../services/lecture_materials/lecture_materials.dart';
 import '../../services/old_testament/old_testament_quiz.dart';
 import '../../services/old_testament/old_testament_store.dart';
 import '../../services/quiz_sound_settings.dart';
@@ -547,9 +546,7 @@ class _OldTestamentQuizScreenState extends State<OldTestamentQuizScreen> {
                         ),
                       ],
                       InfoReportFooter(
-                        module: LectureMaterials.instance.moduleInfo(
-                          AppModules.oldTestament,
-                        ),
+                        module: AppModules.oldTestament,
                         reportDetails: () => {
                           "Aufgabe": q.prompt,
                           "Karte": q.cardId,

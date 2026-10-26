@@ -7,5 +7,7 @@
     "gospels-30-days.json",
     "bible-marathon-30-days.json"
   ],
-  "coursePlans": []
+  "coursePlans": [
+    "course-bibelkunde-at-wise-2026.json"
+  ]
 }

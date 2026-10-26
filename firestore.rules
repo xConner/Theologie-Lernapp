@@ -57,16 +57,16 @@ rules_version = '2';
 //                              begrenzte Längen, ohne Nutzerbezug), vom
 //                              Client weder lesbar noch änderbar.
 //
-// Geschützte Vorlesungsunterlagen (siehe docs/lecture-materials.md):
-//   lecture_materials/{fileId} Folien, Abschriften, Dozentenangaben und
-//                              Lesepläne der Lehrveranstaltungen (je Datei
-//                              ein Dokument, dazu `manifest`). Nur EINZELN
-//                              lesbar (get, kein list) und nur für Konten in
-//                              der Freigabeliste; vom Client nie schreibbar.
+// Vorlesungsunterlagen nur für freigeschaltete Konten (siehe
+// docs/lecture-materials.md):
+//   lecture_access/check       Prüfdokument (muss nicht existieren): Lesen
+//                              gelingt nur für Konten aus der Freigabeliste;
+//                              daran entscheidet die App, ob sie die Bereiche
+//                              Altes Testament und Kirchengeschichte zeigt.
 //   lecture_access/allowlist   Freigabeliste {emails: [...], uids: [...]};
-//                              bewusst ohne match → für Clients weder lesbar
-//                              noch schreibbar. Ändern nur über Console bzw.
-//                              Admin SDK (tool/lecture_materials).
+//                              für Clients weder lesbar noch schreibbar.
+//                              Ändern nur über Console bzw. Admin SDK
+//                              (tool/lecture_materials).
 //
 // Veranstaltungskatalog (siehe docs/univis-integration-feasibility.md):
 //   catalog_cache/{key}        Zwischenspeicher des Servers (Admin SDK);
@@ -86,7 +86,7 @@ service cloud.firestore {
       return request.auth != null && request.auth.uid == uid;
     }
 
-    // Freigabe für die geschützten Vorlesungsunterlagen. Maßgeblich ist nur
+    // Freigabe für die Vorlesungsunterlagen. Maßgeblich ist nur
     // das von Firebase signierte ID-Token: die Konto-ID oder die bestätigte
     // E-Mail-Adresse (email_verified). Felder, die der Client selbst
     // schreibt, zählen nicht. Fehlt die Freigabeliste, ist niemand
@@ -101,8 +101,8 @@ service cloud.firestore {
             && token.email.lower() in allowlist.get('emails', [])));
     }
 
-    match /lecture_materials/{fileId} {
-      allow get: if hasLectureAccess();
+    match /lecture_access/{documentId} {
+      allow get: if documentId == 'check' && hasLectureAccess();
       allow list, create, update, delete: if false;
     }
 

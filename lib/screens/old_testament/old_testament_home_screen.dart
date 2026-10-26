@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 import '../../info/app_info.dart';
 import '../../models/old_testament/old_testament.dart';
-import '../../services/lecture_materials/lecture_materials.dart';
 import '../../services/old_testament/old_testament_store.dart';
 import '../../services/streak/streak_track.dart';
 import '../../theme/app_theme.dart';
@@ -205,11 +204,7 @@ class _Home extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: secondary.copyWith(fontSize: 12.5),
                 ),
-                InfoReportFooter(
-                  module: LectureMaterials.instance.moduleInfo(
-                    AppModules.oldTestament,
-                  ),
-                ),
+                const InfoReportFooter(module: AppModules.oldTestament),
               ],
             ),
           ),

@@ -4,18 +4,11 @@ import 'dart:io';
 import 'package:theologie_lernapp/models/church_history/church_history.dart';
 import 'package:theologie_lernapp/services/church_history/church_history_loader.dart';
 
-import '../lecture_materials_test_support.dart';
-
-/// Rohdaten der geschützten Vorlesungsunterlagen (zum gezielten Verändern in
-/// Tests; nur vorhanden, wenn [lectureMaterialsPresent]).
+/// Rohdaten der Assets (zum gezielten Verändern in Tests).
 Map<String, Map<String, dynamic>> churchHistoryJson() => {
   for (final name in ["epochs", "themes", "entries", "lectures", "seminar"])
     name:
-        jsonDecode(
-              File(
-                "$lectureMaterialsDir/church_history/$name.json",
-              ).readAsStringSync(),
-            )
+        jsonDecode(File("assets/church_history/$name.json").readAsStringSync())
             as Map<String, dynamic>,
 };
 

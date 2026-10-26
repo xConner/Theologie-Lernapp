@@ -58,7 +58,3 @@ node_modules/
 
 # Python-Zwischendateien der Import-Werkzeuge
 __pycache__/
-
-# Geschützte Vorlesungsunterlagen: nie ins öffentliche Repository, nur über
-# tool/lecture_materials in Firestore (siehe docs/lecture-materials.md).
-/lecture_materials/

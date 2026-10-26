@@ -23,7 +23,6 @@ import 'package:theologie_lernapp/widgets/streak_widgets.dart';
 
 import 'church_history/church_history_test_data.dart';
 import 'old_testament/old_testament_test_data.dart';
-import 'lecture_materials_test_support.dart';
 
 /// Streak-Erfassung in Kirchengeschichte und Altem Testament über die
 /// Oberfläche: Erst eine richtig bewertete Antwort zählt (über
@@ -33,14 +32,6 @@ import 'lecture_materials_test_support.dart';
 Widget _app(Widget home) => MaterialApp(theme: AppTheme.light, home: home);
 
 void main() {
-  // Echte Inhalte: geschützte Vorlesungsunterlagen, nicht im Repository.
-  if (!lectureMaterialsPresent) {
-    skipWithoutLectureMaterials(
-      "Streaks in Kirchengeschichte und Altem Testament",
-    );
-    return;
-  }
-
   final churchHistory = loadChurchHistory();
   final oldTestament = loadOldTestament();
 

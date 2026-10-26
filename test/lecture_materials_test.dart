@@ -28,13 +28,8 @@ Uint8List _json(Object value) => utf8.encode(jsonEncode(value));
 
 /// Kleine, ausgedachte Unterlagen (ohne echte Inhalte).
 Map<String, Uint8List> _fakeFiles() => {
-  "info/old_testament.json": _json({
-    "id": "old_testament",
-    "title": "Altes Testament",
-    "description": "Geheime Beschreibung",
-    "sources": [
-      {"title": "Vorlesungsfolien", "origin": "Prof. Dr. Geheim"},
-    ],
+  "old_testament/course.json": _json({
+    "course": {"title": "Geheim"},
   }),
   "old_testament/slides/e01-folie-01.png": Uint8List.fromList([1, 2, 3]),
 };
@@ -45,16 +40,12 @@ void main() {
   setUp(() => SharedPreferences.setMockInitialValues({}));
 
   group("Freigabe (Client)", () {
-    test("freigeschaltet: Unterlagen, Info und Dateien verfügbar", () async {
+    test("freigeschaltet: Unterlagen und Dateien verfügbar", () async {
       final source = FakeLectureMaterialsSource(_fakeFiles());
       final m = await useLectureMaterials(source);
 
       expect(m.available, isTrue);
       expect(m.showsArea("old_testament"), isTrue);
-      expect(
-        m.moduleInfo(AppModules.oldTestament).sources.single.origin,
-        "Prof. Dr. Geheim",
-      );
       final bytes = await m.bundle.load(
         "assets/old_testament/slides/e01-folie-01.png",
       );
@@ -73,10 +64,6 @@ void main() {
         expect(source.requests, ["manifest"]);
         expect(m.showsArea("old_testament"), isFalse);
         expect(m.showsArea("church_history"), isFalse);
-        // Die Info enthält ohne Freigabe keine geschützten Angaben.
-        final info = m.moduleInfo(AppModules.oldTestament);
-        expect(info.sources, isEmpty);
-        expect(info.description, isEmpty);
         await expectLater(
           m.bundle.load("assets/old_testament/slides/e01-folie-01.png"),
           throwsA(anything),
@@ -124,7 +111,6 @@ void main() {
         expect(m.available, isFalse);
         expect(m.generation, isNot(generation));
         await expectLater(m.bundle.load(key), throwsA(anything));
-        expect(m.moduleInfo(AppModules.oldTestament).sources, isEmpty);
       },
     );
 
@@ -339,13 +325,6 @@ void main() {
       expect(s.plans, isNotEmpty);
     });
 
-    test("öffentliche Leseplan-Liste nennt keine Lehrveranstaltung", () async {
-      final index = jsonDecode(
-        await FileAssetBundle().loadString("assets/reading_plans/index.json"),
-      );
-      expect(index["coursePlans"] ?? const [], isEmpty);
-    });
-
     if (!lectureMaterialsPresent) {
       skipWithoutLectureMaterials("mit Freigabe: Leseplan zur Übung");
       return;
@@ -391,12 +370,6 @@ void main() {
       expect(image, startsWith("assets/old_testament/slides/"));
       final bytes = await LectureMaterials.instance.bundle.load(image);
       expect(bytes.lengthInBytes, greaterThan(100));
-    });
-
-    test("Info zu beiden Bereichen kommt aus den Unterlagen", () async {
-      final m = await useLectureMaterials(directoryLectureMaterialsSource());
-      expect(m.moduleInfo(AppModules.oldTestament).sources, isNotEmpty);
-      expect(m.moduleInfo(AppModules.churchHistory).sources, isNotEmpty);
     });
   });
 }

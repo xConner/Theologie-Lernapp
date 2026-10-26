@@ -10,7 +10,6 @@ import 'package:theologie_lernapp/services/old_testament/old_testament_store.dar
 
 import 'church_history/church_history_test_data.dart';
 import 'old_testament/old_testament_test_data.dart';
-import 'lecture_materials_test_support.dart';
 
 void main() {
   group("orderedIntroduction", () {
@@ -36,12 +35,6 @@ void main() {
       expect(run({"a", "b", "c", "d", "e"}), ["a", "b", "c", "d", "e"]);
     });
   });
-
-  // Echte Inhalte: geschützte Vorlesungsunterlagen, nicht im Repository.
-  if (!lectureMaterialsPresent) {
-    skipWithoutLectureMaterials("Kirchengeschichte und Altes Testament");
-    return;
-  }
 
   group("Kirchengeschichte", () {
     final data = loadChurchHistory();

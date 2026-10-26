@@ -21,26 +21,10 @@ void main() {
       expect(ChurchHistoryLoader.validate(data), isEmpty);
     });
 
-    test("Daten und Folien sind nicht im öffentlichen Bundle", () {
+    test("pubspec bindet Daten und Folien ein", () {
       final pubspec = File("pubspec.yaml").readAsStringSync();
-      expect(pubspec, isNot(contains("- assets/church_history/")));
-      expect(Directory("assets/church_history").existsSync(), isFalse);
-      // Auch Inhalte aus dem Proseminarmaterial stehen nur in den
-      // geschützten Unterlagen, nicht in öffentlichen Dateien.
-      for (final dir in ["assets", "lib", "web"]) {
-        for (final f in Directory(
-          dir,
-        ).listSync(recursive: true).whereType<File>()) {
-          if (!RegExp(r"\.(json|dart|html|js|txt)$").hasMatch(f.path)) continue;
-          final text = f.readAsStringSync();
-          for (final marker in [
-            "material.zelzer",
-            "material.bkv_incarnation",
-          ]) {
-            expect(text, isNot(contains(marker)), reason: f.path);
-          }
-        }
-      }
+      expect(pubspec, contains("assets/church_history/"));
+      expect(pubspec, contains("assets/church_history/slides/"));
     });
 
     test("IDs sind eindeutig und tragen das Präfix ihres Typs", () {

@@ -1,0 +1,1214 @@
+{
+  "course": {
+    "id": "course.history_of_christianity_1",
+    "title": "Geschichte des Christentums im Überblick I",
+    "lecturer": "Prof. Dr. A. Müller",
+    "materials": [
+      {
+        "id": "material.lecture_manuscript",
+        "short": "Manuskript",
+        "title": "Manuskript der Überblicksvorlesung KG I, Abschnitt 2 „Mission und Ausbreitung des Christentums“ und 3 „Christenverfolgungen“",
+        "category": "Vorlesungsmanuskript",
+        "description": "Ausformulierter Text zu Vorlesung 2 (12 Seiten; Seitenangaben nach dem PDF). Laut Dateiangaben die Fassung von 2020; Folien und Manuskript stimmen in Gliederung und Inhalt überein."
+      }
+    ],
+    "outline": [
+      {
+        "part": "I",
+        "title": "Das Christentum in Antike und Spätantike",
+        "epoch": "epoch.antiquity",
+        "slide": 6,
+        "topics": [
+          {"number": 1, "title": "Einleitung", "lecture": "lecture.01"},
+          {"number": 2, "title": "Mission und Ausbreitung des Christentums", "lecture": "lecture.02"},
+          {"number": 3, "title": "Christenverfolgungen", "lecture": "lecture.02"},
+          {"number": 4, "title": "Christentum und antike Kultur"},
+          {"number": 5, "title": "Das Entstehen der christlichen Bibel/ Kanon"},
+          {"number": 6, "title": "Christliches Leben im Alltag"},
+          {"number": 7, "title": "Die Ausdifferenzierung der „Mehrheitskirche“ in vorkonstantinischer Zeit"},
+          {"number": 8, "title": "Das Christentum auf dem Weg zur Staatsreligion"},
+          {"number": 9, "title": "„Der Untergang des Heidentums“"},
+          {"number": 10, "title": "Askese und Mönchtum im frühen Christentum", "theme": "theme.monasticism"},
+          {"number": 11, "title": "Die Entwicklung von Kirchenstruktur und Konzilswesen"},
+          {"number": 12, "title": "Der trinitätstheologische Streit"},
+          {"number": 13, "title": "Der christologische Streit", "theme": "theme.christology"},
+          {"number": 14, "title": "Die Entwicklung der Lehre von der Gnade"}
+        ]
+      },
+      {
+        "part": "II",
+        "title": "Das Christentum im Mittelalter",
+        "epoch": "epoch.middle_ages",
+        "slide": 7,
+        "topics": [
+          {"number": 1, "title": "Das Aufkommen des Islam"},
+          {"number": 2, "title": "Der Streit um die Bilder"},
+          {"number": 3, "title": "Völkerwanderung und die „Germanenreiche“"},
+          {"number": 4, "title": "Mission und Ausbreitung des Christentums im Mittelalter"},
+          {"number": 5, "title": "Kirchenreform und Papstkirche"},
+          {"number": 6, "title": "Staat und Kirche – der Streit um die Investitur"},
+          {"number": 7, "title": "Die Kreuzzüge"},
+          {"number": 8, "title": "Christliche Mystik"},
+          {"number": 9, "title": "Das mittelalterliche Mönchtum"},
+          {"number": 10, "title": "Grundzüge der mittelalterlichen Theologie"},
+          {"number": 11, "title": "Die so genannten „Vorreformatoren“"},
+          {"number": 12, "title": "Humanistische Reformansätze"}
+        ]
+      }
+    ]
+  },
+  "lectures": [
+    {
+      "id": "lecture.01",
+      "number": 1,
+      "title": "Einleitung",
+      "file": "Vorlesungsfolien 1 - Einleitung.pdf",
+      "epochs": ["epoch.antiquity"],
+      "themes": ["theme.discipline"],
+      "slides": [
+        {
+          "number": 1,
+          "title": "Titelfolie",
+          "image": "assets/church_history/slides/folie-01.png",
+          "text": "Geschichte des Christentums im Überblick I\n\nProf. Dr. A. Müller"
+        },
+        {
+          "number": 2,
+          "title": "Sinn von Geschichtsschreibung",
+          "image": "assets/church_history/slides/folie-02.png",
+          "text": "Sinn von Geschichtsschreibung\n\n1. dient der religiösen Identitätsbildung\n2. fördert die kritischen Urteilskraft\n3. dient dem Ausbau der eigenen Entscheidungskompetenz\n4. trägt zum soziokulturellen Kompetenzerwerb bei\n\nGerhard Ebeling: Kirchengeschichte ist Auslegungsgeschichte der „Heiligen Schrift“",
+          "highlights": ["religiösen Identitätsbildung", "kritischen Urteilskraft", "Entscheidungskompetenz", "soziokulturellen Kompetenzerwerb"]
+        },
+        {
+          "number": 3,
+          "title": "Bezeichnungen des Fachs",
+          "image": "assets/church_history/slides/folie-03.png",
+          "text": "Kirchengeschichte\nChristentumsgeschichte\nGeschichte des Christentums",
+          "highlights": ["Geschichte des Christentums"]
+        },
+        {
+          "number": 4,
+          "title": "Epochen der Geschichte des Christentums",
+          "image": "assets/church_history/slides/folie-04.png",
+          "text": "Epochen der Geschichte des Christentums\n\nAntike und Spätantike – 100-600\n   Konsolidierung und Institutionalisierung des Christentums\nMittelalter – 600-1500\n   Eine sakral-christliche Gesellschaft\nReformation und Konfessionalisierung – 1500-1648\n   Horizonterweiterung über eine einheitlich christliche Gesellschaft hinaus - segmentierte Wirklichkeit\nNeuzeit – 1648-1918\n   Christentum als ein Instrument des absolutistischen Staates\nNeueste Zeit – 1918-heute\n   Christentum in zunehmend globaler Perspektive als eigenständiger Bereich neben Staat und Gesellschaft\n\nZahlenangaben nur grobe Richtwerte!",
+          "highlights": ["Zahlenangaben nur grobe Richtwerte!"]
+        },
+        {
+          "number": 5,
+          "title": "Methodische Zugänge",
+          "image": "assets/church_history/slides/folie-05.png",
+          "text": "Methodische Zugänge\n- sozialgeschichtlich\n- mentalitätsgeschichtlich\n- kulturgeschichtlich\n- ideengeschichtlich\n- institutionengeschichtlich\n- frömmigkeitsgeschichtlich\n- gender studies\n- alltagsgeschichtlich\n\nDie Geschichte des Christentums ist die Geschichte jeweils zeitgemäßer Ausdrucksformen des in seinem Kern unveränderbaren Evangeliums.",
+          "highlights": ["Die Geschichte des Christentums ist die Geschichte jeweils zeitgemäßer Ausdrucksformen des in seinem Kern unveränderbaren Evangeliums."]
+        },
+        {
+          "number": 6,
+          "title": "Gliederung der Vorlesung (Teil I)",
+          "image": "assets/church_history/slides/folie-06.png",
+          "text": "Gliederung der Vorlesung\nI. Das Christentum in Antike und Spätantike\n1. Einleitung\n2. Mission und Ausbreitung des Christentums\n3. Christenverfolgungen\n4. Christentum und antike Kultur\n5. Das Entstehen der christlichen Bibel/ Kanon\n6. Christliches Leben im Alltag\n7. Die Ausdifferenzierung der „Mehrheitskirche“ in vorkonstantinischer Zeit\n8. Das Christentum auf dem Weg zur Staatsreligion\n9. „Der Untergang des Heidentums“\n10. Askese und Mönchtum im frühen Christentium\n11. Die Entwicklung von Kirchenstruktur und Konzilswesen\n12. Der trinitätstheologische Streit\n13. Der christologische Streit\n14. Die Entwicklung der Lehre von der Gnade"
+        },
+        {
+          "number": 7,
+          "title": "Gliederung der Vorlesung (Teil II)",
+          "image": "assets/church_history/slides/folie-07.png",
+          "text": "Gliederung der Vorlesung\nII. Das Christentum im Mittelalter\n1. Das Aufkommen des Islam\n2. Der Streit um die Bilder\n3. Völkerwanderung und die „Germanenreiche“\n4. Mission und Ausbreitung des Christentums im Mittelalter\n5. Kirchenreform und Papstkirche\n6. Staat und Kirche – der Streit um die Investitur\n7. Die Kreuzzüge\n8. Christliche Mystik\n9. Das mittelalterliche Mönchtum\n10. Grundzüge der mittelalterlichen Theologie\n11. Die so genannten „Vorreformatoren“\n12. Humanistische Reformansätze"
+        }
+      ],
+      "sections": [
+        {
+          "title": "Sinn von Geschichtsschreibung",
+          "slides": [2],
+          "points": [
+            "Geschichtsschreibung dient der religiösen Identitätsbildung.",
+            "Sie fördert die kritische Urteilskraft.",
+            "Sie dient dem Ausbau der eigenen Entscheidungskompetenz.",
+            "Sie trägt zum soziokulturellen Kompetenzerwerb bei.",
+            "Gerhard Ebeling: Kirchengeschichte ist Auslegungsgeschichte der „Heiligen Schrift“."
+          ]
+        },
+        {
+          "title": "Bezeichnungen des Fachs",
+          "slides": [3],
+          "points": [
+            "Kirchengeschichte",
+            "Christentumsgeschichte",
+            "Geschichte des Christentums (farbig hervorgehoben; zugleich Titel der Vorlesung)"
+          ],
+          "supplement": "Die Folie erläutert die Unterschiede nicht. Üblicherweise stellt „Kirchengeschichte“ die Kirche als Gemeinschaft und Institution in den Mittelpunkt, während „Christentumsgeschichte“ bzw. „Geschichte des Christentums“ das Christentum insgesamt in den Blick nimmt, auch Frömmigkeit, Kultur und Gesellschaft außerhalb der verfassten Kirche."
+        },
+        {
+          "title": "Epochen der Geschichte des Christentums",
+          "slides": [4],
+          "points": [
+            "Antike und Spätantike (100–600): Konsolidierung und Institutionalisierung des Christentums",
+            "Mittelalter (600–1500): Eine sakral-christliche Gesellschaft",
+            "Reformation und Konfessionalisierung (1500–1648): Horizonterweiterung über eine einheitlich christliche Gesellschaft hinaus – segmentierte Wirklichkeit",
+            "Neuzeit (1648–1918): Christentum als ein Instrument des absolutistischen Staates",
+            "Neueste Zeit (1918–heute): Christentum in zunehmend globaler Perspektive als eigenständiger Bereich neben Staat und Gesellschaft",
+            "Die Zahlenangaben sind nur grobe Richtwerte."
+          ],
+          "supplement": "Die Epochengrenzen markieren Übergänge, keine Stichtage: 1648 steht für den Westfälischen Frieden, 1918 für das Ende des landesherrlichen Kirchenregiments in Deutschland."
+        },
+        {
+          "title": "Methodische Zugänge",
+          "slides": [5],
+          "points": [
+            "sozialgeschichtlich, mentalitätsgeschichtlich, kulturgeschichtlich, ideengeschichtlich",
+            "institutionengeschichtlich, frömmigkeitsgeschichtlich, gender studies, alltagsgeschichtlich",
+            "Leitsatz: Die Geschichte des Christentums ist die Geschichte jeweils zeitgemäßer Ausdrucksformen des in seinem Kern unveränderbaren Evangeliums."
+          ],
+          "supplement": "Der Leitsatz ist eine theologische Deutung der Geschichte: Er unterscheidet den unveränderlichen Kern (das Evangelium) von seinen zeitbedingten Ausdrucksformen. Rein historische Zugänge beschreiben die Ausdrucksformen, ohne über den Kern zu urteilen."
+        },
+        {
+          "title": "Gliederung der Vorlesung",
+          "slides": [6, 7],
+          "points": [
+            "Teil I: Das Christentum in Antike und Spätantike (14 Themen, von der Einleitung bis zur Lehre von der Gnade)",
+            "Teil II: Das Christentum im Mittelalter (12 Themen, vom Aufkommen des Islam bis zu den humanistischen Reformansätzen)"
+          ]
+        }
+      ],
+      "mentions": [
+        {"entry": "person.gerhard_ebeling", "slides": [2], "text": "Gerhard Ebeling: Kirchengeschichte ist Auslegungsgeschichte der „Heiligen Schrift“"},
+        {"entry": "term.church_history", "slides": [2, 3], "text": "Kirchengeschichte – Christentumsgeschichte – Geschichte des Christentums"},
+        {"entry": "term.history_of_christianity", "slides": [3], "text": "Geschichte des Christentums (farbig hervorgehoben)"},
+        {"entry": "term.periodization", "slides": [4], "text": "Epochen der Geschichte des Christentums – Zahlenangaben nur grobe Richtwerte!"}
+      ],
+      "lists": [
+        {
+          "id": "list.history_purpose",
+          "title": "Sinn von Geschichtsschreibung",
+          "prompt": "Nenne die vier Funktionen von Geschichtsschreibung, die die Vorlesung aufzählt.",
+          "slides": [2],
+          "items": [
+            "dient der religiösen Identitätsbildung",
+            "fördert die kritische Urteilskraft",
+            "dient dem Ausbau der eigenen Entscheidungskompetenz",
+            "trägt zum soziokulturellen Kompetenzerwerb bei"
+          ]
+        },
+        {
+          "id": "list.epochs",
+          "title": "Epochen mit Richtwerten",
+          "prompt": "Nenne die fünf Epochen der Geschichte des Christentums in der richtigen Reihenfolge mit ihren Richtwerten.",
+          "slides": [4],
+          "ordered": true,
+          "items": [
+            "Antike und Spätantike (100–600)",
+            "Mittelalter (600–1500)",
+            "Reformation und Konfessionalisierung (1500–1648)",
+            "Neuzeit (1648–1918)",
+            "Neueste Zeit (1918–heute)"
+          ]
+        },
+        {
+          "id": "list.methods",
+          "title": "Methodische Zugänge",
+          "prompt": "Nenne die acht methodischen Zugänge, die die Vorlesung aufführt.",
+          "slides": [5],
+          "items": [
+            "sozialgeschichtlich",
+            "mentalitätsgeschichtlich",
+            "kulturgeschichtlich",
+            "ideengeschichtlich",
+            "institutionengeschichtlich",
+            "frömmigkeitsgeschichtlich",
+            "gender studies",
+            "alltagsgeschichtlich"
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "q.l01.label",
+          "prompt": "Welche Bezeichnung des Fachs ist auf Folie 3 farbig hervorgehoben und zugleich Titel der Vorlesung?",
+          "answer": "Geschichte des Christentums",
+          "distractors": ["Kirchengeschichte", "Dogmengeschichte", "Religionsgeschichte"],
+          "explanation": "Folie 3 nennt Kirchengeschichte, Christentumsgeschichte und Geschichte des Christentums; nur die letzte ist hervorgehoben. Die Vorlesung heißt „Geschichte des Christentums im Überblick I“.",
+          "slides": [3],
+          "entries": ["term.history_of_christianity"]
+        },
+        {
+          "id": "q.l01.purpose",
+          "prompt": "Welche Funktion von Geschichtsschreibung nennt die Vorlesung?",
+          "answer": "Sie fördert die kritische Urteilskraft.",
+          "distractors": [
+            "Sie sichert eine abschließende, objektive Deutung der Vergangenheit.",
+            "Sie ersetzt die biblische Exegese.",
+            "Sie dient vor allem der Unterhaltung."
+          ],
+          "explanation": "Folie 2 nennt vier Funktionen: religiöse Identitätsbildung, kritische Urteilskraft, Entscheidungskompetenz und soziokulturellen Kompetenzerwerb.",
+          "slides": [2]
+        },
+        {
+          "id": "q.l01.thesis",
+          "prompt": "Wie bestimmt die Vorlesung die Geschichte des Christentums in ihrem Leitsatz?",
+          "answer": "Als Geschichte jeweils zeitgemäßer Ausdrucksformen des in seinem Kern unveränderbaren Evangeliums",
+          "distractors": [
+            "Als Geschichte des allmählichen Verfalls der ursprünglichen Reinheit",
+            "Als Geschichte der Institution Kirche und ihrer Ämter",
+            "Als Abfolge zeitloser, unveränderter Ausdrucksformen des Glaubens"
+          ],
+          "explanation": "Folie 5 unterscheidet den unveränderbaren Kern, das Evangelium, von seinen zeitgemäßen Ausdrucksformen.",
+          "slides": [5]
+        },
+        {
+          "id": "q.l01.method",
+          "prompt": "Welcher dieser Zugänge gehört zu den methodischen Zugängen, die die Vorlesung nennt?",
+          "answer": "mentalitätsgeschichtlich",
+          "distractors": ["heilsgeschichtlich-spekulativ", "kirchenrechtlich-normativ", "allegorisch"],
+          "explanation": "Folie 5 nennt sozial-, mentalitäts-, kultur-, ideen-, institutionen-, frömmigkeits- und alltagsgeschichtliche Zugänge sowie gender studies.",
+          "slides": [5]
+        },
+        {
+          "id": "q.l01.ebeling",
+          "prompt": "Wer bestimmte Kirchengeschichte als „Auslegungsgeschichte der Heiligen Schrift“?",
+          "answer": "Gerhard Ebeling",
+          "distractors": ["Karl Holl", "Keith Hopkins", "Eusebius von Caesarea"],
+          "explanation": "Die Vorlesung zitiert auf Folie 2 Gerhard Ebeling.",
+          "slides": [2],
+          "entries": ["person.gerhard_ebeling"]
+        },
+        {
+          "id": "q.l01.outline",
+          "prompt": "In welchen Teil der Vorlesungsgliederung gehört „Der Streit um die Bilder“?",
+          "answer": "Teil II: Das Christentum im Mittelalter",
+          "distractors": ["Teil I: Das Christentum in Antike und Spätantike"],
+          "explanation": "Der Bilderstreit ist Thema 2 von Teil II (Folie 7).",
+          "slides": [7]
+        }
+      ]
+    },
+    {
+      "id": "lecture.02",
+      "number": 2,
+      "title": "Anfänge, Mission und Martyrium",
+      "file": "Vorlesungsfolien 2 - Ausbreitung Martyrium.pdf",
+      "epochs": ["epoch.antiquity"],
+      "themes": ["theme.judaism", "theme.mission", "theme.martyrdom", "theme.church_state"],
+      "slides": [
+        {
+          "number": 8,
+          "title": "1. Anfänge des Christentums",
+          "image": "assets/church_history/slides/folie-08.png",
+          "text": "1. Anfänge des Christentums\n• innerjüdische Spannungen führen zu einem Bruch zwischen einzelnen jüdischen Gruppierungen\n• zur Zeit des Paulus treten neben juden-christliche Gemeinden solche, die sich aus vormaligen Heiden zusammensetzten\n• Konflikte zwischen juden-christlichen und heiden-christlichen Vertretern werden auf „Apostel-Konzil“ besprochen\n• Anfang 2. Jh.: Christentum als „tertium genus“"
+        },
+        {
+          "number": 9,
+          "title": "2. Mission und Ausbreitung des Christentums",
+          "image": "assets/church_history/slides/folie-09.png",
+          "text": "2. Mission und Ausbreitung des Christentums\nVoraussetzungen:\n• römisches Verkehrssystem\n• grundsätzlich tolerante Haltung des Römischen Reiches in Sachen Religion\n• „Reichssprachen“ Griechisch und Latein\n• gemeinsame Kultur im „Römischen Reich“\n• „pax Romana“\n• Universalitätgedanke des Christentums\nMissionsmethodik\n• Vorbild des Paulus: Blick aufs Ganze/ Erfassen der Provinzen/ Beginn in den Städten/ „Ballungszentren der Mission“\n• keine professionellen Missionare\n• keine feste Gattung „Missionspredigt“\n• Mission durch gewöhnliche Gemeindegottesdienste\n• Apologetische Texte dienten nur eingeschränkt der Mission\n• keine „Missionsschulen“"
+        },
+        {
+          "number": 10,
+          "title": "2. Mission und Ausbreitung II",
+          "image": "assets/church_history/slides/folie-10.png",
+          "text": "2. Mission und Ausbreitung II\n• Mission durch Auswirkungen des Glaubens auf das Leben\n• Missionserfolge durch Heilungen/ Exorzismen\n• Mission durch öffentlichkeitswirksame Märtyrerprozesse\n• Missionserfolge durch Neugier der Umgebung\n• Anknüpfen an jüdische Gemeindearbeit\n• Mission durch „Propaganda der Tat“ (Karl Holl): praktizierte Gemeinschaft; Nächstenliebe"
+        },
+        {
+          "number": 11,
+          "title": "2. Mission und Ausbreitung: Phasen der Mission",
+          "image": "assets/church_history/slides/folie-11.png",
+          "text": "2. Mission und Ausbreitung\nPhasen der Mission\n• 1. Jh. durch gezielte Missionsarbeit entstehen einzelne Gemeinden\n• 2. Jh. Anwachsen der Gemeinden/ Gelegenheitsmission auch in entlegeneren Teilen des Römischen Reiches\n• 3. Jh. strukturiertere Mission auch in der ländlichen Peripherie\n• 4. Jh. durch Massenkonversionen etwa 80% des Reiches christlich\n• 5. Jh. Christentum erreicht vermehrt außerhalb des Reiches siedelnde Völker\n\n• Grund für schnelle Ausbreitung über weite Gebiete und durch unterschiedliche Schichten: Akkulturationsfähigkeit\n• Trägergruppen der Mission: besonders Beamte, Soldaten und Kaufleute"
+        },
+        {
+          "number": 12,
+          "title": "3. Martyrium in Antike und Spätantike",
+          "image": "assets/church_history/slides/folie-12.png",
+          "text": "3. Martyrium in Antike und Spätantike\n• „Martyrium“ = Zeugnis (für Christus)\n• theol. Grundlage: Aussendungsreden Mt 10: Verpflichtung zum Zeugnis von Christus gegenüber der Welt\n• Apk: Martyrium unumgängliche Folge des Zeugnisses von Jesus bis hin zum Tod\n• Ignatios von Antiocheia: Märtyrertod Durchgang zur Herrlichkeit Gottes\n• um 140 n.Chr.: „martys“ wird terminus technicus in Kleinasien\n• um 160 n.Chr.: Märtyrer-Verehrung im Matryrium Polycarpi\n• 3. Jh.: Verfolgungen als Prüfungen durch Gott\nAnlässe für Martyrien\n• Volksunwille: Vorurteile gegenüber religiösen Minderheiten\n• 3. Jh.: Christentum als Ursache für Krisen im Reich\n• staatliche Verfolgung wegen mangelnder Loyalität gegenüber Kaiser und Reich - Homogenisierungsmaßnahmen in der Gesellschaft"
+        },
+        {
+          "number": 13,
+          "title": "3. Martyrium II – Geschichtlicher Überblick",
+          "image": "assets/church_history/slides/folie-13.png",
+          "text": "3. Martyrium in Antike und Spätantike II - Geschichtlicher Überblick\n• 49 n.Chr. erste lokale Verfolgung unter Claudius in Rom?\n• 64 n.Chr. lokale Polizeiaktion gegen Christen unter Nero in Rom: Vorwurf Brandstiftung\n• Domitian (81-96): Ausbau der kultischen Verehrung des Kaisers - lokale Maßnahmen gegen Christen in Rom und Kleinasien\n• 112/113 n.Chr.: Traian an Plinius: Christen nicht aktiv aufspüren; bei Denunziation zum Kaiserkult zu nötigen\n• 177 n.Chr. in Lyon kommen zur Zeit Mark Aurels 40 Christen um\n• Decius (249-251): allgemeiner Opferbefehl für alle Bürger im Reich - zahlreiche „Lapsi“; Tausende Christen sterben; Versuch einer ersten zentral gelenkten systematischen Ausschaltung des Christentums\n• Valerian (253-260): Konfiszierung kirchlicher Besitztümer - bei Opferverweigerung zunehmend Todesstrafe\n• Diokletian (284-305): 299 erste Maßnahmen im Heer; ab 303 durch den Einfluss des Galerius Vorgehen ausschließlich gegen Christen"
+        },
+        {
+          "number": 14,
+          "title": "3. Martyrium III – Quellen und Zahlen",
+          "image": "assets/church_history/slides/folie-14.png",
+          "text": "3. Martyrium in Antike und Spätantike III\n\nQuellen über Martyrien:\n• Passionen\n• Märtyrerakten\n\nZahl der Märtyrer\n• traditionelle Angabe: 6000-7000\n• neuere Forschungsansätze: etwa 1000 (Keith Hopkins)\n\nDifferenzierung\n• Märtyrer\n• confessores"
+        },
+        {
+          "number": 15,
+          "title": "Bescheinigung über ein heidnisches Opfer",
+          "image": "assets/church_history/slides/folie-15.jpg",
+          "text": "[Foto eines Papyrus]\nBescheinigung über ein Heidnisches Opfer\nTheadelphia (Fajum), 16.6.250 n.Chr.\nNeues Museum Berlin\nP 13430"
+        }
+      ],
+      "sections": [
+        {
+          "title": "Anfänge des Christentums",
+          "slides": [8],
+          "points": [
+            "Innerjüdische Spannungen führen zu einem Bruch zwischen einzelnen jüdischen Gruppierungen.",
+            "Zur Zeit des Paulus treten neben judenchristliche Gemeinden solche, die sich aus vormaligen Heiden zusammensetzen.",
+            "Konflikte zwischen juden- und heidenchristlichen Vertretern werden auf dem „Apostelkonzil“ besprochen.",
+            "Anfang 2. Jh.: Christentum als „tertium genus“."
+          ],
+          "supplement": "Das Jerusalemer Treffen fand um 48/49 statt (Gal 2; Apg 15). „Tertium genus“ (drittes Geschlecht) ist als Selbstbezeichnung der Christen neben Juden und Heiden u. a. in der Kerygma Petri und bei Tertullian belegt."
+        },
+        {
+          "title": "Voraussetzungen der Mission",
+          "slides": [9],
+          "points": [
+            "römisches Verkehrssystem",
+            "grundsätzlich tolerante Haltung des Römischen Reiches in Sachen Religion",
+            "„Reichssprachen“ Griechisch und Latein",
+            "gemeinsame Kultur im Römischen Reich",
+            "„pax Romana“",
+            "Universalitätsgedanke des Christentums"
+          ]
+        },
+        {
+          "title": "Missionsmethodik",
+          "slides": [9, 10],
+          "points": [
+            "Vorbild des Paulus: Blick aufs Ganze, Erfassen der Provinzen, Beginn in den Städten („Ballungszentren der Mission“)",
+            "keine professionellen Missionare, keine feste Gattung „Missionspredigt“, keine „Missionsschulen“",
+            "Mission durch gewöhnliche Gemeindegottesdienste; apologetische Texte dienten nur eingeschränkt der Mission",
+            "Mission durch Auswirkungen des Glaubens auf das Leben, durch Heilungen und Exorzismen, öffentlichkeitswirksame Märtyrerprozesse und die Neugier der Umgebung",
+            "Anknüpfen an jüdische Gemeindearbeit",
+            "„Propaganda der Tat“ (Karl Holl): praktizierte Gemeinschaft, Nächstenliebe"
+          ]
+        },
+        {
+          "title": "Phasen der Mission",
+          "slides": [11],
+          "points": [
+            "1. Jh.: Durch gezielte Missionsarbeit entstehen einzelne Gemeinden.",
+            "2. Jh.: Die Gemeinden wachsen; Gelegenheitsmission auch in entlegeneren Teilen des Reiches.",
+            "3. Jh.: Strukturiertere Mission auch in der ländlichen Peripherie.",
+            "4. Jh.: Durch Massenkonversionen ist etwa 80 % des Reiches christlich.",
+            "5. Jh.: Das Christentum erreicht vermehrt Völker außerhalb des Reiches.",
+            "Grund der schnellen Ausbreitung über weite Gebiete und durch unterschiedliche Schichten: Akkulturationsfähigkeit.",
+            "Trägergruppen der Mission: besonders Beamte, Soldaten und Kaufleute."
+          ],
+          "supplement": "Prozentangaben zur Christianisierung sind grobe Schätzungen; in der Forschung gehen sie deutlich auseinander."
+        },
+        {
+          "title": "Verständnis des Martyriums",
+          "slides": [12],
+          "points": [
+            "„Martyrium“ = Zeugnis (für Christus).",
+            "Theologische Grundlage: Aussendungsrede Mt 10 – Verpflichtung zum Zeugnis von Christus gegenüber der Welt.",
+            "Offenbarung des Johannes: Martyrium als unumgängliche Folge des Zeugnisses von Jesus bis hin zum Tod.",
+            "Ignatius von Antiochien: Märtyrertod als Durchgang zur Herrlichkeit Gottes.",
+            "Um 140: „martys“ wird in Kleinasien terminus technicus.",
+            "Um 160: Märtyrerverehrung im Martyrium Polycarpi.",
+            "3. Jh.: Verfolgungen werden als Prüfungen durch Gott gedeutet."
+          ]
+        },
+        {
+          "title": "Anlässe für Martyrien",
+          "slides": [12],
+          "points": [
+            "Volksunwille: Vorurteile gegenüber religiösen Minderheiten",
+            "3. Jh.: Christentum gilt als Ursache für Krisen im Reich",
+            "staatliche Verfolgung wegen mangelnder Loyalität gegenüber Kaiser und Reich – Homogenisierungsmaßnahmen in der Gesellschaft"
+          ]
+        },
+        {
+          "title": "Geschichtlicher Überblick der Verfolgungen",
+          "slides": [13],
+          "points": [
+            "49: erste lokale Verfolgung unter Claudius in Rom? (unsicher)",
+            "64: lokale Polizeiaktion gegen Christen unter Nero in Rom; Vorwurf der Brandstiftung",
+            "Domitian (81–96): Ausbau der kultischen Verehrung des Kaisers; lokale Maßnahmen gegen Christen in Rom und Kleinasien",
+            "112/113: Trajan an Plinius – Christen nicht aktiv aufspüren; bei Denunziation zum Kaiserkult nötigen",
+            "177: In Lyon kommen zur Zeit Mark Aurels 40 Christen um.",
+            "Decius (249–251): allgemeiner Opferbefehl für alle Bürger; zahlreiche Lapsi; Tausende sterben; Versuch einer ersten zentral gelenkten, systematischen Ausschaltung des Christentums",
+            "Valerian (253–260): Konfiszierung kirchlicher Besitztümer; bei Opferverweigerung zunehmend Todesstrafe",
+            "Diokletian (284–305): 299 erste Maßnahmen im Heer; ab 303 durch den Einfluss des Galerius Vorgehen ausschließlich gegen Christen"
+          ],
+          "supplement": "Nach dem Manuskript endete die reichsweite Verfolgung am 1. Mai 305 mit der Abdankung Diokletians und Maximians; im Osten wurde bis 313 weiter verfolgt. Ergänzung: 311 gewährte Galerius mit seinem Toleranzedikt Duldung; im Osten verfolgte Maximinus Daia bis 313."
+        },
+        {
+          "title": "Quellen, Zahlen und Begriffe",
+          "slides": [14, 15],
+          "points": [
+            "Quellen über Martyrien: Passionen und Märtyrerakten",
+            "Zahl der Märtyrer: traditionell 6000–7000; neuere Forschungsansätze etwa 1000 (Keith Hopkins)",
+            "Differenzierung: Märtyrer und confessores",
+            "Folie 15: Bescheinigung über ein heidnisches Opfer, Theadelphia (Fajum), 16.6.250 (Neues Museum Berlin, P 13430)"
+          ]
+        },
+        {
+          "title": "2.1 Die Anfänge des Christentums (Manuskript)",
+          "slides": [8],
+          "ref": {"material": "material.lecture_manuscript", "at": "S. 1"},
+          "points": [
+            "Ab wann man von „Christentum“ bzw. „Kirche“ reden kann, ist in der Forschung äußerst kontrovers; die Frage nach den Anfängen einer christlichen Identität ist keineswegs geklärt.",
+            "Wahrscheinlich führten innerjüdische Spannungen im Gefolge der Hinrichtung Jesu, des Erzmärtyrers Stephanos und des Zebedaiden Jakobus zum Bruch; die gegenseitige Ausschließung führte zu unversöhnlicher Feindschaft.",
+            "Der Ablösungsprozess verlief keineswegs schnell und heißt nicht, dass sich die neue Gruppe nicht mehr als jüdisch verstand.",
+            "Mit der Mission des Paulus traten neben die judenchristlichen Gemeinden solche aus vormaligen Heiden, in denen jüdische religiöse Regeln nicht mehr beachtet wurden; über deren Notwendigkeit stritt man auf dem „Apostelkonzil“.",
+            "Vom Beginn des 2. Jh. an wurde das Christentum zu einer eigenen Größe, einem „tertium genus“ neben Judentum und Heidentum. Einige Christen engagierten sich dagegen für eine Judaisierung bzw. Rejudaisierung, also die Rückkehr zu jüdischer religiöser Praxis."
+          ]
+        },
+        {
+          "title": "2.2 Voraussetzungen der Mission (Manuskript)",
+          "slides": [9],
+          "ref": {"material": "material.lecture_manuscript", "at": "S. 2"},
+          "points": [
+            "Verkehrssystem: auf den Straßen im Durchschnitt 40 km am Tag, Eilboten bis zu 200 km; per Schiff bei gutem Wetter in 10 Tagen von Rom nach Alexandria.",
+            "Grundsätzlich tolerante Religionspolitik, besonders gegenüber Religionen, die wie das Judentum auf einzelne Ethnien beschränkt blieben; das Christentum stieß recht schnell an die Grenzen dieser Toleranz.",
+            "Reichssprachen: Das Christentum verwendete zunächst weitgehend Griechisch; selbst in Rom wurde Latein erst ab ca. 240 Kirchensprache.",
+            "Gemeinsame Kultur und Gemeinschaftsgefühl, für die pax Romana zentral, ließen das Christentum zu einer reichsweiten Institution werden; die ethnische Herkunft war für die christliche Identität ohne Bedeutung."
+          ]
+        },
+        {
+          "title": "2.2 Durchführung der Mission (Manuskript)",
+          "slides": [9, 10],
+          "ref": {"material": "material.lecture_manuscript", "at": "S. 2–4"},
+          "points": [
+            "Paulus wurde „die Mission der Alten Kirche“ genannt (Karl Holl): Blick auf das ganze Reich, zuerst die Provinzhauptstädte an Reise- und Handelsrouten, seltener Landschaften wie Galatien, Asia, Lydia und Phrygia (Mäandertal). Bis ins 3. Jh. waren nach diesem Muster alle Provinzen erreicht; von den Hauptstädten aus folgte die Kleinarbeit auf dem Land.",
+            "Keine hauptberuflichen Missionare: „Apostel“ und „Evangelisten“ bis Mitte des 2. Jh. und Wandercharismatiker, aber keine Institution; auch im 4. Jh. kein Missionarsamt, möglicherweise ein Grund, warum weite Teile des Reiches noch im 6. Jh. nicht christlich waren.",
+            "Aus nachapostolischer Zeit ist keine Missionspredigt belegt; christliche Lehre war fast nur im Gemeindegottesdienst zu hören (am Wortgottesdienst konnten Ungetaufte teilnehmen). Die Predigten waren stark ethisch, kaum dogmatisch.",
+            "Die Apologetik verteidigte gegen den Vorwurf der Staatsschädlichkeit und vertrat die Wahrheit des Christentums; eindeutig missionarische Absichten sind nicht nachweisbar, und nur wenige konnten solche Literatur erwerben und lesen. Missionsschulen gab es nicht.",
+            "Eindruck machten Exorzisten und Charismatiker (Justin rühmt christliche Exorzisten), die öffentlichen Bekenntnisse in Märtyrerprozessen und die Neugier der Bevölkerung; die krisenhafte Kaiserzeit war für Erlösungsreligionen aufgeschlossen (E. R. Dodds).",
+            "Die Mission trat in die Fußstapfen der jüdischen: Diasporagemeinden als erste Anlaufstationen, die Septuaginta als Nährboden. Die Nähe schadete auch: Juden sahen im Christentum eine Irrlehre (Schriftbeweis), die heidnische Umgebung isolierte es als „Abspaltung von der Abspaltung“.",
+            "Entscheidend dürfte die „Propaganda der Tat“ (Karl Holl) jedes und besonders jeder einzelnen Christin gewesen sein: Praktizierte Gemeinschaft und Nächstenliebe machten jeden zum Missionar und ein Missionarsamt unnötig."
+          ]
+        },
+        {
+          "title": "Phasen der Mission im Einzelnen (Manuskript)",
+          "slides": [11],
+          "ref": {"material": "material.lecture_manuscript", "at": "S. 4–6"},
+          "points": [
+            "1. Jh.: gezielte Mission mit Programm (Paulus), aber nur vereinzelte Gemeinden. Um 30 Jerusalem, Galiläa, Judäa; um 35 Damaskus und Antiocheia; seit Mitte des 1. Jh. Antiochien als Zentrum, von dort Zypern; um 50 Gemeinden in Ephesos, Korinth und Rom. Paulus war vielerorts nicht der erste Missionar, selbst in Rom nicht.",
+            "Über die Anfänge in Alexandrien ist nichts bekannt; die Markus-Tradition ist erst im 4. Jh. belegt und in ihrer Historizität umstritten. Vermutlich gab es Missionen, an die die spätere Mehrheitskirche nicht erinnern wollte.",
+            "2. Jh.: größere Gemeinden, Gelegenheitsmission bis Nordafrika (bald eines der wichtigsten Zentren) und teils Gallien; Spanien entwickelte sich langsamer.",
+            "3. Jh.: strukturiertere Mission bis in die ländliche Peripherie; um 200 wohl Mission an der indischen Malabarküste; nach der Mitte des 3. Jh. Bistümer in Gallia, Belgica, Germania inferior und superior und Raetia, Gemeinden in Trier, Köln, Mainz und Augsburg.",
+            "Um 300 Armenien (angeblich schon 301 Staatsreligion), Georgien 337 (Missionarin Nino), Britannien an der Wende zum 4. Jh. (der Legende nach Alban um 209 in Verulamium).",
+            "4. Jh. (Konstantin): Massenkonversionen; das Christentum wird von einer Minderheit von etwa 10 % zur Mehrheit von etwa 80 %.",
+            "5. Jh.: Germanen außerhalb des Reiches; um 431 Irland (Palladius, Patrick), Ninian im Osten Schottlands. Außerdem Aksum (Äthiopien) um 350, Nubien und Sri Lanka um 500."
+          ]
+        },
+        {
+          "title": "Reichweite und Größe der Gemeinden (Manuskript)",
+          "slides": [11],
+          "ref": {"material": "material.lecture_manuscript", "at": "S. 6–7"},
+          "points": [
+            "Die der römischen Kultur fremde Religion war binnen einer Generation in bedeutenden Städten verbreitet und erreichte früh führende Persönlichkeiten: in Rom den Konsul des Jahres 95 Titus Flavius Clemens, im 2. Jh. den reichen freien Lehrer Markion. Das hängt mit der Akkulturationsfähigkeit zusammen.",
+            "Archäologische Funde und die Reisepraxis zeigen, dass gerade Beamte, Soldaten und Kaufleute zur Verbreitung beitrugen.",
+            "Für die Zeit um 300 nehmen Forscher etwa 5 bis 7,5 Millionen Christen an; die Zahlen sind nicht annähernd gesichert.",
+            "Sicherer sind Angaben über den Klerus: Die römische Gemeinde unterhielt 251 den Bischof, 46 Presbyter, 7 Diakone, 7 Subdiakone, 42 Akoluthen, 52 Exorzisten, Lektoren und Türwächter sowie 1500 Witwen und Bedürftige (Eus. h.e. VI 43,11). Im 3. Jh. hatte sie demnach mindestens 30.000–40.000 Mitglieder (so schon Louis Duchesne)."
+          ]
+        },
+        {
+          "title": "3. Martyrium und Martyriumstheologie (Manuskript)",
+          "slides": [12],
+          "ref": {"material": "material.lecture_manuscript", "at": "S. 7–8"},
+          "points": [
+            "Martyrion heißt ursprünglich „Zeugnis“: das Zeugnis für Christus bis zum Äußersten, das „Blutzeugnis“. Eine Übertragung des Begriffs auf jede Art von Leiden war in der frühen Christenheit nicht denkbar.",
+            "Grundlage sind die Aussendungsreden Jesu (Mt 10) mit ihrer unerbittlichen Verpflichtung zum Zeugnis vor der Welt; Mt 10,33: „Wer mich verleugnet, den will ich verleugnen vor meinem himmlischen Vater.“",
+            "Die Apokalypse ist ein erstes schriftliches Zeugnis über Märtyrer durch den römischen Staat. Sie behandelt die Verfolgung prophetisch-eschatologisch; Märtyrer ist nur, wer das Zeugnis bis zum Tod ablegt. Damit war eine für die folgenden Jahrhunderte bestimmende Martyriumstheologie grundgelegt.",
+            "Feste Überzeugung: Christus trägt das Zeugnis mit (Mt 10,19). Im Römerbrief des Ignatios (um 110) ist der Märtyrertod Durchgang zur Herrlichkeit Gottes.",
+            "„Märtyrer“ als terminus technicus um 140 in Kleinasien; erste Ansätze zur Märtyrerverehrung nach 160 (Polykarp von Smyrna).",
+            "Ab dem 3. Jh. deuteten Theologen die Verfolgungen als Prüfungen Gottes, weil Prunk und Luxus in die Kirche eingezogen seien; zugleich wurde die sündentilgende Kraft des Martyriums stärker betont."
+          ]
+        },
+        {
+          "title": "3.2 Konkrete Anlässe für Martyrien (Manuskript)",
+          "slides": [12],
+          "ref": {"material": "material.lecture_manuscript", "at": "S. 8–9"},
+          "points": [
+            "Volksunwille spielte eine große Rolle; er ist ein Grund dafür, dass die Verfolgungen des 2. und beginnenden 3. Jh. im Wesentlichen lokal blieben.",
+            "Anfangs übliche Vorwürfe gegen religiöse Minderheiten: kannibalistische Mahlzeiten; Gerüchte über das Abendmahl führten wohl zum Vorwurf des rituellen Kindermords.",
+            "Im 3. Jh. machte man die Christen für alle Katastrophen verantwortlich (Tertullian, Apologeticum 40,2: „… gleich schreit man: ‚Die Christen vor die Löwen!‘“).",
+            "Noch wichtiger: Ab dem 3. Jh. regelten kaiserliche Reskripte das polizeiliche Vorgehen strafrechtlich. Der Staat ließ religiöse Verschiedenheit nur zu, soweit sie die Loyalität gegenüber Kaiser und Reich nicht gefährdete, besonders beim Kaiserkult. Modern gesprochen ging es darum, wie viel Pluralität ein Staat verträgt; Martyrien dienten der Homogenisierung der Gesellschaft."
+          ]
+        },
+        {
+          "title": "3.3 Verfolgungen im 1. und 2. Jahrhundert (Manuskript)",
+          "slides": [13],
+          "ref": {"material": "material.lecture_manuscript", "at": "S. 9–10"},
+          "points": [
+            "Claudius (41–54): möglicherweise 49 eine erste lokale Maßnahme in Rom gegen Juden, die sich zu Christus bekannten. Sueton berichtet erst um 120, Claudius habe Juden vertrieben, die, von einem „Chrestus“ aufgehetzt, Unruhe stifteten; womöglich innerjüdische Unruhen um die Christusbotschaft.",
+            "Nero griff bei der Suche nach Schuldigen für den Brand Roms die Vorurteile gegen die Christen auf und verstärkte sie; nach Tacitus legte wohl Nero selbst den Brand. 64 nur eine lokale Polizeiaktion in Rom.",
+            "Domitian (81–96) verlangte, schon zu Lebzeiten als „unser Herr und Gott“ angeredet zu werden; bis dahin war die kultische Kaiserverehrung nicht verpflichtend. Die Apokalypse (an Gemeinden der Provinz Asia, Ephesos Apk 2,1–7) spiegelt wahrscheinlich diese Lage; die Maßnahmen blieben lokal, vor allem in Rom und Kleinasien.",
+            "Plinius und Trajan 112/113: Wie ist mit Christen umzugehen, die die Verehrung des Kaiserbildes verweigern? Trajans Entscheidung (nicht aktiv aufspüren, bei Denunziation zum Kaiserkult nötigen oder strafen) wurde wegweisend; eine planmäßige Verfolgung gab es zunächst nicht.",
+            "Mark Aurel (161–180), als Stoiker eher zur Toleranz geneigt, erließ sogar ein Gesetz gegen Denunziantentum; dennoch kamen 177 in Lyon über 40 Christen ums Leben. Kaiserliche Politik und Maßnahmen vor Ort stimmten also nicht immer überein."
+          ]
+        },
+        {
+          "title": "3.3 Reichsweite Verfolgungen im 3. und 4. Jahrhundert (Manuskript)",
+          "slides": [13],
+          "ref": {"material": "material.lecture_manuscript", "at": "S. 10–11"},
+          "points": [
+            "Decius (249–251): die stärkste, reichsweite, aber zeitlich kürzeste Bedrohung. Möglicher Hintergrund: Rückbesinnung auf altrömische Werte, starkes Krisenbewusstsein, Wunsch nach innerer Konsolidierung über den Kaiserkult. Eines der ersten Opfer war Bischof Fabian von Rom.",
+            "Zum ersten Jahrestag seines Regierungsantritts erließ Decius einen allgemeinen Opferbefehl: Erstmals mussten alle Bürger opfern und sich die Teilnahme von einer amtlichen Opferkommission bestätigen lassen, um die Götter gnädig zu stimmen und die religiöse Einheit zu stärken.",
+            "Unter den Christen entstand Unsicherheit, ob die Opferhandlung das Christsein aufgibt; es gab zahlreiche Lapsi, und gerade um solche Konversionen scheint es Decius gegangen zu sein. Nach Porphyrius starben Tausende; namentlich sind nur wenige Märtyrer bekannt.",
+            "Valerian (253–260): spezielle Gesetze; Konfiszierung von Gemeindekassen und Besitz reicher Christen, möglicherweise um die Staatskasse aufzufüllen; Todesstrafe besonders für Kleriker, um die Kirchenleitung auszuschalten. Danach fast 40 Jahre Frieden.",
+            "Diokletian (284–305): Rückbesinnung auf den Götterkult im Zuge seiner Reformen. Christliche Offiziere verweigerten am Jahresfest für den Kaiser die Riten; ab 299 erste Martyrien von Soldaten; Christen sollten aus Hof, Heer und Verwaltung entfernt werden, auffällig erst gut 15 Jahre nach dem Regierungsantritt.",
+            "Ab 303 Dekrete unter dem Einfluss des Galerius und seiner Mutter: Zerstörung der Gotteshäuser, Verbrennen der heiligen Schriften, Aberkennung von Ehrenrechten, Inhaftierung des Klerus, Opferbefehle erst für die inhaftierten Kleriker, dann für alle Christen.",
+            "Die reichsweite Verfolgung endete am 1. Mai 305 mit der Abdankung Diokletians und Maximians; im Osten wurde bis 313 weiter verfolgt. Anders als unter Decius wurden nur Christen und ihre Sympathisanten zum Opfer genötigt. Die Folgen waren verheerend: viele Bischöfe inhaftiert oder getötet, alle Kirchen zerstört."
+          ],
+          "supplement": "Belege nach dem Manuskript: Eus. h.e. VIII 1–17; Lactanz, De mortibus persecutorum 10–35. Das Toleranzedikt des Galerius (311) nennt das Manuskript nicht."
+        },
+        {
+          "title": "3.3–3.4 Quellen und Zahl der Märtyrer (Manuskript)",
+          "slides": [14],
+          "ref": {"material": "material.lecture_manuscript", "at": "S. 11–12"},
+          "points": [
+            "Märtyrerakten beschreiben nicht den Verlauf des Martyriums, sondern die Gerichtsverhandlung vor den römischen Behörden; solche Prozessprotokolle lieferten Christen Argumente zur Verteidigung ihres Glaubens. Passionen ermutigten, in der Verfolgung am Zeugnis für Christus festzuhalten.",
+            "Wie viele Christen umkamen, ist in der neueren Forschung stark umstritten. Eine altkirchliche Quelle nennt allein 4550 Namen; traditionelle Schätzungen gingen von mindestens 6000–7000 Märtyrern aus.",
+            "Die neuere Forschung nimmt an, dass die altkirchlichen Quellen stark übertreiben und fiktive Namen und Doppelungen bewusst in Kauf nehmen; heute geht man meist von etwa 1000 oder weniger Märtyrern aus (z. B. Keith Hopkins).",
+            "Seit dem 2. Jh. gab es die „Bekenner“ (confessores): Sie hatten sich vor den Behörden zu Christus bekannt, ohne zu Tode zu kommen. Im 2. Jh. waren sie so geachtet, dass sie ohne Ordination als Priester wirken konnten; im 3. Jh. waren es so viele, dass die Ordinationsregelung geändert werden musste."
+          ]
+        }
+      ],
+      "mentions": [
+        {"entry": "person.paul", "slides": [8, 9], "text": "Zur Zeit des Paulus treten neben juden-christliche Gemeinden solche aus vormaligen Heiden; Vorbild des Paulus: Blick aufs Ganze, Erfassen der Provinzen, Beginn in den Städten"},
+        {"entry": "term.jewish_christians", "slides": [8], "text": "neben juden-christliche Gemeinden treten solche aus vormaligen Heiden"},
+        {"entry": "term.gentile_christians", "slides": [8], "text": "Gemeinden, die sich aus vormaligen Heiden zusammensetzten"},
+        {"entry": "event.apostolic_council", "slides": [8], "text": "Konflikte zwischen juden-christlichen und heiden-christlichen Vertretern werden auf „Apostel-Konzil“ besprochen"},
+        {"entry": "term.tertium_genus", "slides": [8], "text": "Anfang 2. Jh.: Christentum als „tertium genus“"},
+        {"entry": "term.pax_romana", "slides": [9], "text": "Voraussetzung der Mission: „pax Romana“"},
+        {"entry": "term.apologetics", "slides": [9], "text": "Apologetische Texte dienten nur eingeschränkt der Mission"},
+        {"entry": "term.propaganda_of_deed", "slides": [10], "text": "Mission durch „Propaganda der Tat“ (Karl Holl): praktizierte Gemeinschaft; Nächstenliebe"},
+        {"entry": "person.karl_holl", "slides": [10], "text": "„Propaganda der Tat“ (Karl Holl)"},
+        {"entry": "event.mission_phase_1", "slides": [11], "text": "1. Jh. durch gezielte Missionsarbeit entstehen einzelne Gemeinden"},
+        {"entry": "event.mission_phase_2", "slides": [11], "text": "2. Jh. Anwachsen der Gemeinden/ Gelegenheitsmission auch in entlegeneren Teilen des Römischen Reiches"},
+        {"entry": "event.mission_phase_3", "slides": [11], "text": "3. Jh. strukturiertere Mission auch in der ländlichen Peripherie"},
+        {"entry": "event.mission_phase_4", "slides": [11], "text": "4. Jh. durch Massenkonversionen etwa 80% des Reiches christlich"},
+        {"entry": "event.mission_phase_5", "slides": [11], "text": "5. Jh. Christentum erreicht vermehrt außerhalb des Reiches siedelnde Völker"},
+        {"entry": "term.acculturation", "slides": [11], "text": "Grund für schnelle Ausbreitung über weite Gebiete und durch unterschiedliche Schichten: Akkulturationsfähigkeit"},
+        {"entry": "term.martyrdom", "slides": [12, 14], "text": "„Martyrium“ = Zeugnis (für Christus)"},
+        {"entry": "source.matthew10", "slides": [12], "text": "theol. Grundlage: Aussendungsreden Mt 10: Verpflichtung zum Zeugnis von Christus gegenüber der Welt"},
+        {"entry": "source.revelation", "slides": [12], "text": "Apk: Martyrium unumgängliche Folge des Zeugnisses von Jesus bis hin zum Tod"},
+        {"entry": "person.ignatius", "slides": [12], "text": "Ignatios von Antiocheia: Märtyrertod Durchgang zur Herrlichkeit Gottes"},
+        {"entry": "event.martys_term", "slides": [12], "text": "um 140 n.Chr.: „martys“ wird terminus technicus in Kleinasien"},
+        {"entry": "source.martyrium_polycarpi", "slides": [12], "text": "um 160 n.Chr.: Märtyrer-Verehrung im Martyrium Polycarpi"},
+        {"entry": "event.claudius_49", "slides": [13], "text": "49 n.Chr. erste lokale Verfolgung unter Claudius in Rom?"},
+        {"entry": "person.claudius", "slides": [13], "text": "49 n.Chr. erste lokale Verfolgung unter Claudius in Rom?"},
+        {"entry": "event.nero_64", "slides": [13], "text": "64 n.Chr. lokale Polizeiaktion gegen Christen unter Nero in Rom: Vorwurf Brandstiftung"},
+        {"entry": "person.nero", "slides": [13], "text": "64 n.Chr. lokale Polizeiaktion gegen Christen unter Nero in Rom"},
+        {"entry": "event.domitian", "slides": [13], "text": "Domitian (81-96): Ausbau der kultischen Verehrung des Kaisers - lokale Maßnahmen gegen Christen in Rom und Kleinasien"},
+        {"entry": "person.domitian", "slides": [13], "text": "Domitian (81-96): Ausbau der kultischen Verehrung des Kaisers"},
+        {"entry": "term.imperial_cult", "slides": [13], "text": "Ausbau der kultischen Verehrung des Kaisers; bei Denunziation zum Kaiserkult zu nötigen"},
+        {"entry": "event.trajan_pliny", "slides": [13], "text": "112/113 n.Chr.: Traian an Plinius: Christen nicht aktiv aufspüren; bei Denunziation zum Kaiserkult zu nötigen"},
+        {"entry": "person.trajan", "slides": [13], "text": "Traian an Plinius: Christen nicht aktiv aufspüren"},
+        {"entry": "person.pliny", "slides": [13], "text": "Traian an Plinius (112/113)"},
+        {"entry": "event.lyon_177", "slides": [13], "text": "177 n.Chr. in Lyon kommen zur Zeit Mark Aurels 40 Christen um"},
+        {"entry": "person.marcus_aurelius", "slides": [13], "text": "177 n.Chr. in Lyon kommen zur Zeit Mark Aurels 40 Christen um"},
+        {"entry": "event.decian_persecution", "slides": [13], "text": "Decius (249-251): allgemeiner Opferbefehl für alle Bürger im Reich - zahlreiche „Lapsi“; Tausende Christen sterben; Versuch einer ersten zentral gelenkten systematischen Ausschaltung des Christentums"},
+        {"entry": "person.decius", "slides": [13], "text": "Decius (249-251): allgemeiner Opferbefehl für alle Bürger im Reich"},
+        {"entry": "term.lapsi", "slides": [13], "text": "zahlreiche „Lapsi“"},
+        {"entry": "event.valerian_persecution", "slides": [13], "text": "Valerian (253-260): Konfiszierung kirchlicher Besitztümer - bei Opferverweigerung zunehmend Todesstrafe"},
+        {"entry": "person.valerian", "slides": [13], "text": "Valerian (253-260): Konfiszierung kirchlicher Besitztümer"},
+        {"entry": "event.diocletian_persecution", "slides": [13], "text": "Diokletian (284-305): 299 erste Maßnahmen im Heer; ab 303 durch den Einfluss des Galerius Vorgehen ausschließlich gegen Christen"},
+        {"entry": "person.diocletian", "slides": [13], "text": "Diokletian (284-305): 299 erste Maßnahmen im Heer"},
+        {"entry": "person.galerius", "slides": [13], "text": "ab 303 durch den Einfluss des Galerius Vorgehen ausschließlich gegen Christen"},
+        {"entry": "term.acts_of_martyrs", "slides": [14], "text": "Quellen über Martyrien: Passionen, Märtyrerakten"},
+        {"entry": "person.keith_hopkins", "slides": [14], "text": "Zahl der Märtyrer: neuere Forschungsansätze: etwa 1000 (Keith Hopkins)"},
+        {"entry": "term.confessores", "slides": [14], "text": "Differenzierung: Märtyrer – confessores"},
+        {"entry": "source.libellus_theadelphia", "slides": [15], "text": "Bescheinigung über ein Heidnisches Opfer, Theadelphia (Fajum), 16.6.250 n.Chr., Neues Museum Berlin, P 13430"},
+        {"entry": "term.libellus", "slides": [15], "text": "Bescheinigung über ein Heidnisches Opfer (Foto)"},
+        {
+          "entry": "event.diocletian_persecution",
+          "ref": {"material": "material.lecture_manuscript", "at": "S. 11"},
+          "text": "Manuskript: Die reichsweite Verfolgung endete am 1. Mai 305 mit der Abdankung Diokletians und Maximians; im Osten wurde bis 313 weiter verfolgt"
+        },
+        {
+          "entry": "event.decian_persecution",
+          "ref": {"material": "material.lecture_manuscript", "at": "S. 10"},
+          "text": "Manuskript: erstmals mussten alle Bürger opfern und sich das von einer Opferkommission bestätigen lassen; Ziel waren wohl Konversionen"
+        },
+        {
+          "entry": "event.lyon_177",
+          "ref": {"material": "material.lecture_manuscript", "at": "S. 10"},
+          "text": "Manuskript: über 40 Tote, obwohl Mark Aurel ein Gesetz gegen Denunziantentum erlassen hatte"
+        },
+        {
+          "entry": "term.martyrdom",
+          "ref": {"material": "material.lecture_manuscript", "at": "S. 7"},
+          "text": "Manuskript: „Blutzeugnis“; eine Übertragung auf jede Art von Leiden war in der frühen Christenheit nicht denkbar"
+        },
+        {
+          "entry": "term.confessores",
+          "ref": {"material": "material.lecture_manuscript", "at": "S. 12"},
+          "text": "Manuskript: im 2. Jh. so geachtet, dass sie ohne Ordination als Priester wirken konnten; im 3. Jh. wurde die Regelung geändert"
+        },
+        {
+          "entry": "term.apologetics",
+          "ref": {"material": "material.lecture_manuscript", "at": "S. 3"},
+          "text": "Manuskript: eindeutig missionarische Absichten sind nicht nachweisbar; nur wenige konnten solche Literatur erwerben und lesen"
+        },
+        {
+          "entry": "person.fabian",
+          "ref": {"material": "material.lecture_manuscript", "at": "S. 10"},
+          "text": "Eines der ersten konkreten Opfer der Maßnahmen des Decius"
+        },
+        {
+          "entry": "person.tertullian",
+          "ref": {"material": "material.lecture_manuscript", "at": "S. 8"},
+          "text": "Nordafrikanischer Apologet; Zeugnis dafür, dass man die Christen im 3. Jh. für alle Katastrophen verantwortlich machte"
+        },
+        {
+          "entry": "source.tertullian_apologeticum",
+          "ref": {"material": "material.lecture_manuscript", "at": "S. 8"},
+          "text": "Apologeticum 40,2: „Wenn der Tiber die Mauern überflutet … gleich schreit man: ‚Die Christen vor die Löwen!‘“"
+        },
+        {
+          "entry": "person.justin",
+          "ref": {"material": "material.lecture_manuscript", "at": "S. 4"},
+          "text": "Rühmte im 2. Jh. christliche Exorzisten, die auch Fälle heilten, an denen heidnische und jüdische gescheitert seien"
+        },
+        {
+          "entry": "person.marcion",
+          "ref": {"material": "material.lecture_manuscript", "at": "S. 6"},
+          "text": "Der bekannte und reiche freie Lehrer in Rom im 2. Jh. als Beispiel für früh erreichte führende Persönlichkeiten"
+        },
+        {
+          "entry": "person.titus_flavius_clemens",
+          "ref": {"material": "material.lecture_manuscript", "at": "S. 6"},
+          "text": "Der Konsul des Jahres 95 als Beispiel dafür, dass das Christentum in Rom schon im 1. Jh. führende Persönlichkeiten erreichte"
+        },
+        {
+          "entry": "person.e_r_dodds",
+          "ref": {"material": "material.lecture_manuscript", "at": "S. 4"},
+          "text": "Verweis für die Offenheit der krisenhaften Kaiserzeit gegenüber Erlösungsreligionen"
+        },
+        {
+          "entry": "event.armenia_christianization",
+          "ref": {"material": "material.lecture_manuscript", "at": "S. 6"},
+          "text": "Um 300 in großem Stil missioniert; angeblich 301 Staatsreligion"
+        },
+        {
+          "entry": "event.georgia_christianization",
+          "ref": {"material": "material.lecture_manuscript", "at": "S. 6"},
+          "text": "Christentum soll 337 Staatsreligion geworden sein; Missionarin war eine Frau namens Nino"
+        },
+        {
+          "entry": "event.aksum_christianization",
+          "ref": {"material": "material.lecture_manuscript", "at": "S. 6"},
+          "text": "Christianisierung des Königreiches Aksum (Äthiopien) um 350"
+        },
+        {
+          "entry": "event.ireland_mission",
+          "ref": {"material": "material.lecture_manuscript", "at": "S. 6"},
+          "text": "Um 431 setzt die Mission Irlands unter Palladius und Patrick ein"
+        },
+        {
+          "entry": "source.lactantius_mort_pers",
+          "ref": {"material": "material.lecture_manuscript", "at": "S. 11"},
+          "text": "Beleg zu Diokletians Maßnahmen: De mortibus persecutorum 10–35 (neben Eus. h.e. VIII 1–17)"
+        }
+      ],
+      "lists": [
+        {
+          "id": "list.mission_preconditions",
+          "title": "Voraussetzungen der Mission",
+          "prompt": "Nenne die sechs Voraussetzungen der Mission, die die Vorlesung aufzählt.",
+          "slides": [9],
+          "items": [
+            "römisches Verkehrssystem",
+            "tolerante Haltung des Reiches in Sachen Religion",
+            "„Reichssprachen“ Griechisch und Latein",
+            "gemeinsame Kultur im Reich",
+            "„pax Romana“",
+            "Universalitätsgedanke des Christentums"
+          ]
+        },
+        {
+          "id": "list.mission_phases",
+          "title": "Phasen der Mission",
+          "prompt": "Beschreibe die Phasen der Mission vom 1. bis zum 5. Jahrhundert.",
+          "slides": [11],
+          "ordered": true,
+          "items": [
+            "1. Jh.: einzelne Gemeinden durch gezielte Missionsarbeit",
+            "2. Jh.: Anwachsen, Gelegenheitsmission auch in entlegenen Teilen",
+            "3. Jh.: strukturiertere Mission in der ländlichen Peripherie",
+            "4. Jh.: Massenkonversionen, etwa 80 % des Reiches christlich",
+            "5. Jh.: Völker außerhalb des Reiches"
+          ]
+        },
+        {
+          "id": "list.martyrdom_causes",
+          "title": "Anlässe für Martyrien",
+          "prompt": "Nenne die drei Anlässe für Martyrien, die die Vorlesung unterscheidet.",
+          "slides": [12],
+          "items": [
+            "Volksunwille: Vorurteile gegenüber religiösen Minderheiten",
+            "3. Jh.: Christentum als Ursache für Krisen im Reich",
+            "staatliche Verfolgung wegen mangelnder Loyalität gegenüber Kaiser und Reich"
+          ]
+        },
+        {
+          "id": "list.persecutions",
+          "title": "Geschichtlicher Überblick der Verfolgungen",
+          "prompt": "Gib den geschichtlichen Überblick der Verfolgungen von Claudius bis Diokletian mit Jahreszahlen wieder.",
+          "slides": [13],
+          "ordered": true,
+          "items": [
+            "49: Claudius in Rom (?)",
+            "64: Nero in Rom, Vorwurf Brandstiftung",
+            "Domitian (81–96): Kaiserkult, lokale Maßnahmen",
+            "112/113: Trajan an Plinius",
+            "177: Lyon unter Mark Aurel",
+            "Decius (249–251): allgemeiner Opferbefehl, Lapsi",
+            "Valerian (253–260): Konfiszierung, Todesstrafe",
+            "Diokletian (284–305): 299 Heer, ab 303 nur gegen Christen"
+          ]
+        },
+        {
+          "id": "list.l02_ms_mission_without_office",
+          "title": "Wie das Christentum ohne Missionare missionierte",
+          "prompt": "Wodurch gewann das frühe Christentum nach dem Manuskript Anhänger, obwohl es keine Missionare, Missionspredigten und Missionsschulen gab?",
+          "ref": {"material": "material.lecture_manuscript", "at": "S. 3–4"},
+          "items": [
+            "Lehre im Gemeindegottesdienst, an dem auch Ungetaufte teilnehmen konnten",
+            "Wirkung des Glaubens auf das Leben: Ethik, Umgang mit Glaubensgeschwistern und Fremden",
+            "Exorzisten und Charismatiker, Heilungen",
+            "öffentliche Bekenntnisse in Märtyrerprozessen",
+            "Neugier der Bevölkerung und Offenheit für Erlösungsreligionen",
+            "jüdische Diasporagemeinden und Septuaginta",
+            "„Propaganda der Tat“ jedes einzelnen Christen und jeder einzelnen Christin"
+          ]
+        },
+        {
+          "id": "list.l02_ms_early_communities",
+          "title": "Erste Gemeinden im 1. Jahrhundert",
+          "ordered": true,
+          "prompt": "Wo entstanden nach dem Manuskript im 1. Jahrhundert die ersten Gemeinden, in zeitlicher Folge?",
+          "ref": {"material": "material.lecture_manuscript", "at": "S. 5"},
+          "items": [
+            "um 30: Jerusalem, Galiläa, Judäa",
+            "um 35: Damaskus und Antiocheia",
+            "seit Mitte 1. Jh.: Antiochien als Zentrum, von dort Zypern",
+            "um 50: Ephesos, Korinth und Rom"
+          ]
+        },
+        {
+          "id": "list.l02_ms_diocletian_edicts",
+          "title": "Die Dekrete ab 303",
+          "prompt": "Was ordneten die Dekrete gegen die Christen ab 303 nach dem Manuskript an?",
+          "ref": {"material": "material.lecture_manuscript", "at": "S. 11"},
+          "items": [
+            "Zerstörung christlicher Gotteshäuser",
+            "Verbrennen der heiligen Schriften",
+            "Aberkennung von Ehrenrechten",
+            "Inhaftierung des Klerus",
+            "Opferbefehle, erst für die inhaftierten Kleriker, dann für alle Christen"
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "q.l02.council",
+          "prompt": "Wo wurden nach der Vorlesung die Konflikte zwischen juden- und heidenchristlichen Vertretern besprochen?",
+          "answer": "Auf dem „Apostelkonzil“",
+          "distractors": ["Auf dem Konzil von Nizäa", "Auf der Synode von Karthago 251", "Auf dem Konzil von Chalcedon"],
+          "explanation": "Folie 8 nennt das „Apostelkonzil“ in Jerusalem (um 48/49). Nizäa (325), Karthago (251) und Chalcedon (451) liegen viel später.",
+          "slides": [8],
+          "entries": ["event.apostolic_council"]
+        },
+        {
+          "id": "q.l02.precondition",
+          "prompt": "Welche Voraussetzung der Mission nennt die Vorlesung?",
+          "answer": "Die „Reichssprachen“ Griechisch und Latein",
+          "distractors": ["Die staatliche Förderung des Christentums durch die Kaiser", "Ein Netz von Missionsschulen", "Professionelle, von den Gemeinden besoldete Missionare"],
+          "explanation": "Folie 9 nennt Verkehrssystem, religiöse Toleranz des Reiches, Reichssprachen, gemeinsame Kultur, pax Romana und den Universalitätsgedanken. Missionsschulen und professionelle Missionare gab es ausdrücklich nicht; kaiserliche Förderung beginnt erst im 4. Jh.",
+          "slides": [9]
+        },
+        {
+          "id": "q.l02.method",
+          "prompt": "Welche Aussage zur Missionsmethodik trifft nach der Vorlesung zu?",
+          "answer": "Mission geschah durch gewöhnliche Gemeindegottesdienste.",
+          "distractors": ["Es gab eine feste Gattung „Missionspredigt“.", "Apologetische Texte waren das wichtigste Missionsmittel.", "Die Mission begann gezielt auf dem Land."],
+          "explanation": "Nach Folie 9 gab es keine feste Gattung „Missionspredigt“, apologetische Texte dienten nur eingeschränkt der Mission, und nach dem Vorbild des Paulus begann die Mission in den Städten.",
+          "slides": [9]
+        },
+        {
+          "id": "q.l02.carriers",
+          "prompt": "Welche Trägergruppen der Mission hebt die Vorlesung besonders hervor?",
+          "answer": "Beamte, Soldaten und Kaufleute",
+          "distractors": ["Bischöfe, Mönche und Wanderprediger", "Philosophen, Rhetoren und Ärzte", "Priester, Leviten und Schriftgelehrte"],
+          "explanation": "Folie 11: „Trägergruppen der Mission: besonders Beamte, Soldaten und Kaufleute“ – Menschen, die beruflich im Reich unterwegs waren.",
+          "slides": [11]
+        },
+        {
+          "id": "q.l02.acculturation",
+          "prompt": "Womit erklärt die Vorlesung die schnelle Ausbreitung über weite Gebiete und durch unterschiedliche Schichten?",
+          "answer": "Mit der Akkulturationsfähigkeit des Christentums",
+          "distractors": ["Mit staatlichem Zwang zur Bekehrung", "Mit der strikten Abgrenzung von der antiken Kultur", "Mit einer zentral gesteuerten Missionsorganisation"],
+          "explanation": "Folie 11 nennt als Grund die Akkulturationsfähigkeit: Das Christentum konnte sich in verschiedene Kulturen und Milieus einfügen.",
+          "slides": [11],
+          "entries": ["term.acculturation"]
+        },
+        {
+          "id": "q.l02.share",
+          "prompt": "Welchen Anteil christlicher Bevölkerung nennt die Vorlesung für das Reich im 4. Jahrhundert?",
+          "answer": "etwa 80 %",
+          "distractors": ["etwa 5 %", "etwa 20 %", "nahezu 100 %"],
+          "explanation": "Folie 11: „4. Jh. durch Massenkonversionen etwa 80% des Reiches christlich“. Solche Zahlen sind grobe Schätzungen.",
+          "slides": [11],
+          "entries": ["event.mission_phase_4"]
+        },
+        {
+          "id": "q.l02.mt10",
+          "prompt": "Welche biblische Grundlage nennt die Vorlesung für das Verständnis des Martyriums?",
+          "answer": "Die Aussendungsrede Mt 10",
+          "distractors": ["Die Bergpredigt Mt 5–7", "Die Obrigkeitsparänese Röm 13", "Das Hohelied der Liebe 1 Kor 13"],
+          "explanation": "Folie 12: Theologische Grundlage ist die Aussendungsrede Mt 10 mit der Verpflichtung zum Zeugnis von Christus gegenüber der Welt.",
+          "slides": [12],
+          "entries": ["source.matthew10"]
+        },
+        {
+          "id": "q.l02.ignatius",
+          "prompt": "Wie deutete Ignatius von Antiochien nach der Vorlesung den Märtyrertod?",
+          "answer": "Als Durchgang zur Herrlichkeit Gottes",
+          "distractors": ["Als Strafe für die Sünden der Gemeinde", "Als Gefahr, der man sich durch Flucht entziehen soll", "Als politisches Zeichen gegen den Kaiser"],
+          "explanation": "Folie 12: „Ignatios von Antiocheia: Märtyrertod Durchgang zur Herrlichkeit Gottes“.",
+          "slides": [12],
+          "entries": ["person.ignatius"]
+        },
+        {
+          "id": "q.l02.third_century",
+          "prompt": "Wie wurden Verfolgungen nach der Vorlesung im 3. Jahrhundert theologisch gedeutet?",
+          "answer": "Als Prüfungen durch Gott",
+          "distractors": ["Als Zeichen des unmittelbar bevorstehenden Weltendes", "Als gerechte Strafe des Staates", "Als bedeutungslose Zufälle"],
+          "explanation": "Folie 12: „3. Jh.: Verfolgungen als Prüfungen durch Gott“.",
+          "slides": [12]
+        },
+        {
+          "id": "q.l02.trajan",
+          "prompt": "Was legte Trajan in seiner Antwort an Plinius fest?",
+          "answer": "Christen nicht aktiv aufspüren; bei Anzeige zum Kaiserkult nötigen",
+          "distractors": ["Christen im ganzen Reich systematisch aufspüren", "Christen grundsätzlich straffrei lassen", "Kirchliche Besitztümer konfiszieren"],
+          "explanation": "Folie 13 (112/113). Die Konfiszierung kirchlicher Besitztümer gehört zu Valerian, die systematische Verfolgung erst zu Decius und Diokletian.",
+          "slides": [13],
+          "entries": ["event.trajan_pliny"]
+        },
+        {
+          "id": "q.l02.decius",
+          "prompt": "Unter welchem Kaiser sieht die Vorlesung den Versuch einer ersten zentral gelenkten systematischen Ausschaltung des Christentums?",
+          "answer": "Decius",
+          "distractors": ["Nero", "Domitian", "Trajan"],
+          "explanation": "Folie 13: Decius (249–251) erließ einen allgemeinen Opferbefehl für alle Bürger im Reich. Unter Nero und Domitian gab es nur lokale Maßnahmen, Trajan untersagte die aktive Fahndung.",
+          "slides": [13],
+          "entries": ["event.decian_persecution"]
+        },
+        {
+          "id": "q.l02.valerian",
+          "prompt": "Was kennzeichnet nach der Vorlesung die Maßnahmen unter Valerian?",
+          "answer": "Konfiszierung kirchlicher Besitztümer und zunehmend Todesstrafe bei Opferverweigerung",
+          "distractors": ["Erste Maßnahmen gegen Christen im Heer", "Lokale Polizeiaktion wegen angeblicher Brandstiftung", "Duldung des Christentums gegen Gebet für den Kaiser"],
+          "explanation": "Folie 13: Valerian (253–260). Maßnahmen im Heer gehören zu Diokletian (299), die Polizeiaktion zu Nero (64), die Duldung zum Edikt des Galerius (311).",
+          "slides": [13],
+          "entries": ["event.valerian_persecution"]
+        },
+        {
+          "id": "q.l02.numbers",
+          "prompt": "Wie viele Märtyrer nehmen neuere Forschungsansätze nach der Vorlesung an?",
+          "answer": "etwa 1000",
+          "distractors": ["6000–7000", "etwa 100.000", "etwa 50"],
+          "explanation": "Folie 14: Traditionell werden 6000–7000 angegeben, neuere Forschungsansätze (Keith Hopkins) nehmen etwa 1000 an.",
+          "slides": [14],
+          "entries": ["person.keith_hopkins"]
+        },
+        {
+          "id": "q.l02.sources",
+          "prompt": "Welche Quellengattungen über Martyrien nennt die Vorlesung?",
+          "answer": "Passionen und Märtyrerakten",
+          "distractors": ["Konzilsbeschlüsse und Papstbriefe", "Kaiserbiographien und Inschriften", "Predigten und Hymnen"],
+          "explanation": "Folie 14: Quellen über Martyrien sind Passionen und Märtyrerakten.",
+          "slides": [14],
+          "entries": ["term.acts_of_martyrs"]
+        },
+        {
+          "id": "q.l02.papyrus",
+          "prompt": "Was zeigt der Papyrus aus Theadelphia (P 13430) auf Folie 15?",
+          "answer": "Eine Bescheinigung über ein heidnisches Opfer vom 16.6.250",
+          "distractors": ["Eine Abschrift von Mt 10", "Ein Todesurteil gegen Polykarp", "Den Brief Trajans an Plinius"],
+          "explanation": "Das Dokument bescheinigt ein Opfer im Rahmen des Opferbefehls des Decius.",
+          "slides": [15],
+          "entries": ["source.libellus_theadelphia"]
+        },
+        {
+          "id": "q.l02.ms_beginnings",
+          "prompt": "Wodurch kam es nach dem Manuskript wahrscheinlich zum Bruch zwischen den zunächst innerjüdischen Gruppierungen?",
+          "answer": "Durch innerjüdische Spannungen nach der Hinrichtung Jesu, des Stephanos und des Zebedaiden Jakobus",
+          "distractors": [
+            "Durch das Verbot der Synagogen unter Claudius",
+            "Durch die Zerstörung des Tempels im Jahr 70",
+            "Durch die Taufe des Hauptmanns Kornelius"
+          ],
+          "explanation": "Das Manuskript betont, dass die Frage nach den Anfängen christlicher Identität nicht geklärt und in der Forschung äußerst kontrovers ist. Der Ablösungsprozess verlief langsam; die neue Gruppe verstand sich weiterhin als jüdisch.",
+          "ref": {"material": "material.lecture_manuscript", "at": "S. 1"},
+          "entries": ["term.jewish_christians", "term.tertium_genus"]
+        },
+        {
+          "id": "q.l02.ms_latin",
+          "prompt": "Seit wann war nach dem Manuskript selbst in Rom Latein die Kirchensprache?",
+          "answer": "Erst ab ca. 240",
+          "distractors": [
+            "Schon seit Paulus' Brief an die Römer",
+            "Seit der Neronischen Verfolgung 64",
+            "Erst nach dem Konzil von Chalcedon 451"
+          ],
+          "explanation": "Das Christentum verwendete zunächst weitgehend Griechisch, eine der beiden Reichssprachen.",
+          "ref": {"material": "material.lecture_manuscript", "at": "S. 2"},
+          "entries": ["term.pax_romana"]
+        },
+        {
+          "id": "q.l02.ms_apologetics",
+          "prompt": "Warum sieht das Manuskript in der apologetischen Literatur kein Missionsmittel?",
+          "answer": "Eindeutig missionarische Absichten sind nicht nachweisbar, und nur wenige konnten sie erwerben und lesen",
+          "distractors": [
+            "Sie richtete sich ausschließlich an Juden",
+            "Sie wurde nur im Gottesdienst vorgelesen",
+            "Sie war vom Kaiser verboten"
+          ],
+          "explanation": "Die Apologetik verteidigte das Christentum gegen den Vorwurf der Staatsschädlichkeit und vertrat seine Wahrheit; Missionsschulen gab es in der Antike nicht.",
+          "ref": {"material": "material.lecture_manuscript", "at": "S. 3"},
+          "entries": ["term.apologetics"]
+        },
+        {
+          "id": "q.l02.ms_propaganda",
+          "prompt": "Warum war nach dem Manuskript ein eigenes Missionarsamt unnötig?",
+          "answer": "Durch die „Propaganda der Tat“ wurde jeder und jede Einzelne zum Missionar",
+          "distractors": [
+            "Weil die Bischöfe die Mission selbst übernahmen",
+            "Weil der Staat die Mission organisierte",
+            "Weil Wandercharismatiker die Mission ausschließlich trugen"
+          ],
+          "explanation": "Karl Holl: Praktizierte Gemeinschaft und Nächstenliebe machten gewaltigen Eindruck; das Manuskript hebt dabei besonders die Christinnen hervor.",
+          "ref": {"material": "material.lecture_manuscript", "at": "S. 4"},
+          "entries": ["term.propaganda_of_deed", "person.karl_holl"]
+        },
+        {
+          "id": "q.l02.ms_jewish_bond",
+          "prompt": "Wie wirkte sich die enge Verbindung mit dem Judentum nach dem Manuskript auch negativ aus?",
+          "answer": "Juden hielten das Christentum für eine Irrlehre, Heiden isolierten es als „Abspaltung von der Abspaltung“",
+          "distractors": [
+            "Christen mussten die jüdische Tempelsteuer zahlen",
+            "Christen durften die Septuaginta nicht benutzen",
+            "Christen waren vom Militärdienst ausgeschlossen"
+          ],
+          "explanation": "Positiv waren die Diasporagemeinden als erste Anlaufstationen und die Septuaginta; ohne sie ist die Missionspraxis des Paulus nicht zu denken.",
+          "ref": {"material": "material.lecture_manuscript", "at": "S. 4"},
+          "entries": ["term.jewish_christians"]
+        },
+        {
+          "id": "q.l02.ms_alexandria",
+          "prompt": "Was sagt das Manuskript über die Anfänge des Christentums in Alexandrien?",
+          "answer": "Nichts ist bekannt; die Markus-Tradition ist erst im 4. Jh. belegt",
+          "distractors": [
+            "Paulus gründete dort um 50 die erste Gemeinde",
+            "Petrus missionierte dort nach dem Apostelkonzil",
+            "Dort entstand um 35 die erste Gemeinde außerhalb Palästinas"
+          ],
+          "explanation": "Vermutlich gab es im 1. Jh. Missionen, an die die spätere Mehrheitskirche nicht mehr erinnern wollte; die Historizität der Markus-Tradition ist zumindest umstritten.",
+          "ref": {"material": "material.lecture_manuscript", "at": "S. 5"},
+          "entries": ["event.mission_phase_1"]
+        },
+        {
+          "id": "q.l02.ms_rome_251",
+          "prompt": "Was erlauben die Angaben über den Klerus der römischen Gemeinde von 251 nach dem Manuskript?",
+          "answer": "Einen Rückschluss auf mindestens 30.000–40.000 Gemeindeglieder im 3. Jh.",
+          "distractors": [
+            "Eine sichere Zahl aller Christen im Reich",
+            "Die genaue Zahl der Märtyrer unter Decius",
+            "Die Datierung der ersten Gemeinde in Rom"
+          ],
+          "explanation": "Die Gemeinde unterhielt den Bischof, 46 Presbyter, 7 Diakone, 7 Subdiakone, 42 Akoluthen, 52 Exorzisten, Lektoren und Türwächter sowie 1500 Witwen und Bedürftige (Eus. h.e. VI 43,11). Reichsweite Zahlen (um 300 etwa 5–7,5 Millionen) sind dagegen nicht annähernd gesichert.",
+          "ref": {"material": "material.lecture_manuscript", "at": "S. 6–7"},
+          "entries": ["source.eusebius_hist_eccl"]
+        },
+        {
+          "id": "q.l02.ms_martyrdom_scope",
+          "prompt": "Was war nach dem Manuskript in der frühen Christenheit nicht denkbar?",
+          "answer": "Den Begriff Martyrium vom Zeugnis für Christus zu lösen und auf jedes Leiden zu übertragen",
+          "distractors": [
+            "Märtyrer schon vor ihrem Tod zu ehren",
+            "Das Martyrium biblisch zu begründen",
+            "Bekenner von Märtyrern zu unterscheiden"
+          ],
+          "explanation": "Martyrion heißt „Zeugnis“; nur durch diesen Zeugnischarakter hatte das Martyrium Sinn. Das Zeugnis bis zum Äußersten ist das „Blutzeugnis“.",
+          "ref": {"material": "material.lecture_manuscript", "at": "S. 7"},
+          "entries": ["term.martyrdom"]
+        },
+        {
+          "id": "q.l02.ms_revelation",
+          "prompt": "Welche Rolle spielt die Apokalypse des Johannes nach dem Manuskript für die Martyriumstheologie?",
+          "answer": "Märtyrer ist nur, wer das Zeugnis von Jesus bis zum Tod ablegt; damit war sie für Jahrhunderte grundgelegt",
+          "distractors": [
+            "Sie lehnt das Martyrium als Selbstmord ab",
+            "Sie fordert Christen zur Flucht vor Verfolgung auf",
+            "Sie erklärt die Verfolgungen als Strafe für Luxus in der Kirche"
+          ],
+          "explanation": "Die Apokalypse behandelt die Verfolgung prophetisch-eschatologisch: Verfolgung ist unumgängliche Folge des Zeugnisses, weil es die Götzen in den Staub wirft. Die Deutung als Prüfung wegen Prunk und Luxus kommt erst im 3. Jh. auf.",
+          "ref": {"material": "material.lecture_manuscript", "at": "S. 7"},
+          "entries": ["source.revelation", "term.martyrdom"]
+        },
+        {
+          "id": "q.l02.ms_testing",
+          "prompt": "Warum deuteten Theologen ab dem 3. Jh. die Verfolgungen nach dem Manuskript als Prüfungen Gottes?",
+          "answer": "Weil Prunk und Luxus in die Kirche eingezogen seien und Gott die Ernsthaftigkeit des Glaubens prüfen wolle",
+          "distractors": [
+            "Weil die Kaiser sich selbst als Götter verehren ließen",
+            "Weil die Apokalypse das Ende der Welt für 300 ankündigte",
+            "Weil die Lapsi die Kirche gespalten hatten"
+          ],
+          "explanation": "Zugleich wurde die sündentilgende Kraft des Martyriums immer stärker betont.",
+          "ref": {"material": "material.lecture_manuscript", "at": "S. 8"},
+          "entries": ["term.martyrdom"]
+        },
+        {
+          "id": "q.l02.ms_accusations",
+          "prompt": "Welche Vorwürfe gegen Christen nennt das Manuskript für die Anfangszeit?",
+          "answer": "Kannibalistische Mahlzeiten und rituellen Kindermord, wohl aus Gerüchten über das Abendmahl",
+          "distractors": [
+            "Steuerhinterziehung und Wucher",
+            "Hochverrat durch Bündnisse mit den Persern",
+            "Zauberei durch magische Papyri"
+          ],
+          "explanation": "Das waren übliche Vorurteile gegenüber religiösen Minderheiten. Im 3. Jh. spitzte sich das zu: Man machte die Christen für alle Katastrophen verantwortlich (Tertullian, Apol. 40,2).",
+          "ref": {"material": "material.lecture_manuscript", "at": "S. 8"},
+          "entries": ["person.tertullian"]
+        },
+        {
+          "id": "q.l02.ms_plurality",
+          "prompt": "Worum ging es nach dem Manuskript bei den staatlichen Christenverfolgungen, modern gesprochen?",
+          "answer": "Um die Frage, wie viel Pluralität ein Staat verträgt, ohne seine Einheit zu verlieren",
+          "distractors": [
+            "Um die Durchsetzung einer Staatskirche",
+            "Um den Schutz der jüdischen Religion",
+            "Um die Abschaffung der Sklaverei"
+          ],
+          "explanation": "Der Staat ließ religiöse Verschiedenheit nur zu, soweit sie die Loyalität gegenüber Kaiser und Reich, besonders im Kaiserkult, nicht gefährdete. Ab dem 3. Jh. regelten kaiserliche Reskripte das Vorgehen strafrechtlich; Martyrien dienten der Homogenisierung der Gesellschaft.",
+          "ref": {"material": "material.lecture_manuscript", "at": "S. 8–9"},
+          "entries": ["term.imperial_cult"]
+        },
+        {
+          "id": "q.l02.ms_domitian",
+          "prompt": "Was war nach dem Manuskript unter Domitian neu?",
+          "answer": "Er verlangte, schon zu Lebzeiten als „unser Herr und Gott“ angeredet zu werden",
+          "distractors": [
+            "Er erließ einen allgemeinen Opferbefehl für alle Bürger",
+            "Er ließ die Kirchen zerstören und die Schriften verbrennen",
+            "Er verbot die Anzeige von Christen ohne Namen"
+          ],
+          "explanation": "Bis dahin war die kultische Verehrung des Kaisers als Epiphanie der Gottheit nicht verpflichtend. Die Apokalypse spiegelt wahrscheinlich diese Lage; die Maßnahmen blieben lokal (Rom, Kleinasien).",
+          "ref": {"material": "material.lecture_manuscript", "at": "S. 9"},
+          "entries": ["person.domitian", "event.domitian", "term.imperial_cult"]
+        },
+        {
+          "id": "q.l02.ms_nero",
+          "prompt": "Wer legte nach Tacitus wohl den Brand Roms, wie das Manuskript referiert?",
+          "answer": "Nero selbst",
+          "distractors": ["Die Christen", "Juden aus Trastevere", "Prätorianer im Auftrag des Senats"],
+          "explanation": "Nero griff bei der Suche nach Schuldigen die Vorurteile gegen die Christen auf und verstärkte sie. Das Manuskript betont: 64 war nur eine lokale Polizeiaktion in Rom (Tacitus, Annalen XV 44).",
+          "ref": {"material": "material.lecture_manuscript", "at": "S. 9"},
+          "entries": ["event.nero_64", "source.tacitus_annals"]
+        },
+        {
+          "id": "q.l02.ms_lyon",
+          "prompt": "Was zeigt die Verfolgung von Lyon 177 nach dem Manuskript?",
+          "answer": "Dass kaiserliche Politik und Maßnahmen vor Ort nicht immer übereinstimmten",
+          "distractors": [
+            "Dass Mark Aurel die Christen reichsweit verfolgen ließ",
+            "Dass die Christen in Gallien besonders zahlreich waren",
+            "Dass Trajans Regelung aufgehoben worden war"
+          ],
+          "explanation": "Mark Aurel neigte als Stoiker eher zur Toleranz und erließ sogar ein Gesetz gegen Denunziantentum; dennoch kamen in Lyon über 40 Christen um.",
+          "ref": {"material": "material.lecture_manuscript", "at": "S. 10"},
+          "entries": ["event.lyon_177", "person.marcus_aurelius"]
+        },
+        {
+          "id": "q.l02.ms_decius_aim",
+          "prompt": "Worum scheint es Decius mit dem allgemeinen Opferbefehl nach dem Manuskript vor allem gegangen zu sein?",
+          "answer": "Um Konversionen: Christen sollten durch das Opfer ihren Glauben aufgeben",
+          "distractors": [
+            "Um die Hinrichtung möglichst vieler Christen",
+            "Um die Konfiszierung kirchlicher Kassen",
+            "Um die Entfernung der Christen aus dem Heer"
+          ],
+          "explanation": "Erstmals mussten alle Bürger opfern und sich das von einer Opferkommission bestätigen lassen, um die Götter gnädig zu stimmen und die religiöse Einheit zu stärken. Es gab zahlreiche Lapsi; nach Porphyrius starben aber auch Tausende. Die Konfiszierung gehört zu Valerian, das Heer zu Diokletian.",
+          "ref": {"material": "material.lecture_manuscript", "at": "S. 10"},
+          "entries": ["event.decian_persecution", "term.lapsi"]
+        },
+        {
+          "id": "q.l02.ms_valerian",
+          "prompt": "Warum zielte Valerian nach dem Manuskript besonders auf Kleriker?",
+          "answer": "Um die Kirchenleitung auszuschalten",
+          "distractors": [
+            "Weil nur Kleriker den Kaiserkult verweigerten",
+            "Weil Kleriker die Gemeindekassen nach Persien brachten",
+            "Weil das Heer von Klerikern unterwandert war"
+          ],
+          "explanation": "Als Motiv der Konfiszierungen erwägt das Manuskript, dass Valerian in wirtschaftlicher Not die Staatskasse auffüllen wollte; andere plausible Gründe seien bisher nicht erhoben worden. Danach hatten die Christen fast 40 Jahre Frieden.",
+          "ref": {"material": "material.lecture_manuscript", "at": "S. 10–11"},
+          "entries": ["event.valerian_persecution", "person.valerian"]
+        },
+        {
+          "id": "q.l02.ms_diocletian_decius",
+          "prompt": "Worin unterschied sich die Verfolgung unter Diokletian nach dem Manuskript von der unter Decius?",
+          "answer": "Unter Diokletian wurden ausschließlich Christen und ihre Sympathisanten zum Opfer genötigt",
+          "distractors": [
+            "Unter Diokletian blieb die Verfolgung auf Rom beschränkt",
+            "Unter Diokletian wurde niemand getötet",
+            "Unter Diokletian gab es keine Opferbefehle"
+          ],
+          "explanation": "Decius' Opferbefehl galt allen Bürgern. Unter Diokletian folgten auf Maßnahmen im Heer (ab 299) ab 303 Dekrete gegen Kirchen, Schriften und Klerus.",
+          "ref": {"material": "material.lecture_manuscript", "at": "S. 11"},
+          "entries": ["event.diocletian_persecution", "event.decian_persecution"]
+        },
+        {
+          "id": "q.l02.ms_end_305",
+          "prompt": "Wann endete die reichsweite Verfolgung nach dem Manuskript?",
+          "answer": "Am 1. Mai 305, dem Tag der Abdankung Diokletians und Maximians",
+          "distractors": [
+            "Mit dem Tod des Decius 251",
+            "Mit dem Tod Valerians 260",
+            "Mit dem Regierungsantritt Diokletians 284"
+          ],
+          "explanation": "Im Osten des Reiches, wo die Christen besonders zahlreich waren, wurde noch bis 313 verfolgt.",
+          "ref": {"material": "material.lecture_manuscript", "at": "S. 11"},
+          "entries": ["event.diocletian_persecution", "person.diocletian"]
+        },
+        {
+          "id": "q.l02.ms_acts",
+          "prompt": "Was beschreiben Märtyrerakten nach dem Manuskript, anders als Passionen?",
+          "answer": "Die Gerichtsverhandlung vor den römischen Behörden, nicht den Verlauf des Martyriums",
+          "distractors": [
+            "Die Wunder an den Gräbern der Märtyrer",
+            "Die Lebensgeschichte der Märtyrer von der Geburt an",
+            "Die Liturgie der Märtyrerfeste"
+          ],
+          "explanation": "Solche Prozessprotokolle lieferten Christen Argumente zur Verteidigung ihres Glaubens; die Passionen ermutigten, in der Verfolgung am Zeugnis festzuhalten.",
+          "ref": {"material": "material.lecture_manuscript", "at": "S. 11–12"},
+          "entries": ["term.acts_of_martyrs"]
+        },
+        {
+          "id": "q.l02.ms_numbers",
+          "prompt": "Warum nimmt die neuere Forschung nach dem Manuskript deutlich weniger Märtyrer an als die Tradition?",
+          "answer": "Die altkirchlichen Quellen übertreiben stark und nehmen fiktive Namen und Doppelungen in Kauf",
+          "distractors": [
+            "Weil neue Papyri die Zahl der Hinrichtungen genau belegen",
+            "Weil die Verfolgungen nur in Rom stattfanden",
+            "Weil Märtyrer nur Kleriker sein konnten"
+          ],
+          "explanation": "Eine altkirchliche Quelle nennt allein 4550 Namen; traditionell rechnete man mit mindestens 6000–7000, heute meist mit etwa 1000 oder weniger (z. B. Keith Hopkins).",
+          "ref": {"material": "material.lecture_manuscript", "at": "S. 12"},
+          "entries": ["person.keith_hopkins"]
+        },
+        {
+          "id": "q.l02.ms_confessores",
+          "prompt": "Welches Vorrecht hatten Bekenner (confessores) im 2. Jh. nach dem Manuskript?",
+          "answer": "Sie konnten ohne Ordination als Priester wirken",
+          "distractors": [
+            "Sie durften den Bischof von Rom wählen",
+            "Sie waren von allen Steuern befreit",
+            "Sie durften Lapsi ohne Buße wieder aufnehmen"
+          ],
+          "explanation": "Im 3. Jh. gab es so viele Bekenner, dass die Ordinationsregelung geändert werden musste. Ihre Zahl ist nicht mehr zu erschließen.",
+          "ref": {"material": "material.lecture_manuscript", "at": "S. 12"},
+          "entries": ["term.confessores"]
+        }
+      ]
+    }
+  ]
+}

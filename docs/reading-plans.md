@@ -106,10 +106,10 @@ python tool/reading_plans/build_plans.py
 
 Ein Plan zu einer Lehrveranstaltung richtet sich nicht nach fortlaufenden
 Plantagen, sondern nach Sitzungsterminen: Bis zu jeder Sitzung sind ihre
-Texte gelesen. Sie gehören zu den geschützten Vorlesungsunterlagen (lokal
-`lecture_materials/reading_plans/`, siehe [lecture-materials.md](lecture-materials.md))
-und erscheinen nur für freigeschaltete Konten; `index.json` → `coursePlans`
-bleibt leer. Gelesen werden sie von
+Texte gelesen. Die Dateien liegen ebenfalls unter `assets/reading_plans/`
+und stehen in `index.json` unter `coursePlans`; ihr Dateiname beginnt mit
+`course-`. Angezeigt werden sie nur freigeschalteten Konten (siehe [lecture-materials.md](lecture-materials.md));
+gelesen werden sie von
 `CourseReadingPlan.fromJson` (`lib/models/bible/course_reading_plan.dart`),
 geplant von `CourseSchedule` (`lib/services/bible/course_reading_schedule.dart`).
 

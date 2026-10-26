@@ -1,18 +1,16 @@
 # Kirchengeschichte
 
 Lernbereich zur Vorlesung „Geschichte des Christentums im Überblick I“
-und zum Proseminar „Einführung in die
+(Prof. Dr. A. Müller) und zum Proseminar „Einführung in die
 Kirchengeschichte: Cassian und das Menschwerden Gottes“ (Wintersemester
 2026/27). Erreichbar über die Startseite („Kirchengeschichte“) und den Deep
-Link `/church-history` – nur für freigeschaltete Konten: Alle Inhalte sind
-geschützte Vorlesungsunterlagen, siehe [lecture-materials.md](lecture-materials.md).
+Link `/church-history` – sichtbar nur für freigeschaltete Konten, siehe
+[lecture-materials.md](lecture-materials.md).
 
 ## Inhalte
 
-Alle Inhalte liegen als JSON unter `church_history/` in den geschützten
-Vorlesungsunterlagen (lokal `lecture_materials/church_history/`, nicht im
-Repository; in der App unter dem Pfad `assets/church_history/`), getrennt
-vom Lernstand des Nutzers:
+Alle Inhalte liegen als JSON in `assets/church_history/`, getrennt vom
+Lernstand des Nutzers:
 
 | Datei | Inhalt |
 |---|---|
@@ -98,17 +96,14 @@ da ist, verweisen mit `theme` auf das Thema der App.
 
 ### Neue Vorlesung ergänzen
 
-1. Folien als Bilder unter `lecture_materials/church_history/slides/`
-   ablegen (fortlaufend nummeriert; Bildpfad in den Daten bleibt
-   `assets/church_history/slides/…`).
+1. Folien als Bilder unter `assets/church_history/slides/` ablegen
+   (fortlaufend nummeriert).
 2. In `lectures.json` eine Vorlesung `lecture.NN` mit Folien,
    Zusammenfassung, Erwähnungen, Merklisten und Fragen anlegen und in der
    Gliederung (`course.outline`) die behandelten Themen verknüpfen.
 3. Neue Personen, Ereignisse, Begriffe und Quellen in `entries.json`
    ergänzen; vorhandene Einträge nur verknüpfen, nicht doppeln.
 4. `flutter test test/church_history` ausführen.
-5. Unterlagen hochladen (`tool/lecture_materials`, siehe
-   [lecture-materials.md](lecture-materials.md)).
 
 Code muss dafür nicht geändert werden.
 

@@ -103,10 +103,15 @@ flutter:
       - assets/greek_corpus/nt/
       - assets/greek_corpus/lxx/
       - assets/latin_vocabulary.json
-      # Kirchengeschichte und Altes Testament (mit der Übung Bibelkunde) sowie
-      # der Leseplan zur Übung sind geschützte Vorlesungsunterlagen: nicht im
-      # Bundle, sondern freigabepflichtig in Firestore (lecture_materials,
-      # siehe docs/lecture-materials.md).
+      # Kirchengeschichte: Epochen, Themen, Einträge, Vorlesungen und
+      # Folienbilder (siehe docs/church-history.md).
+      - assets/church_history/
+      - assets/church_history/slides/
+      # Altes Testament: Veranstaltung, Fachbegriffe, Einheiten und
+      # Folienbilder (siehe docs/old-testament.md).
+      - assets/old_testament/
+      - assets/old_testament/units/
+      - assets/old_testament/slides/
       - assets/eg_lieder.json
       # Gesangbücher und Liedsammlungen: Katalog und Lieder der Regionalteile
       # und Ergänzungshefte (siehe docs/hymnals.md).

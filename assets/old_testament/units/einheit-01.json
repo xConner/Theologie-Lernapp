@@ -1,0 +1,1380 @@
+{
+  "id": "unit.01",
+  "number": 1,
+  "title": "Grundlagen: Der alttestamentliche Kanon und die Geschichte Israels",
+  "scope": "Einheit I der Vorlesung, 21 Folien",
+  "file": "Berner_EinfuehrungAT_01 Kanon_Geschichte Israels.pdf",
+  "slides": [
+    {
+      "number": 1,
+      "title": "Titelfolie",
+      "image": "assets/old_testament/slides/e01-folie-01.png",
+      "text": "Prof. Dr. Christoph Berner\n\nEinführung in das Alte Testament\n\nI. Grundlagen:\nDer alttestamentliche Kanon und die Geschichte Israels"
+    },
+    {
+      "number": 2,
+      "title": "Aufbau der Einheit",
+      "image": "assets/old_testament/slides/e01-folie-02.jpg",
+      "text": "Aufbau der Einheit\n\n1. Hebräische Bibel und Altes Testament\n2. Der Text der Hebräischen Bibel und seine Überlieferung\n3. Die Entstehung der Hebräischen Bibel",
+      "figure": "Verkleinerte Titelfolien der drei Abschnitte (Folien 3, 12 und 17)."
+    },
+    {
+      "number": 3,
+      "title": "Abschnittsfolie 1",
+      "image": "assets/old_testament/slides/e01-folie-03.jpg",
+      "text": "1. Hebräische Bibel und Altes Testament\nJüdischer und christlicher Kanon",
+      "figure": "Fotos: Davidstern auf hebräischem Text; aufgeschlagene Bibel mit Kreuz."
+    },
+    {
+      "number": 4,
+      "title": "Zum Hintergrund des Wortes „Bibel“",
+      "image": "assets/old_testament/slides/e01-folie-04.png",
+      "text": "• Das deutsche Wort „Bibel“ geht auf die griechische Pluralform „ta biblia“ (= „die Schriftrollen / Bücher“) zurück.\n\n[Kasten:] Den etymologischen Hintergrund bildet der Name der Hafenstadt Byblos im Libanon, wo in der Antike Papyrus zu Schriftrollen verarbeitet wurde.\n\n• Schon in vorchristlicher Zeit konnten Sammlungen alttestamentlicher Texte mit diesem Begriff bezeichnet werden; z.B. 1 Makk 12,9: „die heiligen Schriften“ (ta biblia ta hagia).",
+      "figure": "Fotos: Papyruspflanzen und Papyrusrollen."
+    },
+    {
+      "number": 5,
+      "title": "Zum Hintergrund der Bezeichnung „Altes Testament“",
+      "image": "assets/old_testament/slides/e01-folie-05.png",
+      "text": "• Im Hintergrund steht die in 2 Kor 3,14 getroffene Unterscheidung zwischen „altem Bund“ (griech. palaia diatheke) und „neuem Bund“ (griech. kaine diatheke).\n\n• Der Begriff diatheke kann neben „Bund“ auch die Bedeutung „Willensverfügung“ annehmen und im Sinne einer schriftlichen „Hinterlassenschaft“ verstanden werden.\n\n• Dasselbe gilt für sein lateinisches Pendant testamentum, das deshalb auch zur Bezeichnung der beiden Schriftensammlungen verwendet wurde, die den beiden Bundesschlüssen zugeordnet sind („vetus testamentum“ und „novum testamentum“).\n\n• Dieser lat. Sprachgebrauch liegt der Unterscheidung zwischen Altem und Neuem Testament zugrunde."
+    },
+    {
+      "number": 6,
+      "title": "Hebräische Bibel und Altes Testament",
+      "image": "assets/old_testament/slides/e01-folie-06.png",
+      "text": "• Die Schriften der Hebräischen Bibel bzw. des Alten Testaments gelten Juden wie Christen als „kanonisch“, d.h. sie repräsentieren die Auswahl der als autoritativ erachteten heiligen Texte (kanon = griech. „Richtschnur“, im übertragenen Sinne „autorisierte Schriftensammlung“).\n\n• Historisch gesehen handelt es sich um eine Sammlung von Schriften aus vorchristlicher Zeit, die ursprünglich auf Hebräisch (in einigen Ausnahmefällen auch auf Aramäisch) abgefasst wurden.\n\n• Die Schriften haben von sich aus keinen expliziten Christusbezug und sind deshalb zunächst als heilige Schriften des Judentums wahr- und ernstzunehmen.\n\n• Im jüdischen Kontext werden die Schriften als „Hebräische Bibel“, Miqra („was gelesen wird“) oder mit dem Kunstwort TaNaK (für die Kanonteile Tora, Nebiim und Ketubim) bezeichnet.\n\n• Unterschiedliche jüdische (und christliche) Gruppierungen haben abweichende Kanonformen herausgebildet, die sich in Anzahl und Anordnung der Schriften unterscheiden. So akzeptieren die Samaritaner bis heute allein den Pentateuch (die fünf Bücher Mose).\n\n• Dagegen hat sich im rabbinischen Judentum ein Schriftenkanon von 39 Büchern herausgebildet. Die einzelnen Kanonteile sind nach der ihnen beigemessenen Gewichtung angeordnet: Tora (Pentateuch), Nebiim (Propheten) und Ketubim (Schriften). [→ TaNaK]",
+      "highlights": [
+        "kanonisch",
+        "autorisierte Schriftensammlung",
+        "aus vorchristlicher Zeit",
+        "Hebräisch",
+        "heilige Schriften des Judentums wahr- und ernstzunehmen",
+        "Hebräische Bibel",
+        "Miqra",
+        "TaNaK",
+        "Anzahl und Anordnung der Schriften",
+        "Samaritaner",
+        "im rabbinischen Judentum",
+        "Schriftenkanon von 39 Büchern",
+        "nach der ihnen beigemessenen Gewichtung angeordnet"
+      ]
+    },
+    {
+      "number": 7,
+      "title": "Der jüdische (rabbinische) Kanon der Hebräischen Bibel (TaNaK)",
+      "image": "assets/old_testament/slides/e01-folie-07.jpg",
+      "text": "Tabelle (aus: M. Köhlmoos, Altes Testament, S. 8-9)\nSpalten: Hebräischer Name | Deutscher Name | Name des Schriftenteils\n\nTORA (Weisung) – Die Namen der Bücher richten sich nach dem Anfangswort.\nBerešit | Genesis/1. Mose\nŠemot | Exodus/2. Mose\nWajjiqra | Leviticus/3. Mose\nBammidbar | Numeri/4. Mose\nDebarim | Deuteronomium/5. Mose\n\nNEBIIM (Propheten)\nJehošua | Josua\nŠopetim | Richter\nMelakim 1–2 | 1. und 2. Könige\nJešaja | Jesaja\nJirmeja | Jeremia\nJehezqel | Ezechiel/Hesekiel\nHošea | –\nJoel | –\nAmos | –\nObadja | –\nJona | –\nMicha | –\nNahum | –\nHabaquq | Habakuk\nZepanja | Zephanja\nHaggai | –\nZakarja | Sacharja\nMaleachi | –\n\nKETUBIM (Schriften) – Die Reihenfolge der Einzelbücher kann variieren. Die hier gebotene Abfolge ist die der (deutschen) wissenschaftlichen Standardausgabe Biblia Hebraica Stuttgartensia.\nTehillim | Psalmen\nIjjob | Hiob\nMišle | Sprüche Salomos\nRut | –\nŠir ha-širim | Hoheslied\nQohælæt | Kohelet/Prediger Salomo\nEchah | Klagelieder\nEster | –\nDaniel | –\nEzra | Esra\nNehemja | Nehemia\nDibre ha-Jammim 1–2 | 1. und 2. Chronik\n\n(„–“: in der Tabelle kein eigener deutscher Name, weil er dem hebräischen entspricht.)",
+      "figure": "Zweiteilige Buchtabelle aus M. Köhlmoos, Altes Testament, S. 8–9."
+    },
+    {
+      "number": 8,
+      "title": "Der christliche Kanon der Septuaginta (LXX)",
+      "image": "assets/old_testament/slides/e01-folie-08.png",
+      "text": "• Bei der Septuaginta (abgekürzt LXX) handelt es sich um die älteste griechische Übersetzung des Alten Testaments, die schrittweise über einen langen Zeitraum entstand (ca. 250 v. Chr. - 100 n. Chr.).\n\n• Der Kanon der Septuaginta ist mit 45 Schriften umfangreicher als derjenige der Hebräischen Bibel, denn er umfasst auch Bücher, die als „apokryph“ (= „verborgen“) bzw. „deuterokanonisch“ bezeichnet werden (z.B. die Makkabäerbücher oder die Weisheit Salomos).\n\n• Im Unterschied zur Hebräischen Bibel sind die Schriften zudem heilsgeschichtlich angeordnet; die Propheten stehen am Ende und weisen somit auf die Erfüllung im Neuen Testament voraus.\n\n• Der Kanon der Septuaginta liegt auch der lateinischen Bibelübersetzung der Vulgata zugrunde, die sich in der katholischen Kirche als autoritativ durchsetzte.\n\n• Auch katholische Bibelübersetzungen ins Deutsche wie die Einheitsübersetzung basieren daher auf dem Septuagintakanon."
+    },
+    {
+      "number": 9,
+      "title": "Der Kanon der Septuaginta",
+      "image": "assets/old_testament/slides/e01-folie-09.jpg",
+      "text": "Tabelle (aus: M. Köhlmoos, Altes Testament, S. 11f.)\nSpalten: Griechischer Name | Deutscher Name | Name des Schriftenteils\n\nPentateuch („Das Fünfteilige“) – Die Namen der Bücher richten sich nach dem Hauptinhalt.\nGenesis | Genesis/1. Mose\nExodos | Exodus/2. Mose\nLevitikon | Leviticus/3. Mose\nArithmoi | Numeri/4. Mose\nDeuteronomion | Deuteronomium/5. Mose\n\nHistoria (Geschichtsbücher)\nIesous | Josua\nKritai | Richter\nRouth | Ruth\nBasileion 1–4 | 1.–2. Samuel/1.–2. Könige (Gezählt als 1.–4. Könige)\nParaleipomenon 1–2 | 1.–2. Chronik\nEsdras 1 | Esra\nEsdras 2 | Nehemia\nEsdras 3 | (eine Sammlung von Esra-Legenden ohne Entsprechung im hebräischen Text)\nEsther | Ester\nJoudith | Judith\nTobit | Tobit\nMakkabaion 1–4 | 1.–4. Makkabäer\n\nPsalmen und Weisheit\nPsalmoi | Psalmen\nOdai | Oden Salomos\nParoimiai | Sprüche Salomos\nEkklesiastes | Kohelet/Prediger Salomo\nAsma | Hoheslied\nIob | Hiob\nSophia Salomonos | Weisheit Salomos\nSophia Sirach | Sirach\nPsalmoi Salomontos | Psalmen Salomos\n\nProphetai (Prophetische Bücher)\nOsee | Hosea\nAmos | Amos\nMichaias | Micha\nIoel | Joel\nAbdiou | Obadja\nIonas | Jona\nNaoum | Nahum\nAmbakoum | Habakuk\nSophonias | Zephanja\nAggaios | Haggai\nZacharias | Sacharja\nMalachias | Maleachi\nEsaias | Jesaja\nIeremias | Jeremia\nBarouch | Baruch\nThrenoi | Klagelieder\nEpistole Ieremiou | Brief Jeremias\nIezekiel | Ezechiel/Hesekiel\nSousanna | Susanna\nDaniel | Daniel\nBel Kai Drakon | Bel und der Drache",
+      "figure": "Zweiteilige Buchtabelle aus M. Köhlmoos, Altes Testament, S. 11f."
+    },
+    {
+      "number": 10,
+      "title": "Der alttestamentliche Kanon der Lutherbibel",
+      "image": "assets/old_testament/slides/e01-folie-10.png",
+      "text": "• Martin Luther legte bei seiner Deutschen Übersetzung des Alten Testaments den Kanon der Hebräischen Bibel zugrunde, akzeptierte also nur 39 Schriften als kanonisch.\n\n• Gleichzeitig ordnete er die Schriften nach der Reihenfolge der Septuaginta an, behielt also einen heilsgeschichtlichen Aufriss bei, der auf das Neue Testament vorbereitet.\n\n• Die reformatorische Rückbesinnung auf die hebräische Bibel prägt bis heute die exegetische Forschung an den theologischen Fakultäten, die ebenfalls den hebräischen Text ins Zentrum stellt, ihn aber nicht isoliert betrachtet.\nGerade die Septuaginta ist nicht nur für Fragen der Textentstehung und -überlieferung, sondern auch für das Studium des Neuen Testaments und frühen Christentums zentral, da die ersten Christen überwiegend die Bücher in der Übersetzung der Septuaginta als ihre heilige Schrift verwendeten."
+    },
+    {
+      "number": 11,
+      "title": "Der alttestamentliche Kanon der Lutherbibel",
+      "image": "assets/old_testament/slides/e01-folie-11.jpg",
+      "text": "Tabelle (aus: L. Borman, Bibelkunde, S. 28.)\n\nGeschichtsbücher: 1. Mose (Genesis), 2. Mose (Exodus), 3. Mose (Levitikus), 4. Mose (Numeri), 5. Mose (Deuteronomium), Josua, Richter, Rut, 1. und 2. Samuel, 1. und 2. Könige, 1. und 2. Chronik, Esra, Nehemia, Ester\n\nLehrbücher und Psalmen: Hiob, Psalter, Sprüche Salomos, Prediger Salomo, Hohelied Salomos\n\nPropheten: Jesaja, Jeremia, Klagelieder Jeremias, Hesekiel (Ezechiel), Daniel, Hosea, Joel, Amos, Obadja, Jona, Micha, Nahum, Habakuk, Zefanja, Haggai, Sacharja, Maleachi",
+      "figure": "Dreispaltige Buchtabelle aus L. Borman[n], Bibelkunde, S. 28."
+    },
+    {
+      "number": 12,
+      "title": "Abschnittsfolie 2",
+      "image": "assets/old_testament/slides/e01-folie-12.jpg",
+      "text": "Handschriften und Textausgaben\n2. Der Text der Hebräischen Bibel und seine Überlieferung",
+      "figure": "Fotos: Schriftrolle und Seiten hebräischer Handschriften."
+    },
+    {
+      "number": 13,
+      "title": "Von der Handschrift zur Druckausgabe",
+      "image": "assets/old_testament/slides/e01-folie-13.png",
+      "text": "Codex Petropolitanus bzw. Leningradensis (1008 n. Chr.) | Biblia Hebraica Stuttgartensia (BHS)\n\n• Der Codex Petropolitanus bzw. Leningradensis ist die älteste vollständige Handschrift der Hebräischen Bibel. Sie datiert aus dem Jahr 1008 n. Chr. und damit weit über 1000 Jahre nach der Entstehung der biblischen Schriften.\n\n• Die Biblia Hebraica Stuttgartensia (BHS) ist die im deutschsprachigen Raum aktuell gängige kritische Ausgabe des hebräischen Textes. Sie bietet eine Abschrift des Textes des Leningradensis plus kritischen Apparat.",
+      "highlights": [
+        "die älteste vollständige Handschrift der Hebräischen Bibel",
+        "Biblia Hebraica Stuttgartensia",
+        "gängige kritische Ausgabe des hebräischen Textes"
+      ],
+      "figure": "Abbildungen: eine Seite des Codex Leningradensis und die erste Seite der BHS (Genesis 1 mit Apparat)."
+    },
+    {
+      "number": 14,
+      "title": "Ältere hebräische Textzeugen",
+      "image": "assets/old_testament/slides/e01-folie-14.png",
+      "text": "• Die meisten erhaltenen Handschriften der Hebräischen Bibel sind jünger als der Codex Leningradensis/Petropolitanus\n\n• Wichtige ältere Handschriften sind der Kodex von Aleppo (10. Jh. n. Chr.; unvollständig) und der Codex Cairensis (895 n. Chr.; umfasst nur vordere und hintere Propheten).\n\n• Hinzu kommen eine Reihe nochmals älterer Fragmente aus der Kairoer Geniza, die bis ins 5. Jh. n. Chr. zurückreichen.\n\n• Die bei weitem ältesten Textzeugen stammen aus den 1947 entdeckten Qumranhöhlen. Hier fanden sich neben anderen, zuvor unbekannten Texten, weit über hundert Abschriften biblischer Bücher die jedoch überwiegend nur sehr fragmentarisch erhalten sind. Die meisten stammen aus dem 2.-1. Jh. v. Chr. und sind damit noch relativ nah an der Abfassung der Texte.",
+      "highlights": [
+        "Kodex von Aleppo",
+        "Codex Cairensis",
+        "Fragmente aus der Kairoer Geniza",
+        "Qumranhöhlen"
+      ],
+      "figure": "Foto einer Schriftrolle."
+    },
+    {
+      "number": 15,
+      "title": "Der masoretische Text und andere hebräische Textformen",
+      "image": "assets/old_testament/slides/e01-folie-15.png",
+      "text": "• Vergleicht man den Text des Codex Petropolitanus mit den Qumranfunden, zeigt sich, dass der hebräische Text aufs Ganze gesehen sehr verlässlich überliefert wurde. Die Übereinstimmungen überwiegen jedenfalls deutlich die Abweichungen.\n\n• Die getreue Überlieferung verdankt sich der Arbeit der Masoreten, einer Gruppe jüdischer Gelehrter, die sich seit der Spätantike der buchstabengetreuen Weitergabe des hebräischen Textes verschrieben und dazu eine Vielzahl von Methoden der Überlieferungssicherung entwickelten (Wortstatistik etc.).\n\n• Allerdings zeigen die Qumranfunde auch, dass der masoretische Text nicht einfach mit „der“ hebräischen Bibel gleichzusetzen ist. Die Masoreten haben sich vielmehr für die Überlieferung eines bestimmten Texttypus entschieden, der im 2.-1. Jh. v. Chr. (und danach!) zunächst mit weiteren Texttypen konkurrierte, die zeitgleich nebeneinander existierten.\n\n• Es gab zu dieser Zeit noch keinen festen Kanon, sondern nur eine mehr oder minder klar umrissene Sammlung autoritativer Schriften, deren hebräischer Konsonantenbestand noch stark fluktuierte."
+    },
+    {
+      "number": 16,
+      "title": "Textentstehung und Textüberlieferung",
+      "image": "assets/old_testament/slides/e01-folie-16.png",
+      "text": "Schaubild mit Zeitachse (von unten nach oben):\n\n10. – 2. Jh. v. Chr.: Produktives Textwachstum: Die einzelnen alttestamentlichen Bücher entstehen und wachsen zu ihrem aktuellen Umfang an.\n→ Gegenstand von Literarkritik und Redaktionsgeschichte\n\n1. Jh. v. – 1. Jh. n. Chr.: verschiedene „Urtexte“ mit Abweichungen in der Gestalt der atl. Bücher:\nproto-masoretischer Text | hebräische Vorlage der Septuaginta | weitere Urtexttypen (z.B. Qumran)\n\nÜberlieferung des hebräischen Textes → Gegenstand der Textkritik:\n100 n. Chr.: [der protomasoretische Text] setzt sich im Judentum als autoritativ durch\n– wird von jüdischen Gelehrten, den Masoreten, überliefert (daher Masoretischer Text)\n1008 n. Chr.: Codex Petropolitanus (älteste erhaltene Handschrift, die den Masoretischen Text lückenlos überliefert)\n1967: Biblia Hebraica Stuttgartensia (Druckausgabe des hebräischen Textes, die den Codex Petropolitanus wiedergibt)",
+      "figure": "Schaubild: Ein blauer Trichter (Textwachstum) mündet in drei Kreise für die Texttypen; aus dem gelben Kreis des protomasoretischen Textes öffnet sich ein gelbes Dreieck für die Überlieferung bis zur BHS."
+    },
+    {
+      "number": 17,
+      "title": "Abschnittsfolie 3",
+      "image": "assets/old_testament/slides/e01-folie-17.jpg",
+      "text": "3. Die Entstehung der Hebräischen Bibel\nEin über Jahrhunderte gewachsenes Glaubenszeugnis",
+      "figure": "Abbildung: ägyptischer Schreiber mit Hieroglyphen."
+    },
+    {
+      "number": 18,
+      "title": "Eckdaten der Geschichte Israels und Judas (Aufbau)",
+      "image": "assets/old_testament/slides/e01-folie-18.jpg",
+      "text": "• 10. Jh. v. Chr.: Entstehung der Lokalkönigtümer Israel (Nordreich) und Juda (Südreich)\n• 722 v. Chr.: Untergang des Nordreiches (Eroberung durch die Assyrer)\n\n(Vorstufe von Folie 19, die die Liste vollständig zeigt.)"
+    },
+    {
+      "number": 19,
+      "title": "Eckdaten der Geschichte Israels und Judas",
+      "image": "assets/old_testament/slides/e01-folie-19.png",
+      "text": "[Königszeit]\n• 10. Jh. v. Chr.: Entstehung der Lokalkönigtümer Israel (Nordreich) und Juda (Südreich)\n• 722 v. Chr.: Untergang des Nordreiches (Eroberung durch die Neuassyrer)\n• 587 v. Chr.: Untergang des Südreiches (Eroberung durch die Neubabylonier)\n\n„Babylonisches Exil“\n\n[Nachexilische Zeit]\n• ab 539 v. Chr.: Machtübernahme der Perser; Rückkehr einiger Exulanten und Wiederaufbau Jerusalems\n• 333 v. Chr.: Machtübernahme Alexanders des Großen; Beginn des hellenistischen Zeitalters\n• 164 v. Chr.: Sieg der Makkabäer über den Seleukiden Antiochus IV.; In der Folgezeit: Etablierung des hasmonäischen Königtums",
+      "highlights": [
+        "Lokalkönigtümer Israel",
+        "Juda",
+        "Untergang des Nordreiches",
+        "Untergang des Südreiches",
+        "Babylonisches Exil",
+        "Rückkehr",
+        "Wiederaufbau",
+        "hellenistischen Zeitalters",
+        "Makkabäer",
+        "hasmonäischen Königtums"
+      ],
+      "figure": "Am rechten Rand senkrecht: „Königszeit“ (erste drei Daten) und „Nachexilische Zeit“ (letzte drei Daten); dazwischen der Kasten „Babylonisches Exil“."
+    },
+    {
+      "number": 20,
+      "title": "Eckdaten der Literaturgeschichte der Hebräischen Bibel",
+      "image": "assets/old_testament/slides/e01-folie-20.png",
+      "text": "Pfeil: Königszeit (10.-6. Jh. v. Chr.) → exilische und nachexilische Zeit (6.-2. Jh. v. Chr.)\n\n[grau] einzelne Erzählkränze (z.B. Jakob-Laban / Mose) → Pentateuch (Gen-Dtn), Jos+Ri\n[grau] Annalennotizen in Palast-/Tempel-Archiven → Königtumsgeschichte in 1Sam-2Kön\n[grau] Sammlungen von Prophetenworten in Palast-/Tempel-Archiven → Prophetenbücher (Jes-Mal)\n[grau] einzelne Psalmen → Psalter (Ps 1-150)\n[grau] Sammlungen von Weisheitssprüchen → Weisheitsbücher (Spr; Hi; Koh)",
+      "figure": "Die Vorstufen der Königszeit stehen grau links, die Bücher der exilischen und nachexilischen Zeit fett rechts; Pfeile verbinden sie."
+    },
+    {
+      "number": 21,
+      "title": "Literaturhinweise",
+      "image": "assets/old_testament/slides/e01-folie-21.png",
+      "text": "Einführung/Bibelkunde\n• Jan Christian Gertz (Hg.), Grundinformation Altes Testament, Göttingen ⁶2019.\n• Melanie Köhlmoos, Altes Testament, UTB 3460, Tübingen/Basel 2011.\n• Martin Rösel, Bibelkunde des Alten Testaments, Göttingen ⁹2015.\n• Konrad Schmid, Literaturgeschichte des Alten Testaments, Darmstadt ²2014.\n• Erich Zenger u.a., Einleitung in das Alte Testament, hg. v. C. Frevel, Kohlhammer Studienbücher Theologie 1,1, Stuttgart ⁹2015.\n\nGeschichte Israels\n• Christian Frevel, Geschichte Israels, Kohlhammer Studienbücher Theologie 2, Stuttgart ²2018.\n• Reinhard G. Kratz, Historisches und biblisches Israel. Drei Überblicke zum Alten Testament, Tübingen ²2017."
+    }
+  ],
+  "keyPoints": [
+    {
+      "text": "Die Bezeichnung „Bibel“ geht auf griech. ta biblia („die Schriftrollen / Bücher“) zurück, „Altes Testament“ auf die Unterscheidung von altem und neuem Bund in 2 Kor 3,14 und das lateinische testamentum.",
+      "slides": [
+        4,
+        5
+      ]
+    },
+    {
+      "text": "Kanonisch heißen die als autoritativ erachteten heiligen Texte (kanon = „Richtschnur“). Jüdische und christliche Gruppen haben Kanonformen ausgebildet, die sich in Anzahl und Anordnung der Schriften unterscheiden.",
+      "slides": [
+        6
+      ]
+    },
+    {
+      "text": "Rabbinischer Kanon (TaNaK): 39 Bücher, nach Gewichtung geordnet in Tora, Nebiim und Ketubim. Septuaginta: 45 Schriften (mit den apokryphen bzw. deuterokanonischen Büchern), heilsgeschichtlich geordnet mit den Propheten am Ende.",
+      "slides": [
+        6,
+        7,
+        8,
+        9
+      ]
+    },
+    {
+      "text": "Die Lutherbibel verbindet den Umfang der Hebräischen Bibel (39 Schriften) mit der Reihenfolge der Septuaginta; Vulgata und Einheitsübersetzung folgen dem Septuagintakanon.",
+      "slides": [
+        8,
+        10,
+        11
+      ]
+    },
+    {
+      "text": "Der Codex Petropolitanus/Leningradensis (1008 n. Chr.) ist die älteste vollständige Handschrift; die BHS gibt seinen Text mit kritischem Apparat wieder. Die ältesten Textzeugen stammen aus Qumran (meist 2.–1. Jh. v. Chr.).",
+      "slides": [
+        13,
+        14,
+        16
+      ]
+    },
+    {
+      "text": "Der hebräische Text ist aufs Ganze verlässlich überliefert (Verdienst der Masoreten). Der masoretische Text ist aber ein Texttyp unter mehreren, die im 2.–1. Jh. v. Chr. nebeneinander bestanden; einen festen Kanon gab es damals noch nicht.",
+      "slides": [
+        15,
+        16
+      ]
+    },
+    {
+      "text": "Textentstehung (produktives Textwachstum, 10.–2. Jh. v. Chr.) ist Gegenstand von Literarkritik und Redaktionsgeschichte, die Überlieferung des hebräischen Textes Gegenstand der Textkritik.",
+      "slides": [
+        16
+      ]
+    },
+    {
+      "text": "Eckdaten: 722 Untergang des Nordreiches, 587 Untergang des Südreiches (Babylonisches Exil), ab 539 Perser, 333 Alexander, 164 Makkabäer. Nach der Vorlesung entstehen die biblischen Bücher in ihrer heutigen Gestalt in exilischer und nachexilischer Zeit aus Vorstufen der Königszeit.",
+      "slides": [
+        19,
+        20
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "title": "1. Hebräische Bibel und Altes Testament",
+      "slides": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "points": [
+        "„Bibel“ von griech. ta biblia („die Schriftrollen / Bücher“); etymologischer Hintergrund: die Hafenstadt Byblos im Libanon, wo Papyrus zu Schriftrollen verarbeitet wurde.",
+        "Schon vorchristlich heißen Sammlungen alttestamentlicher Texte so, z. B. 1 Makk 12,9 „die heiligen Schriften“ (ta biblia ta hagia).",
+        "„Altes Testament“: 2 Kor 3,14 unterscheidet „alten Bund“ (palaia diatheke) und „neuen Bund“ (kaine diatheke). diatheke und lat. testamentum können auch „Willensverfügung“ bzw. schriftliche „Hinterlassenschaft“ bedeuten; daher „vetus“ und „novum testamentum“ für die beiden Schriftensammlungen.",
+        "„Kanonisch“: Auswahl der als autoritativ erachteten heiligen Texte (kanon = griech. „Richtschnur“, übertragen „autorisierte Schriftensammlung“).",
+        "Historisch: Schriften aus vorchristlicher Zeit, ursprünglich hebräisch (in Ausnahmefällen aramäisch).",
+        "Nach der Folie haben die Schriften von sich aus keinen expliziten Christusbezug und sind zunächst als heilige Schriften des Judentums wahr- und ernstzunehmen.",
+        "Jüdische Bezeichnungen: „Hebräische Bibel“, Miqra („was gelesen wird“), TaNaK (Tora, Nebiim, Ketubim)."
+      ],
+      "supplement": "Die Folie beschreibt den historischen Ausgangspunkt („zunächst“). In der christlichen, auch der lutherischen Tradition wird das Alte Testament darüber hinaus als Teil der christlichen Bibel von Christus her gelesen (vgl. Luk 24,27). Die Folie äußert sich zu dieser Lesart nicht."
+    },
+    {
+      "title": "Jüdischer Kanon (TaNaK)",
+      "slides": [
+        6,
+        7
+      ],
+      "points": [
+        "Kanonformen unterscheiden sich in Anzahl und Anordnung der Schriften; die Samaritaner akzeptieren bis heute allein den Pentateuch.",
+        "Rabbinisches Judentum: Kanon von 39 Büchern, nach Gewichtung geordnet: Tora (Pentateuch), Nebiim (Propheten), Ketubim (Schriften).",
+        "Die hebräischen Namen der Tora-Bücher richten sich nach dem Anfangswort (Berešit, Šemot, Wajjiqra, Bammidbar, Debarim).",
+        "Die Reihenfolge der Ketubim kann variieren; die Tabelle folgt der Biblia Hebraica Stuttgartensia."
+      ],
+      "unclear": "In der Tabelle auf Folie 7 fehlt das Buch Samuel (hebr. Šemuel 1–2), das im rabbinischen Kanon zu den Nebiim zwischen Richter und Könige gehört. Vermutlich ist die Zeile beim Abbilden verloren gegangen; die 39 Bücher von Folie 6 schließen Samuel ein."
+    },
+    {
+      "title": "Christlicher Kanon: Septuaginta, Vulgata, Lutherbibel",
+      "slides": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "points": [
+        "Septuaginta (LXX): älteste griechische Übersetzung des AT, schrittweise entstanden (ca. 250 v. Chr. – 100 n. Chr.).",
+        "Kanon der LXX: 45 Schriften, einschließlich der „apokryphen“ (= „verborgen“) bzw. „deuterokanonischen“ Bücher (z. B. Makkabäerbücher, Weisheit Salomos).",
+        "Heilsgeschichtliche Anordnung: Pentateuch, Geschichtsbücher, Psalmen und Weisheit, Propheten; die Propheten stehen am Ende und weisen auf die Erfüllung im NT voraus.",
+        "Die griechischen Buchnamen richten sich nach dem Hauptinhalt (Genesis, Exodos, Levitikon, Arithmoi, Deuteronomion).",
+        "Der LXX-Kanon liegt der Vulgata (in der katholischen Kirche autoritativ) und katholischen Übersetzungen wie der Einheitsübersetzung zugrunde.",
+        "Luther: Umfang der Hebräischen Bibel (39 Schriften), aber Reihenfolge der Septuaginta (heilsgeschichtlicher Aufriss). Lutherbibel: Geschichtsbücher, Lehrbücher und Psalmen, Propheten.",
+        "Die reformatorische Rückbesinnung auf die hebräische Bibel prägt die Exegese bis heute; die LXX bleibt zentral für Textgeschichte, NT und frühes Christentum, weil die ersten Christen überwiegend sie als heilige Schrift verwendeten."
+      ]
+    },
+    {
+      "title": "2. Der Text der Hebräischen Bibel und seine Überlieferung",
+      "slides": [
+        12,
+        13,
+        14
+      ],
+      "points": [
+        "Codex Petropolitanus bzw. Leningradensis (1008 n. Chr.): älteste vollständige Handschrift der Hebräischen Bibel, weit über 1000 Jahre nach der Entstehung der Schriften.",
+        "Biblia Hebraica Stuttgartensia (BHS): gängige kritische Ausgabe im deutschsprachigen Raum; Abschrift des Leningradensis plus kritischer Apparat.",
+        "Die meisten Handschriften sind jünger als der Leningradensis. Ältere: Kodex von Aleppo (10. Jh., unvollständig), Codex Cairensis (895, nur vordere und hintere Propheten), Fragmente der Kairoer Geniza (bis ins 5. Jh.).",
+        "Älteste Textzeugen: Qumranhöhlen (entdeckt 1947), weit über hundert meist sehr fragmentarische Abschriften biblischer Bücher, überwiegend aus dem 2.–1. Jh. v. Chr."
+      ]
+    },
+    {
+      "title": "Masoretischer Text und andere Textformen",
+      "slides": [
+        15,
+        16
+      ],
+      "points": [
+        "Vergleich Petropolitanus – Qumran: Der hebräische Text ist aufs Ganze sehr verlässlich überliefert; die Übereinstimmungen überwiegen deutlich.",
+        "Verdienst der Masoreten: jüdische Gelehrte, seit der Spätantike der buchstabengetreuen Weitergabe verpflichtet, mit Methoden der Überlieferungssicherung (Wortstatistik etc.).",
+        "Der masoretische Text ist nicht einfach „die“ hebräische Bibel: Er ist ein Texttyp, der im 2.–1. Jh. v. Chr. (und danach) mit anderen Texttypen konkurrierte.",
+        "Damals gab es noch keinen festen Kanon, nur eine mehr oder minder klar umrissene Sammlung autoritativer Schriften mit stark fluktuierendem Konsonantenbestand.",
+        "Schaubild (Folie 16): produktives Textwachstum (10.–2. Jh. v. Chr.) → verschiedene „Urtexte“ (protomasoretisch, hebräische Vorlage der LXX, weitere wie Qumran) → protomasoretischer Text setzt sich um 100 n. Chr. im Judentum durch → Codex Petropolitanus (1008) → BHS (1967).",
+        "Textwachstum ist Gegenstand von Literarkritik und Redaktionsgeschichte, die Überlieferung des hebräischen Textes Gegenstand der Textkritik."
+      ]
+    },
+    {
+      "title": "3. Die Entstehung der Hebräischen Bibel: Geschichte Israels und Judas",
+      "slides": [
+        17,
+        18,
+        19
+      ],
+      "points": [
+        "Königszeit: 10. Jh. v. Chr. Lokalkönigtümer Israel (Nordreich) und Juda (Südreich); 722 Untergang des Nordreiches (Neuassyrer); 587 Untergang des Südreiches (Neubabylonier) → „Babylonisches Exil“.",
+        "Nachexilische Zeit: ab 539 Perser, Rückkehr einiger Exulanten und Wiederaufbau Jerusalems; 333 Alexander der Große, Beginn des Hellenismus; 164 Sieg der Makkabäer über den Seleukiden Antiochus IV., danach hasmonäisches Königtum."
+      ]
+    },
+    {
+      "title": "Literaturgeschichte der Hebräischen Bibel",
+      "slides": [
+        20
+      ],
+      "points": [
+        "Königszeit (10.–6. Jh. v. Chr.): einzelne Erzählkränze (z. B. Jakob-Laban / Mose), Annalennotizen und Sammlungen von Prophetenworten in Palast-/Tempel-Archiven, einzelne Psalmen, Sammlungen von Weisheitssprüchen.",
+        "Exilische und nachexilische Zeit (6.–2. Jh. v. Chr.): Pentateuch (Gen–Dtn) und Jos+Ri, Königtumsgeschichte in 1Sam–2Kön, Prophetenbücher (Jes–Mal), Psalter (Ps 1–150), Weisheitsbücher (Spr; Hi; Koh)."
+      ],
+      "unclear": "Die Folie stellt Vorstufen (grau) und Bücher (fett) mit Pfeilen nebeneinander. Ob die Vorstufen erhalten oder nur aus den Büchern erschlossen sind und wie viel älteres Material die Bücher enthalten, sagt sie nicht.",
+      "supplement": "Diese Datierung gibt die in der heutigen historisch-kritischen Forschung verbreitete Sicht wieder, die auch die Vorlesung vertritt. Sie ist nicht unumstritten: Andere, besonders konservative Positionen rechnen mit einer früheren Abfassung größerer Teile (etwa des Pentateuch)."
+    }
+  ],
+  "terms": [
+    {
+      "term": "term.ta_biblia",
+      "slides": [
+        4
+      ],
+      "text": "Das deutsche Wort „Bibel“ geht auf die griechische Pluralform „ta biblia“ (= „die Schriftrollen / Bücher“) zurück."
+    },
+    {
+      "term": "term.diatheke",
+      "slides": [
+        5
+      ],
+      "text": "Der Begriff diatheke kann neben „Bund“ auch die Bedeutung „Willensverfügung“ annehmen und im Sinne einer schriftlichen „Hinterlassenschaft“ verstanden werden."
+    },
+    {
+      "term": "term.testamentum",
+      "slides": [
+        5
+      ],
+      "text": "Dasselbe gilt für sein lateinisches Pendant testamentum, das deshalb auch zur Bezeichnung der beiden Schriftensammlungen verwendet wurde."
+    },
+    {
+      "term": "term.kanon",
+      "slides": [
+        6
+      ],
+      "text": "kanon = griech. „Richtschnur“, im übertragenen Sinne „autorisierte Schriftensammlung“"
+    },
+    {
+      "term": "term.miqra",
+      "slides": [
+        6
+      ],
+      "text": "Miqra („was gelesen wird“)"
+    },
+    {
+      "term": "term.tanak",
+      "slides": [
+        6,
+        7
+      ],
+      "text": "das Kunstwort TaNaK (für die Kanonteile Tora, Nebiim und Ketubim)"
+    },
+    {
+      "term": "term.tora",
+      "slides": [
+        6,
+        7
+      ],
+      "text": "TORA (Weisung) – Die Namen der Bücher richten sich nach dem Anfangswort."
+    },
+    {
+      "term": "term.nebiim",
+      "slides": [
+        6,
+        7
+      ],
+      "text": "Nebiim (Propheten)"
+    },
+    {
+      "term": "term.ketubim",
+      "slides": [
+        6,
+        7
+      ],
+      "text": "Ketubim (Schriften) – Die Reihenfolge der Einzelbücher kann variieren."
+    },
+    {
+      "term": "term.pentateuch",
+      "slides": [
+        6,
+        9
+      ],
+      "text": "Pentateuch („Das Fünfteilige“) – Die Namen der Bücher richten sich nach dem Hauptinhalt."
+    },
+    {
+      "term": "term.septuaginta",
+      "slides": [
+        8
+      ],
+      "text": "die älteste griechische Übersetzung des Alten Testaments, die schrittweise über einen langen Zeitraum entstand (ca. 250 v. Chr. - 100 n. Chr.)"
+    },
+    {
+      "term": "term.apokryph",
+      "slides": [
+        8
+      ],
+      "text": "Bücher, die als „apokryph“ (= „verborgen“) bzw. „deuterokanonisch“ bezeichnet werden (z.B. die Makkabäerbücher oder die Weisheit Salomos)"
+    },
+    {
+      "term": "term.vulgata",
+      "slides": [
+        8
+      ],
+      "text": "die lateinische Bibelübersetzung der Vulgata, die sich in der katholischen Kirche als autoritativ durchsetzte"
+    },
+    {
+      "term": "term.leningradensis",
+      "slides": [
+        13,
+        16
+      ],
+      "text": "die älteste vollständige Handschrift der Hebräischen Bibel. Sie datiert aus dem Jahr 1008 n. Chr."
+    },
+    {
+      "term": "term.bhs",
+      "slides": [
+        13,
+        16
+      ],
+      "text": "die im deutschsprachigen Raum aktuell gängige kritische Ausgabe des hebräischen Textes. Sie bietet eine Abschrift des Textes des Leningradensis plus kritischen Apparat."
+    },
+    {
+      "term": "term.aleppo",
+      "slides": [
+        14
+      ],
+      "text": "Kodex von Aleppo (10. Jh. n. Chr.; unvollständig)"
+    },
+    {
+      "term": "term.cairensis",
+      "slides": [
+        14
+      ],
+      "text": "Codex Cairensis (895 n. Chr.; umfasst nur vordere und hintere Propheten)"
+    },
+    {
+      "term": "term.geniza",
+      "slides": [
+        14
+      ],
+      "text": "eine Reihe nochmals älterer Fragmente aus der Kairoer Geniza, die bis ins 5. Jh. n. Chr. zurückreichen"
+    },
+    {
+      "term": "term.qumran",
+      "slides": [
+        14,
+        16
+      ],
+      "text": "Die bei weitem ältesten Textzeugen stammen aus den 1947 entdeckten Qumranhöhlen."
+    },
+    {
+      "term": "term.masoreten",
+      "slides": [
+        15,
+        16
+      ],
+      "text": "einer Gruppe jüdischer Gelehrter, die sich seit der Spätantike der buchstabengetreuen Weitergabe des hebräischen Textes verschrieben"
+    },
+    {
+      "term": "term.masoretischer_text",
+      "slides": [
+        15,
+        16
+      ],
+      "text": "wird von jüdischen Gelehrten, den Masoreten, überliefert (daher Masoretischer Text)"
+    },
+    {
+      "term": "term.protomasoretisch",
+      "slides": [
+        16
+      ],
+      "text": "proto-masoretischer Text – einer der verschiedenen „Urtexte“ mit Abweichungen in der Gestalt der atl. Bücher"
+    },
+    {
+      "term": "term.textkritik",
+      "slides": [
+        16
+      ],
+      "text": "Überlieferung des hebräischen Textes → Gegenstand der Textkritik"
+    },
+    {
+      "term": "term.literarkritik",
+      "slides": [
+        16
+      ],
+      "text": "Produktives Textwachstum … → Gegenstand von Literarkritik und Redaktionsgeschichte"
+    },
+    {
+      "term": "term.exil",
+      "slides": [
+        19
+      ],
+      "text": "587 v. Chr.: Untergang des Südreiches (Eroberung durch die Neubabylonier) – „Babylonisches Exil“"
+    }
+  ],
+  "passages": [
+    {
+      "id": "passage.u01.1makk_12_9",
+      "label": "1 Makk 12,9",
+      "slides": [
+        4
+      ],
+      "context": "Beleg dafür, dass schon in vorchristlicher Zeit Sammlungen alttestamentlicher Texte „die heiligen Schriften“ (ta biblia ta hagia) heißen konnten."
+    },
+    {
+      "id": "passage.u01.2kor_3_14",
+      "label": "2 Kor 3,14",
+      "slides": [
+        5
+      ],
+      "context": "Unterscheidung zwischen „altem Bund“ (palaia diatheke) und „neuem Bund“ (kaine diatheke) – Hintergrund der Bezeichnung „Altes Testament“."
+    }
+  ],
+  "connections": [
+    {
+      "text": "Septuagintakanon → Vulgata (katholische Kirche) → katholische Übersetzungen wie die Einheitsübersetzung.",
+      "slides": [
+        8
+      ]
+    },
+    {
+      "text": "Die Lutherbibel verbindet den Umfang der Hebräischen Bibel mit der heilsgeschichtlichen Reihenfolge der Septuaginta.",
+      "slides": [
+        10
+      ]
+    },
+    {
+      "text": "Die reformatorische Rückbesinnung auf den hebräischen Text prägt bis heute die exegetische Forschung; die Septuaginta bleibt für Textgeschichte, Neues Testament und frühes Christentum zentral.",
+      "slides": [
+        10
+      ]
+    },
+    {
+      "text": "Textentstehung und Textüberlieferung sind zwei Phasen mit eigenen Methoden: Literarkritik/Redaktionsgeschichte für das Wachstum der Bücher, Textkritik für ihre Überlieferung.",
+      "slides": [
+        16
+      ]
+    },
+    {
+      "text": "Geschichte und Literaturgeschichte hängen zusammen: Nach der Vorlesung gehen die Bücher aus Vorstufen der Königszeit hervor und erhalten ihre Gestalt in exilischer und nachexilischer Zeit.",
+      "slides": [
+        19,
+        20
+      ]
+    },
+    {
+      "text": "Die Bücherlisten der drei Kanonformen (Folien 7, 9, 11) lassen sich mit der Bibelkunde der App (Bücher systematisch lernen) wiederholen; die Lutherbibel 1912 in der Bibel der App folgt dem Kanon der Lutherbibel ohne Apokryphen.",
+      "supplement": true
+    }
+  ],
+  "literature": [
+    {
+      "text": "Jan Christian Gertz (Hg.), Grundinformation Altes Testament, Göttingen ⁶2019.",
+      "slides": [
+        21
+      ]
+    },
+    {
+      "text": "Melanie Köhlmoos, Altes Testament, UTB 3460, Tübingen/Basel 2011.",
+      "slides": [
+        21,
+        7,
+        9
+      ]
+    },
+    {
+      "text": "Martin Rösel, Bibelkunde des Alten Testaments, Göttingen ⁹2015.",
+      "slides": [
+        21
+      ]
+    },
+    {
+      "text": "Konrad Schmid, Literaturgeschichte des Alten Testaments, Darmstadt ²2014.",
+      "slides": [
+        21
+      ]
+    },
+    {
+      "text": "Erich Zenger u.a., Einleitung in das Alte Testament, hg. v. C. Frevel, Kohlhammer Studienbücher Theologie 1,1, Stuttgart ⁹2015.",
+      "slides": [
+        21
+      ]
+    },
+    {
+      "text": "Christian Frevel, Geschichte Israels, Kohlhammer Studienbücher Theologie 2, Stuttgart ²2018.",
+      "slides": [
+        21
+      ]
+    },
+    {
+      "text": "Reinhard G. Kratz, Historisches und biblisches Israel. Drei Überblicke zum Alten Testament, Tübingen ²2017.",
+      "slides": [
+        21
+      ]
+    },
+    {
+      "text": "Tabellenquelle: L. Borman, Bibelkunde, S. 28 (so auf der Folie; vermutlich Lukas Bormann, Bibelkunde).",
+      "slides": [
+        11
+      ]
+    }
+  ],
+  "lists": [
+    {
+      "id": "list.u01.aufbau",
+      "title": "Aufbau der Einheit",
+      "prompt": "Nenne die drei Abschnitte der Einheit in ihrer Reihenfolge.",
+      "slides": [
+        2
+      ],
+      "ordered": true,
+      "items": [
+        "Hebräische Bibel und Altes Testament",
+        "Der Text der Hebräischen Bibel und seine Überlieferung",
+        "Die Entstehung der Hebräischen Bibel"
+      ]
+    },
+    {
+      "id": "list.u01.tanak",
+      "title": "Die Teile des TaNaK",
+      "prompt": "Nenne die drei Kanonteile des TaNaK in ihrer Reihenfolge mit Übersetzung.",
+      "slides": [
+        6,
+        7
+      ],
+      "ordered": true,
+      "items": [
+        "Tora",
+        "Nebiim",
+        "Ketubim"
+      ],
+      "details": [
+        "Weisung",
+        "Propheten",
+        "Schriften"
+      ]
+    },
+    {
+      "id": "list.u01.tora_buecher",
+      "title": "Die Bücher der Tora mit hebräischem Namen",
+      "prompt": "Nenne die fünf Bücher der Tora mit ihrem hebräischen Namen in der Reihenfolge der Bibel.",
+      "slides": [
+        7
+      ],
+      "ordered": true,
+      "items": [
+        "Berešit",
+        "Šemot",
+        "Wajjiqra",
+        "Bammidbar",
+        "Debarim"
+      ],
+      "details": [
+        "Genesis/1. Mose",
+        "Exodus/2. Mose",
+        "Leviticus/3. Mose",
+        "Numeri/4. Mose",
+        "Deuteronomium/5. Mose"
+      ]
+    },
+    {
+      "id": "list.u01.lxx_teile",
+      "title": "Die Schriftenteile der Septuaginta",
+      "prompt": "Nenne die vier Schriftenteile der Septuaginta in ihrer Reihenfolge.",
+      "slides": [
+        9
+      ],
+      "ordered": true,
+      "items": [
+        "Pentateuch („Das Fünfteilige“)",
+        "Historia (Geschichtsbücher)",
+        "Psalmen und Weisheit",
+        "Prophetai (Prophetische Bücher)"
+      ]
+    },
+    {
+      "id": "list.u01.luther_teile",
+      "title": "Die Gruppen des AT in der Lutherbibel",
+      "prompt": "Nenne die drei Gruppen, in die die Lutherbibel das Alte Testament gliedert, in ihrer Reihenfolge.",
+      "slides": [
+        11
+      ],
+      "ordered": true,
+      "items": [
+        "Geschichtsbücher",
+        "Lehrbücher und Psalmen",
+        "Propheten"
+      ]
+    },
+    {
+      "id": "list.u01.textzeugen",
+      "title": "Hebräische Textzeugen nach ihrem Alter",
+      "prompt": "Nenne die hebräischen Textzeugen der Folien 13–14 vom ältesten zum jüngsten.",
+      "slides": [
+        13,
+        14
+      ],
+      "ordered": true,
+      "items": [
+        "Qumranhandschriften",
+        "Fragmente der Kairoer Geniza",
+        "Codex Cairensis",
+        "Kodex von Aleppo",
+        "Codex Petropolitanus/Leningradensis"
+      ],
+      "details": [
+        "meist 2.–1. Jh. v. Chr.",
+        "bis ins 5. Jh. n. Chr.",
+        "895 n. Chr.",
+        "10. Jh. n. Chr.",
+        "1008 n. Chr."
+      ]
+    },
+    {
+      "id": "list.u01.textgeschichte",
+      "title": "Stationen von Textentstehung und Textüberlieferung",
+      "prompt": "Nenne die Stationen des Schaubilds zur Textentstehung und -überlieferung in zeitlicher Folge.",
+      "slides": [
+        16
+      ],
+      "ordered": true,
+      "items": [
+        "Produktives Textwachstum der Bücher",
+        "Verschiedene „Urtexte“ nebeneinander",
+        "Protomasoretischer Text setzt sich im Judentum durch",
+        "Codex Petropolitanus",
+        "Biblia Hebraica Stuttgartensia"
+      ],
+      "details": [
+        "10.–2. Jh. v. Chr.",
+        "1. Jh. v. – 1. Jh. n. Chr.",
+        "um 100 n. Chr.",
+        "1008 n. Chr.",
+        "1967"
+      ]
+    },
+    {
+      "id": "list.u01.geschichte",
+      "title": "Eckdaten der Geschichte Israels und Judas",
+      "prompt": "Nenne die sechs Eckdaten der Geschichte Israels und Judas mit Jahreszahl.",
+      "slides": [
+        19
+      ],
+      "ordered": true,
+      "items": [
+        "Entstehung der Lokalkönigtümer Israel (Nordreich) und Juda (Südreich)",
+        "Untergang des Nordreiches (Eroberung durch die Neuassyrer)",
+        "Untergang des Südreiches (Eroberung durch die Neubabylonier), „Babylonisches Exil“",
+        "Machtübernahme der Perser, Rückkehr einiger Exulanten und Wiederaufbau Jerusalems",
+        "Machtübernahme Alexanders des Großen, Beginn des hellenistischen Zeitalters",
+        "Sieg der Makkabäer über Antiochus IV., danach hasmonäisches Königtum"
+      ],
+      "details": [
+        "10. Jh. v. Chr.",
+        "722 v. Chr.",
+        "587 v. Chr.",
+        "ab 539 v. Chr.",
+        "333 v. Chr.",
+        "164 v. Chr."
+      ]
+    },
+    {
+      "id": "list.u01.literaturgeschichte",
+      "title": "Vorstufen und Bücher (Literaturgeschichte)",
+      "prompt": "Nenne zu jeder Buchgruppe der exilischen und nachexilischen Zeit die Vorstufe aus der Königszeit, die die Folie nennt.",
+      "slides": [
+        20
+      ],
+      "items": [
+        "Pentateuch (Gen–Dtn), Jos+Ri ← einzelne Erzählkränze (z. B. Jakob-Laban / Mose)",
+        "Königtumsgeschichte in 1Sam–2Kön ← Annalennotizen in Palast-/Tempel-Archiven",
+        "Prophetenbücher (Jes–Mal) ← Sammlungen von Prophetenworten in Palast-/Tempel-Archiven",
+        "Psalter (Ps 1–150) ← einzelne Psalmen",
+        "Weisheitsbücher (Spr; Hi; Koh) ← Sammlungen von Weisheitssprüchen"
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "q.u01.bibel_wort",
+      "prompt": "Worauf geht das deutsche Wort „Bibel“ zurück?",
+      "answer": "Auf die griechische Pluralform ta biblia („die Schriftrollen / Bücher“)",
+      "distractors": [
+        "Auf das hebräische Miqra („was gelesen wird“)",
+        "Auf das lateinische testamentum („Hinterlassenschaft“)",
+        "Auf das griechische kanon („Richtschnur“)"
+      ],
+      "explanation": "Folie 4: „Bibel“ kommt von ta biblia, „die Schriftrollen / Bücher“. Den etymologischen Hintergrund bildet die Hafenstadt Byblos.",
+      "slides": [
+        4
+      ],
+      "terms": [
+        "term.ta_biblia"
+      ]
+    },
+    {
+      "id": "q.u01.byblos",
+      "prompt": "Welcher Ort bildet den etymologischen Hintergrund des Wortes „Bibel“?",
+      "answer": "Byblos, eine Hafenstadt im Libanon, in der Papyrus zu Schriftrollen verarbeitet wurde",
+      "distractors": [
+        "Qumran, wo 1947 Schriftrollen gefunden wurden",
+        "Alexandria, wo die Septuaginta entstand",
+        "Kairo, wo die Geniza-Fragmente gefunden wurden"
+      ],
+      "explanation": "Folie 4: Byblos im Libanon war ein Ort der Papyrusverarbeitung; daher griech. biblia für Schriftrollen.",
+      "slides": [
+        4
+      ]
+    },
+    {
+      "id": "q.u01.2kor",
+      "prompt": "Auf welche Bibelstelle geht die Unterscheidung von „altem“ und „neuem Bund“ zurück, die hinter der Bezeichnung „Altes Testament“ steht?",
+      "answer": "2 Kor 3,14",
+      "distractors": [
+        "1 Makk 12,9",
+        "Gen 1,1",
+        "Ps 1,2"
+      ],
+      "explanation": "Folie 5: In 2 Kor 3,14 unterscheidet Paulus palaia diatheke (alter Bund) und kaine diatheke (neuer Bund). 1 Makk 12,9 belegt dagegen die Bezeichnung „die heiligen Schriften“ (Folie 4).",
+      "slides": [
+        5
+      ],
+      "terms": [
+        "term.diatheke"
+      ]
+    },
+    {
+      "id": "q.u01.testament",
+      "prompt": "Warum konnten die beiden Schriftensammlungen „Testament“ heißen?",
+      "answer": "Weil diatheke und testamentum neben „Bund“ auch „Willensverfügung“ bzw. schriftliche „Hinterlassenschaft“ bedeuten können",
+      "distractors": [
+        "Weil Luther den Begriff für seine Übersetzung neu geprägt hat",
+        "Weil das hebräische Wort Tora „Testament“ bedeutet",
+        "Weil die Septuaginta als Testament des Mose galt"
+      ],
+      "explanation": "Folie 5: Die Doppelbedeutung von diatheke/testamentum erlaubte es, die den beiden Bundesschlüssen zugeordneten Sammlungen „vetus“ und „novum testamentum“ zu nennen.",
+      "slides": [
+        5
+      ],
+      "terms": [
+        "term.diatheke",
+        "term.testamentum"
+      ]
+    },
+    {
+      "id": "q.u01.historisch",
+      "prompt": "Wie beschreibt die Vorlesung die Schriften der Hebräischen Bibel historisch?",
+      "answer": "Als Sammlung von Schriften aus vorchristlicher Zeit, ursprünglich hebräisch (in Ausnahmefällen aramäisch) abgefasst",
+      "distractors": [
+        "Als Sammlung griechischer Schriften aus der Zeit um 100 n. Chr.",
+        "Als einheitliches Werk eines Verfassers aus der Königszeit",
+        "Als von Anfang an fest abgeschlossener Kanon von 45 Büchern"
+      ],
+      "explanation": "Folie 6: Historisch handelt es sich um Schriften aus vorchristlicher Zeit, ursprünglich auf Hebräisch, in einigen Ausnahmefällen auf Aramäisch.",
+      "slides": [
+        6
+      ]
+    },
+    {
+      "id": "q.u01.samaritaner",
+      "prompt": "Welchen Umfang hat der Kanon der Samaritaner?",
+      "answer": "Allein den Pentateuch (die fünf Bücher Mose)",
+      "distractors": [
+        "Die 39 Bücher des rabbinischen Kanons",
+        "Die 45 Schriften der Septuaginta",
+        "Nur die Prophetenbücher"
+      ],
+      "explanation": "Folie 6: Die Samaritaner akzeptieren bis heute allein den Pentateuch – ein Beispiel dafür, dass sich Kanonformen in Anzahl und Anordnung unterscheiden.",
+      "slides": [
+        6
+      ],
+      "terms": [
+        "term.pentateuch"
+      ]
+    },
+    {
+      "id": "q.u01.rabbinisch_zahl",
+      "prompt": "Wie viele Bücher umfasst der rabbinische Kanon nach der Zählung der Folie?",
+      "answer": "39",
+      "distractors": [
+        "45",
+        "66",
+        "5"
+      ],
+      "explanation": "Folie 6: Im rabbinischen Judentum hat sich ein Schriftenkanon von 39 Büchern herausgebildet; Luther übernimmt diesen Umfang (Folie 10). Ergänzung: In jüdischer Tradition werden dieselben Schriften oft zu 24 Büchern zusammengezählt.",
+      "slides": [
+        6,
+        10
+      ]
+    },
+    {
+      "id": "q.u01.tanak_ordnung",
+      "prompt": "Nach welchem Prinzip sind die Kanonteile der Hebräischen Bibel angeordnet?",
+      "answer": "Nach der ihnen beigemessenen Gewichtung: Tora, Nebiim, Ketubim",
+      "distractors": [
+        "Heilsgeschichtlich, mit den Propheten am Ende",
+        "Nach der Entstehungszeit der Bücher",
+        "Nach dem Umfang der Bücher"
+      ],
+      "explanation": "Folie 6: Die Kanonteile sind nach ihrer Gewichtung angeordnet. Die heilsgeschichtliche Anordnung mit den Propheten am Ende ist dagegen das Merkmal der Septuaginta (Folie 8).",
+      "slides": [
+        6,
+        8
+      ],
+      "terms": [
+        "term.tanak"
+      ]
+    },
+    {
+      "id": "q.u01.tora_namen",
+      "prompt": "Wonach richten sich die hebräischen Namen der Tora-Bücher (z. B. Berešit, Šemot)?",
+      "answer": "Nach dem Anfangswort des Buches",
+      "distractors": [
+        "Nach dem Hauptinhalt des Buches",
+        "Nach dem vermuteten Verfasser",
+        "Nach der Stellung im Kanon"
+      ],
+      "explanation": "Folie 7 (Tabelle): „Die Namen der Bücher richten sich nach dem Anfangswort.“ Die griechischen Namen der Septuaginta richten sich dagegen nach dem Hauptinhalt (Folie 9).",
+      "slides": [
+        7,
+        9
+      ],
+      "terms": [
+        "term.tora"
+      ]
+    },
+    {
+      "id": "q.u01.lxx_namen",
+      "prompt": "Wonach richten sich die griechischen Buchnamen des Pentateuch in der Septuaginta (z. B. Exodos, Arithmoi)?",
+      "answer": "Nach dem Hauptinhalt des Buches",
+      "distractors": [
+        "Nach dem Anfangswort des Buches",
+        "Nach dem Ort der Übersetzung",
+        "Nach der Zahl der Kapitel"
+      ],
+      "explanation": "Folie 9 (Tabelle): „Die Namen der Bücher richten sich nach dem Hauptinhalt.“",
+      "slides": [
+        9
+      ],
+      "terms": [
+        "term.pentateuch"
+      ]
+    },
+    {
+      "id": "q.u01.lxx_ordnung",
+      "prompt": "Wie sind die Schriften der Septuaginta angeordnet?",
+      "answer": "Heilsgeschichtlich; die Propheten stehen am Ende und weisen auf die Erfüllung im Neuen Testament voraus",
+      "distractors": [
+        "Nach Gewichtung in Tora, Nebiim und Ketubim",
+        "Alphabetisch nach den griechischen Buchnamen",
+        "Nach der Entstehungszeit, die ältesten zuerst"
+      ],
+      "explanation": "Folie 8: Im Unterschied zur Hebräischen Bibel ist die Septuaginta heilsgeschichtlich angeordnet.",
+      "slides": [
+        8
+      ],
+      "terms": [
+        "term.septuaginta"
+      ]
+    },
+    {
+      "id": "q.u01.lxx_zeit",
+      "prompt": "Wann entstand die Septuaginta?",
+      "answer": "Schrittweise über einen langen Zeitraum, ca. 250 v. Chr. – 100 n. Chr.",
+      "distractors": [
+        "Im 10. Jh. v. Chr. am Königshof in Jerusalem",
+        "Um 1008 n. Chr. als Abschrift des Leningradensis",
+        "Im 4. Jh. n. Chr. als lateinische Übersetzung"
+      ],
+      "explanation": "Folie 8: Die Septuaginta ist die älteste griechische Übersetzung des AT und entstand schrittweise (ca. 250 v. Chr. – 100 n. Chr.).",
+      "slides": [
+        8
+      ],
+      "terms": [
+        "term.septuaginta"
+      ]
+    },
+    {
+      "id": "q.u01.lxx_zahl",
+      "prompt": "Wie viele Schriften umfasst der Kanon der Septuaginta nach der Folie?",
+      "answer": "45",
+      "distractors": [
+        "39",
+        "5",
+        "66"
+      ],
+      "explanation": "Folie 8: Mit 45 Schriften ist der Kanon der Septuaginta umfangreicher als der der Hebräischen Bibel, weil er auch die apokryphen bzw. deuterokanonischen Bücher enthält.",
+      "slides": [
+        8
+      ],
+      "terms": [
+        "term.apokryph"
+      ]
+    },
+    {
+      "id": "q.u01.einheitsuebersetzung",
+      "prompt": "Auf welchem Kanon beruhen die Vulgata und die katholische Einheitsübersetzung?",
+      "answer": "Auf dem Kanon der Septuaginta",
+      "distractors": [
+        "Auf dem rabbinischen Kanon von 39 Büchern",
+        "Auf dem Kanon der Samaritaner",
+        "Auf dem Kanon der Lutherbibel"
+      ],
+      "explanation": "Folie 8: Der Septuagintakanon liegt der Vulgata zugrunde und daher auch katholischen Übersetzungen wie der Einheitsübersetzung.",
+      "slides": [
+        8
+      ],
+      "terms": [
+        "term.vulgata"
+      ]
+    },
+    {
+      "id": "q.u01.luther",
+      "prompt": "Was übernahm Luther für das Alte Testament seiner Übersetzung?",
+      "answer": "Den Umfang der Hebräischen Bibel (39 Schriften) und die Reihenfolge der Septuaginta",
+      "distractors": [
+        "Umfang und Reihenfolge der Septuaginta (45 Schriften)",
+        "Umfang und Reihenfolge der Hebräischen Bibel (Tora, Nebiim, Ketubim)",
+        "Den Umfang der Septuaginta und die Reihenfolge der Hebräischen Bibel"
+      ],
+      "explanation": "Folie 10: Luther akzeptierte nur die 39 Schriften der Hebräischen Bibel als kanonisch, behielt aber die heilsgeschichtliche Reihenfolge der Septuaginta bei.",
+      "slides": [
+        10,
+        11
+      ]
+    },
+    {
+      "id": "q.u01.lxx_nt",
+      "prompt": "Warum ist die Septuaginta nach der Vorlesung auch für das Studium des Neuen Testaments zentral?",
+      "answer": "Weil die ersten Christen überwiegend die Bücher in der Übersetzung der Septuaginta als ihre heilige Schrift verwendeten",
+      "distractors": [
+        "Weil das Neue Testament ursprünglich in die Septuaginta eingefügt war",
+        "Weil sie die älteste vollständige hebräische Handschrift ist",
+        "Weil Luther das Neue Testament aus ihr übersetzte"
+      ],
+      "explanation": "Folie 10: Die Septuaginta ist für Textentstehung und -überlieferung, für das NT und das frühe Christentum zentral, weil die ersten Christen sie überwiegend als heilige Schrift gebrauchten.",
+      "slides": [
+        10
+      ],
+      "terms": [
+        "term.septuaginta"
+      ]
+    },
+    {
+      "id": "q.u01.aelteste_vollstaendig",
+      "prompt": "Welche ist die älteste vollständige Handschrift der Hebräischen Bibel?",
+      "answer": "Der Codex Petropolitanus bzw. Leningradensis (1008 n. Chr.)",
+      "distractors": [
+        "Der Kodex von Aleppo (10. Jh. n. Chr.)",
+        "Der Codex Cairensis (895 n. Chr.)",
+        "Die große Jesajarolle aus Qumran"
+      ],
+      "explanation": "Folie 13: Der Leningradensis ist die älteste vollständige Handschrift. Aleppo und Cairensis sind älter, aber unvollständig bzw. auf die Propheten beschränkt (Folie 14).",
+      "slides": [
+        13,
+        14
+      ],
+      "terms": [
+        "term.leningradensis"
+      ]
+    },
+    {
+      "id": "q.u01.bhs",
+      "prompt": "Was bietet die Biblia Hebraica Stuttgartensia?",
+      "answer": "Eine Abschrift des Textes des Codex Leningradensis plus kritischen Apparat",
+      "distractors": [
+        "Einen aus allen Handschriften neu rekonstruierten Urtext ohne Leithandschrift",
+        "Den griechischen Text der Septuaginta",
+        "Die Texte aus Qumran in vollständiger Form"
+      ],
+      "explanation": "Folie 13: Die BHS, die gängige kritische Ausgabe im deutschsprachigen Raum, gibt den Text des Leningradensis wieder und verzeichnet Abweichungen im kritischen Apparat.",
+      "slides": [
+        13,
+        16
+      ],
+      "terms": [
+        "term.bhs"
+      ]
+    },
+    {
+      "id": "q.u01.cairensis",
+      "prompt": "Welche Handschrift umfasst nur die vorderen und hinteren Propheten?",
+      "answer": "Der Codex Cairensis (895 n. Chr.)",
+      "distractors": [
+        "Der Kodex von Aleppo",
+        "Der Codex Leningradensis",
+        "Die Fragmente der Kairoer Geniza"
+      ],
+      "explanation": "Folie 14: Der Codex Cairensis von 895 n. Chr. umfasst nur die vorderen und hinteren Propheten.",
+      "slides": [
+        14
+      ],
+      "terms": [
+        "term.cairensis"
+      ]
+    },
+    {
+      "id": "q.u01.qumran",
+      "prompt": "Woher stammen die bei weitem ältesten Textzeugen der Hebräischen Bibel?",
+      "answer": "Aus den 1947 entdeckten Qumranhöhlen, überwiegend aus dem 2.–1. Jh. v. Chr.",
+      "distractors": [
+        "Aus der Kairoer Geniza, überwiegend aus dem 5. Jh. n. Chr.",
+        "Aus dem Tempelarchiv in Jerusalem, aus dem 10. Jh. v. Chr.",
+        "Aus Byblos, aus der Zeit der Papyrusherstellung"
+      ],
+      "explanation": "Folie 14: Die Qumranfunde sind die ältesten Textzeugen – weit über hundert, meist sehr fragmentarische Abschriften, noch relativ nah an der Abfassung.",
+      "slides": [
+        14
+      ],
+      "terms": [
+        "term.qumran"
+      ]
+    },
+    {
+      "id": "q.u01.verlaesslich",
+      "prompt": "Was zeigt der Vergleich des Codex Petropolitanus mit den Qumranfunden?",
+      "answer": "Der hebräische Text wurde aufs Ganze gesehen sehr verlässlich überliefert; die Übereinstimmungen überwiegen deutlich",
+      "distractors": [
+        "Die Abweichungen überwiegen deutlich die Übereinstimmungen",
+        "Beide Texte stimmen Buchstabe für Buchstabe überein",
+        "Ein Vergleich ist nicht möglich, weil Qumran keine biblischen Texte enthält"
+      ],
+      "explanation": "Folie 15: Die Übereinstimmungen überwiegen deutlich – ein Verdienst der Masoreten.",
+      "slides": [
+        15
+      ],
+      "terms": [
+        "term.masoreten"
+      ]
+    },
+    {
+      "id": "q.u01.texttypen",
+      "prompt": "Was zeigen die Qumranfunde außerdem über den masoretischen Text?",
+      "answer": "Er ist nicht einfach „die“ hebräische Bibel, sondern ein Texttyp, der im 2.–1. Jh. v. Chr. mit anderen Texttypen konkurrierte",
+      "distractors": [
+        "Er war schon im 2. Jh. v. Chr. die einzige hebräische Textform",
+        "Er ist eine Rückübersetzung aus der Septuaginta",
+        "Er entstand erst nach 1008 n. Chr."
+      ],
+      "explanation": "Folie 15: Die Masoreten entschieden sich für die Überlieferung eines bestimmten Texttyps, der zunächst neben anderen existierte (vgl. die drei „Urtexte“ auf Folie 16).",
+      "slides": [
+        15,
+        16
+      ],
+      "terms": [
+        "term.masoretischer_text"
+      ]
+    },
+    {
+      "id": "q.u01.kein_kanon",
+      "prompt": "Wie beschreibt die Vorlesung die Lage der Schriften im 2.–1. Jh. v. Chr.?",
+      "answer": "Es gab noch keinen festen Kanon, nur eine mehr oder minder klar umrissene Sammlung autoritativer Schriften mit stark fluktuierendem Konsonantenbestand",
+      "distractors": [
+        "Der Kanon von 39 Büchern war bereits abgeschlossen und der Text festgelegt",
+        "Es gab noch keine einzige als autoritativ geltende Schrift",
+        "Der Kanon der Septuaginta galt im Judentum allein als verbindlich"
+      ],
+      "explanation": "Folie 15: Zu dieser Zeit gab es noch keinen festen Kanon.",
+      "slides": [
+        15
+      ],
+      "terms": [
+        "term.kanon"
+      ]
+    },
+    {
+      "id": "q.u01.literarkritik",
+      "prompt": "Was ist nach dem Schaubild Gegenstand von Literarkritik und Redaktionsgeschichte?",
+      "answer": "Das produktive Textwachstum: Die Bücher entstehen und wachsen zu ihrem aktuellen Umfang an",
+      "distractors": [
+        "Die Überlieferung des hebräischen Textes in Handschriften",
+        "Die Übersetzung ins Griechische",
+        "Die Gestaltung moderner Druckausgaben"
+      ],
+      "explanation": "Folie 16: Textwachstum (10.–2. Jh. v. Chr.) → Literarkritik und Redaktionsgeschichte; Überlieferung des hebräischen Textes → Textkritik.",
+      "slides": [
+        16
+      ],
+      "terms": [
+        "term.literarkritik",
+        "term.textkritik"
+      ]
+    },
+    {
+      "id": "q.u01.100nchr",
+      "prompt": "Wann setzt sich der (proto-)masoretische Text nach dem Schaubild im Judentum als autoritativ durch?",
+      "answer": "Um 100 n. Chr.",
+      "distractors": [
+        "Im 10. Jh. v. Chr.",
+        "1008 n. Chr.",
+        "1967"
+      ],
+      "explanation": "Folie 16: Auf der Zeitachse steht bei 100 n. Chr.: „setzt sich im Judentum als autoritativ durch“. 1008 ist das Datum des Codex Petropolitanus, 1967 das der BHS.",
+      "slides": [
+        16
+      ],
+      "terms": [
+        "term.protomasoretisch"
+      ]
+    },
+    {
+      "id": "q.u01.722",
+      "prompt": "Was geschah 722 v. Chr.?",
+      "answer": "Untergang des Nordreiches (Eroberung durch die Neuassyrer)",
+      "distractors": [
+        "Untergang des Südreiches (Eroberung durch die Neubabylonier)",
+        "Machtübernahme der Perser und Rückkehr einiger Exulanten",
+        "Sieg der Makkabäer über Antiochus IV."
+      ],
+      "explanation": "Folie 19: 722 v. Chr. Untergang des Nordreiches Israel durch die Neuassyrer.",
+      "slides": [
+        19
+      ]
+    },
+    {
+      "id": "q.u01.587",
+      "prompt": "Was geschah 587 v. Chr.?",
+      "answer": "Untergang des Südreiches (Eroberung durch die Neubabylonier), Beginn des „Babylonischen Exils“",
+      "distractors": [
+        "Untergang des Nordreiches (Eroberung durch die Neuassyrer)",
+        "Machtübernahme Alexanders des Großen",
+        "Entstehung der Lokalkönigtümer Israel und Juda"
+      ],
+      "explanation": "Folie 19: 587 v. Chr. Untergang des Südreiches Juda durch die Neubabylonier; es folgt das Babylonische Exil.",
+      "slides": [
+        19
+      ],
+      "terms": [
+        "term.exil"
+      ]
+    },
+    {
+      "id": "q.u01.539",
+      "prompt": "Was verbindet die Folie mit dem Jahr 539 v. Chr.?",
+      "answer": "Machtübernahme der Perser, Rückkehr einiger Exulanten und Wiederaufbau Jerusalems",
+      "distractors": [
+        "Beginn des hellenistischen Zeitalters",
+        "Untergang des Südreiches",
+        "Etablierung des hasmonäischen Königtums"
+      ],
+      "explanation": "Folie 19: ab 539 v. Chr. Perserzeit; Beginn der nachexilischen Zeit.",
+      "slides": [
+        19
+      ],
+      "terms": [
+        "term.exil"
+      ]
+    },
+    {
+      "id": "q.u01.333",
+      "prompt": "Was beginnt nach der Folie 333 v. Chr.?",
+      "answer": "Das hellenistische Zeitalter (Machtübernahme Alexanders des Großen)",
+      "distractors": [
+        "Die Perserzeit (Machtübernahme der Perser)",
+        "Das Babylonische Exil",
+        "Das hasmonäische Königtum"
+      ],
+      "explanation": "Folie 19: 333 v. Chr. Machtübernahme Alexanders des Großen, Beginn des hellenistischen Zeitalters.",
+      "slides": [
+        19
+      ]
+    },
+    {
+      "id": "q.u01.164",
+      "prompt": "Was geschah 164 v. Chr.?",
+      "answer": "Sieg der Makkabäer über den Seleukiden Antiochus IV.; in der Folgezeit hasmonäisches Königtum",
+      "distractors": [
+        "Machtübernahme Alexanders des Großen",
+        "Rückkehr einiger Exulanten aus Babylon",
+        "Untergang des Nordreiches"
+      ],
+      "explanation": "Folie 19: 164 v. Chr. Sieg der Makkabäer über Antiochus IV.; danach Etablierung des hasmonäischen Königtums.",
+      "slides": [
+        19
+      ]
+    },
+    {
+      "id": "q.u01.koenigszeit",
+      "prompt": "Welche Ereignisse rechnet die Folie zur Königszeit?",
+      "answer": "Entstehung der Königtümer Israel und Juda, Untergang des Nordreiches 722 und des Südreiches 587",
+      "distractors": [
+        "Rückkehr aus dem Exil, Alexander der Große und Makkabäer",
+        "Nur die Entstehung der Königtümer im 10. Jh.",
+        "Perserzeit und hellenistisches Zeitalter"
+      ],
+      "explanation": "Folie 19: Der Rahmen „Königszeit“ umfasst die ersten drei Daten, „Nachexilische Zeit“ die Daten ab 539 v. Chr.",
+      "slides": [
+        19
+      ]
+    },
+    {
+      "id": "q.u01.psalter",
+      "prompt": "Welche Vorstufe aus der Königszeit nennt die Folie für den Psalter?",
+      "answer": "Einzelne Psalmen",
+      "distractors": [
+        "Sammlungen von Weisheitssprüchen",
+        "Annalennotizen in Palast-/Tempel-Archiven",
+        "Einzelne Erzählkränze"
+      ],
+      "explanation": "Folie 20: einzelne Psalmen (Königszeit) → Psalter Ps 1–150 (exilische und nachexilische Zeit).",
+      "slides": [
+        20
+      ]
+    },
+    {
+      "id": "q.u01.koenigtumsgeschichte",
+      "prompt": "Welche Vorstufe nennt die Folie für die Königtumsgeschichte in 1Sam–2Kön?",
+      "answer": "Annalennotizen in Palast-/Tempel-Archiven",
+      "distractors": [
+        "Sammlungen von Prophetenworten",
+        "Einzelne Erzählkränze wie Jakob-Laban",
+        "Einzelne Psalmen"
+      ],
+      "explanation": "Folie 20: Annalennotizen in Palast-/Tempel-Archiven → Königtumsgeschichte in 1Sam–2Kön.",
+      "slides": [
+        20
+      ]
+    },
+    {
+      "id": "q.u01.pentateuch_zeit",
+      "prompt": "In welche Zeit datiert die Vorlesung die Entstehung des Pentateuch (Gen–Dtn) als Buch?",
+      "answer": "In die exilische und nachexilische Zeit (6.–2. Jh. v. Chr.)",
+      "distractors": [
+        "In die Königszeit (10.–6. Jh. v. Chr.)",
+        "In die Zeit nach 100 n. Chr.",
+        "In die Zeit um 1008 n. Chr."
+      ],
+      "explanation": "Folie 20: Aus Erzählkränzen der Königszeit (z. B. Jakob-Laban / Mose) wird in exilischer und nachexilischer Zeit der Pentateuch. Ergänzung: Diese Datierung ist in der heutigen kritischen Forschung verbreitet, aber nicht unumstritten; konservative Positionen setzen größere Teile früher an.",
+      "slides": [
+        20
+      ],
+      "terms": [
+        "term.pentateuch"
+      ]
+    }
+  ]
+}

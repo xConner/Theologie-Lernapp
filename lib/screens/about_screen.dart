@@ -123,21 +123,18 @@ class AboutScreen extends StatelessWidget {
                   margin: EdgeInsets.zero,
                   child: Column(
                     children: [
-                      for (final module in [
-                        for (final m in AppModules.all)
-                          if (LectureMaterials.instance.showsArea(m.id))
-                            LectureMaterials.instance.moduleInfo(m),
-                      ])
-                        ListTile(
-                          dense: true,
-                          title: Text(module.title),
-                          trailing: const Icon(Icons.chevron_right_rounded),
-                          onTap: () => showModuleInfo(
-                            context,
-                            module,
-                            showAboutLink: false,
+                      for (final module in AppModules.all)
+                        if (LectureMaterials.instance.showsArea(module.id))
+                          ListTile(
+                            dense: true,
+                            title: Text(module.title),
+                            trailing: const Icon(Icons.chevron_right_rounded),
+                            onTap: () => showModuleInfo(
+                              context,
+                              module,
+                              showAboutLink: false,
+                            ),
                           ),
-                        ),
                     ],
                   ),
                 ),

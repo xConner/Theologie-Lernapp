@@ -4,12 +4,11 @@ import 'dart:typed_data';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:theologie_lernapp/services/lecture_materials/lecture_materials.dart';
 
-/// Die geschützten Vorlesungsunterlagen liegen nicht im öffentlichen
-/// Repository (docs/lecture-materials.md), sondern lokal in
-/// `lecture_materials/` (oder im Verzeichnis aus LECTURE_MATERIALS_DIR).
-/// Tests der echten Inhalte laufen nur, wenn es vorhanden ist.
+/// Die Vorlesungsunterlagen liegen in `assets/` (docs/lecture-materials.md);
+/// LECTURE_MATERIALS_DIR erlaubt ein anderes Verzeichnis mit demselben
+/// Aufbau. Tests der echten Inhalte laufen nur, wenn es vorhanden ist.
 final String lectureMaterialsDir =
-    Platform.environment["LECTURE_MATERIALS_DIR"] ?? "lecture_materials";
+    Platform.environment["LECTURE_MATERIALS_DIR"] ?? "assets";
 
 bool get lectureMaterialsPresent =>
     File("$lectureMaterialsDir/old_testament/course.json").existsSync();
@@ -20,7 +19,6 @@ String? lectureMaterialsFile(String assetPath) {
     "assets/old_testament/",
     "assets/church_history/",
     "assets/reading_plans/course-",
-    "assets/info/",
   ];
   for (final p in prefixes) {
     if (assetPath.startsWith(p)) {
@@ -64,16 +62,19 @@ class FakeLectureMaterialsSource implements LectureMaterialsSource {
   }
 }
 
-/// Die lokalen Unterlagen als freigegebene Quelle.
+/// Die echten Unterlagen (nur deren Dateien) als freigegebene Quelle.
 FakeLectureMaterialsSource directoryLectureMaterialsSource() {
   final dir = Directory(lectureMaterialsDir);
-  return FakeLectureMaterialsSource({
-    for (final f in dir.listSync(recursive: true).whereType<File>())
-      f.path
-          .substring(dir.path.length + 1)
-          .replaceAll(Platform.pathSeparator, "/"): f
-          .readAsBytesSync(),
-  });
+  final files = <String, Uint8List>{};
+  for (final f in dir.listSync(recursive: true).whereType<File>()) {
+    final path = f.path
+        .substring(dir.path.length + 1)
+        .replaceAll(Platform.pathSeparator, "/");
+    if (lectureMaterialsFile("assets/$path") != null) {
+      files[path] = f.readAsBytesSync();
+    }
+  }
+  return FakeLectureMaterialsSource(files);
 }
 
 /// Setzt [LectureMaterials.instance] für einen Test und stellt es danach

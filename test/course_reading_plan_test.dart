@@ -177,7 +177,7 @@ void main() {
 
   group("Plan zur Übung Bibelkunde AT", () {
     test("steht im Index und wird vom Dienst geladen", () async {
-      // Geschützte Vorlesungsunterlagen, nicht der öffentliche Index.
+      // Erst nach der Freigabe der Vorlesungsunterlagen sichtbar.
       expect(LectureMaterials.instance.files(prefix: "reading_plans/"), [
         "reading_plans/$planId.json",
       ]);

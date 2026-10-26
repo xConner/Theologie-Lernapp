@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -14,8 +13,6 @@ import 'package:theologie_lernapp/services/lecture_materials/lecture_materials.d
 import 'package:theologie_lernapp/services/reports/report.dart';
 import 'package:theologie_lernapp/services/reports/report_service.dart';
 import 'package:theologie_lernapp/widgets/info_report.dart';
-
-import 'lecture_materials_test_support.dart';
 
 class FakeSender implements ReportSender {
   final List<Report> sent = [];
@@ -71,30 +68,8 @@ void main() {
       expect(ids, isNot(contains(AppModules.general.id)));
 
       for (final module in AppModules.all) {
-        // Beschreibung und Quellen geschützter Bereiche (Dozenten, Folien)
-        // stehen nur in den Vorlesungsunterlagen, nicht im Code.
-        if (LectureMaterials.protectedAreaIds.contains(module.id)) {
-          expect(module.description, isEmpty, reason: module.id);
-          expect(module.sources, isEmpty, reason: module.id);
-          continue;
-        }
         expect(module.description, isNotEmpty, reason: module.id);
         expect(module.sources, isNotEmpty, reason: module.id);
-      }
-    });
-
-    test("Info geschützter Bereiche in den Vorlesungsunterlagen", () {
-      if (!lectureMaterialsPresent) return;
-      for (final id in LectureMaterials.protectedAreaIds) {
-        final info = ModuleInfo.fromJson(
-          jsonDecode(
-                File("$lectureMaterialsDir/info/$id.json").readAsStringSync(),
-              )
-              as Map<String, dynamic>,
-        );
-        expect(info.id, id);
-        expect(info.description, isNotEmpty, reason: id);
-        expect(info.sources, isNotEmpty, reason: id);
       }
     });
 

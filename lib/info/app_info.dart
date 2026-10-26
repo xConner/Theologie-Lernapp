@@ -265,24 +265,100 @@ class AppModules {
     ],
   );
 
-  /// Beschreibung, Quellen und Hinweise stehen in den geschützten
-  /// Vorlesungsunterlagen (`info/church_history.json`, siehe
-  /// docs/lecture-materials.md); angezeigt über
-  /// `LectureMaterials.moduleInfo`.
   static const ModuleInfo churchHistory = ModuleInfo(
     id: "church_history",
     title: "Kirchengeschichte",
-    description: "",
+    description:
+        "Vorlesungen mit Originalfolien und Zusammenfassung, Epochen und "
+        "Zeitleiste, verknüpfte Einträge zu Personen, Ereignissen, Begriffen "
+        "und Quellen, Suche, Wissensquiz und Chronologietrainer.",
+    sources: [
+      SourceInfo(
+        title: "Vorlesungsfolien",
+        origin:
+            "Prof. Dr. A. Müller, „Geschichte des Christentums im Überblick "
+            "I“, Folien 1–15 (Einleitung; Anfänge, Mission und Martyrium). "
+            "Übernahme in die App mit Erlaubnis.",
+        processing:
+            "Die Folien sind als Bilder (Originalansicht) und als "
+            "vollständige Abschrift hinterlegt. Die Zusammenfassungen geben "
+            "den Folieninhalt wieder; Zitate der Vorlesung sind als solche "
+            "gekennzeichnet.",
+      ),
+      SourceInfo(
+        title: "Erläuterungen und Ergänzungen",
+        processing:
+            "Kurzbeschreibungen, Bedeutung, Datierungshinweise, "
+            "Forschungsdiskussionen und Quellenangaben der Einträge sowie "
+            "die als „Ergänzung“ markierten Abschnitte sind nicht Teil der "
+            "Vorlesung. Sie geben verbreitetes Lehrbuchwissen wieder.",
+        aiNote:
+            "Die Ergänzungen wurden mit KI-Unterstützung formuliert und "
+            "nicht mit der Vorlesung oder einem bestimmten Lehrbuch "
+            "abgeglichen.",
+      ),
+    ],
+    notes: [
+      "Ungefähre und umstrittene Datierungen sind gekennzeichnet. Im Quiz "
+          "stehen nur Ereignisse zusammen, deren Datierungen sich auch mit "
+          "ihrer Unschärfe nicht überschneiden.",
+      "Die Epochengrenzen sind nach der Vorlesung nur grobe Richtwerte.",
+    ],
   );
 
-  /// Beschreibung, Quellen und Hinweise stehen in den geschützten
-  /// Vorlesungsunterlagen (`info/old_testament.json`, siehe
-  /// docs/lecture-materials.md); angezeigt über
-  /// `LectureMaterials.moduleInfo`.
   static const ModuleInfo oldTestament = ModuleInfo(
     id: "old_testament",
     title: "Altes Testament",
-    description: "",
+    description:
+        "Vorlesungseinheiten mit Originalfolien und Abschrift, Kernpunkten, "
+        "Gliederung, Fachbegriffen und Bibelstellen; Lernmodus mit "
+        "Auswahlfragen, Merklisten und Gliederungen. Dieselben Inhalte "
+        "tragen die „Grundlagen der Bibelkunde“ im Bereich Bibelkunde.",
+    sources: [
+      SourceInfo(
+        title: "Vorlesungsfolien",
+        origin:
+            "Prof. Dr. Christoph Berner, „Einführung in das Alte "
+            "Testament“, Einheit I: Grundlagen – Der alttestamentliche Kanon "
+            "und die Geschichte Israels (21 Folien). Die Tabellen der Folien "
+            "stammen nach Angabe der Folien aus M. Köhlmoos, Altes Testament, "
+            "und L. Borman[n], Bibelkunde.",
+        processing:
+            "Die Folien sind als Bilder (Originalansicht) und als "
+            "vollständige Abschrift hinterlegt, Tabellen und Schaubilder "
+            "abgeschrieben. Kernpunkte, Gliederung und Fragen geben den "
+            "Folieninhalt mit Folienangabe wieder.",
+      ),
+      SourceInfo(
+        title: "Folien der Übung Bibelkunde",
+        origin:
+            "Louisa Thomsen, „Bibelkunde Altes Testament“ (WiSe 2026/27), "
+            "1. Sitzung: Einführung (28 Folien). Die Tabellen der Folien 17 "
+            "und 18 stammen nach Angabe der Folien aus M. Köhlmoos, Altes "
+            "Testament (2011).",
+        processing:
+            "Wie bei der Vorlesung: Bilder und vollständige Abschrift (die "
+            "Titelfolie ohne Kontaktdaten), Zusammenfassung mit Folienangabe. "
+            "Was die Vorlesung ebenso sagt, ist nicht doppelt hinterlegt, "
+            "sondern mit ihr geteilt.",
+      ),
+      SourceInfo(
+        title: "Erläuterungen und Ergänzungen",
+        processing:
+            "Als „Ergänzung“ markierte Kästen und Hinweise in Erklärungen "
+            "sind nicht Teil der Vorlesung. Stellen, die die Folien nicht "
+            "eindeutig machen, sind als „Nicht eindeutig“ gekennzeichnet "
+            "und werden nicht abgefragt.",
+        aiNote:
+            "Zusammenfassungen, Fragen und Ergänzungen wurden mit "
+            "KI-Unterstützung aus den Folien erarbeitet.",
+      ),
+    ],
+    notes: [
+      "Wo die Vorlesung eine Forschungsposition vertritt (etwa zur "
+          "Datierung der Bücher), nennt die App sie als Position der "
+          "Vorlesung und weist auf andere Positionen hin.",
+    ],
   );
 
   static const ModuleInfo confessions = ModuleInfo(
@@ -775,9 +851,7 @@ class AppModules {
     ],
   );
 
-  /// Bereiche, die in „Über die App“ aufgelistet werden. Bereiche aus
-  /// geschützten Vorlesungsunterlagen nur mit Freigabe (siehe
-  /// `LectureMaterials.showsArea`).
+  /// Bereiche, die in „Über die App“ aufgelistet werden.
   static const List<ModuleInfo> all = [
     pericopeQuiz,
     bible,

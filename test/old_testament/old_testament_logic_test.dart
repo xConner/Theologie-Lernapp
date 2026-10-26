@@ -20,7 +20,6 @@ import 'package:theologie_lernapp/services/statistics/learning_statistics.dart';
 import 'package:theologie_lernapp/services/streak/streak_track.dart';
 
 import 'old_testament_test_data.dart';
-import '../lecture_materials_test_support.dart';
 
 final _allKinds = OtQuizKind.values.toSet();
 
@@ -36,24 +35,17 @@ List<OtQuestion> _build(
 ];
 
 void main() {
-  // Echte Inhalte: geschützte Vorlesungsunterlagen, nicht im Repository.
-  if (!lectureMaterialsPresent) {
-    skipWithoutLectureMaterials("Altes Testament (Logik)");
-    return;
-  }
-
   final data = loadOldTestament();
   final unit = data.unit("unit.01")!;
 
   group("Erste Einheit", () {
     test("ist vollständig eingebunden", () {
       expect(data.course.title, "Einführung in das Alte Testament");
-      // Dozentenangabe nur in den Unterlagen, nicht im öffentlichen Code.
-      expect(data.course.lecturer, isNotEmpty);
+      expect(data.course.lecturer, "Prof. Dr. Christoph Berner");
       expect(data.units, hasLength(1));
       expect(unit.number, 1);
       expect(unit.title, contains("Kanon"));
-      expect(unit.file, endsWith(".pdf"));
+      expect(unit.file, contains("Berner_EinfuehrungAT_01"));
       // Teil einer größeren Vorlesung, nicht die ganze Vorlesung.
       expect(unit.scope, contains("Einheit I"));
       expect(
@@ -66,11 +58,7 @@ void main() {
       for (final s in unit.slides) {
         expect(s.text.trim(), isNotEmpty, reason: "Folie ${s.number}");
         expect(s.image, isNotNull, reason: "Folie ${s.number}");
-        expect(
-          File(lectureMaterialsFile(s.image!)!).existsSync(),
-          isTrue,
-          reason: s.image,
-        );
+        expect(File(s.image!).existsSync(), isTrue, reason: s.image);
         expect(s.image, contains("e01-folie-"), reason: s.image);
       }
     });

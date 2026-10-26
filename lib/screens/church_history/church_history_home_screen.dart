@@ -5,7 +5,6 @@ import '../../info/app_info.dart';
 import '../../models/church_history/church_history.dart';
 import '../../services/church_history/church_history_quiz.dart';
 import '../../services/church_history/church_history_store.dart';
-import '../../services/lecture_materials/lecture_materials.dart';
 import '../../services/streak/streak_track.dart';
 import '../../theme/app_theme.dart';
 import '../../widgets/info_report.dart';
@@ -202,11 +201,7 @@ class _Home extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: secondary.copyWith(fontSize: 12.5),
                 ),
-                InfoReportFooter(
-                  module: LectureMaterials.instance.moduleInfo(
-                    AppModules.churchHistory,
-                  ),
-                ),
+                const InfoReportFooter(module: AppModules.churchHistory),
               ],
             ),
           ),

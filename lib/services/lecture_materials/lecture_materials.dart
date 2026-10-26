@@ -7,28 +7,26 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
 
-import '../../info/module_info.dart';
-
-/// Geschützte Vorlesungsunterlagen (siehe docs/lecture-materials.md).
+/// Vorlesungsunterlagen nur für freigeschaltete Konten (siehe
+/// docs/lecture-materials.md).
 ///
-/// Folien, Abschriften, Zusammenfassungen, Dozentenangaben und Lesepläne
-/// der Lehrveranstaltungen (Altes Testament mit der Übung Bibelkunde,
-/// Kirchengeschichte) liegen nicht im App-Bundle, sondern in Firestore unter
-/// `lecture_materials/{Datei}`. Lesen darf sie nur ein Konto, das in
-/// `lecture_access/allowlist` steht – das prüfen die Security Rules bei
-/// jedem Abruf (`firestore.rules`). Der Client entscheidet nichts selbst: Er
-/// versucht, `lecture_materials/manifest` vom Server zu lesen; nur wenn das
-/// gelingt, gelten die Unterlagen als [available].
+/// Folien, Abschriften, Zusammenfassungen und Lesepläne der
+/// Lehrveranstaltungen (Altes Testament mit der Übung Bibelkunde,
+/// Kirchengeschichte) erscheinen nur, wenn der Server bestätigt, dass das
+/// angemeldete Konto in `lecture_access/allowlist` steht (Security Rules,
+/// `firestore.rules`). Der Client entscheidet nichts selbst: Nur wenn das
+/// Lesen von `lecture_access/check` gelingt, gelten die Unterlagen als
+/// [available].
 ///
 /// Ohne Freigabe verhält sich die App so, als gäbe es die Bereiche nicht:
 /// keine Knöpfe, keine Hinweise, keine Fehlermeldung.
 ///
-/// Dateien werden über ihren früheren Asset-Pfad angesprochen
-/// (`assets/old_testament/units/einheit-01.json`), damit Daten, IDs und
-/// Bildpfade unverändert bleiben; [bundle] liefert sie wie ein AssetBundle.
+/// Dateien werden über ihren Asset-Pfad angesprochen
+/// (`assets/old_testament/units/einheit-01.json`); [bundle] liefert sie erst
+/// nach der Freigabe.
 class LectureMaterials extends ChangeNotifier {
   LectureMaterials({LectureMaterialsSource? source})
-    : _source = source ?? FirestoreLectureMaterialsSource();
+    : _source = source ?? BundledLectureMaterialsSource();
 
   /// Ersetzbar nur für Tests.
   static LectureMaterials instance = LectureMaterials();
@@ -46,7 +44,6 @@ class LectureMaterials extends ChangeNotifier {
   final LectureMaterialsSource _source;
 
   LectureManifest? _manifest;
-  Map<String, ModuleInfo> _moduleInfos = const {};
   int _generation = 0;
   int _check = 0;
   String? _uid;
@@ -74,11 +71,6 @@ class LectureMaterials extends ChangeNotifier {
   /// Ist der Lernbereich mit dieser ID sichtbar?
   bool showsArea(String id) => available || !protectedAreaIds.contains(id);
 
-  /// Info zu einem geschützten Bereich (aus `info/<id>.json`); ohne
-  /// Freigabe der Platzhalter [fallback] ohne Inhalt.
-  ModuleInfo moduleInfo(ModuleInfo fallback) =>
-      _moduleInfos[fallback.id] ?? fallback;
-
   /// Beginnt, Anmeldungen zu verfolgen (einmal in main()). Jede Anmeldung,
   /// jeder Kontowechsel und jede Token-Erneuerung (etwa stündlich) prüft
   /// die Freigabe neu; eine entzogene Freigabe greift so spätestens dann.
@@ -100,7 +92,7 @@ class LectureMaterials extends ChangeNotifier {
     if (uid != _uid) {
       _uid = uid;
       _retries = 0;
-      _set(null, const {});
+      _set(null);
     }
 
     if (uid == null) {
@@ -115,19 +107,10 @@ class LectureMaterials extends ChangeNotifier {
 
   Future<void> _load(int number) async {
     LectureManifest? manifest;
-    final infos = <String, ModuleInfo>{};
     var failed = false;
 
     try {
       manifest = await _source.manifest();
-      for (final path in manifest?.files ?? const <String>[]) {
-        if (!path.startsWith("info/") || !path.endsWith(".json")) continue;
-        final info = ModuleInfo.fromJson(
-          jsonDecode(utf8.decode(await _source.file(path)))
-              as Map<String, dynamic>,
-        );
-        infos[info.id] = info;
-      }
     } on LectureMaterialsDenied {
       manifest = null;
     } catch (e) {
@@ -142,7 +125,7 @@ class LectureMaterials extends ChangeNotifier {
 
     // Vorübergehender Fehler bei bestehender Freigabe desselben Kontos:
     // Stand behalten. Jeder einzelne Abruf prüft der Server ohnehin.
-    if (!failed || !available) _set(manifest, infos);
+    if (!failed || !available) _set(manifest);
 
     if (failed && _retries < 3) {
       _retries++;
@@ -155,7 +138,7 @@ class LectureMaterials extends ChangeNotifier {
     }
   }
 
-  void _set(LectureManifest? manifest, Map<String, ModuleInfo> infos) {
+  void _set(LectureManifest? manifest) {
     final was = _manifest;
     if (manifest == null && was == null) return;
 
@@ -169,7 +152,6 @@ class LectureMaterials extends ChangeNotifier {
     }
 
     _manifest = manifest;
-    _moduleInfos = manifest == null ? const {} : infos;
     notifyListeners();
   }
 
@@ -206,16 +188,12 @@ class LectureMaterials extends ChangeNotifier {
   }
 }
 
-/// Liste der geschützten Dateien (Dokument `lecture_materials/manifest`).
+/// Liste der Dateien der Unterlagen.
 class LectureManifest {
   /// Pfade ohne `assets/`, z. B. `old_testament/course.json`.
   final List<String> files;
 
   const LectureManifest(this.files);
-
-  factory LectureManifest.fromMap(Map<String, dynamic> map) => LectureManifest([
-    for (final f in map["files"] as List? ?? const []) f as String,
-  ]);
 }
 
 /// Der Server hat den Abruf abgelehnt (keine Freigabe, nicht angemeldet).
@@ -225,55 +203,67 @@ class LectureMaterialsDenied implements Exception {
 
 /// Woher die geschützten Dateien kommen.
 abstract class LectureMaterialsSource {
-  /// Die Dateiliste; wirft [LectureMaterialsDenied] ohne Freigabe, null wenn
-  /// (noch) nichts hochgeladen ist.
+  /// Die Dateiliste; wirft [LectureMaterialsDenied] ohne Freigabe.
   Future<LectureManifest?> manifest();
 
   /// Inhalt einer Datei; wirft [LectureMaterialsDenied] ohne Freigabe.
   Future<Uint8List> file(String path);
 }
 
-/// Firestore: `lecture_materials/manifest` und je Datei ein Dokument
-/// `lecture_materials/<Pfad mit ~ statt />` mit dem Inhalt in `data`.
-/// Immer vom Server gelesen, damit die Security Rules bei jedem Abruf
-/// greifen und kein früher Zwischenstand gilt.
-class FirestoreLectureMaterialsSource implements LectureMaterialsSource {
-  FirestoreLectureMaterialsSource({this.firestore});
-
-  static const String collection = "lecture_materials";
+/// Unterlagen aus dem App-Bundle (`assets/old_testament/`,
+/// `assets/church_history/`, `assets/reading_plans/course-*`), freigegeben
+/// erst nach der Prüfung beim Server: `lecture_access/check` ist laut
+/// `firestore.rules` nur für Konten aus `lecture_access/allowlist` lesbar.
+/// Immer vom Server gelesen, damit kein früherer Stand gilt.
+///
+/// Die Dateien selbst sind damit nur in der Oberfläche verborgen, nicht vor
+/// direkten Abrufen geschützt (siehe docs/lecture-materials.md).
+class BundledLectureMaterialsSource implements LectureMaterialsSource {
+  BundledLectureMaterialsSource({this.firestore, this.bundle});
 
   /// Standard: `FirebaseFirestore.instance`.
   final FirebaseFirestore? firestore;
 
-  static String documentId(String path) => path.replaceAll("/", "~");
+  /// Standard: `rootBundle`.
+  final AssetBundle? bundle;
 
-  Future<Map<String, dynamic>?> _get(String id) async {
+  AssetBundle get _assets => bundle ?? rootBundle;
+
+  /// Asset-Pfade, die zu den Unterlagen gehören.
+  static const List<String> prefixes = [
+    "assets/old_testament/",
+    "assets/church_history/",
+    "assets/reading_plans/course-",
+  ];
+
+  @override
+  Future<LectureManifest?> manifest() async {
     try {
-      final snapshot = await (firestore ?? FirebaseFirestore.instance)
-          .collection(collection)
-          .doc(id)
+      await (firestore ?? FirebaseFirestore.instance)
+          .collection("lecture_access")
+          .doc("check")
           .get(const GetOptions(source: Source.server));
-      return snapshot.data();
     } on FirebaseException catch (e) {
       if (e.code == "permission-denied" || e.code == "unauthenticated") {
         throw const LectureMaterialsDenied();
       }
       rethrow;
     }
-  }
 
-  @override
-  Future<LectureManifest?> manifest() async {
-    final data = await _get("manifest");
-    return data == null ? null : LectureManifest.fromMap(data);
+    final assets = await AssetManifest.loadFromAssetBundle(_assets);
+    return LectureManifest(
+      [
+        for (final a in assets.listAssets())
+          if (prefixes.any(a.startsWith))
+            a.substring(LectureMaterials.assetPrefix.length),
+      ]..sort(),
+    );
   }
 
   @override
   Future<Uint8List> file(String path) async {
-    final data = await _get(documentId(path));
-    final blob = data?["data"];
-    if (blob is! Blob) throw FlutterError("Unable to load asset: $path");
-    return blob.bytes;
+    final data = await _assets.load("${LectureMaterials.assetPrefix}$path");
+    return data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
   }
 }
 
