@@ -69,8 +69,15 @@ da ist, verweisen mit `theme` auf das Thema der App.
 - Was der Seminarplan sagt, steht in den Sitzungen; was die
   Forschungsliteratur sagt, steht als `notes` mit `kind: "research"` (oder
   `debate` bei Streitfragen) und `ref` am Eintrag. Offene Aufgaben des
-  Seminarplans werden nicht beantwortet und nicht abgefragt; Fragen zu
-  Forschungspositionen nennen die Autorin bzw. den Autor („nach Vannier“).
+  Seminarplans werden nicht beantwortet und nicht abgefragt, solange die
+  Sitzung, für die sie gestellt sind, noch bevorsteht (ein Test prüft die
+  Stellen ab der 3. Sitzung); danach dürfen sie mit Fundstelle Lernstoff
+  werden. Fragen zu Forschungspositionen nennen die Autorin bzw. den Autor
+  („nach Vannier“).
+- Die Quelle selbst wird nach einer Übersetzung belegt (Material mit
+  Kategorie „Quelle in Übersetzung“, Seite der Druckausgabe); zitiert wird
+  im Seminar nach der kritischen Edition. Was Cassian Gegnern zuschreibt,
+  bleibt als seine Darstellung gekennzeichnet.
 - Offensichtliche Fehler der Vorlagen werden berichtigt und als
   `supplement` vermerkt (Jahr 2026 statt 2027 ab der 10. Sitzung,
   hochgestellte Auflagenziffern der Bibliographie).

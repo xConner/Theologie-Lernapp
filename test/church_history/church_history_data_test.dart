@@ -25,6 +25,22 @@ void main() {
       final pubspec = File("pubspec.yaml").readAsStringSync();
       expect(pubspec, isNot(contains("- assets/church_history/")));
       expect(Directory("assets/church_history").existsSync(), isFalse);
+      // Auch Inhalte aus dem Proseminarmaterial stehen nur in den
+      // geschützten Unterlagen, nicht in öffentlichen Dateien.
+      for (final dir in ["assets", "lib", "web"]) {
+        for (final f in Directory(
+          dir,
+        ).listSync(recursive: true).whereType<File>()) {
+          if (!RegExp(r"\.(json|dart|html|js|txt)$").hasMatch(f.path)) continue;
+          final text = f.readAsStringSync();
+          for (final marker in [
+            "material.zelzer",
+            "material.bkv_incarnation",
+          ]) {
+            expect(text, isNot(contains(marker)), reason: f.path);
+          }
+        }
+      }
     });
 
     test("IDs sind eindeutig und tragen das Präfix ihres Typs", () {
@@ -413,6 +429,87 @@ void main() {
       // Umstrittene Herkunft und Lebensdaten werden nicht als sicher geführt.
       expect(cassian.dating!.disputed, isTrue);
       expect(data.entry("source.de_incarnatione")!.dating!.disputed, isTrue);
+    });
+
+    test("Übersetzung der Quelle: Lesestellen der Sitzungen 2–9", () {
+      expect(
+        seminar.materials.map((m) => m.id),
+        containsAll(["material.zelzer", "material.bkv_incarnation"]),
+      );
+      var lastPage = 0;
+      for (var n = 2; n <= 9; n++) {
+        final session = data.lecture("seminar.0$n")!;
+        final reading = session.sections.where(
+          (s) => s.ref?.materialId == "material.bkv_incarnation",
+        );
+        expect(reading, hasLength(1), reason: session.id);
+        // Praefatio und Bücher I–VII folgen lückenlos aufeinander.
+        final pages = RegExp(
+          r"S\. (\d+)–(\d+)",
+        ).firstMatch(reading.single.ref!.at!)!;
+        final from = int.parse(pages[1]!), to = int.parse(pages[2]!);
+        if (lastPage > 0) expect(from, lastPage + 1, reason: session.id);
+        expect(to, greaterThan(from));
+        lastPage = to;
+        expect(reading.single.supplement, contains("CSEL 17"));
+      }
+      expect(lastPage, 631);
+    });
+
+    test("offene Aufgaben künftiger Sitzungen werden nicht abgefragt", () {
+      // Stellen, zu denen der Seminarplan Aufgaben ab der 3. Sitzung stellt.
+      final openTasks = RegExp(
+        r"\b(I,[126]|III,3,5|IV,1,1|V,1[1-3]|VI,3|VII,(2[4-9]|30))\b|Hydra|Antiochia",
+      );
+      for (final s in data.sessions.where((s) => s.number >= 3)) {
+        for (final q in s.questions) {
+          final text = [q.prompt, q.answer, q.explanation].join(" ");
+          expect(openTasks.hasMatch(text), isFalse, reason: q.id);
+        }
+        for (final l in s.lists) {
+          final text = [l.prompt, ...l.items].join(" ");
+          expect(openTasks.hasMatch(text), isFalse, reason: l.id);
+        }
+      }
+    });
+
+    test("Belege aus der Übersetzung und aus Zelzer", () {
+      for (final id in [
+        "q.ps02.zelzer_ordination",
+        // Aufgaben zur 2. Sitzung (26.10.2026), nach der Sitzung aufgenommen.
+        "q.ps02.zelzer_sketis",
+        "q.ps02.zelzer_serta",
+        "q.ps02.zelzer_landscape",
+        "q.ps02.praef_collationes",
+        "q.ps02.praef_leo",
+        "q.ps03.leporius",
+        "q.ps03.two_christs",
+        "q.ps07.nestorius_pelagius",
+        "q.ps09.constantinople",
+      ]) {
+        final q = data.sessions
+            .expand((s) => s.questions)
+            .where((q) => q.id == id)
+            .single;
+        expect(
+          ["material.zelzer", "material.bkv_incarnation"],
+          contains(q.ref!.materialId),
+          reason: id,
+        );
+        expect(q.ref!.at, startsWith("S. "), reason: id);
+      }
+      final cassian = data.entry("person.cassian")!;
+      expect(
+        cassian.notes.map((n) => n.ref?.materialId),
+        contains("material.zelzer"),
+      );
+      // Was Cassian Nestorius zuschreibt, bleibt als seine Darstellung
+      // gekennzeichnet.
+      final nestorius = data.sessions
+          .expand((s) => s.questions)
+          .singleWhere((q) => q.id == "q.ps07.nestorius_pelagius");
+      expect(nestorius.prompt, contains("schreibt Cassian"));
+      expect(nestorius.explanation, contains("polemische Darstellung"));
     });
 
     test("Gliederung der Vorlesung verweist auf Themen des Proseminars", () {
