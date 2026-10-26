@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../models/church_history/church_history.dart';
 import '../../services/church_history/church_history_quiz.dart';
+import '../../services/lecture_materials/lecture_materials.dart';
 import '../../theme/app_theme.dart';
 import 'church_history_quiz_screen.dart';
 import 'church_history_widgets.dart';
@@ -341,6 +342,10 @@ class _SlideImage extends StatelessWidget {
   Widget build(BuildContext context) {
     final image = Image.asset(
       slide.image!,
+      // Geschützte Vorlesungsunterlagen; feste Auflösung, damit kein
+      // AssetManifest gebraucht wird.
+      bundle: LectureMaterials.instance.bundle,
+      scale: 1,
       fit: BoxFit.contain,
       semanticLabel: "Folie ${slide.number}: ${slide.title}",
       errorBuilder: (_, _, _) => const Padding(
@@ -358,7 +363,13 @@ class _SlideImage extends StatelessWidget {
             backgroundColor: Colors.black,
             body: InteractiveViewer(
               maxScale: 5,
-              child: Center(child: Image.asset(slide.image!)),
+              child: Center(
+                child: Image.asset(
+                  slide.image!,
+                  bundle: LectureMaterials.instance.bundle,
+                  scale: 1,
+                ),
+              ),
             ),
           ),
         ),

@@ -18,6 +18,7 @@ import 'package:theologie_lernapp/services/old_testament/pericope_links.dart';
 import 'package:theologie_lernapp/theme/app_theme.dart';
 
 import 'old_testament_test_data.dart';
+import '../lecture_materials_test_support.dart';
 
 final _allKinds = OtQuizKind.values.toSet();
 
@@ -108,6 +109,12 @@ bool _before((int, int) a, (int, int) b) =>
 
 /// Sitzung 2 der Übung Bibelkunde AT: Pentateuch und Genesis.
 void main() {
+  // Echte Inhalte: geschützte Vorlesungsunterlagen, nicht im Repository.
+  if (!lectureMaterialsPresent) {
+    skipWithoutLectureMaterials("Bibelkunde: Genesis");
+    return;
+  }
+
   final all = loadOldTestament();
   final bk = all.forCourse(OtCourseId.bibelkunde);
   final lecture = all.forCourse(OtCourseId.lecture);
@@ -145,7 +152,11 @@ void main() {
           expect(s.text, isNot(contains("@")));
           expect(s.text, isNot(contains("880")));
         } else {
-          expect(File(s.image!).existsSync(), isTrue, reason: s.image);
+          expect(
+            File(lectureMaterialsFile(s.image!)!).existsSync(),
+            isTrue,
+            reason: s.image,
+          );
           expect(s.image, contains("bk02-folie-"));
         }
       }

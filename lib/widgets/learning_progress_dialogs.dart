@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../services/lecture_materials/lecture_materials.dart';
 import '../services/progress_reset.dart';
 
 /// Fragt nach der Anmeldung, ob die als Gast gesammelten Lernstände ins Konto
@@ -86,14 +87,16 @@ Future<ProgressArea?> pickProgressArea(BuildContext context) {
       title: const Text("Welchen Lernbereich zurücksetzen?"),
       children: [
         for (final area in ProgressArea.values)
-          SimpleDialogOption(
-            key: ValueKey("reset-area-${area.name}"),
-            onPressed: () => Navigator.of(dialogContext).pop(area),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 4),
-              child: Text(area.label),
+          // Bereiche aus geschützten Vorlesungsunterlagen nur mit Freigabe.
+          if (area.documents.every(LectureMaterials.instance.showsArea))
+            SimpleDialogOption(
+              key: ValueKey("reset-area-${area.name}"),
+              onPressed: () => Navigator.of(dialogContext).pop(area),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 4),
+                child: Text(area.label),
+              ),
             ),
-          ),
       ],
     ),
   );

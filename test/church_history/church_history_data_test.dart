@@ -5,8 +5,15 @@ import 'package:theologie_lernapp/models/church_history/church_history.dart';
 import 'package:theologie_lernapp/services/church_history/church_history_loader.dart';
 
 import 'church_history_test_data.dart';
+import '../lecture_materials_test_support.dart';
 
 void main() {
+  // Echte Inhalte: geschützte Vorlesungsunterlagen, nicht im Repository.
+  if (!lectureMaterialsPresent) {
+    skipWithoutLectureMaterials("Kirchengeschichte (Daten)");
+    return;
+  }
+
   final data = loadChurchHistory();
 
   group("Inhalte", () {
@@ -14,10 +21,10 @@ void main() {
       expect(ChurchHistoryLoader.validate(data), isEmpty);
     });
 
-    test("pubspec bindet Daten und Folien ein", () {
+    test("Daten und Folien sind nicht im öffentlichen Bundle", () {
       final pubspec = File("pubspec.yaml").readAsStringSync();
-      expect(pubspec, contains("assets/church_history/"));
-      expect(pubspec, contains("assets/church_history/slides/"));
+      expect(pubspec, isNot(contains("- assets/church_history/")));
+      expect(Directory("assets/church_history").existsSync(), isFalse);
     });
 
     test("IDs sind eindeutig und tragen das Präfix ihres Typs", () {
@@ -128,7 +135,11 @@ void main() {
       for (final l in data.lectures) {
         for (final s in l.slides) {
           expect(s.image, isNotNull, reason: "${l.id} Folie ${s.number}");
-          expect(File(s.image!).existsSync(), isTrue, reason: s.image);
+          expect(
+            File(lectureMaterialsFile(s.image!)!).existsSync(),
+            isTrue,
+            reason: s.image,
+          );
           expect(s.text.trim(), isNotEmpty);
         }
       }

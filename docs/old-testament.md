@@ -1,21 +1,24 @@
 # Altes Testament
 
-Lernbereich zur Vorlesung „Einführung in das Alte Testament“
-(Prof. Dr. Christoph Berner, CAU Kiel). Erreichbar über die Startseite
-(„Altes Testament“) und den Deep Link `/old-testament`.
+Lernbereich zur Vorlesung „Einführung in das Alte Testament“. Erreichbar
+über die Startseite („Altes Testament“) und den Deep Link `/old-testament`
+– nur für freigeschaltete Konten: Alle Inhalte sind geschützte
+Vorlesungsunterlagen, siehe [lecture-materials.md](lecture-materials.md).
 
 Der Bereich wächst mit den Vorlesungsfolien: Jede hochgeladene Foliendatei
 wird eine **Vorlesungseinheit**. Er enthält nur, was die Folien hergeben,
 und keine allgemeine Wissensdatenbank zum Alten Testament.
 
 Dieselbe Datenbasis trägt die **Grundlagen der Bibelkunde** (Übung
-„Bibelkunde Altes Testament“, Louisa Thomsen) im Bereich Bibelkunde, siehe
+„Bibelkunde Altes Testament“) im Bereich Bibelkunde, siehe
 [Zwei Veranstaltungen, eine Datenbasis](#zwei-veranstaltungen-eine-datenbasis).
 
 ## Inhalte
 
-Alle Inhalte liegen als JSON in `assets/old_testament/`, getrennt vom
-Lernstand:
+Alle Inhalte liegen als JSON unter `old_testament/` in den geschützten
+Vorlesungsunterlagen (lokal `lecture_materials/old_testament/`, nicht im
+Repository; in der App unter dem Pfad `assets/old_testament/`), getrennt
+vom Lernstand:
 
 | Datei | Inhalt |
 |---|---|
@@ -73,8 +76,12 @@ Antwortmöglichkeiten und verwandte Einheiten.
 4. Vertieft die Einheit das Thema einer früheren, `related: ["unit.MM"]`
    setzen (wird in beide Richtungen angezeigt).
 5. `flutter test test/old_testament` ausführen.
+6. Unterlagen hochladen (`tool/lecture_materials`, siehe
+   [lecture-materials.md](lecture-materials.md)).
 
-Code muss dafür nicht geändert werden. Vorhandener Lernstand bleibt, weil
+Alle Pfade in dieser Liste liegen unter `lecture_materials/old_testament/`
+(nicht im Repository). Code muss dafür nicht geändert werden. Vorhandener
+Lernstand bleibt, weil
 neue Einheiten nur neue IDs mitbringen.
 
 ## Zwei Veranstaltungen, eine Datenbasis
@@ -115,7 +122,8 @@ Nicht in die Grundlagen gehören die Bücher im Einzelnen; sie folgen in
 späteren Sitzungen bzw. liegen unter „Bücher systematisch lernen“.
 
 **Leseplan zur Übung**: Termine und Bibelstellen der Sitzungen stehen
-zusätzlich im Leseplan `assets/reading_plans/course-bibelkunde-at-wise-2026.json`
+zusätzlich im Leseplan `reading_plans/course-bibelkunde-at-wise-2026.json`
+(geschützte Vorlesungsunterlagen)
 (Bereich Bibelkunde → „Leseplan zur Übung“, siehe `docs/reading-plans.md`).
 Seine Sitzungen tragen dieselben IDs (`bk.NN`) und verlinken die Folien.
 Kommt eine Sitzung mit Lesestellen hinzu, dort die Stellen eintragen und
@@ -204,4 +212,4 @@ Antwortknöpfe kommen aus der Kirchengeschichte.
 |---|---|---|
 | 1 | 1–21 | Grundlagen: Der alttestamentliche Kanon und die Geschichte Israels (Bibel/AT als Bezeichnungen, jüdischer und christlicher Kanon, Textüberlieferung, Geschichte und Literaturgeschichte) |
 | Übung, Sitzung 1 | 1–28 | Einführung Bibelkunde AT: Ziele, Organisatorisches, Bibelstellen lesen, Begriffe, Kanon (jüdisch, LXX, Lutherbibel), Text und Übersetzungen, Erzählbogen, Entstehung, Eckdaten; 23 Inhalte mit Einheit 1 geteilt |
-| Übung, Sitzung 2 | 1–16 | Pentateuch und Genesis (Präsentation von Ronja Koch, ohne Tonspur): Namen der fünf Bücher, Tora/nomos, Erzählrahmen und Erzählmotive, drei Rechtstexte, Grobgliederung der Genesis, alle Tabellenzeilen von Ur-, Erzeltern- und Josephsgeschichte als Bibelstellen mit Verweis auf die Perikopenliste, Gen 38 |
+| Übung, Sitzung 2 | 1–16 | Pentateuch und Genesis (Präsentation, ohne Tonspur): Namen der fünf Bücher, Tora/nomos, Erzählrahmen und Erzählmotive, drei Rechtstexte, Grobgliederung der Genesis, alle Tabellenzeilen von Ur-, Erzeltern- und Josephsgeschichte als Bibelstellen mit Verweis auf die Perikopenliste, Gen 38 |

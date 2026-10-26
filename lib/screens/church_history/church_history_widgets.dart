@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../models/church_history/church_history.dart';
 import '../../services/church_history/church_history_loader.dart';
 import '../../theme/app_theme.dart';
+import '../../widgets/lecture_materials_gate.dart';
 import '../../widgets/content_page.dart';
 import 'entry_detail_screen.dart';
 
@@ -47,39 +48,42 @@ class _ChurchHistoryDataBuilderState extends State<ChurchHistoryDataBuilder> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<ChurchHistoryData>(
-      future: _future,
-      builder: (context, snapshot) {
-        final data = snapshot.data;
+    return LectureMaterialsGate(
+      enabled: widget.data == null,
+      child: FutureBuilder<ChurchHistoryData>(
+        future: _future,
+        builder: (context, snapshot) {
+          final data = snapshot.data;
 
-        if (data != null) return widget.builder(context, data);
+          if (data != null) return widget.builder(context, data);
 
-        return Scaffold(
-          appBar: AppBar(title: Text(widget.title)),
-          body: Center(
-            child: snapshot.hasError
-                ? Padding(
-                    padding: const EdgeInsets.all(24),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const Text(
-                          "Die Inhalte zur Kirchengeschichte konnten nicht "
-                          "geladen werden.",
-                          textAlign: TextAlign.center,
-                        ),
-                        const SizedBox(height: 12),
-                        OutlinedButton(
-                          onPressed: () => setState(() => _future = _load()),
-                          child: const Text("Erneut versuchen"),
-                        ),
-                      ],
-                    ),
-                  )
-                : const CircularProgressIndicator(),
-          ),
-        );
-      },
+          return Scaffold(
+            appBar: AppBar(title: Text(widget.title)),
+            body: Center(
+              child: snapshot.hasError
+                  ? Padding(
+                      padding: const EdgeInsets.all(24),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Text(
+                            "Die Inhalte zur Kirchengeschichte konnten nicht "
+                            "geladen werden.",
+                            textAlign: TextAlign.center,
+                          ),
+                          const SizedBox(height: 12),
+                          OutlinedButton(
+                            onPressed: () => setState(() => _future = _load()),
+                            child: const Text("Erneut versuchen"),
+                          ),
+                        ],
+                      ),
+                    )
+                  : const CircularProgressIndicator(),
+            ),
+          );
+        },
+      ),
     );
   }
 }

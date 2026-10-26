@@ -13,6 +13,7 @@ import 'package:theologie_lernapp/services/old_testament/old_testament_store.dar
 import 'package:theologie_lernapp/theme/app_theme.dart';
 
 import 'old_testament_test_data.dart';
+import '../lecture_materials_test_support.dart';
 
 Widget _app(Widget home) => MaterialApp(theme: AppTheme.light, home: home);
 
@@ -23,6 +24,12 @@ void _largeView(WidgetTester tester) {
 }
 
 void main() {
+  // Echte Inhalte: geschützte Vorlesungsunterlagen, nicht im Repository.
+  if (!lectureMaterialsPresent) {
+    skipWithoutLectureMaterials("Altes Testament (Oberfläche)");
+    return;
+  }
+
   final data = loadOldTestament();
 
   setUp(() => SharedPreferences.setMockInitialValues({}));

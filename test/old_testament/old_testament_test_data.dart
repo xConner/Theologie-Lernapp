@@ -4,11 +4,18 @@ import 'dart:io';
 import 'package:theologie_lernapp/models/old_testament/old_testament.dart';
 import 'package:theologie_lernapp/services/old_testament/old_testament_loader.dart';
 
+import '../lecture_materials_test_support.dart';
+
 Map<String, dynamic> _read(String path) =>
-    jsonDecode(File("${OldTestamentLoader.dir}/$path").readAsStringSync())
+    jsonDecode(
+          File(
+            lectureMaterialsFile("${OldTestamentLoader.dir}/$path")!,
+          ).readAsStringSync(),
+        )
         as Map<String, dynamic>;
 
-/// Rohdaten der Assets (zum gezielten Verändern in Tests).
+/// Rohdaten der geschützten Vorlesungsunterlagen (zum gezielten Verändern in
+/// Tests; nur vorhanden, wenn [lectureMaterialsPresent]).
 ({
   Map<String, dynamic> course,
   Map<String, dynamic> terms,

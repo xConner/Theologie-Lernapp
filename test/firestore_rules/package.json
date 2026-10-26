@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "pretest": "node -e \"require('fs').copyFileSync('../../firestore.rules','firestore.rules.under-test')\"",
-    "test": "firebase emulators:exec --only firestore --project demo-theologie-rules \"node --test rules.test.mjs\""
+    "test": "firebase emulators:exec --only firestore --project demo-theologie-rules \"node --test --test-concurrency=1 rules.test.mjs lecture_materials.test.mjs\""
   },
   "devDependencies": {
     "@firebase/rules-unit-testing": "5.0.2",

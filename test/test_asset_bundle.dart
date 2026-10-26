@@ -3,7 +3,10 @@ import 'dart:io';
 
 import 'package:flutter/services.dart';
 
-/// Liefert die echten Dateien aus `assets/` direkt von der Platte.
+import 'lecture_materials_test_support.dart';
+
+/// Liefert die echten Dateien aus `assets/` direkt von der Platte; frühere
+/// Asset-Pfade geschützter Vorlesungsunterlagen aus `lecture_materials/`.
 ///
 /// Für Widget-Tests: `rootBundle.loadString` dekodiert große Dateien per
 /// `compute` in einem Isolate, was unter dem Fake-Async der Widget-Tests
@@ -11,13 +14,15 @@ import 'package:flutter/services.dart';
 class FileAssetBundle extends AssetBundle {
   @override
   Future<ByteData> load(String key) async {
-    final bytes = File(key).readAsBytesSync();
+    final bytes = File(lectureMaterialsFile(key) ?? key).readAsBytesSync();
     return ByteData.sublistView(Uint8List.fromList(bytes));
   }
 
   @override
   Future<String> loadString(String key, {bool cache = true}) async {
-    return utf8.decode(File(key).readAsBytesSync());
+    return utf8.decode(
+      File(lectureMaterialsFile(key) ?? key).readAsBytesSync(),
+    );
   }
 
   @override

@@ -17,6 +17,7 @@ import 'package:theologie_lernapp/services/church_history/church_history_store.d
 import 'package:theologie_lernapp/theme/app_theme.dart';
 
 import 'church_history_test_data.dart';
+import '../lecture_materials_test_support.dart';
 
 Widget _app(Widget home, {ThemeData? theme, Key? key}) =>
     MaterialApp(key: key, theme: theme ?? AppTheme.light, home: home);
@@ -28,6 +29,12 @@ void _largeView(WidgetTester tester) {
 }
 
 void main() {
+  // Echte Inhalte: geschützte Vorlesungsunterlagen, nicht im Repository.
+  if (!lectureMaterialsPresent) {
+    skipWithoutLectureMaterials("Kirchengeschichte (Oberfläche)");
+    return;
+  }
+
   final data = loadChurchHistory();
 
   setUp(() {

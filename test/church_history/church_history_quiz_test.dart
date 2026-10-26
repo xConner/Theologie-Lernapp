@@ -17,6 +17,7 @@ import 'package:theologie_lernapp/services/statistics/learning_statistics.dart';
 import 'package:theologie_lernapp/services/streak/streak_track.dart';
 
 import 'church_history_test_data.dart';
+import '../lecture_materials_test_support.dart';
 
 final _allKinds = QuizKind.values.toSet();
 
@@ -35,6 +36,12 @@ List<QuizQuestion> _build(
 }
 
 void main() {
+  // Echte Inhalte: geschützte Vorlesungsunterlagen, nicht im Repository.
+  if (!lectureMaterialsPresent) {
+    skipWithoutLectureMaterials("Kirchengeschichte (Quiz)");
+    return;
+  }
+
   final data = loadChurchHistory();
 
   group("Aufgaben", () {

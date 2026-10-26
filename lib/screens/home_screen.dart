@@ -26,11 +26,13 @@ import 'study/study_organization_screen.dart';
 import 'settings_screen.dart';
 
 import '../theme/app_theme.dart';
+import '../services/lecture_materials/lecture_materials.dart';
 import '../services/local_learning_store.dart';
 import '../services/notifications/app_deep_link.dart';
 import '../services/notifications/notification_service.dart';
 import '../services/notifications/push_service.dart';
 import '../services/progress_data_service.dart';
+import '../services/streak/streak_track.dart';
 import '../services/timetable/timetable_migration.dart';
 import '../widgets/deep_link_navigator.dart';
 import '../widgets/learning_progress_dialogs.dart';
@@ -64,6 +66,10 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
 
     _loadPerikopen();
+
+    // Bereiche aus geschützten Vorlesungsunterlagen erscheinen erst, wenn
+    // der Server die Freigabe bestätigt hat.
+    LectureMaterials.instance.addListener(_lectureMaterialsChanged);
 
     // Glocke für den aktuellen Nutzer (bzw. Gast) beobachten.
     NotificationService.instance.attach(uid);
@@ -119,9 +125,14 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  void _lectureMaterialsChanged() {
+    if (mounted) setState(() {});
+  }
+
   @override
   void dispose() {
     _pushLinks?.cancel();
+    LectureMaterials.instance.removeListener(_lectureMaterialsChanged);
 
     super.dispose();
   }
@@ -346,7 +357,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
                       const SizedBox(height: 28),
 
-                      StreakSummary(uid: uid),
+                      StreakSummary(
+                        uid: uid,
+                        tracks: [
+                          for (final track in StreakTrack.all)
+                            if (LectureMaterials.instance.showsArea(track.id))
+                              track,
+                        ],
+                      ),
 
                       SizedBox(
                         width: double.infinity,
@@ -478,43 +496,53 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
 
-                      const SizedBox(height: 16),
+                      // Nur mit Freigabe der Vorlesungsunterlagen; sonst
+                      // ohne jeden Hinweis nicht vorhanden.
+                      if (LectureMaterials.instance.available) ...[
+                        const SizedBox(height: 16),
 
-                      SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton.icon(
-                          key: const ValueKey("open-church-history"),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (_) => const ChurchHistoryHomeScreen(),
-                              ),
-                            );
-                          },
-                          icon: const Icon(Icons.account_balance_rounded),
-                          label: const Text("Kirchengeschichte"),
+                        SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton.icon(
+                            key: const ValueKey("open-church-history"),
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) =>
+                                      const ChurchHistoryHomeScreen(),
+                                ),
+                              );
+                            },
+                            icon: const Icon(Icons.account_balance_rounded),
+                            label: const Text("Kirchengeschichte"),
+                          ),
                         ),
-                      ),
+                      ],
 
-                      const SizedBox(height: 16),
+                      // Nur mit Freigabe der Vorlesungsunterlagen; sonst
+                      // ohne jeden Hinweis nicht vorhanden.
+                      if (LectureMaterials.instance.available) ...[
+                        const SizedBox(height: 16),
 
-                      SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton.icon(
-                          key: const ValueKey("open-old-testament"),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (_) => const OldTestamentHomeScreen(),
-                              ),
-                            );
-                          },
-                          icon: const Icon(Icons.auto_stories_rounded),
-                          label: const Text("Altes Testament"),
+                        SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton.icon(
+                            key: const ValueKey("open-old-testament"),
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) =>
+                                      const OldTestamentHomeScreen(),
+                                ),
+                              );
+                            },
+                            icon: const Icon(Icons.auto_stories_rounded),
+                            label: const Text("Altes Testament"),
+                          ),
                         ),
-                      ),
+                      ],
 
                       const SizedBox(height: 16),
 

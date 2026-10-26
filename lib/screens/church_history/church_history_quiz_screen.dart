@@ -8,6 +8,7 @@ import '../../info/app_info.dart';
 import '../../models/church_history/church_history.dart';
 import '../../services/church_history/church_history_quiz.dart';
 import '../../services/church_history/church_history_store.dart';
+import '../../services/lecture_materials/lecture_materials.dart';
 import '../../services/quiz_sound_settings.dart';
 import '../../services/statistics/learning_statistics.dart';
 import '../../services/streak/streak_track.dart';
@@ -390,7 +391,9 @@ class _ChurchHistoryQuizScreenState extends State<ChurchHistoryQuizScreen> {
                         children: [
                           SwitchListTile(
                             key: const ValueKey("in-order"),
-                            title: const Text("In Vorlesungsreihenfolge einführen"),
+                            title: const Text(
+                              "In Vorlesungsreihenfolge einführen",
+                            ),
                             subtitle: const Text(
                               "Noch nicht geübte Inhalte kommen der Reihe nach "
                               "dazu, Vorlesung für Vorlesung bzw. Sitzung für "
@@ -561,7 +564,9 @@ class _ChurchHistoryQuizScreenState extends State<ChurchHistoryQuizScreen> {
                         ),
                       ],
                       InfoReportFooter(
-                        module: AppModules.churchHistory,
+                        module: LectureMaterials.instance.moduleInfo(
+                          AppModules.churchHistory,
+                        ),
                         reportDetails: () => {
                           "Modus": widget.mode.label,
                           "Aufgabe": q.prompt,

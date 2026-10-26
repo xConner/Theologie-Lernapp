@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../info/app_info.dart';
+import '../services/lecture_materials/lecture_materials.dart';
 import '../theme/app_theme.dart';
 import '../widgets/info_report.dart';
 import '../widgets/legal_links.dart';
@@ -122,7 +123,11 @@ class AboutScreen extends StatelessWidget {
                   margin: EdgeInsets.zero,
                   child: Column(
                     children: [
-                      for (final module in AppModules.all)
+                      for (final module in [
+                        for (final m in AppModules.all)
+                          if (LectureMaterials.instance.showsArea(m.id))
+                            LectureMaterials.instance.moduleInfo(m),
+                      ])
                         ListTile(
                           dense: true,
                           title: Text(module.title),

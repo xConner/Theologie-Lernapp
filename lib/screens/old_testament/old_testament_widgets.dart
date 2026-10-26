@@ -6,6 +6,7 @@ import '../../services/bible/bible_reference_parser.dart';
 import '../../services/old_testament/old_testament_loader.dart';
 import '../../services/old_testament/pericope_links.dart';
 import '../../theme/app_theme.dart';
+import '../../widgets/lecture_materials_gate.dart';
 import '../bible/bible_reader_screen.dart';
 import '../../widgets/content_page.dart';
 
@@ -54,40 +55,43 @@ class _OldTestamentDataBuilderState extends State<OldTestamentDataBuilder> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<OldTestamentData>(
-      future: _future,
-      builder: (context, snapshot) {
-        final data = snapshot.data;
+    return LectureMaterialsGate(
+      enabled: widget.data == null,
+      child: FutureBuilder<OldTestamentData>(
+        future: _future,
+        builder: (context, snapshot) {
+          final data = snapshot.data;
 
-        if (data != null) {
-          return widget.builder(context, data.forCourse(widget.course));
-        }
+          if (data != null) {
+            return widget.builder(context, data.forCourse(widget.course));
+          }
 
-        return Scaffold(
-          appBar: AppBar(title: Text(widget.title)),
-          body: Center(
-            child: snapshot.hasError
-                ? Padding(
-                    padding: const EdgeInsets.all(24),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const Text(
-                          "Die Inhalte konnten nicht geladen werden.",
-                          textAlign: TextAlign.center,
-                        ),
-                        const SizedBox(height: 12),
-                        OutlinedButton(
-                          onPressed: () => setState(() => _future = _load()),
-                          child: const Text("Erneut versuchen"),
-                        ),
-                      ],
-                    ),
-                  )
-                : const CircularProgressIndicator(),
-          ),
-        );
-      },
+          return Scaffold(
+            appBar: AppBar(title: Text(widget.title)),
+            body: Center(
+              child: snapshot.hasError
+                  ? Padding(
+                      padding: const EdgeInsets.all(24),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Text(
+                            "Die Inhalte konnten nicht geladen werden.",
+                            textAlign: TextAlign.center,
+                          ),
+                          const SizedBox(height: 12),
+                          OutlinedButton(
+                            onPressed: () => setState(() => _future = _load()),
+                            child: const Text("Erneut versuchen"),
+                          ),
+                        ],
+                      ),
+                    )
+                  : const CircularProgressIndicator(),
+            ),
+          );
+        },
+      ),
     );
   }
 }

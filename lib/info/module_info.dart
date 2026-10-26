@@ -29,6 +29,16 @@ class SourceInfo {
     this.license,
     this.url,
   });
+
+  /// Aus einer Datendatei (z. B. Info der geschützten Vorlesungsunterlagen).
+  factory SourceInfo.fromJson(Map<String, dynamic> json) => SourceInfo(
+    title: json["title"] as String,
+    origin: json["origin"] as String?,
+    processing: json["processing"] as String?,
+    aiNote: json["aiNote"] as String?,
+    license: json["license"] as String?,
+    url: json["url"] as String?,
+  );
 }
 
 /// Informationen zu einem Bereich der App: was er tut, woher seine Daten
@@ -55,4 +65,16 @@ class ModuleInfo {
     this.sources = const [],
     this.notes = const [],
   });
+
+  /// Aus einer Datendatei (z. B. Info der geschützten Vorlesungsunterlagen).
+  factory ModuleInfo.fromJson(Map<String, dynamic> json) => ModuleInfo(
+    id: json["id"] as String,
+    title: json["title"] as String,
+    description: json["description"] as String? ?? "",
+    sources: [
+      for (final s in json["sources"] as List? ?? const [])
+        SourceInfo.fromJson(s as Map<String, dynamic>),
+    ],
+    notes: [for (final n in json["notes"] as List? ?? const []) n as String],
+  );
 }

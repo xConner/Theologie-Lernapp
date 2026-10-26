@@ -16,6 +16,7 @@ import 'package:theologie_lernapp/services/old_testament/old_testament_store.dar
 import 'package:theologie_lernapp/theme/app_theme.dart';
 
 import 'old_testament_test_data.dart';
+import '../lecture_materials_test_support.dart';
 
 Widget _app(Widget home) => MaterialApp(theme: AppTheme.light, home: home);
 
@@ -26,12 +27,23 @@ void _largeView(WidgetTester tester) {
 }
 
 void main() {
+  // Echte Inhalte: geschützte Vorlesungsunterlagen, nicht im Repository.
+  if (!lectureMaterialsPresent) {
+    skipWithoutLectureMaterials("Grundlagen der Bibelkunde (Oberfläche)");
+    return;
+  }
+
   final all = loadOldTestament();
   final bk = all.forCourse(OtCourseId.bibelkunde);
 
   setUp(() => SharedPreferences.setMockInitialValues({}));
 
   testWidgets("Bibelkunde öffnet die Grundlagen", (tester) async {
+    // Mit Freigabe der Vorlesungsunterlagen (ohne Dateien: geprüft wird nur
+    // der Weg in den Bereich, nicht dessen Startseite).
+    await tester.runAsync(
+      () => useLectureMaterials(FakeLectureMaterialsSource({})),
+    );
     tester.view.physicalSize = const Size(400, 900);
     tester.view.devicePixelRatio = 1;
     addTearDown(tester.view.reset);

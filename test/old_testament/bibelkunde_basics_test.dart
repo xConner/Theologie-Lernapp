@@ -11,6 +11,7 @@ import 'package:theologie_lernapp/services/old_testament/old_testament_quiz.dart
 import 'package:theologie_lernapp/services/old_testament/old_testament_store.dart';
 
 import 'old_testament_test_data.dart';
+import '../lecture_materials_test_support.dart';
 
 final _allKinds = OtQuizKind.values.toSet();
 
@@ -23,6 +24,12 @@ Set<String> _cardIds(OldTestamentData data, [OtScope scope = OtScope.all]) =>
 /// auf die Daten des Alten Testaments mit gemeinsamen Begriffen und
 /// geteilten Inhalten.
 void main() {
+  // Echte Inhalte: geschützte Vorlesungsunterlagen, nicht im Repository.
+  if (!lectureMaterialsPresent) {
+    skipWithoutLectureMaterials("Grundlagen der Bibelkunde");
+    return;
+  }
+
   final all = loadOldTestament();
   final lecture = all.forCourse(OtCourseId.lecture);
   final bk = all.forCourse(OtCourseId.bibelkunde);
@@ -31,7 +38,8 @@ void main() {
   group("Sitzung 1 der Übung", () {
     test("ist eingebunden und von der Vorlesung getrennt", () {
       expect(bk.course.title, contains("Bibelkunde"));
-      expect(bk.course.lecturer, "Louisa Thomsen");
+      // Dozentenangabe nur in den Unterlagen, nicht im öffentlichen Code.
+      expect(bk.course.lecturer, isNotEmpty);
       expect(bk.units.map((u) => u.id), ["bk.01", "bk.02"]);
       expect(session.course, OtCourseId.bibelkunde);
       expect(session.label, "Sitzung 1");
@@ -43,7 +51,8 @@ void main() {
 
       // Die Vorlesung sieht nur ihre eigene Einheit.
       expect(lecture.units.map((u) => u.id), ["unit.01"]);
-      expect(lecture.course.lecturer, "Prof. Dr. Christoph Berner");
+      expect(lecture.course.lecturer, isNotEmpty);
+      expect(lecture.course.lecturer, isNot(bk.course.lecturer));
     });
 
     test("Folienbilder liegen vor, ohne Kontaktdaten der Titelfolie", () {
@@ -53,7 +62,11 @@ void main() {
           expect(s.image, isNull);
           expect(s.text, isNot(contains("@")));
         } else {
-          expect(File(s.image!).existsSync(), isTrue, reason: s.image);
+          expect(
+            File(lectureMaterialsFile(s.image!)!).existsSync(),
+            isTrue,
+            reason: s.image,
+          );
           expect(s.image, contains("bk01-folie-"));
         }
       }

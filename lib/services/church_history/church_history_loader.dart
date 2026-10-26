@@ -3,8 +3,10 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 
 import '../../models/church_history/church_history.dart';
+import '../lecture_materials/lecture_materials.dart';
 
-/// Lädt die Inhalte aus `assets/church_history/` und prüft ihre
+/// Lädt die Inhalte aus `assets/church_history/` (geschützte
+/// Vorlesungsunterlagen, geliefert von `LectureMaterials`) und prüft ihre
 /// Verknüpfungen. Ein Fehler in den Daten (unbekannte ID, doppelte ID,
 /// Folie ohne Vorlesung) führt zu einer [FormatException] mit allen
 /// gefundenen Problemen, damit kein halb verknüpfter Bestand angezeigt wird.
@@ -13,22 +15,27 @@ class ChurchHistoryLoader {
 
   static const String _dir = "assets/church_history";
 
-  static Future<ChurchHistoryData>? _cached;
+  static (int, Future<ChurchHistoryData>)? _cached;
 
-  /// Einmal je App-Start geladen; ein fehlgeschlagener Versuch wird nicht
-  /// gemerkt, damit „Erneut versuchen“ wirkt.
+  /// Einmal je Freigabe geladen (geschützte Vorlesungsunterlagen, siehe
+  /// `LectureMaterials`); ein fehlgeschlagener Versuch wird nicht gemerkt,
+  /// damit „Erneut versuchen“ wirkt. Ohne Freigabe schlägt das Laden fehl.
   static Future<ChurchHistoryData> load({AssetBundle? bundle}) {
+    final materials = LectureMaterials.instance;
+    final generation = materials.generation;
     final cached = _cached;
-    if (cached != null && bundle == null) return cached;
+    if (cached != null && cached.$1 == generation && bundle == null) {
+      return cached.$2;
+    }
 
-    final future = _load(bundle ?? rootBundle);
+    final future = _load(bundle ?? materials.bundle);
 
     if (bundle == null) {
-      _cached = future;
+      _cached = (generation, future);
       future.then(
         (_) {},
         onError: (Object _) {
-          if (identical(_cached, future)) _cached = null;
+          if (identical(_cached?.$2, future)) _cached = null;
         },
       );
     }

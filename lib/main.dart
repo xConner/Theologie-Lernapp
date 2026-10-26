@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 import 'firebase_options.dart';
+import 'services/lecture_materials/lecture_materials.dart';
 import 'services/local_learning_store.dart';
 import 'services/quiz_sound_settings.dart';
 import 'services/theme_settings.dart';
@@ -12,6 +13,10 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  // Freigabe der geschützten Vorlesungsunterlagen je Konto (serverseitig
+  // geprüft, siehe docs/lecture-materials.md).
+  LectureMaterials.instance.start();
 
   await QuizSoundSettings.instance.load();
 

@@ -7,6 +7,7 @@ import '../../models/bible/bible_reading.dart';
 import '../../models/bible/bible_translation.dart';
 import '../../models/bible/course_reading_plan.dart';
 import '../../models/bible/reading_plan.dart';
+import '../lecture_materials/lecture_materials.dart';
 import '../streak/streak_service.dart';
 import '../streak/streak_state.dart';
 import '../streak/streak_track.dart';
@@ -53,10 +54,21 @@ class BibleReadingService extends ChangeNotifier {
     StreakService? streaks,
     this.bundle,
     Future<List<BibleTranslation>> Function()? translations,
-  }) : _repositoryFor = repositoryFor ?? BibleReadingRepository.forUser,
+    LectureMaterials? lectureMaterials,
+  }) : _lectures = lectureMaterials ?? LectureMaterials.instance,
+       _repositoryFor = repositoryFor ?? BibleReadingRepository.forUser,
        _clock = clock ?? DateTime.now,
        _streaks = streaks ?? StreakService.instance,
-       _translations = translations ?? BibleRepository.instance.translations;
+       _translations = translations ?? BibleRepository.instance.translations {
+    // Freigabe der Vorlesungsunterlagen geändert: Lesepläne zu
+    // Lehrveranstaltungen neu laden bzw. verwerfen.
+    _lectures.addListener(
+      () => _enqueue(() async {
+        await _loadCoursePlans();
+        notifyListeners();
+      }),
+    );
+  }
 
   static final BibleReadingService instance = BibleReadingService();
 
@@ -82,8 +94,11 @@ class BibleReadingService extends ChangeNotifier {
 
   List<ReadingPlan>? _builtIn;
 
-  // Lesepläne zu Lehrveranstaltungen und ihr Fortschritt.
-  List<CourseReadingPlan>? _coursePlans;
+  // Lesepläne zu Lehrveranstaltungen (geschützte Vorlesungsunterlagen unter
+  // `reading_plans/`, je Freigabe geladen) und ihr Fortschritt.
+  final LectureMaterials _lectures;
+  List<CourseReadingPlan> _coursePlans = const [];
+  int? _coursePlansGeneration;
   Map<String, CourseReadingProgress> _courseProgress = {};
   BibleExtent? _extent;
 
@@ -266,7 +281,11 @@ class BibleReadingService extends ChangeNotifier {
   // ==========================
 
   /// Integrierte Lesepläne zu Lehrveranstaltungen (nach Sitzungsterminen).
-  List<CourseReadingPlan> get coursePlans => _coursePlans ?? const [];
+  /// Nur mit Freigabe der Vorlesungsunterlagen, sonst leer.
+  List<CourseReadingPlan> get coursePlans =>
+      _lectures.available && _coursePlansGeneration == _lectures.generation
+      ? _coursePlans
+      : const [];
 
   CourseReadingPlan? coursePlan(String id) {
     for (final plan in coursePlans) {
@@ -626,6 +645,7 @@ class BibleReadingService extends ChangeNotifier {
 
   Future<void> _load(String? uid, {required bool refresh}) async {
     await _loadBuiltIn();
+    await _loadCoursePlans();
 
     if (_loaded && _repository != null && _uid == uid && !refresh) {
       return;
@@ -681,22 +701,32 @@ class BibleReadingService extends ChangeNotifier {
     } catch (e) {
       debugPrint("Integrierte Lesepläne konnten nicht geladen werden: $e");
     }
+  }
 
-    if (_coursePlans != null) return;
+  Future<void> _loadCoursePlans() async {
+    final lectures = _lectures;
+    final generation = lectures.generation;
+
+    if (_coursePlansGeneration == generation) return;
+
+    _coursePlans = const [];
+    _coursePlansGeneration = generation;
+
+    if (!lectures.available) return;
 
     try {
-      final index = jsonDecode(
-        await bundle.loadString("$plansRoot/index.json"),
-      );
-
-      _coursePlans = [
-        for (final file in (index as Map)["coursePlans"] as List? ?? const [])
+      final plans = [
+        for (final path in lectures.files(prefix: "reading_plans/"))
           CourseReadingPlan.fromJson(
-            jsonDecode(await bundle.loadString("$plansRoot/$file")),
+            jsonDecode(await lectures.bundle.loadString(path)),
           ),
       ];
+
+      if (generation == lectures.generation) _coursePlans = plans;
     } catch (e) {
-      debugPrint("Lesepläne zu Lehrveranstaltungen nicht ladbar: $e");
+      // Beim nächsten Laden neuer Versuch.
+      _coursePlansGeneration = null;
+      debugPrint("Lesepläne zu Lehrveranstaltungen nicht ladbar.");
     }
   }
 

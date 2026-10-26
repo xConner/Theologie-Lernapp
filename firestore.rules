@@ -57,6 +57,17 @@ rules_version = '2';
 //                              begrenzte Längen, ohne Nutzerbezug), vom
 //                              Client weder lesbar noch änderbar.
 //
+// Geschützte Vorlesungsunterlagen (siehe docs/lecture-materials.md):
+//   lecture_materials/{fileId} Folien, Abschriften, Dozentenangaben und
+//                              Lesepläne der Lehrveranstaltungen (je Datei
+//                              ein Dokument, dazu `manifest`). Nur EINZELN
+//                              lesbar (get, kein list) und nur für Konten in
+//                              der Freigabeliste; vom Client nie schreibbar.
+//   lecture_access/allowlist   Freigabeliste {emails: [...], uids: [...]};
+//                              bewusst ohne match → für Clients weder lesbar
+//                              noch schreibbar. Ändern nur über Console bzw.
+//                              Admin SDK (tool/lecture_materials).
+//
 // Veranstaltungskatalog (siehe docs/univis-integration-feasibility.md):
 //   catalog_cache/{key}        Zwischenspeicher des Servers (Admin SDK);
 //                              bewusst ohne match → für Clients verboten.
@@ -73,6 +84,26 @@ service cloud.firestore {
   match /databases/{database}/documents {
     function isOwner(uid) {
       return request.auth != null && request.auth.uid == uid;
+    }
+
+    // Freigabe für die geschützten Vorlesungsunterlagen. Maßgeblich ist nur
+    // das von Firebase signierte ID-Token: die Konto-ID oder die bestätigte
+    // E-Mail-Adresse (email_verified). Felder, die der Client selbst
+    // schreibt, zählen nicht. Fehlt die Freigabeliste, ist niemand
+    // freigeschaltet.
+    function hasLectureAccess() {
+      let allowlist = get(/databases/$(database)/documents/lecture_access/allowlist).data;
+      let token = request.auth.token;
+      return request.auth != null
+        && (request.auth.uid in allowlist.get('uids', [])
+          || (token.get('email_verified', false) == true
+            && token.get('email', null) is string
+            && token.email.lower() in allowlist.get('emails', [])));
+    }
+
+    match /lecture_materials/{fileId} {
+      allow get: if hasLectureAccess();
+      allow list, create, update, delete: if false;
     }
 
     match /notifications/{notificationId} {

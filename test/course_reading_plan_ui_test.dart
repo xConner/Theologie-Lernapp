@@ -15,10 +15,22 @@ import 'package:theologie_lernapp/theme/app_theme.dart';
 import 'course_reading_plan_test.dart'
     show MemoryReadingRepository, MemoryStreakRepository, planId;
 import 'test_asset_bundle.dart';
+import 'lecture_materials_test_support.dart';
 
 Finder key(String value) => find.byKey(ValueKey(value));
 
 void main() {
+  // Echte Inhalte: geschützte Vorlesungsunterlagen, nicht im Repository.
+  if (!lectureMaterialsPresent) {
+    skipWithoutLectureMaterials(
+      "Leseplan zur Übung Bibelkunde AT (Oberfläche)",
+    );
+    return;
+  }
+
+  // Der Leseplan kommt aus den freigegebenen Vorlesungsunterlagen.
+  setUp(() => useLectureMaterials(directoryLectureMaterialsSource()));
+
   TestWidgetsFlutterBinding.ensureInitialized();
 
   final bundle = FileAssetBundle();

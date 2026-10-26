@@ -24,10 +24,19 @@ import '../screens/prayers_screen.dart';
 import '../screens/settings_screen.dart';
 import '../services/bible/bible_reading_service.dart';
 import '../services/greek/perikope_loader.dart';
+import '../services/lecture_materials/lecture_materials.dart';
 import '../services/notifications/app_deep_link.dart';
 
 Widget? _signedIn(Widget screen) {
   return FirebaseAuth.instance.currentUser == null ? null : screen;
+}
+
+/// Bereiche aus geschützten Vorlesungsunterlagen nur mit Freigabe; ohne
+/// sie verhält sich der Link wie jeder nicht verfügbare.
+Future<Widget?> _withLectureMaterials(Widget screen) async {
+  final materials = LectureMaterials.instance;
+  await materials.ready();
+  return materials.available ? screen : null;
 }
 
 /// Screen je App-Pfad (null = gerade nicht verfügbar).
@@ -46,8 +55,10 @@ final Map<String, Future<Widget?> Function()> _screens = {
   AppDeepLink.latin: () async => const LatinHomeScreen(),
   AppDeepLink.latinVocabulary: () async => const LatinVocabularyTrainerScreen(),
   AppDeepLink.latinGrammar: () async => const LatinGrammarTrainerScreen(),
-  AppDeepLink.churchHistory: () async => const ChurchHistoryHomeScreen(),
-  AppDeepLink.oldTestament: () async => const OldTestamentHomeScreen(),
+  AppDeepLink.churchHistory: () =>
+      _withLectureMaterials(const ChurchHistoryHomeScreen()),
+  AppDeepLink.oldTestament: () =>
+      _withLectureMaterials(const OldTestamentHomeScreen()),
   AppDeepLink.logic: () async =>
       LogicCourseScreen(uid: FirebaseAuth.instance.currentUser?.uid),
   AppDeepLink.calendar: () async => const LiturgicalCalendarScreen(),

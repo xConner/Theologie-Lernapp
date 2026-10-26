@@ -9,6 +9,7 @@ import 'package:theologie_lernapp/models/bible/reading_plan.dart';
 import 'package:theologie_lernapp/screens/bible/course_reading_plan_screen.dart';
 import 'package:theologie_lernapp/services/bible/bible_reading_repository.dart';
 import 'package:theologie_lernapp/services/bible/bible_reading_service.dart';
+import 'package:theologie_lernapp/services/lecture_materials/lecture_materials.dart';
 import 'package:theologie_lernapp/services/bible/bible_text_source.dart';
 import 'package:theologie_lernapp/services/bible/course_reading_schedule.dart';
 import 'package:theologie_lernapp/services/streak/streak_repository.dart';
@@ -17,6 +18,7 @@ import 'package:theologie_lernapp/services/streak/streak_state.dart';
 import 'package:theologie_lernapp/services/streak/streak_track.dart';
 
 import 'test_asset_bundle.dart';
+import 'lecture_materials_test_support.dart';
 
 const String planId = "course-bibelkunde-at-wise-2026";
 const String planFile = "assets/reading_plans/$planId.json";
@@ -113,6 +115,15 @@ CourseSession session(
 }
 
 void main() {
+  // Echte Inhalte: geschützte Vorlesungsunterlagen, nicht im Repository.
+  if (!lectureMaterialsPresent) {
+    skipWithoutLectureMaterials("Leseplan zur Übung Bibelkunde AT");
+    return;
+  }
+
+  // Der Leseplan kommt aus den freigegebenen Vorlesungsunterlagen.
+  setUp(() => useLectureMaterials(directoryLectureMaterialsSource()));
+
   TestWidgetsFlutterBinding.ensureInitialized();
 
   final bundle = FileAssetBundle();
@@ -166,11 +177,10 @@ void main() {
 
   group("Plan zur Übung Bibelkunde AT", () {
     test("steht im Index und wird vom Dienst geladen", () async {
-      final index = jsonDecode(
-        await bundle.loadString("assets/reading_plans/index.json"),
-      );
-
-      expect(index["coursePlans"], ["$planId.json"]);
+      // Geschützte Vorlesungsunterlagen, nicht der öffentliche Index.
+      expect(LectureMaterials.instance.files(prefix: "reading_plans/"), [
+        "reading_plans/$planId.json",
+      ]);
 
       final service = BibleReadingService(
         repositoryFor: (_) => MemoryReadingRepository(),
@@ -189,7 +199,9 @@ void main() {
     test("Termine und Themen entsprechen dem Seminarplan (Folie 5)", () {
       final unit = jsonDecode(
         File(
-          "assets/old_testament/units/bibelkunde-01.json",
+          lectureMaterialsFile(
+            "assets/old_testament/units/bibelkunde-01.json",
+          )!,
         ).readAsStringSync(),
       );
 
@@ -277,13 +289,17 @@ void main() {
 
     test("verweist auf die vorhandenen Sitzungen im Bereich AT", () {
       final course = jsonDecode(
-        File("assets/old_testament/course.json").readAsStringSync(),
+        File(
+          lectureMaterialsFile("assets/old_testament/course.json")!,
+        ).readAsStringSync(),
       );
 
       final unitIds = {
         for (final file in course["units"] as List)
           jsonDecode(
-            File("assets/old_testament/$file").readAsStringSync(),
+            File(
+              lectureMaterialsFile("assets/old_testament/$file")!,
+            ).readAsStringSync(),
           )["id"],
       };
 
@@ -303,7 +319,7 @@ void main() {
 
     test("ungültige Plandateien werden abgelehnt", () {
       Map<String, dynamic> base() =>
-          jsonDecode(File(planFile).readAsStringSync());
+          jsonDecode(File(lectureMaterialsFile(planFile)!).readAsStringSync());
 
       expect(
         () => CourseReadingPlan.fromJson(base()..["format"] = "x"),
@@ -1077,12 +1093,22 @@ void main() {
 
         // Neue Folien mit den tatsächlichen Stellen für Sitzung 5 und einem
         // geänderten Termin für Sitzung 6.
-        final json = jsonDecode(File(planFile).readAsStringSync());
+        final json = jsonDecode(
+          File(lectureMaterialsFile(planFile)!).readAsStringSync(),
+        );
         final sessions = json["sessions"] as List;
 
         sessions[4]["readings"] = ["JOS 1-11", "JDG 2-8", "RUT"];
         sessions[4]["readingSource"] = "slides";
         sessions[5]["date"] = "2026-11-27";
+
+        // Geänderte Plandatei in den freigegebenen Unterlagen.
+        await useLectureMaterials(
+          FakeLectureMaterialsSource({
+            ...directoryLectureMaterialsSource().files,
+            "reading_plans/$planId.json": utf8.encode(jsonEncode(json)),
+          }),
+        );
 
         service = newService(
           patched: BundleOverride({planFile: jsonEncode(json)}),

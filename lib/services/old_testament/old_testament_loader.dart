@@ -3,8 +3,11 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 
 import '../../models/old_testament/old_testament.dart';
+import '../lecture_materials/lecture_materials.dart';
 
-/// Lädt die Inhalte aus `assets/old_testament/` und prüft sie.
+/// Lädt die Inhalte aus `assets/old_testament/` – geschützte
+/// Vorlesungsunterlagen, geliefert von `LectureMaterials` unter diesem
+/// Pfad – und prüft sie.
 ///
 /// Aufbau:
 /// * `course.json`: Vorlesung (`course`), weitere Veranstaltungen
@@ -21,22 +24,27 @@ class OldTestamentLoader {
 
   static const String dir = "assets/old_testament";
 
-  static Future<OldTestamentData>? _cached;
+  static (int, Future<OldTestamentData>)? _cached;
 
-  /// Einmal je App-Start geladen; ein fehlgeschlagener Versuch wird nicht
-  /// gemerkt, damit „Erneut versuchen“ wirkt.
+  /// Einmal je Freigabe geladen (geschützte Vorlesungsunterlagen, siehe
+  /// `LectureMaterials`); ein fehlgeschlagener Versuch wird nicht gemerkt,
+  /// damit „Erneut versuchen“ wirkt. Ohne Freigabe schlägt das Laden fehl.
   static Future<OldTestamentData> load({AssetBundle? bundle}) {
+    final materials = LectureMaterials.instance;
+    final generation = materials.generation;
     final cached = _cached;
-    if (cached != null && bundle == null) return cached;
+    if (cached != null && cached.$1 == generation && bundle == null) {
+      return cached.$2;
+    }
 
-    final future = _load(bundle ?? rootBundle);
+    final future = _load(bundle ?? materials.bundle);
 
     if (bundle == null) {
-      _cached = future;
+      _cached = (generation, future);
       future.then(
         (_) {},
         onError: (Object _) {
-          if (identical(_cached, future)) _cached = null;
+          if (identical(_cached?.$2, future)) _cached = null;
         },
       );
     }
