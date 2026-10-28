@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 
 import 'grammar_form_analysis.dart';
 import 'greek_future.dart';
+import 'greek_subjunctive.dart';
 import 'verb_paradigm.dart';
 
 class WiktionaryInflectionService {
@@ -48,7 +49,8 @@ class WiktionaryInflectionService {
   /// Holt das Paradigma eines Verbs über unser Vercel-Backend: Indikativ
   /// und Imperativ von Präsens, Imperfekt und Aorist sowie die Nominative
   /// der Partizipien, aus denen [VerbParadigm] die Deklination bildet.
-  /// Ergänzt um das Futur aus [GreekFuture].
+  /// Ergänzt um das Futur aus [GreekFuture] und den Konjunktiv aus
+  /// [GreekSubjunctive].
   ///
   /// Das Backend übernimmt:
   /// - Wiktionary-Aufruf
@@ -99,9 +101,13 @@ class WiktionaryInflectionService {
       return null;
     }
 
-    // Das Futur steht nicht in den Tabellen des Backends, sondern wird aus
-    // den Futurstämmen der Folien gebildet.
-    final paradigm = GreekFuture.extend(lemma, tables);
+    // Futur und Konjunktiv stehen nicht in den Tabellen des Backends: Das
+    // Futur wird aus den Futurstämmen der Folien gebildet, der Konjunktiv
+    // nach den Paradigmen der Folie aus Grundform und Infinitiv Aorist.
+    final paradigm = GreekSubjunctive.extend(
+      lemma,
+      GreekFuture.extend(lemma, tables),
+    );
 
     _paradigmCache[lemma] = paradigm;
 

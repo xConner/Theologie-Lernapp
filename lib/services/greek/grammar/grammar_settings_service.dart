@@ -20,6 +20,9 @@ class GrammarTrainerSettings {
 
   static const List<String> allTenses = GrammarQuestionPicker.selectableTenses;
 
+  static const List<String> allSubjunctiveKinds =
+      GrammarQuestionPicker.subjunctiveKinds;
+
   final List<int> enabledSteps;
   final List<String> enabledTypes;
 
@@ -61,6 +64,11 @@ class GrammarTrainerSettings {
   /// der Trainer nie ohne Verbformen dasteht.
   final List<String> enabledTenses;
 
+  /// Unterauswahl des Themas Konjunktiv: Formen bilden und/oder Gebrauch im
+  /// Satz. Das Bestimmen von Konjunktivformen ist der Modus Konjunktiv der
+  /// Wortart Verb.
+  final List<String> enabledSubjunctiveKinds;
+
   /// Nomen und Verben: Zur vorgelegten Form wird zusätzlich die deutsche
   /// Übersetzung der Grundform gefragt. Die Adjektivsteigerung hat dafür
   /// ihren eigenen Schalter ([askComparisonTranslation]).
@@ -80,6 +88,7 @@ class GrammarTrainerSettings {
     this.askComparisonForm = true,
     this.enabledMoods = allMoods,
     this.enabledTenses = allTenses,
+    this.enabledSubjunctiveKinds = allSubjunctiveKinds,
     this.askLemmaTranslation = false,
   });
 
@@ -109,8 +118,9 @@ class GrammarTrainerSettings {
       enabledTenses: enabledTenses,
     )) {
       return "Mit dieser Auswahl gibt es keine Verbformen: Das Imperfekt "
-          "gibt es nur im Indikativ, das Futur nicht im Imperativ. Bitte "
-          "wähle einen weiteren Modus oder eine weitere Zeitform aus.";
+          "gibt es nur im Indikativ, das Futur nicht im Imperativ und nicht "
+          "im Konjunktiv. Bitte wähle einen weiteren Modus oder eine weitere "
+          "Zeitform aus.";
     }
 
     return null;
@@ -131,6 +141,7 @@ class GrammarTrainerSettings {
         enabledComparisonKinds: List.of(allComparisonKinds),
         enabledMoods: List.of(allMoods),
         enabledTenses: List.of(allTenses),
+        enabledSubjunctiveKinds: List.of(allSubjunctiveKinds),
       );
     }
 
@@ -148,6 +159,7 @@ class GrammarTrainerSettings {
     final comparisonForm = data['askComparisonForm'];
     final moods = data['enabledMoods'];
     final tenses = data['enabledTenses'];
+    final subjunctiveKinds = data['enabledSubjunctiveKinds'];
     final lemmaTranslation = data['askLemmaTranslation'];
 
     final storedTenses = tenses is List
@@ -194,6 +206,13 @@ class GrammarTrainerSettings {
       enabledTenses: storedTenses != null && hasAskableTense(storedTenses)
           ? storedTenses
           : List.of(allTenses),
+      // Ohne gespeicherte Unterauswahl gelten beide Aufgabenarten.
+      enabledSubjunctiveKinds: subjunctiveKinds is List
+          ? subjunctiveKinds
+                .whereType<String>()
+                .where(allSubjunctiveKinds.contains)
+                .toList()
+          : List.of(allSubjunctiveKinds),
       askLemmaTranslation: lemmaTranslation is bool ? lemmaTranslation : false,
       // Ohne Übersetzung wird immer die Grundform gefragt.
       askComparisonLemma:
@@ -216,6 +235,7 @@ class GrammarTrainerSettings {
       'askComparisonForm': askComparisonForm,
       'enabledMoods': enabledMoods,
       'enabledTenses': enabledTenses,
+      'enabledSubjunctiveKinds': enabledSubjunctiveKinds,
       'askLemmaTranslation': askLemmaTranslation,
     };
   }

@@ -28,6 +28,7 @@ class GreekGrammarProgressView extends StatelessWidget {
     "participle": "Partizipien",
     "pronoun": "Pronomen",
     "comparison": "Steigerung",
+    "subjunctive": "Konjunktiv",
   };
 
   static const Map<String, String> dimensionLabels = {
@@ -39,6 +40,7 @@ class GreekGrammarProgressView extends StatelessWidget {
     "voice": "Genus verbi",
     "person": "Person",
     "degree": "Steigerungsstufe",
+    "function": "Verwendung",
   };
 
   /// Zerlegt eine Merkmalskarte in (Wortart, Merkmal, Wert); null für

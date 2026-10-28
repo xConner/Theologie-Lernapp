@@ -94,6 +94,7 @@ class LocalLearningStore {
       "askComparisonForm": _FieldType.boolean,
       "enabledMoods": _FieldType.stringList,
       "enabledTenses": _FieldType.stringList,
+      "enabledSubjunctiveKinds": _FieldType.stringList,
       "askLemmaTranslation": _FieldType.boolean,
     },
     "memorization_settings": {

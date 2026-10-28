@@ -282,6 +282,7 @@ void main() {
           "verb",
           "pronoun",
           "comparison",
+          "subjunctive",
         ]);
         expect(settings.enabledComparisonKinds, ["irregular", "regular"]);
         expect(settings.showLemmaFieldNoun, isTrue);
@@ -311,7 +312,7 @@ void main() {
       settings.enabledTypes.clear();
 
       expect(GrammarTrainerSettings.allSteps.length, 7);
-      expect(GrammarTrainerSettings.allTypes.length, 4);
+      expect(GrammarTrainerSettings.allTypes.length, 5);
     });
 
     test("Speicherformat: bestehende Felder unverändert, Pronomen ergänzt", () {
@@ -335,6 +336,7 @@ void main() {
         'askComparisonForm': true,
         'enabledMoods': GrammarQuestionPicker.moods,
         'enabledTenses': GrammarQuestionPicker.selectableTenses,
+        'enabledSubjunctiveKinds': GrammarQuestionPicker.subjunctiveKinds,
         'askLemmaTranslation': false,
       });
     });
@@ -399,6 +401,7 @@ void main() {
       ]) {
         expect(GrammarTrainerSettings.fromMap(data).enabledMoods, [
           VerbMood.indicative,
+          VerbMood.subjunctive,
           VerbMood.imperative,
           VerbMood.infinitive,
           VerbMood.participle,
@@ -408,7 +411,7 @@ void main() {
 
     test("Modi: Unterauswahl wird gelesen, gespeichert, geprüft", () {
       final settings = GrammarTrainerSettings.fromMap(<String, dynamic>{
-        'enabledMoods': ["Partizip", "Konjunktiv", 3, "Indikativ"],
+        'enabledMoods': ["Partizip", "Optativ", 3, "Indikativ"],
       });
 
       expect(settings.enabledMoods, ["Partizip", "Indikativ"]);
@@ -417,7 +420,7 @@ void main() {
       // Veränderbare Kopie für den Einstellungsdialog.
       GrammarTrainerSettings.fromMap(null).enabledMoods.clear();
 
-      expect(GrammarTrainerSettings.allMoods.length, 4);
+      expect(GrammarTrainerSettings.allMoods.length, 5);
     });
 
     test("neue Einstellungen lassen die bestehenden unberührt", () {
@@ -451,6 +454,7 @@ void main() {
         'askComparisonForm': false,
         'enabledMoods': ["Imperativ"],
         'enabledTenses': GrammarQuestionPicker.selectableTenses,
+        'enabledSubjunctiveKinds': GrammarQuestionPicker.subjunctiveKinds,
         'askLemmaTranslation': true,
       });
     });

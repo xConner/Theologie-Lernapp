@@ -12,6 +12,7 @@ import 'infinitive_screen.dart';
 import 'participles_screen.dart';
 import 'prepositions_screen.dart';
 import 'pronouns_screen.dart';
+import 'subjunctive_screen.dart';
 import 'syntax_screen.dart';
 
 /// Ein Eintrag der Grammatikübersicht.
@@ -106,6 +107,13 @@ class GrammarTopics {
           title: "Aoristblatt",
           subtitle: "Häufige Verben im Aorist mit Infinitiv und Bedeutung",
           builder: (_) => const AoristSheetScreen(),
+        ),
+        GrammarTopic(
+          id: "subjunctive",
+          title: "Konjunktiv",
+          subtitle:
+              "Präsens und Aorist, εἰμί – Gebrauch im Haupt- und Nebensatz",
+          builder: (_) => const SubjunctiveScreen(),
         ),
         GrammarTopic(
           id: "imperative",

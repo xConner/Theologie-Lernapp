@@ -1093,6 +1093,7 @@ void main() {
         "verb",
         "pronoun",
         "comparison",
+        "subjunctive",
       ]);
       expect(GrammarQuestionPicker.pronounGenders, ["m", "f", "n", "–"]);
       // Die Auswahl der Nomen bleibt unverändert.

@@ -2,18 +2,20 @@ import '../../../utils/greek_normalization.dart';
 import 'greek_declension.dart';
 
 /// Modi der Verbaufgaben. Infinitiv und Partizip stehen als infinite
-/// Formen neben den beiden finiten Modi, weil sie wie diese am Verb bestimmt
-/// werden.
+/// Formen neben den finiten Modi, weil sie wie diese am Verb bestimmt
+/// werden. Den Konjunktiv bildet der Trainer selbst (greek_subjunctive.dart).
 class VerbMood {
   VerbMood._();
 
   static const String indicative = "Indikativ";
+  static const String subjunctive = "Konjunktiv";
   static const String imperative = "Imperativ";
   static const String infinitive = "Infinitiv";
   static const String participle = "Partizip";
 
   static const List<String> all = [
     indicative,
+    subjunctive,
     imperative,
     infinitive,
     participle,

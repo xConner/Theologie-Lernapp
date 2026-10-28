@@ -15,6 +15,9 @@ String wordTypeFilterLabel(String type) {
     case "comparison":
       return "Adjektivsteigerung";
 
+    case "subjunctive":
+      return "Konjunktiv";
+
     case "adverb":
       return "Adverbien";
 

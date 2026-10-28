@@ -7,6 +7,8 @@ import '../../../models/greek/vocabulary/greek_vocabulary_entry.dart';
 import 'adjective_comparisons.dart';
 import 'greek_declension.dart';
 import 'greek_future.dart';
+import 'greek_subjunctive.dart';
+import 'subjunctive_exercises.dart';
 import 'verb_paradigm.dart';
 
 /// Zielbestimmung einer Nomen-Aufgabe in der Schreibweise des Trainers
@@ -51,7 +53,16 @@ typedef ComparisonTarget = ({
 class GrammarQuestionPicker {
   GrammarQuestionPicker._();
 
-  static const List<String> types = ["noun", "verb", "pronoun", "comparison"];
+  static const List<String> types = [
+    "noun",
+    "verb",
+    "pronoun",
+    "comparison",
+    SubjunctiveExercises.type,
+  ];
+
+  /// Aufgabenarten des Themas Konjunktiv, einzeln wählbar.
+  static const List<String> subjunctiveKinds = SubjunctiveExercises.kinds;
 
   static const List<String> cases = declensionCases;
 
@@ -163,18 +174,38 @@ class GrammarQuestionPicker {
     });
   }
 
+  /// Ob das Verb in einem ausgewählten Modus eine ausgewählte Zeitform
+  /// bildet. Den Konjunktiv gibt es nur, wo [GreekSubjunctive] ihn bilden
+  /// kann (kein Konjunktiv Präsens bei Kontrakta, keiner bei -μι-Verben).
+  static bool verbHasForms(
+    GreekVocabularyEntry entry, {
+    required List<String> enabledMoods,
+    required List<String> enabledTenses,
+  }) {
+    final tenses = allowedTenses(entry);
+
+    return enabledMoods.any((mood) {
+      return tensesOfMood(mood).any((tense) {
+        return enabledTenses.contains(tense) &&
+            tenses.contains(tense) &&
+            (mood != VerbMood.subjunctive ||
+                GreekSubjunctive.supports(entry.lemma, tense));
+      });
+    });
+  }
+
   /// Modi der Verbaufgaben, einzeln wählbar.
   static const List<String> moods = VerbMood.all;
 
   /// Tempora, in denen es den Modus [mood] gibt: Imperativ, Infinitiv und
-  /// Partizip kennen kein Imperfekt, der Imperativ auch kein Futur. Ohne
-  /// Modus alle Tempora.
+  /// Partizip kennen kein Imperfekt, Imperativ und Konjunktiv auch kein
+  /// Futur. Ohne Modus alle Tempora.
   static List<String> tensesOfMood(String? mood) {
     if (mood == null || mood == VerbMood.indicative) {
       return tenses;
     }
 
-    return mood == VerbMood.imperative
+    return mood == VerbMood.imperative || mood == VerbMood.subjunctive
         ? const ["Präsens", "Aorist"]
         : const ["Präsens", GreekFuture.tense, "Aorist"];
   }
@@ -190,7 +221,9 @@ class GrammarQuestionPicker {
   /// Ohne gewählten Modus steht das Feld noch nicht zur Wahl, damit es den
   /// Modus der Lösung nicht verrät.
   static bool asksPersonNumber(String? mood) {
-    return mood == VerbMood.indicative || mood == VerbMood.imperative;
+    return mood == VerbMood.indicative ||
+        mood == VerbMood.subjunctive ||
+        mood == VerbMood.imperative;
   }
 
   /// Ob im Modus [mood] Kasus, Numerus und Genus bestimmt werden (Partizip).
@@ -299,6 +332,7 @@ class GrammarQuestionPicker {
     required List<String> enabledTypes,
     required Set<int> pronounIds,
     Set<int> comparisonIds = const {},
+    Set<int> subjunctiveIds = const {},
     List<String> enabledMoods = moods,
     List<String> enabledTenses = selectableTenses,
   }) {
@@ -307,12 +341,10 @@ class GrammarQuestionPicker {
     }
 
     if (entry.type == "verb" &&
-        !hasVerbForms(
+        !verbHasForms(
+          entry,
           enabledMoods: enabledMoods,
-          enabledTenses: [
-            for (final tense in allowedTenses(entry))
-              if (enabledTenses.contains(tense)) tense,
-          ],
+          enabledTenses: enabledTenses,
         )) {
       return false;
     }
@@ -325,13 +357,18 @@ class GrammarQuestionPicker {
       return comparisonIds.contains(entry.id);
     }
 
+    if (entry.type == SubjunctiveExercises.type) {
+      return subjunctiveIds.contains(entry.id);
+    }
+
     return enabledSteps.contains(entry.step);
   }
 
   /// Wählt die Grundform der nächsten Frage aus den bereits gefilterten
-  /// Wörtern. Fünf Gruppen mit demselben Grundgewicht: alle Wörter, die
-  /// Verben des Aoristblatts, εἰμί, die Pronomen und die Adjektivsteigerung
-  /// (jeweils soweit verfügbar). Der Lernbedarf verschiebt die Auswahl
+  /// Wörtern. Sechs Gruppen mit demselben Grundgewicht: alle Wörter (ohne
+  /// die Aufgaben zum Konjunktiv), die
+  /// Verben des Aoristblatts, εἰμί, die Pronomen, die Adjektivsteigerung und
+  /// die Aufgaben zum Konjunktiv (jeweils soweit verfügbar). Der Lernbedarf verschiebt die Auswahl
   /// zwischen den Gruppen und innerhalb der gewählten Gruppe; bei der
   /// Adjektivsteigerung zählt dort zusätzlich die Priorität des Adjektivs
   /// (unregelmäßige deutlich häufiger).
@@ -353,13 +390,24 @@ class GrammarQuestionPicker {
       return entry.type == AdjectiveComparisons.type;
     }).toList();
 
+    final subjunctive = available.where((entry) {
+      return entry.type == SubjunctiveExercises.type;
+    }).toList();
+
+    // Die Aufgaben zum Konjunktiv kommen nur über ihre eigene Gruppe, sonst
+    // verdrängten ihre gut 70 Aufgaben die Wörter weniger Schritte.
+    final words = available.where((entry) {
+      return entry.type != SubjunctiveExercises.type;
+    }).toList();
+
     return grammar.pickFromGroups(
       [
-        available,
+        if (words.isNotEmpty) words,
         if (aoristSheetVerbs.isNotEmpty) aoristSheetVerbs,
         if (eimi != null) [eimi],
         if (pronouns.isNotEmpty) pronouns,
         if (comparisons.isNotEmpty) comparisons,
+        if (subjunctive.isNotEmpty) subjunctive,
       ],
       (entry) => GrammarLearning.lemmaId(entry.id),
       weightOf: (entry) {
@@ -537,8 +585,8 @@ class GrammarQuestionPicker {
   /// Verbi, soweit das Paradigma sie enthält.
   ///
   /// Im Präsens und Imperfekt Aktiv und Medium/Passiv, im Aorist Aktiv und
-  /// Medium. Das Aorist Passiv gehört nur beim Infinitiv (παυθῆναι) und
-  /// beim Partizip (παυθείς) zum Lernstoff. Ein Deponens hat kein Aktiv – im Aorist steht deshalb die
+  /// Medium. Das Aorist Passiv gehört nur beim Infinitiv (παυθῆναι), beim
+  /// Partizip (παυθείς) und beim Konjunktiv (παυθῶ) zum Lernstoff. Ein Deponens hat kein Aktiv – im Aorist steht deshalb die
   /// Form, die es tatsächlich bildet: Medium (ἐγενόμην), sonst Passiv
   /// (ἐβουλήθην), sonst Aktiv (ἦλθον). Im Futur alle Genera Verbi, die der
   /// Futureintrag des Verbs bildet (Folien: παύσω, παύσομαι, παυθήσομαι).
@@ -573,7 +621,9 @@ class GrammarQuestionPicker {
       return [
         for (final voice in const ["Aktiv", "Medium/Passiv", "Medium"])
           if (existing.contains(voice)) voice,
-        if ((mood == VerbMood.infinitive || mood == VerbMood.participle) &&
+        if ((mood == VerbMood.infinitive ||
+                mood == VerbMood.participle ||
+                mood == VerbMood.subjunctive) &&
             existing.contains("Passiv"))
           "Passiv",
       ];
@@ -594,7 +644,8 @@ class GrammarQuestionPicker {
 
   /// Ob die Form zum Lernstoff des Verbs gehört: Tempus und Genus Verbi
   /// zulässig, Modus und Zeitform eingeschaltet. Das Aorist Passiv wird nur
-  /// im Indikativ (Deponentien), im Infinitiv und im Partizip gefragt.
+  /// im Indikativ (Deponentien), im Konjunktiv, im Infinitiv und im
+  /// Partizip gefragt.
   static bool isAskable(
     GreekVocabularyEntry entry,
     VerbParadigm paradigm,
@@ -613,6 +664,7 @@ class GrammarQuestionPicker {
         ).contains(analysis.voice) &&
         (analysis.voice != "Passiv" ||
             analysis.mood == VerbMood.indicative ||
+            analysis.mood == VerbMood.subjunctive ||
             analysis.mood == VerbMood.infinitive ||
             analysis.mood == VerbMood.participle);
   }

@@ -853,6 +853,7 @@ void main() {
       expect(GrammarQuestionPicker.voices, ["Aktiv", "Medium", "Passiv"]);
       expect(GrammarQuestionPicker.moods, [
         "Indikativ",
+        "Konjunktiv",
         "Imperativ",
         "Infinitiv",
         "Partizip",
