@@ -123,6 +123,7 @@ Code muss dafür nicht geändert werden.
 |---|---|
 | Wissensquiz | Fragen zu den Veranstaltungen, Merklisten (Selbstbewertung), Personen, Begriffe und Quellen, Epochen |
 | Chronologietrainer | Reihenfolge, Datierungen, Epochen |
+| Geschichte Schritt für Schritt | Lernschritte (höchstens vier Epochen, Personen oder Ereignisse), Übungsmodi nach Lernstufe, gemischte Wiederholung, Zeitstrahl – siehe [history-learning.md](history-learning.md) |
 
 Lernumfang: alle Inhalte (beide Veranstaltungen), Vorlesungsstoff,
 Proseminarstoff, eine Vorlesung oder Sitzung, eine Epoche oder ein Thema;

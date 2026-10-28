@@ -124,6 +124,11 @@ Kommt eine Sitzung mit Lesestellen hinzu, dort die Stellen eintragen und
 
 ## Lernen
 
+Für die Geschichte Israels und die Textgeschichte gibt es zusätzlich
+„Geschichte Israels Schritt für Schritt“ (Eckdaten, Zeiträume, Personen und
+Mächte aus `assets/old_testament/history.json`, je Veranstaltung nach deren
+Folien) – siehe [history-learning.md](history-learning.md).
+
 Ein Lernmodus mit Umfang „Alle Einheiten“ oder eine Einheit, wählbaren
 Aufgabenarten und „Nur schwierige Inhalte“:
 

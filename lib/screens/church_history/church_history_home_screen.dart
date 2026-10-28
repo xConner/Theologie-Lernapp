@@ -5,11 +5,17 @@ import '../../info/app_info.dart';
 import '../../models/church_history/church_history.dart';
 import '../../services/church_history/church_history_quiz.dart';
 import '../../services/church_history/church_history_store.dart';
+import '../../services/history/history_cards.dart';
+import '../../services/history/history_course_loader.dart';
+import '../../services/quiz_sound_settings.dart';
+import '../../services/statistics/learning_statistics.dart';
 import '../../services/streak/streak_track.dart';
 import '../../theme/app_theme.dart';
 import '../../widgets/info_report.dart';
 import '../../widgets/settings_access.dart';
 import '../../widgets/streak_widgets.dart';
+import '../history/history_hub_screen.dart';
+import '../history/history_widgets.dart';
 import 'church_history_progress_screen.dart';
 import 'church_history_quiz_screen.dart';
 import 'church_history_widgets.dart';
@@ -19,9 +25,9 @@ import 'lectures_screen.dart';
 import 'search_screen.dart';
 import 'themes_screen.dart';
 
-/// Lernbereich „Kirchengeschichte“: zwei Lernmodi, darunter die Zugänge
-/// zum Stoff (Veranstaltungen, Epochen, Nachschlagen, Themen) und die
-/// Suche.
+/// Lernbereich „Kirchengeschichte“: Lernen (Geschichte Schritt für
+/// Schritt, Wissensquiz, Chronologietrainer), darunter die Zugänge zum
+/// Stoff (Veranstaltungen, Epochen, Nachschlagen, Themen) und die Suche.
 class ChurchHistoryHomeScreen extends StatelessWidget {
   /// Nur für Tests: Daten und Speicher ohne Assets bzw. Anmeldung.
   final ChurchHistoryData? data;
@@ -58,6 +64,27 @@ class _Home extends StatelessWidget {
     Navigator.push(context, MaterialPageRoute(builder: (_) => screen));
   }
 
+  Widget _history(BuildContext context) {
+    final store = this.store ?? ChurchHistoryStore.forUser(uid);
+    return HistoryHubScreen(
+      area: HistoryArea(
+        title: "Kirchengeschichte",
+        trainer: StatisticsTrainer.churchHistory,
+        track: StreakTrack.churchHistory,
+        sound: SoundModule.churchHistory,
+        module: AppModules.churchHistory,
+        openDetail: (context, id) => openEntry(context, data, id),
+      ),
+      loadCourse: () => HistoryCourseLoader.loadChurchHistory(data),
+      store: HistoryCardStore(
+        load: store.loadCards,
+        save: store.saveCards,
+        reset: store.resetCards,
+      ),
+      uid: uid,
+    );
+  }
+
   Widget _button(
     BuildContext context, {
     required String key,
@@ -78,6 +105,14 @@ class _Home extends StatelessWidget {
       ),
     );
   }
+
+  Widget _hint(BuildContext context, String text) => Padding(
+    padding: const EdgeInsets.fromLTRB(4, 0, 4, 12),
+    child: Text(
+      text,
+      style: TextStyle(color: context.colors.textSecondary, fontSize: 12.5),
+    ),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -124,8 +159,22 @@ class _Home extends StatelessWidget {
                 const SizedBox(height: 16),
 
                 StreakDetailCard(uid: uid, track: StreakTrack.churchHistory),
-                const SizedBox(height: 20),
+                const SizedBox(height: 8),
 
+                const ContentSectionTitle("Lernen"),
+                _button(
+                  context,
+                  key: "church-history-history",
+                  icon: Icons.stairs_rounded,
+                  label: "Geschichte Schritt für Schritt",
+                  screen: () => _history(context),
+                ),
+                _hint(
+                  context,
+                  "Neu oder unsicher? Kleine Lernschritte mit Einführung, "
+                  "dann Personen, Daten, Reihenfolgen und Zusammenhänge – "
+                  "mit Zeitstrahl.",
+                ),
                 _button(
                   context,
                   key: "church-history-quiz",
@@ -148,8 +197,13 @@ class _Home extends StatelessWidget {
                     store: store,
                   ),
                 ),
+                _hint(
+                  context,
+                  "Freies Quiz über den ganzen Stoff bzw. Reihenfolgen der "
+                  "Ereignisse, mit Umfang und Aufgabenarten zum Einstellen.",
+                ),
 
-                const SizedBox(height: 8),
+                const ContentSectionTitle("Nachschlagen"),
 
                 _button(
                   context,

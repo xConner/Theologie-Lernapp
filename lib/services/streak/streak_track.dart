@@ -126,6 +126,7 @@ class StreakSource {
   static const String oldTestamentQuiz = "old_testament_quiz";
   static const String exam = "exam";
   static const String logicExercise = "logic_exercise";
+  static const String historySteps = "history_steps";
 
   static const Map<String, String> labels = {
     vocabulary: "Vokabeln",
@@ -139,6 +140,7 @@ class StreakSource {
     oldTestamentQuiz: "Lernmodus",
     exam: "Klausurersteller",
     logicExercise: "Übungen",
+    historySteps: "Geschichte Schritt für Schritt",
   };
 
   static String label(String source) => labels[source] ?? source;

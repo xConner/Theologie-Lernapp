@@ -1,0 +1,1395 @@
+{
+  "note": "Historische Eckdaten, Zeiträume, Personen und Mächte aus den Folien (Vorlesung Einheit 1, Folien 8, 14–16, 19–20; Übung Bibelkunde Sitzung 1, Folien 21–22, 27). Jede Aussage nennt ihre Folie; nichts kommt ohne Folie hinzu. Abweichende Angaben der beiden Veranstaltungen stehen je Veranstaltung unter datingBy.",
+  "tracks": [
+    {
+      "id": "history",
+      "title": "Geschichte Israels und Judas"
+    },
+    {
+      "id": "text",
+      "title": "Text und Überlieferung"
+    }
+  ],
+  "items": [
+    {
+      "id": "period.koenigszeit",
+      "kind": "period",
+      "track": "history",
+      "name": "Königszeit",
+      "dating": {
+        "from": -1000,
+        "to": -501,
+        "label": "10.–6. Jh. v. Chr.",
+        "approx": true
+      },
+      "statements": [
+        {
+          "unit": "unit.01",
+          "slides": [
+            19
+          ],
+          "text": "Die Folie fasst unter „Königszeit“ zusammen: Entstehung der Lokalkönigtümer Israel und Juda (10. Jh.), Untergang des Nordreiches (722) und des Südreiches (587)."
+        },
+        {
+          "unit": "unit.01",
+          "slides": [
+            20
+          ],
+          "text": "Königszeit (10.–6. Jh. v. Chr.): Zeit der Vorstufen der biblischen Bücher (Erzählkränze, Annalennotizen, Sammlungen von Prophetenworten, einzelne Psalmen, Weisheitssprüche)."
+        }
+      ]
+    },
+    {
+      "id": "period.exil",
+      "kind": "period",
+      "track": "history",
+      "name": "Babylonisches Exil",
+      "datingBy": {
+        "lecture": {
+          "from": -587,
+          "to": -539,
+          "label": "zwischen 587 und 539 v. Chr.",
+          "note": "Die Folie nennt für das Exil keine eigenen Jahreszahlen; es steht zwischen dem Untergang des Südreiches (587) und der Machtübernahme der Perser (ab 539)."
+        },
+        "bibelkunde": {
+          "from": -587,
+          "to": -539,
+          "label": "zwischen 587/6 und 539 v. Chr.",
+          "note": "Die Folie nennt für das Exil keine eigenen Jahreszahlen; es steht zwischen der 2. Eroberung Jerusalems (587/6) und dem Sieg des Kyros (539)."
+        }
+      },
+      "statements": [
+        {
+          "unit": "unit.01",
+          "slides": [
+            19
+          ],
+          "text": "„Babylonisches Exil“ steht auf der Folie zwischen dem Untergang des Südreiches (587) und der Machtübernahme der Perser (ab 539)."
+        },
+        {
+          "unit": "bk.01",
+          "slides": [
+            27
+          ],
+          "text": "„(Babylonisches) Exil“ steht auf der Folie zwischen der 2. Eroberung Jerusalems (587/6) und dem Sieg des Kyros (539)."
+        }
+      ]
+    },
+    {
+      "id": "period.nachexilisch",
+      "kind": "period",
+      "track": "history",
+      "name": "Nachexilische Zeit",
+      "dating": {
+        "from": -539,
+        "to": -101,
+        "label": "ab 539 v. Chr.",
+        "approx": true,
+        "note": "Folie 19 setzt die nachexilische Zeit mit der Machtübernahme der Perser ab 539 an; Folie 20 nennt für die exilische und nachexilische Zeit das 6.–2. Jh. v. Chr."
+      },
+      "statements": [
+        {
+          "unit": "unit.01",
+          "slides": [
+            19
+          ],
+          "text": "Die Folie fasst unter „Nachexilische Zeit“ zusammen: Machtübernahme der Perser (ab 539), Alexander der Große (333), Sieg der Makkabäer (164)."
+        },
+        {
+          "unit": "unit.01",
+          "slides": [
+            20
+          ],
+          "text": "Exilische und nachexilische Zeit (6.–2. Jh. v. Chr.): Nach der Vorlesung erhalten die biblischen Bücher in dieser Zeit ihre Gestalt."
+        }
+      ]
+    },
+    {
+      "id": "event.merenptah_stele",
+      "kind": "event",
+      "track": "history",
+      "name": "„Israel“ auf der Siegesstele des Pharao Merenptah",
+      "dating": {
+        "from": -1208,
+        "to": -1208,
+        "label": "1208 v. Chr."
+      },
+      "related": [
+        "person.merenptah"
+      ],
+      "statements": [
+        {
+          "unit": "bk.01",
+          "slides": [
+            27
+          ],
+          "text": "1208 v. Chr. – „Israel“ auf Siegesstele des Pharao Merenptah"
+        }
+      ]
+    },
+    {
+      "id": "event.koenigtuemer",
+      "kind": "event",
+      "track": "history",
+      "period": "period.koenigszeit",
+      "name": "Entstehung der Königtümer Israel (Nordreich) und Juda (Südreich)",
+      "datingBy": {
+        "lecture": {
+          "from": -1000,
+          "to": -901,
+          "label": "10. Jh. v. Chr.",
+          "approx": true,
+          "disputed": true,
+          "note": "Die Übung Bibelkunde setzt die Ausbildung staatlicher Strukturen in Israel und Juda ins 9. Jh. v. Chr. Wie bedeutend das Königtum im 10. Jh. war, ist in der Forschung umstritten."
+        },
+        "bibelkunde": {
+          "from": -900,
+          "to": -801,
+          "label": "9. Jh. v. Chr.",
+          "approx": true,
+          "disputed": true,
+          "note": "Die Vorlesung „Einführung in das AT“ setzt die Entstehung der Lokalkönigtümer Israel und Juda ins 10. Jh. v. Chr. Wie bedeutend das Königtum im 10. Jh. war, ist in der Forschung umstritten."
+        }
+      },
+      "statements": [
+        {
+          "unit": "unit.01",
+          "slides": [
+            19
+          ],
+          "text": "10. Jh. v. Chr.: Entstehung der Lokalkönigtümer Israel (Nordreich) und Juda (Südreich)"
+        },
+        {
+          "unit": "bk.01",
+          "slides": [
+            27
+          ],
+          "text": "9. Jh. v. Chr. – Ausbildung staatlicher Strukturen in Israel & Juda"
+        }
+      ]
+    },
+    {
+      "id": "event.nordreich",
+      "kind": "event",
+      "track": "history",
+      "period": "period.koenigszeit",
+      "name": "Untergang des Nordreiches Israel",
+      "datingBy": {
+        "lecture": {
+          "from": -722,
+          "to": -722,
+          "label": "722 v. Chr."
+        },
+        "bibelkunde": {
+          "from": -722,
+          "to": -720,
+          "label": "722/20 v. Chr."
+        }
+      },
+      "related": [
+        "group.assyrer"
+      ],
+      "statements": [
+        {
+          "unit": "unit.01",
+          "slides": [
+            19
+          ],
+          "text": "722 v. Chr.: Untergang des Nordreiches (Eroberung durch die Neuassyrer)"
+        },
+        {
+          "unit": "bk.01",
+          "slides": [
+            27
+          ],
+          "text": "722/20 v. Chr. – Eroberung Samarias durch Assyrer & Untergang des Nordreichs Israel"
+        }
+      ]
+    },
+    {
+      "id": "event.sanherib",
+      "kind": "event",
+      "track": "history",
+      "name": "Sanheribs Feldzug gegen Juda und Jerusalem",
+      "dating": {
+        "from": -701,
+        "to": -701,
+        "label": "701 v. Chr."
+      },
+      "related": [
+        "person.sanherib"
+      ],
+      "statements": [
+        {
+          "unit": "bk.01",
+          "slides": [
+            27
+          ],
+          "text": "701 v. Chr. – Sanheribs Feldzug gegen Juda & Jerusalem"
+        }
+      ]
+    },
+    {
+      "id": "event.josia",
+      "kind": "event",
+      "track": "history",
+      "name": "Kultreform Josias",
+      "dating": {
+        "from": -622,
+        "to": -622,
+        "label": "622 v. Chr."
+      },
+      "related": [
+        "person.josia"
+      ],
+      "statements": [
+        {
+          "unit": "bk.01",
+          "slides": [
+            27
+          ],
+          "text": "622 v. Chr. – Kultreform Josias"
+        }
+      ]
+    },
+    {
+      "id": "event.jerusalem_1",
+      "kind": "event",
+      "track": "history",
+      "name": "1. Eroberung Jerusalems durch die Babylonier",
+      "dating": {
+        "from": -598,
+        "to": -597,
+        "label": "598/7 v. Chr."
+      },
+      "related": [
+        "group.babylonier"
+      ],
+      "statements": [
+        {
+          "unit": "bk.01",
+          "slides": [
+            27
+          ],
+          "text": "598/7 v. Chr – 1. Eroberung Jerusalems durch Babylonier"
+        }
+      ]
+    },
+    {
+      "id": "event.suedreich",
+      "kind": "event",
+      "track": "history",
+      "period": "period.koenigszeit",
+      "name": "Untergang des Südreiches Juda",
+      "datingBy": {
+        "lecture": {
+          "from": -587,
+          "to": -587,
+          "label": "587 v. Chr."
+        },
+        "bibelkunde": {
+          "from": -587,
+          "to": -586,
+          "label": "587/6 v. Chr."
+        }
+      },
+      "related": [
+        "group.babylonier"
+      ],
+      "consequence": {
+        "text": "„Babylonisches Exil“",
+        "unit": "unit.01",
+        "slides": [
+          19
+        ]
+      },
+      "consequenceBy": {
+        "bibelkunde": {
+          "text": "(Babylonisches) Exil",
+          "unit": "bk.01",
+          "slides": [
+            27
+          ]
+        }
+      },
+      "statements": [
+        {
+          "unit": "unit.01",
+          "slides": [
+            19
+          ],
+          "text": "587 v. Chr.: Untergang des Südreiches (Eroberung durch die Neubabylonier); danach „Babylonisches Exil“"
+        },
+        {
+          "unit": "bk.01",
+          "slides": [
+            27
+          ],
+          "text": "587/6 v. Chr. – 2. Eroberung Jerusalems durch Babylonier und Untergang des Südreichs Juda; danach (Babylonisches) Exil"
+        }
+      ]
+    },
+    {
+      "id": "event.perser",
+      "kind": "event",
+      "track": "history",
+      "period": "period.nachexilisch",
+      "name": "Machtübernahme der Perser",
+      "datingBy": {
+        "lecture": {
+          "from": -539,
+          "to": -539,
+          "label": "ab 539 v. Chr."
+        },
+        "bibelkunde": {
+          "from": -539,
+          "to": -539,
+          "label": "539 v. Chr."
+        }
+      },
+      "nameBy": {
+        "bibelkunde": "Perserkönig Kyros besiegt den neubabylonischen König"
+      },
+      "related": [
+        "group.perser",
+        "person.kyros"
+      ],
+      "consequence": {
+        "text": "Rückkehr einiger Exulanten und Wiederaufbau Jerusalems",
+        "unit": "unit.01",
+        "slides": [
+          19
+        ]
+      },
+      "consequenceBy": {
+        "bibelkunde": {
+          "text": "Rückkehrmöglichkeit für die Exulanten",
+          "unit": "bk.01",
+          "slides": [
+            27
+          ]
+        }
+      },
+      "statements": [
+        {
+          "unit": "unit.01",
+          "slides": [
+            19
+          ],
+          "text": "ab 539 v. Chr.: Machtübernahme der Perser; Rückkehr einiger Exulanten und Wiederaufbau Jerusalems"
+        },
+        {
+          "unit": "bk.01",
+          "slides": [
+            27
+          ],
+          "text": "539 v. Chr. – Perserkönig Kyros besiegt neubabylonischen König & Rückkehrmöglichkeit für Exulanten"
+        }
+      ]
+    },
+    {
+      "id": "event.alexander",
+      "kind": "event",
+      "track": "history",
+      "period": "period.nachexilisch",
+      "name": "Machtübernahme Alexanders des Großen",
+      "nameBy": {
+        "bibelkunde": "Alexander der Große besiegt den Perserkönig Darius III."
+      },
+      "dating": {
+        "from": -333,
+        "to": -333,
+        "label": "333 v. Chr."
+      },
+      "related": [
+        "person.alexander",
+        "person.darius3"
+      ],
+      "consequence": {
+        "text": "Beginn des hellenistischen Zeitalters",
+        "unit": "unit.01",
+        "slides": [
+          19
+        ]
+      },
+      "consequenceBy": {
+        "bibelkunde": {
+          "text": "Beginn der hellenistischen Zeit",
+          "unit": "bk.01",
+          "slides": [
+            27
+          ]
+        }
+      },
+      "statements": [
+        {
+          "unit": "unit.01",
+          "slides": [
+            19
+          ],
+          "text": "333 v. Chr.: Machtübernahme Alexanders des Großen; Beginn des hellenistischen Zeitalters"
+        },
+        {
+          "unit": "bk.01",
+          "slides": [
+            27
+          ],
+          "text": "333 v. Chr. – Alexander d. Große besiegt Perserkönig Darius III & Beginn der hellenistischen Zeit"
+        }
+      ]
+    },
+    {
+      "id": "event.makkabaeer",
+      "kind": "event",
+      "track": "history",
+      "period": "period.nachexilisch",
+      "name": "Sieg der Makkabäer",
+      "nameBy": {
+        "lecture": "Sieg der Makkabäer über den Seleukiden Antiochus IV."
+      },
+      "dating": {
+        "from": -164,
+        "to": -164,
+        "label": "164 v. Chr."
+      },
+      "related": [
+        "group.makkabaeer",
+        "group.seleukiden",
+        "person.antiochus4"
+      ],
+      "consequence": {
+        "text": "Etablierung des hasmonäischen Königtums",
+        "unit": "unit.01",
+        "slides": [
+          19
+        ]
+      },
+      "consequenceBy": {
+        "bibelkunde": {
+          "text": "Aufbau des hasmonäischen Königtums",
+          "unit": "bk.01",
+          "slides": [
+            27
+          ]
+        }
+      },
+      "statements": [
+        {
+          "unit": "unit.01",
+          "slides": [
+            19
+          ],
+          "text": "164 v. Chr.: Sieg der Makkabäer über den Seleukiden Antiochus IV.; in der Folgezeit Etablierung des hasmonäischen Königtums"
+        },
+        {
+          "unit": "bk.01",
+          "slides": [
+            27
+          ],
+          "text": "164 v. Chr. – Sieg der Makkabäer über Seleukiden & Aufbau hasmonäisches Königtum"
+        }
+      ]
+    },
+    {
+      "id": "event.rom",
+      "kind": "event",
+      "track": "history",
+      "name": "Judäa unter römischer Herrschaft",
+      "dating": {
+        "from": -63,
+        "to": -63,
+        "label": "ab 63 v. Chr."
+      },
+      "related": [
+        "group.roemer",
+        "group.hasmonaeer"
+      ],
+      "consequence": {
+        "text": "Die Autonomie der Hasmonäer ist beendet",
+        "unit": "bk.01",
+        "slides": [
+          27
+        ]
+      },
+      "statements": [
+        {
+          "unit": "bk.01",
+          "slides": [
+            27
+          ],
+          "text": "ab 63 v. Chr. – Judäa unter römischer Herrschaft & Autonomie der Hasmonäer beendet"
+        }
+      ]
+    },
+    {
+      "id": "person.merenptah",
+      "kind": "person",
+      "track": "history",
+      "name": "Merenptah",
+      "role": "Pharao",
+      "clue": "Pharao, auf dessen Siegesstele (1208 v. Chr.) der Name „Israel“ steht",
+      "related": [
+        "event.merenptah_stele"
+      ],
+      "statements": [
+        {
+          "unit": "bk.01",
+          "slides": [
+            27
+          ],
+          "text": "„Israel“ auf Siegesstele des Pharao Merenptah (1208 v. Chr.)"
+        }
+      ]
+    },
+    {
+      "id": "person.sanherib",
+      "kind": "person",
+      "track": "history",
+      "name": "Sanherib",
+      "clue": "Sein Feldzug gegen Juda und Jerusalem wird auf 701 v. Chr. datiert",
+      "related": [
+        "event.sanherib"
+      ],
+      "statements": [
+        {
+          "unit": "bk.01",
+          "slides": [
+            27
+          ],
+          "text": "701 v. Chr. – Sanheribs Feldzug gegen Juda & Jerusalem"
+        }
+      ]
+    },
+    {
+      "id": "person.josia",
+      "kind": "person",
+      "track": "history",
+      "name": "Josia",
+      "clue": "Mit seinem Namen ist die Kultreform von 622 v. Chr. verbunden",
+      "related": [
+        "event.josia"
+      ],
+      "statements": [
+        {
+          "unit": "bk.01",
+          "slides": [
+            27
+          ],
+          "text": "622 v. Chr. – Kultreform Josias"
+        }
+      ]
+    },
+    {
+      "id": "person.kyros",
+      "kind": "person",
+      "track": "history",
+      "name": "Kyros",
+      "role": "Perserkönig",
+      "clue": "Perserkönig, der 539 v. Chr. den neubabylonischen König besiegte; danach konnten Exulanten zurückkehren",
+      "related": [
+        "event.perser",
+        "group.perser"
+      ],
+      "statements": [
+        {
+          "unit": "bk.01",
+          "slides": [
+            27
+          ],
+          "text": "539 v. Chr. – Perserkönig Kyros besiegt neubabylonischen König & Rückkehrmöglichkeit für Exulanten"
+        }
+      ]
+    },
+    {
+      "id": "person.alexander",
+      "kind": "person",
+      "track": "history",
+      "name": "Alexander der Große",
+      "clue": "Mit seiner Machtübernahme 333 v. Chr. beginnt nach den Folien das hellenistische Zeitalter",
+      "related": [
+        "event.alexander"
+      ],
+      "statements": [
+        {
+          "unit": "unit.01",
+          "slides": [
+            19
+          ],
+          "text": "333 v. Chr.: Machtübernahme Alexanders des Großen; Beginn des hellenistischen Zeitalters"
+        },
+        {
+          "unit": "bk.01",
+          "slides": [
+            27
+          ],
+          "text": "333 v. Chr. – Alexander d. Große besiegt Perserkönig Darius III & Beginn der hellenistischen Zeit"
+        }
+      ]
+    },
+    {
+      "id": "person.darius3",
+      "kind": "person",
+      "track": "history",
+      "name": "Darius III.",
+      "role": "Perserkönig",
+      "clue": "Perserkönig, den Alexander der Große 333 v. Chr. besiegte",
+      "related": [
+        "event.alexander",
+        "group.perser"
+      ],
+      "statements": [
+        {
+          "unit": "bk.01",
+          "slides": [
+            27
+          ],
+          "text": "333 v. Chr. – Alexander d. Große besiegt Perserkönig Darius III"
+        }
+      ]
+    },
+    {
+      "id": "person.antiochus4",
+      "kind": "person",
+      "track": "history",
+      "name": "Antiochus IV.",
+      "role": "Seleukide",
+      "clue": "Seleukide, über den die Makkabäer 164 v. Chr. siegten",
+      "related": [
+        "event.makkabaeer",
+        "group.seleukiden"
+      ],
+      "statements": [
+        {
+          "unit": "unit.01",
+          "slides": [
+            19
+          ],
+          "text": "164 v. Chr.: Sieg der Makkabäer über den Seleukiden Antiochus IV."
+        }
+      ]
+    },
+    {
+      "id": "group.assyrer",
+      "kind": "group",
+      "track": "history",
+      "name": "Assyrer",
+      "nameBy": {
+        "lecture": "Neuassyrer"
+      },
+      "statements": [
+        {
+          "unit": "unit.01",
+          "slides": [
+            19
+          ],
+          "text": "722 v. Chr.: Untergang des Nordreiches (Eroberung durch die Neuassyrer)"
+        },
+        {
+          "unit": "bk.01",
+          "slides": [
+            27
+          ],
+          "text": "722/20 v. Chr. – Eroberung Samarias durch Assyrer"
+        }
+      ]
+    },
+    {
+      "id": "group.babylonier",
+      "kind": "group",
+      "track": "history",
+      "name": "Babylonier",
+      "nameBy": {
+        "lecture": "Neubabylonier"
+      },
+      "statements": [
+        {
+          "unit": "unit.01",
+          "slides": [
+            19
+          ],
+          "text": "587 v. Chr.: Untergang des Südreiches (Eroberung durch die Neubabylonier)"
+        },
+        {
+          "unit": "bk.01",
+          "slides": [
+            27
+          ],
+          "text": "598/7 und 587/6 v. Chr. – 1. und 2. Eroberung Jerusalems durch Babylonier"
+        }
+      ]
+    },
+    {
+      "id": "group.perser",
+      "kind": "group",
+      "track": "history",
+      "name": "Perser",
+      "statements": [
+        {
+          "unit": "unit.01",
+          "slides": [
+            19
+          ],
+          "text": "ab 539 v. Chr.: Machtübernahme der Perser"
+        },
+        {
+          "unit": "bk.01",
+          "slides": [
+            27
+          ],
+          "text": "539 v. Chr. – Perserkönig Kyros besiegt neubabylonischen König; 333 v. Chr. – Alexander besiegt Perserkönig Darius III"
+        }
+      ]
+    },
+    {
+      "id": "group.makkabaeer",
+      "kind": "group",
+      "track": "history",
+      "name": "Makkabäer",
+      "statements": [
+        {
+          "unit": "unit.01",
+          "slides": [
+            19
+          ],
+          "text": "164 v. Chr.: Sieg der Makkabäer über den Seleukiden Antiochus IV."
+        },
+        {
+          "unit": "bk.01",
+          "slides": [
+            27
+          ],
+          "text": "164 v. Chr. – Sieg der Makkabäer über Seleukiden"
+        }
+      ]
+    },
+    {
+      "id": "group.seleukiden",
+      "kind": "group",
+      "track": "history",
+      "name": "Seleukiden",
+      "statements": [
+        {
+          "unit": "unit.01",
+          "slides": [
+            19
+          ],
+          "text": "164 v. Chr.: Sieg der Makkabäer über den Seleukiden Antiochus IV."
+        },
+        {
+          "unit": "bk.01",
+          "slides": [
+            27
+          ],
+          "text": "164 v. Chr. – Sieg der Makkabäer über Seleukiden"
+        }
+      ]
+    },
+    {
+      "id": "group.hasmonaeer",
+      "kind": "group",
+      "track": "history",
+      "name": "Hasmonäer",
+      "statements": [
+        {
+          "unit": "unit.01",
+          "slides": [
+            19
+          ],
+          "text": "Nach dem Sieg der Makkabäer 164 v. Chr.: Etablierung des hasmonäischen Königtums"
+        },
+        {
+          "unit": "bk.01",
+          "slides": [
+            27
+          ],
+          "text": "164 v. Chr. Aufbau hasmonäisches Königtum; ab 63 v. Chr. Autonomie der Hasmonäer beendet"
+        }
+      ],
+      "related": [
+        "event.makkabaeer"
+      ]
+    },
+    {
+      "id": "group.roemer",
+      "kind": "group",
+      "track": "history",
+      "name": "Römer",
+      "statements": [
+        {
+          "unit": "bk.01",
+          "slides": [
+            27
+          ],
+          "text": "ab 63 v. Chr. – Judäa unter römischer Herrschaft"
+        }
+      ]
+    },
+    {
+      "id": "event.textwachstum",
+      "kind": "event",
+      "track": "text",
+      "name": "Produktives Textwachstum der alttestamentlichen Bücher",
+      "dating": {
+        "from": -1000,
+        "to": -101,
+        "label": "10.–2. Jh. v. Chr.",
+        "approx": true,
+        "note": "Datierung nach der Vorlesung; andere, besonders konservative Positionen rechnen mit einer früheren Abfassung größerer Teile."
+      },
+      "statements": [
+        {
+          "unit": "unit.01",
+          "slides": [
+            16
+          ],
+          "text": "10. – 2. Jh. v. Chr.: Produktives Textwachstum: Die einzelnen alttestamentlichen Bücher entstehen und wachsen zu ihrem aktuellen Umfang an (Gegenstand von Literarkritik und Redaktionsgeschichte)."
+        }
+      ]
+    },
+    {
+      "id": "event.urtexte",
+      "kind": "event",
+      "track": "text",
+      "name": "Verschiedene „Urtexte“ nebeneinander",
+      "dating": {
+        "from": -100,
+        "to": 100,
+        "label": "1. Jh. v. – 1. Jh. n. Chr.",
+        "approx": true
+      },
+      "statements": [
+        {
+          "unit": "unit.01",
+          "slides": [
+            16
+          ],
+          "text": "1. Jh. v. – 1. Jh. n. Chr.: verschiedene „Urtexte“ mit Abweichungen in der Gestalt der atl. Bücher: proto-masoretischer Text, hebräische Vorlage der Septuaginta, weitere Urtexttypen (z. B. Qumran)."
+        }
+      ]
+    },
+    {
+      "id": "event.septuaginta",
+      "kind": "event",
+      "track": "text",
+      "name": "Entstehung der Septuaginta (LXX)",
+      "datingBy": {
+        "lecture": {
+          "from": -250,
+          "to": 100,
+          "label": "ca. 250 v. Chr. – 100 n. Chr.",
+          "approx": true
+        },
+        "bibelkunde": {
+          "from": -300,
+          "to": -201,
+          "label": "ab 3. Jh. v. Chr.",
+          "approx": true
+        }
+      },
+      "statements": [
+        {
+          "unit": "unit.01",
+          "slides": [
+            8
+          ],
+          "text": "Die Septuaginta entstand schrittweise über einen langen Zeitraum, ca. 250 v. Chr. – 100 n. Chr."
+        },
+        {
+          "unit": "bk.01",
+          "slides": [
+            22
+          ],
+          "text": "griechisch: Septuaginta/LXX (ab 3. Jh. v. Chr.)"
+        }
+      ]
+    },
+    {
+      "id": "event.targume",
+      "kind": "event",
+      "track": "text",
+      "name": "Frühe Targume (aramäische Übersetzungen)",
+      "dating": {
+        "from": -200,
+        "to": -101,
+        "label": "ab 2. Jh. v. Chr.",
+        "approx": true
+      },
+      "statements": [
+        {
+          "unit": "bk.01",
+          "slides": [
+            22
+          ],
+          "text": "aramäisch: Targume (frühe Targume bereits ab 2. Jh. v. Chr.)"
+        }
+      ]
+    },
+    {
+      "id": "event.qumran_texte",
+      "kind": "event",
+      "track": "text",
+      "name": "Die meisten Qumran-Abschriften biblischer Bücher",
+      "dating": {
+        "from": -200,
+        "to": -1,
+        "label": "meist 2.–1. Jh. v. Chr.",
+        "approx": true,
+        "note": "Nach der Vorlesung. Die Folie der Übung nennt „200 - 70 n. Chr.“ (vermutlich 200 v. Chr. bis 70 n. Chr.); diese Angabe wird nicht abgefragt."
+      },
+      "statements": [
+        {
+          "unit": "unit.01",
+          "slides": [
+            14
+          ],
+          "text": "Die bei weitem ältesten Textzeugen stammen aus den Qumranhöhlen; die meisten Abschriften biblischer Bücher stammen aus dem 2.–1. Jh. v. Chr."
+        }
+      ]
+    },
+    {
+      "id": "event.protomasoretisch",
+      "kind": "event",
+      "track": "text",
+      "name": "Der protomasoretische Text setzt sich im Judentum als autoritativ durch",
+      "dating": {
+        "from": 100,
+        "to": 100,
+        "label": "um 100 n. Chr.",
+        "approx": true
+      },
+      "consequence": {
+        "text": "Die Masoreten überliefern ihn weiter (daher „Masoretischer Text“)",
+        "unit": "unit.01",
+        "slides": [
+          16
+        ]
+      },
+      "statements": [
+        {
+          "unit": "unit.01",
+          "slides": [
+            16
+          ],
+          "text": "100 n. Chr.: Der protomasoretische Text setzt sich im Judentum als autoritativ durch – wird von jüdischen Gelehrten, den Masoreten, überliefert (daher Masoretischer Text)."
+        }
+      ]
+    },
+    {
+      "id": "event.peschitta",
+      "kind": "event",
+      "track": "text",
+      "name": "Peschitta (syrische Übersetzung)",
+      "dating": {
+        "from": 101,
+        "to": 200,
+        "label": "ab 2. Jh. n. Chr.",
+        "approx": true
+      },
+      "statements": [
+        {
+          "unit": "bk.01",
+          "slides": [
+            22
+          ],
+          "text": "syrisch: Peschitta (ab 2. Jh. n. Chr.)"
+        }
+      ]
+    },
+    {
+      "id": "event.vetus_latina",
+      "kind": "event",
+      "track": "text",
+      "name": "Vetus Latina (lateinische Übersetzung)",
+      "dating": {
+        "from": 101,
+        "to": 300,
+        "label": "ab 2./3. Jh. n. Chr.",
+        "approx": true
+      },
+      "statements": [
+        {
+          "unit": "bk.01",
+          "slides": [
+            22
+          ],
+          "text": "lateinisch: Vetus Latina (ab 2./3. Jh. n. Chr.)"
+        }
+      ]
+    },
+    {
+      "id": "event.vulgata",
+      "kind": "event",
+      "track": "text",
+      "name": "Vulgata (lateinische Übersetzung)",
+      "dating": {
+        "from": 400,
+        "to": 400,
+        "label": "um 400 n. Chr.",
+        "approx": true
+      },
+      "statements": [
+        {
+          "unit": "bk.01",
+          "slides": [
+            22
+          ],
+          "text": "lateinisch: Vulgata (um 400 n. Chr.)"
+        }
+      ]
+    },
+    {
+      "id": "event.geniza",
+      "kind": "event",
+      "track": "text",
+      "name": "Älteste Fragmente aus der Kairoer Geniza",
+      "dating": {
+        "from": 401,
+        "to": 500,
+        "label": "bis ins 5. Jh. n. Chr. zurück",
+        "approx": true
+      },
+      "statements": [
+        {
+          "unit": "unit.01",
+          "slides": [
+            14
+          ],
+          "text": "Hinzu kommen eine Reihe nochmals älterer Fragmente aus der Kairoer Geniza, die bis ins 5. Jh. n. Chr. zurückreichen."
+        }
+      ]
+    },
+    {
+      "id": "event.codex_cairensis",
+      "kind": "event",
+      "track": "text",
+      "name": "Codex Cairensis (nur vordere und hintere Propheten)",
+      "dating": {
+        "from": 895,
+        "to": 895,
+        "label": "895 n. Chr."
+      },
+      "statements": [
+        {
+          "unit": "unit.01",
+          "slides": [
+            14
+          ],
+          "text": "Codex Cairensis (895 n. Chr.; umfasst nur vordere und hintere Propheten)"
+        },
+        {
+          "unit": "bk.01",
+          "slides": [
+            21
+          ],
+          "text": "Codex Cairensis (895 n. Chr.; nur vordere und hintere Propheten)"
+        }
+      ]
+    },
+    {
+      "id": "event.codex_aleppo",
+      "kind": "event",
+      "track": "text",
+      "name": "Kodex von Aleppo (unvollständig)",
+      "dating": {
+        "from": 901,
+        "to": 1000,
+        "label": "10. Jh. n. Chr.",
+        "approx": true
+      },
+      "statements": [
+        {
+          "unit": "unit.01",
+          "slides": [
+            14
+          ],
+          "text": "Kodex von Aleppo (10. Jh. n. Chr.; unvollständig)"
+        },
+        {
+          "unit": "bk.01",
+          "slides": [
+            21
+          ],
+          "text": "Codex Aleppo (10. Jh. n. Chr.; unvollständig)"
+        }
+      ]
+    },
+    {
+      "id": "event.codex_leningradensis",
+      "kind": "event",
+      "track": "text",
+      "name": "Codex Petropolitanus bzw. Leningradensis",
+      "dating": {
+        "from": 1008,
+        "to": 1008,
+        "label": "1008 n. Chr."
+      },
+      "statements": [
+        {
+          "unit": "unit.01",
+          "slides": [
+            16
+          ],
+          "text": "1008 n. Chr.: Codex Petropolitanus (älteste erhaltene Handschrift, die den Masoretischen Text lückenlos überliefert)"
+        },
+        {
+          "unit": "bk.01",
+          "slides": [
+            21
+          ],
+          "text": "älteste vollständig erhaltene Handschrift der Hebräischen Bibel: Codex Leningradensis (1008 n. Chr.)"
+        }
+      ]
+    },
+    {
+      "id": "event.qumran_fund",
+      "kind": "event",
+      "track": "text",
+      "name": "Entdeckung der Qumranhöhlen",
+      "dating": {
+        "from": 1947,
+        "to": 1947,
+        "label": "1947"
+      },
+      "statements": [
+        {
+          "unit": "unit.01",
+          "slides": [
+            14
+          ],
+          "text": "Die bei weitem ältesten Textzeugen stammen aus den 1947 entdeckten Qumranhöhlen."
+        },
+        {
+          "unit": "bk.01",
+          "slides": [
+            21
+          ],
+          "text": "Schriftrollen von Qumran: 1947 gefunden"
+        }
+      ]
+    },
+    {
+      "id": "event.bhs",
+      "kind": "event",
+      "track": "text",
+      "name": "Biblia Hebraica Stuttgartensia (BHS)",
+      "dating": {
+        "from": 1967,
+        "to": 1967,
+        "label": "1967"
+      },
+      "statements": [
+        {
+          "unit": "unit.01",
+          "slides": [
+            16
+          ],
+          "text": "1967: Biblia Hebraica Stuttgartensia (Druckausgabe des hebräischen Textes, die den Codex Petropolitanus wiedergibt)"
+        }
+      ]
+    }
+  ],
+  "sequences": [
+    {
+      "id": "seq.eckdaten_vl",
+      "title": "Eckdaten der Geschichte Israels und Judas",
+      "unit": "unit.01",
+      "slides": [
+        19
+      ],
+      "items": [
+        "event.koenigtuemer",
+        "event.nordreich",
+        "event.suedreich",
+        "event.perser",
+        "event.alexander",
+        "event.makkabaeer"
+      ]
+    },
+    {
+      "id": "seq.eckdaten_bk",
+      "title": "Eckdaten: Geschichte Israels",
+      "unit": "bk.01",
+      "slides": [
+        27
+      ],
+      "items": [
+        "event.merenptah_stele",
+        "event.koenigtuemer",
+        "event.nordreich",
+        "event.sanherib",
+        "event.josia",
+        "event.jerusalem_1",
+        "event.suedreich",
+        "event.perser",
+        "event.alexander",
+        "event.makkabaeer",
+        "event.rom"
+      ]
+    },
+    {
+      "id": "seq.textgeschichte",
+      "title": "Textentstehung und Textüberlieferung (Schaubild)",
+      "unit": "unit.01",
+      "slides": [
+        16
+      ],
+      "items": [
+        "event.textwachstum",
+        "event.urtexte",
+        "event.protomasoretisch",
+        "event.codex_leningradensis",
+        "event.bhs"
+      ]
+    }
+  ],
+  "lessons": [
+    {
+      "id": "lesson.zeitraeume",
+      "part": "Geschichte Israels und Judas",
+      "title": "Drei Zeiträume im Überblick",
+      "items": [
+        "period.koenigszeit",
+        "period.exil",
+        "period.nachexilisch"
+      ]
+    },
+    {
+      "id": "lesson.anfaenge",
+      "part": "Geschichte Israels und Judas",
+      "title": "Die Anfänge: Israel und Juda",
+      "items": [
+        "event.merenptah_stele",
+        "person.merenptah",
+        "event.koenigtuemer"
+      ]
+    },
+    {
+      "id": "lesson.nordreich",
+      "part": "Geschichte Israels und Judas",
+      "title": "Der Untergang des Nordreiches",
+      "items": [
+        "event.nordreich",
+        "group.assyrer"
+      ]
+    },
+    {
+      "id": "lesson.sanherib_josia",
+      "part": "Geschichte Israels und Judas",
+      "title": "Sanherib und Josia",
+      "items": [
+        "event.sanherib",
+        "person.sanherib",
+        "event.josia",
+        "person.josia"
+      ]
+    },
+    {
+      "id": "lesson.suedreich",
+      "part": "Geschichte Israels und Judas",
+      "title": "Der Untergang des Südreiches und das Exil",
+      "items": [
+        "event.jerusalem_1",
+        "event.suedreich",
+        "group.babylonier"
+      ]
+    },
+    {
+      "id": "lesson.perser",
+      "part": "Geschichte Israels und Judas",
+      "title": "Die Perser und die Rückkehr",
+      "items": [
+        "event.perser",
+        "group.perser",
+        "person.kyros"
+      ]
+    },
+    {
+      "id": "lesson.alexander",
+      "part": "Geschichte Israels und Judas",
+      "title": "Alexander der Große und der Hellenismus",
+      "items": [
+        "event.alexander",
+        "person.alexander",
+        "person.darius3"
+      ]
+    },
+    {
+      "id": "lesson.makkabaeer",
+      "part": "Geschichte Israels und Judas",
+      "title": "Makkabäer und Seleukiden",
+      "items": [
+        "event.makkabaeer",
+        "group.makkabaeer",
+        "group.seleukiden",
+        "person.antiochus4"
+      ]
+    },
+    {
+      "id": "lesson.hasmonaeer_rom",
+      "part": "Geschichte Israels und Judas",
+      "title": "Hasmonäer und Römer",
+      "items": [
+        "group.hasmonaeer",
+        "event.rom",
+        "group.roemer"
+      ]
+    },
+    {
+      "id": "lesson.textentstehung",
+      "part": "Text und Überlieferung",
+      "title": "Wie die Texte entstanden",
+      "items": [
+        "event.textwachstum",
+        "event.urtexte",
+        "event.protomasoretisch"
+      ]
+    },
+    {
+      "id": "lesson.uebersetzungen_1",
+      "part": "Text und Überlieferung",
+      "title": "Frühe Übersetzungen: griechisch und aramäisch",
+      "items": [
+        "event.septuaginta",
+        "event.targume"
+      ]
+    },
+    {
+      "id": "lesson.uebersetzungen_2",
+      "part": "Text und Überlieferung",
+      "title": "Frühe Übersetzungen: syrisch und lateinisch",
+      "items": [
+        "event.peschitta",
+        "event.vetus_latina",
+        "event.vulgata"
+      ]
+    },
+    {
+      "id": "lesson.qumran",
+      "part": "Text und Überlieferung",
+      "title": "Qumran",
+      "items": [
+        "event.qumran_texte",
+        "event.qumran_fund"
+      ]
+    },
+    {
+      "id": "lesson.handschriften",
+      "part": "Text und Überlieferung",
+      "title": "Mittelalterliche Handschriften",
+      "items": [
+        "event.geniza",
+        "event.codex_cairensis",
+        "event.codex_aleppo"
+      ]
+    },
+    {
+      "id": "lesson.leningradensis",
+      "part": "Text und Überlieferung",
+      "title": "Leningradensis und BHS",
+      "items": [
+        "event.codex_leningradensis",
+        "event.bhs"
+      ]
+    }
+  ]
+}

@@ -3,12 +3,18 @@ import 'package:flutter/material.dart';
 
 import '../../info/app_info.dart';
 import '../../models/old_testament/old_testament.dart';
+import '../../services/history/history_cards.dart';
+import '../../services/history/history_course_loader.dart';
 import '../../services/old_testament/old_testament_store.dart';
+import '../../services/quiz_sound_settings.dart';
+import '../../services/statistics/learning_statistics.dart';
 import '../../services/streak/streak_track.dart';
 import '../../theme/app_theme.dart';
 import '../../widgets/info_report.dart';
 import '../../widgets/settings_access.dart';
 import '../../widgets/streak_widgets.dart';
+import '../history/history_hub_screen.dart';
+import '../history/history_widgets.dart';
 import 'glossary_screen.dart';
 import 'old_testament_progress_screen.dart';
 import 'old_testament_quiz_screen.dart';
@@ -69,6 +75,26 @@ class _Home extends StatelessWidget {
     Navigator.push(context, MaterialPageRoute(builder: (_) => screen));
   }
 
+  Widget _history(BuildContext context) {
+    final store = this.store ?? OldTestamentStore.forUser(uid);
+    return HistoryHubScreen(
+      area: HistoryArea(
+        title: OldTestamentHomeScreen.titleOf(data.courseId),
+        trainer: StatisticsTrainer.oldTestament,
+        track: StreakTrack.oldTestament,
+        sound: SoundModule.oldTestament,
+        module: AppModules.oldTestament,
+      ),
+      loadCourse: () => HistoryCourseLoader.loadOldTestament(data),
+      store: HistoryCardStore(
+        load: store.loadCards,
+        save: store.saveCards,
+        reset: store.resetCards,
+      ),
+      uid: uid,
+    );
+  }
+
   Widget _button(
     BuildContext context, {
     required String key,
@@ -125,6 +151,26 @@ class _Home extends StatelessWidget {
                 StreakDetailCard(uid: uid, track: StreakTrack.oldTestament),
                 const SizedBox(height: 20),
 
+                _button(
+                  context,
+                  key: "old-testament-history",
+                  icon: Icons.stairs_rounded,
+                  label: "Geschichte Israels Schritt für Schritt",
+                  screen: () => _history(context),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(4, 0, 4, 12),
+                  child: Text(
+                    lecture
+                        ? "Eckdaten, Zeiträume und Textgeschichte aus den "
+                              "Folien in kleinen Lernschritten, mit "
+                              "Zeitstrahl."
+                        : "Eckdaten der Geschichte Israels und Textgeschichte "
+                              "aus den Folien der Übung in kleinen "
+                              "Lernschritten, mit Zeitstrahl.",
+                    style: secondary.copyWith(fontSize: 12.5),
+                  ),
+                ),
                 if (learnable) ...[
                   _button(
                     context,
