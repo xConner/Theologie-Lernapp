@@ -99,16 +99,18 @@ class GrammarTrainerSettings {
     }
 
     if (!hasAskableTense(enabledTenses)) {
-      return "Perfekt und Futur werden noch nicht abgefragt. Bitte wähle "
-          "zusätzlich Präsens, Imperfekt oder Aorist aus.";
+      return "Perfekt und Plusquamperfekt werden noch nicht abgefragt. "
+          "Bitte wähle zusätzlich Präsens, Imperfekt, Futur I oder Aorist "
+          "aus.";
     }
 
     if (!GrammarQuestionPicker.hasVerbForms(
       enabledMoods: enabledMoods,
       enabledTenses: enabledTenses,
     )) {
-      return "Das Imperfekt gibt es nur im Indikativ. Bitte wähle den "
-          "Indikativ oder eine weitere Zeitform aus.";
+      return "Mit dieser Auswahl gibt es keine Verbformen: Das Imperfekt "
+          "gibt es nur im Indikativ, das Futur nicht im Imperativ. Bitte "
+          "wähle einen weiteren Modus oder eine weitere Zeitform aus.";
     }
 
     return null;

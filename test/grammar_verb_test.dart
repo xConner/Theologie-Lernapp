@@ -769,21 +769,25 @@ void main() {
       expect(GrammarQuestionPicker.tensesOfMood(VerbMood.indicative), [
         "Präsens",
         "Imperfekt",
+        "Futur",
         "Aorist",
       ]);
       expect(GrammarQuestionPicker.tensesOfMood(VerbMood.imperative), [
         "Präsens",
         "Aorist",
       ]);
+      // Das Futur hat keinen Imperativ, aber Infinitiv und Partizip.
       expect(GrammarQuestionPicker.tensesOfMood(VerbMood.participle), [
         "Präsens",
+        "Futur",
         "Aorist",
       ]);
       expect(GrammarQuestionPicker.tensesOfMood(VerbMood.infinitive), [
         "Präsens",
+        "Futur",
         "Aorist",
       ]);
-      expect(GrammarQuestionPicker.tensesOfMood(null).length, 3);
+      expect(GrammarQuestionPicker.tensesOfMood(null).length, 4);
 
       expect(GrammarQuestionPicker.personNumbersOfMood(VerbMood.imperative), [
         "2. Sg.",
@@ -1199,9 +1203,17 @@ void main() {
         ),
         ["Präsens"],
       );
+      // εἰμί hat keinen Aorist, aber ein Futur (ἔσομαι).
       expect(GrammarQuestionPicker.allowedTenses(_entry("εἰμί")), [
         "Präsens",
         "Imperfekt",
+        "Futur",
+      ]);
+      // Ohne hinterlegten Futurstamm kein Futur.
+      expect(GrammarQuestionPicker.allowedTenses(_entry("εὑρίσκω")), [
+        "Präsens",
+        "Imperfekt",
+        "Aorist",
       ]);
     });
 

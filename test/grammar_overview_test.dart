@@ -129,9 +129,9 @@ void main() {
       expect(titles.toSet().length, titles.length);
     });
 
-    test("führt Futur, Perfekt und Plusquamperfekt nicht als Thema", () {
+    test("führt Perfekt und Plusquamperfekt nicht als Thema", () {
       for (final topic in GrammarTopics.all) {
-        for (final tense in ["Futur", "Perfekt", "Plusquamperfekt"]) {
+        for (final tense in ["Perfekt", "Plusquamperfekt", "Futur II"]) {
           expect(topic.title, isNot(contains(tense)));
           expect(topic.subtitle, isNot(contains(tense)));
         }

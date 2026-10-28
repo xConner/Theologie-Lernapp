@@ -1826,6 +1826,23 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
                         return;
                       }
 
+                      // Keine Auswahl ohne mögliche Aufgabe (etwa nur
+                      // Futur I in Schritten ohne Verb mit Futurstamm).
+                      if (entries.isNotEmpty &&
+                          _getAvailableEntries().isEmpty) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text(
+                              "Mit dieser Auswahl gibt es keine einzige "
+                              "Aufgabe. Bitte wähle weitere Schritte, "
+                              "Wortarten oder Zeitformen aus.",
+                            ),
+                          ),
+                        );
+
+                        return;
+                      }
+
                       await saveGrammarSettings();
 
                       if (!context.mounted) {
@@ -1975,9 +1992,13 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
                           hint:
                               "Unterauswahl der Wortart Verb: Abgefragt "
                               "werden nur Formen der ausgewählten Zeitformen. "
-                              "Das Imperfekt gibt es nur im Indikativ. "
-                              "Perfekt und Futur werden erst abgefragt, "
-                              "sobald der Trainer ihre Formen kennt.",
+                              "Das Imperfekt gibt es nur im Indikativ, das "
+                              "Futur nicht im Imperativ. Futur I wird nur "
+                              "bei Verben mit hinterlegtem Futurstamm "
+                              "gefragt (Grammatikübersicht → Konjugationen). "
+                              "Perfekt und Plusquamperfekt werden erst "
+                              "abgefragt, sobald der Trainer ihre Formen "
+                              "kennt.",
                           options: allTenses,
                           isSelected: enabledTenses.contains,
                           labelOf: GrammarQuestionPicker.tenseLabel,

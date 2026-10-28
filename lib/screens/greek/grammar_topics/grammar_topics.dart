@@ -90,7 +90,8 @@ class GrammarTopics {
           id: "conjugations",
           title: "Konjugationen",
           subtitle:
-              "Indikativ: Personalendungen im Aktiv und Medium/Passiv, εἰμί",
+              "Indikativ nach Zeitformen: Präsens, Imperfekt, Futur I, "
+              "Aorist – Bildung, Endungen, Aktiv, Medium und Passiv, εἰμί",
           builder: (_) => const ConjugationsScreen(),
         ),
         GrammarTopic(
@@ -115,13 +116,13 @@ class GrammarTopics {
         GrammarTopic(
           id: "infinitive",
           title: "Infinitiv",
-          subtitle: "Präsens und Aorist in Aktiv, Medium und Passiv",
+          subtitle: "Präsens, Futur und Aorist in Aktiv, Medium und Passiv",
           builder: (_) => const InfinitiveScreen(),
         ),
         GrammarTopic(
           id: "participles",
           title: "Partizipien",
-          subtitle: "Präsens und Aorist mit vollständiger Deklination",
+          subtitle: "Präsens, Futur und Aorist mit vollständiger Deklination",
           builder: (_) => const ParticiplesScreen(),
         ),
       ],

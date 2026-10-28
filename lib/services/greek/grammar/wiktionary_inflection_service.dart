@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 import 'grammar_form_analysis.dart';
+import 'greek_future.dart';
 import 'verb_paradigm.dart';
 
 class WiktionaryInflectionService {
@@ -45,8 +46,9 @@ class WiktionaryInflectionService {
   // ---------------------------------------------------------------------------
 
   /// Holt das Paradigma eines Verbs über unser Vercel-Backend: Indikativ
-  /// und Imperativ aller Tempora des Trainers sowie die Nominative der
-  /// Partizipien, aus denen [VerbParadigm] die Deklination bildet.
+  /// und Imperativ von Präsens, Imperfekt und Aorist sowie die Nominative
+  /// der Partizipien, aus denen [VerbParadigm] die Deklination bildet.
+  /// Ergänzt um das Futur aus [GreekFuture].
   ///
   /// Das Backend übernimmt:
   /// - Wiktionary-Aufruf
@@ -91,11 +93,15 @@ class WiktionaryInflectionService {
       throw Exception('Ungültige Antwort vom Verb-Backend.');
     }
 
-    final paradigm = VerbParadigm.fromJson(data['paradigm']);
+    final tables = VerbParadigm.fromJson(data['paradigm']);
 
-    if (paradigm.forms.isEmpty) {
+    if (tables.forms.isEmpty) {
       return null;
     }
+
+    // Das Futur steht nicht in den Tabellen des Backends, sondern wird aus
+    // den Futurstämmen der Folien gebildet.
+    final paradigm = GreekFuture.extend(lemma, tables);
 
     _paradigmCache[lemma] = paradigm;
 

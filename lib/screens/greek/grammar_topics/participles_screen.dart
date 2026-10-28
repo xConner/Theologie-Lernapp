@@ -31,6 +31,24 @@ class ParticiplesScreen extends StatelessWidget {
       neuter: "παυόμενον",
     ),
     (
+      title: "Partizip Futur Aktiv",
+      masculine: "παύσων",
+      feminine: "παύσουσα",
+      neuter: "παῦσον",
+    ),
+    (
+      title: "Partizip Futur Medium",
+      masculine: "παυσόμενος",
+      feminine: "παυσομένη",
+      neuter: "παυσόμενον",
+    ),
+    (
+      title: "Partizip Futur Passiv",
+      masculine: "παυθησόμενος",
+      feminine: "παυθησομένη",
+      neuter: "παυθησόμενον",
+    ),
+    (
       title: "Partizip Aorist Aktiv",
       masculine: "παύσας",
       feminine: "παύσασα",
@@ -78,8 +96,11 @@ class ParticiplesScreen extends StatelessWidget {
         const GrammarSection(
           title: "Überblick",
           child: GrammarBulletList([
-            "Partizipien gibt es im Präsens und im Aorist, nicht im "
-                "Imperfekt.",
+            "Partizipien gibt es im Präsens, im Futur und im Aorist, nicht "
+                "im Imperfekt.",
+            "Partizip Futur: Futurstamm + -ων/-ουσα/-ον (παύσων), im Medium "
+                "-σόμενος, im Passiv -θησόμενος; ὡς + Partizip Futur ist "
+                "final („um zu …“).",
             "Sie werden wie Adjektive dekliniert; bestimmt werden Tempus, "
                 "Genus Verbi, Kasus, Numerus und Genus.",
             "Aktive Partizipien folgen im Maskulinum und Neutrum der "

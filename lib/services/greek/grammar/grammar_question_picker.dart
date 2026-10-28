@@ -6,6 +6,7 @@ import '../../../models/greek/grammar/pronoun_paradigm.dart';
 import '../../../models/greek/vocabulary/greek_vocabulary_entry.dart';
 import 'adjective_comparisons.dart';
 import 'greek_declension.dart';
+import 'greek_future.dart';
 import 'verb_paradigm.dart';
 
 /// Zielbestimmung einer Nomen-Aufgabe in der Schreibweise des Trainers
@@ -110,23 +111,36 @@ class GrammarQuestionPicker {
     "3. Pl.",
   ];
 
-  /// Tempora, in denen der Trainer Verbformen kennt und abfragt.
-  static const List<String> tenses = ["Präsens", "Imperfekt", "Aorist"];
+  /// Tempora, in denen der Trainer Verbformen kennt und abfragt. Präsens,
+  /// Imperfekt und Aorist kommen aus den Wiktionary-Tabellen des Backends,
+  /// das Futur (I) aus den Futurstämmen der Folien ([GreekFuture]).
+  static const List<String> tenses = [
+    "Präsens",
+    "Imperfekt",
+    GreekFuture.tense,
+    "Aorist",
+  ];
 
-  /// Zeitformen, die in den Einstellungen zur Wahl stehen. Perfekt und Futur
-  /// lassen sich schon auswählen und speichern, werden aber erst abgefragt,
-  /// wenn [tenses] sie enthält.
+  /// Zeitformen, die in den Einstellungen zur Wahl stehen. Perfekt und
+  /// Plusquamperfekt lassen sich schon auswählen und speichern, werden aber
+  /// erst abgefragt, wenn [tenses] sie enthält. Ein Futur II kennt der
+  /// Lernstoff nicht.
   static const List<String> selectableTenses = [
     "Präsens",
     "Imperfekt",
-    "Perfekt",
+    GreekFuture.tense,
     "Aorist",
-    "Futur",
+    "Perfekt",
+    "Plusquamperfekt",
   ];
 
   /// Beschriftung in den Einstellungen; Zeitformen ohne Formen im Trainer
   /// sind als noch nicht abgefragt gekennzeichnet.
   static String tenseLabel(String tense) {
+    if (tense == GreekFuture.tense) {
+      return "Futur I";
+    }
+
     return tenses.contains(tense) ? tense : "$tense (folgt)";
   }
 
@@ -153,11 +167,16 @@ class GrammarQuestionPicker {
   static const List<String> moods = VerbMood.all;
 
   /// Tempora, in denen es den Modus [mood] gibt: Imperativ, Infinitiv und
-  /// Partizip kennen kein Imperfekt. Ohne Modus alle Tempora.
+  /// Partizip kennen kein Imperfekt, der Imperativ auch kein Futur. Ohne
+  /// Modus alle Tempora.
   static List<String> tensesOfMood(String? mood) {
-    return mood == null || mood == VerbMood.indicative
-        ? tenses
-        : const ["Präsens", "Aorist"];
+    if (mood == null || mood == VerbMood.indicative) {
+      return tenses;
+    }
+
+    return mood == VerbMood.imperative
+        ? const ["Präsens", "Aorist"]
+        : const ["Präsens", GreekFuture.tense, "Aorist"];
   }
 
   /// Person und Numerus, die im Modus [mood] zur Wahl stehen.
@@ -497,20 +516,21 @@ class GrammarQuestionPicker {
   }
 
   /// Für das Verb zulässige Tempora.
+  ///
+  /// Das Futur nur, wenn sein Futurstamm hinterlegt ist ([GreekFuture]).
   static List<String> allowedTenses(GreekVocabularyEntry entry) {
+    final future = GreekFuture.supports(entry.lemma);
+
     if (presentOnlyVerbs.contains(entry.lemma)) {
       return const ["Präsens"];
     }
 
-    if (noAorist.contains(entry.lemma)) {
-      return const ["Präsens", "Imperfekt"];
-    }
-
-    if (noImperfect.contains(entry.lemma)) {
-      return const ["Präsens", "Aorist"];
-    }
-
-    return tenses;
+    return [
+      "Präsens",
+      if (!noImperfect.contains(entry.lemma)) "Imperfekt",
+      if (future) GreekFuture.tense,
+      if (!noAorist.contains(entry.lemma)) "Aorist",
+    ];
   }
 
   /// Für das Verb im Tempus [tense] und Modus [mood] zulässige Genera
@@ -520,7 +540,8 @@ class GrammarQuestionPicker {
   /// Medium. Das Aorist Passiv gehört nur beim Infinitiv (παυθῆναι) und
   /// beim Partizip (παυθείς) zum Lernstoff. Ein Deponens hat kein Aktiv – im Aorist steht deshalb die
   /// Form, die es tatsächlich bildet: Medium (ἐγενόμην), sonst Passiv
-  /// (ἐβουλήθην), sonst Aktiv (ἦλθον).
+  /// (ἐβουλήθην), sonst Aktiv (ἦλθον). Im Futur alle Genera Verbi, die der
+  /// Futureintrag des Verbs bildet (Folien: παύσω, παύσομαι, παυθήσομαι).
   static List<String> allowedVoices(
     GreekVocabularyEntry entry,
     String tense,
@@ -533,6 +554,16 @@ class GrammarQuestionPicker {
             form.analysis.mood == VerbMood.indicative)
           form.analysis.voice,
     };
+
+    // Im Futur sind Aktiv, Medium und Passiv getrennt; welche Genera Verbi
+    // ein Verb dort bildet, legt sein Futureintrag fest (mediales Futur
+    // ἀκούσομαι, ἔσομαι zu εἰμί).
+    if (tense == GreekFuture.tense) {
+      return [
+        for (final voice in voices)
+          if (existing.contains(voice)) voice,
+      ];
+    }
 
     if (activeOnlyVerbs.contains(entry.lemma)) {
       return [if (existing.contains("Aktiv")) "Aktiv"];

@@ -36,7 +36,14 @@ GreekVocabularyEntry _entry(
   );
 }
 
-const _allTenses = ["Präsens", "Imperfekt", "Perfekt", "Aorist", "Futur"];
+const _allTenses = [
+  "Präsens",
+  "Imperfekt",
+  "Futur",
+  "Aorist",
+  "Perfekt",
+  "Plusquamperfekt",
+];
 
 void main() {
   final pauo = _paradigm("παύω");
@@ -64,12 +71,13 @@ void main() {
   }
 
   group("Standardauswahl", () {
-    test("zur Wahl stehen die fünf Zeitformen", () {
+    test("zur Wahl stehen sechs Zeitformen, kein Futur II", () {
       expect(GrammarTrainerSettings.allTenses, _allTenses);
       expect(const GrammarTrainerSettings().enabledTenses, _allTenses);
+      expect(GrammarTrainerSettings.allTenses, isNot(contains("Futur II")));
     });
 
-    test("ohne gespeicherte Zeitformen sind alle fünf aktiv", () {
+    test("ohne gespeicherte Zeitformen sind alle aktiv", () {
       for (final data in [
         null,
         "kaputt",
@@ -110,7 +118,7 @@ void main() {
     test("Liste ist eine veränderbare Kopie (Einstellungsdialog)", () {
       GrammarTrainerSettings.fromMap(null).enabledTenses.clear();
 
-      expect(GrammarTrainerSettings.allTenses.length, 5);
+      expect(GrammarTrainerSettings.allTenses.length, 6);
     });
   });
 
@@ -132,7 +140,7 @@ void main() {
 
     test("unbekannte Werte werden verworfen", () {
       final settings = GrammarTrainerSettings.fromMap(<String, dynamic>{
-        'enabledTenses': ["Plusquamperfekt", 3, "Futur", "Imperfekt"],
+        'enabledTenses': ["Futur II", 3, "Futur", "Imperfekt"],
       });
 
       expect(settings.enabledTenses, ["Futur", "Imperfekt"]);
@@ -142,7 +150,7 @@ void main() {
       for (final tenses in [
         <Object>[],
         ["Plusquamperfekt"],
-        ["Perfekt", "Futur"],
+        ["Perfekt", "Plusquamperfekt"],
       ]) {
         expect(
           GrammarTrainerSettings.fromMap(<String, dynamic>{
@@ -172,7 +180,7 @@ void main() {
   group("Persistenz (Gastmodus)", () {
     setUp(() => SharedPreferences.setMockInitialValues({}));
 
-    test("ohne gespeicherte Einstellungen alle fünf", () async {
+    test("ohne gespeicherte Einstellungen alle", () async {
       final settings = await GrammarSettingsService().load(null);
 
       expect(settings.enabledTenses, _allTenses);
@@ -266,9 +274,21 @@ void main() {
       expect(error([]), "Mindestens eine Zeitform muss ausgewählt sein.");
     });
 
-    test("nur Perfekt/Futur wird abgewiesen", () {
+    test("nur Perfekt/Plusquamperfekt wird abgewiesen", () {
       expect(error(["Perfekt"]), contains("noch nicht abgefragt"));
-      expect(error(["Perfekt", "Futur"]), contains("noch nicht abgefragt"));
+      expect(
+        error(["Perfekt", "Plusquamperfekt"]),
+        contains("noch nicht abgefragt"),
+      );
+      expect(error(["Perfekt", "Futur"]), isNull);
+    });
+
+    test("Futur nur im Imperativ wird abgewiesen", () {
+      expect(
+        error(["Futur"], moods: ["Imperativ"]),
+        contains("nicht im Imperativ"),
+      );
+      expect(error(["Futur"], moods: ["Imperativ", "Infinitiv"]), isNull);
     });
 
     test("Imperfekt ohne Indikativ wird abgewiesen", () {
@@ -312,7 +332,7 @@ void main() {
       }
     });
 
-    test("Perfekt und Futur allein liefern keine Verbform", () {
+    test("Perfekt und Plusquamperfekt allein liefern keine Verbform", () {
       final grammar = GrammarLearning(random: Random(1));
 
       expect(
@@ -320,15 +340,16 @@ void main() {
           grammar,
           _entry("παύω"),
           pauo,
-          enabledTenses: const ["Perfekt", "Futur"],
+          enabledTenses: const ["Perfekt", "Plusquamperfekt"],
         ),
         isNull,
       );
       expect(
         GrammarQuestionPicker.askableTenses(["Perfekt", "Futur", "Aorist"]),
-        ["Aorist"],
+        ["Futur", "Aorist"],
       );
       expect(GrammarQuestionPicker.tenseLabel("Perfekt"), "Perfekt (folgt)");
+      expect(GrammarQuestionPicker.tenseLabel("Futur"), "Futur I");
       expect(GrammarQuestionPicker.tenseLabel("Aorist"), "Aorist");
     });
 
