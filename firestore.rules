@@ -20,6 +20,9 @@ rules_version = '2';
 //                                              (Altes Testament, Grundlagen der Bibelkunde)
 //   users/{uid}/quiz_settings/{latin_vocabulary_plan|latin_vocabulary_plan_progress}
 //                                              (Latein: Vokabel-Lernplan)
+//   users/{uid}/quiz_settings/{philosophy_reading|philosophy_review}
+//                                              (Philosophie – Lesebereich: Notizen,
+//                                               Lesezeichen, Leseposition; Lernstand)
 //   users/{uid}/vocabulary/{vocabularyId}
 //   users/{uid}/learning_cards/{cardId}
 //   users/{uid}/latin_vocabulary/{cardId}
@@ -39,6 +42,10 @@ rules_version = '2';
 //                                               eigene Regel mit Feldprüfung)
 //   users/{uid}/notification_state/inbox       (Lesestatus der Glocke)
 //   users/{uid}/push_tokens/{id}               (Push-Abonnements je Gerät)
+//   users/{uid}/private_texts/{editionPart}    (privat importierte, geschützte
+//                                               Textausgaben des Lesebereichs
+//                                               Philosophie; nur für den Nutzer
+//                                               selbst, siehe docs/philosophy-reader.md)
 //
 // Benachrichtigungen (siehe docs/notifications.md):
 //   notifications/{id}         globale Nachrichten: für alle lesbar (auch
@@ -205,7 +212,7 @@ service cloud.firestore {
                             'latin_vocabulary', 'grammar', 'memorization',
                             'pericope_overrides', 'streaks', 'statistics',
                             'bible_reading', 'notification_state',
-                            'push_tokens', 'greek_exam'];
+                            'push_tokens', 'greek_exam', 'private_texts'];
     }
 
     match /users/{uid} {

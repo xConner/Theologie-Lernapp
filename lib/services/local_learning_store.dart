@@ -163,6 +163,15 @@ class LocalLearningStore {
   static const String greekVocabularyPlanProgress =
       "greek_vocabulary_plan_progress";
 
+  /// Lesebereich Philosophie: Notizen, Lesezeichen, Wortliste, Leseposition
+  /// und Ansicht (`ReadingUserData`) – persönliche Inhalte, kein
+  /// Lernfortschritt.
+  static const String philosophyReading = "philosophy_reading";
+
+  /// Lesebereich Philosophie: Lernstände der Wiederholung
+  /// (`ReadingReviewStore`).
+  static const String philosophyReview = "philosophy_review";
+
   /// Alle Dokumente unter `quiz_settings`, die bei der Übernahme von
   /// Gastdaten übertragen und beim Löschen der Gastdaten entfernt werden.
   static const List<String> quizDocuments = [
@@ -179,6 +188,8 @@ class LocalLearningStore {
     latinVocabularyPlanProgress,
     greekVocabularyPlan,
     greekVocabularyPlanProgress,
+    philosophyReading,
+    philosophyReview,
   ];
 
   /// Dokumente unter `quiz_settings`, die nur Lernfortschritt enthalten und
@@ -193,6 +204,7 @@ class LocalLearningStore {
     oldTestament,
     latinVocabularyPlanProgress,
     greekVocabularyPlanProgress,
+    philosophyReview,
   ];
 
   static String _quizDocumentKey(String name) =>

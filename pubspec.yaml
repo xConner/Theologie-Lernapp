@@ -126,6 +126,12 @@ flutter:
       - assets/fathers/links/
       - assets/fathers/xrefs/
       - assets/fathers/texts/
+      # Philosophie-Lesebereich: Werkkatalog, freier griechischer Text (Ross,
+      # First1KGreek, CC BY-SA 4.0) und Formenindex, erzeugt von
+      # tool/philosophy (siehe docs/philosophy-reader.md).
+      - assets/philosophy/
+      - assets/philosophy/aristotle_physics/
+      - assets/philosophy/aristotle_physics/ross/
       - assets/confessions.json
       - assets/prayers.json
       # Bibeltexte des Readers: je Ausgabe ein Verzeichnis, erzeugt von

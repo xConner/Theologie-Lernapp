@@ -63,6 +63,12 @@ enum ProgressArea {
     resetTitle: "Fortschritt in „Einführung in die Logik“ zurücksetzen",
     collection: null,
     documents: [LocalLearningStore.logicCourse],
+  ),
+  philosophyReading(
+    label: "Philosophie: Lesebereich",
+    resetTitle: "Lernstände im philosophischen Lesebereich zurücksetzen",
+    collection: null,
+    documents: [LocalLearningStore.philosophyReview],
   );
 
   final String label;
@@ -114,6 +120,10 @@ enum ProgressArea {
       case ProgressArea.logic:
         return "Welche Lektionen geöffnet oder als bearbeitet markiert sind "
             "und die gespeicherten Antworten zu den Übungen.";
+      case ProgressArea.philosophyReading:
+        return "Die Lernstände der Wiederholung (Begriffe, Sätze, "
+            "Textkritik). Notizen, Lesezeichen, Wortliste und Leseposition "
+            "bleiben erhalten.";
     }
   }
 }

@@ -36,6 +36,7 @@ class AccountDeletionService {
     "notification_state",
     "push_tokens",
     "greek_exam",
+    "private_texts",
     "timetable",
   ];
 

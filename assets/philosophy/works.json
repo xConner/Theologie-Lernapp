@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "works": [
+    {
+      "id": "aristotle.physics",
+      "author": "Aristoteles",
+      "title": "Physik",
+      "originalTitle": "Φυσικὴ ἀκρόασις",
+      "description": [
+        "Die sogenannte Physikvorlesung ist keine Physik im heutigen Sinn, sondern eine philosophische Grundlegung der Naturwissenschaft: Was sind die Prinzipien der Naturdinge, was heißt Natur, was sind Ursachen, Bewegung, das Unbegrenzte, Ort, Leeres und Zeit?",
+        "Der Lesebereich ist nach Büchern und Kapiteln gegliedert und zitiert nach der Bekker-Zählung (Seite, Spalte, Zeile, z. B. 184a10), nach der auch die Ausgaben zählen. Notizen, Lesezeichen und Lernstände hängen an diesen Stellen und bleiben erhalten, wenn die Ausgabe wechselt."
+      ],
+      "citation": "Bekker-Zählung (Aristoteles graece, ed. I. Bekker, Berlin 1831): Seite, Spalte, Zeile",
+      "books": [
+        {"n": 1, "label": "I"},
+        {"n": 2, "label": "II"},
+        {"n": 3, "label": "III"},
+        {"n": 4, "label": "IV"}
+      ],
+      "formsAsset": "assets/philosophy/aristotle_physics/forms.json",
+      "seminarAsset": null,
+      "editions": [
+        {
+          "id": "heinemann-2021",
+          "kind": "private",
+          "title": "Aristoteles, Physikvorlesung. Teilband 1: Bücher I–IV. Griechisch–Deutsch. Mit einer Einleitung, Literaturverzeichnis und Anmerkungen hg. von Gottfried Heinemann. Hamburg: Felix Meiner 2021 (Philosophische Bibliothek)",
+          "short": "Heinemann 2021",
+          "languages": ["grc", "de"],
+          "books": [1, 2, 3, 4],
+          "rights": "Urheberrechtlich geschützt (© Felix Meiner Verlag 2021). Nicht Teil der App: Wer die Ausgabe besitzt, erzeugt daraus eine private Lesedatei und importiert sie; sie wird nur im eigenen Konto bzw. auf dem eigenen Gerät gespeichert.",
+          "source": "https://doi.org/10.28937/978-3-7873-3801-6",
+          "importHint": "Die Datei entsteht mit tool/philosophy/import_heinemann_physics.py aus der Textebene des E-Books (ISBN 978-3-7873-3801-6).",
+          "note": "Griechischer Text nach Ross mit Heinemanns Abweichungen (in Fußnoten vermerkt), Übersetzung, textkritische Fußnoten, Anmerkungen des Herausgebers, Einleitung und Glossar."
+        },
+        {
+          "id": "ross-first1k",
+          "kind": "bundled",
+          "title": "Aristotelis Physica, recognovit brevique adnotatione critica instruxit W. D. Ross. Oxford: Clarendon 1950 (Nachdruck 1960). Digitalisierung: Harvard College Library / Open Greek and Latin (First1KGreek), 2016",
+          "short": "Ross 1950 (First1KGreek)",
+          "languages": ["grc"],
+          "books": [1, 2, 3, 4],
+          "rights": "Digitalisierung unter CC BY-SA 4.0 (Open Greek and Latin, First1KGreek)",
+          "source": "https://github.com/OpenGreekAndLatin/First1KGreek",
+          "path": "assets/philosophy/aristotle_physics/ross",
+          "note": "Griechischer Text ohne Übersetzung und ohne kritischen Apparat. Die Digitalisierung enthält vereinzelt Lesefehler (z. B. „Ἐπειθὴ“ statt „Ἐπειδὴ“ in 184a10); sie werden nicht stillschweigend verbessert. Sie nennt nur jede fünfte Bekker-Zeile, die Zeilen dazwischen sind geschätzt."
+        }
+      ]
+    }
+  ]
+}

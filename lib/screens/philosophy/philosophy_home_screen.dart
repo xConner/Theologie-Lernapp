@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../theme/app_theme.dart';
 import 'logic/logic_course_screen.dart';
+import 'reading/reading_work_screen.dart';
 
 /// Ein Lernbereich unter „Philosophie“. Weitere Module werden hier als
 /// Eintrag in [PhilosophyHomeScreen.areas] ergänzt – ohne Umbau der
@@ -37,6 +38,15 @@ class PhilosophyHomeScreen extends StatelessWidget {
           "und formale Beweise",
       icon: Icons.account_tree_outlined,
       builder: (uid) => LogicCourseScreen(uid: uid),
+    ),
+    PhilosophyArea(
+      key: "aristotle-physics",
+      title: "Aristoteles – Physik",
+      subtitle: "Lektüre griechisch–deutsch mit Bekker-Stellen, Anmerkungen, "
+          "Einleitung, Wortanalyse und Wiederholung",
+      icon: Icons.menu_book_outlined,
+      builder: (uid) =>
+          ReadingWorkScreen(uid: uid, workId: "aristotle.physics"),
     ),
   ];
 

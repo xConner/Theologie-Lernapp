@@ -507,3 +507,13 @@ Grundsätze:
 Inhalte unter `assets/logic/`, Logik-Engine (Parser, Semantik,
 Beweisprüfer, Aufgabenerzeugung) unter `lib/services/logic/`, Screens unter
 `lib/screens/philosophy/`. Details: [logic-course.md](logic-course.md).
+
+## Lesebereich Philosophie (Aristoteles, Physik)
+
+Werkverzeichnis und freie Texte unter `assets/philosophy/`, Modelle unter
+`lib/models/philosophy/`, Dienste (Ausgaben, private Ausgaben,
+Nutzerdaten, Wortanalyse, Suche, Wiederholung) unter
+`lib/services/philosophy/`, Screens unter `lib/screens/philosophy/reading/`.
+Geschützte Ausgaben sind nicht Teil der App, sondern werden privat
+importiert (`users/{uid}/private_texts`). Details:
+[philosophy-reader.md](philosophy-reader.md).
