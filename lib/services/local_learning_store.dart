@@ -172,6 +172,11 @@ class LocalLearningStore {
   /// (`ReadingReviewStore`).
   static const String philosophyReview = "philosophy_review";
 
+  /// Apokryphen & außerkanonische Schriften: Leseposition, Merkliste,
+  /// Lesezeichen und Ansicht (`ApocryphaUserData`) – persönliche Inhalte,
+  /// kein Lernfortschritt.
+  static const String apocryphaReading = "apocrypha_reading";
+
   /// Alle Dokumente unter `quiz_settings`, die bei der Übernahme von
   /// Gastdaten übertragen und beim Löschen der Gastdaten entfernt werden.
   static const List<String> quizDocuments = [
@@ -190,6 +195,7 @@ class LocalLearningStore {
     greekVocabularyPlanProgress,
     philosophyReading,
     philosophyReview,
+    apocryphaReading,
   ];
 
   /// Dokumente unter `quiz_settings`, die nur Lernfortschritt enthalten und
@@ -409,6 +415,11 @@ class LocalLearningStore {
   ) async {
     final prefs = await SharedPreferences.getInstance();
 
+    await _markSchema(prefs);
+
+    // Lesen, Ändern und Schreiben ohne await dazwischen: setString legt den
+    // Wert sofort im Cache ab, gleichzeitige Merges überschreiben sich so
+    // nicht gegenseitig.
     final doc = _decodeMap(prefs.getString(_quizDocumentKey(name)));
 
     final existing = doc[field];
@@ -426,8 +437,6 @@ class LocalLearningStore {
     }
 
     doc[field] = values;
-
-    await _markSchema(prefs);
 
     await prefs.setString(_quizDocumentKey(name), jsonEncode(doc));
   }

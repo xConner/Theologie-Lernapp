@@ -1,0 +1,923 @@
+[
+  {
+    "id": "thomasevangelium",
+    "title": "Thomasevangelium",
+    "altTitles": [
+      "Evangelium nach Thomas",
+      "Gospel of Thomas",
+      "EvThom",
+      "NHC II,2",
+      "P.Oxy. 1, 654, 655"
+    ],
+    "categories": [
+      "evangelien",
+      "nag_hammadi"
+    ],
+    "tradition": "christlich",
+    "genre": "Sammlung von Jesusworten (114 Logien)",
+    "dating": {
+      "label": "2. Jh. n. Chr.; frühere Schichten werden diskutiert",
+      "from": 100,
+      "to": 200
+    },
+    "place": "wohl Syrien (Edessa erwogen)",
+    "originalLanguage": "griechisch (oder syrisch, umstritten)",
+    "transmission": "Vollständig nur koptisch in Nag-Hammadi-Codex II (4. Jh.); griechische Fragmente in P.Oxy. 1, 654 und 655 (um 200)",
+    "preservation": "complete",
+    "preservationNote": "Koptisch vollständig; die griechischen Oxyrhynchus-Fragmente decken nur Teile ab und weichen ab.",
+    "attribution": {
+      "name": "Didymos Judas Thomas",
+      "assessment": "pseudepigraph"
+    },
+    "summary": "Sammlung von 114 Worten Jesu ohne Erzählrahmen, teils mit Parallelen in den synoptischen Evangelien, teils mit eigenständigen, mystisch-weisheitlichen Worten.",
+    "assessments": [
+      [
+        "secure",
+        "Die griechischen Fragmente belegen das Werk um 200 n. Chr."
+      ],
+      [
+        "disputed",
+        "Ob Logien von den Synoptikern unabhängig sind und ob das Werk ins 1. Jh. zurückreicht."
+      ],
+      [
+        "disputed",
+        "Einordnung als „gnostisch“: viele Forscher sprechen eher von einer asketisch-mystischen Theologie."
+      ]
+    ],
+    "significance": "Meistdiskutiertes außerkanonisches Evangelium; wichtig für Fragen der Jesusüberlieferung und des frühen syrischen Christentums.",
+    "canonNote": "In keiner Kirche kanonisch; Hippolyt und Origenes nennen ein „Evangelium nach Thomas“ unter häretischen Schriften.",
+    "links": [
+      [
+        "Coptic SCRIPTORIUM – Thomasevangelium (koptischer Text)",
+        "https://data.copticscriptorium.org/texts/thomas-gospel/"
+      ]
+    ],
+    "noTranslationReason": "Gängige deutsche und englische Übersetzungen (u. a. Berliner Arbeitskreis, Lambdin, Patterson/Meyer) sind urheberrechtlich geschützt. Eine gemeinfreie englische Übersetzung (Mark M. Mattison) war aus der Arbeitsumgebung nicht abrufbar und kann nachgetragen werden."
+  },
+  {
+    "id": "petrusevangelium",
+    "title": "Petrusevangelium",
+    "altTitles": [
+      "Evangelium nach Petrus",
+      "Gospel of Peter",
+      "Akhmîm-Fragment"
+    ],
+    "categories": [
+      "evangelien"
+    ],
+    "tradition": "christlich",
+    "genre": "Evangelium (Passions- und Auferstehungsbericht, fragmentarisch)",
+    "dating": {
+      "label": "2. Jh. n. Chr.",
+      "from": 100,
+      "to": 190
+    },
+    "place": "unsicher (Syrien erwogen)",
+    "originalLanguage": "griechisch",
+    "transmission": "Ein Fragment in einer Handschrift aus Akhmîm (Oberägypten, um 8./9. Jh., gefunden 1886/87); kleine Papyrusfragmente, deren Zugehörigkeit umstritten ist",
+    "preservation": "fragmentary",
+    "attribution": {
+      "name": "Simon Petrus",
+      "assessment": "pseudepigraph"
+    },
+    "summary": "Erhalten ist ein Stück der Passions- und Ostergeschichte mit der Schilderung des Auferstehungsvorgangs selbst.",
+    "assessments": [
+      [
+        "secure",
+        "Serapion von Antiochien (um 200) kannte ein „Petrusevangelium“ und verbot dessen Lesung (Eusebius, KG VI 12)."
+      ],
+      [
+        "disputed",
+        "Ob das Akhmîm-Fragment mit diesem Werk identisch ist und ob es von den kanonischen Evangelien abhängt."
+      ]
+    ],
+    "significance": "Frühe Weiterentwicklung der Passionsüberlieferung; Diskussion um Doketismus.",
+    "noTextReason": "Der griechische Text des Akhmîm-Fragments liegt in den erreichbaren freien Sammlungen nicht vor; gemeinfreie Übersetzungen (ANF 9, 1896; M. R. James 1924) waren aus den erreichbaren Quellen nicht abrufbar.",
+    "canonNote": "Nicht kanonisch; von Serapion von Antiochien abgelehnt."
+  },
+  {
+    "id": "judasevangelium",
+    "title": "Judasevangelium",
+    "altTitles": [
+      "Evangelium des Judas",
+      "Gospel of Judas",
+      "Codex Tchacos 3"
+    ],
+    "categories": [
+      "evangelien",
+      "nag_hammadi"
+    ],
+    "tradition": "christlich",
+    "genre": "Offenbarungsdialog (sethianisch-gnostisch)",
+    "dating": {
+      "label": "2. Jh. n. Chr. (griechisches Original)",
+      "from": 130,
+      "to": 180
+    },
+    "place": "unsicher",
+    "originalLanguage": "griechisch",
+    "transmission": "Koptisch im Codex Tchacos (3./4. Jh.), stark beschädigt; seit 2006 veröffentlicht",
+    "preservation": "fragmentary",
+    "preservationNote": "Der Codex ist an vielen Stellen lückenhaft.",
+    "attribution": {
+      "name": "Judas Iskariot",
+      "assessment": "pseudepigraph"
+    },
+    "summary": "Gespräche Jesu mit Judas und den Jüngern; Judas erhält eine besondere Offenbarung über Kosmologie und Äonen.",
+    "assessments": [
+      [
+        "secure",
+        "Irenäus (Adv. haer. I 31,1) erwähnt um 180 ein „Evangelium des Judas“."
+      ],
+      [
+        "disputed",
+        "Ob Judas positiv als bevorzugter Jünger oder als dämonische Gestalt gezeichnet wird."
+      ]
+    ],
+    "significance": "Neuere Quelle für den sethianischen Gnostizismus und frühchristliche Kontroversen.",
+    "canonNote": "Nicht kanonisch; von Irenäus als häretisch bezeichnet.",
+    "noTextReason": "Erst seit 2006 ediert; alle Übersetzungen sind urheberrechtlich geschützt."
+  },
+  {
+    "id": "philippusevangelium",
+    "title": "Philippusevangelium",
+    "altTitles": [
+      "Evangelium nach Philippus",
+      "Gospel of Philip",
+      "NHC II,3"
+    ],
+    "categories": [
+      "evangelien",
+      "nag_hammadi"
+    ],
+    "tradition": "christlich",
+    "genre": "Sammlung von Aussprüchen und Lehrstücken (valentinianisch)",
+    "dating": {
+      "label": "2.–3. Jh. n. Chr.",
+      "from": 150,
+      "to": 300
+    },
+    "place": "wohl Syrien",
+    "originalLanguage": "griechisch",
+    "transmission": "Nur koptisch in Nag-Hammadi-Codex II",
+    "preservation": "complete",
+    "preservationNote": "Erhalten, aber mit Lücken im Codex.",
+    "attribution": {
+      "name": "Philippus",
+      "assessment": "pseudepigraph"
+    },
+    "summary": "Lose Sammlung theologischer Aussprüche zu Sakramenten (u. a. „Brautgemach“), Namen und Auferstehung.",
+    "assessments": [
+      [
+        "likely",
+        "Valentinianische Herkunft."
+      ],
+      [
+        "disputed",
+        "Deutung der Aussagen über Maria Magdalena."
+      ]
+    ],
+    "significance": "Quelle für valentinianische Sakramentenlehre.",
+    "canonNote": "Nicht kanonisch.",
+    "noTextReason": "Keine gemeinfreie oder frei lizenzierte Übersetzung gefunden; der koptische Text liegt nicht in einer freien digitalen Ausgabe vor, die hier erreichbar war."
+  },
+  {
+    "id": "mariaevangelium",
+    "title": "Evangelium der Maria",
+    "altTitles": [
+      "Mariaevangelium",
+      "Evangelium nach Maria",
+      "Gospel of Mary",
+      "BG 8502,1"
+    ],
+    "categories": [
+      "evangelien",
+      "nag_hammadi"
+    ],
+    "tradition": "christlich",
+    "genre": "Offenbarungsdialog",
+    "dating": {
+      "label": "2. Jh. n. Chr.",
+      "from": 120,
+      "to": 200
+    },
+    "place": "unsicher",
+    "originalLanguage": "griechisch",
+    "transmission": "Koptisch im Berliner Codex (BG 8502, 5. Jh.); griechische Fragmente P.Ryl. 463 und P.Oxy. 3525 (3. Jh.)",
+    "preservation": "fragmentary",
+    "preservationNote": "Die Seiten 1–6 und 11–14 des Codex fehlen; etwa die Hälfte des Textes ist verloren.",
+    "summary": "Dialog des Auferstandenen mit den Jüngern; Maria Magdalena berichtet von einer Vision über den Aufstieg der Seele und gerät mit Petrus und Andreas in Streit.",
+    "assessments": [
+      [
+        "secure",
+        "Die griechischen Fragmente belegen das Werk im 3. Jh."
+      ],
+      [
+        "disputed",
+        "Gnostische Einordnung und Bezug zu innerkirchlichen Konflikten."
+      ]
+    ],
+    "significance": "Zeugnis für die Rolle Maria Magdalenas in frühchristlicher Überlieferung.",
+    "canonNote": "Nicht kanonisch.",
+    "noTextReason": "Keine gemeinfreie oder frei lizenzierte Ausgabe in einer erreichbaren Quelle gefunden."
+  },
+  {
+    "id": "protevangelium",
+    "title": "Protevangelium des Jakobus",
+    "altTitles": [
+      "Kindheitsevangelium des Jakobus",
+      "Geburt Marias",
+      "Protevangelium Jacobi",
+      "Gospel of James"
+    ],
+    "categories": [
+      "evangelien"
+    ],
+    "tradition": "christlich",
+    "genre": "Kindheitsevangelium",
+    "dating": {
+      "label": "2. Hälfte 2. Jh. n. Chr.",
+      "from": 150,
+      "to": 200
+    },
+    "place": "unsicher (Syrien oder Ägypten)",
+    "originalLanguage": "griechisch",
+    "transmission": "Über 140 griechische Handschriften, ältester Papyrus Bodmer V (3./4. Jh.); syrische, armenische, georgische, koptische und äthiopische Übersetzungen",
+    "preservation": "complete",
+    "attribution": {
+      "name": "Jakobus (Herrenbruder)",
+      "assessment": "pseudepigraph"
+    },
+    "summary": "Geburt und Kindheit Marias (Eltern Joachim und Anna), Verlobung mit Josef und Geburt Jesu in einer Höhle.",
+    "assessments": [
+      [
+        "secure",
+        "Origenes kennt ein „Buch des Jakobus“ über die Brüder Jesu als Söhne Josefs aus erster Ehe."
+      ],
+      [
+        "likely",
+        "Abhängig von Matthäus und Lukas."
+      ]
+    ],
+    "significance": "Sehr einflussreich für Marienfrömmigkeit, Liturgie (Mariä Geburt, Tempelgang) und Kunst.",
+    "canonNote": "Nicht kanonisch; im Westen im Decretum Gelasianum abgelehnt, im Osten liturgisch stark rezipiert."
+  },
+  {
+    "id": "kindheitsevangelium_thomas",
+    "title": "Kindheitsevangelium nach Thomas",
+    "altTitles": [
+      "Kindheitserzählung des Thomas",
+      "Infancy Gospel of Thomas",
+      "Paidika"
+    ],
+    "categories": [
+      "evangelien"
+    ],
+    "tradition": "christlich",
+    "genre": "Kindheitsevangelium (Wundererzählungen)",
+    "dating": {
+      "label": "2. Jh. n. Chr. (Kern)",
+      "from": 140,
+      "to": 200
+    },
+    "place": "unsicher",
+    "originalLanguage": "griechisch",
+    "transmission": "Griechisch in mehreren Rezensionen, Latein, Syrisch, Georgisch, Äthiopisch, Slawisch",
+    "preservation": "complete",
+    "preservationNote": "Erhalten in stark voneinander abweichenden Fassungen.",
+    "attribution": {
+      "name": "„Thomas der Israelit“",
+      "assessment": "pseudepigraph"
+    },
+    "summary": "Wundertaten des Jesuskindes vom fünften bis zwölften Lebensjahr, endend mit dem Zwölfjährigen im Tempel.",
+    "assessments": [
+      [
+        "secure",
+        "Nicht identisch mit dem Thomasevangelium aus Nag Hammadi."
+      ],
+      [
+        "disputed",
+        "Gestalt und Alter der ursprünglichen Fassung."
+      ]
+    ],
+    "significance": "Volkstümliche Jesusüberlieferung mit breiter Nachwirkung.",
+    "canonNote": "Nicht kanonisch.",
+    "noTextReason": "In den erreichbaren freien Sammlungen nicht enthalten; gemeinfreie englische Übersetzungen (ANF 8, 1886; M. R. James 1924) wären geeignet."
+  },
+  {
+    "id": "nikodemusevangelium",
+    "title": "Nikodemusevangelium",
+    "altTitles": [
+      "Pilatusakten",
+      "Acta Pilati",
+      "Evangelium Nicodemi",
+      "Höllenfahrt Christi"
+    ],
+    "categories": [
+      "evangelien"
+    ],
+    "tradition": "christlich",
+    "genre": "Passionsbericht und Höllenfahrt",
+    "dating": {
+      "label": "4. Jh. in vorliegender Form; ältere Pilatustraditionen",
+      "from": 300,
+      "to": 450
+    },
+    "place": "unsicher",
+    "originalLanguage": "griechisch",
+    "transmission": "Griechisch in zwei Rezensionen, Latein (mit „Descensus ad inferos“), Koptisch, Syrisch, Armenisch und viele mittelalterliche Übersetzungen",
+    "preservation": "complete",
+    "summary": "Prozess Jesu vor Pilatus mit Zeugenaussagen, Bericht des Josef von Arimathäa und (lateinisch) die Höllenfahrt Christi.",
+    "assessments": [
+      [
+        "secure",
+        "Justin und Tertullian erwähnen Pilatusakten, ohne dass ein Zusammenhang mit diesem Werk gesichert ist."
+      ]
+    ],
+    "significance": "Prägte mittelalterliche Passionsspiele und die Vorstellung vom Abstieg Christi in die Unterwelt.",
+    "canonNote": "Nicht kanonisch.",
+    "noTextReason": "In den erreichbaren freien Sammlungen nur als kleines koptisches Fragment enthalten; eine gemeinfreie Übersetzung (ANF 8) war hier nicht abrufbar."
+  },
+  {
+    "id": "hebraeerevangelium",
+    "title": "Judenchristliche Evangelien",
+    "altTitles": [
+      "Hebräerevangelium",
+      "Nazoräerevangelium",
+      "Ebionäerevangelium",
+      "Gospel of the Hebrews"
+    ],
+    "categories": [
+      "evangelien"
+    ],
+    "tradition": "christlich",
+    "genre": "Evangelien, nur in Zitaten erhalten",
+    "dating": {
+      "label": "2. Jh. n. Chr.",
+      "from": 100,
+      "to": 200
+    },
+    "place": "Ägypten, Syrien",
+    "originalLanguage": "griechisch bzw. aramäisch",
+    "transmission": "Nur Zitate bei Kirchenvätern (Clemens von Alexandria, Origenes, Epiphanius, Hieronymus)",
+    "preservation": "fragmentary",
+    "summary": "Sammelbezeichnung für die Evangelien judenchristlicher Gruppen, die nur aus Väterzitaten bekannt sind.",
+    "assessments": [
+      [
+        "disputed",
+        "Ob es zwei oder drei verschiedene Evangelien waren und wie die Zitate zuzuordnen sind."
+      ]
+    ],
+    "significance": "Zeugnis für das Judenchristentum der ersten Jahrhunderte.",
+    "canonNote": "Nicht kanonisch; Eusebius zählt das Hebräerevangelium zu den bestrittenen Schriften.",
+    "noTextReason": "Nur Fragmente in Väterzitaten; keine eigenständige freie Ausgabe gefunden."
+  },
+  {
+    "id": "didache",
+    "title": "Didache",
+    "altTitles": [
+      "Lehre der zwölf Apostel",
+      "Zwölf-Apostel-Lehre",
+      "Doctrina duodecim apostolorum",
+      "Διδαχη"
+    ],
+    "categories": [
+      "apostolische_vaeter",
+      "kirchenordnungen"
+    ],
+    "tradition": "christlich",
+    "genre": "Kirchenordnung",
+    "dating": {
+      "label": "um 100 n. Chr. (Spanne 50–150)",
+      "from": 70,
+      "to": 150
+    },
+    "place": "wohl Syrien",
+    "originalLanguage": "griechisch",
+    "transmission": "Vollständig nur im Codex Hierosolymitanus (1056), entdeckt 1873, veröffentlicht 1883; Fragmente (P.Oxy. 1782), koptische und äthiopische Teile; in den Apostolischen Konstitutionen (Buch VII) verarbeitet",
+    "preservation": "complete",
+    "summary": "Zwei-Wege-Lehre, Anweisungen zu Taufe, Fasten, Gebet (Vaterunser), Eucharistie, Wanderpropheten und Gemeindeämtern; apokalyptischer Schluss.",
+    "assessments": [
+      [
+        "secure",
+        "Die Zwei-Wege-Lehre (Kap. 1–6) hat eine Parallele im Barnabasbrief und geht auf eine ältere jüdische Tradition zurück."
+      ],
+      [
+        "disputed",
+        "Genaue Datierung und Verhältnis zum Matthäusevangelium."
+      ]
+    ],
+    "significance": "Älteste erhaltene Kirchenordnung; zentrale Quelle für Taufe und Eucharistie im frühesten Christentum.",
+    "canonNote": "Nicht kanonisch; Athanasius (39. Osterfestbrief, 367) empfiehlt sie neben dem Hirten des Hermas zur Unterweisung der Katechumenen."
+  },
+  {
+    "id": "clemens1",
+    "title": "1. Clemensbrief",
+    "altTitles": [
+      "Erster Clemensbrief",
+      "1 Clem",
+      "Brief der römischen Gemeinde an die Korinther",
+      "Epistula I ad Corinthios"
+    ],
+    "categories": [
+      "apostolische_vaeter"
+    ],
+    "tradition": "christlich",
+    "genre": "Gemeindebrief",
+    "dating": {
+      "label": "um 96 n. Chr. (oft angenommen), Spanne 80–120",
+      "from": 80,
+      "to": 120
+    },
+    "place": "Rom",
+    "originalLanguage": "griechisch",
+    "transmission": "Codex Alexandrinus (5. Jh., lückenhaft), Codex Hierosolymitanus (1056); lateinische, syrische und koptische Übersetzungen",
+    "preservation": "complete",
+    "attribution": {
+      "name": "Clemens von Rom",
+      "assessment": "traditionell",
+      "note": "Der Brief nennt keinen Verfasser; die Zuschreibung an Clemens ist seit Dionysius von Korinth (um 170) bezeugt."
+    },
+    "summary": "Mahnung der römischen Gemeinde an die korinthische nach der Absetzung von Presbytern: Eintracht, Ordnung und Demut.",
+    "assessments": [
+      [
+        "secure",
+        "Absender ist die Gemeinde von Rom; der Name Clemens steht nicht im Text."
+      ],
+      [
+        "disputed",
+        "Die Datierung um 96 beruht vor allem auf einer Anspielung auf Bedrängnisse (1,1)."
+      ]
+    ],
+    "significance": "Frühes Zeugnis für Ämterverständnis, Martyrium von Petrus und Paulus (Kap. 5) und die Stellung Roms.",
+    "canonNote": "Nicht kanonisch; im Codex Alexandrinus nach dem Neuen Testament überliefert, in den Apostolischen Kanones (Kanon 85) unter den Büchern des Neuen Testaments genannt."
+  },
+  {
+    "id": "clemens2",
+    "title": "2. Clemensbrief",
+    "altTitles": [
+      "Zweiter Clemensbrief",
+      "2 Clem",
+      "Älteste christliche Predigt",
+      "Epistula II ad Corinthios"
+    ],
+    "categories": [
+      "apostolische_vaeter"
+    ],
+    "tradition": "christlich",
+    "genre": "Predigt",
+    "dating": {
+      "label": "Mitte 2. Jh. n. Chr.",
+      "from": 120,
+      "to": 170
+    },
+    "place": "unsicher (Rom, Korinth, Alexandria erwogen)",
+    "originalLanguage": "griechisch",
+    "transmission": "Codex Alexandrinus (bis 12,5), Codex Hierosolymitanus, Syrisch",
+    "preservation": "complete",
+    "attribution": {
+      "name": "Clemens von Rom",
+      "assessment": "pseudepigraph",
+      "note": "Kein Brief und nicht von demselben Verfasser wie 1 Clem."
+    },
+    "summary": "Mahnpredigt zur Buße und Bewährung im Wandel; zitiert auch Jesusworte außerhalb der kanonischen Evangelien.",
+    "assessments": [
+      [
+        "secure",
+        "Gattung: Predigt, kein Brief."
+      ],
+      [
+        "secure",
+        "Die Zuschreibung an Clemens ist sekundär."
+      ]
+    ],
+    "significance": "Älteste erhaltene christliche Predigt außerhalb des Neuen Testaments.",
+    "canonNote": "Nicht kanonisch; wie 1 Clem im Codex Alexandrinus überliefert."
+  },
+  {
+    "id": "ignatius",
+    "title": "Briefe des Ignatius von Antiochien",
+    "altTitles": [
+      "Ignatiusbriefe",
+      "Ignatius an die Epheser",
+      "Magnesier",
+      "Trallianer",
+      "Römer",
+      "Philadelphier",
+      "Smyrnäer",
+      "an Polykarp"
+    ],
+    "categories": [
+      "apostolische_vaeter"
+    ],
+    "tradition": "christlich",
+    "genre": "Briefe (sieben, mittlere Rezension)",
+    "dating": {
+      "label": "traditionell unter Trajan (um 110); vertreten werden auch Spätdatierungen bis 140",
+      "from": 105,
+      "to": 140
+    },
+    "place": "auf dem Weg von Antiochia nach Rom (Smyrna, Troas)",
+    "originalLanguage": "griechisch",
+    "transmission": "Drei Rezensionen: mittlere (7 echte Briefe, Codex Mediceo-Laurentianus), lange (interpoliert, 4. Jh., mit unechten Briefen), kurze (syrischer Auszug von drei Briefen)",
+    "preservation": "complete",
+    "attribution": {
+      "name": "Ignatius, Bischof von Antiochia",
+      "assessment": "umstritten",
+      "note": "Die Echtheit der sieben Briefe der mittleren Rezension ist mehrheitlich anerkannt, wird aber von einer Minderheit bestritten."
+    },
+    "summary": "Sieben Briefe auf dem Weg ins Martyrium: Einheit mit dem Bischof, Eucharistie, Abwehr von Doketismus und judaisierenden Lehren, Sehnsucht nach dem Martyrium.",
+    "assessments": [
+      [
+        "secure",
+        "Die lange Rezension ist eine Bearbeitung des 4. Jh."
+      ],
+      [
+        "disputed",
+        "Echtheit und Datierung der mittleren Rezension (Mehrheitsmeinung: echt, frühes 2. Jh.)."
+      ]
+    ],
+    "significance": "Frühester Zeuge des monarchischen Episkopats und des Begriffs „katholische Kirche“ (Smyrn 8,2).",
+    "canonNote": "Nicht kanonisch."
+  },
+  {
+    "id": "polykarp_phil",
+    "title": "Polykarpbrief an die Philipper",
+    "altTitles": [
+      "Polykarp an die Philipper",
+      "Epistula ad Philippenses"
+    ],
+    "categories": [
+      "apostolische_vaeter"
+    ],
+    "tradition": "christlich",
+    "genre": "Brief",
+    "dating": {
+      "label": "um 110–140 n. Chr. (evtl. zwei Briefe)",
+      "from": 110,
+      "to": 140
+    },
+    "place": "Smyrna",
+    "originalLanguage": "griechisch",
+    "transmission": "Griechisch nur bis 9,2 erhalten (Rest bei Eusebius teilweise); vollständig in lateinischer Übersetzung",
+    "preservation": "partial",
+    "preservationNote": "Kap. 10–14 sind nur lateinisch erhalten (Kap. 9 und 13 teils griechisch bei Eusebius).",
+    "attribution": {
+      "name": "Polykarp von Smyrna",
+      "assessment": "traditionell"
+    },
+    "summary": "Mahnungen zu Gerechtigkeit, Ämtern und Rechtgläubigkeit; Begleitbrief zur Sammlung der Ignatiusbriefe.",
+    "assessments": [
+      [
+        "secure",
+        "Polykarp kannte die Ignatiusbriefe (Kap. 13)."
+      ],
+      [
+        "disputed",
+        "Ob Kap. 13 (oder 13–14) ein ursprünglich eigener, früherer Brief ist."
+      ]
+    ],
+    "significance": "Frühes Zeugnis für die Sammlung und Kenntnis paulinischer Briefe.",
+    "canonNote": "Nicht kanonisch."
+  },
+  {
+    "id": "martyrium_polykarp",
+    "title": "Martyrium des Polykarp",
+    "altTitles": [
+      "Martyrium Polycarpi",
+      "Martyrdom of Polycarp"
+    ],
+    "categories": [
+      "apostolische_vaeter"
+    ],
+    "tradition": "christlich",
+    "genre": "Märtyrerbericht in Briefform",
+    "dating": {
+      "label": "kurz nach dem Tod Polykarps (155/156 oder 167), Bearbeitungen später",
+      "from": 156,
+      "to": 250
+    },
+    "place": "Smyrna",
+    "originalLanguage": "griechisch",
+    "transmission": "Griechische Handschriften, bei Eusebius (KG IV 15) weitgehend zitiert; lateinische Fassung",
+    "preservation": "complete",
+    "summary": "Brief der Gemeinde von Smyrna über Verhaftung, Verhör und Tod des greisen Bischofs Polykarp.",
+    "assessments": [
+      [
+        "secure",
+        "Ältester erhaltener Märtyrerbericht außerhalb des Neuen Testaments."
+      ],
+      [
+        "disputed",
+        "Todesjahr Polykarps und Umfang späterer Zusätze (z. B. Kap. 21–22)."
+      ]
+    ],
+    "significance": "Beginn der christlichen Märtyrerliteratur und der Feier des Todestags („Geburtstag“) eines Märtyrers.",
+    "canonNote": "Nicht kanonisch."
+  },
+  {
+    "id": "barnabas",
+    "title": "Barnabasbrief",
+    "altTitles": [
+      "Brief des Barnabas",
+      "Epistle of Barnabas",
+      "Barnabae epistula"
+    ],
+    "categories": [
+      "apostolische_vaeter"
+    ],
+    "tradition": "christlich",
+    "genre": "Lehrschrift in Briefform",
+    "dating": {
+      "label": "um 130 n. Chr. (zwischen 70 und 135)",
+      "from": 96,
+      "to": 135
+    },
+    "place": "wohl Alexandria",
+    "originalLanguage": "griechisch",
+    "transmission": "Codex Sinaiticus (4. Jh.) nach dem Neuen Testament, Codex Hierosolymitanus, lateinische Übersetzung (Kap. 1–17)",
+    "preservation": "complete",
+    "attribution": {
+      "name": "Barnabas, Begleiter des Paulus",
+      "assessment": "pseudepigraph",
+      "note": "Die Schrift nennt keinen Verfasser; die Zuschreibung stammt aus der Alten Kirche (Clemens von Alexandria)."
+    },
+    "summary": "Allegorische Auslegung des Alten Testaments gegen ein jüdisches Verständnis von Opfer, Fasten, Beschneidung und Sabbat; Zwei-Wege-Lehre (Kap. 18–20).",
+    "assessments": [
+      [
+        "secure",
+        "Setzt die Zerstörung des Tempels (70 n. Chr.) voraus (16,3–4)."
+      ],
+      [
+        "disputed",
+        "Ob 16,4 auf den Tempelbau unter Hadrian anspielt."
+      ]
+    ],
+    "significance": "Beispiel frühchristlicher Schriftauslegung und Abgrenzung vom Judentum.",
+    "canonNote": "Nicht kanonisch; im Codex Sinaiticus mitüberliefert, bei Eusebius unter den „unechten“ Schriften."
+  },
+  {
+    "id": "hermas",
+    "title": "Hirt des Hermas",
+    "altTitles": [
+      "Der Hirte",
+      "Pastor Hermae",
+      "Shepherd of Hermas",
+      "Ποιμην"
+    ],
+    "categories": [
+      "apostolische_vaeter",
+      "apokalypsen"
+    ],
+    "tradition": "christlich",
+    "genre": "Apokalypse (Visionen, Gebote, Gleichnisse)",
+    "dating": {
+      "label": "1. Hälfte bis Mitte 2. Jh. n. Chr.",
+      "from": 100,
+      "to": 160
+    },
+    "place": "Rom",
+    "originalLanguage": "griechisch",
+    "transmission": "Codex Sinaiticus (bis Mand. 4,3), Codex Athous (Ende fehlt), Papyri, Michigan-Papyrus; vollständig in lateinischen Übersetzungen (Vulgata, Palatina) und äthiopisch",
+    "preservation": "partial",
+    "preservationNote": "Griechisch nur bis Sim. 9,30,3 erhalten; der Rest (Sim. 9,30–10) nur lateinisch. Die Ausgabe von Lake druckt dort den lateinischen Text.",
+    "attribution": {
+      "name": "Hermas",
+      "assessment": "traditionell",
+      "note": "Das Muratorische Fragment nennt Hermas als Bruder des römischen Bischofs Pius (um 140–155)."
+    },
+    "summary": "Fünf Visionen, zwölf Gebote und zehn Gleichnisse, die ein Bote in Gestalt eines Hirten vermittelt; Leitthema ist die einmalige zweite Buße nach der Taufe.",
+    "assessments": [
+      [
+        "secure",
+        "Das Muratorische Fragment verbietet die öffentliche Lesung, erlaubt aber das private Lesen."
+      ],
+      [
+        "disputed",
+        "Einheitlichkeit und Entstehung in mehreren Phasen."
+      ]
+    ],
+    "significance": "Im 2.–3. Jh. weit verbreitet; zentrale Quelle für Bußlehre und Gemeindeleben in Rom.",
+    "canonNote": "Nicht kanonisch; von Irenäus als „Schrift“ zitiert, im Codex Sinaiticus überliefert; Athanasius empfiehlt ihn zur Unterweisung."
+  },
+  {
+    "id": "diognet",
+    "title": "Brief an Diognet",
+    "altTitles": [
+      "Diognetbrief",
+      "Ad Diognetum",
+      "Epistle to Diognetus"
+    ],
+    "categories": [
+      "apostolische_vaeter"
+    ],
+    "tradition": "christlich",
+    "genre": "Apologie in Briefform",
+    "dating": {
+      "label": "2.–3. Jh. n. Chr.",
+      "from": 150,
+      "to": 250
+    },
+    "place": "unbekannt",
+    "originalLanguage": "griechisch",
+    "transmission": "Einzige Handschrift (Codex Argentoratensis, 13./14. Jh.) 1870 in Straßburg verbrannt; erhalten durch Abschriften und Drucke",
+    "preservation": "partial",
+    "preservationNote": "Lücke nach 7,6 und 10,8; die Kapitel 11–12 gelten als Anhang eines anderen Textes.",
+    "summary": "Antwort an einen gebildeten Heiden über Gottesverehrung und Leben der Christen („Was die Seele im Leib ist, das sind die Christen in der Welt“, Kap. 6).",
+    "assessments": [
+      [
+        "secure",
+        "Verfasser und Empfänger sind unbekannt; die Zuordnung zu den Apostolischen Vätern ist neuzeitlich."
+      ],
+      [
+        "likely",
+        "Kap. 11–12 stammen von einem anderen Verfasser."
+      ]
+    ],
+    "significance": "Bekannter Text zur christlichen Existenz „in der Welt, nicht von der Welt“.",
+    "canonNote": "Nicht kanonisch; in der Alten Kirche nicht bezeugt."
+  },
+  {
+    "id": "papias",
+    "title": "Papias von Hierapolis: Fragmente",
+    "altTitles": [
+      "Papiasfragmente",
+      "Auslegung der Herrenworte",
+      "Λογιων κυριακων εξηγησις"
+    ],
+    "categories": [
+      "apostolische_vaeter",
+      "evangelien"
+    ],
+    "tradition": "christlich",
+    "genre": "Fragmente (Zitate bei späteren Autoren)",
+    "dating": {
+      "label": "um 110–130 n. Chr.",
+      "from": 100,
+      "to": 140
+    },
+    "place": "Hierapolis (Phrygien)",
+    "originalLanguage": "griechisch",
+    "transmission": "Das fünfbändige Werk ist verloren; Zitate und Berichte bei Irenäus, Eusebius und späteren Autoren",
+    "preservation": "fragmentary",
+    "attribution": {
+      "name": "Papias, Bischof von Hierapolis",
+      "assessment": "traditionell"
+    },
+    "summary": "Nachrichten über mündliche Überlieferung, die Entstehung des Markus- und Matthäusevangeliums und chiliastische Erwartungen.",
+    "assessments": [
+      [
+        "secure",
+        "Das Werk selbst ist verloren; erhalten sind nur Zitate."
+      ],
+      [
+        "disputed",
+        "Deutung der Notiz über den „Presbyter Johannes“ und über die Herkunft der Evangelien."
+      ]
+    ],
+    "significance": "Wichtigste frühe Nachricht über die Entstehung der Evangelien.",
+    "canonNote": "Nicht kanonisch."
+  },
+  {
+    "id": "apostolische_konstitutionen",
+    "title": "Apostolische Konstitutionen",
+    "altTitles": [
+      "Constitutiones Apostolorum",
+      "Apostolic Constitutions",
+      "Apostolische Kanones (Buch VIII,47)"
+    ],
+    "categories": [
+      "kirchenordnungen"
+    ],
+    "tradition": "christlich",
+    "genre": "Kirchenordnung (acht Bücher)",
+    "dating": {
+      "label": "um 380 n. Chr.",
+      "from": 375,
+      "to": 400
+    },
+    "place": "Syrien (Antiochia)",
+    "originalLanguage": "griechisch",
+    "transmission": "Griechische Handschriften; verarbeitet Didaskalie (Buch I–VI), Didache (VII) und Traditio Apostolica (VIII)",
+    "preservation": "complete",
+    "attribution": {
+      "name": "die Apostel durch Clemens von Rom",
+      "assessment": "pseudepigraph"
+    },
+    "summary": "Umfassende Kirchenordnung zu Ämtern, Liturgie, Ethik und Disziplin; am Ende die 85 Apostolischen Kanones.",
+    "assessments": [
+      [
+        "secure",
+        "Kompilation aus älteren Kirchenordnungen."
+      ],
+      [
+        "likely",
+        "Der Kompilator stand homöischen (arianisierenden) Positionen nahe."
+      ]
+    ],
+    "significance": "Quelle für Liturgie (Klementinische Liturgie) und Kirchenrecht des 4. Jh.",
+    "canonNote": "Nicht kanonisch; das Trullanum (692) verwarf die Konstitutionen, übernahm aber die Apostolischen Kanones."
+  },
+  {
+    "id": "muratorisches_fragment",
+    "title": "Muratorisches Fragment",
+    "altTitles": [
+      "Canon Muratori",
+      "Muratorian Fragment"
+    ],
+    "categories": [
+      "kirchenordnungen"
+    ],
+    "tradition": "christlich",
+    "genre": "Kanonverzeichnis (fragmentarisch)",
+    "dating": {
+      "label": "Ende 2. Jh. oder 4. Jh. (umstritten)",
+      "from": 170,
+      "to": 400
+    },
+    "place": "Rom oder Osten",
+    "originalLanguage": "griechisch (lateinisch erhalten)",
+    "transmission": "Lateinische Handschrift des 7./8. Jh. (Mailand, Ambrosiana), 1740 von L. A. Muratori veröffentlicht",
+    "preservation": "fragmentary",
+    "summary": "Verzeichnis neutestamentlicher Schriften mit Bemerkungen zu Verfassern und Gebrauch; Anfang verloren.",
+    "assessments": [
+      [
+        "disputed",
+        "Frühdatierung (um 200, Rom) oder Spätdatierung (4. Jh., Osten)."
+      ]
+    ],
+    "significance": "Zentrale Quelle zur Geschichte des neutestamentlichen Kanons.",
+    "canonNote": "Selbst ein Kanonverzeichnis, kein biblisches Buch.",
+    "noTextReason": "In den erreichbaren freien Sammlungen nicht als Text enthalten."
+  },
+  {
+    "id": "laodizenerbrief",
+    "title": "Brief an die Laodizener",
+    "altTitles": [
+      "Laodizenerbrief",
+      "Epistula ad Laodicenses",
+      "Epistle to the Laodiceans"
+    ],
+    "categories": [
+      "fruehchristlich"
+    ],
+    "tradition": "christlich",
+    "genre": "Brief (Cento aus Paulusbriefen)",
+    "dating": {
+      "label": "2.–4. Jh. n. Chr.",
+      "from": 150,
+      "to": 400
+    },
+    "place": "unsicher",
+    "originalLanguage": "lateinisch oder griechisch",
+    "transmission": "Lateinisch in vielen Vulgata-Handschriften (ältester Zeuge Codex Fuldensis, 546) und mittelalterlichen Bibeln, auch in vorlutherischen deutschen Bibeln",
+    "preservation": "complete",
+    "attribution": {
+      "name": "Paulus",
+      "assessment": "pseudepigraph",
+      "note": "Angeregt durch Kol 4,16."
+    },
+    "summary": "Kurzer Brief aus Wendungen der Paulusbriefe, vor allem des Philipperbriefs.",
+    "assessments": [
+      [
+        "secure",
+        "Aus Paulusbriefen zusammengesetzt; ohne eigenständigen Inhalt."
+      ]
+    ],
+    "significance": "Zeigt, wie ein in Kol 4,16 genannter Brief nachträglich „ergänzt“ wurde; im Mittelalter weit verbreitet.",
+    "canonNote": "Nicht kanonisch; stand aber jahrhundertelang in vielen lateinischen Bibelhandschriften.",
+    "noTextReason": "Der lateinische Text war in den erreichbaren Quellen nur ohne geprüfte Herkunftsangabe vorhanden."
+  },
+  {
+    "id": "epistula_apostolorum",
+    "title": "Epistula Apostolorum",
+    "altTitles": [
+      "Brief der Apostel",
+      "Epistle of the Apostles"
+    ],
+    "categories": [
+      "fruehchristlich"
+    ],
+    "tradition": "christlich",
+    "genre": "Offenbarungsdialog in Briefform",
+    "dating": {
+      "label": "Mitte 2. Jh. n. Chr.",
+      "from": 140,
+      "to": 180
+    },
+    "place": "Kleinasien oder Ägypten",
+    "originalLanguage": "griechisch",
+    "transmission": "Vollständig nur äthiopisch, teilweise koptisch und in einem lateinischen Fragment",
+    "preservation": "complete",
+    "summary": "Gespräch des Auferstandenen mit den elf Aposteln; antidoketisch und gegen Kerinth und Simon gerichtet.",
+    "assessments": [
+      [
+        "secure",
+        "Richtet sich gegen gnostische Lehrer und benutzt die kanonischen Evangelien."
+      ]
+    ],
+    "significance": "Beispiel für eine „rechtgläubige“ Nutzung der Gattung Offenbarungsdialog.",
+    "canonNote": "Nicht kanonisch.",
+    "noTextReason": "Keine freie Ausgabe in einer erreichbaren Quelle gefunden."
+  }
+]

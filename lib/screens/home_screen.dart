@@ -11,6 +11,7 @@ import '../screens/greek/greek_home_screen.dart';
 import '../models/greek/perikope.dart';
 import 'hymnals_screen.dart';
 import 'bible/bible_home_screen.dart';
+import 'apocrypha/apocrypha_home_screen.dart';
 
 import 'confessions_screen.dart';
 import 'fathers/fathers_home_screen.dart';
@@ -391,6 +392,27 @@ class _HomeScreenState extends State<HomeScreen> {
                           },
                           icon: const Icon(Icons.auto_stories_rounded),
                           label: const Text("Bibel"),
+                        ),
+                      ),
+
+                      const SizedBox(height: 16),
+
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton.icon(
+                          key: const ValueKey("open-apocrypha"),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => ApocryphaHomeScreen(uid: uid),
+                              ),
+                            );
+                          },
+                          icon: const Icon(Icons.collections_bookmark_rounded),
+                          label: const Text(
+                            "Apokryphen & außerkanonische Schriften",
+                          ),
                         ),
                       ),
 

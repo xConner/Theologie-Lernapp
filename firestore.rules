@@ -23,6 +23,8 @@ rules_version = '2';
 //   users/{uid}/quiz_settings/{philosophy_reading|philosophy_review}
 //                                              (Philosophie – Lesebereich: Notizen,
 //                                               Lesezeichen, Leseposition; Lernstand)
+//   users/{uid}/quiz_settings/apocrypha_reading (Apokryphen: Leseposition,
+//                                               Merkliste, Lesezeichen, Ansicht)
 //   users/{uid}/vocabulary/{vocabularyId}
 //   users/{uid}/learning_cards/{cardId}
 //   users/{uid}/latin_vocabulary/{cardId}

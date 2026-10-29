@@ -797,6 +797,92 @@ class AppModules {
     ],
   );
 
+  static const ModuleInfo apocrypha = ModuleInfo(
+    id: "apocrypha",
+    title: "Apokryphen & außerkanonische Schriften",
+    description:
+        "Eigener Bereich für Schriften außerhalb des (protestantischen) "
+        "Kanons: Apokryphen bzw. Deuterokanonen des Alten Testaments, "
+        "jüdische Pseudepigraphen und Apokalypsen, außerkanonische "
+        "Evangelien, Apostolische Väter, Apostelakten und Schriften aus "
+        "Nag Hammadi. Jedes Werk hat eine historische Einordnung und, wo "
+        "vorhanden, Volltexte in mehreren Fassungen mit Vergleichsansicht.",
+    sources: [
+      SourceInfo(
+        title: "Werkkatalog und Einordnung",
+        origin:
+            "Redaktionell zusammengestellt nach der Fachliteratur (Einleitungen "
+            "in die Apokryphen, Pseudepigraphen und Apostolischen Väter, "
+            "Lexikonartikel).",
+        processing:
+            "Gesicherte Angaben, plausible Hypothesen und umstrittene "
+            "Positionen sind getrennt gekennzeichnet. Der Kanonstatus wird je "
+            "Kirche mit deren eigener Bezeichnung angegeben.",
+        aiNote:
+            "Zusammenfassungen und Einordnungen wurden mit KI-Unterstützung "
+            "formuliert. Es gibt keine KI-Übersetzungen der Texte.",
+      ),
+      SourceInfo(
+        title: "Deutsche Übersetzungen",
+        origin:
+            "Hermann Menge (1841–1939), Bibelübersetzung 1939 "
+            "(alttestamentliche Apokryphen); Johannes Flemming (1859–1914), "
+            "Das Buch Henoch, GCS 5, 1901.",
+        license: "gemeinfrei",
+        processing:
+            "Menge nach dem SWORD-Modul GerMenge (CrossWire) über "
+            "scrollmapper/bible_databases, Flemming nach First1KGreek.",
+        url: "https://github.com/scrollmapper/bible_databases",
+      ),
+      SourceInfo(
+        title: "Griechische und lateinische Texte",
+        origin:
+            "Septuaginta (Brenton) und Vulgata aus dem Bibelbereich der App; "
+            "Open Apostolic Fathers (Lake 1912/13); First Thousand Years of "
+            "Greek (u. a. Bonnet, James, Geffcken, Swete, Radermacher).",
+        license: "gemeinfrei bzw. CC BY-SA 4.0",
+        url: "https://github.com/OpenGreekAndLatin/First1KGreek",
+      ),
+      SourceInfo(
+        title: "Koptische und äthiopische Texte",
+        origin:
+            "Coptic SCRIPTORIUM (Thomasevangelium, NHC II,2); Beta maṣāḥǝft, "
+            "Universität Hamburg (Henoch, Jubiläen, Himmelfahrt Jesajas).",
+        license: "CC BY 4.0 bzw. CC BY-SA 4.0",
+        url: "https://github.com/BetaMasaheft/Works",
+      ),
+      SourceInfo(
+        title: "Englische Übersetzungen",
+        origin:
+            "Brenton (1844), King James Version mit Apokryphen, Ante-Nicene "
+            "Fathers (1885–1896) über die HistoricalChristianFaith "
+            "Writings-Database, M. R. James (1924).",
+        license: "gemeinfrei bzw. CC BY-SA 4.0 (Digitalisat)",
+        processing:
+            "Maschinelle Übertragungen (ChatGPT) der Sammlung sind "
+            "ausgeschlossen.",
+      ),
+      SourceInfo(
+        title: "Schriften für Koptisch und Ge'ez",
+        origin: "Noto Sans Coptic, Noto Sans Ethiopic",
+        license: "SIL Open Font License 1.1",
+        url: "https://github.com/notofonts",
+      ),
+    ],
+    notes: [
+      "„Apokryph“ ist keine neutrale Bezeichnung: Was evangelische Kirchen "
+          "Apokryphen nennen, ist in der katholischen und orthodoxen Kirche "
+          "kanonisch. Die App nennt den Status je Kirche.",
+      "Bei Pseudepigraphen ist der Name im Titel die Zuschreibung, nicht der "
+          "Verfasser.",
+      "Viele Werke sind nur verzeichnet und verweisen auf Ausgaben, weil "
+          "keine freie Übersetzung vorliegt. Unvollständige Fassungen sind "
+          "gekennzeichnet.",
+      "Historische Übersetzungen entsprechen nicht dem heutigen "
+          "Forschungsstand und können vom Originaltext abweichen.",
+    ],
+  );
+
   static const ModuleInfo logic = ModuleInfo(
     id: "philosophy_logic",
     title: "Einführung in die Logik",
@@ -855,6 +941,7 @@ class AppModules {
   static const List<ModuleInfo> all = [
     pericopeQuiz,
     bible,
+    apocrypha,
     fathers,
     calendar,
     hymns,

@@ -1,0 +1,1136 @@
+[
+  {
+    "id": "henoch1",
+    "title": "1. Henoch (Äthiopisches Henochbuch)",
+    "altTitles": [
+      "Äthiopischer Henoch",
+      "1 Henoch",
+      "1 Enoch",
+      "Mäṣḥafä Henok",
+      "Henochbuch"
+    ],
+    "categories": [
+      "pseudepigraphen",
+      "apokalypsen"
+    ],
+    "tradition": "juedisch",
+    "genre": "Apokalypse (Sammlung von fünf Büchern)",
+    "dating": {
+      "label": "3. Jh. v. Chr. bis 1. Jh. n. Chr. (je Teil verschieden)",
+      "from": -300,
+      "to": 50
+    },
+    "place": "Palästina",
+    "originalLanguage": "aramäisch (teilweise hebräisch?)",
+    "transmission": "Vollständig nur äthiopisch (Ge'ez); aramäische Fragmente aus Qumran (4QEnᵃ⁻ᵍ); griechisch Kap. 1–32 (Codex Panopolitanus/Gizeh), 97–107 (Chester Beatty) und Auszüge bei Synkellos; ein lateinisches Fragment (106)",
+    "preservation": "complete",
+    "preservationNote": "Als Ganzes nur in der äthiopischen Übersetzung erhalten; die Bilderreden (Kap. 37–71) fehlen in Qumran.",
+    "attribution": {
+      "name": "Henoch (Gen 5,24)",
+      "assessment": "pseudepigraph"
+    },
+    "summary": "Wächterbuch (1–36), Bilderreden (37–71), Astronomisches Buch (72–82), Traumvisionen mit Tierapokalypse (83–90), Epistel Henochs mit Zehnwochenapokalypse (91–108).",
+    "assessments": [
+      [
+        "secure",
+        "Die Teile sind unterschiedlich alt; Wächterbuch und Astronomisches Buch gehören zu den ältesten jüdischen Apokalypsen (3. Jh. v. Chr.)."
+      ],
+      [
+        "secure",
+        "Jud 14–15 zitiert 1 Hen 1,9."
+      ],
+      [
+        "disputed",
+        "Datierung der Bilderreden mit dem „Menschensohn“ (meist 1. Jh. v./n. Chr.)."
+      ]
+    ],
+    "significance": "Grundtext der jüdischen Apokalyptik; wichtig für Engel- und Dämonenlehre, Menschensohn-Vorstellung und das Verständnis des Judasbriefs.",
+    "canon": [
+      [
+        "aethiopisch",
+        "kanonisch",
+        "Teil der Bibel der Äthiopisch-Orthodoxen (Täwahədo-)Kirche"
+      ],
+      [
+        "judentum",
+        "nichtkanonisch",
+        ""
+      ],
+      [
+        "katholisch",
+        "nichtkanonisch",
+        ""
+      ],
+      [
+        "orthodox",
+        "nichtkanonisch",
+        ""
+      ],
+      [
+        "lutherisch",
+        "nichtkanonisch",
+        ""
+      ]
+    ],
+    "translationNote": "Die deutsche Übersetzung von J. Flemming (1901) ist in der freien Digitalausgabe nur für Kap. 33–108 enthalten (für Kap. 1–32 steht in der Ausgabe der griechische Text daneben, digital als eigene Fassung)."
+  },
+  {
+    "id": "jubilaeen",
+    "title": "Jubiläenbuch",
+    "altTitles": [
+      "Buch der Jubiläen",
+      "Kleine Genesis",
+      "Mäṣḥafä Kufale",
+      "Jubilees"
+    ],
+    "categories": [
+      "pseudepigraphen"
+    ],
+    "tradition": "juedisch",
+    "genre": "Nacherzählung von Gen 1 – Ex 24 („rewritten Bible“)",
+    "dating": {
+      "label": "um 160–150 v. Chr.",
+      "from": -170,
+      "to": -125
+    },
+    "place": "Palästina",
+    "originalLanguage": "hebräisch",
+    "transmission": "Vollständig äthiopisch; hebräische Fragmente aus Qumran (etwa 15 Handschriften), lateinische Teilübersetzung, griechische und syrische Zitate",
+    "preservation": "complete",
+    "attribution": {
+      "name": "Mose (durch den Engel des Angesichts)",
+      "assessment": "pseudepigraph"
+    },
+    "summary": "Offenbarung an Mose auf dem Sinai: Weltgeschichte von der Schöpfung bis zum Exodus, gegliedert in Jubiläen (je 49 Jahre), mit 364-Tage-Kalender.",
+    "assessments": [
+      [
+        "secure",
+        "Die Qumranfunde bestätigen die hebräische Ursprache und die Treue der äthiopischen Übersetzung."
+      ],
+      [
+        "likely",
+        "Entstehung im Umfeld der Makkabäerzeit."
+      ]
+    ],
+    "significance": "Wichtig für Kalenderstreit, Halacha und Schriftauslegung im Judentum des Zweiten Tempels.",
+    "canon": [
+      [
+        "aethiopisch",
+        "kanonisch",
+        "Teil der äthiopischen Bibel"
+      ],
+      [
+        "judentum",
+        "nichtkanonisch",
+        ""
+      ],
+      [
+        "katholisch",
+        "nichtkanonisch",
+        ""
+      ],
+      [
+        "lutherisch",
+        "nichtkanonisch",
+        ""
+      ]
+    ],
+    "noTranslationReason": "Die deutsche Übersetzung von E. Littmann (1900) ist erst 2029 gemeinfrei (Littmann † 1958); die englische Übersetzung von R. H. Charles (1902/1917, gemeinfrei) war aus der Arbeitsumgebung nicht abrufbar."
+  },
+  {
+    "id": "henoch2",
+    "title": "2. Henoch (Slawisches Henochbuch)",
+    "altTitles": [
+      "Slawischer Henoch",
+      "2 Henoch",
+      "Buch der Geheimnisse Henochs",
+      "2 Enoch"
+    ],
+    "categories": [
+      "pseudepigraphen",
+      "apokalypsen"
+    ],
+    "tradition": "juedisch",
+    "genre": "Apokalypse (Himmelsreise)",
+    "dating": {
+      "label": "1. Jh. n. Chr. (stark umstritten)",
+      "from": 1,
+      "to": 100
+    },
+    "place": "Ägypten erwogen",
+    "originalLanguage": "griechisch (verloren)",
+    "transmission": "Nur kirchenslawisch in einer längeren und einer kürzeren Fassung; koptische Fragmente",
+    "preservation": "complete",
+    "attribution": {
+      "name": "Henoch",
+      "assessment": "pseudepigraph"
+    },
+    "summary": "Henochs Reise durch die sieben (bzw. zehn) Himmel, Unterweisung seiner Söhne, Melchisedek-Erzählung.",
+    "assessments": [
+      [
+        "disputed",
+        "Datierung zwischen dem 1. Jh. n. Chr. und dem Mittelalter; jüdischer oder christlicher Ursprung."
+      ]
+    ],
+    "significance": "Zeugnis für Himmelsreisen und Melchisedek-Spekulation.",
+    "noTextReason": "Keine gemeinfreie Übersetzung in einer erreichbaren Quelle gefunden (Charles/Morfill 1896 wäre gemeinfrei).",
+    "canonNote": "In keiner Tradition kanonisch; nur in kirchenslawischer Überlieferung erhalten."
+  },
+  {
+    "id": "henoch3",
+    "title": "3. Henoch (Hebräisches Henochbuch)",
+    "altTitles": [
+      "Hebräischer Henoch",
+      "Sefer Hekhalot",
+      "3 Enoch"
+    ],
+    "categories": [
+      "pseudepigraphen",
+      "apokalypsen"
+    ],
+    "tradition": "juedisch",
+    "genre": "Hekhalot-Schrift (jüdische Mystik)",
+    "dating": {
+      "label": "5.–6. Jh. n. Chr. (Endgestalt später)",
+      "from": 400,
+      "to": 900
+    },
+    "place": "Babylonien",
+    "originalLanguage": "hebräisch",
+    "transmission": "Hebräische Handschriften der Hekhalot-Literatur",
+    "preservation": "complete",
+    "attribution": {
+      "name": "Rabbi Jischmael",
+      "assessment": "pseudepigraph"
+    },
+    "summary": "Rabbi Jischmael steigt in den Himmel auf; Henoch ist zum Engelfürsten Metatron verwandelt.",
+    "assessments": [
+      [
+        "secure",
+        "Gehört zur rabbinisch-mystischen Hekhalot-Literatur, nicht zur frühjüdischen Apokalyptik im engeren Sinn."
+      ]
+    ],
+    "significance": "Brücke zwischen Henochtradition und jüdischer Mystik.",
+    "canonNote": "In keiner Tradition kanonisch.",
+    "noTextReason": "Keine gemeinfreie Übersetzung in einer erreichbaren Quelle gefunden."
+  },
+  {
+    "id": "petrusapokalypse",
+    "title": "Petrusapokalypse",
+    "altTitles": [
+      "Offenbarung des Petrus",
+      "Apocalypse of Peter",
+      "Apocalypsis Petri"
+    ],
+    "categories": [
+      "apokalypsen"
+    ],
+    "tradition": "christlich",
+    "genre": "Apokalypse (Jenseitsreise)",
+    "dating": {
+      "label": "1. Hälfte 2. Jh. n. Chr.",
+      "from": 100,
+      "to": 150
+    },
+    "place": "wohl Palästina oder Ägypten",
+    "originalLanguage": "griechisch",
+    "transmission": "Vollständig äthiopisch; griechisches Fragment aus Akhmîm (zusammen mit dem Petrusevangelium), Papyrusfragmente",
+    "preservation": "complete",
+    "preservationNote": "Vollständig nur in äthiopischer Übersetzung; die griechischen Stücke sind kürzer und weichen ab.",
+    "attribution": {
+      "name": "Simon Petrus",
+      "assessment": "pseudepigraph"
+    },
+    "summary": "Christus zeigt Petrus die Strafen der Verdammten und die Herrlichkeit der Gerechten.",
+    "assessments": [
+      [
+        "secure",
+        "Das Muratorische Fragment nennt sie neben der Johannesoffenbarung, mit dem Vermerk, manche wollten sie nicht in der Kirche lesen lassen."
+      ]
+    ],
+    "significance": "Älteste christliche Jenseitsschilderung; Vorbild für spätere Visionsliteratur bis zu Dante.",
+    "canonNote": "Nicht kanonisch; im 2.–3. Jh. teilweise kirchlich gelesen.",
+    "noTextReason": "Gemeinfreie Übersetzungen (ANF 9, 1896; M. R. James 1924) waren aus den erreichbaren Quellen nicht abrufbar."
+  },
+  {
+    "id": "paulusapokalypse",
+    "title": "Paulusapokalypse",
+    "altTitles": [
+      "Visio Pauli",
+      "Apocalypse of Paul",
+      "Offenbarung des Paulus"
+    ],
+    "categories": [
+      "apokalypsen"
+    ],
+    "tradition": "christlich",
+    "genre": "Apokalypse (Jenseitsreise)",
+    "dating": {
+      "label": "um 400 n. Chr. (ältere Vorstufen erwogen)",
+      "from": 380,
+      "to": 420
+    },
+    "place": "Ägypten",
+    "originalLanguage": "griechisch",
+    "transmission": "Latein (viele Rezensionen), griechische Kurzfassung, syrisch, koptisch, armenisch u. a.",
+    "preservation": "complete",
+    "attribution": {
+      "name": "Paulus (vgl. 2 Kor 12,2–4)",
+      "assessment": "pseudepigraph"
+    },
+    "summary": "Paulus wird in den dritten Himmel entrückt und sieht Paradies und Strafen der Hölle.",
+    "assessments": [
+      [
+        "secure",
+        "Nicht identisch mit der koptischen Paulusapokalypse aus Nag Hammadi (NHC V,2)."
+      ]
+    ],
+    "significance": "Eine der einflussreichsten Jenseitsvisionen des Mittelalters.",
+    "canonNote": "Nicht kanonisch; im Decretum Gelasianum abgelehnt.",
+    "noTextReason": "Gemeinfreie Übersetzungen (ANF 9; M. R. James 1924) waren aus den erreichbaren Quellen nicht abrufbar."
+  },
+  {
+    "id": "testament_abraham",
+    "title": "Testament Abrahams",
+    "altTitles": [
+      "Testamentum Abrahae",
+      "Testament of Abraham"
+    ],
+    "categories": [
+      "pseudepigraphen",
+      "apokalypsen"
+    ],
+    "tradition": "juedisch",
+    "genre": "Erzählung mit Himmelsreise",
+    "dating": {
+      "label": "1.–2. Jh. n. Chr.",
+      "from": 1,
+      "to": 150
+    },
+    "place": "Ägypten",
+    "originalLanguage": "griechisch",
+    "transmission": "Griechisch in einer längeren (A) und einer kürzeren Rezension (B); koptische, arabische, äthiopische, slawische Übersetzungen",
+    "preservation": "complete",
+    "summary": "Abraham weigert sich, mit dem Erzengel Michael zu sterben; er sieht auf einer Himmelsreise das Gericht über die Seelen.",
+    "assessments": [
+      [
+        "secure",
+        "Zwei stark abweichende Rezensionen; der Titel „Testament“ passt nur lose."
+      ],
+      [
+        "disputed",
+        "Jüdischer Ursprung mit christlicher Überarbeitung oder umgekehrt."
+      ]
+    ],
+    "significance": "Humorvoll-ernste Auseinandersetzung mit Tod und Gericht im Diasporajudentum.",
+    "canonNote": "In keiner Tradition kanonisch."
+  },
+  {
+    "id": "sibyllinen",
+    "title": "Sibyllinische Orakel",
+    "altTitles": [
+      "Oracula Sibyllina",
+      "Sibyllinen",
+      "Sibylline Oracles"
+    ],
+    "categories": [
+      "pseudepigraphen",
+      "apokalypsen",
+      "poesie"
+    ],
+    "tradition": "juedisch_christlich",
+    "genre": "Orakel in Hexametern (12 Bücher, gezählt 1–8 und 11–14)",
+    "dating": {
+      "label": "2. Jh. v. Chr. (Buch 3) bis 7. Jh. n. Chr.",
+      "from": -150,
+      "to": 650
+    },
+    "place": "Ägypten (jüdische Bücher), Kleinasien und Syrien",
+    "originalLanguage": "griechisch",
+    "transmission": "Zwei griechische Handschriftengruppen (Bücher 1–8) und eine dritte (11–14); Zitate bei Laktanz und anderen Vätern",
+    "preservation": "complete",
+    "preservationNote": "Zwölf Bücher erhalten, dazu Fragmente; die Zählung springt von Buch 8 auf Buch 11.",
+    "attribution": {
+      "name": "die Sibylle",
+      "assessment": "pseudepigraph"
+    },
+    "summary": "Jüdische und christliche Weissagungen im Stil heidnischer Sibyllenorakel: Weltgeschichte, Gericht, Polemik gegen Götzendienst und Rom.",
+    "assessments": [
+      [
+        "secure",
+        "Die Sammlung ist über Jahrhunderte gewachsen; jüdische (v. a. Buch 3–5) und christliche Teile (z. B. 6–8) sind zu unterscheiden."
+      ]
+    ],
+    "significance": "Von Kirchenvätern als heidnisches Zeugnis für Christus angeführt; Nachklang im „Dies irae“ („teste David cum Sibylla“).",
+    "canonNote": "In keiner Tradition kanonisch."
+  },
+  {
+    "id": "himmelfahrt_jesaja",
+    "title": "Himmelfahrt des Jesaja",
+    "altTitles": [
+      "Ascensio Isaiae",
+      "Martyrium Jesajas",
+      "Ascension of Isaiah"
+    ],
+    "categories": [
+      "pseudepigraphen",
+      "apokalypsen"
+    ],
+    "tradition": "juedisch_christlich",
+    "genre": "Martyriumserzählung und Himmelsreise",
+    "dating": {
+      "label": "spätes 1. bis 2. Jh. n. Chr.",
+      "from": 70,
+      "to": 180
+    },
+    "place": "Syrien oder Palästina",
+    "originalLanguage": "griechisch",
+    "transmission": "Vollständig äthiopisch; griechische, koptische, lateinische und slawische Teile",
+    "preservation": "complete",
+    "attribution": {
+      "name": "Jesaja",
+      "assessment": "pseudepigraph"
+    },
+    "summary": "Kap. 1–5: Martyrium Jesajas unter Manasse (zersägt); Kap. 6–11: Jesajas Reise durch die sieben Himmel und Vision vom Herabsteigen des Geliebten.",
+    "assessments": [
+      [
+        "likely",
+        "Das Martyrium (1–5) verarbeitet eine jüdische Legende (vgl. Hebr 11,37); die Himmelsreise ist christlich."
+      ]
+    ],
+    "significance": "Frühes Zeugnis für christliche Engel- und Trinitätsvorstellungen und Prophetie.",
+    "translationNote": "Der äthiopische Text liegt hier in der Ausgabe von R. H. Charles (1900) vor, digital in fünf Abschnitten.",
+    "canonNote": "In keiner der großen Kirchen kanonisch; vollständig nur in äthiopischer Sprache erhalten."
+  },
+  {
+    "id": "baruch2",
+    "title": "2. Baruch (Syrische Baruch-Apokalypse)",
+    "altTitles": [
+      "Syrische Baruchapokalypse",
+      "2 Baruch",
+      "Apokalypse des Baruch"
+    ],
+    "categories": [
+      "pseudepigraphen",
+      "apokalypsen"
+    ],
+    "tradition": "juedisch",
+    "genre": "Apokalypse",
+    "dating": {
+      "label": "um 100 n. Chr.",
+      "from": 90,
+      "to": 130
+    },
+    "place": "Palästina",
+    "originalLanguage": "hebräisch oder aramäisch (über Griechisch ins Syrische)",
+    "transmission": "Vollständig in einer syrischen Handschrift (Ambrosianus, 6./7. Jh.); der Baruchbrief (78–87) mehrfach; arabische Übersetzung",
+    "preservation": "complete",
+    "attribution": {
+      "name": "Baruch",
+      "assessment": "pseudepigraph"
+    },
+    "summary": "Antwort auf die Tempelzerstörung von 70 n. Chr. in Visionen und Gesprächen Baruchs, mit Brief an die neuneinhalb Stämme.",
+    "assessments": [
+      [
+        "secure",
+        "Eng verwandt mit 4. Esra."
+      ]
+    ],
+    "significance": "Wichtige jüdische Theodizee nach 70 n. Chr.",
+    "noTextReason": "Keine gemeinfreie Übersetzung in einer erreichbaren Quelle gefunden (Charles 1896/1913 wäre gemeinfrei).",
+    "canonNote": "In keiner der großen Kirchen kanonisch; der Text steht in einer Peshitta-Handschrift (Codex Ambrosianus), der Baruchbrief auch in weiteren syrischen Bibelhandschriften."
+  },
+  {
+    "id": "baruch3",
+    "title": "3. Baruch (Griechische Baruch-Apokalypse)",
+    "altTitles": [
+      "Griechische Baruchapokalypse",
+      "3 Baruch"
+    ],
+    "categories": [
+      "pseudepigraphen",
+      "apokalypsen"
+    ],
+    "tradition": "juedisch_christlich",
+    "genre": "Apokalypse (Himmelsreise)",
+    "dating": {
+      "label": "1.–3. Jh. n. Chr.",
+      "from": 70,
+      "to": 300
+    },
+    "place": "Ägypten erwogen",
+    "originalLanguage": "griechisch",
+    "transmission": "Griechisch und slawisch",
+    "preservation": "complete",
+    "attribution": {
+      "name": "Baruch",
+      "assessment": "pseudepigraph"
+    },
+    "summary": "Baruch wird durch fünf Himmel geführt und sieht Strafen, Sonne, Mond und den Dienst der Engel.",
+    "assessments": [
+      [
+        "disputed",
+        "Jüdisches Werk mit christlicher Überarbeitung oder christliche Schrift."
+      ]
+    ],
+    "significance": "Zeugnis für Kosmologie und Engellehre.",
+    "canonNote": "In keiner Tradition kanonisch.",
+    "noTextReason": "Keine freie Ausgabe in einer erreichbaren Quelle gefunden."
+  },
+  {
+    "id": "apokalypse_abraham",
+    "title": "Apokalypse Abrahams",
+    "altTitles": [
+      "Apocalypse of Abraham"
+    ],
+    "categories": [
+      "pseudepigraphen",
+      "apokalypsen"
+    ],
+    "tradition": "juedisch",
+    "genre": "Apokalypse",
+    "dating": {
+      "label": "um 100 n. Chr.",
+      "from": 70,
+      "to": 150
+    },
+    "place": "Palästina",
+    "originalLanguage": "hebräisch (?)",
+    "transmission": "Nur kirchenslawisch",
+    "preservation": "complete",
+    "attribution": {
+      "name": "Abraham",
+      "assessment": "pseudepigraph"
+    },
+    "summary": "Abrahams Abkehr vom Götzendienst seines Vaters und seine Himmelsreise mit dem Engel Jaoel (nach Gen 15).",
+    "assessments": [
+      [
+        "likely",
+        "Jüdische Reaktion auf die Tempelzerstörung; einige Stellen christlich überarbeitet."
+      ]
+    ],
+    "significance": "Zeugnis für Merkaba-Vorstellungen.",
+    "canonNote": "In keiner Tradition kanonisch.",
+    "noTextReason": "Keine freie Ausgabe in einer erreichbaren Quelle gefunden."
+  },
+  {
+    "id": "oden_salomos",
+    "title": "Oden Salomos",
+    "altTitles": [
+      "Odes of Solomon",
+      "Odae Salomonis"
+    ],
+    "categories": [
+      "poesie"
+    ],
+    "tradition": "christlich",
+    "genre": "Hymnen (42 Oden)",
+    "dating": {
+      "label": "2. Jh. n. Chr.",
+      "from": 100,
+      "to": 200
+    },
+    "place": "Syrien",
+    "originalLanguage": "syrisch oder griechisch (umstritten)",
+    "transmission": "Syrisch (zwei Handschriften, eine davon unvollständig), eine Ode griechisch (P.Bodmer XI), fünf Oden koptisch in der Pistis Sophia",
+    "preservation": "partial",
+    "preservationNote": "Ode 2 und der Anfang von Ode 3 fehlen.",
+    "attribution": {
+      "name": "Salomo",
+      "assessment": "pseudepigraph"
+    },
+    "summary": "Christliche Hymnen voller Bilder von Licht, Wasser, Krone und Erlösung; älteste erhaltene christliche Gesangsdichtung außerhalb des Neuen Testaments.",
+    "assessments": [
+      [
+        "secure",
+        "1909 von J. Rendel Harris in einer syrischen Handschrift entdeckt."
+      ],
+      [
+        "disputed",
+        "Ursprache, Nähe zum Johannesevangelium und gnostische Färbung."
+      ]
+    ],
+    "significance": "Frühes Zeugnis syrisch-christlicher Frömmigkeit und Liturgie.",
+    "canonNote": "In keiner Tradition kanonisch.",
+    "noTextReason": "Die verbreitete Übersetzung von J. H. Charlesworth ist geschützt; die gemeinfreie Erstausgabe von J. R. Harris (1909) war aus den erreichbaren Quellen nicht abrufbar."
+  },
+  {
+    "id": "testamente_xii",
+    "title": "Testamente der zwölf Patriarchen",
+    "altTitles": [
+      "Testamenta XII Patriarcharum",
+      "Testaments of the Twelve Patriarchs",
+      "Testament Rubens",
+      "Testament Levis",
+      "Testament Judas"
+    ],
+    "categories": [
+      "pseudepigraphen"
+    ],
+    "tradition": "juedisch_christlich",
+    "genre": "Abschiedsreden",
+    "dating": {
+      "label": "Endgestalt 2. Jh. n. Chr.; jüdische Vorstufen (Aramäisches Levi-Dokument) früher",
+      "from": 100,
+      "to": 200
+    },
+    "place": "unsicher",
+    "originalLanguage": "griechisch",
+    "transmission": "Griechisch, armenisch, slawisch; aramäische und hebräische Vorstufen (Levi, Naftali) in Qumran und der Kairoer Geniza",
+    "preservation": "complete",
+    "attribution": {
+      "name": "die zwölf Söhne Jakobs",
+      "assessment": "pseudepigraph"
+    },
+    "summary": "Abschiedsreden der zwölf Söhne Jakobs an ihre Nachkommen: Lebensrückblick, ethische Mahnung, Ausblick auf die Zukunft Israels.",
+    "assessments": [
+      [
+        "secure",
+        "Die vorliegende Gestalt enthält deutlich christliche Aussagen."
+      ],
+      [
+        "disputed",
+        "Ob ein jüdisches Grundwerk christlich überarbeitet wurde oder das Werk von Anfang an christlich ist."
+      ]
+    ],
+    "significance": "Wichtig für frühjüdische und frühchristliche Ethik (Tugend- und Lasterkataloge) und Messiaserwartungen (Levi und Juda).",
+    "canonNote": "In keiner Tradition kanonisch; in armenischen Bibelhandschriften überliefert."
+  },
+  {
+    "id": "joseph_aseneth",
+    "title": "Joseph und Aseneth",
+    "altTitles": [
+      "Joseph and Aseneth",
+      "Josef und Asenet"
+    ],
+    "categories": [
+      "pseudepigraphen"
+    ],
+    "tradition": "juedisch",
+    "genre": "Roman",
+    "dating": {
+      "label": "1. Jh. v. Chr. bis 2. Jh. n. Chr.",
+      "from": -100,
+      "to": 200
+    },
+    "place": "Ägypten",
+    "originalLanguage": "griechisch",
+    "transmission": "Griechisch in mehreren Fassungen, syrisch, armenisch, lateinisch u. a.",
+    "preservation": "complete",
+    "summary": "Bekehrung der ägyptischen Priestertochter Aseneth und ihre Heirat mit Josef (vgl. Gen 41,45).",
+    "assessments": [
+      [
+        "disputed",
+        "Jüdischer oder christlicher Ursprung, Länge der ursprünglichen Fassung."
+      ]
+    ],
+    "significance": "Quelle für Konversion und Mahlvorstellungen.",
+    "canonNote": "In keiner Tradition kanonisch.",
+    "noTextReason": "Keine freie Ausgabe in einer erreichbaren Quelle gefunden."
+  },
+  {
+    "id": "leben_adam_eva",
+    "title": "Leben Adams und Evas",
+    "altTitles": [
+      "Vita Adae et Evae",
+      "Apokalypse des Mose",
+      "Life of Adam and Eve"
+    ],
+    "categories": [
+      "pseudepigraphen"
+    ],
+    "tradition": "juedisch_christlich",
+    "genre": "Erzählung",
+    "dating": {
+      "label": "1.–4. Jh. n. Chr.",
+      "from": 50,
+      "to": 400
+    },
+    "place": "unsicher",
+    "originalLanguage": "griechisch (Apokalypse des Mose)",
+    "transmission": "Griechisch (Apokalypse des Mose), lateinisch (Vita), armenisch, georgisch, slawisch",
+    "preservation": "complete",
+    "summary": "Leben Adams und Evas nach der Vertreibung aus dem Paradies, Buße, Tod und Begräbnis Adams.",
+    "assessments": [
+      [
+        "disputed",
+        "Jüdischer oder christlicher Ursprung; Verhältnis der Fassungen."
+      ]
+    ],
+    "significance": "Breite Wirkung auf mittelalterliche Adamsliteratur.",
+    "canonNote": "In keiner Tradition kanonisch.",
+    "noTextReason": "Keine freie Ausgabe in einer erreichbaren Quelle gefunden."
+  },
+  {
+    "id": "aristeasbrief",
+    "title": "Aristeasbrief",
+    "altTitles": [
+      "Brief des Aristeas",
+      "Letter of Aristeas"
+    ],
+    "categories": [
+      "pseudepigraphen"
+    ],
+    "tradition": "juedisch",
+    "genre": "Erzählung in Briefform",
+    "dating": {
+      "label": "2. Jh. v. Chr.",
+      "from": -200,
+      "to": -100
+    },
+    "place": "Alexandria",
+    "originalLanguage": "griechisch",
+    "transmission": "Griechische Handschriften (meist als Vorrede zu Katenen über den Oktateuch), Auszüge bei Josephus",
+    "preservation": "complete",
+    "attribution": {
+      "name": "Aristeas, Höfling des Ptolemaios II.",
+      "assessment": "pseudepigraph"
+    },
+    "summary": "Legende von der Übersetzung der Tora ins Griechische durch 72 Gelehrte in Alexandria (Ursprung der Bezeichnung „Septuaginta“).",
+    "assessments": [
+      [
+        "secure",
+        "Kein Augenzeugenbericht; das Werk ist eine jüdische Apologie der griechischen Tora."
+      ]
+    ],
+    "significance": "Grundlage der Septuaginta-Legende.",
+    "canonNote": "In keiner Tradition kanonisch.",
+    "noTextReason": "Keine freie Ausgabe in einer erreichbaren Quelle gefunden."
+  },
+  {
+    "id": "vitae_prophetarum",
+    "title": "Leben der Propheten",
+    "altTitles": [
+      "Vitae Prophetarum",
+      "Lives of the Prophets",
+      "De prophetarum vita et obitu"
+    ],
+    "categories": [
+      "pseudepigraphen"
+    ],
+    "tradition": "juedisch_christlich",
+    "genre": "Kurzbiographien",
+    "dating": {
+      "label": "1. Jh. n. Chr. (Grundschrift)",
+      "from": 1,
+      "to": 100
+    },
+    "place": "Palästina",
+    "originalLanguage": "griechisch",
+    "transmission": "Griechisch in mehreren Rezensionen, unter den Namen des Epiphanius und Dorotheus; syrische, lateinische, äthiopische Fassungen",
+    "preservation": "complete",
+    "summary": "Kurze Angaben zu Herkunft, Wirken, Tod und Grab der Propheten.",
+    "assessments": [
+      [
+        "disputed",
+        "Jüdische Grundschrift oder christliche Zusammenstellung."
+      ]
+    ],
+    "significance": "Quelle für Prophetenlegenden und Grabverehrung.",
+    "canonNote": "In keiner Tradition kanonisch."
+  },
+  {
+    "id": "johannesakten",
+    "title": "Johannesakten",
+    "altTitles": [
+      "Acta Iohannis",
+      "Acts of John"
+    ],
+    "categories": [
+      "apostelakten"
+    ],
+    "tradition": "christlich",
+    "genre": "Apostelroman",
+    "dating": {
+      "label": "2.–3. Jh. n. Chr.",
+      "from": 150,
+      "to": 250
+    },
+    "place": "Kleinasien oder Syrien/Ägypten",
+    "originalLanguage": "griechisch",
+    "transmission": "Griechische Teile in verschiedenen Handschriften, darunter die Erzählung vom Tod des Johannes (Metastasis); große Teile verloren",
+    "preservation": "partial",
+    "preservationNote": "Etwa zwei Drittel erhalten; Anfang und einige Abschnitte fehlen.",
+    "summary": "Wunder und Predigten des Apostels Johannes in Ephesus, mit dem Christushymnus (Reigentanz) und doketischen Passagen.",
+    "assessments": [
+      [
+        "secure",
+        "Vom Zweiten Konzil von Nizäa (787) als häretisch verurteilt."
+      ]
+    ],
+    "significance": "Quelle für volkstümliches Christentum und doketische Christologie.",
+    "canonNote": "Nicht kanonisch."
+  },
+  {
+    "id": "thomasakten",
+    "title": "Thomasakten",
+    "altTitles": [
+      "Acta Thomae",
+      "Acts of Thomas",
+      "Perlenlied"
+    ],
+    "categories": [
+      "apostelakten"
+    ],
+    "tradition": "christlich",
+    "genre": "Apostelroman",
+    "dating": {
+      "label": "frühes 3. Jh. n. Chr.",
+      "from": 200,
+      "to": 250
+    },
+    "place": "Edessa (Syrien)",
+    "originalLanguage": "syrisch",
+    "transmission": "Syrisch und griechisch vollständig, dazu viele weitere Übersetzungen",
+    "preservation": "complete",
+    "summary": "Mission des Apostels Thomas in Indien, mit asketischer Botschaft und dem „Lied von der Perle“.",
+    "assessments": [
+      [
+        "secure",
+        "Einzige vollständig erhaltene der großen Apostelakten."
+      ]
+    ],
+    "significance": "Quelle für syrisches Christentum und die Thomas-Christen in Indien.",
+    "canonNote": "Nicht kanonisch."
+  },
+  {
+    "id": "philippusakten",
+    "title": "Philippusakten",
+    "altTitles": [
+      "Acta Philippi",
+      "Acts of Philip"
+    ],
+    "categories": [
+      "apostelakten"
+    ],
+    "tradition": "christlich",
+    "genre": "Apostelroman",
+    "dating": {
+      "label": "4. Jh. n. Chr.",
+      "from": 350,
+      "to": 400
+    },
+    "place": "Kleinasien",
+    "originalLanguage": "griechisch",
+    "transmission": "Griechisch in mehreren Handschriften, teilweise lückenhaft",
+    "preservation": "partial",
+    "summary": "Reisen, Wunder und Martyrium des Apostels Philippus in Hierapolis.",
+    "assessments": [
+      [
+        "likely",
+        "Enkratitisches Milieu."
+      ]
+    ],
+    "significance": "Zeugnis für asketische Bewegungen in Kleinasien.",
+    "canonNote": "Nicht kanonisch."
+  },
+  {
+    "id": "barnabasakten",
+    "title": "Barnabasakten",
+    "altTitles": [
+      "Acta Barnabae",
+      "Acts of Barnabas"
+    ],
+    "categories": [
+      "apostelakten"
+    ],
+    "tradition": "christlich",
+    "genre": "Apostellegende",
+    "dating": {
+      "label": "5. Jh. n. Chr.",
+      "from": 431,
+      "to": 500
+    },
+    "place": "Zypern",
+    "originalLanguage": "griechisch",
+    "transmission": "Griechische Handschriften",
+    "preservation": "complete",
+    "attribution": {
+      "name": "Johannes Markus",
+      "assessment": "pseudepigraph"
+    },
+    "summary": "Reisen und Martyrium des Barnabas auf Zypern, erzählt von Johannes Markus.",
+    "assessments": [
+      [
+        "likely",
+        "Diente der Begründung der Unabhängigkeit der Kirche Zyperns."
+      ]
+    ],
+    "significance": "Lokale Apostellegende.",
+    "canonNote": "Nicht kanonisch."
+  },
+  {
+    "id": "petrus_paulus_akten",
+    "title": "Akten des Petrus und Paulus",
+    "altTitles": [
+      "Acta Petri et Pauli",
+      "Acts of Peter and Paul"
+    ],
+    "categories": [
+      "apostelakten"
+    ],
+    "tradition": "christlich",
+    "genre": "Apostellegende",
+    "dating": {
+      "label": "5.–7. Jh. n. Chr. (umstritten)",
+      "from": 400,
+      "to": 650
+    },
+    "place": "unsicher",
+    "originalLanguage": "griechisch",
+    "transmission": "Griechisch und lateinisch",
+    "preservation": "complete",
+    "summary": "Paulus’ Ankunft in Rom, gemeinsames Wirken mit Petrus, Streit mit Simon Magus vor Nero, Martyrium beider Apostel.",
+    "assessments": [
+      [
+        "secure",
+        "Junge Bearbeitung älterer Petrus- und Paulustraditionen."
+      ]
+    ],
+    "significance": "Zeigt die römische Verbindung von Petrus und Paulus.",
+    "canonNote": "Nicht kanonisch."
+  },
+  {
+    "id": "paulus_thekla",
+    "title": "Paulusakten mit Thekla-Akten",
+    "altTitles": [
+      "Acta Pauli",
+      "Acta Pauli et Theclae",
+      "Acts of Paul and Thecla",
+      "3. Korintherbrief"
+    ],
+    "categories": [
+      "apostelakten"
+    ],
+    "tradition": "christlich",
+    "genre": "Apostelroman",
+    "dating": {
+      "label": "um 160–190 n. Chr.",
+      "from": 160,
+      "to": 190
+    },
+    "place": "Kleinasien",
+    "originalLanguage": "griechisch",
+    "transmission": "Zusammenhängend nur in Teilen (Thekla-Akten, Martyrium, 3 Kor); griechischer Hamburger Papyrus, koptischer Heidelberger Papyrus",
+    "preservation": "partial",
+    "summary": "Paulus’ Wirken in Kleinasien, die Jungfrau Thekla, der sogenannte 3. Korintherbrief und das Martyrium in Rom.",
+    "assessments": [
+      [
+        "secure",
+        "Tertullian (De baptismo 17) berichtet, ein Presbyter in Asien habe das Werk verfasst und sei abgesetzt worden."
+      ]
+    ],
+    "significance": "Quelle für frühchristliche Askese und Rolle von Frauen; Theklaverehrung.",
+    "canonNote": "Nicht kanonisch; der 3. Korintherbrief stand zeitweise in der armenischen und syrischen Bibel.",
+    "noTextReason": "Gemeinfreie Übersetzungen (ANF 8; M. R. James 1924) waren aus den erreichbaren Quellen nicht abrufbar."
+  },
+  {
+    "id": "petrusakten",
+    "title": "Petrusakten",
+    "altTitles": [
+      "Acta Petri",
+      "Actus Vercellenses",
+      "Acts of Peter",
+      "Quo vadis"
+    ],
+    "categories": [
+      "apostelakten"
+    ],
+    "tradition": "christlich",
+    "genre": "Apostelroman",
+    "dating": {
+      "label": "um 180–200 n. Chr.",
+      "from": 170,
+      "to": 210
+    },
+    "place": "Kleinasien oder Rom",
+    "originalLanguage": "griechisch",
+    "transmission": "Lateinisch in einer Handschrift aus Vercelli, griechisch das Martyrium, koptisches Fragment",
+    "preservation": "partial",
+    "summary": "Petrus’ Wettstreit mit Simon Magus in Rom, die „Quo vadis“-Szene und Kreuzigung mit dem Kopf nach unten.",
+    "assessments": [
+      [
+        "secure",
+        "Ursprung der Quo-vadis-Legende."
+      ]
+    ],
+    "significance": "Prägte die Petrustradition Roms.",
+    "canonNote": "Nicht kanonisch.",
+    "noTextReason": "Gemeinfreie Übersetzung (M. R. James 1924) war aus den erreichbaren Quellen nicht abrufbar."
+  },
+  {
+    "id": "pseudoklementinen_homilien",
+    "title": "Pseudo-Klementinen: Homilien",
+    "altTitles": [
+      "Klementinische Homilien",
+      "Clementine Homilies",
+      "Homiliae Clementinae"
+    ],
+    "categories": [
+      "apostelakten"
+    ],
+    "tradition": "christlich",
+    "genre": "Roman mit Lehrreden (20 Homilien)",
+    "dating": {
+      "label": "4. Jh. n. Chr. (Grundschrift 3. Jh.)",
+      "from": 300,
+      "to": 380
+    },
+    "place": "Syrien",
+    "originalLanguage": "griechisch",
+    "transmission": "Griechisch in zwei Handschriften; Briefe des Petrus und Clemens an Jakobus vorangestellt",
+    "preservation": "complete",
+    "attribution": {
+      "name": "Clemens von Rom",
+      "assessment": "pseudepigraph"
+    },
+    "summary": "Clemens’ Suche nach Wahrheit, Begegnung mit Petrus, Streitgespräche mit Simon Magus und Wiederfinden der Familie.",
+    "assessments": [
+      [
+        "likely",
+        "Homilien und Rekognitionen gehen auf eine gemeinsame Grundschrift zurück."
+      ]
+    ],
+    "significance": "Quelle für judenchristliche Traditionen und antike Romanliteratur.",
+    "canonNote": "Nicht kanonisch."
+  },
+  {
+    "id": "pseudoklementinen_rekognitionen",
+    "title": "Pseudo-Klementinen: Rekognitionen",
+    "altTitles": [
+      "Recognitiones",
+      "Clementine Recognitions",
+      "Wiedererkennungen"
+    ],
+    "categories": [
+      "apostelakten"
+    ],
+    "tradition": "christlich",
+    "genre": "Roman mit Lehrreden (10 Bücher)",
+    "dating": {
+      "label": "4. Jh. n. Chr.",
+      "from": 300,
+      "to": 380
+    },
+    "place": "Syrien",
+    "originalLanguage": "griechisch (lateinisch durch Rufin erhalten)",
+    "transmission": "Lateinische Übersetzung des Rufinus (um 400), syrische Teilübersetzung",
+    "preservation": "complete",
+    "preservationNote": "Das griechische Original ist verloren.",
+    "attribution": {
+      "name": "Clemens von Rom",
+      "assessment": "pseudepigraph"
+    },
+    "summary": "Parallelfassung zu den Homilien: Clemens findet Eltern und Brüder wieder (Titel), Petrus lehrt und streitet mit Simon.",
+    "assessments": [
+      [
+        "secure",
+        "Nur in der lateinischen Übersetzung Rufins vollständig."
+      ]
+    ],
+    "significance": "Wie die Homilien; wichtig für die Geschichte des Judenchristentums.",
+    "canonNote": "Nicht kanonisch."
+  },
+  {
+    "id": "apokryphon_johannes",
+    "title": "Apokryphon des Johannes",
+    "altTitles": [
+      "Geheimschrift des Johannes",
+      "Apocryphon of John",
+      "NHC II,1; III,1; IV,1; BG 2"
+    ],
+    "categories": [
+      "nag_hammadi"
+    ],
+    "tradition": "christlich",
+    "genre": "Offenbarungsschrift (sethianisch-gnostisch)",
+    "dating": {
+      "label": "vor 180 n. Chr. (Grundgedanken bei Irenäus)",
+      "from": 120,
+      "to": 180
+    },
+    "place": "unsicher",
+    "originalLanguage": "griechisch",
+    "transmission": "Vier koptische Handschriften (Nag Hammadi II, III, IV; Berliner Codex) in Kurz- und Langfassung",
+    "preservation": "complete",
+    "attribution": {
+      "name": "Johannes, Sohn des Zebedäus",
+      "assessment": "pseudepigraph"
+    },
+    "summary": "Der Auferstandene offenbart Johannes Ursprung der Welt, Fall der Sophia, Demiurgen Jaldabaoth und Erlösung.",
+    "assessments": [
+      [
+        "secure",
+        "Irenäus (Adv. haer. I 29) referiert eine eng verwandte Lehre."
+      ]
+    ],
+    "significance": "Grundtext des sethianischen Gnostizismus.",
+    "canonNote": "Nicht kanonisch.",
+    "noTextReason": "Keine freie Ausgabe in einer erreichbaren Quelle gefunden."
+  },
+  {
+    "id": "evangelium_wahrheit",
+    "title": "Evangelium der Wahrheit",
+    "altTitles": [
+      "Evangelium Veritatis",
+      "Gospel of Truth",
+      "NHC I,3; XII,2"
+    ],
+    "categories": [
+      "nag_hammadi"
+    ],
+    "tradition": "christlich",
+    "genre": "Meditation/Homilie (valentinianisch)",
+    "dating": {
+      "label": "Mitte 2. Jh. n. Chr.",
+      "from": 140,
+      "to": 180
+    },
+    "place": "Rom erwogen",
+    "originalLanguage": "griechisch",
+    "transmission": "Koptisch in Nag-Hammadi-Codex I und XII (fragmentarisch)",
+    "preservation": "complete",
+    "summary": "Betrachtung über Unwissenheit, Irrtum und die befreiende Erkenntnis des Vaters durch den Sohn.",
+    "assessments": [
+      [
+        "disputed",
+        "Ob es mit dem bei Irenäus genannten valentinianischen „Evangelium der Wahrheit“ identisch ist und ob Valentinus selbst der Verfasser ist."
+      ]
+    ],
+    "significance": "Zeugnis valentinianischer Theologie.",
+    "canonNote": "Nicht kanonisch.",
+    "noTextReason": "Keine freie Ausgabe in einer erreichbaren Quelle gefunden."
+  },
+  {
+    "id": "pistis_sophia",
+    "title": "Pistis Sophia",
+    "altTitles": [
+      "Codex Askew",
+      "Glaube-Weisheit"
+    ],
+    "categories": [
+      "nag_hammadi"
+    ],
+    "tradition": "christlich",
+    "genre": "Offenbarungsdialog (gnostisch)",
+    "dating": {
+      "label": "3. Jh. n. Chr.",
+      "from": 200,
+      "to": 300
+    },
+    "place": "Ägypten",
+    "originalLanguage": "griechisch (koptisch erhalten)",
+    "transmission": "Koptisch im Codex Askew (British Library, 4. Jh.); nicht aus Nag Hammadi",
+    "preservation": "complete",
+    "summary": "Gespräche des Auferstandenen mit seinen Jüngern, besonders mit Maria Magdalena, über Fall und Buße der Pistis Sophia; enthält Oden Salomos in koptischer Übersetzung.",
+    "assessments": [
+      [
+        "secure",
+        "Gehört nicht zum Nag-Hammadi-Fund, sondern ist seit dem 18. Jh. bekannt."
+      ]
+    ],
+    "significance": "Umfangreichste gnostische Schrift vor dem Nag-Hammadi-Fund.",
+    "canonNote": "Nicht kanonisch.",
+    "noTextReason": "Der koptische Text ist bei Coptic SCRIPTORIUM frei verfügbar, aber noch nicht in die App übernommen."
+  }
+]

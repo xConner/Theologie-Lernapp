@@ -1,0 +1,479 @@
+{
+ "generated": "2026-10-29",
+ "versions": {
+  "tobit.menge1939": {
+   "units": 14,
+   "chars": 40377,
+   "verses": 243
+  },
+  "tobit.lxx_brenton": {
+   "units": 14,
+   "chars": 0,
+   "verses": 245
+  },
+  "tobit.vulgata": {
+   "units": 14,
+   "chars": 0,
+   "verses": 298
+  },
+  "tobit.brenton_en": {
+   "units": 14,
+   "chars": 35335,
+   "verses": 244
+  },
+  "judit.menge1939": {
+   "units": 16,
+   "chars": 62568,
+   "verses": 295
+  },
+  "judit.lxx_brenton": {
+   "units": 16,
+   "chars": 0,
+   "verses": 339
+  },
+  "judit.vulgata": {
+   "units": 16,
+   "chars": 0,
+   "verses": 346
+  },
+  "judit.brenton_en": {
+   "units": 16,
+   "chars": 58387,
+   "verses": 339
+  },
+  "weisheit.menge1939": {
+   "units": 19,
+   "chars": 65741,
+   "verses": 435
+  },
+  "weisheit.lxx_brenton": {
+   "units": 19,
+   "chars": 0,
+   "verses": 436
+  },
+  "weisheit.vulgata": {
+   "units": 19,
+   "chars": 0,
+   "verses": 439
+  },
+  "weisheit.brenton_en": {
+   "units": 19,
+   "chars": 57577,
+   "verses": 435
+  },
+  "sirach.menge1939": {
+   "units": 51,
+   "chars": 166264,
+   "verses": 1357
+  },
+  "sirach.lxx_brenton": {
+   "units": 51,
+   "chars": 0,
+   "verses": 1370
+  },
+  "sirach.vulgata": {
+   "units": 51,
+   "chars": 0,
+   "verses": 1592
+  },
+  "sirach.brenton_en": {
+   "units": 51,
+   "chars": 141814,
+   "verses": 1334
+  },
+  "makk1.menge1939": {
+   "units": 16,
+   "chars": 139872,
+   "verses": 925
+  },
+  "makk1.lxx_brenton": {
+   "units": 16,
+   "chars": 0,
+   "verses": 924
+  },
+  "makk1.vulgata": {
+   "units": 16,
+   "chars": 0,
+   "verses": 929
+  },
+  "makk1.brenton_en": {
+   "units": 16,
+   "chars": 125749,
+   "verses": 924
+  },
+  "makk2.menge1939": {
+   "units": 15,
+   "chars": 101844,
+   "verses": 554
+  },
+  "makk2.lxx_brenton": {
+   "units": 15,
+   "chars": 0,
+   "verses": 555
+  },
+  "makk2.vulgata": {
+   "units": 15,
+   "chars": 0,
+   "verses": 558
+  },
+  "makk2.brenton_en": {
+   "units": 15,
+   "chars": 89692,
+   "verses": 555
+  },
+  "baruch.menge1939": {
+   "units": 5,
+   "chars": 18472,
+   "verses": 140
+  },
+  "baruch.lxx_brenton": {
+   "units": 5,
+   "chars": 0,
+   "verses": 140
+  },
+  "baruch.vulgata": {
+   "units": 5,
+   "chars": 0,
+   "verses": 141
+  },
+  "baruch.brenton_en": {
+   "units": 5,
+   "chars": 17667,
+   "verses": 140
+  },
+  "brief_jeremia.menge1939": {
+   "units": 1,
+   "chars": 9998,
+   "verses": 73
+  },
+  "brief_jeremia.lxx_brenton": {
+   "units": 1,
+   "chars": 0,
+   "verses": 73
+  },
+  "brief_jeremia.vulgata": {
+   "units": 1,
+   "chars": 0,
+   "verses": 72
+  },
+  "brief_jeremia.brenton_en": {
+   "units": 1,
+   "chars": 8762,
+   "verses": 72
+  },
+  "ester_zusaetze.menge1939": {
+   "units": 7,
+   "chars": 17187,
+   "verses": 65
+  },
+  "ester_zusaetze.lxx_brenton": {
+   "units": 10,
+   "chars": 0,
+   "verses": 252
+  },
+  "ester_zusaetze.vulgata": {
+   "units": 7,
+   "chars": 0,
+   "verses": 111
+  },
+  "ester_zusaetze.brenton_en": {
+   "units": 10,
+   "chars": 39925,
+   "verses": 164
+  },
+  "daniel_zusaetze.menge1939": {
+   "units": 3,
+   "chars": 21274,
+   "verses": 171
+  },
+  "daniel_zusaetze.lxx_brenton": {
+   "units": 3,
+   "chars": 0,
+   "verses": 171
+  },
+  "daniel_zusaetze.vulgata": {
+   "units": 3,
+   "chars": 0,
+   "verses": 174
+  },
+  "daniel_zusaetze.brenton_en": {
+   "units": 2,
+   "chars": 13152,
+   "verses": 106
+  },
+  "makk3.lxx_brenton": {
+   "units": 7,
+   "chars": 0,
+   "verses": 228
+  },
+  "makk3.brenton_en": {
+   "units": 7,
+   "chars": 38407,
+   "verses": 228
+  },
+  "makk4.lxx_brenton": {
+   "units": 18,
+   "chars": 0,
+   "verses": 483
+  },
+  "makk4.brenton_en": {
+   "units": 18,
+   "chars": 58060,
+   "verses": 480
+  },
+  "esra3.lxx_brenton": {
+   "units": 9,
+   "chars": 0,
+   "verses": 448
+  },
+  "esra3.brenton_en": {
+   "units": 9,
+   "chars": 61278,
+   "verses": 434
+  },
+  "esra4.kjv": {
+   "units": 16,
+   "chars": 106650,
+   "verses": 874
+  },
+  "gebet_manasse.menge1939": {
+   "units": 1,
+   "chars": 2375,
+   "verses": 15
+  },
+  "gebet_manasse.lxx_brenton": {
+   "units": 1,
+   "chars": 0,
+   "verses": 15
+  },
+  "gebet_manasse.brenton_en": {
+   "units": 1,
+   "chars": 2212,
+   "verses": 15
+  },
+  "psalm151.lxx_brenton": {
+   "units": 1,
+   "chars": 0,
+   "verses": 7
+  },
+  "psalmen_salomos.swete": {
+   "units": 18,
+   "chars": 29685,
+   "verses": 349
+  },
+  "thomasevangelium.koptisch": {
+   "units": 116,
+   "chars": 22022,
+   "verses": 116
+  },
+  "protevangelium.anf": {
+   "units": 24,
+   "chars": 27613,
+   "verses": 27
+  },
+  "didache.lake": {
+   "units": 17,
+   "chars": 13439,
+   "verses": 101
+  },
+  "clemens1.lake": {
+   "units": 67,
+   "chars": 62908,
+   "verses": 401
+  },
+  "clemens2.lake": {
+   "units": 20,
+   "chars": 18504,
+   "verses": 118
+  },
+  "polykarp_phil.lake": {
+   "units": 15,
+   "chars": 10292,
+   "verses": 38
+  },
+  "martyrium_polykarp.lake": {
+   "units": 24,
+   "chars": 17163,
+   "verses": 60
+  },
+  "barnabas.lake": {
+   "units": 22,
+   "chars": 41317,
+   "verses": 195
+  },
+  "diognet.lake": {
+   "units": 12,
+   "chars": 16822,
+   "verses": 100
+  },
+  "ignatius.lake": {
+   "units": 7,
+   "chars": 48463,
+   "verses": 208
+  },
+  "hermas.lake": {
+   "units": 27,
+   "chars": 176280,
+   "verses": 727
+  },
+  "didache.anf": {
+   "units": 16,
+   "chars": 16431,
+   "verses": 16
+  },
+  "clemens1.anf": {
+   "units": 59,
+   "chars": 68100,
+   "verses": 60
+  },
+  "polykarp_phil.anf": {
+   "units": 15,
+   "chars": 12468,
+   "verses": 15
+  },
+  "martyrium_polykarp.anf": {
+   "units": 23,
+   "chars": 20041,
+   "verses": 25
+  },
+  "barnabas.anf": {
+   "units": 21,
+   "chars": 52076,
+   "verses": 22
+  },
+  "diognet.anf": {
+   "units": 10,
+   "chars": 23052,
+   "verses": 12
+  },
+  "hermas.anf": {
+   "units": 27,
+   "chars": 200132,
+   "verses": 117
+  },
+  "papias.anf": {
+   "units": 10,
+   "chars": 10302,
+   "verses": 11
+  },
+  "apostolische_konstitutionen.anf": {
+   "units": 9,
+   "chars": 507462,
+   "verses": 369
+  },
+  "henoch1.flemming_de": {
+   "units": 76,
+   "chars": 161749,
+   "verses": 831
+  },
+  "henoch1.radermacher_grc": {
+   "units": 31,
+   "chars": 78006,
+   "verses": 235
+  },
+  "henoch1.geez": {
+   "units": 108,
+   "chars": 108257,
+   "verses": 1058
+  },
+  "jubilaeen.geez": {
+   "units": 51,
+   "chars": 112067,
+   "verses": 1294
+  },
+  "himmelfahrt_jesaja.geez": {
+   "units": 5,
+   "chars": 10532,
+   "verses": 5
+  },
+  "sibyllinen.geffcken": {
+   "units": 13,
+   "chars": 188086,
+   "verses": 289
+  },
+  "testamente_xii.anf": {
+   "units": 12,
+   "chars": 139950,
+   "verses": 145
+  },
+  "vitae_prophetarum.anonyma": {
+   "units": 23,
+   "chars": 24865,
+   "verses": 50
+  },
+  "vitae_prophetarum.dorotheus": {
+   "units": 23,
+   "chars": 32590,
+   "verses": 54
+  },
+  "johannesakten.bonnet": {
+   "units": 110,
+   "chars": 78362,
+   "verses": 110
+  },
+  "johannesakten.james": {
+   "units": 103,
+   "chars": 106349,
+   "verses": 183
+  },
+  "thomasakten.bonnet": {
+   "units": 170,
+   "chars": 176638,
+   "verses": 174
+  },
+  "thomasakten.james": {
+   "units": 171,
+   "chars": 192507,
+   "verses": 321
+  },
+  "philippusakten.bonnet": {
+   "units": 148,
+   "chars": 96726,
+   "verses": 148
+  },
+  "philippusakten.james": {
+   "units": 145,
+   "chars": 35738,
+   "verses": 158
+  },
+  "barnabasakten.bonnet": {
+   "units": 26,
+   "chars": 13546,
+   "verses": 26
+  },
+  "petrus_paulus_akten.anf": {
+   "units": 5,
+   "chars": 42149,
+   "verses": 60
+  },
+  "pseudoklementinen_homilien.schwegler": {
+   "units": 19,
+   "chars": 403630,
+   "verses": 505
+  },
+  "pseudoklementinen_homilien.anf": {
+   "units": 20,
+   "chars": 552149,
+   "verses": 543
+  },
+  "pseudoklementinen_rekognitionen.anf": {
+   "units": 10,
+   "chars": 637096,
+   "verses": 513
+  },
+  "testament_abraham.james_a": {
+   "units": 20,
+   "chars": 42021,
+   "verses": 20
+  },
+  "testament_abraham.james_b": {
+   "units": 14,
+   "chars": 19152,
+   "verses": 14
+  }
+ },
+ "works": 70,
+ "worksWithText": 44,
+ "versionsWithText": 94,
+ "versionsTotal": 130
+}

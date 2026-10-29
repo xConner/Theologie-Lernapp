@@ -126,6 +126,11 @@ flutter:
       - assets/fathers/links/
       - assets/fathers/xrefs/
       - assets/fathers/texts/
+      # Apokryphen & außerkanonische Schriften: Werkkatalog und Volltexte,
+      # erzeugt von tool/apocrypha (siehe docs/apocrypha.md). Septuaginta-
+      # und Vulgata-Fassungen lesen ihren Text aus assets/bible/.
+      - assets/apocrypha/
+      - assets/apocrypha/texts/
       # Philosophie-Lesebereich: Werkkatalog, freier griechischer Text (Ross,
       # First1KGreek, CC BY-SA 4.0) und Formenindex, erzeugt von
       # tool/philosophy (siehe docs/philosophy-reader.md).
@@ -175,6 +180,14 @@ flutter:
     - family: LogicSymbols
       fonts:
         - asset: assets/fonts/LogicSymbols.ttf
+    # Koptisch und Ge'ez (Apokryphen-Leser): Noto Sans, SIL OFL 1.1,
+    # Lizenz in assets/fonts/NotoSans-OFL.txt.
+    - family: NotoSansCoptic
+      fonts:
+        - asset: assets/fonts/NotoSansCoptic-Regular.ttf
+    - family: NotoSansEthiopic
+      fonts:
+        - asset: assets/fonts/NotoSansEthiopic-Regular.ttf
 
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a

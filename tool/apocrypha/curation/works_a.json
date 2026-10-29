@@ -1,0 +1,458 @@
+[
+  {
+    "id": "tobit",
+    "title": "Tobit",
+    "altTitles": ["Tobias", "Buch Tobias", "Liber Tobiae", "Τωβιτ"],
+    "categories": ["deuterokanonisch"],
+    "tradition": "juedisch",
+    "genre": "Erzählung (Lehrerzählung)",
+    "dating": {"label": "wohl 3.–2. Jh. v. Chr.", "from": -250, "to": -150},
+    "place": "unsicher; östliche Diaspora und Palästina werden erwogen",
+    "originalLanguage": "aramäisch oder hebräisch",
+    "transmission": "Griechisch in einer Kurzfassung (Vaticanus, Alexandrinus) und einer Langfassung (Sinaiticus); Vetus Latina, Vulgata; aramäische und hebräische Fragmente aus Qumran (4Q196–200)",
+    "preservation": "complete",
+    "summary": "Erzählung vom frommen Israeliten Tobit in Ninive, seinem Sohn Tobias und dessen Reise mit dem Engel Rafael; verbindet Gesetzestreue, Almosen, Gebet und Ehe mit Sara.",
+    "assessments": [
+      ["secure", "Die Qumranfragmente belegen eine semitische Vorlage; die griechischen Fassungen weichen deutlich voneinander ab."],
+      ["likely", "Entstehung vor der Makkabäerzeit, da Konflikte des 2. Jh. v. Chr. fehlen."],
+      ["disputed", "Ob die Urfassung aramäisch oder hebräisch war, ist offen."]
+    ],
+    "significance": "Wichtige Quelle für Frömmigkeit, Angelologie und Familienethik des Diasporajudentums.",
+    "canon": [
+      ["judentum", "nichtkanonisch", "nicht im Tanach"],
+      ["lutherisch", "apokryph", "Luthers Apokryphen (1534): „der Heiligen Schrift nicht gleich gehalten und doch nützlich und gut zu lesen“"],
+      ["reformiert", "apokryph", "nicht kanonisch"],
+      ["anglikanisch", "apokryph", "39 Artikel, Art. VI: „zum Beispiel des Lebens“ gelesen, nicht zur Begründung von Lehre"],
+      ["katholisch", "deuterokanonisch", "Konzil von Trient (1546)"],
+      ["orthodox", "anagignoskomena", "Teil der griechischen Bibel"]
+    ],
+    "bible": "TOB"
+  },
+  {
+    "id": "judit",
+    "title": "Judit",
+    "altTitles": ["Judith", "Liber Iudith", "Ιουδιθ"],
+    "categories": ["deuterokanonisch"],
+    "tradition": "juedisch",
+    "genre": "Erzählung",
+    "dating": {"label": "wohl 2.–1. Jh. v. Chr.", "from": -150, "to": -50},
+    "place": "wohl Palästina",
+    "originalLanguage": "wahrscheinlich hebräisch (nur griechisch erhalten)",
+    "transmission": "Septuaginta (mehrere Textformen), Vetus Latina; Hieronymus’ Vulgata nach einer aramäischen Vorlage, deutlich kürzer",
+    "preservation": "complete",
+    "summary": "Die gottesfürchtige Witwe Judit rettet die Stadt Betulia vor dem Heer des Holofernes, indem sie ihn tötet.",
+    "assessments": [
+      ["secure", "Die geschichtlichen Angaben (Nebukadnezar als König der Assyrer) sind bewusst unhistorisch kombiniert."],
+      ["likely", "Hebräisierendes Griechisch spricht für eine hebräische Vorlage."],
+      ["disputed", "Genaue Datierung (hasmonäische Zeit oder später)."]
+    ],
+    "significance": "Beispiel jüdischer Erzählliteratur der hellenistischen Zeit; Motiv der Rettung durch eine Frau.",
+    "canon": [
+      ["judentum", "nichtkanonisch", "nicht im Tanach"],
+      ["lutherisch", "apokryph", "Luthers Apokryphen"],
+      ["reformiert", "apokryph", "nicht kanonisch"],
+      ["anglikanisch", "apokryph", "39 Artikel, Art. VI"],
+      ["katholisch", "deuterokanonisch", "Konzil von Trient"],
+      ["orthodox", "anagignoskomena", "Teil der griechischen Bibel"]
+    ],
+    "bible": "JDT"
+  },
+  {
+    "id": "ester_zusaetze",
+    "title": "Zusätze zu Ester",
+    "altTitles": ["Stücke zu Ester", "Stücke zu Esther", "Griechisches Ester", "Additions to Esther", "Esther (griechisch)"],
+    "categories": ["deuterokanonisch"],
+    "tradition": "juedisch",
+    "genre": "Erweiterungen eines biblischen Buches (Gebete, Erlasse, Traum)",
+    "dating": {"label": "2.–1. Jh. v. Chr.", "from": -180, "to": -50},
+    "place": "Palästina und Ägypten (Kolophon: Übersendung nach Alexandria)",
+    "originalLanguage": "griechisch, teilweise wohl hebräisch/aramäisch",
+    "transmission": "Septuaginta und „Alpha-Text“; in der Vulgata als Anhang Est 10,4–16,24, bei Luther als „Stücke zu Esther“",
+    "preservation": "complete",
+    "summary": "Sechs Zusätze (A–F) zum hebräischen Esterbuch: Traum und Deutung des Mordechai, königliche Erlasse, Gebete Mordechais und Esters; sie geben dem Buch ausdrücklich religiöse Sprache.",
+    "assessments": [
+      ["secure", "Die Zusätze fehlen im hebräischen Text; in der Septuaginta sind sie in das Buch eingefügt."],
+      ["secure", "Zählung und Anordnung unterscheiden sich: LXX (eingefügt), Vulgata (als Anhang Kap. 10–16), Luther (7 Kapitel „Stücke“)."]
+    ],
+    "significance": "Zeigt die theologische Bearbeitung eines Buches, das im hebräischen Text Gott nicht nennt.",
+    "canon": [
+      ["judentum", "nichtkanonisch", "nur das hebräische Esterbuch ist kanonisch"],
+      ["lutherisch", "apokryph", "„Stücke zu Esther“ unter den Apokryphen"],
+      ["anglikanisch", "apokryph", "„The rest of the Book of Esther“"],
+      ["katholisch", "deuterokanonisch", "als Teil des Buches Ester"],
+      ["orthodox", "anagignoskomena", "als Teil des griechischen Ester"]
+    ],
+    "versification": "Die Zählung unterscheidet sich je Fassung; die Parallelansicht ordnet hier nicht Vers für Vers zu.",
+    "bible": "ESG"
+  },
+  {
+    "id": "weisheit",
+    "title": "Weisheit Salomos",
+    "altTitles": ["Buch der Weisheit", "Sapientia Salomonis", "Liber Sapientiae", "Σοφια Σαλωμωνος"],
+    "categories": ["deuterokanonisch"],
+    "tradition": "juedisch",
+    "genre": "Weisheitsschrift",
+    "dating": {"label": "1. Jh. v. Chr. bis frühes 1. Jh. n. Chr.", "from": -50, "to": 40},
+    "place": "wahrscheinlich Alexandria",
+    "originalLanguage": "griechisch",
+    "transmission": "Septuaginta, Vetus Latina (von Hieronymus nicht neu übersetzt)",
+    "preservation": "complete",
+    "attribution": {"name": "Salomo", "assessment": "pseudepigraph", "note": "Die Schrift spricht im Namen Salomos; sie ist griechisch verfasst und setzt hellenistische Bildung voraus."},
+    "summary": "Mahnrede an die Herrscher, Lob der Weisheit und Deutung der Geschichte Israels (Exodus) als Wirken der Weisheit.",
+    "assessments": [
+      ["secure", "Ursprünglich griechisch verfasst; die Zuschreibung an Salomo ist literarisch."],
+      ["disputed", "Datierung zwischen Ptolemäerzeit und Caligula."]
+    ],
+    "significance": "Brücke zwischen jüdischer Weisheit und hellenistischer Philosophie; wirkte auf neutestamentliche Weisheitschristologie.",
+    "canon": [
+      ["judentum", "nichtkanonisch", "nicht im Tanach"],
+      ["lutherisch", "apokryph", "Luthers Apokryphen"],
+      ["anglikanisch", "apokryph", "39 Artikel, Art. VI"],
+      ["katholisch", "deuterokanonisch", "Konzil von Trient"],
+      ["orthodox", "anagignoskomena", "Teil der griechischen Bibel"]
+    ],
+    "bible": "WIS"
+  },
+  {
+    "id": "sirach",
+    "title": "Jesus Sirach",
+    "altTitles": ["Sirach", "Ecclesiasticus", "Weisheit des Jesus Sirach", "Ben Sira", "Σοφια Σιραχ"],
+    "categories": ["deuterokanonisch"],
+    "tradition": "juedisch",
+    "genre": "Weisheitsschrift",
+    "dating": {"label": "um 190–175 v. Chr.; griechische Übersetzung nach 132 v. Chr.", "from": -190, "to": -117},
+    "place": "Jerusalem; Übersetzung in Ägypten",
+    "originalLanguage": "hebräisch",
+    "transmission": "Griechisch (Übersetzung des Enkels mit Prolog), Latein, Syrisch; etwa zwei Drittel des hebräischen Textes aus der Kairoer Geniza, Qumran und Masada wiedergefunden",
+    "preservation": "complete",
+    "attribution": {"name": "Jesus, Sohn des Sirach (Ben Sira)", "assessment": "traditionell", "note": "Der Verfasser nennt sich selbst (Sir 50,27); die Zuschreibung gilt als zuverlässig."},
+    "summary": "Umfangreiche Lehr- und Spruchsammlung eines Jerusalemer Weisheitslehrers, mit Lob der Väter (Kap. 44–50).",
+    "assessments": [
+      ["secure", "Der Prolog des Enkels nennt das 38. Jahr des Königs Euergetes (132 v. Chr.)."],
+      ["secure", "Hebräische Handschriften zeigen eine Textgeschichte mit Lang- und Kurzfassungen; die Kapitelzählung der griechischen und lateinischen Bibeln weicht teilweise ab (Vertauschung Kap. 30–36)."]
+    ],
+    "significance": "Einzige Weisheitsschrift dieser Zeit mit bekanntem Verfasser; wichtig für Tempel, Priestertum und Torafrömmigkeit vor den Makkabäern.",
+    "canon": [
+      ["judentum", "nichtkanonisch", "nicht im Tanach, im Talmud aber zitiert"],
+      ["lutherisch", "apokryph", "Luthers Apokryphen"],
+      ["anglikanisch", "apokryph", "39 Artikel, Art. VI"],
+      ["katholisch", "deuterokanonisch", "Konzil von Trient"],
+      ["orthodox", "anagignoskomena", "Teil der griechischen Bibel"]
+    ],
+    "bible": "SIR"
+  },
+  {
+    "id": "baruch",
+    "title": "Baruch",
+    "altTitles": ["Buch Baruch", "1 Baruch", "Liber Baruch", "Βαρουχ"],
+    "categories": ["deuterokanonisch"],
+    "tradition": "juedisch",
+    "genre": "Bußgebet, Weisheitsgedicht, Trostrede",
+    "dating": {"label": "wohl 2.–1. Jh. v. Chr.", "from": -200, "to": -50},
+    "place": "unsicher",
+    "originalLanguage": "erster Teil wohl hebräisch, später Teile wohl griechisch",
+    "transmission": "Septuaginta, Vetus Latina/Vulgata, Syrisch",
+    "preservation": "complete",
+    "attribution": {"name": "Baruch, Schreiber Jeremias", "assessment": "pseudepigraph"},
+    "summary": "Bußgebet der Exilierten, Weisheitsgedicht über die Tora und Trostrede an Jerusalem.",
+    "assessments": [
+      ["secure", "Zusammengesetzt aus mehreren Teilen unterschiedlichen Stils."],
+      ["likely", "Das Bußgebet (1,15–3,8) hängt von Dan 9 ab."]
+    ],
+    "significance": "Bezeugt Bußfrömmigkeit und Gleichsetzung von Weisheit und Tora.",
+    "canon": [
+      ["judentum", "nichtkanonisch", ""],
+      ["lutherisch", "apokryph", "Luthers Apokryphen, mit dem Brief Jeremias als Kap. 6"],
+      ["anglikanisch", "apokryph", "„Baruch the Prophet“"],
+      ["katholisch", "deuterokanonisch", "mit dem Brief Jeremias als Kap. 6"],
+      ["orthodox", "anagignoskomena", "eigenes Buch neben dem Brief Jeremias"]
+    ],
+    "bible": "BAR"
+  },
+  {
+    "id": "brief_jeremia",
+    "title": "Brief des Jeremia",
+    "altTitles": ["Epistula Jeremiae", "Baruch 6", "Epistle of Jeremiah", "Επιστολη Ιερεμιου"],
+    "categories": ["deuterokanonisch"],
+    "tradition": "juedisch",
+    "genre": "Mahnschrift gegen Götzenbilder",
+    "dating": {"label": "4.–2. Jh. v. Chr.", "from": -320, "to": -100},
+    "place": "unsicher",
+    "originalLanguage": "wahrscheinlich hebräisch oder aramäisch",
+    "transmission": "Septuaginta (eigenes Buch); Vulgata und Luther als Baruch 6; griechisches Fragment aus Qumran (7Q2)",
+    "preservation": "complete",
+    "attribution": {"name": "Jeremia", "assessment": "pseudepigraph"},
+    "summary": "Polemik gegen babylonischen Götzendienst in Briefform.",
+    "assessments": [
+      ["secure", "Ein griechisches Fragment aus Qumran (7Q2) belegt das Werk vor der Zeitenwende."],
+      ["disputed", "Ursprache und genaue Entstehungszeit."]
+    ],
+    "significance": "Beispiel jüdischer Götzenbildkritik; Nachklang von Jer 10.",
+    "canon": [
+      ["lutherisch", "apokryph", "als Baruch 6"],
+      ["katholisch", "deuterokanonisch", "als Baruch 6"],
+      ["orthodox", "anagignoskomena", "eigenes Buch"]
+    ],
+    "bible": "LJE"
+  },
+  {
+    "id": "daniel_zusaetze",
+    "title": "Zusätze zu Daniel",
+    "altTitles": ["Stücke zu Daniel", "Gebet Asarjas", "Gesang der drei Männer im Feuerofen", "Susanna", "Bel und der Drache", "Additions to Daniel"],
+    "categories": ["deuterokanonisch", "poesie"],
+    "tradition": "juedisch",
+    "genre": "Gebet und Hymnus; Erzählungen",
+    "dating": {"label": "2.–1. Jh. v. Chr.", "from": -170, "to": -50},
+    "place": "unsicher",
+    "originalLanguage": "wohl hebräisch oder aramäisch (Gebet, Hymnus), Susanna und Bel umstritten",
+    "transmission": "Septuaginta in zwei Fassungen (alte LXX und „Theodotion“); Vulgata als Dan 3,24–90 und Kap. 13–14; Luther als „Stücke zu Daniel“",
+    "preservation": "complete",
+    "summary": "Gebet Asarjas und Lobgesang der drei Männer im Feuerofen (in Dan 3 eingefügt), die Erzählung von Susanna und die Erzählungen von Bel und dem Drachen.",
+    "assessments": [
+      ["secure", "Die Stücke fehlen im hebräisch-aramäischen Danielbuch."],
+      ["secure", "Der Gesang der drei Männer (Benedicite) gehört seit alter Zeit zur Liturgie."]
+    ],
+    "significance": "Das Benedicite ist bis heute ein liturgischer Gesang; Susanna wurde in Kunst und Rechtsgeschichte breit rezipiert.",
+    "canon": [
+      ["lutherisch", "apokryph", "„Stücke zu Daniel“"],
+      ["anglikanisch", "apokryph", "„Song of the Three Children“, „Susanna“, „Bel and the Dragon“"],
+      ["katholisch", "deuterokanonisch", "als Teil des Danielbuchs"],
+      ["orthodox", "anagignoskomena", "als Teil des griechischen Daniel"]
+    ],
+    "versification": "Einheiten: Gebet Asarjas und Gesang der drei Männer, Susanna, Bel und der Drache."
+  },
+  {
+    "id": "makk1",
+    "title": "1. Makkabäer",
+    "altTitles": ["1 Makkabäer", "Erstes Buch der Makkabäer", "1 Maccabees", "Μακκαβαιων Α"],
+    "categories": ["deuterokanonisch"],
+    "tradition": "juedisch",
+    "genre": "Geschichtsschreibung",
+    "dating": {"label": "um 100 v. Chr.", "from": -130, "to": -63},
+    "place": "Judäa",
+    "originalLanguage": "hebräisch (nur griechisch erhalten)",
+    "transmission": "Septuaginta, Vetus Latina/Vulgata, Syrisch; die hebräische Fassung kannten noch Origenes und Hieronymus",
+    "preservation": "complete",
+    "summary": "Geschichte des Aufstands gegen Antiochos IV. und der Hasmonäer von Mattatias bis Johannes Hyrkanos (175–134 v. Chr.).",
+    "assessments": [
+      ["secure", "Wichtigste Quelle für die Makkabäerzeit; datiert nach der seleukidischen Ära."],
+      ["likely", "Abfassung unter Johannes Hyrkanos oder kurz danach."]
+    ],
+    "significance": "Grundlage für die Geschichte des Chanukkafestes und des hasmonäischen Staates.",
+    "canon": [
+      ["judentum", "nichtkanonisch", ""],
+      ["lutherisch", "apokryph", "Luthers Apokryphen"],
+      ["anglikanisch", "apokryph", "39 Artikel, Art. VI"],
+      ["katholisch", "deuterokanonisch", "Konzil von Trient"],
+      ["orthodox", "anagignoskomena", "Teil der griechischen Bibel"]
+    ],
+    "bible": "1MA"
+  },
+  {
+    "id": "makk2",
+    "title": "2. Makkabäer",
+    "altTitles": ["2 Makkabäer", "Zweites Buch der Makkabäer", "2 Maccabees", "Μακκαβαιων Β"],
+    "categories": ["deuterokanonisch"],
+    "tradition": "juedisch",
+    "genre": "Geschichtsschreibung (Epitome)",
+    "dating": {"label": "2.–1. Jh. v. Chr.", "from": -124, "to": -63},
+    "place": "Ägypten und Judäa",
+    "originalLanguage": "griechisch",
+    "transmission": "Septuaginta, Vetus Latina/Vulgata",
+    "preservation": "complete",
+    "summary": "Auszug aus dem (verlorenen) Geschichtswerk des Jason von Kyrene über die Zeit bis zum Sieg über Nikanor (161 v. Chr.), mit zwei vorangestellten Festbriefen.",
+    "assessments": [
+      ["secure", "Der Epitomator nennt seine Vorlage, das fünfbändige Werk Jasons von Kyrene (2 Makk 2,23)."],
+      ["secure", "Erstmals deutliche Aussagen zur Auferstehung der Toten (Kap. 7) und zum Gebet für Verstorbene (12,43–45)."]
+    ],
+    "significance": "Martyriumserzählungen und Jenseitsvorstellungen wirkten stark auf frühchristliche Märtyrerliteratur; 2 Makk 12 spielte in der Reformationszeit in der Fegefeuerdebatte eine Rolle.",
+    "canon": [
+      ["judentum", "nichtkanonisch", ""],
+      ["lutherisch", "apokryph", "Luthers Apokryphen"],
+      ["anglikanisch", "apokryph", "39 Artikel, Art. VI"],
+      ["katholisch", "deuterokanonisch", "Konzil von Trient"],
+      ["orthodox", "anagignoskomena", "Teil der griechischen Bibel"]
+    ],
+    "bible": "2MA"
+  },
+  {
+    "id": "makk3",
+    "title": "3. Makkabäer",
+    "altTitles": ["3 Makkabäer", "Drittes Buch der Makkabäer", "3 Maccabees", "Μακκαβαιων Γ"],
+    "categories": ["deuterokanonisch"],
+    "tradition": "juedisch",
+    "genre": "Erzählung",
+    "dating": {"label": "1. Jh. v. Chr. (umstritten)", "from": -100, "to": 30},
+    "place": "Alexandria",
+    "originalLanguage": "griechisch",
+    "transmission": "Septuaginta (Alexandrinus, Venetus), Syrisch, Armenisch",
+    "preservation": "complete",
+    "summary": "Erzählung von der Verfolgung der ägyptischen Juden unter Ptolemaios IV. Philopator und ihrer wunderbaren Rettung; mit den Makkabäern hat sie nichts zu tun.",
+    "assessments": [
+      ["secure", "Der Titel ist sekundär; die Handlung spielt vor der Makkabäerzeit."],
+      ["disputed", "Datierung zwischen dem 2. Jh. v. Chr. und der frühen Kaiserzeit."]
+    ],
+    "significance": "Zeugnis für Selbstverständnis und Konflikte des ägyptischen Diasporajudentums.",
+    "canon": [
+      ["lutherisch", "nichtkanonisch", "nicht unter Luthers Apokryphen"],
+      ["katholisch", "nichtkanonisch", ""],
+      ["orthodox", "anagignoskomena", "Teil der griechischen Bibel"]
+    ],
+    "bible": "3MA"
+  },
+  {
+    "id": "makk4",
+    "title": "4. Makkabäer",
+    "altTitles": ["4 Makkabäer", "Viertes Buch der Makkabäer", "4 Maccabees", "Über die Herrschaft der Vernunft"],
+    "categories": ["deuterokanonisch"],
+    "tradition": "juedisch",
+    "genre": "philosophische Rede",
+    "dating": {"label": "1. Jh. n. Chr. (umstritten)", "from": 1, "to": 120},
+    "place": "Antiochia oder Kleinasien erwogen",
+    "originalLanguage": "griechisch",
+    "transmission": "Septuaginta-Handschriften (Sinaiticus, Alexandrinus), lange auch unter dem Namen des Josephus",
+    "preservation": "complete",
+    "summary": "Philosophische Rede über die Herrschaft der frommen Vernunft über die Leidenschaften, ausgeführt an den Märtyrern aus 2 Makk 6–7.",
+    "assessments": [
+      ["secure", "Die Zuschreibung an Flavius Josephus ist unhaltbar."],
+      ["disputed", "Datierung zwischen etwa 20 und 120 n. Chr."]
+    ],
+    "significance": "Verbindung von stoischer Ethik und Toratreue; Märtyrertheologie mit stellvertretendem Sühnetod.",
+    "canon": [
+      ["katholisch", "nichtkanonisch", ""],
+      ["lutherisch", "nichtkanonisch", ""],
+      ["orthodox", "anhang", "im Anhang griechischer Bibelausgaben"]
+    ],
+    "bible": "4MA"
+  },
+  {
+    "id": "esra3",
+    "title": "3. Esra",
+    "altTitles": ["1. Esdras", "Esdras A", "Esdras α", "3 Esdras (Vulgata)", "Griechischer Esra"],
+    "categories": ["deuterokanonisch"],
+    "tradition": "juedisch",
+    "genre": "Geschichtsdarstellung",
+    "dating": {"label": "2. Jh. v. Chr.", "from": -200, "to": -100},
+    "place": "wohl Ägypten",
+    "originalLanguage": "griechisch, nach hebräisch-aramäischer Vorlage",
+    "transmission": "Septuaginta (als Esdras A), Vetus Latina; in der Clementinischen Vulgata als „3 Esdras“ im Anhang",
+    "preservation": "complete",
+    "summary": "Griechische Parallelfassung zu 2 Chr 35–36, Esra und Neh 8 mit der eigenständigen Erzählung vom Wettstreit der drei Leibwächter (3,1–5,6).",
+    "assessments": [
+      ["secure", "Zählung: LXX Esdras A = Vulgata 3 Esdras = englisch 1 Esdras."],
+      ["disputed", "Ob das Werk eine ältere Fassung des Esra-Stoffes bewahrt oder eine spätere Kompilation ist."]
+    ],
+    "significance": "Von Josephus benutzt; wichtig für die Text- und Literargeschichte der Bücher Esra/Nehemia.",
+    "canon": [
+      ["lutherisch", "nichtkanonisch", "von Luther nicht aufgenommen"],
+      ["anglikanisch", "apokryph", "„The Third Book of Esdras“ (39 Artikel, Art. VI)"],
+      ["katholisch", "anhang", "Anhang der Clementinischen Vulgata, nicht kanonisch"],
+      ["orthodox", "anagignoskomena", "Esdras A in der griechischen Bibel"]
+    ],
+    "bible": "1ES"
+  },
+  {
+    "id": "esra4",
+    "title": "4. Esra",
+    "altTitles": ["2. Esdras", "4 Esdras (Vulgata)", "Esra-Apokalypse", "5. und 6. Esra (Rahmenkapitel)"],
+    "categories": ["deuterokanonisch", "apokalypsen", "pseudepigraphen"],
+    "tradition": "juedisch_christlich",
+    "genre": "Apokalypse",
+    "dating": {"label": "Kern (Kap. 3–14) um 100 n. Chr.; Rahmen 1–2 und 15–16 christlich, 2.–3. Jh.", "from": 90, "to": 260},
+    "place": "Palästina (Kern)",
+    "originalLanguage": "hebräisch oder aramäisch (Kern), über eine griechische Zwischenstufe übersetzt",
+    "transmission": "Latein (Vulgata-Anhang), Syrisch, Äthiopisch, Georgisch, Arabisch, Armenisch; die griechische Fassung ist verloren",
+    "preservation": "complete",
+    "attribution": {"name": "Esra", "assessment": "pseudepigraph"},
+    "summary": "Sieben Visionen „Esras“ nach der Zerstörung Jerusalems: Fragen nach Gottes Gerechtigkeit, Zahl der Geretteten, Adlervision und Menschensohn aus dem Meer.",
+    "assessments": [
+      ["secure", "Kap. 3–14 sind eine jüdische Apokalypse nach 70 n. Chr.; Kap. 1–2 („5 Esra“) und 15–16 („6 Esra“) sind christliche Zusätze."],
+      ["secure", "Den lateinischen Ausgaben vor 1875 fehlt ein Abschnitt (7,36–105), den R. L. Bensly aus einer Handschrift von Amiens veröffentlichte; in der KJV fehlt er daher."]
+    ],
+    "significance": "Neben 2 Baruch die wichtigste jüdische Antwort auf die Tempelzerstörung 70 n. Chr.; liturgische Wirkung („Requiem aeternam“, 2,34–35).",
+    "canon": [
+      ["lutherisch", "nichtkanonisch", "von Luther nicht aufgenommen"],
+      ["anglikanisch", "apokryph", "„The Fourth Book of Esdras“ (39 Artikel, Art. VI)"],
+      ["katholisch", "anhang", "Anhang der Clementinischen Vulgata, nicht kanonisch"],
+      ["orthodox", "nichtkanonisch", "nicht in der griechischen Bibel; in slawischen Bibeln als 3 Esra"],
+      ["aethiopisch", "kanonisch", "als Esra-Apokalypse Teil der äthiopischen Bibel"]
+    ],
+    "versification": "Die lateinische Zählung zählt die Kapitel 1–16; der verlorene Abschnitt 7,36–105 fehlt in der KJV."
+  },
+  {
+    "id": "gebet_manasse",
+    "title": "Gebet Manasses",
+    "altTitles": ["Gebet des Manasse", "Oratio Manassae", "Prayer of Manasseh", "Προσευχη Μανασση"],
+    "categories": ["deuterokanonisch", "poesie"],
+    "tradition": "juedisch",
+    "genre": "Bußgebet",
+    "dating": {"label": "2. Jh. v. Chr. bis 1. Jh. n. Chr.", "from": -200, "to": 70},
+    "place": "unsicher",
+    "originalLanguage": "griechisch oder hebräisch (umstritten)",
+    "transmission": "Syrische Didaskalie und Apostolische Konstitutionen; in griechischen Bibelhandschriften unter den Oden (Ode 12); Vulgata-Anhang",
+    "preservation": "complete",
+    "attribution": {"name": "König Manasse", "assessment": "pseudepigraph", "note": "angeregt durch 2 Chr 33,12–13.18–19"},
+    "summary": "Bußgebet, das dem König Manasse in der Gefangenschaft in den Mund gelegt wird.",
+    "assessments": [
+      ["secure", "Frühester Beleg ist die Didaskalie (3. Jh.)."],
+      ["disputed", "Ursprache und Entstehungszeit."]
+    ],
+    "significance": "Klassisches Bußgebet der Kirche; bei Luther unter den Apokryphen am Schluss des Alten Testaments.",
+    "canon": [
+      ["lutherisch", "apokryph", "Luthers Apokryphen"],
+      ["anglikanisch", "apokryph", "39 Artikel, Art. VI"],
+      ["katholisch", "anhang", "Anhang der Clementinischen Vulgata, nicht kanonisch"],
+      ["orthodox", "anagignoskomena", "unter den Oden"]
+    ],
+    "bible": "MAN"
+  },
+  {
+    "id": "psalm151",
+    "title": "Psalm 151",
+    "altTitles": ["Ps 151", "Psalmus CLI", "Psalm Davids nach dem Kampf mit Goliat"],
+    "categories": ["deuterokanonisch", "poesie"],
+    "tradition": "juedisch",
+    "genre": "Psalm",
+    "dating": {"label": "vorchristlich (hebräische Fassung in 11QPsª)", "from": -250, "to": -50},
+    "place": "Palästina",
+    "originalLanguage": "hebräisch",
+    "transmission": "Septuaginta als Psalm „außerhalb der Zahl“, Syrisch, Latein (einige Handschriften); hebräische Langfassung in der Psalmenrolle aus Qumran (11QPsª)",
+    "preservation": "complete",
+    "attribution": {"name": "David", "assessment": "pseudepigraph"},
+    "summary": "Kurzer Psalm, in dem David von seiner Erwählung und dem Sieg über Goliat spricht.",
+    "assessments": [
+      ["secure", "Die griechische Fassung verbindet zwei in Qumran getrennt überlieferte hebräische Psalmen (151A und 151B)."]
+    ],
+    "significance": "Zeigt, dass der Psalter in der Zeit des Zweiten Tempels noch nicht überall abgeschlossen war.",
+    "canon": [
+      ["orthodox", "kanonisch", "Teil des Psalters der griechischen Bibel („außerhalb der Zahl“)"],
+      ["katholisch", "nichtkanonisch", ""],
+      ["lutherisch", "nichtkanonisch", ""]
+    ]
+  },
+  {
+    "id": "psalmen_salomos",
+    "title": "Psalmen Salomos",
+    "altTitles": ["Psalmi Salomonis", "Psalms of Solomon", "Ψαλμοι Σαλωμωντος"],
+    "categories": ["pseudepigraphen", "poesie"],
+    "tradition": "juedisch",
+    "genre": "Psalmen (18)",
+    "dating": {"label": "Mitte 1. Jh. v. Chr.", "from": -63, "to": -30},
+    "place": "Jerusalem",
+    "originalLanguage": "hebräisch (nur griechisch und syrisch erhalten)",
+    "transmission": "Griechische Handschriften (meist zusammen mit Weisheitsbüchern), Syrisch; im Inhaltsverzeichnis des Codex Alexandrinus nach dem Neuen Testament genannt",
+    "preservation": "complete",
+    "attribution": {"name": "Salomo", "assessment": "pseudepigraph"},
+    "summary": "Achtzehn Psalmen, die auf die Eroberung Jerusalems durch Pompeius (63 v. Chr.) reagieren; Ps 17–18 erwarten einen davidischen Messias.",
+    "assessments": [
+      ["secure", "Ps 2 spielt auf den Tod des Pompeius in Ägypten (48 v. Chr.) an."],
+      ["disputed", "Zuordnung zu einer Gruppe (früher meist pharisäisch) ist umstritten."]
+    ],
+    "significance": "Zentrales Zeugnis der Messiaserwartung kurz vor dem Neuen Testament („der Gesalbte des Herrn“, Ps 17,32).",
+    "canon": [
+      ["orthodox", "nichtkanonisch", "in einigen Septuaginta-Handschriften, aber nicht Teil der kirchlichen Bibel"],
+      ["katholisch", "nichtkanonisch", ""],
+      ["lutherisch", "nichtkanonisch", ""]
+    ]
+  }
+]
