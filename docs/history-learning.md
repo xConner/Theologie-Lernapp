@@ -95,6 +95,14 @@ Abweichende Angaben stehen je Veranstaltung in `datingBy`, `nameBy`,
 `consequenceBy` (z. B. Königtümer 10. Jh. in der Vorlesung, 9. Jh. in der
 Übung, beide als umstritten markiert).
 
+Spuren (`tracks`): Geschichte Israels und Judas, Text und Überlieferung,
+Entstehung des Pentateuch (Forschung; nur Vorlesung Einheit 2: Wellhausen,
+Noth, die Quellen der Neueren Urkundenhypothese mit ihren klassischen
+Datierungen und das heutige Modell nach dem Schaubild – alle Datierungen
+`disputed`, mit Hinweis auf andere Positionen). Namen von Inhalten enthalten
+keine Zahlen, die eine Jahreszahl verraten könnten (z. B. keine
+Stellenangaben).
+
 Felder eines Inhalts: `id`, `kind` (`period`, `person`, `group`, `event`),
 `track`, `name`/`nameBy`, `dating`/`datingBy` (`from`, `to`, `label`,
 `approx`, `disputed`, `note`; negative Jahre = v. Chr.), `statements`

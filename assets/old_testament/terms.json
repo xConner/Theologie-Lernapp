@@ -78,7 +78,12 @@
       "name": "Pentateuch",
       "fromSlides": true,
       "definition": "„Das Fünfteilige“: die fünf Bücher Mose (Gen–Dtn) als erster Schriftenteil der Septuaginta; die griechischen Buchnamen richten sich nach dem Hauptinhalt.",
-      "supplement": "Von griech. pente „fünf“ und teuchos „Gefäß, Behälter“ (für Schriftrollen). Daher die Wiedergaben „Fünf-Gefäß“ bzw. „fünf Rollen“ (Bibelkunde, Sitzung 2) und „das Fünfteilige“ (Sitzung 1)."
+      "supplement": "Von griech. pente „fünf“ und teuchos „Gefäß, Behälter“ (für Schriftrollen). Daher die Wiedergaben „Fünf-Gefäß“ bzw. „fünf Rollen“ (Bibelkunde, Sitzung 2) und „das Fünfteilige“ (Sitzung 1).",
+      "confusable": [
+        "term.tetrateuch",
+        "term.hexateuch",
+        "term.enneateuch"
+      ]
     },
     {
       "id": "term.septuaginta",
@@ -450,6 +455,161 @@
       ],
       "fromSlides": false,
       "definition": "Stirbt ein verheirateter Mann ohne Sohn, soll sein Bruder die Witwe heiraten; der erste Sohn gilt als Nachkomme des Verstorbenen (Dtn 25,5–10). Die Folie nennt den Begriff zu Gen 38 ohne Erklärung."
+    },
+    {
+      "id": "term.tetrateuch",
+      "name": "Tetrateuch",
+      "fromSlides": true,
+      "definition": "Bezeichnung der kritischen Bibelwissenschaft für die Bücher Gen–Num (Zahlenelement „tetra“ = 4).",
+      "confusable": [
+        "term.pentateuch",
+        "term.hexateuch",
+        "term.enneateuch"
+      ]
+    },
+    {
+      "id": "term.hexateuch",
+      "name": "Hexateuch",
+      "fromSlides": true,
+      "definition": "Bezeichnung der kritischen Bibelwissenschaft für die Bücher Gen–Jos (Zahlenelement „hexa“ = 6).",
+      "confusable": [
+        "term.pentateuch",
+        "term.tetrateuch",
+        "term.enneateuch"
+      ]
+    },
+    {
+      "id": "term.enneateuch",
+      "name": "Enneateuch",
+      "fromSlides": true,
+      "definition": "Bezeichnung der kritischen Bibelwissenschaft für die Bücher Gen–2 Kön (Zahlenelement „ennea“ = 9).",
+      "confusable": [
+        "term.pentateuch",
+        "term.tetrateuch",
+        "term.hexateuch"
+      ]
+    },
+    {
+      "id": "term.urkundenhypothese",
+      "name": "Urkundenhypothese",
+      "fromSlides": true,
+      "definition": "Literargeschichtliches Erklärungsmodell: Mehrere ursprünglich selbständige, durchlaufende Quellen werden von einem Redaktor zum „Endtext“ verbunden.",
+      "confusable": [
+        "term.fragmentenhypothese",
+        "term.ergaenzungshypothese",
+        "term.neuere_urkundenhypothese"
+      ]
+    },
+    {
+      "id": "term.fragmentenhypothese",
+      "name": "Fragmentenhypothese",
+      "fromSlides": true,
+      "definition": "Literargeschichtliches Erklärungsmodell: Einzelne Erzählstücke (Schöpfung, Flut, Erzväter, Exodus, Sinai, Wüste, Landnahme) wachsen zu größeren Blöcken und schließlich zum „Endtext“ zusammen.",
+      "confusable": [
+        "term.urkundenhypothese",
+        "term.ergaenzungshypothese"
+      ]
+    },
+    {
+      "id": "term.ergaenzungshypothese",
+      "name": "Ergänzungshypothese",
+      "fromSlides": true,
+      "definition": "Literargeschichtliches Erklärungsmodell: Eine Grundschrift wird schrittweise durch Ergänzungen erweitert.",
+      "confusable": [
+        "term.urkundenhypothese",
+        "term.fragmentenhypothese"
+      ]
+    },
+    {
+      "id": "term.neuere_urkundenhypothese",
+      "name": "Neuere Urkundenhypothese",
+      "fromSlides": true,
+      "definition": "Mit J. Wellhausen und M. Noth verbundenes Modell von vier Quellen des Pentateuch: Jahwist (ca. 950 v. Chr.), Elohist (ca. 800), Deuteronomium (ca. 622) und Priesterschrift (ca. 500). Seit den 1970er Jahren v. a. in Kontinentaleuropa stark kritisiert.",
+      "confusable": [
+        "term.urkundenhypothese",
+        "term.jahwist",
+        "term.elohist",
+        "term.priesterschrift"
+      ]
+    },
+    {
+      "id": "term.jahwist",
+      "name": "Jahwist (J)",
+      "aliases": [
+        "Jahwist",
+        "J"
+      ],
+      "fromSlides": true,
+      "definition": "Nach der Neueren Urkundenhypothese eine Quellenschrift aus salomonischer Zeit (ca. 950 v. Chr.). Nach der Vorlesung zerfällt der „jahwistische“ Text in zwei ursprünglich selbständige vorpriesterschriftliche Erzählwerke (Erzväter- und Exoduserzählung).",
+      "supplement": "Der Name kommt vom Gottesnamen JHWH, den diese Texte schon in der Genesis gebrauchen.",
+      "confusable": [
+        "term.elohist",
+        "term.priesterschrift",
+        "term.neuere_urkundenhypothese"
+      ]
+    },
+    {
+      "id": "term.elohist",
+      "name": "Elohist (E)",
+      "aliases": [
+        "Elohist",
+        "E"
+      ],
+      "fromSlides": true,
+      "definition": "Nach der Neueren Urkundenhypothese eine Quellenschrift um 800 v. Chr. Nach der Vorlesung keine alte Quelle, sondern eine Reihe nachpriesterschriftlicher Erweiterungen; nachweisbar allenfalls in Teilen der Genesis (v. a. Gen 20–22).",
+      "supplement": "Der Name kommt von der Gottesbezeichnung Elohim („Gott“), die diese Texte in der Genesis gebrauchen.",
+      "confusable": [
+        "term.jahwist",
+        "term.priesterschrift",
+        "term.neuere_urkundenhypothese"
+      ]
+    },
+    {
+      "id": "term.priesterschrift",
+      "name": "Priesterschrift (P)",
+      "aliases": [
+        "Priesterschrift",
+        "P",
+        "priesterlicher Text",
+        "Priestergrundschrift",
+        "PG"
+      ],
+      "fromSlides": true,
+      "definition": "Priesterliche Schicht des Pentateuch, nach der Neueren Urkundenhypothese um 500 v. Chr. Unterschieden werden die Priestergrundschrift (PG; nach R. G. Kratz mindestens Gen 1 – Ex 40*) und sekundär priesterschriftliche Partien (PS); ob P Quelle oder Bearbeitung ist, ist umstritten.",
+      "confusable": [
+        "term.jahwist",
+        "term.elohist",
+        "term.neuere_urkundenhypothese",
+        "term.kompositionsschicht",
+        "term.theokratische_bearbeitungen"
+      ]
+    },
+    {
+      "id": "term.kompositionsschicht",
+      "name": "Kompositionsschicht (KP)",
+      "aliases": [
+        "Kompositionsschicht",
+        "KP"
+      ],
+      "fromSlides": true,
+      "definition": "Verständnis der Priesterschrift nach E. Blum: keine selbständige Quelle, sondern eine Schicht, die eine ältere Pentateuchkomposition (KD) programmatisch überformt.",
+      "confusable": [
+        "term.priesterschrift",
+        "term.theokratische_bearbeitungen"
+      ]
+    },
+    {
+      "id": "term.theokratische_bearbeitungen",
+      "name": "Theokratische Bearbeitungen",
+      "aliases": [
+        "theokratische Bearbeitungen"
+      ],
+      "fromSlides": true,
+      "definition": "Nach R. Achenbach sekundär priesterschriftliche Erweiterungen (v. a. in Num) eines Textes, in dem die Priestergrundschrift schon mit dem nichtpriesterschriftlichen Erzählbestand verbunden war.",
+      "confusable": [
+        "term.priesterschrift",
+        "term.kompositionsschicht"
+      ]
     }
   ]
 }

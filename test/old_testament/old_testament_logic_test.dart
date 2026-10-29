@@ -42,7 +42,7 @@ void main() {
     test("ist vollständig eingebunden", () {
       expect(data.course.title, "Einführung in das Alte Testament");
       expect(data.course.lecturer, "Prof. Dr. Christoph Berner");
-      expect(data.units, hasLength(1));
+      expect(data.units.first, same(unit));
       expect(unit.number, 1);
       expect(unit.title, contains("Kanon"));
       expect(unit.file, contains("Berner_EinfuehrungAT_01"));
@@ -160,19 +160,24 @@ void main() {
     final json = oldTestamentJson()..units.add(fakeSecondUnit());
     final extended = parseOldTestament(json);
 
-    test("zweite Einheit wird geladen und verknüpft", () {
-      expect(extended.units.map((u) => u.id), ["unit.01", "unit.02"]);
+    test("weitere Einheit wird geladen und verknüpft", () {
+      expect(extended.units.map((u) => u.id), [
+        "unit.01",
+        "unit.02",
+        "unit.09",
+      ]);
       // Verwandt ist auch die Sitzung der Übung Bibelkunde.
       expect(
         extended.relatedUnitsOf("unit.01").map((u) => u.id),
-        unorderedEquals(["unit.02", "bk.01"]),
+        unorderedEquals(["unit.02", "unit.09", "bk.01"]),
       );
-      // Ein Begriff, zwei Einheiten – kein doppelter Eintrag.
+      // Ein Begriff, mehrere Einheiten – kein doppelter Eintrag.
       expect(extended.unitsOfTerm("term.tora").map((u) => u.id), [
         "unit.01",
+        "unit.02",
         "bk.01",
         "bk.02",
-        "unit.02",
+        "unit.09",
       ]);
     });
 
@@ -186,13 +191,13 @@ void main() {
 
       expect(after.toSet().containsAll(before), isTrue);
       expect(after.toSet().length, after.length);
-      expect(after, contains("q.u02.test|lecture"));
+      expect(after, contains("q.u09.test|lecture"));
     });
 
     test("gespeicherter Umfang einer Einheit bleibt lesbar", () {
-      expect(OtScope.parse("unit:unit.02", extended), OtScope.unit("unit.02"));
+      expect(OtScope.parse("unit:unit.09", extended), OtScope.unit("unit.09"));
       // Unbekannte Einheit: zurück auf alle.
-      expect(OtScope.parse("unit:unit.02", data), OtScope.all);
+      expect(OtScope.parse("unit:unit.09", data), OtScope.all);
       expect(OtScope.parse(null, data), OtScope.all);
     });
   });
@@ -201,10 +206,11 @@ void main() {
     final quiz = OldTestamentQuiz(data: data);
     final questions = _build(quiz);
 
-    test("jede Aufgabenart außer Bibelstellen kommt vor", () {
+    test("jede Aufgabenart außer Bibelstellen kommt in Einheit 1 vor", () {
       // Nur zwei Bibelstellen auf den Folien: zu wenige für eindeutige
       // Ablenker, deshalb keine automatisch erzeugten Stellenfragen.
-      expect(questions.map((q) => q.kind).toSet(), {
+      final first = _build(quiz, scope: const OtScope.unit("unit.01"));
+      expect(first.map((q) => q.kind).toSet(), {
         OtQuizKind.lecture,
         OtQuizKind.term,
         OtQuizKind.recall,
@@ -286,9 +292,9 @@ void main() {
       );
       final q = OldTestamentQuiz(data: extended);
       final ids = q
-          .candidates(const OtScope.unit("unit.02"), _allKinds)
+          .candidates(const OtScope.unit("unit.09"), _allKinds)
           .map((c) => c.cardId);
-      expect(ids, containsAll(["q.u02.test|lecture", "term.tora|term"]));
+      expect(ids, containsAll(["q.u09.test|lecture", "term.tora|term"]));
       expect(ids.where((id) => id.startsWith("q.u01.")), isEmpty);
     });
 
