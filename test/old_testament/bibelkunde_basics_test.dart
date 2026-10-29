@@ -41,8 +41,8 @@ void main() {
         [for (var i = 1; i <= 28; i++) i],
       );
 
-      // Die Vorlesung sieht nur ihre eigene Einheit.
-      expect(lecture.units.map((u) => u.id), ["unit.01"]);
+      // Die Vorlesung sieht nur ihre eigenen Einheiten.
+      expect(lecture.units.map((u) => u.id), everyElement(startsWith("unit.")));
       expect(lecture.course.lecturer, "Prof. Dr. Christoph Berner");
     });
 
@@ -107,7 +107,7 @@ void main() {
 
     test("neue Begriffe der Übung erscheinen nicht in der Vorlesung", () {
       final lectureTerms = lecture.terms.map((t) => t.id).toSet();
-      expect(lectureTerms, hasLength(25));
+      expect(lecture.unit("unit.01")!.terms, hasLength(25));
       expect(lectureTerms, isNot(contains("term.megillot")));
       expect(bk.terms.map((t) => t.id), contains("term.megillot"));
       // Nur in der Vorlesung: steht nicht im Glossar der Übung.

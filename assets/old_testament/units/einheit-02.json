@@ -1,0 +1,2410 @@
+{
+  "id": "unit.02",
+  "number": 2,
+  "title": "Der Pentateuch I: Grundlagen der Pentateuchkritik und Urgeschichte",
+  "scope": "Einheit II der Vorlesung (Der Pentateuch), Teil 1 und 2a: Grundlagen der Pentateuchkritik und die Urgeschichte (Gen 1–11), 22 Folien",
+  "file": "Berner_EinfuehrungAT_02 Pentateuch_Teil 1-2a Grundlagen bis Urgeschichte.pdf",
+  "related": [
+    "unit.01",
+    "bk.02"
+  ],
+  "slides": [
+    {
+      "number": 1,
+      "title": "Einführung in das Alte Testament",
+      "image": "assets/old_testament/slides/e02-folie-01.png",
+      "text": "Prof. Dr. Christoph Berner\n\nEinführung in das Alte Testament\n\nII. Der Pentateuch",
+      "figure": "Titelfolie mit Logo der Christian-Albrechts-Universität zu Kiel."
+    },
+    {
+      "number": 2,
+      "title": "Aufbau der Einheit",
+      "image": "assets/old_testament/slides/e02-folie-02.jpg",
+      "text": "Aufbau der Einheit (sechs Titelfolien als Vorschaubilder):\n1. Grundlagen der Pentateuchkritik\n2. Das Buch Genesis\n3. Das Buch Exodus\n4. Das Buch Levitikus\n5. Das Buch Numeri\n6. Das Buch Deuteronomium und das Gesetz im Pentateuch",
+      "figure": "Sechs verkleinerte Titelfolien mit Bildern (u. a. Torarolle, Adam und Eva, Mose am Schilfmeer, ein Hoherpriester, ein Lagerplan der Stämme, Mose mit den Gesetzestafeln). Diese Datei enthält Teil 1 und den Anfang von Teil 2 (Urgeschichte)."
+    },
+    {
+      "number": 3,
+      "title": "1. Grundlagen der Pentateuchkritik",
+      "image": "assets/old_testament/slides/e02-folie-03.jpg",
+      "text": "1. Grundlagen der Pentateuchkritik",
+      "figure": "Kapiteltitel mit zwei Fotos: ein Rollenfragment und eine geöffnete Torarolle mit Mantel und Zeiger."
+    },
+    {
+      "number": 4,
+      "title": "Zum Begriff Pentateuch",
+      "image": "assets/old_testament/slides/e02-folie-04.png",
+      "text": "• Der Begriff „Pentateuch“ kommt aus dem Griechischen und setzt sich aus den Elementen „penta“ (= fünf) und „teuchos“ (= Gefäß) zusammen.\n• Die Begriffsverbindung läßt sich als „der/das Fünfteilige“ wiedergeben und bezeichnet die fünf ersten Bücher des Alten Testaments, die in der jüdischen Tradition den Kanonteil „Tora“ bilden.\n• Die etwa in der Lutherbibel gebräuchliche Rede von den „fünf Büchern Mose“ ist dagegen wenig glücklich, denn sie suggeriert, Mose habe den Pentateuch verfasst. Das ist historisch unzutreffend und wird im übrigen auch nicht den Pentateuchtexten gerecht, denen Mose nur als Schreiber einzelner gesetzlicher Partien gilt (Ex 24,4; Dtn 31,9).\n• In der kritischen Bibelwissenschaft hat es sich eingebürgert, auch zur Bezeichnung anderer Buchgruppen analoge Begriffe zu verwenden:\n  Tetrateuch (= Gen-Num) [Zahlenelement „tetra“ = 4]\n  Hexateuch (= Gen-Jos) [Zahlenelement „hexa“ = 6]\n  Enneateuch (= Gen-2Kön) [Zahlenelement „ennea“ = 9]",
+      "highlights": [
+        "Pentateuch",
+        "der/das Fünfteilige",
+        "Tora",
+        "fünf Büchern Mose",
+        "Tetrateuch",
+        "Hexateuch",
+        "Enneateuch"
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Die Bücher des Pentateuch",
+      "image": "assets/old_testament/slides/e02-folie-05.png",
+      "text": "Tabelle: Luther – Hebräisch – Griechisch/Latein – Abkürzung\n\n1. Mose – Bereshit = „Im Anfang“ (→ Gen 1,1: Im Anfang schuf …) – Genesis = „Schöpfung“ / „Ursprung“ – Gen\n2. Mose – Shemot = „Namen“ (→ Ex 1,1: Dies sind die Namen …) – Exodos/Exodus = „Auszug“ – Ex\n3. Mose – Wajiqra = „Und es rief“ (→ Lev 1,1: Und es rief JHWH …) – Levitikon/Levitikus = „Levitische [Gesetzgebung]“, d.h. Priestergesetz – Lev\n4. Mose – Bemidbar = „in der Wüste“ (→ Num 1,1: „Und es sprach JHWH in der Wüste …“) – Arithmoi/Numeri = „Zahlen“ [der Israeliten], nach den Listen in Num 1ff. – Num\n5. Mose – Debarim = „Worte“ (→ Dtn 1,1: „Und dies sind die Worte …“) – Deuteronomion/Deuteronomium = „das zweite Gesetz“, d.h. nach der Sinaigesetzgebung in Ex und Lev – Dtn",
+      "figure": "Tabelle mit violetter Kopfzeile; hebräische und griechische Namen fett."
+    },
+    {
+      "number": 6,
+      "title": "Literargeschichtliche Erklärungsmodelle",
+      "image": "assets/old_testament/slides/e02-folie-06.jpg",
+      "text": "Urkundenhypothese: Quelle 1 und Quelle 2 → (R) → „Endtext“\n\nFragmentenhypothese: Schöpfung | Flut | Erzväter | Exodus | Sinai | Wüste | Landnahme\n→ Urgeschichte | Erzväter | Exodus – Sinai – Wüste | Landnahme\n→ „Endtext“\n\nErgänzungshypothese: Grundschrift → Grundschrift + Ergänzung 1 → + Ergänzung 2 + Grundschrift mit Ergänzung 1",
+      "figure": "Drei Schaubilder aus farbigen Balken. Urkundenhypothese: zwei durchgehende Balken (blau, violett), ein gebogener Pfeil „R“ führt zu einem blau-violett gemischten „Endtext“. Fragmentenhypothese: sieben kleine farbige Kästen verschmelzen zu vier Blöcken und dann zu einem regenbogenfarbenen „Endtext“. Ergänzungshypothese: Der blaue Balken „Grundschrift“ wird nach rechts (orange, Ergänzung 1) und dann nach links (gelb, Ergänzung 2) verlängert."
+    },
+    {
+      "number": 7,
+      "title": "Die Neuere Urkundenhypothese",
+      "image": "assets/old_testament/slides/e02-folie-07.jpg",
+      "text": "Julius Wellhausen (1844-1918) | Martin Noth (1902-1968)\n\nPfeil: Gen – Ex – Dtn → Wolke: „mündliche Überlieferung“\n\nJahwist (J); ca. 950 v. Chr.\nElohist (E); ca. 800 v. Chr.\nDeuteronomium; ca. 622 v. Chr.\nPriesterschrift (P); ca. 500 v. Chr.",
+      "figure": "Porträtfotos von Julius Wellhausen und Martin Noth. Darunter ein Pfeil von Gen über Ex bis Dtn, der in eine Wolke „mündliche Überlieferung“ mündet; darunter vier Balken: J (hellblau), E (rosa) und P (hellgrün) reichen über die ganze Länge Gen–Dtn, der kurze Balken „Deuteronomium“ (gelb) steht nur unter Dtn."
+    },
+    {
+      "number": 8,
+      "title": "Kritik an der Neueren Urkundenhypothese I",
+      "image": "assets/old_testament/slides/e02-folie-08.png",
+      "text": "Seit den 1970er Jahren wurde v.a. in der kontinentaleuropäischen Forschung verstärkt Kritik an der Neueren Urkundenhypothese laut und es wurden massive Zweifel an ihren Grundannahmen laut:\n• Elohist (E)\n  – ein elohistischer Quellenfaden lässt sich allenfalls für einige Partien der Genesis (v.a. Gen 20-22) nachweisen.\n  – im Exodusbuch und darüber hinaus ist kein elohistischer Quellenfaden mehr erkennbar. Die Identifikation elohistischer Fragmente erfolgt letztlich aus den methodischen Zwängen der Urkundenhypothese.\n  – Die elohistischen Partien spiegeln häufig bereits eine weit fortgeschrittene Stufe des theologischen Diskurses, die sich mit einer vorexilischen Ansetzung nicht in Einklang bringen lässt (z.B. Gen 22).\n  → Der Text des Elohisten repräsentiert keine alte Quelle, sondern eine Reihe nachpriesterschriftlicher Erweiterungen, die einen vergleichbaren Horizont aufweisen.\n• Jahwist (J)\n  – eine Ansetzung der jahwistischen Quellenschrift in salomonischer Zeit ist nicht begründbar. C. Levin und J. Van Seters, die gegenwärtig prominentesten Befürworter einer jahwistischen Quellenschrift, datieren diese in die exilisch-nachexilische Zeit.\n  – ein durchlaufender jahwistischer Quellenfaden, der die Erzählungen von den Erzvätern und vom Exodus in einem literarisch und konzeptionell geschlossenen Gesamtentwurf vereint, ist nicht erkennbar.\n  → Der Text des Jahwisten zerfällt im Wesentlichen in zwei ursprünglich selbstständige vorpriesterschriftliche Erzählwerke (Erzväter- und Exoduserzähung), die erst redaktionell miteinander verbunden wurden.",
+      "highlights": [
+        "keine alte Quelle",
+        "eine Reihe nachpriesterschriftlicher Erweiterungen",
+        "zwei ursprünglich selbstständige vorpriesterschriftliche Erzählwerke"
+      ]
+    },
+    {
+      "number": 9,
+      "title": "Kritik an der Neueren Urkundenhypothese II",
+      "image": "assets/old_testament/slides/e02-folie-09.png",
+      "text": "Auch über die Priesterschrift wird in der kontinentaleuropäischen Forschung seit den 1970er Jahren kontrovers diskutiert:\n  – der Umfang der ursprünglichen Priesterschrift (PG = Priestergrundschrift) und ihr Verhältnis zu den sekundär priesterschriftlichen Partien (PS) ist umstritten.\n    Minimalbestand von PG: Gen 1 – Ex 40* (R.G. Kratz).\n  – Die literarische Selbstständigkeit der Priesterschrift ist strittig. Nach E. Blum handelt es sich um eine Kompositionsschicht (KP), die eine ältere Pentateuchkomposition (KD) programmatisch überformt.\n  → Während der literarische Charakter der ältesten priesterschriftlichen Partien umstritten bleibt (Quelle oder Bearbeitung), kann für beträchtliche Teile des sekundär priesterschriftlichen Materials (v.a. in Num) davon ausgegangen werden, dass es sich um Erweiterungen eines Textes handelt, in dem PG bereits mit dem nichtpriesterschriftlichen Erzählbestand verbunden war (R. Achenbach: theokratische Bearbeitungen).",
+      "highlights": [
+        "Priesterschrift",
+        "Umfang der ursprünglichen Priesterschrift",
+        "Verhältnis zu den sekundär priesterschriftlichen Partien",
+        "literarische Selbstständigkeit",
+        "beträchtliche Teile"
+      ]
+    },
+    {
+      "number": 10,
+      "title": "Die Neuere Urkundenhypothese",
+      "image": "assets/old_testament/slides/e02-folie-10.jpg",
+      "text": "Julius Wellhausen (1844-1918) | Martin Noth (1902-1968)\n\nPfeil: Gen – Ex – Dtn → Wolke: „mündliche Überlieferung“\n\nJahwist (J); ca. 950 v. Chr.\nElohist (E); ca. 800 v. Chr.\nDeuteronomium; ca. 622 v. Chr.\nPriesterschrift (P); ca. 500 v. Chr.",
+      "figure": "Porträtfotos von Julius Wellhausen und Martin Noth. Darunter ein Pfeil von Gen über Ex bis Dtn, der in eine Wolke „mündliche Überlieferung“ mündet; darunter vier Balken: J (hellblau), E (rosa) und P (hellgrün) reichen über die ganze Länge Gen–Dtn, der kurze Balken „Deuteronomium“ (gelb) steht nur unter Dtn. Die Folie gleicht Folie 7 vollständig."
+    },
+    {
+      "number": 11,
+      "title": "Der Tetrateuch in der aktuellen europäischen Pentateuchkritik",
+      "image": "assets/old_testament/slides/e02-folie-11.jpg",
+      "text": "Schaubild mit zwei Schriftrollen und Zeitangaben am Rand:\n\nnichtpriesterlicher Text:\n  Erzeltern | Exodus — neuassyrische + neubabylonische Zeit, 8.-6. Jh. v. Chr.\n  [Exil]\n  Hexateuch (Gen/Ex-Jos*) + Ergänzung von Dtn oder Pentateuch (Gen-Num; Dtn 34*) + DtrL (Dtn+Jos) — Perserzeit, 6.-5. Jh. v. Chr.\n  deuteronomistische Bearbeitungen\n  weitere Bearbeitungen\n  weitere Bearbeitungen — Hellenistische Zeit, 4.-3. Jh. v. Chr.\n\npriesterlicher Text:\n  Priester-grundschrift (Gen 1-Ex 40*) + Lev 1-16 — Perserzeit, 6.-5. Jh. v. Chr.\n  + Lev 17-26\n  theokratische Bearbeitungen in Gen-Num — Hellenistische Zeit, 4.-3. Jh. v. Chr.\n\nDoppelpfeile zwischen den Bearbeitungen beider Rollen.\nPentateuch (aus P und nicht-P)\n\nOben rechts verkleinert das Schaubild der Neueren Urkundenhypothese: Jahwist (J), Elohist (E) und „mündliche Überlieferung“ durchgestrichen (rotes Kreuz), Deuteronomium mit gelbem, Priesterschrift mit grünem Haken.",
+      "figure": "Links eine blaue Rolle „nichtpriesterlicher Text“, rechts eine grüne Rolle „priesterlicher Text“, darunter eine orange Rolle „Pentateuch (aus P und nicht-P)“, die beide verbindet. Ein oranger Stern „Exil“ steht zwischen den Zeitangaben der neuassyrischen/neubabylonischen Zeit und der Perserzeit."
+    },
+    {
+      "number": 12,
+      "title": "Der Hypothesenwandel und seine Folgen für das Verständnis des AT",
+      "image": "assets/old_testament/slides/e02-folie-12.png",
+      "text": "»Bisweilen wird freilich gefordert, man dürfe die Schichten nicht nur abtragen, sondern man müsse sie auch wieder an ihren Ort zurückbringen, oder ohne Bild gesprochen, man solle die Quellenschriften nicht nur in der Vereinzelung betrachten, sondern auch den jetzigen Zusammenhang würdigen, in dem sie uns überliefert sind. Wer einen Trümmerhaufen ausgräbt, tut es, um die Trümmer zum Reden zu bringen und ihre Geschichte festzustellen. Zu diesem Zweck trägt er Schicht um Schicht ab; denn nur die genaue Kenntnis der einzelnen Schichten und ihrer chronologischen Aufeinanderfolge hat wissenschaftliche Bedeutung. Wenn er diese Aufgabe geleistet hat, die Ergebnisse daraus gezogen und alle Einzelfunde sorgfältig eingeordnet hat, dann ist sein Werk schlechterdings vollendet. Jene Forderung aber besagt, daß er seine Ausgrabungen wieder zuschüttet, ja sogar, daß er den wiederhergestellten Trümmerhaufen würdigen und den Wirrwarr sinnvoll erklären solle! Die Wissenschaft hat mit einer solchen Aufgabe nichts zu tun.«\n— Hugo GREßMANN, Mose und seine Zeit, 1913, 22f.\n\n»So gleicht eine alttestamentliche Schrift einer in Jahrzehnten, oft Jahrhunderten gewachsenen Kathedrale, in der sich die unterschiedlichsten Stilepochen niedergeschlagen und verschiedene Baukonzepte erhalten haben. Von Stilreinheit und Stileinheit keine Spur. Zahlreiche Baumeister und zahllose Handwerker waren an ihr beteiligt, haben ausgebaut, umgebaut, angebaut, teilweise auch völlig umgestaltet.«\n— Uwe Becker, Exegese des Alten Testaments, 2015, 1f."
+    },
+    {
+      "number": 13,
+      "title": "2. Das Buch Genesis",
+      "image": "assets/old_testament/slides/e02-folie-13.jpg",
+      "text": "2. Das Buch Genesis",
+      "figure": "Kapiteltitel mit drei Bildern: Adam und Eva am Baum (Gemälde im Stil Lucas Cranachs), Isaaks Opferung mit dem eingreifenden Engel, Joseph und seine Brüder in Ägypten."
+    },
+    {
+      "number": 14,
+      "title": "Grobgliederung der Genesis",
+      "image": "assets/old_testament/slides/e02-folie-14.png",
+      "text": "• Gen 1-11: Urgeschichte\n  – Gen 1,1-2,4a: Erster Schöpfungsbericht\n  – Gen 2,4b-3,24: Zweiter Schöpfungsbericht und Paradieserzählung\n  – Gen 4: Kain und Abel\n  – Gen 6-9: Sintflut und Noahbund\n  – Gen 11,1-9: Turmbauerzählung\n• Gen 12-36: Erzelterngeschichte\n  – Gen 12; 15; 17: Verheißungen an Abraham\n  – Gen 12; 20; 26: Erzählungen von der Gefährdung der Ahnfrau\n  – Gen 22: Isaaks Opferung bzw. Bindung\n  – Gen 26-36: Jakob, Esau und Laban\n• Gen 37-50: Josephsgeschichte\n  – Gen 38: Juda und Tamar (Einschub innerhalb der Josephsgeschichte)"
+    },
+    {
+      "number": 15,
+      "title": "a) Die Urgeschichte (Gen 1-11)",
+      "image": "assets/old_testament/slides/e02-folie-15.jpg",
+      "text": "a) Die Urgeschichte (Gen 1-11)",
+      "figure": "Abschnittstitel mit einem Gemälde von Adam und Eva am Baum der Erkenntnis (Eva reicht Adam den Apfel), umgeben von Tieren."
+    },
+    {
+      "number": 16,
+      "title": "Bibelkundlicher Aufriss",
+      "image": "assets/old_testament/slides/e02-folie-16.jpg",
+      "text": "− Gen 1,1-2,4a — Erster Schöpfungsbericht [rot]\n− Gen 2,4b-3,24 — Zweiter Schöpfungsbericht / Paradieserzählung [schwarz]\n− Gen 4 — Kain und Abel [schwarz]\n− Gen 5 — Genealogie (Adam bis Noah) [rot, kursiv]\n− Gen 6-9 — Noah und die Sintflut [rot mit schwarzem Rand]\n− Gen 10 — Genealogie (Noahs Nachkommen) [rot, kursiv]\n− Gen 11,1-9 — Turmbauerzählung [schwarz]\n− Gen 11,10-32 — Genealogie (Sem bis Abram) [rot, kursiv]\n\nLegende: nicht-P [schwarz] / P [rot]",
+      "figure": "Oben ein englischsprachiger Comic („Adam Album“) zu den Genealogien: Adam und Eva zeugen Kain und Abel (Gen 4,1), Set (Gen 5,3), Mahalalel (Gen 5,9), Henoch (Gen 5,12), Jered (Gen 5,18), Metuschelach „the old man“ (Gen 5,25), Lamech und schließlich Noah (Gen 5,28). Die Zeile Gen 6-9 ist rot mit schwarzer Kontur gesetzt, also beiden Farben der Legende zugeordnet."
+    },
+    {
+      "number": 17,
+      "title": "Literarhistorische Eckdaten zur Urgeschichte",
+      "image": "assets/old_testament/slides/e02-folie-17.png",
+      "text": "• Unstrittig ist die Unterscheidung zwischen priesterlichen und nicht-priesterlichen Partien der Urgeschichte.\n  [Kasten:] Für P werden klassisch Gen 1,1-2,4a; 5*; 6,9-22; 7,6.11.13-16a.18-21.24; 8,1-5*.7.13-19; 9,1-17.28.29; 10,1-7*.20-23*.31-32; 11,10-27.31.32 veranschlagt.\n  - M. Noth, Überlieferungsgeschichte des Pentateuch, 17.\n• Zur Erklärung der Literargeschichte werden gegenwärtig die drei folgenden Haupttheorien vertreten:\n  1. Der nichtpriesterliche (= traditionell J) und der priesterliche Text repräsentieren zwei ursprünglich voneinander unabhängige Darstellungen der Urgeschichte, die erst durch einen Endredaktor miteinander verbunden wurden. (M. Witte / J.C. Gertz)\n  2. Die vorpriesterliche Urgeschichte bildet den literarischen Grundbestand, der priesterlich bearbeitet wurde. (E. Blum: P als Kompositionsschicht)\n  3. Die priesterliche Urgeschichte bildet den literarischen Grundbestand, der nachpriesterlich erweitert wurde. (M. Arneth / A. Schüle: „J“ als Fortschreibung von P)",
+      "highlights": [
+        "Unterscheidung zwischen priesterlichen und nicht-priesterlichen Partien",
+        "Erklärung",
+        "zwei ursprünglich voneinander unabhängige Darstellungen",
+        "Endredaktor",
+        "literarischen Grundbestand"
+      ]
+    },
+    {
+      "number": 18,
+      "title": "Der priesterliche Schöpfungsbericht (Gen 1,1-2,4a)",
+      "image": "assets/old_testament/slides/e02-folie-18.png",
+      "text": "Gen 1,1 Als Gott anfing, Himmel und Erde zu erschaffen, 2 – die Erde aber war wüst und öde, und Finsternis lag auf der Urflut, und der Geist Gottes bewegte sich über dem Wasser –\n3 da sprach Gott: Es werde Licht! [Wortbericht] Und es wurde Licht. [Tatbericht]\n4 Und Gott sah, dass das Licht gut war. [Billigungsformel]\nUnd Gott schied das Licht von der Finsternis. [Tatbericht]\n5 Und Gott nannte das Licht Tag, und die Finsternis nannte er Nacht. [Benennung]\nUnd es wurde Abend, und es wurde Morgen: ein Tag. [Tagesschema]\n\n[Kasten:] 1. Tag: Trennung von Licht und Finsternis | 2. Tag: Trennung des Urozeans durch den Himmel | 3. Tag: Trennung von Land und Wasser / Pflanzen | 4. Tag: Himmelskörper | 5. Tag: Wassertiere und Vögel | 6. Tag: Landtiere / Mensch (Gottebenbildlichkeit / Herrschaftsauftrag)\n\nGen 2,1 Und so wurden vollendet Himmel und Erde und ihr ganzes Heer.\n2 Und Gott vollendete am siebten Tag sein Werk, das er gemacht hatte, und er ruhte am siebten Tag von all seinem Werk, das er gemacht hatte. 3 Und Gott segnete den siebten Tag und heiligte ihn, denn an ihm ruhte Gott von all seinem Werk, das er durch sein Tun geschaffen hatte. [2,2-3 kursiv]\n4 Dies ist die Geschichte der Entstehung von Himmel und Erde, als sie geschaffen wurden.",
+      "highlights": [
+        "Himmel und Erde",
+        "vollendet"
+      ],
+      "figure": "Die Elemente sind farbig markiert und in einem Kasten erklärt: Wortbericht (dunkelblau), Tatbericht (grün), Billigungsformel (hellblau), Benennung (hellgrün), Tagesschema (rot). „Himmel und Erde“ ist in 1,1 und 2,1 fett, „vollendet“/„vollendete“ in 2,1-2 gelb hervorgehoben."
+    },
+    {
+      "number": 19,
+      "title": "Die Schöpfungs- und Paradieserzählung (Gen 2,4b-3,24)",
+      "image": "assets/old_testament/slides/e02-folie-19.png",
+      "text": "Die älteste Fassung der Erzählung: Der Mensch als Ackerbauer\nGen 2,5 Als es noch kein Gesträuch des Feldes gab auf der Erde und noch kein Feldkraut wuchs, weil der HERR, Gott, noch nicht hatte regnen lassen auf die Erde, und noch kein Mensch da war, um den Erdboden zu bebauen, 7a* da bildete der HERR, Gott, den Menschen vom Erdboden und blies Lebensatem in seine Nase.\n8 Dann pflanzte der HERR, Gott, einen Garten in Eden im Osten, und dort hinein setzte er den Menschen, den er gebildet hatte. [kursiv]\n18 Und der HERR, Gott, sprach: Es ist nicht gut, dass der Mensch allein ist. Ich will ihm eine Hilfe machen, ihm gemäß. 19a Da bildete der HERR, Gott, aus dem Erdboden alle Tiere des Feldes und alle Vögel des Himmels und brachte sie zum Menschen, um zu sehen, wie er sie nennen würde. 20 Und der Mensch gab allem Vieh und den Vögeln des Himmels und allen Tieren des Feldes Namen. Für den Menschen aber fand er keine Hilfe, die ihm gemäß war.\n21 Da ließ der HERR, Gott, einen Tiefschlaf auf den Menschen fallen, und dieser schlief ein. Und er nahm eine von seinen Rippen heraus und schloss die Stelle mit Fleisch. 22 Und der HERR, Gott, machte aus der Rippe, die er vom Menschen genommen hatte, eine Frau und führte sie dem Menschen zu. 23a Da sprach der Mensch: Diese endlich ist Gebein von meinem Gebein und Fleisch von meinem Fleisch. 3,20 Und der Mensch nannte seine Frau Eva, denn sie wurde die Mutter allen Lebens.\n23 Und der HERR, Gott, schickte ihn aus dem Garten Eden fort, dass er den Erdboden bebaue, von dem er genommen war. [kursiv]\n4,1 Und der Mensch erkannte Eva, seine Frau, und sie wurde schwanger und gebar Kain, und sie sprach: Ich habe einen Sohn bekommen mit Hilfe des HERRN. […]",
+      "figure": "Farbmarkierungen: „Mensch“/„Erdboden“ und „dass er den Erdboden bebaue …“ grün; „Lebensatem“, „Mutter allen Lebens“ und 4,1 („erkannte Eva … gebar Kain“) gelb; „Es ist nicht gut … Hilfe, ihm gemäß“, „keine Hilfe, die ihm gemäß war“ und „Gebein von meinem Gebein …“ rot; die Namengebung (2,20; 3,20) blau."
+    },
+    {
+      "number": 20,
+      "title": "Die Schöpfungs- und Paradieserzählung (Gen 2,4b-3,24)",
+      "image": "assets/old_testament/slides/e02-folie-20.png",
+      "text": "Literargeschichtliche Entwicklungsstufen\n1. Der Mensch als Ackerbauer (Gen 2,[4b.]5.7a*.8.18.19a.20.21-23a; 3,20.23; 4,1ff.)\n   [Randnotiz:] Der „Erdling“ beackert die Erde\n2. Der „Fall“ des Menschen (Gen 2,9a.16-17.25; 3,6*.7-13a.16*.17*.18-19.21)\n   [Randnotiz:] paradiesische Gottesnähe oder menschliche Autonomie?\n   2,9* Und der HERR, Gott, liess aus dem Erdboden allerlei Bäume wachsen, begehrenswert anzusehen und gut zu essen. 16 Und der HERR, Gott, gebot dem Menschen und sprach: Von allen Bäumen des Gartens darfst du essen. 17 Vom Baum der Erkenntnis von Gut und Böse aber, von dem darfst du nicht essen, denn sobald du davon isst, musst du sterben. […]\n   3,6* Und die Frau sah, dass der Baum gut zu essen war und dass der Baum begehrenswert war und sie nahm von seiner Frucht und ass. Und sie gab auch ihrem Mann, der mit ihr war, und er ass. 7 Da gingen den beiden die Augen auf, und sie erkannten, dass sie nackt waren. Und sie flochten Feigenblätter und machten sich Schurze. […]\n   3,11 Und er (sc. Gott) sprach: Wer hat dir gesagt, dass du nackt bist? Hast du von dem Baum gegessen, von dem zu essen ich dir verboten habe? 12 Und der Mensch sprach: Die Frau, die du mir zugesellt hast, sie hat mir von dem Baum gegeben. Da habe ich gegessen. 13 Da sprach der HERR, Gott, zur Frau: Was hast du da getan! […]\n3. Die Schlange als Verführerin (Gen 3,1-2.3aαb.4-5.6*.13b-15.16*.17*)\n   [Randnotiz:] Zweifel an Gottes Wort und Absichten\n   […] 3,4 Da sprach die Schlange zur Frau: Mitnichten werdet ihr sterben. 5 Sondern Gott weiss, dass euch die Augen aufgehen werden und dass ihr wie Gott sein und Gut und Böse erkennen werdet, sobald ihr davon esst. […]\n4. Der Baum des Lebens (Gen 2,7*[„Staub“].9b; 3,3aβ.19b.22.24)\n   [Randnotiz:] Sterblichkeit als letzte Trennlinie\n   3,22 Und der HERR, Gott, sprach: Sieh, der Mensch ist geworden wie unsereiner, dass er Gut und Böse erkennt. Dass er nun aber nicht seine Hand ausstrecke und auch noch vom Baum des Lebens nehme und esse und ewig lebe!",
+      "figure": "Vier Randnotizen auf violetten Zetteln mit Linien zu den Stufen. Im Text sind Motive farbig markiert (Bäume grün, „begehrenswert … gut zu essen“ gelb, Baum der Erkenntnis violett); „erkannten, dass sie nackt waren …“ und „nackt“ blau unterstrichen; „der Mensch“, „dass euch die Augen aufgehen werden …“, „geworden wie unsereiner“, „Gut und Böse erkennt“, „Hand ausstrecke“, „Baum des Lebens“, „ewig lebe“ fett unterstrichen."
+    },
+    {
+      "number": 21,
+      "title": "Der Rahmen der priesterlichen Sintfluterzählung",
+      "image": "assets/old_testament/slides/e02-folie-21.png",
+      "text": "Gen 6,9 Dies ist die Geschichte Noahs: Noah war ein gerechter Mann und vollkommen unter seinen Zeitgenossen; Noah lebte mit Gott. 10 Und Noah zeugte drei Söhne: Sem, Ham und Jafet.\n11 Und die Erde verdarb vor Gott, und die Erde wurde voll von Gewalttat. 12 Und Gott sah die Erde, und sieh, sie war verdorben, denn der Weg allen Fleisches war verdorben auf Erden. 13 Da sprach Gott zu Noah: Das Ende allen Fleisches ist vor mich gekommen, denn durch sie ist die Erde voller Gewalttat. So verderbe ich sie zusammen mit der Erde.\n[Wellenzeichen]\n9,8 Dann sprach Gott zu Noah und zu seinen Söhnen, die bei ihm waren: 9 Ich aber, ich richte meinen Bund auf mit euch und mit euren Nachkommen 10 und mit allen Lebewesen, die bei euch sind, mit den Vögeln, dem Vieh und allen Wildtieren bei euch, mit allem, was aus der Arche gekommen ist, mit allen Tieren der Erde. 11 Ich will meinen Bund mit euch aufrichten: Nie wieder soll alles Fleisch vom Wasser der Sintflut ausgerottet werden, und nie wieder soll eine Sintflut kommen, um die Erde zu verderben.\n12 Und Gott sprach: Dies ist das Zeichen des Bundes, den ich stifte zwischen mir und euch und allen Lebewesen, die bei euch sind, für alle kommenden Generationen: 13 Meinen Bogen stelle ich in die Wolken. Der soll ein Zeichen des Bundes zwischen mir und der Erde sein.\n14 Wenn ich nun Wolken heraufziehen lasse über der Erde und der Bogen in den Wolken erscheint, 15 dann will ich mich meines Bundes erinnern, der zwischen mir und euch besteht und allen Lebewesen, allen Wesen aus Fleisch, und nie wieder wird das Wasser zur Sintflut werden, um alles Fleisch zu verderben.",
+      "highlights": [
+        "die Geschichte Noahs",
+        "gerechter",
+        "Gewalttat",
+        "Weg allen Fleisches",
+        "ich richte meinen Bund auf",
+        "Dies ist das Zeichen des Bundes"
+      ],
+      "figure": "Farbmarkierungen: Noahs Gerechtigkeit (6,9) grün; Verderben und Gewalttat (6,11-12) blau; Gottes Gerichtsbeschluss (6,13) und die Zusagen „nie wieder …“ (9,11.15) rot; die Bundesaussagen fett. Zwei Wellenlinien trennen Anfang und Ende des Rahmens."
+    },
+    {
+      "number": 22,
+      "title": "Der Rahmen der nichtpriesterlichen Sintfluterzählung",
+      "image": "assets/old_testament/slides/e02-folie-22.png",
+      "text": "Gen 6,5 JHWH aber sah, dass die Bosheit des Menschen gross war auf Erden und dass alles Sinnen und Trachten seines Herzens allezeit nur böse war. 6 Da reute es den HERRN, dass er den Menschen gemacht hatte auf Erden, und es bekümmerte ihn in seinem Herzen. 7 Und JHWH sprach: Ich will den Menschen, den ich geschaffen habe, vom Erdboden vertilgen, den Menschen samt dem Vieh, den Kriechtieren und den Vögeln des Himmels, denn es reut mich, dass ich sie gemacht habe.\n8 Noah aber hatte Gnade gefunden in den Augen JHWHs. […] 7,1 Und JHWH sprach zu Noah: Geh in die Arche, du und dein ganzes Haus, denn dich habe ich für gerecht vor mir befunden unter dieser Generation.\n[Wellenzeichen]\n8,20 Und Noah baute JHWH einen Altar. Dann nahm er von allen reinen Tieren und von allen reinen Vögeln und brachte Brandopfer dar auf dem Altar. 21 Und JHWH roch den beschwichtigenden Duft,] [8,20-21a kursiv] und JHWH sprach bei sich selbst: Nie werde ich wieder die Erde verachten um des Menschen willen. Denn das Trachten des Menschenherzens ist böse von Jugend an. Und nie werde ich wieder schlagen, was da lebt, wie ich getan habe. 22 Solange die Erde währt, sollen nicht aufhören Saat und Ernte, Frost und Hitze, Sommer und Winter, Tag und Nacht.",
+      "highlights": [
+        "Gnade gefunden",
+        "dich habe ich für gerecht vor mir befunden"
+      ],
+      "figure": "„nichtpriesterlichen“ in der Überschrift unterstrichen. Farbmarkierungen: die Bosheit des Menschenherzens (6,5 und 8,21) blau; „in seinem Herzen“ und „bei sich selbst“ gelb; JHWHs Beschluss (6,7) und die Zusage „Nie werde ich wieder …“ (8,21) rot; „Gnade gefunden“, „für gerecht vor mir befunden“ grün."
+    }
+  ],
+  "keyPoints": [
+    {
+      "text": "„Pentateuch“ (griech. penta = fünf, teuchos = Gefäß, „der/das Fünfteilige“) bezeichnet Gen–Dtn, in jüdischer Tradition den Kanonteil Tora. Analog spricht die Forschung von Tetrateuch (Gen–Num), Hexateuch (Gen–Jos) und Enneateuch (Gen–2 Kön).",
+      "slides": [
+        4
+      ]
+    },
+    {
+      "text": "Nach der Vorlesung ist die Rede von den „fünf Büchern Mose“ wenig glücklich: Mose gilt in den Texten selbst nur als Schreiber einzelner gesetzlicher Partien (Ex 24,4; Dtn 31,9).",
+      "slides": [
+        4
+      ]
+    },
+    {
+      "text": "Drei Grundmodelle erklären die Entstehung: Urkunden-, Fragmenten- und Ergänzungshypothese. Die Neuere Urkundenhypothese (Wellhausen) rechnet mit vier Quellen: J (ca. 950), E (ca. 800), Deuteronomium (ca. 622) und P (ca. 500 v. Chr.).",
+      "slides": [
+        6,
+        7
+      ]
+    },
+    {
+      "text": "Seit den 1970er Jahren wird die Neuere Urkundenhypothese v. a. in Kontinentaleuropa kritisiert: Der Elohist gilt der Vorlesung als nachpriesterschriftliche Erweiterungen, der Jahwist zerfällt in zwei selbständige Erzählwerke (Erzväter, Exodus); Umfang und Charakter der Priesterschrift sind umstritten.",
+      "slides": [
+        8,
+        9
+      ]
+    },
+    {
+      "text": "Das aktuelle europäische Modell (nach der Vorlesung) kennt einen nichtpriesterlichen und einen priesterlichen Text, die in persischer und hellenistischer Zeit zum Pentateuch verbunden und bearbeitet wurden; J, E und die mündliche Überlieferung entfallen.",
+      "slides": [
+        11
+      ]
+    },
+    {
+      "text": "Die Genesis gliedert sich in Urgeschichte (Gen 1–11), Erzelterngeschichte (Gen 12–36) und Josephsgeschichte (Gen 37–50) mit Gen 38 als Einschub.",
+      "slides": [
+        14
+      ]
+    },
+    {
+      "text": "In der Urgeschichte ist die Unterscheidung priesterlicher und nichtpriesterlicher Texte unstrittig; ihr Verhältnis erklären drei Theorien (unabhängige Darstellungen, P als Bearbeitung, nicht-P als Fortschreibung von P).",
+      "slides": [
+        16,
+        17
+      ]
+    },
+    {
+      "text": "Beispieltexte: der priesterliche Schöpfungsbericht mit festen Elementen (Wortbericht, Tatbericht, Billigungsformel, Benennung, Tagesschema), vier Entwicklungsstufen der Paradieserzählung und die beiden Rahmen der Sintfluterzählung.",
+      "slides": [
+        18,
+        19,
+        20,
+        21,
+        22
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "title": "Aufbau der Einheit",
+      "slides": [
+        1,
+        2,
+        3
+      ],
+      "points": [
+        "Einheit II der Vorlesung behandelt den Pentateuch in sechs Teilen: Grundlagen der Pentateuchkritik, Genesis, Exodus, Levitikus, Numeri, Deuteronomium und das Gesetz im Pentateuch.",
+        "Diese Foliendatei umfasst Teil 1 (Grundlagen der Pentateuchkritik) und von Teil 2 die Urgeschichte (Gen 1–11)."
+      ]
+    },
+    {
+      "title": "1. Zum Begriff Pentateuch",
+      "slides": [
+        4
+      ],
+      "points": [
+        "„Pentateuch“: griech. „penta“ (= fünf) und „teuchos“ (= Gefäß), wiederzugeben als „der/das Fünfteilige“; gemeint sind die fünf ersten Bücher des AT, in jüdischer Tradition der Kanonteil „Tora“.",
+        "Die in der Lutherbibel gebräuchliche Rede von den „fünf Büchern Mose“ hält die Vorlesung für wenig glücklich: Sie suggeriere eine Verfasserschaft des Mose, die historisch unzutreffend sei und den Texten nicht gerecht werde, die Mose nur als Schreiber einzelner gesetzlicher Partien nennen (Ex 24,4; Dtn 31,9).",
+        "Analoge Bezeichnungen der Forschung: Tetrateuch (Gen–Num, „tetra“ = 4), Hexateuch (Gen–Jos, „hexa“ = 6), Enneateuch (Gen–2 Kön, „ennea“ = 9)."
+      ],
+      "supplement": "Die Verfasserfrage beurteilt die Vorlesung historisch-kritisch. Jüdische und christliche Tradition – auch Luther – haben den Pentateuch Mose zugeschrieben; das Neue Testament spricht vom „Buch des Mose“ (Mk 12,26) und vom „Gesetz des Mose“ (Lk 24,44). Konservative Ausleger rechnen bis heute mit Mose als Urheber des Pentateuch im Kern, mit einzelnen späteren Zusätzen (etwa dem Bericht von Moses Tod, Dtn 34)."
+    },
+    {
+      "title": "Die Bücher des Pentateuch",
+      "slides": [
+        5
+      ],
+      "points": [
+        "Hebräische Namen nach dem Anfangswort: Bereshit („Im Anfang“, Gen 1,1), Shemot („Namen“, Ex 1,1), Wajiqra („Und es rief“, Lev 1,1), Bemidbar („in der Wüste“, Num 1,1), Debarim („Worte“, Dtn 1,1).",
+        "Griechisch-lateinische Namen nach dem Inhalt: Genesis („Schöpfung“ / „Ursprung“), Exodus („Auszug“), Levitikus („Levitische [Gesetzgebung]“, d. h. Priestergesetz), Numeri („Zahlen“ der Israeliten nach den Listen in Num 1ff.), Deuteronomium („das zweite Gesetz“, nach der Sinaigesetzgebung in Ex und Lev).",
+        "Abkürzungen: Gen, Ex, Lev, Num, Dtn; bei Luther 1.–5. Mose."
+      ]
+    },
+    {
+      "title": "Literargeschichtliche Erklärungsmodelle",
+      "slides": [
+        6
+      ],
+      "points": [
+        "Urkundenhypothese: mehrere durchlaufende Quellen, die ein Redaktor (R) zum „Endtext“ verbindet.",
+        "Fragmentenhypothese: einzelne Stücke (Schöpfung, Flut, Erzväter, Exodus, Sinai, Wüste, Landnahme) wachsen zu Blöcken (Urgeschichte, Erzväter, Exodus – Sinai – Wüste, Landnahme) und dann zum „Endtext“ zusammen.",
+        "Ergänzungshypothese: eine Grundschrift wird schrittweise ergänzt (Ergänzung 1, Ergänzung 2)."
+      ]
+    },
+    {
+      "title": "Die Neuere Urkundenhypothese",
+      "slides": [
+        7,
+        10
+      ],
+      "points": [
+        "Mit den Namen Julius Wellhausen (1844–1918) und Martin Noth (1902–1968) verbunden.",
+        "Vier Quellen: Jahwist (J), ca. 950 v. Chr.; Elohist (E), ca. 800 v. Chr.; Deuteronomium, ca. 622 v. Chr.; Priesterschrift (P), ca. 500 v. Chr. J, E und P reichen von Gen bis Dtn, das Deuteronomium steht nur unter Dtn.",
+        "Das Schaubild verbindet den Pfeil Gen → Dtn mit einer Wolke „mündliche Überlieferung“."
+      ],
+      "supplement": "Martin Noth fragte in seiner „Überlieferungsgeschichte des Pentateuch“ (1948) nach den mündlich überlieferten Themen hinter den Quellen; darauf dürfte die Wolke anspielen. Die Bezeichnungen J und E gehen auf den Gottesnamen zurück, den diese Texte in der Genesis gebrauchen (JHWH bzw. Elohim).",
+      "unclear": "Folie 10 wiederholt Folie 7 unverändert (in der Präsentation vermutlich mit einer Animation, die im PDF fehlt). Wie die Wolke „mündliche Überlieferung“ zu den Quellen steht, sagt die Folie nicht."
+    },
+    {
+      "title": "Kritik an der Neueren Urkundenhypothese: Elohist und Jahwist",
+      "slides": [
+        8
+      ],
+      "points": [
+        "Seit den 1970er Jahren, v. a. in der kontinentaleuropäischen Forschung, massive Zweifel an den Grundannahmen.",
+        "Elohist: allenfalls in einigen Partien der Genesis (v. a. Gen 20–22) nachweisbar, ab Exodus nicht mehr; elohistische Fragmente werden aus den methodischen Zwängen der Hypothese identifiziert; die Partien spiegeln oft einen weit fortgeschrittenen theologischen Diskurs (z. B. Gen 22). Ergebnis nach der Vorlesung: keine alte Quelle, sondern nachpriesterschriftliche Erweiterungen.",
+        "Jahwist: eine Ansetzung in salomonischer Zeit ist nach der Vorlesung nicht begründbar; C. Levin und J. Van Seters datieren ihn exilisch-nachexilisch. Ein durchlaufender Faden, der Erzväter und Exodus vereint, ist nicht erkennbar. Ergebnis: zwei ursprünglich selbständige vorpriesterschriftliche Erzählwerke (Erzväter- und Exoduserzählung), erst redaktionell verbunden."
+      ],
+      "supplement": "Die Folie nennt die Kritik ausdrücklich eine Entwicklung „v. a. in der kontinentaleuropäischen Forschung“. In Nordamerika wird die Urkundenhypothese teils in erneuerter Form weiter vertreten (z. B. J. S. Baden), und konservative Ausleger lehnen die Spätdatierung insgesamt ab und betonen die literarische Einheit des Pentateuch."
+    },
+    {
+      "title": "Kritik an der Neueren Urkundenhypothese: Priesterschrift",
+      "slides": [
+        9
+      ],
+      "points": [
+        "Umstritten sind der Umfang der Priestergrundschrift (PG) und ihr Verhältnis zu den sekundär priesterschriftlichen Partien (PS); Minimalbestand von PG nach R. G. Kratz: Gen 1 – Ex 40*.",
+        "Strittig ist auch die literarische Selbständigkeit: Nach E. Blum ist P eine Kompositionsschicht (KP), die eine ältere Pentateuchkomposition (KD) programmatisch überformt.",
+        "Ergebnis der Folie: Ob die ältesten P-Partien Quelle oder Bearbeitung sind, bleibt umstritten; große Teile des sekundär priesterschriftlichen Materials (v. a. in Num) erweitern einen Text, in dem PG schon mit dem nichtpriesterschriftlichen Erzählbestand verbunden war (R. Achenbach: theokratische Bearbeitungen)."
+      ],
+      "supplement": "Lesehilfe für Stellenangaben der Literarkritik: Ein Sternchen (Ex 40*) heißt „nur Teile davon“; a/b bezeichnen Vershälften, α/β weitere Teile eines Halbverses (Gen 3,3aβ)."
+    },
+    {
+      "title": "Der Tetrateuch in der aktuellen europäischen Pentateuchkritik",
+      "slides": [
+        11
+      ],
+      "points": [
+        "Nichtpriesterlicher Text: Erzeltern- und Exoduserzählung (neuassyrische und neubabylonische Zeit, 8.–6. Jh. v. Chr.); nach dem Exil ein Hexateuch (Gen/Ex–Jos*) mit Ergänzung von Dtn oder ein Pentateuch (Gen–Num; Dtn 34*) und das deuteronomistische Werk DtrL (Dtn + Jos) (Perserzeit, 6.–5. Jh. v. Chr.); darauf deuteronomistische und weitere Bearbeitungen (bis in die hellenistische Zeit, 4.–3. Jh. v. Chr.).",
+        "Priesterlicher Text: Priestergrundschrift (Gen 1 – Ex 40*), erweitert um Lev 1–16 (Perserzeit), dann um Lev 17–26, schließlich theokratische Bearbeitungen in Gen–Num (hellenistische Zeit).",
+        "Beide Texte beeinflussen sich wechselseitig (Doppelpfeile) und ergeben den Pentateuch (aus P und nicht-P).",
+        "Bilanz im Vergleich mit der Neueren Urkundenhypothese: J, E und die mündliche Überlieferung sind gestrichen, die Priesterschrift (grüner Haken) und das Deuteronomium (gelber Haken) bleiben."
+      ],
+      "supplement": "Das Schaubild gibt das Modell der gegenwärtigen europäischen Forschung wieder, das die Vorlesung vertritt. Es ist ein Forschungsmodell mit Spätdatierung, kein Befund der Texte selbst; zu anderen Positionen siehe den Abschnitt zur Kritik.",
+      "unclear": "Warum der Haken beim Deuteronomium gelb und nicht grün ist (vermutlich: mit Einschränkung beibehalten), erklärt die Folie nicht; ebenso wenig, wann genau P und nicht-P zum Pentateuch verbunden wurden."
+    },
+    {
+      "title": "Der Hypothesenwandel und seine Folgen",
+      "slides": [
+        12
+      ],
+      "points": [
+        "Hugo Greßmann (1913): Die Wissenschaft trägt die Schichten ab wie bei einer Ausgrabung eines Trümmerhaufens; den jetzigen Zusammenhang zu würdigen, sei nicht ihre Aufgabe.",
+        "Uwe Becker (2015): Eine alttestamentliche Schrift gleicht einer über Jahrzehnte, oft Jahrhunderte gewachsenen Kathedrale mit vielen Stilepochen, Baumeistern und Handwerkern – ohne Stilreinheit und Stileinheit."
+      ],
+      "supplement": "Seit den 1970er Jahren wenden sich viele Ausleger wieder dem vorliegenden Text als Ganzem zu (etwa die kanonische Auslegung). Für die kirchliche Auslegung ist die überlieferte Gestalt der Schrift ohnehin der maßgebliche Text.",
+      "unclear": "Welche Folgen die Vorlesung aus der Gegenüberstellung zieht, steht nicht auf der Folie; sie zeigt nur die beiden Zitate."
+    },
+    {
+      "title": "2. Das Buch Genesis: Grobgliederung",
+      "slides": [
+        13,
+        14
+      ],
+      "points": [
+        "Gen 1–11 Urgeschichte: Erster Schöpfungsbericht (1,1–2,4a), Zweiter Schöpfungsbericht und Paradieserzählung (2,4b–3,24), Kain und Abel (4), Sintflut und Noahbund (6–9), Turmbauerzählung (11,1-9).",
+        "Gen 12–36 Erzelterngeschichte: Verheißungen an Abraham (12; 15; 17), Gefährdung der Ahnfrau (12; 20; 26), Isaaks Opferung bzw. Bindung (22), Jakob, Esau und Laban (26–36).",
+        "Gen 37–50 Josephsgeschichte mit Gen 38 (Juda und Tamar) als Einschub."
+      ]
+    },
+    {
+      "title": "a) Die Urgeschichte: bibelkundlicher Aufriss",
+      "slides": [
+        15,
+        16
+      ],
+      "points": [
+        "Gen 1,1–2,4a Erster Schöpfungsbericht; 2,4b–3,24 Zweiter Schöpfungsbericht / Paradieserzählung; 4 Kain und Abel; 5 Genealogie (Adam bis Noah); 6–9 Noah und die Sintflut; 10 Genealogie (Noahs Nachkommen); 11,1-9 Turmbauerzählung; 11,10-32 Genealogie (Sem bis Abram).",
+        "Rot (P): erster Schöpfungsbericht und die drei Genealogien; schwarz (nicht-P): Paradieserzählung, Kain und Abel, Turmbau. Gen 6–9 trägt beide Farben."
+      ]
+    },
+    {
+      "title": "Literarhistorische Eckdaten zur Urgeschichte",
+      "slides": [
+        17
+      ],
+      "points": [
+        "Unstrittig ist die Unterscheidung priesterlicher und nichtpriesterlicher Partien; klassische P-Zuweisung nach M. Noth: Gen 1,1–2,4a; 5*; 6,9-22; Teile von 7–8; 9,1-17.28-29; Teile von 10; 11,10-27.31-32.",
+        "Theorie 1 (M. Witte / J. C. Gertz): nicht-P (traditionell J) und P sind zwei ursprünglich unabhängige Darstellungen, erst durch einen Endredaktor verbunden.",
+        "Theorie 2 (E. Blum): Die vorpriesterliche Urgeschichte ist der Grundbestand, den P bearbeitet hat (P als Kompositionsschicht).",
+        "Theorie 3 (M. Arneth / A. Schüle): Die priesterliche Urgeschichte ist der Grundbestand, nachpriesterlich erweitert („J“ als Fortschreibung von P)."
+      ]
+    },
+    {
+      "title": "Der priesterliche Schöpfungsbericht (Gen 1,1–2,4a)",
+      "slides": [
+        18
+      ],
+      "points": [
+        "Die Folie übersetzt Gen 1,1-3 als ein Satzgefüge: „Als Gott anfing, Himmel und Erde zu erschaffen, – die Erde aber war wüst und öde … – da sprach Gott: Es werde Licht!“",
+        "Feste Elemente am Beispiel des ersten Tages: Wortbericht („Es werde Licht!“), Tatbericht („Und es wurde Licht“; „Gott schied …“), Billigungsformel („Gott sah, dass das Licht gut war“), Benennung („Gott nannte das Licht Tag …“), Tagesschema („Und es wurde Abend, und es wurde Morgen: ein Tag“).",
+        "Sechs Tage: 1. Licht und Finsternis getrennt; 2. Urozean durch den Himmel getrennt; 3. Land und Wasser getrennt, Pflanzen; 4. Himmelskörper; 5. Wassertiere und Vögel; 6. Landtiere und Mensch (Gottebenbildlichkeit, Herrschaftsauftrag).",
+        "Gen 2,1-4a: Vollendung von Himmel und Erde, Gottes Ruhe, Segnung und Heiligung des siebten Tages; Abschluss „Dies ist die Geschichte der Entstehung von Himmel und Erde …“. „Himmel und Erde“ (1,1; 2,1) und „vollendet“ (2,1-2) sind hervorgehoben."
+      ],
+      "supplement": "Folie 5 zitiert Gen 1,1 in der gewohnten Form „Im Anfang schuf …“. Beide Übersetzungen sind sprachlich möglich; die traditionelle (Septuaginta, Luther) liest Gen 1,1 als selbständigen Satz über den absoluten Anfang der Schöpfung.",
+      "unclear": "Gen 2,2-3 ist auf der Folie kursiv gesetzt; was die Kursivierung bedeutet, sagt die Folie nicht."
+    },
+    {
+      "title": "Die Schöpfungs- und Paradieserzählung (Gen 2,4b–3,24)",
+      "slides": [
+        19,
+        20
+      ],
+      "points": [
+        "Älteste Fassung nach der Vorlesung: „Der Mensch als Ackerbauer“ – Gott bildet den Menschen vom Erdboden, pflanzt den Garten, sucht eine Hilfe, ihm gemäß, schafft Tiere und die Frau; der Mensch nennt sie Eva, wird fortgeschickt, den Erdboden zu bebauen, und Eva gebiert Kain. Randnotiz: Der „Erdling“ beackert die Erde.",
+        "Stufe 2, der „Fall“ des Menschen: Gebot, nicht vom Baum der Erkenntnis von Gut und Böse zu essen, Essen, Erkenntnis der Nacktheit, Verhör. Randnotiz: paradiesische Gottesnähe oder menschliche Autonomie?",
+        "Stufe 3, die Schlange als Verführerin: „Mitnichten werdet ihr sterben …, ihr werdet wie Gott sein.“ Randnotiz: Zweifel an Gottes Wort und Absichten.",
+        "Stufe 4, der Baum des Lebens (u. a. Gen 3,22.24): Der Mensch soll nicht auch vom Baum des Lebens essen und ewig leben. Randnotiz: Sterblichkeit als letzte Trennlinie."
+      ],
+      "supplement": "Das Stufenmodell ist eine literarkritische Hypothese der Vorlesung. Die kirchliche, auch die lutherische Auslegung liest Gen 2–3 als eine zusammenhängende Erzählung vom Sündenfall (vgl. Röm 5,12-19); viele, besonders konservative Ausleger sehen in den Spannungen gestaltete Erzählung statt Schichten. Zum „Erdling“: Das hebräische adam (Mensch) klingt an adama (Erdboden) an.",
+      "unclear": "Gen 2,8 und 3,23 sind auf Folie 19 kursiv gesetzt; die Folie erklärt weder die Kursivierung noch die Bedeutung der Farben."
+    },
+    {
+      "title": "Die beiden Rahmen der Sintfluterzählung",
+      "slides": [
+        21,
+        22
+      ],
+      "points": [
+        "Priesterlicher Rahmen (Gen 6,9-13; 9,8-15): Noah gerecht und vollkommen, „lebte mit Gott“; die Erde verdarb vor Gott und wurde voll von Gewalttat; „Das Ende allen Fleisches ist vor mich gekommen“. Am Ende richtet Gott seinen Bund mit Noah, seinen Nachkommen und allen Lebewesen auf; Zeichen des Bundes ist der Bogen in den Wolken; nie wieder eine Sintflut.",
+        "Nichtpriesterlicher Rahmen (Gen 6,5-8; 7,1; 8,20-22): JHWH sieht die Bosheit des Menschen und dass alles Trachten seines Herzens nur böse ist; es reut ihn; Noah findet Gnade. Am Ende Altar und Brandopfer; JHWH sagt „bei sich selbst“: nie wieder die Erde verachten, „denn das Trachten des Menschenherzens ist böse von Jugend an“; „Solange die Erde währt …“.",
+        "Die Folien bezeichnen Gott im priesterlichen Rahmen als „Gott“, im nichtpriesterlichen als „JHWH“ bzw. „der HERR“.",
+        "Dieselbe Begründung – das böse Trachten des Menschenherzens – steht am Anfang (6,5) und am Ende (8,21) des nichtpriesterlichen Rahmens (beide blau markiert)."
+      ],
+      "supplement": "Das Neue Testament nimmt die Sintflut als Gericht und Rettung auf (Mt 24,37-39; 1 Petr 3,20-21; 2 Petr 2,5).",
+      "unclear": "Gen 8,20-21a ist auf Folie 22 kursiv und mit einer schließenden Klammer gesetzt; was das kennzeichnet, sagt die Folie nicht."
+    }
+  ],
+  "terms": [
+    {
+      "term": "term.pentateuch",
+      "slides": [
+        4
+      ],
+      "text": "Der Begriff „Pentateuch“ kommt aus dem Griechischen und setzt sich aus den Elementen „penta“ (= fünf) und „teuchos“ (= Gefäß) zusammen … „der/das Fünfteilige“."
+    },
+    {
+      "term": "term.tora",
+      "slides": [
+        4
+      ],
+      "text": "… die fünf ersten Bücher des Alten Testaments, die in der jüdischen Tradition den Kanonteil „Tora“ bilden."
+    },
+    {
+      "term": "term.tetrateuch",
+      "slides": [
+        4
+      ],
+      "text": "Tetrateuch (= Gen-Num) [Zahlenelement „tetra“ = 4]"
+    },
+    {
+      "term": "term.hexateuch",
+      "slides": [
+        4,
+        11
+      ],
+      "text": "Hexateuch (= Gen-Jos) [Zahlenelement „hexa“ = 6]"
+    },
+    {
+      "term": "term.enneateuch",
+      "slides": [
+        4
+      ],
+      "text": "Enneateuch (= Gen-2Kön) [Zahlenelement „ennea“ = 9]"
+    },
+    {
+      "term": "term.urkundenhypothese",
+      "slides": [
+        6
+      ],
+      "text": "Urkundenhypothese: Quelle 1, Quelle 2 → (R) → „Endtext“"
+    },
+    {
+      "term": "term.fragmentenhypothese",
+      "slides": [
+        6
+      ],
+      "text": "Fragmentenhypothese: Schöpfung | Flut | Erzväter | Exodus | Sinai | Wüste | Landnahme → „Endtext“"
+    },
+    {
+      "term": "term.ergaenzungshypothese",
+      "slides": [
+        6
+      ],
+      "text": "Ergänzungshypothese: Grundschrift + Ergänzung 1 + Ergänzung 2"
+    },
+    {
+      "term": "term.neuere_urkundenhypothese",
+      "slides": [
+        7,
+        8,
+        10
+      ],
+      "text": "Die Neuere Urkundenhypothese: Jahwist (J); ca. 950 v. Chr. – Elohist (E); ca. 800 v. Chr. – Deuteronomium; ca. 622 v. Chr. – Priesterschrift (P); ca. 500 v. Chr."
+    },
+    {
+      "term": "term.jahwist",
+      "slides": [
+        7,
+        8
+      ],
+      "text": "Der Text des Jahwisten zerfällt im Wesentlichen in zwei ursprünglich selbstständige vorpriesterschriftliche Erzählwerke (Erzväter- und Exoduserzähung)."
+    },
+    {
+      "term": "term.elohist",
+      "slides": [
+        7,
+        8
+      ],
+      "text": "Der Text des Elohisten repräsentiert keine alte Quelle, sondern eine Reihe nachpriesterschriftlicher Erweiterungen."
+    },
+    {
+      "term": "term.priesterschrift",
+      "slides": [
+        7,
+        9,
+        11
+      ],
+      "text": "der Umfang der ursprünglichen Priesterschrift (PG = Priestergrundschrift) und ihr Verhältnis zu den sekundär priesterschriftlichen Partien (PS) ist umstritten."
+    },
+    {
+      "term": "term.kompositionsschicht",
+      "slides": [
+        9,
+        17
+      ],
+      "text": "Nach E. Blum handelt es sich um eine Kompositionsschicht (KP), die eine ältere Pentateuchkomposition (KD) programmatisch überformt."
+    },
+    {
+      "term": "term.theokratische_bearbeitungen",
+      "slides": [
+        9,
+        11
+      ],
+      "text": "Erweiterungen eines Textes, in dem PG bereits mit dem nichtpriesterschriftlichen Erzählbestand verbunden war (R. Achenbach: theokratische Bearbeitungen)."
+    },
+    {
+      "term": "term.urgeschichte",
+      "slides": [
+        14,
+        15,
+        16,
+        17
+      ],
+      "text": "Gen 1-11: Urgeschichte"
+    },
+    {
+      "term": "term.erzelterngeschichte",
+      "slides": [
+        14
+      ],
+      "text": "Gen 12-36: Erzelterngeschichte"
+    },
+    {
+      "term": "term.josephsgeschichte",
+      "slides": [
+        14
+      ],
+      "text": "Gen 37-50: Josephsgeschichte – Gen 38: Juda und Tamar (Einschub innerhalb der Josephsgeschichte)"
+    }
+  ],
+  "passages": [
+    {
+      "id": "passage.u02.ex_24_4",
+      "label": "Ex 24,4",
+      "slides": [
+        4
+      ],
+      "context": "Nach der Vorlesung eine der Stellen, an denen Mose als Schreiber einzelner gesetzlicher Partien gilt."
+    },
+    {
+      "id": "passage.u02.dtn_31_9",
+      "label": "Dtn 31,9",
+      "slides": [
+        4
+      ],
+      "context": "Nach der Vorlesung eine der Stellen, an denen Mose als Schreiber einzelner gesetzlicher Partien gilt."
+    },
+    {
+      "id": "passage.u02.gen_1_1",
+      "label": "Gen 1,1",
+      "slides": [
+        5,
+        18
+      ],
+      "context": "„Im Anfang schuf …“ – Anfangswort, nach dem das Buch hebräisch Bereshit heißt; Folie 18 übersetzt: „Als Gott anfing, Himmel und Erde zu erschaffen …“.",
+      "clue": "Anfangsvers, nach dem das erste Buch hebräisch „Im Anfang“ heißt"
+    },
+    {
+      "id": "passage.u02.ex_1_1",
+      "label": "Ex 1,1",
+      "slides": [
+        5
+      ],
+      "context": "„Dies sind die Namen …“ – daher hebräisch Shemot („Namen“).",
+      "clue": "Anfangsvers „Dies sind die Namen …“ (hebräischer Buchname „Namen“)"
+    },
+    {
+      "id": "passage.u02.lev_1_1",
+      "label": "Lev 1,1",
+      "slides": [
+        5
+      ],
+      "context": "„Und es rief JHWH …“ – daher hebräisch Wajiqra („Und es rief“).",
+      "clue": "Anfangsvers „Und es rief JHWH …“"
+    },
+    {
+      "id": "passage.u02.num_1_1",
+      "label": "Num 1,1",
+      "slides": [
+        5
+      ],
+      "context": "„Und es sprach JHWH in der Wüste …“ – daher hebräisch Bemidbar („in der Wüste“). Der griechische Name „Zahlen“ bezieht sich auf die Listen in Num 1ff.",
+      "clue": "Anfangsvers „Und es sprach JHWH in der Wüste …“"
+    },
+    {
+      "id": "passage.u02.dtn_1_1",
+      "label": "Dtn 1,1",
+      "slides": [
+        5
+      ],
+      "context": "„Und dies sind die Worte …“ – daher hebräisch Debarim („Worte“).",
+      "clue": "Anfangsvers „Und dies sind die Worte …“"
+    },
+    {
+      "id": "passage.u02.gen_20_22",
+      "label": "Gen 20-22",
+      "slides": [
+        8
+      ],
+      "context": "Nach der Vorlesung die Partien, für die sich allenfalls ein elohistischer Quellenfaden nachweisen lässt.",
+      "clue": "Drei Kapitel der Genesis, für die sich nach der Vorlesung allenfalls ein elohistischer Quellenfaden nachweisen lässt",
+      "pericopes": [
+        "Gen|abraham_in_gerar|20,1",
+        "Gen|isaaks_geburt|21,1",
+        "Gen|hagar_und_ismael|21,8",
+        "Gen|der_vertrag_abrahams_mit_abimelech|21,22",
+        "Gen|abrahams_opfer|22,1",
+        "Gen|abrahams_verwandtschaft|22,20"
+      ]
+    },
+    {
+      "id": "passage.u02.gen_22",
+      "label": "Gen 22",
+      "slides": [
+        8,
+        14
+      ],
+      "context": "Isaaks Opferung bzw. Bindung (Grobgliederung); nach Folie 8 Beispiel dafür, dass die elohistischen Partien einen weit fortgeschrittenen theologischen Diskurs spiegeln.",
+      "clue": "Isaaks Opferung bzw. Bindung (ein Kapitel)",
+      "pericopes": [
+        "Gen|abrahams_opfer|22,1",
+        "Gen|abrahams_verwandtschaft|22,20"
+      ]
+    },
+    {
+      "id": "passage.u02.gen_1_ex_40",
+      "label": "Gen 1 – Ex 40*",
+      "open": "Gen 1",
+      "slides": [
+        9,
+        11
+      ],
+      "context": "Minimalbestand der Priestergrundschrift (PG) nach R. G. Kratz.",
+      "clue": "Minimalbestand der Priestergrundschrift nach R. G. Kratz"
+    },
+    {
+      "id": "passage.u02.lev_1_16",
+      "label": "Lev 1-16",
+      "slides": [
+        11
+      ],
+      "context": "Im Schaubild die erste Erweiterung der Priestergrundschrift (Perserzeit).",
+      "clue": "Erste Erweiterung der Priestergrundschrift im Schaubild der aktuellen Pentateuchkritik"
+    },
+    {
+      "id": "passage.u02.lev_17_26",
+      "label": "Lev 17-26",
+      "slides": [
+        11
+      ],
+      "context": "Im Schaubild eine weitere Ergänzung des priesterlichen Textes nach Lev 1–16. Ergänzung: das Heiligkeitsgesetz (so die Übung Bibelkunde).",
+      "clue": "Ergänzung des priesterlichen Textes nach Lev 1–16 im Schaubild"
+    },
+    {
+      "id": "passage.u02.gen_1_11",
+      "label": "Gen 1-11",
+      "slides": [
+        14,
+        15
+      ],
+      "context": "Grobgliederung: Urgeschichte.",
+      "clue": "Urgeschichte"
+    },
+    {
+      "id": "passage.u02.gen_12_36",
+      "label": "Gen 12-36",
+      "slides": [
+        14
+      ],
+      "context": "Grobgliederung: Erzelterngeschichte.",
+      "clue": "Erzelterngeschichte"
+    },
+    {
+      "id": "passage.u02.gen_37_50",
+      "label": "Gen 37-50",
+      "slides": [
+        14
+      ],
+      "context": "Grobgliederung: Josephsgeschichte, mit Gen 38 als Einschub.",
+      "clue": "Josephsgeschichte (mit einem Einschub)"
+    },
+    {
+      "id": "passage.u02.gen_12_15_17",
+      "label": "Gen 12; 15; 17",
+      "open": "Gen 12",
+      "slides": [
+        14
+      ],
+      "context": "Verheißungen an Abraham.",
+      "clue": "Verheißungen an Abraham",
+      "pericopes": [
+        "Gen|abrahams_berufung_und_wanderung_nach_kanaan|12,1",
+        "Gen|gottes_bund_mit_abraham|15,1",
+        "Gen|die_beschneidung_als_bundeszeichen|17,1"
+      ]
+    },
+    {
+      "id": "passage.u02.gen_12_20_26",
+      "label": "Gen 12; 20; 26",
+      "open": "Gen 12",
+      "slides": [
+        14
+      ],
+      "context": "Erzählungen von der Gefährdung der Ahnfrau.",
+      "clue": "Erzählungen von der Gefährdung der Ahnfrau",
+      "pericopes": [
+        "Gen|abraham_und_sara_in_aegypten|12,10",
+        "Gen|abraham_in_gerar|20,1",
+        "Gen|isaak_in_gerar|26,1"
+      ]
+    },
+    {
+      "id": "passage.u02.gen_26_36",
+      "label": "Gen 26-36",
+      "slides": [
+        14
+      ],
+      "context": "Jakob, Esau und Laban (Grobgliederung der Vorlesung).",
+      "clue": "Jakob, Esau und Laban"
+    },
+    {
+      "id": "passage.u02.gen_38",
+      "label": "Gen 38",
+      "slides": [
+        14
+      ],
+      "context": "Juda und Tamar – Einschub innerhalb der Josephsgeschichte.",
+      "clue": "Juda und Tamar (Einschub innerhalb der Josephsgeschichte)",
+      "pericopes": [
+        "Gen|die_familiengeschichte_judas|38,1"
+      ]
+    },
+    {
+      "id": "passage.u02.gen_1_1_2_4a",
+      "label": "Gen 1,1-2,4a",
+      "open": "Gen 1",
+      "slides": [
+        14,
+        16,
+        17,
+        18
+      ],
+      "context": "Erster Schöpfungsbericht; im Aufriss rot (P), Text auf Folie 18.",
+      "clue": "Erster Schöpfungsbericht (priesterlich)",
+      "pericopes": [
+        "Gen|die_erschaffung_der_welt|1,1",
+        "Gen|das_paradies|2,4"
+      ]
+    },
+    {
+      "id": "passage.u02.gen_2_4b_3_24",
+      "label": "Gen 2,4b-3,24",
+      "open": "Gen 2",
+      "slides": [
+        14,
+        16,
+        19,
+        20
+      ],
+      "context": "Zweiter Schöpfungsbericht / Paradieserzählung; im Aufriss schwarz (nicht-P); Entwicklungsstufen auf Folie 20.",
+      "clue": "Zweiter Schöpfungsbericht / Paradieserzählung (nichtpriesterlich)",
+      "pericopes": [
+        "Gen|das_paradies|2,4",
+        "Gen|der_fall_des_menschen|3,1"
+      ]
+    },
+    {
+      "id": "passage.u02.gen_4",
+      "label": "Gen 4",
+      "slides": [
+        14,
+        16
+      ],
+      "context": "Kain und Abel; im Aufriss schwarz (nicht-P).",
+      "clue": "Kain und Abel",
+      "pericopes": [
+        "Gen|kain_und_abel|4,1",
+        "Gen|die_nachkommen_kains|4,17",
+        "Gen|die_nachkommen_sets|4,25"
+      ]
+    },
+    {
+      "id": "passage.u02.gen_5",
+      "label": "Gen 5",
+      "slides": [
+        16,
+        17
+      ],
+      "context": "Genealogie (Adam bis Noah); im Aufriss rot (P), nach Noth 5* priesterlich.",
+      "clue": "Genealogie von Adam bis Noah",
+      "pericopes": [
+        "Gen|adam_bis_noah|5,1"
+      ]
+    },
+    {
+      "id": "passage.u02.gen_6_9",
+      "label": "Gen 6-9",
+      "slides": [
+        14,
+        16
+      ],
+      "context": "Noah und die Sintflut (Folie 14: Sintflut und Noahbund); im Aufriss in beiden Farben, also P und nicht-P.",
+      "clue": "Noah und die Sintflut – im Aufriss P und nicht-P",
+      "pericopes": [
+        "Gen|die_bosheit_der_menschen|6,1",
+        "Gen|noahs_erwaehlung_und_bau_der_arche|6,9",
+        "Gen|die_grosse_flut|7,1",
+        "Gen|noahs_opfer|8,1",
+        "Gen|gottes_bund_mit_noach|9,1",
+        "Gen|noachs_fluch_und_segen|9,18"
+      ]
+    },
+    {
+      "id": "passage.u02.gen_10",
+      "label": "Gen 10",
+      "slides": [
+        16
+      ],
+      "context": "Genealogie (Noahs Nachkommen); im Aufriss rot (P).",
+      "clue": "Genealogie der Nachkommen Noahs",
+      "pericopes": [
+        "Gen|die_nachkommen_noachs_voelkertafel|10,1"
+      ]
+    },
+    {
+      "id": "passage.u02.gen_11_1_9",
+      "label": "Gen 11,1-9",
+      "slides": [
+        14,
+        16
+      ],
+      "context": "Turmbauerzählung; im Aufriss schwarz (nicht-P).",
+      "clue": "Turmbauerzählung",
+      "pericopes": [
+        "Gen|der_turmbau_zu_babel|11,1"
+      ]
+    },
+    {
+      "id": "passage.u02.gen_11_10_32",
+      "label": "Gen 11,10-32",
+      "slides": [
+        16
+      ],
+      "context": "Genealogie (Sem bis Abram); im Aufriss rot (P).",
+      "clue": "Genealogie von Sem bis Abram",
+      "pericopes": [
+        "Gen|die_vorfahren_abrahams|11,10"
+      ]
+    },
+    {
+      "id": "passage.u02.gen_2_4a",
+      "label": "Gen 2,4a",
+      "open": "Gen 2,4",
+      "slides": [
+        18
+      ],
+      "context": "„Dies ist die Geschichte der Entstehung von Himmel und Erde, als sie geschaffen wurden.“ – Abschluss des priesterlichen Schöpfungsberichts.",
+      "clue": "„Dies ist die Geschichte der Entstehung von Himmel und Erde …“"
+    },
+    {
+      "id": "passage.u02.gen_3_22",
+      "label": "Gen 3,22",
+      "slides": [
+        20
+      ],
+      "context": "Stufe 4 (Baum des Lebens): Der Mensch ist geworden wie unsereiner; er soll nicht auch vom Baum des Lebens essen und ewig leben.",
+      "clue": "„Sieh, der Mensch ist geworden wie unsereiner …“ – der Baum des Lebens"
+    },
+    {
+      "id": "passage.u02.gen_6_9_13",
+      "label": "Gen 6,9-13",
+      "slides": [
+        21
+      ],
+      "context": "Anfang des Rahmens der priesterlichen Sintfluterzählung.",
+      "clue": "Noah gerecht und vollkommen, die Erde voll von Gewalttat (Beginn des priesterlichen Rahmens)",
+      "pericopes": [
+        "Gen|noahs_erwaehlung_und_bau_der_arche|6,9"
+      ]
+    },
+    {
+      "id": "passage.u02.gen_9_8_15",
+      "label": "Gen 9,8-15",
+      "slides": [
+        21
+      ],
+      "context": "Ende des priesterlichen Rahmens: Bund mit allen Lebewesen, Bogen in den Wolken.",
+      "clue": "Gottes Bund mit Noah und allen Lebewesen, der Bogen in den Wolken",
+      "pericopes": [
+        "Gen|gottes_bund_mit_noach|9,1"
+      ]
+    },
+    {
+      "id": "passage.u02.gen_6_5_8",
+      "label": "Gen 6,5-8",
+      "slides": [
+        22
+      ],
+      "context": "Anfang des Rahmens der nichtpriesterlichen Sintfluterzählung.",
+      "clue": "JHWH reut es, den Menschen gemacht zu haben; Noah findet Gnade",
+      "pericopes": [
+        "Gen|die_bosheit_der_menschen|6,1"
+      ]
+    },
+    {
+      "id": "passage.u02.gen_8_20_22",
+      "label": "Gen 8,20-22",
+      "slides": [
+        22
+      ],
+      "context": "Ende des nichtpriesterlichen Rahmens: Brandopfer, Zusage „Solange die Erde währt …“.",
+      "clue": "Noahs Brandopfer und „Solange die Erde währt …“",
+      "pericopes": [
+        "Gen|noahs_opfer|8,1"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "text": "Pentateuch und Tora bezeichnen denselben Bestand Gen–Dtn; Einheit 1 stellt die Tora als ersten Teil des TaNaK vor (Einheit 1, Folien 6–7).",
+      "slides": [
+        4
+      ]
+    },
+    {
+      "text": "Einheit 1 erklärt das Prinzip der Buchnamen (hebräisch nach dem Anfangswort, griechisch nach dem Inhalt); Folie 5 zeigt dazu die Anfangsverse.",
+      "slides": [
+        5
+      ]
+    },
+    {
+      "text": "Neuere Urkundenhypothese (Folie 7) → Kritik (Folien 8–9) → aktuelles Modell (Folie 11): J, E und die mündliche Überlieferung entfallen, P und das Deuteronomium bleiben.",
+      "slides": [
+        7,
+        8,
+        9,
+        11
+      ]
+    },
+    {
+      "text": "Einheit 1 datiert den Pentateuch als Buch in die exilisch-nachexilische Zeit (6.–2. Jh. v. Chr.); das Schaubild verortet die Verbindung von P und nicht-P in persischer und hellenistischer Zeit.",
+      "slides": [
+        11
+      ]
+    },
+    {
+      "text": "Die Datierung des Deuteronomiums auf ca. 622 v. Chr. entspricht dem Jahr der Kultreform Josias (2 Kön 22–23), das die Übung Bibelkunde als Eckdatum nennt.",
+      "slides": [
+        7
+      ],
+      "supplement": true
+    },
+    {
+      "text": "Lev 17–26 im Schaubild ist das Heiligkeitsgesetz, einer der drei großen Rechtstexte des Pentateuch (Übung Bibelkunde, Sitzung 2).",
+      "slides": [
+        11
+      ],
+      "supplement": true
+    },
+    {
+      "text": "„Dies ist die Geschichte …“ in Gen 2,4a und 6,9 ist eine Toledot-Formel; solche Formeln gliedern die Genesis (Übung Bibelkunde, Sitzung 2).",
+      "slides": [
+        18,
+        21
+      ],
+      "supplement": true
+    },
+    {
+      "text": "Die Übung Bibelkunde gliedert die Erzelterngeschichte nach Personen (Abraham 12–25, Isaak 26(+27), Jakob 27–36) und rechnet Gen 38 zur Erzelterngeschichte; die Vorlesung nennt thematische Schwerpunkte und Gen 38 einen Einschub in der Josephsgeschichte.",
+      "slides": [
+        14
+      ],
+      "supplement": true
+    },
+    {
+      "text": "Der Aufriss färbt genau die Abschnitte rot, die Folie 17 klassisch P zuweist; Gen 6–9 ist gemischt – die Folien 21 und 22 zeigen die beiden Rahmen.",
+      "slides": [
+        16,
+        17,
+        21,
+        22
+      ]
+    },
+    {
+      "text": "Die drei Theorien zur Urgeschichte entsprechen den Grundmodellen: unabhängige Darstellungen (Urkundenhypothese), P als Bearbeitung (Blum) und nicht-P als Fortschreibung (Ergänzungshypothese).",
+      "slides": [
+        6,
+        17
+      ],
+      "supplement": true
+    }
+  ],
+  "literature": [
+    {
+      "text": "Hugo Greßmann, Mose und seine Zeit, 1913, 22f.",
+      "slides": [
+        12
+      ]
+    },
+    {
+      "text": "Uwe Becker, Exegese des Alten Testaments, 2015, 1f.",
+      "slides": [
+        12
+      ]
+    },
+    {
+      "text": "Martin Noth, Überlieferungsgeschichte des Pentateuch, 17.",
+      "slides": [
+        17
+      ]
+    }
+  ],
+  "lists": [
+    {
+      "id": "list.u02.aufbau",
+      "title": "Aufbau der Einheit „Der Pentateuch“",
+      "prompt": "Nenne die sechs Teile der Einheit in ihrer Reihenfolge.",
+      "slides": [
+        2
+      ],
+      "ordered": true,
+      "items": [
+        "Grundlagen der Pentateuchkritik",
+        "Das Buch Genesis",
+        "Das Buch Exodus",
+        "Das Buch Levitikus",
+        "Das Buch Numeri",
+        "Das Buch Deuteronomium und das Gesetz im Pentateuch"
+      ]
+    },
+    {
+      "id": "list.u02.buchgruppen",
+      "title": "Buchgruppen nach Zahlen",
+      "prompt": "Nenne die Buchgruppen von der kleinsten zur größten mit Umfang.",
+      "slides": [
+        4
+      ],
+      "ordered": true,
+      "items": [
+        "Tetrateuch",
+        "Pentateuch",
+        "Hexateuch",
+        "Enneateuch"
+      ],
+      "details": [
+        "Gen–Num („tetra“ = 4)",
+        "Gen–Dtn („penta“ = 5)",
+        "Gen–Jos („hexa“ = 6)",
+        "Gen–2 Kön („ennea“ = 9)"
+      ]
+    },
+    {
+      "id": "list.u02.hebraeische_namen",
+      "title": "Hebräische Buchnamen und ihre Bedeutung",
+      "prompt": "Nenne die hebräischen Namen der fünf Bücher mit Bedeutung in der Reihenfolge der Bücher.",
+      "slides": [
+        5
+      ],
+      "ordered": true,
+      "items": [
+        "Bereshit – „Im Anfang“",
+        "Shemot – „Namen“",
+        "Wajiqra – „Und es rief“",
+        "Bemidbar – „in der Wüste“",
+        "Debarim – „Worte“"
+      ],
+      "details": [
+        "Gen 1,1",
+        "Ex 1,1",
+        "Lev 1,1",
+        "Num 1,1",
+        "Dtn 1,1"
+      ]
+    },
+    {
+      "id": "list.u02.griechische_namen",
+      "title": "Griechisch-lateinische Buchnamen und ihre Bedeutung",
+      "prompt": "Nenne die griechisch-lateinischen Buchnamen mit Bedeutung in der Reihenfolge der Bücher.",
+      "slides": [
+        5
+      ],
+      "ordered": true,
+      "items": [
+        "Genesis – „Schöpfung“ / „Ursprung“",
+        "Exodus – „Auszug“",
+        "Levitikus – „Levitische [Gesetzgebung]“",
+        "Numeri – „Zahlen“",
+        "Deuteronomium – „das zweite Gesetz“"
+      ],
+      "details": [
+        "1. Mose",
+        "2. Mose",
+        "3. Mose, d. h. Priestergesetz",
+        "4. Mose, nach den Listen in Num 1ff.",
+        "5. Mose, nach der Sinaigesetzgebung in Ex und Lev"
+      ]
+    },
+    {
+      "id": "list.u02.modelle",
+      "title": "Literargeschichtliche Erklärungsmodelle",
+      "prompt": "Nenne die drei Erklärungsmodelle mit ihrem Grundgedanken.",
+      "slides": [
+        6
+      ],
+      "ordered": false,
+      "items": [
+        "Urkundenhypothese",
+        "Fragmentenhypothese",
+        "Ergänzungshypothese"
+      ],
+      "details": [
+        "mehrere Quellen, durch einen Redaktor verbunden",
+        "Einzelstücke wachsen zu Blöcken und zum Endtext zusammen",
+        "eine Grundschrift wird schrittweise ergänzt"
+      ]
+    },
+    {
+      "id": "list.u02.fragmente",
+      "title": "Fragmentenhypothese: die Einzelstücke",
+      "prompt": "Nenne die sieben Einzelstücke im Schaubild der Fragmentenhypothese in ihrer Reihenfolge.",
+      "slides": [
+        6
+      ],
+      "ordered": true,
+      "items": [
+        "Schöpfung",
+        "Flut",
+        "Erzväter",
+        "Exodus",
+        "Sinai",
+        "Wüste",
+        "Landnahme"
+      ]
+    },
+    {
+      "id": "list.u02.quellen",
+      "title": "Die Quellen der Neueren Urkundenhypothese",
+      "prompt": "Nenne die vier Quellen der Neueren Urkundenhypothese in ihrer zeitlichen Reihenfolge mit Datierung.",
+      "slides": [
+        7
+      ],
+      "ordered": true,
+      "items": [
+        "Jahwist (J)",
+        "Elohist (E)",
+        "Deuteronomium",
+        "Priesterschrift (P)"
+      ],
+      "details": [
+        "ca. 950 v. Chr.",
+        "ca. 800 v. Chr.",
+        "ca. 622 v. Chr.",
+        "ca. 500 v. Chr."
+      ]
+    },
+    {
+      "id": "list.u02.nichtp_stufen",
+      "title": "Nichtpriesterlicher Text im aktuellen Modell",
+      "prompt": "Nenne die Stufen des nichtpriesterlichen Textes im Schaubild von oben nach unten.",
+      "slides": [
+        11
+      ],
+      "ordered": true,
+      "items": [
+        "Erzeltern- und Exoduserzählung",
+        "Hexateuch oder Pentateuch und DtrL",
+        "deuteronomistische Bearbeitungen",
+        "weitere Bearbeitungen"
+      ],
+      "details": [
+        "neuassyrische und neubabylonische Zeit, 8.–6. Jh. v. Chr.",
+        "Hexateuch (Gen/Ex–Jos*) + Ergänzung von Dtn oder Pentateuch (Gen–Num; Dtn 34*) + DtrL (Dtn+Jos); Perserzeit, 6.–5. Jh.",
+        "–",
+        "bis in die hellenistische Zeit, 4.–3. Jh. v. Chr."
+      ]
+    },
+    {
+      "id": "list.u02.p_stufen",
+      "title": "Priesterlicher Text im aktuellen Modell",
+      "prompt": "Nenne die Stufen des priesterlichen Textes im Schaubild von oben nach unten.",
+      "slides": [
+        11
+      ],
+      "ordered": true,
+      "items": [
+        "Priestergrundschrift",
+        "+ Lev 1–16",
+        "+ Lev 17–26",
+        "theokratische Bearbeitungen in Gen–Num"
+      ],
+      "details": [
+        "Gen 1 – Ex 40*; Perserzeit, 6.–5. Jh. v. Chr.",
+        "–",
+        "–",
+        "hellenistische Zeit, 4.–3. Jh. v. Chr."
+      ]
+    },
+    {
+      "id": "list.u02.genesis_teile",
+      "title": "Grobgliederung der Genesis (Vorlesung)",
+      "prompt": "Nenne die drei Hauptteile der Genesis mit Kapiteln.",
+      "slides": [
+        14
+      ],
+      "ordered": true,
+      "items": [
+        "Urgeschichte",
+        "Erzelterngeschichte",
+        "Josephsgeschichte"
+      ],
+      "details": [
+        "Gen 1–11",
+        "Gen 12–36",
+        "Gen 37–50 (Gen 38 Einschub)"
+      ]
+    },
+    {
+      "id": "list.u02.urgeschichte_grob",
+      "title": "Urgeschichte in der Grobgliederung",
+      "prompt": "Nenne die fünf Erzählungen, die die Grobgliederung für die Urgeschichte aufführt, in ihrer Reihenfolge.",
+      "slides": [
+        14
+      ],
+      "ordered": true,
+      "items": [
+        "Erster Schöpfungsbericht",
+        "Zweiter Schöpfungsbericht und Paradieserzählung",
+        "Kain und Abel",
+        "Sintflut und Noahbund",
+        "Turmbauerzählung"
+      ],
+      "details": [
+        "Gen 1,1–2,4a",
+        "Gen 2,4b–3,24",
+        "Gen 4",
+        "Gen 6–9",
+        "Gen 11,1-9"
+      ]
+    },
+    {
+      "id": "list.u02.erzeltern_themen",
+      "title": "Erzelterngeschichte in der Grobgliederung",
+      "prompt": "Nenne die vier Schwerpunkte, die die Grobgliederung für die Erzelterngeschichte nennt, mit Stellen.",
+      "slides": [
+        14
+      ],
+      "ordered": false,
+      "items": [
+        "Verheißungen an Abraham",
+        "Erzählungen von der Gefährdung der Ahnfrau",
+        "Isaaks Opferung bzw. Bindung",
+        "Jakob, Esau und Laban"
+      ],
+      "details": [
+        "Gen 12; 15; 17",
+        "Gen 12; 20; 26",
+        "Gen 22",
+        "Gen 26–36"
+      ]
+    },
+    {
+      "id": "list.u02.aufriss",
+      "title": "Bibelkundlicher Aufriss der Urgeschichte",
+      "prompt": "Nenne die acht Abschnitte des Aufrisses von Gen 1–11 in ihrer Reihenfolge.",
+      "slides": [
+        16
+      ],
+      "ordered": true,
+      "items": [
+        "Erster Schöpfungsbericht",
+        "Zweiter Schöpfungsbericht / Paradieserzählung",
+        "Kain und Abel",
+        "Genealogie (Adam bis Noah)",
+        "Noah und die Sintflut",
+        "Genealogie (Noahs Nachkommen)",
+        "Turmbauerzählung",
+        "Genealogie (Sem bis Abram)"
+      ],
+      "details": [
+        "Gen 1,1–2,4a (P)",
+        "Gen 2,4b–3,24 (nicht-P)",
+        "Gen 4 (nicht-P)",
+        "Gen 5 (P)",
+        "Gen 6–9 (P und nicht-P)",
+        "Gen 10 (P)",
+        "Gen 11,1-9 (nicht-P)",
+        "Gen 11,10-32 (P)"
+      ]
+    },
+    {
+      "id": "list.u02.theorien",
+      "title": "Theorien zur Literargeschichte der Urgeschichte",
+      "prompt": "Nenne die drei Haupttheorien mit ihren Vertretern.",
+      "slides": [
+        17
+      ],
+      "ordered": false,
+      "items": [
+        "Nicht-P und P als zwei unabhängige Darstellungen, durch einen Endredaktor verbunden",
+        "Vorpriesterliche Urgeschichte als Grundbestand, priesterlich bearbeitet",
+        "Priesterliche Urgeschichte als Grundbestand, nachpriesterlich erweitert"
+      ],
+      "details": [
+        "M. Witte / J. C. Gertz",
+        "E. Blum (P als Kompositionsschicht)",
+        "M. Arneth / A. Schüle („J“ als Fortschreibung von P)"
+      ]
+    },
+    {
+      "id": "list.u02.schoepfung_elemente",
+      "title": "Elemente des priesterlichen Schöpfungsberichts",
+      "prompt": "Nenne die fünf Elemente, die die Folie am ersten Schöpfungstag markiert, in ihrer Reihenfolge.",
+      "slides": [
+        18
+      ],
+      "ordered": true,
+      "items": [
+        "Wortbericht",
+        "Tatbericht",
+        "Billigungsformel",
+        "Benennung",
+        "Tagesschema"
+      ],
+      "details": [
+        "„Es werde Licht!“",
+        "„Und es wurde Licht.“ / „Gott schied …“",
+        "„Und Gott sah, dass das Licht gut war.“",
+        "„Und Gott nannte das Licht Tag …“",
+        "„Und es wurde Abend, und es wurde Morgen: ein Tag.“"
+      ]
+    },
+    {
+      "id": "list.u02.sechs_tage",
+      "title": "Die sechs Schöpfungstage",
+      "prompt": "Nenne die Werke der sechs Schöpfungstage nach der Folie.",
+      "slides": [
+        18
+      ],
+      "ordered": true,
+      "items": [
+        "Trennung von Licht und Finsternis",
+        "Trennung des Urozeans durch den Himmel",
+        "Trennung von Land und Wasser / Pflanzen",
+        "Himmelskörper",
+        "Wassertiere und Vögel",
+        "Landtiere / Mensch"
+      ],
+      "details": [
+        "1. Tag",
+        "2. Tag",
+        "3. Tag",
+        "4. Tag",
+        "5. Tag",
+        "6. Tag (Gottebenbildlichkeit / Herrschaftsauftrag)"
+      ]
+    },
+    {
+      "id": "list.u02.paradies_stufen",
+      "title": "Entwicklungsstufen der Paradieserzählung (nach der Vorlesung)",
+      "prompt": "Nenne die vier literargeschichtlichen Entwicklungsstufen von Gen 2,4b–3,24 in ihrer Reihenfolge.",
+      "slides": [
+        20
+      ],
+      "ordered": true,
+      "items": [
+        "Der Mensch als Ackerbauer",
+        "Der „Fall“ des Menschen",
+        "Die Schlange als Verführerin",
+        "Der Baum des Lebens"
+      ],
+      "details": [
+        "Der „Erdling“ beackert die Erde",
+        "paradiesische Gottesnähe oder menschliche Autonomie?",
+        "Zweifel an Gottes Wort und Absichten",
+        "Sterblichkeit als letzte Trennlinie"
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "q.u02.pentateuch_elemente",
+      "prompt": "Aus welchen griechischen Elementen setzt sich der Begriff „Pentateuch“ zusammen?",
+      "answer": "„penta“ (= fünf) und „teuchos“ (= Gefäß)",
+      "distractors": [
+        "„penta“ (= fünf) und „nomos“ (= Gesetz)",
+        "„pan“ (= alles) und „teuchos“ (= Rolle)",
+        "„pente“ (= fünfzig) und „taxis“ (= Ordnung)"
+      ],
+      "explanation": "Folie 4: „penta“ = fünf, „teuchos“ = Gefäß; die Verbindung lässt sich als „der/das Fünfteilige“ wiedergeben.",
+      "slides": [
+        4
+      ],
+      "terms": [
+        "term.pentateuch"
+      ]
+    },
+    {
+      "id": "q.u02.fuenf_buecher_mose",
+      "prompt": "Warum hält die Vorlesung die Rede von den „fünf Büchern Mose“ für wenig glücklich?",
+      "answer": "Sie suggeriert, Mose habe den Pentateuch verfasst; die Texte selbst sehen Mose nur als Schreiber einzelner gesetzlicher Partien",
+      "distractors": [
+        "Sie stammt aus der Septuaginta und ist im Judentum unbekannt",
+        "Sie zählt das Buch Josua irrtümlich mit",
+        "Sie verwechselt die hebräischen mit den griechischen Buchnamen"
+      ],
+      "explanation": "Folie 4: Nach der Vorlesung ist eine Verfasserschaft des Mose historisch unzutreffend und wird den Texten nicht gerecht (Ex 24,4; Dtn 31,9). Ergänzung: Jüdische und christliche Tradition, auch Luther und konservative Ausleger, sehen in Mose den Urheber des Pentateuch; das Neue Testament spricht vom „Buch des Mose“ (Mk 12,26).",
+      "slides": [
+        4
+      ]
+    },
+    {
+      "id": "q.u02.mose_schreiber",
+      "prompt": "Als was gilt Mose nach der Vorlesung in den Pentateuchtexten selbst?",
+      "answer": "Als Schreiber einzelner gesetzlicher Partien (Ex 24,4; Dtn 31,9)",
+      "distractors": [
+        "Als Redaktor, der ältere Quellen verband",
+        "Als Übersetzer der Tora ins Griechische",
+        "Als Verfasser der Urgeschichte"
+      ],
+      "explanation": "Folie 4: Den Pentateuchtexten gilt Mose „nur als Schreiber einzelner gesetzlicher Partien (Ex 24,4; Dtn 31,9)“.",
+      "slides": [
+        4
+      ]
+    },
+    {
+      "id": "q.u02.hexateuch",
+      "prompt": "Welche Bücher umfasst der Hexateuch?",
+      "answer": "Gen–Jos",
+      "distractors": [
+        "Gen–Num",
+        "Gen–Dtn",
+        "Gen–2 Kön"
+      ],
+      "explanation": "Folie 4: Hexateuch = Gen–Jos (Zahlenelement „hexa“ = 6); Tetrateuch = Gen–Num, Enneateuch = Gen–2 Kön.",
+      "slides": [
+        4
+      ],
+      "terms": [
+        "term.hexateuch"
+      ]
+    },
+    {
+      "id": "q.u02.enneateuch",
+      "prompt": "Wofür steht das Zahlenelement in „Enneateuch“, und welche Bücher umfasst er?",
+      "answer": "„ennea“ = neun: Gen–2 Kön",
+      "distractors": [
+        "„ennea“ = sieben: Gen–Ri",
+        "„ennea“ = zehn: Gen–Esr",
+        "„ennea“ = acht: Gen–Rut"
+      ],
+      "explanation": "Folie 4: Enneateuch (= Gen–2 Kön), Zahlenelement „ennea“ = 9.",
+      "slides": [
+        4
+      ],
+      "terms": [
+        "term.enneateuch"
+      ]
+    },
+    {
+      "id": "q.u02.wajiqra",
+      "prompt": "Was bedeutet Wajiqra, der hebräische Name des Buches Levitikus?",
+      "answer": "„Und es rief“ – nach dem Anfang Lev 1,1",
+      "distractors": [
+        "„Priestergesetz“",
+        "„in der Wüste“",
+        "„Worte“"
+      ],
+      "explanation": "Folie 5: Wajiqra = „Und es rief“ (Lev 1,1: Und es rief JHWH …). „Priestergesetz“ erklärt dagegen den griechischen Namen Levitikus.",
+      "slides": [
+        5
+      ]
+    },
+    {
+      "id": "q.u02.bemidbar",
+      "prompt": "Welches Buch heißt hebräisch Bemidbar („in der Wüste“)?",
+      "answer": "Numeri (4. Mose)",
+      "distractors": [
+        "Exodus (2. Mose)",
+        "Levitikus (3. Mose)",
+        "Deuteronomium (5. Mose)"
+      ],
+      "explanation": "Folie 5: Bemidbar nach Num 1,1 „Und es sprach JHWH in der Wüste …“.",
+      "slides": [
+        5
+      ]
+    },
+    {
+      "id": "q.u02.genesis_name",
+      "prompt": "Wie gibt die Vorlesung den Buchnamen „Genesis“ wieder?",
+      "answer": "„Schöpfung“ / „Ursprung“",
+      "distractors": [
+        "„Im Anfang“",
+        "„Geschlechterfolge“",
+        "„Auszug“"
+      ],
+      "explanation": "Folie 5: Genesis = „Schöpfung“ / „Ursprung“. „Im Anfang“ ist die Bedeutung des hebräischen Namens Bereshit.",
+      "slides": [
+        5
+      ]
+    },
+    {
+      "id": "q.u02.numeri_name",
+      "prompt": "Worauf bezieht sich der griechisch-lateinische Buchname „Numeri“?",
+      "answer": "Auf die „Zahlen“ der Israeliten nach den Listen in Num 1ff.",
+      "distractors": [
+        "Auf die vierzig Jahre der Wüstenwanderung",
+        "Auf die Zählung der Gebote am Sinai",
+        "Auf die Zahl der Stämme Israels"
+      ],
+      "explanation": "Folie 5: Arithmoi/Numeri = „Zahlen“ [der Israeliten], nach den Listen in Num 1ff.",
+      "slides": [
+        5
+      ]
+    },
+    {
+      "id": "q.u02.deuteronomium_name",
+      "prompt": "Warum heißt das fünfte Buch „Deuteronomium“ („das zweite Gesetz“)?",
+      "answer": "Weil es nach der Sinaigesetzgebung in Exodus und Levitikus folgt",
+      "distractors": [
+        "Weil Mose es auf zweiten Gesetzestafeln erhielt",
+        "Weil es das zweite Buch der Tora ist",
+        "Weil es das Gesetz ein zweites Mal ins Griechische übersetzt"
+      ],
+      "explanation": "Folie 5: Deuteronomion/Deuteronomium = „das zweite Gesetz“, d. h. nach der Sinaigesetzgebung in Ex und Lev.",
+      "slides": [
+        5
+      ]
+    },
+    {
+      "id": "q.u02.fragmente_block",
+      "prompt": "Zu welchem Block fasst das Schaubild der Fragmentenhypothese Schöpfung und Flut zusammen?",
+      "answer": "Urgeschichte",
+      "distractors": [
+        "Erzväter",
+        "Exodus – Sinai – Wüste",
+        "Landnahme"
+      ],
+      "explanation": "Folie 6: Schöpfung und Flut verbinden sich zur Urgeschichte; Exodus, Sinai und Wüste bilden einen eigenen Block.",
+      "slides": [
+        6
+      ],
+      "terms": [
+        "term.fragmentenhypothese"
+      ]
+    },
+    {
+      "id": "q.u02.redaktor",
+      "prompt": "Wofür steht das „R“ im Schaubild der Urkundenhypothese?",
+      "answer": "Für den Redaktor, der die Quellen zum „Endtext“ verbindet",
+      "distractors": [
+        "Für die Grundschrift, die ergänzt wird",
+        "Für die mündliche Überlieferung vor den Quellen",
+        "Für die Rezension der Septuaginta"
+      ],
+      "explanation": "Folie 6: Zwei Quellen werden über den Pfeil „R“ zum „Endtext“ verbunden. Ergänzung: R ist das übliche Kürzel für den Redaktor.",
+      "slides": [
+        6
+      ],
+      "terms": [
+        "term.urkundenhypothese"
+      ]
+    },
+    {
+      "id": "q.u02.wellhausen_noth",
+      "prompt": "Welche beiden Forscher zeigt die Folie zur Neueren Urkundenhypothese?",
+      "answer": "Julius Wellhausen und Martin Noth",
+      "distractors": [
+        "Hugo Greßmann und Uwe Becker",
+        "Erhard Blum und Reinhard G. Kratz",
+        "Christoph Levin und John Van Seters"
+      ],
+      "explanation": "Folie 7: Porträts von Julius Wellhausen (1844–1918) und Martin Noth (1902–1968).",
+      "slides": [
+        7
+      ],
+      "terms": [
+        "term.neuere_urkundenhypothese"
+      ]
+    },
+    {
+      "id": "q.u02.j_datierung",
+      "prompt": "Wann setzt die Neuere Urkundenhypothese den Jahwisten (J) an?",
+      "answer": "ca. 950 v. Chr.",
+      "distractors": [
+        "ca. 800 v. Chr.",
+        "ca. 622 v. Chr.",
+        "ca. 500 v. Chr."
+      ],
+      "explanation": "Folie 7: J ca. 950, E ca. 800, Deuteronomium ca. 622, P ca. 500 v. Chr.",
+      "slides": [
+        7
+      ],
+      "terms": [
+        "term.jahwist"
+      ]
+    },
+    {
+      "id": "q.u02.e_datierung",
+      "prompt": "Wann setzt die Neuere Urkundenhypothese den Elohisten (E) an?",
+      "answer": "ca. 800 v. Chr.",
+      "distractors": [
+        "ca. 950 v. Chr.",
+        "ca. 622 v. Chr.",
+        "ca. 500 v. Chr."
+      ],
+      "explanation": "Folie 7: J ca. 950, E ca. 800, Deuteronomium ca. 622, P ca. 500 v. Chr.",
+      "slides": [
+        7
+      ],
+      "terms": [
+        "term.elohist"
+      ]
+    },
+    {
+      "id": "q.u02.dtn_datierung",
+      "prompt": "Wann setzt die Neuere Urkundenhypothese das Deuteronomium an?",
+      "answer": "ca. 622 v. Chr.",
+      "distractors": [
+        "ca. 950 v. Chr.",
+        "ca. 800 v. Chr.",
+        "ca. 500 v. Chr."
+      ],
+      "explanation": "Folie 7: Deuteronomium ca. 622 v. Chr. Ergänzung: das Jahr der Kultreform Josias (2 Kön 22–23).",
+      "slides": [
+        7
+      ],
+      "terms": [
+        "term.neuere_urkundenhypothese"
+      ]
+    },
+    {
+      "id": "q.u02.p_datierung",
+      "prompt": "Wann setzt die Neuere Urkundenhypothese die Priesterschrift (P) an?",
+      "answer": "ca. 500 v. Chr.",
+      "distractors": [
+        "ca. 950 v. Chr.",
+        "ca. 800 v. Chr.",
+        "ca. 622 v. Chr."
+      ],
+      "explanation": "Folie 7: J ca. 950, E ca. 800, Deuteronomium ca. 622, P ca. 500 v. Chr.",
+      "slides": [
+        7
+      ],
+      "terms": [
+        "term.priesterschrift"
+      ]
+    },
+    {
+      "id": "q.u02.dtn_umfang",
+      "prompt": "Welche Quelle reicht im Schaubild der Neueren Urkundenhypothese nicht von Gen bis Dtn?",
+      "answer": "Das Deuteronomium – es steht nur unter Dtn",
+      "distractors": [
+        "Der Jahwist",
+        "Der Elohist",
+        "Die Priesterschrift"
+      ],
+      "explanation": "Folie 7: Die Balken von J, E und P reichen über die ganze Länge Gen–Dtn, der Balken „Deuteronomium“ steht nur unter Dtn.",
+      "slides": [
+        7
+      ],
+      "terms": [
+        "term.neuere_urkundenhypothese"
+      ]
+    },
+    {
+      "id": "q.u02.kritik_seit",
+      "prompt": "Seit wann und wo wird verstärkt Kritik an der Neueren Urkundenhypothese laut?",
+      "answer": "Seit den 1970er Jahren, v. a. in der kontinentaleuropäischen Forschung",
+      "distractors": [
+        "Seit dem 19. Jh., v. a. in der angloamerikanischen Forschung",
+        "Seit den 1920er Jahren durch Martin Noth",
+        "Seit den Qumranfunden 1947, v. a. in Israel"
+      ],
+      "explanation": "Folie 8: „Seit den 1970er Jahren wurde v.a. in der kontinentaleuropäischen Forschung verstärkt Kritik … laut.“ Ergänzung: In Nordamerika wird die Urkundenhypothese teils weiter vertreten; konservative Ausleger lehnen die Spätdatierung ab.",
+      "slides": [
+        8
+      ],
+      "terms": [
+        "term.neuere_urkundenhypothese"
+      ]
+    },
+    {
+      "id": "q.u02.elohist_umfang",
+      "prompt": "Wo lässt sich nach der Vorlesung allenfalls ein elohistischer Quellenfaden nachweisen?",
+      "answer": "In einigen Partien der Genesis, v. a. Gen 20–22",
+      "distractors": [
+        "Im ganzen Exodusbuch",
+        "Vor allem im Deuteronomium",
+        "In der Urgeschichte Gen 1–11"
+      ],
+      "explanation": "Folie 8: allenfalls für einige Partien der Genesis (v. a. Gen 20–22); im Exodusbuch und darüber hinaus ist kein elohistischer Faden mehr erkennbar.",
+      "slides": [
+        8
+      ],
+      "terms": [
+        "term.elohist"
+      ]
+    },
+    {
+      "id": "q.u02.elohist_ergebnis",
+      "prompt": "Was repräsentiert der Text des Elohisten nach der Vorlesung?",
+      "answer": "Keine alte Quelle, sondern eine Reihe nachpriesterschriftlicher Erweiterungen",
+      "distractors": [
+        "Eine alte Quelle aus dem 8. Jh. v. Chr.",
+        "Die älteste Schicht des Pentateuch",
+        "Eine zweite Fassung des Deuteronomiums"
+      ],
+      "explanation": "Folie 8: „Der Text des Elohisten repräsentiert keine alte Quelle, sondern eine Reihe nachpriesterschriftlicher Erweiterungen, die einen vergleichbaren Horizont aufweisen.“ Die Datierung um 800 v. Chr. ist die der klassischen Hypothese (Folie 7).",
+      "slides": [
+        8
+      ],
+      "terms": [
+        "term.elohist"
+      ]
+    },
+    {
+      "id": "q.u02.gen22_diskurs",
+      "prompt": "Warum passt Gen 22 nach der Vorlesung nicht zu einer vorexilischen Ansetzung des Elohisten?",
+      "answer": "Es spiegelt bereits eine weit fortgeschrittene Stufe des theologischen Diskurses",
+      "distractors": [
+        "Es gebraucht nur den Gottesnamen JHWH",
+        "Es ist in Qumran nicht belegt",
+        "Es ist aramäisch abgefasst"
+      ],
+      "explanation": "Folie 8: Die elohistischen Partien spiegeln häufig eine weit fortgeschrittene Stufe des theologischen Diskurses, „die sich mit einer vorexilischen Ansetzung nicht in Einklang bringen lässt (z.B. Gen 22)“.",
+      "slides": [
+        8
+      ],
+      "terms": [
+        "term.elohist"
+      ]
+    },
+    {
+      "id": "q.u02.jahwist_neu",
+      "prompt": "Wie datieren C. Levin und J. Van Seters eine jahwistische Quellenschrift?",
+      "answer": "In die exilisch-nachexilische Zeit",
+      "distractors": [
+        "In salomonische Zeit",
+        "In die Zeit Josias",
+        "In die hellenistische Zeit"
+      ],
+      "explanation": "Folie 8: Eine Ansetzung in salomonischer Zeit ist nach der Vorlesung nicht begründbar; Levin und Van Seters, die prominentesten Befürworter eines Jahwisten, datieren ihn exilisch-nachexilisch.",
+      "slides": [
+        8
+      ],
+      "terms": [
+        "term.jahwist"
+      ]
+    },
+    {
+      "id": "q.u02.jahwist_ergebnis",
+      "prompt": "In welche Werke zerfällt der Text des Jahwisten nach der Vorlesung im Wesentlichen?",
+      "answer": "In zwei ursprünglich selbständige Erzählwerke: die Erzväter- und die Exoduserzählung",
+      "distractors": [
+        "In eine Urgeschichte und eine Josephsgeschichte",
+        "In zahllose mündliche Einzelsagen",
+        "In einen Nordreich- und einen Südreichfaden"
+      ],
+      "explanation": "Folie 8: Der Text des Jahwisten zerfällt in zwei ursprünglich selbstständige vorpriesterschriftliche Erzählwerke (Erzväter- und Exoduserzählung), die erst redaktionell verbunden wurden.",
+      "slides": [
+        8
+      ],
+      "terms": [
+        "term.jahwist"
+      ]
+    },
+    {
+      "id": "q.u02.pg_minimal",
+      "prompt": "Welchen Minimalbestand der Priestergrundschrift (PG) nennt die Folie nach R. G. Kratz?",
+      "answer": "Gen 1 – Ex 40*",
+      "distractors": [
+        "Gen 1 – Dtn 34*",
+        "Ex 25 – Lev 16*",
+        "Gen 1 – Jos 24*"
+      ],
+      "explanation": "Folie 9: „Minimalbestand von PG: Gen 1 – Ex 40* (R.G. Kratz).“ Das Sternchen heißt: nur Teile davon.",
+      "slides": [
+        9
+      ],
+      "terms": [
+        "term.priesterschrift"
+      ]
+    },
+    {
+      "id": "q.u02.blum",
+      "prompt": "Wie versteht E. Blum die Priesterschrift?",
+      "answer": "Als Kompositionsschicht (KP), die eine ältere Pentateuchkomposition (KD) programmatisch überformt",
+      "distractors": [
+        "Als selbständige Quellenschrift um 500 v. Chr.",
+        "Als Fortschreibung des Elohisten",
+        "Als Sammlung der theokratischen Bearbeitungen im Numeribuch"
+      ],
+      "explanation": "Folie 9: Die literarische Selbständigkeit der Priesterschrift ist strittig; nach E. Blum ist sie eine Kompositionsschicht (KP).",
+      "slides": [
+        9
+      ],
+      "terms": [
+        "term.kompositionsschicht"
+      ]
+    },
+    {
+      "id": "q.u02.achenbach",
+      "prompt": "Was sind nach R. Achenbach die „theokratischen Bearbeitungen“?",
+      "answer": "Erweiterungen (v. a. in Num) eines Textes, in dem PG schon mit dem nichtpriesterschriftlichen Erzählbestand verbunden war",
+      "distractors": [
+        "Die ältesten Teile der Priestergrundschrift",
+        "Deuteronomistische Zusätze im Josuabuch",
+        "Vorexilische Tempeltexte aus Jerusalem"
+      ],
+      "explanation": "Folie 9: Für beträchtliche Teile des sekundär priesterschriftlichen Materials (v. a. in Num) gilt das als wahrscheinlich; Achenbach spricht von theokratischen Bearbeitungen.",
+      "slides": [
+        9
+      ],
+      "terms": [
+        "term.theokratische_bearbeitungen"
+      ]
+    },
+    {
+      "id": "q.u02.pg_ps",
+      "prompt": "Wofür stehen die Kürzel PG und PS?",
+      "answer": "PG = Priestergrundschrift, PS = sekundär priesterschriftliche Partien",
+      "distractors": [
+        "PG = Pentateuchgrundschrift, PS = Priesterschrift",
+        "PG = Priestergesetz, PS = Priestersegen",
+        "PG = priesterliche Genealogien, PS = priesterliche Sintfluterzählung"
+      ],
+      "explanation": "Folie 9: „ursprüngliche Priesterschrift (PG = Priestergrundschrift)“ und „sekundär priesterschriftliche Partien (PS)“.",
+      "slides": [
+        9
+      ],
+      "terms": [
+        "term.priesterschrift"
+      ]
+    },
+    {
+      "id": "q.u02.tetrateuch_bilanz",
+      "prompt": "Was streicht das Schaubild der aktuellen europäischen Pentateuchkritik aus der Neueren Urkundenhypothese?",
+      "answer": "Jahwist, Elohist und die mündliche Überlieferung",
+      "distractors": [
+        "Priesterschrift und Deuteronomium",
+        "Nur den Elohisten",
+        "Jahwist und Priesterschrift"
+      ],
+      "explanation": "Folie 11: Im verkleinerten Schaubild sind J, E und die „mündliche Überlieferung“ durchgestrichen, das Deuteronomium (gelb) und die Priesterschrift (grün) abgehakt.",
+      "slides": [
+        11
+      ],
+      "terms": [
+        "term.neuere_urkundenhypothese"
+      ]
+    },
+    {
+      "id": "q.u02.lev_17_26",
+      "prompt": "Wie ordnet das Schaubild Lev 17–26 ein?",
+      "answer": "Als spätere Erweiterung im priesterlichen Text, nach der Priestergrundschrift und Lev 1–16",
+      "distractors": [
+        "Als Teil der nichtpriesterlichen Exoduserzählung",
+        "Als deuteronomistische Bearbeitung",
+        "Als ältesten Kern der Priestergrundschrift"
+      ],
+      "explanation": "Folie 11: Priestergrundschrift (Gen 1 – Ex 40*) + Lev 1–16, darunter + Lev 17–26, dann theokratische Bearbeitungen. Ergänzung: Lev 17–26 ist das Heiligkeitsgesetz.",
+      "slides": [
+        11
+      ],
+      "terms": [
+        "term.priesterschrift"
+      ]
+    },
+    {
+      "id": "q.u02.zeit_nichtp",
+      "prompt": "In welche Zeit setzt das Schaubild die nichtpriesterlichen Erzählwerke von Erzeltern und Exodus?",
+      "answer": "In die neuassyrische und neubabylonische Zeit (8.–6. Jh. v. Chr.)",
+      "distractors": [
+        "In die Perserzeit (6.–5. Jh. v. Chr.)",
+        "In die hellenistische Zeit (4.–3. Jh. v. Chr.)",
+        "In salomonische Zeit (10. Jh. v. Chr.)"
+      ],
+      "explanation": "Folie 11 (nach der Vorlesung): Erzeltern und Exodus neben „neuassyrische + neubabylonische Zeit, 8.–6. Jh. v. Chr.“; die Priestergrundschrift steht neben „Perserzeit“. Andere, besonders konservative Positionen datieren deutlich früher.",
+      "slides": [
+        11
+      ],
+      "terms": [
+        "term.jahwist"
+      ]
+    },
+    {
+      "id": "q.u02.zeit_pg",
+      "prompt": "In welche Zeit setzt das Schaubild die Priestergrundschrift?",
+      "answer": "In die Perserzeit (6.–5. Jh. v. Chr.)",
+      "distractors": [
+        "In die neuassyrische Zeit (8. Jh. v. Chr.)",
+        "In die hellenistische Zeit (4.–3. Jh. v. Chr.)",
+        "In die Makkabäerzeit (2. Jh. v. Chr.)"
+      ],
+      "explanation": "Folie 11 (nach der Vorlesung): Priestergrundschrift (Gen 1 – Ex 40*) + Lev 1–16 neben „Perserzeit, 6.–5. Jh. v. Chr.“; die theokratischen Bearbeitungen stehen neben „Hellenistische Zeit“.",
+      "slides": [
+        11
+      ],
+      "terms": [
+        "term.priesterschrift"
+      ]
+    },
+    {
+      "id": "q.u02.gressmann",
+      "prompt": "Welches Bild gebraucht Hugo Greßmann (1913) für die Arbeit an den Quellenschriften?",
+      "answer": "Die Ausgrabung eines Trümmerhaufens, Schicht um Schicht – den jetzigen Zusammenhang zu würdigen, sei keine Aufgabe der Wissenschaft",
+      "distractors": [
+        "Eine über Jahrhunderte gewachsene Kathedrale mit vielen Baumeistern",
+        "Ein Strom, der aus vielen Quellen zusammenfließt",
+        "Ein Teppich, dessen Fäden zu einem Bild verwoben sind"
+      ],
+      "explanation": "Folie 12: Greßmann vergleicht die Quellenscheidung mit dem Abtragen der Schichten eines Trümmerhaufens; die Forderung, den Zusammenhang zu würdigen, hieße die Ausgrabung wieder zuzuschütten. Das Kathedralenbild stammt von Uwe Becker.",
+      "slides": [
+        12
+      ]
+    },
+    {
+      "id": "q.u02.becker",
+      "prompt": "Womit vergleicht Uwe Becker (2015) eine alttestamentliche Schrift?",
+      "answer": "Mit einer in Jahrzehnten, oft Jahrhunderten gewachsenen Kathedrale",
+      "distractors": [
+        "Mit einem Trümmerhaufen, der Schicht um Schicht abgetragen wird",
+        "Mit einem Mosaik aus gleichzeitig gelegten Steinen",
+        "Mit einem Stammbaum mit vielen Zweigen"
+      ],
+      "explanation": "Folie 12: „So gleicht eine alttestamentliche Schrift einer in Jahrzehnten, oft Jahrhunderten gewachsenen Kathedrale … Von Stilreinheit und Stileinheit keine Spur.“",
+      "slides": [
+        12
+      ]
+    },
+    {
+      "id": "q.u02.gen22_name",
+      "prompt": "Wie bezeichnet die Grobgliederung der Vorlesung Gen 22?",
+      "answer": "Isaaks Opferung bzw. Bindung",
+      "distractors": [
+        "Abrahams Berufung",
+        "Isaaks Segen an Jakob",
+        "Gefährdung der Ahnfrau"
+      ],
+      "explanation": "Folie 14: Gen 22: Isaaks Opferung bzw. Bindung.",
+      "slides": [
+        14
+      ]
+    },
+    {
+      "id": "q.u02.gen38_einschub",
+      "prompt": "Wie ordnet die Grobgliederung der Vorlesung Gen 38 (Juda und Tamar) ein?",
+      "answer": "Als Einschub innerhalb der Josephsgeschichte",
+      "distractors": [
+        "Als Schluss der Urgeschichte",
+        "Als Anhang nach Gen 50",
+        "Als Teil der Jakobgeschichte Gen 26–36"
+      ],
+      "explanation": "Folie 14: „Gen 38: Juda und Tamar (Einschub innerhalb der Josephsgeschichte)“. Ergänzung: Die Übung Bibelkunde rechnet das Kapitel inhaltlich zur Erzelterngeschichte.",
+      "slides": [
+        14
+      ],
+      "terms": [
+        "term.josephsgeschichte"
+      ]
+    },
+    {
+      "id": "q.u02.verheissungen",
+      "prompt": "In welchen Kapiteln stehen nach der Grobgliederung die Verheißungen an Abraham?",
+      "answer": "Gen 12; 15; 17",
+      "distractors": [
+        "Gen 12; 20; 26",
+        "Gen 18; 19; 21",
+        "Gen 22; 24; 25"
+      ],
+      "explanation": "Folie 14: Verheißungen an Abraham Gen 12; 15; 17 – Gen 12; 20; 26 sind die Erzählungen von der Gefährdung der Ahnfrau.",
+      "slides": [
+        14
+      ],
+      "terms": [
+        "term.erzelterngeschichte"
+      ]
+    },
+    {
+      "id": "q.u02.aufriss_p",
+      "prompt": "Welche Abschnitte der Urgeschichte markiert der bibelkundliche Aufriss rot als priesterlich?",
+      "answer": "Den ersten Schöpfungsbericht und die Genealogien in Gen 5, Gen 10 und Gen 11,10-32 – Gen 6–9 nur teilweise",
+      "distractors": [
+        "Die Paradieserzählung, Kain und Abel und den Turmbau",
+        "Nur die Sintfluterzählung Gen 6–9",
+        "Die ganze Urgeschichte Gen 1–11"
+      ],
+      "explanation": "Folie 16: rot (P) sind Gen 1,1–2,4a, Gen 5, Gen 10 und Gen 11,10-32; schwarz (nicht-P) Gen 2,4b–3,24, Gen 4 und Gen 11,1-9; Gen 6–9 trägt beide Farben.",
+      "slides": [
+        16
+      ],
+      "terms": [
+        "term.urgeschichte"
+      ]
+    },
+    {
+      "id": "q.u02.p_unstrittig",
+      "prompt": "Was ist in der Literargeschichte der Urgeschichte nach der Vorlesung unstrittig?",
+      "answer": "Die Unterscheidung zwischen priesterlichen und nichtpriesterlichen Partien",
+      "distractors": [
+        "Dass der nichtpriesterliche Text älter ist als der priesterliche",
+        "Dass beide Darstellungen unabhängig voneinander entstanden",
+        "Dass die Urgeschichte aus drei Quellen besteht"
+      ],
+      "explanation": "Folie 17: Unstrittig ist die Unterscheidung; strittig ist, wie P und nicht-P zueinander stehen (drei Theorien).",
+      "slides": [
+        17
+      ],
+      "terms": [
+        "term.urgeschichte"
+      ]
+    },
+    {
+      "id": "q.u02.noth_p",
+      "prompt": "Auf wen beruft sich die Folie für die klassische Zuweisung der P-Texte in der Urgeschichte?",
+      "answer": "Auf M. Noth, Überlieferungsgeschichte des Pentateuch",
+      "distractors": [
+        "Auf J. Wellhausen",
+        "Auf E. Blum",
+        "Auf R. G. Kratz"
+      ],
+      "explanation": "Folie 17: „Für P werden klassisch Gen 1,1-2,4a; 5*; 6,9-22; … veranschlagt. – M. Noth, Überlieferungsgeschichte des Pentateuch, 17.“",
+      "slides": [
+        17
+      ]
+    },
+    {
+      "id": "q.u02.theorie_witte_gertz",
+      "prompt": "Welche Theorie zur Urgeschichte vertreten M. Witte und J. C. Gertz?",
+      "answer": "Nicht-P und P sind zwei ursprünglich unabhängige Darstellungen, erst durch einen Endredaktor verbunden",
+      "distractors": [
+        "Die vorpriesterliche Urgeschichte ist der Grundbestand, der priesterlich bearbeitet wurde",
+        "Die priesterliche Urgeschichte ist der Grundbestand, der nachpriesterlich erweitert wurde",
+        "Die Urgeschichte ist aus mündlichen Einzelsagen zusammengewachsen"
+      ],
+      "explanation": "Folie 17, Theorie 1: der nichtpriesterliche (= traditionell J) und der priesterliche Text als zwei unabhängige Darstellungen (M. Witte / J. C. Gertz).",
+      "slides": [
+        17
+      ]
+    },
+    {
+      "id": "q.u02.theorie_blum",
+      "prompt": "Welche Theorie zur Urgeschichte vertritt E. Blum?",
+      "answer": "Die vorpriesterliche Urgeschichte ist der Grundbestand, der priesterlich bearbeitet wurde",
+      "distractors": [
+        "Nicht-P und P sind zwei ursprünglich unabhängige Darstellungen, erst durch einen Endredaktor verbunden",
+        "Die priesterliche Urgeschichte ist der Grundbestand, der nachpriesterlich erweitert wurde",
+        "Die Urgeschichte ist aus mündlichen Einzelsagen zusammengewachsen"
+      ],
+      "explanation": "Folie 17, Theorie 2: E. Blum, P als Kompositionsschicht.",
+      "slides": [
+        17
+      ],
+      "terms": [
+        "term.kompositionsschicht"
+      ]
+    },
+    {
+      "id": "q.u02.theorie_arneth_schuele",
+      "prompt": "Welche Theorie zur Urgeschichte vertreten M. Arneth und A. Schüle?",
+      "answer": "Die priesterliche Urgeschichte ist der Grundbestand, der nachpriesterlich erweitert wurde",
+      "distractors": [
+        "Nicht-P und P sind zwei ursprünglich unabhängige Darstellungen, erst durch einen Endredaktor verbunden",
+        "Die vorpriesterliche Urgeschichte ist der Grundbestand, der priesterlich bearbeitet wurde",
+        "Die Urgeschichte ist aus mündlichen Einzelsagen zusammengewachsen"
+      ],
+      "explanation": "Folie 17, Theorie 3: „J“ als Fortschreibung von P (M. Arneth / A. Schüle).",
+      "slides": [
+        17
+      ]
+    },
+    {
+      "id": "q.u02.gen1_uebersetzung",
+      "prompt": "Wie übersetzt die Folie zum priesterlichen Schöpfungsbericht Gen 1,1?",
+      "answer": "„Als Gott anfing, Himmel und Erde zu erschaffen, …“",
+      "distractors": [
+        "„Im Anfang war das Wort …“",
+        "„Am ersten Tag schuf Gott das Licht …“",
+        "„Dies ist die Geschichte der Entstehung von Himmel und Erde …“"
+      ],
+      "explanation": "Folie 18: Gen 1,1-3 als ein Satzgefüge („Als Gott anfing … da sprach Gott“). Ergänzung: Die traditionelle Übersetzung „Im Anfang schuf Gott Himmel und Erde“ (Folie 5, Septuaginta, Luther) ist ebenfalls möglich und liest Gen 1,1 als Aussage über den absoluten Anfang.",
+      "slides": [
+        18
+      ]
+    },
+    {
+      "id": "q.u02.billigungsformel",
+      "prompt": "Welcher Satz ist nach der Folie die Billigungsformel?",
+      "answer": "„Und Gott sah, dass das Licht gut war.“",
+      "distractors": [
+        "„Es werde Licht!“",
+        "„Und Gott nannte das Licht Tag …“",
+        "„Und es wurde Abend, und es wurde Morgen: ein Tag.“"
+      ],
+      "explanation": "Folie 18: Wortbericht „Es werde Licht!“, Billigungsformel „Und Gott sah, dass das Licht gut war“, Benennung „Gott nannte das Licht Tag“, Tagesschema „Und es wurde Abend …“.",
+      "slides": [
+        18
+      ]
+    },
+    {
+      "id": "q.u02.tagesschema",
+      "prompt": "Wie heißt auf der Folie das Element „Und es wurde Abend, und es wurde Morgen: ein Tag“?",
+      "answer": "Tagesschema",
+      "distractors": [
+        "Tatbericht",
+        "Benennung",
+        "Wortbericht"
+      ],
+      "explanation": "Folie 18: Das rot markierte Element heißt Tagesschema.",
+      "slides": [
+        18
+      ]
+    },
+    {
+      "id": "q.u02.tag_himmelskoerper",
+      "prompt": "An welchem Tag entstehen nach dem priesterlichen Schöpfungsbericht die Himmelskörper?",
+      "answer": "Am 4. Tag",
+      "distractors": [
+        "Am 1. Tag",
+        "Am 2. Tag",
+        "Am 5. Tag"
+      ],
+      "explanation": "Folie 18: 1. Tag Licht und Finsternis, 2. Tag Himmel, 3. Tag Land und Wasser / Pflanzen, 4. Tag Himmelskörper.",
+      "slides": [
+        18
+      ]
+    },
+    {
+      "id": "q.u02.tag2",
+      "prompt": "Was geschieht nach der Folie am 2. Schöpfungstag?",
+      "answer": "Trennung des Urozeans durch den Himmel",
+      "distractors": [
+        "Trennung von Licht und Finsternis",
+        "Trennung von Land und Wasser",
+        "Erschaffung der Wassertiere und Vögel"
+      ],
+      "explanation": "Folie 18: 2. Tag: Trennung des Urozeans durch den Himmel.",
+      "slides": [
+        18
+      ]
+    },
+    {
+      "id": "q.u02.tag6",
+      "prompt": "Was nennt die Folie beim 6. Tag zum Menschen?",
+      "answer": "Gottebenbildlichkeit und Herrschaftsauftrag",
+      "distractors": [
+        "Bildung aus dem Erdboden und Lebensatem",
+        "Benennung der Tiere",
+        "Versetzung in den Garten Eden"
+      ],
+      "explanation": "Folie 18: 6. Tag: Landtiere / Mensch (Gottebenbildlichkeit / Herrschaftsauftrag). Bildung aus dem Erdboden, Lebensatem und Namengebung gehören zur Paradieserzählung (Folie 19).",
+      "slides": [
+        18
+      ]
+    },
+    {
+      "id": "q.u02.siebter_tag",
+      "prompt": "Was tut Gott nach Gen 2,2-3 am siebten Tag?",
+      "answer": "Er vollendet sein Werk, ruht, segnet den siebten Tag und heiligt ihn",
+      "distractors": [
+        "Er erschafft den Menschen",
+        "Er pflanzt einen Garten in Eden",
+        "Er stellt seinen Bogen in die Wolken"
+      ],
+      "explanation": "Folie 18: Gen 2,2-3 – Vollendung, Ruhe, Segnung und Heiligung des siebten Tages.",
+      "slides": [
+        18
+      ]
+    },
+    {
+      "id": "q.u02.aelteste_fassung",
+      "prompt": "Was ist nach der Vorlesung die älteste Fassung der Paradieserzählung?",
+      "answer": "„Der Mensch als Ackerbauer“",
+      "distractors": [
+        "Der „Fall“ des Menschen",
+        "Die Schlange als Verführerin",
+        "Der Baum des Lebens"
+      ],
+      "explanation": "Folien 19–20: Die älteste Fassung (Gen 2,[4b.]5.7a*.8.18.19a.20.21-23a; 3,20.23; 4,1ff.) erzählt vom Menschen als Ackerbauer; die übrigen sind nach der Vorlesung spätere Stufen. Ergänzung: Die kirchliche Auslegung liest Gen 2–3 als eine Erzählung vom Sündenfall.",
+      "slides": [
+        19,
+        20
+      ]
+    },
+    {
+      "id": "q.u02.ackerbauer_ende",
+      "prompt": "Womit endet nach der Folie die älteste Fassung der Paradieserzählung?",
+      "answer": "Gott schickt den Menschen fort, den Erdboden zu bebauen, und Eva gebiert Kain",
+      "distractors": [
+        "Mit dem Verbot, vom Baum der Erkenntnis zu essen",
+        "Mit dem Fluch über die Schlange",
+        "Mit den Cherubim vor dem Baum des Lebens"
+      ],
+      "explanation": "Folie 19: Gen 3,23 („dass er den Erdboden bebaue“) und 4,1 (Eva gebiert Kain). Verbot, Schlange und Baum des Lebens gehören nach der Vorlesung zu späteren Stufen (Folie 20).",
+      "slides": [
+        19
+      ]
+    },
+    {
+      "id": "q.u02.erdling",
+      "prompt": "Welche Randnotiz steht bei der ersten Stufe, dem Menschen als Ackerbauer?",
+      "answer": "Der „Erdling“ beackert die Erde",
+      "distractors": [
+        "Sterblichkeit als letzte Trennlinie",
+        "Zweifel an Gottes Wort und Absichten",
+        "Paradiesische Gottesnähe oder menschliche Autonomie?"
+      ],
+      "explanation": "Folie 20: Randnotiz zu Stufe 1. Ergänzung: Hebräisch adam (Mensch) klingt an adama (Erdboden) an.",
+      "slides": [
+        20
+      ]
+    },
+    {
+      "id": "q.u02.fall_frage",
+      "prompt": "Welche Frage stellt die Randnotiz zur zweiten Stufe, dem „Fall“ des Menschen?",
+      "answer": "Paradiesische Gottesnähe oder menschliche Autonomie?",
+      "distractors": [
+        "Der „Erdling“ beackert die Erde",
+        "Zweifel an Gottes Wort und Absichten",
+        "Sterblichkeit als letzte Trennlinie"
+      ],
+      "explanation": "Folie 20: Stufe 2 (Gen 2,9a.16-17.25; 3,6*.7-13a …): Gebot, Essen vom Baum der Erkenntnis, Nacktheit, Verhör.",
+      "slides": [
+        20
+      ]
+    },
+    {
+      "id": "q.u02.schlange",
+      "prompt": "Wofür steht nach der Randnotiz die dritte Stufe, die Schlange als Verführerin?",
+      "answer": "Zweifel an Gottes Wort und Absichten",
+      "distractors": [
+        "Sterblichkeit als letzte Trennlinie",
+        "Der „Erdling“ beackert die Erde",
+        "Paradiesische Gottesnähe oder menschliche Autonomie?"
+      ],
+      "explanation": "Folie 20: „Mitnichten werdet ihr sterben … ihr werdet wie Gott sein“ (Gen 3,4-5).",
+      "slides": [
+        20
+      ]
+    },
+    {
+      "id": "q.u02.baum_des_lebens",
+      "prompt": "Was bringt nach der Vorlesung die vierte Stufe, der Baum des Lebens, ein?",
+      "answer": "Die Sterblichkeit als letzte Trennlinie: Der Mensch soll nicht auch vom Baum des Lebens essen und ewig leben",
+      "distractors": [
+        "Das Verbot, vom Baum der Erkenntnis zu essen",
+        "Die Erschaffung der Frau aus der Rippe",
+        "Die Schlange als Verführerin"
+      ],
+      "explanation": "Folie 20: Stufe 4 (Gen 2,7*[„Staub“].9b; 3,3aβ.19b.22.24), Randnotiz „Sterblichkeit als letzte Trennlinie“; Gen 3,22.",
+      "slides": [
+        20
+      ]
+    },
+    {
+      "id": "q.u02.p_flut_grund",
+      "prompt": "Wie begründet der priesterliche Rahmen die Sintflut?",
+      "answer": "Die Erde verdarb vor Gott und wurde voll von Gewalttat",
+      "distractors": [
+        "Alles Sinnen und Trachten des Menschenherzens war nur böse",
+        "Die Menschen bauten einen Turm bis zum Himmel",
+        "Die Göttersöhne nahmen sich Menschentöchter"
+      ],
+      "explanation": "Folie 21: Gen 6,11-13 – Verderben, Gewalttat, „der Weg allen Fleisches war verdorben“. Die Bosheit des Menschenherzens ist die Begründung im nichtpriesterlichen Rahmen (Folie 22).",
+      "slides": [
+        21
+      ]
+    },
+    {
+      "id": "q.u02.np_flut_grund",
+      "prompt": "Wie begründet der nichtpriesterliche Rahmen die Sintflut?",
+      "answer": "Die Bosheit des Menschen: alles Sinnen und Trachten seines Herzens war allezeit nur böse",
+      "distractors": [
+        "Die Erde verdarb vor Gott und wurde voll von Gewalttat",
+        "Die Menschen bauten einen Turm bis zum Himmel",
+        "Kain erschlug seinen Bruder Abel"
+      ],
+      "explanation": "Folie 22: Gen 6,5-7 – JHWH sieht die Bosheit des Menschen; es reut ihn, den Menschen gemacht zu haben.",
+      "slides": [
+        22
+      ]
+    },
+    {
+      "id": "q.u02.bundeszeichen_noah",
+      "prompt": "Was ist im priesterlichen Rahmen das Zeichen des Bundes mit Noah?",
+      "answer": "Der Bogen in den Wolken",
+      "distractors": [
+        "Die Beschneidung",
+        "Der Sabbat",
+        "Der Altar mit dem Brandopfer"
+      ],
+      "explanation": "Folie 21: Gen 9,12-13 – „Meinen Bogen stelle ich in die Wolken. Der soll ein Zeichen des Bundes … sein.“ Ergänzung: Die Beschneidung ist das Bundeszeichen in Gen 17.",
+      "slides": [
+        21
+      ]
+    },
+    {
+      "id": "q.u02.bundespartner",
+      "prompt": "Mit wem richtet Gott nach Gen 9,8-15 seinen Bund auf?",
+      "answer": "Mit Noah, seinen Söhnen, ihren Nachkommen und allen Lebewesen",
+      "distractors": [
+        "Nur mit Noah",
+        "Mit Abraham und seinen Nachkommen",
+        "Mit Israel am Sinai"
+      ],
+      "explanation": "Folie 21: „Ich richte meinen Bund auf mit euch und mit euren Nachkommen und mit allen Lebewesen …“",
+      "slides": [
+        21
+      ]
+    },
+    {
+      "id": "q.u02.herz",
+      "prompt": "Welche Begründung steht im nichtpriesterlichen Rahmen am Anfang (Gen 6,5) und am Ende (Gen 8,21)?",
+      "answer": "Das Trachten des Menschenherzens ist böse",
+      "distractors": [
+        "Die Erde ist voll von Gewalttat",
+        "Noah ist gerecht vor Gott",
+        "Alles Fleisch hat seinen Weg verdorben"
+      ],
+      "explanation": "Folie 22: Beide Aussagen sind blau markiert – in 6,5 begründen sie das Gericht, in 8,21 die Zusage, die Erde nie wieder zu verderben.",
+      "slides": [
+        22
+      ]
+    },
+    {
+      "id": "q.u02.gottesbezeichnung",
+      "prompt": "Wie wird Gott auf den Folien in den beiden Rahmen der Sintfluterzählung genannt?",
+      "answer": "Im priesterlichen Rahmen „Gott“, im nichtpriesterlichen „JHWH“ bzw. „der HERR“",
+      "distractors": [
+        "Im priesterlichen Rahmen „JHWH“, im nichtpriesterlichen „Gott“",
+        "In beiden Rahmen „JHWH“",
+        "In beiden Rahmen „Gott“"
+      ],
+      "explanation": "Folien 21–22: priesterlich „Gott“ (Gen 6,9-13; 9,8-15), nichtpriesterlich „JHWH“ / „der HERR“ (Gen 6,5-8; 8,20-22).",
+      "slides": [
+        21,
+        22
+      ]
+    },
+    {
+      "id": "q.u02.np_zusage",
+      "prompt": "Mit welcher Zusage endet der nichtpriesterliche Rahmen?",
+      "answer": "„Solange die Erde währt, sollen nicht aufhören Saat und Ernte, Frost und Hitze, Sommer und Winter, Tag und Nacht.“",
+      "distractors": [
+        "„Nie wieder soll alles Fleisch vom Wasser der Sintflut ausgerottet werden.“",
+        "„Meinen Bogen stelle ich in die Wolken.“",
+        "„Ich richte meinen Bund auf mit euch.“"
+      ],
+      "explanation": "Folie 22: Gen 8,22. Die drei anderen Sätze stammen aus dem priesterlichen Rahmen (Folie 21).",
+      "slides": [
+        22
+      ]
+    }
+  ]
+}

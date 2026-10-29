@@ -1,5 +1,5 @@
 {
-  "note": "Historische Eckdaten, Zeiträume, Personen und Mächte aus den Folien (Vorlesung Einheit 1, Folien 8, 14–16, 19–20; Übung Bibelkunde Sitzung 1, Folien 21–22, 27). Jede Aussage nennt ihre Folie; nichts kommt ohne Folie hinzu. Abweichende Angaben der beiden Veranstaltungen stehen je Veranstaltung unter datingBy.",
+  "note": "Historische Eckdaten, Zeiträume, Personen und Mächte aus den Folien (Vorlesung Einheit 1, Folien 8, 14–16, 19–20; Einheit 2, Folien 7–11; Übung Bibelkunde Sitzung 1, Folien 21–22, 27). Jede Aussage nennt ihre Folie; nichts kommt ohne Folie hinzu. Abweichende Angaben der beiden Veranstaltungen stehen je Veranstaltung unter datingBy.",
   "tracks": [
     {
       "id": "history",
@@ -8,6 +8,10 @@
     {
       "id": "text",
       "title": "Text und Überlieferung"
+    },
+    {
+      "id": "pentateuch",
+      "title": "Entstehung des Pentateuch (Forschung)"
     }
   ],
   "items": [
@@ -1186,6 +1190,322 @@
           "text": "1967: Biblia Hebraica Stuttgartensia (Druckausgabe des hebräischen Textes, die den Codex Petropolitanus wiedergibt)"
         }
       ]
+    },
+    {
+      "id": "person.wellhausen",
+      "kind": "person",
+      "track": "pentateuch",
+      "name": "Julius Wellhausen",
+      "dating": {
+        "from": 1844,
+        "to": 1918,
+        "label": "1844–1918"
+      },
+      "role": "Alttestamentler",
+      "clue": "Alttestamentler, mit dessen Namen die Neuere Urkundenhypothese (J, E, D, P) verbunden ist",
+      "related": [
+        "person.noth",
+        "event.quelle_j",
+        "event.quelle_e",
+        "event.quelle_d",
+        "event.quelle_p"
+      ],
+      "statements": [
+        {
+          "unit": "unit.02",
+          "slides": [
+            7
+          ],
+          "text": "Die Folie zur Neueren Urkundenhypothese zeigt Julius Wellhausen (1844-1918)."
+        }
+      ]
+    },
+    {
+      "id": "person.noth",
+      "kind": "person",
+      "track": "pentateuch",
+      "name": "Martin Noth",
+      "dating": {
+        "from": 1902,
+        "to": 1968,
+        "label": "1902–1968"
+      },
+      "role": "Alttestamentler",
+      "clue": "Alttestamentler neben Wellhausen auf der Folie zur Neueren Urkundenhypothese; von ihm stammt die klassische Zuweisung der priesterlichen Texte der Urgeschichte",
+      "related": [
+        "person.wellhausen",
+        "event.quelle_p"
+      ],
+      "statements": [
+        {
+          "unit": "unit.02",
+          "slides": [
+            7
+          ],
+          "text": "Die Folie zur Neueren Urkundenhypothese zeigt Martin Noth (1902-1968)."
+        },
+        {
+          "unit": "unit.02",
+          "slides": [
+            17
+          ],
+          "text": "Die klassische Abgrenzung der P-Texte der Urgeschichte zitiert die Folie nach M. Noth, Überlieferungsgeschichte des Pentateuch, 17."
+        }
+      ]
+    },
+    {
+      "id": "event.quelle_j",
+      "kind": "event",
+      "track": "pentateuch",
+      "name": "Jahwist (J) nach der Neueren Urkundenhypothese",
+      "dating": {
+        "from": -950,
+        "to": -950,
+        "label": "ca. 950 v. Chr.",
+        "approx": true,
+        "disputed": true,
+        "note": "Datierung des klassischen Modells. Nach der Vorlesung ist eine Ansetzung in salomonischer Zeit nicht begründbar; C. Levin und J. Van Seters datieren einen Jahwisten exilisch-nachexilisch."
+      },
+      "related": [
+        "event.quelle_e",
+        "person.wellhausen"
+      ],
+      "statements": [
+        {
+          "unit": "unit.02",
+          "slides": [
+            7
+          ],
+          "text": "Jahwist (J); ca. 950 v. Chr."
+        },
+        {
+          "unit": "unit.02",
+          "slides": [
+            8
+          ],
+          "text": "Nach der Vorlesung ist eine Ansetzung der jahwistischen Quellenschrift in salomonischer Zeit nicht begründbar."
+        }
+      ]
+    },
+    {
+      "id": "event.quelle_e",
+      "kind": "event",
+      "track": "pentateuch",
+      "name": "Elohist (E) nach der Neueren Urkundenhypothese",
+      "dating": {
+        "from": -800,
+        "to": -800,
+        "label": "ca. 800 v. Chr.",
+        "approx": true,
+        "disputed": true,
+        "note": "Datierung des klassischen Modells. Nach der Vorlesung ist der Elohist keine alte Quelle, sondern eine Reihe nachpriesterschriftlicher Erweiterungen."
+      },
+      "related": [
+        "event.quelle_j",
+        "event.quelle_d"
+      ],
+      "statements": [
+        {
+          "unit": "unit.02",
+          "slides": [
+            7
+          ],
+          "text": "Elohist (E); ca. 800 v. Chr."
+        },
+        {
+          "unit": "unit.02",
+          "slides": [
+            8
+          ],
+          "text": "Nach der Vorlesung repräsentiert der Text des Elohisten keine alte Quelle, sondern nachpriesterschriftliche Erweiterungen."
+        }
+      ]
+    },
+    {
+      "id": "event.quelle_d",
+      "kind": "event",
+      "track": "pentateuch",
+      "name": "Deuteronomium nach der Neueren Urkundenhypothese",
+      "dating": {
+        "from": -622,
+        "to": -622,
+        "label": "ca. 622 v. Chr.",
+        "approx": true,
+        "disputed": true,
+        "note": "Datierung des klassischen Modells; 622 v. Chr. ist das Jahr der Kultreform Josias (2 Kön 22–23). Im aktuellen Modell der Vorlesung behält das Deuteronomium einen gelben Haken."
+      },
+      "related": [
+        "event.josia",
+        "event.quelle_p"
+      ],
+      "statements": [
+        {
+          "unit": "unit.02",
+          "slides": [
+            7
+          ],
+          "text": "Deuteronomium; ca. 622 v. Chr."
+        }
+      ]
+    },
+    {
+      "id": "event.quelle_p",
+      "kind": "event",
+      "track": "pentateuch",
+      "name": "Priesterschrift (P) nach der Neueren Urkundenhypothese",
+      "dating": {
+        "from": -500,
+        "to": -500,
+        "label": "ca. 500 v. Chr.",
+        "approx": true,
+        "disputed": true,
+        "note": "Datierung des klassischen Modells; die Priesterschrift bleibt auch im aktuellen Modell der Vorlesung erhalten (grüner Haken)."
+      },
+      "related": [
+        "event.quelle_d",
+        "event.priestergrundschrift"
+      ],
+      "statements": [
+        {
+          "unit": "unit.02",
+          "slides": [
+            7
+          ],
+          "text": "Priesterschrift (P); ca. 500 v. Chr."
+        }
+      ]
+    },
+    {
+      "id": "event.kritik_urkundenhypothese",
+      "kind": "event",
+      "track": "pentateuch",
+      "name": "Verstärkte Kritik an der Neueren Urkundenhypothese",
+      "dating": {
+        "from": 1970,
+        "to": 1979,
+        "label": "seit den 1970er Jahren",
+        "approx": true
+      },
+      "related": [
+        "person.wellhausen"
+      ],
+      "statements": [
+        {
+          "unit": "unit.02",
+          "slides": [
+            8
+          ],
+          "text": "Seit den 1970er Jahren wurde v.a. in der kontinentaleuropäischen Forschung verstärkt Kritik an der Neueren Urkundenhypothese laut."
+        },
+        {
+          "unit": "unit.02",
+          "slides": [
+            9
+          ],
+          "text": "Auch über die Priesterschrift wird in der kontinentaleuropäischen Forschung seit den 1970er Jahren kontrovers diskutiert."
+        }
+      ]
+    },
+    {
+      "id": "event.nichtp_erzaehlwerke",
+      "kind": "event",
+      "track": "pentateuch",
+      "name": "Nichtpriesterliche Erzählwerke: Erzeltern und Exodus",
+      "dating": {
+        "from": -800,
+        "to": -501,
+        "label": "8.–6. Jh. v. Chr.",
+        "approx": true,
+        "disputed": true,
+        "note": "Datierung nach der Vorlesung; andere, besonders konservative Positionen rechnen mit einer früheren Abfassung und mit Mose als Urheber im Kern."
+      },
+      "related": [
+        "event.priestergrundschrift"
+      ],
+      "statements": [
+        {
+          "unit": "unit.02",
+          "slides": [
+            11
+          ],
+          "text": "Im Schaubild der aktuellen europäischen Pentateuchkritik stehen „Erzeltern“ und „Exodus“ im nichtpriesterlichen Text neben „neuassyrische + neubabylonische Zeit, 8.-6. Jh. v. Chr.“"
+        },
+        {
+          "unit": "unit.02",
+          "slides": [
+            8
+          ],
+          "text": "Nach der Vorlesung zerfällt der Text des Jahwisten in zwei ursprünglich selbstständige vorpriesterschriftliche Erzählwerke (Erzväter- und Exoduserzählung)."
+        }
+      ]
+    },
+    {
+      "id": "event.priestergrundschrift",
+      "kind": "event",
+      "track": "pentateuch",
+      "name": "Priestergrundschrift (PG)",
+      "dating": {
+        "from": -600,
+        "to": -401,
+        "label": "Perserzeit, 6.–5. Jh. v. Chr.",
+        "approx": true,
+        "disputed": true,
+        "note": "Datierung nach der Vorlesung; andere, besonders konservative Positionen rechnen mit einer früheren Abfassung und mit Mose als Urheber im Kern."
+      },
+      "related": [
+        "event.nichtp_erzaehlwerke",
+        "event.theokratische_bearbeitung",
+        "event.quelle_p"
+      ],
+      "statements": [
+        {
+          "unit": "unit.02",
+          "slides": [
+            11
+          ],
+          "text": "Im Schaubild steht die Priestergrundschrift (Gen 1-Ex 40*) + Lev 1-16 neben „Perserzeit, 6.-5. Jh. v. Chr.“"
+        },
+        {
+          "unit": "unit.02",
+          "slides": [
+            9
+          ],
+          "text": "Minimalbestand von PG: Gen 1 – Ex 40* (R.G. Kratz)."
+        }
+      ]
+    },
+    {
+      "id": "event.theokratische_bearbeitung",
+      "kind": "event",
+      "track": "pentateuch",
+      "name": "Theokratische Bearbeitungen in Gen–Num",
+      "dating": {
+        "from": -400,
+        "to": -201,
+        "label": "hellenistische Zeit, 4.–3. Jh. v. Chr.",
+        "approx": true,
+        "disputed": true,
+        "note": "Datierung nach der Vorlesung; andere, besonders konservative Positionen rechnen mit einer früheren Abfassung und mit Mose als Urheber im Kern."
+      },
+      "related": [
+        "event.priestergrundschrift"
+      ],
+      "statements": [
+        {
+          "unit": "unit.02",
+          "slides": [
+            11
+          ],
+          "text": "Im Schaubild stehen die „theokratischen Bearbeitungen in Gen-Num“ neben „Hellenistische Zeit, 4.-3. Jh. v. Chr.“"
+        },
+        {
+          "unit": "unit.02",
+          "slides": [
+            9
+          ],
+          "text": "Sekundär priesterschriftliches Material (v.a. in Num) erweitert einen Text, in dem PG bereits mit dem nichtpriesterschriftlichen Erzählbestand verbunden war (R. Achenbach: theokratische Bearbeitungen)."
+        }
+      ]
     }
   ],
   "sequences": [
@@ -1239,6 +1559,33 @@
         "event.protomasoretisch",
         "event.codex_leningradensis",
         "event.bhs"
+      ]
+    },
+    {
+      "id": "seq.urkundenhypothese",
+      "title": "Die Quellen der Neueren Urkundenhypothese",
+      "unit": "unit.02",
+      "slides": [
+        7
+      ],
+      "items": [
+        "event.quelle_j",
+        "event.quelle_e",
+        "event.quelle_d",
+        "event.quelle_p"
+      ]
+    },
+    {
+      "id": "seq.pentateuch_heute",
+      "title": "Der Tetrateuch im aktuellen Modell (Schaubild)",
+      "unit": "unit.02",
+      "slides": [
+        11
+      ],
+      "items": [
+        "event.nichtp_erzaehlwerke",
+        "event.priestergrundschrift",
+        "event.theokratische_bearbeitung"
       ]
     }
   ],
@@ -1389,6 +1736,37 @@
       "items": [
         "event.codex_leningradensis",
         "event.bhs"
+      ]
+    },
+    {
+      "id": "lesson.pentateuch_forscher",
+      "part": "Entstehung des Pentateuch (Forschung)",
+      "title": "Wellhausen und Noth",
+      "items": [
+        "person.wellhausen",
+        "person.noth"
+      ]
+    },
+    {
+      "id": "lesson.urkundenhypothese",
+      "part": "Entstehung des Pentateuch (Forschung)",
+      "title": "Die vier Quellen der Neueren Urkundenhypothese",
+      "items": [
+        "event.quelle_j",
+        "event.quelle_e",
+        "event.quelle_d",
+        "event.quelle_p"
+      ]
+    },
+    {
+      "id": "lesson.pentateuch_heute",
+      "part": "Entstehung des Pentateuch (Forschung)",
+      "title": "Kritik und heutiges Modell",
+      "items": [
+        "event.kritik_urkundenhypothese",
+        "event.nichtp_erzaehlwerke",
+        "event.priestergrundschrift",
+        "event.theokratische_bearbeitung"
       ]
     }
   ]

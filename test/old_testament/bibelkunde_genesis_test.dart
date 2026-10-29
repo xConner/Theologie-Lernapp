@@ -135,7 +135,7 @@ void main() {
         [for (var i = 1; i <= 16; i++) i],
       );
       // Die Vorlesung sieht die Sitzung nicht.
-      expect(lecture.units.map((u) => u.id), ["unit.01"]);
+      expect(lecture.units.map((u) => u.id), everyElement(startsWith("unit.")));
     });
 
     test("Folienbilder liegen vor, ohne Kontaktdaten der Titelfolie", () {
@@ -441,11 +441,20 @@ void main() {
 
   group("Begriffe", () {
     test("neue Begriffe stehen einmal und nur in der Übung", () {
-      const added = [
-        "term.nomos",
+      // Die Hauptteile der Genesis nennt auch Einheit 2 der Vorlesung –
+      // derselbe Eintrag, dieselbe Karte.
+      for (final id in [
         "term.urgeschichte",
         "term.erzelterngeschichte",
         "term.josephsgeschichte",
+      ]) {
+        expect(all.unitsOfTerm(id).map((u) => u.id), [
+          "unit.02",
+          "bk.02",
+        ], reason: id);
+      }
+      const added = [
+        "term.nomos",
         "term.toledot",
         "term.bundesbuch",
         "term.heiligkeitsgesetz",
