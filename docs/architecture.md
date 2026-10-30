@@ -305,6 +305,11 @@ umfassen, und Perikopen außerhalb der Reihenfolge. Bewusste Lücken,
 Halbvers-Grenzen und übergeordnete Abschnitte sind zulässig; bekannte
 Ausnahmen stehen dort mit Begründung.
 
+Jede Perikope trägt eine inhaltliche Überschrift; ein Titel, der nur die
+Stelle nennt („Ex 8“), ist nicht zulässig (`test/perikopen_exodus_levitikus_test.dart`).
+Ändert sich eine ID oder ein Anfang, übernimmt `PericopeIdMigration` den
+Lernstand.
+
 Ausgabe, Lesestand und Schriftgröße gehören zum Gerät und liegen wie das
 Erscheinungsbild in den `SharedPreferences`.
 

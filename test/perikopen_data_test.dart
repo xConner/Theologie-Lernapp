@@ -106,13 +106,13 @@ void main() {
       // Endete einen Vers vor dem Psalmende.
       expect(at("klage_und_vertrauen_eines_alleingelassenen"), "Ps 55,1–55,24");
 
-      // Kapitelfragen umfassen ihr Kapitel – einmal, nicht in mehreren
-      // widersprüchlichen Fassungen.
-      expect(at("1sam_1"), "1Sam 1,1–1,28");
-      expect(at("2sam_2"), "2Sam 2,1–2,32");
-      expect(at("2koen_2"), "2Kön 2,1–2,25");
-      expect(at("2chr_2"), "2Chr 2,1–2,17");
-      expect(at("1kor_1"), "1Kor 1,1–1,31");
+      // Die früheren Kapitelfragen („1Sam 1“) sind entfernt; ihre Kapitel
+      // decken benannte Perikopen ab.
+      for (final id in ["1sam_1", "2sam_2", "2koen_2", "2chr_2", "1kor_1"]) {
+        expect(list.where((e) => e["id"] == id), isEmpty, reason: id);
+      }
+      expect(at("die_geburt_samuels"), "1Sam 1,1–1,20");
+      expect(at("die_entrueckung_elijas"), "2Kön 2,1–2,18");
     });
 
     test("Perikopen über eine Kapitelgrenze bleiben vollständig", () {

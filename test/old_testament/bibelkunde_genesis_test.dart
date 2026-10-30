@@ -279,10 +279,12 @@ void main() {
 
     test("Genesis nach der Folie, übrige Bücher unverändert", () {
       // 2884 Einträge vor dem Abgleich, sechs neue Teilperikopen, dazu
-      // Ex 32 „Israels Abfall: Das Goldene Kalb“ (Sitzung 3).
-      expect(perikopen, hasLength(2891));
+      // Ex 32 „Israels Abfall: Das Goldene Kalb“ (Sitzung 3) und seit
+      // 30.10.2026 die Neugliederung von Exodus, Levitikus und der
+      // Kapitel-Platzhalter (test/perikopen_exodus_levitikus_test.dart).
+      expect(perikopen, hasLength(2929));
       expect(genesis.map(BookPericope.keyOf).toList(), _genesisKeys);
-      expect(perikopen.where((p) => p.book != "Gen"), hasLength(2884 - 72 + 1));
+      expect(perikopen.where((p) => p.book != "Gen"), hasLength(2929 - 78));
       for (final g in genesis) {
         expect((g.required, g.precision), (true, "chapter"), reason: g.id);
       }
@@ -487,14 +489,17 @@ void main() {
   group("Eigene ID für Gen 6,9-22: Lernstand bleibt", () {
     test("umbenannte Schlüssel zeigen auf die Liste", () {
       final keys = genesis.map(BookPericope.keyOf).toSet();
-      for (final e in PericopeIdMigration.renamedKeys.entries) {
+      // Übernahmen anderer Bücher prüft perikopen_exodus_levitikus_test.
+      bool gen(MapEntry<String, String> e) => e.key.startsWith("Gen|");
+      final genesisIds = genesis.map((g) => g.id).toSet();
+      for (final e in PericopeIdMigration.renamedKeys.entries.where(gen)) {
         expect(keys, contains(e.key));
         expect(keys, isNot(contains(e.value)));
       }
       // Frühere Schlüssel geteilter Perikopen gelten teils weiter (der
       // erste Teil behält Anfang und ID).
       final earlier = {for (final key in _earlierGenesisKeys) key};
-      for (final e in PericopeIdMigration.movedKeys.entries) {
+      for (final e in PericopeIdMigration.movedKeys.entries.where(gen)) {
         expect(keys, contains(e.key));
         expect(earlier, contains(e.value), reason: e.key);
         expect(earlier, isNot(contains(e.key)), reason: e.key);
@@ -511,7 +516,9 @@ void main() {
           reason: key,
         );
       }
-      for (final e in PericopeIdMigration.renamedIds.entries) {
+      for (final e in PericopeIdMigration.renamedIds.entries.where(
+        (e) => genesisIds.contains(e.key),
+      )) {
         expect(genesis.map((g) => g.id), containsAll([e.key, e.value]));
       }
       expect(

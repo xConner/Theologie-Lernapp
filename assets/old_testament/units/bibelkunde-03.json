@@ -332,10 +332,16 @@
       "clue": "Mose: Geburt, Jugend, Flucht und Berufung",
       "pericopes": [
         "Ex|die_jugend_des_mose|2,1",
+        "Ex|mose_erschlaegt_einen_aegypter|2,11",
         "Ex|mose_in_midian|2,15",
-        "Ex|die_berufung_des_mose|2,23",
-        "Ex|ex_3|3,1",
-        "Ex|die_rueckkehr_des_mose_nach_aegypten|4,18"
+        "Ex|gott_hoert_das_seufzen_israels|2,23",
+        "Ex|die_berufung_des_mose|3,1",
+        "Ex|die_offenbarung_des_gottesnamens|3,13",
+        "Ex|zeichen_zur_beglaubigung_des_mose|4,1",
+        "Ex|aaron_als_sprecher_des_mose|4,10",
+        "Ex|die_rueckkehr_des_mose_nach_aegypten|4,18",
+        "Ex|zippora_und_der_blutbraeutigam|4,24",
+        "Ex|mose_und_aaron_vor_den_aeltesten_israels|4,27"
       ]
     },
     {
@@ -347,8 +353,7 @@
       "context": "Bei der Berufung am Dornbusch: Gott nennt Mose seinen Namen (auf der Folie fett).",
       "clue": "„Ich werde sein, der ich sein werde“ – Gottes Name",
       "pericopes": [
-        "Ex|die_berufung_des_mose|2,23",
-        "Ex|ex_3|3,1"
+        "Ex|die_offenbarung_des_gottesnamens|3,13"
       ]
     },
     {
@@ -361,12 +366,23 @@
       "context": "Unterteil von Ex 1–18. Die eigentlichen Plagenerzählungen (Plagen 1–9) stehen in Kap. 7–11, die Tötung der Erstgeburt in Kap. 12.",
       "clue": "Die 10 Plagen",
       "pericopes": [
-        "Ex|die_aegyptischen_plagen|7,1",
-        "Ex|ex_8|8,1",
-        "Ex|ex_9|9,1",
-        "Ex|ex_10|10,1",
-        "Ex|ex_11|11,1",
-        "Ex|das_pascha|12,1"
+        "Ex|aarons_stab_wird_zur_schlange|7,8",
+        "Ex|die_aegyptischen_plagen|7,14",
+        "Ex|die_zweite_plage_froesche|7,26",
+        "Ex|die_dritte_plage_stechmuecken|8,12",
+        "Ex|die_vierte_plage_bremsen|8,16",
+        "Ex|die_fuenfte_plage_viehpest|9,1",
+        "Ex|die_sechste_plage_geschwuere|9,8",
+        "Ex|die_siebte_plage_hagel|9,13",
+        "Ex|die_achte_plage_heuschrecken|10,1",
+        "Ex|die_neunte_plage_finsternis|10,21",
+        "Ex|ankuendigung_der_toetung_der_erstgeborenen|11,1",
+        "Ex|das_pascha|12,1",
+        "Ex|das_fest_der_ungesaeuerten_brote|12,15",
+        "Ex|das_blut_des_paschalamms_an_den_tuerpfosten|12,21",
+        "Ex|die_zehnte_plage_toetung_der_erstgeburt|12,29",
+        "Ex|der_auszug_aus_aegypten|12,37",
+        "Ex|wer_am_pascha_teilnehmen_darf|12,43"
       ]
     },
     {
@@ -378,7 +394,8 @@
       "context": "Die 10. Plage.",
       "clue": "Tötung der Erstgeburt → Vorbereitung des Passah",
       "pericopes": [
-        "Ex|das_pascha|12,1"
+        "Ex|das_pascha|12,1",
+        "Ex|die_zehnte_plage_toetung_der_erstgeburt|12,29"
       ]
     },
     {
@@ -390,10 +407,11 @@
       "context": "Auszug.",
       "clue": "Schilfmeer",
       "pericopes": [
-        "Ex|das_pascha|12,1",
-        "Ex|die_rettung_am_schilfmeer|13,17",
-        "Ex|ex_14|14,1",
-        "Ex|das_lied_des_mose|15,1",
+        "Ex|die_weihe_der_erstgeburt_und_das_gedenken_an_den_auszug|13,1",
+        "Ex|gottes_fuehrung_in_wolken_und_feuersaeule|13,17",
+        "Ex|die_rettung_am_schilfmeer|14,1",
+        "Ex|das_lied_des_mose_am_schilfmeer|15,1",
+        "Ex|das_lied_der_mirjam|15,19",
         "Ex|auf_dem_weg_zum_sinai|15,22"
       ]
     },
@@ -406,7 +424,7 @@
       "context": "Mirjamlied: „Lasst uns dem HERRN singen, denn er ist hoch erhaben; Ross und Reiter hat er ins Meer gestürzt.“",
       "clue": "Mirjamlied: „Ross und Reiter hat er ins Meer gestürzt“",
       "pericopes": [
-        "Ex|das_lied_des_mose|15,1"
+        "Ex|das_lied_der_mirjam|15,19"
       ]
     },
     {
@@ -484,10 +502,16 @@
       "context": "Israels Abfall und das neue Gesetz.",
       "clue": "Israels Abfall („Das Goldene Kalb“): Bundesbruch und erneuter Bundesschluss",
       "pericopes": [
-        "Ex|ex_32|32,1",
         "Ex|israels_abfall_das_goldene_kalb|32,1",
-        "Ex|die_erneuerung_des_bundes|33,7",
-        "Ex|ex_34|34,1"
+        "Ex|moses_fuerbitte_fuer_das_volk|32,7",
+        "Ex|die_zerbrochenen_tafeln_und_das_gericht_der_leviten|32,15",
+        "Ex|mose_bittet_um_vergebung_fuer_das_volk|32,30",
+        "Ex|der_befehl_zum_aufbruch_und_die_trauer_des_volkes|33,1",
+        "Ex|das_offenbarungszelt_ausserhalb_des_lagers|33,7",
+        "Ex|mose_bittet_gottes_herrlichkeit_zu_sehen|33,12",
+        "Ex|die_neuen_tafeln_und_die_gnadenformel|34,1",
+        "Ex|der_erneuerte_bundesschluss|34,10",
+        "Ex|das_strahlende_gesicht_des_mose|34,29"
       ]
     },
     {
@@ -499,8 +523,7 @@
       "context": "Gnadenformel beim erneuten Bundesschluss.",
       "clue": "Gnadenformel: „barmherzig und gnädig und geduldig und von großer Gnade und Treue“",
       "pericopes": [
-        "Ex|die_erneuerung_des_bundes|33,7",
-        "Ex|ex_34|34,1"
+        "Ex|die_neuen_tafeln_und_die_gnadenformel|34,1"
       ]
     },
     {
@@ -533,7 +556,8 @@
         "Lev|die_priesterweihe|8,1",
         "Lev|das_weiheopfer_des_hohenpriesters|9,1",
         "Lev|die_strafe_fuer_unrechtmaessiges_opfern|10,1",
-        "Lev|der_dienst_im_heiligtum|10,6"
+        "Lev|der_dienst_im_heiligtum|10,6",
+        "Lev|das_essen_der_priesterlichen_opferanteile|10,12"
       ]
     },
     {
@@ -583,7 +607,7 @@
       "context": "Einer der zwei wichtigen Verse des Heiligkeitsgesetzes.",
       "clue": "„Ihr sollt heilig sein, denn ich bin heilig, der HERR, euer Gott.“",
       "pericopes": [
-        "Lev|einleitung|19,1"
+        "Lev|der_ruf_zur_heiligkeit|19,1"
       ]
     },
     {
