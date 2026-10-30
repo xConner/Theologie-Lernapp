@@ -32,7 +32,7 @@ void main() {
     test("ist eingebunden und von der Vorlesung getrennt", () {
       expect(bk.course.title, contains("Bibelkunde"));
       expect(bk.course.lecturer, "Louisa Thomsen");
-      expect(bk.units.map((u) => u.id), ["bk.01", "bk.02"]);
+      expect(bk.units.map((u) => u.id), ["bk.01", "bk.02", "bk.03"]);
       expect(session.course, OtCourseId.bibelkunde);
       expect(session.label, "Sitzung 1");
       expect(session.file, contains("Einfuhrung erste Sitzung"));

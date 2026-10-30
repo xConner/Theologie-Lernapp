@@ -1,0 +1,1239 @@
+{
+  "id": "bk.03",
+  "course": "bibelkunde",
+  "number": 3,
+  "title": "Exodus und Levitikus",
+  "scope": "3. Sitzung der Übung (05.11.2026, Exodus; Levitikus), 9 Folien; Präsentation von Ronja Koch, die Tonspur ist nicht enthalten",
+  "file": "Ex-Lev.pdf",
+  "related": [
+    "bk.02"
+  ],
+  "slides": [
+    {
+      "number": 1,
+      "title": "Bibelkunde Altes Testament",
+      "text": "Bibelkunde\nAltes Testament\nRonja Koch\n(Raum, Telefon und E-Mail stehen auf der Originalfolie und werden hier nicht wiedergegeben.)",
+      "figure": "Titelfolie mit CAU-Logo."
+    },
+    {
+      "number": 2,
+      "title": "Exodus",
+      "image": "assets/old_testament/slides/bk03-folie-02.png",
+      "text": "Exodus\n1 – 18 – Israel in Ägypten, Auszug, Wüstenwanderung Teil 1\n    2 – 4: Mose Geburt, Jugend, Flucht und Berufung\n    7 – 12: Die 10 Plagen\n19 – 24 – Sinai: Theophanie und Bundesschluss\n    20: Dekalog\n    21-23: Das Bundesbuch\n25 – 31 – Vorschriften zum Bau der sog. Stiftshütte\n35 – 40 – Die Ausführung der Vorschriften\n32 – 34 – Israels Abfall („Das Goldene Kalb“) und das neue Gesetz",
+      "figure": "Zweispaltige Übersicht (Kapitel – Inhalt). Die Folie nennt 35–40 vor 32–34, so dass die beiden Stiftshütten-Teile untereinander stehen."
+    },
+    {
+      "number": 3,
+      "title": "Inhalt",
+      "image": "assets/old_testament/slides/bk03-folie-03.png",
+      "text": "Inhalt\n• Geschichte des Volkes Israel von der Knechtschaft in Ägypten über die Befreiung aus dieser Knechtschaft bis zum Sinai\n   – Exodus\n   – Wanderung durch die Wüste\n• Gesetzgebung\n• Bau der Stiftshütte\n• Zentrale Figur: Mose\n   – Berufung(en) besonders wichtig\n• 2 Hauptthemen\n   – Auszug aus Ägypten\n   – Begegnung am Sinai",
+      "figure": "Lautsprechersymbol oben rechts: Die Präsentation hat eine Tonspur; sie ist im PDF nicht enthalten."
+    },
+    {
+      "number": 4,
+      "title": "Ex 3,14",
+      "image": "assets/old_testament/slides/bk03-folie-04.png",
+      "text": "Ex 3,14\n13 Mose sprach zu Gott: Siehe, wenn ich zu den Israeliten komme und spreche zu ihnen: Der Gott eurer Väter hat mich zu euch gesandt!, und sie mir sagen werden: Wie ist sein Name?, was soll ich ihnen sagen?\n14 Gott sprach zu Mose: Ich werde sein, der ich sein werde. Und sprach: So sollst du zu den Israeliten sagen: „Ich werde sein“, der hat mich zu euch gesandt.\n15 Und Gott sprach weiter zu Mose: So sollst du den Israeliten sagen: Der HERR (JHWH), der Gott eurer Väter, der Gott Abrahams, der Gott Isaaks, der Gott Jakobs, hat mich zu euch gesandt. Das ist mein Name auf ewig, mit dem man mich anrufen soll von Geschlecht zu Geschlecht.",
+      "highlights": [
+        "Vers 14 (fett)"
+      ],
+      "figure": "Ex 3,13-15 im Wortlaut der Lutherbibel 2017, Vers 14 fett. Lautsprechersymbol oben rechts: Die Präsentation hat eine Tonspur; sie ist im PDF nicht enthalten."
+    },
+    {
+      "number": 5,
+      "title": "Die 10 Plagen",
+      "image": "assets/old_testament/slides/bk03-folie-05.png",
+      "text": "Die 10 Plagen\n• Eigentliche Plagenerzählungen (Plagen 1-9) in Kap. 7-11\n   1. Nilwasser zu Blut\n   2. Frösche\n   3. Mücken\n   4. Bremsen\n   5. (Tier-)Pest\n   6. Beulen/Geschwüre\n   7. Hagel\n   8. Heuschrecken\n   9. Finsternis\n• Kap 12: Tötung der Erstgeburt → Vorbereitung des Passah",
+      "figure": "Lautsprechersymbol oben rechts: Die Präsentation hat eine Tonspur; sie ist im PDF nicht enthalten."
+    },
+    {
+      "number": 6,
+      "title": "Auszug und Sinai",
+      "image": "assets/old_testament/slides/bk03-folie-06.png",
+      "text": "Auszug und Sinai\n• Ex 13-15: Schilfmeer\n   – Mirjamlied in Ex 15,21: „Lasst uns dem HERRN singen, denn er ist hoch erhaben; Ross und Reiter hat er ins Meer gestürzt.“\n• Ex 19-24: Sinaioffenbarung\n   – Theophanie\n   – Bundesbuch (Ex 20,22-23,33)\n   – Bundesschluss in Kapitel 24 → Abendmahl im NT\n• Ex 25-31: Zelt der Begegnung → Zeltheiligtum\n• Ex 32-34: Goldenes Kalb\n   – Bundesbruch\n   – Erneuter Bundesschluss in Kapitel 34\n   – Gnadenformel in Ex 34,6: „HERR, HERR, Gott, barmherzig und gnädig und geduldig und von großer Gnade und Treue“",
+      "figure": "Lautsprechersymbol oben rechts: Die Präsentation hat eine Tonspur; sie ist im PDF nicht enthalten."
+    },
+    {
+      "number": 7,
+      "title": "Der Dekalog",
+      "image": "assets/old_testament/slides/bk03-folie-07.png",
+      "text": "Der Dekalog\n• Ex 20,1-7 → vgl. Dtn 5,6-18\n• Zusammenfassung des Willens Gottes\n• Apodiktisches Recht\n• Wichtig für Bezüge im NT\n• Einheit von ethischen/kultischen Pflichten gegenüber Gott und den Mitmenschen\n• 1. & 2. Gebot besonders wichtig für Israels Religionsgeschichte",
+      "figure": "Lautsprechersymbol oben rechts: Die Präsentation hat eine Tonspur; sie ist im PDF nicht enthalten."
+    },
+    {
+      "number": 8,
+      "title": "Levitikus",
+      "image": "assets/old_testament/slides/bk03-folie-08.png",
+      "text": "Levitikus\n1 – 7 – Opfergesetze\n8 – 10 – Priesterweihe, Beginn des Kults\n11 – 15 – Reinheitsgesetze\n16 – Jom Kippur: Versöhnungstag\n17 – 26 – Heiligkeitsgesetz\n27 – Priesterliche Weihevorschriften (bis Num 10), hier: Gelübde und Weihegaben",
+      "figure": "Zweispaltige Übersicht (Kapitel – Inhalt). Lautsprechersymbol oben rechts: Die Präsentation hat eine Tonspur; sie ist im PDF nicht enthalten."
+    },
+    {
+      "number": 9,
+      "title": "Heiligkeitsgesetz",
+      "image": "assets/old_testament/slides/bk03-folie-09.png",
+      "text": "Heiligkeitsgesetz\n• Lev 17-26\n• Nach dem Bundesbuch (Ex 20,22-23,33) das zweite große Gesetzescorpus im Pentateuch\n   – Drittes Corpus → Urdeuteronomium (Dtn 12-25)\n• Heiligkeit Gottes → Heiligkeit des Volkes\n• Regeln zu Ernährung, Ehe, Sexualität, Umgang mit Fremden, etc.\n• Zwei wichtige Verse:\n   – Lev 19,2b: Ihr sollt heilig sein, denn ich bin heilig, der HERR, euer Gott.\n   – Lev 19,18b: Du sollst deinen Nächsten lieben wie dich selbst; ich bin der HERR.",
+      "figure": "Lautsprechersymbol oben rechts: Die Präsentation hat eine Tonspur; sie ist im PDF nicht enthalten."
+    }
+  ],
+  "keyPoints": [
+    {
+      "text": "Gliederung des Exodus: 1–18 Israel in Ägypten, Auszug, Wüstenwanderung Teil 1 (darin 2–4 Mose, 7–12 die 10 Plagen); 19–24 Sinai: Theophanie und Bundesschluss (20 Dekalog, 21–23 Bundesbuch); 25–31 Vorschriften zum Bau der Stiftshütte; 32–34 Israels Abfall („Das Goldene Kalb“) und das neue Gesetz; 35–40 Ausführung der Vorschriften.",
+      "slides": [
+        2
+      ]
+    },
+    {
+      "text": "Exodus erzählt die Geschichte Israels von der Knechtschaft in Ägypten über die Befreiung bis zum Sinai, dazu Gesetzgebung und Bau der Stiftshütte. Zentrale Figur ist Mose, besonders wichtig seine Berufung(en). Zwei Hauptthemen: Auszug aus Ägypten und Begegnung am Sinai.",
+      "slides": [
+        3
+      ]
+    },
+    {
+      "text": "Bei der Berufung offenbart Gott Mose seinen Namen: „Ich werde sein, der ich sein werde“ (Ex 3,14); Ex 3,15 nennt ihn den HERRN (JHWH), den Gott der Väter Abraham, Isaak und Jakob.",
+      "slides": [
+        4
+      ]
+    },
+    {
+      "text": "Die eigentlichen Plagenerzählungen (Plagen 1–9) stehen in Ex 7–11; Ex 12 erzählt die Tötung der Erstgeburt und die Vorbereitung des Passah.",
+      "slides": [
+        5
+      ]
+    },
+    {
+      "text": "Schilfmeer (Ex 13–15) mit dem Mirjamlied (Ex 15,21); Sinaioffenbarung (Ex 19–24) mit Theophanie, Bundesbuch und Bundesschluss (Ex 24, Bezug zum Abendmahl); Zelt der Begegnung (Ex 25–31); Goldenes Kalb (Ex 32–34): Bundesbruch, erneuter Bundesschluss (Ex 34) und Gnadenformel (Ex 34,6).",
+      "slides": [
+        6
+      ]
+    },
+    {
+      "text": "Der Dekalog (Ex 20, vgl. Dtn 5) fasst den Willen Gottes zusammen: apodiktisches Recht, wichtig für Bezüge im NT, Einheit ethischer und kultischer Pflichten gegenüber Gott und den Mitmenschen; das 1. und 2. Gebot sind besonders wichtig für Israels Religionsgeschichte.",
+      "slides": [
+        7
+      ]
+    },
+    {
+      "text": "Gliederung des Levitikus: 1–7 Opfergesetze, 8–10 Priesterweihe und Beginn des Kults, 11–15 Reinheitsgesetze, 16 Jom Kippur (Versöhnungstag), 17–26 Heiligkeitsgesetz, 27 Gelübde und Weihegaben.",
+      "slides": [
+        8
+      ]
+    },
+    {
+      "text": "Das Heiligkeitsgesetz (Lev 17–26) ist nach dem Bundesbuch das zweite große Gesetzescorpus (das dritte: Urdeuteronomium, Dtn 12–25). Grundgedanke: Heiligkeit Gottes → Heiligkeit des Volkes. Zwei wichtige Verse: Lev 19,2b und Lev 19,18b.",
+      "slides": [
+        9
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "title": "Exodus: Gliederung",
+      "slides": [
+        2
+      ],
+      "points": [
+        "1–18 Israel in Ägypten, Auszug, Wüstenwanderung Teil 1 – darin 2–4: Mose Geburt, Jugend, Flucht und Berufung; 7–12: Die 10 Plagen.",
+        "19–24 Sinai: Theophanie und Bundesschluss – darin 20: Dekalog; 21–23: Das Bundesbuch.",
+        "25–31 Vorschriften zum Bau der sog. Stiftshütte; 35–40 die Ausführung der Vorschriften.",
+        "32–34 Israels Abfall („Das Goldene Kalb“) und das neue Gesetz – zwischen Vorschrift und Ausführung."
+      ],
+      "supplement": "Die Folie stellt 35–40 direkt unter 25–31, weil beide Teile die Stiftshütte betreffen; in der Bibel steht die Erzählung vom Goldenen Kalb (32–34) dazwischen. Die Merkliste der App ordnet nach Kapiteln."
+    },
+    {
+      "title": "Exodus: Inhalt und Hauptthemen",
+      "slides": [
+        3
+      ],
+      "points": [
+        "Geschichte des Volkes Israel von der Knechtschaft in Ägypten über die Befreiung aus dieser Knechtschaft bis zum Sinai: Exodus und Wanderung durch die Wüste.",
+        "Dazu Gesetzgebung und Bau der Stiftshütte.",
+        "Zentrale Figur ist Mose; besonders wichtig sind seine Berufung(en).",
+        "Zwei Hauptthemen: Auszug aus Ägypten und Begegnung am Sinai."
+      ],
+      "supplement": "„Berufung(en)“: Neben der Berufung am Dornbusch (Ex 3,1–4,17) erzählt Ex 6,2-13 eine zweite Beauftragung des Mose."
+    },
+    {
+      "title": "Der Gottesname (Ex 3,14)",
+      "slides": [
+        4
+      ],
+      "points": [
+        "Mose fragt, was er den Israeliten auf die Frage nach dem Namen des Gottes der Väter sagen soll (Ex 3,13).",
+        "Gott antwortet: „Ich werde sein, der ich sein werde.“ Die Israeliten sollen hören: „Ich werde sein“ hat mich zu euch gesandt (Ex 3,14, auf der Folie fett).",
+        "Ex 3,15 nennt den Namen: der HERR (JHWH), der Gott Abrahams, Isaaks und Jakobs – sein Name auf ewig."
+      ],
+      "supplement": "Der Gottesname JHWH (das Tetragramm) klingt im hebräischen „ich werde sein“ (ehjeh) an. Die Lutherbibel gibt JHWH mit „HERR“ in Großbuchstaben wieder. Johannes nimmt das „Ich bin“ in den Ich-bin-Worten Jesu auf (z. B. Joh 8,58)."
+    },
+    {
+      "title": "Die 10 Plagen und das Passah",
+      "slides": [
+        5
+      ],
+      "points": [
+        "Die eigentlichen Plagenerzählungen (Plagen 1–9) stehen in Ex 7–11: 1. Nilwasser zu Blut, 2. Frösche, 3. Mücken, 4. Bremsen, 5. (Tier-)Pest, 6. Beulen/Geschwüre, 7. Hagel, 8. Heuschrecken, 9. Finsternis.",
+        "Ex 12: Tötung der Erstgeburt (die 10. Plage) → Vorbereitung des Passah."
+      ],
+      "supplement": "Das Passah wird im NT auf Christus bezogen: „Denn auch wir haben ein Passalamm, das ist Christus, der geopfert ist“ (1 Kor 5,7)."
+    },
+    {
+      "title": "Auszug und Sinai",
+      "slides": [
+        6
+      ],
+      "points": [
+        "Ex 13–15: Schilfmeer; darin das Mirjamlied Ex 15,21: „Lasst uns dem HERRN singen, denn er ist hoch erhaben; Ross und Reiter hat er ins Meer gestürzt.“",
+        "Ex 19–24: Sinaioffenbarung mit Theophanie, Bundesbuch (Ex 20,22–23,33) und Bundesschluss in Kapitel 24 – nach der Folie mit Bezug zum Abendmahl im NT.",
+        "Ex 25–31: Zelt der Begegnung → Zeltheiligtum.",
+        "Ex 32–34: Goldenes Kalb – Bundesbruch, erneuter Bundesschluss in Kapitel 34 und die Gnadenformel Ex 34,6: „HERR, HERR, Gott, barmherzig und gnädig und geduldig und von großer Gnade und Treue“."
+      ],
+      "supplement": "Bezug zum Abendmahl: Mose spricht beim Bundesschluss vom „Blut des Bundes“ (Ex 24,8); Jesus nimmt das beim Abendmahl auf („mein Blut des Bundes“, Mk 14,24; vgl. 1 Kor 11,25 „der neue Bund in meinem Blut“). Die Gnadenformel kehrt oft wieder, z. B. Num 14,18; Ps 103,8; Joel 2,13; Jona 4,2.",
+      "unclear": "Abgrenzung des Bundesbuchs: Diese Folie (und Folie 9) nennt Ex 20,22–23,33, Folie 2 „21-23“, Sitzung 2 (Folie 6) dagegen Ex 20,22–23,19. Die längere Abgrenzung schließt den Schlussteil 23,20-33 (Verheißung des Engels und der Landnahme) ein. Abgefragt wird Ex 20,22–23,33, die Abgrenzung dieser Sitzung."
+    },
+    {
+      "title": "Der Dekalog",
+      "slides": [
+        7
+      ],
+      "points": [
+        "Fundstellen: Ex 20 und Dtn 5.",
+        "Zusammenfassung des Willens Gottes; apodiktisches Recht.",
+        "Wichtig für Bezüge im NT.",
+        "Einheit von ethischen/kultischen Pflichten gegenüber Gott und den Mitmenschen.",
+        "Das 1. und 2. Gebot sind besonders wichtig für Israels Religionsgeschichte."
+      ],
+      "supplement": "Apodiktisch heißt: unbedingt geltend („Du sollst nicht …“), ohne Fallbedingung wie im kasuistischen Recht („Wenn jemand …, dann …“), das z. B. das Bundesbuch prägt. Die Zählung der Gebote unterscheidet sich: In der lutherischen (und katholischen) Zählung, so im Kleinen Katechismus, gehört das Bilderverbot zum 1. Gebot, das 2. Gebot ist das Verbot, den Namen Gottes zu missbrauchen. In jüdischer und reformierter Zählung ist das Bilderverbot das 2. Gebot. „Besonders wichtig für Israels Religionsgeschichte“ meint vermutlich die Alleinverehrung JHWHs und das Bilderverbot. Bezüge im NT z. B. Mt 5,21-37; Mk 10,19; Röm 13,9.",
+      "unclear": "Die Folie nennt „Ex 20,1-7 → vgl. Dtn 5,6-18“. Der Dekalog reicht in Ex 20 bis Vers 17 und in Dtn 5 bis Vers 21; „1-7“ und „6-18“ sind vermutlich verkürzt. Die App führt die Stellen deshalb als Ex 20,1-17 und Dtn 5,6-21."
+    },
+    {
+      "title": "Levitikus: Gliederung",
+      "slides": [
+        8
+      ],
+      "points": [
+        "1–7 Opfergesetze.",
+        "8–10 Priesterweihe, Beginn des Kults.",
+        "11–15 Reinheitsgesetze.",
+        "16 Jom Kippur: Versöhnungstag.",
+        "17–26 Heiligkeitsgesetz.",
+        "27 Priesterliche Weihevorschriften (sie reichen bis Num 10), hier: Gelübde und Weihegaben."
+      ],
+      "supplement": "Der Versöhnungstag (Lev 16) steht in der Mitte des Buches. Der Hebräerbrief deutet ihn auf Christus, der als Hoherpriester „durch sein eigenes Blut“ ein für alle Mal in das Heiligtum eingegangen ist (Hebr 9,11-12)."
+    },
+    {
+      "title": "Das Heiligkeitsgesetz (Lev 17–26)",
+      "slides": [
+        9
+      ],
+      "points": [
+        "Nach dem Bundesbuch (Ex 20,22–23,33) das zweite große Gesetzescorpus im Pentateuch; das dritte ist das Urdeuteronomium (Dtn 12–25).",
+        "Grundgedanke: Heiligkeit Gottes → Heiligkeit des Volkes.",
+        "Regeln zu Ernährung, Ehe, Sexualität, Umgang mit Fremden usw.",
+        "Zwei wichtige Verse: Lev 19,2b „Ihr sollt heilig sein, denn ich bin heilig, der HERR, euer Gott.“ und Lev 19,18b „Du sollst deinen Nächsten lieben wie dich selbst; ich bin der HERR.“"
+      ],
+      "supplement": "Beide Verse nimmt das NT auf: Lev 19,2 in 1 Petr 1,16, Lev 19,18 im Doppelgebot der Liebe (Mk 12,31; Mt 22,39), bei Paulus (Röm 13,9; Gal 5,14) und Jakobus (Jak 2,8). Das Gebot gilt nach Lev 19,34 ausdrücklich auch dem Fremden."
+    }
+  ],
+  "terms": [
+    {
+      "term": "term.bundesbuch",
+      "slides": [
+        2,
+        6,
+        9
+      ],
+      "text": "21-23: Das Bundesbuch; Bundesbuch (Ex 20,22-23,33)"
+    },
+    {
+      "term": "term.heiligkeitsgesetz",
+      "slides": [
+        8,
+        9
+      ],
+      "text": "Lev 17-26; nach dem Bundesbuch das zweite große Gesetzescorpus im Pentateuch; Heiligkeit Gottes → Heiligkeit des Volkes"
+    },
+    {
+      "term": "term.deuteronomisches_gesetz",
+      "slides": [
+        9
+      ],
+      "text": "Drittes Corpus → Urdeuteronomium (Dtn 12-25)"
+    },
+    {
+      "term": "term.dekalog",
+      "slides": [
+        2,
+        7
+      ],
+      "text": "20: Dekalog; Ex 20 → vgl. Dtn 5; Zusammenfassung des Willens Gottes; apodiktisches Recht"
+    },
+    {
+      "term": "term.apodiktisches_recht",
+      "slides": [
+        7
+      ],
+      "text": "Apodiktisches Recht"
+    },
+    {
+      "term": "term.theophanie",
+      "slides": [
+        2,
+        6
+      ],
+      "text": "Sinai: Theophanie und Bundesschluss"
+    },
+    {
+      "term": "term.stiftshuette",
+      "slides": [
+        2,
+        3,
+        6
+      ],
+      "text": "Vorschriften zum Bau der sog. Stiftshütte (25–31), Ausführung (35–40); Ex 25-31: Zelt der Begegnung → Zeltheiligtum"
+    },
+    {
+      "term": "term.passa",
+      "slides": [
+        5
+      ],
+      "text": "Kap 12: Tötung der Erstgeburt → Vorbereitung des Passah"
+    },
+    {
+      "term": "term.gnadenformel",
+      "slides": [
+        6
+      ],
+      "text": "Gnadenformel in Ex 34,6: „HERR, HERR, Gott, barmherzig und gnädig und geduldig und von großer Gnade und Treue“"
+    },
+    {
+      "term": "term.jom_kippur",
+      "slides": [
+        8
+      ],
+      "text": "16 – Jom Kippur: Versöhnungstag"
+    }
+  ],
+  "passages": [
+    {
+      "id": "passage.bk03.ex_1_18",
+      "label": "Ex 1-18",
+      "slides": [
+        2
+      ],
+      "context": "Erster Großteil des Exodus.",
+      "clue": "Israel in Ägypten, Auszug, Wüstenwanderung Teil 1"
+    },
+    {
+      "id": "passage.bk03.ex_2_4",
+      "label": "Ex 2-4",
+      "slides": [
+        2
+      ],
+      "context": "Unterteil von Ex 1–18.",
+      "clue": "Mose: Geburt, Jugend, Flucht und Berufung",
+      "pericopes": [
+        "Ex|die_jugend_des_mose|2,1",
+        "Ex|mose_in_midian|2,15",
+        "Ex|die_berufung_des_mose|2,23",
+        "Ex|ex_3|3,1",
+        "Ex|die_rueckkehr_des_mose_nach_aegypten|4,18"
+      ]
+    },
+    {
+      "id": "passage.bk03.ex_3_14",
+      "label": "Ex 3,14",
+      "slides": [
+        4
+      ],
+      "context": "Bei der Berufung am Dornbusch: Gott nennt Mose seinen Namen (auf der Folie fett).",
+      "clue": "„Ich werde sein, der ich sein werde“ – Gottes Name",
+      "pericopes": [
+        "Ex|die_berufung_des_mose|2,23",
+        "Ex|ex_3|3,1"
+      ]
+    },
+    {
+      "id": "passage.bk03.ex_7_12",
+      "label": "Ex 7-12",
+      "slides": [
+        2,
+        5
+      ],
+      "context": "Unterteil von Ex 1–18. Die eigentlichen Plagenerzählungen (Plagen 1–9) stehen in Kap. 7–11, die Tötung der Erstgeburt in Kap. 12.",
+      "clue": "Die 10 Plagen",
+      "pericopes": [
+        "Ex|die_aegyptischen_plagen|7,1",
+        "Ex|ex_8|8,1",
+        "Ex|ex_9|9,1",
+        "Ex|ex_10|10,1",
+        "Ex|ex_11|11,1",
+        "Ex|das_pascha|12,1"
+      ]
+    },
+    {
+      "id": "passage.bk03.ex_12",
+      "label": "Ex 12",
+      "slides": [
+        5
+      ],
+      "context": "Die 10. Plage.",
+      "clue": "Tötung der Erstgeburt → Vorbereitung des Passah",
+      "pericopes": [
+        "Ex|das_pascha|12,1"
+      ]
+    },
+    {
+      "id": "passage.bk03.ex_13_15",
+      "label": "Ex 13-15",
+      "slides": [
+        6
+      ],
+      "context": "Auszug.",
+      "clue": "Schilfmeer",
+      "pericopes": [
+        "Ex|das_pascha|12,1",
+        "Ex|die_rettung_am_schilfmeer|13,17",
+        "Ex|ex_14|14,1",
+        "Ex|das_lied_des_mose|15,1",
+        "Ex|auf_dem_weg_zum_sinai|15,22"
+      ]
+    },
+    {
+      "id": "passage.bk03.ex_15_21",
+      "label": "Ex 15,21",
+      "slides": [
+        6
+      ],
+      "context": "Mirjamlied: „Lasst uns dem HERRN singen, denn er ist hoch erhaben; Ross und Reiter hat er ins Meer gestürzt.“",
+      "clue": "Mirjamlied: „Ross und Reiter hat er ins Meer gestürzt“",
+      "pericopes": [
+        "Ex|das_lied_des_mose|15,1"
+      ]
+    },
+    {
+      "id": "passage.bk03.ex_19_24",
+      "label": "Ex 19-24",
+      "slides": [
+        2,
+        6
+      ],
+      "context": "Zweiter Großteil des Exodus: Theophanie, Dekalog, Bundesbuch, Bundesschluss.",
+      "clue": "Sinai: Theophanie und Bundesschluss (Sinaioffenbarung)"
+    },
+    {
+      "id": "passage.bk03.ex_20",
+      "label": "Ex 20,1-17",
+      "slides": [
+        2,
+        7
+      ],
+      "context": "Folie 2: „20: Dekalog“; Folie 7: „Ex 20,1-7 → vgl. Dtn 5,6-18“ (vermutlich verkürzt, siehe Hinweis beim Abschnitt).",
+      "clue": "Der Dekalog",
+      "pericopes": [
+        "Ex|die_zehn_gebote|20,1"
+      ]
+    },
+    {
+      "id": "passage.bk03.dtn_5",
+      "label": "Dtn 5,6-21",
+      "slides": [
+        7
+      ],
+      "context": "Folie 7: „vgl. Dtn 5,6-18“ – die zweite Fassung des Dekalogs.",
+      "clue": "Der Dekalog in der Fassung des Deuteronomiums"
+    },
+    {
+      "id": "passage.bk03.ex_20_22_23_33",
+      "label": "Ex 20,22-23,33",
+      "slides": [
+        2,
+        6,
+        9
+      ],
+      "context": "Folie 2: „21-23: Das Bundesbuch“; Folien 6 und 9: Ex 20,22-23,33. Sitzung 2 nannte Ex 20,22-23,19.",
+      "clue": "Das Bundesbuch"
+    },
+    {
+      "id": "passage.bk03.ex_24",
+      "label": "Ex 24",
+      "slides": [
+        6
+      ],
+      "context": "Bundesschluss in Kapitel 24 → Abendmahl im NT.",
+      "clue": "Bundesschluss am Sinai (→ Abendmahl im NT)",
+      "pericopes": [
+        "Ex|der_bundesschluss|24,1"
+      ]
+    },
+    {
+      "id": "passage.bk03.ex_25_31",
+      "label": "Ex 25-31",
+      "slides": [
+        2,
+        6
+      ],
+      "context": "Vorschriften zum Bau der sog. Stiftshütte; Folie 6: Zelt der Begegnung → Zeltheiligtum.",
+      "clue": "Vorschriften zum Bau der Stiftshütte (Zelt der Begegnung)"
+    },
+    {
+      "id": "passage.bk03.ex_32_34",
+      "label": "Ex 32-34",
+      "slides": [
+        2,
+        6
+      ],
+      "context": "Israels Abfall und das neue Gesetz.",
+      "clue": "Israels Abfall („Das Goldene Kalb“): Bundesbruch und erneuter Bundesschluss",
+      "pericopes": [
+        "Ex|ex_32|32,1",
+        "Ex|israels_abfall_das_goldene_kalb|32,1",
+        "Ex|die_erneuerung_des_bundes|33,7",
+        "Ex|ex_34|34,1"
+      ]
+    },
+    {
+      "id": "passage.bk03.ex_34_6",
+      "label": "Ex 34,6",
+      "slides": [
+        6
+      ],
+      "context": "Gnadenformel beim erneuten Bundesschluss.",
+      "clue": "Gnadenformel: „barmherzig und gnädig und geduldig und von großer Gnade und Treue“",
+      "pericopes": [
+        "Ex|die_erneuerung_des_bundes|33,7",
+        "Ex|ex_34|34,1"
+      ]
+    },
+    {
+      "id": "passage.bk03.ex_35_40",
+      "label": "Ex 35-40",
+      "slides": [
+        2
+      ],
+      "context": "Die Ausführung der Vorschriften zum Bau der Stiftshütte.",
+      "clue": "Ausführung der Vorschriften zum Bau der Stiftshütte"
+    },
+    {
+      "id": "passage.bk03.lev_1_7",
+      "label": "Lev 1-7",
+      "slides": [
+        8
+      ],
+      "context": "Erster Teil des Levitikus.",
+      "clue": "Opfergesetze"
+    },
+    {
+      "id": "passage.bk03.lev_8_10",
+      "label": "Lev 8-10",
+      "slides": [
+        8
+      ],
+      "context": "Zweiter Teil des Levitikus.",
+      "clue": "Priesterweihe, Beginn des Kults",
+      "pericopes": [
+        "Lev|die_priesterweihe|8,1",
+        "Lev|das_weiheopfer_des_hohenpriesters|9,1",
+        "Lev|die_strafe_fuer_unrechtmaessiges_opfern|10,1",
+        "Lev|der_dienst_im_heiligtum|10,6"
+      ]
+    },
+    {
+      "id": "passage.bk03.lev_11_15",
+      "label": "Lev 11-15",
+      "slides": [
+        8
+      ],
+      "context": "Dritter Teil des Levitikus.",
+      "clue": "Reinheitsgesetze"
+    },
+    {
+      "id": "passage.bk03.lev_16",
+      "label": "Lev 16",
+      "slides": [
+        8
+      ],
+      "context": "Mitte des Levitikus.",
+      "clue": "Jom Kippur: Versöhnungstag",
+      "pericopes": [
+        "Lev|das_ritual_fuer_den_versoehnungstag|16,1"
+      ]
+    },
+    {
+      "id": "passage.bk03.lev_27",
+      "label": "Lev 27",
+      "slides": [
+        8
+      ],
+      "context": "Priesterliche Weihevorschriften (bis Num 10), hier: Gelübde und Weihegaben.",
+      "clue": "Gelübde und Weihegaben",
+      "pericopes": [
+        "Lev|bei_personen|27,1",
+        "Lev|bei_tieren|27,9",
+        "Lev|bei_haeusern|27,14",
+        "Lev|bei_grundstuecken|27,16",
+        "Lev|sonderfaelle|27,26"
+      ]
+    },
+    {
+      "id": "passage.bk03.lev_19_2",
+      "label": "Lev 19,2b",
+      "open": "Lev 19,2",
+      "slides": [
+        9
+      ],
+      "context": "Einer der zwei wichtigen Verse des Heiligkeitsgesetzes.",
+      "clue": "„Ihr sollt heilig sein, denn ich bin heilig, der HERR, euer Gott.“",
+      "pericopes": [
+        "Lev|einleitung|19,1"
+      ]
+    },
+    {
+      "id": "passage.bk03.lev_19_18",
+      "label": "Lev 19,18b",
+      "open": "Lev 19,18",
+      "slides": [
+        9
+      ],
+      "context": "Einer der zwei wichtigen Verse des Heiligkeitsgesetzes.",
+      "clue": "„Du sollst deinen Nächsten lieben wie dich selbst; ich bin der HERR.“",
+      "pericopes": [
+        "Lev|soziales_verhalten_und_naechstenliebe|19,11"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "text": "Der Bundesschluss am Sinai (Ex 24) wird nach der Folie im NT beim Abendmahl aufgenommen.",
+      "slides": [
+        6
+      ]
+    },
+    {
+      "text": "Der Dekalog steht zweimal im Pentateuch (Ex 20; Dtn 5) und ist wichtig für Bezüge im NT.",
+      "slides": [
+        7
+      ]
+    },
+    {
+      "text": "Drei große Gesetzescorpora im Pentateuch: Bundesbuch (Ex 20,22–23,33), Heiligkeitsgesetz (Lev 17–26), Urdeuteronomium (Dtn 12–25) – wie in Sitzung 2 (Folie 6) die drei großen rechtlichen Texte.",
+      "slides": [
+        9
+      ]
+    },
+    {
+      "text": "Die Priesterlichen Weihevorschriften von Lev 27 reichen bis Num 10 – dort endet nach Sitzung 2 der Aufenthalt am Sinai (Ex 19 – Num 10,10).",
+      "slides": [
+        8
+      ]
+    },
+    {
+      "text": "Exodus schließt an die Josephsgeschichte an, die nach Sitzung 2 erklärt, wie Israel nach Ägypten kam.",
+      "supplement": true
+    },
+    {
+      "text": "Neues Testament: Passah → „unser Passalamm, das ist Christus“ (1 Kor 5,7); Versöhnungstag → Hebr 9; Lev 19,18 → Doppelgebot der Liebe (Mk 12,31); Lev 19,2 → 1 Petr 1,16; Ex 3,14 → die Ich-bin-Worte bei Johannes.",
+      "supplement": true
+    }
+  ],
+  "lists": [
+    {
+      "id": "list.bk03.exodus_gliederung",
+      "title": "Gliederung des Exodus",
+      "prompt": "Nenne die fünf Teile des Buches Exodus in der Reihenfolge der Kapitel mit Stellenangabe.",
+      "slides": [
+        2
+      ],
+      "ordered": true,
+      "items": [
+        "Israel in Ägypten, Auszug, Wüstenwanderung Teil 1",
+        "Sinai: Theophanie und Bundesschluss",
+        "Vorschriften zum Bau der sog. Stiftshütte",
+        "Israels Abfall („Das Goldene Kalb“) und das neue Gesetz",
+        "Die Ausführung der Vorschriften"
+      ],
+      "details": [
+        "Ex 1–18; darin 2–4 Mose, 7–12 die 10 Plagen",
+        "Ex 19–24; darin 20 Dekalog, 21–23 Bundesbuch",
+        "Ex 25–31",
+        "Ex 32–34",
+        "Ex 35–40"
+      ]
+    },
+    {
+      "id": "list.bk03.exodus_inhalt",
+      "title": "Inhalt des Exodus",
+      "prompt": "Was enthält das Buch Exodus nach der Folie? Nenne die vier Punkte.",
+      "slides": [
+        3
+      ],
+      "items": [
+        "Geschichte Israels von der Knechtschaft in Ägypten bis zum Sinai",
+        "Gesetzgebung",
+        "Bau der Stiftshütte",
+        "Zentrale Figur: Mose"
+      ],
+      "details": [
+        "Exodus und Wanderung durch die Wüste",
+        "am Sinai",
+        "Ex 25–31 und 35–40",
+        "Berufung(en) besonders wichtig"
+      ]
+    },
+    {
+      "id": "list.bk03.hauptthemen",
+      "title": "Die zwei Hauptthemen des Exodus",
+      "prompt": "Nenne die zwei Hauptthemen des Buches Exodus.",
+      "slides": [
+        3
+      ],
+      "items": [
+        "Auszug aus Ägypten",
+        "Begegnung am Sinai"
+      ]
+    },
+    {
+      "id": "list.bk03.plagen_1",
+      "title": "Die Plagen 1–5",
+      "prompt": "Nenne die ersten fünf Plagen in ihrer Reihenfolge.",
+      "slides": [
+        5
+      ],
+      "ordered": true,
+      "items": [
+        "Nilwasser zu Blut",
+        "Frösche",
+        "Mücken",
+        "Bremsen",
+        "(Tier-)Pest"
+      ]
+    },
+    {
+      "id": "list.bk03.plagen_2",
+      "title": "Die Plagen 6–10",
+      "prompt": "Nenne die Plagen 6 bis 10 in ihrer Reihenfolge.",
+      "slides": [
+        5
+      ],
+      "ordered": true,
+      "items": [
+        "Beulen/Geschwüre",
+        "Hagel",
+        "Heuschrecken",
+        "Finsternis",
+        "Tötung der Erstgeburt"
+      ],
+      "details": [
+        "Ex 7–11",
+        "Ex 7–11",
+        "Ex 7–11",
+        "Ex 7–11",
+        "Ex 12, Vorbereitung des Passah"
+      ]
+    },
+    {
+      "id": "list.bk03.sinai",
+      "title": "Sinaioffenbarung (Ex 19–24)",
+      "prompt": "Welche drei Stücke nennt die Folie zur Sinaioffenbarung (Ex 19–24)?",
+      "slides": [
+        6
+      ],
+      "ordered": true,
+      "items": [
+        "Theophanie",
+        "Bundesbuch",
+        "Bundesschluss"
+      ],
+      "details": [
+        "Ex 19",
+        "Ex 20,22–23,33",
+        "Kapitel 24 → Abendmahl im NT"
+      ]
+    },
+    {
+      "id": "list.bk03.goldenes_kalb",
+      "title": "Goldenes Kalb (Ex 32–34)",
+      "prompt": "Welche drei Stichworte nennt die Folie zu Ex 32–34?",
+      "slides": [
+        6
+      ],
+      "ordered": true,
+      "items": [
+        "Bundesbruch",
+        "Erneuter Bundesschluss",
+        "Gnadenformel"
+      ],
+      "details": [
+        "Ex 32",
+        "Kapitel 34",
+        "Ex 34,6"
+      ]
+    },
+    {
+      "id": "list.bk03.dekalog",
+      "title": "Der Dekalog: Merkmale",
+      "prompt": "Was sagt die Folie über den Dekalog? Nenne die fünf Merkmale.",
+      "slides": [
+        7
+      ],
+      "items": [
+        "Zusammenfassung des Willens Gottes",
+        "Apodiktisches Recht",
+        "Wichtig für Bezüge im NT",
+        "Einheit von ethischen/kultischen Pflichten gegenüber Gott und den Mitmenschen",
+        "1. & 2. Gebot besonders wichtig für Israels Religionsgeschichte"
+      ]
+    },
+    {
+      "id": "list.bk03.levitikus_gliederung",
+      "title": "Gliederung des Levitikus",
+      "prompt": "Nenne die sechs Teile des Buches Levitikus in ihrer Reihenfolge mit Kapiteln.",
+      "slides": [
+        8
+      ],
+      "ordered": true,
+      "items": [
+        "Opfergesetze",
+        "Priesterweihe, Beginn des Kults",
+        "Reinheitsgesetze",
+        "Jom Kippur: Versöhnungstag",
+        "Heiligkeitsgesetz",
+        "Priesterliche Weihevorschriften: Gelübde und Weihegaben"
+      ],
+      "details": [
+        "Lev 1–7",
+        "Lev 8–10",
+        "Lev 11–15",
+        "Lev 16",
+        "Lev 17–26",
+        "Lev 27 (die Weihevorschriften reichen bis Num 10)"
+      ]
+    },
+    {
+      "id": "list.bk03.heiligkeitsgesetz",
+      "title": "Heiligkeitsgesetz: Regelbereiche",
+      "prompt": "Zu welchen Lebensbereichen enthält das Heiligkeitsgesetz nach der Folie Regeln?",
+      "slides": [
+        9
+      ],
+      "items": [
+        "Ernährung",
+        "Ehe",
+        "Sexualität",
+        "Umgang mit Fremden"
+      ]
+    }
+  ],
+  "shared": [
+    "passage.bk02.lev_17_26",
+    "passage.bk02.dtn_12_25",
+    "list.bk02.rechtstexte"
+  ],
+  "questions": [
+    {
+      "id": "q.bk03.hauptthemen",
+      "prompt": "Welche zwei Hauptthemen hat das Buch Exodus nach der Folie?",
+      "answer": "Auszug aus Ägypten und Begegnung am Sinai",
+      "distractors": [
+        "Schöpfung und Sintflut",
+        "Landnahme und Richterzeit",
+        "Wüstenwanderung und Tod des Mose"
+      ],
+      "explanation": "Folie 3: „2 Hauptthemen – Auszug aus Ägypten – Begegnung am Sinai“.",
+      "slides": [
+        3
+      ]
+    },
+    {
+      "id": "q.bk03.mose",
+      "prompt": "Wer ist die zentrale Figur des Exodus, und was ist an ihr nach der Folie besonders wichtig?",
+      "answer": "Mose – besonders seine Berufung(en)",
+      "distractors": [
+        "Aaron – besonders seine Priesterweihe",
+        "Mose – besonders sein Tod",
+        "Josua – besonders die Landnahme"
+      ],
+      "explanation": "Folie 3: „Zentrale Figur: Mose – Berufung(en) besonders wichtig“. Ergänzung: Berufung am Dornbusch (Ex 3,1–4,17), zweite Beauftragung Ex 6,2-13.",
+      "slides": [
+        3
+      ]
+    },
+    {
+      "id": "q.bk03.gottesname",
+      "prompt": "Was antwortet Gott in Ex 3,14 auf die Frage nach seinem Namen?",
+      "answer": "„Ich werde sein, der ich sein werde.“",
+      "distractors": [
+        "„Ich bin der Gott deines Vaters.“",
+        "„Ich bin der HERR, dein Arzt.“",
+        "„Ich bin der Allmächtige; wandle vor mir.“"
+      ],
+      "explanation": "Folie 4 (Vers 14 fett): „Gott sprach zu Mose: Ich werde sein, der ich sein werde.“ Ex 3,15 nennt dann den HERRN (JHWH), den Gott Abrahams, Isaaks und Jakobs. „Ich bin der Allmächtige“ sagt Gott zu Abraham (Gen 17,1), „der HERR, dein Arzt“ steht in Ex 15,26.",
+      "slides": [
+        4
+      ]
+    },
+    {
+      "id": "q.bk03.ex_3_15",
+      "prompt": "Wie nennt sich Gott in Ex 3,15 gegenüber den Israeliten?",
+      "answer": "Der HERR (JHWH), der Gott Abrahams, Isaaks und Jakobs",
+      "distractors": [
+        "Der Gott des Himmels und der Erde",
+        "Der Höchste, der Schöpfer Himmels und der Erden",
+        "Der Heilige Israels"
+      ],
+      "explanation": "Folie 4, Vers 15: „Der HERR (JHWH), der Gott eurer Väter, der Gott Abrahams, der Gott Isaaks, der Gott Jakobs … Das ist mein Name auf ewig.“",
+      "slides": [
+        4
+      ]
+    },
+    {
+      "id": "q.bk03.plagen_kapitel",
+      "prompt": "In welchen Kapiteln stehen die eigentlichen Plagenerzählungen (Plagen 1–9)?",
+      "answer": "Ex 7–11",
+      "distractors": [
+        "Ex 3–6",
+        "Ex 12–15",
+        "Ex 16–18"
+      ],
+      "explanation": "Folie 5: „Eigentliche Plagenerzählungen (Plagen 1-9) in Kap. 7-11“; Kap. 12 bringt die Tötung der Erstgeburt. Folie 2 fasst 7–12 als „Die 10 Plagen“ zusammen.",
+      "slides": [
+        5,
+        2
+      ]
+    },
+    {
+      "id": "q.bk03.erstgeburt",
+      "prompt": "Was erzählt Ex 12 nach der Folie?",
+      "answer": "Die Tötung der Erstgeburt – zur Vorbereitung des Passah",
+      "distractors": [
+        "Den Durchzug durch das Schilfmeer",
+        "Die Berufung des Mose am Dornbusch",
+        "Das Mannawunder in der Wüste"
+      ],
+      "explanation": "Folie 5: „Kap 12: Tötung der Erstgeburt → Vorbereitung des Passah“. Das Schilfmeer folgt in Ex 13–15, das Manna in Ex 16.",
+      "slides": [
+        5
+      ],
+      "terms": [
+        "term.passa"
+      ]
+    },
+    {
+      "id": "q.bk03.neunte_plage",
+      "prompt": "Welche Plage geht der Tötung der Erstgeburt unmittelbar voraus?",
+      "answer": "Finsternis",
+      "distractors": [
+        "Heuschrecken",
+        "Hagel",
+        "Beulen/Geschwüre"
+      ],
+      "explanation": "Folie 5: … 7. Hagel, 8. Heuschrecken, 9. Finsternis; Kap. 12 Tötung der Erstgeburt.",
+      "slides": [
+        5
+      ]
+    },
+    {
+      "id": "q.bk03.mirjamlied",
+      "prompt": "Wo steht das Mirjamlied „Ross und Reiter hat er ins Meer gestürzt“?",
+      "answer": "Ex 15,21",
+      "distractors": [
+        "Ex 14,31",
+        "Ri 5,3",
+        "Ex 17,16"
+      ],
+      "explanation": "Folie 6: „Mirjamlied in Ex 15,21“. Ri 5 ist das Deboralied.",
+      "slides": [
+        6
+      ]
+    },
+    {
+      "id": "q.bk03.bundesschluss",
+      "prompt": "Was geschieht nach der Folie in Ex 24, und worauf verweist sie im NT?",
+      "answer": "Der Bundesschluss am Sinai – mit Bezug zum Abendmahl",
+      "distractors": [
+        "Der erneute Bundesschluss nach dem Goldenen Kalb – mit Bezug zur Taufe",
+        "Die Gabe des Mannas – mit Bezug zur Speisung der Fünftausend",
+        "Die Priesterweihe Aarons – mit Bezug zum Hohepriesteramt Christi"
+      ],
+      "explanation": "Folie 6: „Bundesschluss in Kapitel 24 → Abendmahl im NT“. Ergänzung: Ex 24,8 „das Blut des Bundes“, aufgenommen in Mk 14,24. Der erneute Bundesschluss steht in Ex 34.",
+      "slides": [
+        6
+      ]
+    },
+    {
+      "id": "q.bk03.zelt",
+      "prompt": "Wie heißt der Gegenstand von Ex 25–31 auf den Folien außer „Stiftshütte“?",
+      "answer": "Zelt der Begegnung bzw. Zeltheiligtum",
+      "distractors": [
+        "Bundeslade",
+        "Tempel Salomos",
+        "Brandopferaltar"
+      ],
+      "explanation": "Folie 2: „Vorschriften zum Bau der sog. Stiftshütte“; Folie 6: „Ex 25-31: Zelt der Begegnung → Zeltheiligtum“.",
+      "slides": [
+        2,
+        6
+      ],
+      "terms": [
+        "term.stiftshuette"
+      ]
+    },
+    {
+      "id": "q.bk03.stiftshuette_teile",
+      "prompt": "In welchen zwei Teilen des Exodus geht es um die Stiftshütte?",
+      "answer": "Ex 25–31 (Vorschriften) und Ex 35–40 (Ausführung)",
+      "distractors": [
+        "Ex 19–24 (Vorschriften) und Ex 32–34 (Ausführung)",
+        "Ex 1–18 (Vorschriften) und Ex 25–31 (Ausführung)",
+        "Ex 20 (Vorschriften) und Ex 21–23 (Ausführung)"
+      ],
+      "explanation": "Folie 2: 25–31 Vorschriften zum Bau der sog. Stiftshütte; 35–40 die Ausführung der Vorschriften. Dazwischen 32–34 das Goldene Kalb.",
+      "slides": [
+        2
+      ],
+      "terms": [
+        "term.stiftshuette"
+      ]
+    },
+    {
+      "id": "q.bk03.goldenes_kalb",
+      "prompt": "Was gehört nach der Folie zu Ex 32–34?",
+      "answer": "Goldenes Kalb, Bundesbruch und erneuter Bundesschluss in Kapitel 34",
+      "distractors": [
+        "Theophanie, Dekalog und Bundesbuch",
+        "Schilfmeer und Mirjamlied",
+        "Opfergesetze und Priesterweihe"
+      ],
+      "explanation": "Folie 6: „Ex 32-34: Goldenes Kalb – Bundesbruch – Erneuter Bundesschluss in Kapitel 34 – Gnadenformel in Ex 34,6“; Folie 2: „Israels Abfall („Das Goldene Kalb“) und das neue Gesetz“.",
+      "slides": [
+        2,
+        6
+      ]
+    },
+    {
+      "id": "q.bk03.gnadenformel_ort",
+      "prompt": "Wo steht die Gnadenformel?",
+      "answer": "Ex 34,6",
+      "distractors": [
+        "Ex 20,6",
+        "Ex 3,14",
+        "Num 6,24"
+      ],
+      "explanation": "Folie 6: „Gnadenformel in Ex 34,6“ – beim erneuten Bundesschluss nach dem Goldenen Kalb. Num 6,24-26 ist der aaronitische Segen.",
+      "slides": [
+        6
+      ],
+      "terms": [
+        "term.gnadenformel"
+      ]
+    },
+    {
+      "id": "q.bk03.dtn5",
+      "prompt": "Wo steht neben Ex 20 die zweite Fassung des Dekalogs?",
+      "answer": "Dtn 5",
+      "distractors": [
+        "Lev 19",
+        "Ex 34",
+        "Dtn 27"
+      ],
+      "explanation": "Folie 7: „Ex 20 … → vgl. Dtn 5“.",
+      "slides": [
+        7
+      ],
+      "terms": [
+        "term.dekalog"
+      ]
+    },
+    {
+      "id": "q.bk03.apodiktisch",
+      "prompt": "Welcher Art von Recht ordnet die Folie den Dekalog zu?",
+      "answer": "Apodiktischem Recht",
+      "distractors": [
+        "Kasuistischem Recht",
+        "Kultischem Opferrecht",
+        "Königsrecht"
+      ],
+      "explanation": "Folie 7: „Apodiktisches Recht“. Ergänzung: apodiktisch = unbedingt („Du sollst …“); kasuistisch = Fallrecht („Wenn jemand …“), wie es das Bundesbuch prägt.",
+      "slides": [
+        7
+      ],
+      "terms": [
+        "term.apodiktisches_recht",
+        "term.dekalog"
+      ]
+    },
+    {
+      "id": "q.bk03.gebote_religionsgeschichte",
+      "prompt": "Welche Gebote sind nach der Folie besonders wichtig für Israels Religionsgeschichte?",
+      "answer": "Das 1. und 2. Gebot",
+      "distractors": [
+        "Das 4. und 5. Gebot",
+        "Das 9. und 10. Gebot",
+        "Das Sabbatgebot allein"
+      ],
+      "explanation": "Folie 7: „1. & 2. Gebot besonders wichtig für Israels Religionsgeschichte“. Ergänzung: Die Zählung unterscheidet sich – in lutherischer Zählung gehört das Bilderverbot zum 1. Gebot, in jüdischer und reformierter ist es das 2.",
+      "slides": [
+        7
+      ],
+      "terms": [
+        "term.dekalog"
+      ]
+    },
+    {
+      "id": "q.bk03.dekalog_einheit",
+      "prompt": "Welche Pflichten verbindet der Dekalog nach der Folie?",
+      "answer": "Ethische und kultische Pflichten gegenüber Gott und den Mitmenschen",
+      "distractors": [
+        "Nur die kultischen Pflichten der Priester",
+        "Nur die Pflichten des Königs gegenüber dem Volk",
+        "Die Reinheitsvorschriften für Speisen"
+      ],
+      "explanation": "Folie 7: „Einheit von ethischen/kultischen Pflichten gegenüber Gott und den Mitmenschen“; außerdem „Zusammenfassung des Willens Gottes“.",
+      "slides": [
+        7
+      ],
+      "terms": [
+        "term.dekalog"
+      ]
+    },
+    {
+      "id": "q.bk03.lev_16",
+      "prompt": "Welches Kapitel des Levitikus behandelt Jom Kippur, den Versöhnungstag?",
+      "answer": "Lev 16",
+      "distractors": [
+        "Lev 23",
+        "Lev 8",
+        "Lev 19"
+      ],
+      "explanation": "Folie 8: „16 – Jom Kippur: Versöhnungstag“. Lev 23 nennt den Versöhnungstag in der Festliste nur kurz.",
+      "slides": [
+        8
+      ],
+      "terms": [
+        "term.jom_kippur"
+      ]
+    },
+    {
+      "id": "q.bk03.lev_1_7",
+      "prompt": "Was steht nach der Folie in Lev 1–7?",
+      "answer": "Opfergesetze",
+      "distractors": [
+        "Reinheitsgesetze",
+        "Priesterweihe, Beginn des Kults",
+        "Gelübde und Weihegaben"
+      ],
+      "explanation": "Folie 8: „1 – 7 Opfergesetze“.",
+      "slides": [
+        8
+      ]
+    },
+    {
+      "id": "q.bk03.lev_11_15",
+      "prompt": "Was steht nach der Folie in Lev 11–15?",
+      "answer": "Reinheitsgesetze",
+      "distractors": [
+        "Opfergesetze",
+        "Heiligkeitsgesetz",
+        "Priesterweihe, Beginn des Kults"
+      ],
+      "explanation": "Folie 8: „11 – 15 Reinheitsgesetze“.",
+      "slides": [
+        8
+      ]
+    },
+    {
+      "id": "q.bk03.lev_8_10",
+      "prompt": "Was erzählt Lev 8–10 nach der Folie?",
+      "answer": "Priesterweihe und Beginn des Kults",
+      "distractors": [
+        "Bau der Stiftshütte",
+        "Bundesschluss am Sinai",
+        "Zählung der Stämme"
+      ],
+      "explanation": "Folie 8: „8 – 10 Priesterweihe, Beginn des Kults“.",
+      "slides": [
+        8
+      ]
+    },
+    {
+      "id": "q.bk03.lev_27",
+      "prompt": "Was regelt Lev 27 nach der Folie?",
+      "answer": "Gelübde und Weihegaben – Teil der priesterlichen Weihevorschriften bis Num 10",
+      "distractors": [
+        "Das Jobeljahr",
+        "Die Reinigung von Aussatz",
+        "Den Versöhnungstag"
+      ],
+      "explanation": "Folie 8: „27 Priesterliche Weihevorschriften (bis Num 10), hier: Gelübde und Weihegaben“.",
+      "slides": [
+        8
+      ]
+    },
+    {
+      "id": "q.bk03.hg_zweites",
+      "prompt": "Welche Stellung hat das Heiligkeitsgesetz unter den großen Gesetzescorpora des Pentateuch?",
+      "answer": "Es ist nach dem Bundesbuch das zweite",
+      "distractors": [
+        "Es ist das erste, vor dem Bundesbuch",
+        "Es ist das dritte, nach dem Urdeuteronomium",
+        "Es ist kein eigenes Corpus, sondern Teil des Bundesbuchs"
+      ],
+      "explanation": "Folie 9: „Nach dem Bundesbuch (Ex 20,22-23,33) das zweite große Gesetzescorpus im Pentateuch – Drittes Corpus → Urdeuteronomium (Dtn 12-25)“.",
+      "slides": [
+        9
+      ],
+      "terms": [
+        "term.heiligkeitsgesetz"
+      ]
+    },
+    {
+      "id": "q.bk03.urdeuteronomium",
+      "prompt": "Wie nennt die Folie das dritte große Gesetzescorpus (Dtn 12–25)?",
+      "answer": "Urdeuteronomium",
+      "distractors": [
+        "Bundesbuch",
+        "Heiligkeitsgesetz",
+        "Priesterschrift"
+      ],
+      "explanation": "Folie 9: „Drittes Corpus → Urdeuteronomium (Dtn 12-25)“. Sitzung 2 nennt denselben Text das deuteronomische Gesetz.",
+      "slides": [
+        9
+      ],
+      "terms": [
+        "term.deuteronomisches_gesetz"
+      ]
+    },
+    {
+      "id": "q.bk03.hg_grundgedanke",
+      "prompt": "Welcher Grundgedanke prägt das Heiligkeitsgesetz nach der Folie?",
+      "answer": "Heiligkeit Gottes → Heiligkeit des Volkes",
+      "distractors": [
+        "Gottes Erwählung → Landgabe",
+        "Sünde des Volkes → Exil",
+        "Schöpfung → Sabbat"
+      ],
+      "explanation": "Folie 9: „Heiligkeit Gottes → Heiligkeit des Volkes“ – vgl. Lev 19,2b.",
+      "slides": [
+        9
+      ],
+      "terms": [
+        "term.heiligkeitsgesetz"
+      ]
+    },
+    {
+      "id": "q.bk03.naechstenliebe",
+      "prompt": "Wo steht „Du sollst deinen Nächsten lieben wie dich selbst“ im Alten Testament?",
+      "answer": "Lev 19,18",
+      "distractors": [
+        "Dtn 6,5",
+        "Lev 19,2",
+        "Ex 20,12"
+      ],
+      "explanation": "Folie 9: „Lev 19,18b: Du sollst deinen Nächsten lieben wie dich selbst; ich bin der HERR.“ Dtn 6,5 ist das Gebot der Gottesliebe; zusammen bilden beide das Doppelgebot der Liebe (Mk 12,29-31).",
+      "slides": [
+        9
+      ],
+      "terms": [
+        "term.heiligkeitsgesetz"
+      ]
+    }
+  ]
+}

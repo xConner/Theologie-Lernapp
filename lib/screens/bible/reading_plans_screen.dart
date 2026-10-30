@@ -48,6 +48,7 @@ class _ReadingPlansScreenState extends State<ReadingPlansScreen> {
     super.initState();
 
     service.load(uid);
+    service.loadCourseExtent();
 
     _loadTranslations();
   }
@@ -138,6 +139,13 @@ class _ReadingPlansScreenState extends State<ReadingPlansScreen> {
 
     final available = plans.where((p) => !started.contains(p)).toList();
 
+    // Begonnene Pläne zu Lehrveranstaltungen gehören zu „Meine Pläne“.
+    final startedCourses = service.startedCoursePlans(uid);
+    final otherCourses = [
+      for (final plan in service.coursePlans)
+        if (service.courseProgressOf(uid, plan.id) == null) plan,
+    ];
+
     Widget heading(String text) {
       return Padding(
         padding: const EdgeInsets.only(top: 8, bottom: 8),
@@ -158,9 +166,20 @@ class _ReadingPlansScreenState extends State<ReadingPlansScreen> {
             ),
           ),
 
-        if (started.isNotEmpty) ...[
+        if (started.isNotEmpty || startedCourses.isNotEmpty) ...[
           heading("Meine Pläne"),
           for (final plan in started) _tile(context, plan),
+          for (final (plan, progress) in startedCourses)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 12),
+              child: CoursePlanCard(
+                uid: uid,
+                plan: plan,
+                progress: progress,
+                service: service,
+                repository: widget.repository,
+              ),
+            ),
           const SizedBox(height: 16),
         ],
 
@@ -176,10 +195,10 @@ class _ReadingPlansScreenState extends State<ReadingPlansScreen> {
 
         for (final plan in available) _tile(context, plan),
 
-        if (service.coursePlans.isNotEmpty) ...[
+        if (otherCourses.isNotEmpty) ...[
           const SizedBox(height: 16),
           heading("Zu Lehrveranstaltungen"),
-          for (final plan in service.coursePlans) _courseTile(context, plan),
+          for (final plan in otherCourses) _courseTile(context, plan),
         ],
 
         const SizedBox(height: 12),

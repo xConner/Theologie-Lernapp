@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'package:theologie_lernapp/models/bible/bible_reference.dart';
+import 'package:theologie_lernapp/models/bible/reading_plan.dart';
+import 'package:theologie_lernapp/screens/bible/bible_home_screen.dart';
 import 'package:theologie_lernapp/screens/bible/bible_reader_screen.dart';
 import 'package:theologie_lernapp/screens/bible/course_reading_plan_screen.dart';
 import 'package:theologie_lernapp/screens/bible/reading_plans_screen.dart';
@@ -9,6 +12,7 @@ import 'package:theologie_lernapp/screens/pericope_quiz/bibelkunde_screen.dart';
 import 'package:theologie_lernapp/services/bible/bible_reading_service.dart';
 import 'package:theologie_lernapp/services/bible/bible_repository.dart';
 import 'package:theologie_lernapp/services/bible/bible_text_source.dart';
+import 'package:theologie_lernapp/services/bible/pericope_headings.dart';
 import 'package:theologie_lernapp/services/streak/streak_service.dart';
 import 'package:theologie_lernapp/theme/app_theme.dart';
 
@@ -86,6 +90,27 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(finder);
     await settle(tester);
+  }
+
+  /// Wartet, bis der Reader das Kapitel [title] zeigt.
+  Future<void> waitForChapter(WidgetTester tester, String title) async {
+    for (var i = 0; i < 400; i++) {
+      await tester.runAsync(
+        () => Future<void>.delayed(const Duration(milliseconds: 30)),
+      );
+      await tester.pump(const Duration(milliseconds: 30));
+
+      if (find.text(title).evaluate().isNotEmpty &&
+          (key("bible-course-mark-read").evaluate().isNotEmpty ||
+              key("bible-course-reading-done").evaluate().isNotEmpty ||
+              key("bible-plan-outside").evaluate().isNotEmpty)) {
+        break;
+      }
+    }
+
+    await tester.pump(const Duration(milliseconds: 500));
+
+    expect(find.text(title), findsOneWidget);
   }
 
   Future<void> open(
@@ -268,6 +293,104 @@ void main() {
     expect(find.byType(CourseReadingPlanScreen), findsOneWidget);
   });
 
+  testWidgets("begonnen: auf der Startseite der Bibel mit Tagespensum", (
+    tester,
+  ) async {
+    await tester.runAsync(() => service.startCoursePlan("u1", planId));
+
+    tester.view.physicalSize = const Size(480, 1600);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.reset);
+
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: AppTheme.light,
+        home: BibleHomeScreen(uid: "u1", service: service, repository: bibles),
+      ),
+    );
+    await settle(tester);
+    await settle(tester);
+
+    await reveal(tester, key("course-plan-card-$planId"));
+
+    expect(key("course-plan-card-$planId"), findsOneWidget);
+    expect(
+      find.textContaining("Nächste Sitzung Do, 29.10.: Genesis"),
+      findsOneWidget,
+    );
+    expect(find.textContaining("nur benötigte Kapitel"), findsOneWidget);
+    expect(key("course-plan-today-$planId"), findsOneWidget);
+    expect(
+      find.text(
+        "Du folgst noch keinem Leseplan. Lesen und die Streak "
+        "funktionieren auch ohne Plan.",
+      ),
+      findsNothing,
+    );
+
+    // Abhaken direkt auf der Startseite.
+    await tapVisible(tester, key("course-piece-bk.02-GEN 1"));
+
+    expect(service.courseProgressOf("u1", planId)!.done.keys, ["GEN 1"]);
+
+    // Pausiert: kein Tagespensum, Plan bleibt sichtbar.
+    await tester.runAsync(() => service.setCoursePaused("u1", planId, true));
+    await settle(tester);
+
+    expect(key("course-plan-today-$planId"), findsNothing);
+    expect(find.text("Pausiert"), findsOneWidget);
+
+    await tapVisible(tester, key("course-plan-open-$planId"));
+
+    expect(find.byType(CourseReadingPlanScreen), findsOneWidget);
+  });
+
+  testWidgets("begonnen: unter „Meine Pläne“ statt bei den verfügbaren", (
+    tester,
+  ) async {
+    await tester.runAsync(() => service.startCoursePlan("u1", planId));
+
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: AppTheme.light,
+        home: ReadingPlansScreen(
+          uid: "u1",
+          service: service,
+          repository: bibles,
+        ),
+      ),
+    );
+    await settle(tester);
+
+    expect(find.text("Meine Pläne"), findsOneWidget);
+    expect(key("course-plan-card-$planId"), findsOneWidget);
+    expect(key("course-plan-$planId"), findsNothing);
+    expect(find.text("Zu Lehrveranstaltungen"), findsNothing);
+  });
+
+  testWidgets("Umfang „ganze Bücher“ ein- und ausschalten", (tester) async {
+    await tester.runAsync(() => service.startCoursePlan("u1", planId));
+
+    await open(tester);
+
+    await tapVisible(tester, key("course-whole-books"));
+
+    expect(service.courseProgressOf("u1", planId)!.wholeBooks, isTrue);
+    expect(key("course-scope-changed"), findsOneWidget);
+    expect(find.textContaining("Kapitel ergänzt"), findsOneWidget);
+
+    await tapVisible(tester, key("course-session-bk.03"));
+
+    expect(find.textContaining("ergänzend"), findsWidgets);
+    expect(key("course-piece-bk.03-EXO 6"), findsOneWidget);
+    expect(key("course-piece-bk.03-LEV 1"), findsOneWidget);
+
+    await tapVisible(tester, key("course-whole-books"));
+
+    expect(service.courseProgressOf("u1", planId)!.wholeBooks, isFalse);
+    expect(key("course-piece-bk.03-EXO 6"), findsNothing);
+  });
+
   testWidgets("Einstieg im Bereich Bibelkunde", (tester) async {
     await tester.pumpWidget(
       const MaterialApp(home: BibelkundeScreen(perikopen: [], uid: null)),
@@ -276,5 +399,147 @@ void main() {
 
     expect(key("bibelkunde-reading-plan"), findsOneWidget);
     expect(BibelkundeScreen.readingPlanId, planId);
+  });
+  group("Abschlussstatus beim Kapitelwechsel im Reader", () {
+    final pieces = [
+      for (var c = 1; c <= 3; c++) PlanReading(bookId: "GEN", chapter: c),
+    ];
+
+    Future<void> openReader(
+      WidgetTester tester,
+      BibleReadingService reading,
+    ) async {
+      tester.view.physicalSize = const Size(480, 1400);
+      tester.view.devicePixelRatio = 1;
+      addTearDown(tester.view.reset);
+
+      await tester.pumpWidget(
+        MaterialApp(
+          theme: AppTheme.light,
+          home: BibleReaderScreen(
+            uid: "u1",
+            readingService: reading,
+            repository: bibles,
+            passages: [
+              for (final p in pieces)
+                BiblePassage(label: p.label, reference: p.reference),
+            ],
+            passageTitle: "Leseplan · Heute",
+            // Die Überschriften lädt ein früherer Test schon in seiner
+            // Zone; hier ohne sie, damit nichts auf ihn wartet.
+            pericopeHeadings: PericopeHeadings.empty,
+            coursePlan: (planId: planId, pieces: pieces),
+          ),
+        ),
+      );
+      await waitForChapter(tester, "1. Mose 1");
+    }
+
+    Future<void> step(WidgetTester tester, String direction, String title) {
+      return tester
+          .tap(key("bible-$direction-chapter"))
+          .then((_) => waitForChapter(tester, title));
+    }
+
+    /// Unter dem Kapitel: erledigt (true) oder Knopf zum Abhaken (false).
+    void expectDone(String label, bool done) {
+      expect(
+        key("bible-course-reading-done"),
+        done ? findsOneWidget : findsNothing,
+      );
+      expect(
+        key("bible-course-mark-read"),
+        done ? findsNothing : findsOneWidget,
+      );
+      expect(
+        find.textContaining(done ? "„$label“ gelesen" : "„$label“ als gelesen"),
+        findsOneWidget,
+      );
+    }
+
+    testWidgets("A abschließen, vor, zurück, B abschließen, neu öffnen", (
+      tester,
+    ) async {
+      await tester.runAsync(() => service.startCoursePlan("u1", planId));
+
+      await openReader(tester, service);
+
+      // Kapitel A abschließen.
+      expectDone("Gen 1", false);
+      await tapVisible(tester, key("bible-course-mark-read"));
+      expectDone("Gen 1", true);
+
+      // Zu Kapitel B: nicht abgeschlossen (früher: „Gen 1 gelesen“).
+      await step(tester, "next", "1. Mose 2");
+      expectDone("Gen 2", false);
+      expect(find.textContaining("„Gen 1“"), findsNothing);
+
+      // Zurück zu A: weiterhin abgeschlossen.
+      await step(tester, "previous", "1. Mose 1");
+      expectDone("Gen 1", true);
+
+      // B abschließen – gespeichert wird Gen 2, nicht Gen 1 erneut.
+      await step(tester, "next", "1. Mose 2");
+      await tapVisible(tester, key("bible-course-mark-read"));
+      expectDone("Gen 2", true);
+      expect(
+        service.courseProgressOf("u1", planId)!.done.keys,
+        unorderedEquals(["GEN 1", "GEN 2"]),
+      );
+
+      // Mehrfach vor und zurück.
+      await step(tester, "next", "1. Mose 3");
+      expectDone("Gen 3", false);
+      await step(tester, "previous", "1. Mose 2");
+      expectDone("Gen 2", true);
+      await step(tester, "previous", "1. Mose 1");
+      expectDone("Gen 1", true);
+      await step(tester, "next", "1. Mose 2");
+      await step(tester, "next", "1. Mose 3");
+      expectDone("Gen 3", false);
+
+      // Über die Lesungen hinaus: kein Abhaken für den Plan.
+      await step(tester, "next", "1. Mose 4");
+      expect(key("bible-plan-outside"), findsOneWidget);
+      expect(key("bible-course-reading-done"), findsNothing);
+      expect(key("bible-course-mark-read"), findsNothing);
+
+      // Die Leiste folgt dem Kapitel.
+      await step(tester, "previous", "1. Mose 3");
+      expect(
+        tester.widget<ChoiceChip>(key("bible-passage-2")).selected,
+        isTrue,
+      );
+
+      // Leseplan verlassen und erneut öffnen.
+      await tester.pumpWidget(const SizedBox());
+      await openReader(tester, service);
+      expectDone("Gen 1", true);
+      await step(tester, "next", "1. Mose 2");
+      expectDone("Gen 2", true);
+      await step(tester, "next", "1. Mose 3");
+      expectDone("Gen 3", false);
+
+      // Neu laden (wie nach einem App-Neustart): neuer Dienst, gleicher
+      // Speicher.
+      final reloaded = BibleReadingService(
+        repositoryFor: (_) => storage,
+        clock: () => now,
+        streaks: StreakService(
+          repositoryFor: (_) => MemoryStreakRepository(),
+          clock: () => now,
+        ),
+        bundle: bundle,
+        translations: bibles.translations,
+      );
+
+      await tester.pumpWidget(const SizedBox());
+      await openReader(tester, reloaded);
+      expectDone("Gen 1", true);
+      await step(tester, "next", "1. Mose 2");
+      expectDone("Gen 2", true);
+      await step(tester, "next", "1. Mose 3");
+      expectDone("Gen 3", false);
+    });
   });
 }

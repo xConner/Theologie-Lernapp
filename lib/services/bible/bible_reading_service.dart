@@ -299,6 +299,24 @@ class BibleReadingService extends ChangeNotifier {
     return isLoaded(uid) ? _courseProgress[planId] : null;
   }
 
+  /// Begonnene Lesepläne zu Lehrveranstaltungen, laufende vor pausierten –
+  /// sie stehen wie die übrigen Pläne unter „Meine Pläne“ und auf der
+  /// Startseite der Bibel.
+  List<(CourseReadingPlan, CourseReadingProgress)> startedCoursePlans(
+    String? uid,
+  ) {
+    if (!isLoaded(uid)) return const [];
+
+    final result = [
+      for (final plan in coursePlans)
+        if (_courseProgress[plan.id] case final progress?) (plan, progress),
+    ];
+
+    result.sort((a, b) => (a.$2.paused ? 1 : 0) - (b.$2.paused ? 1 : 0));
+
+    return result;
+  }
+
   /// Kapitel- und Verszahlen für die Planung; `null`, solange nicht
   /// geladen ([loadCourseExtent]).
   BibleExtent? courseExtent() => _extent;
@@ -427,6 +445,32 @@ class BibleReadingService extends ChangeNotifier {
       if (progress == null || progress.isReviewed(piece) == value) return;
 
       _saveCourse(progress.withReview(piece, value, today));
+    });
+  }
+
+  /// Pausiert den Plan bzw. setzt ihn fort; Fortschritt und eigene
+  /// Änderungen bleiben erhalten.
+  Future<void> setCoursePaused(String? uid, String planId, bool paused) {
+    return _change(uid, () {
+      final progress = _courseProgress[planId];
+
+      if (progress == null || progress.paused == paused) return;
+
+      _saveCourse(progress.copyWith(paused: paused));
+    });
+  }
+
+  /// Umfang des Plans: nur die benötigten Kapitel (false) oder dazu alle
+  /// übrigen Kapitel der behandelten Bücher (true, ab heute). Erledigte
+  /// Lesestücke bleiben in beiden Fällen gespeichert; neu verteilt wird nur
+  /// das Offene.
+  Future<void> setCourseWholeBooks(String? uid, String planId, bool value) {
+    return _change(uid, () {
+      final progress = _courseProgress[planId];
+
+      if (progress == null || progress.wholeBooks == value) return;
+
+      _saveCourse(progress.withWholeBooks(value, today));
     });
   }
 

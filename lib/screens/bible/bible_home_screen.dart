@@ -11,6 +11,7 @@ import '../../widgets/bible/bible_reading_widgets.dart';
 import '../../widgets/info_report.dart';
 import '../../widgets/streak_widgets.dart';
 import 'bible_reader_screen.dart';
+import 'course_reading_plan_screen.dart';
 import 'reading_plan_detail_screen.dart';
 import 'reading_plans_screen.dart';
 
@@ -47,6 +48,9 @@ class _BibleHomeScreenState extends State<BibleHomeScreen> {
 
     // Fortschritte anderer Geräte übernehmen.
     service.load(uid, refresh: true);
+
+    // Für das Tagespensum der Lesepläne zu Lehrveranstaltungen.
+    service.loadCourseExtent();
   }
 
   void _openReader() {
@@ -150,6 +154,7 @@ class _BibleHomeScreenState extends State<BibleHomeScreen> {
   List<Widget> _plans(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final started = service.startedPlans(uid);
+    final courses = service.startedCoursePlans(uid);
 
     return [
       Text("Lesepläne", style: textTheme.titleLarge),
@@ -162,7 +167,7 @@ class _BibleHomeScreenState extends State<BibleHomeScreen> {
           "Lesepläne und Leseverlauf konnten nicht geladen werden. Deine "
           "Streak zählt trotzdem.",
         )
-      else if (started.isEmpty)
+      else if (started.isEmpty && courses.isEmpty)
         _note(
           context,
           "Du folgst noch keinem Leseplan. Lesen und die Streak "
@@ -182,13 +187,32 @@ class _BibleHomeScreenState extends State<BibleHomeScreen> {
           child: _planCard(context, plan, progress),
         ),
 
+      // Lesepläne zu Lehrveranstaltungen (z. B. Bibelkunde) stehen wie die
+      // übrigen begonnenen Pläne hier, mit ihrem heutigen Pensum.
+      for (final (plan, progress) in courses)
+        Padding(
+          padding: const EdgeInsets.only(bottom: 12),
+          child: CoursePlanCard(
+            uid: uid,
+            plan: plan,
+            progress: progress,
+            service: service,
+            repository: widget.repository,
+            showToday: true,
+          ),
+        ),
+
       const SizedBox(height: 4),
 
       OutlinedButton.icon(
         key: const ValueKey("bible-open-plans"),
         onPressed: _openPlans,
         icon: const Icon(Icons.event_note_rounded),
-        label: Text(started.isEmpty ? "Leseplan auswählen" : "Alle Lesepläne"),
+        label: Text(
+          started.isEmpty && courses.isEmpty
+              ? "Leseplan auswählen"
+              : "Alle Lesepläne",
+        ),
       ),
     ];
   }

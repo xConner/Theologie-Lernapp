@@ -407,10 +407,64 @@ class _BibleReaderScreenState extends State<BibleReaderScreen> {
     return BibleReference.chapter(other.id, step > 0 ? 1 : other.chapterCount);
   }
 
+  /// Die Stelle der Leiste, zu der Kapitel [inChapter] von [inBook]
+  /// gehört – bevorzugt die aktuelle; `null`, wenn keine es umfasst.
+  int? _passageAt(String inBook, int inChapter) {
+    if (!_fromPassages) return null;
+
+    final book = _resolve(inBook) ?? inBook;
+
+    bool contains(int index) {
+      final reference = _inEdition(widget.passages[index].reference);
+
+      return (_resolve(reference.bookId) ?? reference.bookId) == book &&
+          inChapter >= reference.chapter &&
+          inChapter <= reference.endChapter;
+    }
+
+    if (passageIndex < widget.passages.length && contains(passageIndex)) {
+      return passageIndex;
+    }
+
+    for (var i = 0; i < widget.passages.length; i++) {
+      if (contains(i)) return i;
+    }
+
+    return null;
+  }
+
+  /// Die Lesung des Plans, die gerade aufgeschlagen ist. Maßgeblich ist das
+  /// tatsächlich gezeigte Kapitel, nicht die zuletzt gewählte Stelle: Wer
+  /// mit den Pfeilen weiterblättert, sieht unter jedem Kapitel dessen
+  /// eigenen Stand.
+  int? get _currentPassage => _passageAt(bookId, chapter);
+
   void _step(int step) {
     final target = _neighbour(step);
 
-    if (target != null) _open(target, highlighted: highlight);
+    if (target == null) return;
+
+    // Gehört das neue Kapitel zu einer anderen Stelle der Leiste, wird sie
+    // zur aktuellen (Auswahl in der Leiste, Abhaken unter dem Kapitel).
+    final index = _passageAt(target.bookId, target.chapter);
+
+    if (index != null && index != passageIndex) {
+      final reference = _inEdition(widget.passages[index].reference);
+
+      if (reference.chapter == target.chapter) {
+        _openPassage(index);
+
+        return;
+      }
+
+      passageIndex = index;
+
+      _open(target, highlighted: reference);
+
+      return;
+    }
+
+    _open(target, highlighted: highlight);
   }
 
   Future<void> _chooseTranslation() async {
@@ -632,10 +686,14 @@ class _BibleReaderScreenState extends State<BibleReaderScreen> {
       );
     }
 
-    final label = widget.passages[passageIndex].label;
+    final current = _currentPassage;
+
+    if (current == null) return _outsidePlan();
+
+    final label = widget.passages[current].label;
     final progress = _reading.progressOf(widget.uid, plan.planId);
 
-    if (_planReadingDone(passageIndex)) {
+    if (_planReadingDone(current)) {
       return Row(
         key: const ValueKey("bible-plan-reading-done"),
         mainAxisAlignment: MainAxisAlignment.center,
@@ -659,7 +717,7 @@ class _BibleReaderScreenState extends State<BibleReaderScreen> {
                 uid: widget.uid,
                 planId: plan.planId,
                 day: plan.day,
-                reading: passageIndex,
+                reading: current,
                 done: true,
               );
 
@@ -675,10 +733,14 @@ class _BibleReaderScreenState extends State<BibleReaderScreen> {
   }
 
   Widget _courseReadButton(({String planId, List<PlanReading> pieces}) course) {
-    final label = widget.passages[passageIndex].label;
+    final current = _currentPassage;
+
+    if (current == null) return _outsidePlan();
+
+    final label = widget.passages[current].label;
     final progress = _reading.courseProgressOf(widget.uid, course.planId);
 
-    if (_planReadingDone(passageIndex)) {
+    if (_planReadingDone(current)) {
       return Row(
         key: const ValueKey("bible-course-reading-done"),
         mainAxisAlignment: MainAxisAlignment.center,
@@ -692,7 +754,7 @@ class _BibleReaderScreenState extends State<BibleReaderScreen> {
 
     return FilledButton.icon(
       key: const ValueKey("bible-course-mark-read"),
-      onPressed: progress == null || passageIndex >= course.pieces.length
+      onPressed: progress == null || current >= course.pieces.length
           ? null
           : () async {
               final messenger = ScaffoldMessenger.maybeOf(context);
@@ -700,7 +762,7 @@ class _BibleReaderScreenState extends State<BibleReaderScreen> {
               final result = await _reading.setCoursePieces(
                 uid: widget.uid,
                 planId: course.planId,
-                pieces: [course.pieces[passageIndex]],
+                pieces: [course.pieces[current]],
                 done: true,
               );
 
@@ -712,6 +774,36 @@ class _BibleReaderScreenState extends State<BibleReaderScreen> {
             },
       icon: const Icon(Icons.check_rounded),
       label: Text("„$label“ als gelesen markieren"),
+    );
+  }
+
+  /// Unter einem Kapitel, das zu keiner Lesung des Plans gehört (z. B. nach
+  /// dem Weiterblättern): kein Abhaken für den Plan, nur freies Bestätigen.
+  Widget _outsidePlan() {
+    return Column(
+      key: const ValueKey("bible-plan-outside"),
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Text(
+          "Dieses Kapitel gehört nicht zu den Lesungen in der Leiste oben.",
+          textAlign: TextAlign.center,
+          style: TextStyle(color: context.colors.textSecondary),
+        ),
+        const SizedBox(height: 8),
+        OutlinedButton.icon(
+          key: const ValueKey("bible-mark-read"),
+          onPressed: () => confirmBibleReading(
+            context,
+            uid: widget.uid,
+            service: _reading,
+            suggestion: BibleReferenceParser.format(
+              BibleReference.chapter(bookId, chapter),
+            ),
+          ),
+          icon: const Icon(Icons.check_rounded),
+          label: const Text("Als gelesen markieren"),
+        ),
+      ],
     );
   }
 

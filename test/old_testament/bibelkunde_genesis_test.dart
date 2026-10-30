@@ -208,14 +208,14 @@ void main() {
   ];
 
   group("Sitzung 2 der Übung", () {
-    test("ist eingebunden, mit allen 16 Folien", () {
-      expect(bk.units.map((u) => u.id), ["bk.01", "bk.02"]);
+    test("ist eingebunden, mit allen 26 Folien", () {
+      expect(bk.units.map((u) => u.id), ["bk.01", "bk.02", "bk.03"]);
       expect(session.label, "Sitzung 2");
       expect(session.file, "Genesis.pdf");
       expect(session.relatedUnitIds, ["bk.01"]);
       expect(
         [for (final s in session.slides) s.number],
-        [for (var i = 1; i <= 16; i++) i],
+        [for (var i = 1; i <= 26; i++) i],
       );
       // Die Vorlesung sieht die Sitzung nicht.
       expect(lecture.units.map((u) => u.id), everyElement(startsWith("unit.")));
@@ -223,7 +223,8 @@ void main() {
 
     test("Folienbilder liegen vor, ohne Kontaktdaten der Titelfolie", () {
       for (final s in session.slides) {
-        if (s.number == 1) {
+        // Folie 17 ist die Titelfolie des Extra-Materials.
+        if (s.number == 1 || s.number == 17) {
           expect(s.image, isNull);
           expect(s.text, isNot(contains("@")));
           expect(s.text, isNot(contains("880")));
@@ -277,10 +278,11 @@ void main() {
     ];
 
     test("Genesis nach der Folie, übrige Bücher unverändert", () {
-      // 2884 Einträge vor dem Abgleich, sechs neue Teilperikopen.
-      expect(perikopen, hasLength(2890));
+      // 2884 Einträge vor dem Abgleich, sechs neue Teilperikopen, dazu
+      // Ex 32 „Israels Abfall: Das Goldene Kalb“ (Sitzung 3).
+      expect(perikopen, hasLength(2891));
       expect(genesis.map(BookPericope.keyOf).toList(), _genesisKeys);
-      expect(perikopen.where((p) => p.book != "Gen"), hasLength(2884 - 72));
+      expect(perikopen.where((p) => p.book != "Gen"), hasLength(2884 - 72 + 1));
       for (final g in genesis) {
         expect((g.required, g.precision), (true, "chapter"), reason: g.id);
       }
@@ -378,8 +380,8 @@ void main() {
     test("Folienzeile mit genau einer Perikope: gleiche Grenzen", () {
       for (final p in linked) {
         if (p.pericopeKeys.length != 1) continue;
-        // Gen 11,30 ist ein Einzelvers innerhalb einer Perikope.
-        if (p.label == "Gen 11,30") continue;
+        // Gen 11,30 und Gen 12,1-3 liegen innerhalb einer Perikope.
+        if (p.label == "Gen 11,30" || p.label == "Gen 12,1-3") continue;
         final ref = BibleReferenceParser.parse(p.openText)!;
         final g = links.byKey(p.pericopeKeys.single)!;
         expect(
@@ -740,8 +742,17 @@ void main() {
       final ids = all.allTerms.map((t) => t.id).toList();
       expect(ids.toSet().length, ids.length);
       final lectureTerms = lecture.terms.map((t) => t.id).toSet();
+      // Die drei Rechtscorpora nennt auch Sitzung 3 (Exodus/Levitikus).
+      const alsoSession3 = {
+        "term.bundesbuch",
+        "term.heiligkeitsgesetz",
+        "term.deuteronomisches_gesetz",
+      };
       for (final id in added) {
-        expect(all.unitsOfTerm(id).map((u) => u.id), ["bk.02"], reason: id);
+        expect(all.unitsOfTerm(id).map((u) => u.id), [
+          "bk.02",
+          if (alsoSession3.contains(id)) "bk.03",
+        ], reason: id);
         expect(lectureTerms, isNot(contains(id)));
       }
       // Ergänzung der App, nicht von der Folie erklärt.

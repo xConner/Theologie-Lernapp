@@ -89,7 +89,7 @@ Kapitel und Vers. Listen von Stellen je Tag verwendet auch
 | `nt-90-days` | 90 Tage | Neues Testament fortlaufend |
 | `gospels-30-days` | 30 Tage | die vier Evangelien |
 | `bible-marathon-30-days` | 30 Tage | ganze Bibel fortlaufend (extrem) |
-| `course-bibelkunde-at-wise-2026` | 14 Sitzungen | zur Übung Bibelkunde AT (siehe unten), im Bereich Bibelkunde unter „Leseplan zur Übung“ |
+| `course-bibelkunde-at-wise-2026` | 14 Sitzungen | zur Übung Bibelkunde AT (siehe unten), im Bereich Bibelkunde unter „Leseplan zur Übung“; einmal begonnen auch auf der Startseite der Bibel und unter „Meine Pläne“ |
 
 Die Pläne sind eigene Einteilungen: `tool/reading_plans/build_plans.py`
 verteilt die Kapitel anhand der Verszahlen aus
@@ -166,6 +166,37 @@ geplant von `CourseSchedule` (`lib/services/bible/course_reading_schedule.dart`)
 * Plant eine spätere Sitzung einen schon eingeplanten Text erneut, ist er
   dort nur **gezielte Wiederholung** (optional, eigener Haken) und zählt
   nicht noch einmal.
+
+### Umfang: nur benötigte Kapitel oder ganze Bücher
+
+Schalter „Ganze Bücher lesen“ im Plan (`wholeBooks` im Fortschritt,
+`CourseReadingProgress.withWholeBooks`), jederzeit umschaltbar:
+
+* **Aus (Standard)**: nur die Stellen der Sitzung.
+* **An**: jede Sitzung liest die Bücher, die sie behandelt, ganz – in
+  Buch- und Kapitelreihenfolge. Eigene Kapitel bleiben, Versbereiche werden
+  zum ganzen Kapitel; die übrigen Kapitel kommen als **ergänzend** markierte
+  Lesestücke (`ScheduledPiece.extra`) dazu und werden über denselben
+  Lesezeitraum gleichmäßig verteilt. Ein Kapitel, das eine spätere Sitzung
+  selbst nennt, bleibt dort; was eine frühere Sitzung schon ergänzt hat,
+  kommt nicht noch einmal.
+* Gilt nur für Sitzungen **ab dem Tag des Einschaltens**
+  (`wholeBooksSince`); vergangene Sitzungen werden nicht nachträglich
+  aufgefüllt, damit kein Rückstand entsteht.
+* Erledigtes bleibt in beiden Richtungen erhalten, weil je Lesestück
+  gespeichert wird; beim Umschalten meldet die App, wie viele Kapitel
+  ergänzt bzw. weggelassen werden.
+
+### Auswahl und Anzeige
+
+Ein begonnener Plan zur Übung erscheint wie die übrigen Pläne auf der
+Startseite der Bibel (mit Tagespensum) und unter „Lesepläne → Meine Pläne“
+(`CoursePlanCard`). „Pausieren“ (`paused`) nimmt ihn aus diesen Listen,
+ohne Fortschritt zu löschen; „Fortsetzen“ holt ihn zurück. Gelesen wird im
+Bibelreader mit denselben Knöpfen wie bei anderen Plänen: Der Status
+„Lesen abgeschlossen“ gilt immer für das **angezeigte** Kapitel. Blättert
+man mit den Pfeilen aus den Stellen des Tages hinaus, zeigt der Reader
+„außerhalb des Plans“ und bietet nur das freie Markieren an.
 
 ### Fortschritt und Änderungen
 

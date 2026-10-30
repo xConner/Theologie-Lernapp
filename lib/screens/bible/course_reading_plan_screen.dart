@@ -122,6 +122,11 @@ class _CourseReadingPlanScreenState extends State<CourseReadingPlanScreen> {
             _overdue(context, schedule),
           ],
           const SizedBox(height: 4),
+          _ScopeSwitch(
+            schedule: schedule,
+            value: progress.wholeBooks,
+            onChanged: (value) => _setWholeBooks(value),
+          ),
           SwitchListTile(
             key: const ValueKey("course-finish-eve"),
             contentPadding: EdgeInsets.zero,
@@ -139,11 +144,38 @@ class _CourseReadingPlanScreenState extends State<CourseReadingPlanScreen> {
           const SizedBox(height: 8),
           ..._sessions(context, schedule),
           const SizedBox(height: 24),
-          OutlinedButton.icon(
-            key: const ValueKey("course-plan-end"),
-            onPressed: () => _end(plan),
-            icon: const Icon(Icons.stop_rounded),
-            label: const Text("Plan beenden"),
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: [
+              OutlinedButton.icon(
+                key: const ValueKey("course-plan-pause"),
+                onPressed: () =>
+                    service.setCoursePaused(uid, planId, !progress.paused),
+                icon: Icon(
+                  progress.paused
+                      ? Icons.play_arrow_rounded
+                      : Icons.pause_rounded,
+                ),
+                label: Text(progress.paused ? "Fortsetzen" : "Pausieren"),
+              ),
+              OutlinedButton.icon(
+                key: const ValueKey("course-plan-end"),
+                onPressed: () => _end(plan),
+                icon: const Icon(Icons.stop_rounded),
+                label: const Text("Plan beenden"),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          Text(
+            progress.paused
+                ? "Pausiert: Der Plan erscheint nicht mehr mit einem "
+                      "Tagespensum auf der Startseite der Bibel. Dein "
+                      "Fortschritt bleibt erhalten."
+                : "Pausieren blendet das Tagespensum auf der Startseite aus "
+                      "und behält den Fortschritt; Beenden löscht ihn.",
+            style: TextStyle(color: context.colors.textSecondary),
           ),
         ],
       ],
@@ -483,6 +515,7 @@ class _CourseReadingPlanScreenState extends State<CourseReadingPlanScreen> {
         "${s.required.where((p) => p.done).length}/${s.required.length} "
             "gelesen",
       if (s.hasReading) s.pace.label,
+      if (s.extras.isNotEmpty) "${s.extras.length} ergänzend",
     ].join(" · ");
 
     return Card(
@@ -564,7 +597,12 @@ class _CourseReadingPlanScreenState extends State<CourseReadingPlanScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    Text(group.$1.label, style: textTheme.labelLarge),
+                    Text(
+                      group.$2.first.extra
+                          ? "${group.$1.label}: übrige Kapitel (ganze Bücher)"
+                          : group.$1.label,
+                      style: textTheme.labelLarge,
+                    ),
                     const SizedBox(height: 4),
                     _PieceChips(
                       pieces: group.$2,
@@ -651,7 +689,9 @@ class _CourseReadingPlanScreenState extends State<CourseReadingPlanScreen> {
     final result = <(PlanReading, List<ScheduledPiece>)>[];
 
     for (final p in pieces) {
-      if (result.isNotEmpty && result.last.$1 == p.reading) {
+      if (result.isNotEmpty &&
+          result.last.$1 == p.reading &&
+          result.last.$2.last.extra == p.extra) {
         result.last.$2.add(p);
       } else {
         result.add((p.reading, [p]));
@@ -685,26 +725,14 @@ class _CourseReadingPlanScreenState extends State<CourseReadingPlanScreen> {
   }
 
   Future<void> _read(List<ScheduledPiece> pieces, String title) {
-    final plan = service.coursePlan(planId);
-
-    return Navigator.push(
+    return openCourseReading(
       context,
-      MaterialPageRoute(
-        builder: (_) => BibleReaderScreen(
-          uid: uid,
-          readingService: service,
-          repository: widget.repository,
-          passages: [
-            for (final p in pieces)
-              BiblePassage(label: p.label, reference: p.piece.reference),
-          ],
-          passageTitle: "${plan?.name ?? "Leseplan"} · $title",
-          coursePlan: (
-            planId: planId,
-            pieces: [for (final p in pieces) p.piece],
-          ),
-        ),
-      ),
+      uid: uid,
+      planId: planId,
+      pieces: pieces,
+      title: title,
+      service: service,
+      repository: widget.repository,
     );
   }
 
@@ -724,6 +752,41 @@ class _CourseReadingPlanScreenState extends State<CourseReadingPlanScreen> {
                 )
               : UnitDetailScreen(data: data, unitId: unitId),
         ),
+      ),
+    );
+  }
+
+  /// Schaltet den Umfang um und sagt, was sich dadurch ändert – der Plan
+  /// wird sofort neu berechnet, Gelesenes bleibt.
+  Future<void> _setWholeBooks(bool value) async {
+    final messenger = ScaffoldMessenger.maybeOf(context);
+    final before = service.courseSchedule(uid, planId);
+
+    await service.setCourseWholeBooks(uid, planId, value);
+
+    final after = service.courseSchedule(uid, planId);
+
+    if (messenger == null || before == null || after == null) return;
+
+    final open =
+        after.sessions.fold(0, (sum, s) => sum + s.open.length) -
+        before.sessions.fold(0, (sum, s) => sum + s.open.length);
+
+    final text = value
+        ? "Ganze Bücher: ${after.extraCount} Kapitel ergänzt, davon "
+              "$open noch offen. Gelesenes bleibt erhalten; das Offene ist "
+              "neu verteilt."
+        : "Nur die benötigten Kapitel: ${before.extraCount} ergänzende "
+              "Kapitel entfallen. Was du davon gelesen hast, bleibt "
+              "gespeichert und zählt wieder, wenn du ganze Bücher "
+              "einschaltest.";
+
+    messenger.hideCurrentSnackBar();
+    messenger.showSnackBar(
+      SnackBar(
+        key: const ValueKey("course-scope-changed"),
+        behavior: SnackBarBehavior.floating,
+        content: Text(text),
       ),
     );
   }
@@ -781,6 +844,272 @@ class _CourseReadingPlanScreenState extends State<CourseReadingPlanScreen> {
     final verses = pieces.fold(0, (sum, p) => sum + p.verses);
 
     return (verses / ReadingPlanExtent.versesPerMinute).round();
+  }
+}
+
+/// Öffnet Lesestücke eines Leseplans zur Lehrveranstaltung im Reader; dort
+/// lässt sich jedes Stück abhaken.
+Future<void> openCourseReading(
+  BuildContext context, {
+  required String? uid,
+  required String planId,
+  required List<ScheduledPiece> pieces,
+  required String title,
+  BibleReadingService? service,
+  BibleRepository? repository,
+}) {
+  final reading = service ?? BibleReadingService.instance;
+  final plan = reading.coursePlan(planId);
+
+  return Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (_) => BibleReaderScreen(
+        uid: uid,
+        readingService: reading,
+        repository: repository,
+        passages: [
+          for (final p in pieces)
+            BiblePassage(label: p.label, reference: p.piece.reference),
+        ],
+        passageTitle: "${plan?.name ?? "Leseplan"} · $title",
+        coursePlan: (planId: planId, pieces: [for (final p in pieces) p.piece]),
+      ),
+    ),
+  );
+}
+
+/// Ein begonnener Leseplan zur Lehrveranstaltung in den Listen der
+/// normalen Lesepläne: Stand, Fortschritt und (mit [showToday]) das heutige
+/// Pensum zum Abhaken und Lesen – wie die Karte eines Plans mit Plantagen.
+class CoursePlanCard extends StatelessWidget {
+  final String? uid;
+  final CourseReadingPlan plan;
+  final CourseReadingProgress progress;
+  final BibleReadingService service;
+  final BibleRepository? repository;
+
+  /// Heutiges Pensum zeigen (Startseite der Bibel).
+  final bool showToday;
+
+  const CoursePlanCard({
+    super.key,
+    required this.uid,
+    required this.plan,
+    required this.progress,
+    required this.service,
+    this.repository,
+    this.showToday = false,
+  });
+
+  void _openPlan(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => CourseReadingPlanScreen(
+          uid: uid,
+          planId: plan.id,
+          service: service,
+          repository: repository,
+        ),
+      ),
+    );
+  }
+
+  Future<void> _set(
+    BuildContext context,
+    List<PlanReading> pieces,
+    bool value,
+  ) async {
+    final messenger = ScaffoldMessenger.maybeOf(context);
+
+    final result = await service.setCoursePieces(
+      uid: uid,
+      planId: plan.id,
+      pieces: pieces,
+      done: value,
+    );
+
+    if (value) {
+      showReadingFeedback(
+        messenger,
+        result,
+        confirmation: "Als gelesen markiert.",
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final secondary = textTheme.bodySmall?.copyWith(
+      color: context.colors.textSecondary,
+    );
+
+    final schedule = service.courseSchedule(uid, plan.id);
+    final next = schedule?.next;
+
+    final status = progress.paused
+        ? "Pausiert"
+        : schedule == null
+        ? plan.course
+        : next == null
+        ? "Alle Sitzungen gelesen"
+        : "Nächste Sitzung ${CourseDates.label(next.date, year: false)}: "
+              "${next.session.topic} · ${next.pace.label}";
+
+    final today = schedule?.todayPieces ?? const <ScheduledPiece>[];
+    final open = today.where((p) => !p.done).toList();
+
+    return Card(
+      key: ValueKey("course-plan-card-${plan.id}"),
+      margin: EdgeInsets.zero,
+      clipBehavior: Clip.antiAlias,
+      child: InkWell(
+        onTap: showToday ? null : () => _openPlan(context),
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(16, 12, 8, 12),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(plan.name, style: textTheme.titleMedium),
+                        Text(status, style: secondary),
+                      ],
+                    ),
+                  ),
+                  if (showToday)
+                    TextButton(
+                      key: ValueKey("course-plan-open-${plan.id}"),
+                      onPressed: () => _openPlan(context),
+                      child: const Text("Plan öffnen"),
+                    ),
+                ],
+              ),
+              if (schedule != null) ...[
+                Padding(
+                  padding: const EdgeInsets.only(right: 8, top: 8, bottom: 4),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(999),
+                        child: LinearProgressIndicator(
+                          value: schedule.fraction,
+                          minHeight: 8,
+                          backgroundColor: context.colors.surfaceMuted,
+                          color: schedule.fraction >= 1
+                              ? context.colors.success
+                              : context.colors.accent,
+                        ),
+                      ),
+                      const SizedBox(height: 6),
+                      Text(
+                        "${(schedule.fraction * 100).floor()} % gelesen · "
+                        "${progress.wholeBooks ? "ganze Bücher" : "nur benötigte Kapitel"}",
+                        key: ValueKey("course-plan-progress-${plan.id}"),
+                        style: secondary,
+                      ),
+                    ],
+                  ),
+                ),
+                if (showToday && !progress.paused) ...[
+                  const SizedBox(height: 6),
+                  if (today.isEmpty)
+                    Padding(
+                      padding: const EdgeInsets.only(right: 8),
+                      child: Text(
+                        next == null
+                            ? "Für die kommenden Sitzungen ist nichts mehr offen."
+                            : next.open.isEmpty
+                            ? "Für die nächste Sitzung ist alles gelesen."
+                            : "Heute ist nichts eingeplant.",
+                        style: secondary,
+                      ),
+                    )
+                  else ...[
+                    Text(
+                      "Heute: ${compactLabel([for (final p in today) p.piece])}",
+                      key: ValueKey("course-plan-today-${plan.id}"),
+                    ),
+                    const SizedBox(height: 6),
+                    _PieceChips(
+                      pieces: today,
+                      onChanged: (piece, value) =>
+                          _set(context, [piece], value),
+                    ),
+                    const SizedBox(height: 4),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: TextButton.icon(
+                        key: ValueKey("course-plan-read-${plan.id}"),
+                        onPressed: () => openCourseReading(
+                          context,
+                          uid: uid,
+                          planId: plan.id,
+                          pieces: open.isEmpty ? today : open,
+                          title: "Heute",
+                          service: service,
+                          repository: repository,
+                        ),
+                        icon: const Icon(Icons.menu_book_rounded),
+                        label: const Text("Lesen"),
+                      ),
+                    ),
+                  ],
+                ],
+              ] else if (showToday)
+                const Padding(
+                  padding: EdgeInsets.all(8),
+                  child: LinearProgressIndicator(),
+                ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// Umfang des Plans: nur die benötigten Kapitel oder ganze Bücher.
+class _ScopeSwitch extends StatelessWidget {
+  final CourseSchedule schedule;
+  final bool value;
+  final ValueChanged<bool> onChanged;
+
+  const _ScopeSwitch({
+    required this.schedule,
+    required this.value,
+    required this.onChanged,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final extras = schedule.extraCount;
+
+    return SwitchListTile(
+      key: const ValueKey("course-whole-books"),
+      contentPadding: EdgeInsets.zero,
+      title: const Text("Ganze Bücher lesen"),
+      subtitle: Text(
+        value
+            ? "Zu den Stellen jeder Sitzung kommen die übrigen Kapitel der "
+                  "behandelten Bücher ($extras ergänzende Kapitel), in "
+                  "biblischer Reihenfolge auf die Lesetage verteilt. Gilt für "
+                  "die Sitzungen ab dem Einschalten; frühere bleiben, wie "
+                  "sie waren."
+            : "Aus: nur die Kapitel, die die Sitzungen benötigen. Ein: "
+                  "zusätzlich die übrigen Kapitel der behandelten Bücher. "
+                  "Gelesenes bleibt in beiden Fällen erhalten.",
+      ),
+      value: value,
+      onChanged: onChanged,
+    );
   }
 }
 

@@ -417,8 +417,8 @@
         "term.heiligkeitsgesetz",
         "term.deuteronomisches_gesetz"
       ],
-      "definition": "Ex 20,22–23,19: einer der drei großen rechtlichen Texte, die in den Pentateuch eingebettet sind, im Rahmen des Aufenthalts am Sinai.",
-      "supplement": "Der Name stammt aus Ex 24,7: Mose nimmt „das Buch des Bundes“ und liest es dem Volk vor."
+      "definition": "Ex 20,22–23,33: das erste große Gesetzescorpus des Pentateuch, eingebettet in den Aufenthalt am Sinai.",
+      "supplement": "Der Name stammt aus Ex 24,7: Mose nimmt „das Buch des Bundes“ und liest es dem Volk vor. Die Folien der Sitzung zur Genesis nennen als Ende 23,19, die Sitzung zu Exodus/Levitikus 23,33; die App folgt der späteren, ausführlicheren Angabe."
     },
     {
       "id": "term.heiligkeitsgesetz",
@@ -436,7 +436,8 @@
       "name": "Deuteronomisches Gesetz",
       "aliases": [
         "deuteronomisches Gesetz",
-        "Deuteronomischer Kodex"
+        "Deuteronomischer Kodex",
+        "Urdeuteronomium"
       ],
       "fromSlides": true,
       "confusable": [
@@ -498,6 +499,9 @@
         "term.fragmentenhypothese",
         "term.ergaenzungshypothese",
         "term.neuere_urkundenhypothese"
+      ],
+      "aliases": [
+        "Quellenhypothese"
       ]
     },
     {
@@ -518,6 +522,9 @@
       "confusable": [
         "term.urkundenhypothese",
         "term.fragmentenhypothese"
+      ],
+      "aliases": [
+        "Grundschrifthypothese"
       ]
     },
     {
@@ -609,6 +616,97 @@
       "confusable": [
         "term.priesterschrift",
         "term.kompositionsschicht"
+      ]
+    },
+    {
+      "id": "term.dekalog",
+      "name": "Dekalog",
+      "aliases": [
+        "Zehn Gebote",
+        "Zehnwort"
+      ],
+      "fromSlides": true,
+      "definition": "Die Zehn Gebote (Ex 20, parallel Dtn 5): Zusammenfassung des Willens Gottes in apodiktischer Form.",
+      "supplement": "Griechisch „zehn Worte“ (vgl. Ex 34,28). Die Zählung der Gebote unterscheidet sich: Lutheraner und Katholiken fassen das Bilderverbot mit dem ersten Gebot zusammen und teilen das Begehren in zwei Gebote, Reformierte und Orthodoxe zählen das Bilderverbot als eigenes Gebot."
+    },
+    {
+      "id": "term.apodiktisches_recht",
+      "name": "Apodiktisches Recht",
+      "aliases": [
+        "apodiktisch"
+      ],
+      "fromSlides": true,
+      "definition": "Rechtssätze als unbedingte Gebote oder Verbote („Du sollst …“, „Du sollst nicht …“) ohne Fallbeschreibung; so der Dekalog.",
+      "supplement": "Gegenbegriff ist das kasuistische Recht („Wenn jemand … , dann …“), wie es etwa im Bundesbuch überwiegt."
+    },
+    {
+      "id": "term.theophanie",
+      "name": "Theophanie",
+      "aliases": [
+        "Gotteserscheinung"
+      ],
+      "fromSlides": true,
+      "definition": "Erscheinung Gottes; am Sinai (Ex 19) offenbart sich Gott dem Volk vor dem Bundesschluss.",
+      "supplement": "Typische Begleitzeichen sind Feuer, Rauch, Donner und Beben (Ex 19,16–19); vgl. auch den brennenden Dornbusch (Ex 3)."
+    },
+    {
+      "id": "term.stiftshuette",
+      "name": "Stiftshütte",
+      "aliases": [
+        "Zelt der Begegnung",
+        "Zeltheiligtum",
+        "Offenbarungszelt"
+      ],
+      "fromSlides": true,
+      "definition": "Das tragbare Zeltheiligtum der Wüstenzeit („Zelt der Begegnung“): Bauvorschriften Ex 25–31, Ausführung Ex 35–40.",
+      "supplement": "„Stiftshütte“ ist Luthers Übersetzung; das Zelt beherbergt die Bundeslade und ist Ort der Gegenwart Gottes inmitten des Volkes (Ex 40,34)."
+    },
+    {
+      "id": "term.passa",
+      "name": "Passa",
+      "aliases": [
+        "Passah",
+        "Pessach"
+      ],
+      "fromSlides": true,
+      "definition": "Fest zur Erinnerung an den Auszug aus Ägypten; eingesetzt in Ex 12 vor der Tötung der Erstgeburt.",
+      "supplement": "Das Blut des Passalammes an den Türpfosten bewahrt Israel vor dem Verderber (Ex 12,13); im Neuen Testament wird Christus „unser Passalamm“ genannt (1 Kor 5,7)."
+    },
+    {
+      "id": "term.gnadenformel",
+      "name": "Gnadenformel",
+      "aliases": [
+        "Gnadenrede"
+      ],
+      "fromSlides": true,
+      "definition": "Bekenntnis zum Wesen Gottes in Ex 34,6: „HERR, HERR, Gott, barmherzig und gnädig und geduldig und von großer Gnade und Treue“.",
+      "supplement": "Die Formel wird im Alten Testament oft aufgegriffen, etwa Ps 103,8, Joel 2,13 und Jona 4,2."
+    },
+    {
+      "id": "term.jom_kippur",
+      "name": "Jom Kippur",
+      "aliases": [
+        "Versöhnungstag",
+        "Großer Versöhnungstag"
+      ],
+      "fromSlides": true,
+      "definition": "Der Versöhnungstag (Lev 16): jährliche Sühne für Heiligtum, Priester und Volk.",
+      "supplement": "Nur an diesem Tag betritt der Hohepriester das Allerheiligste; ein Bock wird als Sündopfer dargebracht, der andere trägt die Sünden „für Asasel“ in die Wüste. Hebr 9 deutet den Tag auf Christus."
+    },
+    {
+      "id": "term.nichtpriesterschriftlich",
+      "name": "Nichtpriesterschriftliche Texte (nP)",
+      "aliases": [
+        "nP",
+        "nicht-priesterschriftlich",
+        "nichtpriesterlich"
+      ],
+      "fromSlides": true,
+      "definition": "In der aktuellen Pentateuchkritik alle Textanteile von Gen–Num, die nicht zur Priesterschrift gehören; sie werden nicht mehr in Quellen geteilt, sondern nur in vor- und nachpriesterschriftliches Material.",
+      "confusable": [
+        "term.priesterschrift",
+        "term.jahwist",
+        "term.elohist"
       ]
     }
   ]

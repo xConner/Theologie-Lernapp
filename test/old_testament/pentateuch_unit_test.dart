@@ -78,7 +78,7 @@ void main() {
   });
 
   group("Begriffe", () {
-    test("neue Begriffe stehen einmal und nur in der Vorlesung", () {
+    test("neue Begriffe stehen einmal, eingeführt in der Vorlesung", () {
       const added = [
         "term.tetrateuch",
         "term.hexateuch",
@@ -95,10 +95,25 @@ void main() {
       ];
       final ids = all.allTerms.map((t) => t.id).toList();
       expect(ids.toSet().length, ids.length);
+      // Das Extra-Material der Übung (Sitzung 2, Folien 21–24) nennt die
+      // Erklärungsmodelle und Quellen erneut – derselbe Eintrag, dieselbe
+      // Karte.
+      const alsoExercise = {
+        "term.urkundenhypothese",
+        "term.fragmentenhypothese",
+        "term.ergaenzungshypothese",
+        "term.neuere_urkundenhypothese",
+        "term.jahwist",
+        "term.elohist",
+        "term.priesterschrift",
+      };
       final bkTerms = bk.terms.map((t) => t.id).toSet();
       for (final id in added) {
-        expect(all.unitsOfTerm(id).map((u) => u.id), ["unit.02"], reason: id);
-        expect(bkTerms, isNot(contains(id)));
+        expect(all.unitsOfTerm(id).map((u) => u.id), [
+          "unit.02",
+          if (alsoExercise.contains(id)) "bk.02",
+        ], reason: id);
+        expect(bkTerms.contains(id), alsoExercise.contains(id), reason: id);
       }
     });
 

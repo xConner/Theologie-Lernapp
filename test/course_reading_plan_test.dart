@@ -903,6 +903,206 @@ void main() {
   // DIENST: SPEICHERUNG, STREAK, ANPASSUNG
   // ==========================
 
+  group("Umfang: ganze Bücher", () {
+    const small = FakeExtent({
+      "GEN": [10, 10, 10, 10, 10],
+      "EXO": [20, 20, 20, 20],
+      "LEV": [5, 5, 5],
+    });
+
+    CourseReadingPlan sessions() => CourseReadingPlan(
+      id: "t",
+      name: "Test",
+      course: "Kurs",
+      source: "Test",
+      sessions: [
+        session("s.1", DateTime(2026, 11, 5), ["GEN 2", "GEN 4:3-5"]),
+        session("s.2", DateTime(2026, 11, 12), ["EXO 1", "GEN 5", "LEV 2"]),
+        session("s.3", DateTime(2026, 11, 19), ["EXO 3"]),
+      ],
+    );
+
+    CourseReadingProgress progress({
+      bool whole = true,
+      Map<String, String> done = const {},
+      String since = "2026-11-01",
+    }) {
+      final base = CourseReadingProgress(
+        planId: "t",
+        startedOn: "2026-11-01",
+        done: done,
+      );
+
+      return whole ? base.withWholeBooks(true, since) : base;
+    }
+
+    CourseSchedule plan(CourseReadingProgress progress, {DateTime? today}) =>
+        compute(
+          progress,
+          today ?? DateTime(2026, 11, 1),
+          with_: sessions(),
+          using: small,
+        );
+
+    List<String> keys(SessionSchedule s) => [for (final p in s.required) p.key];
+
+    test("Modus A: nur die benötigten Kapitel (wie bisher)", () {
+      final schedule = plan(progress(whole: false));
+
+      expect(keys(schedule.session("s.1")!), ["GEN 2", "GEN 4:3-5"]);
+      expect(schedule.extraCount, 0);
+    });
+
+    test("Modus B: alle Kapitel, Reihenfolge erhalten, nichts doppelt", () {
+      final schedule = plan(progress());
+
+      // GEN 5 nennt Sitzung 2 selbst: Es bleibt dort und wird nicht
+      // vorgezogen. Aus Gen 4,3-5 wird das ganze Kapitel.
+      expect(keys(schedule.session("s.1")!), [
+        "GEN 1",
+        "GEN 2",
+        "GEN 3",
+        "GEN 4",
+      ]);
+      expect(
+        [for (final p in schedule.session("s.1")!.extras) p.key],
+        ["GEN 1", "GEN 3"],
+      );
+
+      // Exodus und Levitikus vollständig; EXO 3 bleibt bei Sitzung 3.
+      expect(keys(schedule.session("s.2")!), [
+        "EXO 1",
+        "EXO 2",
+        "EXO 4",
+        "GEN 5",
+        "LEV 1",
+        "LEV 2",
+        "LEV 3",
+      ]);
+      expect(keys(schedule.session("s.3")!), ["EXO 3"]);
+
+      // Jedes Kapitel genau einmal Pflicht, keine Wiederholungen erzeugt.
+      final all = [
+        for (final s in schedule.sessions)
+          for (final p in s.required) p.key,
+      ];
+      expect(all.toSet().length, all.length);
+      expect(all.toSet(), {
+        for (final book in ["GEN", "EXO", "LEV"])
+          for (var c = 1; c <= small.chapterCount(book)!; c++) "$book $c",
+      });
+      expect(schedule.sessions.every((s) => s.repeats.isEmpty), isTrue);
+    });
+
+    test("verteilt die zusätzlichen Kapitel gleichmäßig auf die Tage", () {
+      final first = plan(progress()).session("s.1")!;
+
+      // 1.11. bis Vorabend 4.11.: vier Tage, je ein Kapitel zu 10 Versen.
+      expect(first.daysLeft, 4);
+      expect(
+        [
+          for (final day in first.days.values) [for (final p in day) p.key],
+        ],
+        [
+          ["GEN 1"],
+          ["GEN 2"],
+          ["GEN 3"],
+          ["GEN 4"],
+        ],
+      );
+      expect(first.versesPerDay, 10);
+    });
+
+    test("Umschalten verliert keinen Fortschritt", () {
+      final done = {"GEN 1": "2026-11-01", "GEN 4:3-5": "2026-11-01"};
+
+      final whole = plan(progress(done: done));
+      final s1 = whole.session("s.1")!;
+
+      // Das ganze Kapitel 4 ist noch offen, Gen 1 gelesen.
+      expect(
+        [
+          for (final p in s1.required)
+            if (p.done) p.key,
+        ],
+        ["GEN 1"],
+      );
+
+      // Zurück zu Modus A: Der gelesene Versbereich zählt wieder.
+      final back = progress(done: done).withWholeBooks(false, "2026-11-02");
+      final s1Back = plan(back).session("s.1")!;
+
+      expect(back.done, done);
+      expect(
+        [
+          for (final p in s1Back.required)
+            if (p.done) p.key,
+        ],
+        ["GEN 4:3-5"],
+      );
+      expect(back.wholeBooksSince, isNull);
+    });
+
+    test("Sitzungen vor dem Einschalten werden nicht erweitert", () {
+      final schedule = plan(
+        progress(since: "2026-11-06"),
+        today: DateTime(2026, 11, 6),
+      );
+
+      expect(keys(schedule.session("s.1")!), ["GEN 2", "GEN 4:3-5"]);
+      expect(schedule.session("s.2")!.extras, isNotEmpty);
+      // Kein Kapitel der vergangenen Sitzung kommt als „Nachholen“ dazu.
+      expect(schedule.overdue.map((p) => p.key), ["GEN 2", "GEN 4:3-5"]);
+    });
+
+    test("Speichern und Laden behalten Einstellung, Datum und Pause", () {
+      final saved = progress().copyWith(paused: true);
+      final restored = CourseReadingProgress.fromMap(saved.toMap())!;
+
+      expect(restored.wholeBooks, isTrue);
+      expect(restored.wholeBooksSince, "2026-11-01");
+      expect(restored.paused, isTrue);
+
+      // Ältere Daten ohne die Felder: Modus A, nicht pausiert.
+      final old = CourseReadingProgress.fromMap({
+        "planId": "t",
+        "startedOn": "2026-11-01",
+      })!;
+
+      expect(old.wholeBooks, isFalse);
+      expect(old.paused, isFalse);
+    });
+
+    test("echter Plan: Exodus und Levitikus vollständig in Sitzung 3", () {
+      final schedule = compute(
+        CourseReadingProgress(
+          planId: planId,
+          startedOn: "2026-10-30",
+        ).withWholeBooks(true, "2026-10-30"),
+        DateTime(2026, 10, 30),
+      );
+
+      final s3 = schedule.session("bk.03")!;
+
+      expect(
+        [for (final p in s3.required) p.key],
+        [
+          for (var c = 1; c <= 40; c++) "EXO $c",
+          for (var c = 1; c <= 27; c++) "LEV $c",
+        ],
+      );
+      // Eigene Stellen: Ex 1–5, 7–24, 32–34 (26 Kapitel) und Lev 16.
+      expect(s3.extras.length, 40 + 27 - 26 - 1);
+
+      final s4 = schedule.session("bk.04")!;
+
+      expect(s4.required.first.key, "NUM 1");
+      expect(s4.required.last.key, "DEU 34");
+      // Nur ganze Kapitel, keine Versbereiche mehr.
+      expect(s4.required.every((p) => p.piece.verse == null), isTrue);
+    });
+  });
+
   group("Dienst", () {
     late DateTime now;
     late MemoryReadingRepository repository;
@@ -1155,6 +1355,46 @@ void main() {
         );
       },
     );
+
+    test("ganze Bücher und Pause: umschaltbar, Fortschritt bleibt", () async {
+      final service = newService();
+
+      await service.load("u1");
+      await service.loadCourseExtent();
+      await service.startCoursePlan("u1", planId);
+
+      await service.setCoursePieces(
+        uid: "u1",
+        planId: planId,
+        pieces: [PlanReading.parse("GEN 1")!],
+        done: true,
+      );
+
+      expect(service.courseSchedule("u1", planId)!.extraCount, 0);
+
+      await service.setCourseWholeBooks("u1", planId, true);
+
+      final whole = service.courseSchedule("u1", planId)!;
+
+      expect(whole.extraCount, greaterThan(0));
+      expect(repository.data["course_$planId"]!["wholeBooks"], isTrue);
+      expect(
+        repository.data["course_$planId"]!["wholeBooksSince"],
+        "2026-10-23",
+      );
+      expect(service.courseProgressOf("u1", planId)!.done.keys, ["GEN 1"]);
+
+      await service.setCourseWholeBooks("u1", planId, false);
+
+      expect(service.courseSchedule("u1", planId)!.extraCount, 0);
+      expect(service.courseProgressOf("u1", planId)!.done.keys, ["GEN 1"]);
+
+      await service.setCoursePaused("u1", planId, true);
+
+      expect(service.startedCoursePlans("u1").single.$2.paused, isTrue);
+      expect(repository.data["course_$planId"]!["paused"], isTrue);
+      expect(service.courseProgressOf("u1", planId)!.done.keys, ["GEN 1"]);
+    });
 
     test("Beenden verwirft nur den Plan, nicht den Leseverlauf", () async {
       final service = newService();

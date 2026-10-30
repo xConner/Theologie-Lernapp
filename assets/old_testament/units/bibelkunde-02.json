@@ -3,7 +3,7 @@
   "course": "bibelkunde",
   "number": 2,
   "title": "Pentateuch und Genesis",
-  "scope": "2. Sitzung der Übung (29.10.2026, Genesis), 16 Folien; Präsentation von Ronja Koch, die Tonspur ist nicht enthalten",
+  "scope": "2. Sitzung der Übung (29.10.2026, Genesis), 26 Folien: 1–16 Präsentation von Ronja Koch („Genesis.pdf“, die Tonspur ist nicht enthalten), 17–26 Extra-Material und Fragen von Louisa Thomsen („Extra-Material und Fragen 1.pdf“)",
   "file": "Genesis.pdf",
   "related": [
     "bk.01"
@@ -125,6 +125,72 @@
       "image": "assets/old_testament/slides/bk02-folie-16.png",
       "text": "Gen 38\n• Juda-Tamar-Geschichte\n• Onan\n• Leviratsehe\n• Verknüpfung zum Buch Rut\n• Stammbaum Jesu",
       "figure": "Lautsprechersymbol oben rechts: Die Präsentation hat eine Tonspur; sie ist im PDF nicht enthalten."
+    },
+    {
+      "number": 17,
+      "title": "Bibelkunde Altes Testament – Extra-Material",
+      "text": "Bibelkunde Altes Testament\nWiSe 2026/2027\nLouisa Thomsen\n(Raum, Telefon und E-Mail stehen auf der Originalfolie und werden hier nicht wiedergegeben.)",
+      "figure": "Titelfolie der Datei „Extra-Material und Fragen 1.pdf“."
+    },
+    {
+      "number": 18,
+      "title": "Ablauf – 2. Sitzung",
+      "image": "assets/old_testament/slides/bk02-folie-18.png",
+      "text": "Ablauf – 2. Sitzung\n• Quiz: Pentateuch und Genesis\n• Extra-Wissen: Entstehung des Pentateuch\n• Übungen: Let’s get some work done!"
+    },
+    {
+      "number": 19,
+      "title": "Quiz: Pentateuch und Genesis",
+      "image": "assets/old_testament/slides/bk02-folie-19.png",
+      "text": "Quiz: Pentateuch und Genesis",
+      "figure": "Zwischentitel; die Quizfragen selbst stehen nicht im PDF."
+    },
+    {
+      "number": 20,
+      "title": "Pentateuch – „Good-to-know“",
+      "image": "assets/old_testament/slides/bk02-folie-20.png",
+      "text": "Pentateuch – „Good-to-know“",
+      "figure": "Zwischentitel."
+    },
+    {
+      "number": 21,
+      "title": "Entstehung des Pentateuch",
+      "image": "assets/old_testament/slides/bk02-folie-21.png",
+      "text": "Entstehung des Pentateuch\n• Pentateuch → Produkt eines langen, komplexen und vielschichtigen Entstehungsprozesses\n• stilistische und inhaltliche Unterschiede und Spannungen führen zu verschiedenen Erklärungshypothesen\n  • Grundschrift-/Ergänzungshypothese\n  • Urkunden-/Quellenhypothese\n  • Fragmentenhypothese"
+    },
+    {
+      "number": 22,
+      "title": "Neuere Urkundenhypothese – ein Klassiker der Pentateuchforschung",
+      "image": "assets/old_testament/slides/bk02-folie-22.png",
+      "text": "Neuere Urkundenhypothese – ein Klassiker der Pentateuchforschung\nJahwist (J) ca. 950 v. Chr. | Elohist (E) ca. 800 v. Chr. | Priesterschrift (P) ca. 500 v. Chr. | Deuteronomium (Dtn) ca. 622 v. Chr.\n• wichtige Namen: Julius Wellhausen, Martin Noth\n• Modell:\n  • J, E, P sind als durchlaufende Quellenschriften zu verstehen\n  • Dtn stellt einen begrenzten Textbereich dar\n  • Redaktoren haben die Quellen sukzessive kombiniert und erweitert",
+      "figure": "Vier Schriftrollen nebeneinander mit den Quellen und ihren Datierungen."
+    },
+    {
+      "number": 23,
+      "title": "Neuere Urkundenhypothese – ein Klassiker der Pentateuchforschung (heute)",
+      "image": "assets/old_testament/slides/bk02-folie-23.png",
+      "text": "Neuere Urkundenhypothese – ein Klassiker der Pentateuchforschung\nJahwist (J) ca. 950 v. Chr. | Elohist (E) ca. 800 v. Chr. | Priesterschrift (P) ca. 500 v. Chr. | Deuteronomium (Dtn) ca. 622 v. Chr.\n• wichtige Namen: Julius Wellhausen, Martin Noth\n• Modell:\n  • J, E, P sind als durchlaufende Quellenschriften zu verstehen\n  • Dtn stellt einen begrenzten Textbereich dar\n  • Redaktoren haben die Quellen sukzessive kombiniert und erweitert\n• mittlerweile: Die Hypothese ist in der deutschsprachigen Forschung weitestgehend aufgehoben!\n→ • umstritten sind v. a. Alter, Umfang und Charakter von J sowie E → Infragestellung ihrer Existenz\n  • weitestgehend stabil: P und Dtn",
+      "figure": "Wie die vorige Folie, darüber ein gelber Stern „mittlerweile: …aufgehoben!“ und ein Pfeil auf einen gelben Kasten rechts."
+    },
+    {
+      "number": 24,
+      "title": "Tendenzen und Grundlinien in der aktuellen Pentateuchkritik (Gen–Num)",
+      "image": "assets/old_testament/slides/bk02-folie-24.png",
+      "text": "Tendenzen und Grundlinien in der aktuellen Pentateuchkritik (Gen-Num)\nPriesterschrift (P) | nicht-priesterschriftliche Texte (nP): vorpriesterschriftlich, nachpriesterschriftlich\n• Unterscheidung zwischen priesterschriftlichen und nichtpriesterschriftlichen Textanteilen\n  • P: umstritten ist Umfang (insbesondere Ende) und literarischer Charakter\n  • nP: keine Quellenaufteilung mehr; nur Unterscheidung von vorpriesterschriftlichem und nachpriesterschriftlichem Material\n    • vorpriesterschriftliches Material: kein ursprünglich durchgängiger Erzählfaden, sondern verschiedene Überlieferungsblöcke, die sukzessive miteinander kombiniert wurden",
+      "figure": "Zwei Kästen: links „Priesterschrift (P)“, rechts „nicht-priesterschriftliche Texte (nP)“ mit den Unterkästen „vorpriesterschriftlich“ und „nachpriesterschriftlich“."
+    },
+    {
+      "number": 25,
+      "title": "Fragen: Genesis",
+      "image": "assets/old_testament/slides/bk02-folie-25.png",
+      "text": "Fragen: Genesis\n1. Was sind zentrale Texte innerhalb der Urgeschichte (Gen 1-11)?\n2. Skizzieren Sie den 1. und den 2. Schöpfungsbericht – stellen Sie die Besonderheiten heraus!\n3. Wie endet die Geschichte von der Flut?\n4. Wie ist die Erzelternerzählung (Gen 12-36) aufgebaut? Was sind die Hauptmotive bzw. wiederkehrende Motive? Können Sie hierzu Textstellen geben?\n5. Erstellen Sie einen Stammbaum von Abraham bis Josef. Nennen Sie die wichtigsten Familienmitglieder beim Namen (Vater, Mutter, Frauen, Kinder usw.) und geben Sie Textstellen an.\n6. Zwei Schwestern mit zwei schrecklichen Geschichten: Um welche Schwestern geht es? Welche Geschichten sind gemeint?\n7. Ein Zwillingspaar zwischen Hass und Versöhnung: Um welche Zwillinge geht es? Nennen Sie Textstellen, die dieses Konkurrenzverhältnis beleuchten. Gibt es noch weitere schwierige/rivalisierende Geschwisterverhältnisse in der Genesis?\n8. Skizzieren Sie die wichtigsten Stationen auf Josef’s Lebensweg.\n9. In der Genesis gibt es einige Umbenennungen. Wo und in welchem Kontext stehen sie?\n10. Zentral für die Genesis sind die Bundesschlüsse? Wo stehen diese und was beinhalten sie? Und was fällt auf?",
+      "figure": "Rechts oben die Gruppeneinteilung: Gruppe 1: 1-3, Gruppe 2: 4, Gruppe 3: 5, Gruppe 4: 6-7, Gruppe 5: 8, Gruppe 6: 9-10."
+    },
+    {
+      "number": 26,
+      "title": "Zentrale Texte der Genesis",
+      "image": "assets/old_testament/slides/bk02-folie-26.png",
+      "text": "Zentrale Texte der Genesis\n• Urgeschichte:\n  • 1. Schöpfungsbericht (Gen 1,1-2,4a [P])\n  • 2. Schöpfungsbericht (Gen 2,4b-3,24)\n  • Sintfluterzählung (Gen 6-9; [P- und nP-Anteile])\n• Erzelternerzählung\n  • Auftakt der Abrahamerzählung (Gen 12,1-3)\n  • Geburt Ismaels (Gen 16) & Isaaks (Gen 21)\n  • Bund mit Abraham (Gen 15; Gen 17 [P])\n  • Der Besuch der drei Männer (Gen 18)\n  • Die Bindung/Opferung Isaaks (Gen 22)\n  • Jakob erschleicht sich den Erstgeburtssegen (Gen 27)\n  • Jakobs Kampf am Jabbok (Gen 32)\n• Josefsgeschichte\n  • Der Konflikt zwischen den Söhnen Jakobs (Gen 37)\n  • Josef als Traumdeuter (Gen 40-41)\n  • Das Zusammentreffen der Brüder (Gen 42-45)\n  • Zuzug Jakobs und Ansiedlung der ganzen Familie in Ägypten (Gen 46)\n  • Aussöhnung der Brüder nach dem Tod Jakobs (Gen 50)"
     }
   ],
   "keyPoints": [
@@ -182,6 +248,26 @@
         14,
         15,
         16
+      ]
+    },
+    {
+      "text": "Der Pentateuch ist nach dem Extra-Material Produkt eines langen, vielschichtigen Entstehungsprozesses; Spannungen im Text führten zur Grundschrift-/Ergänzungs-, Urkunden-/Quellen- und Fragmentenhypothese. Die Neuere Urkundenhypothese (J, E, P, Dtn) gilt in der deutschsprachigen Forschung mittlerweile als weitgehend aufgehoben; stabil sind P und Dtn.",
+      "slides": [
+        21,
+        22,
+        23
+      ]
+    },
+    {
+      "text": "Heute unterscheidet man in Gen–Num priesterschriftliche (P) und nichtpriesterschriftliche Texte (nP); nP wird nur noch in vor- und nachpriesterschriftliches Material geteilt.",
+      "slides": [
+        24
+      ]
+    },
+    {
+      "text": "Zentrale Texte der Genesis nach Folie 26: Schöpfungsberichte und Sintflut; Gen 12,1-3, Geburt Ismaels und Isaaks, Bund mit Abraham, Besuch der drei Männer, Bindung Isaaks, Erstgeburtssegen, Jabbok; Josefs Konflikt, Traumdeutung, Wiedersehen, Zuzug nach Ägypten, Aussöhnung.",
+      "slides": [
+        26
       ]
     }
   ],
@@ -306,6 +392,46 @@
         "Die Folie nennt dazu Onan, die Leviratsehe, die Verknüpfung zum Buch Rut und den Stammbaum Jesu."
       ],
       "supplement": "Onan, Judas zweiter Sohn, entzieht sich der Pflicht, mit Tamar, der Witwe seines Bruders, einen Nachkommen zu zeugen (Gen 38,8-10) – das ist der Fall der Leviratsehe (Dtn 25,5-10). Rut: Die Ehe von Boas und Rut folgt einem verwandten Gedanken; Rut 4,12 nennt Perez, den Tamar dem Juda gebar, und der Stammbaum Rut 4,18-22 führt von Perez bis David. Stammbaum Jesu: Mt 1,3 nennt „Juda zeugte Perez und Serah von der Tamar“."
+    },
+    {
+      "title": "Extra-Wissen: Entstehung des Pentateuch",
+      "slides": [
+        21,
+        22,
+        23,
+        24
+      ],
+      "points": [
+        "Der Pentateuch ist nach der Folie Produkt eines langen, komplexen und vielschichtigen Entstehungsprozesses; stilistische und inhaltliche Unterschiede und Spannungen führen zu verschiedenen Erklärungshypothesen: Grundschrift-/Ergänzungshypothese, Urkunden-/Quellenhypothese, Fragmentenhypothese.",
+        "Neuere Urkundenhypothese (Julius Wellhausen, Martin Noth): Jahwist (J) ca. 950, Elohist (E) ca. 800, Deuteronomium ca. 622, Priesterschrift (P) ca. 500 v. Chr. J, E und P gelten als durchlaufende Quellenschriften, Dtn als begrenzter Textbereich; Redaktoren haben die Quellen sukzessive kombiniert und erweitert.",
+        "Mittlerweile ist die Hypothese in der deutschsprachigen Forschung weitestgehend aufgehoben: umstritten sind v. a. Alter, Umfang und Charakter von J und E bis hin zur Infragestellung ihrer Existenz; weitestgehend stabil sind P und Dtn.",
+        "Aktuelle Pentateuchkritik (Gen–Num): Unterscheidung von priesterschriftlichen (P) und nichtpriesterschriftlichen Textanteilen (nP). Bei P sind Umfang (besonders das Ende) und literarischer Charakter umstritten; nP wird nicht mehr in Quellen aufgeteilt, sondern nur in vor- und nachpriesterschriftliches Material.",
+        "Vorpriesterschriftliches Material ist nach der Folie kein ursprünglich durchgängiger Erzählfaden, sondern es besteht aus verschiedenen Überlieferungsblöcken, die sukzessive kombiniert wurden."
+      ],
+      "supplement": "Die Pentateuchkritik ist hier als Forschungsstand nach den Folien wiedergegeben. Ergänzung: Konservative und lutherisch-konfessionelle Ausleger halten an der Einheit und an einem mosaischen Ursprung des Pentateuch fest bzw. rechnen mit deutlich früheren Datierungen; das Neue Testament spricht vom „Buch des Mose“ (Mk 12,26). Dieselben Modelle behandelt ausführlicher Einheit 2 der Vorlesung; die gemeinsamen Inhalte werden hier mitgelernt (gleiche Karten)."
+    },
+    {
+      "title": "Fragen zur Genesis (Gruppenarbeit)",
+      "slides": [
+        25
+      ],
+      "points": [
+        "Die Folie stellt zehn Arbeitsfragen für sechs Gruppen: zentrale Texte der Urgeschichte, die beiden Schöpfungsberichte, das Ende der Flut, Aufbau und Motive der Erzelternerzählung, Stammbaum Abraham–Josef, zwei Schwestern, ein Zwillingspaar, Josefs Lebensweg, Umbenennungen und Bundesschlüsse.",
+        "Die App beantwortet die Fragen mit Bibelstellen (Ergänzung, nicht von der Folie): Flutende Gen 8,20–9,17 (Opfer, Zusage, Noahbund mit dem Regenbogen); Stammbaum, Umbenennungen und Bundesschlüsse als Merklisten; Zwillinge Esau und Jakob (Gen 25,19-34; 27; 32–33)."
+      ],
+      "unclear": "Frage 6 („Zwei Schwestern mit zwei schrecklichen Geschichten“) wird auf der Folie nicht aufgelöst. Naheliegend sind Lea und Rahel (Gen 29–30; Rahels Tod Gen 35,16-20) oder Dina und Tamar (Gen 34; Gen 38) – das bleibt offen und wird nicht abgefragt."
+    },
+    {
+      "title": "Zentrale Texte der Genesis",
+      "slides": [
+        26
+      ],
+      "points": [
+        "Urgeschichte: 1. Schöpfungsbericht (Gen 1,1-2,4a [P]), 2. Schöpfungsbericht (Gen 2,4b-3,24), Sintfluterzählung (Gen 6-9, mit P- und nP-Anteilen).",
+        "Erzelternerzählung: Auftakt der Abrahamerzählung (Gen 12,1-3), Geburt Ismaels (Gen 16) und Isaaks (Gen 21), Bund mit Abraham (Gen 15; Gen 17 [P]), Besuch der drei Männer (Gen 18), Bindung/Opferung Isaaks (Gen 22), Jakob erschleicht sich den Erstgeburtssegen (Gen 27), Jakobs Kampf am Jabbok (Gen 32).",
+        "Josefsgeschichte: Konflikt zwischen den Söhnen Jakobs (Gen 37), Josef als Traumdeuter (Gen 40-41), Zusammentreffen der Brüder (Gen 42-45), Zuzug Jakobs und Ansiedlung der Familie in Ägypten (Gen 46), Aussöhnung der Brüder nach dem Tod Jakobs (Gen 50)."
+      ],
+      "supplement": "Gen 12,1-3 steht in der Auswendiglernliste (Luther 1912). Die übrigen Texte sind schon als Bibelstellen der Folien 8–14 lernbar; Folie 26 ist dort als weitere Fundstelle ergänzt."
     }
   ],
   "terms": [
@@ -345,7 +471,9 @@
         5,
         7,
         8,
-        9
+        9,
+        25,
+        26
       ],
       "text": "Beginn [der Führung Israels] mit Gen 12 → Gen 1-11 = Urgeschichte; Prolog zur Vorgeschichte in der Genesis ab Kapitel 12"
     },
@@ -355,7 +483,9 @@
         5,
         7,
         10,
-        13
+        13,
+        25,
+        26
       ],
       "text": "Erzelterngeschichte → Verheißung von Nachkommenschaft, Land und Segen (Gen 12-36 und 38); 12-25: Abraham, 26(+27): Isaak, 27-36: Jakob"
     },
@@ -365,7 +495,8 @@
         5,
         7,
         14,
-        15
+        15,
+        26
       ],
       "text": "Josefsgeschichte → Wie kam Israel nach Ägypten? (Gen 37-50); ohne 38; Novelle, Weisheitserzählung"
     },
@@ -403,6 +534,67 @@
         16
       ],
       "text": "Gen 38: Juda-Tamar-Geschichte – Onan – Leviratsehe"
+    },
+    {
+      "term": "term.ergaenzungshypothese",
+      "slides": [
+        21
+      ],
+      "text": "Grundschrift-/Ergänzungshypothese"
+    },
+    {
+      "term": "term.urkundenhypothese",
+      "slides": [
+        21
+      ],
+      "text": "Urkunden-/Quellenhypothese"
+    },
+    {
+      "term": "term.fragmentenhypothese",
+      "slides": [
+        21
+      ],
+      "text": "Fragmentenhypothese"
+    },
+    {
+      "term": "term.neuere_urkundenhypothese",
+      "slides": [
+        22,
+        23
+      ],
+      "text": "Ein Klassiker der Pentateuchforschung (Wellhausen, Noth); mittlerweile in der deutschsprachigen Forschung weitestgehend aufgehoben"
+    },
+    {
+      "term": "term.jahwist",
+      "slides": [
+        22,
+        23
+      ],
+      "text": "Jahwist (J) ca. 950 v. Chr.; umstritten sind Alter, Umfang und Charakter"
+    },
+    {
+      "term": "term.elohist",
+      "slides": [
+        22,
+        23
+      ],
+      "text": "Elohist (E) ca. 800 v. Chr.; umstritten sind Alter, Umfang und Charakter"
+    },
+    {
+      "term": "term.priesterschrift",
+      "slides": [
+        22,
+        23,
+        24
+      ],
+      "text": "Priesterschrift (P) ca. 500 v. Chr.; weitestgehend stabil, umstritten Umfang (insbesondere Ende) und literarischer Charakter"
+    },
+    {
+      "term": "term.nichtpriesterschriftlich",
+      "slides": [
+        24
+      ],
+      "text": "nicht-priesterschriftliche Texte (nP): vorpriesterschriftlich und nachpriesterschriftlich"
     }
   ],
   "passages": [
@@ -516,8 +708,7 @@
       "slides": [
         6
       ],
-      "context": "Das Bundesbuch – einer der drei großen rechtlichen Texte im Pentateuch.",
-      "clue": "Das Bundesbuch"
+      "context": "Das Bundesbuch – einer der drei großen rechtlichen Texte im Pentateuch. Folie 6 nennt als Ende 23,19, die Sitzung zu Exodus und Levitikus 23,33; abgefragt wird die Stelle dort (Ex 20,22-23,33)."
     },
     {
       "id": "passage.bk02.lev_17_26",
@@ -542,7 +733,8 @@
       "label": "Gen 1,1-2,4a",
       "open": "Gen 1,1-2,4",
       "slides": [
-        8
+        8,
+        26
       ],
       "context": "1. Schöpfungsbericht.",
       "clue": "1. Schöpfungsbericht",
@@ -555,7 +747,8 @@
       "label": "Gen 2,4b-3,24",
       "open": "Gen 2,4-3,24",
       "slides": [
-        8
+        8,
+        26
       ],
       "context": "2. Schöpfungsbericht.",
       "clue": "2. Schöpfungsbericht",
@@ -607,7 +800,8 @@
       "label": "Gen 6,5-8,22",
       "slides": [
         8,
-        9
+        9,
+        26
       ],
       "context": "Sintfluterzählung. Nach Folie 9 eine Erzählung mit inneren Spannungen.",
       "clue": "Sintfluterzählung",
@@ -716,6 +910,18 @@
       ]
     },
     {
+      "id": "passage.bk02.gen_12_1_3",
+      "label": "Gen 12,1-3",
+      "slides": [
+        26
+      ],
+      "context": "Zentraler Text: Auftakt der Abrahamerzählung – Berufung Abrams und Verheißung von Land, Nachkommen und Segen für alle Geschlechter auf Erden.",
+      "clue": "Auftakt der Abrahamerzählung: Berufung und Segensverheißung",
+      "pericopes": [
+        "Gen|abrahams_berufung_und_wanderung_nach_kanaan|12,1"
+      ]
+    },
+    {
       "id": "passage.bk02.gen_12_10_20",
       "label": "Gen 12,10-20",
       "slides": [
@@ -744,7 +950,8 @@
       "id": "passage.bk02.gen_15",
       "label": "Gen 15",
       "slides": [
-        10
+        10,
+        26
       ],
       "context": "Gottes Bund mit Abram (der erste Bundesschluss; vgl. Gen 17).",
       "clue": "Gottes Bund mit Abram – der erste Bundesschluss, noch ohne Namenswechsel",
@@ -756,7 +963,8 @@
       "id": "passage.bk02.gen_16",
       "label": "Gen 16",
       "slides": [
-        10
+        10,
+        26
       ],
       "context": "Sarai und Hagar.",
       "clue": "Sarai und Hagar",
@@ -769,7 +977,8 @@
       "label": "Gen 17",
       "slides": [
         10,
-        13
+        13,
+        26
       ],
       "context": "Gottes Bund mit Abraham (Namenswechsel). Nach Folie 13 ein erneuter Bundesschluss, diesmal mit Bundeszeichen und Namenswechsel.",
       "clue": "Gottes Bund mit Abraham: erneuter Bundesschluss mit Bundeszeichen und Namenswechsel",
@@ -781,7 +990,8 @@
       "id": "passage.bk02.gen_18_1_15",
       "label": "Gen 18,1-15",
       "slides": [
-        10
+        10,
+        26
       ],
       "context": "Die drei Männer bei Abraham in Mamre.",
       "clue": "Die drei Männer bei Abraham in Mamre",
@@ -831,7 +1041,8 @@
       "id": "passage.bk02.gen_21_1_21",
       "label": "Gen 21,1-21",
       "slides": [
-        10
+        10,
+        26
       ],
       "context": "Geburt Isaaks, Vertreibung Hagars.",
       "clue": "Geburt Isaaks, Vertreibung Hagars",
@@ -856,7 +1067,8 @@
       "id": "passage.bk02.gen_22",
       "label": "Gen 22",
       "slides": [
-        11
+        11,
+        26
       ],
       "context": "Isaaks Bindung, Nachkommen des Nahor.",
       "clue": "Isaaks Bindung, Nachkommen des Nahor",
@@ -945,7 +1157,8 @@
       "label": "Gen 27,1-45",
       "slides": [
         11,
-        13
+        13,
+        26
       ],
       "context": "Segen Isaaks an Jakob. Nach Folie 13 wichtig für das Verständnis des Segens; besondere Rolle Jakobs als Betrüger.",
       "clue": "Segen Isaaks an Jakob",
@@ -1042,7 +1255,8 @@
       "id": "passage.bk02.gen_32",
       "label": "Gen 32",
       "slides": [
-        12
+        12,
+        26
       ],
       "context": "Jakobs Rückkehr, Kampf am Jabbok.",
       "clue": "Jakobs Rückkehr, Kampf am Jabbok",
@@ -1127,7 +1341,8 @@
       "id": "passage.bk02.gen_37",
       "label": "Gen 37",
       "slides": [
-        14
+        14,
+        26
       ],
       "context": "Joseph und seine Brüder.",
       "clue": "Joseph und seine Brüder",
@@ -1177,7 +1392,8 @@
       "id": "passage.bk02.gen_41",
       "label": "Gen 41",
       "slides": [
-        14
+        14,
+        26
       ],
       "context": "Deutung der Träume des Pharaos.",
       "clue": "Deutung der Träume des Pharaos",
@@ -1202,7 +1418,8 @@
       "id": "passage.bk02.gen_43_45",
       "label": "Gen 43-45",
       "slides": [
-        14
+        14,
+        26
       ],
       "context": "Zweite Reise der Brüder nach Ägypten.",
       "clue": "Zweite Reise der Brüder nach Ägypten",
@@ -1216,7 +1433,8 @@
       "id": "passage.bk02.gen_46_47",
       "label": "Gen 46-47",
       "slides": [
-        14
+        14,
+        26
       ],
       "context": "Jakob reist nach Ägypten.",
       "clue": "Jakob reist nach Ägypten",
@@ -1266,7 +1484,8 @@
       "id": "passage.bk02.gen_50_15_26",
       "label": "Gen 50,15-26",
       "slides": [
-        14
+        14,
+        26
       ],
       "context": "Aussöhnung der Brüder, Josephs Tod.",
       "clue": "Aussöhnung der Brüder, Josephs Tod",
@@ -1391,7 +1610,7 @@
         "Das deuteronomische Gesetz"
       ],
       "details": [
-        "Ex 20,22-23,19",
+        "Ex 20,22-23,33 (Folie 6: bis 23,19)",
         "Lev 17-26",
         "Dtn 12-25"
       ]
@@ -1713,10 +1932,148 @@
         "Verknüpfung zum Buch Rut",
         "Stammbaum Jesu"
       ]
+    },
+    {
+      "id": "list.bk02.zentral_ur",
+      "title": "Zentrale Texte der Urgeschichte",
+      "prompt": "Nenne die zentralen Texte der Urgeschichte nach Folie 26 in biblischer Reihenfolge mit Stelle.",
+      "slides": [
+        26
+      ],
+      "ordered": true,
+      "items": [
+        "1. Schöpfungsbericht",
+        "2. Schöpfungsbericht",
+        "Sintfluterzählung"
+      ],
+      "details": [
+        "Gen 1,1-2,4a [P]",
+        "Gen 2,4b-3,24",
+        "Gen 6-9 [P- und nP-Anteile]"
+      ]
+    },
+    {
+      "id": "list.bk02.zentral_erzeltern",
+      "title": "Zentrale Texte der Erzelternerzählung",
+      "prompt": "Nenne die zentralen Texte der Erzelternerzählung nach Folie 26 in biblischer Reihenfolge mit Stelle.",
+      "slides": [
+        26
+      ],
+      "ordered": true,
+      "items": [
+        "Auftakt der Abrahamerzählung",
+        "Bund mit Abraham",
+        "Geburt Ismaels",
+        "Der Besuch der drei Männer",
+        "Geburt Isaaks",
+        "Die Bindung/Opferung Isaaks",
+        "Jakob erschleicht sich den Erstgeburtssegen"
+      ],
+      "details": [
+        "Gen 12,1-3",
+        "Gen 15; Gen 17 [P]",
+        "Gen 16",
+        "Gen 18",
+        "Gen 21",
+        "Gen 22",
+        "Gen 27 (danach: Jakobs Kampf am Jabbok, Gen 32)"
+      ]
+    },
+    {
+      "id": "list.bk02.zentral_josef",
+      "title": "Zentrale Texte der Josefsgeschichte",
+      "prompt": "Nenne die zentralen Texte der Josefsgeschichte nach Folie 26 in biblischer Reihenfolge mit Stelle.",
+      "slides": [
+        26
+      ],
+      "ordered": true,
+      "items": [
+        "Der Konflikt zwischen den Söhnen Jakobs",
+        "Josef als Traumdeuter",
+        "Das Zusammentreffen der Brüder",
+        "Zuzug Jakobs und Ansiedlung der Familie in Ägypten",
+        "Aussöhnung der Brüder nach dem Tod Jakobs"
+      ],
+      "details": [
+        "Gen 37",
+        "Gen 40-41",
+        "Gen 42-45",
+        "Gen 46",
+        "Gen 50"
+      ]
+    },
+    {
+      "id": "list.bk02.stammbaum",
+      "title": "Stammbaum von Abraham bis Josef (Ergänzung zu Frage 5)",
+      "prompt": "Nenne die Generationen von Abrahams Vater bis Josef der Reihe nach mit den wichtigsten Familienmitgliedern.",
+      "slides": [
+        25
+      ],
+      "ordered": true,
+      "items": [
+        "Terach",
+        "Abraham",
+        "Isaak",
+        "Jakob",
+        "Josef"
+      ],
+      "details": [
+        "Vater Abrams, Nahors und Harans; Haran ist Vater Lots (Gen 11,27)",
+        "Frau Sara, Magd Hagar; Söhne Ismael (Gen 16) und Isaak (Gen 21)",
+        "Frau Rebekka (Gen 24); Zwillinge Esau und Jakob (Gen 25,19-26)",
+        "Frauen Lea und Rahel, Mägde Silpa und Bilha; zwölf Söhne und Tochter Dina (Gen 29,31-30,24; 35,16-18)",
+        "Erstgeborener Rahels; mit Asenat Söhne Manasse und Ephraim (Gen 41,50-52)"
+      ]
+    },
+    {
+      "id": "list.bk02.umbenennungen",
+      "title": "Umbenennungen in der Genesis (Ergänzung zu Frage 9)",
+      "prompt": "Nenne die Umbenennungen der Genesis in biblischer Reihenfolge mit Stelle und Kontext.",
+      "slides": [
+        25
+      ],
+      "ordered": true,
+      "items": [
+        "Abram → Abraham",
+        "Sarai → Sara",
+        "Jakob → Israel"
+      ],
+      "details": [
+        "Gen 17,5: beim Bund der Beschneidung – „Vater vieler Völker“",
+        "Gen 17,15: im selben Bund, Verheißung des Sohnes",
+        "Gen 32,29 nach dem Kampf am Jabbok; bestätigt in Bethel Gen 35,10"
+      ]
+    },
+    {
+      "id": "list.bk02.bundesschluesse",
+      "title": "Bundesschlüsse der Genesis (Ergänzung zu Frage 10)",
+      "prompt": "Nenne die Bundesschlüsse der Genesis in biblischer Reihenfolge mit Stelle und Inhalt.",
+      "slides": [
+        25,
+        26
+      ],
+      "ordered": true,
+      "items": [
+        "Noahbund",
+        "Bund mit Abram",
+        "Bund der Beschneidung"
+      ],
+      "details": [
+        "Gen 9,1-17 [P]: mit Noah und aller Kreatur, keine Flut mehr; Zeichen Regenbogen",
+        "Gen 15: Verheißung von Nachkommen und Land; Gott allein geht zwischen den Stücken hindurch",
+        "Gen 17 [P]: Mehrungsverheißung, Namensänderung; Zeichen Beschneidung"
+      ]
     }
   ],
   "shared": [
-    "q.u01.tora_namen"
+    "q.u01.tora_namen",
+    "list.u02.modelle",
+    "list.u02.quellen",
+    "q.u02.wellhausen_noth",
+    "q.u02.j_datierung",
+    "q.u02.e_datierung",
+    "q.u02.dtn_datierung",
+    "q.u02.p_datierung"
   ],
   "questions": [
     {
@@ -2341,6 +2698,140 @@
       "explanation": "Folie 16: „Verknüpfung zum Buch Rut“, „Stammbaum Jesu“. Ergänzung: Rut 4,12 nennt Perez, den Tamar dem Juda gebar, Rut 4,18-22 führt von Perez bis David; Mt 1,3 nennt Tamar im Stammbaum Jesu.",
       "slides": [
         16
+      ]
+    },
+    {
+      "id": "q.bk02.entstehung",
+      "prompt": "Was führt nach dem Extra-Material zu verschiedenen Erklärungshypothesen für die Entstehung des Pentateuch?",
+      "answer": "Stilistische und inhaltliche Unterschiede und Spannungen im Text",
+      "distractors": [
+        "Die verschiedenen Buchnamen in Hebräisch und Griechisch",
+        "Die unterschiedliche Kanonisierung in Judentum und Kirche",
+        "Abweichungen zwischen hebräischen Handschriften und der Septuaginta"
+      ],
+      "explanation": "Folie 21: „stilistische und inhaltliche Unterschiede und Spannungen führen zu verschiedenen Erklärungshypothesen“ – Grundschrift-/Ergänzungs-, Urkunden-/Quellen- und Fragmentenhypothese.",
+      "slides": [
+        21
+      ]
+    },
+    {
+      "id": "q.bk02.nuh_heute",
+      "prompt": "Wie steht die deutschsprachige Forschung nach der Folie heute zur Neueren Urkundenhypothese?",
+      "answer": "Nach der Folie ist sie weitestgehend aufgehoben",
+      "distractors": [
+        "Nach der Folie ist sie unverändert der Konsens",
+        "Nach der Folie wurde sie um eine fünfte Quelle erweitert",
+        "Nach der Folie gilt sie nur noch für das Deuteronomium"
+      ],
+      "explanation": "Folie 23: „mittlerweile: Die Hypothese ist in der deutschsprachigen Forschung weitestgehend aufgehoben!“ Ergänzung: Das ist der Forschungsstand nach der Folie und nicht unumstritten; konservative Ausleger halten an der Einheit des Pentateuch und einem mosaischen Ursprung fest.",
+      "slides": [
+        23
+      ],
+      "terms": [
+        "term.neuere_urkundenhypothese"
+      ]
+    },
+    {
+      "id": "q.bk02.je_umstritten",
+      "prompt": "Was ist an Jahwist und Elohist nach der Folie vor allem umstritten?",
+      "answer": "Alter, Umfang und Charakter – bis hin zur Frage, ob es sie überhaupt gab",
+      "distractors": [
+        "Nur die Reihenfolge der beiden Quellen",
+        "Nur ihr Verhältnis zum Deuteronomium",
+        "Nur, welcher Redaktor sie verbunden hat"
+      ],
+      "explanation": "Folie 23: „umstritten sind v.a. Alter, Umfang und Charakter von J sowie E → Infragestellung ihrer Existenz“.",
+      "slides": [
+        23
+      ],
+      "terms": [
+        "term.jahwist",
+        "term.elohist"
+      ]
+    },
+    {
+      "id": "q.bk02.stabil",
+      "prompt": "Welche Größen der klassischen Hypothese gelten nach der Folie als weitestgehend stabil?",
+      "answer": "Priesterschrift und Deuteronomium",
+      "distractors": [
+        "Jahwist und Elohist",
+        "Jahwist und Priesterschrift",
+        "Elohist und Deuteronomium"
+      ],
+      "explanation": "Folie 23: „weitestgehend stabil: P und Dtn“.",
+      "slides": [
+        23
+      ],
+      "terms": [
+        "term.priesterschrift"
+      ]
+    },
+    {
+      "id": "q.bk02.np_teilung",
+      "prompt": "Wie werden die nichtpriesterschriftlichen Texte in Gen–Num heute nach der Folie unterschieden?",
+      "answer": "Keine Quellenaufteilung mehr, nur vor- und nachpriesterschriftliches Material",
+      "distractors": [
+        "Weiterhin in Jahwist und Elohist",
+        "In Nord- und Südreichüberlieferung",
+        "In Grundschrift und deuteronomistische Redaktion"
+      ],
+      "explanation": "Folie 24: „nP: keine Quellenaufteilung mehr; nur Unterscheidung von vorpriesterschriftlichem und nachpriesterschriftlichem Material“.",
+      "slides": [
+        24
+      ],
+      "terms": [
+        "term.nichtpriesterschriftlich"
+      ]
+    },
+    {
+      "id": "q.bk02.p_umstritten",
+      "prompt": "Was ist an der Priesterschrift in der aktuellen Pentateuchkritik nach der Folie umstritten?",
+      "answer": "Umfang (besonders ihr Ende) und literarischer Charakter",
+      "distractors": [
+        "Ob sie überhaupt existiert hat",
+        "Ob sie älter als der Jahwist ist",
+        "Ob sie die Urgeschichte enthält"
+      ],
+      "explanation": "Folie 24: „P: umstritten ist Umfang (insbesondere Ende) und literarischer Charakter“.",
+      "slides": [
+        24
+      ],
+      "terms": [
+        "term.priesterschrift"
+      ]
+    },
+    {
+      "id": "q.bk02.vorp_material",
+      "prompt": "Wie beschreibt die Folie das vorpriesterschriftliche Material?",
+      "answer": "Verschiedene Überlieferungsblöcke, die sukzessive kombiniert wurden – kein durchgängiger Erzählfaden",
+      "distractors": [
+        "Ein ursprünglich durchgängiger Erzählfaden von der Schöpfung bis zum Tod des Mose",
+        "Eine einzige alte Quelle aus salomonischer Zeit",
+        "Nachträgliche Ergänzungen zur Priesterschrift"
+      ],
+      "explanation": "Folie 24: „vorpriesterschriftliches Material: kein ursprünglich durchgängiger Erzählfaden, sondern verschiedene Überlieferungsblöcke, die sukzessive miteinander kombiniert wurden“. Ergänzung: Das ist der Forschungsstand nach der Folie und nicht unumstritten; konservative Ausleger halten an der Einheit des Pentateuch und einem mosaischen Ursprung fest.",
+      "slides": [
+        24
+      ],
+      "terms": [
+        "term.nichtpriesterschriftlich"
+      ]
+    },
+    {
+      "id": "q.bk02.flut_p_np",
+      "prompt": "Wie kennzeichnet Folie 26 die Sintfluterzählung (Gen 6-9) literarisch?",
+      "answer": "Sie hat P- und nP-Anteile",
+      "distractors": [
+        "Sie ist rein priesterschriftlich",
+        "Sie ist rein nichtpriesterschriftlich",
+        "Sie stammt aus dem Deuteronomium"
+      ],
+      "explanation": "Folie 26: „Sintfluterzählung (Gen 6-9; [P- und nP-Anteile])“; der 1. Schöpfungsbericht ist mit [P] markiert, ebenso Gen 17.",
+      "slides": [
+        26
+      ],
+      "terms": [
+        "term.priesterschrift"
       ]
     }
   ]

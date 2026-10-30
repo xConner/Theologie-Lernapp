@@ -398,6 +398,20 @@ class CourseReadingProgress {
   /// Eigene Änderungen je Sitzung.
   final Map<String, CourseSessionOverride> overrides;
 
+  /// Pausiert: Der Plan bleibt mit allem Fortschritt erhalten, erscheint
+  /// aber nicht mit einem Tagespensum auf der Startseite der Bibel.
+  final bool paused;
+
+  /// Umfang „ganze Bücher“: Zu den Stellen einer Sitzung kommen die übrigen
+  /// Kapitel der Bücher, die sie behandelt (siehe `CourseSchedule`). Sonst
+  /// nur die benötigten Kapitel.
+  final bool wholeBooks;
+
+  /// Kalendertag, an dem [wholeBooks] eingeschaltet wurde. Sitzungen, die
+  /// davor stattfanden, werden nicht nachträglich erweitert – sonst stünden
+  /// sofort viele Kapitel als „Nachholen“ da.
+  final String? wholeBooksSince;
+
   const CourseReadingProgress({
     required this.planId,
     required this.startedOn,
@@ -405,6 +419,9 @@ class CourseReadingProgress {
     this.done = const {},
     this.reviewed = const {},
     this.overrides = const {},
+    this.paused = false,
+    this.wholeBooks = false,
+    this.wholeBooksSince,
   });
 
   CourseReadingProgress copyWith({
@@ -412,6 +429,7 @@ class CourseReadingProgress {
     Map<String, String>? done,
     Map<String, String>? reviewed,
     Map<String, CourseSessionOverride>? overrides,
+    bool? paused,
   }) {
     return CourseReadingProgress(
       planId: planId,
@@ -420,6 +438,25 @@ class CourseReadingProgress {
       done: done ?? this.done,
       reviewed: reviewed ?? this.reviewed,
       overrides: overrides ?? this.overrides,
+      paused: paused ?? this.paused,
+      wholeBooks: wholeBooks,
+      wholeBooksSince: wholeBooksSince,
+    );
+  }
+
+  /// Schaltet den Umfang „ganze Bücher“ ein (ab [today]) oder aus. Erledigte
+  /// Lesestücke bleiben in beiden Fällen gespeichert.
+  CourseReadingProgress withWholeBooks(bool value, String today) {
+    return CourseReadingProgress(
+      planId: planId,
+      startedOn: startedOn,
+      finishEve: finishEve,
+      done: done,
+      reviewed: reviewed,
+      overrides: overrides,
+      paused: paused,
+      wholeBooks: value,
+      wholeBooksSince: value ? today : null,
     );
   }
 
@@ -504,6 +541,9 @@ class CourseReadingProgress {
       "overrides": {
         for (final entry in overrides.entries) entry.key: entry.value.toMap(),
       },
+      "paused": paused,
+      "wholeBooks": wholeBooks,
+      "wholeBooksSince": ?wholeBooksSince,
     };
   }
 
@@ -537,6 +577,8 @@ class CourseReadingProgress {
     }
 
     final startedOn = data["startedOn"];
+    final wholeBooks = data["wholeBooks"] == true;
+    final since = data["wholeBooksSince"];
 
     return CourseReadingProgress(
       planId: planId,
@@ -547,6 +589,11 @@ class CourseReadingProgress {
       done: dates(data["done"]),
       reviewed: dates(data["reviewed"]),
       overrides: overrides,
+      paused: data["paused"] == true,
+      wholeBooks: wholeBooks,
+      wholeBooksSince: wholeBooks && CourseDates.parse(since) != null
+          ? since as String
+          : null,
     );
   }
 }

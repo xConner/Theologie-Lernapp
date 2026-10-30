@@ -218,7 +218,15 @@ ohne Code zu ändern:
   Isaak (25,19–26), Jakob und Esau (27–36), Josephsgeschichte (37), Juda und
   Tamar (38, nach der Folie Teil der Erzelterngeschichte),
   Josephsgeschichte (39–50). Die Grenzen 25,18/25,19 folgen den Farben der
-  Folientabellen.
+  Folientabellen. Seit Sitzung 3 (30.10.2026) gibt es außerdem **Exodus** nach Folie 2
+  (Ägypten 1, Mose 2–4, vor dem Pharao 5–6, Plagen und Passa 7–12, Auszug
+  und Wüste 13–18, Theophanie 19, Dekalog 20,1–21, Bundesbuch
+  20,22–23,33, Bundesschluss 24, Stiftshütte 25–31, Goldenes Kalb 32–34,
+  Ausführung 35–40; die Teilung innerhalb von 1–18 ist feiner als die
+  Folie) und **Levitikus** nach Folie 8 (Opfer 1–7, Priesterweihe 8–10,
+  Reinheit 11–15, Jom Kippur 16, Heiligkeitsgesetz 17–26, Gelübde 27).
+  Abschnitte speichern keinen Lernstand; neue Gliederungen ändern daher
+  nichts am Fortschritt.
 * Bekommt eine Perikope der Liste nachträglich eine eigene ID, trägt
   `PericopeIdMigration` (`lib/quiz/pericope_id_migration.dart`) alte und
   neue ID bzw. alten und neuen Schlüssel ein. Beim Laden gilt dann eine

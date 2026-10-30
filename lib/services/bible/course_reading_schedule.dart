@@ -61,6 +61,10 @@ class ScheduledPiece {
 
   final bool reviewed;
 
+  /// Nur im Umfang „ganze Bücher“: ein übriges Kapitel eines Buchs, das die
+  /// Sitzung behandelt, das ihre Stellen selbst aber nicht nennen.
+  final bool extra;
+
   const ScheduledPiece({
     required this.piece,
     required this.verses,
@@ -70,6 +74,7 @@ class ScheduledPiece {
     this.repeat = false,
     this.firstSessionId,
     this.reviewed = false,
+    this.extra = false,
   });
 
   bool get done => doneOn != null;
@@ -172,6 +177,12 @@ class SessionSchedule {
 
   int get totalVerses => required.fold(0, (sum, p) => sum + p.verses);
 
+  /// Zusätzliche Kapitel im Umfang „ganze Bücher“.
+  List<ScheduledPiece> get extras => [
+    for (final p in required)
+      if (p.extra) p,
+  ];
+
   int get doneVerses =>
       required.where((p) => p.done).fold(0, (sum, p) => sum + p.verses);
 
@@ -227,6 +238,17 @@ class CourseSchedule {
     required this.sessions,
     required this.milestones,
   });
+
+  /// Verse aller Sitzungen (ohne Wiederholungen).
+  int get totalVerses => sessions.fold(0, (sum, s) => sum + s.totalVerses);
+
+  int get doneVerses => sessions.fold(0, (sum, s) => sum + s.doneVerses);
+
+  /// Anteil des gelesenen Umfangs am ganzen Plan.
+  double get fraction => totalVerses == 0 ? 1 : doneVerses / totalVerses;
+
+  /// Zusätzliche Kapitel im Umfang „ganze Bücher“, über alle Sitzungen.
+  int get extraCount => sessions.fold(0, (sum, s) => sum + s.extras.length);
 
   /// Heutiges Pensum aller Sitzungen (offen und heute erledigt).
   List<ScheduledPiece> get todayPieces => [
@@ -400,6 +422,62 @@ class CourseSchedule {
     return result;
   }
 
+  /// Umfang „ganze Bücher“: alle Kapitel der Bücher, die [own] berührt, in
+  /// der Reihenfolge der Bücher (wie sie die Sitzung nennt) und Kapitel.
+  ///
+  /// * Eigene ganze Kapitel bleiben, wie sie sind.
+  /// * Ein Kapitel, aus dem die Sitzung nur Verse nennt, wird ganz gelesen
+  ///   (es deckt die Verse ab; ein schon gelesener Versbereich bleibt
+  ///   gespeichert).
+  /// * Ein Kapitel, das eine spätere Sitzung selbst nennt, bleibt dort und
+  ///   wird hier nicht vorgezogen.
+  /// * Alle übrigen Kapitel kommen als ergänzend (`extra`) hinzu.
+  static List<(PlanReading, PlanReading, bool)> _wholeBooks(
+    List<(PlanReading, PlanReading)> own,
+    List<PlanReading> later,
+    BibleExtent extent,
+  ) {
+    String chapterKey(PlanReading p) => "${p.bookId} ${p.chapter}";
+
+    final laterChapters = {for (final p in later) chapterKey(p)};
+
+    final books = <String>{
+      for (final (piece, _) in own) piece.bookId,
+    }.toList();
+
+    final result = <(PlanReading, PlanReading, bool)>[];
+
+    for (final book in books) {
+      final count = extent.chapterCount(book) ?? 0;
+
+      // Ohne Kapitelzahlen bleibt es bei den eigenen Stellen.
+      if (count == 0) {
+        for (final (piece, reading) in own) {
+          if (piece.bookId == book) result.add((piece, reading, false));
+        }
+
+        continue;
+      }
+
+      for (var c = 1; c <= count; c++) {
+        final chapter = PlanReading(bookId: book, chapter: c);
+
+        final mine = [
+          for (final entry in own)
+            if (entry.$1.bookId == book && entry.$1.chapter == c) entry,
+        ];
+
+        if (mine.isNotEmpty) {
+          result.add((chapter, mine.first.$2, false));
+        } else if (!laterChapters.contains(chapterKey(chapter))) {
+          result.add((chapter, PlanReading.book(book), true));
+        }
+      }
+    }
+
+    return result;
+  }
+
   static CourseSchedule compute({
     required CourseReadingPlan plan,
     required CourseReadingProgress progress,
@@ -416,12 +494,24 @@ class CourseSchedule {
 
     final result = <SessionSchedule>[];
 
+    final sessions = effectiveSessions(plan, progress);
+
+    // Die eigenen Stellen jeder Sitzung, zerlegt in Lesestücke.
+    final own = [
+      for (final (session, _, _) in sessions)
+        [
+          for (final reading in session.readings)
+            for (final piece in pieces(reading, extent)) (piece, reading),
+        ],
+    ];
+
+    final since = progress.wholeBooks
+        ? CourseDates.parse(progress.wholeBooksSince) ?? startedOn
+        : null;
+
     DateTime? previousTarget;
 
-    for (final (session, recommended, override) in effectiveSessions(
-      plan,
-      progress,
-    )) {
+    for (final (index, (session, recommended, override)) in sessions.indexed) {
       final eve = CourseDates.addDays(session.date, -1);
 
       var start = previousTarget == null
@@ -435,40 +525,56 @@ class CourseSchedule {
           ? eve
           : session.date;
 
+      // Umfang „ganze Bücher“ erst für Sitzungen ab dem Einschalten.
+      final expand = since != null && !session.date.isBefore(since);
+
+      final candidates = expand
+          ? _wholeBooks(own[index], [
+              for (final later in own.skip(index + 1))
+                for (final (piece, _) in later) piece,
+            ], extent)
+          : [
+              for (final (piece, reading) in own[index])
+                (piece, reading, false),
+            ];
+
       final required = <ScheduledPiece>[];
       final repeats = <ScheduledPiece>[];
       final seen = <String>{};
 
-      for (final reading in session.readings) {
-        for (final piece in pieces(reading, extent)) {
-          // Dieselbe Stelle zweimal in einer Sitzung nur einmal.
-          if (!seen.add(piece.key)) continue;
+      for (final (piece, reading, extra) in candidates) {
+        // Dieselbe Stelle zweimal in einer Sitzung nur einmal.
+        if (!seen.add(piece.key)) continue;
 
-          String? first;
+        String? first;
 
-          for (final entry in claimed.entries) {
-            if (covers(entry.key, piece)) {
-              first = entry.value;
-              break;
-            }
+        for (final entry in claimed.entries) {
+          if (covers(entry.key, piece)) {
+            first = entry.value;
+            break;
           }
+        }
 
-          final scheduled = ScheduledPiece(
-            piece: piece,
-            verses: versesOf(piece, extent),
-            sessionId: session.id,
-            reading: reading,
-            doneOn: progress.doneOn(piece),
-            repeat: first != null,
-            firstSessionId: first,
-            reviewed: progress.isReviewed(piece),
-          );
+        // Ein ergänzendes Kapitel, das schon eingeplant ist, entfällt
+        // (keine Wiederholung, die niemand verlangt hat).
+        if (extra && first != null) continue;
 
-          if (first != null) {
-            repeats.add(scheduled);
-          } else {
-            required.add(scheduled);
-          }
+        final scheduled = ScheduledPiece(
+          piece: piece,
+          verses: versesOf(piece, extent),
+          sessionId: session.id,
+          reading: reading,
+          doneOn: progress.doneOn(piece),
+          repeat: first != null,
+          firstSessionId: first,
+          reviewed: progress.isReviewed(piece),
+          extra: extra,
+        );
+
+        if (first != null) {
+          repeats.add(scheduled);
+        } else {
+          required.add(scheduled);
         }
       }
 

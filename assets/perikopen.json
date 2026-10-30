@@ -1090,7 +1090,7 @@
     },
     {
         "id": "jitros_rat_die_berufung_von_richtern",
-        "title": "Jitros Rat: Die Berufung von Richtern:",
+        "title": "Jitros Rat: Die Berufung von Richtern",
         "book": "Ex",
         "startChapter": 18,
         "startVerse": 1,
@@ -1321,7 +1321,7 @@
     },
     {
         "id": "der_bundesschluss",
-        "title": "Der Bundesschluß",
+        "title": "Der Bundesschluss",
         "book": "Ex",
         "startChapter": 24,
         "startVerse": 1,
@@ -1332,7 +1332,7 @@
     },
     {
         "id": "das_heiligtum_und_seine_geraete",
-        "title": "Das Heiligtum und seine Geräte:",
+        "title": "Das Heiligtum und seine Geräte",
         "book": "Ex",
         "startChapter": 25,
         "startVerse": 1,
@@ -1432,6 +1432,17 @@
     {
         "id": "ex_32",
         "title": "Ex 32",
+        "book": "Ex",
+        "startChapter": 32,
+        "startVerse": 1,
+        "endChapter": 32,
+        "endVerse": 35,
+        "required": true,
+        "precision": "chapter"
+    },
+    {
+        "id": "israels_abfall_das_goldene_kalb",
+        "title": "Israels Abfall: Das Goldene Kalb",
         "book": "Ex",
         "startChapter": 32,
         "startVerse": 1,
