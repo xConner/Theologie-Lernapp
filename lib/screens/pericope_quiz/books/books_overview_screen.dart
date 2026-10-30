@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../models/greek/perikope.dart';
 import '../../../quiz/books/book_learning_controller.dart';
 import '../../../quiz/books/book_outline.dart';
 import '../../../services/bible/bible_books.dart';
 import '../../../services/bible/bible_repository.dart';
+import '../../../services/bible/course_reading_schedule.dart';
 import '../../../services/book_learning_storage.dart';
 import '../../../services/learning_service.dart';
 import '../../../services/settings_service.dart';
@@ -13,10 +15,15 @@ import '../../../widgets/settings_access.dart';
 import 'book_detail_screen.dart';
 import 'book_settings.dart';
 import 'book_widgets.dart';
+import 'reading_path_view.dart';
 import 'review_overview_screen.dart';
 
 /// Einstieg „Bücher systematisch lernen“: Wiederholungen, Lernpläne und alle
 /// Bücher mit ihrem Fortschritt. Ergänzt das Endlos-Quiz, ersetzt es nicht.
+///
+/// Zwei gleichwertige Lernwege mit demselben Lernstand: „Einzelne Bücher“
+/// (frei gewählt) und – sobald der Leseplan zur Übung verfügbar ist –
+/// „Nach Bibelleseplan“ ([ReadingPathView]).
 class BooksOverviewScreen extends StatefulWidget {
   final List<Perikope> perikopen;
 
@@ -31,6 +38,9 @@ class BooksOverviewScreen extends StatefulWidget {
   final BookOutlines? outlines;
   final DateTime Function()? clock;
 
+  /// Planung des Bibelleseplans für den Lernpfad (Tests ersetzen sie).
+  final ReadingPathScheduleLoader? readingPathSchedule;
+
   const BooksOverviewScreen({
     super.key,
     required this.perikopen,
@@ -41,6 +51,7 @@ class BooksOverviewScreen extends StatefulWidget {
     this.bibleRepository,
     this.outlines,
     this.clock,
+    this.readingPathSchedule,
   });
 
   @override
@@ -54,10 +65,58 @@ class _BooksOverviewScreenState extends State<BooksOverviewScreen> {
 
   final TextEditingController search = TextEditingController();
 
+  /// Planung des Bibelleseplans; `null`, solange nicht geladen oder nicht
+  /// verfügbar (dann gibt es nur die einzelnen Bücher).
+  CourseSchedule? schedule;
+
+  /// Gewählter Lernweg (wird für das nächste Öffnen gemerkt).
+  bool pathMode = false;
+
+  static const String _modeKey = "books.learning_path_mode";
+
   @override
   void initState() {
     super.initState();
     _load();
+    _loadSchedule();
+    _loadMode();
+  }
+
+  Future<void> _loadMode() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+
+      final saved = prefs.getBool(_modeKey) ?? false;
+
+      if (mounted && saved != pathMode) setState(() => pathMode = saved);
+    } catch (_) {
+      // Ohne gespeicherte Wahl: einzelne Bücher.
+    }
+  }
+
+  Future<void> _setMode(bool path) async {
+    setState(() => pathMode = path);
+
+    // Neu planen: Termine oder Stellen können sich im Leseplan geändert
+    // haben.
+    if (path) _loadSchedule();
+
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setBool(_modeKey, path);
+    } catch (_) {}
+  }
+
+  Future<void> _loadSchedule() async {
+    final loader = widget.readingPathSchedule ?? loadReadingPathSchedule;
+
+    try {
+      final loaded = await loader(widget.uid, (widget.clock ?? DateTime.now)());
+
+      if (mounted) setState(() => schedule = loaded);
+    } catch (e) {
+      debugPrint("Bibelleseplan für den Lernpfad nicht verfügbar: $e");
+    }
   }
 
   @override
@@ -164,6 +223,10 @@ class _BooksOverviewScreenState extends State<BooksOverviewScreen> {
 
     final visible = books.where(_matchesSearch).toList();
 
+    final plan = schedule;
+
+    final showPath = plan != null && pathMode;
+
     return ListView(
       padding: const EdgeInsets.fromLTRB(16, 8, 16, 32),
       children: [
@@ -173,47 +236,82 @@ class _BooksOverviewScreenState extends State<BooksOverviewScreen> {
           style: TextStyle(color: context.colors.textSecondary),
         ),
         const SizedBox(height: 12),
-        Card(
-          child: ListTile(
-            key: const ValueKey("open-reviews"),
-            leading: Icon(Icons.schedule_rounded, color: context.colors.accent),
-            title: const Text("Wiederholungen"),
-            subtitle: Text(
-              dueTotal == 0
-                  ? "Gerade ist nichts fällig"
-                  : "$dueTotal jetzt fällig – auch buchübergreifend",
-            ),
-            trailing: const Icon(Icons.chevron_right_rounded),
-            onTap: _openReviews,
+        if (plan != null) ...[
+          SegmentedButton<bool>(
+            key: const ValueKey("learning-path-mode"),
+            segments: const [
+              ButtonSegment(
+                value: false,
+                label: Text("Einzelne Bücher"),
+                icon: Icon(Icons.library_books_outlined),
+              ),
+              ButtonSegment(
+                value: true,
+                label: Text("Nach Bibelleseplan"),
+                icon: Icon(Icons.event_note_rounded),
+              ),
+            ],
+            selected: {pathMode},
+            onSelectionChanged: (value) => _setMode(value.first),
           ),
-        ),
-        if (planned.isNotEmpty) ...[
-          const SectionTitle("Meine Lernpläne"),
-          for (final b in planned) _bookTile(context, c, b, showPlan: true),
+          const SizedBox(height: 12),
         ],
-        const SectionTitle("Alle Bücher"),
-        TextField(
-          key: const ValueKey("book-search"),
-          controller: search,
-          decoration: const InputDecoration(
-            prefixIcon: Icon(Icons.search_rounded),
-            hintText: "Buch suchen, z. B. Markus",
-          ),
-          onChanged: (_) => setState(() {}),
-        ),
-        const SizedBox(height: 8),
-        if (visible.isEmpty)
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: Text(
-              "Kein Buch gefunden.",
-              textAlign: TextAlign.center,
-              style: TextStyle(color: context.colors.textSecondary),
-            ),
-          ),
-        for (final b in visible) _bookTile(context, c, b),
+        if (showPath)
+          ReadingPathView(controller: c, schedule: plan)
+        else
+          ..._booksContent(context, c, dueTotal, planned, visible),
       ],
     );
+  }
+
+  List<Widget> _booksContent(
+    BuildContext context,
+    BookLearningController c,
+    int dueTotal,
+    List<String> planned,
+    List<String> visible,
+  ) {
+    return [
+      Card(
+        child: ListTile(
+          key: const ValueKey("open-reviews"),
+          leading: Icon(Icons.schedule_rounded, color: context.colors.accent),
+          title: const Text("Wiederholungen"),
+          subtitle: Text(
+            dueTotal == 0
+                ? "Gerade ist nichts fällig"
+                : "$dueTotal jetzt fällig – auch buchübergreifend",
+          ),
+          trailing: const Icon(Icons.chevron_right_rounded),
+          onTap: _openReviews,
+        ),
+      ),
+      if (planned.isNotEmpty) ...[
+        const SectionTitle("Meine Lernpläne"),
+        for (final b in planned) _bookTile(context, c, b, showPlan: true),
+      ],
+      const SectionTitle("Alle Bücher"),
+      TextField(
+        key: const ValueKey("book-search"),
+        controller: search,
+        decoration: const InputDecoration(
+          prefixIcon: Icon(Icons.search_rounded),
+          hintText: "Buch suchen, z. B. Markus",
+        ),
+        onChanged: (_) => setState(() {}),
+      ),
+      const SizedBox(height: 8),
+      if (visible.isEmpty)
+        Padding(
+          padding: const EdgeInsets.all(16),
+          child: Text(
+            "Kein Buch gefunden.",
+            textAlign: TextAlign.center,
+            style: TextStyle(color: context.colors.textSecondary),
+          ),
+        ),
+      for (final b in visible) _bookTile(context, c, b),
+    ];
   }
 
   Widget _bookTile(

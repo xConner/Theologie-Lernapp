@@ -50,6 +50,13 @@ class AdaptiveStudyQueue {
 
   final int maxNew;
 
+  /// Neue Perikopen gleichmäßig über die Einheit verteilen und sicher
+  /// einführen: Liegt ihr Anteil hinter dem geplanten zurück, kommt die
+  /// nächste aus dem Fenster der neuen – fällige Wiederholungen verdrängen
+  /// sie so nicht (Lernpfad nach Bibelleseplan). Ohne diese Vorgabe
+  /// entscheidet allein die gewichtete Auswahl.
+  final bool paceNew;
+
   /// Wissensfragen des Umfangs (leer = keine).
   final List<KnowledgeQuestion> knowledgeScope;
 
@@ -81,6 +88,7 @@ class AdaptiveStudyQueue {
     required List<BookPericope> scope,
     int questions = defaultQuestions,
     required this.maxNew,
+    this.paceNew = false,
     List<KnowledgeQuestion> knowledge = const [],
     int knowledgeQuestions = defaultKnowledge,
     this.maxNewKnowledge = defaultNewKnowledge,
@@ -272,8 +280,28 @@ class AdaptiveStudyQueue {
     if (!retriesOnly && _introduced < maxNew && left > _pending.length) {
       for (final p in scope) {
         if (window.length >= newWindow) break;
-        if (_isFresh(p) && !pending.contains(p)) window.add(p);
+        // Schon in dieser Einheit vorgestellt: nicht noch einmal.
+        if (_isFresh(p) &&
+            !pending.contains(p) &&
+            !_askCount.containsKey(p.key)) {
+          window.add(p);
+        }
       }
+    }
+
+    // Neue Perikopen im Rückstand gegenüber ihrem Anteil: jetzt eine neue.
+    if (paceNew && window.isNotEmpty && _newBehind()) {
+      final chosen = selector.select(
+        candidates: window.toList(),
+        idOf: (p) => p.key,
+        cards: {for (final p in window) p.key: state.selectionCardOf(p)},
+      )!;
+
+      _introduced++;
+      _lastWasRetry = false;
+      _pending.add((pericope: chosen, wait: introGap + 1));
+
+      return IntroduceTask(chosen);
     }
 
     final candidates = [
@@ -316,6 +344,20 @@ class AdaptiveStudyQueue {
     return _ask(chosen);
   }
 
+  // Abfragen direkt nach einer Einführung (siehe [paceNew]).
+  int _introAsks = 0;
+
+  /// Liegt der Anteil neuer Perikopen hinter dem geplanten? Verglichen wird
+  /// mit den übrigen Abfragen (Wiederholungen): Bei 15 Abfragen und 7 neuen
+  /// kommt nach etwa jeder achten Wiederholung eine siebte neue.
+  bool _newBehind() {
+    final reviews = questions - maxNew;
+
+    if (reviews <= 0) return true;
+
+    return _introduced * reviews <= (_asked - _introAsks) * maxNew;
+  }
+
   /// Die zuletzt ausgegebene Abfrage wiederholt eine falsch beantwortete
   /// Perikope (zählt nicht zu den geplanten [questions]).
   bool get lastWasRetry => _lastWasRetry;
@@ -328,6 +370,8 @@ class AdaptiveStudyQueue {
     _lastWasRetry = count > 0;
 
     if (!_lastWasRetry) _asked++;
+
+    if (afterIntroduction && count == 0) _introAsks++;
 
     _askCount[p.key] = count + 1;
     selector.markAsked(p.key);

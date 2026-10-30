@@ -68,6 +68,10 @@ class BookLearningState {
       ..addAll(fresh.knowledgeCards);
     data.knowledgeEnabled = fresh.knowledgeEnabled;
 
+    data.readingPaths
+      ..clear()
+      ..addAll(fresh.readingPaths);
+
     this.legacyCards
       ..clear()
       ..addAll(legacyCards);
@@ -379,7 +383,8 @@ enum StudyMode {
   exam("Prüfung"),
   selection("Einzelne Perikope"),
   review("Wiederholungen"),
-  knowledge("Wissensfragen");
+  knowledge("Wissensfragen"),
+  readingPlan("Nach Bibelleseplan");
 
   final String label;
 

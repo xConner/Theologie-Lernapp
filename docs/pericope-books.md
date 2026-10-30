@@ -135,6 +135,57 @@ folgt dem Wiederholungsverfahren (siehe unten). Ein pausierter Plan
 schlägt nichts Neues vor; Abschnitte, Kapitel und einzelne Perikopen
 bleiben jederzeit frei wählbar.
 
+## Nach Bibelleseplan lernen (Lernpfad)
+
+Zweiter, gleichwertiger Lernweg neben „Einzelne Bücher“: Umschalter oben in
+„Bücher systematisch lernen“ (nur, wenn der Leseplan zur Übung Bibelkunde AT
+verfügbar ist, also mit Freigabe der Vorlesungsunterlagen). Logik in
+`lib/quiz/books/reading_plan_path.dart` (`ReadingPlanPath`), Oberfläche in
+`lib/screens/pericope_quiz/books/reading_path_view.dart`.
+
+* **Datenquelle:** allein der Leseplan (`course-bibelkunde-at-wise-2026`)
+  so, wie ihn `CourseSchedule` plant – mit eigenen Änderungen an Terminen
+  und Stellen und dem Umfang „ganze Bücher“, falls der Leseplan begonnen
+  wurde; sonst die Empfehlung. Eine Woche = eine Sitzung mit Lektüre, ihr
+  Zeitraum und Abschluss (Vorabend bzw. Sitzungstag) sind die des
+  Leseplans.
+* **Zuordnung:** Eine Perikope der Liste gehört zur ersten Woche, deren
+  Lesestücke sie berührt (Kapitel bzw. Versbereich). Reihenfolge: Bücher wie
+  die Sitzung sie nennt (z. B. Ex vor Lev), im Buch nach der Liste.
+  Perikopen ohne Stelle im Plan gehören zu keiner Woche. Nichts davon steht
+  im Code.
+* **Tagesmenge:** noch nicht eingeführte Perikopen bis einschließlich der
+  laufenden Woche (Rückstand vergangener Wochen zuerst), gleichmäßig auf die
+  Tage bis zum Abschluss der laufenden Woche verteilt; heute schon
+  eingeführte zählen mit (die Menge verschiebt sich beim Lernen nicht). Je
+  Einheit höchstens 8 neue; reicht die Menge weiter, bietet das Ende
+  „Weiterlernen“ an. Ist sie geschafft, gibt es „Vorauslernen“ (5 neue der
+  nächsten Woche mit offenen Perikopen).
+* **Wiederholungen:** dieselbe `AdaptiveStudyQueue` wie Buch- und
+  Abschnittseinheiten, Umfang = einzuführende Perikopen plus alle schon
+  begonnenen Perikopen des Plans (auch aus späteren Wochen oder vor dem
+  Beginn). Auswahl nach Lernbedarf × Fälligkeit, schwierige gelegentlich als
+  Vergleich. Mit `paceNew` werden die neuen gleichmäßig zwischen die
+  Wiederholungen verteilt und sicher eingeführt, damit Fälliges sie nicht
+  verdrängt. Wissensfragen: die der Kapitel der Wochen bis jetzt.
+* **Beginn:** „Ab dieser Woche beginnen“ (Wochen mit früherem
+  Sitzungstermin sind freiwillig, kein Rückstand) oder „Ab der ersten Woche“.
+  Gespeichert wird nur der Tag, im Dokument `pericope_plans`, Feld
+  `readingPaths: {Plan-ID: {startedOn}}` – kein neues Dokument.
+* **Gemeinsamer Lernstand:** Der Lernpfad hat keine eigenen Karten. Er liest
+  und schreibt `pericope_books` mit denselben Schlüsseln
+  (`BookPericope.key`) und Regeln wie „Einzelne Bücher“; Einführung,
+  Treffer/Fehler, Abstände, letzte Abfrage und Startwerte aus dem
+  Endlos-Quiz gelten in beiden Wegen. Übersprungene Wochen bleiben
+  Rückstand; schon gelernte Perikopen späterer Wochen werden nicht neu
+  eingeführt.
+* **Übersicht:** laufende Woche mit Büchern und verbleibenden Tagen, heute
+  neu, Rückstand, fällige Wiederholungen, schon vorausgelernte,
+  Gesamtfortschritt mit Zieldatum (Abschluss der letzten Woche) und alle
+  Wochen mit Status (Abgeschlossen, Diese Woche, Rückstand, Später, Vor
+  Beginn); eine Woche antippen zeigt ihre Perikopen und „Diese Woche
+  lernen“.
+
 ## Auswahl der Perikopen (Spaced Repetition)
 
 Buch-, Abschnitts- und Kapitel-Lerneinheiten werden fortlaufend gebildet
@@ -373,7 +424,7 @@ im `LocalLearningStore` (`guest.v1.quiz_settings.<name>`).
 |---|---|
 | `pericope_books` | `{cards: {key: {s, d, r, n, w, sp, lw, i, oc, ow}}}` – Lernstand je Perikope |
 | `pericope_precision` | `{items: {key: {startChapter, startVerse, endChapter, endVerse}}}` |
-| `pericope_plans` | `{plans: {Buch: {dailyNew, targetDate, paused, createdAt}}}` |
+| `pericope_plans` | `{plans: {Buch: {dailyNew, targetDate, paused, createdAt}}, readingPaths: {Plan-ID: {startedOn}}}` |
 | `bible_knowledge` | `{cards: {Fragen-ID: {…wie pericope_books}}}` – Lernstand je Wissensfrage |
 | `bible_knowledge_settings` | `{settings: {enabled}}` – Schalter Wissensfragen |
 

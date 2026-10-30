@@ -1,5 +1,6 @@
 import '../quiz/books/book_learning_status.dart';
 import '../quiz/books/book_plan.dart';
+import '../quiz/books/reading_plan_path.dart';
 import '../quiz/books/verse_precision.dart';
 import '../quiz/pericope_id_migration.dart';
 import 'local_learning_store.dart';
@@ -24,13 +25,19 @@ class BookLearningData {
   /// Lernstände in [knowledgeCards] unverändert erhalten.
   bool knowledgeEnabled;
 
+  /// Lernpfade nach Bibelleseplan (Schlüssel: ID des Leseplans). Nur der
+  /// Beginn; der Lernstand steht in [cards].
+  final Map<String, ReadingPathSettings> readingPaths;
+
   BookLearningData({
     Map<String, BookCard>? cards,
     Map<String, VersePrecision>? precisions,
     Map<String, BookPlan>? plans,
     Map<String, BookCard>? knowledgeCards,
     this.knowledgeEnabled = true,
+    Map<String, ReadingPathSettings>? readingPaths,
   }) : cards = cards ?? {},
+       readingPaths = readingPaths ?? {},
        precisions = precisions ?? {},
        plans = plans ?? {},
        knowledgeCards = knowledgeCards ?? {};
@@ -48,6 +55,10 @@ class BookLearningData {
       }
     }
   }
+
+  /// Feld im Dokument `pericope_plans` für die Lernpfade nach Bibelleseplan
+  /// (neben `plans`; kein neues Dokument).
+  static const String readingPathsField = "readingPaths";
 
   /// Liest die Dokumente; ungültige Einträge werden übergangen.
   factory BookLearningData.fromDocuments({
@@ -88,6 +99,16 @@ class BookLearningData {
       }
     }
 
+    final rawPaths = plans?[readingPathsField];
+
+    if (rawPaths is Map) {
+      for (final entry in rawPaths.entries) {
+        final value = ReadingPathSettings.fromJson(entry.value);
+
+        if (value != null) data.readingPaths[entry.key.toString()] = value;
+      }
+    }
+
     PericopeIdMigration.bookData(data);
 
     return data;
@@ -103,7 +124,8 @@ class BookLearningData {
 ///
 ///   * `pericope_books`     `{cards: {key: BookCard}}`
 ///   * `pericope_precision` `{items: {key: VersePrecision}}`
-///   * `pericope_plans`     `{plans: {book: BookPlan}}`
+///   * `pericope_plans`     `{plans: {book: BookPlan},
+///                           readingPaths: {planId: ReadingPathSettings}}`
 ///   * `bible_knowledge`    `{cards: {frageId: BookCard}}` (Wissensfragen)
 ///   * `bible_knowledge_settings` `{settings: {enabled: bool}}`
 ///
@@ -164,6 +186,15 @@ class BookLearningStorage {
       LocalLearningStore.pericopePrecision,
       "items",
       {key: precision?.toJson()},
+    );
+  }
+
+  /// `null` beendet den Lernpfad (Lernstände bleiben).
+  Future<void> saveReadingPath(String planId, ReadingPathSettings? settings) {
+    return documents.mergeEntries(
+      LocalLearningStore.pericopePlans,
+      BookLearningData.readingPathsField,
+      {planId: settings?.toJson()},
     );
   }
 

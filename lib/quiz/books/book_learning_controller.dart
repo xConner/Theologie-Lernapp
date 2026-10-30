@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/foundation.dart';
 
 import '../../models/greek/perikope.dart';
@@ -17,6 +19,7 @@ import 'book_study_session.dart';
 import 'book_outline.dart';
 import 'book_plan.dart';
 import 'knowledge.dart';
+import 'reading_plan_path.dart';
 import 'verse_precision.dart';
 
 /// Gemeinsamer Zustand der Ansichten von „Bücher systematisch lernen“:
@@ -226,6 +229,7 @@ class BookLearningController extends ChangeNotifier {
     StudyMode mode,
     List<BookPericope> scope, {
     required int maxNew,
+    bool paceNew = false,
     List<KnowledgeQuestion> knowledge = const [],
     int knowledgeQuestions = AdaptiveStudyQueue.defaultKnowledge,
     int maxNewKnowledge = AdaptiveStudyQueue.defaultNewKnowledge,
@@ -238,6 +242,7 @@ class BookLearningController extends ChangeNotifier {
         state: state,
         scope: scope,
         maxNew: maxNew,
+        paceNew: paceNew,
         // Ausgeschaltet: keine Wissensfragen, Lernstände bleiben.
         knowledge: state.active(knowledge),
         knowledgeQuestions: knowledgeQuestions,
@@ -358,6 +363,57 @@ class BookLearningController extends ChangeNotifier {
     } catch (_) {
       return (_) => null;
     }
+  }
+
+  // ---------- Lernpfad nach Bibelleseplan ----------
+
+  /// Eine Lerneinheit des Lernpfads: neue Perikopen nach der Tagesmenge der
+  /// laufenden Woche (Rückstand zuerst), dazu Wiederholungen aller schon
+  /// begonnenen Perikopen des Plans und die Wissensfragen der Wochen.
+  /// Verbucht wird in dieselben Karten wie beim Lernen einzelner Bücher.
+  ///
+  /// [ahead]: Ist die Tagesmenge erreicht, führt die Einheit Perikopen
+  /// dieser späteren Woche ein ([ReadingPlanPath.aheadPerUnit]).
+  StudySession readingPathSession(ReadingPlanPath path, {PathWeek? ahead}) {
+    final maxNew = ahead != null
+        ? ReadingPlanPath.aheadPerUnit
+        : min(path.newToday(state), ReadingPlanPath.maxNewPerUnit);
+
+    return adaptiveSession(
+      StudyMode.readingPlan,
+      path.scope(state, ahead: ahead),
+      maxNew: maxNew,
+      // Wiederholungen sollen die Einführung nicht verdrängen.
+      paceNew: true,
+      knowledge: ReadingPlanPath.knowledgeOf(state, [...path.dueWeeks, ?ahead]),
+    );
+  }
+
+  /// Eine Lerneinheit über die Perikopen einer Woche (frei gewählt, wie ein
+  /// Abschnitt).
+  StudySession readingPathWeekSession(PathWeek week) {
+    return scopeSession(
+      StudyMode.readingPlan,
+      week.pericopes,
+      knowledge: ReadingPlanPath.knowledgeOf(state, [week]),
+    );
+  }
+
+  /// Beginnt den Lernpfad (bzw. beendet ihn mit `null`; Lernstände
+  /// bleiben).
+  Future<void> setReadingPath(
+    String planId,
+    ReadingPathSettings? settings,
+  ) async {
+    if (settings == null) {
+      state.data.readingPaths.remove(planId);
+    } else {
+      state.data.readingPaths[planId] = settings;
+    }
+
+    refresh();
+
+    await storage.saveReadingPath(planId, settings);
   }
 
   // ---------- Lernplan ----------

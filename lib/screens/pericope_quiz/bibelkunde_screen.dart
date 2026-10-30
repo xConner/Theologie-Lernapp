@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../models/greek/perikope.dart';
 import '../../models/old_testament/old_testament.dart';
+import '../../quiz/books/reading_plan_path.dart';
 import '../../services/lecture_materials/lecture_materials.dart';
 import '../../services/streak/streak_track.dart';
 import '../../theme/app_theme.dart';
@@ -24,7 +25,7 @@ import 'quiz_screen.dart';
 class BibelkundeScreen extends StatelessWidget {
   /// Leseplan zur Übung Bibelkunde AT (geschützte Vorlesungsunterlagen,
   /// `reading_plans/` in `LectureMaterials`).
-  static const String readingPlanId = "course-bibelkunde-at-wise-2026";
+  static const String readingPlanId = ReadingPlanPath.defaultPlanId;
 
   final List<Perikope> perikopen;
 
