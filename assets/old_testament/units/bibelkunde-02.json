@@ -259,7 +259,7 @@
         "Viele unterschiedliche Gattungen; die Genealogien (Toledot) gliedern die Genesis.",
         "Gen 11,30 ist der Cliffhanger zu den Erzeltern."
       ],
-      "supplement": "Außerbiblische Parallelen sind etwa die mesopotamischen Flutberichte im Atrahasis-Epos und im Gilgamesch-Epos (Tafel XI). Zu den Dopplungen: Diese Einschätzung entspricht der historisch-kritischen Forschung, ist aber nicht unumstritten: Andere lesen Gen 2 nicht als zweiten, konkurrierenden Bericht, sondern als vertiefende Nahaufnahme der Erschaffung des Menschen, und die Sintfluterzählung als bewusst komponierte Einheit. Die Grenze „2,4a/2,4b“ teilt einen Vers; deine Perikopenliste kennt keine Halbverse und lässt „Die Erschaffung der Welt“ deshalb mit 2,3 enden."
+      "supplement": "Außerbiblische Parallelen sind etwa die mesopotamischen Flutberichte im Atrahasis-Epos und im Gilgamesch-Epos (Tafel XI). Zu den Dopplungen: Diese Einschätzung entspricht der historisch-kritischen Forschung, ist aber nicht unumstritten: Andere lesen Gen 2 nicht als zweiten, konkurrierenden Bericht, sondern als vertiefende Nahaufnahme der Erschaffung des Menschen, und die Sintfluterzählung als bewusst komponierte Einheit. Die Grenze „2,4a/2,4b“ teilt einen Vers; deine Perikopenliste kennt keine Halbverse und lässt deshalb den „1. Schöpfungsbericht“ mit 2,4 enden und „Das Paradies“ mit demselben Vers beginnen."
     },
     {
       "title": "Erzelterngeschichte (Gen 12–36)",
@@ -292,7 +292,7 @@
         "Sie erklärt, wie sich ein paradigmatischer Weiser verhält: Durch sein Verhalten widerfährt ihm Gutes. Thema ist die Führung Gottes zum Guten.",
         "Sie erklärt den Beginn des Buches Exodus und leitet zu ihm über."
       ],
-      "supplement": "Die Führung Gottes zum Guten fasst Joseph selbst in Gen 50,20 zusammen: „Ihr gedachtet es böse mit mir zu machen; aber Gott gedachte es gut zu machen.“ Die Folien schreiben teils „Joseph“, teils „Josef“ (Folie 5); deine Perikopenliste schreibt „Josef“."
+      "supplement": "Die Führung Gottes zum Guten fasst Joseph selbst in Gen 50,20 zusammen: „Ihr gedachtet es böse mit mir zu machen; aber Gott gedachte es gut zu machen.“ Die Folien schreiben teils „Joseph“, teils „Josef“ (Folie 5); deine Perikopenliste schreibt in den von der Folie übernommenen Überschriften „Joseph“, sonst „Josef“."
     },
     {
       "title": "Gen 38: Juda und Tamar",
@@ -599,7 +599,7 @@
       "context": "Engelehen und Göttersöhne.",
       "clue": "Engelehen und Göttersöhne",
       "pericopes": [
-        "Gen|die_bosheit_der_menschen|6,1"
+        "Gen|engelehen_und_goettersoehne|6,1"
       ]
     },
     {
@@ -612,7 +612,7 @@
       "context": "Sintfluterzählung. Nach Folie 9 eine Erzählung mit inneren Spannungen.",
       "clue": "Sintfluterzählung",
       "pericopes": [
-        "Gen|die_bosheit_der_menschen|6,1",
+        "Gen|die_bosheit_der_menschen|6,5",
         "Gen|noahs_erwaehlung_und_bau_der_arche|6,9",
         "Gen|die_grosse_flut|7,1",
         "Gen|noahs_opfer|8,1"
@@ -687,7 +687,7 @@
       "context": "Übergang zur Erzelterngeschichte.",
       "clue": "Übergang zur Erzelterngeschichte (Ende der Urgeschichte)",
       "pericopes": [
-        "Gen|die_vorfahren_abrahams|11,10"
+        "Gen|uebergang_zur_erzelterngeschichte|11,27"
       ]
     },
     {
@@ -699,7 +699,7 @@
       "context": "Nach Folie 9 der Cliffhanger zu den Erzeltern. Ergänzung: Der Vers sagt, dass Sarai unfruchtbar ist und kein Kind hat – unmittelbar bevor Gott Abram in Gen 12 Nachkommen verheißt.",
       "clue": "Cliffhanger zu den Erzeltern",
       "pericopes": [
-        "Gen|die_vorfahren_abrahams|11,10"
+        "Gen|uebergang_zur_erzelterngeschichte|11,27"
       ]
     },
     {
@@ -798,7 +798,7 @@
       "context": "Fürbitte Abrahams für Sodom.",
       "clue": "Fürbitte Abrahams für Sodom",
       "pericopes": [
-        "Gen|gott_zu_gast_bei_abraham|18,1"
+        "Gen|fuerbitte_abrahams_fuer_sodom|18,16"
       ]
     },
     {
@@ -912,8 +912,7 @@
       "context": "Geburt Jakobs und Esaus.",
       "clue": "Geburt Jakobs und Esaus",
       "pericopes": [
-        "Gen|geburt_esaus_und_jakobs|25,19",
-        "Gen|verkauf_des_erstgeburtsrechts_an_jakob|25,27"
+        "Gen|geburt_esaus_und_jakobs|25,19"
       ]
     },
     {
@@ -925,7 +924,7 @@
       "context": "Verkauf des Erstgeburtsrechts (Folie: „Erstgeburtrechts“).",
       "clue": "Verkauf des Erstgeburtsrechts",
       "pericopes": [
-        "Gen|verkauf_des_erstgeburtsrechts_an_jakob|25,27"
+        "Gen|verkauf_des_erstgeburtsrechts_an_jakob|25,29"
       ]
     },
     {
@@ -951,8 +950,7 @@
       "context": "Segen Isaaks an Jakob. Nach Folie 13 wichtig für das Verständnis des Segens; besondere Rolle Jakobs als Betrüger.",
       "clue": "Segen Isaaks an Jakob",
       "pericopes": [
-        "Gen|der_erstgeburtssegen|27,1",
-        "Gen|jakobs_flucht_nach_haran|27,41"
+        "Gen|der_erstgeburtssegen|27,1"
       ]
     },
     {
@@ -964,7 +962,7 @@
       "context": "Verbot der Ehe mit Kanaanäerinnen.",
       "clue": "Verbot der Ehe mit Kanaanäerinnen",
       "pericopes": [
-        "Gen|jakobs_flucht_nach_haran|27,41"
+        "Gen|jakobs_flucht_nach_haran|27,46"
       ]
     },
     {
@@ -976,7 +974,7 @@
       "context": "Esaus Frauen.",
       "clue": "Esaus Frauen",
       "pericopes": [
-        "Gen|jakobs_flucht_nach_haran|27,41"
+        "Gen|esaus_frauen|28,6"
       ]
     },
     {
@@ -988,7 +986,7 @@
       "context": "Jakobs Traum.",
       "clue": "Jakobs Traum",
       "pericopes": [
-        "Gen|jakobs_flucht_nach_haran|27,41"
+        "Gen|jakobs_traum|28,10"
       ]
     },
     {
@@ -1013,7 +1011,7 @@
       "context": "Jakobs Kinder. Nach Folie 13 stehen Jakobs Söhne für die Stämme.",
       "clue": "Jakobs Kinder",
       "pericopes": [
-        "Gen|jakobs_frauen_und_soehne|29,1"
+        "Gen|jakobs_kinder|29,31"
       ]
     },
     {
@@ -1098,8 +1096,7 @@
       "context": "Geburt Benjamins und Tod Rahels.",
       "clue": "Geburt Benjamins und Tod Rahels",
       "pericopes": [
-        "Gen|benjamins_geburt_und_rahels_tod|35,16",
-        "Gen|die_soehne_jakobs_und_der_tod_isaaks|35,21"
+        "Gen|benjamins_geburt_und_rahels_tod|35,16"
       ]
     },
     {
@@ -1111,7 +1108,7 @@
       "context": "Tod Isaaks (auf der Folie in der Farbe Isaaks).",
       "clue": "Tod Isaaks",
       "pericopes": [
-        "Gen|die_soehne_jakobs_und_der_tod_isaaks|35,21"
+        "Gen|die_soehne_jakobs_und_der_tod_isaaks|35,27"
       ]
     },
     {
@@ -1173,8 +1170,7 @@
       "context": "Joseph im Gefängnis (Folie: „39,20 – 40“, also bis zum Ende von Kapitel 40).",
       "clue": "Joseph im Gefängnis",
       "pericopes": [
-        "Gen|josef_als_sklave_in_aegypten|39,1",
-        "Gen|josef_im_gefaengnis|39,22"
+        "Gen|josef_im_gefaengnis|39,20"
       ]
     },
     {
@@ -1251,8 +1247,7 @@
       "context": "Jakobs Segen: Stammessprüche.",
       "clue": "Jakobs Segen: Stammessprüche",
       "pericopes": [
-        "Gen|der_segen_jakobs|49,1",
-        "Gen|jakobs_tod_und_begraebnis|49,28"
+        "Gen|der_segen_jakobs|49,1"
       ]
     },
     {
@@ -1264,8 +1259,7 @@
       "context": "Jakobs Tod.",
       "clue": "Jakobs Tod",
       "pericopes": [
-        "Gen|jakobs_tod_und_begraebnis|49,28",
-        "Gen|josefs_letzte_lebensjahre_und_sein_tod|50,14"
+        "Gen|jakobs_tod_und_begraebnis|49,29"
       ]
     },
     {
@@ -1277,7 +1271,7 @@
       "context": "Aussöhnung der Brüder, Josephs Tod.",
       "clue": "Aussöhnung der Brüder, Josephs Tod",
       "pericopes": [
-        "Gen|josefs_letzte_lebensjahre_und_sein_tod|50,14"
+        "Gen|josefs_letzte_lebensjahre_und_sein_tod|50,15"
       ]
     }
   ],
@@ -1315,7 +1309,7 @@
       "supplement": true
     },
     {
-      "text": "Deine Perikopenliste teilt die Genesis meist feiner als die Folie. Unter „Begriffe und Stellen“ steht bei jeder Folienzeile, welche Perikopen deiner Liste sie umfasst; „Bücher systematisch lernen“ gliedert die Genesis nach der Grobgliederung der Folie.",
+      "text": "Deine Perikopenliste übernimmt die Überschriften und Abschnittsgrenzen dieser Folie; wo sie die Genesis feiner teilt als die Folie, bleibt ihre Unterteilung. Unter „Begriffe und Stellen“ steht bei jeder Folienzeile, welche Perikopen deiner Liste sie umfasst; „Bücher systematisch lernen“ gliedert die Genesis nach der Grobgliederung der Folie.",
       "supplement": true
     }
   ],
@@ -2072,7 +2066,7 @@
         "Mit Gen 2,3",
         "Mit Gen 3,24"
       ],
-      "explanation": "Folie 8: „1,1 – 2,4a 1. Schöpfungsbericht“, „2,4b – 3,24 2. Schöpfungsbericht“. Die Grenze teilt Vers 4. Ergänzung: Deine Perikopenliste kennt keine Halbverse und lässt „Die Erschaffung der Welt“ deshalb mit 2,3 enden.",
+      "explanation": "Folie 8: „1,1 – 2,4a 1. Schöpfungsbericht“, „2,4b – 3,24 2. Schöpfungsbericht“. Die Grenze teilt Vers 4. Ergänzung: Deine Perikopenliste kennt keine Halbverse; dort endet der „1. Schöpfungsbericht“ mit 2,4, und „Das Paradies“ beginnt mit demselben Vers.",
       "slides": [
         8
       ]

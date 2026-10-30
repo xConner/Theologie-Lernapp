@@ -223,9 +223,13 @@ ohne Code zu ändern:
   `PericopeIdMigration` (`lib/quiz/pericope_id_migration.dart`) alte und
   neue ID bzw. alten und neuen Schlüssel ein. Beim Laden gilt dann eine
   Kopie der alten Karte (Endlos-Quiz, Buch-Karte, Präzisierung), solange
-  die neue noch keine eigene hat; gelöscht wird nichts. Bisher betrifft das
+  die neue noch keine eigene hat; gelöscht wird nichts. Das betrifft
   Gen 6,9-22 (`noahs_erwaehlung_und_bau_der_arche`, früher wie Gen 6,1-8
-  `die_bosheit_der_menschen`).
+  `die_bosheit_der_menschen`) und die Genesis-Perikopen, die nach der Übung
+  Bibelkunde AT geteilt wurden oder einen anderen Anfang bekamen
+  (`movedKeys`, 24.10.2026). Bei diesen gilt die Buch-Karte weiter, eine
+  persönliche Präzisierung aber nicht, weil sie die frühere Stelle
+  beschrieb.
 * Bücher ohne Eintrag erhalten automatisch Abschnitte aus ganzen Kapiteln
   mit je etwa 10 Perikopen; sie sind als automatisch gebildet
   gekennzeichnet.
