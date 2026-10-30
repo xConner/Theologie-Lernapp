@@ -12,29 +12,14 @@ import 'books/book_learning_status.dart';
 class PericopeIdMigration {
   PericopeIdMigration._();
 
-  /// Neue ID → frühere ID (Endlos-Quiz, `learning_cards`).
+  /// Neue ID → frühere ID (Endlos-Quiz, `learning_cards`), nur für IDs, die
+  /// es nicht mehr gibt.
   ///
-  /// Gen 6,9-22 („Noahs Erwählung. Bau der Arche“) stand bis 22.10.2026
-  /// unter `die_bosheit_der_menschen` wie Gen 6,1-8; das Endlos-Quiz fasste
-  /// beide zu einer Frage zusammen.
-  ///
-  /// Seit 24.10.2026 teilt die Liste einige Genesis-Perikopen nach der
-  /// Übung Bibelkunde AT (Sitzung 2, Folien 8–14); die neuen Teile
-  /// übernehmen den Stand der bisherigen Perikope.
-  static const Map<String, String> renamedIds = {
-    "noahs_erwaehlung_und_bau_der_arche": "die_bosheit_der_menschen",
-    // Gen 6,1-8 → 6,1-4 und 6,5-8
-    "engelehen_und_goettersoehne": "die_bosheit_der_menschen",
-    // Gen 11,10-32 → 11,10-26 und 11,27-32
-    "uebergang_zur_erzelterngeschichte": "die_vorfahren_abrahams",
-    // Gen 18 → 18,1-15 und 18,16-33
-    "fuerbitte_abrahams_fuer_sodom": "gott_zu_gast_bei_abraham",
-    // Gen 27,41–28,22 → 27,46–28,5, 28,6-9 und 28,10-22
-    "esaus_frauen": "jakobs_flucht_nach_haran",
-    "jakobs_traum": "jakobs_flucht_nach_haran",
-    // Gen 29,1–30,24 → 29,1-30 und 29,31–30,24
-    "jakobs_kinder": "jakobs_frauen_und_soehne",
-  };
+  /// Die Genesis-Teilungen vom 22. und 24.10.2026 (z. B. Gen 18,16-33 aus
+  /// `gott_zu_gast_bei_abraham`) standen bis 30.10.2026 hier. Weil die
+  /// frühere ID weiter besteht, kopierte jedes Laden auch neu Gelerntes in
+  /// den neuen Teil; seither beginnen solche Teile als neue Perikopen.
+  static const Map<String, String> renamedIds = {};
 
   /// Neuer → früherer Schlüssel einer Buch-Karte (`BookPericope.key`) für
   /// dieselbe Stelle unter neuer ID: Karte und Präzisierung gelten weiter.
@@ -79,16 +64,11 @@ class PericopeIdMigration {
   static const Map<String, String> movedKeys = {
     "Gen|engelehen_und_goettersoehne|6,1": "Gen|die_bosheit_der_menschen|6,1",
     "Gen|die_bosheit_der_menschen|6,5": "Gen|die_bosheit_der_menschen|6,1",
-    "Gen|uebergang_zur_erzelterngeschichte|11,27":
-        "Gen|die_vorfahren_abrahams|11,10",
-    "Gen|fuerbitte_abrahams_fuer_sodom|18,16":
-        "Gen|gott_zu_gast_bei_abraham|18,1",
     "Gen|verkauf_des_erstgeburtsrechts_an_jakob|25,29":
         "Gen|verkauf_des_erstgeburtsrechts_an_jakob|25,27",
     "Gen|jakobs_flucht_nach_haran|27,46": "Gen|jakobs_flucht_nach_haran|27,41",
     "Gen|esaus_frauen|28,6": "Gen|jakobs_flucht_nach_haran|27,41",
     "Gen|jakobs_traum|28,10": "Gen|jakobs_flucht_nach_haran|27,41",
-    "Gen|jakobs_kinder|29,31": "Gen|jakobs_frauen_und_soehne|29,1",
     "Gen|die_soehne_jakobs_und_der_tod_isaaks|35,27":
         "Gen|die_soehne_jakobs_und_der_tod_isaaks|35,21",
     "Gen|josef_im_gefaengnis|39,20": "Gen|josef_im_gefaengnis|39,22",

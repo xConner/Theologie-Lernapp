@@ -527,38 +527,19 @@ void main() {
       );
     });
 
-    test("Endlos-Quiz: Karte der früheren ID gilt für die neue", () {
-      final reviewed = DateTime(2026, 10, 1);
+    test("Endlos-Quiz: keine Kopie, weil die frühere ID weiter besteht", () {
+      // Bis 30.10.2026 übernahm Gen 6,9-22 die Karte von
+      // `die_bosheit_der_menschen`. Diese ID gilt weiter (Gen 6,5-8); eine
+      // Kopie hätte auch alles übertragen, was dort künftig gelernt wird.
       final cards = {
         "die_bosheit_der_menschen": LearningCard(
           id: "die_bosheit_der_menschen",
           stability: 7,
-          difficulty: 4,
-          lastReviewed: reviewed,
-          mnemonic: "Arche",
         ),
       };
       PericopeIdMigration.perikopeCards(cards);
-
-      final copy = cards["noahs_erwaehlung_und_bau_der_arche"]!;
-      expect(copy.id, "noahs_erwaehlung_und_bau_der_arche");
-      expect(
-        (copy.stability, copy.difficulty, copy.lastReviewed, copy.mnemonic),
-        (7.0, 4.0, reviewed, "Arche"),
-      );
-      // Die frühere Karte bleibt für Gen 6,1-8.
+      expect(cards.keys, ["die_bosheit_der_menschen"]);
       expect(cards["die_bosheit_der_menschen"]!.stability, 7);
-
-      // Eine eigene Karte der neuen ID wird nie überschrieben.
-      final own = {
-        ...cards,
-        "noahs_erwaehlung_und_bau_der_arche": LearningCard(
-          id: "noahs_erwaehlung_und_bau_der_arche",
-          stability: 2,
-        ),
-      };
-      PericopeIdMigration.perikopeCards(own);
-      expect(own["noahs_erwaehlung_und_bau_der_arche"]!.stability, 2);
     });
 
     test("Bücher lernen: Karte und Präzisierung werden übernommen", () {
@@ -598,15 +579,11 @@ void main() {
   });
 
   group("Geteilte Perikopen nach der Folie: Lernstand bleibt", () {
-    test("Endlos-Quiz: neue Teile übernehmen die Karte, alte bleibt", () {
-      final reviewed = DateTime(2026, 10, 1);
+    test("Endlos-Quiz: neue Teile beginnen neu, alte Karte bleibt", () {
       final cards = {
         "gott_zu_gast_bei_abraham": LearningCard(
           id: "gott_zu_gast_bei_abraham",
           stability: 12,
-          difficulty: 3,
-          lastReviewed: reviewed,
-          mnemonic: "Mamre",
         ),
         "jakobs_flucht_nach_haran": LearningCard(
           id: "jakobs_flucht_nach_haran",
@@ -614,17 +591,10 @@ void main() {
         ),
       };
       PericopeIdMigration.perikopeCards(cards);
-
-      final fuerbitte = cards["fuerbitte_abrahams_fuer_sodom"]!;
-      expect(
-        (fuerbitte.stability, fuerbitte.lastReviewed, fuerbitte.mnemonic),
-        (12.0, reviewed, "Mamre"),
-      );
-      expect(cards["gott_zu_gast_bei_abraham"]!.stability, 12);
-      expect(cards["esaus_frauen"]!.stability, 5);
-      expect(cards["jakobs_traum"]!.stability, 5);
-      // Ohne frühere Karte entsteht nichts.
-      expect(cards.containsKey("jakobs_kinder"), isFalse);
+      expect(cards.keys.toSet(), {
+        "gott_zu_gast_bei_abraham",
+        "jakobs_flucht_nach_haran",
+      });
     });
 
     test("Bücher lernen: Karte ja, Präzisierung der alten Stelle nein", () {
@@ -656,8 +626,13 @@ void main() {
         },
       );
       final kept = data.cards["Gen|gott_zu_gast_bei_abraham|18,1"]!;
+      // 18,1 besteht weiter: Der neue Teil 18,16-33 beginnt neu.
+      expect(
+        data.cards.containsKey("Gen|fuerbitte_abrahams_fuer_sodom|18,16"),
+        isFalse,
+      );
+      // Frühere Schlüssel, die es nicht mehr gibt, gehen weiter über.
       for (final key in [
-        "Gen|fuerbitte_abrahams_fuer_sodom|18,16",
         "Gen|josefs_letzte_lebensjahre_und_sein_tod|50,15",
         "Gen|jakobs_flucht_nach_haran|27,46",
         "Gen|esaus_frauen|28,6",

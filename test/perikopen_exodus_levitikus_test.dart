@@ -391,16 +391,16 @@ void main() {
 
     test("übernommen wird nur von Schlüsseln, die es nicht mehr gibt", () {
       // Sonst bekäme ein neuer Teil auch alles, was künftig unter dem
-      // weiter bestehenden Schlüssel gelernt wird. Die Genesis-Einträge vom
-      // 24.10.2026 folgen dieser Regel noch nicht.
-      for (final e in PericopeIdMigration.movedKeys.entries) {
-        if (e.key.startsWith("Gen|")) continue;
-        expect(keys, isNot(contains(e.value)), reason: e.key);
-      }
+      // weiter bestehenden Schlüssel gelernt wird.
       final ids = {for (final p in perikopen) p.id};
-      for (final p in [...book("Ex"), ...book("Lev")]) {
-        final from = PericopeIdMigration.renamedIds[p.id];
-        if (from != null) expect(ids, isNot(contains(from)), reason: p.id);
+      for (final from in PericopeIdMigration.renamedIds.values) {
+        expect(ids, isNot(contains(from)), reason: from);
+      }
+      for (final key in [
+        ...PericopeIdMigration.renamedKeys.values,
+        ...PericopeIdMigration.movedKeys.values,
+      ]) {
+        expect(keys, isNot(contains(key)), reason: key);
       }
     });
 
