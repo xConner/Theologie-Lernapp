@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:theologie_lernapp/models/timetable/course_catalog.dart';
 import 'package:theologie_lernapp/models/timetable/timetable_entry.dart';
+import 'package:theologie_lernapp/screens/organizer/organizer_screen.dart';
 import 'package:theologie_lernapp/screens/study/study_organization_screen.dart';
 import 'package:theologie_lernapp/screens/timetable/timetable_week_view.dart';
 import 'package:theologie_lernapp/services/timetable/course_catalog_source.dart';
@@ -105,7 +106,7 @@ void main() {
     tester,
   ) async {
     await open(tester);
-    expect(find.text("Studiumsorganisation"), findsOneWidget);
+    expect(find.text("Stundenplan & Studienunterlagen"), findsOneWidget);
     expect(tab("Stundenplan"), findsOneWidget);
     expect(tab("Veranstaltungen suchen"), findsOneWidget);
     expect(tab("Studienunterlagen"), findsOneWidget);
@@ -849,24 +850,28 @@ void main() {
     },
   );
 
-  testWidgets("Startbildschirm: ein Knopf führt direkt zum Stundenplan", (
-    tester,
-  ) async {
-    await tester.pumpWidget(
-      MaterialApp(
-        theme: AppTheme.light,
-        home: const Scaffold(body: StudyOrganizationButton(uid: null)),
-      ),
-    );
-    expect(find.text("Studiumsorganisation"), findsOneWidget);
-    await tester.tap(find.byKey(const ValueKey("open-study-organization")));
-    // Echte Quelle ohne Netz (Testumgebung): Fehlerzustand statt Absturz.
-    await tester.pumpAndSettle();
-    expect(find.byType(StudyOrganizationScreen), findsOneWidget);
-    expect(tab("Stundenplan"), findsOneWidget);
-    expect(find.byType(TimetableWeekView), findsNothing);
-    expect(tester.takeException(), isNull);
-  });
+  testWidgets(
+    "Startbildschirm: über die Studiumsorganisation zum Stundenplan",
+    (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          theme: AppTheme.light,
+          home: const Scaffold(body: StudyOrganizationButton(uid: null)),
+        ),
+      );
+      expect(find.text("Studiumsorganisation"), findsOneWidget);
+      await tester.tap(find.byKey(const ValueKey("open-study-organization")));
+      await tester.pumpAndSettle();
+      expect(find.byType(OrganizerScreen), findsOneWidget);
+      await tester.tap(find.byKey(const ValueKey("open-timetable")));
+      // Echte Quelle ohne Netz (Testumgebung): Fehlerzustand statt Absturz.
+      await tester.pumpAndSettle();
+      expect(find.byType(StudyOrganizationScreen), findsOneWidget);
+      expect(tab("Stundenplan"), findsOneWidget);
+      expect(find.byType(TimetableWeekView), findsNothing);
+      expect(tester.takeException(), isNull);
+    },
+  );
 
   test(
     "ohne ausdrücklichen Entwicklungsmodus: echte Quelle, nie synthetisch",

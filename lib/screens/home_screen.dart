@@ -32,6 +32,7 @@ import '../services/local_learning_store.dart';
 import '../services/notifications/app_deep_link.dart';
 import '../services/notifications/notification_service.dart';
 import '../services/notifications/push_service.dart';
+import '../services/organizer/organizer_store.dart';
 import '../services/progress_data_service.dart';
 import '../services/streak/streak_track.dart';
 import '../services/timetable/timetable_migration.dart';
@@ -96,6 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
       );
 
       _migrateGuestTimetable(accountUid);
+      _migrateGuestOrganizer(accountUid);
     }
   }
 
@@ -118,6 +120,28 @@ class _HomeScreenState extends State<HomeScreen> {
                 ? "1 Veranstaltung aus dem Gast-Stundenplan übernommen."
                 : "${result.copied} Veranstaltungen aus dem Gast-Stundenplan "
                       "übernommen.",
+          ),
+        ),
+      );
+    } catch (_) {
+      // Lokale Daten bleiben erhalten; erneuter Versuch beim nächsten Start.
+    }
+  }
+
+  /// Übernimmt Aufgaben, Termine und Notizen aus dem Gastmodus ins Konto
+  /// (vorhandene Einträge bleiben unverändert).
+  Future<void> _migrateGuestOrganizer(String accountUid) async {
+    try {
+      final copied = await OrganizerGuestMigration.forUser(accountUid).run();
+      if (!mounted || copied == 0) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            copied == 1
+                ? "1 Eintrag der Studiumsorganisation aus dem Gastmodus "
+                      "übernommen."
+                : "$copied Einträge der Studiumsorganisation aus dem "
+                      "Gastmodus übernommen.",
           ),
         ),
       );

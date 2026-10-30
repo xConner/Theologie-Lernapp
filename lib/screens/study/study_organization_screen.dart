@@ -10,10 +10,12 @@ import '../../widgets/info_report.dart';
 import '../timetable/catalog_status.dart';
 import '../timetable/course_search_view.dart';
 import '../timetable/timetable_export_screen.dart';
+import '../organizer/organizer_screen.dart';
 import '../timetable/timetable_week_view.dart';
 import 'study_documents_view.dart';
 
-/// Hauptbereich „Studiumsorganisation“: Stundenplan (Wochenübersicht,
+/// Stundenplan & Studienunterlagen (innerhalb der Studiumsorganisation,
+/// siehe [OrganizerScreen]): Stundenplan (Wochenübersicht,
 /// Filter, Überschneidungen), fakultätsübergreifende Veranstaltungssuche und
 /// offizielle Studienunterlagen. Stundenplan und Suche teilen sich einen
 /// Zustand ([TimetableController]); die Unterlagen funktionieren auch ohne
@@ -110,7 +112,7 @@ class _StudyOrganizationScreenState extends State<StudyOrganizationScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Studiumsorganisation"),
+        title: const Text("Stundenplan & Studienunterlagen"),
         actions: [
           if (_tabs.index == 0)
             ListenableBuilder(
@@ -196,7 +198,7 @@ class StudyOrganizationButton extends StatelessWidget {
         key: const ValueKey("open-study-organization"),
         onPressed: () => Navigator.push(
           context,
-          MaterialPageRoute(builder: (_) => StudyOrganizationScreen(uid: uid)),
+          MaterialPageRoute(builder: (_) => OrganizerScreen(uid: uid)),
         ),
         icon: const Icon(Icons.school_rounded),
         label: const Text("Studiumsorganisation"),

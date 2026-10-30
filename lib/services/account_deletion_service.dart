@@ -38,6 +38,7 @@ class AccountDeletionService {
     "greek_exam",
     "private_texts",
     "timetable",
+    "organizer",
   ];
 
   static const int _batchLimit = 400;

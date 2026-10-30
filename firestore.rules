@@ -43,6 +43,11 @@ rules_version = '2';
 //                                               auf eine Veranstaltung, deren
 //                                               Import und eigene Anpassungen;
 //                                               eigene Regel mit Feldprüfung)
+//   users/{uid}/organizer/{itemId}             (Studiumsorganisation: Aufgaben,
+//                                               Termine, Notizen, Zuordnungen,
+//                                               Einstellungen und übernommene
+//                                               Seminarpläne; getrennt vom
+//                                               Lernfortschritt)
 //   users/{uid}/notification_state/inbox       (Lesestatus der Glocke)
 //   users/{uid}/push_tokens/{id}               (Push-Abonnements je Gerät)
 //   users/{uid}/private_texts/{editionPart}    (privat importierte, geschützte
@@ -215,7 +220,8 @@ service cloud.firestore {
                             'latin_vocabulary', 'grammar', 'memorization',
                             'pericope_overrides', 'streaks', 'statistics',
                             'bible_reading', 'notification_state',
-                            'push_tokens', 'greek_exam', 'private_texts'];
+                            'push_tokens', 'greek_exam', 'private_texts',
+                            'organizer'];
     }
 
     match /users/{uid} {
