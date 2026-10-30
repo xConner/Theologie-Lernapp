@@ -7,6 +7,7 @@ import '../../services/bible/bible_repository.dart';
 import '../../services/bible/versification_map.dart';
 import '../../services/book_learning_storage.dart';
 import '../../services/learning_service.dart';
+import '../../services/lecture_materials/lecture_materials.dart';
 import '../../services/settings_service.dart';
 import '../../settings/quiz_settings.dart';
 import 'book_catalog.dart';
@@ -15,6 +16,7 @@ import 'book_learning.dart';
 import 'book_study_session.dart';
 import 'book_outline.dart';
 import 'book_plan.dart';
+import 'knowledge.dart';
 import 'verse_precision.dart';
 
 /// Gemeinsamer Zustand der Ansichten von „Bücher systematisch lernen“:
@@ -34,6 +36,14 @@ class BookLearningController extends ChangeNotifier {
   final LearningService learningService;
   final SettingsService settingsService;
 
+  /// Freigabe der Vorlesungsunterlagen: Nur mit ihr gibt es die
+  /// Musterantworten der Übung (siehe [KnowledgeBank.load]).
+  final LectureMaterials lectures;
+
+  /// Lädt die Wissensfragen (Tests ersetzen es).
+  final Future<KnowledgeBank> Function(LectureMaterials lectures)
+  knowledgeLoader;
+
   BookLearningController._({
     required this.uid,
     required this.storage,
@@ -42,7 +52,52 @@ class BookLearningController extends ChangeNotifier {
     required this.outlines,
     required this.learningService,
     required this.settingsService,
-  });
+    required this.lectures,
+    required this.knowledgeLoader,
+  }) {
+    lectures.addListener(_lecturesChanged);
+    _loadKnowledge();
+  }
+
+  int? _knowledgeGeneration;
+
+  /// Abgeschlossen, sobald die Wissensfragen (zuletzt) geladen sind. Die
+  /// Übersicht wartet nicht darauf: Perikopen sind sofort da, die Fragen
+  /// erscheinen, sobald sie gelesen sind.
+  Future<void> get knowledgeReady => _knowledgeReady;
+  Future<void> _knowledgeReady = Future.value();
+
+  /// Freigabe geändert (z. B. Prüfung nach dem Start abgeschlossen):
+  /// Musterantworten nachladen bzw. verwerfen. Lernstände bleiben.
+  void _lecturesChanged() {
+    if (_disposed || _knowledgeGeneration == lectures.generation) return;
+
+    _loadKnowledge();
+  }
+
+  void _loadKnowledge() {
+    final generation = _knowledgeGeneration = lectures.generation;
+
+    _knowledgeReady = knowledgeLoader(lectures).then(
+      (bank) {
+        // Inzwischen geschlossen oder die Freigabe hat erneut gewechselt.
+        if (_disposed || generation != lectures.generation) return;
+
+        state.knowledge = bank;
+        refresh();
+      },
+      onError: (Object e) {
+        debugPrint("Wissensfragen nicht geladen: $e");
+      },
+    );
+  }
+
+  static Future<KnowledgeBank> defaultKnowledge(LectureMaterials lectures) {
+    return KnowledgeBank.load(
+      lectureBundle: lectures.available ? lectures.bundle : null,
+      lectureFiles: lectures.files(prefix: KnowledgeBank.modelAnswerPrefix),
+    );
+  }
 
   BookCatalog get catalog => state.catalog;
 
@@ -60,8 +115,13 @@ class BookLearningController extends ChangeNotifier {
     BibleRepository? bibleRepository,
     BookOutlines? outlines,
     DateTime Function()? clock,
+    LectureMaterials? lectureMaterials,
+    Future<KnowledgeBank> Function(LectureMaterials lectures)? loadKnowledge,
   }) async {
     final store = storage ?? BookLearningStorage.forUser(uid);
+
+    final lectures = lectureMaterials ?? LectureMaterials.instance;
+    final knowledgeLoader = loadKnowledge ?? defaultKnowledge;
 
     final learning = learningService ?? LearningService();
     final settings = settingsService ?? SettingsService();
@@ -75,6 +135,8 @@ class BookLearningController extends ChangeNotifier {
       storage: store,
       learningService: learning,
       settingsService: settings,
+      lectures: lectures,
+      knowledgeLoader: knowledgeLoader,
       bibleRepository: bibleRepository ?? BibleRepository.instance,
       outlines: outlines ?? await BookOutlines.load(),
       state: BookLearningState(
@@ -138,6 +200,7 @@ class BookLearningController extends ChangeNotifier {
   @override
   void dispose() {
     _disposed = true;
+    lectures.removeListener(_lecturesChanged);
     super.dispose();
   }
 
@@ -163,27 +226,100 @@ class BookLearningController extends ChangeNotifier {
     StudyMode mode,
     List<BookPericope> scope, {
     required int maxNew,
+    List<KnowledgeQuestion> knowledge = const [],
+    int knowledgeQuestions = AdaptiveStudyQueue.defaultKnowledge,
+    int maxNewKnowledge = AdaptiveStudyQueue.defaultNewKnowledge,
   }) {
     return StudySession(
       state: state,
       storage: storage,
       mode: mode,
-      queue: AdaptiveStudyQueue(state: state, scope: scope, maxNew: maxNew),
+      queue: AdaptiveStudyQueue(
+        state: state,
+        scope: scope,
+        maxNew: maxNew,
+        // Ausgeschaltet: keine Wissensfragen, Lernstände bleiben.
+        knowledge: state.active(knowledge),
+        knowledgeQuestions: knowledgeQuestions,
+        maxNewKnowledge: maxNewKnowledge,
+      ),
     );
   }
 
-  /// Das ganze Buch; neue Perikopen nach Lernplan (Tagesmenge).
+  /// Das ganze Buch; neue Perikopen nach Lernplan (Tagesmenge), dazu
+  /// Wissensfragen zum ganzen Buch.
   StudySession bookSession(String book) {
     return adaptiveSession(
       StudyMode.learnBook,
       catalog.pericopesOf(book),
       maxNew: state.newQuotaToday(book),
+      knowledge: state.knowledge.ofBook(book),
     );
   }
 
-  /// Abschnitt, Kapitel oder Bereich.
-  StudySession scopeSession(StudyMode mode, List<BookPericope> scope) {
-    return adaptiveSession(mode, scope, maxNew: scopeNewPerSession);
+  /// Abschnitt, Kapitel oder Bereich; Wissensfragen nur, wenn
+  /// [knowledge] sie nennt (siehe [knowledgeOfChapters],
+  /// [knowledgeOfSection]).
+  StudySession scopeSession(
+    StudyMode mode,
+    List<BookPericope> scope, {
+    List<KnowledgeQuestion> knowledge = const [],
+  }) {
+    return adaptiveSession(
+      mode,
+      scope,
+      maxNew: scopeNewPerSession,
+      knowledge: knowledge,
+    );
+  }
+
+  // ---------- Wissensfragen ----------
+
+  /// Fragen, die ganz in den Kapiteln liegen; das ganze Buch auch mit den
+  /// Fragen ohne Bereich.
+  List<KnowledgeQuestion> knowledgeOfChapters(String book, int from, int to) {
+    final chapters = catalog.chaptersOf(book);
+
+    final whole =
+        chapters.isNotEmpty && from <= chapters.first && to >= chapters.last;
+
+    return state.knowledge.inChapters(book, from, to, wholeBook: whole);
+  }
+
+  List<KnowledgeQuestion> knowledgeOfSection(OutlineSection section) =>
+      state.knowledge.inSection(section);
+
+  /// Nur Wissensfragen: dieselbe fortlaufende Auswahl, bis zu
+  /// [knowledgeOnlyQuestions] Fragen, davon bis zu [knowledgeOnlyNew] neue.
+  /// Ausgeschaltet: leer.
+  StudySession knowledgeSession(List<KnowledgeQuestion> questions) {
+    return adaptiveSession(
+      StudyMode.knowledge,
+      const [],
+      maxNew: 0,
+      knowledge: questions,
+      knowledgeQuestions: knowledgeOnlyQuestions,
+      maxNewKnowledge: knowledgeOnlyNew,
+    );
+  }
+
+  static const int knowledgeOnlyQuestions = 12;
+  static const int knowledgeOnlyNew = 6;
+
+  /// Schaltet die Wissensfragen ein oder aus. Lernstände bleiben in beiden
+  /// Fällen unverändert gespeichert.
+  Future<void> setKnowledgeEnabled(bool enabled) async {
+    if (state.data.knowledgeEnabled == enabled) return;
+
+    state.data.knowledgeEnabled = enabled;
+
+    refresh();
+
+    try {
+      await storage.saveKnowledgeEnabled(enabled);
+    } catch (e) {
+      debugPrint("Einstellung Wissensfragen nicht gespeichert: $e");
+    }
   }
 
   // ---------- Verspräzisierung ----------

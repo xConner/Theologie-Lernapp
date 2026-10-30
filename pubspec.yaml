@@ -83,6 +83,8 @@ flutter:
       - assets/perikopen.json
       # Gliederungen für „Bücher systematisch lernen“ (Mk: vorläufiges Beispiel).
       - assets/book_outlines.json
+      # Wissensfragen zu biblischen Büchern (Bücher systematisch lernen).
+      - assets/bible_knowledge/
       - assets/liturgical_calendar_2026.json
       - assets/greek_vocabulary.json
       - assets/greek_pronoun_forms.json
@@ -112,6 +114,9 @@ flutter:
       - assets/old_testament/
       - assets/old_testament/units/
       - assets/old_testament/slides/
+      # Aufgaben und Musterantworten der Übung Bibelkunde AT (geschützt wie
+      # alle Vorlesungsunterlagen, siehe docs/lecture-materials.md).
+      - assets/old_testament/model_answers/
       - assets/eg_lieder.json
       # Gesangbücher und Liedsammlungen: Katalog und Lieder der Regionalteile
       # und Ergänzungshefte (siehe docs/hymnals.md).

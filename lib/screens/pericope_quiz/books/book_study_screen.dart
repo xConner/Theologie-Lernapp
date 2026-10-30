@@ -15,6 +15,7 @@ import '../../../quiz/pericope_reference.dart';
 import '../quick_entry_panel.dart';
 import 'bible_passage.dart';
 import 'book_settings.dart';
+import 'knowledge_widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// Anschluss an eine Lerneinheit, z. B. „Weiter mit dem nächsten
@@ -347,6 +348,18 @@ class _BookStudyScreenState extends State<BookStudyScreen> {
         return _buildChoice(task);
       case ArrangeTask():
         return _buildArrange(task);
+      case KnowledgeTask():
+        return KnowledgeTaskView(
+          // Neue Aufgabe = neuer Zustand (Auswahl, Aufdecken).
+          key: ObjectKey(task),
+          task: task,
+          controller: widget.controller,
+          onAnswer: (correct, given) async {
+            await session.answerKnowledge(correct, given: given);
+            if (mounted) _report(correct);
+          },
+          onNext: _next,
+        );
     }
   }
 
@@ -1001,9 +1014,14 @@ class _ResultView extends StatelessWidget {
     // als Stellenabfrage wiederholt.
     final retry = {
       for (final r in mistakes)
-        if (r.task is RecallTask ||
-            (r.task is ChoiceTask && !(r.task as ChoiceTask).isOrder))
-          r.task.target,
+        if (r.task case RecallTask(:final target)) target,
+      for (final r in mistakes)
+        if (r.task case ChoiceTask(:final target, isOrder: false)) target,
+    }.toList();
+
+    final retryKnowledge = {
+      for (final r in mistakes)
+        if (r.task case KnowledgeTask(:final question)) question,
     }.toList();
 
     return ListView(
@@ -1055,7 +1073,7 @@ class _ResultView extends StatelessWidget {
                         label: Text(followUps[i].label),
                         onPressed: () => _start(context, followUps[i]),
                       ),
-                    if (retry.isNotEmpty)
+                    if (retry.isNotEmpty || retryKnowledge.isNotEmpty)
                       OutlinedButton.icon(
                         key: const ValueKey("retry-mistakes"),
                         icon: const Icon(Icons.replay_rounded),
@@ -1068,7 +1086,12 @@ class _ResultView extends StatelessWidget {
                                 controller: controller,
                                 session: controller.fixedSession(
                                   StudyMode.review,
-                                  controller.planner().review(retry),
+                                  [
+                                    ...controller.planner().review(retry),
+                                    ...controller.planner().knowledgeReview(
+                                      retryKnowledge,
+                                    ),
+                                  ],
                                 ),
                                 title: "Fehler wiederholen",
                               ),
@@ -1092,43 +1115,53 @@ class _ResultView extends StatelessWidget {
                   const SizedBox(height: 8),
                   for (final r in mistakes)
                     Card(
-                      child: ListTile(
-                        title: Text(
-                          r.task is ArrangeTask
-                              ? "Reihenfolge"
-                              : r.task.target.title,
+                      child: switch (r.task) {
+                        KnowledgeTask(:final question) => ListTile(
+                          title: Text(question.prompt),
+                          subtitle: Text(
+                            "Deine Antwort: ${r.given}\n"
+                            "Richtig: ${r.expected}",
+                          ),
+                          isThreeLine: true,
                         ),
-                        subtitle: Text(
-                          "Deine Antwort: ${r.given}\n"
-                          "Richtig: ${r.expected}"
-                          "${r.note == null ? "" : "\n${r.note}"}",
+                        ArrangeTask() => ListTile(
+                          title: const Text("Reihenfolge"),
+                          subtitle: Text(
+                            "Deine Antwort: ${r.given}\n"
+                            "Richtig: ${r.expected}",
+                          ),
+                          isThreeLine: true,
                         ),
-                        isThreeLine: true,
-                        trailing: r.task is ArrangeTask
-                            ? null
-                            : IconButton(
-                                key: ValueKey(
-                                  "result-read-${r.task.target.key}",
-                                ),
-                                tooltip: "Bibelstelle lesen",
-                                icon: const Icon(Icons.auto_stories_rounded),
-                                onPressed: () {
-                                  final passage = passageOfPericope(
-                                    controller,
-                                    r.task.target,
-                                  );
+                        PericopeTask(:final target) => ListTile(
+                          title: Text(target.title),
+                          subtitle: Text(
+                            "Deine Antwort: ${r.given}\n"
+                            "Richtig: ${r.expected}"
+                            "${r.note == null ? "" : "\n${r.note}"}",
+                          ),
+                          isThreeLine: true,
+                          trailing: IconButton(
+                            key: ValueKey("result-read-${target.key}"),
+                            tooltip: "Bibelstelle lesen",
+                            icon: const Icon(Icons.auto_stories_rounded),
+                            onPressed: () {
+                              final passage = passageOfPericope(
+                                controller,
+                                target,
+                              );
 
-                                  if (passage != null) {
-                                    openPassage(
-                                      context,
-                                      controller,
-                                      passage,
-                                      title: r.task.target.title,
-                                    );
-                                  }
-                                },
-                              ),
-                      ),
+                              if (passage != null) {
+                                openPassage(
+                                  context,
+                                  controller,
+                                  passage,
+                                  title: target.title,
+                                );
+                              }
+                            },
+                          ),
+                        ),
+                      },
                     ),
                 ],
               ],

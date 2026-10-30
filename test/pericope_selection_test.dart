@@ -89,7 +89,7 @@ void main() {
         random: Random(seed),
       );
 
-      if (queue.next()!.target == p) count++;
+      if ((queue.next()! as PericopeTask).target == p) count++;
     }
 
     return count;
@@ -141,7 +141,8 @@ void main() {
         );
 
         final targets = [
-          for (var t = queue.next(); t != null; t = queue.next()) t.target,
+          for (var t = queue.next(); t != null; t = queue.next())
+          (t as PericopeTask).target,
         ];
 
         first.add(targets.first);
@@ -178,7 +179,8 @@ void main() {
         );
 
         final targets = {
-          for (var t = queue.next(); t != null; t = queue.next()) t.target,
+          for (var t = queue.next(); t != null; t = queue.next())
+          (t as PericopeTask).target,
         };
 
         if (targets.contains(forgotten)) hits++;
@@ -293,7 +295,7 @@ void main() {
 
       final tasks = [for (var t = queue.next(); t != null; t = queue.next()) t];
 
-      expect(tasks.map((t) => t.target), [p]);
+      expect(tasks.map((t) => (t as PericopeTask).target), [p]);
     });
   });
 

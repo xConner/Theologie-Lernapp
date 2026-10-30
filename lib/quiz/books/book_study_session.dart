@@ -93,7 +93,10 @@ class StudySession {
         ...switch (t) {
           ArrangeTask() => t.ordered.map((p) => p.book),
           ChoiceTask() => [t.target.book, ...t.options.map((p) => p.book)],
-          _ => [t.target.book],
+          PericopeTask() => [t.target.book],
+          // Wissensfragen werden nicht als Stelle eingegeben; sie ändern
+          // den Buchkontext der Eingabe nicht.
+          KnowledgeTask() => const <String>[],
         },
     };
 
@@ -136,7 +139,9 @@ class StudySession {
 
     if (q == null) return tasks.isEmpty ? 1 : _index / tasks.length;
 
-    return q.questions == 0 ? 1 : min(1.0, answered / q.questions);
+    return q.totalQuestions == 0
+        ? 1
+        : min(1.0, answered / q.totalQuestions);
   }
 
   String get progressLabel {
@@ -145,13 +150,18 @@ class StudySession {
     if (q == null) return "Aufgabe ${_index + 1} von ${tasks.length}";
 
     if (current is IntroduceTask) {
-      return "Einführung · ${q.asked} von ${q.questions} Abfragen erledigt";
+      return "Einführung · ${q.totalAsked} von ${q.totalQuestions} Abfragen "
+          "erledigt";
+    }
+
+    if (current is KnowledgeTask) {
+      return "Wissensfrage · Abfrage ${q.totalAsked} von ${q.totalQuestions}";
     }
 
     if (q.lastWasRetry) return "Noch einmal nach einem Fehler";
 
     // Die aktuelle Abfrage ist die zuletzt ausgegebene.
-    return "Abfrage ${q.asked} von ${q.questions}";
+    return "Abfrage ${q.totalAsked} von ${q.totalQuestions}";
   }
 
   // Holt bei fortlaufenden Einheiten die nächste Aufgabe – erst nach der
@@ -330,6 +340,33 @@ class StudySession {
     await _saveAll(changed);
 
     return correct;
+  }
+
+  /// Antwort auf eine [KnowledgeTask]: ausgewählt, zugeordnet, geordnet
+  /// oder nach dem Aufdecken selbst eingeschätzt. Verbucht wie ein Abruf
+  /// einer Perikope – die Antwortform gehört zur Frage, darum zählt auch
+  /// eine Auswahl als Abruf (die Antwort war vorher nicht zu sehen).
+  Future<void> answerKnowledge(bool correct, {required String given}) async {
+    final task = current as KnowledgeTask;
+
+    final card = state.knowledgeCardFor(task.question);
+
+    BookLearningRules.recordRecall(card, correct, algorithm, state.now);
+
+    results.add(
+      StudyResult(
+        task: task,
+        correct: correct,
+        given: given,
+        expected: task.question.solutionText,
+      ),
+    );
+
+    final save = storage.saveKnowledgeCards([card]).catchError((Object e) {
+      debugPrint("Lernstand konnte nicht gespeichert werden: $e");
+    });
+
+    _pending = Future.wait([_pending, save]);
   }
 
   Future<void> _save(BookCard card) => _saveAll([card]);

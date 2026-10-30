@@ -1,0 +1,558 @@
+{
+ "book": "Ex",
+ "source": "Fragen der App zum Bibeltext (Luther 1912 / Lutherbibel); Erläuterungen gekennzeichnet.",
+ "questions": [
+  {
+   "id": "bq.ex.neuer_koenig",
+   "format": "choice",
+   "topic": "connection",
+   "prompt": "Welcher Satz verbindet den Anfang des Exodus mit der Josefsgeschichte?",
+   "correct": [
+    "„Da kam ein neuer König auf in Ägypten, der wusste nichts von Josef.“"
+   ],
+   "distractors": [
+    "„Und Josef starb und alle seine Brüder.“",
+    "„Ich bin der Gott deines Vaters, der Gott Abrahams.“",
+    "„Lass mein Volk ziehen!“"
+   ],
+   "range": "1",
+   "refs": [
+    "Ex 1,8"
+   ],
+   "explanation": "Ex 1,6 erwähnt Josefs Tod; Ex 1,8 leitet aber den Umschwung zur Unterdrückung ein."
+  },
+  {
+   "id": "bq.ex.hebammen",
+   "format": "choice",
+   "topic": "person",
+   "prompt": "Wie heißen die hebräischen Hebammen, die dem Befehl des Pharao nicht gehorchen?",
+   "correct": [
+    "Schifra und Pua"
+   ],
+   "distractors": [
+    "Mirjam und Zippora",
+    "Bilha und Silpa",
+    "Jochebed und Elischeba"
+   ],
+   "range": "1",
+   "refs": [
+    "Ex 1,15-17"
+   ]
+  },
+  {
+   "id": "bq.ex.tochter_pharao",
+   "format": "choice",
+   "topic": "person",
+   "prompt": "Wer findet den kleinen Mose im Kästchen am Nil?",
+   "correct": [
+    "Die Tochter des Pharao"
+   ],
+   "distractors": [
+    "Seine Schwester Mirjam",
+    "Eine der Hebammen",
+    "Die Frau Potifars"
+   ],
+   "range": "2,1-14",
+   "refs": [
+    "Ex 2,5-10"
+   ],
+   "explanation": "Mirjam (in Ex 2 noch ohne Namen) beobachtet das Kästchen und holt die Mutter als Amme."
+  },
+  {
+   "id": "bq.ex.flucht",
+   "format": "choice",
+   "topic": "event",
+   "prompt": "Warum flieht Mose nach Midian?",
+   "correct": [
+    "Er hat einen Ägypter erschlagen, der einen Hebräer schlug"
+   ],
+   "distractors": [
+    "Der Pharao will ihn wegen der Plagen töten",
+    "Er sucht eine Frau aus seiner Verwandtschaft",
+    "Gott schickt ihn zu Jitro, um Priester zu werden"
+   ],
+   "range": "2,11-22",
+   "refs": [
+    "Ex 2,11-15"
+   ]
+  },
+  {
+   "id": "bq.ex.dornbusch",
+   "format": "choice",
+   "topic": "place",
+   "prompt": "Wo beruft Gott Mose?",
+   "correct": [
+    "Im brennenden Dornbusch am Gottesberg Horeb"
+   ],
+   "distractors": [
+    "Im Traum in Bet-El",
+    "Am Ufer des Schilfmeers",
+    "Im Zelt der Begegnung"
+   ],
+   "range": "3",
+   "refs": [
+    "Ex 3,1-10"
+   ]
+  },
+  {
+   "id": "bq.ex.personen",
+   "format": "match",
+   "topic": "person",
+   "prompt": "Ordne die Personen ihrer Rolle im Buch Exodus zu.",
+   "pairs": [
+    [
+     "Aaron",
+     "Bruder des Mose, der für ihn redet"
+    ],
+    [
+     "Mirjam",
+     "Schwester des Mose, Prophetin"
+    ],
+    [
+     "Jitro",
+     "Priester von Midian, Schwiegervater des Mose"
+    ],
+    [
+     "Josua",
+     "Anführer im Kampf gegen Amalek"
+    ],
+    [
+     "Bezalel",
+     "Kunsthandwerker für das Heiligtum"
+    ]
+   ],
+   "refs": [
+    "Ex 4,14-16",
+    "Ex 15,20",
+    "Ex 18,1",
+    "Ex 17,9",
+    "Ex 31,2-5"
+   ]
+  },
+  {
+   "id": "bq.ex.zippora",
+   "format": "choice",
+   "topic": "person",
+   "prompt": "Wie heißt die Frau des Mose?",
+   "correct": [
+    "Zippora"
+   ],
+   "distractors": [
+    "Mirjam",
+    "Elischeba",
+    "Asenat"
+   ],
+   "range": "2,11-22",
+   "refs": [
+    "Ex 2,21"
+   ]
+  },
+  {
+   "id": "bq.ex.stroh",
+   "format": "choice",
+   "topic": "event",
+   "prompt": "Wie reagiert der Pharao auf die erste Bitte von Mose und Aaron?",
+   "correct": [
+    "Er verschärft die Fronarbeit: Die Israeliten bekommen kein Stroh mehr für die Ziegel"
+   ],
+   "distractors": [
+    "Er lässt das Volk für drei Tage in die Wüste ziehen",
+    "Er befiehlt, die neugeborenen Knaben zu töten",
+    "Er bittet Mose, für ihn zu beten"
+   ],
+   "range": "5",
+   "refs": [
+    "Ex 5,6-9"
+   ],
+   "explanation": "Den Befehl, die Knaben zu töten, gibt der Pharao schon in Ex 1,22."
+  },
+  {
+   "id": "bq.ex.passa",
+   "format": "multi",
+   "topic": "law",
+   "prompt": "Was gehört nach Ex 12 zum Passamahl?",
+   "correct": [
+    "Ein fehlerloses Lamm",
+    "Blut an Türpfosten und Oberschwelle",
+    "Ungesäuertes Brot",
+    "Bittere Kräuter"
+   ],
+   "distractors": [
+    "Milch und Honig",
+    "Ein Fasttag bis zum Abend"
+   ],
+   "range": "12,1-28",
+   "refs": [
+    "Ex 12,5-8"
+   ]
+  },
+  {
+   "id": "bq.ex.blut",
+   "format": "choice",
+   "topic": "theme",
+   "prompt": "Was bewirkt das Blut des Passalamms an den Türen?",
+   "correct": [
+    "Der HERR geht an diesen Häusern vorüber und schlägt die Erstgeburt dort nicht"
+   ],
+   "distractors": [
+    "Es reinigt das Haus von Aussatz",
+    "Es weiht die Erstgeborenen zu Priestern",
+    "Es zeigt den Ägyptern, wer zum Auszug bereit ist"
+   ],
+   "range": "12",
+   "refs": [
+    "Ex 12,13"
+   ],
+   "explanation": "Das NT nimmt das Bild auf: „Christus, unser Passalamm, ist geopfert“ (1 Kor 5,7)."
+  },
+  {
+   "id": "bq.ex.saeulen",
+   "format": "choice",
+   "topic": "event",
+   "prompt": "Wie führt Gott Israel nach dem Auszug durch die Wüste?",
+   "correct": [
+    "Am Tag in einer Wolkensäule, in der Nacht in einer Feuersäule"
+   ],
+   "distractors": [
+    "Durch einen Stern, der vor ihnen herzieht",
+    "Durch einen Engel in Menschengestalt, der den Weg zeigt",
+    "Durch die Lade, die die Priester vorantragen"
+   ],
+   "range": "13,17-22",
+   "refs": [
+    "Ex 13,21-22"
+   ]
+  },
+  {
+   "id": "bq.ex.schilfmeer",
+   "format": "choice",
+   "topic": "event",
+   "prompt": "Was geschieht am Schilfmeer (Ex 14)?",
+   "correct": [
+    "Israel zieht auf dem Trockenen hindurch, die nachsetzenden Ägypter ertrinken"
+   ],
+   "distractors": [
+    "Israel wird geschlagen und muss nach Ägypten zurück",
+    "Mose teilt das Wasser, aber nur Mose und Aaron ziehen hindurch",
+    "Die Ägypter schließen am Ufer Frieden mit Israel"
+   ],
+   "range": "14",
+   "refs": [
+    "Ex 14,21-31"
+   ]
+  },
+  {
+   "id": "bq.ex.mara",
+   "format": "choice",
+   "topic": "place",
+   "prompt": "Was geschieht in Mara (Ex 15,22–25)?",
+   "correct": [
+    "Das bittere Wasser wird süß, als Mose ein Holz hineinwirft"
+   ],
+   "distractors": [
+    "Mose schlägt Wasser aus dem Felsen",
+    "Gott gibt zum ersten Mal Manna",
+    "Israel besiegt die Amalekiter"
+   ],
+   "range": "15,22-27",
+   "refs": [
+    "Ex 15,22-25"
+   ]
+  },
+  {
+   "id": "bq.ex.manna",
+   "format": "choice",
+   "topic": "event",
+   "prompt": "Womit versorgt Gott Israel in der Wüste Sin (Ex 16)?",
+   "correct": [
+    "Mit Manna und Wachteln"
+   ],
+   "distractors": [
+    "Mit Feigen und Granatäpfeln",
+    "Mit Fischen aus dem Schilfmeer",
+    "Mit Brot, das Jitro schickt"
+   ],
+   "range": "16",
+   "refs": [
+    "Ex 16,13-15"
+   ],
+   "explanation": "Am sechsten Tag gibt es die doppelte Menge, damit am Sabbat geruht wird (Ex 16,22-30)."
+  },
+  {
+   "id": "bq.ex.massa",
+   "format": "choice",
+   "topic": "place",
+   "prompt": "Was geschieht in Massa und Meriba (Ex 17,1–7)?",
+   "correct": [
+    "Das Volk murrt und hadert, und Mose schlägt Wasser aus dem Felsen"
+   ],
+   "distractors": [
+    "Das Volk betet das Goldene Kalb an",
+    "Mose setzt Richter über das Volk ein",
+    "Aaron und Mirjam lehnen sich gegen Mose auf"
+   ],
+   "range": "17,1-7",
+   "refs": [
+    "Ex 17,1-7"
+   ],
+   "explanation": "Die Namen bedeuten „Versuchung“ und „Streit“ (Ex 17,7)."
+  },
+  {
+   "id": "bq.ex.amalek",
+   "format": "choice",
+   "topic": "event",
+   "prompt": "Wovon hängt der Sieg über Amalek ab (Ex 17,8–16)?",
+   "correct": [
+    "Solange Mose die Hände emporhält, siegt Israel – Aaron und Hur stützen seine Arme"
+   ],
+   "distractors": [
+    "Von der Zahl der Krieger, die Josua mustert",
+    "Von der Lade, die vor dem Heer hergetragen wird",
+    "Vom Schall der Posaunen"
+   ],
+   "range": "17,8-16",
+   "refs": [
+    "Ex 17,11-12"
+   ]
+  },
+  {
+   "id": "bq.ex.jitro",
+   "format": "choice",
+   "topic": "person",
+   "prompt": "Was rät Jitro dem Mose (Ex 18)?",
+   "correct": [
+    "Tüchtige Männer als Richter einzusetzen, damit Mose nur die schweren Fälle entscheidet"
+   ],
+   "distractors": [
+    "Nach Midian zurückzukehren",
+    "Dem Pharao Tribut zu zahlen",
+    "Ein Zelt der Begegnung zu bauen"
+   ],
+   "range": "18",
+   "refs": [
+    "Ex 18,17-26"
+   ]
+  },
+  {
+   "id": "bq.ex.priester",
+   "format": "choice",
+   "topic": "theme",
+   "prompt": "Was soll Israel nach dem Bundesangebot am Sinai sein (Ex 19,6)?",
+   "correct": [
+    "Ein Königreich von Priestern und ein heiliges Volk"
+   ],
+   "distractors": [
+    "Ein Volk ohne König und ohne Priester",
+    "Ein Licht der Völker bis an die Enden der Erde",
+    "Ein Volk von Propheten"
+   ],
+   "range": "19",
+   "refs": [
+    "Ex 19,5-6"
+   ],
+   "explanation": "1 Petr 2,9 nimmt das Wort für die Gemeinde auf."
+  },
+  {
+   "id": "bq.ex.praeambel",
+   "format": "choice",
+   "topic": "law",
+   "prompt": "Womit beginnt der Dekalog (Ex 20,2)?",
+   "correct": [
+    "Mit der Selbstvorstellung Gottes, der Israel aus Ägypten befreit hat"
+   ],
+   "distractors": [
+    "Mit dem Gebot, den Sabbat zu heiligen",
+    "Mit dem Verbot, fremde Götter zu haben",
+    "Mit einem Fluch über alle, die das Gesetz brechen"
+   ],
+   "range": "20,1-21",
+   "refs": [
+    "Ex 20,2"
+   ],
+   "explanation": "Die Gebote folgen auf Gottes Heilstat: Erst befreit Gott, dann gebietet er."
+  },
+  {
+   "id": "bq.ex.bundesblut",
+   "format": "choice",
+   "topic": "law",
+   "prompt": "Womit besiegelt Mose den Bundesschluss in Ex 24?",
+   "correct": [
+    "Er besprengt das Volk mit dem Blut des Bundes"
+   ],
+   "distractors": [
+    "Er zerbricht die Tafeln vor dem Volk",
+    "Er beschneidet alle Männer",
+    "Er salbt Aaron zum Hohenpriester"
+   ],
+   "range": "24",
+   "refs": [
+    "Ex 24,8"
+   ],
+   "explanation": "Jesus spricht beim Abendmahl vom „Blut des Bundes“ (Mk 14,24)."
+  },
+  {
+   "id": "bq.ex.heiligtum",
+   "format": "multi",
+   "topic": "law",
+   "prompt": "Welche Gegenstände gehören nach Ex 25 zum Heiligtum?",
+   "correct": [
+    "Die Lade",
+    "Der Tisch für die Schaubrote",
+    "Der goldene Leuchter"
+   ],
+   "distractors": [
+    "Die eherne Schlange",
+    "Das Goldene Kalb"
+   ],
+   "range": "25",
+   "refs": [
+    "Ex 25,10-40"
+   ],
+   "explanation": "Die eherne Schlange gehört zu Num 21, das Goldene Kalb zu Ex 32."
+  },
+  {
+   "id": "bq.ex.lade_inhalt",
+   "format": "choice",
+   "topic": "law",
+   "prompt": "Was soll nach Ex 25,16 in die Lade gelegt werden?",
+   "correct": [
+    "Das „Zeugnis“, die Tafeln des Gesetzes"
+   ],
+   "distractors": [
+    "Ein Krug mit Wasser aus dem Felsen",
+    "Die Gebeine Josefs",
+    "Das Gewand des Hohenpriesters"
+   ],
+   "range": "25",
+   "refs": [
+    "Ex 25,16"
+   ]
+  },
+  {
+   "id": "bq.ex.kalb_aaron",
+   "format": "choice",
+   "topic": "person",
+   "prompt": "Wer fertigt das Goldene Kalb an?",
+   "correct": [
+    "Aaron"
+   ],
+   "distractors": [
+    "Josua",
+    "Bezalel",
+    "Jitro"
+   ],
+   "range": "32",
+   "refs": [
+    "Ex 32,2-4"
+   ]
+  },
+  {
+   "id": "bq.ex.tafeln",
+   "format": "choice",
+   "topic": "event",
+   "prompt": "Was tut Mose, als er das Goldene Kalb und den Reigen sieht?",
+   "correct": [
+    "Er zerbricht die Tafeln am Fuß des Berges"
+   ],
+   "distractors": [
+    "Er verlässt das Volk und kehrt nach Midian zurück",
+    "Er setzt Aaron als Priester ab",
+    "Er befiehlt Josua, das Lager zu verlassen"
+   ],
+   "range": "32",
+   "refs": [
+    "Ex 32,19"
+   ]
+  },
+  {
+   "id": "bq.ex.fuerbitte",
+   "format": "choice",
+   "topic": "theme",
+   "prompt": "Was bewirkt die Fürbitte des Mose nach dem Goldenen Kalb (Ex 32,11–14)?",
+   "correct": [
+    "Den HERRN reut das Unheil, das er seinem Volk angedroht hatte"
+   ],
+   "distractors": [
+    "Gott verlegt den Bund auf Moses Nachkommen",
+    "Das Volk muss sofort nach Ägypten zurück",
+    "Aaron wird zum Tod verurteilt"
+   ],
+   "range": "32",
+   "refs": [
+    "Ex 32,14"
+   ]
+  },
+  {
+   "id": "bq.ex.ruecken",
+   "format": "choice",
+   "topic": "theme",
+   "prompt": "Was darf Mose von Gottes Herrlichkeit sehen (Ex 33)?",
+   "correct": [
+    "Nur Gottes Rücken, nicht sein Angesicht"
+   ],
+   "distractors": [
+    "Gottes Angesicht für einen Augenblick",
+    "Nichts – Gott zeigt sich nur im Donner",
+    "Einen Engel in Gestalt eines Mannes"
+   ],
+   "range": "33",
+   "refs": [
+    "Ex 33,20-23"
+   ]
+  },
+  {
+   "id": "bq.ex.angesicht",
+   "format": "choice",
+   "topic": "event",
+   "prompt": "Was geschieht mit Mose, als er mit den neuen Tafeln vom Sinai kommt?",
+   "correct": [
+    "Die Haut seines Angesichts glänzt; er legt eine Decke darauf"
+   ],
+   "distractors": [
+    "Er ist erblindet und muss geführt werden",
+    "Sein Haar ist weiß geworden",
+    "Er kann nicht mehr sprechen, bis Aaron für ihn redet"
+   ],
+   "range": "34",
+   "refs": [
+    "Ex 34,29-35"
+   ],
+   "explanation": "Paulus deutet die Decke in 2 Kor 3,7-18."
+  },
+  {
+   "id": "bq.ex.herrlichkeit",
+   "format": "choice",
+   "topic": "structure",
+   "prompt": "Wie endet das Buch Exodus?",
+   "correct": [
+    "Die Wolke bedeckt das Zelt der Begegnung, und die Herrlichkeit des HERRN erfüllt die Wohnung"
+   ],
+   "distractors": [
+    "Mose stirbt auf dem Berg Nebo",
+    "Israel bricht vom Sinai nach Kanaan auf und erobert Jericho",
+    "Aaron wird zum Hohenpriester gesalbt"
+   ],
+   "range": "40",
+   "refs": [
+    "Ex 40,34-38"
+   ],
+   "explanation": "Moses Tod steht in Dtn 34, der Aufbruch vom Sinai in Num 10, die Priesterweihe in Lev 8."
+  },
+  {
+   "id": "bq.ex.ereignisse",
+   "format": "order",
+   "topic": "structure",
+   "prompt": "Bringe die Ereignisse des Buches Exodus in die richtige Reihenfolge.",
+   "items": [
+    "Berufung am Dornbusch",
+    "Plagen über Ägypten",
+    "Passa und Auszug",
+    "Durchzug durch das Schilfmeer",
+    "Manna in der Wüste",
+    "Dekalog am Sinai",
+    "Goldenes Kalb",
+    "Aufrichtung des Heiligtums"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,372 @@
+{
+ "book": "Lev",
+ "source": "Fragen der App zum Bibeltext (Luther 1912 / Lutherbibel); Erläuterungen gekennzeichnet.",
+ "questions": [
+  {
+   "id": "bq.lev.stiftshuette",
+   "format": "choice",
+   "topic": "connection",
+   "prompt": "Von wo aus redet Gott nach Lev 1,1 die Gesetze des Levitikus zu Mose?",
+   "correct": [
+    "Aus dem Zelt der Begegnung (Stiftshütte)"
+   ],
+   "distractors": [
+    "Vom Gipfel des Sinai",
+    "Aus dem brennenden Dornbusch",
+    "In den Steppen Moabs"
+   ],
+   "range": "1",
+   "refs": [
+    "Lev 1,1"
+   ],
+   "explanation": "Damit schließt Levitikus an das Ende des Exodus an, wo die Herrlichkeit Gottes die Wohnung erfüllt (Ex 40,34-35)."
+  },
+  {
+   "id": "bq.lev.opferarten",
+   "format": "match",
+   "topic": "law",
+   "prompt": "Ordne die Opferarten ihrem Kennzeichen zu.",
+   "pairs": [
+    [
+     "Brandopfer",
+     "wird ganz auf dem Altar verbrannt"
+    ],
+    [
+     "Speiseopfer",
+     "Gabe aus Feinmehl mit Öl und Weihrauch"
+    ],
+    [
+     "Heilsopfer",
+     "Fett für Gott, das Fleisch wird im Mahl gegessen"
+    ],
+    [
+     "Sündopfer",
+     "Sühne für unwissentliche Verfehlung"
+    ],
+    [
+     "Schuldopfer",
+     "Sühne mit Ersatz und einem Fünftel Zuschlag"
+    ]
+   ],
+   "range": "1-7",
+   "refs": [
+    "Lev 1,9",
+    "Lev 2,1",
+    "Lev 3,3-5",
+    "Lev 4,2",
+    "Lev 5,16"
+   ]
+  },
+  {
+   "id": "bq.lev.priesterweihe",
+   "format": "choice",
+   "topic": "person",
+   "prompt": "Wer weiht nach Lev 8 Aaron und seine Söhne zu Priestern?",
+   "correct": [
+    "Mose"
+   ],
+   "distractors": [
+    "Jitro",
+    "Josua",
+    "Aaron selbst"
+   ],
+   "range": "8",
+   "refs": [
+    "Lev 8,1-13"
+   ]
+  },
+  {
+   "id": "bq.lev.nadab",
+   "format": "choice",
+   "topic": "person",
+   "prompt": "Was geschieht mit Nadab und Abihu (Lev 10)?",
+   "correct": [
+    "Sie bringen fremdes Feuer dar und sterben durch Feuer vom HERRN"
+   ],
+   "distractors": [
+    "Sie werden zu Hohenpriestern gesalbt",
+    "Sie fertigen das Goldene Kalb",
+    "Sie werden wegen Aussatz aus dem Lager gewiesen"
+   ],
+   "range": "10",
+   "refs": [
+    "Lev 10,1-2"
+   ]
+  },
+  {
+   "id": "bq.lev.reine_tiere",
+   "format": "choice",
+   "topic": "law",
+   "prompt": "Welche Landtiere gelten nach Lev 11 als rein?",
+   "correct": [
+    "Tiere mit ganz gespaltenen Klauen, die wiederkäuen"
+   ],
+   "distractors": [
+    "Alle Tiere, die Gras fressen",
+    "Tiere, die nicht auf vier Füßen gehen",
+    "Alle Haustiere, auch Schwein und Kamel"
+   ],
+   "range": "11",
+   "refs": [
+    "Lev 11,3"
+   ]
+  },
+  {
+   "id": "bq.lev.aussatz",
+   "format": "choice",
+   "topic": "law",
+   "prompt": "Wer stellt nach Lev 13 fest, ob jemand Aussatz hat?",
+   "correct": [
+    "Der Priester"
+   ],
+   "distractors": [
+    "Der Älteste der Sippe",
+    "Ein Arzt aus dem Lager",
+    "Der Kranke selbst"
+   ],
+   "range": "13-14",
+   "refs": [
+    "Lev 13,2-3"
+   ],
+   "explanation": "Vgl. Jesu Wort an den geheilten Aussätzigen: „Zeige dich dem Priester“ (Mk 1,44)."
+  },
+  {
+   "id": "bq.lev.allerheiligstes",
+   "format": "choice",
+   "topic": "law",
+   "prompt": "Wer darf am Versöhnungstag in das Allerheiligste hinter den Vorhang gehen?",
+   "correct": [
+    "Nur der Hohepriester (Aaron)"
+   ],
+   "distractors": [
+    "Alle Priester",
+    "Mose und Aaron gemeinsam",
+    "Die Leviten"
+   ],
+   "range": "16",
+   "refs": [
+    "Lev 16,2",
+    "Lev 16,34"
+   ],
+   "explanation": "Hebr 9,7.11-12 deutet den Dienst des Hohenpriesters auf Christus."
+  },
+  {
+   "id": "bq.lev.asasel",
+   "format": "choice",
+   "topic": "law",
+   "prompt": "Was geschieht am Versöhnungstag mit dem zweiten Bock (Lev 16)?",
+   "correct": [
+    "Er wird mit den Sünden des Volkes beladen in die Wüste geschickt („für Asasel“)"
+   ],
+   "distractors": [
+    "Er wird als Brandopfer ganz verbrannt",
+    "Er wird dem Hohenpriester als Anteil gegeben",
+    "Er wird am Passa geschlachtet"
+   ],
+   "range": "16",
+   "refs": [
+    "Lev 16,8-10",
+    "Lev 16,21-22"
+   ]
+  },
+  {
+   "id": "bq.lev.blut",
+   "format": "choice",
+   "topic": "law",
+   "prompt": "Warum darf nach Lev 17,11 kein Blut gegessen werden?",
+   "correct": [
+    "Das Leben ist im Blut; es ist zur Sühne auf den Altar gegeben"
+   ],
+   "distractors": [
+    "Weil Blut als Speise den Götzen geweiht ist",
+    "Weil es nur den Priestern zusteht",
+    "Weil Blut Aussatz überträgt"
+   ],
+   "range": "17",
+   "refs": [
+    "Lev 17,11"
+   ]
+  },
+  {
+   "id": "bq.lev.nachlese",
+   "format": "choice",
+   "topic": "law",
+   "prompt": "Was gebietet Lev 19,9–10 zugunsten der Armen und Fremden?",
+   "correct": [
+    "Den Rand des Feldes nicht abzuernten und keine Nachlese zu halten"
+   ],
+   "distractors": [
+    "Den Zehnten an die Leviten zu geben",
+    "Alle sieben Jahre die Schulden zu erlassen",
+    "Fremden kein Land zu verkaufen"
+   ],
+   "range": "19",
+   "refs": [
+    "Lev 19,9-10"
+   ]
+  },
+  {
+   "id": "bq.lev.fremde",
+   "format": "choice",
+   "topic": "theme",
+   "prompt": "Wie soll Israel nach Lev 19,33–34 den Fremden behandeln?",
+   "correct": [
+    "Ihn lieben wie sich selbst, denn Israel war selbst fremd in Ägypten"
+   ],
+   "distractors": [
+    "Ihn dulden, aber vom Gottesdienst fernhalten",
+    "Ihm nach sieben Jahren das Land verweisen",
+    "Ihn wie einen Knecht halten"
+   ],
+   "range": "19",
+   "refs": [
+    "Lev 19,33-34"
+   ]
+  },
+  {
+   "id": "bq.lev.doppelgebot",
+   "format": "choice",
+   "topic": "connection",
+   "prompt": "Wo nimmt Jesus Lev 19,18 auf?",
+   "correct": [
+    "Im Doppelgebot der Liebe (Mt 22,39; Mk 12,31)"
+   ],
+   "distractors": [
+    "In der Bergpredigt bei den Seligpreisungen",
+    "Im Vaterunser",
+    "Bei der Tempelreinigung"
+   ],
+   "range": "19",
+   "refs": [
+    "Lev 19,18",
+    "Mt 22,37-40"
+   ]
+  },
+  {
+   "id": "bq.lev.feste",
+   "format": "order",
+   "topic": "law",
+   "prompt": "Bringe die Feste in Lev 23 in die Reihenfolge des Kapitels.",
+   "items": [
+    "Sabbat",
+    "Passa und Fest der ungesäuerten Brote",
+    "Erstlingsgarbe",
+    "Wochenfest",
+    "Neujahrstag (Posaunenblasen)",
+    "Versöhnungstag",
+    "Laubhüttenfest"
+   ],
+   "range": "23",
+   "refs": [
+    "Lev 23"
+   ]
+  },
+  {
+   "id": "bq.lev.festzeiten",
+   "format": "match",
+   "topic": "law",
+   "prompt": "Ordne die Feste ihrem Kennzeichen nach Lev 23 zu.",
+   "pairs": [
+    [
+     "Passa",
+     "14. Tag des ersten Monats"
+    ],
+    [
+     "Wochenfest",
+     "50 Tage nach der Erstlingsgarbe"
+    ],
+    [
+     "Versöhnungstag",
+     "10. Tag des siebten Monats, Fasten und Sühne"
+    ],
+    [
+     "Laubhüttenfest",
+     "Wohnen in Hütten zur Erinnerung an den Auszug"
+    ]
+   ],
+   "range": "23",
+   "refs": [
+    "Lev 23,5",
+    "Lev 23,15-16",
+    "Lev 23,27",
+    "Lev 23,42-43"
+   ]
+  },
+  {
+   "id": "bq.lev.sabbatjahr",
+   "format": "choice",
+   "topic": "law",
+   "prompt": "Was gilt nach Lev 25 im siebten Jahr?",
+   "correct": [
+    "Das Land hält Sabbat: Es wird weder gesät noch geerntet"
+   ],
+   "distractors": [
+    "Alle Sklaven aus fremden Völkern werden frei",
+    "Jede Familie zieht nach Jerusalem",
+    "Die Priester werden neu geweiht"
+   ],
+   "range": "25",
+   "refs": [
+    "Lev 25,2-7"
+   ]
+  },
+  {
+   "id": "bq.lev.jobeljahr",
+   "format": "choice",
+   "topic": "law",
+   "prompt": "Was geschieht im Jobeljahr (Lev 25)?",
+   "correct": [
+    "Im 50. Jahr kehrt jeder zu seinem Besitz und seiner Sippe zurück"
+   ],
+   "distractors": [
+    "Im 40. Jahr wird der Tempel neu geweiht",
+    "Im 7. Jahr werden alle Schulden der Fremden erlassen",
+    "Im 50. Jahr wird ein neuer Hohepriester gewählt"
+   ],
+   "range": "25",
+   "refs": [
+    "Lev 25,10-13"
+   ]
+  },
+  {
+   "id": "bq.lev.segen_fluch",
+   "format": "choice",
+   "topic": "theme",
+   "prompt": "Wovon hängen Segen und Fluch in Lev 26 ab?",
+   "correct": [
+    "Vom Gehorsam gegenüber Gottes Satzungen und Geboten"
+   ],
+   "distractors": [
+    "Von der Zahl der dargebrachten Opfer",
+    "Von der Treue der Priester allein",
+    "Vom Ausgang der Kriege gegen die Nachbarvölker"
+   ],
+   "range": "26",
+   "refs": [
+    "Lev 26,3",
+    "Lev 26,14-15"
+   ],
+   "explanation": "Auch nach dem Fluch bleibt Gottes Zusage: Er gedenkt seines Bundes mit Jakob, Isaak und Abraham (Lev 26,42)."
+  },
+  {
+   "id": "bq.lev.kapitelzahl",
+   "format": "match",
+   "topic": "structure",
+   "prompt": "Ordne den ersten drei Büchern Mose ihre Kapitelzahl zu.",
+   "pairs": [
+    [
+     "Genesis",
+     "50 Kapitel"
+    ],
+    [
+     "Exodus",
+     "40 Kapitel"
+    ],
+    [
+     "Levitikus",
+     "27 Kapitel"
+    ]
+   ]
+  }
+ ]
+}

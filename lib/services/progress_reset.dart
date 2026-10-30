@@ -39,7 +39,10 @@ enum ProgressArea {
     label: "Perikopenkenntnisse",
     resetTitle: "Perikopenkenntnisse zurücksetzen",
     collection: LocalLearningStore.perikopen,
-    documents: [LocalLearningStore.pericopeBooks],
+    documents: [
+      LocalLearningStore.pericopeBooks,
+      LocalLearningStore.bibleKnowledge,
+    ],
   ),
   memorization(
     label: "Texte auswendig lernen",
@@ -103,8 +106,8 @@ enum ProgressArea {
         return "Die Lernstände des Grammatiktrainers (Altgriechisch).";
       case ProgressArea.pericopes:
         return "Die Lernstände im Perikopenquiz und in „Bücher systematisch "
-            "lernen“ für alle Bibelbücher. Verspräzisierungen und Lernpläne "
-            "bleiben erhalten.";
+            "lernen“ für alle Bibelbücher, einschließlich der Wissensfragen. "
+            "Verspräzisierungen und Lernpläne bleiben erhalten.";
       case ProgressArea.memorization:
         return "Die Lernstände aller Abschnitte unter „Texte auswendig "
             "lernen“.";

@@ -52,7 +52,7 @@ class BookLearningSettingsButton extends StatelessWidget {
                 ),
               ],
             ),
-            moduleSettings: const BookLearningSettingsView(),
+            moduleSettings: BookLearningSettingsView(controller: controller),
           ),
         );
 
@@ -62,10 +62,14 @@ class BookLearningSettingsButton extends StatelessWidget {
   }
 }
 
-/// Optionen von „Bücher systematisch lernen“. Bewusst wenige; beide gelten
-/// zugleich im Perikopenquiz (gleiche gespeicherte Wahl).
+/// Optionen von „Bücher systematisch lernen“. Bewusst wenige; Antwortform
+/// und Schnelleingabe gelten zugleich im Perikopenquiz (gleiche gespeicherte
+/// Wahl). Der Schalter für die Wissensfragen wird mit dem Konto gespeichert.
 class BookLearningSettingsView extends StatefulWidget {
-  const BookLearningSettingsView({super.key});
+  /// Für den Schalter „Wissensfragen einbeziehen“; ohne ihn fehlt er.
+  final BookLearningController? controller;
+
+  const BookLearningSettingsView({super.key, this.controller});
 
   @override
   State<BookLearningSettingsView> createState() =>
@@ -141,6 +145,22 @@ class _BookLearningSettingsViewState extends State<BookLearningSettingsView> {
           value: quickEntry,
           onChanged: _setQuickEntry,
         ),
+        if (widget.controller case final controller?)
+          ListenableBuilder(
+            listenable: controller,
+            builder: (context, _) => SwitchListTile(
+              key: const ValueKey("book-settings-knowledge"),
+              contentPadding: EdgeInsets.zero,
+              title: const Text("Wissensfragen einbeziehen"),
+              subtitle: const Text(
+                "Inhaltliche Fragen zu Personen, Ereignissen und Begriffen "
+                "in Lerneinheiten und Wiederholungen. Ausschalten löscht "
+                "keinen Fortschritt.",
+              ),
+              value: controller.state.knowledgeEnabled,
+              onChanged: controller.setKnowledgeEnabled,
+            ),
+          ),
         const SoundSettingsSection(module: SoundModule.pericopeQuiz),
         const SizedBox(height: 8),
         Text(

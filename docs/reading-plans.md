@@ -167,13 +167,15 @@ geplant von `CourseSchedule` (`lib/services/bible/course_reading_schedule.dart`)
   dort nur **gezielte Wiederholung** (optional, eigener Haken) und zählt
   nicht noch einmal.
 
-### Umfang: nur benötigte Kapitel oder ganze Bücher
+### Umfang: nur vorgesehene Kapitel oder alle Kapitel der Bücher
 
-Schalter „Ganze Bücher lesen“ im Plan (`wholeBooks` im Fortschritt,
-`CourseReadingProgress.withWholeBooks`), jederzeit umschaltbar:
+Schalter „Alle Kapitel der behandelten Bücher“ im Plan (`wholeBooks` im
+Fortschritt, `CourseReadingProgress.withWholeBooks`), jederzeit
+umschaltbar:
 
-* **Aus (Standard)**: nur die Stellen der Sitzung.
-* **An**: jede Sitzung liest die Bücher, die sie behandelt, ganz – in
+* **Aus (Standard, „Nur vorgesehene Kapitel“)**: nur die Stellen der
+  Sitzung.
+* **An („Alle Kapitel der behandelten Bücher“)**: jede Sitzung liest die Bücher, die sie behandelt, ganz – in
   Buch- und Kapitelreihenfolge. Eigene Kapitel bleiben, Versbereiche werden
   zum ganzen Kapitel; die übrigen Kapitel kommen als **ergänzend** markierte
   Lesestücke (`ScheduledPiece.extra`) dazu und werden über denselben
@@ -186,6 +188,10 @@ Schalter „Ganze Bücher lesen“ im Plan (`wholeBooks` im Fortschritt,
 * Erledigtes bleibt in beiden Richtungen erhalten, weil je Lesestück
   gespeichert wird; beim Umschalten meldet die App, wie viele Kapitel
   ergänzt bzw. weggelassen werden.
+* Der Kursplan selbst wird nie überschrieben: Die Ergänzung wird bei jeder
+  Berechnung neu gebildet. Eigene Änderungen einer Sitzung (Overrides)
+  gelten in beiden Modi; ihre Kapitel zählen als eigene Stellen und werden
+  nicht doppelt ergänzt.
 
 ### Auswahl und Anzeige
 

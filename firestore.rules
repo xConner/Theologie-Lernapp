@@ -9,6 +9,7 @@ rules_version = '2';
 //                                               memorization_settings, notification_settings, ...)
 //   users/{uid}/quiz_settings/perikopen
 //   users/{uid}/quiz_settings/{pericope_books|pericope_precision|pericope_plans}
+//   users/{uid}/quiz_settings/{bible_knowledge|bible_knowledge_settings}
 //                                              (Bücher systematisch lernen)
 //   users/{uid}/quiz_settings/logic_course     (Einführung in die Logik: Fortschritt)
 //   users/{uid}/quiz_settings/{latin_grammar|latin_grammar_settings}

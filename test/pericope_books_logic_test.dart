@@ -750,7 +750,7 @@ void main() {
       final tasks = StudyPlanner(state, random: Random(4)).exam(scope);
 
       expect(tasks.length, scope.length);
-      expect(tasks.map((t) => t.target).toSet(), scope.toSet());
+      expect(tasks.map((t) => (t as PericopeTask).target).toSet(), scope.toSet());
       expect(tasks.every((t) => t is RecallTask), isTrue);
     });
   });
@@ -900,7 +900,7 @@ void main() {
 
       expect(session.finished, isTrue);
       expect(session.correctCount, 1);
-      expect(session.mistakes.single.task.target, call);
+      expect((session.mistakes.single.task as PericopeTask).target, call);
       expect(session.mistakes.single.expected, "Mk 1,14-20");
       expect(
         session.mistakes.single.note,
@@ -1270,9 +1270,9 @@ void main() {
 
       final tasks = [for (var t = queue.next(); t != null; t = queue.next()) t];
 
-      expect(tasks.every((t) => section.contains(t.target)), isTrue);
+      expect(tasks.every((t) => section.contains((t as PericopeTask).target)), isTrue);
       expect(tasks.whereType<IntroduceTask>().length, 6);
-      expect(tasks.where((t) => t.target == members[2]), isNotEmpty);
+      expect(tasks.where((t) => (t as PericopeTask).target == members[2]), isNotEmpty);
 
       // Weitergelernt wird im ersten Abschnitt mit neuen Perikopen.
       expect(state.currentSection(outline)!.id, outline.sections.first.id);
@@ -1306,7 +1306,8 @@ void main() {
       final queue = AdaptiveStudyQueue(state: state, scope: members, maxNew: 6);
 
       final targets = {
-        for (var t = queue.next(); t != null; t = queue.next()) t.target,
+        for (var t = queue.next(); t != null; t = queue.next())
+          (t as PericopeTask).target,
       };
 
       // Kategorien schließen nichts aus: Auch sichere, nicht fällige

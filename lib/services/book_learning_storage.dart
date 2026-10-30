@@ -16,37 +16,56 @@ class BookLearningData {
   /// Lernpläne je Buch (Schlüssel: Buchabkürzung der Perikopenliste).
   final Map<String, BookPlan> plans;
 
+  /// Lernstand je Wissensfrage (Schlüssel: ID der Frage). Gleiches Format
+  /// und gleiche Regeln wie bei den Perikopen.
+  final Map<String, BookCard> knowledgeCards;
+
+  /// Wissensfragen einbeziehen (Standard: ja). Ausgeschaltet bleiben die
+  /// Lernstände in [knowledgeCards] unverändert erhalten.
+  bool knowledgeEnabled;
+
   BookLearningData({
     Map<String, BookCard>? cards,
     Map<String, VersePrecision>? precisions,
     Map<String, BookPlan>? plans,
+    Map<String, BookCard>? knowledgeCards,
+    this.knowledgeEnabled = true,
   }) : cards = cards ?? {},
        precisions = precisions ?? {},
-       plans = plans ?? {};
+       plans = plans ?? {},
+       knowledgeCards = knowledgeCards ?? {};
 
-  /// Liest die drei Dokumente; ungültige Einträge werden übergangen.
+  static void _readCards(Object? raw, Map<String, BookCard> into) {
+    if (raw is! Map) return;
+
+    for (final entry in raw.entries) {
+      final value = entry.value;
+
+      if (value is Map) {
+        final id = entry.key.toString();
+
+        into[id] = BookCard.fromJson(id, Map<String, dynamic>.from(value));
+      }
+    }
+  }
+
+  /// Liest die Dokumente; ungültige Einträge werden übergangen.
   factory BookLearningData.fromDocuments({
     Map<String, dynamic>? books,
     Map<String, dynamic>? precision,
     Map<String, dynamic>? plans,
+    Map<String, dynamic>? knowledge,
+    Map<String, dynamic>? knowledgeSettings,
   }) {
     final data = BookLearningData();
 
-    final rawCards = books?["cards"];
+    _readCards(books?["cards"], data.cards);
+    _readCards(knowledge?["cards"], data.knowledgeCards);
 
-    if (rawCards is Map) {
-      for (final entry in rawCards.entries) {
-        final value = entry.value;
+    final settings = knowledgeSettings?["settings"];
 
-        if (value is Map) {
-          final id = entry.key.toString();
-
-          data.cards[id] = BookCard.fromJson(
-            id,
-            Map<String, dynamic>.from(value),
-          );
-        }
-      }
+    if (settings is Map && settings["enabled"] is bool) {
+      data.knowledgeEnabled = settings["enabled"] as bool;
     }
 
     final rawPrecisions = precision?["items"];
@@ -85,6 +104,8 @@ class BookLearningData {
 ///   * `pericope_books`     `{cards: {key: BookCard}}`
 ///   * `pericope_precision` `{items: {key: VersePrecision}}`
 ///   * `pericope_plans`     `{plans: {book: BookPlan}}`
+///   * `bible_knowledge`    `{cards: {frageId: BookCard}}` (Wissensfragen)
+///   * `bible_knowledge_settings` `{settings: {enabled: bool}}`
 ///
 /// Geschrieben werden immer nur die geänderten Einträge (Merge), damit
 /// gleichzeitige Änderungen anderer Einträge erhalten bleiben. Die Karten
@@ -104,12 +125,30 @@ class BookLearningStorage {
       documents.load(LocalLearningStore.pericopeBooks),
       documents.load(LocalLearningStore.pericopePrecision),
       documents.load(LocalLearningStore.pericopePlans),
+      documents.load(LocalLearningStore.bibleKnowledge),
+      documents.load(LocalLearningStore.bibleKnowledgeSettings),
     ]);
 
     return BookLearningData.fromDocuments(
       books: results[0],
       precision: results[1],
       plans: results[2],
+      knowledge: results[3],
+      knowledgeSettings: results[4],
+    );
+  }
+
+  Future<void> saveKnowledgeCards(List<BookCard> cards) {
+    return documents.mergeEntries(LocalLearningStore.bibleKnowledge, "cards", {
+      for (final card in cards) card.id: card.toJson(),
+    });
+  }
+
+  Future<void> saveKnowledgeEnabled(bool enabled) {
+    return documents.replaceField(
+      LocalLearningStore.bibleKnowledgeSettings,
+      "settings",
+      {"enabled": enabled},
     );
   }
 

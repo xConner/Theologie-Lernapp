@@ -599,7 +599,7 @@ class _CourseReadingPlanScreenState extends State<CourseReadingPlanScreen> {
                   children: [
                     Text(
                       group.$2.first.extra
-                          ? "${group.$1.label}: übrige Kapitel (ganze Bücher)"
+                          ? "${group.$1.label}: übrige Kapitel (alle Kapitel)"
                           : group.$1.label,
                       style: textTheme.labelLarge,
                     ),
@@ -773,13 +773,13 @@ class _CourseReadingPlanScreenState extends State<CourseReadingPlanScreen> {
         before.sessions.fold(0, (sum, s) => sum + s.open.length);
 
     final text = value
-        ? "Ganze Bücher: ${after.extraCount} Kapitel ergänzt, davon "
+        ? "Alle Kapitel: ${after.extraCount} Kapitel ergänzt, davon "
               "$open noch offen. Gelesenes bleibt erhalten; das Offene ist "
               "neu verteilt."
-        : "Nur die benötigten Kapitel: ${before.extraCount} ergänzende "
-              "Kapitel entfallen. Was du davon gelesen hast, bleibt "
-              "gespeichert und zählt wieder, wenn du ganze Bücher "
-              "einschaltest.";
+        : "Nur vorgesehene Kapitel: ${before.extraCount} ergänzende "
+              "Kapitel entfallen, der ursprüngliche Plan gilt wieder. Was du "
+              "davon gelesen hast, bleibt gespeichert und zählt wieder, wenn "
+              "du alle Kapitel einschaltest.";
 
     messenger.hideCurrentSnackBar();
     messenger.showSnackBar(
@@ -1011,7 +1011,7 @@ class CoursePlanCard extends StatelessWidget {
                       const SizedBox(height: 6),
                       Text(
                         "${(schedule.fraction * 100).floor()} % gelesen · "
-                        "${progress.wholeBooks ? "ganze Bücher" : "nur benötigte Kapitel"}",
+                        "${progress.wholeBooks ? "alle Kapitel der Bücher" : "nur vorgesehene Kapitel"}",
                         key: ValueKey("course-plan-progress-${plan.id}"),
                         style: secondary,
                       ),
@@ -1076,7 +1076,8 @@ class CoursePlanCard extends StatelessWidget {
   }
 }
 
-/// Umfang des Plans: nur die benötigten Kapitel oder ganze Bücher.
+/// Umfang des Plans: „Nur vorgesehene Kapitel“ (Standard, aus) oder „Alle
+/// Kapitel der behandelten Bücher“ (ein).
 class _ScopeSwitch extends StatelessWidget {
   final CourseSchedule schedule;
   final bool value;
@@ -1095,17 +1096,19 @@ class _ScopeSwitch extends StatelessWidget {
     return SwitchListTile(
       key: const ValueKey("course-whole-books"),
       contentPadding: EdgeInsets.zero,
-      title: const Text("Ganze Bücher lesen"),
+      title: const Text("Alle Kapitel der behandelten Bücher"),
       subtitle: Text(
         value
-            ? "Zu den Stellen jeder Sitzung kommen die übrigen Kapitel der "
-                  "behandelten Bücher ($extras ergänzende Kapitel), in "
+            ? "Ein: Zu den Stellen jeder Sitzung kommen die übrigen Kapitel "
+                  "der behandelten Bücher ($extras ergänzende Kapitel), in "
                   "biblischer Reihenfolge auf die Lesetage verteilt. Gilt für "
                   "die Sitzungen ab dem Einschalten; frühere bleiben, wie "
-                  "sie waren."
-            : "Aus: nur die Kapitel, die die Sitzungen benötigen. Ein: "
-                  "zusätzlich die übrigen Kapitel der behandelten Bücher. "
-                  "Gelesenes bleibt in beiden Fällen erhalten.",
+                  "sie waren. Ausschalten stellt den ursprünglichen Plan "
+                  "wieder her."
+            : "Aus: nur vorgesehene Kapitel – die Stellen des "
+                  "Bibelkunde-Plans (Standard). Ein: zusätzlich alle übrigen "
+                  "Kapitel der behandelten Bücher. Gelesenes und eigene "
+                  "Änderungen bleiben in beiden Fällen erhalten.",
       ),
       value: value,
       onChanged: onChanged,

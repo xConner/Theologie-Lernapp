@@ -9,6 +9,7 @@ import 'book_catalog.dart';
 import 'book_outline.dart';
 import 'book_learning_status.dart';
 import 'book_plan.dart';
+import 'knowledge.dart';
 import 'verse_precision.dart';
 
 /// Alles, was „Bücher systematisch lernen“ zur Anzeige und Planung braucht:
@@ -29,15 +30,21 @@ class BookLearningState {
 
   final DateTime Function() clock;
 
+  /// Wissensfragen und Musterantworten. Wird ersetzt, wenn sich die
+  /// Freigabe der Vorlesungsunterlagen ändert.
+  KnowledgeBank knowledge;
+
   BookLearningState({
     required this.catalog,
     required this.data,
     Map<String, LearningCard>? legacyCards,
     Set<String>? legacyBooks,
     DateTime Function()? clock,
+    KnowledgeBank? knowledge,
   }) : legacyCards = {...?legacyCards},
        legacyBooks = {...?legacyBooks},
-       clock = clock ?? DateTime.now;
+       clock = clock ?? DateTime.now,
+       knowledge = knowledge ?? KnowledgeBank.empty;
 
   /// Ersetzt die geladenen Daten an Ort und Stelle (z. B. nach einem
   /// Zurücksetzen), damit offene Ansichten und eine laufende Lerneinheit
@@ -56,6 +63,10 @@ class BookLearningState {
     data.plans
       ..clear()
       ..addAll(fresh.plans);
+    data.knowledgeCards
+      ..clear()
+      ..addAll(fresh.knowledgeCards);
+    data.knowledgeEnabled = fresh.knowledgeEnabled;
 
     this.legacyCards
       ..clear()
@@ -182,23 +193,111 @@ class BookLearningState {
 
     return max(0, min(remaining, target - introducedOn(book, now)));
   }
+
+  // ---------- Wissensfragen ----------
+
+  /// Wissensfragen werden einbezogen (Schalter, Standard: ja).
+  bool get knowledgeEnabled => data.knowledgeEnabled;
+
+  BookCard? knowledgeCardOf(KnowledgeQuestion q) => data.knowledgeCards[q.id];
+
+  BookCard knowledgeCardFor(KnowledgeQuestion q) =>
+      data.knowledgeCards.putIfAbsent(q.id, () => BookCard(id: q.id));
+
+  /// Gewicht für das Auswahlverfahren (ohne Karte: neu).
+  LearningCard knowledgeSelectionCardOf(KnowledgeQuestion q) {
+    final card = knowledgeCardOf(q);
+
+    return card != null && card.lastReviewed != null
+        ? card
+        : LearningCard(id: q.id);
+  }
+
+  /// Status nach denselben Regeln wie bei den Perikopen.
+  PericopeStatus knowledgeStatusOf(KnowledgeQuestion q) =>
+      BookLearningRules.statusOf(knowledgeCardOf(q), null, now);
+
+  LearningProgress knowledgeProgressOf(Iterable<KnowledgeQuestion> questions) =>
+      LearningProgress.of(questions.map(knowledgeStatusOf));
+
+  /// Wissensfragen, die in Lerneinheiten und Wiederholungen einbezogen
+  /// werden: leer, solange sie ausgeschaltet sind.
+  List<KnowledgeQuestion> active(Iterable<KnowledgeQuestion> questions) =>
+      knowledgeEnabled ? questions.toList() : const [];
+
+  /// Fällige Wissensfragen in [questions] (ohne Rücksicht auf den
+  /// Schalter).
+  List<KnowledgeQuestion> dueKnowledge(Iterable<KnowledgeQuestion> questions) =>
+      [
+        for (final q in questions)
+          if (knowledgeStatusOf(q).due) q,
+      ];
 }
 
 // ==========================
 // AUFGABEN
 // ==========================
 
-/// Eine Aufgabe einer Lerneinheit. Alle Aufgaben beziehen sich nur auf
-/// Perikopenstellen, ihre Zuordnung und Reihenfolge.
+/// Eine Aufgabe einer Lerneinheit: zu einer Perikope ([PericopeTask]) oder
+/// eine inhaltliche Wissensfrage ([KnowledgeTask]).
 sealed class StudyTask {
   const StudyTask();
+}
+
+/// Aufgaben zu Perikopenstellen, ihrer Zuordnung und Reihenfolge.
+sealed class PericopeTask extends StudyTask {
+  const PericopeTask();
 
   /// Die Perikope, deren Lernstand die Aufgabe betrifft.
   BookPericope get target;
 }
 
+/// Eine inhaltliche Wissensfrage. Die Auswahlmöglichkeiten sind beim
+/// Erstellen gemischt, damit die Anzeige stabil bleibt.
+class KnowledgeTask extends StudyTask {
+  final KnowledgeQuestion question;
+
+  /// Auswahl ([KnowledgeFormat.choice], [KnowledgeFormat.multi]) bzw. die
+  /// rechte Spalte ([KnowledgeFormat.match]) bzw. die zu ordnenden Einträge
+  /// ([KnowledgeFormat.order]), gemischt.
+  final List<String> options;
+
+  const KnowledgeTask(this.question, this.options);
+
+  factory KnowledgeTask.of(KnowledgeQuestion q, Random random) {
+    List<String> shuffled(List<String> values) {
+      final list = [...values]..shuffle(random);
+
+      // Eine Reihenfolge-Aufgabe soll nicht schon gelöst erscheinen.
+      if (q.format == KnowledgeFormat.order && list.length > 1) {
+        for (int i = 0; i < 5 && _same(list, values); i++) {
+          list.shuffle(random);
+        }
+        if (_same(list, values)) list.add(list.removeAt(0));
+      }
+
+      return list;
+    }
+
+    return KnowledgeTask(q, switch (q.format) {
+      KnowledgeFormat.choice ||
+      KnowledgeFormat.multi => shuffled([...q.correct, ...q.distractors]),
+      KnowledgeFormat.match => shuffled([for (final p in q.pairs) p.right]),
+      KnowledgeFormat.order => shuffled(q.items),
+      KnowledgeFormat.reveal => const [],
+    });
+  }
+
+  static bool _same(List<String> a, List<String> b) {
+    for (int i = 0; i < a.length; i++) {
+      if (a[i] != b[i]) return false;
+    }
+    return true;
+  }
+}
+
 /// Neue Perikope vorstellen: Titel und Stelle werden gezeigt.
-class IntroduceTask extends StudyTask {
+class IntroduceTask extends PericopeTask {
   @override
   final BookPericope target;
 
@@ -210,7 +309,7 @@ class IntroduceTask extends StudyTask {
 /// Ob das Buch vorgegeben ist, bestimmt nicht die Aufgabe, sondern der
 /// Buchkontext der ganzen Lerneinheit ([StudySession.contextBook]): So ist
 /// die Eingabe innerhalb einer Einheit immer gleich.
-class RecallTask extends StudyTask {
+class RecallTask extends PericopeTask {
   @override
   final BookPericope target;
 
@@ -232,7 +331,7 @@ enum ChoiceKind {
 }
 
 /// Auswahlaufgabe; bewertet wird allein über die Perikopen der Liste.
-class ChoiceTask extends StudyTask {
+class ChoiceTask extends PericopeTask {
   final ChoiceKind kind;
 
   @override
@@ -255,7 +354,7 @@ class ChoiceTask extends StudyTask {
 }
 
 /// Mehrere Perikopen in die richtige Reihenfolge bringen.
-class ArrangeTask extends StudyTask {
+class ArrangeTask extends PericopeTask {
   /// Richtige Reihenfolge.
   final List<BookPericope> ordered;
 
@@ -279,7 +378,8 @@ enum StudyMode {
   order("Reihenfolge lernen"),
   exam("Prüfung"),
   selection("Einzelne Perikope"),
-  review("Wiederholungen");
+  review("Wiederholungen"),
+  knowledge("Wissensfragen");
 
   final String label;
 
@@ -480,6 +580,34 @@ class StudyPlanner {
 
     return [for (final p in ordered) RecallTask(p)];
   }
+
+  /// Wissensfragen je einmal, gereiht wie [review] (Lernbedarf ×
+  /// Fälligkeit mit Zufall).
+  List<StudyTask> knowledgeReview(Iterable<KnowledgeQuestion> scope) {
+    final algorithm = SpacedRepetition(clock: state.clock);
+
+    final remaining = scope.toSet().toList();
+    final tasks = <StudyTask>[];
+
+    while (remaining.isNotEmpty) {
+      final next = pickWeighted(
+        remaining,
+        (q) => algorithm.selectionScore(state.knowledgeSelectionCardOf(q)),
+        _random,
+      );
+
+      remaining.remove(next);
+      tasks.add(KnowledgeTask.of(next, _random));
+    }
+
+    return tasks;
+  }
+
+  /// Wissensfragen in fester Reihenfolge (z. B. die Lernfragen einer
+  /// Aufgabe mit Musterantwort).
+  List<StudyTask> knowledgeInOrder(Iterable<KnowledgeQuestion> questions) => [
+    for (final q in questions) KnowledgeTask.of(q, _random),
+  ];
 
   StudyTask compareOrRecall(BookPericope p) {
     return _compareTask(p) ?? RecallTask(p);

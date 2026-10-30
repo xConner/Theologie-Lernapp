@@ -7,6 +7,7 @@ import '../../../quiz/books/book_learning_status.dart';
 import '../../../quiz/books/book_outline.dart';
 import '../../../quiz/books/book_plan.dart';
 import '../../../quiz/books/book_study_session.dart';
+import '../../../quiz/books/knowledge.dart';
 import '../../../quiz/pericope_reference.dart';
 import '../../../services/bible/bible_reference_parser.dart';
 import '../../../theme/app_theme.dart';
@@ -16,6 +17,7 @@ import 'book_dialogs.dart';
 import 'book_settings.dart';
 import 'book_study_screen.dart';
 import 'book_widgets.dart';
+import 'knowledge_widgets.dart';
 import 'precision_dialog.dart';
 import 'review_overview_screen.dart';
 
@@ -93,6 +95,7 @@ class _BookDetailScreenState extends State<BookDetailScreen> {
     return controller.scopeSession(
       StudyMode.section,
       pericopesOfSection(state.catalog, section),
+      knowledge: controller.knowledgeOfSection(section),
     );
   }
 
@@ -118,8 +121,12 @@ class _BookDetailScreenState extends State<BookDetailScreen> {
       context: context,
       showDragHandle: true,
       isScrollControlled: true,
-      builder: (context) =>
-          _SectionSheet(state: state, book: book, section: section),
+      builder: (context) => _SectionSheet(
+        state: state,
+        book: book,
+        section: section,
+        knowledge: state.active(controller.knowledgeOfSection(section)),
+      ),
     );
 
     if (!mounted || action == null) return;
@@ -151,6 +158,11 @@ class _BookDetailScreenState extends State<BookDetailScreen> {
         if (passage != null) {
           await openPassage(context, controller, passage, title: section.title);
         }
+      case "knowledge":
+        await _study(
+          controller.knowledgeSession(controller.knowledgeOfSection(section)),
+          title: "Wissensfragen: ${section.title}",
+        );
       case BookPericope p:
         await _openPericope(p);
     }
@@ -182,6 +194,7 @@ class _BookDetailScreenState extends State<BookDetailScreen> {
       controller.scopeSession(
         StudyMode.chapter,
         state.catalog.inChapters(book, range.$1, range.$2),
+        knowledge: controller.knowledgeOfChapters(book, range.$1, range.$2),
       ),
       title: "$book ${_rangeText(range)}",
     );
@@ -372,6 +385,8 @@ class _BookDetailScreenState extends State<BookDetailScreen> {
               ),
               const SizedBox(height: 8),
               _buildPlanCard(context, state.planOf(book), progress),
+              if (state.knowledge.ofBook(book).isNotEmpty)
+                KnowledgeBookCard(controller: controller, book: book),
               ..._buildSections(context),
               const SectionTitle("Weitere Lernmöglichkeiten"),
               _buildModes(context),
@@ -419,6 +434,9 @@ class _BookDetailScreenState extends State<BookDetailScreen> {
           key: ValueKey("section-${section.id}"),
           section: section,
           progress: state.progressOfSection(section),
+          knowledge: state.knowledgeProgressOf(
+            state.active(controller.knowledgeOfSection(section)),
+          ),
           current: section.id == current?.id,
           onTap: () => _openSection(section),
           onLearn: () => _learnSection(section),
@@ -431,7 +449,9 @@ class _BookDetailScreenState extends State<BookDetailScreen> {
   /// Lerneinheit wählt nach Lernbedarf und Fälligkeit, gezielt Fälliges und
   /// kürzlich Falsches gibt es unter „Wiederholungen“.
   Widget _buildModes(BuildContext context) {
-    final due = state.progressOf(pericopes).due;
+    final due =
+        state.progressOf(pericopes).due +
+        state.dueKnowledge(state.active(state.knowledge.ofBook(book))).length;
 
     return Wrap(
       spacing: 8,
@@ -497,7 +517,8 @@ class _BookDetailScreenState extends State<BookDetailScreen> {
               return Tooltip(
                 message:
                     "Kapitel $c: ${progress.secure}/${progress.total} sicher"
-                    "${progress.due > 0 ? ", ${progress.due} fällig" : ""}",
+                    "${progress.due > 0 ? ", ${progress.due} fällig" : ""}"
+                    "${knowledgeCountText(state.knowledgeProgressOf(state.active(controller.knowledgeOfChapters(book, c, c))))}",
                 child: InkWell(
                   key: ValueKey("chapter-$c"),
                   borderRadius: BorderRadius.circular(AppTheme.radiusSmall),
@@ -634,6 +655,9 @@ class _BookDetailScreenState extends State<BookDetailScreen> {
 class _SectionCard extends StatelessWidget {
   final OutlineSection section;
   final LearningProgress progress;
+
+  /// Eingeschaltete Wissensfragen des Abschnitts.
+  final LearningProgress knowledge;
   final bool current;
   final VoidCallback onTap;
   final VoidCallback onLearn;
@@ -642,6 +666,7 @@ class _SectionCard extends StatelessWidget {
     super.key,
     required this.section,
     required this.progress,
+    required this.knowledge,
     required this.current,
     required this.onTap,
     required this.onLearn,
@@ -714,7 +739,8 @@ class _SectionCard extends StatelessWidget {
               Text(
                 "${progress.total} Perikopen · ${progress.secure} sicher"
                 "${progress.learning > 0 ? " · ${progress.learning} in Bearbeitung" : ""}"
-                "${progress.due > 0 ? " · ${progress.due} fällig" : ""}",
+                "${progress.due > 0 ? " · ${progress.due} fällig" : ""}"
+                "${knowledgeCountText(knowledge)}",
                 style: TextStyle(
                   color: context.colors.textSecondary,
                   fontSize: 12.5,
@@ -737,10 +763,14 @@ class _SectionSheet extends StatelessWidget {
   final String book;
   final OutlineSection section;
 
+  /// Eingeschaltete Wissensfragen des Abschnitts.
+  final List<KnowledgeQuestion> knowledge;
+
   const _SectionSheet({
     required this.state,
     required this.book,
     required this.section,
+    required this.knowledge,
   });
 
   @override
@@ -769,6 +799,17 @@ class _SectionSheet extends StatelessWidget {
               ),
               onTap: () => Navigator.pop(context, "learn"),
             ),
+            if (knowledge.isNotEmpty)
+              ListTile(
+                key: const ValueKey("section-sheet-knowledge"),
+                contentPadding: EdgeInsets.zero,
+                leading: const Icon(Icons.quiz_outlined),
+                title: Text("Wissensfragen zum Abschnitt (${knowledge.length})"),
+                subtitle: const Text(
+                  "Personen, Ereignisse, Begriffe – mit Wiederholung",
+                ),
+                onTap: () => Navigator.pop(context, "knowledge"),
+              ),
             ListTile(
               key: const ValueKey("section-sheet-order"),
               contentPadding: EdgeInsets.zero,

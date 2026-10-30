@@ -262,6 +262,7 @@ Bewusst wenige, klar verschiedene:
 | Reihenfolge lernen | Abfolge der Perikopen (nächste, dazwischen, ordnen); zählt getrennt |
 | Prüfung | Buch, Bereich oder Abschnitt ohne Hilfen, Ergebnis am Ende |
 | Einzelne Perikope | über ihren Abschnitt: üben, mit Nachbarn vergleichen, versgenau festlegen |
+| Wissensfragen | Personen, Ereignisse, Begriffe, Aufbau, Musterantworten (siehe unten); auch in jeder Lerneinheit eingestreut |
 
 Zusammengefasst wurden:
 
@@ -276,6 +277,63 @@ Zusammengefasst wurden:
   nur mit anderem Umfang.
 * Freie Eingabe, Schnelleingabe und „Im Kopf“ sind Antwortformen, keine
   Modi.
+
+## Wissensfragen und Musterantworten
+
+Neben den Perikopen gibt es inhaltliche Fragen zu einem Buch
+(`lib/quiz/books/knowledge.dart`, Oberfläche in
+`lib/screens/pericope_quiz/books/knowledge_widgets.dart`). Drei Ebenen:
+**Lesen** (Leseplan, Bibelstelle lesen), **Verstehen** (Musterantworten
+und Erklärungen zum Nachlesen), **Wiederholen** (Fragen mit Spaced
+Repetition).
+
+### Daten
+
+* Öffentlich: `assets/bible_knowledge/index.json` nennt die Dateien
+  (`gen.json`, `ex.json`, `lev.json`), Fragen-IDs `bq.<buch>.<name>`.
+* Geschützt (Vorlesungsunterlagen, nur für freigeschaltete Konten, siehe
+  `docs/lecture-materials.md`): `assets/old_testament/model_answers/`,
+  je Sitzung eine Datei, z. B. `bk02-genesis.json`. Aufgaben `ma.bk02.NN`
+  mit **wörtlicher Musterantwort** (`answer`), Anmerkung (`note`),
+  Bereich, Stellen und den daraus gebildeten Lernfragen
+  (`ma.bk02.NN.<name>`). Die Musterantwort ist die maßgebliche Referenz;
+  Lernfragen zerlegen sie nur in kleinere Schritte.
+* Je Frage: `format` (`choice` eine richtige, `multi` mehrere richtige,
+  `reveal` aufdecken mit Selbsteinschätzung, `match` zuordnen, `order`
+  Reihenfolge), `topic`, `prompt`, Lösung (`answer`/`correct`/
+  `distractors`/`pairs`/`items`), `explanation`, `range` (`"12-25"`,
+  `"12,1-25,18"`, `"19,1-29"`; ohne Bereich: Frage zum ganzen Buch),
+  `refs` (öffnen den Bibelreader), optional `pericopes`, `memoryVerse`.
+  Ungültige Fragen werden beim Laden abgelehnt, doppelte IDs ebenso.
+* IDs sind stabil: Lernstände hängen an ihnen. Fragen nie umbenennen,
+  nur ergänzen.
+
+### Zuordnung
+
+Eine Frage gehört zu einem Abschnitt der Gliederung bzw. einem
+Kapitelbereich, wenn ihr Bereich ganz darin liegt; Fragen ohne Bereich
+gehören nur zum ganzen Buch. Lerneinheit (Buch) mischt bis zu 5
+Wissensfragen (höchstens 3 neue) gleichmäßig zwischen die Perikopen;
+Abschnitt und Kapitel nehmen die Fragen ihres Bereichs. „Wissensfragen
+lernen“ (Buchkarte) und „Musterantworten“ (je Aufgabe) üben nur Fragen,
+bis zu 12 je Einheit, davon 6 neue. Keine Frage zweimal in einer Einheit.
+
+### Bewertung
+
+Wie Perikopen (`BookCard`, `BookLearningRules.recordRecall`): sicher nach
+2 richtigen Abrufen mit je 12 Stunden Abstand, fällig nach dem
+Wiederholungsabstand; Auswahl nach Lernbedarf × Fälligkeit. Auswahl,
+Zuordnen und Reihenfolge werden automatisch bewertet, Aufdecken durch
+„Gewusst“/„Nicht gewusst“. Fällige Wissensfragen erscheinen in den
+Wiederholungen (eigener Knopf in der Übersicht).
+
+### Schalter
+
+„Wissensfragen einbeziehen“ (Buchkarte und Einstellungen → „Bücher
+lernen“), Standard **an**, gespeichert in `bible_knowledge_settings`.
+Aus: keine Wissensfragen in Einheiten und Wiederholungen; Perikopen,
+Leseplan und das Nachlesen der Musterantworten bleiben. Lernstände
+bleiben gespeichert und gelten nach dem Wiedereinschalten weiter.
 
 ## Bibelstelle lesen
 
@@ -316,10 +374,14 @@ im `LocalLearningStore` (`guest.v1.quiz_settings.<name>`).
 | `pericope_books` | `{cards: {key: {s, d, r, n, w, sp, lw, i, oc, ow}}}` – Lernstand je Perikope |
 | `pericope_precision` | `{items: {key: {startChapter, startVerse, endChapter, endVerse}}}` |
 | `pericope_plans` | `{plans: {Buch: {dailyNew, targetDate, paused, createdAt}}}` |
+| `bible_knowledge` | `{cards: {Fragen-ID: {…wie pericope_books}}}` – Lernstand je Wissensfrage |
+| `bible_knowledge_settings` | `{settings: {enabled}}` – Schalter Wissensfragen |
 
 Geschrieben werden nur geänderte Einträge (Merge). Gast → Konto übernimmt
-die drei Dokumente; „Alle Lernfortschritte zurücksetzen“ und das
-Zurücksetzen der Perikopenkenntnisse löschen `pericope_books`,
+die Dokumente; „Alle Lernfortschritte zurücksetzen“ und das
+Zurücksetzen der Perikopenkenntnisse löschen `pericope_books` und
+`bible_knowledge` (das Zurücksetzen nur eines Bibelbuchs lässt die
+Wissensfragen unberührt),
 Präzisierungen und Pläne bleiben; die Kontolöschung entfernt
 `quiz_settings` vollständig.
 

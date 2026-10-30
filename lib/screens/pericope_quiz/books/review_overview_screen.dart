@@ -4,6 +4,7 @@ import '../../../quiz/books/book_catalog.dart';
 import '../../../quiz/books/book_learning.dart';
 import '../../../quiz/books/book_learning_controller.dart';
 import '../../../quiz/books/book_learning_status.dart';
+import '../../../quiz/books/knowledge.dart';
 import '../../../theme/app_theme.dart';
 import '../../../utils/date_input.dart';
 import 'bible_passage.dart';
@@ -39,16 +40,33 @@ class _ReviewOverviewScreenState extends State<ReviewOverviewScreen> {
         : controller.catalog.pericopesOf(book);
   }
 
-  Future<void> _start(List<BookPericope> list, String title) {
+  /// Eingeschaltete Wissensfragen im Umfang (ausgeschaltet: keine).
+  List<KnowledgeQuestion> get _knowledge {
+    final bank = controller.state.knowledge;
+    final book = widget.book;
+
+    return controller.state.active(
+      book == null ? bank.questions : bank.ofBook(book),
+    );
+  }
+
+  Future<void> _start(
+    List<BookPericope> list,
+    String title, {
+    List<KnowledgeQuestion> knowledge = const [],
+  }) {
     // Jede Perikope der Liste einmal, gewichtet nach Lernbedarf und
-    // Fälligkeit mit Zufall gereiht (wie im Perikopenquiz).
+    // Fälligkeit mit Zufall gereiht (wie im Perikopenquiz); fällige
+    // Wissensfragen danach.
+    final planner = controller.planner();
+
     return startStudy(
       context,
       controller: controller,
-      session: controller.fixedSession(
-        StudyMode.review,
-        controller.planner().review(list),
-      ),
+      session: controller.fixedSession(StudyMode.review, [
+        ...planner.review(list),
+        ...planner.knowledgeReview(knowledge),
+      ]),
       title: title,
     );
   }
@@ -64,6 +82,10 @@ class _ReviewOverviewScreenState extends State<ReviewOverviewScreen> {
           for (final p in [...buckets.overdue, ...buckets.dueToday])
             if (controller.state.statusOf(p).due) p,
         ];
+
+        final knowledge = _knowledge;
+        final dueKnowledge = controller.state.dueKnowledge(knowledge);
+        final total = dueNow.length + dueKnowledge.length;
 
         return Scaffold(
           appBar: AppBar(
@@ -84,20 +106,51 @@ class _ReviewOverviewScreenState extends State<ReviewOverviewScreen> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Text(
-                        dueNow.isEmpty
+                        total == 0
                             ? "Gerade ist nichts fällig."
-                            : "${dueNow.length} Wiederholungen jetzt fällig",
+                            : "$total Wiederholungen jetzt fällig",
                         key: const ValueKey("review-due-count"),
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
+                      if (knowledge.isNotEmpty)
+                        Text(
+                          "davon ${dueKnowledge.length} Wissensfragen",
+                          key: const ValueKey("review-knowledge-count"),
+                          style: TextStyle(
+                            color: context.colors.textSecondary,
+                          ),
+                        ),
                       const SizedBox(height: 12),
-                      ElevatedButton.icon(
-                        key: const ValueKey("review-start-all"),
-                        icon: const Icon(Icons.shuffle_rounded),
-                        label: const Text("Alle fälligen gemischt"),
-                        onPressed: dueNow.isEmpty
-                            ? null
-                            : () => _start(dueNow, "Gemischte Wiederholung"),
+                      Wrap(
+                        spacing: 8,
+                        runSpacing: 8,
+                        children: [
+                          ElevatedButton.icon(
+                            key: const ValueKey("review-start-all"),
+                            icon: const Icon(Icons.shuffle_rounded),
+                            label: const Text("Alle fälligen gemischt"),
+                            onPressed: total == 0
+                                ? null
+                                : () => _start(
+                                    dueNow,
+                                    "Gemischte Wiederholung",
+                                    knowledge: dueKnowledge,
+                                  ),
+                          ),
+                          if (dueKnowledge.isNotEmpty)
+                            OutlinedButton.icon(
+                              key: const ValueKey("review-start-knowledge"),
+                              icon: const Icon(Icons.quiz_outlined),
+                              label: Text(
+                                "Nur Wissensfragen (${dueKnowledge.length})",
+                              ),
+                              onPressed: () => _start(
+                                const [],
+                                "Wissensfragen wiederholen",
+                                knowledge: dueKnowledge,
+                              ),
+                            ),
+                        ],
                       ),
                     ],
                   ),

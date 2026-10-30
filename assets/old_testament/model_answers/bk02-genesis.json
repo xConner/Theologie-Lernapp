@@ -1,0 +1,981 @@
+{
+ "book": "Gen",
+ "session": "bk.02",
+ "sessionTitle": "Sitzung 2: Genesis",
+ "source": "Musterantworten: Genesis (OLAT, Louisa Thomsen, 29.10.2026). Aufgaben und Antworten wörtlich; Lernfragen und Erläuterungen von der App.",
+ "tasks": [
+  {
+   "id": "ma.bk02.01",
+   "number": 1,
+   "prompt": "Nennen Sie zentrale Texte innerhalb der Urgeschichte (Gen 1-11)?",
+   "range": "1-11",
+   "refs": [
+    "Gen 1,1-2,4",
+    "Gen 2,4-3,24",
+    "Gen 4",
+    "Gen 6",
+    "Gen 6-9",
+    "Gen 11"
+   ],
+   "answer": "• Gen 1,1-2,4a (P): 1. Schöpfungsbericht\n• Gen 2,4b-3,24: 2. Schöpfungsbericht\n• Gen 4: Kain und Abel\n• Gen 6: Engelehen\n• Gen 6-9 (P- und nP-Anteile): Sintfluterzählung und Noachbund\n• Gen 11: Turmbauerzählung",
+   "questions": [
+    {
+     "id": "ma.bk02.01.zentrale_texte",
+     "format": "reveal",
+     "prompt": "Nenne die zentralen Texte der Urgeschichte (Gen 1–11) mit ihren Stellen.",
+     "answer": "Gen 1,1–2,4a (P): 1. Schöpfungsbericht · Gen 2,4b–3,24: 2. Schöpfungsbericht · Gen 4: Kain und Abel · Gen 6: Engelehen · Gen 6–9 (P- und nP-Anteile): Sintfluterzählung und Noachbund · Gen 11: Turmbauerzählung",
+     "topic": "structure",
+     "range": "1-11"
+    },
+    {
+     "id": "ma.bk02.01.stellen",
+     "format": "match",
+     "prompt": "Ordne die zentralen Texte der Urgeschichte ihren Stellen zu.",
+     "pairs": [
+      [
+       "1. Schöpfungsbericht",
+       "Gen 1,1–2,4a"
+      ],
+      [
+       "2. Schöpfungsbericht",
+       "Gen 2,4b–3,24"
+      ],
+      [
+       "Kain und Abel",
+       "Gen 4"
+      ],
+      [
+       "Sintfluterzählung und Noachbund",
+       "Gen 6–9"
+      ],
+      [
+       "Turmbauerzählung",
+       "Gen 11"
+      ]
+     ],
+     "topic": "structure",
+     "range": "1-11"
+    },
+    {
+     "id": "ma.bk02.01.reihenfolge",
+     "format": "order",
+     "prompt": "Bringe die zentralen Texte der Urgeschichte in die biblische Reihenfolge.",
+     "items": [
+      "1. Schöpfungsbericht",
+      "2. Schöpfungsbericht",
+      "Kain und Abel",
+      "Engelehen",
+      "Sintfluterzählung und Noachbund",
+      "Turmbauerzählung"
+     ],
+     "topic": "structure",
+     "range": "1-11"
+    }
+   ]
+  },
+  {
+   "id": "ma.bk02.02",
+   "number": 2,
+   "prompt": "Skizzieren Sie den 1. und den 2. Schöpfungsbericht – stellen Sie die Besonderheiten heraus!",
+   "range": "1,1-3,24",
+   "refs": [
+    "Gen 1,1-2,4",
+    "Gen 2,4-3,24"
+   ],
+   "answer": "• 1. Schöpfungsbericht (Gen 1,1-2,4a):\n  – 7-Tage-Schema: Schöpfung von Welt und Mensch in 6 Tagen, am 7. Tag ruht Gott\n  – wiederholende Formel: „Und Gott sah, dass es gut war.“\n  – Gottebenbildlichkeit des Menschen\n• 2. Schöpfungsbericht (Gen 2,4b-3,24)\n  – „Paradieserzählung“\n  – Schaffung von Mensch und Welt (Reihenfolge!): erster Mensch (Adam) wurde aus Staub vom Erdboden erschaffen, erste Frau (Eva) aus der Rippe des Mannes\n  – Sündenfall: Verstoß gegen Gottes Befehl → Rauswurf aus dem Garten Eden; Begründung der Mühsal menschlichen Lebens („Ätiologie“) & Auftrag zur “Bebauung des Erdbodens“",
+   "note": "„Ätiologie“: eine Erzählung, die einen bestehenden Zustand aus einem Geschehen der Vorzeit begründet – hier die Mühsal menschlichen Lebens.",
+   "questions": [
+    {
+     "id": "ma.bk02.02.erster",
+     "format": "reveal",
+     "prompt": "Skizziere den 1. Schöpfungsbericht (Gen 1,1–2,4a) mit seinen Besonderheiten.",
+     "answer": "7-Tage-Schema: Schöpfung von Welt und Mensch in 6 Tagen, am 7. Tag ruht Gott · wiederholende Formel: „Und Gott sah, dass es gut war.“ · Gottebenbildlichkeit des Menschen",
+     "topic": "theme",
+     "range": "1,1-2,4",
+     "refs": [
+      "Gen 1,1-2,4"
+     ]
+    },
+    {
+     "id": "ma.bk02.02.zweiter",
+     "format": "reveal",
+     "prompt": "Skizziere den 2. Schöpfungsbericht (Gen 2,4b–3,24) mit seinen Besonderheiten.",
+     "answer": "„Paradieserzählung“ · Schaffung von Mensch und Welt (Reihenfolge!): erster Mensch (Adam) aus Staub vom Erdboden erschaffen, erste Frau (Eva) aus der Rippe des Mannes · Sündenfall: Verstoß gegen Gottes Befehl → Rauswurf aus dem Garten Eden; Begründung der Mühsal menschlichen Lebens („Ätiologie“) & Auftrag zur „Bebauung des Erdbodens“",
+     "topic": "theme",
+     "range": "2,4-3,24",
+     "refs": [
+      "Gen 2,4-3,24"
+     ]
+    },
+    {
+     "id": "ma.bk02.02.merkmale_erster",
+     "format": "multi",
+     "prompt": "Welche Besonderheiten gehören zum 1. Schöpfungsbericht (Gen 1,1–2,4a)?",
+     "correct": [
+      "7-Tage-Schema mit Ruhe Gottes am 7. Tag",
+      "Formel „Und Gott sah, dass es gut war.“",
+      "Gottebenbildlichkeit des Menschen"
+     ],
+     "distractors": [
+      "Erschaffung der Frau aus der Rippe des Mannes",
+      "Vertreibung aus dem Garten Eden"
+     ],
+     "topic": "theme",
+     "range": "1,1-3,24"
+    },
+    {
+     "id": "ma.bk02.02.staub",
+     "format": "choice",
+     "prompt": "Woraus wird der erste Mensch im 2. Schöpfungsbericht erschaffen?",
+     "correct": [
+      "Aus Staub vom Erdboden"
+     ],
+     "distractors": [
+      "Aus der Rippe eines anderen Geschöpfs",
+      "Allein durch Gottes Wort, ohne Stoff",
+      "Aus dem Wasser des Urmeers"
+     ],
+     "topic": "event",
+     "range": "2,4-2,25",
+     "refs": [
+      "Gen 2,7"
+     ]
+    },
+    {
+     "id": "ma.bk02.02.aetiologie",
+     "format": "choice",
+     "prompt": "Was begründet der Sündenfall nach der Musterantwort als „Ätiologie“?",
+     "correct": [
+      "Die Mühsal menschlichen Lebens"
+     ],
+     "distractors": [
+      "Die Entstehung der verschiedenen Sprachen",
+      "Die Einsetzung des Sabbats",
+      "Die Herkunft des Regenbogens"
+     ],
+     "topic": "theme",
+     "range": "3",
+     "refs": [
+      "Gen 3,16-19"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "ma.bk02.03",
+   "number": 3,
+   "prompt": "Wie endet die Geschichte von der Flut?",
+   "range": "8-9",
+   "refs": [
+    "Gen 8",
+    "Gen 9,1-17"
+   ],
+   "answer": "• Gen 8: Wasser geht zurück; Altarbau und Brandopfer\n• Gen 9: Gottes Bund mit Noah (Bundeszeichen: Regenbogen)",
+   "questions": [
+    {
+     "id": "ma.bk02.03.ende",
+     "format": "reveal",
+     "prompt": "Wie endet die Geschichte von der Flut?",
+     "answer": "Gen 8: Wasser geht zurück; Altarbau und Brandopfer · Gen 9: Gottes Bund mit Noah (Bundeszeichen: Regenbogen)",
+     "topic": "event",
+     "range": "8-9"
+    },
+    {
+     "id": "ma.bk02.03.opfer",
+     "format": "choice",
+     "prompt": "Was tut Noah, nachdem das Wasser zurückgegangen ist (Gen 8)?",
+     "correct": [
+      "Er baut einen Altar und bringt Brandopfer dar"
+     ],
+     "distractors": [
+      "Er errichtet einen Gedenkstein und gießt Öl darauf",
+      "Er baut einen Turm, um sich einen Namen zu machen",
+      "Er zieht mit seiner Familie nach Ur in Chaldäa"
+     ],
+     "topic": "event",
+     "range": "8",
+     "refs": [
+      "Gen 8,20"
+     ]
+    },
+    {
+     "id": "ma.bk02.03.zeichen",
+     "format": "choice",
+     "prompt": "Welches Bundeszeichen gibt Gott im Bund mit Noah (Gen 9)?",
+     "correct": [
+      "Den Regenbogen"
+     ],
+     "distractors": [
+      "Die Beschneidung",
+      "Den Sabbat",
+      "Die Gesetzestafeln"
+     ],
+     "topic": "theme",
+     "range": "9,1-17",
+     "refs": [
+      "Gen 9,12-17"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "ma.bk02.04",
+   "number": 4,
+   "prompt": "Wie ist die Erzelternerzählung (Gen 12-36) aufgebaut? Was sind die Hauptmotive bzw. wiederkehrende Motive? Können sie hierzu Textstellen geben?",
+   "range": "12-36",
+   "refs": [
+    "Gen 12",
+    "Gen 20",
+    "Gen 26",
+    "Gen 27-28"
+   ],
+   "answer": "• Aufbau: Abraham und Sarah (Gen 12-25); Isaak und Rebekka (Gen 24-26); Jakob und Lea+Rahel (Gen 25; 27-36)\n• Motive: verwandtschaftliche Beziehungen; Verheißungen von Segen, Land und Nachkommenschaft (Gen 12; 26 sowie 28); Gefährdung der Verheißung (Gefährdung der Ahnfrau in Gen 12; 20 und 26; Unfruchtbarkeit in Gen 11; 25 und 29); nicht der Erstgeborene erhält den „Hauptsegen“ (Isaak: Gen 17 und 26; Jakob: 25 und 27-28; in diese Linie könnte man auch einreihen Josef (und Juda; 49) und Ephraim (48); Ausnahme scheint Abraham zu sein)",
+   "note": "Die Kapitelangaben der Teile überschneiden sich in der Musterantwort bewusst (Gen 24–25 gehören zu zwei Erzelternpaaren); die Gliederung der App folgt der Folie (Abraham 12–25,18, Isaak 25,19–26, Jakob 27–36).",
+   "questions": [
+    {
+     "id": "ma.bk02.04.aufbau",
+     "format": "reveal",
+     "prompt": "Wie ist die Erzelternerzählung (Gen 12–36) aufgebaut?",
+     "answer": "Abraham und Sarah (Gen 12–25); Isaak und Rebekka (Gen 24–26); Jakob und Lea + Rahel (Gen 25; 27–36)",
+     "topic": "structure",
+     "range": "12-36"
+    },
+    {
+     "id": "ma.bk02.04.paare",
+     "format": "match",
+     "prompt": "Ordne die Erzelternpaare den Kapiteln nach der Musterantwort zu.",
+     "pairs": [
+      [
+       "Abraham und Sarah",
+       "Gen 12–25"
+      ],
+      [
+       "Isaak und Rebekka",
+       "Gen 24–26"
+      ],
+      [
+       "Jakob und Lea + Rahel",
+       "Gen 25; 27–36"
+      ]
+     ],
+     "topic": "structure",
+     "range": "12-36"
+    },
+    {
+     "id": "ma.bk02.04.motive",
+     "format": "reveal",
+     "prompt": "Nenne die Hauptmotive bzw. wiederkehrenden Motive der Erzelternerzählung mit Textstellen.",
+     "answer": "Verwandtschaftliche Beziehungen · Verheißungen von Segen, Land und Nachkommenschaft (Gen 12; 26; 28) · Gefährdung der Verheißung: Gefährdung der Ahnfrau (Gen 12; 20; 26), Unfruchtbarkeit (Gen 11; 25; 29) · nicht der Erstgeborene erhält den „Hauptsegen“ (Isaak: Gen 17; 26; Jakob: Gen 25; 27–28; auch Josef und Juda, Gen 49, und Ephraim, Gen 48; Ausnahme scheint Abraham zu sein)",
+     "topic": "theme",
+     "range": "12-36"
+    },
+    {
+     "id": "ma.bk02.04.verheissung",
+     "format": "multi",
+     "prompt": "In welchen Kapiteln stehen nach der Musterantwort Verheißungen von Segen, Land und Nachkommenschaft?",
+     "correct": [
+      "Gen 12",
+      "Gen 26",
+      "Gen 28"
+     ],
+     "distractors": [
+      "Gen 19",
+      "Gen 34"
+     ],
+     "topic": "theme",
+     "range": "12-36"
+    },
+    {
+     "id": "ma.bk02.04.ahnfrau",
+     "format": "multi",
+     "prompt": "Wo steht die Gefährdung der Ahnfrau?",
+     "correct": [
+      "Gen 12",
+      "Gen 20",
+      "Gen 26"
+     ],
+     "distractors": [
+      "Gen 16",
+      "Gen 24"
+     ],
+     "topic": "theme",
+     "range": "12-26"
+    },
+    {
+     "id": "ma.bk02.04.unfruchtbarkeit",
+     "format": "multi",
+     "prompt": "Wo gefährdet Unfruchtbarkeit die Verheißung?",
+     "correct": [
+      "Gen 11 (Sara)",
+      "Gen 25 (Rebekka)",
+      "Gen 29 (Rahel)"
+     ],
+     "distractors": [
+      "Gen 34 (Dina)",
+      "Gen 38 (Tamar)"
+     ],
+     "topic": "theme",
+     "range": "11-29",
+     "refs": [
+      "Gen 11,30",
+      "Gen 25,21",
+      "Gen 29,31"
+     ]
+    },
+    {
+     "id": "ma.bk02.04.erstgeborener",
+     "format": "choice",
+     "prompt": "Wer scheint beim Motiv „nicht der Erstgeborene erhält den Hauptsegen“ eine Ausnahme zu sein?",
+     "correct": [
+      "Abraham"
+     ],
+     "distractors": [
+      "Isaak",
+      "Jakob",
+      "Ephraim"
+     ],
+     "topic": "theme",
+     "range": "12-50",
+     "explanation": "Isaak (nicht Ismael), Jakob (nicht Esau), Josef und Juda (Gen 49) sowie Ephraim (nicht Manasse, Gen 48) erhalten den Segen vor Älteren."
+    }
+   ]
+  },
+  {
+   "id": "ma.bk02.05",
+   "number": 5,
+   "prompt": "Erstellen Sie einen Stammbaum von Abraham bis Josef. Nennen Sie die wichtigsten Familienmitglieder beim Namen (Vater, Mutter, Frauen, Kinder usw.) und geben Sie Textstellen an.",
+   "range": "11-50",
+   "refs": [
+    "Gen 11,27-32",
+    "Gen 25,1-6",
+    "Gen 29,31-30,24",
+    "Gen 41,50-52"
+   ],
+   "answer": "• Abraham (Gen 11; 16; 20; 21; 22; 24 und 25):\n  – Vater: Terach; Mutter: wird nicht genannt\n  – Frauen: Sara (zugleich auch Halbschwester), Hagar (ägyptische Magd Saras) und Ketura (nach dem Tod Saras)\n  – Söhne: Ismael (mit Hagar) und Isaak (mit Sara), weitere sechs Söhne (mit Ketura)\n  – Brüder: Nahor und Haran; Halbschwester: Sara (Tochter von Terach)\n  – Neffen: Lot (der Sohn von Haran), dazu acht Söhne von Nahor (mit Milka; darunter Betuël, Vater von Rebekka und Laban) und vier Söhne von Nahor (mit Nebenfrau Rëuma)\n  – Nichten: Milka und Jiska (Töchter von Haran)\n• Isaak (Gen 21; 24 und 25):\n  – Vater: Abraham; Mutter: Sara\n  – Frau: Rebekka (Tochter Betuëls und Schwester Labans)\n  – Söhne: Esau und Jakob (Zwillinge)\n• Jakob (Gen 25; 29-30 und 35):\n  – Vater: Isaak; Mutter: Rebekka\n  – Frau: Lea und Rahel (Töchter Labans; also auch Jakobs Cousinen); Silpa (Magd Leas) und Bilha (Magd Rahels)\n  – Söhne: Ruben, Simeon, Levi, Juda sowie Issachar und Sebulon (mit Lea); Dan und Naftali (mit Bilha); Gad und Asser (mit Silpa); Josef und Benjamin mit Rahel\n  – Tochter: Dina (mit Lea)\n• Josef (Gen 30 und 41):\n  – Vater: Jakob; Mutter: Rahel\n  – Frau: Asenat\n  – Söhne: Manasse und Ephraim (werden von Jakob in Gen 48 adoptiert)",
+   "note": "Die Musterantwort ordnet Abraham die Halbschwester Sara nach Gen 20,12 zu. Die Lernfragen fragen die Generationen einzeln ab.",
+   "questions": [
+    {
+     "id": "ma.bk02.05.abraham",
+     "format": "reveal",
+     "prompt": "Stammbaum: Wer gehört zur Familie Abrahams (Vater, Frauen, Söhne, Brüder, Neffen)?",
+     "answer": "Vater: Terach (Mutter nicht genannt) · Frauen: Sara (zugleich Halbschwester), Hagar (ägyptische Magd Saras), Ketura (nach Saras Tod) · Söhne: Ismael (mit Hagar), Isaak (mit Sara), sechs weitere (mit Ketura) · Brüder: Nahor und Haran · Neffen: Lot (Sohn Harans), acht Söhne Nahors mit Milka (darunter Betuël, Vater von Rebekka und Laban), vier Söhne Nahors mit Rëuma · Nichten: Milka und Jiska (Töchter Harans)",
+     "topic": "person",
+     "range": "11-25",
+     "refs": [
+      "Gen 11,26-32",
+      "Gen 22,20-24",
+      "Gen 25,1-6"
+     ]
+    },
+    {
+     "id": "ma.bk02.05.isaak",
+     "format": "reveal",
+     "prompt": "Stammbaum: Nenne Eltern, Frau und Söhne Isaaks.",
+     "answer": "Vater: Abraham; Mutter: Sara · Frau: Rebekka (Tochter Betuëls, Schwester Labans) · Söhne: Esau und Jakob (Zwillinge)",
+     "topic": "person",
+     "range": "21-25"
+    },
+    {
+     "id": "ma.bk02.05.jakob",
+     "format": "reveal",
+     "prompt": "Stammbaum: Nenne Eltern, Frauen und Kinder Jakobs – nach Müttern geordnet.",
+     "answer": "Vater: Isaak; Mutter: Rebekka · Frauen: Lea und Rahel (Töchter Labans, also Cousinen Jakobs); Silpa (Magd Leas) und Bilha (Magd Rahels) · Söhne mit Lea: Ruben, Simeon, Levi, Juda, Issachar, Sebulon; mit Bilha: Dan, Naftali; mit Silpa: Gad, Asser; mit Rahel: Josef, Benjamin · Tochter: Dina (mit Lea)",
+     "topic": "person",
+     "range": "25-35",
+     "refs": [
+      "Gen 29,31-30,24",
+      "Gen 35,16-26"
+     ]
+    },
+    {
+     "id": "ma.bk02.05.josef",
+     "format": "reveal",
+     "prompt": "Stammbaum: Nenne Eltern, Frau und Söhne Josefs.",
+     "answer": "Vater: Jakob; Mutter: Rahel · Frau: Asenat · Söhne: Manasse und Ephraim (von Jakob in Gen 48 adoptiert)",
+     "topic": "person",
+     "range": "30-48",
+     "refs": [
+      "Gen 41,45-52",
+      "Gen 48,5"
+     ]
+    },
+    {
+     "id": "ma.bk02.05.maegde",
+     "format": "match",
+     "prompt": "Ordne die Frauen ihrer Rolle in den Erzelternfamilien zu.",
+     "pairs": [
+      [
+       "Hagar",
+       "ägyptische Magd Saras, Mutter Ismaels"
+      ],
+      [
+       "Ketura",
+       "Frau Abrahams nach dem Tod Saras"
+      ],
+      [
+       "Silpa",
+       "Magd Leas"
+      ],
+      [
+       "Bilha",
+       "Magd Rahels"
+      ]
+     ],
+     "topic": "person",
+     "range": "16-35"
+    },
+    {
+     "id": "ma.bk02.05.lea",
+     "format": "multi",
+     "prompt": "Welche Söhne Jakobs hat Lea geboren?",
+     "correct": [
+      "Ruben",
+      "Simeon",
+      "Levi",
+      "Juda",
+      "Issachar",
+      "Sebulon"
+     ],
+     "distractors": [
+      "Dan",
+      "Gad",
+      "Benjamin"
+     ],
+     "topic": "person",
+     "range": "29,31-30,24",
+     "refs": [
+      "Gen 29,31-35",
+      "Gen 30,17-20"
+     ]
+    },
+    {
+     "id": "ma.bk02.05.muetter",
+     "format": "match",
+     "prompt": "Ordne die Söhne Jakobs ihren Müttern zu.",
+     "pairs": [
+      [
+       "Dan und Naftali",
+       "Bilha"
+      ],
+      [
+       "Gad und Asser",
+       "Silpa"
+      ],
+      [
+       "Josef und Benjamin",
+       "Rahel"
+      ],
+      [
+       "Issachar und Sebulon",
+       "Lea"
+      ]
+     ],
+     "topic": "person",
+     "range": "29,31-35,26"
+    },
+    {
+     "id": "ma.bk02.05.sara",
+     "format": "choice",
+     "prompt": "Wie ist Sara nach der Musterantwort außer als Ehefrau mit Abraham verwandt?",
+     "correct": [
+      "Sie ist seine Halbschwester (Tochter Terachs)"
+     ],
+     "distractors": [
+      "Sie ist seine Nichte (Tochter Harans)",
+      "Sie ist seine Cousine (Tochter Nahors)",
+      "Sie ist mit ihm nicht verwandt"
+     ],
+     "topic": "person",
+     "range": "20",
+     "refs": [
+      "Gen 20,12"
+     ]
+    },
+    {
+     "id": "ma.bk02.05.lot",
+     "format": "choice",
+     "prompt": "Wer ist Lot?",
+     "correct": [
+      "Abrahams Neffe, der Sohn Harans"
+     ],
+     "distractors": [
+      "Abrahams Bruder",
+      "Der Sohn Nahors und Milkas",
+      "Saras Bruder"
+     ],
+     "topic": "person",
+     "range": "11,27-32",
+     "refs": [
+      "Gen 11,27"
+     ]
+    },
+    {
+     "id": "ma.bk02.05.rebekka",
+     "format": "choice",
+     "prompt": "Aus welcher Familie stammt Rebekka?",
+     "correct": [
+      "Tochter Betuëls und Schwester Labans"
+     ],
+     "distractors": [
+      "Tochter Labans und Schwester Leas",
+      "Tochter Harans und Schwester Lots",
+      "Tochter Nahors und Milkas"
+     ],
+     "topic": "person",
+     "range": "24",
+     "refs": [
+      "Gen 24,15",
+      "Gen 24,29"
+     ]
+    },
+    {
+     "id": "ma.bk02.05.asenat",
+     "format": "choice",
+     "prompt": "Wer ist Josefs Frau?",
+     "correct": [
+      "Asenat"
+     ],
+     "distractors": [
+      "Dina",
+      "Tamar",
+      "Milka"
+     ],
+     "topic": "person",
+     "range": "41",
+     "refs": [
+      "Gen 41,45"
+     ]
+    },
+    {
+     "id": "ma.bk02.05.josef_soehne",
+     "format": "choice",
+     "prompt": "Welche Söhne Josefs adoptiert Jakob in Gen 48?",
+     "correct": [
+      "Manasse und Ephraim"
+     ],
+     "distractors": [
+      "Ruben und Simeon",
+      "Perez und Serach",
+      "Er und Onan"
+     ],
+     "topic": "person",
+     "range": "48",
+     "refs": [
+      "Gen 48,5"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "ma.bk02.06",
+   "number": 6,
+   "prompt": "Zwei Schwestern mit zwei schrecklichen Geschichten: Um welche Schwestern geht es? Welche Geschichten sind gemeint?",
+   "range": "19",
+   "refs": [
+    "Gen 19,6-8",
+    "Gen 19,30-38"
+   ],
+   "answer": "• Gen 19,6–8: Lot bietet den Männern Sodoms seine Töchter zum Missbrauch und zur Vergewaltigung an, um seine Gäste zu schützen;\n• Gen 19,30–38: Inzucht der Töchter mit ihrem betrunkenen Vater; aus der Verbindung gehen die Söhne Moab (→ Moabiter) und Ben-Ammi (→ Ammoniter) hervor",
+   "questions": [
+    {
+     "id": "ma.bk02.06.geschichten",
+     "format": "reveal",
+     "prompt": "Zwei Schwestern mit zwei schrecklichen Geschichten: Um wen geht es und welche Geschichten sind gemeint?",
+     "answer": "Lots Töchter · Gen 19,6–8: Lot bietet den Männern Sodoms seine Töchter zum Missbrauch und zur Vergewaltigung an, um seine Gäste zu schützen · Gen 19,30–38: Inzucht der Töchter mit ihrem betrunkenen Vater; daraus gehen Moab (→ Moabiter) und Ben-Ammi (→ Ammoniter) hervor",
+     "topic": "person",
+     "range": "19"
+    },
+    {
+     "id": "ma.bk02.06.schwestern",
+     "format": "choice",
+     "prompt": "Welche „zwei Schwestern mit zwei schrecklichen Geschichten“ sind gemeint?",
+     "correct": [
+      "Die Töchter Lots"
+     ],
+     "distractors": [
+      "Lea und Rahel",
+      "Dina und Tamar",
+      "Milka und Jiska"
+     ],
+     "topic": "person",
+     "range": "19"
+    },
+    {
+     "id": "ma.bk02.06.voelker",
+     "format": "choice",
+     "prompt": "Welche Völker führt Gen 19,30–38 auf Lots Töchter zurück?",
+     "correct": [
+      "Moabiter (Moab) und Ammoniter (Ben-Ammi)"
+     ],
+     "distractors": [
+      "Edomiter und Ismaeliter",
+      "Philister und Kanaaniter",
+      "Midianiter und Amalekiter"
+     ],
+     "topic": "connection",
+     "range": "19,30-38",
+     "refs": [
+      "Gen 19,37-38"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "ma.bk02.07",
+   "number": 7,
+   "prompt": "Ein Zwillingspaar zwischen Hass und Versöhnung: Um welche Zwillinge geht es? Nennen Sie Textstellen, die dieses Konkurrenzverhältnis beleuchten. Gibt es noch weitere schwierige/rivalisierende Geschwisterverhältnisse in der Genesis?",
+   "range": "25-33",
+   "refs": [
+    "Gen 25,22-26",
+    "Gen 25,29-34",
+    "Gen 27",
+    "Gen 33"
+   ],
+   "answer": "• die Zwillinge Jakob und Esau und ihr Konkurrenz-Verhältnis:\n  – Mutterleib/Geburt (25,22–26): Kinder stoßen sich im Leib der Mutter; Jakob scheint Esau bei der Geburt an der Ferse festhalten zu wollen (um seine Erstgeburt zu verhindern?)\n  – Esau verkauft sein Erstgeburtsrecht für ein Linsengericht (25,29–34)\n  – Jakob erschleicht sich (mit tatkräftiger Unterstützung der Mutter!) den väterlichen Segen (27); danach muss er fliehen, weil Esau ihn töten will\n  – Versöhnung (33); beide Brüder liegen sich in den Armen, was vor allem an Esaus versöhnlicher Haltung liegt (33,4). [Anschließend ist Jakob höflich darauf bedacht, die Nähe doch nicht zu übertreiben! (33,12ff)]\n• weitere schwierige/rivalisierende Geschwisterverhältnisse: Kain und Abel (Gen 4); Lea und Rahel (Gen 30); Josef und seine Brüder (Gen 37; 42-45)",
+   "questions": [
+    {
+     "id": "ma.bk02.07.stellen",
+     "format": "reveal",
+     "prompt": "Jakob und Esau: Nenne die Textstellen, die ihr Konkurrenzverhältnis beleuchten.",
+     "answer": "Mutterleib/Geburt (Gen 25,22–26): Die Kinder stoßen sich im Leib der Mutter; Jakob scheint Esau an der Ferse festhalten zu wollen · Esau verkauft sein Erstgeburtsrecht für ein Linsengericht (25,29–34) · Jakob erschleicht sich mit Hilfe der Mutter den väterlichen Segen (27) und muss fliehen, weil Esau ihn töten will · Versöhnung (33), vor allem dank Esaus versöhnlicher Haltung (33,4); danach hält Jakob höflich Abstand (33,12ff)",
+     "topic": "person",
+     "range": "25-33"
+    },
+    {
+     "id": "ma.bk02.07.reihenfolge",
+     "format": "order",
+     "prompt": "Bringe die Stationen der Geschichte von Jakob und Esau in die richtige Reihenfolge.",
+     "items": [
+      "Die Zwillinge stoßen sich im Mutterleib (Gen 25,22–26)",
+      "Esau verkauft sein Erstgeburtsrecht (Gen 25,29–34)",
+      "Jakob erschleicht sich den Segen (Gen 27)",
+      "Jakob flieht vor Esau (Gen 27–28)",
+      "Versöhnung der Brüder (Gen 33)"
+     ],
+     "topic": "event",
+     "range": "25-33"
+    },
+    {
+     "id": "ma.bk02.07.linsengericht",
+     "format": "choice",
+     "prompt": "Wofür verkauft Esau sein Erstgeburtsrecht?",
+     "correct": [
+      "Für ein Linsengericht"
+     ],
+     "distractors": [
+      "Für einen Teil der Herde",
+      "Für den Segen des Vaters",
+      "Für einen Brunnen in Beerscheba"
+     ],
+     "topic": "event",
+     "range": "25,29-34",
+     "refs": [
+      "Gen 25,29-34"
+     ]
+    },
+    {
+     "id": "ma.bk02.07.versoehnung",
+     "format": "choice",
+     "prompt": "Woran liegt die Versöhnung in Gen 33 nach der Musterantwort vor allem?",
+     "correct": [
+      "An Esaus versöhnlicher Haltung"
+     ],
+     "distractors": [
+      "An Jakobs Rückgabe des Segens",
+      "An Isaaks Vermittlung",
+      "An Rebekkas Eingreifen"
+     ],
+     "topic": "event",
+     "range": "33",
+     "refs": [
+      "Gen 33,4"
+     ]
+    },
+    {
+     "id": "ma.bk02.07.weitere",
+     "format": "multi",
+     "prompt": "Welche weiteren schwierigen bzw. rivalisierenden Geschwisterverhältnisse nennt die Musterantwort?",
+     "correct": [
+      "Kain und Abel (Gen 4)",
+      "Lea und Rahel (Gen 30)",
+      "Josef und seine Brüder (Gen 37; 42–45)"
+     ],
+     "distractors": [
+      "Sem und Jafet (Gen 9)",
+      "Mose und Aaron"
+     ],
+     "topic": "theme",
+     "range": "4-45",
+     "explanation": "Mose und Aaron gehören nicht zur Genesis; Sem und Jafet handeln in Gen 9,23 gemeinsam."
+    }
+   ]
+  },
+  {
+   "id": "ma.bk02.08",
+   "number": 8,
+   "prompt": "Skizzieren Sie die wichtigsten Stationen auf Josefs Lebensweg.",
+   "range": "30-50",
+   "refs": [
+    "Gen 37",
+    "Gen 39-41",
+    "Gen 42-46",
+    "Gen 49-50"
+   ],
+   "answer": "• Gen 30: Geburt\n• Gen 37: Konflikt mit seinen Brüdern & Verkauf nach Ägypten\n• Gen 39: Josef in Potifars Haus & falsche Beschuldigung durch Potifars Frau; Josef im Gefängnis\n• Gen 40-41: Joseph als Traumdeuter & Aufstieg; Geburt der Söhne\n• Gen 42-45: Zusammentreffen mit seinen Brüdern\n• Gen 46: Zuzug Jakobs und Ansiedlung der ganzen Familie in Ägypten; Wiedersehen von Vater und Sohn\n• Gen 49-50: Jakobs Segen über Josef; Tod Jakobs und Begräbnis in Kanaan (Machpela); Rückkehr nach Ägypten; Aussöhnung mit seinen Brüdern und Tod",
+   "questions": [
+    {
+     "id": "ma.bk02.08.stationen",
+     "format": "reveal",
+     "prompt": "Skizziere die wichtigsten Stationen auf Josefs Lebensweg mit Kapiteln.",
+     "answer": "Gen 30: Geburt · Gen 37: Konflikt mit den Brüdern, Verkauf nach Ägypten · Gen 39: in Potifars Haus, falsche Beschuldigung durch Potifars Frau, Gefängnis · Gen 40–41: Traumdeuter und Aufstieg, Geburt der Söhne · Gen 42–45: Zusammentreffen mit den Brüdern · Gen 46: Zuzug Jakobs und Ansiedlung der Familie in Ägypten, Wiedersehen · Gen 49–50: Jakobs Segen über Josef, Tod Jakobs und Begräbnis in Kanaan (Machpela), Rückkehr nach Ägypten, Aussöhnung mit den Brüdern, Tod",
+     "topic": "person",
+     "range": "30-50"
+    },
+    {
+     "id": "ma.bk02.08.reihenfolge",
+     "format": "order",
+     "prompt": "Bringe die Stationen auf Josefs Lebensweg in die richtige Reihenfolge.",
+     "items": [
+      "Verkauf nach Ägypten",
+      "Falsche Beschuldigung durch Potifars Frau",
+      "Traumdeuter im Gefängnis",
+      "Aufstieg nach der Deutung der Pharaoträume",
+      "Zusammentreffen mit den Brüdern",
+      "Ansiedlung Jakobs und der Familie in Ägypten",
+      "Aussöhnung mit den Brüdern nach Jakobs Tod"
+     ],
+     "topic": "event",
+     "range": "37-50"
+    },
+    {
+     "id": "ma.bk02.08.kapitel",
+     "format": "match",
+     "prompt": "Ordne die Stationen Josefs den Kapiteln zu.",
+     "pairs": [
+      [
+       "Konflikt mit den Brüdern und Verkauf",
+       "Gen 37"
+      ],
+      [
+       "Potifars Haus und Gefängnis",
+       "Gen 39"
+      ],
+      [
+       "Traumdeuter und Aufstieg",
+       "Gen 40–41"
+      ],
+      [
+       "Zusammentreffen mit den Brüdern",
+       "Gen 42–45"
+      ],
+      [
+       "Zuzug Jakobs nach Ägypten",
+       "Gen 46"
+      ]
+     ],
+     "topic": "structure",
+     "range": "37-46"
+    },
+    {
+     "id": "ma.bk02.08.begraebnis",
+     "format": "choice",
+     "prompt": "Wo wird Jakob begraben?",
+     "correct": [
+      "In Kanaan, in der Höhle Machpela"
+     ],
+     "distractors": [
+      "In Ägypten, im Land Goschen",
+      "In Bet-El",
+      "In Sichem"
+     ],
+     "topic": "place",
+     "range": "49,29-50,14",
+     "refs": [
+      "Gen 50,13"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "ma.bk02.09",
+   "number": 9,
+   "prompt": "In der Genesis gibt es einige Umbenennungen. Wo und in welchem Kontext stehen sie?",
+   "range": "17-41",
+   "refs": [
+    "Gen 17,5",
+    "Gen 17,15",
+    "Gen 32,29",
+    "Gen 35,10",
+    "Gen 41,45"
+   ],
+   "answer": "• Gen 17 (Bundesschluss): Abram → Abraham; Sarai → Sara\n• Gen 32 (Jakobs Kampf am Jabbok) und Gen 35 (Jakob in Bethel): Jakob → Israel\n• [Gen 41 (Josef vor dem Pharao): Josef → Zafenat-Paneach]",
+   "note": "Die eckigen Klammern stehen so in der Musterantwort: Josefs ägyptischer Name ist eine Ergänzung.",
+   "questions": [
+    {
+     "id": "ma.bk02.09.umbenennungen",
+     "format": "reveal",
+     "prompt": "Welche Umbenennungen gibt es in der Genesis – wo und in welchem Kontext?",
+     "answer": "Gen 17 (Bundesschluss): Abram → Abraham; Sarai → Sara · Gen 32 (Kampf am Jabbok) und Gen 35 (Jakob in Bethel): Jakob → Israel · [Gen 41 (Josef vor dem Pharao): Josef → Zafenat-Paneach]",
+     "topic": "person",
+     "range": "17-41"
+    },
+    {
+     "id": "ma.bk02.09.namen",
+     "format": "match",
+     "prompt": "Ordne die alten Namen den neuen zu.",
+     "pairs": [
+      [
+       "Abram",
+       "Abraham"
+      ],
+      [
+       "Sarai",
+       "Sara"
+      ],
+      [
+       "Jakob",
+       "Israel"
+      ],
+      [
+       "Josef",
+       "Zafenat-Paneach"
+      ]
+     ],
+     "topic": "person",
+     "range": "17-41"
+    },
+    {
+     "id": "ma.bk02.09.kontext",
+     "format": "match",
+     "prompt": "Ordne die Umbenennungen ihrem Kontext zu.",
+     "pairs": [
+      [
+       "Abram → Abraham, Sarai → Sara",
+       "Gen 17: Bundesschluss"
+      ],
+      [
+       "Jakob → Israel",
+       "Gen 32: Kampf am Jabbok (und Gen 35: Bethel)"
+      ],
+      [
+       "Josef → Zafenat-Paneach",
+       "Gen 41: Josef vor dem Pharao"
+      ]
+     ],
+     "topic": "connection",
+     "range": "17-41"
+    },
+    {
+     "id": "ma.bk02.09.israel",
+     "format": "multi",
+     "prompt": "Wo wird Jakob „Israel“ genannt?",
+     "correct": [
+      "Gen 32 (Kampf am Jabbok)",
+      "Gen 35 (Jakob in Bethel)"
+     ],
+     "distractors": [
+      "Gen 28 (Jakobs Traum)",
+      "Gen 27 (Erstgeburtssegen)"
+     ],
+     "topic": "event",
+     "range": "27-35",
+     "refs": [
+      "Gen 32,29",
+      "Gen 35,10"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "ma.bk02.10",
+   "number": 10,
+   "prompt": "Zentral für die Genesis sind die Bundesschlüsse? Wo stehen diese und was beinhalten sie? Was fällt auf?",
+   "range": "9-17",
+   "refs": [
+    "Gen 9,1-17",
+    "Gen 15",
+    "Gen 17"
+   ],
+   "answer": "• Gen 9 Noachbund → zwischen Gott und Noah sowie seinen Söhnen/ ihren Nachkommen/ jedem lebenden Wesen → Zusicherung, dass es keine Flut mehr geben wird (Selbstverpflichtung Gottes) → Bundeszeichen: Regenbogen (P)\n• Gen 15 und Gen 17 Abrahamsbund → Bund zwischen Gott und Abraham (sowie seinen Nachkommen) → Zusicherung des Landbesitzes (Nachkommen) mit Zeremonie in Gen 15 → Zusicherung von Beziehung (zw. Gott und Abraham/Nachkommen), Nachkommenschaft (Mehrungsmotiv; „Vater vieler Völker“) und Land mit Bundeszeichen Beschneidung in Gen 17 (P)\n• Auffallend: Bund als reine Zusage; Selbstverpflichtung Gottes",
+   "questions": [
+    {
+     "id": "ma.bk02.10.noachbund",
+     "format": "reveal",
+     "prompt": "Noachbund (Gen 9): Zwischen wem wird er geschlossen, was sagt er zu, und was ist sein Zeichen?",
+     "answer": "Zwischen Gott und Noah sowie seinen Söhnen, ihren Nachkommen und jedem lebenden Wesen · Zusicherung, dass es keine Flut mehr geben wird (Selbstverpflichtung Gottes) · Bundeszeichen: Regenbogen (P)",
+     "topic": "theme",
+     "range": "9,1-17",
+     "refs": [
+      "Gen 9,8-17"
+     ]
+    },
+    {
+     "id": "ma.bk02.10.abrahamsbund",
+     "format": "reveal",
+     "prompt": "Abrahamsbund (Gen 15 und 17): Was sagt Gott jeweils zu?",
+     "answer": "Bund zwischen Gott und Abraham (sowie seinen Nachkommen) · Gen 15: Zusicherung des Landbesitzes (Nachkommen) mit Zeremonie · Gen 17 (P): Zusicherung von Beziehung (zwischen Gott und Abraham/Nachkommen), Nachkommenschaft (Mehrungsmotiv; „Vater vieler Völker“) und Land, mit dem Bundeszeichen Beschneidung",
+     "topic": "theme",
+     "range": "15-17",
+     "refs": [
+      "Gen 15",
+      "Gen 17"
+     ]
+    },
+    {
+     "id": "ma.bk02.10.inhalt",
+     "format": "match",
+     "prompt": "Ordne die Bundesschlüsse ihrem Inhalt zu.",
+     "pairs": [
+      [
+       "Gen 9 (Noachbund)",
+       "keine Flut mehr; Zeichen: Regenbogen"
+      ],
+      [
+       "Gen 15 (Abrahamsbund)",
+       "Landbesitz für die Nachkommen, mit Zeremonie"
+      ],
+      [
+       "Gen 17 (Abrahamsbund, P)",
+       "Beziehung, Nachkommenschaft und Land; Zeichen: Beschneidung"
+      ]
+     ],
+     "topic": "theme",
+     "range": "9-17"
+    },
+    {
+     "id": "ma.bk02.10.auffallend",
+     "format": "choice",
+     "prompt": "Was fällt an den Bundesschlüssen der Genesis nach der Musterantwort auf?",
+     "correct": [
+      "Der Bund ist eine reine Zusage – eine Selbstverpflichtung Gottes"
+     ],
+     "distractors": [
+      "Der Bund ist ein Vertrag mit gleichen Pflichten für beide Seiten",
+      "Der Bund gilt nur, solange Israel das Gesetz hält",
+      "Der Bund wird jeweils durch ein Opfer der Menschen erkauft"
+     ],
+     "topic": "theme",
+     "range": "9-17"
+    },
+    {
+     "id": "ma.bk02.10.vater_vieler",
+     "format": "choice",
+     "prompt": "Mit welchem Bund verbindet die Musterantwort das Mehrungsmotiv „Vater vieler Völker“?",
+     "correct": [
+      "Mit dem Abrahamsbund in Gen 17"
+     ],
+     "distractors": [
+      "Mit dem Noachbund in Gen 9",
+      "Mit dem Bund in Gen 15",
+      "Mit Jakobs Traum in Gen 28"
+     ],
+     "topic": "theme",
+     "range": "17",
+     "refs": [
+      "Gen 17,4-5"
+     ]
+    }
+   ]
+  }
+ ]
+}

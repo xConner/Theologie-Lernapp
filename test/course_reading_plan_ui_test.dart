@@ -318,7 +318,7 @@ void main() {
       find.textContaining("Nächste Sitzung Do, 29.10.: Genesis"),
       findsOneWidget,
     );
-    expect(find.textContaining("nur benötigte Kapitel"), findsOneWidget);
+    expect(find.textContaining("nur vorgesehene Kapitel"), findsOneWidget);
     expect(key("course-plan-today-$planId"), findsOneWidget);
     expect(
       find.text(

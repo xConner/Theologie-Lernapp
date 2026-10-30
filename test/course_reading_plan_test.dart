@@ -1043,6 +1043,48 @@ void main() {
       expect(back.wholeBooksSince, isNull);
     });
 
+    test("manuell geänderte Sitzung: ergänzt ohne Dubletten, "
+        "zurück bleibt die eigene Fassung", () {
+      final original = sessions().sessions.first;
+      // Eigene Fassung von Sitzung 1: Gen 3 dazu, Gen 2 doppelt genannt.
+      final edited = CourseSessionOverride(
+        basedOn: original.fingerprint,
+        readings: [
+          for (final r in ["GEN 2", "GEN 3", "GEN 2", "GEN 4:3-5"])
+            PlanReading.parse(r)!,
+        ],
+      );
+
+      final whole = plan(progress().withOverride("s.1", edited));
+
+      expect(keys(whole.session("s.1")!), ["GEN 1", "GEN 2", "GEN 3", "GEN 4"]);
+      // GEN 3 ist eigene Stelle, kein „zusätzliches“ Kapitel mehr.
+      expect([for (final p in whole.session("s.1")!.extras) p.key], ["GEN 1"]);
+
+      final all = [
+        for (final s in whole.sessions)
+          for (final p in s.required) p.key,
+      ];
+      expect(all.toSet().length, all.length);
+
+      // Zurück zu „Nur vorgesehene Kapitel“: die eigene Fassung gilt
+      // weiter, der Kursplan selbst bleibt unverändert.
+      final back = progress(whole: false).withOverride("s.1", edited);
+      expect(keys(plan(back).session("s.1")!).toSet(), {
+        "GEN 2",
+        "GEN 3",
+        "GEN 4:3-5",
+      });
+      expect(
+        [for (final r in sessions().sessions.first.readings) r.key],
+        ["GEN 2", "GEN 4:3-5"],
+      );
+
+      // Override zurückgenommen: wieder die Empfehlung des Kurses.
+      final reset = back.withOverride("s.1", null);
+      expect(keys(plan(reset).session("s.1")!), ["GEN 2", "GEN 4:3-5"]);
+    });
+
     test("Sitzungen vor dem Einschalten werden nicht erweitert", () {
       final schedule = plan(
         progress(since: "2026-11-06"),

@@ -113,10 +113,18 @@ class LocalLearningStore {
   static const String pericopePrecision = "pericope_precision";
   static const String pericopePlans = "pericope_plans";
 
+  /// Wissensfragen in „Bücher systematisch lernen“: Lernstand je Frage
+  /// (`bible_knowledge`) und der Schalter, ob sie einbezogen werden
+  /// (`bible_knowledge_settings`). Der Schalter löscht nichts.
+  static const String bibleKnowledge = "bible_knowledge";
+  static const String bibleKnowledgeSettings = "bible_knowledge_settings";
+
   static const List<String> bookLearningDocuments = [
     pericopeBooks,
     pericopePrecision,
     pericopePlans,
+    bibleKnowledge,
+    bibleKnowledgeSettings,
   ];
 
   /// Lernfortschritt im Lernbereich „Einführung in die Logik“
@@ -204,6 +212,7 @@ class LocalLearningStore {
   /// dazu. Entspricht den Dokumenten aller `ProgressArea`s (Test).
   static const List<String> progressDocuments = [
     pericopeBooks,
+    bibleKnowledge,
     logicCourse,
     latinGrammar,
     churchHistory,
