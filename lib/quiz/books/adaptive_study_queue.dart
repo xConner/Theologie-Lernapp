@@ -38,7 +38,11 @@ import 'knowledge.dart';
 /// zusätzlich hinzu: höchstens [knowledgeQuestions] je Einheit, davon
 /// höchstens [maxNewKnowledge] neue, gleichmäßig zwischen die
 /// Perikopenaufgaben verteilt. Ausgewählt wird mit demselben Verfahren
-/// (eigener Sperrspeicher, eigene Karten); jede Frage einmal je Einheit.
+/// (eigener Sperrspeicher, eigene Karten); jede Frage einmal je Einheit,
+/// nach einer falschen Antwort genau ein weiteres Mal (frühestens
+/// [knowledgeRetryGap] Aufgaben später). Wissensfragen und Aufgaben zur
+/// Gliederung wechseln sich ab, solange es beide gibt – keine langen Serien
+/// gleichartiger Aufgaben.
 class AdaptiveStudyQueue {
   final BookLearningState state;
 
@@ -65,7 +69,11 @@ class AdaptiveStudyQueue {
 
   final int maxNewKnowledge;
 
-  static const int defaultKnowledge = 5;
+  static const int defaultKnowledge = 6;
+
+  /// So viele Aufgaben liegen mindestens zwischen einer falsch beantworteten
+  /// Wissensfrage und ihrer Wiederholung in derselben Einheit.
+  static const int knowledgeRetryGap = 3;
   static const int defaultNewKnowledge = 3;
 
   static const int defaultQuestions = 15;
@@ -134,6 +142,42 @@ class AdaptiveStudyQueue {
   int _knowledgeNew = 0;
   final Set<String> _knowledgeDone = {};
 
+  /// Ausgegebene Aufgaben insgesamt (für den Abstand der Wiederholungen).
+  int _issued = 0;
+
+  /// Zuletzt ausgegebene Wissensfrage bzw. Gliederungsaufgabe.
+  bool? _lastStructure;
+
+  /// Wann eine Frage zuerst gestellt wurde; nach der Wiederholung entfernt.
+  final Map<String, int> _knowledgeFirstAt = {};
+  final Set<String> _knowledgeRetried = {};
+
+  /// Eine falsch beantwortete Frage dieser Einheit, deren Wiederholung jetzt
+  /// dran ist.
+  KnowledgeQuestion? _knowledgeRetryDue() {
+    for (final q in knowledgeScope) {
+      final at = _knowledgeFirstAt[q.id];
+
+      if (at == null ||
+          _knowledgeRetried.contains(q.id) ||
+          _issued - at <= knowledgeRetryGap) {
+        continue;
+      }
+
+      final card = state.knowledgeCardOf(q);
+      final wrong = card?.lastWrong;
+      final reviewed = card?.lastReviewed;
+
+      if (wrong != null &&
+          reviewed != null &&
+          !wrong.isBefore(reviewed.subtract(const Duration(seconds: 1)))) {
+        return q;
+      }
+    }
+
+    return null;
+  }
+
   int get knowledgeAsked => _knowledgeAsked;
 
   /// Alle geplanten Abfragen: Perikopen und Wissensfragen.
@@ -161,6 +205,15 @@ class AdaptiveStudyQueue {
     ];
 
     if (candidates.isEmpty) return null;
+
+    // Abwechseln: Gibt es beide Arten, kommt die andere als zuletzt.
+    final last = _lastStructure;
+
+    if (last != null &&
+        candidates.any((q) => q.isStructure != last) &&
+        candidates.any((q) => q.isStructure == last)) {
+      candidates.removeWhere((q) => q.isStructure == last);
+    }
 
     // Neue Fragen in der Reihenfolge des Buchs bevorzugen: nur die ersten
     // [newWindow] neuen stehen zur Wahl (wie bei den Perikopen).
@@ -190,8 +243,16 @@ class AdaptiveStudyQueue {
     _knowledgeDone.add(chosen.id);
     _knowledgeAsked++;
     _lastWasRetry = false;
+    _knowledgeFirstAt[chosen.id] = _issued;
 
-    return KnowledgeTask.of(chosen, _random);
+    return _knowledgeTask(chosen);
+  }
+
+  KnowledgeTask _knowledgeTask(KnowledgeQuestion q) {
+    _lastStructure = q.isStructure;
+    knowledgeSelector.markAsked(q.id);
+
+    return KnowledgeTask.of(q, _random);
   }
 
   /// Abfragbare Perikopen zu Beginn: alle bereits begonnenen und so viele
@@ -242,6 +303,14 @@ class AdaptiveStudyQueue {
 
   /// Die nächste Aufgabe oder `null`, wenn die Einheit vorbei ist.
   StudyTask? next() {
+    final task = _next();
+
+    if (task != null) _issued++;
+
+    return task;
+  }
+
+  StudyTask? _next() {
     for (int i = 0; i < _pending.length; i++) {
       _pending[i] = (
         pericope: _pending[i].pericope,
@@ -256,6 +325,19 @@ class AdaptiveStudyQueue {
     final introDue =
         _pending.isNotEmpty &&
         (_pending.first.wait <= 0 || left <= _pending.length);
+
+    // Falsch beantwortete Wissensfrage: einmal wiederholen (zählt nicht zu
+    // den geplanten Abfragen).
+    if (!introDue) {
+      final retry = _knowledgeRetryDue();
+
+      if (retry != null) {
+        _knowledgeRetried.add(retry.id);
+        _lastWasRetry = true;
+
+        return _knowledgeTask(retry);
+      }
+    }
 
     if (!introDue && _knowledgeTurn()) {
       final task = _nextKnowledge();
@@ -319,8 +401,15 @@ class AdaptiveStudyQueue {
         return _ask(_pending.removeAt(0).pericope, afterIntroduction: true);
       }
 
-      // Keine Perikope mehr: übrige geplante Wissensfragen.
-      return _knowledgeAsked < knowledgeQuestions ? _nextKnowledge() : null;
+      // Keine Perikope mehr: übrige geplante Wissensfragen, danach noch
+      // fällige Wiederholungen falsch beantworteter Fragen.
+      if (_knowledgeAsked < knowledgeQuestions) {
+        final task = _nextKnowledge();
+
+        if (task != null) return task;
+      }
+
+      return _knowledgeRetryAtEnd();
     }
 
     final cards = <String, LearningCard>{
@@ -342,6 +431,33 @@ class AdaptiveStudyQueue {
     }
 
     return _ask(chosen);
+  }
+
+  /// Am Ende der Einheit: falsch beantwortete Fragen ohne Mindestabstand
+  /// wiederholen, wenn sonst nichts mehr kommt.
+  KnowledgeTask? _knowledgeRetryAtEnd() {
+    for (final q in knowledgeScope) {
+      if (!_knowledgeFirstAt.containsKey(q.id) ||
+          _knowledgeRetried.contains(q.id) ||
+          _issued - _knowledgeFirstAt[q.id]! < 2) {
+        continue;
+      }
+
+      final card = state.knowledgeCardOf(q);
+      final wrong = card?.lastWrong;
+      final reviewed = card?.lastReviewed;
+
+      if (wrong != null &&
+          reviewed != null &&
+          !wrong.isBefore(reviewed.subtract(const Duration(seconds: 1)))) {
+        _knowledgeRetried.add(q.id);
+        _lastWasRetry = true;
+
+        return _knowledgeTask(q);
+      }
+    }
+
+    return null;
   }
 
   // Abfragen direkt nach einer Einführung (siehe [paceNew]).

@@ -385,7 +385,9 @@ class _BookDetailScreenState extends State<BookDetailScreen> {
               ),
               const SizedBox(height: 8),
               _buildPlanCard(context, state.planOf(book), progress),
-              if (state.knowledge.ofBook(book).isNotEmpty)
+              if (outline.parts.isNotEmpty)
+                OutlinePartsCard(controller: controller, outline: outline),
+              if (controller.contentKnowledgeOf(book).isNotEmpty)
                 KnowledgeBookCard(controller: controller, book: book),
               ..._buildSections(context),
               const SectionTitle("Weitere Lernmöglichkeiten"),
@@ -429,7 +431,21 @@ class _BookDetailScreenState extends State<BookDetailScreen> {
             style: TextStyle(color: context.colors.textSecondary, fontSize: 13),
           ),
         ),
-      for (final section in outline.sections)
+      for (final section in outline.sections) ...[
+        if (outline.partOf(section) case final part?
+            when part.sections.first.id == section.id &&
+                part.sections.length > 1)
+          Padding(
+            key: ValueKey("part-header-${part.id}"),
+            padding: const EdgeInsets.fromLTRB(4, 10, 4, 2),
+            child: Text(
+              "${part.label}  ${part.title}",
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
+                color: context.colors.primary,
+              ),
+            ),
+          ),
         _SectionCard(
           key: ValueKey("section-${section.id}"),
           section: section,
@@ -441,6 +457,7 @@ class _BookDetailScreenState extends State<BookDetailScreen> {
           onTap: () => _openSection(section),
           onLearn: () => _learnSection(section),
         ),
+      ],
     ];
   }
 
@@ -804,7 +821,9 @@ class _SectionSheet extends StatelessWidget {
                 key: const ValueKey("section-sheet-knowledge"),
                 contentPadding: EdgeInsets.zero,
                 leading: const Icon(Icons.quiz_outlined),
-                title: Text("Wissensfragen zum Abschnitt (${knowledge.length})"),
+                title: Text(
+                  "Wissensfragen zum Abschnitt (${knowledge.length})",
+                ),
                 subtitle: const Text(
                   "Personen, Ereignisse, Begriffe – mit Wiederholung",
                 ),

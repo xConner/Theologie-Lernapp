@@ -8,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:theologie_lernapp/algorithms/spaced_repetition.dart';
 import 'package:theologie_lernapp/models/greek/perikope.dart';
 import 'package:theologie_lernapp/models/greek/vocabulary/learning_card.dart';
+import 'package:theologie_lernapp/quiz/books/adaptive_study_queue.dart';
 import 'package:theologie_lernapp/quiz/books/book_learning.dart';
 import 'package:theologie_lernapp/quiz/books/book_learning_controller.dart';
 import 'package:theologie_lernapp/quiz/books/book_learning_status.dart';
@@ -36,17 +37,22 @@ class FakeLearningService implements LearningService {
 Map<String, dynamic> readJson(String path) =>
     Map<String, dynamic>.from(jsonDecode(File(path).readAsStringSync()) as Map);
 
-const String modelAnswers =
-    "assets/old_testament/model_answers/bk02-genesis.json";
+/// Geschützte Dateien der Übung: Musterantworten und Fragen nach den
+/// Folien (`vl.*`).
+List<String> lectureFiles() => [
+  for (final f in Directory("assets/old_testament/model_answers").listSync())
+    if (f.path.endsWith(".json")) f.path,
+]..sort();
 
-/// Alle Fragen aus den Dateien wie in der App (öffentlich + Musterantworten).
+/// Alle Fragen aus den Dateien wie in der App (öffentlich + Musterantworten
+/// + Fragen nach den Folien).
 KnowledgeBank fullBank() {
   final index = readJson("${KnowledgeBank.root}/index.json");
 
   return KnowledgeBank.merge([
     for (final file in index["files"] as List)
       KnowledgeBank.parse(readJson("${KnowledgeBank.root}/$file")),
-    KnowledgeBank.parse(readJson(modelAnswers)),
+    for (final file in lectureFiles()) KnowledgeBank.parse(readJson(file)),
   ]);
 }
 
@@ -96,9 +102,11 @@ void main() {
 
   group("Daten", () {
     test("alle Dateien lesbar, IDs eindeutig, Bereiche im Buch", () {
-      expect(bank.ofBook("Gen").length, greaterThanOrEqualTo(33 + 51));
-      expect(bank.ofBook("Ex").length, greaterThanOrEqualTo(29));
-      expect(bank.ofBook("Lev").length, greaterThanOrEqualTo(18));
+      // Nach der Prüfung vom 30.10.2026: öffentliche Fragen (Gen 20, Ex 24,
+      // Lev 16), Musterantworten (51) und Fragen nach den Folien.
+      expect(bank.ofBook("Gen").length, greaterThanOrEqualTo(20 + 51 + 19));
+      expect(bank.ofBook("Ex").length, greaterThanOrEqualTo(24 + 13));
+      expect(bank.ofBook("Lev").length, greaterThanOrEqualTo(16 + 6));
 
       final ids = [for (final q in bank.questions) q.id];
       expect(ids.toSet().length, ids.length);
@@ -221,10 +229,11 @@ void main() {
       }
 
       // Buchfragen ohne Bereich nur beim ganzen Buch.
-      expect(inAbraham.any((q) => q.id == "bq.gen.kapitel"), isFalse);
+      final inEgypt = bank.inChapters("Ex", 1, 18);
+      expect(inEgypt.any((q) => q.id == "bq.ex.personen"), isFalse);
       expect(
-        bank.inChapters("Gen", 1, 50, wholeBook: true).map((q) => q.id),
-        contains("bq.gen.kapitel"),
+        bank.inChapters("Ex", 1, 40, wholeBook: true).map((q) => q.id),
+        contains("bq.ex.personen"),
       );
     });
 
@@ -277,10 +286,19 @@ void main() {
         }
 
         expect(asked, isNotEmpty);
-        expect(asked.length, lessThanOrEqualTo(5));
+        expect(
+          asked.length,
+          lessThanOrEqualTo(AdaptiveStudyQueue.defaultKnowledge),
+        );
         expect(asked.toSet().length, asked.length);
         expect(pericopeTasks, greaterThan(0));
-        expect(asked.every((id) => bank.question(id)!.book == "Gen"), isTrue);
+        // Wissensfragen und Gliederungsaufgaben (go.gen.*) des Buchs.
+        expect(
+          asked.every(
+            (id) => controller.state.knowledge.question(id)!.book == "Gen",
+          ),
+          isTrue,
+        );
       },
     );
 
@@ -298,9 +316,12 @@ void main() {
         session.advance();
       }
 
-      // Alle Fragen sind neu: höchstens die erlaubten neuen.
-      expect(asked.length, BookLearningController.knowledgeOnlyNew);
-      expect(asked.toSet().length, asked.length);
+      // Alle Fragen sind neu: höchstens die erlaubten neuen. Jede falsch
+      // beantwortete kommt genau ein zweites Mal.
+      expect(asked.toSet().length, BookLearningController.knowledgeOnlyNew);
+      for (final id in asked.toSet()) {
+        expect(asked.where((a) => a == id).length, 2, reason: id);
+      }
     });
 
     test("Aufgaben zeigen die Reihenfolge nie schon gelöst", () {
@@ -322,7 +343,7 @@ void main() {
       () async {
         now = DateTime(2026, 11, 2, 8);
         final controller = await load();
-        final q = bank.question("bq.gen.kapitel")!;
+        final q = bank.question("bq.gen.protevangelium")!;
 
         final state = controller.state;
         expect(state.knowledgeStatusOf(q).level, LearningLevel.fresh);
@@ -395,7 +416,10 @@ void main() {
         final session = controller.bookSession("Gen");
         var guard = 0;
         while (!session.finished && guard++ < 100) {
-          expect(session.current, isNot(isA<KnowledgeTask>()));
+          // Aufgaben zur Gliederung gehören zu „Perikopen und Gliederung“.
+          if (session.current case KnowledgeTask(:final question)) {
+            expect(question.isStructure, isTrue, reason: question.id);
+          }
           if (session.current is IntroduceTask) {
             await session.completeIntroduction();
           }

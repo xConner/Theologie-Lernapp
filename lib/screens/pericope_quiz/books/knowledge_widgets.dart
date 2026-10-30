@@ -5,6 +5,7 @@ import '../../../quiz/books/book_catalog.dart';
 import '../../../quiz/books/book_learning.dart';
 import '../../../quiz/books/book_learning_controller.dart';
 import '../../../quiz/books/book_learning_status.dart';
+import '../../../quiz/books/book_outline.dart';
 import '../../../quiz/books/knowledge.dart';
 import '../../../services/bible/bible_reference_parser.dart';
 import '../../../theme/app_theme.dart';
@@ -63,13 +64,28 @@ class KnowledgeRefButtons extends StatelessWidget {
   }
 }
 
-/// Kopfzeile einer Wissensfrage: Art, Buchbereich, Herkunft.
+/// Kopfzeile einer Wissensfrage: Art, Buchbereich, Grundlage. Ergänzungen
+/// der App sind als solche gekennzeichnet – nichts wird als Vorlesungsstoff
+/// ausgegeben, was nicht aus der Vorlesung stammt.
 String knowledgeCaption(KnowledgeQuestion q) => [
-  "Wissensfrage",
-  q.topic.label,
+  q.isStructure ? "Gliederung" : "Wissensfrage",
+  if (!q.isStructure) q.topic.label,
   q.scopeLabel,
-  if (q.source != KnowledgeSource.app) q.source.label,
+  q.basis.label,
+  if (q.relevance == KnowledgeRelevance.focus) "Schwerpunkt",
 ].join(" · ");
+
+/// Woher der Inhalt stammt, für die Anzeige nach der Antwort.
+String knowledgeOriginText(KnowledgeQuestion q) {
+  if (!q.fromLecture) {
+    return "Ergänzung der App, nicht aus der Vorlesung "
+        "(${q.relevance.label}).";
+  }
+
+  final where = q.origin.isEmpty ? q.basis.label : q.origin.join("; ");
+
+  return "$where · ${q.relevance.label}";
+}
 
 /// Eine Wissensfrage in der Lerneinheit. Hält nur den Zustand der Eingabe;
 /// verbucht wird über [onAnswer] (genau einmal), weiter geht es mit
@@ -106,6 +122,31 @@ class _KnowledgeTaskViewState extends State<KnowledgeTaskView> {
   final Set<int> selected = {};
   final List<String> arranged = [];
   late final List<String?> matched = List.filled(q.pairs.length, null);
+
+  /// Freie Eingabe ([KnowledgeFormat.input]).
+  final TextEditingController input = TextEditingController();
+
+  /// Die Eingabe wurde nicht sicher erkannt: Selbsteinschätzung nach dem
+  /// Vergleich mit der Lösung.
+  bool unrecognized = false;
+
+  @override
+  void dispose() {
+    input.dispose();
+    super.dispose();
+  }
+
+  void _checkInput() {
+    final text = input.text.trim();
+
+    if (text.isEmpty) return;
+
+    if (KnowledgeAnswerMatcher.matches(q, text)) {
+      _answer(true, text);
+    } else {
+      setState(() => unrecognized = true);
+    }
+  }
 
   Future<void> _answer(bool value, String given) async {
     if (answered || busy) return;
@@ -153,10 +194,13 @@ class _KnowledgeTaskViewState extends State<KnowledgeTaskView> {
       if (matched[i] != q.pairs[i].right) ok = false;
     }
 
-    _answer(ok, [
-      for (int i = 0; i < q.pairs.length; i++)
-        "${q.pairs[i].left} – ${matched[i] ?? "?"}",
-    ].join("\n"));
+    _answer(
+      ok,
+      [
+        for (int i = 0; i < q.pairs.length; i++)
+          "${q.pairs[i].left} – ${matched[i] ?? "?"}",
+      ].join("\n"),
+    );
   }
 
   void _checkOrder() {
@@ -372,6 +416,88 @@ class _KnowledgeTaskViewState extends State<KnowledgeTaskView> {
             ),
         ];
 
+      case KnowledgeFormat.input:
+        if (answered) {
+          return [
+            Text(
+              "Deine Antwort: ${input.text.trim().isEmpty ? "–" : input.text.trim()}",
+              key: const ValueKey("knowledge-input-given"),
+              textAlign: TextAlign.center,
+            ),
+          ];
+        }
+
+        if (unrecognized) {
+          return [
+            Text(
+              "Deine Antwort: ${input.text.trim()}",
+              key: const ValueKey("knowledge-input-given"),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 8),
+            KnowledgeAnswerBox(title: "Lösung", text: q.solutionText),
+            if (q.explanation != null) KnowledgeNote(text: q.explanation!),
+            const SizedBox(height: 12),
+            Text(
+              "Nicht automatisch erkannt. Stimmt deine Antwort inhaltlich "
+              "mit der Lösung überein?",
+              textAlign: TextAlign.center,
+              style: TextStyle(color: context.colors.textSecondary),
+            ),
+            const SizedBox(height: 8),
+            Wrap(
+              alignment: WrapAlignment.center,
+              spacing: 8,
+              runSpacing: 8,
+              children: [
+                OutlinedButton.icon(
+                  key: const ValueKey("knowledge-input-wrong"),
+                  icon: const Icon(Icons.close_rounded),
+                  label: const Text("Nein, falsch"),
+                  onPressed: () => _answer(false, input.text.trim()),
+                ),
+                ElevatedButton.icon(
+                  key: const ValueKey("knowledge-input-right"),
+                  icon: const Icon(Icons.check_rounded),
+                  label: const Text("Ja, richtig"),
+                  onPressed: () =>
+                      _answer(true, "${input.text.trim()} (selbst bewertet)"),
+                ),
+              ],
+            ),
+          ];
+        }
+
+        return [
+          TextField(
+            key: const ValueKey("knowledge-input"),
+            controller: input,
+            autofocus: true,
+            textInputAction: TextInputAction.done,
+            decoration: const InputDecoration(hintText: "Antwort eingeben"),
+            onChanged: (_) => setState(() {}),
+            onSubmitted: (_) => _checkInput(),
+          ),
+          const SizedBox(height: 12),
+          Wrap(
+            alignment: WrapAlignment.center,
+            spacing: 8,
+            runSpacing: 8,
+            children: [
+              TextButton(
+                key: const ValueKey("knowledge-input-unknown"),
+                onPressed: () => _answer(false, "weiß ich nicht"),
+                child: const Text("Weiß ich nicht"),
+              ),
+              ElevatedButton(
+                key: const ValueKey("knowledge-check"),
+                onPressed: input.text.trim().isEmpty ? null : _checkInput,
+                child: const Text("Prüfen"),
+              ),
+            ],
+          ),
+        ];
+
       case KnowledgeFormat.reveal:
         if (!revealed) {
           return [
@@ -405,11 +531,17 @@ class _KnowledgeTaskViewState extends State<KnowledgeTaskView> {
           ),
           if (q.explanation != null)
             KnowledgeNote(text: q.explanation!, title: "Erläuterung"),
+          KnowledgeNote(
+            key: const ValueKey("knowledge-origin"),
+            title: "Quelle",
+            text: knowledgeOriginText(q),
+          ),
           const SizedBox(height: 8),
           KnowledgeRefButtons(controller: widget.controller, refs: q.refs),
           if (q.memoryVerse != null)
             KnowledgeNote(
-              text: "Merkvers: ${q.memoryVerse} (unter „Texte auswendig "
+              text:
+                  "Merkvers: ${q.memoryVerse} (unter „Texte auswendig "
                   "lernen“)",
             ),
           const SizedBox(height: 12),
@@ -467,7 +599,13 @@ class _KnowledgeTaskViewState extends State<KnowledgeTaskView> {
           textAlign: TextAlign.center,
         ),
       ),
-      if (q.explanation != null) KnowledgeNote(text: q.explanation!),
+      if (q.explanation != null && !unrecognized)
+        KnowledgeNote(text: q.explanation!),
+      KnowledgeNote(
+        key: const ValueKey("knowledge-origin"),
+        title: "Quelle",
+        text: knowledgeOriginText(q),
+      ),
       const SizedBox(height: 8),
       KnowledgeRefButtons(controller: widget.controller, refs: q.refs),
       if (q.memoryVerse != null)
@@ -543,7 +681,11 @@ class KnowledgeAnswerBox extends StatelessWidget {
   final String title;
   final String text;
 
-  const KnowledgeAnswerBox({super.key, required this.title, required this.text});
+  const KnowledgeAnswerBox({
+    super.key,
+    required this.title,
+    required this.text,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -616,7 +758,7 @@ class KnowledgeBookCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final state = controller.state;
 
-    final questions = state.knowledge.ofBook(book);
+    final questions = controller.contentKnowledgeOf(book);
     final tasks = state.knowledge.tasksOf(book);
     final enabled = state.knowledgeEnabled;
 
@@ -852,8 +994,182 @@ class _ModelAnswerTile extends StatelessWidget {
 }
 
 /// Zeile „n Wissensfragen“ für Abschnitte und Kapitel.
-String knowledgeCountText(LearningProgress progress) =>
-    progress.total == 0
+String knowledgeCountText(LearningProgress progress) => progress.total == 0
     ? ""
     : " · ${progress.total} Wissensfragen"
           "${progress.due > 0 ? " (${progress.due} fällig)" : ""}";
+
+/// Karte „Grobgliederung“ in der Buchansicht (Ebene A): die
+/// Hauptabschnitte nach der Vorlesung mit ihren Unterpunkten, dem
+/// Fortschritt ihrer Perikopen (Ebene B) und den Gliederungsaufgaben.
+/// Nur für Bücher mit hinterlegter Grobgliederung.
+class OutlinePartsCard extends StatelessWidget {
+  final BookLearningController controller;
+  final BookOutline outline;
+
+  const OutlinePartsCard({
+    super.key,
+    required this.controller,
+    required this.outline,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final state = controller.state;
+    final book = outline.book;
+    final questions = controller.structureOf(book);
+    final progress = state.knowledgeProgressOf(questions);
+    final enabled = state.pericopesEnabled;
+
+    return Card(
+      key: const ValueKey("outline-parts-card"),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Row(
+              children: [
+                Icon(
+                  Icons.account_tree_outlined,
+                  color: context.colors.primary,
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Text(
+                    "Grobgliederung",
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 8),
+            for (final part in outline.parts)
+              Builder(
+                builder: (context) {
+                  final pericopes = [
+                    for (final s in part.sections)
+                      ...pericopesOfSection(state.catalog, s),
+                  ];
+                  final p = state.progressOf(pericopes);
+
+                  return Padding(
+                    key: ValueKey("outline-part-${part.id}"),
+                    padding: const EdgeInsets.only(bottom: 6),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text.rich(
+                          TextSpan(
+                            children: [
+                              TextSpan(
+                                text: "${part.label}  ",
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                              TextSpan(text: part.title),
+                            ],
+                          ),
+                        ),
+                        for (final s in part.sections)
+                          if (s.learn)
+                            Padding(
+                              padding: const EdgeInsets.only(left: 16),
+                              child: Text(
+                                "${s.shortRange}: ${s.title}",
+                                style: TextStyle(
+                                  color: context.colors.textSecondary,
+                                  fontSize: 13,
+                                ),
+                              ),
+                            ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 16),
+                          child: Text(
+                            "${pericopes.length} Perikopen, ${p.secure} sicher",
+                            style: TextStyle(
+                              color: context.colors.textSecondary,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ),
+            const SizedBox(height: 4),
+            Text(
+              "${progress.total} Gliederungsaufgaben · ${progress.secure} sicher"
+              "${progress.due > 0 ? " · ${progress.due} fällig" : ""}",
+              key: const ValueKey("outline-parts-summary"),
+              style: TextStyle(
+                color: context.colors.textSecondary,
+                fontSize: 12.5,
+              ),
+            ),
+            const SizedBox(height: 6),
+            LearningProgressBar(progress: progress, height: 6),
+            const SizedBox(height: 12),
+            if (enabled)
+              Align(
+                alignment: Alignment.centerLeft,
+                child: ElevatedButton.icon(
+                  key: const ValueKey("outline-parts-learn"),
+                  icon: const Icon(Icons.play_arrow_rounded),
+                  label: const Text("Gliederung lernen"),
+                  onPressed: () => startStudy(
+                    context,
+                    controller: controller,
+                    session: controller.knowledgeSession(questions),
+                    title: "Gliederung: ${BookCatalog.nameOf(book)}",
+                  ),
+                ),
+              )
+            else
+              Text(
+                "„Perikopen und Gliederung“ ist ausgeschaltet; die "
+                "Gliederung bleibt zum Nachlesen da.",
+                style: TextStyle(color: context.colors.textSecondary),
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Die beiden Schalter des gemeinsamen Lernmodus. Mindestens einer bleibt
+/// an; gelten für alle Lerneinheiten, Wiederholungen und den Lernpfad.
+class StudyContentSwitches extends StatelessWidget {
+  final BookLearningController controller;
+
+  const StudyContentSwitches({super.key, required this.controller});
+
+  @override
+  Widget build(BuildContext context) {
+    final state = controller.state;
+
+    return Wrap(
+      spacing: 8,
+      runSpacing: 4,
+      children: [
+        FilterChip(
+          key: const ValueKey("study-content-knowledge"),
+          avatar: const Icon(Icons.quiz_outlined, size: 18),
+          label: const Text("Wissensfragen"),
+          selected: state.knowledgeEnabled,
+          onSelected: (v) => controller.setKnowledgeEnabled(v),
+        ),
+        FilterChip(
+          key: const ValueKey("study-content-pericopes"),
+          avatar: const Icon(Icons.format_list_numbered_rounded, size: 18),
+          label: const Text("Perikopen und Gliederung"),
+          selected: state.pericopesEnabled,
+          onSelected: (v) => controller.setPericopesEnabled(v),
+        ),
+      ],
+    );
+  }
+}

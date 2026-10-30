@@ -1,6 +1,6 @@
 {
  "book": "Lev",
- "source": "Fragen der App zum Bibeltext (Luther 1912 / Lutherbibel); Erläuterungen gekennzeichnet.",
+ "source": "Fragen der App zum Bibeltext (Luther 1912 / Lutherbibel). Geprüft am 30.10.2026 gegen die Folien (Genesis, Exodus/Levitikus) und die Musterantworten: basis/relevance/origin kennzeichnen, was aus der Vorlesung stammt; ohne Angabe = Ergänzung der App.",
  "questions": [
   {
    "id": "bq.lev.stiftshuette",
@@ -59,21 +59,22 @@
   },
   {
    "id": "bq.lev.priesterweihe",
-   "format": "choice",
+   "format": "input",
    "topic": "person",
    "prompt": "Wer weiht nach Lev 8 Aaron und seine Söhne zu Priestern?",
-   "correct": [
-    "Mose"
-   ],
-   "distractors": [
-    "Jitro",
-    "Josua",
-    "Aaron selbst"
-   ],
    "range": "8",
    "refs": [
     "Lev 8,1-13"
-   ]
+   ],
+   "basis": "slide",
+   "relevance": "lecture",
+   "origin": [
+    "Ex-Lev Folie 8"
+   ],
+   "accept": [
+    "Mose"
+   ],
+   "answer": "Mose"
   },
   {
    "id": "bq.lev.nadab",
@@ -102,13 +103,18 @@
     "Tiere mit ganz gespaltenen Klauen, die wiederkäuen"
    ],
    "distractors": [
-    "Alle Tiere, die Gras fressen",
-    "Tiere, die nicht auf vier Füßen gehen",
-    "Alle Haustiere, auch Schwein und Kamel"
+    "Tiere, die wiederkäuen, auch wenn ihre Klauen nicht gespalten sind",
+    "Tiere mit gespaltenen Klauen, auch wenn sie nicht wiederkäuen",
+    "Alle Tiere, die sich nur von Pflanzen ernähren"
    ],
    "range": "11",
    "refs": [
     "Lev 11,3"
+   ],
+   "basis": "slide",
+   "relevance": "lecture",
+   "origin": [
+    "Ex-Lev Folie 8"
    ]
   },
   {
@@ -120,9 +126,9 @@
     "Der Priester"
    ],
    "distractors": [
-    "Der Älteste der Sippe",
-    "Ein Arzt aus dem Lager",
-    "Der Kranke selbst"
+    "Mose",
+    "Die Ältesten am Tor des Lagers",
+    "Der Kranke selbst nach sieben Tagen"
    ],
    "range": "13-14",
    "refs": [
@@ -148,7 +154,12 @@
     "Lev 16,2",
     "Lev 16,34"
    ],
-   "explanation": "Hebr 9,7.11-12 deutet den Dienst des Hohenpriesters auf Christus."
+   "explanation": "Hebr 9,7.11-12 deutet den Dienst des Hohenpriesters auf Christus.",
+   "basis": "slide",
+   "relevance": "lecture",
+   "origin": [
+    "Ex-Lev Folie 8"
+   ]
   },
   {
    "id": "bq.lev.asasel",
@@ -167,6 +178,11 @@
    "refs": [
     "Lev 16,8-10",
     "Lev 16,21-22"
+   ],
+   "basis": "slide",
+   "relevance": "lecture",
+   "origin": [
+    "Ex-Lev Folie 8"
    ]
   },
   {
@@ -221,6 +237,11 @@
    "range": "19",
    "refs": [
     "Lev 19,33-34"
+   ],
+   "basis": "slide",
+   "relevance": "lecture",
+   "origin": [
+    "Ex-Lev Folie 9"
    ]
   },
   {
@@ -232,33 +253,19 @@
     "Im Doppelgebot der Liebe (Mt 22,39; Mk 12,31)"
    ],
    "distractors": [
-    "In der Bergpredigt bei den Seligpreisungen",
-    "Im Vaterunser",
-    "Bei der Tempelreinigung"
+    "In den Seligpreisungen (Mt 5,3-12)",
+    "In der Goldenen Regel (Mt 7,12)",
+    "Bei der Tempelreinigung (Mt 21,12-13)"
    ],
    "range": "19",
    "refs": [
     "Lev 19,18",
     "Mt 22,37-40"
-   ]
-  },
-  {
-   "id": "bq.lev.feste",
-   "format": "order",
-   "topic": "law",
-   "prompt": "Bringe die Feste in Lev 23 in die Reihenfolge des Kapitels.",
-   "items": [
-    "Sabbat",
-    "Passa und Fest der ungesäuerten Brote",
-    "Erstlingsgarbe",
-    "Wochenfest",
-    "Neujahrstag (Posaunenblasen)",
-    "Versöhnungstag",
-    "Laubhüttenfest"
    ],
-   "range": "23",
-   "refs": [
-    "Lev 23"
+   "basis": "slide",
+   "relevance": "lecture",
+   "origin": [
+    "Ex-Lev Folie 9"
    ]
   },
   {
@@ -347,26 +354,6 @@
     "Lev 26,14-15"
    ],
    "explanation": "Auch nach dem Fluch bleibt Gottes Zusage: Er gedenkt seines Bundes mit Jakob, Isaak und Abraham (Lev 26,42)."
-  },
-  {
-   "id": "bq.lev.kapitelzahl",
-   "format": "match",
-   "topic": "structure",
-   "prompt": "Ordne den ersten drei Büchern Mose ihre Kapitelzahl zu.",
-   "pairs": [
-    [
-     "Genesis",
-     "50 Kapitel"
-    ],
-    [
-     "Exodus",
-     "40 Kapitel"
-    ],
-    [
-     "Levitikus",
-     "27 Kapitel"
-    ]
-   ]
   }
  ]
 }

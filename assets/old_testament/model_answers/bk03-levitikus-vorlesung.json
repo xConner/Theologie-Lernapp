@@ -1,0 +1,118 @@
+{
+ "book": "Lev",
+ "session": "bk.03",
+ "sessionTitle": "Sitzung 3: Exodus und Levitikus",
+ "source": "Fragen nach den Folien der Übung Bibelkunde AT (Ronja Koch, Genesis.ppsx bzw. Ex-Lev.ppsx). Abgleich mit den Audioaufnahmen ausstehend. origin = Fundstelle; relevance = Vorlesungsstoff oder Schwerpunkt.",
+ "questions": [
+  {
+   "id": "vl.bk03.hg_stellung",
+   "format": "choice",
+   "topic": "law",
+   "prompt": "Welche Stellung hat das Heiligkeitsgesetz (Lev 17–26) unter den Rechtstexten des Pentateuch?",
+   "correct": [
+    "Es ist nach dem Bundesbuch das zweite große Gesetzescorpus; das dritte ist das Urdeuteronomium (Dtn 12–25)"
+   ],
+   "distractors": [
+    "Es ist das älteste Gesetzescorpus, noch vor dem Bundesbuch",
+    "Es ist das dritte Gesetzescorpus nach Bundesbuch und Deuteronomium",
+    "Es ist eine Wiederholung des Bundesbuchs ohne eigene Bestimmungen"
+   ],
+   "range": "17-26",
+   "relevance": "focus",
+   "origin": [
+    "Ex-Lev Folie 9"
+   ]
+  },
+  {
+   "id": "vl.bk03.hg_grundgedanke",
+   "format": "input",
+   "topic": "theme",
+   "prompt": "Welcher Grundgedanke prägt nach der Vorlesung das Heiligkeitsgesetz?",
+   "answer": "Die Heiligkeit Gottes begründet die Heiligkeit des Volkes: „Ihr sollt heilig sein, denn ich bin heilig, der HERR, euer Gott“ (Lev 19,2b).",
+   "accept": [
+    "Heiligkeit Gottes + Heiligkeit + Volk",
+    "Gott heilig + Volk heilig",
+    "ihr sollt heilig sein"
+   ],
+   "range": "17-26",
+   "relevance": "focus",
+   "origin": [
+    "Ex-Lev Folie 9"
+   ]
+  },
+  {
+   "id": "vl.bk03.lev19_2",
+   "format": "input",
+   "topic": "theme",
+   "prompt": "Wo steht „Ihr sollt heilig sein, denn ich bin heilig, der HERR, euer Gott“?",
+   "answer": "Lev 19,2(b)",
+   "accept": [
+    "19,2",
+    "Lev 19,2"
+   ],
+   "memoryVerse": "Lev 19,2",
+   "range": "19",
+   "relevance": "lecture",
+   "origin": [
+    "Ex-Lev Folie 9"
+   ]
+  },
+  {
+   "id": "vl.bk03.lev19_18",
+   "format": "input",
+   "topic": "theme",
+   "prompt": "Wo steht im Alten Testament „Du sollst deinen Nächsten lieben wie dich selbst“?",
+   "answer": "Lev 19,18(b)",
+   "accept": [
+    "19,18",
+    "Lev 19,18"
+   ],
+   "memoryVerse": "Lev 19,18",
+   "range": "19",
+   "relevance": "focus",
+   "origin": [
+    "Ex-Lev Folie 9"
+   ]
+  },
+  {
+   "id": "vl.bk03.hg_themen",
+   "format": "multi",
+   "topic": "law",
+   "prompt": "Wozu enthält das Heiligkeitsgesetz nach der Vorlesung Regeln?",
+   "correct": [
+    "Ernährung",
+    "Ehe und Sexualität",
+    "Umgang mit Fremden"
+   ],
+   "distractors": [
+    "Bau der Stiftshütte",
+    "Königtum"
+   ],
+   "range": "17-26",
+   "relevance": "lecture",
+   "origin": [
+    "Ex-Lev Folie 9"
+   ]
+  },
+  {
+   "id": "vl.bk03.lev27",
+   "format": "choice",
+   "topic": "law",
+   "prompt": "Was regelt Lev 27 nach der Vorlesung?",
+   "correct": [
+    "Gelübde und Weihegaben (priesterliche Weihevorschriften)"
+   ],
+   "distractors": [
+    "Opfer für unwissentliche Verfehlungen",
+    "Die Reinheit von Wöchnerinnen",
+    "Den Ablauf des Versöhnungstags"
+   ],
+   "range": "27",
+   "relevance": "lecture",
+   "origin": [
+    "Ex-Lev Folie 8"
+   ],
+   "explanation": "Nach der Folie reichen die priesterlichen Weihevorschriften bis Num 10; Lev 27 behandelt daraus Gelübde und Weihegaben."
+  }
+ ]
+}

@@ -119,6 +119,12 @@ void main() {
   }
 
   Future<void> openMarkus(WidgetTester tester) async {
+    // Auf kleinen Bildschirmen liegt das Buch unter den Lerninhalten.
+    await tester.scrollUntilVisible(
+      key("book-Mk"),
+      200,
+      scrollable: find.byType(Scrollable).first,
+    );
     await tester.tap(key("book-Mk"));
     await tester.pumpAndSettle();
   }

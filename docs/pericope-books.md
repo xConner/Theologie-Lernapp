@@ -460,3 +460,66 @@ Buchabkürzung der Perikopenliste und die Perikopen-ID:
 * Präzisierungen gelten nicht im Endlos-Quiz.
 * Antworten im Endlos-Quiz fließen nach dem ersten Verbuchen einer Perikope
   beim Buchlernen nicht mehr in deren Status ein.
+
+## Gemeinsamer Lernmodus: Wissensfragen, Perikopen und Gliederung
+
+Seit 30.10.2026 lernt jede Lerneinheit (Buch, Abschnitt, Kapitel, Lernpfad,
+Wiederholungen) gemeinsam, was eingeschaltet ist. Zwei Schalter oben in
+„Bücher systematisch lernen“ und in den Einstellungen, beide Standard an:
+
+* **Wissensfragen** – inhaltliche Fragen (`bq.*`, `ma.*`, `vl.*`).
+* **Perikopen und Gliederung** – Stellen der Perikopen und die Aufgaben zur
+  Grobgliederung (`go.*`).
+
+Mindestens einer bleibt an. Gespeichert in `bible_knowledge_settings`
+(`settings: {enabled, pericopes}`); Lernstände bleiben beim Ausschalten
+erhalten. Ohne Perikopen besteht eine Einheit aus bis zu 12 Fragen (6 neue).
+Mit beiden mischt `AdaptiveStudyQueue` bis zu 6 Fragen gleichmäßig zwischen
+die Perikopen; Wissensfragen und Gliederungsaufgaben wechseln sich ab, eine
+falsch beantwortete Frage kommt frühestens 3 Aufgaben später genau einmal
+wieder (zählt als Abruf nach gezeigter Lösung). Wiederholungslisten verteilen
+die fälligen Fragen gleichmäßig (`interleaveTasks`).
+
+### Grobgliederung (Ebene A) und Feinperikopen (Ebene B)
+
+`assets/book_outlines.json` kennt je Buch optional `parts`: Hauptabschnitte
+nach der Vorlesung, die Abschnitte (`sections`) über ihre IDs bündeln –
+auch nicht zusammenhängend (Gen 12–36 + 38). Felder: `id`, `title`, `label`
+(„12–36 (+38)“), `sections`, `accept` (Kapitelbereiche für die freie
+Eingabe), `keywords` (Stichwörter, an denen ein frei eingegebener Titel
+erkannt wird), `summary`, `origin`. Abschnitte mit `learn: true` sind
+Unterpunkte, die die Vorlesung nennt (z. B. Ex 2–4 Mose, 20,22–23,33
+Bundesbuch). Jede Perikope gehört über ihren Abschnitt zu genau einem
+Hauptabschnitt; die Perikopenliste bleibt unverändert.
+
+`OutlineQuestions` (lib/quiz/books/outline_questions.dart) bildet daraus
+Aufgaben mit stabilen IDs `go.<buch>.…`: Hauptabschnitte ordnen, Kapitel
+zuordnen, Kapitel frei eingeben, Titel zu einem Kapitelbereich nennen,
+Unterpunkte verorten, drei Zuordnungen Perikope/Stelle → Hauptabschnitt und
+die ganze Gliederung frei wiedergeben. Sie nutzen Karten und Spaced
+Repetition der Wissensfragen (`bible_knowledge`), gehören aber zum Schalter
+„Perikopen und Gliederung“. Die Buchansicht zeigt die Karte
+„Grobgliederung“ und gruppiert die Abschnitte nach Hauptabschnitten.
+
+### Freie Eingabe (`format: input`)
+
+`accept` nennt richtige Antworten; „A + B“ verlangt beide Teile.
+`KnowledgeAnswerMatcher` erkennt gleiche Wörter ohne Groß-/Kleinschreibung,
+Umlaute, Satzzeichen und Artikel sowie kleine Tippfehler, Kapitelbereiche
+auch mit Buchname oder Gedankenstrich (nur Kapitel: Kapitel müssen stimmen;
+mit Versen: genau). Was nicht erkannt wird, ist nicht falsch: Die App zeigt
+die Lösung, und man bewertet selbst („Ja, richtig“ / „Nein, falsch“).
+
+### Quellen und Relevanz
+
+Jede Frage hat `basis` (`slide`, `audio`, `modelAnswer`, `supplement`),
+`relevance` (`focus` = Schwerpunkt, `lecture` = Vorlesungsstoff,
+`supplement` = sinnvolle Ergänzung) und `origin` (Fundstellen, z. B.
+„Ex-Lev Folie 6“, später mit Zeitstempel der Aufnahme). Ohne Angabe gilt
+eine öffentliche Frage als Ergänzung der App. Die Kopfzeile und der Hinweis
+„Quelle“ nach der Antwort zeigen das an; Ergänzungen werden ausdrücklich
+als „nicht aus der Vorlesung“ gekennzeichnet. Fragen nach den Folien liegen
+geschützt in `assets/old_testament/model_answers/bk0N-*-vorlesung.json`
+(IDs `vl.bkNN.*`). Randinformationen und fehlerhafte Fragen werden entfernt
+(Prüfung 30.10.2026: 20 von 80 öffentlichen Fragen); IDs entfernter Fragen
+nicht wiederverwenden.

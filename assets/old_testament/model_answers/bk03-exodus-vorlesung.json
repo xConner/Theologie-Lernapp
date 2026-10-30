@@ -1,0 +1,241 @@
+{
+ "book": "Ex",
+ "session": "bk.03",
+ "sessionTitle": "Sitzung 3: Exodus und Levitikus",
+ "source": "Fragen nach den Folien der Übung Bibelkunde AT (Ronja Koch, Genesis.ppsx bzw. Ex-Lev.ppsx). Abgleich mit den Audioaufnahmen ausstehend. origin = Fundstelle; relevance = Vorlesungsstoff oder Schwerpunkt.",
+ "questions": [
+  {
+   "id": "vl.bk03.hauptthemen",
+   "format": "multi",
+   "topic": "theme",
+   "prompt": "Welche zwei Hauptthemen hat das Buch Exodus nach der Vorlesung?",
+   "correct": [
+    "Auszug aus Ägypten",
+    "Begegnung am Sinai"
+   ],
+   "distractors": [
+    "Landnahme in Kanaan",
+    "Verheißung an die Erzeltern",
+    "Bau des Tempels"
+   ],
+   "explanation": "Daneben nennt die Folie als Inhalt die Gesetzgebung und den Bau der Stiftshütte.",
+   "relevance": "focus",
+   "origin": [
+    "Ex-Lev Folie 3"
+   ]
+  },
+  {
+   "id": "vl.bk03.berufungen",
+   "format": "multi",
+   "topic": "person",
+   "prompt": "Wo erzählt das Buch Exodus die Berufung(en) des Mose, die nach der Vorlesung besonders wichtig sind?",
+   "correct": [
+    "Ex 3,1–4,17 (am Dornbusch)",
+    "Ex 6,2-13 (erneute Berufung in Ägypten)"
+   ],
+   "distractors": [
+    "Ex 2,11-22 (Flucht nach Midian)",
+    "Ex 19,1-8 (am Sinai)"
+   ],
+   "explanation": "Die Perikopenliste teilt Ex 3–4: Berufung am Dornbusch (3,1-12), Offenbarung des Gottesnamens (3,13-22), Zeichen (4,1-9), Aaron als Sprecher (4,10-17). Die Folie nennt „Berufung(en)“ ausdrücklich im Plural.",
+   "range": "3-6",
+   "relevance": "focus",
+   "origin": [
+    "Ex-Lev Folie 3"
+   ]
+  },
+  {
+   "id": "vl.bk03.gottesname",
+   "format": "input",
+   "topic": "term",
+   "prompt": "Was antwortet Gott in Ex 3,14 auf Moses Frage nach seinem Namen?",
+   "answer": "„Ich werde sein, der ich sein werde.“ (Luther 1912: „Ich werde sein, der ich sein werde“; andere Übersetzungen: „Ich bin, der ich bin“)",
+   "accept": [
+    "ich werde sein der ich sein werde",
+    "ich bin der ich bin",
+    "ich werde sein"
+   ],
+   "explanation": "Ex 3,15 nennt dann den Namen JHWH („der HERR“), den Gott Abrahams, Isaaks und Jakobs.",
+   "range": "3,13-22",
+   "relevance": "focus",
+   "origin": [
+    "Ex-Lev Folie 4"
+   ]
+  },
+  {
+   "id": "vl.bk03.plagen_reihenfolge",
+   "format": "order",
+   "topic": "event",
+   "prompt": "Bringe die zehn Plagen in die Reihenfolge der Vorlesung.",
+   "items": [
+    "Nilwasser zu Blut",
+    "Frösche",
+    "Mücken",
+    "Bremsen",
+    "(Tier-)Pest",
+    "Beulen/Geschwüre",
+    "Hagel",
+    "Heuschrecken",
+    "Finsternis",
+    "Tötung der Erstgeburt"
+   ],
+   "range": "7-12",
+   "relevance": "focus",
+   "origin": [
+    "Ex-Lev Folie 5"
+   ]
+  },
+  {
+   "id": "vl.bk03.plagen_kapitel",
+   "format": "choice",
+   "topic": "structure",
+   "prompt": "Wie verteilt die Vorlesung die zehn Plagen auf die Kapitel?",
+   "correct": [
+    "Plagen 1–9 in Kap. 7–11; die Tötung der Erstgeburt in Kap. 12 als Vorbereitung des Passa"
+   ],
+   "distractors": [
+    "Plagen 1–10 in Kap. 7–11; Kap. 12 erzählt nur den Auszug",
+    "Plagen 1–9 in Kap. 5–10; Kap. 11 die Tötung der Erstgeburt",
+    "Plagen 1–10 in Kap. 7–12; das Passa folgt erst in Kap. 13"
+   ],
+   "range": "7-12",
+   "relevance": "lecture",
+   "origin": [
+    "Ex-Lev Folie 5"
+   ]
+  },
+  {
+   "id": "vl.bk03.mirjamlied",
+   "format": "input",
+   "topic": "event",
+   "prompt": "Wo steht das Mirjamlied „Lasst uns dem HERRN singen … Ross und Reiter hat er ins Meer gestürzt“?",
+   "answer": "Ex 15,21",
+   "accept": [
+    "15,21",
+    "Ex 15,21"
+   ],
+   "range": "15",
+   "relevance": "lecture",
+   "origin": [
+    "Ex-Lev Folie 6"
+   ]
+  },
+  {
+   "id": "vl.bk03.sinai",
+   "format": "reveal",
+   "topic": "structure",
+   "prompt": "Was gehört nach der Vorlesung zur Sinaioffenbarung (Ex 19–24)?",
+   "answer": "Theophanie (Ex 19), Dekalog (Ex 20), Bundesbuch (Ex 20,22–23,33) und Bundesschluss in Kapitel 24 – der nach der Folie auf das Abendmahl im NT verweist.",
+   "range": "19-24",
+   "relevance": "focus",
+   "origin": [
+    "Ex-Lev Folie 6"
+   ]
+  },
+  {
+   "id": "vl.bk03.zelt",
+   "format": "input",
+   "topic": "term",
+   "prompt": "Wie nennt die Vorlesung das Heiligtum von Ex 25–31 außer „Stiftshütte“?",
+   "answer": "Zelt der Begegnung bzw. Zeltheiligtum",
+   "accept": [
+    "Zelt der Begegnung",
+    "Zeltheiligtum",
+    "Offenbarungszelt",
+    "Begegnungszelt"
+   ],
+   "range": "25-31",
+   "relevance": "lecture",
+   "origin": [
+    "Ex-Lev Folie 6"
+   ]
+  },
+  {
+   "id": "vl.bk03.kalb",
+   "format": "reveal",
+   "topic": "event",
+   "prompt": "Was gehört nach der Vorlesung zu Ex 32–34?",
+   "answer": "Das Goldene Kalb als Bundesbruch, der erneute Bundesschluss in Kapitel 34 und die Gnadenformel in Ex 34,6: „HERR, HERR, Gott, barmherzig und gnädig und geduldig und von großer Gnade und Treue“.",
+   "range": "32-34",
+   "relevance": "lecture",
+   "origin": [
+    "Ex-Lev Folie 6"
+   ]
+  },
+  {
+   "id": "vl.bk03.gnadenformel_ort",
+   "format": "input",
+   "topic": "theme",
+   "prompt": "Wo steht die Gnadenformel „barmherzig und gnädig und geduldig und von großer Gnade und Treue“?",
+   "answer": "Ex 34,6",
+   "accept": [
+    "34,6",
+    "34,6-7",
+    "Ex 34,6"
+   ],
+   "memoryVerse": "Ex 34,6",
+   "range": "34",
+   "relevance": "focus",
+   "origin": [
+    "Ex-Lev Folie 6"
+   ]
+  },
+  {
+   "id": "vl.bk03.dekalog_parallele",
+   "format": "input",
+   "topic": "law",
+   "prompt": "Wo steht neben Ex 20 die zweite Fassung des Dekalogs?",
+   "answer": "Dtn 5 (Dtn 5,6-18 nach der Folie)",
+   "accept": [
+    "Dtn 5",
+    "Deuteronomium 5",
+    "5. Mose 5",
+    "Dtn 5,6-18",
+    "Dtn 5,6-21"
+   ],
+   "range": "20,1-21",
+   "relevance": "lecture",
+   "origin": [
+    "Ex-Lev Folie 7"
+   ]
+  },
+  {
+   "id": "vl.bk03.apodiktisch",
+   "format": "input",
+   "topic": "law",
+   "prompt": "Welcher Art von Recht ordnet die Vorlesung den Dekalog zu?",
+   "answer": "Apodiktisches Recht (unbedingte Gebote und Verbote, „Du sollst …“)",
+   "accept": [
+    "apodiktisch",
+    "apodiktisches Recht"
+   ],
+   "explanation": "Gegenbegriff: kasuistisches Recht („Wenn jemand …, dann …“), wie es im Bundesbuch überwiegt (Ergänzung der App).",
+   "range": "20,1-21",
+   "relevance": "lecture",
+   "origin": [
+    "Ex-Lev Folie 7"
+   ]
+  },
+  {
+   "id": "vl.bk03.dekalog_merkmale",
+   "format": "multi",
+   "topic": "law",
+   "prompt": "Was sagt die Vorlesung über den Dekalog?",
+   "correct": [
+    "Zusammenfassung des Willens Gottes",
+    "Einheit ethischer und kultischer Pflichten gegenüber Gott und den Mitmenschen",
+    "Wichtig für Bezüge im NT",
+    "1. und 2. Gebot besonders wichtig für Israels Religionsgeschichte"
+   ],
+   "distractors": [
+    "Kasuistisches Recht für einzelne Streitfälle",
+    "Nur für die Priester verbindlich"
+   ],
+   "range": "20,1-21",
+   "relevance": "lecture",
+   "origin": [
+    "Ex-Lev Folie 7"
+   ]
+  }
+ ]
+}
