@@ -1,26 +1,7 @@
 {
  "book": "Gen",
- "source": "Fragen der App zum Bibeltext (Luther 1912 / Lutherbibel); Erläuterungen gekennzeichnet.",
+ "source": "Fragen der App zum Bibeltext (Luther 1912 / Lutherbibel). Geprüft am 30.10.2026 gegen die Folien (Genesis, Exodus/Levitikus), am 31.10.2026 auch gegen die Audioerläuterungen, und die Musterantworten: basis/relevance/origin kennzeichnen, was aus der Vorlesung stammt; ohne Angabe = Ergänzung der App.",
  "questions": [
-  {
-   "id": "bq.gen.tag1",
-   "format": "choice",
-   "topic": "event",
-   "prompt": "Was erschafft Gott nach Gen 1 am ersten Tag?",
-   "correct": [
-    "Das Licht"
-   ],
-   "distractors": [
-    "Sonne, Mond und Sterne",
-    "Die Pflanzen",
-    "Die Tiere des Feldes"
-   ],
-   "range": "1",
-   "refs": [
-    "Gen 1,3-5"
-   ],
-   "explanation": "Sonne, Mond und Sterne folgen erst am vierten Tag (Gen 1,14-19)."
-  },
   {
    "id": "bq.gen.tage",
    "format": "order",
@@ -37,24 +18,6 @@
    "range": "1,1-2,4",
    "refs": [
     "Gen 1,1-2,4"
-   ]
-  },
-  {
-   "id": "bq.gen.baeume",
-   "format": "choice",
-   "topic": "place",
-   "prompt": "Welche Bäume stehen nach Gen 2,9 mitten im Garten Eden?",
-   "correct": [
-    "Der Baum des Lebens und der Baum der Erkenntnis des Guten und Bösen"
-   ],
-   "distractors": [
-    "Ein Feigenbaum und ein Ölbaum",
-    "Der Weinstock und die Zeder",
-    "Der Baum des Lebens und ein Feigenbaum"
-   ],
-   "range": "2",
-   "refs": [
-    "Gen 2,9"
    ]
   },
   {
@@ -77,25 +40,6 @@
    "explanation": "Gott setzt Feindschaft zwischen die Schlange und den Nachkommen der Frau, der ihr den Kopf zertreten wird. Die Kirche (so auch Luther) deutet das als erste Verheißung des Erlösers."
   },
   {
-   "id": "bq.gen.hueter",
-   "format": "choice",
-   "topic": "person",
-   "prompt": "Was antwortet Kain auf Gottes Frage nach seinem Bruder Abel?",
-   "correct": [
-    "„Bin ich meines Bruders Hüter?“"
-   ],
-   "distractors": [
-    "„Er ist auf dem Feld bei den Herden.“",
-    "„Meine Strafe ist zu schwer, als dass ich sie tragen könnte.“",
-    "„Siehe, hier bin ich.“"
-   ],
-   "range": "4,1-16",
-   "refs": [
-    "Gen 4,9"
-   ],
-   "explanation": "„Meine Strafe ist zu schwer …“ sagt Kain erst nach dem Urteil (Gen 4,13)."
-  },
-  {
    "id": "bq.gen.kainszeichen",
    "format": "choice",
    "topic": "theme",
@@ -111,60 +55,6 @@
    "range": "4,1-16",
    "refs": [
     "Gen 4,15"
-   ]
-  },
-  {
-   "id": "bq.gen.set",
-   "format": "choice",
-   "topic": "person",
-   "prompt": "Wer tritt nach Gen 4,25 als Sohn Adams und Evas an die Stelle Abels?",
-   "correct": [
-    "Set"
-   ],
-   "distractors": [
-    "Henoch",
-    "Lamech",
-    "Enosch"
-   ],
-   "range": "4,25-26",
-   "refs": [
-    "Gen 4,25"
-   ]
-  },
-  {
-   "id": "bq.gen.henoch",
-   "format": "choice",
-   "topic": "person",
-   "prompt": "Von wem heißt es: „Er wandelte mit Gott und war nicht mehr, denn Gott nahm ihn hinweg“?",
-   "correct": [
-    "Henoch"
-   ],
-   "distractors": [
-    "Metuschelach",
-    "Noah",
-    "Lamech"
-   ],
-   "range": "5",
-   "refs": [
-    "Gen 5,24"
-   ]
-  },
-  {
-   "id": "bq.gen.metuschelach",
-   "format": "choice",
-   "topic": "person",
-   "prompt": "Wer wird nach Gen 5 mit 969 Jahren der älteste Mensch der Bibel?",
-   "correct": [
-    "Metuschelach"
-   ],
-   "distractors": [
-    "Adam",
-    "Noah",
-    "Jered"
-   ],
-   "range": "5",
-   "refs": [
-    "Gen 5,27"
    ]
   },
   {
@@ -186,7 +76,12 @@
     "Gen 6,10",
     "Gen 9,18"
    ],
-   "explanation": "Kanaan ist ein Sohn Hams (Gen 9,18), Nimrod ein Nachkomme Hams (Gen 10,8)."
+   "explanation": "Kanaan ist ein Sohn Hams (Gen 9,18), Nimrod ein Nachkomme Hams (Gen 10,8).",
+   "basis": "slide",
+   "relevance": "lecture",
+   "origin": [
+    "Genesis Folie 8"
+   ]
   },
   {
    "id": "bq.gen.babel",
@@ -197,13 +92,18 @@
     "Gott verwirrt die Sprache und zerstreut die Menschen über die Erde"
    ],
    "distractors": [
-    "Der Turm wird vom Blitz getroffen und stürzt ein",
-    "Gott schließt mit den Menschen einen Bund",
-    "Die Bauleute werden in Salzsäulen verwandelt"
+    "Gott vernichtet die Stadt mit Feuer und Schwefel vom Himmel",
+    "Gott schließt mit den Menschen einen Bund und setzt den Regenbogen als Zeichen",
+    "Die Menschen vollenden den Turm, doch Gott verlässt die Stadt"
    ],
    "range": "11,1-9",
    "refs": [
     "Gen 11,7-9"
+   ],
+   "basis": "slide",
+   "relevance": "lecture",
+   "origin": [
+    "Genesis Folie 8"
    ]
   },
   {
@@ -224,24 +124,6 @@
     "Gen 11,31"
    ],
    "explanation": "Haran ist die Zwischenstation, wo Terach stirbt; von dort zieht Abram nach Kanaan (Gen 12,4-5)."
-  },
-  {
-   "id": "bq.gen.alter_abram",
-   "format": "choice",
-   "topic": "person",
-   "prompt": "Wie alt ist Abram, als er auf Gottes Ruf aus Haran auszieht?",
-   "correct": [
-    "75 Jahre"
-   ],
-   "distractors": [
-    "99 Jahre",
-    "100 Jahre",
-    "40 Jahre"
-   ],
-   "range": "12,1-9",
-   "refs": [
-    "Gen 12,4"
-   ]
   },
   {
    "id": "bq.gen.melchisedek",
@@ -282,41 +164,24 @@
    "explanation": "Paulus begründet mit diesem Vers die Rechtfertigung aus Glauben (Röm 4,3; Gal 3,6)."
   },
   {
-   "id": "bq.gen.el_roi",
-   "format": "choice",
-   "topic": "theme",
-   "prompt": "Wie nennt Hagar den HERRN, der zu ihr redet (Gen 16,13)?",
-   "correct": [
-    "„Du bist ein Gott, der mich sieht“"
-   ],
-   "distractors": [
-    "„Der HERR ist mein Panier“",
-    "„Der HERR sieht“ (auf dem Berg)",
-    "„Ich werde sein, der ich sein werde“"
-   ],
-   "range": "16",
-   "refs": [
-    "Gen 16,13"
-   ],
-   "explanation": "„Der HERR sieht“ nennt Abraham den Ort in Gen 22,14; „Der HERR ist mein Panier“ steht in Ex 17,15."
-  },
-  {
    "id": "bq.gen.zehn",
-   "format": "choice",
+   "format": "input",
    "topic": "event",
-   "prompt": "Bei welcher Zahl von Gerechten endet Abrahams Fürbitte für Sodom?",
-   "correct": [
-    "Bei zehn"
-   ],
-   "distractors": [
-    "Bei fünfzig",
-    "Bei zwanzig",
-    "Bei einem"
-   ],
+   "prompt": "Bei wie vielen Gerechten endet Abrahams Fürbitte für Sodom (Gen 18)?",
    "range": "18,16-33",
    "refs": [
     "Gen 18,32"
-   ]
+   ],
+   "basis": "slide",
+   "relevance": "lecture",
+   "origin": [
+    "Genesis Folie 10"
+   ],
+   "accept": [
+    "10",
+    "zehn"
+   ],
+   "answer": "Bei zehn Gerechten"
   },
   {
    "id": "bq.gen.lots_frau",
@@ -334,6 +199,13 @@
    "range": "19",
    "refs": [
     "Gen 19,26"
+   ],
+   "basis": "slide",
+   "relevance": "lecture",
+   "origin": [
+    "Genesis Folie 10",
+    "Genesis Folie 13",
+    "Genesis Folie 13, Audio 5:06–5:22"
    ]
   },
   {
@@ -345,31 +217,13 @@
     "In das Land Morija"
    ],
    "distractors": [
-    "Auf den Berg Sinai",
+    "Nach Beerscheba",
     "Nach Bet-El",
     "In den Hain Mamre"
    ],
    "range": "22,1-19",
    "refs": [
     "Gen 22,2"
-   ]
-  },
-  {
-   "id": "bq.gen.jahwe_jire",
-   "format": "choice",
-   "topic": "place",
-   "prompt": "Wie nennt Abraham den Ort, an dem Gott statt Isaak einen Widder gibt?",
-   "correct": [
-    "„Der HERR sieht“"
-   ],
-   "distractors": [
-    "Bet-El („Haus Gottes“)",
-    "Pnuël („Angesicht Gottes“)",
-    "Beerscheba („Schwurbrunnen“)"
-   ],
-   "range": "22,1-19",
-   "refs": [
-    "Gen 22,14"
    ]
   },
   {
@@ -390,24 +244,6 @@
     "Gen 23,17-20"
    ],
    "explanation": "In Machpela werden später auch Abraham, Isaak, Rebekka, Lea und Jakob begraben (Gen 49,29-32; 50,13)."
-  },
-  {
-   "id": "bq.gen.brautwerbung",
-   "format": "choice",
-   "topic": "person",
-   "prompt": "Wen sendet Abraham aus, um eine Frau für Isaak zu suchen (Gen 24)?",
-   "correct": [
-    "Seinen ältesten Knecht"
-   ],
-   "distractors": [
-    "Lot",
-    "Ismael",
-    "Isaak selbst"
-   ],
-   "range": "24",
-   "refs": [
-    "Gen 24,2-4"
-   ]
   },
   {
    "id": "bq.gen.orte",
@@ -443,24 +279,37 @@
     "Gen 18,1",
     "Gen 22,2",
     "Gen 23,19"
+   ],
+   "basis": "slide",
+   "relevance": "lecture",
+   "origin": [
+    "Genesis Folie 10",
+    "Genesis Folie 11",
+    "Genesis Folie 12"
    ]
   },
   {
    "id": "bq.gen.himmelsleiter",
-   "format": "choice",
+   "format": "input",
    "topic": "event",
-   "prompt": "Was sieht Jakob im Traum auf der Flucht vor Esau (Gen 28)?",
-   "correct": [
-    "Eine Treppe bis an den Himmel, auf der Engel auf- und niedersteigen"
-   ],
-   "distractors": [
-    "Sieben fette und sieben magere Kühe",
-    "Einen brennenden Dornbusch",
-    "Garben, die sich vor seiner Garbe verneigen"
-   ],
+   "prompt": "Was sieht Jakob auf der Flucht vor Esau im Traum (Gen 28)?",
    "range": "28,10-22",
    "refs": [
     "Gen 28,12"
+   ],
+   "basis": "slide",
+   "relevance": "lecture",
+   "origin": [
+    "Genesis Folie 12",
+    "Genesis Folie 13, Audio 9:57"
+   ],
+   "answer": "Eine Treppe (Leiter) bis an den Himmel, auf der Engel auf- und niedersteigen; oben steht der HERR und erneuert die Verheißung.",
+   "accept": [
+    "Treppe",
+    "Leiter",
+    "Himmelsleiter",
+    "Stufen",
+    "Himmelstreppe"
    ]
   },
   {
@@ -479,26 +328,12 @@
    "range": "29,1-30",
    "refs": [
     "Gen 29,23-25"
+   ],
+   "basis": "slide",
+   "relevance": "lecture",
+   "origin": [
+    "Genesis Folie 12"
    ]
-  },
-  {
-   "id": "bq.gen.vierzehn",
-   "format": "choice",
-   "topic": "event",
-   "prompt": "Wie viele Jahre dient Jakob insgesamt bei Laban um Lea und Rahel?",
-   "correct": [
-    "14 Jahre"
-   ],
-   "distractors": [
-    "7 Jahre",
-    "20 Jahre",
-    "40 Jahre"
-   ],
-   "range": "29,1-30",
-   "refs": [
-    "Gen 29,18-30"
-   ],
-   "explanation": "Insgesamt bleibt Jakob 20 Jahre bei Laban (Gen 31,41): 14 um die Frauen, 6 um die Herde."
   },
   {
    "id": "bq.gen.dina",
@@ -516,24 +351,11 @@
    "range": "34",
    "refs": [
     "Gen 34,25"
-   ]
-  },
-  {
-   "id": "bq.gen.ruben",
-   "format": "choice",
-   "topic": "person",
-   "prompt": "Wer will Josef vor dem Tod bewahren und schlägt vor, ihn in die Zisterne zu werfen?",
-   "correct": [
-    "Ruben"
    ],
-   "distractors": [
-    "Juda",
-    "Simeon",
-    "Benjamin"
-   ],
-   "range": "37",
-   "refs": [
-    "Gen 37,21-22"
+   "basis": "slide",
+   "relevance": "lecture",
+   "origin": [
+    "Genesis Folie 12"
    ]
   },
   {
@@ -546,8 +368,8 @@
    ],
    "distractors": [
     "Ruben",
-    "Levi",
-    "Issachar"
+    "Simeon",
+    "Benjamin"
    ],
    "range": "37",
    "refs": [
@@ -563,13 +385,18 @@
     "Sieben Jahre Überfluss und danach sieben Jahre Hungersnot"
    ],
    "distractors": [
-    "Sieben Plagen über Ägypten",
-    "Den Sturz des Pharao nach sieben Jahren",
-    "Sieben Jahre Krieg mit Kanaan"
+    "Sieben Jahre Hungersnot und danach sieben Jahre Überfluss",
+    "Den Aufstieg Josefs über seine Brüder, die sich vor ihm verneigen",
+    "Sieben Jahre Knechtschaft der Hebräer und danach ihre Befreiung"
    ],
    "range": "41",
    "refs": [
     "Gen 41,25-32"
+   ],
+   "basis": "slide",
+   "relevance": "lecture",
+   "origin": [
+    "Genesis Folie 14"
    ]
   },
   {
@@ -589,7 +416,12 @@
    "refs": [
     "Gen 50,20"
    ],
-   "explanation": "Der Satz deutet die ganze Josefsgeschichte: Gottes Führung wirkt durch die Schuld der Brüder hindurch (vgl. Gen 45,5-8)."
+   "explanation": "Der Satz deutet die ganze Josefsgeschichte: Gottes Führung wirkt durch die Schuld der Brüder hindurch (vgl. Gen 45,5-8).",
+   "basis": "slide",
+   "relevance": "lecture",
+   "origin": [
+    "Genesis Folie 15"
+   ]
   },
   {
    "id": "bq.gen.zepter",
@@ -609,24 +441,6 @@
     "Gen 49,10"
    ],
    "explanation": "Aus Juda kommt das Königtum Davids; die Kirche liest den Spruch messianisch (vgl. Offb 5,5: der Löwe aus dem Stamm Juda)."
-  },
-  {
-   "id": "bq.gen.kapitel",
-   "format": "choice",
-   "topic": "structure",
-   "prompt": "Wie viele Kapitel hat das Buch Genesis?",
-   "correct": [
-    "50"
-   ],
-   "distractors": [
-    "40",
-    "36",
-    "27"
-   ],
-   "refs": [
-    "Gen 1",
-    "Gen 50"
-   ]
   }
  ]
 }

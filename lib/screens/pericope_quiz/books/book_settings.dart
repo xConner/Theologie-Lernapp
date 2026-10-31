@@ -148,17 +148,33 @@ class _BookLearningSettingsViewState extends State<BookLearningSettingsView> {
         if (widget.controller case final controller?)
           ListenableBuilder(
             listenable: controller,
-            builder: (context, _) => SwitchListTile(
-              key: const ValueKey("book-settings-knowledge"),
-              contentPadding: EdgeInsets.zero,
-              title: const Text("Wissensfragen einbeziehen"),
-              subtitle: const Text(
-                "Inhaltliche Fragen zu Personen, Ereignissen und Begriffen "
-                "in Lerneinheiten und Wiederholungen. Ausschalten löscht "
-                "keinen Fortschritt.",
-              ),
-              value: controller.state.knowledgeEnabled,
-              onChanged: controller.setKnowledgeEnabled,
+            builder: (context, _) => Column(
+              children: [
+                SwitchListTile(
+                  key: const ValueKey("book-settings-knowledge"),
+                  contentPadding: EdgeInsets.zero,
+                  title: const Text("Wissensfragen einbeziehen"),
+                  subtitle: const Text(
+                    "Inhaltliche Fragen zu Personen, Ereignissen und "
+                    "Begriffen in Lerneinheiten und Wiederholungen. "
+                    "Ausschalten löscht keinen Fortschritt.",
+                  ),
+                  value: controller.state.knowledgeEnabled,
+                  onChanged: controller.setKnowledgeEnabled,
+                ),
+                SwitchListTile(
+                  key: const ValueKey("book-settings-pericopes"),
+                  contentPadding: EdgeInsets.zero,
+                  title: const Text("Perikopen und Gliederung einbeziehen"),
+                  subtitle: const Text(
+                    "Stellen der Perikopen und die Grobgliederung der "
+                    "Bücher. Mindestens eine der beiden Lernarten bleibt "
+                    "an.",
+                  ),
+                  value: controller.state.pericopesEnabled,
+                  onChanged: controller.setPericopesEnabled,
+                ),
+              ],
             ),
           ),
         const SoundSettingsSection(module: SoundModule.pericopeQuiz),

@@ -67,6 +67,7 @@ class BookLearningState {
       ..clear()
       ..addAll(fresh.knowledgeCards);
     data.knowledgeEnabled = fresh.knowledgeEnabled;
+    data.pericopesEnabled = fresh.pericopesEnabled;
 
     data.readingPaths
       ..clear()
@@ -224,10 +225,16 @@ class BookLearningState {
   LearningProgress knowledgeProgressOf(Iterable<KnowledgeQuestion> questions) =>
       LearningProgress.of(questions.map(knowledgeStatusOf));
 
-  /// Wissensfragen, die in Lerneinheiten und Wiederholungen einbezogen
-  /// werden: leer, solange sie ausgeschaltet sind.
-  List<KnowledgeQuestion> active(Iterable<KnowledgeQuestion> questions) =>
-      knowledgeEnabled ? questions.toList() : const [];
+  /// Perikopen und Gliederung werden einbezogen (Schalter, Standard: ja).
+  bool get pericopesEnabled => data.pericopesEnabled;
+
+  /// Fragen, die in Lerneinheiten und Wiederholungen einbezogen werden:
+  /// Wissensfragen nur mit dem Schalter „Wissensfragen“, Aufgaben zur
+  /// Gliederung nur mit „Perikopen und Gliederung“.
+  List<KnowledgeQuestion> active(Iterable<KnowledgeQuestion> questions) => [
+    for (final q in questions)
+      if (q.isStructure ? pericopesEnabled : knowledgeEnabled) q,
+  ];
 
   /// Fällige Wissensfragen in [questions] (ohne Rücksicht auf den
   /// Schalter).
@@ -288,7 +295,7 @@ class KnowledgeTask extends StudyTask {
       KnowledgeFormat.multi => shuffled([...q.correct, ...q.distractors]),
       KnowledgeFormat.match => shuffled([for (final p in q.pairs) p.right]),
       KnowledgeFormat.order => shuffled(q.items),
-      KnowledgeFormat.reveal => const [],
+      KnowledgeFormat.reveal || KnowledgeFormat.input => const [],
     });
   }
 
@@ -389,6 +396,30 @@ enum StudyMode {
   final String label;
 
   const StudyMode(this.label);
+}
+
+/// Verteilt [extra] gleichmäßig zwischen [main] (Wiederholungslisten mit
+/// Perikopen und Wissensfragen), damit keine langen Serien gleichartiger
+/// Aufgaben entstehen. Die Reihenfolge innerhalb beider Listen bleibt.
+List<StudyTask> interleaveTasks(List<StudyTask> main, List<StudyTask> extra) {
+  if (main.isEmpty) return [...extra];
+  if (extra.isEmpty) return [...main];
+
+  final result = <StudyTask>[];
+  final total = main.length + extra.length;
+
+  int m = 0, e = 0;
+
+  for (int i = 0; i < total; i++) {
+    // Der Anteil von [extra] soll dem Gesamtanteil folgen.
+    final extraDue =
+        e < extra.length &&
+        (m >= main.length || (e + 1) * total <= (i + 1) * extra.length);
+
+    result.add(extraDue ? extra[e++] : main[m++]);
+  }
+
+  return result;
 }
 
 /// Stellt die Aufgaben der Lernmodi zusammen.

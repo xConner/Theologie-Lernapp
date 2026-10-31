@@ -1,0 +1,515 @@
+{
+ "book": "Ex",
+ "session": "bk.03",
+ "sessionTitle": "Sitzung 3: Exodus und Levitikus",
+ "source": "Fragen nach den Folien der Übung Bibelkunde AT (Ronja Koch, Genesis.ppsx bzw. Ex-Lev.ppsx). Am 31.10.2026 mit den Audioaufnahmen abgeglichen; „Audio mm:ss“ = Zeitstelle in der Audiodatei der Folie, basis audio = nur mündlich. origin = Fundstelle; relevance = Vorlesungsstoff oder Schwerpunkt.",
+ "questions": [
+  {
+   "id": "vl.bk03.hauptthemen",
+   "format": "multi",
+   "topic": "theme",
+   "prompt": "Welche zwei Hauptthemen hat das Buch Exodus nach der Vorlesung?",
+   "correct": [
+    "Auszug aus Ägypten",
+    "Begegnung am Sinai"
+   ],
+   "distractors": [
+    "Landnahme in Kanaan",
+    "Verheißung an die Erzeltern",
+    "Bau des Tempels"
+   ],
+   "explanation": "Daneben nennt die Folie als Inhalt die Gesetzgebung und den Bau der Stiftshütte.",
+   "relevance": "focus",
+   "origin": [
+    "Ex-Lev Folie 3",
+    "Ex-Lev Folie 3, Audio 1:51–2:06"
+   ]
+  },
+  {
+   "id": "vl.bk03.berufungen",
+   "format": "multi",
+   "topic": "person",
+   "prompt": "Wo erzählt das Buch Exodus die Berufung(en) des Mose, die nach der Vorlesung besonders wichtig sind?",
+   "correct": [
+    "Ex 3,1–4,17 (am Dornbusch)",
+    "Ex 6,2-13 (erneute Berufung in Ägypten)"
+   ],
+   "distractors": [
+    "Ex 2,11-22 (Flucht nach Midian)",
+    "Ex 19,1-8 (am Sinai)"
+   ],
+   "explanation": "Die Perikopenliste teilt Ex 3–4: Berufung am Dornbusch (3,1-12), Offenbarung des Gottesnamens (3,13-22), Zeichen (4,1-9), Aaron als Sprecher (4,10-17). Die Folie nennt „Berufung(en)“ ausdrücklich im Plural.",
+   "range": "3-6",
+   "relevance": "focus",
+   "origin": [
+    "Ex-Lev Folie 3",
+    "Ex-Lev Folie 4, Audio 1:22",
+    "Ex-Lev Folie 4, Audio 4:24"
+   ]
+  },
+  {
+   "id": "vl.bk03.gottesname",
+   "format": "input",
+   "topic": "term",
+   "prompt": "Was antwortet Gott in Ex 3,14 auf Moses Frage nach seinem Namen?",
+   "answer": "„Ich werde sein, der ich sein werde.“ (Luther 1912: „Ich werde sein, der ich sein werde“; andere Übersetzungen: „Ich bin, der ich bin“)",
+   "accept": [
+    "ich werde sein der ich sein werde",
+    "ich bin der ich bin",
+    "ich werde sein"
+   ],
+   "explanation": "Ex 3,15 nennt dann den Namen JHWH („der HERR“), den Gott Abrahams, Isaaks und Jakobs. Mündlich: Das Tetragramm JHWH ist eigentlich die Verbform „ich werde sein“ – ein handelnder, naher Gott.",
+   "range": "3,13-22",
+   "relevance": "focus",
+   "origin": [
+    "Ex-Lev Folie 4",
+    "Ex-Lev Folie 4, Audio 1:33–2:26"
+   ]
+  },
+  {
+   "id": "vl.bk03.plagen_reihenfolge",
+   "format": "order",
+   "topic": "event",
+   "prompt": "Bringe die zehn Plagen in die Reihenfolge der Vorlesung.",
+   "items": [
+    "Nilwasser zu Blut",
+    "Frösche",
+    "Mücken",
+    "Bremsen",
+    "(Tier-)Pest",
+    "Beulen/Geschwüre",
+    "Hagel",
+    "Heuschrecken",
+    "Finsternis",
+    "Tötung der Erstgeburt"
+   ],
+   "range": "7-12",
+   "relevance": "focus",
+   "origin": [
+    "Ex-Lev Folie 5",
+    "Ex-Lev Folie 5, Audio 1:07–1:30"
+   ]
+  },
+  {
+   "id": "vl.bk03.plagen_kapitel",
+   "format": "choice",
+   "topic": "structure",
+   "prompt": "Wie verteilt die Vorlesung die zehn Plagen auf die Kapitel?",
+   "correct": [
+    "Plagen 1–9 in Kap. 7–11; die Tötung der Erstgeburt in Kap. 12 als Vorbereitung des Passa"
+   ],
+   "distractors": [
+    "Plagen 1–10 in Kap. 7–11; Kap. 12 erzählt nur den Auszug",
+    "Plagen 1–9 in Kap. 5–10; Kap. 11 die Tötung der Erstgeburt",
+    "Plagen 1–10 in Kap. 7–12; das Passa folgt erst in Kap. 13"
+   ],
+   "range": "7-12",
+   "relevance": "lecture",
+   "origin": [
+    "Ex-Lev Folie 5",
+    "Ex-Lev Folie 5, Audio 0:08–0:28"
+   ]
+  },
+  {
+   "id": "vl.bk03.mirjamlied",
+   "format": "input",
+   "topic": "event",
+   "prompt": "Wo steht das Mirjamlied „Lasst uns dem HERRN singen … Ross und Reiter hat er ins Meer gestürzt“?",
+   "answer": "Ex 15,21",
+   "accept": [
+    "15,21",
+    "Ex 15,21"
+   ],
+   "range": "15",
+   "relevance": "lecture",
+   "origin": [
+    "Ex-Lev Folie 6",
+    "Ex-Lev Folie 6, Audio 1:00"
+   ],
+   "explanation": "Mündlich: wohl eines der ältesten Stücke des Alten Testaments überhaupt."
+  },
+  {
+   "id": "vl.bk03.sinai",
+   "format": "reveal",
+   "topic": "structure",
+   "prompt": "Was gehört nach der Vorlesung zur Sinaioffenbarung (Ex 19–24)?",
+   "answer": "Theophanie (Ex 19), Dekalog (Ex 20), Bundesbuch (Ex 20,22–23,33) und Bundesschluss in Kapitel 24 – der nach der Folie auf das Abendmahl im NT verweist.",
+   "range": "19-24",
+   "relevance": "focus",
+   "origin": [
+    "Ex-Lev Folie 6",
+    "Ex-Lev Folie 6, Audio 1:23–4:33"
+   ]
+  },
+  {
+   "id": "vl.bk03.zelt",
+   "format": "input",
+   "topic": "term",
+   "prompt": "Wie nennt die Vorlesung das Heiligtum von Ex 25–31 außer „Stiftshütte“?",
+   "answer": "Zelt der Begegnung bzw. Zeltheiligtum",
+   "accept": [
+    "Zelt der Begegnung",
+    "Zeltheiligtum",
+    "Offenbarungszelt",
+    "Begegnungszelt"
+   ],
+   "range": "25-31",
+   "relevance": "lecture",
+   "origin": [
+    "Ex-Lev Folie 6",
+    "Ex-Lev Folie 6, Audio 4:40–5:15",
+    "Ex-Lev Folie 6, Audio 7:51"
+   ],
+   "explanation": "Mündlich: „Luther nennt das ganze Ding Stiftshütte.“"
+  },
+  {
+   "id": "vl.bk03.kalb",
+   "format": "reveal",
+   "topic": "event",
+   "prompt": "Was gehört nach der Vorlesung zu Ex 32–34?",
+   "answer": "Das Goldene Kalb als Bundesbruch, der erneute Bundesschluss in Kapitel 34 und die Gnadenformel in Ex 34,6: „HERR, HERR, Gott, barmherzig und gnädig und geduldig und von großer Gnade und Treue“.",
+   "range": "32-34",
+   "relevance": "lecture",
+   "origin": [
+    "Ex-Lev Folie 6",
+    "Ex-Lev Folie 6, Audio 8:19–10:28"
+   ]
+  },
+  {
+   "id": "vl.bk03.gnadenformel_ort",
+   "format": "input",
+   "topic": "theme",
+   "prompt": "Wo steht die Gnadenformel „barmherzig und gnädig und geduldig und von großer Gnade und Treue“?",
+   "answer": "Ex 34,6",
+   "accept": [
+    "34,6",
+    "34,6-7",
+    "Ex 34,6"
+   ],
+   "memoryVerse": "Ex 34,6",
+   "range": "34",
+   "relevance": "focus",
+   "origin": [
+    "Ex-Lev Folie 6",
+    "Ex-Lev Folie 6, Audio 10:39–10:54",
+    "Ex-Lev Folie 6, Audio 11:55"
+   ],
+   "explanation": "Die Dozentin: „Da zeigt sich sein wahres Wesen“; der Vers sei „ganz wichtig für christliche Dogmatik“."
+  },
+  {
+   "id": "vl.bk03.dekalog_parallele",
+   "format": "input",
+   "topic": "law",
+   "prompt": "Wo steht neben Ex 20 die zweite Fassung des Dekalogs?",
+   "answer": "Dtn 5 (Dtn 5,6-18 nach der Folie)",
+   "accept": [
+    "Dtn 5",
+    "Deuteronomium 5",
+    "5. Mose 5",
+    "Dtn 5,6-18",
+    "Dtn 5,6-21"
+   ],
+   "range": "20,1-21",
+   "relevance": "lecture",
+   "origin": [
+    "Ex-Lev Folie 7",
+    "Ex-Lev Folie 7, Audio 0:31–0:40"
+   ],
+   "explanation": "Mündlich: in Dtn 5 unter stärkerer sozialethischer Fokussierung. Hinweis: Folie und Audio nennen Ex 20,1–7; der Dekalog umfasst Ex 20,1–17."
+  },
+  {
+   "id": "vl.bk03.apodiktisch",
+   "format": "input",
+   "topic": "law",
+   "prompt": "Welcher Art von Recht ordnet die Vorlesung den Dekalog zu?",
+   "answer": "Apodiktisches Recht (unbedingte Gebote und Verbote, „Du sollst …“)",
+   "accept": [
+    "apodiktisch",
+    "apodiktisches Recht"
+   ],
+   "explanation": "Gegenbegriff: kasuistisches Recht („Wenn jemand …, dann …“), wie es im Bundesbuch überwiegt (Ergänzung der App).",
+   "range": "20,1-21",
+   "relevance": "lecture",
+   "origin": [
+    "Ex-Lev Folie 7",
+    "Ex-Lev Folie 7, Audio 1:06–1:40"
+   ]
+  },
+  {
+   "id": "vl.bk03.dekalog_merkmale",
+   "format": "multi",
+   "topic": "law",
+   "prompt": "Was sagt die Vorlesung über den Dekalog?",
+   "correct": [
+    "Zusammenfassung des Willens Gottes",
+    "Einheit ethischer und kultischer Pflichten gegenüber Gott und den Mitmenschen",
+    "Wichtig für Bezüge im NT",
+    "1. und 2. Gebot besonders wichtig für Israels Religionsgeschichte"
+   ],
+   "distractors": [
+    "Kasuistisches Recht für einzelne Streitfälle",
+    "Nur für die Priester verbindlich"
+   ],
+   "range": "20,1-21",
+   "relevance": "lecture",
+   "origin": [
+    "Ex-Lev Folie 7",
+    "Ex-Lev Folie 7, Audio 0:45–2:51"
+   ]
+  },
+  {
+   "id": "vl.bk03.sinaiperikope",
+   "format": "choice",
+   "topic": "structure",
+   "prompt": "Wie weit reicht nach der Vorlesung die Sinaiperikope?",
+   "correct": [
+    "Ex 19 – Num 10,10"
+   ],
+   "distractors": [
+    "Ex 19 – Ex 40",
+    "Ex 19 – Lev 27",
+    "Ex 20 – Dtn 5"
+   ],
+   "explanation": "Mehrfach betont: der größte geschlossene Erzählraum des Pentateuch, „gut über 2,5 Bücher“. Erst Num 10,11 bricht Israel vom Sinai auf.",
+   "basis": "slide",
+   "relevance": "focus",
+   "origin": [
+    "Genesis Folie 6",
+    "Genesis Folie 6, Audio 0:55–1:02",
+    "Ex-Lev Folie 2, Audio 3:16–3:29",
+    "Ex-Lev Folie 3, Audio 1:21–1:38"
+   ]
+  },
+  {
+   "id": "vl.bk03.rechtsformen",
+   "format": "choice",
+   "topic": "law",
+   "prompt": "Wie unterscheidet die Vorlesung apodiktisches und kasuistisches Recht?",
+   "correct": [
+    "Apodiktisch: „Du sollst (nicht) …“ (Dekalog); kasuistisch: „Wenn …, dann …“ (Bundesbuch)"
+   ],
+   "distractors": [
+    "Apodiktisch: „Wenn …, dann …“ (Dekalog); kasuistisch: „Du sollst (nicht) …“ (Bundesbuch)",
+    "Apodiktisch: Recht für die Priester (Levitikus); kasuistisch: Recht für den König (Dtn)",
+    "Apodiktisch: mündlich überliefertes Recht; kasuistisch: auf Tafeln geschriebenes Recht"
+   ],
+   "explanation": "Die Vorlesung erklärt den Unterschied zweimal (Genesis-Folie 6 und Ex-Lev-Folie 7). Kasus = Fall: Fallrecht.",
+   "basis": "slide",
+   "relevance": "focus",
+   "origin": [
+    "Ex-Lev Folie 7",
+    "Genesis Folie 6, Audio 2:00–2:12",
+    "Ex-Lev Folie 7, Audio 1:06–1:40"
+   ]
+  },
+  {
+   "id": "vl.bk03.hammurabi",
+   "format": "input",
+   "topic": "connection",
+   "prompt": "Welche altorientalische Parallele nennt die Vorlesung zum Bundesbuch?",
+   "answer": "Der Kodex Hammurabi",
+   "accept": [
+    "Kodex Hammurabi",
+    "Codex Hammurabi",
+    "Hammurabi",
+    "Codex Hammurapi",
+    "Kodex Hammurapi"
+   ],
+   "range": "21-23",
+   "basis": "audio",
+   "relevance": "lecture",
+   "origin": [
+    "Ex-Lev Folie 2, Audio 4:44–4:59",
+    "Ex-Lev Folie 3, Audio 1:10"
+   ]
+  },
+  {
+   "id": "vl.bk03.tetragramm",
+   "format": "input",
+   "topic": "term",
+   "prompt": "Wie heißt der Gottesname aus vier Buchstaben (JHWH), den Luther mit „der HERR“ wiedergibt?",
+   "answer": "Tetragramm",
+   "accept": [
+    "Tetragramm",
+    "Tetragrammaton",
+    "Tetragrammaton JHWH"
+   ],
+   "range": "3",
+   "explanation": "Nach der Vorlesung ist JHWH eigentlich die Verbform „ich werde sein“ (Ex 3,14): ein handelnder, anwesender Gott, der sein Volk führt.",
+   "basis": "slide",
+   "relevance": "lecture",
+   "origin": [
+    "Ex-Lev Folie 4",
+    "Ex-Lev Folie 4, Audio 1:22",
+    "Ex-Lev Folie 4, Audio 2:15–2:26"
+   ]
+  },
+  {
+   "id": "vl.bk03.plagen_wettkampf",
+   "format": "choice",
+   "topic": "event",
+   "prompt": "Wie sind die Plagen 1–9 nach der Vorlesung erzählerisch aufgebaut?",
+   "correct": [
+    "Als sich steigernde Schauwunder im Wettkampf mit den ägyptischen Zauberern"
+   ],
+   "distractors": [
+    "Als Strafen, die jeweils einen einzelnen ägyptischen Gott treffen sollen",
+    "Als gleichförmige Liste ohne Steigerung, die nur Naturereignisse aufzählt",
+    "Als Prüfungen Israels, das jedes Mal zuerst Buße tun muss"
+   ],
+   "range": "7-11",
+   "explanation": "Die Plagen knüpfen an Naturerscheinungen in Ägypten an und sind aus mehreren Überlieferungssträngen zusammengesetzt.",
+   "basis": "audio",
+   "relevance": "lecture",
+   "origin": [
+    "Ex-Lev Folie 5, Audio 0:28–1:55"
+   ]
+  },
+  {
+   "id": "vl.bk03.passa_herkunft",
+   "format": "choice",
+   "topic": "law",
+   "prompt": "Wie erklärt die Vorlesung die Herkunft des Passafestes?",
+   "correct": [
+    "Wohl ein Hirtenfest, später mit einem Erntefest verbunden und auf den Exodus gedeutet"
+   ],
+   "distractors": [
+    "Ursprünglich ein Fest zur Tempelweihe, später auf die Wüstenwanderung gedeutet",
+    "Von Anfang an ein reines Erinnerungsfest an den Durchzug durch das Schilfmeer",
+    "Ursprünglich ein ägyptisches Königsfest, das Israel beim Auszug übernahm"
+   ],
+   "range": "12",
+   "explanation": "Das Bestreichen der Türpfosten mit Blut diente nach der Vorlesung ursprünglich der Abwehr von Unheil und wurde auf die Verschonung beim Auszug umgedeutet.",
+   "basis": "audio",
+   "relevance": "lecture",
+   "origin": [
+    "Ex-Lev Folie 5, Audio 4:21–5:06"
+   ]
+  },
+  {
+   "id": "vl.bk03.schilfmeer_fassungen",
+   "format": "choice",
+   "topic": "event",
+   "prompt": "Welche zwei ineinander verwobenen Fassungen erkennt die Vorlesung in der Schilfmeererzählung?",
+   "correct": [
+    "Ein starker Ostwind drängt das Wasser zurück; Moses ausgestreckter Stab teilt das Meer"
+   ],
+   "distractors": [
+    "Mirjam teilt das Meer mit ihrem Lied; Aaron hält mit seinem Stab das Wasser zurück",
+    "Israel zieht durch eine Furt; die Ägypter versinken später im Schlamm des Nils",
+    "Ein Erdbeben hebt den Meeresboden; der Engel des HERRN trägt Israel hinüber"
+   ],
+   "range": "14",
+   "explanation": "Wie bei der Sintflut (Gen 6–9) stehen zwei Versionen nebeneinander; die spätere verstärkt das Wunder.",
+   "basis": "audio",
+   "relevance": "lecture",
+   "origin": [
+    "Ex-Lev Folie 6, Audio 0:00–0:51"
+   ]
+  },
+  {
+   "id": "vl.bk03.theophanie",
+   "format": "input",
+   "topic": "term",
+   "prompt": "Was ist eine Theophanie, mit der die Sinaioffenbarung beginnt?",
+   "answer": "Eine Gotteserscheinung (begleitet von Feuer, Rauch, Wind)",
+   "accept": [
+    "Gotteserscheinung",
+    "Erscheinung Gottes",
+    "Gott erscheint",
+    "Erscheinung des Gottes"
+   ],
+   "range": "19",
+   "basis": "slide",
+   "relevance": "lecture",
+   "origin": [
+    "Ex-Lev Folie 6",
+    "Ex-Lev Folie 6, Audio 1:37–2:17"
+   ]
+  },
+  {
+   "id": "vl.bk03.talion",
+   "format": "choice",
+   "topic": "law",
+   "prompt": "Wie deutet die Vorlesung die Talionsformel „Auge um Auge, Zahn um Zahn“ (Ex 21,23–25)?",
+   "correct": [
+    "Als Rechtsgleichheit: Jeder Körperschaden wird gleich bestraft, auch bei Reichen"
+   ],
+   "distractors": [
+    "Als Aufruf zur Blutrache, den erst das Neue Testament wieder aufhebt",
+    "Als besonders hartes Strafrecht, das nur für Sklaven und Fremde galt",
+    "Als Opfervorschrift zur Sühne von Körperverletzungen am Altar"
+   ],
+   "range": "21",
+   "explanation": "Die Vorlesung betont, dass es kein besonders hartes, ungerechtes Gesetz ist.",
+   "basis": "audio",
+   "relevance": "lecture",
+   "origin": [
+    "Ex-Lev Folie 6, Audio 3:21–3:58"
+   ]
+  },
+  {
+   "id": "vl.bk03.jerobeam",
+   "format": "choice",
+   "topic": "connection",
+   "prompt": "Worauf zielt die Geschichte vom Goldenen Kalb nach der Vorlesung auch?",
+   "correct": [
+    "Polemik gegen die Stierbilder Jerobeams nach der Reichsteilung (1 Kön 12)"
+   ],
+   "distractors": [
+    "Kritik an den Pharaonen, die als Stiergötter verehrt wurden",
+    "Kritik am Tempel Salomos und seinen ehernen Rindern (1 Kön 7)",
+    "Polemik gegen die Baalspropheten, die Elia am Karmel besiegt (1 Kön 18)"
+   ],
+   "range": "32",
+   "explanation": "Die Dozentin: „Diese Sünde Jerobeams ist mega zentral und wichtig … das wird noch ganz wichtig für unsere Geschichte Israels.“",
+   "basis": "audio",
+   "relevance": "focus",
+   "origin": [
+    "Ex-Lev Folie 6, Audio 10:59–11:24"
+   ]
+  },
+  {
+   "id": "vl.bk03.wanderheiligtum",
+   "format": "choice",
+   "topic": "law",
+   "prompt": "Welchen Sinn hat nach der Vorlesung das transportable Zeltheiligtum (Ex 25–31; 35–40)?",
+   "correct": [
+    "Kult ist überall möglich, wo er richtig ausgeübt wird"
+   ],
+   "distractors": [
+    "Gott soll nur noch auf dem Berg Sinai angebetet werden",
+    "Nur die Leviten sollen das Heiligtum sehen und betreten",
+    "Das Zelt soll den Tempel in Jerusalem für immer ersetzen"
+   ],
+   "range": "25-31",
+   "explanation": "Die Texte gelten der Vorlesung als priesterschriftlich und nachexilisch, eine Antwort auf die Zerstörung des Tempels. Luther nennt das Zelt der Begegnung „Stiftshütte“.",
+   "basis": "audio",
+   "relevance": "lecture",
+   "origin": [
+    "Ex-Lev Folie 6, Audio 5:21–7:33"
+   ]
+  },
+  {
+   "id": "vl.bk03.dekalog_aufbau",
+   "format": "choice",
+   "topic": "law",
+   "prompt": "Wie ist der Dekalog nach der Vorlesung aufgebaut?",
+   "correct": [
+    "Erst Gebote zu Gott, das Elterngebot an der Schwelle, dann Gebote unter Menschen"
+   ],
+   "distractors": [
+    "Erst Gebote unter Menschen, am Ende die Gebote zum Verhältnis zu Gott",
+    "Abwechselnd ein kultisches und ein ethisches Gebot in fester Folge",
+    "Nur Gebote unter Menschen; das Verhältnis zu Gott regeln die Opfer"
+   ],
+   "range": "20",
+   "explanation": "Mündlich: Das NT bezieht sich ständig auf die zehn Gebote; Luthers Kleiner Katechismus legt sie aus.",
+   "basis": "audio",
+   "relevance": "lecture",
+   "origin": [
+    "Ex-Lev Folie 7, Audio 1:57–2:20"
+   ]
+  }
+ ]
+}

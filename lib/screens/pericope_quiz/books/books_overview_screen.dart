@@ -15,6 +15,7 @@ import '../../../widgets/settings_access.dart';
 import 'book_detail_screen.dart';
 import 'book_settings.dart';
 import 'book_widgets.dart';
+import 'knowledge_widgets.dart';
 import 'reading_path_view.dart';
 import 'review_overview_screen.dart';
 
@@ -234,6 +235,40 @@ class _BooksOverviewScreenState extends State<BooksOverviewScreen> {
           "Lerne die Perikopen ganzer Bücher Schritt für Schritt. Das "
           "Endlos-Quiz bleibt unverändert daneben bestehen.",
           style: TextStyle(color: context.colors.textSecondary),
+        ),
+        const SizedBox(height: 8),
+        Card(
+          key: const ValueKey("study-content-card"),
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Text(
+                  "Lerninhalte in jeder Lerneinheit",
+                  style: Theme.of(context).textTheme.titleSmall,
+                ),
+                const SizedBox(height: 6),
+                StudyContentSwitches(controller: c),
+                const SizedBox(height: 4),
+                Text(
+                  state.knowledgeEnabled && state.pericopesEnabled
+                      ? "Beides gemischt; der Fortschritt gilt in allen "
+                            "Lernwegen."
+                      : state.knowledgeEnabled
+                      ? "Nur Wissensfragen. Perikopen-Fortschritt bleibt "
+                            "gespeichert."
+                      : "Nur Perikopen und Gliederung. Wissensfragen-"
+                            "Fortschritt bleibt gespeichert.",
+                  key: const ValueKey("study-content-note"),
+                  style: TextStyle(
+                    color: context.colors.textSecondary,
+                    fontSize: 12.5,
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
         const SizedBox(height: 12),
         if (plan != null) ...[

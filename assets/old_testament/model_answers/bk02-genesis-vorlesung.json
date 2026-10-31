@@ -1,0 +1,660 @@
+{
+ "book": "Gen",
+ "session": "bk.02",
+ "sessionTitle": "Sitzung 2: Pentateuch und Genesis",
+ "source": "Fragen nach den Folien der Übung Bibelkunde AT (Ronja Koch, Genesis.ppsx bzw. Ex-Lev.ppsx). Am 31.10.2026 mit den Audioaufnahmen abgeglichen; „Audio mm:ss“ = Zeitstelle in der Audiodatei der Folie, basis audio = nur mündlich. origin = Fundstelle; relevance = Vorlesungsstoff oder Schwerpunkt.",
+ "questions": [
+  {
+   "id": "vl.bk02.tora",
+   "format": "match",
+   "topic": "term",
+   "prompt": "Ordne die Bezeichnungen des Pentateuch ihrer Bedeutung zu.",
+   "pairs": [
+    [
+     "Pentateuch",
+     "„Fünf-Gefäß“: fünf Rollen"
+    ],
+    [
+     "Tora",
+     "„Weisung“ (Hebräische Bibel)"
+    ],
+    [
+     "νόμος (LXX)",
+     "„Gesetz“"
+    ],
+    [
+     "Deuteronomium",
+     "„Zweites Gesetz“"
+    ]
+   ],
+   "explanation": "Die LXX übersetzt Tora mit nomos; daher die Rede vom „Gesetz“. Mose ist nach der Folie nicht Verfasser, sondern Hauptperson des Pentateuch. Mündlich: Tora meint nicht nur Gesetze, sondern auch die Erzählungen vom Leben mit Gott; die Wahrnehmung als „Gesetz“ rührt von der Septuaginta her.",
+   "relevance": "lecture",
+   "origin": [
+    "Genesis Folie 3",
+    "Genesis Folie 3, Audio 0:35–1:34"
+   ]
+  },
+  {
+   "id": "vl.bk02.mose_verfasser",
+   "format": "choice",
+   "topic": "person",
+   "prompt": "Welche Rolle hat Mose im Pentateuch nach der Vorlesung?",
+   "correct": [
+    "Er ist die Hauptperson, nicht der Verfasser"
+   ],
+   "distractors": [
+    "Er ist der Verfasser aller fünf Bücher",
+    "Er ist Verfasser von Exodus bis Deuteronomium, nicht der Genesis",
+    "Er ist nur im Deuteronomium Hauptperson"
+   ],
+   "relevance": "lecture",
+   "origin": [
+    "Genesis Folie 3",
+    "Genesis Folie 3, Audio 1:44–2:52"
+   ],
+   "explanation": "Mündlich: Mose kann die Bücher nicht geschrieben haben, sonst hätte er nach seinem Tod weiterschreiben müssen; und er tritt erst in Exodus auf."
+  },
+  {
+   "id": "vl.bk02.mittelpunkt",
+   "format": "choice",
+   "topic": "structure",
+   "prompt": "Was ist nach der Vorlesung der Mittelpunkt des Pentateuch?",
+   "correct": [
+    "Gottes Offenbarung am Sinai (Ex 19 – Num 10,10)"
+   ],
+   "distractors": [
+    "Der Auszug aus Ägypten (Ex 1–15)",
+    "Die Verheißung an Abraham (Gen 12)",
+    "Die Abschiedsrede des Mose (Dtn 1–30)"
+   ],
+   "explanation": "Der Aufenthalt am Sinai mit der Gesetzesüberlieferung ist der größte geschlossene narrative Raum des Pentateuch.",
+   "relevance": "lecture",
+   "origin": [
+    "Genesis Folie 4",
+    "Genesis Folie 6",
+    "Genesis Folie 4, Audio 3:12"
+   ]
+  },
+  {
+   "id": "vl.bk02.erzaehlmotive",
+   "format": "match",
+   "topic": "connection",
+   "prompt": "Ordne die Erzählzusammenhänge des Pentateuch ihrem Thema bzw. Motiv zu.",
+   "pairs": [
+    [
+     "Erzelterngeschichte (Gen 12–36 und 38)",
+     "Verheißung von Nachkommenschaft, Land und Segen"
+    ],
+    [
+     "Josefsgeschichte (Gen 37–50)",
+     "Wie kam Israel nach Ägypten?"
+    ],
+    [
+     "Auszug aus Ägypten (Ex 1–15)",
+     "Gott erwählt sein Volk"
+    ],
+    [
+     "Wüstenwanderung (Ex 15,22–18,27; Num 10,11–36,13)",
+     "Motiv des Murrens"
+    ],
+    [
+     "Aufenthalt am Sinai (Ex 19,1 – Num 10,10)",
+     "Gott gibt seinem Volk die Tora"
+    ]
+   ],
+   "relevance": "lecture",
+   "origin": [
+    "Genesis Folie 5",
+    "Genesis Folie 5, Audio 0:17–1:07"
+   ]
+  },
+  {
+   "id": "vl.bk02.rechtstexte",
+   "format": "match",
+   "topic": "law",
+   "prompt": "Ordne die drei großen Rechtstexte des Pentateuch ihren Stellen zu.",
+   "pairs": [
+    [
+     "Bundesbuch",
+     "Ex 20,22–23,33"
+    ],
+    [
+     "Heiligkeitsgesetz",
+     "Lev 17–26"
+    ],
+    [
+     "Deuteronomisches Gesetz (Urdeuteronomium)",
+     "Dtn 12–25"
+    ]
+   ],
+   "explanation": "Die Genesis-Folie nennt Ex 20,22–23,19, die Exodus-Folien Ex 20,22–23,33. Das Audio löst das auf: theologische Rahmung in Ex 20,22–26 und 23,20–33 – die Rechtssätze reichen bis 23,19, mit Rahmung bis 23,33. Die App fragt 20,22–23,33 ab.",
+   "relevance": "focus",
+   "origin": [
+    "Genesis Folie 6",
+    "Ex-Lev Folie 9",
+    "Genesis Folie 6, Audio 2:00–2:29",
+    "Ex-Lev Folie 6, Audio 3:05"
+   ]
+  },
+  {
+   "id": "vl.bk02.programmatisch",
+   "format": "choice",
+   "topic": "law",
+   "prompt": "Was beschreiben Gesetzestexte im Alten Orient nach der Vorlesung?",
+   "correct": [
+    "Eine Idealität, nicht die tatsächlich geübte Rechtspraxis"
+   ],
+   "distractors": [
+    "Die tatsächlich geübte Rechtspraxis der Gerichte",
+    "Die Rechtsprechung eines bestimmten Königs",
+    "Nur kultische Vorschriften für die Priester"
+   ],
+   "relevance": "focus",
+   "origin": [
+    "Genesis Folie 6",
+    "Genesis Folie 6, Audio 2:38–3:57"
+   ],
+   "explanation": "Die Dozentin: „Das ist ganz wichtig, dass Sie das im Hinterkopf haben, wenn Sie diese Stellen lesen.“"
+  },
+  {
+   "id": "vl.bk02.urgeschichte_funktion",
+   "format": "choice",
+   "topic": "structure",
+   "prompt": "Welche Funktion hat die Urgeschichte (Gen 1–11) nach der Vorlesung?",
+   "correct": [
+    "Sie ist der Prolog zur Geschichte Israels, die mit Gen 12 beginnt"
+   ],
+   "distractors": [
+    "Sie ist der Schluss der Schöpfungsgeschichte vor dem eigentlichen Gesetz",
+    "Sie ist eine spätere Ergänzung zur Josefsgeschichte",
+    "Sie erzählt die Vorgeschichte der Wüstenwanderung"
+   ],
+   "range": "1-11",
+   "relevance": "lecture",
+   "origin": [
+    "Genesis Folie 5",
+    "Genesis Folie 9",
+    "Genesis Folie 7, Audio 0:47",
+    "Genesis Folie 9, Audio 0:00–0:31"
+   ]
+  },
+  {
+   "id": "vl.bk02.dopplungen",
+   "format": "reveal",
+   "topic": "theme",
+   "prompt": "Woran erkennt man nach der Vorlesung, dass in der Urgeschichte unterschiedliche Überlieferungen zusammengefügt sind?",
+   "answer": "An Dopplungen und Spannungen: zwei verschiedene Schöpfungsgeschichten (Gen 1,1–2,4a und 2,4b–3,24) und eine Sintfluterzählung mit inneren Spannungen. Dazu viele außerbiblische Parallelen und viele Gattungen.",
+   "range": "1-11",
+   "relevance": "focus",
+   "origin": [
+    "Genesis Folie 9",
+    "Genesis Folie 9, Audio 2:41–4:40"
+   ],
+   "explanation": "Die Dozentin: „Was Sie bei mir allerdings lernen, ist, dass Sie auf diese Spannung achten.“ Wie die Quellen sich verhalten, ist ausdrücklich nicht Teil der Bibelkunde."
+  },
+  {
+   "id": "vl.bk02.toledot",
+   "format": "input",
+   "topic": "term",
+   "prompt": "Wie heißen die Genealogien, die nach der Vorlesung die Genesis gliedern?",
+   "answer": "Toledot (Genealogien, „Zeugungen“)",
+   "accept": [
+    "Toledot",
+    "Toledoth",
+    "Toledoth-Formeln",
+    "Toledotformel"
+   ],
+   "relevance": "lecture",
+   "origin": [
+    "Genesis Folie 9",
+    "Genesis Folie 9, Audio 1:29–2:25"
+   ]
+  },
+  {
+   "id": "vl.bk02.cliffhanger",
+   "format": "choice",
+   "topic": "connection",
+   "prompt": "Warum nennt die Vorlesung Gen 11,30 einen „Cliffhanger“ zur Erzelterngeschichte?",
+   "correct": [
+    "Sarai ist unfruchtbar – und gleich danach verheißt Gott Abram Nachkommen"
+   ],
+   "distractors": [
+    "Terach stirbt in Haran, bevor er Kanaan erreicht",
+    "Abram verlässt Ur, ohne das Ziel zu kennen",
+    "Lot trennt sich von Abram und zieht nach Sodom"
+   ],
+   "range": "11,27-32",
+   "relevance": "lecture",
+   "origin": [
+    "Genesis Folie 9",
+    "Genesis Folie 9, Audio 5:19–6:08"
+   ]
+  },
+  {
+   "id": "vl.bk02.kultorte",
+   "format": "choice",
+   "topic": "theme",
+   "prompt": "Wie ist die Erzelterngeschichte nach der Vorlesung entstanden?",
+   "correct": [
+    "Aus einzelnen Geschichten verschiedener Kultorte, die später verbunden wurden"
+   ],
+   "distractors": [
+    "Als ein von Anfang an einheitlicher Bericht eines Verfassers",
+    "Als Übersetzung einer babylonischen Heldensage ins Hebräische",
+    "Als spätere Auslegung der Josefsgeschichte durch Priester"
+   ],
+   "range": "12-36",
+   "relevance": "lecture",
+   "origin": [
+    "Genesis Folie 13",
+    "Genesis Folie 13, Audio 1:05–2:14"
+   ]
+  },
+  {
+   "id": "vl.bk02.verheissungen",
+   "format": "multi",
+   "topic": "theme",
+   "prompt": "Welche Verheißungen sind nach der Vorlesung bei den Erzeltern wichtig?",
+   "correct": [
+    "Segen",
+    "Land",
+    "Söhne bzw. Nachkommen",
+    "Beistand JHWHs"
+   ],
+   "distractors": [
+    "Königtum",
+    "Tempel"
+   ],
+   "range": "12-36",
+   "relevance": "focus",
+   "origin": [
+    "Genesis Folie 13",
+    "Genesis Folie 13, Audio 2:41–3:26"
+   ]
+  },
+  {
+   "id": "vl.bk02.gen12_17",
+   "format": "match",
+   "topic": "event",
+   "prompt": "Ordne zu, was die Vorlesung über die Kapitel der Erzelterngeschichte hervorhebt.",
+   "pairs": [
+    [
+     "Gen 12",
+     "Beginn mit Verheißung und Segen"
+    ],
+    [
+     "Gen 17",
+     "erneuter Bundesschluss mit Bundeszeichen und Namenswechsel"
+    ],
+    [
+     "Gen 19",
+     "Sodom und Gomorra als Zeichen für Gottes Gerichtswillen"
+    ],
+    [
+     "Gen 27",
+     "Verständnis des Segens; Jakob als Betrüger"
+    ]
+   ],
+   "range": "12-27",
+   "relevance": "lecture",
+   "origin": [
+    "Genesis Folie 13",
+    "Genesis Folie 13, Audio 5:45–6:58"
+   ]
+  },
+  {
+   "id": "vl.bk02.staemme",
+   "format": "choice",
+   "topic": "person",
+   "prompt": "Wofür stehen Jakobs Söhne nach der Vorlesung?",
+   "correct": [
+    "Für die Stämme Israels"
+   ],
+   "distractors": [
+    "Für die Völker der Völkertafel",
+    "Für die Priesterfamilien des Tempels",
+    "Für die Könige Israels und Judas"
+   ],
+   "range": "29-35",
+   "relevance": "lecture",
+   "origin": [
+    "Genesis Folie 13",
+    "Genesis Folie 13, Audio 7:03"
+   ]
+  },
+  {
+   "id": "vl.bk02.joseph_gattung",
+   "format": "input",
+   "topic": "term",
+   "prompt": "Welcher Gattung ordnet die Vorlesung die Josephsgeschichte zu?",
+   "answer": "Novelle bzw. Weisheitserzählung",
+   "accept": [
+    "Novelle",
+    "Weisheitserzählung",
+    "Weisheitserzaehlung"
+   ],
+   "range": "37-50",
+   "relevance": "lecture",
+   "origin": [
+    "Genesis Folie 15",
+    "Genesis Folie 15, Audio 0:18–0:48",
+    "Genesis Folie 15, Audio 3:06"
+   ]
+  },
+  {
+   "id": "vl.bk02.joseph_weiser",
+   "format": "reveal",
+   "topic": "theme",
+   "prompt": "Was zeigt die Josephsgeschichte nach der Vorlesung an Joseph, und wohin führt sie?",
+   "answer": "Sie erzählt eine in sich geschlossene Geschichte und zeigt, wie sich ein paradigmatischer Weiser verhält: Durch sein Verhalten widerfährt ihm Gutes – Gottes Führung zum Guten (vgl. Gen 50,20). Sie erklärt, wie Israel nach Ägypten kam, und leitet zum Buch Exodus über.",
+   "range": "37-50",
+   "relevance": "lecture",
+   "origin": [
+    "Genesis Folie 15",
+    "Genesis Folie 15, Audio 1:46–3:36"
+   ]
+  },
+  {
+   "id": "vl.bk02.levirat",
+   "format": "input",
+   "topic": "law",
+   "prompt": "Welche Rechtsinstitution steht nach der Vorlesung hinter Gen 38 (Juda, Tamar, Onan)?",
+   "answer": "Die Leviratsehe (Schwagerehe)",
+   "accept": [
+    "Leviratsehe",
+    "Levirat",
+    "Schwagerehe"
+   ],
+   "range": "38",
+   "relevance": "lecture",
+   "origin": [
+    "Genesis Folie 16",
+    "Genesis Folie 16, Audio 0:44–1:08"
+   ]
+  },
+  {
+   "id": "vl.bk02.gen38_bezug",
+   "format": "multi",
+   "topic": "connection",
+   "prompt": "Mit welchen Texten verknüpft die Vorlesung Gen 38?",
+   "correct": [
+    "Mit dem Buch Rut",
+    "Mit dem Stammbaum Jesu"
+   ],
+   "distractors": [
+    "Mit der Josefsgeschichte in Gen 39",
+    "Mit dem Bundesbuch"
+   ],
+   "explanation": "Tamar steht im Stammbaum Jesu (Mt 1,3); Rut 4,12.18 nennt Perez, den Sohn Tamars. Gen 38 unterbricht die Josefsgeschichte und gehört nach der Folie zur Erzelterngeschichte.",
+   "range": "38",
+   "relevance": "lecture",
+   "origin": [
+    "Genesis Folie 16",
+    "Genesis Folie 16, Audio 5:47–6:22"
+   ]
+  },
+  {
+   "id": "vl.bk02.ahnfrau_dreimal",
+   "format": "input",
+   "topic": "event",
+   "prompt": "Welche Erzählung steht nach der Vorlesung dreimal in der Erzelterngeschichte (Gen 12; 20; 26)?",
+   "answer": "Die Gefährdung der Ahnfrau",
+   "accept": [
+    "Gefährdung + Ahnfrau",
+    "Gefaehrdung + Ahnfrau",
+    "Ahnfrau"
+   ],
+   "range": "12-26",
+   "relevance": "lecture",
+   "origin": [
+    "Genesis Folie 10",
+    "Genesis Folie 11",
+    "Genesis Folie 12",
+    "Genesis Folie 13, Audio 2:14–2:26",
+    "Genesis Folie 13, Audio 8:03–8:09"
+   ],
+   "explanation": "Mündlich: Die Isaak-Fassung in Gen 26 ist wohl die ursprüngliche; Gen 12 und 20 beruhen auf ihr."
+  },
+  {
+   "id": "vl.bk02.buchnamen",
+   "format": "match",
+   "topic": "term",
+   "prompt": "Ordne den fünf Büchern des Pentateuch die Bedeutung ihres Namens zu.",
+   "pairs": [
+    [
+     "Genesis",
+     "Schöpfung"
+    ],
+    [
+     "Exodus",
+     "Auszug (aus Ägypten)"
+    ],
+    [
+     "Leviticus",
+     "levitische (priesterliche) Gesetzgebung"
+    ],
+    [
+     "Numeri",
+     "Zahlen (der Israeliten)"
+    ],
+    [
+     "Deuteronomium",
+     "Zweites Gesetz"
+    ]
+   ],
+   "explanation": "Die Dozentin: „Wichtig ist, dass Sie jetzt erstmal diese fünf Begriffe sich einprägen und auch verstehen, was sie da bedeuten“ – daraus lässt sich der Inhalt der Bücher ableiten. Die hebräischen Namen (Bereschit usw.) muss man ausdrücklich nicht lernen.",
+   "basis": "slide",
+   "relevance": "focus",
+   "origin": [
+    "Genesis Folie 3",
+    "Genesis Folie 3, Audio 4:00–6:28"
+   ]
+  },
+  {
+   "id": "vl.bk02.traditionsliteratur",
+   "format": "choice",
+   "topic": "connection",
+   "prompt": "Wie unterscheidet die Vorlesung die Entstehung von Altem und Neuem Testament?",
+   "correct": [
+    "AT: über Jahrhunderte gewachsene Traditionsliteratur; NT: Autorenliteratur"
+   ],
+   "distractors": [
+    "AT: Autorenliteratur weniger Propheten; NT: gewachsene Traditionsliteratur",
+    "AT und NT: beide in wenigen Jahrzehnten von Einzelautoren verfasst",
+    "AT: Übersetzungsliteratur aus dem Griechischen; NT: Gemeindeliteratur"
+   ],
+   "basis": "audio",
+   "relevance": "lecture",
+   "origin": [
+    "Genesis Folie 4, Audio 1:13–2:26"
+   ]
+  },
+  {
+   "id": "vl.bk02.hexateuch",
+   "format": "choice",
+   "topic": "structure",
+   "prompt": "Warum spricht die Forschung nach der Vorlesung manchmal von einem Hexateuch?",
+   "correct": [
+    "Weil die Landnahme, auf die der Pentateuch zuläuft, erst im Buch Josua erzählt wird"
+   ],
+   "distractors": [
+    "Weil das Buch Genesis ursprünglich aus zwei getrennten Büchern bestand",
+    "Weil die Septuaginta das Buch Rut als sechstes Buch Mose zählt",
+    "Weil das Deuteronomium nicht mehr zum Pentateuch gezählt wird"
+   ],
+   "explanation": "Umgekehrt spricht man auch von einem Tetrateuch (Gen–Num), weil das Deuteronomium eine eigene Rolle hat. Die Vorlesung bleibt bei der traditionellen Fünfteilung.",
+   "basis": "audio",
+   "relevance": "lecture",
+   "origin": [
+    "Genesis Folie 4, Audio 3:24–4:13"
+   ]
+  },
+  {
+   "id": "vl.bk02.fuehrung_beginn",
+   "format": "choice",
+   "topic": "structure",
+   "prompt": "Wo beginnt nach der Vorlesung das Thema „Führung Israels“, und wo endet es?",
+   "correct": [
+    "Mit Abraham in Gen 12; es reicht über den Pentateuch hinaus bis ins Buch Josua"
+   ],
+   "distractors": [
+    "Mit der Schöpfung in Gen 1; es endet mit dem Tod des Mose in Dtn 34",
+    "Mit der Berufung des Mose in Ex 3; es endet am Sinai in Ex 24",
+    "Mit Noah in Gen 6; es endet mit der Ankunft in Ägypten in Gen 46"
+   ],
+   "explanation": "Gen 1–11 ist als Urgeschichte „quasi der Prolog“; erst mit Abraham und der Landverheißung beginnt die Führung Israels.",
+   "basis": "slide",
+   "relevance": "lecture",
+   "origin": [
+    "Genesis Folie 5",
+    "Genesis Folie 5, Audio 0:17–0:47"
+   ]
+  },
+  {
+   "id": "vl.bk02.zweitgeborene",
+   "format": "choice",
+   "topic": "theme",
+   "prompt": "Welches Motiv hebt die Vorlesung bei Isaak, Jakob und Josef hervor?",
+   "correct": [
+    "Nicht der erbberechtigte Erstgeborene wird Träger der Verheißung"
+   ],
+   "distractors": [
+    "Der Erstgeborene erhält stets den Segen, auch gegen den Willen des Vaters",
+    "Der Träger der Verheißung muss zuvor Priester an einem Heiligtum werden",
+    "Die Verheißung geht immer auf den Sohn über, der zuletzt geboren wurde"
+   ],
+   "range": "21-50",
+   "explanation": "Dahinter steht nach der Vorlesung die Überzeugung, dass Gottes Segen sich gegen allen Anschein durchsetzt – ebenso bei der Unfruchtbarkeit der Mütter und der Gefährdung der Ahnfrau.",
+   "basis": "audio",
+   "relevance": "lecture",
+   "origin": [
+    "Genesis Folie 13, Audio 4:20–4:39"
+   ]
+  },
+  {
+   "id": "vl.bk02.segen_performativ",
+   "format": "choice",
+   "topic": "theme",
+   "prompt": "Was gilt nach der Vorlesung im Alten Testament für einen ausgesprochenen Segen?",
+   "correct": [
+    "Er wirkt durch das Aussprechen und kann darum nicht zurückgenommen werden"
+   ],
+   "distractors": [
+    "Er gilt erst, wenn ihn ein Priester am Heiligtum bestätigt hat",
+    "Er ist ein frommer Wunsch, den der Vater jederzeit widerrufen kann",
+    "Er gilt nur für den, der ihn mit einem Opfer erworben hat"
+   ],
+   "range": "27",
+   "explanation": "Darum kann Isaak den Segen, den Jakob sich erschlichen hat, Esau nicht mehr geben (Gen 27).",
+   "basis": "audio",
+   "relevance": "lecture",
+   "origin": [
+    "Genesis Folie 13, Audio 9:09–9:38"
+   ]
+  },
+  {
+   "id": "vl.bk02.aetiologie",
+   "format": "input",
+   "topic": "term",
+   "prompt": "Wie heißen nach der Vorlesung Erzählungen, die erklären, warum etwas so ist, wie es ist (z. B. die Salzsäule in Gen 19, der Name Bet-El in Gen 28)?",
+   "answer": "Ätiologie (ätiologische Erzählung)",
+   "accept": [
+    "Ätiologie",
+    "Ätiologien",
+    "Aetiologie",
+    "Ätiologische Erzählung",
+    "Etiologie"
+   ],
+   "basis": "audio",
+   "relevance": "lecture",
+   "origin": [
+    "Genesis Folie 13, Audio 4:54–5:22",
+    "Genesis Folie 13, Audio 9:46–10:01"
+   ]
+  },
+  {
+   "id": "vl.bk02.isaak",
+   "format": "choice",
+   "topic": "person",
+   "prompt": "Was sagt die Vorlesung über die Überlieferung zu Isaak?",
+   "correct": [
+    "Kein eigener Sagenkreis; eigenständig ist nur Gen 26 (Gefährdung der Ahnfrau)"
+   ],
+   "distractors": [
+    "Der größte Sagenkreis der Genesis, der Gen 21–35 umfasst und Jakob einschließt",
+    "Eine eigene Novelle wie die Josefsgeschichte, mit geschlossenem Erzählbogen",
+    "Nur Genealogien; Isaak tritt in keiner Erzählung selbst handelnd auf"
+   ],
+   "range": "26",
+   "explanation": "Er erscheint sonst als Sohn in der Abrahamserzählung und als Vater in der Jakob-Esau-Erzählung; daher auf Folie 7 „26(+27): Isaak“.",
+   "basis": "audio",
+   "relevance": "lecture",
+   "origin": [
+    "Genesis Folie 7",
+    "Genesis Folie 13, Audio 7:36–8:09"
+   ]
+  },
+  {
+   "id": "vl.bk02.stammessprueche",
+   "format": "choice",
+   "topic": "structure",
+   "prompt": "Was sagt die Vorlesung über die Stammessprüche in Gen 49?",
+   "correct": [
+    "Jakob segnet seine Söhne als künftige Stämme; wohl später eingefügt"
+   ],
+   "distractors": [
+    "Joseph verteilt das Land Kanaan durch das Los an seine Brüder",
+    "Mose segnet die Stämme vor seinem Tod; der Text stammt aus Dtn 33",
+    "Jakob verflucht die Brüder, die Joseph verkauft haben, und enterbt sie"
+   ],
+   "range": "49",
+   "basis": "audio",
+   "relevance": "lecture",
+   "origin": [
+    "Genesis Folie 14",
+    "Genesis Folie 15, Audio 0:58–1:36"
+   ]
+  },
+  {
+   "id": "vl.bk02.aegypten_bild",
+   "format": "choice",
+   "topic": "connection",
+   "prompt": "Wie wird Ägypten in der Josefsgeschichte nach der Vorlesung dargestellt?",
+   "correct": [
+    "Fast durchgängig positiv – anders als ab dem Buch Exodus"
+   ],
+   "distractors": [
+    "Durchgängig negativ, als Gegner Israels wie in der Plagenerzählung",
+    "Gar nicht, die Josefsgeschichte spielt überwiegend in Kanaan",
+    "Als Ort des Götzendienstes, vor dem Joseph seine Brüder warnt"
+   ],
+   "range": "37-50",
+   "explanation": "Die Vorlesung nennt das typisch für Literatur, die das Leben in der Diaspora behandelt. In der Plagenerzählung sind die Ägypter dagegen durchgängig negativ, teils satirisch gezeichnet.",
+   "basis": "audio",
+   "relevance": "lecture",
+   "origin": [
+    "Genesis Folie 15, Audio 4:26–4:43",
+    "Ex-Lev Folie 5, Audio 2:12–2:24"
+   ]
+  },
+  {
+   "id": "vl.bk02.daniel",
+   "format": "input",
+   "topic": "connection",
+   "prompt": "Zu welchem Buch des AT zieht die Vorlesung bei der Josefsgeschichte enge Parallelen (der Weise als Traumdeuter)?",
+   "answer": "Daniel (Daniel-Legenden)",
+   "accept": [
+    "Daniel",
+    "Dan",
+    "Danielbuch",
+    "Buch Daniel"
+   ],
+   "range": "41",
+   "basis": "audio",
+   "relevance": "lecture",
+   "origin": [
+    "Genesis Folie 15, Audio 3:42–4:21"
+   ]
+  }
+ ]
+}

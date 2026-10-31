@@ -57,6 +57,17 @@ class OutlineSection {
   /// ([BookPericope.key]), die keinem hinterlegten Abschnitt angehören.
   final Set<String>? members;
 
+  /// Nennt die Vorlesung den Abschnitt ausdrücklich (z. B. „2–4: Mose“)?
+  /// Dann wird sein Kapitelbereich mit der Grobgliederung abgefragt.
+  final bool learn;
+
+  /// Weitere als richtig geltende Bereiche („21-23“ neben „20,22-23,33“),
+  /// wenn die Folien sie so nennen.
+  final List<String> accept;
+
+  /// Fundstelle in der Lehrveranstaltung („Ex-Lev Folie 2“).
+  final List<String> origin;
+
   const OutlineSection({
     required this.id,
     required this.book,
@@ -64,6 +75,9 @@ class OutlineSection {
     required this.start,
     required this.end,
     this.members,
+    this.learn = false,
+    this.accept = const [],
+    this.origin = const [],
   });
 
   /// Ob eine Stelle, die bei [chapter],[verse] beginnt, in den Abschnitt
@@ -95,6 +109,79 @@ class OutlineSection {
 
     return "${start.text}–${end.text}";
   }
+
+  /// Bereich ohne Wort „Kapitel“: „2–4“, „20,22–23,33“, „16“.
+  String get shortRange {
+    if (start.verse == null && end.verse == null) {
+      return start.chapter == end.chapter
+          ? "${start.chapter}"
+          : "${start.chapter}–${end.chapter}";
+    }
+
+    return "${start.text}–${end.text}";
+  }
+}
+
+/// Ein Hauptabschnitt der Grobgliederung (Ebene A), wie ihn die Vorlesung
+/// nennt, z. B. Ex 19–24 „Sinai: Theophanie und Bundesschluss“. Er fasst
+/// Abschnitte ([sections]) zusammen; die Perikopen (Ebene B) gehören über
+/// ihren Abschnitt dazu. Ein Hauptabschnitt muss nicht zusammenhängen
+/// (Erzelterngeschichte Gen 12–36 und 38).
+class OutlinePart {
+  final String id;
+
+  final String book;
+
+  final String title;
+
+  /// Abschnitte in Buchreihenfolge.
+  final List<OutlineSection> sections;
+
+  /// Bereich wie in der Vorlesung, z. B. „12–36 (+38)“.
+  final String label;
+
+  /// Als richtig geltende Kapitelbereiche für die freie Eingabe.
+  final List<String> accept;
+
+  /// Stichwörter, an denen ein frei eingegebener Titel erkannt wird.
+  final List<String> keywords;
+
+  /// Was die Vorlesung zum Hauptabschnitt sagt (kurz).
+  final String? summary;
+
+  final List<String> origin;
+
+  const OutlinePart({
+    required this.id,
+    required this.book,
+    required this.title,
+    required this.sections,
+    required this.label,
+    this.accept = const [],
+    this.keywords = const [],
+    this.summary,
+    this.origin = const [],
+  });
+
+  bool contains(BookPericope p) => sections.any((s) => s.contains(p));
+
+  /// Zusammenhängender Kapitelbereich (Anfang des ersten bis Ende des
+  /// letzten Abschnitts), wenn die Abschnitte lückenlos aufeinander folgen.
+  ({OutlinePosition start, OutlinePosition end})? get span {
+    for (int i = 1; i < sections.length; i++) {
+      final prev = sections[i - 1].end;
+      final next = sections[i].start;
+
+      final adjacent = prev.verse == null
+          ? next.chapter == prev.chapter + 1 && next.verse == null
+          : (next.chapter == prev.chapter && next.verse == prev.verse! + 1) ||
+                (next.chapter == prev.chapter + 1 && (next.verse ?? 1) == 1);
+
+      if (!adjacent) return null;
+    }
+
+    return (start: sections.first.start, end: sections.last.end);
+  }
 }
 
 /// Die Gliederung eines Buchs: Abschnitte in Lernreihenfolge.
@@ -112,13 +199,37 @@ class BookOutline {
   /// Herkunft bzw. Hinweis aus den Daten.
   final String? note;
 
+  /// Grobgliederung (Ebene A); leer, wenn keine hinterlegt ist.
+  final List<OutlinePart> parts;
+
+  /// Sitzung der Übung, aus der die Grobgliederung stammt (`bk.03`).
+  final String? session;
+
   const BookOutline({
     required this.book,
     required this.sections,
     this.provisional = false,
     this.automatic = false,
     this.note,
+    this.parts = const [],
+    this.session,
   });
+
+  /// Der Hauptabschnitt, zu dem [section] gehört.
+  OutlinePart? partOf(OutlineSection section) {
+    for (final p in parts) {
+      if (p.sections.any((s) => s.id == section.id)) return p;
+    }
+    return null;
+  }
+
+  /// Der Hauptabschnitt einer Perikope.
+  OutlinePart? partOfPericope(BookPericope p) {
+    for (final part in parts) {
+      if (part.contains(p)) return part;
+    }
+    return null;
+  }
 }
 
 /// Alle hinterlegten Buchgliederungen.
@@ -144,6 +255,9 @@ class BookOutlines {
   static const BookOutlines empty = BookOutlines({});
 
   bool hasDefined(String book) => _defined.containsKey(book);
+
+  /// Alle hinterlegten Gliederungen.
+  Iterable<BookOutline> get defined => _defined.values;
 
   /// Liest die Datei. Ungültige Abschnitte (fehlende Felder, Ende vor
   /// Anfang, doppelte IDs) werden übergangen und protokolliert, damit ein
@@ -191,6 +305,9 @@ class BookOutlines {
             title: title,
             start: start,
             end: end,
+            learn: s["learn"] == true,
+            accept: _strings(s["accept"]),
+            origin: _strings(s["origin"]),
           ),
         );
       }
@@ -202,10 +319,74 @@ class BookOutlines {
         sections: sections,
         provisional: raw["provisional"] == true,
         note: raw["note"] is String ? raw["note"] as String : null,
+        parts: _parts(book, raw["parts"], sections),
+        session: raw["session"] is String ? raw["session"] as String : null,
       );
     }
 
     return BookOutlines(result);
+  }
+
+  static List<String> _strings(Object? raw) => [
+    if (raw is List)
+      for (final e in raw)
+        if (e is String && e.trim().isNotEmpty) e.trim(),
+  ];
+
+  /// Liest die Grobgliederung. Ein Hauptabschnitt nennt seine Abschnitte
+  /// über deren IDs; jeder Abschnitt gehört zu höchstens einem. Ungültige
+  /// Hauptabschnitte werden übergangen und protokolliert.
+  static List<OutlinePart> _parts(
+    String book,
+    Object? raw,
+    List<OutlineSection> sections,
+  ) {
+    if (raw is! List) return const [];
+
+    final byId = {for (final s in sections) s.id: s};
+    final used = <String>{};
+    final parts = <OutlinePart>[];
+
+    for (final p in raw) {
+      if (p is! Map) continue;
+
+      final id = p["id"];
+      final title = p["title"];
+      final label = p["label"];
+      final ids = _strings(p["sections"]);
+      final members = [for (final i in ids) ?byId[i]];
+
+      if (id is! String ||
+          title is! String ||
+          label is! String ||
+          members.isEmpty ||
+          members.length != ids.length ||
+          ids.any((i) => !used.add(i))) {
+        debugPrint("Ungültiger Hauptabschnitt in $book: $p");
+        continue;
+      }
+
+      // In Buchreihenfolge, wie die Abschnitte.
+      members.sort(
+        (a, b) => sections.indexOf(a).compareTo(sections.indexOf(b)),
+      );
+
+      parts.add(
+        OutlinePart(
+          id: id,
+          book: book,
+          title: title,
+          sections: members,
+          label: label,
+          accept: _strings(p["accept"]),
+          keywords: _strings(p["keywords"]),
+          summary: p["summary"] is String ? p["summary"] as String : null,
+          origin: _strings(p["origin"]),
+        ),
+      );
+    }
+
+    return parts;
   }
 
   /// Lädt die Gliederungen; fehlt die Datei oder ist sie defekt, gibt es nur
@@ -242,6 +423,8 @@ class BookOutlines {
       book: book,
       provisional: defined.provisional,
       note: defined.note,
+      parts: defined.parts,
+      session: defined.session,
       sections: [
         ...defined.sections,
         OutlineSection(

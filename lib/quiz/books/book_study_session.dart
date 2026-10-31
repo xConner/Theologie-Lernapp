@@ -139,9 +139,7 @@ class StudySession {
 
     if (q == null) return tasks.isEmpty ? 1 : _index / tasks.length;
 
-    return q.totalQuestions == 0
-        ? 1
-        : min(1.0, answered / q.totalQuestions);
+    return q.totalQuestions == 0 ? 1 : min(1.0, answered / q.totalQuestions);
   }
 
   String get progressLabel {
@@ -154,8 +152,11 @@ class StudySession {
           "erledigt";
     }
 
-    if (current is KnowledgeTask) {
-      return "Wissensfrage · Abfrage ${q.totalAsked} von ${q.totalQuestions}";
+    if (current case KnowledgeTask(:final question)) {
+      if (q.lastWasRetry) return "Noch einmal nach einem Fehler";
+
+      return "${question.isStructure ? "Gliederung" : "Wissensfrage"} · "
+          "Abfrage ${q.totalAsked} von ${q.totalQuestions}";
     }
 
     if (q.lastWasRetry) return "Noch einmal nach einem Fehler";
@@ -351,7 +352,15 @@ class StudySession {
 
     final card = state.knowledgeCardFor(task.question);
 
-    BookLearningRules.recordRecall(card, correct, algorithm, state.now);
+    // Wiederholung nach einem Fehler in derselben Einheit: Die Lösung war
+    // eben zu sehen – zählt nicht als zeitlich getrennter Abruf.
+    BookLearningRules.recordRecall(
+      card,
+      correct,
+      algorithm,
+      state.now,
+      revealed: queue?.lastWasRetry ?? false,
+    );
 
     results.add(
       StudyResult(

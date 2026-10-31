@@ -19,6 +19,7 @@ import 'book_study_session.dart';
 import 'book_outline.dart';
 import 'book_plan.dart';
 import 'knowledge.dart';
+import 'outline_questions.dart';
 import 'reading_plan_path.dart';
 import 'verse_precision.dart';
 
@@ -86,13 +87,27 @@ class BookLearningController extends ChangeNotifier {
         // Inzwischen geschlossen oder die Freigabe hat erneut gewechselt.
         if (_disposed || generation != lectures.generation) return;
 
-        state.knowledge = bank;
+        state.knowledge = withOutline(bank);
         refresh();
       },
       onError: (Object e) {
         debugPrint("Wissensfragen nicht geladen: $e");
       },
     );
+  }
+
+  /// Ergänzt die Aufgaben zur Grobgliederung (aus den Gliederungen und der
+  /// Perikopenliste gebildet, siehe [OutlineQuestions]).
+  KnowledgeBank withOutline(KnowledgeBank bank) {
+    try {
+      return KnowledgeBank.merge([
+        bank,
+        OutlineQuestions.build(outlines, catalog),
+      ]);
+    } catch (e) {
+      debugPrint("Gliederungsaufgaben nicht gebildet: $e");
+      return bank;
+    }
   }
 
   static Future<KnowledgeBank> defaultKnowledge(LectureMaterials lectures) {
@@ -234,19 +249,29 @@ class BookLearningController extends ChangeNotifier {
     int knowledgeQuestions = AdaptiveStudyQueue.defaultKnowledge,
     int maxNewKnowledge = AdaptiveStudyQueue.defaultNewKnowledge,
   }) {
+    // Gemeinsamer Lernmodus: Ohne „Perikopen und Gliederung“ besteht die
+    // Einheit nur aus Wissensfragen – so viele wie in einer reinen
+    // Wissensfragen-Einheit. Lernstände bleiben in jedem Fall erhalten.
+    final pericopes = state.pericopesEnabled;
+    final onlyKnowledge = !pericopes || scope.isEmpty;
+
     return StudySession(
       state: state,
       storage: storage,
       mode: mode,
       queue: AdaptiveStudyQueue(
         state: state,
-        scope: scope,
+        scope: pericopes ? scope : const [],
         maxNew: maxNew,
         paceNew: paceNew,
-        // Ausgeschaltet: keine Wissensfragen, Lernstände bleiben.
+        // Ausgeschaltet: keine Fragen dieser Art, Lernstände bleiben.
         knowledge: state.active(knowledge),
-        knowledgeQuestions: knowledgeQuestions,
-        maxNewKnowledge: maxNewKnowledge,
+        knowledgeQuestions: onlyKnowledge
+            ? max(knowledgeQuestions, knowledgeOnlyQuestions)
+            : knowledgeQuestions,
+        maxNewKnowledge: onlyKnowledge
+            ? max(maxNewKnowledge, knowledgeOnlyNew)
+            : maxNewKnowledge,
       ),
     );
   }
@@ -311,19 +336,52 @@ class BookLearningController extends ChangeNotifier {
   static const int knowledgeOnlyQuestions = 12;
   static const int knowledgeOnlyNew = 6;
 
+  /// Aufgaben zur Grobgliederung eines Buchs (Reihenfolge, Kapitel,
+  /// Zuordnung der Perikopen).
+  List<KnowledgeQuestion> structureOf(String book) => [
+    for (final q in state.knowledge.ofBook(book))
+      if (q.isStructure) q,
+  ];
+
+  /// Wissensfragen eines Buchs ohne die Aufgaben zur Gliederung.
+  List<KnowledgeQuestion> contentKnowledgeOf(String book) => [
+    for (final q in state.knowledge.ofBook(book))
+      if (!q.isStructure) q,
+  ];
+
   /// Schaltet die Wissensfragen ein oder aus. Lernstände bleiben in beiden
   /// Fällen unverändert gespeichert.
-  Future<void> setKnowledgeEnabled(bool enabled) async {
-    if (state.data.knowledgeEnabled == enabled) return;
+  Future<void> setKnowledgeEnabled(bool enabled) =>
+      setStudyContent(knowledge: enabled);
 
-    state.data.knowledgeEnabled = enabled;
+  /// Schaltet „Perikopen und Gliederung“ ein oder aus.
+  Future<void> setPericopesEnabled(bool enabled) =>
+      setStudyContent(pericopes: enabled);
+
+  /// Die beiden Schalter des gemeinsamen Lernmodus. Mindestens einer bleibt
+  /// an: Wird der letzte ausgeschaltet, geht der andere an.
+  Future<void> setStudyContent({bool? knowledge, bool? pericopes}) async {
+    final data = state.data;
+
+    var k = knowledge ?? data.knowledgeEnabled;
+    var p = pericopes ?? data.pericopesEnabled;
+
+    if (!k && !p) {
+      if (knowledge == false) p = true;
+      if (pericopes == false) k = true;
+    }
+
+    if (k == data.knowledgeEnabled && p == data.pericopesEnabled) return;
+
+    data.knowledgeEnabled = k;
+    data.pericopesEnabled = p;
 
     refresh();
 
     try {
-      await storage.saveKnowledgeEnabled(enabled);
+      await storage.saveStudyContent(knowledge: k, pericopes: p);
     } catch (e) {
-      debugPrint("Einstellung Wissensfragen nicht gespeichert: $e");
+      debugPrint("Einstellung des Lernmodus nicht gespeichert: $e");
     }
   }
 

@@ -1,42 +1,31 @@
 {
  "book": "Ex",
- "source": "Fragen der App zum Bibeltext (Luther 1912 / Lutherbibel); Erläuterungen gekennzeichnet.",
+ "source": "Fragen der App zum Bibeltext (Luther 1912 / Lutherbibel). Geprüft am 30.10.2026 gegen die Folien (Genesis, Exodus/Levitikus), am 31.10.2026 auch gegen die Audioerläuterungen, und die Musterantworten: basis/relevance/origin kennzeichnen, was aus der Vorlesung stammt; ohne Angabe = Ergänzung der App.",
  "questions": [
   {
    "id": "bq.ex.neuer_koenig",
    "format": "choice",
    "topic": "connection",
-   "prompt": "Welcher Satz verbindet den Anfang des Exodus mit der Josefsgeschichte?",
+   "prompt": "Wie schließt Ex 1 an die Josephsgeschichte an?",
    "correct": [
-    "„Da kam ein neuer König auf in Ägypten, der wusste nichts von Josef.“"
+    "Jakobs Nachkommen werden in Ägypten zahlreich; ein neuer König, der von Josef nichts weiß, unterdrückt sie"
    ],
    "distractors": [
-    "„Und Josef starb und alle seine Brüder.“",
-    "„Ich bin der Gott deines Vaters, der Gott Abrahams.“",
-    "„Lass mein Volk ziehen!“"
+    "Josef selbst führt die Fronarbeit ein, um Ägypten vor der Hungersnot zu retten",
+    "Nach Jakobs Tod vertreibt der Pharao die Familie aus Goschen in die Wüste",
+    "Josefs Brüder verkaufen ihre Nachkommen als Knechte an den Pharao"
    ],
    "range": "1",
    "refs": [
     "Ex 1,8"
    ],
-   "explanation": "Ex 1,6 erwähnt Josefs Tod; Ex 1,8 leitet aber den Umschwung zur Unterdrückung ein."
-  },
-  {
-   "id": "bq.ex.hebammen",
-   "format": "choice",
-   "topic": "person",
-   "prompt": "Wie heißen die hebräischen Hebammen, die dem Befehl des Pharao nicht gehorchen?",
-   "correct": [
-    "Schifra und Pua"
-   ],
-   "distractors": [
-    "Mirjam und Zippora",
-    "Bilha und Silpa",
-    "Jochebed und Elischeba"
-   ],
-   "range": "1",
-   "refs": [
-    "Ex 1,15-17"
+   "explanation": "Ex 1,1-7 nimmt die Söhne Jakobs und Josefs Tod auf; Ex 1,8 leitet den Umschwung zur Unterdrückung ein.",
+   "basis": "slide",
+   "relevance": "lecture",
+   "origin": [
+    "Genesis Folie 15",
+    "Ex-Lev Folie 2",
+    "Ex-Lev Folie 2, Audio 0:59–1:29"
    ]
   },
   {
@@ -49,14 +38,20 @@
    ],
    "distractors": [
     "Seine Schwester Mirjam",
-    "Eine der Hebammen",
-    "Die Frau Potifars"
+    "Eine der hebräischen Hebammen",
+    "Seine Mutter, als sie ihn stillen will"
    ],
    "range": "2,1-14",
    "refs": [
     "Ex 2,5-10"
    ],
-   "explanation": "Mirjam (in Ex 2 noch ohne Namen) beobachtet das Kästchen und holt die Mutter als Amme."
+   "explanation": "Mirjam (in Ex 2 noch ohne Namen) beobachtet das Kästchen und holt die Mutter als Amme.",
+   "basis": "slide",
+   "relevance": "lecture",
+   "origin": [
+    "Ex-Lev Folie 2",
+    "Ex-Lev Folie 4, Audio 0:34–0:50"
+   ]
   },
   {
    "id": "bq.ex.flucht",
@@ -74,6 +69,12 @@
    "range": "2,11-22",
    "refs": [
     "Ex 2,11-15"
+   ],
+   "basis": "slide",
+   "relevance": "lecture",
+   "origin": [
+    "Ex-Lev Folie 2",
+    "Ex-Lev Folie 4, Audio 0:52–1:00"
    ]
   },
   {
@@ -85,13 +86,20 @@
     "Im brennenden Dornbusch am Gottesberg Horeb"
    ],
    "distractors": [
-    "Im Traum in Bet-El",
-    "Am Ufer des Schilfmeers",
-    "Im Zelt der Begegnung"
+    "In Midian am Brunnen, als er Jitros Töchter verteidigt",
+    "Auf dem Sinai, als er die Tafeln empfängt",
+    "In Ägypten, als Aarons Stab zur Schlange wird"
    ],
    "range": "3",
    "refs": [
     "Ex 3,1-10"
+   ],
+   "basis": "slide",
+   "relevance": "focus",
+   "origin": [
+    "Ex-Lev Folie 2",
+    "Ex-Lev Folie 3",
+    "Ex-Lev Folie 4, Audio 1:22"
    ]
   },
   {
@@ -127,25 +135,13 @@
     "Ex 18,1",
     "Ex 17,9",
     "Ex 31,2-5"
-   ]
-  },
-  {
-   "id": "bq.ex.zippora",
-   "format": "choice",
-   "topic": "person",
-   "prompt": "Wie heißt die Frau des Mose?",
-   "correct": [
-    "Zippora"
    ],
-   "distractors": [
-    "Mirjam",
-    "Elischeba",
-    "Asenat"
+   "origin": [
+    "Ex-Lev Folie 4, Audio 1:00",
+    "Ex-Lev Folie 4, Audio 3:54"
    ],
-   "range": "2,11-22",
-   "refs": [
-    "Ex 2,21"
-   ]
+   "relevance": "lecture",
+   "basis": "audio"
   },
   {
    "id": "bq.ex.stroh",
@@ -164,7 +160,12 @@
    "refs": [
     "Ex 5,6-9"
    ],
-   "explanation": "Den Befehl, die Knaben zu töten, gibt der Pharao schon in Ex 1,22."
+   "explanation": "Den Befehl, die Knaben zu töten, gibt der Pharao schon in Ex 1,22.",
+   "origin": [
+    "Ex-Lev Folie 4, Audio 4:05–4:24"
+   ],
+   "relevance": "lecture",
+   "basis": "audio"
   },
   {
    "id": "bq.ex.passa",
@@ -184,6 +185,12 @@
    "range": "12,1-28",
    "refs": [
     "Ex 12,5-8"
+   ],
+   "basis": "slide",
+   "relevance": "lecture",
+   "origin": [
+    "Ex-Lev Folie 5",
+    "Ex-Lev Folie 5, Audio 3:47–5:22"
    ]
   },
   {
@@ -203,7 +210,13 @@
    "refs": [
     "Ex 12,13"
    ],
-   "explanation": "Das NT nimmt das Bild auf: „Christus, unser Passalamm, ist geopfert“ (1 Kor 5,7)."
+   "explanation": "Das NT nimmt das Bild auf: „Christus, unser Passalamm, ist geopfert“ (1 Kor 5,7).",
+   "basis": "slide",
+   "relevance": "lecture",
+   "origin": [
+    "Ex-Lev Folie 5",
+    "Ex-Lev Folie 5, Audio 4:21–5:06"
+   ]
   },
   {
    "id": "bq.ex.saeulen",
@@ -232,31 +245,19 @@
     "Israel zieht auf dem Trockenen hindurch, die nachsetzenden Ägypter ertrinken"
    ],
    "distractors": [
-    "Israel wird geschlagen und muss nach Ägypten zurück",
-    "Mose teilt das Wasser, aber nur Mose und Aaron ziehen hindurch",
-    "Die Ägypter schließen am Ufer Frieden mit Israel"
+    "Gott führt Israel um das Meer herum; die Ägypter verirren sich in der Wüste",
+    "Das Meer teilt sich erst, als Mirjam ihr Lied anstimmt",
+    "Hagel vernichtet die Ägypter, bevor sie das Ufer erreichen"
    ],
    "range": "14",
    "refs": [
     "Ex 14,21-31"
-   ]
-  },
-  {
-   "id": "bq.ex.mara",
-   "format": "choice",
-   "topic": "place",
-   "prompt": "Was geschieht in Mara (Ex 15,22–25)?",
-   "correct": [
-    "Das bittere Wasser wird süß, als Mose ein Holz hineinwirft"
    ],
-   "distractors": [
-    "Mose schlägt Wasser aus dem Felsen",
-    "Gott gibt zum ersten Mal Manna",
-    "Israel besiegt die Amalekiter"
-   ],
-   "range": "15,22-27",
-   "refs": [
-    "Ex 15,22-25"
+   "basis": "slide",
+   "relevance": "lecture",
+   "origin": [
+    "Ex-Lev Folie 6",
+    "Ex-Lev Folie 6, Audio 0:00–0:51"
    ]
   },
   {
@@ -268,9 +269,9 @@
     "Mit Manna und Wachteln"
    ],
    "distractors": [
-    "Mit Feigen und Granatäpfeln",
-    "Mit Fischen aus dem Schilfmeer",
-    "Mit Brot, das Jitro schickt"
+    "Mit Manna allein; Fleisch gibt es erst am Sinai",
+    "Mit Wasser aus dem Felsen und Feigen aus Elim",
+    "Mit ungesäuertem Brot aus Ägypten, das nicht verdirbt"
    ],
    "range": "16",
    "refs": [
@@ -295,24 +296,11 @@
    "refs": [
     "Ex 17,1-7"
    ],
-   "explanation": "Die Namen bedeuten „Versuchung“ und „Streit“ (Ex 17,7)."
-  },
-  {
-   "id": "bq.ex.amalek",
-   "format": "choice",
-   "topic": "event",
-   "prompt": "Wovon hängt der Sieg über Amalek ab (Ex 17,8–16)?",
-   "correct": [
-    "Solange Mose die Hände emporhält, siegt Israel – Aaron und Hur stützen seine Arme"
-   ],
-   "distractors": [
-    "Von der Zahl der Krieger, die Josua mustert",
-    "Von der Lade, die vor dem Heer hergetragen wird",
-    "Vom Schall der Posaunen"
-   ],
-   "range": "17,8-16",
-   "refs": [
-    "Ex 17,11-12"
+   "explanation": "Die Namen bedeuten „Versuchung“ und „Streit“ (Ex 17,7). Das Murren ist nach der Vorlesung das Leitmotiv der Wüstenwanderung (Ex 15,22–18,27; Num 10,11–36,13).",
+   "basis": "slide",
+   "relevance": "lecture",
+   "origin": [
+    "Genesis Folie 5"
    ]
   },
   {
@@ -324,9 +312,9 @@
     "Tüchtige Männer als Richter einzusetzen, damit Mose nur die schweren Fälle entscheidet"
    ],
    "distractors": [
-    "Nach Midian zurückzukehren",
-    "Dem Pharao Tribut zu zahlen",
-    "Ein Zelt der Begegnung zu bauen"
+    "Nach Midian zurückzukehren, bis Gott ihn erneut ruft",
+    "Aaron als Richter über das Volk einzusetzen",
+    "Ein Zelt der Begegnung außerhalb des Lagers aufzuschlagen"
    ],
    "range": "18",
    "refs": [
@@ -369,7 +357,13 @@
    "refs": [
     "Ex 20,2"
    ],
-   "explanation": "Die Gebote folgen auf Gottes Heilstat: Erst befreit Gott, dann gebietet er."
+   "explanation": "Die Gebote folgen auf Gottes Heilstat: Erst befreit Gott, dann gebietet er.",
+   "basis": "slide",
+   "relevance": "lecture",
+   "origin": [
+    "Ex-Lev Folie 7",
+    "Ex-Lev Folie 7, Audio 2:03"
+   ]
   },
   {
    "id": "bq.ex.bundesblut",
@@ -381,14 +375,20 @@
    ],
    "distractors": [
     "Er zerbricht die Tafeln vor dem Volk",
-    "Er beschneidet alle Männer",
+    "Er lässt das Volk ein Passamahl halten",
     "Er salbt Aaron zum Hohenpriester"
    ],
    "range": "24",
    "refs": [
     "Ex 24,8"
    ],
-   "explanation": "Jesus spricht beim Abendmahl vom „Blut des Bundes“ (Mk 14,24)."
+   "explanation": "Jesus spricht beim Abendmahl vom „Blut des Bundes“ (Mk 14,24).",
+   "basis": "slide",
+   "relevance": "lecture",
+   "origin": [
+    "Ex-Lev Folie 6",
+    "Ex-Lev Folie 6, Audio 3:58–4:33"
+   ]
   },
   {
    "id": "bq.ex.heiligtum",
@@ -408,43 +408,34 @@
    "refs": [
     "Ex 25,10-40"
    ],
-   "explanation": "Die eherne Schlange gehört zu Num 21, das Goldene Kalb zu Ex 32."
-  },
-  {
-   "id": "bq.ex.lade_inhalt",
-   "format": "choice",
-   "topic": "law",
-   "prompt": "Was soll nach Ex 25,16 in die Lade gelegt werden?",
-   "correct": [
-    "Das „Zeugnis“, die Tafeln des Gesetzes"
-   ],
-   "distractors": [
-    "Ein Krug mit Wasser aus dem Felsen",
-    "Die Gebeine Josefs",
-    "Das Gewand des Hohenpriesters"
-   ],
-   "range": "25",
-   "refs": [
-    "Ex 25,16"
+   "explanation": "Die eherne Schlange gehört zu Num 21, das Goldene Kalb zu Ex 32.",
+   "basis": "slide",
+   "relevance": "lecture",
+   "origin": [
+    "Ex-Lev Folie 6",
+    "Ex-Lev Folie 6, Audio 4:40–5:15"
    ]
   },
   {
    "id": "bq.ex.kalb_aaron",
-   "format": "choice",
+   "format": "input",
    "topic": "person",
    "prompt": "Wer fertigt das Goldene Kalb an?",
-   "correct": [
-    "Aaron"
-   ],
-   "distractors": [
-    "Josua",
-    "Bezalel",
-    "Jitro"
-   ],
    "range": "32",
    "refs": [
     "Ex 32,2-4"
-   ]
+   ],
+   "basis": "slide",
+   "relevance": "lecture",
+   "origin": [
+    "Ex-Lev Folie 6",
+    "Ex-Lev Folie 6, Audio 10:00–10:16"
+   ],
+   "accept": [
+    "Aaron"
+   ],
+   "answer": "Aaron",
+   "explanation": "Mündlich: Aaron, eigentlich „Prototyp des Priesters“, ist für das Kalb verantwortlich – darin steckt Priesterkritik."
   },
   {
    "id": "bq.ex.tafeln",
@@ -462,6 +453,11 @@
    "range": "32",
    "refs": [
     "Ex 32,19"
+   ],
+   "basis": "slide",
+   "relevance": "lecture",
+   "origin": [
+    "Ex-Lev Folie 6"
    ]
   },
   {
@@ -480,7 +476,13 @@
    "range": "32",
    "refs": [
     "Ex 32,14"
-   ]
+   ],
+   "origin": [
+    "Ex-Lev Folie 6, Audio 8:49–9:03",
+    "Ex-Lev Folie 6, Audio 10:20–10:28"
+   ],
+   "relevance": "lecture",
+   "basis": "audio"
   },
   {
    "id": "bq.ex.ruecken",
@@ -552,6 +554,60 @@
     "Dekalog am Sinai",
     "Goldenes Kalb",
     "Aufrichtung des Heiligtums"
+   ],
+   "basis": "slide",
+   "relevance": "lecture",
+   "origin": [
+    "Ex-Lev Folie 2",
+    "Ex-Lev Folie 6"
+   ]
+  },
+  {
+   "id": "bq.ex.zippora",
+   "format": "choice",
+   "topic": "person",
+   "prompt": "Wen heiratet Mose in Midian?",
+   "correct": [
+    "Zippora, eine Tochter des Priesters Reguel (Jitro)"
+   ],
+   "distractors": [
+    "Mirjam, die Tochter einer Hebamme",
+    "Elischeba, die Tochter Amminadabs",
+    "Asenat, die Tochter eines Priesters von On"
+   ],
+   "range": "2,11-22",
+   "refs": [
+    "Ex 2,21"
+   ],
+   "basis": "audio",
+   "relevance": "lecture",
+   "origin": [
+    "Ex-Lev Folie 4, Audio 0:52–1:00"
+   ]
+  },
+  {
+   "id": "bq.ex.lade_inhalt",
+   "format": "choice",
+   "topic": "law",
+   "prompt": "Was soll nach Ex 25,16 in die Lade gelegt werden?",
+   "correct": [
+    "Das „Zeugnis“, die Tafeln des Gesetzes"
+   ],
+   "distractors": [
+    "Ein Krug mit Wasser aus dem Felsen",
+    "Die Gebeine Josefs",
+    "Das Gewand des Hohenpriesters"
+   ],
+   "range": "25",
+   "refs": [
+    "Ex 25,16"
+   ],
+   "explanation": "Die Vorlesung nennt die Bundeslade „Lade des Gesetzes“, mit der Sühneplatte als Deckel.",
+   "basis": "audio",
+   "relevance": "lecture",
+   "origin": [
+    "Ex-Lev Folie 6, Audio 5:06",
+    "Ex-Lev Folie 6, Audio 7:41"
    ]
   }
  ]

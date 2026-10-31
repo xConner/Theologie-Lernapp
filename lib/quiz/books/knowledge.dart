@@ -17,6 +17,7 @@
 library;
 
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -41,7 +42,13 @@ enum KnowledgeFormat {
   match("Zuordnen"),
 
   /// In die richtige Reihenfolge bringen (Ereignisse, Gliederung).
-  order("Reihenfolge");
+  order("Reihenfolge"),
+
+  /// Frei eingeben (Name, Begriff, Kapitelbereich). Erkennt
+  /// [KnowledgeAnswerMatcher] die Antwort nicht sicher, entscheidet die
+  /// Selbsteinschätzung nach dem Vergleich mit der Lösung – eine anders
+  /// formulierte richtige Antwort zählt so nicht als Fehler.
+  input("Freie Eingabe");
 
   final String label;
 
@@ -87,7 +94,11 @@ enum KnowledgeSource {
   slides("Nach den Folien"),
 
   /// Frage der App zum Bibeltext.
-  app("Frage der App");
+  app("Frage der App"),
+
+  /// Aus der Buchgliederung gebildet (Grobgliederung und Zuordnung der
+  /// Perikopen); gehört zu „Perikopen und Gliederung“.
+  outline("Gliederung");
 
   final String label;
 
@@ -98,6 +109,58 @@ enum KnowledgeSource {
       if (s.name == value) return s;
     }
     return KnowledgeSource.app;
+  }
+}
+
+/// Worauf der Inhalt einer Frage beruht. Die App soll nie behaupten, dass
+/// etwas aus der Vorlesung stammt, wenn es nur ergänzt ist.
+enum KnowledgeBasis {
+  /// Steht auf einer Folie.
+  slide("Folie"),
+
+  /// Nur mündlich in der Aufnahme der Dozentin erläutert.
+  audio("Vorlesung mündlich"),
+
+  /// Aufgabe mit Musterantwort der Übung.
+  modelAnswer("Musterantwort"),
+
+  /// Ergänzung der App (Bibeltext, Hintergrund), nicht aus der Vorlesung.
+  supplement("Ergänzung der App");
+
+  final String label;
+
+  const KnowledgeBasis(this.label);
+
+  static KnowledgeBasis? tryParse(Object? value) {
+    for (final b in values) {
+      if (b.name == value) return b;
+    }
+    return null;
+  }
+}
+
+/// Wie wichtig der Inhalt für die Lehrveranstaltung ist (Prüfung des
+/// Fragenbestands, siehe docs/pericope-books.md). Randinformationen und
+/// fehlerhafte Fragen werden entfernt und kommen daher nicht vor.
+enum KnowledgeRelevance {
+  /// Von der Dozentin besonders hervorgehoben oder ausführlich behandelt.
+  focus("Schwerpunkt"),
+
+  /// Steht auf den Folien oder wird in der Aufnahme behandelt.
+  lecture("Vorlesungsstoff"),
+
+  /// Nicht ausdrücklich behandelt, aber für das Verständnis wichtig.
+  supplement("Sinnvolle Ergänzung");
+
+  final String label;
+
+  const KnowledgeRelevance(this.label);
+
+  static KnowledgeRelevance? tryParse(Object? value) {
+    for (final r in values) {
+      if (r.name == value) return r;
+    }
+    return null;
   }
 }
 
@@ -263,6 +326,19 @@ class KnowledgeQuestion {
   /// gebildet wurde.
   final String? taskId;
 
+  /// Akzeptierte Antworten bei [KnowledgeFormat.input] (siehe
+  /// [KnowledgeAnswerMatcher]).
+  final List<String> accept;
+
+  /// Worauf der Inhalt beruht (Folie, mündlich, Musterantwort, Ergänzung).
+  final KnowledgeBasis basis;
+
+  final KnowledgeRelevance relevance;
+
+  /// Fundstellen in der Lehrveranstaltung, z. B. „Ex-Lev Folie 5“ oder
+  /// „Ex-Lev Folie 5, Audio 01:20“. Leer bei Ergänzungen.
+  final List<String> origin;
+
   const KnowledgeQuestion({
     required this.id,
     required this.book,
@@ -282,13 +358,26 @@ class KnowledgeQuestion {
     this.memoryVerse,
     this.sessionId,
     this.taskId,
+    this.accept = const [],
+    this.basis = KnowledgeBasis.supplement,
+    this.relevance = KnowledgeRelevance.supplement,
+    this.origin = const [],
   });
+
+  /// Gehört zu „Perikopen und Gliederung“ statt zu den Wissensfragen.
+  bool get isStructure => source == KnowledgeSource.outline;
+
+  /// Stammt der Inhalt aus der Lehrveranstaltung (Folie, Aufnahme,
+  /// Musterantwort)?
+  bool get fromLecture => basis != KnowledgeBasis.supplement;
 
   /// Die Lösung in einer Zeile bzw. einem Absatz (Auswertung, Fehlerliste).
   String get solutionText {
     switch (format) {
       case KnowledgeFormat.reveal:
         return answer ?? "";
+      case KnowledgeFormat.input:
+        return answer ?? accept.first;
       case KnowledgeFormat.choice:
       case KnowledgeFormat.multi:
         return answer ?? correct.join(" · ");
@@ -345,14 +434,25 @@ class KnowledgeQuestion {
             KnowledgePair(p[0] as String, p[1] as String),
     ];
 
+    final resolvedSource = json["source"] == null
+        ? (source ?? KnowledgeSource.app)
+        : KnowledgeSource.tryParse(json["source"]);
+
+    final basis =
+        KnowledgeBasis.tryParse(json["basis"]) ??
+        switch (resolvedSource) {
+          KnowledgeSource.modelAnswer => KnowledgeBasis.modelAnswer,
+          KnowledgeSource.slides ||
+          KnowledgeSource.outline => KnowledgeBasis.slide,
+          KnowledgeSource.app => KnowledgeBasis.supplement,
+        };
+
     final question = KnowledgeQuestion(
       id: id,
       book: (json["book"] as String?) ?? book,
       format: format,
       topic: KnowledgeTopic.tryParse(json["topic"]),
-      source: json["source"] == null
-          ? (source ?? KnowledgeSource.app)
-          : KnowledgeSource.tryParse(json["source"]),
+      source: resolvedSource,
       prompt: prompt.trim(),
       answer: (json["answer"] as String?)?.trim(),
       correct: _strings(json["correct"]),
@@ -366,6 +466,14 @@ class KnowledgeQuestion {
       memoryVerse: json["memoryVerse"] as String?,
       sessionId: (json["session"] as String?) ?? sessionId,
       taskId: (json["task"] as String?) ?? taskId,
+      accept: _strings(json["accept"]),
+      basis: basis,
+      relevance:
+          KnowledgeRelevance.tryParse(json["relevance"]) ??
+          (basis == KnowledgeBasis.supplement
+              ? KnowledgeRelevance.supplement
+              : KnowledgeRelevance.lecture),
+      origin: _strings(json["origin"]),
     );
 
     final problem = question._problem();
@@ -376,15 +484,18 @@ class KnowledgeQuestion {
   }
 
   String? _problem() {
-    bool distinct(List<String> values) => values.toSet().length == values.length;
+    bool distinct(List<String> values) =>
+        values.toSet().length == values.length;
 
     switch (format) {
       case KnowledgeFormat.reveal:
         if (answer == null || answer!.isEmpty) return "Antwort fehlt";
+      case KnowledgeFormat.input:
+        if (accept.isEmpty) return "akzeptierte Antworten fehlen";
       case KnowledgeFormat.choice:
         if (correct.length != 1) return "genau eine richtige Antwort nötig";
-        if (distractors.length < 2) return "mindestens zwei Ablenker nötig";
         if (!distinct([...correct, ...distractors])) return "doppelte Option";
+        if (distractors.length < 3) return "drei Ablenker nötig";
       case KnowledgeFormat.multi:
         if (correct.length < 2) return "mindestens zwei richtige Antworten";
         if (distractors.isEmpty) return "mindestens ein Ablenker nötig";
@@ -617,9 +728,7 @@ class KnowledgeBank {
     return KnowledgeBank(
       questions: questions,
       tasks: tasks,
-      sessionTitles: {
-        if (session != null && title is String) session: title,
-      },
+      sessionTitles: {if (session != null && title is String) session: title},
     );
   }
 
@@ -713,5 +822,150 @@ class KnowledgeBank {
       debugPrint("Wissensfragen widersprüchlich: $e");
       return KnowledgeBank.empty;
     }
+  }
+}
+
+/// Erkennt freie Antworten ([KnowledgeFormat.input]).
+///
+/// Bewusst vorsichtig: Erkannt wird nur, was sicher passt (gleiche Wörter
+/// ohne Groß-/Kleinschreibung, Umlaute, Satzzeichen und Artikel, kleine
+/// Tippfehler; Kapitelbereiche auch mit Buchnamen, Gedankenstrich oder
+/// Versen). Alles andere ist „nicht erkannt“, nicht „falsch“ – dann
+/// entscheidet die Selbsteinschätzung nach dem Vergleich mit der Lösung.
+///
+/// Ein akzeptierter Eintrag „Schifra + Pua“ verlangt beide Teile.
+class KnowledgeAnswerMatcher {
+  const KnowledgeAnswerMatcher._();
+
+  /// `true`, wenn [input] eine der akzeptierten Antworten trifft.
+  static bool matches(KnowledgeQuestion q, String input) {
+    if (input.trim().isEmpty) return false;
+
+    for (final accepted in q.accept) {
+      if (_matchesEntry(accepted, input)) return true;
+    }
+
+    return false;
+  }
+
+  static bool _matchesEntry(String accepted, String input) {
+    final range = _range(accepted);
+
+    if (range != null) return _matchesRange(range, input);
+
+    final parts = accepted.split(" + ");
+
+    return parts.every((p) => _containsTerm(normalize(input), normalize(p)));
+  }
+
+  /// Kapitelbereich ohne Buchnamen („Ex 19–24“ → 19-24); `null`, wenn
+  /// [raw] keiner ist.
+  static KnowledgeRange? _range(String raw) {
+    final stripped = raw
+        .replaceAll(RegExp(r'[–—]'), "-")
+        .replaceFirst(RegExp(r'^\s*(?:\d\s*)?[A-Za-zÄÖÜäöüß.]+\s*(?=\d)'), "")
+        .replaceFirst(
+          RegExp(r'^\s*(?:kapitel|kap\.?)\s*', caseSensitive: false),
+          "",
+        );
+
+    return KnowledgeRange.parse(stripped);
+  }
+
+  static bool _matchesRange(KnowledgeRange expected, String input) {
+    final given = _range(input);
+
+    if (given == null) return false;
+
+    // Nur Kapitel angegeben: Kapitelbereich muss stimmen.
+    if (given.startVerse == null && given.endVerse == null) {
+      return given.startChapter == expected.startChapter &&
+          given.endChapter == expected.endChapter;
+    }
+
+    return given.startChapter == expected.startChapter &&
+        given.startVerse == expected.startVerse &&
+        given.endChapter == expected.endChapter &&
+        given.endVerse == expected.endVerse;
+  }
+
+  static const Set<String> _fillers = {
+    "der",
+    "die",
+    "das",
+    "den",
+    "dem",
+    "des",
+    "ein",
+    "eine",
+    "einen",
+    "einem",
+    "einer",
+    "eines",
+    "und",
+    "sog",
+    "so",
+    "genannte",
+  };
+
+  /// Kleinbuchstaben, Umlaute ausgeschrieben, ohne Satzzeichen und Artikel.
+  static String normalize(String text) {
+    final lower = text
+        .toLowerCase()
+        .replaceAll("ä", "ae")
+        .replaceAll("ö", "oe")
+        .replaceAll("ü", "ue")
+        .replaceAll("ß", "ss")
+        .replaceAll(RegExp(r'[^a-z0-9 ]'), " ");
+
+    return [
+      for (final w in lower.split(RegExp(r'\s+')))
+        if (w.isNotEmpty && !_fillers.contains(w)) w,
+    ].join(" ");
+  }
+
+  /// Kommt [term] als Wortfolge in [text] vor (mit kleinen Tippfehlern)?
+  static bool _containsTerm(String text, String term) {
+    if (term.isEmpty) return false;
+
+    final words = text.split(" ");
+    final termWords = term.split(" ");
+
+    for (int i = 0; i + termWords.length <= words.length; i++) {
+      final candidate = words.sublist(i, i + termWords.length).join(" ");
+
+      if (_close(candidate, term)) return true;
+    }
+
+    return false;
+  }
+
+  static bool _close(String a, String b) {
+    if (a == b) return true;
+
+    // Kurze Wörter und Zahlen müssen genau stimmen.
+    if (b.length < 5 || RegExp(r'\d').hasMatch(b)) return false;
+
+    return _distance(a, b) <= (b.length >= 10 ? 2 : 1);
+  }
+
+  static int _distance(String a, String b) {
+    var previous = List<int>.generate(b.length + 1, (i) => i);
+
+    for (int i = 1; i <= a.length; i++) {
+      final current = List<int>.filled(b.length + 1, 0)..[0] = i;
+
+      for (int j = 1; j <= b.length; j++) {
+        current[j] = [
+          previous[j] + 1,
+          current[j - 1] + 1,
+          previous[j - 1] + (a[i - 1] == b[j - 1] ? 0 : 1),
+        ].reduce(min);
+      }
+
+      previous = current;
+    }
+
+    return previous[b.length];
   }
 }

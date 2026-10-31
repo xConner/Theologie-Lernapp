@@ -25,6 +25,11 @@ class BookLearningData {
   /// Lernstände in [knowledgeCards] unverändert erhalten.
   bool knowledgeEnabled;
 
+  /// Perikopen und Gliederung einbeziehen (Standard: ja). Zusammen mit
+  /// [knowledgeEnabled] die beiden Schalter des gemeinsamen Lernmodus;
+  /// mindestens einer ist an.
+  bool pericopesEnabled;
+
   /// Lernpfade nach Bibelleseplan (Schlüssel: ID des Leseplans). Nur der
   /// Beginn; der Lernstand steht in [cards].
   final Map<String, ReadingPathSettings> readingPaths;
@@ -35,6 +40,7 @@ class BookLearningData {
     Map<String, BookPlan>? plans,
     Map<String, BookCard>? knowledgeCards,
     this.knowledgeEnabled = true,
+    this.pericopesEnabled = true,
     Map<String, ReadingPathSettings>? readingPaths,
   }) : cards = cards ?? {},
        readingPaths = readingPaths ?? {},
@@ -77,6 +83,15 @@ class BookLearningData {
 
     if (settings is Map && settings["enabled"] is bool) {
       data.knowledgeEnabled = settings["enabled"] as bool;
+    }
+
+    if (settings is Map && settings["pericopes"] is bool) {
+      data.pericopesEnabled = settings["pericopes"] as bool;
+    }
+
+    // Beide aus ergäbe leere Lerneinheiten.
+    if (!data.knowledgeEnabled && !data.pericopesEnabled) {
+      data.pericopesEnabled = true;
     }
 
     final rawPrecisions = precision?["items"];
@@ -127,7 +142,9 @@ class BookLearningData {
 ///   * `pericope_plans`     `{plans: {book: BookPlan},
 ///                           readingPaths: {planId: ReadingPathSettings}}`
 ///   * `bible_knowledge`    `{cards: {frageId: BookCard}}` (Wissensfragen)
-///   * `bible_knowledge_settings` `{settings: {enabled: bool}}`
+///   * `bible_knowledge_settings` `{settings: {enabled: bool,
+///                                pericopes: bool}}` (Schalter des
+///                                gemeinsamen Lernmodus)
 ///
 /// Geschrieben werden immer nur die geänderten Einträge (Merge), damit
 /// gleichzeitige Änderungen anderer Einträge erhalten bleiben. Die Karten
@@ -166,11 +183,15 @@ class BookLearningStorage {
     });
   }
 
-  Future<void> saveKnowledgeEnabled(bool enabled) {
+  /// Speichert beide Schalter des gemeinsamen Lernmodus.
+  Future<void> saveStudyContent({
+    required bool knowledge,
+    required bool pericopes,
+  }) {
     return documents.replaceField(
       LocalLearningStore.bibleKnowledgeSettings,
       "settings",
-      {"enabled": enabled},
+      {"enabled": knowledge, "pericopes": pericopes},
     );
   }
 

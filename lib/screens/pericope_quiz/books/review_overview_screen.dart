@@ -35,6 +35,9 @@ class _ReviewOverviewScreenState extends State<ReviewOverviewScreen> {
   Iterable<BookPericope> get _scope {
     final book = widget.book;
 
+    // „Perikopen und Gliederung“ ausgeschaltet: nur Wissensfragen.
+    if (!controller.state.pericopesEnabled) return const [];
+
     return book == null
         ? controller.catalog.all
         : controller.catalog.pericopesOf(book);
@@ -57,16 +60,19 @@ class _ReviewOverviewScreenState extends State<ReviewOverviewScreen> {
   }) {
     // Jede Perikope der Liste einmal, gewichtet nach Lernbedarf und
     // Fälligkeit mit Zufall gereiht (wie im Perikopenquiz); fällige
-    // Wissensfragen danach.
+    // Wissensfragen gleichmäßig dazwischen.
     final planner = controller.planner();
 
     return startStudy(
       context,
       controller: controller,
-      session: controller.fixedSession(StudyMode.review, [
-        ...planner.review(list),
-        ...planner.knowledgeReview(knowledge),
-      ]),
+      session: controller.fixedSession(
+        StudyMode.review,
+        interleaveTasks(
+          planner.review(list),
+          planner.knowledgeReview(knowledge),
+        ),
+      ),
       title: title,
     );
   }
@@ -116,9 +122,7 @@ class _ReviewOverviewScreenState extends State<ReviewOverviewScreen> {
                         Text(
                           "davon ${dueKnowledge.length} Wissensfragen",
                           key: const ValueKey("review-knowledge-count"),
-                          style: TextStyle(
-                            color: context.colors.textSecondary,
-                          ),
+                          style: TextStyle(color: context.colors.textSecondary),
                         ),
                       const SizedBox(height: 12),
                       Wrap(
@@ -344,9 +348,22 @@ String bookSummary(BookLearningController controller, String book) {
     controller.catalog.pericopesOf(book),
   );
 
-  return "${progress.total} Perikopen · ${progress.secure} sicher"
-      "${progress.learning > 0 ? " · ${progress.learning} in Bearbeitung" : ""}"
-      "${progress.due > 0 ? " · ${progress.due} fällig" : ""}";
+  final state = controller.state;
+  final structure = state.knowledgeProgressOf(controller.structureOf(book));
+  final knowledge = state.knowledgeProgressOf(
+    controller.contentKnowledgeOf(book),
+  );
+
+  return [
+    "${progress.total} Perikopen · ${progress.secure} sicher"
+        "${progress.learning > 0 ? " · ${progress.learning} in Bearbeitung" : ""}"
+        "${progress.due > 0 ? " · ${progress.due} fällig" : ""}",
+    // Die anderen Lernbereiche des Buchs, nur wenn es sie gibt.
+    if (structure.total > 0)
+      "Gliederung ${structure.secure}/${structure.total} sicher",
+    if (knowledge.total > 0)
+      "Wissensfragen ${knowledge.secure}/${knowledge.total} sicher",
+  ].join("\n");
 }
 
 String bookName(String book) => BookCatalog.nameOf(book);
