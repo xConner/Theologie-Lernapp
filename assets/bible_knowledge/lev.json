@@ -1,6 +1,6 @@
 {
  "book": "Lev",
- "source": "Fragen der App zum Bibeltext (Luther 1912 / Lutherbibel). Geprüft am 30.10.2026 gegen die Folien (Genesis, Exodus/Levitikus) und die Musterantworten: basis/relevance/origin kennzeichnen, was aus der Vorlesung stammt; ohne Angabe = Ergänzung der App.",
+ "source": "Fragen der App zum Bibeltext (Luther 1912 / Lutherbibel). Geprüft am 30.10.2026 gegen die Folien (Genesis, Exodus/Levitikus), am 31.10.2026 auch gegen die Audioerläuterungen, und die Musterantworten: basis/relevance/origin kennzeichnen, was aus der Vorlesung stammt; ohne Angabe = Ergänzung der App.",
  "questions": [
   {
    "id": "bq.lev.stiftshuette",
@@ -19,7 +19,12 @@
    "refs": [
     "Lev 1,1"
    ],
-   "explanation": "Damit schließt Levitikus an das Ende des Exodus an, wo die Herrlichkeit Gottes die Wohnung erfüllt (Ex 40,34-35)."
+   "explanation": "Damit schließt Levitikus an das Ende des Exodus an, wo die Herrlichkeit Gottes die Wohnung erfüllt (Ex 40,34-35). Mündlich: Gott tritt nicht mehr als freier Berggott auf, sondern bindet sich an ein Heiligtum.",
+   "origin": [
+    "Ex-Lev Folie 8, Audio 0:44–0:58"
+   ],
+   "relevance": "lecture",
+   "basis": "audio"
   },
   {
    "id": "bq.lev.opferarten",
@@ -55,7 +60,12 @@
     "Lev 3,3-5",
     "Lev 4,2",
     "Lev 5,16"
-   ]
+   ],
+   "origin": [
+    "Ex-Lev Folie 8, Audio 3:24–3:48"
+   ],
+   "relevance": "lecture",
+   "basis": "audio"
   },
   {
    "id": "bq.lev.priesterweihe",
@@ -69,7 +79,8 @@
    "basis": "slide",
    "relevance": "lecture",
    "origin": [
-    "Ex-Lev Folie 8"
+    "Ex-Lev Folie 8",
+    "Ex-Lev Folie 8, Audio 4:13–4:22"
    ],
    "accept": [
     "Mose"
@@ -92,7 +103,13 @@
    "range": "10",
    "refs": [
     "Lev 10,1-2"
-   ]
+   ],
+   "origin": [
+    "Ex-Lev Folie 8, Audio 4:35"
+   ],
+   "relevance": "lecture",
+   "basis": "audio",
+   "explanation": "Mündlich: der einzige erzählende Text des Buches Levitikus."
   },
   {
    "id": "bq.lev.reine_tiere",
@@ -114,7 +131,8 @@
    "basis": "slide",
    "relevance": "lecture",
    "origin": [
-    "Ex-Lev Folie 8"
+    "Ex-Lev Folie 8",
+    "Ex-Lev Folie 8, Audio 5:07–5:17"
    ]
   },
   {
@@ -158,7 +176,8 @@
    "basis": "slide",
    "relevance": "lecture",
    "origin": [
-    "Ex-Lev Folie 8"
+    "Ex-Lev Folie 8",
+    "Ex-Lev Folie 8, Audio 8:12"
    ]
   },
   {
@@ -182,7 +201,8 @@
    "basis": "slide",
    "relevance": "lecture",
    "origin": [
-    "Ex-Lev Folie 8"
+    "Ex-Lev Folie 8",
+    "Ex-Lev Folie 8, Audio 7:12–7:35"
    ]
   },
   {
@@ -241,7 +261,8 @@
    "basis": "slide",
    "relevance": "lecture",
    "origin": [
-    "Ex-Lev Folie 9"
+    "Ex-Lev Folie 9",
+    "Ex-Lev Folie 9, Audio 0:38"
    ]
   },
   {
@@ -263,9 +284,10 @@
     "Mt 22,37-40"
    ],
    "basis": "slide",
-   "relevance": "lecture",
+   "relevance": "focus",
    "origin": [
-    "Ex-Lev Folie 9"
+    "Ex-Lev Folie 9",
+    "Ex-Lev Folie 9, Audio 1:10–1:29"
    ]
   },
   {
@@ -333,7 +355,12 @@
    "range": "25",
    "refs": [
     "Lev 25,10-13"
-   ]
+   ],
+   "origin": [
+    "Ex-Lev Folie 9, Audio 2:24"
+   ],
+   "relevance": "lecture",
+   "basis": "audio"
   },
   {
    "id": "bq.lev.segen_fluch",
@@ -353,7 +380,12 @@
     "Lev 26,3",
     "Lev 26,14-15"
    ],
-   "explanation": "Auch nach dem Fluch bleibt Gottes Zusage: Er gedenkt seines Bundes mit Jakob, Isaak und Abraham (Lev 26,42)."
+   "explanation": "Auch nach dem Fluch bleibt Gottes Zusage: Er gedenkt seines Bundes mit Jakob, Isaak und Abraham (Lev 26,42).",
+   "origin": [
+    "Ex-Lev Folie 9, Audio 2:38–3:02"
+   ],
+   "relevance": "lecture",
+   "basis": "audio"
   }
  ]
 }

@@ -1,6 +1,6 @@
 {
  "book": "Gen",
- "source": "Fragen der App zum Bibeltext (Luther 1912 / Lutherbibel). Geprüft am 30.10.2026 gegen die Folien (Genesis, Exodus/Levitikus) und die Musterantworten: basis/relevance/origin kennzeichnen, was aus der Vorlesung stammt; ohne Angabe = Ergänzung der App.",
+ "source": "Fragen der App zum Bibeltext (Luther 1912 / Lutherbibel). Geprüft am 30.10.2026 gegen die Folien (Genesis, Exodus/Levitikus), am 31.10.2026 auch gegen die Audioerläuterungen, und die Musterantworten: basis/relevance/origin kennzeichnen, was aus der Vorlesung stammt; ohne Angabe = Ergänzung der App.",
  "questions": [
   {
    "id": "bq.gen.tage",
@@ -204,7 +204,8 @@
    "relevance": "lecture",
    "origin": [
     "Genesis Folie 10",
-    "Genesis Folie 13"
+    "Genesis Folie 13",
+    "Genesis Folie 13, Audio 5:06–5:22"
    ]
   },
   {
@@ -299,7 +300,8 @@
    "basis": "slide",
    "relevance": "lecture",
    "origin": [
-    "Genesis Folie 12"
+    "Genesis Folie 12",
+    "Genesis Folie 13, Audio 9:57"
    ],
    "answer": "Eine Treppe (Leiter) bis an den Himmel, auf der Engel auf- und niedersteigen; oben steht der HERR und erneuert die Verheißung.",
    "accept": [

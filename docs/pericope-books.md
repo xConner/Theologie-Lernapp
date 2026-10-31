@@ -515,11 +515,16 @@ die Lösung, und man bewertet selbst („Ja, richtig“ / „Nein, falsch“).
 Jede Frage hat `basis` (`slide`, `audio`, `modelAnswer`, `supplement`),
 `relevance` (`focus` = Schwerpunkt, `lecture` = Vorlesungsstoff,
 `supplement` = sinnvolle Ergänzung) und `origin` (Fundstellen, z. B.
-„Ex-Lev Folie 6“, später mit Zeitstempel der Aufnahme). Ohne Angabe gilt
+„Ex-Lev Folie 6“ oder „Ex-Lev Folie 6, Audio 10:59–11:24“ = Zeitstelle in
+der Audiodatei der Folie). `audio` heißt: nur mündlich behandelt. Ohne Angabe gilt
 eine öffentliche Frage als Ergänzung der App. Die Kopfzeile und der Hinweis
 „Quelle“ nach der Antwort zeigen das an; Ergänzungen werden ausdrücklich
 als „nicht aus der Vorlesung“ gekennzeichnet. Fragen nach den Folien liegen
 geschützt in `assets/old_testament/model_answers/bk0N-*-vorlesung.json`
 (IDs `vl.bkNN.*`). Randinformationen und fehlerhafte Fragen werden entfernt
 (Prüfung 30.10.2026: 20 von 80 öffentlichen Fragen); IDs entfernter Fragen
-nicht wiederverwenden.
+nicht wiederverwenden. Abgleich mit den Audioerläuterungen am 31.10.2026:
+Fundstellen mit Zeitstelle, Gewichtung nach den Hinweisen der Dozentin,
+neue Fragen zu mündlich erklärtem Stoff, `bq.ex.zippora` und
+`bq.ex.lade_inhalt` wieder aufgenommen. Transkripte liegen wegen der Rechte
+nur in den Projektdateien, nicht im Repo.

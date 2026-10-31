@@ -1,6 +1,6 @@
 {
  "book": "Ex",
- "source": "Fragen der App zum Bibeltext (Luther 1912 / Lutherbibel). Geprüft am 30.10.2026 gegen die Folien (Genesis, Exodus/Levitikus) und die Musterantworten: basis/relevance/origin kennzeichnen, was aus der Vorlesung stammt; ohne Angabe = Ergänzung der App.",
+ "source": "Fragen der App zum Bibeltext (Luther 1912 / Lutherbibel). Geprüft am 30.10.2026 gegen die Folien (Genesis, Exodus/Levitikus), am 31.10.2026 auch gegen die Audioerläuterungen, und die Musterantworten: basis/relevance/origin kennzeichnen, was aus der Vorlesung stammt; ohne Angabe = Ergänzung der App.",
  "questions": [
   {
    "id": "bq.ex.neuer_koenig",
@@ -24,7 +24,8 @@
    "relevance": "lecture",
    "origin": [
     "Genesis Folie 15",
-    "Ex-Lev Folie 2"
+    "Ex-Lev Folie 2",
+    "Ex-Lev Folie 2, Audio 0:59–1:29"
    ]
   },
   {
@@ -48,7 +49,8 @@
    "basis": "slide",
    "relevance": "lecture",
    "origin": [
-    "Ex-Lev Folie 2"
+    "Ex-Lev Folie 2",
+    "Ex-Lev Folie 4, Audio 0:34–0:50"
    ]
   },
   {
@@ -71,7 +73,8 @@
    "basis": "slide",
    "relevance": "lecture",
    "origin": [
-    "Ex-Lev Folie 2"
+    "Ex-Lev Folie 2",
+    "Ex-Lev Folie 4, Audio 0:52–1:00"
    ]
   },
   {
@@ -95,7 +98,8 @@
    "relevance": "focus",
    "origin": [
     "Ex-Lev Folie 2",
-    "Ex-Lev Folie 3"
+    "Ex-Lev Folie 3",
+    "Ex-Lev Folie 4, Audio 1:22"
    ]
   },
   {
@@ -131,7 +135,13 @@
     "Ex 18,1",
     "Ex 17,9",
     "Ex 31,2-5"
-   ]
+   ],
+   "origin": [
+    "Ex-Lev Folie 4, Audio 1:00",
+    "Ex-Lev Folie 4, Audio 3:54"
+   ],
+   "relevance": "lecture",
+   "basis": "audio"
   },
   {
    "id": "bq.ex.stroh",
@@ -150,7 +160,12 @@
    "refs": [
     "Ex 5,6-9"
    ],
-   "explanation": "Den Befehl, die Knaben zu töten, gibt der Pharao schon in Ex 1,22."
+   "explanation": "Den Befehl, die Knaben zu töten, gibt der Pharao schon in Ex 1,22.",
+   "origin": [
+    "Ex-Lev Folie 4, Audio 4:05–4:24"
+   ],
+   "relevance": "lecture",
+   "basis": "audio"
   },
   {
    "id": "bq.ex.passa",
@@ -174,7 +189,8 @@
    "basis": "slide",
    "relevance": "lecture",
    "origin": [
-    "Ex-Lev Folie 5"
+    "Ex-Lev Folie 5",
+    "Ex-Lev Folie 5, Audio 3:47–5:22"
    ]
   },
   {
@@ -198,7 +214,8 @@
    "basis": "slide",
    "relevance": "lecture",
    "origin": [
-    "Ex-Lev Folie 5"
+    "Ex-Lev Folie 5",
+    "Ex-Lev Folie 5, Audio 4:21–5:06"
    ]
   },
   {
@@ -239,7 +256,8 @@
    "basis": "slide",
    "relevance": "lecture",
    "origin": [
-    "Ex-Lev Folie 6"
+    "Ex-Lev Folie 6",
+    "Ex-Lev Folie 6, Audio 0:00–0:51"
    ]
   },
   {
@@ -343,7 +361,8 @@
    "basis": "slide",
    "relevance": "lecture",
    "origin": [
-    "Ex-Lev Folie 7"
+    "Ex-Lev Folie 7",
+    "Ex-Lev Folie 7, Audio 2:03"
    ]
   },
   {
@@ -367,7 +386,8 @@
    "basis": "slide",
    "relevance": "lecture",
    "origin": [
-    "Ex-Lev Folie 6"
+    "Ex-Lev Folie 6",
+    "Ex-Lev Folie 6, Audio 3:58–4:33"
    ]
   },
   {
@@ -392,7 +412,8 @@
    "basis": "slide",
    "relevance": "lecture",
    "origin": [
-    "Ex-Lev Folie 6"
+    "Ex-Lev Folie 6",
+    "Ex-Lev Folie 6, Audio 4:40–5:15"
    ]
   },
   {
@@ -407,12 +428,14 @@
    "basis": "slide",
    "relevance": "lecture",
    "origin": [
-    "Ex-Lev Folie 6"
+    "Ex-Lev Folie 6",
+    "Ex-Lev Folie 6, Audio 10:00–10:16"
    ],
    "accept": [
     "Aaron"
    ],
-   "answer": "Aaron"
+   "answer": "Aaron",
+   "explanation": "Mündlich: Aaron, eigentlich „Prototyp des Priesters“, ist für das Kalb verantwortlich – darin steckt Priesterkritik."
   },
   {
    "id": "bq.ex.tafeln",
@@ -453,7 +476,13 @@
    "range": "32",
    "refs": [
     "Ex 32,14"
-   ]
+   ],
+   "origin": [
+    "Ex-Lev Folie 6, Audio 8:49–9:03",
+    "Ex-Lev Folie 6, Audio 10:20–10:28"
+   ],
+   "relevance": "lecture",
+   "basis": "audio"
   },
   {
    "id": "bq.ex.ruecken",
@@ -531,6 +560,54 @@
    "origin": [
     "Ex-Lev Folie 2",
     "Ex-Lev Folie 6"
+   ]
+  },
+  {
+   "id": "bq.ex.zippora",
+   "format": "choice",
+   "topic": "person",
+   "prompt": "Wen heiratet Mose in Midian?",
+   "correct": [
+    "Zippora, eine Tochter des Priesters Reguel (Jitro)"
+   ],
+   "distractors": [
+    "Mirjam, die Tochter einer Hebamme",
+    "Elischeba, die Tochter Amminadabs",
+    "Asenat, die Tochter eines Priesters von On"
+   ],
+   "range": "2,11-22",
+   "refs": [
+    "Ex 2,21"
+   ],
+   "basis": "audio",
+   "relevance": "lecture",
+   "origin": [
+    "Ex-Lev Folie 4, Audio 0:52–1:00"
+   ]
+  },
+  {
+   "id": "bq.ex.lade_inhalt",
+   "format": "choice",
+   "topic": "law",
+   "prompt": "Was soll nach Ex 25,16 in die Lade gelegt werden?",
+   "correct": [
+    "Das „Zeugnis“, die Tafeln des Gesetzes"
+   ],
+   "distractors": [
+    "Ein Krug mit Wasser aus dem Felsen",
+    "Die Gebeine Josefs",
+    "Das Gewand des Hohenpriesters"
+   ],
+   "range": "25",
+   "refs": [
+    "Ex 25,16"
+   ],
+   "explanation": "Die Vorlesung nennt die Bundeslade „Lade des Gesetzes“, mit der Sühneplatte als Deckel.",
+   "basis": "audio",
+   "relevance": "lecture",
+   "origin": [
+    "Ex-Lev Folie 6, Audio 5:06",
+    "Ex-Lev Folie 6, Audio 7:41"
    ]
   }
  ]

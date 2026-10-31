@@ -2,7 +2,7 @@
  "book": "Lev",
  "session": "bk.03",
  "sessionTitle": "Sitzung 3: Exodus und Levitikus",
- "source": "Fragen nach den Folien der Übung Bibelkunde AT (Ronja Koch, Genesis.ppsx bzw. Ex-Lev.ppsx). Abgleich mit den Audioaufnahmen ausstehend. origin = Fundstelle; relevance = Vorlesungsstoff oder Schwerpunkt.",
+ "source": "Fragen nach den Folien der Übung Bibelkunde AT (Ronja Koch, Genesis.ppsx bzw. Ex-Lev.ppsx). Am 31.10.2026 mit den Audioaufnahmen abgeglichen; „Audio mm:ss“ = Zeitstelle in der Audiodatei der Folie, basis audio = nur mündlich. origin = Fundstelle; relevance = Vorlesungsstoff oder Schwerpunkt.",
  "questions": [
   {
    "id": "vl.bk03.hg_stellung",
@@ -20,7 +20,8 @@
    "range": "17-26",
    "relevance": "focus",
    "origin": [
-    "Ex-Lev Folie 9"
+    "Ex-Lev Folie 9",
+    "Ex-Lev Folie 9, Audio 3:09–3:21"
    ]
   },
   {
@@ -37,7 +38,8 @@
    "range": "17-26",
    "relevance": "focus",
    "origin": [
-    "Ex-Lev Folie 9"
+    "Ex-Lev Folie 9",
+    "Ex-Lev Folie 9, Audio 0:15"
    ]
   },
   {
@@ -54,8 +56,10 @@
    "range": "19",
    "relevance": "lecture",
    "origin": [
-    "Ex-Lev Folie 9"
-   ]
+    "Ex-Lev Folie 9",
+    "Ex-Lev Folie 9, Audio 0:59–1:04"
+   ],
+   "explanation": "Mündlich: „quasi die Zusammenfassung dieses ganzen Korpus“."
   },
   {
    "id": "vl.bk03.lev19_18",
@@ -71,7 +75,8 @@
    "range": "19",
    "relevance": "focus",
    "origin": [
-    "Ex-Lev Folie 9"
+    "Ex-Lev Folie 9",
+    "Ex-Lev Folie 9, Audio 1:10–1:29"
    ]
   },
   {
@@ -91,7 +96,8 @@
    "range": "17-26",
    "relevance": "lecture",
    "origin": [
-    "Ex-Lev Folie 9"
+    "Ex-Lev Folie 9",
+    "Ex-Lev Folie 9, Audio 0:38"
    ]
   },
   {
@@ -110,9 +116,115 @@
    "range": "27",
    "relevance": "lecture",
    "origin": [
-    "Ex-Lev Folie 8"
+    "Ex-Lev Folie 8",
+    "Ex-Lev Folie 8, Audio 2:17–2:26"
    ],
    "explanation": "Nach der Folie reichen die priesterlichen Weihevorschriften bis Num 10; Lev 27 behandelt daraus Gelübde und Weihegaben."
+  },
+  {
+   "id": "vl.bk03.ganzopfer",
+   "format": "choice",
+   "topic": "law",
+   "prompt": "Welches Opfer ist nach der Vorlesung das bedeutendste in Lev 1–7?",
+   "correct": [
+    "Das Ganzopfer (Brandopfer), bei dem das Tier vollständig verbrannt wird"
+   ],
+   "distractors": [
+    "Das Heilsopfer, weil es mit einem gemeinsamen Mahl endet",
+    "Das Speiseopfer aus Feinmehl, weil es täglich dargebracht wird",
+    "Das Schuldopfer, weil es den höchsten Geldwert erfordert"
+   ],
+   "range": "1-7",
+   "explanation": "Grundsatz der Vorlesung: Die Bedeutung des Opfers wächst mit dem Wert der Gabe und dem Ausmaß der Hingabe.",
+   "basis": "audio",
+   "relevance": "lecture",
+   "origin": [
+    "Ex-Lev Folie 8, Audio 3:26–3:48"
+   ]
+  },
+  {
+   "id": "vl.bk03.rein_unrein",
+   "format": "choice",
+   "topic": "law",
+   "prompt": "Wie versteht die Vorlesung „rein“ und „unrein“ in Lev 11–15?",
+   "correct": [
+    "Als Tabuvorschriften – weder moralisch noch hygienisch gemeint"
+   ],
+   "distractors": [
+    "Als moralisches Urteil: unrein ist, wer bewusst gesündigt hat",
+    "Als Hygieneregeln gegen Ansteckung, ähnlich der Medizin",
+    "Als Strafe Gottes, die erst ein Ganzopfer wieder aufhebt"
+   ],
+   "range": "11-15",
+   "explanation": "„Rein ist nicht gleich gut oder sauber und unrein nicht gleich böse oder schmutzig.“ Aus den Reinheitsgesetzen leiten sich die Speisegebote der Kaschrut ab.",
+   "basis": "audio",
+   "relevance": "focus",
+   "origin": [
+    "Ex-Lev Folie 8, Audio 5:43–6:28"
+   ]
+  },
+  {
+   "id": "vl.bk03.redensarten",
+   "format": "multi",
+   "topic": "connection",
+   "prompt": "Welche Redensarten führt die Vorlesung auf das Buch Levitikus zurück?",
+   "correct": [
+    "Sündenbock",
+    "Jemanden in die Wüste schicken",
+    "Jemandem die Leviten lesen"
+   ],
+   "distractors": [
+    "Ein Auge zudrücken",
+    "Sein Licht unter den Scheffel stellen"
+   ],
+   "range": "16",
+   "explanation": "Die Wendung vom Licht unter dem Scheffel stammt aus der Bergpredigt (Mt 5,15).",
+   "basis": "audio",
+   "relevance": "lecture",
+   "origin": [
+    "Ex-Lev Folie 8, Audio 7:35–8:07"
+   ]
+  },
+  {
+   "id": "vl.bk03.versoehnung_nt",
+   "format": "choice",
+   "topic": "connection",
+   "prompt": "Womit verbindet das Neue Testament nach der Vorlesung den Versöhnungstag (Lev 16)?",
+   "correct": [
+    "Mit dem Sühnetod Christi für die Sünden"
+   ],
+   "distractors": [
+    "Mit der Taufe Jesu im Jordan durch Johannes",
+    "Mit der Speisung der Fünftausend am See",
+    "Mit der Ausgießung des Geistes an Pfingsten"
+   ],
+   "range": "16",
+   "explanation": "Mündlich: „die paulinische Sündentheologie und unsere ganze christliche Vorstellung, dass Jesus die Sünden für uns auf sich genommen hat.“ Vgl. Hebr 9.",
+   "basis": "audio",
+   "relevance": "lecture",
+   "origin": [
+    "Ex-Lev Folie 8, Audio 8:23–8:39"
+   ]
+  },
+  {
+   "id": "vl.bk03.lev26",
+   "format": "choice",
+   "topic": "theme",
+   "prompt": "Was macht Lev 26 nach der Vorlesung theologisch bedeutsam?",
+   "correct": [
+    "Es setzt einen bereits gebrochenen Bund voraus"
+   ],
+   "distractors": [
+    "Es erzählt die Weihe Aarons und den Beginn des Kults",
+    "Es regelt die Gelübde und Weihegaben für das Heiligtum",
+    "Es schildert den Aufbruch Israels vom Sinai ins Land"
+   ],
+   "range": "26",
+   "basis": "audio",
+   "relevance": "lecture",
+   "origin": [
+    "Ex-Lev Folie 9, Audio 2:38–3:02"
+   ]
   }
  ]
 }

@@ -501,6 +501,31 @@ void main() {
 
       expect(tooLong, isEmpty);
     });
+
+    test("mündlicher Vorlesungsstoff nennt die Zeitstelle im Audio", () {
+      final lecture = [
+        for (final f in Directory(
+          "assets/old_testament/model_answers",
+        ).listSync())
+          if (f.path.endsWith(".json")) KnowledgeBank.parse(_json(f.path)),
+      ];
+      final all = KnowledgeBank.merge([fileBank, ...lecture]);
+      final audio = [
+        for (final q in all.questions)
+          if (q.basis == KnowledgeBasis.audio) q,
+      ];
+
+      expect(audio.length, greaterThanOrEqualTo(20));
+
+      for (final q in audio) {
+        expect(q.fromLecture, isTrue, reason: q.id);
+        expect(
+          q.origin.any((o) => RegExp(r"Folie \d+, Audio \d+:\d\d").hasMatch(o)),
+          isTrue,
+          reason: q.id,
+        );
+      }
+    });
   });
 }
 
