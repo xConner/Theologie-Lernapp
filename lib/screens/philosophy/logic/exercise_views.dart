@@ -4,6 +4,7 @@ import '../../../models/logic/logic_exercise.dart';
 import '../../../services/logic/exercise_evaluation.dart';
 import '../../../services/logic/formula.dart';
 import '../../../services/logic/formula_parser.dart';
+import '../../../services/logic/logic_progress_store.dart';
 import '../../../services/logic/proof_checker.dart';
 import '../../../services/logic/proof_rules.dart';
 import '../../../services/logic/semantics.dart';
@@ -19,10 +20,15 @@ class LogicExerciseView extends StatelessWidget {
   final LogicExercise exercise;
   final ValueChanged<bool> onResult;
 
+  /// Speichert angefangene Beweise (samt Reihenfolge der Zeilen); ohne
+  /// Speicher bleiben sie nur auf dem Bildschirm.
+  final LogicProgressStore? store;
+
   const LogicExerciseView({
     super.key,
     required this.exercise,
     required this.onResult,
+    this.store,
   });
 
   @override
@@ -34,7 +40,7 @@ class LogicExerciseView extends StatelessWidget {
       EvaluateExercise() => _EvaluateView(e, onResult),
       EntailmentExercise() => _EntailmentView(e, onResult),
       FindPremisesExercise() => _FindPremisesView(e, onResult),
-      ProofExercise() => _ProofView(e, onResult),
+      ProofExercise() => _ProofView(e, onResult, store),
       ChoiceExercise() => _ChoiceView(e, onResult),
       OpenExercise() => _OpenView(e, onResult),
       FormalizeExercise() => _FormalizeView(e, onResult),
@@ -703,8 +709,9 @@ class _FormalizeViewState extends State<_FormalizeView> with _Reporting {
 class _ProofView extends StatelessWidget {
   final ProofExercise e;
   final ValueChanged<bool> onResult;
+  final LogicProgressStore? store;
 
-  const _ProofView(this.e, this.onResult);
+  const _ProofView(this.e, this.onResult, this.store);
 
   @override
   Widget build(BuildContext context) {
@@ -720,6 +727,9 @@ class _ProofView extends StatelessWidget {
           solution: e.solution,
           plan: e.plan,
           onFinished: onResult,
+          store: store,
+          // Erzeugte Übungen (ohne ID) werden nicht gespeichert.
+          draftKey: e.id,
         ),
       ],
     );

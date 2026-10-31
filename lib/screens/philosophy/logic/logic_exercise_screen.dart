@@ -160,6 +160,7 @@ class _LogicExerciseScreenState extends State<LogicExerciseScreen> {
                       key: ValueKey("exercise-view-$index"),
                       exercise: items[index],
                       onResult: (ok) => _record(index, items[index], ok),
+                      store: widget.store,
                     ),
                     const SizedBox(height: 20),
                     Row(
