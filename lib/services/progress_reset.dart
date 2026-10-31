@@ -122,7 +122,8 @@ enum ProgressArea {
             "bleiben erhalten.";
       case ProgressArea.logic:
         return "Welche Lektionen geöffnet oder als bearbeitet markiert sind "
-            "und die gespeicherten Antworten zu den Übungen.";
+            "die gespeicherten Antworten zu den Übungen und die "
+            "angefangenen Beweise.";
       case ProgressArea.philosophyReading:
         return "Die Lernstände der Wiederholung (Begriffe, Sätze, "
             "Textkritik). Notizen, Lesezeichen, Wortliste und Leseposition "
