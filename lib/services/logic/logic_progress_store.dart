@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../local_learning_store.dart';
+import 'proof_draft.dart';
 
 /// Stand einer Lektion. „Bearbeitet“ setzt man selbst – es heißt nicht,
 /// dass der Stoff sicher beherrscht wird.
@@ -15,7 +16,10 @@ class LessonProgress {
 
   static LessonProgress fromJson(Object? raw) {
     if (raw is! Map) return const LessonProgress();
-    return LessonProgress(opened: _time(raw["opened"]), done: _time(raw["done"]));
+    return LessonProgress(
+      opened: _time(raw["opened"]),
+      done: _time(raw["done"]),
+    );
   }
 }
 
@@ -81,10 +85,15 @@ class LogicProgress {
   /// „Lektion:Art“ → Antworten auf erzeugte Übungen.
   final Map<String, TaskProgress> generated;
 
+  /// Übungs-ID → zuletzt
+  /// bearbeiteter Beweis samt Reihenfolge der Zeilen.
+  final Map<String, ProofDraft> proofs;
+
   const LogicProgress({
     this.lessons = const {},
     this.tasks = const {},
     this.generated = const {},
+    this.proofs = const {},
   });
 
   factory LogicProgress.fromJson(Map<String, dynamic>? doc) {
@@ -98,12 +107,18 @@ class LogicProgress {
       lessons: read("lessons", LessonProgress.fromJson),
       tasks: read("tasks", TaskProgress.fromJson),
       generated: read("generated", TaskProgress.fromJson),
+      proofs: {
+        for (final e in read("proofs", ProofDraft.fromJson).entries)
+          if (e.value != null) e.key: e.value!,
+      },
     );
   }
 
   LessonProgress lesson(String id) => lessons[id] ?? const LessonProgress();
 
   TaskProgress task(String id) => tasks[id] ?? const TaskProgress();
+
+  ProofDraft? proof(String key) => proofs[key];
 }
 
 /// Speicherort des Logik-Fortschritts.
@@ -117,7 +132,12 @@ class LogicProgress {
 /// lessons:   {lessonId: {opened: ms, done: ms}}
 /// tasks:     {exerciseId: {c: richtig, w: falsch, last: bool, at: ms}}
 /// generated: {"lessonId:art": {c, w, last, at}}
+/// proofs:    {key: {lines: [{id, rule, f, r, d, c}], at: ms}}
 /// ```
+///
+/// `proofs` hält den zuletzt bearbeiteten Beweis je Übung (Zeilen mit
+/// stabiler ID in ihrer Reihenfolge). Ältere Dokumente ohne dieses Feld
+/// bleiben gültig.
 ///
 /// Zurückgesetzt wird über `ProgressArea.logic` (Einstellungen).
 abstract class LogicProgressStore {
@@ -130,6 +150,9 @@ abstract class LogicProgressStore {
   Future<void> recordTask(String exerciseId, bool correct);
 
   Future<void> recordGenerated(String key, bool correct);
+
+  /// Speichert den Beweis unter [key]; null entfernt ihn.
+  Future<void> saveProof(String key, ProofDraft? draft);
 
   factory LogicProgressStore.forUser(String? uid) => uid == null
       ? LocalLogicProgressStore()
@@ -187,6 +210,10 @@ class LocalLogicProgressStore implements LogicProgressStore {
   @override
   Future<void> recordGenerated(String key, bool correct) =>
       _record("generated", key, correct);
+
+  @override
+  Future<void> saveProof(String key, ProofDraft? draft) =>
+      _store.mergeQuizDocument(_doc, "proofs", {key: draft?.toJson()});
 }
 
 class FirestoreLogicProgressStore implements LogicProgressStore {
@@ -220,9 +247,7 @@ class FirestoreLogicProgressStore implements LogicProgressStore {
     final now = DateTime.now().millisecondsSinceEpoch;
     return _doc.set({
       "lessons": {
-        lessonId: {
-          "done": done ? now : FieldValue.delete(),
-        },
+        lessonId: {"done": done ? now : FieldValue.delete()},
       },
     }, SetOptions(merge: true));
   }
@@ -246,4 +271,9 @@ class FirestoreLogicProgressStore implements LogicProgressStore {
   @override
   Future<void> recordGenerated(String key, bool correct) =>
       _record("generated", key, correct);
+
+  @override
+  Future<void> saveProof(String key, ProofDraft? draft) => _doc.set({
+    "proofs": {key: draft == null ? FieldValue.delete() : draft.toJson()},
+  }, SetOptions(merge: true));
 }
