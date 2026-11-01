@@ -282,9 +282,12 @@ void main() {
       // Ex 32 „Israels Abfall: Das Goldene Kalb“ (Sitzung 3) und seit
       // 30.10.2026 die Neugliederung von Exodus, Levitikus und der
       // Kapitel-Platzhalter (test/perikopen_exodus_levitikus_test.dart).
-      expect(perikopen, hasLength(2929));
+      // Seit 1.11.2026 sind die optionalen Perikopen gröber gegliedert
+      // (test/perikopen_optional_merge_test.dart); Genesis ist Pflicht und
+      // bleibt.
+      expect(perikopen, hasLength(1263));
       expect(genesis.map(BookPericope.keyOf).toList(), _genesisKeys);
-      expect(perikopen.where((p) => p.book != "Gen"), hasLength(2929 - 78));
+      expect(perikopen.where((p) => p.book != "Gen"), hasLength(1263 - 78));
       for (final g in genesis) {
         expect((g.required, g.precision), (true, "chapter"), reason: g.id);
       }

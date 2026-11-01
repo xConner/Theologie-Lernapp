@@ -1,6 +1,7 @@
 import '../models/greek/vocabulary/learning_card.dart';
 import '../services/book_learning_storage.dart';
 import 'books/book_learning_status.dart';
+import 'pericope_merges.dart';
 
 /// Perikopen, die in der Perikopenliste nachträglich eine eigene ID oder
 /// einen anderen Anfang bekommen haben.
@@ -145,6 +146,19 @@ class PericopeIdMigration {
       if (old == null || cards.containsKey(e.key)) continue;
       cards[e.key] = LearningCard.fromJson(e.key, old.toJson());
     }
+
+    // Zusammengelegte optionale Perikopen (1.11.2026): Die neue Perikope
+    // übernimmt die Karte ihres ersten Teils, der eine hat – nur von IDs,
+    // die es nicht mehr gibt.
+    for (final e in PericopeMerges.ids.entries) {
+      if (cards.containsKey(e.key)) continue;
+      for (final from in e.value) {
+        final old = cards[from];
+        if (old == null) continue;
+        cards[e.key] = LearningCard.fromJson(e.key, old.toJson());
+        break;
+      }
+    }
     return cards;
   }
 
@@ -168,6 +182,33 @@ class PericopeIdMigration {
 
     for (final e in movedKeys.entries) {
       copyCard(e.key, e.value);
+    }
+
+    // Zusammengelegte optionale Perikopen (1.11.2026), nach den früheren
+    // Übernahmen, damit auch deren Kopien weitergereicht werden: Die Karte
+    // des ersten Teils, der eine hat, gilt weiter. Präzisierungen gelten
+    // nicht: Sie beschrieben einen der kleineren Teile.
+    for (final e in PericopeMerges.keys.entries) {
+      for (final from in e.value) {
+        if (data.cards.containsKey(e.key)) break;
+        copyCard(e.key, from);
+      }
+    }
+
+    // Geblieben, aber größer geworden: Eine Präzisierung innerhalb der
+    // früheren Stelle gehört zu ihr, nicht zur neuen. Sie wird nur hier
+    // übergangen, gespeichert bleibt sie.
+    for (final e in PericopeMerges.widened.entries) {
+      final precision = data.precisions[e.key];
+      if (precision == null) continue;
+      final [sc, sv, ec, ev] = e.value;
+      final starts = (precision.startChapter, precision.startVerse);
+      final ends = (precision.endChapter, precision.endVerse);
+      bool notBefore((int, int) a, (int, int) b) =>
+          a.$1 > b.$1 || (a.$1 == b.$1 && a.$2 >= b.$2);
+      if (notBefore(starts, (sc, sv)) && notBefore((ec, ev), ends)) {
+        data.precisions.remove(e.key);
+      }
     }
   }
 }

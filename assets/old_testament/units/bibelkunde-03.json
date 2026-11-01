@@ -554,10 +554,7 @@
       "clue": "Priesterweihe, Beginn des Kults",
       "pericopes": [
         "Lev|die_priesterweihe|8,1",
-        "Lev|das_weiheopfer_des_hohenpriesters|9,1",
-        "Lev|die_strafe_fuer_unrechtmaessiges_opfern|10,1",
-        "Lev|der_dienst_im_heiligtum|10,6",
-        "Lev|das_essen_der_priesterlichen_opferanteile|10,12"
+        "Lev|die_strafe_fuer_unrechtmaessiges_opfern|10,1"
       ]
     },
     {
@@ -590,11 +587,7 @@
       "context": "Priesterliche Weihevorschriften (bis Num 10), hier: Gelübde und Weihegaben.",
       "clue": "Gelübde und Weihegaben",
       "pericopes": [
-        "Lev|bei_personen|27,1",
-        "Lev|bei_tieren|27,9",
-        "Lev|bei_haeusern|27,14",
-        "Lev|bei_grundstuecken|27,16",
-        "Lev|sonderfaelle|27,26"
+        "Lev|bei_personen|27,1"
       ]
     },
     {
@@ -620,7 +613,7 @@
       "context": "Einer der zwei wichtigen Verse des Heiligkeitsgesetzes.",
       "clue": "„Du sollst deinen Nächsten lieben wie dich selbst; ich bin der HERR.“",
       "pericopes": [
-        "Lev|soziales_verhalten_und_naechstenliebe|19,11"
+        "Lev|der_ruf_zur_heiligkeit|19,1"
       ]
     }
   ],

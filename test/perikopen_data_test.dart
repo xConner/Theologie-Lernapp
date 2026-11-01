@@ -83,13 +83,13 @@ void main() {
     test("Lücken werden nur aufgelistet, nicht geschlossen", () {
       final gaps = validator.gaps(list);
 
-      // Verse ohne eigene Perikope: Überleitung und Buchüberschrift.
-      expect(gaps["Mt"], contains("11,1"));
-      expect(gaps["Hos"], contains("1,1"));
-
-      // Lückenlos eingeteilte Bücher.
-      expect(gaps.containsKey("Gen"), isFalse);
-      expect(gaps.containsKey("Röm"), isFalse);
+      // Seit der gröberen Gliederung der optionalen Perikopen (1.11.2026)
+      // decken diese auch Überleitungen und Buchüberschriften ab. Offen
+      // sind nur Verse zwischen unveränderten Pflichtperikopen im Dtn.
+      expect(gaps.keys, ["Dtn"]);
+      expect(gaps["Dtn"], contains("5,1–5,22"));
+      expect(gaps.containsKey("Mt"), isFalse);
+      expect(gaps.containsKey("Hos"), isFalse);
     });
 
     test("Berichtigte Stellen", () {
@@ -100,9 +100,6 @@ void main() {
       expect(at("jakobs_trennung_von_laban"), "Gen 31,1–31,54");
       expect(at("die_boten_und_geschenke_fuer_esau"), "Gen 32,1–32,22");
 
-      // Stand im falschen Kapitel (Am 1,10–15).
-      expect(at("die_beugung_des_rechts"), "Am 5,10–5,15");
-
       // Endete einen Vers vor dem Psalmende.
       expect(at("klage_und_vertrauen_eines_alleingelassenen"), "Ps 55,1–55,24");
 
@@ -111,16 +108,14 @@ void main() {
       for (final id in ["1sam_1", "2sam_2", "2koen_2", "2chr_2", "1kor_1"]) {
         expect(list.where((e) => e["id"] == id), isEmpty, reason: id);
       }
-      expect(at("die_geburt_samuels"), "1Sam 1,1–1,20");
-      expect(at("die_entrueckung_elijas"), "2Kön 2,1–2,18");
+      expect(at("die_geburt_samuels"), "1Sam 1,1–2,11");
+      expect(at("die_entrueckung_elijas"), "2Kön 2,1–2,25");
     });
 
     test("Perikopen über eine Kapitelgrenze bleiben vollständig", () {
       expect(
-        PericopeValidator.referenceOf(
-          byId("der_krieg_zwischen_david_und_ischbaal"),
-        ),
-        "2Sam 2,12–3,1",
+        PericopeValidator.referenceOf(byId("die_zweite_volkszaehlung")),
+        "Num 25,19–26,65",
       );
       expect(
         PericopeValidator.referenceOf(byId("das_gastmahl_belschazzars")),
@@ -141,9 +136,17 @@ void main() {
         ),
         "Mt 5,1–7,29",
       );
+      // Seit 1.11.2026 eine Perikope ohne eigene Unterabschnitte.
       expect(
-        PericopeValidator.referenceOf(byId("die_seligpreisungen", book: "Mt")),
-        "Mt 5,3–5,12",
+        list.where(
+          (e) =>
+              e["book"] == "Mt" &&
+              e["startChapter"] >= 5 &&
+              e["startChapter"] <= 7 &&
+              e["id"] !=
+                  "die_bergpredigt_die_rede_von_der_wahren_gerechtigkeit",
+        ),
+        isEmpty,
       );
     });
   });

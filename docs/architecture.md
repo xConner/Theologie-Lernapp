@@ -310,6 +310,23 @@ Stelle nennt („Ex 8“), ist nicht zulässig (`test/perikopen_exodus_levitikus
 Ändert sich eine ID oder ein Anfang, übernimmt `PericopeIdMigration` den
 Lernstand.
 
+Gliederung seit 1.11.2026: Pflichtperikopen sind alle, die die
+Pflichtlektüre des Bibelleseplans zur Übung Bibelkunde AT berühren
+(`course-bibelkunde-at-wise-2026`, Sitzungen mit `readingSource: slides`:
+Gen ganz, Ex 1–5; 7–24; 32–34, Lev 16, die Num- und Dtn-Stellen von
+Sitzung 4). Sie bleiben unverändert. Alle übrigen Perikopen sind zu
+größeren Sinnabschnitten zusammengefasst (rund ein Kapitel oder eine
+Erzähl-/Redeeinheit; Psalmen einzeln außer Ps 42–43, Hallel 113–118,
+Wallfahrtslieder 120–134, Schluss-Hallel 146–150) und decken ihr Buch
+lückenlos ab. Eine zusammengelegte Perikope behält ID und Anfang ihres
+ersten Teils; gleich betitelte Abschnitte mehrerer Bücher (synoptische
+Parallelen, Kön/Chr) teilen eine ID. `lib/quiz/pericope_merges.dart`
+(erzeugt) hält die früheren IDs und Schlüssel; daraus übernimmt
+`PericopeIdMigration` die Karten. Prüfung:
+`test/perikopen_optional_merge_test.dart`. Wird der Bibelleseplan für
+Sitzung 5 ff. nachgetragen, bleiben die gröberen Perikopen dort bestehen,
+bis sie bewusst neu geteilt werden.
+
 Ausgabe, Lesestand und Schriftgröße gehören zum Gerät und liegen wie das
 Erscheinungsbild in den `SharedPreferences`.
 

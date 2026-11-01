@@ -24,6 +24,7 @@ import 'package:theologie_lernapp/services/learning_service.dart';
 import 'package:theologie_lernapp/services/settings_service.dart';
 import 'package:theologie_lernapp/theme/app_theme.dart';
 
+import 'fine_mk_fixture.dart';
 import 'test_asset_bundle.dart';
 
 Finder key(String value) => find.byKey(ValueKey(value));
@@ -60,12 +61,13 @@ void main() {
   late BookOutlines outlines;
 
   setUpAll(() {
-    all = [
+    // Die Oberfläche wird an der feinen Markus-Gliederung geprüft.
+    all = withFineMarkus([
       for (final entry
           in jsonDecode(File("assets/perikopen.json").readAsStringSync())
               as List)
         Perikope.fromJson(Map<String, dynamic>.from(entry)),
-    ];
+    ]);
 
     markus = all.where((p) => p.book == "Mk").toList();
 
@@ -356,7 +358,15 @@ void main() {
 
     final stored = await LocalBookLearningStorage().load();
 
-    expect(stored.cards.values.where((c) => c.introducedAt != null).length, 3);
+    // Nur die Perikopen der Testliste; die Übernahme in die gröbere
+    // Gliederung (PericopeMerges) legt dazu Kopien unter neuen Schlüsseln an.
+    final keys = markus.map(BookPericope.keyOf).toSet();
+    expect(
+      stored.cards.entries
+          .where((e) => keys.contains(e.key) && e.value.introducedAt != null)
+          .length,
+      3,
+    );
     // Ungültige Eingaben wurden nicht als Fehler verbucht.
     expect(stored.cards.values.every((c) => c.wrongCount == 0), isTrue);
   });

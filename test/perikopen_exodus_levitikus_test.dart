@@ -6,6 +6,7 @@ import 'package:theologie_lernapp/models/greek/perikope.dart';
 import 'package:theologie_lernapp/models/greek/vocabulary/learning_card.dart';
 import 'package:theologie_lernapp/quiz/books/book_catalog.dart';
 import 'package:theologie_lernapp/quiz/pericope_id_migration.dart';
+import 'package:theologie_lernapp/quiz/pericope_merges.dart';
 import 'package:theologie_lernapp/quiz/quiz_question.dart';
 import 'package:theologie_lernapp/services/book_learning_storage.dart';
 
@@ -267,15 +268,18 @@ void main() {
 
     test("allgemeine IDs fassen keine fremden Texte mehr zusammen", () {
       for (final id in ["einleitung", "schlussmahnung", "schluss"]) {
+        // Seit 1.11.2026 teils in größeren Perikopen aufgegangen.
         final places = perikopen.where((p) => p.id == id).toList();
-        expect(places, hasLength(1), reason: id);
+        expect(places.length, lessThanOrEqualTo(1), reason: id);
       }
     });
   });
 
   for (final (b, last, count) in [
-    ("Ex", (40, 38), 111),
-    ("Lev", (27, 34), 91),
+    // Seit 1.11.2026 sind die optionalen Teile (Ex 6; 25–31; 35–40; Lev
+    // außer Kap. 16) gröber gegliedert (test/perikopen_optional_merge_test).
+    ("Ex", (40, 38), 92),
+    ("Lev", (27, 34), 20),
   ]) {
     group(b, () {
       final list = book(b);
@@ -362,6 +366,7 @@ void main() {
         final successors = {
           ...PericopeIdMigration.renamedKeys.values,
           ...PericopeIdMigration.movedKeys.values,
+          ...PericopeMerges.keys.values.expand((k) => k),
         };
         for (final key in PericopeIdMigration.renamedKeys.values) {
           expect(keys, isNot(contains(key)), reason: key);
@@ -381,11 +386,14 @@ void main() {
       for (final id in PericopeIdMigration.renamedIds.keys) {
         expect(ids, contains(id));
       }
+      // Oder sie sind seit 1.11.2026 in einer größeren Perikope aufgegangen,
+      // die ihren Lernstand weiterreicht.
+      final merged = PericopeMerges.keys.values.expand((k) => k).toSet();
       for (final key in [
         ...PericopeIdMigration.renamedKeys.keys,
         ...PericopeIdMigration.movedKeys.keys,
       ]) {
-        expect(keys, contains(key));
+        expect(keys.contains(key) || merged.contains(key), isTrue, reason: key);
       }
     });
 
@@ -469,9 +477,11 @@ void main() {
         ),
         isFalse,
       );
-      // Gleiche Stelle unter neuer ID: Präzisierung gilt weiter.
+      // Gleiche Stelle unter neuer ID: Die Karte gilt weiter. Seit 1.11.2026
+      // umfasst die Perikope ganz Lev 19; die Präzisierung (Lev 19,2) gehörte
+      // zur früheren Stelle Lev 19,1-2 und gilt deshalb nicht mehr.
       expect(data.cards["Lev|der_ruf_zur_heiligkeit|19,1"]!.stability, 9);
-      expect(data.precisions["Lev|der_ruf_zur_heiligkeit|19,1"], isNotNull);
+      expect(data.precisions["Lev|der_ruf_zur_heiligkeit|19,1"], isNull);
     });
   });
 }

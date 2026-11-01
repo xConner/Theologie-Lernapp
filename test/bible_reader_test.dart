@@ -422,7 +422,7 @@ void main() {
       );
 
       // Ein nicht hervorgehobener Vers reagiert nicht.
-      await tester.tap(find.textContaining("Schlussbemerkung"));
+      await tester.tap(find.textContaining("Und ohne Gleichnis redete er"));
       await tester.pump();
 
       expect(isHighlighted(tester, "Laßt uns hinüberfahren"), isTrue);
@@ -432,7 +432,10 @@ void main() {
 
       expect(isHighlighted(tester, "Laßt uns hinüberfahren"), isFalse);
       expect(verse, findsOneWidget);
-      expect(find.text("Der Sturm auf dem See"), findsOneWidget);
+      expect(
+        find.text("Der Sturm auf dem See und die Heilung von Besessenen"),
+        findsOneWidget,
+      );
       expect(find.text("Markus 4"), findsOneWidget);
       expect(scroll.position.pixels, position);
       expect(
