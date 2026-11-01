@@ -71,6 +71,9 @@ Perikope perikope(
   );
 }
 
+/// Überschrift von Mk 4,35–5,20 (seit 1.11.2026 eine Perikope).
+const _storm = "Der Sturm auf dem See und die Heilung von Besessenen";
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -112,14 +115,8 @@ void main() {
   group("Zuordnung", () {
     test("Jede Perikope steht mit ihrem Titel an ihrem Anfangsvers", () {
       expect(of("deuelbbk", "MRK", 4), {
-        1: ["Das Gleichnis vom Sämann"],
-        10: ["Sinn und Zweck der Gleichnisse"],
-        13: ["Die Deutung des Gleichnisses vom Sämann"],
-        21: ["Vom rechten Hören"],
-        26: ["Das Gleichnis vom Wachsen der Saat"],
-        30: ["Das Gleichnis vom Senfkorn"],
-        33: ["Schlussbemerkung zu den Gleichnissen"],
-        35: ["Der Sturm auf dem See"],
+        1: ["Die Gleichnisrede"],
+        35: [_storm],
       });
     });
 
@@ -156,7 +153,7 @@ void main() {
       }
 
       // Ohne die Apokryphen, die keine deutsche Ausgabe enthält.
-      expect(headingsFound, greaterThan(2400));
+      expect(headingsFound, greaterThan(1100));
     });
 
     test(
@@ -352,7 +349,7 @@ void main() {
 
       await pumpReader(tester);
 
-      expect(find.text(PericopeHeadings.label), findsNWidgets(8));
+      expect(find.text(PericopeHeadings.label), findsNWidgets(2));
 
       for (final title in of("deu1912", "MRK", 4).values.expand((t) => t)) {
         expect(find.text(title), findsOneWidget, reason: title);
@@ -360,7 +357,7 @@ void main() {
 
       // Reihenfolge: Überschrift, dann der Vers, mit dem die Perikope
       // beginnt; der Vers davor steht darüber.
-      final heading = tester.getTopLeft(find.text("Der Sturm auf dem See")).dy;
+      final heading = tester.getTopLeft(find.text(_storm)).dy;
       final before = tester
           .getTopLeft(find.textContaining("Und ohne Gleichnis redete er"))
           .dy;
@@ -439,14 +436,10 @@ void main() {
 
         await pumpReader(tester);
 
-        expect(
-          find.text("Der Sturm auf dem See"),
-          findsOneWidget,
-          reason: t.id,
-        );
+        expect(find.text(_storm), findsOneWidget, reason: t.id);
         expect(
           find.text(PericopeHeadings.label),
-          findsNWidgets(8),
+          findsNWidgets(2),
           reason: t.id,
         );
         expect(tester.takeException(), isNull, reason: t.id);
@@ -557,7 +550,13 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.text("Markus 5"), findsOneWidget);
-      expect(find.text("Die Heilung des Besessenen von Gerasa"), findsWidgets);
+      expect(
+        find.text(
+          "Die Auferweckung der Tochter des Jaïrus und die Heilung einer "
+          "kranken Frau",
+        ),
+        findsWidgets,
+      );
       expect(tester.takeException(), isNull);
     });
 

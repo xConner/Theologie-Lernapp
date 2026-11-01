@@ -93,18 +93,6 @@ class PericopeValidator {
       "Num 25,19 zählt nur die Einheitsübersetzung; die integrierten "
           "deutschen Ausgaben führen den Vers als 26,1.",
     ),
-    PericopeException(
-      "die_seligpreisungen",
-      "ueberschneidung",
-      "Unterabschnitt der Bergpredigt (Mt 5,1–7,29); Mt 5,1–2 leiten sie "
-          "ein und haben keine eigene Perikope.",
-    ),
-    PericopeException(
-      "der_friedenskoenig_und_sein_reich",
-      "psalm",
-      "Ps 72,20 ist die Schlussnotiz des zweiten Psalmenbuchs und gehört "
-          "nicht zum Psalm.",
-    ),
   ];
 
   static const Set<String> _fields = {

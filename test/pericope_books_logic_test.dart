@@ -21,6 +21,8 @@ import 'package:theologie_lernapp/quiz/quiz_question.dart';
 import 'package:theologie_lernapp/services/book_learning_storage.dart';
 import 'package:theologie_lernapp/services/local_learning_store.dart';
 
+import 'fine_mk_fixture.dart';
+
 /// Uhr, die Tests vorstellen können.
 class TestClock {
   DateTime now;
@@ -37,12 +39,13 @@ void main() {
   late BookCatalog catalog;
 
   setUpAll(() {
-    all = [
+    // Die Lernlogik wird an der feinen Markus-Gliederung geprüft.
+    all = withFineMarkus([
       for (final entry
           in jsonDecode(File("assets/perikopen.json").readAsStringSync())
               as List)
         Perikope.fromJson(Map<String, dynamic>.from(entry)),
-    ];
+    ]);
 
     catalog = BookCatalog.fromPerikopen(all);
   });
@@ -750,7 +753,10 @@ void main() {
       final tasks = StudyPlanner(state, random: Random(4)).exam(scope);
 
       expect(tasks.length, scope.length);
-      expect(tasks.map((t) => (t as PericopeTask).target).toSet(), scope.toSet());
+      expect(
+        tasks.map((t) => (t as PericopeTask).target).toSet(),
+        scope.toSet(),
+      );
       expect(tasks.every((t) => t is RecallTask), isTrue);
     });
   });
@@ -1270,9 +1276,15 @@ void main() {
 
       final tasks = [for (var t = queue.next(); t != null; t = queue.next()) t];
 
-      expect(tasks.every((t) => section.contains((t as PericopeTask).target)), isTrue);
+      expect(
+        tasks.every((t) => section.contains((t as PericopeTask).target)),
+        isTrue,
+      );
       expect(tasks.whereType<IntroduceTask>().length, 6);
-      expect(tasks.where((t) => (t as PericopeTask).target == members[2]), isNotEmpty);
+      expect(
+        tasks.where((t) => (t as PericopeTask).target == members[2]),
+        isNotEmpty,
+      );
 
       // Weitergelernt wird im ersten Abschnitt mit neuen Perikopen.
       expect(state.currentSection(outline)!.id, outline.sections.first.id);

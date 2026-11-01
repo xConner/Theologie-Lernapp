@@ -355,10 +355,9 @@ void main() {
         });
         expect(of(id, "JOL", 1), of("deuelbbk", "JOL", 1));
 
-        // Mal 3,23 der Liste ist Mal 4,5.
-        expect(of(id, "MAL", 4), {
-          5: ["Der Wegbereiter"],
-        });
+        // Mal 3,13-24 der Liste ist Mal 3,13–4,6: keine eigene Überschrift
+        // in Kapitel 4.
+        expect(of(id, "MAL", 4), isEmpty);
         expect(of(id, "MAL", 3).keys, [13]);
       }
     });

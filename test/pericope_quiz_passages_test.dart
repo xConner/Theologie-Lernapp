@@ -325,7 +325,7 @@ void main() {
 
       await openReader(tester);
 
-      expect(offered(tester), ["Joh 2,1-12"]);
+      expect(offered(tester), ["Joh 2,1-25"]);
       expect(find.text("Johannes 2"), findsOneWidget);
     });
 
