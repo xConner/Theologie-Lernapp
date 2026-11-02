@@ -121,13 +121,20 @@ void main() {
   });
 
   group("Vorlesungen und Folien", () {
-    test("Folien 1–7 gehören zu VL 1, 8–15 zu VL 2", () {
-      expect(data.lectures.map((l) => l.id), ["lecture.01", "lecture.02"]);
+    test("Folien 1–7 gehören zu VL 1, 8–15 zu VL 2, 16–23 zu VL 3", () {
+      expect(data.lectures.map((l) => l.id), [
+        "lecture.01",
+        "lecture.02",
+        "lecture.03",
+      ]);
       expect(data.lecture("lecture.01")!.slides.map((s) => s.number), [
         for (var i = 1; i <= 7; i++) i,
       ]);
       expect(data.lecture("lecture.02")!.slides.map((s) => s.number), [
         for (var i = 8; i <= 15; i++) i,
+      ]);
+      expect(data.lecture("lecture.03")!.slides.map((s) => s.number), [
+        for (var i = 16; i <= 23; i++) i,
       ]);
     });
 
@@ -143,6 +150,23 @@ void main() {
           expect(s.text.trim(), isNotEmpty);
         }
       }
+    });
+
+    test("VL 3: Abschrift bewahrt „Schapur III.“, Eintrag berichtigt", () {
+      final lecture = data.lecture("lecture.03")!;
+      expect(lecture.slide(19)!.text, contains("Schapur III."));
+      final shapur = data.entry("person.shapur_ii")!;
+      expect(shapur.dating!.label, "reg. 309–379");
+      expect(shapur.notes.map((n) => n.text).join(), contains("Schapur III."));
+      // Neue Gliederungspunkte: 4. Christentum und antike Kultur.
+      final topic = data.course.outline
+          .expand((p) => p.topics)
+          .firstWhere((t) => t.number == 4 && t.lectureId != null);
+      expect(topic.lectureId, "lecture.03");
+      expect(
+        lecture.mentions.map((m) => m.entryId),
+        containsAll(["term.apostolic_fathers", "term.apologetics"]),
+      );
     });
 
     test("Abschrift bewahrt den Wortlaut der Folie", () {
@@ -374,7 +398,11 @@ void main() {
     test("eigene Veranstaltung mit 14 Sitzungen ohne Folien", () {
       expect(seminar.kind, CourseKind.seminar);
       expect(data.course.kind, CourseKind.lecture);
-      expect(data.lectures.map((l) => l.id), ["lecture.01", "lecture.02"]);
+      expect(data.lectures.map((l) => l.id), [
+        "lecture.01",
+        "lecture.02",
+        "lecture.03",
+      ]);
       expect(data.sessions.map((s) => s.id), [
         for (var i = 1; i <= 14; i++) "seminar.${i.toString().padLeft(2, "0")}",
       ]);

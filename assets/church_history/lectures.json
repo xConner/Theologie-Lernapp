@@ -22,7 +22,7 @@
           {"number": 1, "title": "Einleitung", "lecture": "lecture.01"},
           {"number": 2, "title": "Mission und Ausbreitung des Christentums", "lecture": "lecture.02"},
           {"number": 3, "title": "Christenverfolgungen", "lecture": "lecture.02"},
-          {"number": 4, "title": "Christentum und antike Kultur"},
+          {"number": 4, "title": "Christentum und antike Kultur", "lecture": "lecture.03", "theme": "theme.culture"},
           {"number": 5, "title": "Das Entstehen der christlichen Bibel/ Kanon"},
           {"number": 6, "title": "Christliches Leben im Alltag"},
           {"number": 7, "title": "Die Ausdifferenzierung der „Mehrheitskirche“ in vorkonstantinischer Zeit"},
@@ -1207,6 +1207,769 @@
           "explanation": "Im 3. Jh. gab es so viele Bekenner, dass die Ordinationsregelung geändert werden musste. Ihre Zahl ist nicht mehr zu erschließen.",
           "ref": {"material": "material.lecture_manuscript", "at": "S. 12"},
           "entries": ["term.confessores"]
+        }
+      ]
+    },
+    {
+      "id": "lecture.03",
+      "number": 3,
+      "title": "Martyrium, Apostolische Väter und Apologeten",
+      "file": "Vorlesungsfolien 3 - Martyrium Apostolische Väter Apologeten 1.pdf",
+      "epochs": ["epoch.antiquity"],
+      "themes": ["theme.martyrdom", "theme.church_state", "theme.culture"],
+      "slides": [
+        {
+          "number": 16,
+          "title": "3. Martyrium IV – Rechtsgrundlagen",
+          "image": "assets/church_history/slides/folie-16.png",
+          "text": "3. Martyrium in Antike und Spätantike IV\n\nRechtsgrundlagen für die Christenverfolgungen\n• Koerzitionsgewalt der Magistrate auf lokaler Ebene zur Beseitigung der Störung öffentlicher Ordnung (= Polizeiaktionen)\n• außerordentliche Strafverfolgung: Kaisergericht als höchste Berufungsinstanz; Konsultationspflicht der Provinzstatthalter: cognitio; eingesetzt bei Kindestötung, Inzest, Magie etc. (= Kriminalprozesse)\n• reichsrechtlich bis 250 n.Chr. kein prinzipielles staatsrechtliches Statut zur Verfolgung der Christen; relativ großer Spielraum für lokale Beamte\n• wichtigste Quellentexte zur Rechtslage:\n   - Plinius d.J. an Traian (ca. 111-113 n.Chr.): Staatsfeindschaft\n   - institutum Neronianum (nach Tertullian): Gewohnheit\n   - Reskript Hadrians: Verurteilung nur bei Gesetzesverstoß",
+          "highlights": ["Koerzitionsgewalt", "cognitio", "kein prinzipielles staatsrechtliches Statut"]
+        },
+        {
+          "number": 17,
+          "title": "3. Martyrium V – Märtyrerverehrung",
+          "image": "assets/church_history/slides/folie-17.png",
+          "text": "3. Martyrium in Antike und Spätantike V\nMärtyrerverehrung\n• Differenzierung Märtyrer und confessores\n• Bekennermut z.T. mit expliziten Drang zum Martyrium verbunden (vgl. Ignatios); anders Lehrschreiben über das Ende Polykarps; Cyprian von Karthago; Origenes\n• Verständnis der Martyrien als vorbildliche, konsequente Form der Nachfolge; Rezeption von Briefen der Märtyrer (Ignatios) und der Berichte über Martyrien (z.B. Märtyrer von Lyon 177 n.Chr.)\n• Berichte in Form von Passionen (Leidensberichte nach dem Vorbild der jüdischen Makkabäer-Verehrung) oder Märtyrerakten (Prozeßprotokolle in Anlehnung an paganen Heroen-Kult); Übergang von der passio zu den acta Anfang 3. Jh. (Passio Perpetuae et Felicitatis)\n• pagane Umwelt durch Märtyrerverehrung irritiert, vgl. Eunapios von Sardes (Ende 4. Jh.)\n• Märtyrer im 4. Jh. als „mächtige Fürsprecher“ verstanden (vgl. Basileios von Kaisareia); Verweis auf die jenseitige Welt (Idealgesellschaft)\n• Grundlagen bereits 1 Kor 12,3; Polykarp",
+          "highlights": ["vorbildliche, konsequente Form der Nachfolge", "„mächtige Fürsprecher“"]
+        },
+        {"number": 18, "title": "Vierzig Märtyrer von Sebaste", "image": "assets/church_history/slides/folie-18.jpg", "text": "[Foto einer Elfenbein-Relieftafel: oben Christus thronend zwischen Engeln, unten die Märtyrer]\n40 Märtyrer von Sebaste\nRelieftafel\nKonstantinopel 10. Jh.\nBode-Museum, Berlin"},
+        {"number": 19, "title": "3. Martyrium VI – Märtyrerverehrung II, Verfolgung außerhalb des Reiches", "image": "assets/church_history/slides/folie-19.png", "text": "3. Martyrium in Antike und Spätantike VI\nMärtyrerverehrung II\n• Mitte 3. Jh.: Gedächtnisfeier am Todestag des Märtyrers; Gebete an Märtyrer\n• eucharistische Gedächtnisfeiern an Memorien\n• Cyprian fordert zur Erstellung von Katalogen auf\n• Anfang 4. Jh.: Synode von Elvira verbietet Frauen die Übernachtung an Memorien\n\nChristenverfolgung außerhalb des Römischen Reiches\n• 332 bis 340 erste Verfolgungen unter den Goten an der unteren Donau: Wulfila siedelt ins Römische Reich über\n• 369-372 Verfolgung unter dem Gotenführer Athanarich\n• zwischen 341 und 379 Christenverfolgungen unter Schapur III. im Perserreich; dort weitere Verfolgungen um 420 und zwischen 446 und 450"},
+        {
+          "number": 20,
+          "title": "4. Christentum und antike Kultur",
+          "image": "assets/church_history/slides/folie-20.png",
+          "text": "4. Christentum und antike Kultur\n• Christentum musste mit antiken Kulturträgern und Kulturrezipienten ins Gespräch kommen\n• kulturelle Argumentationsmuster vor allem aus der antiken Philosophie vorgegeben\n   -> Stoa mit Ziel der Apatheia (Leidenschaftslosigkeit) und der Vorstellung eines Weltprinzips (nous/logos, theos)\n   -> Mittel-/Neuplatoniker: Ureines (hen) als Quelle allen Seins; Prozesse von Emanation und (mystischer) Rückkehr; triadische Ansätze im Blick auf Quelle allen Seins",
+          "highlights": ["Stoa", "Mittel-/Neuplatoniker"]
+        },
+        {"number": 21, "title": "Emanation nach Plotin", "image": "assets/church_history/slides/folie-21.png", "text": "Emanation nach Plotin (stark vergröbert!)\n\n[Schaubild, von oben nach unten:]\nhen\nnous\nSeele\nEinzelseelen\nMaterie\n\n[Pfeil links abwärts: Emanation; Pfeil rechts aufwärts: Rückkehr]"},
+        {"number": 22, "title": "Apostolische Väter", "image": "assets/church_history/slides/folie-22.png", "text": "Apostolische Väter\n• unmittelbarer Kontakt zu den Aposteln\n• Aposteln vergleichbare Lehre\n• keine Bemühungen um Vermittlung Christentum - antike Kultur\n• dazu zählt man in der Regel:\n   Klemens von Rom\n   Ignatius von Antiochien\n   Polykarp von Smyrna\n   Quadratus\n   Barnabas-Brief (?)\n   Hirt des Hermas (?)\n   Diognetbrief (?)\n   Papias von Hierapolis (?)\n   Didache (?)\n   Märtyrerberichte des Klemens, Ignatius, Polykarp\n• verfassten Briefliteratur für Gemeinde in Diaspora\n• Intention: Selbstbesinnung auf Lehren und Institutionen"},
+        {
+          "number": 23,
+          "title": "Apologeten",
+          "image": "assets/church_history/slides/folie-23.png",
+          "text": "Apologeten\n• dazu zählt man in der Regel:\n   Justin den Märtyrer\n   Tatian\n   Athenagoras\n   Aristides\n   Theophilus von Antiochien\n   Clemens von Alexandrien\n   Tertullian\n   Minucius Felix\n   Origenes\n• Anfang einer verantworteten Reflexion über das Christentum\n• Darstellung des Christentums als einer potentiellen religio licita\n• Argumentationen zugunsten des Christentums: Altersbeweis; Logos-Christologie; positive Rolle im Staat\n• Widerspruch durch pagane Philosophen: Celsus u.a.: Christentum pervertiert Überkommenes",
+          "highlights": ["religio licita", "Altersbeweis", "Logos-Christologie"]
+        }
+      ],
+      "sections": [
+        {
+          "title": "Rechtsgrundlagen der Christenverfolgungen",
+          "slides": [16],
+          "points": [
+            "Koerzitionsgewalt der Magistrate auf lokaler Ebene, um Störungen der öffentlichen Ordnung zu beseitigen (= Polizeiaktionen).",
+            "Außerordentliche Strafverfolgung (cognitio): Kaisergericht als höchste Berufungsinstanz, Konsultationspflicht der Provinzstatthalter; eingesetzt bei Kindestötung, Inzest, Magie usw. (= Kriminalprozesse).",
+            "Reichsrechtlich gab es bis 250 kein prinzipielles staatsrechtliches Statut zur Verfolgung der Christen; lokale Beamte hatten relativ großen Spielraum.",
+            "Wichtigste Quellentexte zur Rechtslage: Plinius d. J. an Trajan (ca. 111–113): Staatsfeindschaft; institutum Neronianum (nach Tertullian): Gewohnheit; Reskript Hadrians: Verurteilung nur bei Gesetzesverstoß."
+          ],
+          "supplement": "Die Grenze 250 markiert den allgemeinen Opferbefehl des Decius (Folie 13), die erste reichsweite Maßnahme. Das Reskript Hadrians ging um 124/125 an Minucius Fundanus, den Prokonsul von Asia; überliefert ist es bei Justin und Eusebius (h.e. IV 9)."
+        },
+        {
+          "title": "Märtyrerverehrung",
+          "slides": [17, 18],
+          "points": [
+            "Märtyrer und confessores werden unterschieden.",
+            "Bekennermut war zum Teil mit einem ausdrücklichen Drang zum Martyrium verbunden (Ignatios); anders das Lehrschreiben über das Ende Polykarps, Cyprian von Karthago und Origenes.",
+            "Martyrien galten als vorbildliche, konsequente Form der Nachfolge; man las die Briefe der Märtyrer (Ignatios) und die Berichte über Martyrien (z. B. Lyon 177).",
+            "Passionen sind Leidensberichte nach dem Vorbild der jüdischen Makkabäer-Verehrung; Märtyrerakten sind Prozessprotokolle in Anlehnung an den paganen Heroenkult. Anfang des 3. Jh. Übergang von der passio zu den acta (Passio Perpetuae et Felicitatis).",
+            "Die pagane Umwelt war durch die Märtyrerverehrung irritiert (Eunapios von Sardes, Ende 4. Jh.).",
+            "Im 4. Jh. verstand man die Märtyrer als „mächtige Fürsprecher“ (Basileios von Kaisareia); ihre Verehrung verweist auf die jenseitige Welt als Idealgesellschaft.",
+            "Grundlagen schon in 1 Kor 12,3 und bei Polykarp.",
+            "Folie 18 zeigt die Vierzig Märtyrer von Sebaste auf einer Relieftafel (Konstantinopel, 10. Jh., Bode-Museum Berlin)."
+          ],
+          "supplement": "Das Martyrium Polycarpi lehnt es ausdrücklich ab, sich selbst den Behörden zu stellen (Kap. 4, der Fall des Quintus); Cyprian entzog sich der Decischen Verfolgung und leitete seine Gemeinde aus dem Versteck. 1 Kor 12,3: „Niemand kann Jesus den Herrn nennen außer durch den Heiligen Geist.“ Basileios hielt eine Predigt auf die Vierzig Märtyrer von Sebaste."
+        },
+        {
+          "title": "Märtyrerverehrung II",
+          "slides": [19],
+          "points": [
+            "Mitte 3. Jh.: Gedächtnisfeier am Todestag des Märtyrers; Gebete an Märtyrer.",
+            "Eucharistische Gedächtnisfeiern an Memorien.",
+            "Cyprian fordert dazu auf, Kataloge zu erstellen.",
+            "Anfang 4. Jh.: Die Synode von Elvira verbietet Frauen, an Memorien zu übernachten."
+          ],
+          "supplement": "Der Todestag galt als „Geburtstag“ (dies natalis) des Märtyrers für das himmlische Leben. Das Verbot steht in Kanon 35 der Synode von Elvira (meist um 306 datiert)."
+        },
+        {
+          "title": "Christenverfolgung außerhalb des Römischen Reiches",
+          "slides": [19],
+          "points": [
+            "332–340: erste Verfolgungen unter den Goten an der unteren Donau; Wulfila siedelt ins Römische Reich über.",
+            "369–372: Verfolgung unter dem Gotenführer Athanarich.",
+            "Zwischen 341 und 379 Christenverfolgungen im Perserreich; dort weitere Verfolgungen um 420 und zwischen 446 und 450."
+          ],
+          "supplement": "Die Folie schreibt „Schapur III.“; gemeint ist Schapur II. (reg. 309–379), Schapur III. regierte erst 383–388. Wulfilas Übersiedlung wird häufig auch auf 347/348 datiert."
+        },
+        {
+          "title": "4. Christentum und antike Kultur",
+          "slides": [20, 21],
+          "points": [
+            "Das Christentum musste mit antiken Kulturträgern und Kulturrezipienten ins Gespräch kommen.",
+            "Die kulturellen Argumentationsmuster gab vor allem die antike Philosophie vor.",
+            "Stoa: Ziel der Apatheia (Leidenschaftslosigkeit) und Vorstellung eines Weltprinzips (nous/logos, theos).",
+            "Mittel- und Neuplatoniker: das Ureine (hen) als Quelle allen Seins; Prozesse von Emanation und (mystischer) Rückkehr; triadische Ansätze im Blick auf die Quelle allen Seins.",
+            "Emanation nach Plotin (stark vergröbert): hen – nous – Seele – Einzelseelen – Materie; Emanation von oben nach unten, Rückkehr von unten nach oben."
+          ],
+          "supplement": "„Triadisch“ meint Dreierstufungen wie Plotins Eines – Geist – Seele; an solche Modelle knüpfte später auch die Trinitätslehre sprachlich an, ohne sie zu übernehmen."
+        },
+        {
+          "title": "Apostolische Väter",
+          "slides": [22],
+          "points": [
+            "Merkmale: unmittelbarer Kontakt zu den Aposteln, eine den Aposteln vergleichbare Lehre, keine Bemühungen um Vermittlung zwischen Christentum und antiker Kultur.",
+            "Dazu zählt man in der Regel Klemens von Rom, Ignatius von Antiochien, Polykarp von Smyrna und Quadratus; unsicher (?) sind Barnabasbrief, Hirt des Hermas, Diognetbrief, Papias von Hierapolis und Didache; dazu die Märtyrerberichte des Klemens, Ignatius und Polykarp.",
+            "Sie verfassten Briefliteratur für Gemeinden in der Diaspora.",
+            "Intention: Selbstbesinnung auf Lehren und Institutionen."
+          ]
+        },
+        {
+          "title": "Apologeten",
+          "slides": [23],
+          "points": [
+            "Dazu zählt man in der Regel Justin den Märtyrer, Tatian, Athenagoras, Aristides, Theophilus von Antiochien, Clemens von Alexandrien, Tertullian, Minucius Felix und Origenes.",
+            "Mit ihnen beginnt eine verantwortete Reflexion über das Christentum.",
+            "Sie stellen das Christentum als potentielle religio licita dar.",
+            "Argumente zugunsten des Christentums: Altersbeweis, Logos-Christologie, positive Rolle im Staat.",
+            "Widerspruch paganer Philosophen wie Celsus: Das Christentum pervertiere Überkommenes."
+          ],
+          "supplement": "Anders als die Apostolischen Väter wenden sich die Apologeten nach außen, an Kaiser und gebildete Öffentlichkeit. Celsus' „Wahre Lehre“ (um 178) ist nur durch die Widerlegung des Origenes erhalten."
+        }
+      ],
+      "mentions": [
+        {
+          "entry": "term.coercitio",
+          "slides": [16],
+          "text": "Koerzitionsgewalt der Magistrate auf lokaler Ebene zur Beseitigung der Störung öffentlicher Ordnung (= Polizeiaktionen)"
+        },
+        {
+          "entry": "term.cognitio",
+          "slides": [16],
+          "text": "außerordentliche Strafverfolgung: Kaisergericht als höchste Berufungsinstanz; Konsultationspflicht der Provinzstatthalter: cognitio (= Kriminalprozesse)"
+        },
+        {
+          "entry": "event.trajan_pliny",
+          "slides": [16],
+          "text": "Quellentext zur Rechtslage: Plinius d.J. an Traian (ca. 111-113 n.Chr.): Staatsfeindschaft"
+        },
+        {
+          "entry": "source.pliny_letters",
+          "slides": [16],
+          "text": "Plinius d.J. an Traian (ca. 111-113 n.Chr.): Staatsfeindschaft"
+        },
+        {
+          "entry": "term.institutum_neronianum",
+          "slides": [16],
+          "text": "institutum Neronianum (nach Tertullian): Gewohnheit"
+        },
+        {
+          "entry": "person.tertullian",
+          "slides": [16, 23],
+          "text": "Quelle für das institutum Neronianum; zählt zu den Apologeten"
+        },
+        {
+          "entry": "event.hadrian_rescript",
+          "slides": [16],
+          "text": "Reskript Hadrians: Verurteilung nur bei Gesetzesverstoß"
+        },
+        {
+          "entry": "person.hadrian",
+          "slides": [16],
+          "text": "Reskript Hadrians: Verurteilung nur bei Gesetzesverstoß"
+        },
+        {
+          "entry": "term.confessores",
+          "slides": [17],
+          "text": "Differenzierung Märtyrer und confessores"
+        },
+        {
+          "entry": "term.martyrdom",
+          "slides": [17],
+          "text": "Verständnis der Martyrien als vorbildliche, konsequente Form der Nachfolge"
+        },
+        {
+          "entry": "person.ignatius",
+          "slides": [17, 22],
+          "text": "Bekennermut mit explizitem Drang zum Martyrium (vgl. Ignatios); Rezeption seiner Briefe; zählt zu den Apostolischen Vätern"
+        },
+        {
+          "entry": "source.ignatius_letters",
+          "slides": [17],
+          "text": "Rezeption von Briefen der Märtyrer (Ignatios)"
+        },
+        {
+          "entry": "source.martyrium_polycarpi",
+          "slides": [17],
+          "text": "anders (als der Drang zum Martyrium) das Lehrschreiben über das Ende Polykarps"
+        },
+        {
+          "entry": "person.polycarp",
+          "slides": [17, 22],
+          "text": "Lehrschreiben über sein Ende; Grundlage der Märtyrerverehrung; zählt zu den Apostolischen Vätern"
+        },
+        {
+          "entry": "person.cyprian",
+          "slides": [17, 19],
+          "text": "anders als der Drang zum Martyrium: Cyprian von Karthago; fordert zur Erstellung von Katalogen auf"
+        },
+        {
+          "entry": "person.origen",
+          "slides": [17, 23],
+          "text": "anders als der Drang zum Martyrium: Origenes; zählt zu den Apologeten"
+        },
+        {
+          "entry": "event.lyon_177",
+          "slides": [17],
+          "text": "Rezeption der Berichte über Martyrien (z.B. Märtyrer von Lyon 177 n.Chr.)"
+        },
+        {
+          "entry": "term.acts_of_martyrs",
+          "slides": [17],
+          "text": "Passionen (Leidensberichte nach dem Vorbild der jüdischen Makkabäer-Verehrung) oder Märtyrerakten (Prozeßprotokolle in Anlehnung an paganen Heroen-Kult)"
+        },
+        {
+          "entry": "source.passio_perpetuae",
+          "slides": [17],
+          "text": "Übergang von der passio zu den acta Anfang 3. Jh. (Passio Perpetuae et Felicitatis)"
+        },
+        {
+          "entry": "person.eunapius",
+          "slides": [17],
+          "text": "pagane Umwelt durch Märtyrerverehrung irritiert, vgl. Eunapios von Sardes (Ende 4. Jh.)"
+        },
+        {
+          "entry": "person.basil",
+          "slides": [17],
+          "text": "Märtyrer im 4. Jh. als „mächtige Fürsprecher“ verstanden (vgl. Basileios von Kaisareia)"
+        },
+        {
+          "entry": "event.forty_martyrs_sebaste",
+          "slides": [18],
+          "text": "40 Märtyrer von Sebaste, Relieftafel, Konstantinopel 10. Jh., Bode-Museum Berlin"
+        },
+        {
+          "entry": "term.memoria",
+          "slides": [19],
+          "text": "eucharistische Gedächtnisfeiern an Memorien"
+        },
+        {
+          "entry": "event.synod_elvira",
+          "slides": [19],
+          "text": "Anfang 4. Jh.: Synode von Elvira verbietet Frauen die Übernachtung an Memorien"
+        },
+        {
+          "entry": "event.gothic_persecution",
+          "slides": [19],
+          "text": "332 bis 340 erste Verfolgungen unter den Goten an der unteren Donau"
+        },
+        {
+          "entry": "person.wulfila",
+          "slides": [19],
+          "text": "Wulfila siedelt ins Römische Reich über"
+        },
+        {
+          "entry": "event.athanaric_persecution",
+          "slides": [19],
+          "text": "369-372 Verfolgung unter dem Gotenführer Athanarich"
+        },
+        {
+          "entry": "person.athanaric",
+          "slides": [19],
+          "text": "369-372 Verfolgung unter dem Gotenführer Athanarich"
+        },
+        {
+          "entry": "event.persian_persecution",
+          "slides": [19],
+          "text": "zwischen 341 und 379 Christenverfolgungen im Perserreich; dort weitere Verfolgungen um 420 und zwischen 446 und 450"
+        },
+        {
+          "entry": "person.shapur_ii",
+          "slides": [19],
+          "text": "zwischen 341 und 379 Christenverfolgungen im Perserreich (Folie: „unter Schapur III.“)"
+        },
+        {
+          "entry": "term.stoa",
+          "slides": [20],
+          "text": "Stoa mit Ziel der Apatheia (Leidenschaftslosigkeit) und der Vorstellung eines Weltprinzips (nous/logos, theos)"
+        },
+        {
+          "entry": "term.apatheia",
+          "slides": [20],
+          "text": "Ziel der Stoa: Apatheia (Leidenschaftslosigkeit)"
+        },
+        {
+          "entry": "term.platonism",
+          "slides": [20],
+          "text": "Mittel-/Neuplatoniker: Ureines (hen) als Quelle allen Seins; Prozesse von Emanation und (mystischer) Rückkehr; triadische Ansätze"
+        },
+        {
+          "entry": "term.emanation",
+          "slides": [20, 21],
+          "text": "Emanation nach Plotin (stark vergröbert!): hen – nous – Seele – Einzelseelen – Materie; Rückkehr"
+        },
+        {
+          "entry": "person.plotinus",
+          "slides": [21],
+          "text": "Emanation nach Plotin (stark vergröbert!)"
+        },
+        {
+          "entry": "term.apostolic_fathers",
+          "slides": [22],
+          "text": "unmittelbarer Kontakt zu den Aposteln; Aposteln vergleichbare Lehre; keine Bemühungen um Vermittlung Christentum - antike Kultur"
+        },
+        {
+          "entry": "person.clement_rome",
+          "slides": [22],
+          "text": "zählt zu den Apostolischen Vätern; Märtyrerbericht des Klemens"
+        },
+        {
+          "entry": "person.quadratus",
+          "slides": [22],
+          "text": "zählt zu den Apostolischen Vätern"
+        },
+        {
+          "entry": "source.barnabas",
+          "slides": [22],
+          "text": "Barnabas-Brief (?) bei den Apostolischen Vätern"
+        },
+        {
+          "entry": "source.shepherd_hermas",
+          "slides": [22],
+          "text": "Hirt des Hermas (?) bei den Apostolischen Vätern"
+        },
+        {
+          "entry": "source.diognetus",
+          "slides": [22],
+          "text": "Diognetbrief (?) bei den Apostolischen Vätern"
+        },
+        {
+          "entry": "person.papias",
+          "slides": [22],
+          "text": "Papias von Hierapolis (?) bei den Apostolischen Vätern"
+        },
+        {
+          "entry": "source.didache",
+          "slides": [22],
+          "text": "Didache (?) bei den Apostolischen Vätern"
+        },
+        {
+          "entry": "term.apologetics",
+          "slides": [23],
+          "text": "Anfang einer verantworteten Reflexion über das Christentum; Darstellung des Christentums als einer potentiellen religio licita"
+        },
+        {
+          "entry": "person.justin",
+          "slides": [23],
+          "text": "zählt zu den Apologeten (Justin der Märtyrer)"
+        },
+        {
+          "entry": "person.tatian",
+          "slides": [23],
+          "text": "zählt zu den Apologeten"
+        },
+        {
+          "entry": "person.athenagoras",
+          "slides": [23],
+          "text": "zählt zu den Apologeten"
+        },
+        {
+          "entry": "person.aristides",
+          "slides": [23],
+          "text": "zählt zu den Apologeten"
+        },
+        {
+          "entry": "person.theophilus_antioch",
+          "slides": [23],
+          "text": "zählt zu den Apologeten"
+        },
+        {
+          "entry": "person.clement_alexandria",
+          "slides": [23],
+          "text": "zählt zu den Apologeten"
+        },
+        {
+          "entry": "person.minucius_felix",
+          "slides": [23],
+          "text": "zählt zu den Apologeten"
+        },
+        {
+          "entry": "term.religio_licita",
+          "slides": [23],
+          "text": "Darstellung des Christentums als einer potentiellen religio licita"
+        },
+        {
+          "entry": "term.proof_from_antiquity",
+          "slides": [23],
+          "text": "Argumentationen zugunsten des Christentums: Altersbeweis"
+        },
+        {
+          "entry": "term.logos_christology",
+          "slides": [23],
+          "text": "Argumentationen zugunsten des Christentums: Logos-Christologie"
+        },
+        {
+          "entry": "person.celsus",
+          "slides": [23],
+          "text": "Widerspruch durch pagane Philosophen: Celsus u.a.: Christentum pervertiert Überkommenes"
+        }
+      ],
+      "lists": [
+        {
+          "id": "list.l03_legal_sources",
+          "title": "Quellentexte zur Rechtslage",
+          "prompt": "Nenne die drei wichtigsten Quellentexte zur Rechtslage der Christen und das Stichwort, das die Vorlesung jeweils dazu nennt.",
+          "slides": [16],
+          "items": [
+            "Plinius d. J. an Trajan (ca. 111–113): Staatsfeindschaft",
+            "institutum Neronianum (nach Tertullian): Gewohnheit",
+            "Reskript Hadrians: Verurteilung nur bei Gesetzesverstoß"
+          ]
+        },
+        {
+          "id": "list.l03_legal_basis",
+          "title": "Rechtsgrundlagen der Verfolgungen",
+          "prompt": "Nenne die beiden Rechtsgrundlagen für Christenverfolgungen und was die Vorlesung zur Reichsebene bis 250 sagt.",
+          "slides": [16],
+          "items": [
+            "Koerzitionsgewalt der Magistrate (Polizeiaktionen)",
+            "außerordentliche Strafverfolgung, cognitio (Kriminalprozesse)",
+            "bis 250 kein reichsrechtliches Statut; großer Spielraum lokaler Beamter"
+          ]
+        },
+        {
+          "id": "list.l03_veneration",
+          "title": "Formen der Märtyrerverehrung",
+          "prompt": "Welche Formen der Märtyrerverehrung nennt die Vorlesung vom 3. bis zum 4. Jahrhundert?",
+          "slides": [17, 19],
+          "items": [
+            "Gedächtnisfeier am Todestag (Mitte 3. Jh.)",
+            "Gebete an Märtyrer",
+            "eucharistische Gedächtnisfeiern an Memorien",
+            "Kataloge der Märtyrer (Cyprian)",
+            "Märtyrer als „mächtige Fürsprecher“ (4. Jh., Basileios)"
+          ]
+        },
+        {
+          "id": "list.l03_outside",
+          "title": "Verfolgungen außerhalb des Reiches",
+          "prompt": "Ordne die Christenverfolgungen außerhalb des Römischen Reiches, die die Vorlesung nennt.",
+          "slides": [19],
+          "ordered": true,
+          "items": [
+            "332–340: Goten an der unteren Donau (Wulfila siedelt über)",
+            "341–379: Perserreich",
+            "369–372: Gotenführer Athanarich",
+            "um 420: Perserreich",
+            "446–450: Perserreich"
+          ]
+        },
+        {
+          "id": "list.l03_apostolic_fathers",
+          "title": "Apostolische Väter",
+          "prompt": "Wen zählt man nach der Vorlesung in der Regel zu den Apostolischen Vätern? Welche Zuordnungen sind unsicher?",
+          "slides": [22],
+          "items": [
+            "Klemens von Rom",
+            "Ignatius von Antiochien",
+            "Polykarp von Smyrna",
+            "Quadratus",
+            "unsicher: Barnabasbrief, Hirt des Hermas, Diognetbrief, Papias, Didache",
+            "Märtyrerberichte des Klemens, Ignatius, Polykarp"
+          ]
+        },
+        {
+          "id": "list.l03_apologists",
+          "title": "Apologeten",
+          "prompt": "Nenne die neun Apologeten der Vorlesung.",
+          "slides": [23],
+          "items": [
+            "Justin der Märtyrer",
+            "Tatian",
+            "Athenagoras",
+            "Aristides",
+            "Theophilus von Antiochien",
+            "Clemens von Alexandrien",
+            "Tertullian",
+            "Minucius Felix",
+            "Origenes"
+          ]
+        },
+        {
+          "id": "list.l03_apologetic_arguments",
+          "title": "Argumente der Apologeten",
+          "prompt": "Mit welchen drei Argumenten traten die Apologeten nach der Vorlesung für das Christentum ein?",
+          "slides": [23],
+          "items": ["Altersbeweis", "Logos-Christologie", "positive Rolle im Staat"]
+        }
+      ],
+      "questions": [
+        {
+          "id": "q.l03.coercitio",
+          "prompt": "Worauf beruhten nach der Vorlesung lokale „Polizeiaktionen“ gegen Christen?",
+          "answer": "Auf der Koerzitionsgewalt der Magistrate zur Beseitigung von Störungen der öffentlichen Ordnung",
+          "distractors": [
+            "Auf einem reichsweiten Gesetz gegen die Christen aus dem 1. Jh.",
+            "Auf Urteilen des Kaisergerichts in erster Instanz",
+            "Auf Beschlüssen des römischen Senats über fremde Kulte"
+          ],
+          "explanation": "Folie 16 unterscheidet die Koerzitionsgewalt auf lokaler Ebene (= Polizeiaktionen) von der außerordentlichen Strafverfolgung (cognitio, = Kriminalprozesse). Ein reichsweites Statut gab es bis 250 nicht.",
+          "slides": [16],
+          "entries": ["term.coercitio"]
+        },
+        {
+          "id": "q.l03.statute",
+          "prompt": "Was sagt die Vorlesung über eine reichsrechtliche Grundlage der Christenverfolgung vor 250?",
+          "answer": "Es gab kein prinzipielles staatsrechtliches Statut; lokale Beamte hatten großen Spielraum.",
+          "distractors": [
+            "Seit Nero galt ein reichsweites Christengesetz.",
+            "Seit Trajan mussten Statthalter Christen aktiv aufspüren.",
+            "Seit Domitian war das Christentum als religio licita anerkannt."
+          ],
+          "explanation": "Folie 16: „reichsrechtlich bis 250 n.Chr. kein prinzipielles staatsrechtliches Statut zur Verfolgung der Christen; relativ großer Spielraum für lokale Beamte“. Erst Decius erließ 250 einen allgemeinen Opferbefehl.",
+          "slides": [16]
+        },
+        {
+          "id": "q.l03.cognitio",
+          "prompt": "Wozu waren Provinzstatthalter im Verfahren der cognitio nach der Vorlesung verpflichtet?",
+          "answer": "Den Kaiser zu konsultieren; das Kaisergericht war höchste Berufungsinstanz",
+          "distractors": [
+            "Jeden Fall dem Senat in Rom vorzulegen",
+            "Christen ohne Verhör hinrichten zu lassen",
+            "Die Bischöfe vor jedem Urteil anzuhören"
+          ],
+          "explanation": "Folie 16 nennt für die außerordentliche Strafverfolgung das Kaisergericht als höchste Berufungsinstanz und die Konsultationspflicht der Statthalter – wie Plinius sie bei Trajan wahrnahm.",
+          "slides": [16],
+          "entries": ["term.cognitio"]
+        },
+        {
+          "id": "q.l03.legal_keywords",
+          "prompt": "Welches Stichwort ordnet die Vorlesung dem institutum Neronianum zu?",
+          "answer": "Gewohnheit",
+          "distractors": ["Staatsfeindschaft", "Verurteilung nur bei Gesetzesverstoß", "Opferpflicht für alle Bürger"],
+          "explanation": "Folie 16: Plinius an Trajan – Staatsfeindschaft; institutum Neronianum (nach Tertullian) – Gewohnheit; Reskript Hadrians – Verurteilung nur bei Gesetzesverstoß. Die allgemeine Opferpflicht stammt von Decius.",
+          "slides": [16],
+          "entries": ["term.institutum_neronianum"]
+        },
+        {
+          "id": "q.l03.hadrian",
+          "prompt": "Was legte das Reskript Hadrians nach der Vorlesung fest?",
+          "answer": "Christen sollten nur bei nachgewiesenem Gesetzesverstoß verurteilt werden.",
+          "distractors": [
+            "Christen mussten jährlich vor dem Kaiserbild opfern.",
+            "Kirchliche Besitztümer wurden eingezogen.",
+            "Christen durften keine Ämter in Heer und Verwaltung haben."
+          ],
+          "explanation": "Folie 16: „Reskript Hadrians: Verurteilung nur bei Gesetzesverstoß“. Die Konfiszierung kirchlichen Besitzes gehört zu Valerian, der Ausschluss aus Heer und Verwaltung zu Diokletian.",
+          "slides": [16],
+          "entries": ["event.hadrian_rescript", "person.hadrian"]
+        },
+        {
+          "id": "q.l03.polycarp_attitude",
+          "prompt": "Wofür steht das Lehrschreiben über das Ende Polykarps nach der Vorlesung?",
+          "answer": "Für eine andere Haltung als den ausdrücklichen Drang zum Martyrium",
+          "distractors": [
+            "Für den ersten Bericht über die Märtyrer von Lyon",
+            "Für die Aufforderung, Märtyrerkataloge anzulegen",
+            "Für den Übergang von der passio zu den acta"
+          ],
+          "explanation": "Folie 17: Bekennermut war zum Teil mit einem Drang zum Martyrium verbunden (Ignatios); „anders Lehrschreiben über das Ende Polykarps; Cyprian von Karthago; Origenes“. Kataloge forderte Cyprian, für den Übergang zu den acta steht die Passio Perpetuae.",
+          "slides": [17],
+          "entries": ["source.martyrium_polycarpi"]
+        },
+        {
+          "id": "q.l03.passion_models",
+          "prompt": "Nach welchem Vorbild entstanden die Passionen nach der Vorlesung?",
+          "answer": "Nach dem Vorbild der jüdischen Makkabäer-Verehrung",
+          "distractors": [
+            "In Anlehnung an den paganen Heroenkult",
+            "Nach dem Vorbild römischer Gerichtsprotokolle",
+            "Nach dem Vorbild der Evangelienharmonie"
+          ],
+          "explanation": "Folie 17: Passionen sind Leidensberichte nach dem Vorbild der jüdischen Makkabäer-Verehrung; Märtyrerakten sind Prozessprotokolle in Anlehnung an den paganen Heroenkult.",
+          "slides": [17],
+          "entries": ["term.acts_of_martyrs"]
+        },
+        {
+          "id": "q.l03.perpetua",
+          "prompt": "Welche Schrift nennt die Vorlesung für den Übergang von der passio zu den acta Anfang des 3. Jh.?",
+          "answer": "Die Passio Perpetuae et Felicitatis",
+          "distractors": ["Das Martyrium Polycarpi", "Den Brief der Gemeinden von Lyon und Vienne", "Die Briefe des Ignatius"],
+          "explanation": "Folie 17. Das Martyrium Polycarpi (um 160) und der Bericht über Lyon (177) sind älter; die Ignatiusbriefe sind Briefe eines Märtyrers, keine Berichte über ein Martyrium.",
+          "slides": [17],
+          "entries": ["source.passio_perpetuae"]
+        },
+        {
+          "id": "q.l03.eunapius",
+          "prompt": "Wofür steht Eunapios von Sardes in der Vorlesung?",
+          "answer": "Für die Irritation der paganen Umwelt durch die Märtyrerverehrung",
+          "distractors": [
+            "Für die Deutung der Märtyrer als „mächtige Fürsprecher“",
+            "Für die ersten Verfolgungen unter den Goten",
+            "Für den Widerspruch gegen die Apologeten im 2. Jh."
+          ],
+          "explanation": "Folie 17: „pagane Umwelt durch Märtyrerverehrung irritiert, vgl. Eunapios von Sardes (Ende 4. Jh.)“. Die „mächtigen Fürsprecher“ belegt die Vorlesung mit Basileios, den Widerspruch gegen die Apologeten mit Celsus.",
+          "slides": [17],
+          "entries": ["person.eunapius"]
+        },
+        {
+          "id": "q.l03.intercessors",
+          "prompt": "Wie verstand man die Märtyrer im 4. Jh. nach der Vorlesung?",
+          "answer": "Als „mächtige Fürsprecher“, mit Verweis auf die jenseitige Welt",
+          "distractors": [
+            "Als Abtrünnige, die Buße tun mussten",
+            "Als Vorbilder nur für den Klerus",
+            "Als Zeugen ohne Bedeutung für das Gebet"
+          ],
+          "explanation": "Folie 17 nennt dafür Basileios von Kaisareia; die Verehrung verweist auf die jenseitige Welt als Idealgesellschaft.",
+          "slides": [17],
+          "entries": ["person.basil"]
+        },
+        {
+          "id": "q.l03.elvira",
+          "prompt": "Was verbot die Synode von Elvira nach der Vorlesung?",
+          "answer": "Frauen die Übernachtung an Memorien",
+          "distractors": ["Gebete an Märtyrer", "Eucharistische Gedächtnisfeiern am Todestag", "Das Anlegen von Märtyrerkatalogen"],
+          "explanation": "Folie 19: „Anfang 4. Jh.: Synode von Elvira verbietet Frauen die Übernachtung an Memorien.“ Gebete, Gedächtnisfeiern und Kataloge nennt die Folie als Formen der Verehrung.",
+          "slides": [19],
+          "entries": ["event.synod_elvira", "term.memoria"]
+        },
+        {
+          "id": "q.l03.cyprian_catalogues",
+          "prompt": "Wozu forderte Cyprian nach der Vorlesung auf?",
+          "answer": "Zur Erstellung von Katalogen (der Märtyrer)",
+          "distractors": [
+            "Zur Übernachtung an den Memorien",
+            "Zur freiwilligen Selbstanzeige bei den Behörden",
+            "Zur Abschaffung der Gedächtnisfeiern"
+          ],
+          "explanation": "Folie 19: „Cyprian fordert zur Erstellung von Katalogen auf.“ Nach Folie 17 steht er zugleich für eine andere Haltung als den Drang zum Martyrium.",
+          "slides": [19],
+          "entries": ["person.cyprian"]
+        },
+        {
+          "id": "q.l03.outside",
+          "prompt": "Unter wem wurden nach der Vorlesung 369–372 Christen verfolgt?",
+          "answer": "Unter dem Gotenführer Athanarich",
+          "distractors": ["Unter Kaiser Valerian", "Unter dem Perserkönig in Ktesiphon", "Unter Kaiser Diokletian"],
+          "explanation": "Folie 19 nennt außerhalb des Reiches: Goten 332–340 (Wulfila siedelt über), Athanarich 369–372, Perserreich 341–379 sowie um 420 und 446–450.",
+          "slides": [19],
+          "entries": ["event.athanaric_persecution", "person.athanaric"]
+        },
+        {
+          "id": "q.l03.wulfila",
+          "prompt": "Was tat Wulfila nach der Vorlesung infolge der ersten Verfolgungen unter den Goten?",
+          "answer": "Er siedelte ins Römische Reich über.",
+          "distractors": ["Er floh ins Perserreich.", "Er wurde unter Athanarich hingerichtet.", "Er führte die Goten gegen Rom."],
+          "explanation": "Folie 19: „332 bis 340 erste Verfolgungen unter den Goten an der unteren Donau: Wulfila siedelt ins Römische Reich über.“",
+          "slides": [19],
+          "entries": ["person.wulfila", "event.gothic_persecution"]
+        },
+        {
+          "id": "q.l03.philosophy",
+          "prompt": "Welche Philosophie verbindet die Vorlesung mit dem Ziel der Apatheia?",
+          "answer": "Die Stoa",
+          "distractors": ["Den Neuplatonismus Plotins", "Den Epikureismus", "Die Skepsis"],
+          "explanation": "Folie 20: „Stoa mit Ziel der Apatheia (Leidenschaftslosigkeit) und der Vorstellung eines Weltprinzips (nous/logos, theos)“. Den Mittel- und Neuplatonikern ordnet sie das Ureine (hen), Emanation und Rückkehr zu.",
+          "slides": [20],
+          "entries": ["term.stoa", "term.apatheia"]
+        },
+        {
+          "id": "q.l03.emanation",
+          "prompt": "Welche Stufenfolge zeigt das vergröberte Schaubild zur Emanation nach Plotin?",
+          "answer": "hen – nous – Seele – Einzelseelen – Materie",
+          "distractors": [
+            "nous – hen – Materie – Seele – Einzelseelen",
+            "Materie – Seele – nous – hen – Einzelseelen",
+            "logos – theos – Seele – Materie – Einzelseelen"
+          ],
+          "explanation": "Folie 21: Vom Einen (hen) geht die Emanation über den nous, die Seele und die Einzelseelen bis zur Materie; die Rückkehr führt in umgekehrter Richtung hinauf.",
+          "slides": [21],
+          "entries": ["term.emanation", "person.plotinus"]
+        },
+        {
+          "id": "q.l03.apostolic_fathers",
+          "prompt": "Was unterscheidet die Apostolischen Väter nach der Vorlesung von den Apologeten?",
+          "answer": "Sie bemühten sich nicht um eine Vermittlung von Christentum und antiker Kultur.",
+          "distractors": [
+            "Sie schrieben vor allem an Kaiser und Statthalter.",
+            "Sie nutzten den Altersbeweis als Hauptargument.",
+            "Sie stellten das Christentum als religio licita dar."
+          ],
+          "explanation": "Folie 22: unmittelbarer Kontakt zu den Aposteln, den Aposteln vergleichbare Lehre, keine Vermittlung zur antiken Kultur; Briefe für Gemeinden in der Diaspora zur Selbstbesinnung. Religio licita, Altersbeweis und Schreiben nach außen kennzeichnen nach Folie 23 die Apologeten.",
+          "slides": [22, 23],
+          "entries": ["term.apostolic_fathers"]
+        },
+        {
+          "id": "q.l03.af_intention",
+          "prompt": "Welche Intention hatten die Apostolischen Väter nach der Vorlesung?",
+          "answer": "Selbstbesinnung auf Lehren und Institutionen",
+          "distractors": [
+            "Verteidigung des Christentums vor dem Kaiser",
+            "Widerlegung der paganen Philosophen",
+            "Mission unter den Völkern außerhalb des Reiches"
+          ],
+          "explanation": "Folie 22: Sie verfassten Briefliteratur für Gemeinden in der Diaspora; Intention: Selbstbesinnung auf Lehren und Institutionen.",
+          "slides": [22],
+          "entries": ["term.apostolic_fathers"]
+        },
+        {
+          "id": "q.l03.af_uncertain",
+          "prompt": "Welche Schrift zählt die Vorlesung nur mit Fragezeichen zu den Apostolischen Vätern?",
+          "answer": "Die Didache",
+          "distractors": [
+            "Die Schriften des Klemens von Rom",
+            "Die Briefe des Ignatius von Antiochien",
+            "Die Schriften des Polykarp von Smyrna"
+          ],
+          "explanation": "Folie 22: Klemens, Ignatius, Polykarp und Quadratus zählt man in der Regel dazu; Barnabasbrief, Hirt des Hermas, Diognetbrief, Papias und Didache stehen mit (?).",
+          "slides": [22],
+          "entries": ["source.didache"]
+        },
+        {
+          "id": "q.l03.apologist",
+          "prompt": "Wer zählt nach der Vorlesung zu den Apologeten?",
+          "answer": "Minucius Felix",
+          "distractors": ["Klemens von Rom", "Papias von Hierapolis", "Eunapios von Sardes"],
+          "explanation": "Folie 23 nennt Justin, Tatian, Athenagoras, Aristides, Theophilus von Antiochien, Clemens von Alexandrien, Tertullian, Minucius Felix und Origenes. Klemens von Rom und Papias stehen bei den Apostolischen Vätern, Eunapios war ein paganer Kritiker der Märtyrerverehrung.",
+          "slides": [23],
+          "entries": ["person.minucius_felix"]
+        },
+        {
+          "id": "q.l03.arguments",
+          "prompt": "Welches Argument der Apologeten nennt die Vorlesung?",
+          "answer": "Den Altersbeweis",
+          "distractors": [
+            "Die Apatheia als Ziel des Christen",
+            "Die Emanation aus dem Ureinen",
+            "Die Verurteilung nur bei Gesetzesverstoß"
+          ],
+          "explanation": "Folie 23: Altersbeweis, Logos-Christologie und die positive Rolle im Staat. Apatheia und Emanation stehen auf Folie 20/21 bei Stoa und Neuplatonismus; die Verurteilung nur bei Gesetzesverstoß gehört zum Reskript Hadrians.",
+          "slides": [23],
+          "entries": ["term.proof_from_antiquity"]
+        },
+        {
+          "id": "q.l03.religio_licita",
+          "prompt": "Als was stellten die Apologeten das Christentum nach der Vorlesung dar?",
+          "answer": "Als potentielle religio licita",
+          "distractors": [
+            "Als neue Philosophenschule ohne Kult",
+            "Als Teil des Kaiserkults",
+            "Als jüdische Sekte ohne eigenen Anspruch"
+          ],
+          "explanation": "Folie 23: „Darstellung des Christentums als einer potentiellen religio licita“ – einer erlaubten Religion.",
+          "slides": [23],
+          "entries": ["term.religio_licita"]
+        },
+        {
+          "id": "q.l03.celsus",
+          "prompt": "Was warf Celsus dem Christentum nach der Vorlesung vor?",
+          "answer": "Es pervertiere Überkommenes.",
+          "distractors": [
+            "Es sei älter als die griechische Philosophie.",
+            "Es verweigere die Apatheia.",
+            "Es sei eine erlaubte Religion."
+          ],
+          "explanation": "Folie 23: „Widerspruch durch pagane Philosophen: Celsus u.a.: Christentum pervertiert Überkommenes.“ Dagegen setzten die Apologeten u. a. den Altersbeweis.",
+          "slides": [23],
+          "entries": ["person.celsus"]
         }
       ]
     }
