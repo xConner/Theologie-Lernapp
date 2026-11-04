@@ -542,7 +542,10 @@
         8
       ],
       "context": "Erster Teil des Levitikus.",
-      "clue": "Opfergesetze"
+      "clue": "Opfergesetze",
+      "pericopes": [
+        "Lev|opfergesetze|1,1"
+      ]
     },
     {
       "id": "passage.bk03.lev_8_10",
@@ -553,8 +556,7 @@
       "context": "Zweiter Teil des Levitikus.",
       "clue": "Priesterweihe, Beginn des Kults",
       "pericopes": [
-        "Lev|die_priesterweihe|8,1",
-        "Lev|die_strafe_fuer_unrechtmaessiges_opfern|10,1"
+        "Lev|priesterweihe_und_beginn_des_kults|8,1"
       ]
     },
     {
@@ -564,7 +566,10 @@
         8
       ],
       "context": "Dritter Teil des Levitikus.",
-      "clue": "Reinheitsgesetze"
+      "clue": "Reinheitsgesetze",
+      "pericopes": [
+        "Lev|reinheitsgesetze|11,1"
+      ]
     },
     {
       "id": "passage.bk03.lev_16",
@@ -587,7 +592,7 @@
       "context": "Priesterliche Weihevorschriften (bis Num 10), hier: Gelübde und Weihegaben.",
       "clue": "Gelübde und Weihegaben",
       "pericopes": [
-        "Lev|bei_personen|27,1"
+        "Lev|geluebde_und_weihegaben|27,1"
       ]
     },
     {
@@ -600,7 +605,7 @@
       "context": "Einer der zwei wichtigen Verse des Heiligkeitsgesetzes.",
       "clue": "„Ihr sollt heilig sein, denn ich bin heilig, der HERR, euer Gott.“",
       "pericopes": [
-        "Lev|der_ruf_zur_heiligkeit|19,1"
+        "Lev|heiligkeitsgesetz|17,1"
       ]
     },
     {
@@ -613,7 +618,7 @@
       "context": "Einer der zwei wichtigen Verse des Heiligkeitsgesetzes.",
       "clue": "„Du sollst deinen Nächsten lieben wie dich selbst; ich bin der HERR.“",
       "pericopes": [
-        "Lev|der_ruf_zur_heiligkeit|19,1"
+        "Lev|heiligkeitsgesetz|17,1"
       ]
     }
   ],

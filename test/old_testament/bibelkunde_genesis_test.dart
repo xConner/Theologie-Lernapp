@@ -285,9 +285,9 @@ void main() {
       // Seit 1.11.2026 sind die optionalen Perikopen gröber gegliedert
       // (test/perikopen_optional_merge_test.dart); Genesis ist Pflicht und
       // bleibt.
-      expect(perikopen, hasLength(1263));
+      expect(perikopen, hasLength(1249));
       expect(genesis.map(BookPericope.keyOf).toList(), _genesisKeys);
-      expect(perikopen.where((p) => p.book != "Gen"), hasLength(1263 - 78));
+      expect(perikopen.where((p) => p.book != "Gen"), hasLength(1249 - 78));
       for (final g in genesis) {
         expect((g.required, g.precision), (true, "chapter"), reason: g.id);
       }

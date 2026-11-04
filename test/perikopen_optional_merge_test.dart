@@ -79,11 +79,11 @@ void main() {
     test(
       "Umfang: Pflichtperikopen bleiben, optionale sind zusammengefasst",
       () {
-        expect(perikopen, hasLength(1263));
+        expect(perikopen, hasLength(1249));
         expect(perikopen.where(_touchesRequired), hasLength(230));
         int count(String book) => perikopen.where((p) => p.book == book).length;
         expect(count("Gen"), 78);
-        expect(count("Lev"), 20);
+        expect(count("Lev"), 6);
         expect(count("Mt"), 43);
         expect(count("Ps"), 126);
       },

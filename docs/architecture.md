@@ -327,6 +327,13 @@ Parallelen, Kön/Chr) teilen eine ID. `lib/quiz/pericope_merges.dart`
 Sitzung 5 ff. nachgetragen, bleiben die gröberen Perikopen dort bestehen,
 bis sie bewusst neu geteilt werden.
 
+Levitikus seit 4.11.2026: nur die Grobgliederung der Übungsfolie
+(Sitzung 3, Folie 8) – Lev 1–7 Opfergesetze, 8–10 Priesterweihe, Beginn
+des Kults, 11–15 Reinheitsgesetze, 16 Jom Kippur: Versöhnungstag, 17–26
+Heiligkeitsgesetz, 27 Gelübde und Weihegaben. Lev 16 behält seine ID; die
+übrigen fünf haben eigene IDs, und `pericope_merges.dart` führt alle
+früheren Lev-IDs und -Schlüssel (auch die vom 1.11.2026) direkt auf sie.
+
 Ausgabe, Lesestand und Schriftgröße gehören zum Gerät und liegen wie das
 Erscheinungsbild in den `SharedPreferences`.
 
