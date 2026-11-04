@@ -276,10 +276,11 @@ void main() {
   });
 
   for (final (b, last, count) in [
-    // Seit 1.11.2026 sind die optionalen Teile (Ex 6; 25–31; 35–40; Lev
-    // außer Kap. 16) gröber gegliedert (test/perikopen_optional_merge_test).
+    // Seit 1.11.2026 sind die optionalen Teile (Ex 6; 25–31; 35–40)
+    // gröber gegliedert (test/perikopen_optional_merge_test), Levitikus
+    // seit 4.11.2026 nach der Grobgliederung der Folie.
     ("Ex", (40, 38), 92),
-    ("Lev", (27, 34), 20),
+    ("Lev", (27, 34), 6),
   ]) {
     group(b, () {
       final list = book(b);
@@ -330,6 +331,23 @@ void main() {
       });
     });
   }
+
+  test("Levitikus: nur die Grobgliederung der Folie", () {
+    expect(
+      [
+        for (final p in book("Lev"))
+          "${p.startChapter}-${p.endChapter} ${p.title}",
+      ],
+      [
+        "1-7 Opfergesetze",
+        "8-10 Priesterweihe, Beginn des Kults",
+        "11-15 Reinheitsgesetze",
+        "16-16 Jom Kippur: Versöhnungstag",
+        "17-26 Heiligkeitsgesetz",
+        "27-27 Gelübde und Weihegaben",
+      ],
+    );
+  });
 
   test("Exodus: die zehn Plagen einzeln, wie auf der Folie", () {
     final plagen = [
@@ -477,11 +495,11 @@ void main() {
         ),
         isFalse,
       );
-      // Gleiche Stelle unter neuer ID: Die Karte gilt weiter. Seit 1.11.2026
-      // umfasst die Perikope ganz Lev 19; die Präzisierung (Lev 19,2) gehörte
-      // zur früheren Stelle Lev 19,1-2 und gilt deshalb nicht mehr.
-      expect(data.cards["Lev|der_ruf_zur_heiligkeit|19,1"]!.stability, 9);
-      expect(data.precisions["Lev|der_ruf_zur_heiligkeit|19,1"], isNull);
+      // Gleiche Stelle unter neuer ID: Die Karte gilt weiter. Seit 4.11.2026
+      // gehört Lev 19 zum Heiligkeitsgesetz (Lev 17–26); die Präzisierung
+      // (Lev 19,2) gehörte zur früheren Stelle Lev 19,1-2 und gilt nicht.
+      expect(data.cards["Lev|heiligkeitsgesetz|17,1"]!.stability, 9);
+      expect(data.precisions["Lev|heiligkeitsgesetz|17,1"], isNull);
     });
   });
 }

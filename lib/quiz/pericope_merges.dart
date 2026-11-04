@@ -1,5 +1,6 @@
-// Erzeugt beim Zusammenlegen der optionalen Perikopen (1.11.2026); nicht
-// von Hand ändern, sondern bei einer neuen Gliederung neu erzeugen.
+// Erzeugt beim Zusammenlegen der optionalen Perikopen (1.11.2026), Lev neu
+// erzeugt am 4.11.2026; nicht von Hand ändern, sondern bei einer neuen
+// Gliederung neu erzeugen.
 
 /// Zusammengelegte optionale Perikopen (Gliederung vom 1.11.2026).
 ///
@@ -8,6 +9,10 @@
 /// Abschnitten zusammengefasst; eine neue Perikope behält in der Regel ID
 /// und Anfang ihres ersten Teils. Synoptische Parallelen teilen eine neue
 /// ID. Siehe [PericopeIdMigration].
+///
+/// Levitikus (4.11.2026): nur die Grobgliederung der Übungsfolie in sechs
+/// Abschnitten. Außer Lev 16 tragen sie eigene IDs; jeder Eintrag nennt
+/// alle früheren Teile (auch die vom 1.11.2026) in Textfolge.
 class PericopeMerges {
   PericopeMerges._();
 
@@ -49,16 +54,18 @@ class PericopeMerges {
     "die_weihe_des_heiligtums": [
       "die_herrlichkeit_des_herrn_erfuellt_die_wohnung",
     ],
-    "das_brandopfer": ["das_speiseopfer", "das_heilsopfer"],
-    "das_suendopfer_eines_priesters": [
+    "opfergesetze": [
+      "das_brandopfer",
+      "das_speiseopfer",
+      "das_heilsopfer",
+      "das_suendopfer_eines_priesters",
       "das_suendopfer_der_gemeinde",
       "das_suendopfer_eines_sippenhauptes",
       "das_suendopfer_eines_gewoehnlichen_israeliten",
       "die_schuld_und_suendopfer_fuer_einzelne_vergehen",
       "das_schuldopfer_fuer_sakrale_vergehen",
       "das_schuldopfer_fuer_unsoziales_verhalten",
-    ],
-    "anweisungen_zum_brandopfer": [
+      "anweisungen_zum_brandopfer",
       "anweisungen_zum_speiseopfer",
       "das_opfer_bei_der_priesterweihe",
       "das_suendopfer",
@@ -67,24 +74,31 @@ class PericopeMerges {
       "das_verbot_von_fett_und_blutgenuss",
       "die_feueropfer",
     ],
-    "die_priesterweihe": ["das_weiheopfer_des_hohenpriesters"],
-    "die_strafe_fuer_unrechtmaessiges_opfern": [
+    "priesterweihe_und_beginn_des_kults": [
+      "die_priesterweihe",
+      "das_weiheopfer_des_hohenpriesters",
+      "die_strafe_fuer_unrechtmaessiges_opfern",
       "der_dienst_im_heiligtum",
       "das_essen_der_priesterlichen_opferanteile",
     ],
-    "reine_und_unreine_tiere": ["unreinheit_durch_aas_und_kleintiere"],
-    "der_aussatz_an_menschen": [
+    "reinheitsgesetze": [
+      "reine_und_unreine_tiere",
+      "unreinheit_durch_aas_und_kleintiere",
+      "die_reinigung_der_woechnerin",
+      "der_aussatz_an_menschen",
       "der_aussatz_an_kleidern",
       "die_reinigungsriten_fuer_vom_aussatz_geheilte",
       "der_aussatz_an_haeusern",
+      "die_unreinheit_bei_maennern",
+      "die_unreinheit_bei_frauen",
     ],
-    "die_unreinheit_bei_maennern": ["die_unreinheit_bei_frauen"],
-    "gegen_die_sitten_aegyptens_und_kanaans": [
+    "heiligkeitsgesetz": [
+      "schlachtungen_und_blutgenuss",
+      "gegen_die_sitten_aegyptens_und_kanaans",
       "unzucht_unter_verwandten",
       "andere_unzuchtvergehen",
       "schlussmahnung",
-    ],
-    "der_ruf_zur_heiligkeit": [
+      "der_ruf_zur_heiligkeit",
       "die_ehrfurcht_gegenueber_den_eltern",
       "die_rechte_einstellung_zum_heilsopfer",
       "das_verbot_der_nachlese",
@@ -94,14 +108,12 @@ class PericopeMerges {
       "das_verbot_fremder_kultbraeuche",
       "verhalten_gegen_fremde",
       "uebervorteilung",
-    ],
-    "das_kinderopfer": [
+      "das_kinderopfer",
       "die_totenbeschwoerung_und_wahrsagerei",
       "unzuchtverbrechen",
       "die_unzucht_mit_verwandten",
       "mahnung_zur_absonderung_von_den_voelkern",
-    ],
-    "das_verhalten_beim_begraebnis_von_verwandten": [
+      "das_verhalten_beim_begraebnis_von_verwandten",
       "ehehindernisse_fuer_priester",
       "das_verhalten_des_hohenpriesters_bei_todesfaellen",
       "ehehindernisse_fuer_den_hohenpriester",
@@ -111,8 +123,7 @@ class PericopeMerges {
       "die_tauglichkeit_der_opfertiere",
       "einzelbestimmungen_ueber_opfertiere",
       "mahnung_gottes_namen_nicht_zu_entweihen",
-    ],
-    "die_festzeiten_und_der_sabbat": [
+      "die_festzeiten_und_der_sabbat",
       "das_pascha_und_das_fest_der_ungesaeuerten_brote",
       "die_erstlingsgarbe",
       "das_wochenfest_pfingstfest",
@@ -120,11 +131,9 @@ class PericopeMerges {
       "das_versoehnungsfest",
       "schlussbemerkung",
       "einzelbestimmung_fuer_das_laubhuettenfest",
-    ],
-    "einzelbestimmungen_ueber_den_leuchter_und_den_tisch_fuer_die_schaubrote": [
+      "einzelbestimmungen_ueber_den_leuchter_und_den_tisch_fuer_die_schaubrote",
       "einschub_die_laesterung_des_gottesnamens",
-    ],
-    "das_brachjahr": [
+      "das_brachjahr",
       "das_jubeljahr",
       "das_rueckkaufrecht_fuer_land_und_haeuser",
       "sonderbestimmungen_fuer_die_leviten",
@@ -132,13 +141,13 @@ class PericopeMerges {
       "die_freilassung_israelitischer_sklaven",
       "die_sklaven_aus_fremden_voelkern",
       "das_loskaufrecht_israelitischer_sklaven_bei_fremden",
-    ],
-    "die_grundforderungen_gottes": [
+      "die_grundforderungen_gottes",
       "die_segenszusage_fuer_gehorsam",
       "strafandrohung_und_fluch_fuer_ungehorsam",
       "umkehr_und_vergebung",
     ],
-    "bei_personen": [
+    "geluebde_und_weihegaben": [
+      "bei_personen",
       "bei_tieren",
       "bei_haeusern",
       "bei_grundstuecken",
@@ -2610,19 +2619,18 @@ class PericopeMerges {
     "Ex|die_weihe_des_heiligtums|40,1": [
       "Ex|die_herrlichkeit_des_herrn_erfuellt_die_wohnung|40,34",
     ],
-    "Lev|das_brandopfer|1,1": [
+    "Lev|opfergesetze|1,1": [
+      "Lev|das_brandopfer|1,1",
       "Lev|das_speiseopfer|2,1",
       "Lev|das_heilsopfer|3,1",
-    ],
-    "Lev|das_suendopfer_eines_priesters|4,1": [
+      "Lev|das_suendopfer_eines_priesters|4,1",
       "Lev|das_suendopfer_der_gemeinde|4,13",
       "Lev|das_suendopfer_eines_sippenhauptes|4,22",
       "Lev|das_suendopfer_eines_gewoehnlichen_israeliten|4,27",
       "Lev|die_schuld_und_suendopfer_fuer_einzelne_vergehen|5,1",
       "Lev|das_schuldopfer_fuer_sakrale_vergehen|5,14",
       "Lev|das_schuldopfer_fuer_unsoziales_verhalten|5,20",
-    ],
-    "Lev|anweisungen_zum_brandopfer|6,1": [
+      "Lev|anweisungen_zum_brandopfer|6,1",
       "Lev|anweisungen_zum_speiseopfer|6,7",
       "Lev|das_opfer_bei_der_priesterweihe|6,12",
       "Lev|das_suendopfer|6,17",
@@ -2631,28 +2639,31 @@ class PericopeMerges {
       "Lev|das_verbot_von_fett_und_blutgenuss|7,22",
       "Lev|die_feueropfer|7,28",
     ],
-    "Lev|die_priesterweihe|8,1": ["Lev|das_weiheopfer_des_hohenpriesters|9,1"],
-    "Lev|die_strafe_fuer_unrechtmaessiges_opfern|10,1": [
+    "Lev|priesterweihe_und_beginn_des_kults|8,1": [
+      "Lev|die_priesterweihe|8,1",
+      "Lev|das_weiheopfer_des_hohenpriesters|9,1",
+      "Lev|die_strafe_fuer_unrechtmaessiges_opfern|10,1",
       "Lev|der_dienst_im_heiligtum|10,6",
       "Lev|das_essen_der_priesterlichen_opferanteile|10,12",
     ],
-    "Lev|reine_und_unreine_tiere|11,1": [
+    "Lev|reinheitsgesetze|11,1": [
+      "Lev|reine_und_unreine_tiere|11,1",
       "Lev|unreinheit_durch_aas_und_kleintiere|11,24",
-    ],
-    "Lev|der_aussatz_an_menschen|13,1": [
+      "Lev|die_reinigung_der_woechnerin|12,1",
+      "Lev|der_aussatz_an_menschen|13,1",
       "Lev|der_aussatz_an_kleidern|13,47",
       "Lev|die_reinigungsriten_fuer_vom_aussatz_geheilte|14,1",
       "Lev|der_aussatz_an_haeusern|14,33",
-    ],
-    "Lev|die_unreinheit_bei_maennern|15,1": [
+      "Lev|die_unreinheit_bei_maennern|15,1",
       "Lev|die_unreinheit_bei_frauen|15,19",
     ],
-    "Lev|gegen_die_sitten_aegyptens_und_kanaans|18,1": [
+    "Lev|heiligkeitsgesetz|17,1": [
+      "Lev|schlachtungen_und_blutgenuss|17,1",
+      "Lev|gegen_die_sitten_aegyptens_und_kanaans|18,1",
       "Lev|unzucht_unter_verwandten|18,6",
       "Lev|andere_unzuchtvergehen|18,19",
       "Lev|schlussmahnung|18,24",
-    ],
-    "Lev|der_ruf_zur_heiligkeit|19,1": [
+      "Lev|der_ruf_zur_heiligkeit|19,1",
       "Lev|die_ehrfurcht_gegenueber_den_eltern|19,3",
       "Lev|die_rechte_einstellung_zum_heilsopfer|19,5",
       "Lev|das_verbot_der_nachlese|19,9",
@@ -2662,14 +2673,12 @@ class PericopeMerges {
       "Lev|das_verbot_fremder_kultbraeuche|19,26",
       "Lev|verhalten_gegen_fremde|19,32",
       "Lev|uebervorteilung|19,35",
-    ],
-    "Lev|das_kinderopfer|20,1": [
+      "Lev|das_kinderopfer|20,1",
       "Lev|die_totenbeschwoerung_und_wahrsagerei|20,6",
       "Lev|unzuchtverbrechen|20,9",
       "Lev|die_unzucht_mit_verwandten|20,18",
       "Lev|mahnung_zur_absonderung_von_den_voelkern|20,22",
-    ],
-    "Lev|das_verhalten_beim_begraebnis_von_verwandten|21,1": [
+      "Lev|das_verhalten_beim_begraebnis_von_verwandten|21,1",
       "Lev|ehehindernisse_fuer_priester|21,7",
       "Lev|das_verhalten_des_hohenpriesters_bei_todesfaellen|21,10",
       "Lev|ehehindernisse_fuer_den_hohenpriester|21,13",
@@ -2679,8 +2688,7 @@ class PericopeMerges {
       "Lev|die_tauglichkeit_der_opfertiere|22,17",
       "Lev|einzelbestimmungen_ueber_opfertiere|22,26",
       "Lev|mahnung_gottes_namen_nicht_zu_entweihen|22,31",
-    ],
-    "Lev|die_festzeiten_und_der_sabbat|23,1": [
+      "Lev|die_festzeiten_und_der_sabbat|23,1",
       "Lev|das_pascha_und_das_fest_der_ungesaeuerten_brote|23,4",
       "Lev|die_erstlingsgarbe|23,9",
       "Lev|das_wochenfest_pfingstfest|23,15",
@@ -2689,10 +2697,9 @@ class PericopeMerges {
       "Lev|das_laubhuettenfest|23,33",
       "Lev|schlussbemerkung|23,37",
       "Lev|einzelbestimmung_fuer_das_laubhuettenfest|23,39",
-    ],
-    "Lev|einzelbestimmungen_ueber_den_leuchter_und_den_tisch_fuer_die_schaubrote|24,1":
-        ["Lev|einschub_die_laesterung_des_gottesnamens|24,10"],
-    "Lev|das_brachjahr|25,1": [
+      "Lev|einzelbestimmungen_ueber_den_leuchter_und_den_tisch_fuer_die_schaubrote|24,1",
+      "Lev|einschub_die_laesterung_des_gottesnamens|24,10",
+      "Lev|das_brachjahr|25,1",
       "Lev|das_jubeljahr|25,8",
       "Lev|das_rueckkaufrecht_fuer_land_und_haeuser|25,23",
       "Lev|sonderbestimmungen_fuer_die_leviten|25,32",
@@ -2700,13 +2707,13 @@ class PericopeMerges {
       "Lev|die_freilassung_israelitischer_sklaven|25,39",
       "Lev|die_sklaven_aus_fremden_voelkern|25,44",
       "Lev|das_loskaufrecht_israelitischer_sklaven_bei_fremden|25,47",
-    ],
-    "Lev|die_grundforderungen_gottes|26,1": [
+      "Lev|die_grundforderungen_gottes|26,1",
       "Lev|die_segenszusage_fuer_gehorsam|26,3",
       "Lev|strafandrohung_und_fluch_fuer_ungehorsam|26,14",
       "Lev|umkehr_und_vergebung|26,39",
     ],
-    "Lev|bei_personen|27,1": [
+    "Lev|geluebde_und_weihegaben|27,1": [
+      "Lev|bei_personen|27,1",
       "Lev|bei_tieren|27,9",
       "Lev|bei_haeusern|27,14",
       "Lev|bei_grundstuecken|27,16",
@@ -5715,24 +5722,6 @@ class PericopeMerges {
     "Ex|die_ausstattung_des_heiligtums|36,8": [36, 8, 36, 38],
     "Ex|die_anfertigung_der_priestergewaender|39,1": [39, 1, 39, 31],
     "Ex|die_weihe_des_heiligtums|40,1": [40, 1, 40, 33],
-    "Lev|das_brandopfer|1,1": [1, 1, 1, 17],
-    "Lev|das_suendopfer_eines_priesters|4,1": [4, 1, 4, 12],
-    "Lev|anweisungen_zum_brandopfer|6,1": [6, 1, 6, 6],
-    "Lev|die_priesterweihe|8,1": [8, 1, 8, 36],
-    "Lev|die_strafe_fuer_unrechtmaessiges_opfern|10,1": [10, 1, 10, 5],
-    "Lev|reine_und_unreine_tiere|11,1": [11, 1, 11, 23],
-    "Lev|der_aussatz_an_menschen|13,1": [13, 1, 13, 46],
-    "Lev|die_unreinheit_bei_maennern|15,1": [15, 1, 15, 18],
-    "Lev|gegen_die_sitten_aegyptens_und_kanaans|18,1": [18, 1, 18, 5],
-    "Lev|der_ruf_zur_heiligkeit|19,1": [19, 1, 19, 2],
-    "Lev|das_kinderopfer|20,1": [20, 1, 20, 5],
-    "Lev|das_verhalten_beim_begraebnis_von_verwandten|21,1": [21, 1, 21, 6],
-    "Lev|die_festzeiten_und_der_sabbat|23,1": [23, 1, 23, 3],
-    "Lev|einzelbestimmungen_ueber_den_leuchter_und_den_tisch_fuer_die_schaubrote|24,1":
-        [24, 1, 24, 9],
-    "Lev|das_brachjahr|25,1": [25, 1, 25, 7],
-    "Lev|die_grundforderungen_gottes|26,1": [26, 1, 26, 2],
-    "Lev|bei_personen|27,1": [27, 1, 27, 8],
     "Num|die_volks_und_heeresordnung|1,1": [1, 1, 1, 54],
     "Num|die_musterung_der_priester_und_levitengeschlechter|3,1": [3, 1, 3, 51],
     "Num|die_ausweisung_der_unreinen|5,1": [5, 1, 5, 4],

@@ -1870,32 +1870,10 @@
         "precision": "chapter"
     },
     {
-        "id": "das_brandopfer",
-        "title": "Brandopfer, Speiseopfer und Heilsopfer",
+        "id": "opfergesetze",
+        "title": "Opfergesetze",
         "book": "Lev",
         "startChapter": 1,
-        "startVerse": 1,
-        "endChapter": 3,
-        "endVerse": 17,
-        "required": true,
-        "precision": "chapter"
-    },
-    {
-        "id": "das_suendopfer_eines_priesters",
-        "title": "Sündopfer und Schuldopfer",
-        "book": "Lev",
-        "startChapter": 4,
-        "startVerse": 1,
-        "endChapter": 5,
-        "endVerse": 26,
-        "required": true,
-        "precision": "chapter"
-    },
-    {
-        "id": "anweisungen_zum_brandopfer",
-        "title": "Anweisungen für die Priester zu den Opfern",
-        "book": "Lev",
-        "startChapter": 6,
         "startVerse": 1,
         "endChapter": 7,
         "endVerse": 38,
@@ -1903,21 +1881,10 @@
         "precision": "chapter"
     },
     {
-        "id": "die_priesterweihe",
-        "title": "Die Priesterweihe und Aarons erste Opfer",
+        "id": "priesterweihe_und_beginn_des_kults",
+        "title": "Priesterweihe, Beginn des Kults",
         "book": "Lev",
         "startChapter": 8,
-        "startVerse": 1,
-        "endChapter": 9,
-        "endVerse": 24,
-        "required": true,
-        "precision": "chapter"
-    },
-    {
-        "id": "die_strafe_fuer_unrechtmaessiges_opfern",
-        "title": "Nadab und Abihu und Vorschriften für die Priester",
-        "book": "Lev",
-        "startChapter": 10,
         "startVerse": 1,
         "endChapter": 10,
         "endVerse": 20,
@@ -1925,43 +1892,10 @@
         "precision": "chapter"
     },
     {
-        "id": "reine_und_unreine_tiere",
-        "title": "Reine und unreine Tiere",
+        "id": "reinheitsgesetze",
+        "title": "Reinheitsgesetze",
         "book": "Lev",
         "startChapter": 11,
-        "startVerse": 1,
-        "endChapter": 11,
-        "endVerse": 47,
-        "required": true,
-        "precision": "chapter"
-    },
-    {
-        "id": "die_reinigung_der_woechnerin",
-        "title": "Die Reinigung der Wöchnerin",
-        "book": "Lev",
-        "startChapter": 12,
-        "startVerse": 1,
-        "endChapter": 12,
-        "endVerse": 8,
-        "required": true,
-        "precision": "chapter"
-    },
-    {
-        "id": "der_aussatz_an_menschen",
-        "title": "Der Aussatz und die Reinigung vom Aussatz",
-        "book": "Lev",
-        "startChapter": 13,
-        "startVerse": 1,
-        "endChapter": 14,
-        "endVerse": 57,
-        "required": true,
-        "precision": "chapter"
-    },
-    {
-        "id": "die_unreinheit_bei_maennern",
-        "title": "Die Unreinheit bei Männern und Frauen",
-        "book": "Lev",
-        "startChapter": 15,
         "startVerse": 1,
         "endChapter": 15,
         "endVerse": 33,
@@ -1970,7 +1904,7 @@
     },
     {
         "id": "das_ritual_fuer_den_versoehnungstag",
-        "title": "Das Ritual für den Versöhnungstag (Jom Kippur)",
+        "title": "Jom Kippur: Versöhnungstag",
         "book": "Lev",
         "startChapter": 16,
         "startVerse": 1,
@@ -1980,98 +1914,10 @@
         "precision": "chapter"
     },
     {
-        "id": "schlachtungen_und_blutgenuss",
-        "title": "Schlachtungen und Blutgenuss",
+        "id": "heiligkeitsgesetz",
+        "title": "Heiligkeitsgesetz",
         "book": "Lev",
         "startChapter": 17,
-        "startVerse": 1,
-        "endChapter": 17,
-        "endVerse": 16,
-        "required": true,
-        "precision": "chapter"
-    },
-    {
-        "id": "gegen_die_sitten_aegyptens_und_kanaans",
-        "title": "Verbotene sexuelle Verbindungen",
-        "book": "Lev",
-        "startChapter": 18,
-        "startVerse": 1,
-        "endChapter": 18,
-        "endVerse": 30,
-        "required": true,
-        "precision": "chapter"
-    },
-    {
-        "id": "der_ruf_zur_heiligkeit",
-        "title": "Der Ruf zur Heiligkeit und die Nächstenliebe",
-        "book": "Lev",
-        "startChapter": 19,
-        "startVerse": 1,
-        "endChapter": 19,
-        "endVerse": 37,
-        "required": true,
-        "precision": "chapter"
-    },
-    {
-        "id": "das_kinderopfer",
-        "title": "Todeswürdige Vergehen",
-        "book": "Lev",
-        "startChapter": 20,
-        "startVerse": 1,
-        "endChapter": 20,
-        "endVerse": 27,
-        "required": true,
-        "precision": "chapter"
-    },
-    {
-        "id": "das_verhalten_beim_begraebnis_von_verwandten",
-        "title": "Die Heiligkeit der Priester und der Opfergaben",
-        "book": "Lev",
-        "startChapter": 21,
-        "startVerse": 1,
-        "endChapter": 22,
-        "endVerse": 33,
-        "required": true,
-        "precision": "chapter"
-    },
-    {
-        "id": "die_festzeiten_und_der_sabbat",
-        "title": "Der Festkalender",
-        "book": "Lev",
-        "startChapter": 23,
-        "startVerse": 1,
-        "endChapter": 23,
-        "endVerse": 44,
-        "required": true,
-        "precision": "chapter"
-    },
-    {
-        "id": "einzelbestimmungen_ueber_den_leuchter_und_den_tisch_fuer_die_schaubrote",
-        "title": "Leuchter, Schaubrote und die Lästerung des Gottesnamens",
-        "book": "Lev",
-        "startChapter": 24,
-        "startVerse": 1,
-        "endChapter": 24,
-        "endVerse": 23,
-        "required": true,
-        "precision": "chapter"
-    },
-    {
-        "id": "das_brachjahr",
-        "title": "Sabbatjahr und Jubeljahr",
-        "book": "Lev",
-        "startChapter": 25,
-        "startVerse": 1,
-        "endChapter": 25,
-        "endVerse": 55,
-        "required": true,
-        "precision": "chapter"
-    },
-    {
-        "id": "die_grundforderungen_gottes",
-        "title": "Segen und Fluch",
-        "book": "Lev",
-        "startChapter": 26,
         "startVerse": 1,
         "endChapter": 26,
         "endVerse": 46,
@@ -2079,8 +1925,8 @@
         "precision": "chapter"
     },
     {
-        "id": "bei_personen",
-        "title": "Gelübde, Weihegaben und der Zehnte",
+        "id": "geluebde_und_weihegaben",
+        "title": "Gelübde und Weihegaben",
         "book": "Lev",
         "startChapter": 27,
         "startVerse": 1,
