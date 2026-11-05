@@ -57,6 +57,23 @@
     {"id": "lesson.alexandria_latin", "part": "Martyrium, Väter und Apologeten (VL 3)", "unit": "lecture.03", "title": "Clemens, Minucius Felix und Origenes",
      "items": ["person.clement_alexandria", "person.minucius_felix", "person.origen"]},
 
+    {"id": "lesson.education_4th", "part": "Bildung, Kanon und Alltag (VL 4)", "unit": "lecture.04", "title": "Bildung im 4. Jahrhundert: Arnobius, Laktanz, Julian",
+     "items": ["person.arnobius", "person.lactantius", "person.julian"]},
+    {"id": "lesson.education_fathers", "part": "Bildung, Kanon und Alltag (VL 4)", "unit": "lecture.04", "title": "Hieronymus und Augustin",
+     "items": ["person.jerome", "person.augustine"]},
+    {"id": "lesson.justinian", "part": "Bildung, Kanon und Alltag (VL 4)", "unit": "lecture.04", "title": "Justinian: Akademie und Origenes",
+     "items": ["person.justinian", "event.academy_closure_529", "event.origenist_controversy_2"]},
+    {"id": "lesson.education_6th", "part": "Bildung, Kanon und Alltag (VL 4)", "unit": "lecture.04", "title": "Bildung nach 500: Cassiodor, Caesarius, Gregor, Benedikt",
+     "items": ["person.cassiodorus", "person.caesarius_arles", "person.gregory_great", "person.benedict"]},
+    {"id": "lesson.canon_2nd", "part": "Bildung, Kanon und Alltag (VL 4)", "unit": "lecture.04", "title": "Kanon im 2. Jahrhundert: Irenaeus und Melito",
+     "items": ["person.irenaeus", "person.melito"]},
+    {"id": "lesson.canon_4th", "part": "Bildung, Kanon und Alltag (VL 4)", "unit": "lecture.04", "title": "Kanon im 4. Jahrhundert: Euseb, Kyrill, Athanasius",
+     "items": ["person.eusebius", "person.cyril_jerusalem", "person.athanasius", "event.festal_letter_367"]},
+    {"id": "lesson.canon_fixed", "part": "Bildung, Kanon und Alltag (VL 4)", "unit": "lecture.04", "title": "Kirchenamtliche Festlegung: Rom, Trullanum, Trient",
+     "items": ["person.damasus", "event.roman_synod_382", "event.trullan_council_692", "event.trent_canon_1546"]},
+    {"id": "lesson.burial", "part": "Bildung, Kanon und Alltag (VL 4)", "unit": "lecture.04", "title": "Tod und Bestattung: Scili und die Friedhöfe",
+     "items": ["event.scillitan_martyrs", "event.christian_cemeteries"]},
+
     {"id": "lesson.cassian", "part": "Cassian und sein Umfeld (Proseminar)", "unit": "seminar.01", "title": "Johannes Cassian und Gennadius",
      "items": ["person.cassian", "person.gennadius"]},
     {"id": "lesson.origenist", "part": "Cassian und sein Umfeld (Proseminar)", "unit": "seminar.02", "title": "Germanus, Chrysostomos und der Origenistische Streit",
@@ -69,6 +86,8 @@
      "items": ["person.leo_great", "event.council_ephesus", "event.council_chalcedon"]}
   ],
   "sequences": [
+    {"id": "seq.canon", "title": "Kirchenamtliche Festlegungen des Kanons", "unit": "lecture.04", "slides": [28],
+     "items": ["event.festal_letter_367", "event.roman_synod_382", "event.trullan_council_692", "event.trent_canon_1546"]},
     {"id": "seq.persecutions", "title": "Geschichtlicher Überblick der Verfolgungen", "unit": "lecture.02", "slides": [13],
      "items": ["event.claudius_49", "event.nero_64", "event.domitian", "event.trajan_pliny", "event.lyon_177", "event.decian_persecution", "event.valerian_persecution", "event.diocletian_persecution"]},
     {"id": "seq.mission", "title": "Phasen der Mission", "unit": "lecture.02", "slides": [11],

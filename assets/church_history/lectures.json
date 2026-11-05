@@ -23,8 +23,8 @@
           {"number": 2, "title": "Mission und Ausbreitung des Christentums", "lecture": "lecture.02"},
           {"number": 3, "title": "Christenverfolgungen", "lecture": "lecture.02"},
           {"number": 4, "title": "Christentum und antike Kultur", "lecture": "lecture.03", "theme": "theme.culture"},
-          {"number": 5, "title": "Das Entstehen der christlichen Bibel/ Kanon"},
-          {"number": 6, "title": "Christliches Leben im Alltag"},
+          {"number": 5, "title": "Das Entstehen der christlichen Bibel/ Kanon", "lecture": "lecture.04", "theme": "theme.canon"},
+          {"number": 6, "title": "Christliches Leben im Alltag", "lecture": "lecture.04", "theme": "theme.daily_life"},
           {"number": 7, "title": "Die Ausdifferenzierung der „Mehrheitskirche“ in vorkonstantinischer Zeit"},
           {"number": 8, "title": "Das Christentum auf dem Weg zur Staatsreligion"},
           {"number": 9, "title": "„Der Untergang des Heidentums“"},
@@ -1970,6 +1970,688 @@
           "explanation": "Folie 23: „Widerspruch durch pagane Philosophen: Celsus u.a.: Christentum pervertiert Überkommenes.“ Dagegen setzten die Apologeten u. a. den Altersbeweis.",
           "slides": [23],
           "entries": ["person.celsus"]
+        }
+      ]
+    },
+    {
+      "id": "lecture.04",
+      "number": 4,
+      "title": "Alexandriner, antike Bildung, Kanon, Tod und Familie",
+      "file": "Vorlesungsfolien 4 - Alexandriner Kanon Tod Familie.pdf",
+      "epochs": ["epoch.antiquity", "epoch.middle_ages", "epoch.reformation"],
+      "themes": ["theme.culture", "theme.canon", "theme.daily_life", "theme.monasticism"],
+      "slides": [
+        {
+          "number": 24,
+          "title": "Apologeten II – „Alexandrinische Schule“",
+          "image": "assets/church_history/slides/folie-24.png",
+          "text": "Apologeten II\n„Alexandrinische Schule“\n• Repräsentanten: Clemens; Origenes\n• Origenes (ca. 185-254):\n   - wirkte als freier Lehrer in Alexandria\n   - baute in Caesarea maritima wissenschaftlichen Großbetrieb auf\n   - verfasste erste christliche „Dogmatik“: Peri Archon\n   - stimmte zeitgenössisch-wissenschaftliches Denken und biblische Theologie aufeinander ab\n   - intensive Auseinandersetzung mit Mittel-Platonismus und Gnosis\n   - dreifacher Schriftsinn: wörtlich-historisch; psychisch/moralisch; pneumatisch/allegorisch\n   - umstrittene Allversöhnungslehre\n   - Origenistische Streitigkeiten 393ff.; 543-553\n   - postume Verurteilung zum Häretiker",
+          "highlights": ["Peri Archon", "dreifacher Schriftsinn", "postume Verurteilung zum Häretiker"]
+        },
+        {
+          "number": 25,
+          "title": "Christentum und antike Bildung bis ins Zeitalter Justinians",
+          "image": "assets/church_history/slides/folie-25.png",
+          "text": "Christentum und antike Bildung bis ins Zeitalter Justinians\n• Arnobius: Integration paganer Gebildeter ins Christentum\n• Laktanz: pagane Bildung beim Werben um Christentum einzusetzen\n• „konstantinische Wende“: wieviel kulturelle Kontinuität verträgt das Christentum?\n• Diskussion beflügelt durch Kaiser Julians Rückwendung zum „Heidentum“ (361-363) und die asketische Bewegung\n• Basilius von Caesarea, Ad adolescentes: antike Bildung nötig\n• Hieronymus/Augustin: Schulbildung in einem System geistlicher/exegetischer Bildung\n• Intentionen: Einbindung des Christentums in öffentliches Leben; Betonung der Prädominanz christlicher Weltdeutung\n• 5. Jh. Zugehörigkeit zum Christentum selbstverständlich; Bischöfe aus städtischer Oberschicht und Reichsadel (bes. Gallien) mit entsprechender Bildung\n• Streit um Origenes Kampf des Mönchtums gegen zu starkes Eindringen paganer Bildung ins Christentum",
+          "highlights": ["wieviel kulturelle Kontinuität verträgt das Christentum?"]
+        },
+        {
+          "number": 26,
+          "title": "Christentum und antike Bildung bis ins Zeitalter Justinians II",
+          "image": "assets/church_history/slides/folie-26.png",
+          "text": "Christentum und antike Bildung bis ins Zeitalter Justinians II\n• nach 500 zunehmend pessimistische Sicht christlicher Autoren auf pagane Bildung: Element vergangener Zeit\n• 529 n.Chr. Kaiser Justinian schließt Akademie in Athen\n• Cassiodor († ca. 580): enzyklopädistische Tradierung paganen Wissens\n• Caesarius von Arles: propagiert sermo rusticus\n• Gregor der Große, Dialoge: durch Wunder und spektakuläre Martyrien geprägte Hagiographie - Ideal Benedikt von Nursia: scienter nescius et sapienter indoctus\n• Bildungserwerb zunehmend mit asketischem Leben verbunden; Elementarbildung fest in kirchlichen Kontext integriert",
+          "highlights": ["scienter nescius et sapienter indoctus"]
+        },
+        {
+          "number": 27,
+          "title": "5. Entstehen der christlichen Bibel/ Kanon",
+          "image": "assets/church_history/slides/folie-27.png",
+          "text": "5. Entstehen der christlichen Bibel/ Kanon\n• institutionsgeschichtlicher Rahmen: gemeindeleitende Bischöfe, aber auch freie Lehrer und Gemeindegruppen (Bibliotheken)\n• „Kanon“ meinte im frühen Christentum „Glaubensregel“; „Rechtsvorschrift“\n• Entwicklung einer normativen Schriftgrundlage durch 1.) Sammlung und 2.) klare Abgrenzung (seit ca. 180 n.Chr. - 4. Jh.)\n• Urchristentum: „Altes Testament“ Norm, daneben Herrenworte, paulinische Briefe\n• noch im 2. Jh. entstehen zahlreiche apokryphe Evangelien, Apostelgeschichten und Apokalypsen\n• Anlass zur Kanonbildung nicht monokausal:\n   - Strömungen am Rand der Mehrheitskirche wie Gnostiker und Montanisten\n   - klare Argumentationsgrundlage gegen „Heiden“\n   - Grundlagen für die Institutionalisierung des Christentums\n   - Unterrichtsbedürfnisse freier Lehrer\n   - Interesse beim Aufbau von Bibliotheken",
+          "highlights": ["1.) Sammlung und 2.) klare Abgrenzung", "nicht monokausal"]
+        },
+        {
+          "number": 28,
+          "title": "5. Entstehen der christlichen Bibel/ Kanon II",
+          "image": "assets/church_history/slides/folie-28.png",
+          "text": "5. Entstehen der christlichen Bibel/ Kanon II\n• Irenaeus von Lyon: theologische Begründung des Kanons; Berufung auf „apostolische Tradition“ gegen Gnostiker; Beurteilung einer Lehre als „apostolisch“ mit Hilfe der regula fidei\n• Melito von Sardes (um 190 n.Chr.): erste Kanonliste AT\n• Canon Muratori (um 200): erste Kanonliste NT; Kriterium: authent. Bezug auf Geschichte Jesu und der Apostel\n• Origenes: drei Kategorien von Schriften\n• Euseb von Caesarea: 21/26 ntl. kanonische Schriften\n• Kyrill von Jerusalem: 26 ntl. kanonische Schriften\n• um 360 n.Chr.: 27 ntl. kanonische Schriften vgl. Osterfestbrief des Athanasius von 367 n.Chr.: Begriff „kanon“\n• um 382 n.Chr.: 47 atl. kanonische Schriften unter Papst Damasus festgelegt; kirchenamtliche Fixierung für den Westen\n• 692: Konstantinopel III/Trullanum fixiert Kanon kirchenamtlich für Osten\n• 1546 Dogmatisierung des Kanons in Trient",
+          "highlights": ["regula fidei", "erste Kanonliste AT", "erste Kanonliste NT"]
+        },
+        {
+          "number": 29,
+          "title": "6. Christliches Leben im Alltag – Beerdigungswesen",
+          "image": "assets/church_history/slides/folie-29.png",
+          "text": "6. Christliches Leben im Alltag\n1. Das christliche Beerdigungswesen\n- Tod positiv belegt: Feier der Namenstage; Ablehnung von Geburtsfeiern\n- Tertullian (3. Jh.): Einsatz für die Vorstellung der Allgemeinen Toten-Auferstehung\n- Märtyrer von Scili: Tod Übergang in den Himmel\n- Cyprian von Karthago: Auseinandersetzung mit Todesängsten\n- Bestattungbräuche ähnlich wie in der paganen Kultur, u.a. Leichenmahl\n- Gemeinde sorgt für Begräbnis\n- seit dem frühen 3. Jh. eigene christl. Friedhöfe: u.a. Katakomben\n- Bestattungen in loculi, Arkosolgräbern und auch Mausoleen",
+          "highlights": ["Tod positiv belegt", "Gemeinde sorgt für Begräbnis"]
+        },
+        {"number": 30, "title": "Katakombengang", "image": "assets/church_history/slides/folie-30.jpg", "text": "[Foto eines Katakombengangs mit Grabnischen (loculi) in beiden Wänden; ohne Bildunterschrift]"},
+        {"number": 31, "title": "Verschlussplatte eines Grabes", "image": "assets/church_history/slides/folie-31.jpg", "text": "[Foto einer Grabplatte mit rot aufgemalter griechischer Inschrift „ΑΝΘΗΡΩ ΚΑΙ ΙΟΥΛΙΑ“ und einem Anker; ohne Bildunterschrift]"},
+        {"number": 32, "title": "Arkosol-Gräber, Seleukia Pieria", "image": "assets/church_history/slides/folie-32.jpg", "text": "[Foto von Grabnischen unter Bögen, aus dem Fels gehauen]\nArkosol-Gräber, Seleukia Pieria"},
+        {
+          "number": 33,
+          "title": "6. Christliches Leben im Alltag – „Die christliche Familie“",
+          "image": "assets/church_history/slides/folie-33.png",
+          "text": "6. Christliches Leben im Alltag\n2. „Die christliche Familie“\n- Orientierung an antiker Geschlechter- und Ständeethik\n- Ressentiment gegenüber der Ehe aufgrund der Naherwartung (vgl. Mk 12,25; Mt 19,10-12; 1 Kor 7)\n- 1 Kor 7: Ehe verhindert unmoralisches Verhalten; Zeichen für Heilsplan Gottes (Eph 5,25)\n- Praxis der Eheschließung in der jüdisch-rabbinischen und der paganen Praxis tief verwurzelt: dextrarum iunctio; Frau als „Hüterin des Herdes“; Hochzeitskränze; Ringe\n- Ehe nach weltlichem Recht geschlossen: ging um gegenseitige Zustimmung der Eheleute\n- erst im 4./5. Jh. stärkere Einbeziehung des Klerus\n- zweckmäßige Begründung der Ehe: Kinderzeugung (bes. Augustin)\n- Konkubinat diente Umgehung des indirekten Zwangs zur Kinderzeugung\n- Mischehen zwischen „Heiden“ und Christen problematisiert\n- Ehebruch von Frauen besonders geahndet, zweite Ehe untersagt",
+          "highlights": ["gegenseitige Zustimmung der Eheleute", "erst im 4./5. Jh. stärkere Einbeziehung des Klerus"]
+        },
+        {"number": 34, "title": "Hochzeitsgürtel mit iunctio dextrarum", "image": "assets/church_history/slides/folie-34.jpg", "text": "[Foto zweier goldener Medaillons eines Gürtels: Christus zwischen Braut und Bräutigam, darunter zwei herzförmige Anhänger]\nDarstellung der iunctio dextrarum,\nHochzeitsgürtel Konstantinopel 6./7. Jh."},
+        {"number": 35, "title": "Hochzeitsring, Konstantinopel", "image": "assets/church_history/slides/folie-35.jpg", "text": "[Foto eines goldenen Rings mit den Büsten eines Paares und einem Kreuz zwischen ihnen, umlaufende Inschrift]\nHochzeitsring, Konstantinopel 4./5. Jh.\nDumbarton Oaks Collection Acc. 47.18"}
+      ],
+      "sections": [
+        {
+          "title": "Apologeten II: die „Alexandrinische Schule“",
+          "slides": [24],
+          "points": ["Repräsentanten der „Alexandrinischen Schule“ sind Clemens und Origenes.", "Origenes (ca. 185–254) wirkte als freier Lehrer in Alexandria und baute in Caesarea maritima einen wissenschaftlichen Großbetrieb auf.", "Er verfasste die erste christliche „Dogmatik“, Peri Archon, und stimmte zeitgenössisch-wissenschaftliches Denken und biblische Theologie aufeinander ab; intensive Auseinandersetzung mit Mittelplatonismus und Gnosis.", "Dreifacher Schriftsinn: wörtlich-historisch; psychisch/moralisch; pneumatisch/allegorisch.", "Umstrittene Allversöhnungslehre; Origenistische Streitigkeiten 393ff. und 543–553; postume Verurteilung zum Häretiker."],
+          "supplement": "Der dreifache Schriftsinn entspricht bei Origenes Leib, Seele und Geist des Menschen (Peri Archon IV). Peri Archon ist vollständig nur in der freien lateinischen Übersetzung Rufins erhalten. Die Verurteilung im 6. Jahrhundert geht auf ein Edikt Justinians (543) und die Vorgänge um das Konzil von Konstantinopel 553 zurück."
+        },
+        {
+          "title": "Christentum und antike Bildung bis ins Zeitalter Justinians",
+          "slides": [25],
+          "points": ["Arnobius steht für die Integration paganer Gebildeter ins Christentum, Laktanz für den Einsatz paganer Bildung beim Werben um das Christentum.", "Mit der „konstantinischen Wende“ stellt sich die Frage: Wieviel kulturelle Kontinuität verträgt das Christentum?", "Beflügelt wurde die Diskussion durch Kaiser Julians Rückwendung zum „Heidentum“ (361–363) und durch die asketische Bewegung.", "Basilius von Caesarea (Ad adolescentes): antike Bildung ist nötig. Hieronymus und Augustin: Schulbildung in einem System geistlicher und exegetischer Bildung.", "Intentionen: Einbindung des Christentums ins öffentliche Leben; Betonung der Vorherrschaft christlicher Weltdeutung.", "Im 5. Jh. war die Zugehörigkeit zum Christentum selbstverständlich; Bischöfe kamen aus städtischer Oberschicht und Reichsadel (besonders in Gallien) mit entsprechender Bildung.", "Im Streit um Origenes kämpfte das Mönchtum gegen ein zu starkes Eindringen paganer Bildung ins Christentum."],
+          "supplement": "Julians Rhetorenedikt (362) untersagte Christen faktisch, die klassischen Autoren zu unterrichten. Basileios vergleicht in Ad adolescentes den rechten Umgang mit der paganen Literatur mit den Bienen, die nur den Nektar nehmen."
+        },
+        {
+          "title": "Christentum und antike Bildung II: nach 500",
+          "slides": [26],
+          "points": ["Nach 500 sahen christliche Autoren pagane Bildung zunehmend pessimistisch, als Element vergangener Zeit.", "529 schloss Kaiser Justinian die Akademie in Athen.", "Cassiodor († ca. 580) gab paganes Wissen enzyklopädisch weiter; Caesarius von Arles propagierte den sermo rusticus.", "Gregor der Große bietet in den Dialogen eine durch Wunder und spektakuläre Martyrien geprägte Hagiographie; Ideal ist Benedikt von Nursia: „scienter nescius et sapienter indoctus“.", "Bildungserwerb wurde zunehmend mit asketischem Leben verbunden; die Elementarbildung war fest in den kirchlichen Kontext integriert."],
+          "supplement": "„Scienter nescius et sapienter indoctus“ (Gregor, Dialoge II, Prolog): Benedikt verließ das Studium in Rom „wissend unwissend und weise ungelehrt“. Cassiodor gründete das Kloster Vivarium, wo Handschriften abgeschrieben wurden."
+        },
+        {
+          "title": "5. Entstehen der christlichen Bibel/ Kanon",
+          "slides": [27],
+          "points": ["Institutionsgeschichtlicher Rahmen: gemeindeleitende Bischöfe, aber auch freie Lehrer und Gemeindegruppen (Bibliotheken).", "„Kanon“ meinte im frühen Christentum „Glaubensregel“ bzw. „Rechtsvorschrift“.", "Die normative Schriftgrundlage entstand durch 1.) Sammlung und 2.) klare Abgrenzung (seit ca. 180 bis ins 4. Jh.).", "Im Urchristentum war das „Alte Testament“ Norm, daneben Herrenworte und paulinische Briefe; noch im 2. Jh. entstanden zahlreiche apokryphe Evangelien, Apostelgeschichten und Apokalypsen.", "Der Anlass zur Kanonbildung war nicht monokausal: Strömungen am Rand der Mehrheitskirche wie Gnostiker und Montanisten; klare Argumentationsgrundlage gegen „Heiden“; Grundlagen für die Institutionalisierung; Unterrichtsbedürfnisse freier Lehrer; Interesse beim Aufbau von Bibliotheken."],
+          "supplement": "Oft wird auch Markion (VL 2) genannt, der um 140 nur ein gekürztes Lukasevangelium und zehn Paulusbriefe gelten ließ; die Folie nennt ihn nicht."
+        },
+        {
+          "title": "Stationen der Kanonbildung",
+          "slides": [28],
+          "points": ["Irenaeus von Lyon begründete den Kanon theologisch: Berufung auf die „apostolische Tradition“ gegen die Gnostiker; ob eine Lehre „apostolisch“ ist, wird mit der regula fidei beurteilt.", "Melito von Sardes (um 190): erste Kanonliste des AT. Canon Muratori (um 200): erste Kanonliste des NT; Kriterium ist der authentische Bezug auf die Geschichte Jesu und der Apostel.", "Origenes: drei Kategorien von Schriften. Euseb von Caesarea: 21/26 neutestamentliche kanonische Schriften. Kyrill von Jerusalem: 26.", "Um 360: 27 neutestamentliche kanonische Schriften, vgl. den Osterfestbrief des Athanasius von 367 mit dem Begriff „kanon“.", "Um 382: 47 alttestamentliche kanonische Schriften unter Papst Damasus festgelegt; kirchenamtliche Fixierung für den Westen.", "692: Konstantinopel III/Trullanum fixiert den Kanon kirchenamtlich für den Osten; 1546 Dogmatisierung des Kanons in Trient."],
+          "supplement": "Origenes und Eusebius unterscheiden anerkannte (homologumena), umstrittene (antilegomena) und unechte Schriften; daraus erklärt sich Eusebs Doppelzahl. Kyrill lässt die Offenbarung des Johannes aus. Die Folie schreibt „Konstantinopel III/Trullanum“: Das Trullanum (Quinisextum, 691/692) ist eine eigene Synode, die das 6. ökumenische Konzil (Konstantinopel III, 680/681) ergänzte. Die römische Liste ist im Decretum Gelasianum überliefert, ihre Zuschreibung an Damasus ist umstritten."
+        },
+        {
+          "title": "6. Christliches Leben im Alltag: das christliche Beerdigungswesen",
+          "slides": [29, 30, 31, 32],
+          "points": ["Der Tod war positiv belegt: Feier der Namenstage, Ablehnung von Geburtsfeiern.", "Tertullian (3. Jh.) setzte sich für die Vorstellung der allgemeinen Totenauferstehung ein; für die Märtyrer von Scili war der Tod Übergang in den Himmel; Cyprian von Karthago setzte sich mit Todesängsten auseinander.", "Die Bestattungsbräuche glichen der paganen Kultur, u. a. das Leichenmahl; die Gemeinde sorgte für das Begräbnis.", "Seit dem frühen 3. Jh. gab es eigene christliche Friedhöfe, u. a. Katakomben; bestattet wurde in loculi, Arkosolgräbern und auch Mausoleen.", "Folien 30–32 zeigen einen Katakombengang mit loculi, eine Grabplatte mit Namen und Anker und Arkosol-Gräber in Seleukia Pieria."],
+          "supplement": "Gefeiert wurde der Todestag als „Geburtstag“ für den Himmel (dies natalis, vgl. VL 3). Cyprian schrieb während der Pest um 252 „De mortalitate“ gegen die Todesangst. Der Anker galt als Zeichen der christlichen Hoffnung (Hebr 6,19). Die Inschrift auf Folie 31 nennt wohl zwei Namen, Antheros und Julia (Lesung der App)."
+        },
+        {
+          "title": "6. Christliches Leben im Alltag: „Die christliche Familie“",
+          "slides": [33, 34, 35],
+          "points": ["Orientierung an antiker Geschlechter- und Ständeethik.", "Ressentiment gegenüber der Ehe aufgrund der Naherwartung (vgl. Mk 12,25; Mt 19,10–12; 1 Kor 7); nach 1 Kor 7 verhindert die Ehe unmoralisches Verhalten, sie ist Zeichen für den Heilsplan Gottes (Eph 5,25).", "Die Eheschließung war in jüdisch-rabbinischer und paganer Praxis tief verwurzelt: dextrarum iunctio, die Frau als „Hüterin des Herdes“, Hochzeitskränze, Ringe.", "Die Ehe wurde nach weltlichem Recht geschlossen; es ging um die gegenseitige Zustimmung der Eheleute. Erst im 4./5. Jh. wurde der Klerus stärker einbezogen.", "Zweckmäßige Begründung der Ehe: Kinderzeugung (besonders Augustin); das Konkubinat diente der Umgehung des indirekten Zwangs zur Kinderzeugung.", "Mischehen zwischen „Heiden“ und Christen wurden problematisiert; Ehebruch von Frauen wurde besonders geahndet, eine zweite Ehe untersagt.", "Folie 34: Darstellung der iunctio dextrarum auf einem Hochzeitsgürtel (Konstantinopel, 6./7. Jh.); Folie 35: Hochzeitsring (Konstantinopel, 4./5. Jh., Dumbarton Oaks Collection)."],
+          "supplement": "Im römischen Recht galt: „consensus facit nuptias“ – die Zustimmung macht die Ehe. Augustin nennt in „De bono coniugali“ drei Güter der Ehe: Nachkommenschaft, Treue und das sacramentum (Unauflöslichkeit)."
+        }
+      ],
+      "mentions": [
+        {
+          "entry": "term.alexandrian_school",
+          "slides": [24],
+          "text": "„Alexandrinische Schule“; Repräsentanten: Clemens; Origenes"
+        },
+        {
+          "entry": "person.clement_alexandria",
+          "slides": [24],
+          "text": "Repräsentant der „Alexandrinischen Schule“"
+        },
+        {
+          "entry": "person.origen",
+          "slides": [24, 28],
+          "text": "freier Lehrer in Alexandria, wissenschaftlicher Großbetrieb in Caesarea maritima; Peri Archon; dreifacher Schriftsinn; postume Verurteilung zum Häretiker; drei Kategorien von Schriften"
+        },
+        {
+          "entry": "source.peri_archon",
+          "slides": [24],
+          "text": "verfasste erste christliche „Dogmatik“: Peri Archon"
+        },
+        {
+          "entry": "term.platonism",
+          "slides": [24],
+          "text": "intensive Auseinandersetzung (des Origenes) mit Mittel-Platonismus und Gnosis"
+        },
+        {
+          "entry": "term.gnosis",
+          "slides": [24, 27, 28],
+          "text": "Auseinandersetzung des Origenes mit der Gnosis; Gnostiker als Anlass der Kanonbildung; Irenaeus gegen Gnostiker"
+        },
+        {
+          "entry": "term.threefold_sense",
+          "slides": [24],
+          "text": "dreifacher Schriftsinn: wörtlich-historisch; psychisch/moralisch; pneumatisch/allegorisch"
+        },
+        {
+          "entry": "term.apokatastasis",
+          "slides": [24],
+          "text": "umstrittene Allversöhnungslehre"
+        },
+        {
+          "entry": "event.origenist_controversy",
+          "slides": [24, 25],
+          "text": "Origenistische Streitigkeiten 393ff.; im Streit um Origenes Kampf des Mönchtums gegen zu starkes Eindringen paganer Bildung"
+        },
+        {
+          "entry": "event.origenist_controversy_2",
+          "slides": [24],
+          "text": "Origenistische Streitigkeiten 543-553; postume Verurteilung zum Häretiker"
+        },
+        {
+          "entry": "person.arnobius",
+          "slides": [25],
+          "text": "Arnobius: Integration paganer Gebildeter ins Christentum"
+        },
+        {
+          "entry": "person.lactantius",
+          "slides": [25],
+          "text": "Laktanz: pagane Bildung beim Werben um Christentum einzusetzen"
+        },
+        {
+          "entry": "term.constantinian_turn",
+          "slides": [25],
+          "text": "„konstantinische Wende“: wieviel kulturelle Kontinuität verträgt das Christentum?"
+        },
+        {
+          "entry": "person.julian",
+          "slides": [25],
+          "text": "Diskussion beflügelt durch Kaiser Julians Rückwendung zum „Heidentum“ (361-363)"
+        },
+        {
+          "entry": "person.basil",
+          "slides": [25],
+          "text": "Basilius von Caesarea, Ad adolescentes: antike Bildung nötig"
+        },
+        {
+          "entry": "source.basil_ad_adolescentes",
+          "slides": [25],
+          "text": "Ad adolescentes: antike Bildung nötig"
+        },
+        {
+          "entry": "person.jerome",
+          "slides": [25],
+          "text": "Hieronymus/Augustin: Schulbildung in einem System geistlicher/exegetischer Bildung"
+        },
+        {
+          "entry": "person.augustine",
+          "slides": [25, 33],
+          "text": "Schulbildung in einem System geistlicher/exegetischer Bildung; zweckmäßige Begründung der Ehe: Kinderzeugung (bes. Augustin)"
+        },
+        {
+          "entry": "person.justinian",
+          "slides": [26],
+          "text": "529 n.Chr. Kaiser Justinian schließt Akademie in Athen"
+        },
+        {
+          "entry": "event.academy_closure_529",
+          "slides": [26],
+          "text": "529 n.Chr. Kaiser Justinian schließt Akademie in Athen"
+        },
+        {
+          "entry": "person.cassiodorus",
+          "slides": [26],
+          "text": "Cassiodor († ca. 580): enzyklopädistische Tradierung paganen Wissens"
+        },
+        {
+          "entry": "person.caesarius_arles",
+          "slides": [26],
+          "text": "Caesarius von Arles: propagiert sermo rusticus"
+        },
+        {
+          "entry": "term.sermo_rusticus",
+          "slides": [26],
+          "text": "Caesarius von Arles: propagiert sermo rusticus"
+        },
+        {
+          "entry": "person.gregory_great",
+          "slides": [26],
+          "text": "Gregor der Große, Dialoge: durch Wunder und spektakuläre Martyrien geprägte Hagiographie"
+        },
+        {
+          "entry": "source.gregory_dialogues",
+          "slides": [26],
+          "text": "Dialoge: durch Wunder und spektakuläre Martyrien geprägte Hagiographie - Ideal Benedikt von Nursia"
+        },
+        {
+          "entry": "person.benedict",
+          "slides": [26],
+          "text": "Ideal Benedikt von Nursia: scienter nescius et sapienter indoctus"
+        },
+        {
+          "entry": "term.canon",
+          "slides": [27, 28],
+          "text": "„Kanon“ meinte im frühen Christentum „Glaubensregel“; „Rechtsvorschrift“; Sammlung und Abgrenzung seit ca. 180 bis 4. Jh.; Osterfestbrief 367: Begriff „kanon“"
+        },
+        {
+          "entry": "term.apocrypha",
+          "slides": [27],
+          "text": "noch im 2. Jh. entstehen zahlreiche apokryphe Evangelien, Apostelgeschichten und Apokalypsen"
+        },
+        {
+          "entry": "term.montanism",
+          "slides": [27],
+          "text": "Strömungen am Rand der Mehrheitskirche wie Gnostiker und Montanisten"
+        },
+        {
+          "entry": "person.irenaeus",
+          "slides": [28],
+          "text": "theologische Begründung des Kanons; Berufung auf „apostolische Tradition“ gegen Gnostiker"
+        },
+        {
+          "entry": "term.regula_fidei",
+          "slides": [28],
+          "text": "Beurteilung einer Lehre als „apostolisch“ mit Hilfe der regula fidei"
+        },
+        {
+          "entry": "person.melito",
+          "slides": [28],
+          "text": "Melito von Sardes (um 190 n.Chr.): erste Kanonliste AT"
+        },
+        {
+          "entry": "source.muratorian_canon",
+          "slides": [28],
+          "text": "Canon Muratori (um 200): erste Kanonliste NT; Kriterium: authent. Bezug auf Geschichte Jesu und der Apostel"
+        },
+        {
+          "entry": "person.eusebius",
+          "slides": [28],
+          "text": "Euseb von Caesarea: 21/26 ntl. kanonische Schriften"
+        },
+        {
+          "entry": "person.cyril_jerusalem",
+          "slides": [28],
+          "text": "Kyrill von Jerusalem: 26 ntl. kanonische Schriften"
+        },
+        {
+          "entry": "person.athanasius",
+          "slides": [28],
+          "text": "Osterfestbrief des Athanasius von 367 n.Chr.: Begriff „kanon“"
+        },
+        {
+          "entry": "event.festal_letter_367",
+          "slides": [28],
+          "text": "um 360 n.Chr.: 27 ntl. kanonische Schriften vgl. Osterfestbrief des Athanasius von 367 n.Chr.: Begriff „kanon“"
+        },
+        {
+          "entry": "person.damasus",
+          "slides": [28],
+          "text": "um 382 n.Chr.: 47 atl. kanonische Schriften unter Papst Damasus festgelegt"
+        },
+        {
+          "entry": "event.roman_synod_382",
+          "slides": [28],
+          "text": "um 382 n.Chr.: 47 atl. kanonische Schriften unter Papst Damasus festgelegt; kirchenamtliche Fixierung für den Westen"
+        },
+        {
+          "entry": "event.trullan_council_692",
+          "slides": [28],
+          "text": "692: Konstantinopel III/Trullanum fixiert Kanon kirchenamtlich für Osten"
+        },
+        {
+          "entry": "event.trent_canon_1546",
+          "slides": [28],
+          "text": "1546 Dogmatisierung des Kanons in Trient"
+        },
+        {
+          "entry": "person.tertullian",
+          "slides": [29],
+          "text": "Tertullian (3. Jh.): Einsatz für die Vorstellung der Allgemeinen Toten-Auferstehung"
+        },
+        {
+          "entry": "event.scillitan_martyrs",
+          "slides": [29],
+          "text": "Märtyrer von Scili: Tod Übergang in den Himmel"
+        },
+        {
+          "entry": "person.cyprian",
+          "slides": [29],
+          "text": "Cyprian von Karthago: Auseinandersetzung mit Todesängsten"
+        },
+        {
+          "entry": "term.funeral_meal",
+          "slides": [29],
+          "text": "Bestattungbräuche ähnlich wie in der paganen Kultur, u.a. Leichenmahl"
+        },
+        {
+          "entry": "event.christian_cemeteries",
+          "slides": [29],
+          "text": "seit dem frühen 3. Jh. eigene christl. Friedhöfe: u.a. Katakomben"
+        },
+        {
+          "entry": "term.catacombs",
+          "slides": [29, 30],
+          "text": "eigene christl. Friedhöfe: u.a. Katakomben; Foto eines Katakombengangs"
+        },
+        {
+          "entry": "term.loculus",
+          "slides": [29, 30, 31],
+          "text": "Bestattungen in loculi; Katakombengang mit Grabnischen; Grabplatte mit Inschrift"
+        },
+        {
+          "entry": "term.arcosolium",
+          "slides": [29, 32],
+          "text": "Bestattungen in Arkosolgräbern; Arkosol-Gräber, Seleukia Pieria"
+        },
+        {
+          "entry": "term.dextrarum_iunctio",
+          "slides": [33, 34],
+          "text": "Praxis der Eheschließung tief verwurzelt: dextrarum iunctio; Darstellung der iunctio dextrarum, Hochzeitsgürtel Konstantinopel 6./7. Jh."
+        }
+      ],
+      "lists": [
+        {
+          "id": "list.l04_origen",
+          "title": "Origenes nach der Vorlesung",
+          "prompt": "Was nennt die Vorlesung zu Wirken und Lehre des Origenes?",
+          "slides": [24],
+          "items": ["freier Lehrer in Alexandria", "wissenschaftlicher Großbetrieb in Caesarea maritima", "Peri Archon: erste christliche „Dogmatik“", "Abstimmung von zeitgenössischer Wissenschaft und biblischer Theologie", "Auseinandersetzung mit Mittelplatonismus und Gnosis", "dreifacher Schriftsinn", "umstrittene Allversöhnungslehre", "Origenistische Streitigkeiten 393ff. und 543–553; postume Verurteilung"]
+        },
+        {
+          "id": "list.l04_threefold_sense",
+          "title": "Dreifacher Schriftsinn",
+          "prompt": "Nenne die drei Schriftsinne nach Origenes.",
+          "slides": [24],
+          "ordered": true,
+          "items": ["wörtlich-historisch", "psychisch/moralisch", "pneumatisch/allegorisch"]
+        },
+        {
+          "id": "list.l04_education",
+          "title": "Positionen zur antiken Bildung",
+          "prompt": "Welche Positionen zur antiken Bildung nennt die Vorlesung vom 4. bis 6. Jahrhundert?",
+          "slides": [25, 26],
+          "items": ["Arnobius: Integration paganer Gebildeter", "Laktanz: pagane Bildung beim Werben um das Christentum einsetzen", "Basilius, Ad adolescentes: antike Bildung nötig", "Hieronymus/Augustin: Schulbildung in einem System geistlicher/exegetischer Bildung", "Cassiodor: enzyklopädistische Tradierung paganen Wissens", "Caesarius von Arles: sermo rusticus", "Gregor der Große: Benedikt als „scienter nescius et sapienter indoctus“"]
+        },
+        {
+          "id": "list.l04_canon_causes",
+          "title": "Anlässe der Kanonbildung",
+          "prompt": "Die Kanonbildung hatte nach der Vorlesung keinen einzelnen Anlass. Welche Anlässe nennt sie?",
+          "slides": [27],
+          "items": ["Strömungen am Rand der Mehrheitskirche (Gnostiker, Montanisten)", "klare Argumentationsgrundlage gegen „Heiden“", "Grundlagen für die Institutionalisierung des Christentums", "Unterrichtsbedürfnisse freier Lehrer", "Interesse beim Aufbau von Bibliotheken"]
+        },
+        {
+          "id": "list.l04_canon_stations",
+          "title": "Stationen der Kanonbildung",
+          "prompt": "Ordne die Stationen der Kanonbildung, die die Vorlesung nennt.",
+          "slides": [28],
+          "ordered": true,
+          "items": ["Melito von Sardes (um 190): erste Kanonliste AT", "Canon Muratori (um 200): erste Kanonliste NT", "Osterfestbrief des Athanasius (367): 27 ntl. Schriften, Begriff „kanon“", "um 382 unter Damasus: Fixierung für den Westen", "692 Trullanum: Fixierung für den Osten", "1546 Trient: Dogmatisierung"]
+        },
+        {
+          "id": "list.l04_burial",
+          "title": "Christliches Beerdigungswesen",
+          "prompt": "Was sagt die Vorlesung über Tod und Bestattung der frühen Christen?",
+          "slides": [29],
+          "items": ["Tod positiv belegt: Namenstage gefeiert, Geburtsfeiern abgelehnt", "Tertullian: allgemeine Totenauferstehung", "Märtyrer von Scili: Tod als Übergang in den Himmel", "Cyprian: Auseinandersetzung mit Todesängsten", "Bräuche wie in der paganen Kultur, u. a. Leichenmahl", "Gemeinde sorgt für das Begräbnis", "seit dem frühen 3. Jh. eigene Friedhöfe (Katakomben)", "loculi, Arkosolgräber, Mausoleen"]
+        },
+        {
+          "id": "list.l04_marriage",
+          "title": "Ehe in der Alten Kirche",
+          "prompt": "Was sagt die Vorlesung über Eheschließung und Ehe der frühen Christen?",
+          "slides": [33],
+          "items": ["Orientierung an antiker Geschlechter- und Ständeethik", "Ressentiment gegenüber der Ehe wegen der Naherwartung", "Bräuche: dextrarum iunctio, Hochzeitskränze, Ringe", "Eheschluss nach weltlichem Recht durch gegenseitige Zustimmung", "erst im 4./5. Jh. stärkere Einbeziehung des Klerus", "Begründung durch Kinderzeugung (bes. Augustin)", "Mischehen problematisiert; Ehebruch von Frauen besonders geahndet, zweite Ehe untersagt"]
+        }
+      ],
+      "questions": [
+        {
+          "id": "q.l04.alexandrians",
+          "prompt": "Wen nennt die Vorlesung als Repräsentanten der „Alexandrinischen Schule“?",
+          "answer": "Clemens und Origenes",
+          "distractors": ["Justin und Tatian", "Irenaeus und Hippolyt", "Basilius und Gregor von Nazianz"],
+          "explanation": "Folie 24: „Repräsentanten: Clemens; Origenes“. Justin und Tatian zählen zu den Apologeten (Folie 23).",
+          "slides": [24],
+          "entries": ["term.alexandrian_school"]
+        },
+        {
+          "id": "q.l04.peri_archon",
+          "prompt": "Welche Schrift bezeichnet die Vorlesung als erste christliche „Dogmatik“?",
+          "answer": "Peri Archon des Origenes",
+          "distractors": ["Gegen Celsus des Origenes", "Adversus haereses des Irenaeus", "Divinae institutiones des Laktanz"],
+          "explanation": "Folie 24: Origenes „verfasste erste christliche ‚Dogmatik‘: Peri Archon“ (lat. De principiis).",
+          "slides": [24],
+          "entries": ["source.peri_archon"]
+        },
+        {
+          "id": "q.l04.caesarea",
+          "prompt": "Wo baute Origenes nach der Vorlesung einen wissenschaftlichen Großbetrieb auf?",
+          "answer": "In Caesarea maritima",
+          "distractors": ["In Alexandria", "In Athen", "In Antiochien"],
+          "explanation": "Folie 24: Origenes wirkte als freier Lehrer in Alexandria und baute in Caesarea maritima einen wissenschaftlichen Großbetrieb auf.",
+          "slides": [24],
+          "entries": ["person.origen"]
+        },
+        {
+          "id": "q.l04.threefold_sense",
+          "prompt": "Welche Schriftsinne unterscheidet Origenes nach der Vorlesung?",
+          "answer": "Wörtlich-historisch, psychisch/moralisch, pneumatisch/allegorisch",
+          "distractors": ["Wörtlich, allegorisch, tropologisch, anagogisch", "Wörtlich-historisch und typologisch", "Prophetisch, apostolisch, kirchlich"],
+          "explanation": "Folie 24: dreifacher Schriftsinn. Der vierfache Schriftsinn (wörtlich, allegorisch, tropologisch, anagogisch) ist die spätere, mittelalterliche Weiterentwicklung.",
+          "slides": [24],
+          "entries": ["term.threefold_sense"]
+        },
+        {
+          "id": "q.l04.origen_condemned",
+          "prompt": "Was geschah nach der Vorlesung mit Origenes in den Origenistischen Streitigkeiten?",
+          "answer": "Er wurde postum zum Häretiker verurteilt.",
+          "distractors": ["Er wurde zu Lebzeiten auf einem Konzil abgesetzt.", "Er wurde zum Kirchenlehrer erhoben.", "Er widerrief seine Allversöhnungslehre."],
+          "explanation": "Folie 24: „Origenistische Streitigkeiten 393ff.; 543-553 – postume Verurteilung zum Häretiker“.",
+          "slides": [24],
+          "entries": ["event.origenist_controversy_2"]
+        },
+        {
+          "id": "q.l04.constantinian_turn",
+          "prompt": "Welche Frage stellt sich nach der Vorlesung mit der „konstantinischen Wende“ für die Bildung?",
+          "answer": "Wieviel kulturelle Kontinuität verträgt das Christentum?",
+          "distractors": ["Darf ein Christ Kaiser werden?", "Wie viele Schriften gehören zum Neuen Testament?", "Dürfen Christen eigene Friedhöfe anlegen?"],
+          "explanation": "Folie 25: „‚konstantinische Wende‘: wieviel kulturelle Kontinuität verträgt das Christentum?“",
+          "slides": [25],
+          "entries": ["term.constantinian_turn"]
+        },
+        {
+          "id": "q.l04.julian",
+          "prompt": "Was beflügelte nach der Vorlesung die Diskussion um antike Bildung im 4. Jh.?",
+          "answer": "Kaiser Julians Rückwendung zum „Heidentum“ und die asketische Bewegung",
+          "distractors": ["Die Schließung der Akademie in Athen", "Der Osterfestbrief des Athanasius", "Das Toleranzedikt des Galerius"],
+          "explanation": "Folie 25: Die Diskussion wurde beflügelt durch Julians Rückwendung zum „Heidentum“ (361–363) und die asketische Bewegung. Die Akademie wurde erst 529 geschlossen (Folie 26).",
+          "slides": [25],
+          "entries": ["person.julian"]
+        },
+        {
+          "id": "q.l04.basil",
+          "prompt": "Welche Position vertrat Basilius von Caesarea in Ad adolescentes nach der Vorlesung?",
+          "answer": "Antike Bildung ist nötig.",
+          "distractors": ["Christen sollen nur noch im sermo rusticus reden.", "Pagane Bildung ist ganz zu meiden.", "Nur Mönche dürfen die Klassiker lesen."],
+          "explanation": "Folie 25: „Basilius von Caesarea, Ad adolescentes: antike Bildung nötig“. Den sermo rusticus propagierte Caesarius von Arles (Folie 26).",
+          "slides": [25],
+          "entries": ["source.basil_ad_adolescentes"]
+        },
+        {
+          "id": "q.l04.lactantius",
+          "prompt": "Wofür steht Laktanz in der Vorlesung?",
+          "answer": "Pagane Bildung beim Werben um das Christentum einzusetzen",
+          "distractors": ["Integration paganer Gebildeter ins Christentum", "Enzyklopädistische Tradierung paganen Wissens", "Propagierung des sermo rusticus"],
+          "explanation": "Folie 25: Laktanz – pagane Bildung beim Werben um das Christentum einsetzen; Arnobius – Integration paganer Gebildeter. Folie 26: Cassiodor – Tradierung; Caesarius – sermo rusticus.",
+          "slides": [25],
+          "entries": ["person.lactantius"]
+        },
+        {
+          "id": "q.l04.bishops_5th",
+          "prompt": "Was gilt nach der Vorlesung im 5. Jh. für die Bischöfe, besonders in Gallien?",
+          "answer": "Sie kamen aus städtischer Oberschicht und Reichsadel mit entsprechender Bildung.",
+          "distractors": ["Sie waren meist ungebildete Mönche aus dem Osten.", "Sie wurden vom Kaiser aus dem Heer ernannt.", "Sie durften keine pagane Bildung besitzen."],
+          "explanation": "Folie 25: Im 5. Jh. war die Zugehörigkeit zum Christentum selbstverständlich; Bischöfe kamen aus städtischer Oberschicht und Reichsadel (bes. Gallien) mit entsprechender Bildung.",
+          "slides": [25]
+        },
+        {
+          "id": "q.l04.academy",
+          "prompt": "Was tat Kaiser Justinian 529 nach der Vorlesung?",
+          "answer": "Er schloss die Akademie in Athen.",
+          "distractors": ["Er verurteilte Origenes als Häretiker.", "Er legte den Kanon für den Osten fest.", "Er gründete das Kloster Vivarium."],
+          "explanation": "Folie 26: „529 n.Chr. Kaiser Justinian schließt Akademie in Athen“. Die Verurteilung des Origenes fällt in die Jahre 543–553, das Vivarium gründete Cassiodor.",
+          "slides": [26],
+          "entries": ["event.academy_closure_529", "person.justinian"]
+        },
+        {
+          "id": "q.l04.sermo_rusticus",
+          "prompt": "Wer propagierte nach der Vorlesung den sermo rusticus?",
+          "answer": "Caesarius von Arles",
+          "distractors": ["Cassiodor", "Basilius von Caesarea", "Laktanz"],
+          "explanation": "Folie 26: „Caesarius von Arles: propagiert sermo rusticus“ – eine schlichte, allgemein verständliche Redeweise.",
+          "slides": [26],
+          "entries": ["person.caesarius_arles", "term.sermo_rusticus"]
+        },
+        {
+          "id": "q.l04.benedict",
+          "prompt": "Wen stellte Gregor der Große nach der Vorlesung als „scienter nescius et sapienter indoctus“ als Ideal dar?",
+          "answer": "Benedikt von Nursia",
+          "distractors": ["Cassiodor", "Augustin", "Hieronymus"],
+          "explanation": "Folie 26: Gregor der Große, Dialoge – Ideal Benedikt von Nursia: „scienter nescius et sapienter indoctus“ (wissend unwissend und weise ungelehrt).",
+          "slides": [26],
+          "entries": ["person.benedict", "source.gregory_dialogues"]
+        },
+        {
+          "id": "q.l04.canon_meaning",
+          "prompt": "Was meinte „Kanon“ nach der Vorlesung im frühen Christentum?",
+          "answer": "„Glaubensregel“ bzw. „Rechtsvorschrift“",
+          "distractors": ["Die Liste der Bücher des Neuen Testaments", "Das Verzeichnis der Märtyrer", "Die Reihe der Bischöfe einer Stadt"],
+          "explanation": "Folie 27: „‚Kanon‘ meinte im frühen Christentum ‚Glaubensregel‘; ‚Rechtsvorschrift‘“. Als Begriff für die Schriftliste nennt die Vorlesung den Osterfestbrief des Athanasius 367 (Folie 28).",
+          "slides": [27],
+          "entries": ["term.canon"]
+        },
+        {
+          "id": "q.l04.canon_steps",
+          "prompt": "Durch welche zwei Schritte entwickelte sich nach der Vorlesung die normative Schriftgrundlage?",
+          "answer": "Sammlung und klare Abgrenzung",
+          "distractors": ["Übersetzung und Kommentierung", "Kaiserlicher Erlass und Konzilsbeschluss", "Textkritik und Kanonisierung durch Rom"],
+          "explanation": "Folie 27: „Entwicklung einer normativen Schriftgrundlage durch 1.) Sammlung und 2.) klare Abgrenzung (seit ca. 180 n.Chr. - 4. Jh.)“.",
+          "slides": [27],
+          "entries": ["term.canon"]
+        },
+        {
+          "id": "q.l04.canon_causes",
+          "prompt": "Welche Strömungen am Rand der Mehrheitskirche nennt die Vorlesung als einen Anlass der Kanonbildung?",
+          "answer": "Gnostiker und Montanisten",
+          "distractors": ["Arianer und Nestorianer", "Donatisten und Novatianer", "Pelagianer und Manichäer"],
+          "explanation": "Folie 27: Anlass zur Kanonbildung nicht monokausal, u. a. „Strömungen am Rand der Mehrheitskirche wie Gnostiker und Montanisten“.",
+          "slides": [27],
+          "entries": ["term.gnosis", "term.montanism"]
+        },
+        {
+          "id": "q.l04.irenaeus",
+          "prompt": "Womit beurteilte Irenaeus von Lyon nach der Vorlesung, ob eine Lehre „apostolisch“ ist?",
+          "answer": "Mit Hilfe der regula fidei",
+          "distractors": ["Mit dem Canon Muratori", "Mit dem dreifachen Schriftsinn", "Mit dem Urteil des Bischofs von Rom"],
+          "explanation": "Folie 28: Irenaeus – theologische Begründung des Kanons; Berufung auf die „apostolische Tradition“ gegen Gnostiker; Beurteilung einer Lehre als „apostolisch“ mit Hilfe der regula fidei.",
+          "slides": [28],
+          "entries": ["person.irenaeus", "term.regula_fidei"]
+        },
+        {
+          "id": "q.l04.melito",
+          "prompt": "Was stammt nach der Vorlesung von Melito von Sardes?",
+          "answer": "Die erste Kanonliste des AT",
+          "distractors": ["Die erste Kanonliste des NT", "Die erste christliche „Dogmatik“", "Der Begriff „kanon“ für die Schriftliste"],
+          "explanation": "Folie 28: Melito von Sardes (um 190): erste Kanonliste AT; Canon Muratori (um 200): erste Kanonliste NT; Begriff „kanon“: Athanasius 367.",
+          "slides": [28],
+          "entries": ["person.melito"]
+        },
+        {
+          "id": "q.l04.muratori",
+          "prompt": "Welches Kriterium nennt die Vorlesung für den Canon Muratori?",
+          "answer": "Authentischer Bezug auf die Geschichte Jesu und der Apostel",
+          "distractors": ["Abfassung in griechischer Sprache", "Gebrauch in der Gemeinde von Rom seit Petrus", "Übereinstimmung mit dem dreifachen Schriftsinn"],
+          "explanation": "Folie 28: „Canon Muratori (um 200): erste Kanonliste NT; Kriterium: authent. Bezug auf Geschichte Jesu und der Apostel“.",
+          "slides": [28],
+          "entries": ["source.muratorian_canon"]
+        },
+        {
+          "id": "q.l04.athanasius",
+          "prompt": "Welche Schrift nennt die Vorlesung für 27 neutestamentliche Schriften und den Begriff „kanon“?",
+          "answer": "Den Osterfestbrief des Athanasius von 367",
+          "distractors": ["Die Kirchengeschichte des Eusebius", "Die Katechesen Kyrills von Jerusalem", "Peri Archon des Origenes"],
+          "explanation": "Folie 28: „um 360 n.Chr.: 27 ntl. kanonische Schriften vgl. Osterfestbrief des Athanasius von 367 n.Chr.: Begriff ‚kanon‘“. Euseb zählt 21/26, Kyrill 26 Schriften.",
+          "slides": [28],
+          "entries": ["event.festal_letter_367", "person.athanasius"]
+        },
+        {
+          "id": "q.l04.west_east",
+          "prompt": "Wann wurde der Kanon nach der Vorlesung kirchenamtlich für den Osten fixiert?",
+          "answer": "692 durch das Trullanum",
+          "distractors": ["Um 382 unter Papst Damasus", "1546 in Trient", "367 durch Athanasius"],
+          "explanation": "Folie 28: um 382 unter Damasus Fixierung für den Westen; 692 Trullanum für den Osten; 1546 Dogmatisierung in Trient. Die Folie nennt das Trullanum zusammen mit Konstantinopel III; es war eine eigene Synode (691/692).",
+          "slides": [28],
+          "entries": ["event.trullan_council_692"]
+        },
+        {
+          "id": "q.l04.trent",
+          "prompt": "Was geschah nach der Vorlesung 1546 in Trient?",
+          "answer": "Die Dogmatisierung des Kanons",
+          "distractors": ["Die erste Kanonliste des NT", "Die Schließung der Akademie", "Die Verurteilung des Origenes"],
+          "explanation": "Folie 28: „1546 Dogmatisierung des Kanons in Trient“.",
+          "slides": [28],
+          "entries": ["event.trent_canon_1546"]
+        },
+        {
+          "id": "q.l04.death_positive",
+          "prompt": "Woran zeigt sich nach der Vorlesung, dass der Tod bei den frühen Christen positiv belegt war?",
+          "answer": "Feier der Namenstage, Ablehnung von Geburtsfeiern",
+          "distractors": ["Verbot jeder Trauerfeier", "Verbrennung der Toten nach paganem Brauch", "Ablehnung des Leichenmahls"],
+          "explanation": "Folie 29: „Tod positiv belegt: Feier der Namenstage; Ablehnung von Geburtsfeiern“. Das Leichenmahl übernahmen die Christen nach Folie 29 aus der paganen Kultur.",
+          "slides": [29]
+        },
+        {
+          "id": "q.l04.scili",
+          "prompt": "Wofür stehen die Märtyrer von Scili in der Vorlesung?",
+          "answer": "Für den Tod als Übergang in den Himmel",
+          "distractors": ["Für die Auseinandersetzung mit Todesängsten", "Für die Vorstellung der allgemeinen Totenauferstehung", "Für die ersten christlichen Friedhöfe"],
+          "explanation": "Folie 29: Märtyrer von Scili – Tod Übergang in den Himmel; Cyprian – Auseinandersetzung mit Todesängsten; Tertullian – allgemeine Totenauferstehung.",
+          "slides": [29],
+          "entries": ["event.scillitan_martyrs"]
+        },
+        {
+          "id": "q.l04.tertullian_resurrection",
+          "prompt": "Wofür setzte sich Tertullian nach der Vorlesung im Blick auf den Tod ein?",
+          "answer": "Für die Vorstellung der allgemeinen Totenauferstehung",
+          "distractors": ["Für eigene christliche Friedhöfe", "Für das Leichenmahl", "Für die Feier von Geburtstagen"],
+          "explanation": "Folie 29: „Tertullian (3. Jh.): Einsatz für die Vorstellung der Allgemeinen Toten-Auferstehung“.",
+          "slides": [29],
+          "entries": ["person.tertullian"]
+        },
+        {
+          "id": "q.l04.cemeteries",
+          "prompt": "Seit wann gab es nach der Vorlesung eigene christliche Friedhöfe?",
+          "answer": "Seit dem frühen 3. Jh.",
+          "distractors": ["Seit dem 1. Jh.", "Erst seit Konstantin", "Erst seit dem 5. Jh."],
+          "explanation": "Folie 29: „seit dem frühen 3. Jh. eigene christl. Friedhöfe: u.a. Katakomben“.",
+          "slides": [29],
+          "entries": ["event.christian_cemeteries", "term.catacombs"]
+        },
+        {
+          "id": "q.l04.arcosolium",
+          "prompt": "Was zeigt Folie 32 aus Seleukia Pieria?",
+          "answer": "Arkosol-Gräber",
+          "distractors": ["Einen Hochzeitsgürtel", "Eine Grabplatte mit Anker", "Eine Memoria mit Märtyrergrab"],
+          "explanation": "Folie 32: „Arkosol-Gräber, Seleukia Pieria“ – Grabnischen unter einem Bogen. Die Grabplatte mit Anker ist auf Folie 31, der Hochzeitsgürtel auf Folie 34.",
+          "slides": [32],
+          "entries": ["term.arcosolium"]
+        },
+        {
+          "id": "q.l04.marriage_law",
+          "prompt": "Wie wurde die Ehe nach der Vorlesung geschlossen?",
+          "answer": "Nach weltlichem Recht durch gegenseitige Zustimmung der Eheleute",
+          "distractors": ["Von Anfang an durch einen Priester in der Kirche", "Durch Beschluss der Gemeindeversammlung", "Nur durch Vertrag der Väter ohne Zustimmung der Brautleute"],
+          "explanation": "Folie 33: Die Ehe wurde nach weltlichem Recht geschlossen, es ging um die gegenseitige Zustimmung der Eheleute; erst im 4./5. Jh. wurde der Klerus stärker einbezogen.",
+          "slides": [33]
+        },
+        {
+          "id": "q.l04.marriage_purpose",
+          "prompt": "Wie wurde die Ehe nach der Vorlesung besonders bei Augustin zweckmäßig begründet?",
+          "answer": "Durch die Kinderzeugung",
+          "distractors": ["Durch die Versorgung der Witwen", "Durch das Erbrecht", "Durch die Naherwartung"],
+          "explanation": "Folie 33: „zweckmäßige Begründung der Ehe: Kinderzeugung (bes. Augustin)“. Die Naherwartung begründete eher ein Ressentiment gegenüber der Ehe.",
+          "slides": [33],
+          "entries": ["person.augustine"]
+        },
+        {
+          "id": "q.l04.iunctio",
+          "prompt": "Was zeigt der Hochzeitsgürtel aus Konstantinopel (6./7. Jh.) nach der Vorlesung?",
+          "answer": "Die iunctio dextrarum",
+          "distractors": ["Die Vierzig Märtyrer von Sebaste", "Die Emanation nach Plotin", "Ein Leichenmahl"],
+          "explanation": "Folie 34: „Darstellung der iunctio dextrarum, Hochzeitsgürtel Konstantinopel 6./7. Jh.“ – Christus legt die rechten Hände des Paares ineinander.",
+          "slides": [34],
+          "entries": ["term.dextrarum_iunctio"]
         }
       ]
     }

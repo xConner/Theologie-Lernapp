@@ -39,6 +39,16 @@
       "id": "theme.culture",
       "title": "Christentum und antike Kultur",
       "description": "Wie das Christentum mit Philosophie und Bildung der Antike ins Gespräch kam: Stoa und Platonismus, Apostolische Väter und Apologeten, pagane Kritik."
+    },
+    {
+      "id": "theme.canon",
+      "title": "Bibel und Kanon",
+      "description": "Wie aus Sammlung und Abgrenzung die christliche Bibel wurde: Anlässe, Kriterien, Kanonlisten und kirchenamtliche Festlegungen in Ost und West."
+    },
+    {
+      "id": "theme.daily_life",
+      "title": "Christliches Leben im Alltag",
+      "description": "Tod und Bestattung, Ehe und Familie: wo Christen antike Bräuche übernahmen und wo sie eigene Formen ausbildeten."
     }
   ]
 }

@@ -121,22 +121,29 @@ void main() {
   });
 
   group("Vorlesungen und Folien", () {
-    test("Folien 1–7 gehören zu VL 1, 8–15 zu VL 2, 16–23 zu VL 3", () {
-      expect(data.lectures.map((l) => l.id), [
-        "lecture.01",
-        "lecture.02",
-        "lecture.03",
-      ]);
-      expect(data.lecture("lecture.01")!.slides.map((s) => s.number), [
-        for (var i = 1; i <= 7; i++) i,
-      ]);
-      expect(data.lecture("lecture.02")!.slides.map((s) => s.number), [
-        for (var i = 8; i <= 15; i++) i,
-      ]);
-      expect(data.lecture("lecture.03")!.slides.map((s) => s.number), [
-        for (var i = 16; i <= 23; i++) i,
-      ]);
-    });
+    test(
+      "Folien 1–7 gehören zu VL 1, 8–15 zu VL 2, 16–23 zu VL 3, 24–35 zu VL 4",
+      () {
+        expect(data.lectures.map((l) => l.id), [
+          "lecture.01",
+          "lecture.02",
+          "lecture.03",
+          "lecture.04",
+        ]);
+        expect(data.lecture("lecture.01")!.slides.map((s) => s.number), [
+          for (var i = 1; i <= 7; i++) i,
+        ]);
+        expect(data.lecture("lecture.02")!.slides.map((s) => s.number), [
+          for (var i = 8; i <= 15; i++) i,
+        ]);
+        expect(data.lecture("lecture.03")!.slides.map((s) => s.number), [
+          for (var i = 16; i <= 23; i++) i,
+        ]);
+        expect(data.lecture("lecture.04")!.slides.map((s) => s.number), [
+          for (var i = 24; i <= 35; i++) i,
+        ]);
+      },
+    );
 
     test("jede Folie hat ein vorhandenes Bild und eine Abschrift", () {
       for (final l in data.lectures) {
@@ -166,6 +173,28 @@ void main() {
       expect(
         lecture.mentions.map((m) => m.entryId),
         containsAll(["term.apostolic_fathers", "term.apologetics"]),
+      );
+    });
+
+    test("VL 4: Kanon und Alltag in der Gliederung, Trullanum berichtigt", () {
+      final lecture = data.lecture("lecture.04")!;
+      final topics = data.course.outline.expand((p) => p.topics);
+      for (final n in [5, 6]) {
+        expect(
+          topics
+              .firstWhere((t) => t.number == n && t.lectureId != null)
+              .lectureId,
+          "lecture.04",
+        );
+      }
+      // Abschrift im Wortlaut, Eintrag vermerkt die eigene Synode.
+      expect(lecture.slide(28)!.text, contains("Konstantinopel III/Trullanum"));
+      final trullanum = data.entry("event.trullan_council_692")!;
+      expect(trullanum.notes.map((n) => n.text).join(), contains("680/681"));
+      // Bereits vorhandene Einträge werden nur neu verknüpft.
+      expect(
+        lecture.mentions.map((m) => m.entryId),
+        containsAll(["person.origen", "person.basil", "person.cyprian"]),
       );
     });
 
@@ -402,6 +431,7 @@ void main() {
         "lecture.01",
         "lecture.02",
         "lecture.03",
+        "lecture.04",
       ]);
       expect(data.sessions.map((s) => s.id), [
         for (var i = 1; i <= 14; i++) "seminar.${i.toString().padLeft(2, "0")}",
