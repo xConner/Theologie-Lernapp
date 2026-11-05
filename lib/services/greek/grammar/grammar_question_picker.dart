@@ -7,7 +7,9 @@ import '../../../models/greek/vocabulary/greek_vocabulary_entry.dart';
 import 'adjective_comparisons.dart';
 import 'greek_declension.dart';
 import 'greek_future.dart';
+import 'greek_mi_verbs.dart';
 import 'greek_subjunctive.dart';
+import 'mi_verb_exercises.dart';
 import 'subjunctive_exercises.dart';
 import 'verb_paradigm.dart';
 
@@ -59,10 +61,14 @@ class GrammarQuestionPicker {
     "pronoun",
     "comparison",
     SubjunctiveExercises.type,
+    MiVerbExercises.type,
   ];
 
   /// Aufgabenarten des Themas Konjunktiv, einzeln wählbar.
   static const List<String> subjunctiveKinds = SubjunctiveExercises.kinds;
+
+  /// Aufgabenarten des Themas Verben auf -μι, einzeln wählbar.
+  static const List<String> miVerbKinds = MiVerbExercises.kinds;
 
   static const List<String> cases = declensionCases;
 
@@ -177,6 +183,8 @@ class GrammarQuestionPicker {
   /// Ob das Verb in einem ausgewählten Modus eine ausgewählte Zeitform
   /// bildet. Den Konjunktiv gibt es nur, wo [GreekSubjunctive] ihn bilden
   /// kann (kein Konjunktiv Präsens bei Kontrakta, keiner bei -μι-Verben).
+  /// Von ἵημι und ἵστημι kennt der Trainer nur die Folie: Indikativ,
+  /// Infinitiv und Partizip.
   static bool verbHasForms(
     GreekVocabularyEntry entry, {
     required List<String> enabledMoods,
@@ -185,6 +193,11 @@ class GrammarQuestionPicker {
     final tenses = allowedTenses(entry);
 
     return enabledMoods.any((mood) {
+      if (GreekMiVerbs.slideOnly(entry.lemma) &&
+          !GreekMiVerbs.slideMoods.contains(mood)) {
+        return false;
+      }
+
       return tensesOfMood(mood).any((tense) {
         return enabledTenses.contains(tense) &&
             tenses.contains(tense) &&
@@ -333,9 +346,22 @@ class GrammarQuestionPicker {
     required Set<int> pronounIds,
     Set<int> comparisonIds = const {},
     Set<int> subjunctiveIds = const {},
+    Set<int> miVerbIds = const {},
     List<String> enabledMoods = moods,
     List<String> enabledTenses = selectableTenses,
   }) {
+    // Die Verbaufgaben des Themas Verben auf -μι hängen an der Wortart
+    // „Verben auf -μι“, nicht an der Wortart Verb und keinem Schritt.
+    if (MiVerbExercises.isVerbEntry(entry)) {
+      return enabledTypes.contains(MiVerbExercises.type) &&
+          miVerbIds.contains(entry.id) &&
+          verbHasForms(
+            entry,
+            enabledMoods: enabledMoods,
+            enabledTenses: enabledTenses,
+          );
+    }
+
     if (!enabledTypes.contains(entry.type) || blacklist.contains(entry.lemma)) {
       return false;
     }
@@ -361,14 +387,19 @@ class GrammarQuestionPicker {
       return subjunctiveIds.contains(entry.id);
     }
 
+    if (entry.type == MiVerbExercises.type) {
+      return miVerbIds.contains(entry.id);
+    }
+
     return enabledSteps.contains(entry.step);
   }
 
   /// Wählt die Grundform der nächsten Frage aus den bereits gefilterten
-  /// Wörtern. Sechs Gruppen mit demselben Grundgewicht: alle Wörter (ohne
-  /// die Aufgaben zum Konjunktiv), die
-  /// Verben des Aoristblatts, εἰμί, die Pronomen, die Adjektivsteigerung und
-  /// die Aufgaben zum Konjunktiv (jeweils soweit verfügbar). Der Lernbedarf verschiebt die Auswahl
+  /// Wörtern. Sieben Gruppen mit demselben Grundgewicht: alle Wörter (ohne
+  /// die Aufgaben zum Konjunktiv und zu den Verben auf -μι), die
+  /// Verben des Aoristblatts, εἰμί, die Pronomen, die Adjektivsteigerung,
+  /// die Aufgaben zum Konjunktiv und die zu den Verben auf -μι (jeweils
+  /// soweit verfügbar). Der Lernbedarf verschiebt die Auswahl
   /// zwischen den Gruppen und innerhalb der gewählten Gruppe; bei der
   /// Adjektivsteigerung zählt dort zusätzlich die Priorität des Adjektivs
   /// (unregelmäßige deutlich häufiger).
@@ -394,10 +425,14 @@ class GrammarQuestionPicker {
       return entry.type == SubjunctiveExercises.type;
     }).toList();
 
-    // Die Aufgaben zum Konjunktiv kommen nur über ihre eigene Gruppe, sonst
-    // verdrängten ihre gut 70 Aufgaben die Wörter weniger Schritte.
+    final miVerbs = available.where(MiVerbExercises.owns).toList();
+
+    // Die Aufgaben zum Konjunktiv und zu den Verben auf -μι kommen nur über
+    // ihre eigene Gruppe, sonst verdrängten ihre vielen Aufgaben die Wörter
+    // weniger Schritte.
     final words = available.where((entry) {
-      return entry.type != SubjunctiveExercises.type;
+      return entry.type != SubjunctiveExercises.type &&
+          !MiVerbExercises.owns(entry);
     }).toList();
 
     return grammar.pickFromGroups(
@@ -408,6 +443,7 @@ class GrammarQuestionPicker {
         if (pronouns.isNotEmpty) pronouns,
         if (comparisons.isNotEmpty) comparisons,
         if (subjunctive.isNotEmpty) subjunctive,
+        if (miVerbs.isNotEmpty) miVerbs,
       ],
       (entry) => GrammarLearning.lemmaId(entry.id),
       weightOf: (entry) {
@@ -586,7 +622,8 @@ class GrammarQuestionPicker {
   ///
   /// Im Präsens und Imperfekt Aktiv und Medium/Passiv, im Aorist Aktiv und
   /// Medium. Das Aorist Passiv gehört nur beim Infinitiv (παυθῆναι), beim
-  /// Partizip (παυθείς) und beim Konjunktiv (παυθῶ) zum Lernstoff. Ein Deponens hat kein Aktiv – im Aorist steht deshalb die
+  /// Partizip (παυθείς) und beim Konjunktiv (παυθῶ) zum Lernstoff – bei den
+  /// Verben der μι-Folie auch im Indikativ (ἐδόθην). Ein Deponens hat kein Aktiv – im Aorist steht deshalb die
   /// Form, die es tatsächlich bildet: Medium (ἐγενόμην), sonst Passiv
   /// (ἐβουλήθην), sonst Aktiv (ἦλθον). Im Futur alle Genera Verbi, die der
   /// Futureintrag des Verbs bildet (Folien: παύσω, παύσομαι, παυθήσομαι).
@@ -623,7 +660,8 @@ class GrammarQuestionPicker {
           if (existing.contains(voice)) voice,
         if ((mood == VerbMood.infinitive ||
                 mood == VerbMood.participle ||
-                mood == VerbMood.subjunctive) &&
+                mood == VerbMood.subjunctive ||
+                GreekMiVerbs.covers(entry.lemma)) &&
             existing.contains("Passiv"))
           "Passiv",
       ];
@@ -749,6 +787,17 @@ class GrammarQuestionPicker {
         verbPersonNumbers,
         (analysis) => "${analysis.person}. ${analysis.number}",
       );
+    }
+
+    // Zwei Formen mit derselben Bestimmung (ἵστημι: ἔστησα und ἔστην sind
+    // beide 1. Sg. Aorist Aktiv): nach Lernbedarf wählen. Andere Verben
+    // bleiben bei der ersten Form.
+    if (candidates.length > 1 && GreekMiVerbs.covers(entry.lemma)) {
+      final form = grammar.pickValue("verb", "form", [
+        for (final candidate in candidates) candidate.form,
+      ]);
+
+      return candidates.firstWhere((candidate) => candidate.form == form);
     }
 
     return candidates.first;

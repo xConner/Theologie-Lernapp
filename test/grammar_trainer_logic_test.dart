@@ -283,6 +283,7 @@ void main() {
           "pronoun",
           "comparison",
           "subjunctive",
+          "mi_verbs",
         ]);
         expect(settings.enabledComparisonKinds, ["irregular", "regular"]);
         expect(settings.showLemmaFieldNoun, isTrue);
@@ -312,7 +313,7 @@ void main() {
       settings.enabledTypes.clear();
 
       expect(GrammarTrainerSettings.allSteps.length, 7);
-      expect(GrammarTrainerSettings.allTypes.length, 5);
+      expect(GrammarTrainerSettings.allTypes.length, 6);
     });
 
     test("Speicherformat: bestehende Felder unverändert, Pronomen ergänzt", () {
@@ -337,6 +338,7 @@ void main() {
         'enabledMoods': GrammarQuestionPicker.moods,
         'enabledTenses': GrammarQuestionPicker.selectableTenses,
         'enabledSubjunctiveKinds': GrammarQuestionPicker.subjunctiveKinds,
+        'enabledMiVerbKinds': GrammarQuestionPicker.miVerbKinds,
         'askLemmaTranslation': false,
       });
     });
@@ -455,6 +457,7 @@ void main() {
         'enabledMoods': ["Imperativ"],
         'enabledTenses': GrammarQuestionPicker.selectableTenses,
         'enabledSubjunctiveKinds': GrammarQuestionPicker.subjunctiveKinds,
+        'enabledMiVerbKinds': GrammarQuestionPicker.miVerbKinds,
         'askLemmaTranslation': true,
       });
     });

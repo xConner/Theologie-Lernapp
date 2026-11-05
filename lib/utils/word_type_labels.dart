@@ -18,6 +18,9 @@ String wordTypeFilterLabel(String type) {
     case "subjunctive":
       return "Konjunktiv";
 
+    case "mi_verbs":
+      return "Verben auf -μι";
+
     case "adverb":
       return "Adverbien";
 

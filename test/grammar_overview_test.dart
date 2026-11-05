@@ -21,6 +21,7 @@ import 'package:theologie_lernapp/screens/greek/grammar_topics/infinitive_screen
 import 'package:theologie_lernapp/screens/greek/grammar_topics/participles_screen.dart';
 import 'package:theologie_lernapp/screens/greek/grammar_topics/prepositions_screen.dart';
 import 'package:theologie_lernapp/screens/greek/grammar_topics/pronouns_screen.dart';
+import 'package:theologie_lernapp/screens/greek/grammar_topics/mi_verbs_screen.dart';
 import 'package:theologie_lernapp/screens/greek/grammar_topics/subjunctive_screen.dart';
 import 'package:theologie_lernapp/screens/greek/grammar_topics/syntax_screen.dart';
 import 'package:theologie_lernapp/services/greek/grammar/adjective_comparisons.dart';
@@ -64,6 +65,7 @@ Map<String, Widget Function()> _screens() {
     "aorist": () => AoristScreen(vocabulary: Future.value(vocabulary)),
     "aorist_sheet": () => const AoristSheetScreen(),
     "subjunctive": () => const SubjunctiveScreen(),
+    "mi_verbs": () => const MiVerbsScreen(),
     "imperative": () => const ImperativeScreen(),
     "infinitive": () => const InfinitiveScreen(),
     "participles": () => const ParticiplesScreen(),
