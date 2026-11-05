@@ -90,7 +90,12 @@ void main() {
           }
 
           if (v.appLink != null) {
-            expect(v.appLink, startsWith("confession:"));
+            expect(
+              v.appLink!.startsWith("confession:") ||
+                  v.appLink!.startsWith("apocrypha:"),
+              isTrue,
+              reason: v.id,
+            );
           }
         }
       }
@@ -113,19 +118,61 @@ void main() {
     },
   );
 
-  test("App-Verweise führen auf vorhandene Bekenntnisse", () async {
-    final confessions = (readJson("assets/confessions.json") as List)
-        .map((c) => (c as Map<String, dynamic>)["id"])
-        .toSet();
+  test(
+    "App-Verweise führen auf vorhandene Bekenntnisse und Apokryphen",
+    () async {
+      final confessions = (readJson("assets/confessions.json") as List)
+          .map((c) => (c as Map<String, dynamic>)["id"])
+          .toSet();
+      final apocrypha =
+          ((readJson("assets/apocrypha/catalog.json")
+                      as Map<String, dynamic>)["works"]
+                  as List)
+              .map((w) => (w as Map<String, dynamic>)["id"])
+              .toSet();
+      final library = await repo.library();
+      var apocryphaLinks = 0;
+
+      for (final w in library.works) {
+        for (final v in w.versions) {
+          final link = v.appLink;
+
+          if (link == null) continue;
+
+          if (link.startsWith("apocrypha:")) {
+            apocryphaLinks++;
+            expect(apocrypha, contains(link.substring("apocrypha:".length)));
+          } else {
+            expect(confessions, contains(link.substring("confession:".length)));
+          }
+        }
+      }
+
+      // Apostolische Väter: Volltext im Apokryphen-Bereich, kein Doppel.
+      expect(apocryphaLinks, greaterThanOrEqualTo(3));
+    },
+  );
+
+  test("Grenzfälle sind bei den Autoren gekennzeichnet", () async {
     final library = await repo.library();
 
-    for (final w in library.works) {
-      for (final v in w.versions) {
-        final link = v.appLink;
+    for (final id in [
+      "tertullian",
+      "origenes",
+      "eusebius_von_caesarea",
+      "theodoret_von_cyrus",
+      "johannes_cassian",
+    ]) {
+      final author = library.authors.firstWhere((a) => a.id == id);
 
-        if (link == null) continue;
+      expect(author.note, startsWith("Grenzfall"), reason: id);
+    }
 
-        expect(confessions, contains(link.substring("confession:".length)));
+    // Die übrigen Kirchenväter tragen keine solche Kennzeichnung.
+    for (final a in library.authors) {
+      if (a.id == "augustinus_von_hippo" ||
+          a.id == "athanasius_von_alexandrien") {
+        expect(a.note, isNot(startsWith("Grenzfall")), reason: a.id);
       }
     }
   });
@@ -318,6 +365,14 @@ void main() {
         "npnf.chrysostomus.hom_heb": 34,
         "npnf.chrysostomus.de_statuis": 21,
         "npnf.basilius.hexaemeron": 9,
+        "npnf.augustinus.in_iohannem": 124,
+        "npnf.augustinus.in_epistulam_iohannis": 10,
+        "npnf.augustinus.enarrationes": 150,
+        "npnf.augustinus.confessiones": 13,
+        "npnf.kyrill_jer.catecheses": 24,
+        "npnf.cassian.conlationes": 24,
+        "anf.cyprian.epistulae": 82,
+        "npnf.eusebius.historia_ecclesiastica": 10,
       };
 
       for (final MapEntry(:key, :value) in expected.entries) {

@@ -1,8 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../info/app_info.dart';
 import '../../models/bible/bible_reference.dart';
 import '../../models/fathers/fathers.dart';
+import '../../services/apocrypha/apocrypha_repository.dart';
+import '../../services/apocrypha/apocrypha_user_data.dart';
 import '../../services/bible/bible_books.dart';
 import '../../services/bible/bible_reference_parser.dart';
 import '../../services/fathers/fathers_repository.dart';
@@ -11,6 +14,7 @@ import '../../widgets/content_page.dart';
 import '../../widgets/fathers/fathers_widgets.dart';
 import '../../widgets/info_report.dart';
 import '../../services/confession_service.dart';
+import '../apocrypha/apocrypha_work_screen.dart';
 import '../bible/bible_reader_screen.dart';
 import '../confession_detail_screen.dart';
 
@@ -39,10 +43,26 @@ Future<void> openAppLink(BuildContext context, String link) async {
     _ => ("", ""),
   };
 
-  if (area != "confession") return;
-
   final messenger = ScaffoldMessenger.of(context);
   final navigator = Navigator.of(context);
+
+  if (area == "apocrypha") {
+    // Apostolische Väter u. a. stehen mit Volltext im Bereich Apokryphen.
+    navigator.push(
+      MaterialPageRoute(
+        builder: (_) => ApocryphaWorkScreen(
+          workId: id,
+          repository: ApocryphaRepository.instance,
+          userData: ApocryphaUserData.forUser(
+            FirebaseAuth.instance.currentUser?.uid,
+          ),
+        ),
+      ),
+    );
+    return;
+  }
+
+  if (area != "confession") return;
 
   try {
     final all = await ConfessionService().loadConfessions();
@@ -264,7 +284,11 @@ class _WorkViewState extends State<_WorkView> {
               key: const ValueKey("open-app-link"),
               onPressed: () => openAppLink(context, version.appLink!),
               icon: const Icon(Icons.menu_book_rounded),
-              label: const Text("In der App lesen (Bekenntnisse)"),
+              label: Text(
+                version.appLink!.startsWith("apocrypha:")
+                    ? "In der App lesen (Apokryphen & außerkanonische Schriften)"
+                    : "In der App lesen (Bekenntnisse)",
+              ),
             ),
           )
         else

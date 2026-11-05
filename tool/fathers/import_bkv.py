@@ -674,6 +674,14 @@ def import_open_texts(open_dir: Path, authors, later_ids, works_out, links_out, 
     english = open_texts.EnglishRefReader()
     latin = open_texts.LatinRefReader()
     used = set()
+    # Autoren, die (noch) keine BKV-Fassung haben; Name wie in der BKV, damit
+    # spätere EPUBs desselben Autors dieselbe Kennung bekommen.
+    for a in curated.get("authors", []):
+        if a["name"] in later_ids:
+            continue
+        if a["id"] != slug(a["name"]):
+            raise SystemExit(f"Autor {a['id']}: Kennung passt nicht zum Namen {a['name']}")
+        authors.setdefault(a["id"], {"id": a["id"], "name": a["name"]})
 
     def work_entry(text):
         w = text["work"]
@@ -703,7 +711,8 @@ def import_open_texts(open_dir: Path, authors, later_ids, works_out, links_out, 
                 files, split=text.get("split", "auto"), titles=text.get("titles"),
                 bold_heads=text.get("boldHeads", False),
                 skip_paragraphs=text.get("skipParagraphs", 0),
-                plain_notes=text.get("plainNotes", False))
+                plain_notes=text.get("plainNotes", False),
+                head_pattern=text.get("headPattern"))
             reader = english
         else:
             sections = open_texts.read_tei(files[0], keep_footnotes=text["source"] == "csel",
@@ -743,6 +752,8 @@ def import_open_texts(open_dir: Path, authors, later_ids, works_out, links_out, 
                 ref = None
                 if text.get("passageMode") == "chapterHeading":
                     ref = open_texts.passage_from_chapter_heading(s["t"], book, v11n)
+                elif text.get("passageMode") == "chapterTitle":
+                    ref = open_texts.passage_from_chapter_title(s["t"], book, v11n)
                 elif s["p"]:
                     ref = open_texts.passage_from_start(s["p"][0], book, v11n)
                 if ref is not None:

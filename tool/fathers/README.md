@@ -70,7 +70,14 @@ Commits stehen ebenfalls dort:
   genannten Dateien; Übertragungen „using ChatGPT“ der Sammlung bricht
   `read_hcf` ab. Griechisch in Beta-Code wird in griechische Schrift
   umgesetzt. `passageBook` liest bei Homilienreihen den ausgelegten
-  Abschnitt am Anfang jeder Homilie (Zuordnung „Auslegung des Abschnitts“).
+  Abschnitt am Anfang jeder Homilie (Zuordnung „Auslegung des Abschnitts“);
+  `passageMode` „chapterTitle“ nimmt das Kapitel aus dem Titel („Psalm 22“).
+  `headPattern` macht Absätze, die nur aus einer Überschriftzeile bestehen
+  („LETTER XCVI. (A.D. 408.)“), zu Zwischenüberschriften.
+- `authors` in `open_texts.json`: Autoren ohne BKV-Fassung, Kennung =
+  `slug(Name)`, Name wie in der BKV; Einordnung in `bkv_authors.json`.
+- `catalog`-Einträge mit `appLink` „apocrypha:<id>“ verweisen auf Werke
+  im Bereich Apokryphen (Apostolische Väter), ohne den Text zu doppeln.
 - **csel** (lateinische Originale, EpiDoc): je Buch Gruppen von Paragraphen;
   Randangaben und textkritischer Apparat entfallen, Bibelstellen aus den
   Fußnoten der Seite bleiben als Anmerkungen (Absatz ungefähr, Sicherheit

@@ -148,12 +148,39 @@ Werkansicht vorn und öffnen sich zuerst; die Volltextsuche sucht zuerst in
 deutschen Texten (umschaltbar). Werke mit umstrittener Echtheit tragen das
 Kennzeichen „Echtheit umstritten“.
 
+Seit 05.11.2026 sind weitere Kirchenväter dabei, die katholische,
+orthodoxe und lutherische Kirche gemeinsam anerkennen und benutzen (Auswahl
+mit Blick auf die Bekenntnisschriften, den Catalogus testimoniorum der
+Konkordienformel, Chemnitz und Gerhard): Augustinus, Athanasius, Irenäus,
+Justin, Cyprian, Hilarius, Hieronymus, Leo der Große, Gregor der Große,
+Cyrill von Jerusalem, Cyrill von Alexandrien, Gregor von Nazianz, Johannes
+von Damaskus und Ephräm. Englisch nach NPNF, ANF, Library of the Fathers
+und weiteren gemeinfreien Ausgaben (Robinson 1920, Gardner 1911, Payne Smith
+1859), lateinisch aus dem CSEL. Häretiker sind nicht aufgenommen. Grenzfälle,
+die in allen Kirchen viel benutzt werden, sind aufgenommen und in der
+Einordnung des Autors mit „Grenzfall:“ gekennzeichnet: Tertullian, Origenes,
+Eusebius, Theodoret (nur Eranistes und Kirchengeschichte) und Johannes
+Cassian. Autoren ohne BKV-Fassung stehen in `open_texts.json` unter
+`authors` (Name wie in der BKV, damit ein späteres EPUB dieselbe Kennung
+trifft); Lebensdaten, Namensformen und Einordnung in
+`curation/bkv_authors.json`. Ignatius, Polykarp und der 1. Clemensbrief
+stehen mit Volltext im Bereich Apokryphen; die Bibliothek verweist dorthin
+(`appLink` „apocrypha:<id>“) statt sie doppelt zu führen. Sammlungen, die
+das NPNF nur in Auswahl bietet (Briefe Augustins, Hieronymus' und Leos,
+Leos Predigten, Reden und Briefe Gregors von Nazianz, Athanasius' Briefe),
+sind als „teilweise“ gekennzeichnet.
+
 ## Grenzen
 
 - Die Zuordnung „Auslegung des Abschnitts“ setzt voraus, dass die Ausgabe
   den ausgelegten Abschnitt am Anfang einer Einheit nennt („Über die Stelle
   …“, „… bis dahin …“). Ausgaben ohne solche Angabe liefern nur Zitate und
   Verweise.
+- Augustins Psalmenauslegungen sind in der Vorlage schon nach hebräischer
+  Zählung auf 150 Dateien verteilt; jede Auslegung gilt als Auslegung des
+  ganzen Psalms (`passageMode` „chapterTitle“).
+- Cyrills Johanneskommentar (Library of the Fathers) nennt keine
+  Stellenangaben; er hat darum keine Zuordnungen zu Bibelstellen.
 - Psalmen nach Vulgata-Zählung werden kapitelweise umgerechnet; Vulg. Ps 9,
   113–115 und 146/147 lassen sich ohne hebräische Angabe nicht sicher
   zuordnen und entfallen.
