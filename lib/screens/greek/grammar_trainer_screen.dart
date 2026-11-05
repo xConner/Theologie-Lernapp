@@ -14,7 +14,9 @@ import '../../services/greek/grammar/grammar_answer_check.dart';
 import '../../services/greek/grammar/grammar_form_analysis.dart';
 import '../../services/greek/grammar/grammar_question_picker.dart';
 import '../../services/greek/grammar/grammar_settings_service.dart';
+import '../../services/greek/grammar/greek_mi_verbs.dart';
 import '../../services/greek/grammar/greek_subjunctive.dart';
+import '../../services/greek/grammar/mi_verb_exercises.dart';
 import '../../services/greek/grammar/pronoun_paradigms.dart';
 import '../../services/greek/grammar/subjunctive_exercises.dart';
 import '../../services/greek/grammar/verb_paradigm.dart';
@@ -169,6 +171,11 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
       GrammarQuestionPicker.subjunctiveKinds;
 
   List<String> enabledSubjunctiveKinds = List.of(allSubjunctiveKinds);
+
+  // Unterauswahl des Themas Verben auf -μι.
+  static const List<String> allMiVerbKinds = GrammarQuestionPicker.miVerbKinds;
+
+  List<String> enabledMiVerbKinds = List.of(allMiVerbKinds);
 
   // ---------------------------------------------------------------------------
   // NOMEN
@@ -337,6 +344,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
     enabledMoods = settings.enabledMoods;
     enabledTenses = settings.enabledTenses;
     enabledSubjunctiveKinds = settings.enabledSubjunctiveKinds;
+    enabledMiVerbKinds = settings.enabledMiVerbKinds;
     askLemmaTranslation = settings.askLemmaTranslation;
   }
 
@@ -364,6 +372,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
         enabledMoods: enabledMoods,
         enabledTenses: enabledTenses,
         enabledSubjunctiveKinds: enabledSubjunctiveKinds,
+        enabledMiVerbKinds: enabledMiVerbKinds,
         askLemmaTranslation: askLemmaTranslation,
       ),
     );
@@ -391,6 +400,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
         ...results[0] as List<GreekVocabularyEntry>,
         ...AdjectiveComparisons.entries,
         ...SubjunctiveExercises.entries,
+        ...MiVerbExercises.entries,
       ];
 
       pronouns = results[3] as PronounParadigms;
@@ -488,6 +498,35 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
         : null;
   }
 
+  // Bilden und Sätze des Themas Verben auf -μι (das Bestimmen läuft als
+  // Verbaufgabe).
+  bool isMiVerbTopic() {
+    return question?.type == MiVerbExercises.type;
+  }
+
+  MiVerbBuildTask? get _miBuildTask {
+    final q = question;
+
+    return q != null && isMiVerbTopic()
+        ? MiVerbExercises.buildTask(q.id)
+        : null;
+  }
+
+  MiVerbUsageTask? get _miUsageTask {
+    final q = question;
+
+    return q != null && isMiVerbTopic()
+        ? MiVerbExercises.usageTask(q.id)
+        : null;
+  }
+
+  // Aufgaben mit eigener Eingabe statt Bestimmung eines Wortes: Konjunktiv
+  // und Verben auf -μι (Bilden, Sätze).
+  bool _isExerciseTask() => isSubjunctive() || isMiVerbTopic();
+
+  // Eine Form ist zu bilden (Konjunktiv oder μι-Verb).
+  bool get _isBuildTask => _buildTask != null || _miBuildTask != null;
+
   // Ob zur aktuellen Frage die Übersetzung der Grundform gefragt ist.
   bool _translationAsked() {
     return isComparison()
@@ -504,6 +543,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
       pronounIds: {for (final paradigm in _enabledPronouns()) paradigm.id},
       comparisonIds: AdjectiveComparisons.idsOfKinds(enabledComparisonKinds),
       subjunctiveIds: SubjunctiveExercises.idsOfKinds(enabledSubjunctiveKinds),
+      miVerbIds: MiVerbExercises.idsOfKinds(enabledMiVerbKinds),
       enabledMoods: enabledMoods,
       enabledTenses: enabledTenses,
     );
@@ -608,7 +648,8 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
       generatePronounQuestion(newQuestion);
     } else if (newQuestion.type == AdjectiveComparisons.type) {
       generateComparisonQuestion(newQuestion);
-    } else if (newQuestion.type == SubjunctiveExercises.type) {
+    } else if (newQuestion.type == SubjunctiveExercises.type ||
+        newQuestion.type == MiVerbExercises.type) {
       generateSubjunctiveQuestion(newQuestion);
     }
 
@@ -809,7 +850,8 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
       _preloadPronounQuestion(next);
     } else if (next.type == AdjectiveComparisons.type) {
       _preloadComparisonQuestion(next);
-    } else if (next.type == SubjunctiveExercises.type) {
+    } else if (next.type == SubjunctiveExercises.type ||
+        next.type == MiVerbExercises.type) {
       _preloadSubjunctiveQuestion(next);
     }
   }
@@ -883,8 +925,24 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
 
       final buildTask = _buildTask;
       final usageTask = _usageTask;
+      final miBuildTask = _miBuildTask;
+      final miUsageTask = _miUsageTask;
 
-      if (buildTask != null) {
+      if (miBuildTask != null) {
+        _buildInput = answerController.text;
+
+        final result = MiVerbExercises.checkForm(_buildInput, miBuildTask);
+
+        buildResult = result;
+        lemmaCorrect = null;
+        correct = result.correct;
+      } else if (miUsageTask != null) {
+        // Sätze: Tempus (userTense) und Grundform (userUse).
+        lemmaCorrect = null;
+        tenseCorrect = userTense == miUsageTask.tense;
+        useCorrect = userUse == miUsageTask.verb;
+        correct = tenseCorrect! && useCorrect!;
+      } else if (buildTask != null) {
         _buildInput = answerController.text;
 
         final result = SubjunctiveExercises.checkForm(
@@ -1057,13 +1115,30 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
 
     final buildTask = _buildTask;
     final usageTask = _usageTask;
+    final miBuildTask = _miBuildTask;
+    final miUsageTask = _miUsageTask;
 
-    if (buildTask != null) {
+    if (buildTask != null || miBuildTask != null) {
       return [
         SelfAssessmentPart(
           id: _partForm,
           label: "Form",
-          value: buildTask.answer,
+          value: buildTask?.answer ?? miBuildTask!.answer,
+        ),
+      ];
+    }
+
+    if (miUsageTask != null) {
+      return [
+        SelfAssessmentPart(
+          id: _partUse,
+          label: "Grundform",
+          value: miUsageTask.verb,
+        ),
+        SelfAssessmentPart(
+          id: _partTense,
+          label: "Tempus",
+          value: miUsageTask.tense,
         ),
       ];
     }
@@ -1190,10 +1265,10 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
     correct = assessment.knew;
     lemmaCorrect = knew(_partLemma);
 
-    if (_buildTask != null) {
+    if (_isBuildTask) {
       lemmaCorrect = null;
       buildResult = (correct: knew(_partForm), diacriticsMissing: false);
-    } else if (_usageTask != null) {
+    } else if (_usageTask != null || _miUsageTask != null) {
       lemmaCorrect = null;
       tenseCorrect = knew(_partTense);
       useCorrect = knew(_partUse);
@@ -1287,7 +1362,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
       return _buildComparisonFeedback();
     }
 
-    if (isSubjunctive()) {
+    if (_isExerciseTask()) {
       return _buildSubjunctiveSolution();
     }
 
@@ -1350,8 +1425,43 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
 
     final buildTask = _buildTask;
     final usageTask = _usageTask;
+    final miBuildTask = _miBuildTask;
+    final miUsageTask = _miUsageTask;
 
-    if (buildTask != null) {
+    if (miBuildTask != null) {
+      // Die Aufgabe, ihr Tempus, Genus Verbi und Verb: Fehler im Aorist
+      // Passiv holen auch die anderen Formen des Aorist Passiv zurück.
+      final formCorrect = buildResult?.correct ?? false;
+
+      results[lemmaId] = formCorrect;
+
+      for (final (dimension, value) in [
+        ("tense", miBuildTask.tense),
+        ("voice", miBuildTask.voice),
+        ("lemma", miBuildTask.lemma),
+      ]) {
+        results[GrammarLearning.dimensionId(
+              MiVerbExercises.type,
+              dimension,
+              value,
+            )] =
+            formCorrect;
+      }
+    } else if (miUsageTask != null) {
+      results[lemmaId] = correct;
+      results[GrammarLearning.dimensionId(
+            MiVerbExercises.type,
+            "tense",
+            miUsageTask.tense,
+          )] =
+          tenseCorrect ?? false;
+      results[GrammarLearning.dimensionId(
+            MiVerbExercises.type,
+            "lemma",
+            miUsageTask.verb,
+          )] =
+          useCorrect ?? false;
+    } else if (buildTask != null) {
       // Die Aufgabe selbst und ihre Bestimmung: Ein Fehler in der 2. Sg.
       // Aorist Passiv holt diese Merkmale auch in anderen Aufgaben zurück.
       final formCorrect = buildResult?.correct ?? false;
@@ -1742,9 +1852,9 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
         (askComparisonLemma ? answerFocus : translationFocus).requestFocus();
       }
 
-      // Ebenso beim Bilden einer Konjunktivform.
+      // Ebenso beim Bilden einer Konjunktivform oder einer μι-Form.
       if (mounted &&
-          _buildTask != null &&
+          _isBuildTask &&
           !answered &&
           method == AnswerMethod.typing) {
         answerFocus.requestFocus();
@@ -1780,6 +1890,11 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
   // Angezeigt wird die Grundform (Formen bilden) bzw. der Satz (Gebrauch);
   // die Aufgabe selbst ergibt sich aus der ID (_buildTask, _usageTask).
   static String? _subjunctiveDisplay(GreekVocabularyEntry entry) {
+    if (entry.type == MiVerbExercises.type) {
+      return MiVerbExercises.buildTask(entry.id)?.lemma ??
+          MiVerbExercises.usageTask(entry.id)?.sentence;
+    }
+
     return SubjunctiveExercises.buildTask(entry.id)?.lemma ??
         SubjunctiveExercises.usageTask(entry.id)?.sentence;
   }
@@ -1796,7 +1911,8 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
       loadingForm = false;
       correctForm = display;
       formError = display == null
-          ? 'Keine Aufgabe zum Konjunktiv gefunden (ID ${entry.id}).'
+          ? 'Keine Aufgabe zu ${wordTypeFilterLabel(entry.type)} gefunden '
+                '(ID ${entry.id}).'
           : null;
     });
 
@@ -2045,6 +2161,20 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
                         return;
                       }
 
+                      if (enabledTypes.contains(MiVerbExercises.type) &&
+                          enabledMiVerbKinds.isEmpty) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text(
+                              "Verben auf -μι: Mindestens eine Aufgabenart "
+                              "muss ausgewählt sein.",
+                            ),
+                          ),
+                        );
+
+                        return;
+                      }
+
                       if (!askComparisonLemma && !askComparisonTranslation) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
@@ -2111,9 +2241,10 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
                             "Abgefragt werden nur Wörter aus den "
                             "ausgewählten Schritten. Mehrere Schritte können "
                             "gleichzeitig ausgewählt sein. Pronomen, die "
-                            "Adjektivsteigerung und der Konjunktiv gehören "
-                            "zu keinem Schritt und werden nur über die "
-                            "Wortart ein- oder ausgeschaltet.",
+                            "Adjektivsteigerung, der Konjunktiv und die "
+                            "Verben auf -μι gehören zu keinem Schritt und "
+                            "werden nur über die Wortart ein- oder "
+                            "ausgeschaltet.",
                         options: const [1, 2, 3, 4, 5, 6, 7],
                         isSelected: enabledSteps.contains,
                         labelOf: (step) => "Schritt $step",
@@ -2386,6 +2517,49 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
                           },
                         ),
 
+                      // -------------------------------------------------------
+                      // VERBEN AUF -μι (UNTERAUSWAHL)
+                      // -------------------------------------------------------
+                      if (enabledTypes.contains(MiVerbExercises.type))
+                        MultiSelectSection<String>(
+                          title: "Verben auf -μι",
+                          hint:
+                              "Nach der Folie „Die athematische Konjugation“ "
+                              "(δίδωμι, τίθημι, ἵημι, ἵστημι): Formen "
+                              "bestimmen legt Formen der Folientabellen vor "
+                              "(es gelten die gewählten Modi und Zeitformen), "
+                              "Formen bilden fragt jede Form der Folie ab, "
+                              "Sätze fragt Grundform und Tempus in den "
+                              "Sätzen der Folie.",
+                          options: allMiVerbKinds,
+                          isSelected: enabledMiVerbKinds.contains,
+                          labelOf: MiVerbExercises.kindLabel,
+                          emptyError:
+                              "Mindestens eine Aufgabenart muss ausgewählt "
+                              "sein.",
+                          onToggleAll: () {
+                            setDialogState(() {
+                              if (enabledMiVerbKinds.length ==
+                                  allMiVerbKinds.length) {
+                                enabledMiVerbKinds.clear();
+                              } else {
+                                enabledMiVerbKinds = List.of(allMiVerbKinds);
+                              }
+                            });
+                          },
+                          onChanged: (kind, value) {
+                            setDialogState(() {
+                              if (value) {
+                                if (!enabledMiVerbKinds.contains(kind)) {
+                                  enabledMiVerbKinds.add(kind);
+                                }
+                              } else {
+                                enabledMiVerbKinds.remove(kind);
+                              }
+                            });
+                          },
+                        ),
+
                       if (enabledTypes.contains(AdjectiveComparisons.type))
                         SettingsSection(
                           title: "Adjektivsteigerung: abfragen",
@@ -2561,6 +2735,10 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
           "Gefragt": _buildTask!.description
         else if (_usageTask != null)
           "Konjunktivform": _usageTask!.form
+        else if (_miBuildTask != null)
+          "Gefragt": _miBuildTask!.description
+        else if (_miUsageTask != null)
+          "μι-Form": _miUsageTask!.form
         else if (isNoun())
           "Bestimmung": "$selectedCase $selectedNumber"
         else if (isPronoun())
@@ -2651,7 +2829,9 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
                     textAlign: TextAlign.center,
                     // Ein ganzer Satz (Konjunktiv: Gebrauch) kleiner.
                     style: TextStyle(
-                      fontSize: _usageTask != null ? 26 : 36,
+                      fontSize: _usageTask != null || _miUsageTask != null
+                          ? 26
+                          : 36,
                       fontWeight: FontWeight.bold,
                     ),
                   )
@@ -2670,7 +2850,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
                 if (isComparison() && correctForm != null)
                   _buildComparisonPrompt(),
 
-                if (isSubjunctive() && correctForm != null)
+                if (_isExerciseTask() && correctForm != null)
                   _buildSubjunctivePrompt(),
 
                 const SizedBox(height: 16),
@@ -2712,7 +2892,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
                     _buildPronounInputs()
                   else if (isComparison())
                     _buildComparisonInputs()
-                  else if (isSubjunctive())
+                  else if (_isExerciseTask())
                     _buildSubjunctiveInputs(),
 
                   const SizedBox(height: 16),
@@ -2804,7 +2984,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
                         // korrekten Antworten. Die Steigerung zeigt statt
                         // dessen die vollständige Reihe.
                         if (!isComparison() &&
-                            !isSubjunctive() &&
+                            !_isExerciseTask() &&
                             (lemmaCorrect != false ||
                                 (!(isNoun() && showLemmaFieldNoun) &&
                                     !(isVerb() && showLemmaFieldVerb)))) ...[
@@ -2816,7 +2996,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
                         ],
 
                         if (!isComparison() &&
-                            !isSubjunctive() &&
+                            !_isExerciseTask() &&
                             translationCorrect != false &&
                             _feedbackTranslations().isNotEmpty)
                           Text(
@@ -2830,7 +3010,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
                           _buildPronounFeedback()
                         else if (isComparison())
                           _buildComparisonFeedback()
-                        else if (isSubjunctive())
+                        else if (_isExerciseTask())
                           _buildSubjunctiveFeedback()
                         else if (!correct)
                           Column(
@@ -3156,7 +3336,16 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
     final String prompt;
     final String? note;
 
-    if (buildTask != null) {
+    final miBuildTask = _miBuildTask;
+    final miUsageTask = _miUsageTask;
+
+    if (miBuildTask != null) {
+      prompt = "Bilde: ${miBuildTask.description}";
+      note = miBuildTask.hint;
+    } else if (miUsageTask != null) {
+      prompt = "μι-Form: ${miUsageTask.form}";
+      note = "Grundform und Tempus bestimmen · ${miUsageTask.reference}";
+    } else if (buildTask != null) {
       prompt = "Bilde: ${buildTask.description}";
       note = buildTask.hint;
     } else if (usageTask != null) {
@@ -3189,6 +3378,33 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
   }
 
   Widget _buildSubjunctiveInputs() {
+    if (_miUsageTask != null) {
+      return _choiceGroups([
+        _choice(
+          value: userUse,
+          label: "Grundform",
+          items: GreekMiVerbs.lemmas,
+          isCorrect: useCorrect,
+          onChanged: (value) {
+            setState(() {
+              userUse = value;
+            });
+          },
+        ),
+        _choice(
+          value: userTense,
+          label: "Tempus",
+          items: MiVerbExercises.usageTenses,
+          isCorrect: tenseCorrect,
+          onChanged: (value) {
+            setState(() {
+              userTense = value;
+            });
+          },
+        ),
+      ]);
+    }
+
     if (_usageTask != null) {
       return _choiceGroups([
         _choice(
@@ -3223,7 +3439,7 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
       enabled: !answered && !loadingForm && correctForm != null,
       focusNode: answerFocus,
       decoration: InputDecoration(
-        labelText: "Konjunktivform",
+        labelText: _miBuildTask != null ? "Form" : "Konjunktivform",
         helperText:
             "Iota subscriptum ist Pflicht; Akzente und Spiritus dürfen "
             "fehlen, gesetzte müssen stimmen.",
@@ -3256,6 +3472,88 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
     final usageTask = _usageTask;
     final wrong = answered && !correct;
     final secondary = TextStyle(color: context.colors.textSecondary);
+
+    final miBuildTask = _miBuildTask;
+    final miUsageTask = _miUsageTask;
+
+    if (miBuildTask != null) {
+      final hints = wrong && method == AnswerMethod.typing
+          ? MiVerbExercises.explainBuild(miBuildTask, _buildInput)
+          : const <String>[];
+
+      return Column(
+        children: [
+          if (wrong || !answered)
+            Text(
+              wrong ? "Richtig wäre:" : "Lösung:",
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
+          SelectableText(
+            miBuildTask.answer,
+            textAlign: TextAlign.center,
+            style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
+          ),
+          if (buildResult?.diacriticsMissing == true)
+            const Text(
+              "Richtig – präge dir die Akzente der Form oben mit ein.",
+              textAlign: TextAlign.center,
+            ),
+          for (final hint in hints) ...[
+            const SizedBox(height: 6),
+            Text(hint, textAlign: TextAlign.center),
+          ],
+          const SizedBox(height: 12),
+          SelectableText(
+            "${miBuildTask.lemma}, ${miBuildTask.slideTitle} (Folie): "
+            "${miBuildTask.row.join(', ')}",
+            textAlign: TextAlign.center,
+            style: secondary,
+          ),
+        ],
+      );
+    }
+
+    if (miUsageTask != null) {
+      return Column(
+        children: [
+          SelectableText(
+            "${miUsageTask.form}: ${miUsageTask.analysis}",
+            textAlign: TextAlign.center,
+            style: const TextStyle(fontWeight: FontWeight.w500),
+          ),
+          if (miUsageTask.compound != null) ...[
+            const SizedBox(height: 6),
+            Text(
+              "Kompositum ${miUsageTask.compound}",
+              textAlign: TextAlign.center,
+            ),
+          ],
+          if (answered && tenseCorrect == false) ...[
+            const SizedBox(height: 6),
+            Text(switch (miUsageTask.tense) {
+              "Präsens" =>
+                "Präsens: Reduplikation, kein Augment (δίδωμι, τίθημι).",
+              "Imperfekt" => "Imperfekt: Augment + Reduplikation (ἐ-δίδου).",
+              _ =>
+                "Aorist: keine Reduplikation, im Sg. Aktiv mit κ "
+                    "(ἔδωκα); ἔστην ist der Wurzelaorist zu ἵστημι.",
+            }, textAlign: TextAlign.center),
+          ],
+          const SizedBox(height: 8),
+          SelectableText(
+            miUsageTask.translation,
+            textAlign: TextAlign.center,
+            style: const TextStyle(fontStyle: FontStyle.italic),
+          ),
+          Text(
+            "${miUsageTask.reference} · Stelle und Übersetzung ergänzt "
+            "(nicht auf der Folie)",
+            textAlign: TextAlign.center,
+            style: secondary,
+          ),
+        ],
+      );
+    }
 
     if (buildTask != null) {
       final paradigm = [
@@ -3618,15 +3916,26 @@ class _GreekGrammarTrainerScreenState extends State<GreekGrammarTrainerScreen> {
     ];
 
     // Konjunktiv: Woran man ihn erkennt bzw. warum die Form keiner ist.
-    final explanations = GreekSubjunctive.explain(
-      form: target.form,
-      analysis: reference,
-      paradigm: wiktionaryService.cachedVerbParadigm(q.lemma),
-      userMood: userMood,
-      userTense: userTense,
-      userVoice: userVoice,
-      userPersonNumber: userPersonNumber,
-    );
+    // Verben auf -μι: Reduplikation, Augment, κ-Aorist, ἔστην.
+    final explanations = [
+      ...GreekMiVerbs.explain(
+        lemma: q.lemma,
+        form: target.form,
+        analysis: reference,
+        userTense: userTense,
+        userVoice: userVoice,
+        userPersonNumber: userPersonNumber,
+      ),
+      ...GreekSubjunctive.explain(
+        form: target.form,
+        analysis: reference,
+        paradigm: wiktionaryService.cachedVerbParadigm(q.lemma),
+        userMood: userMood,
+        userTense: userTense,
+        userVoice: userVoice,
+        userPersonNumber: userPersonNumber,
+      ),
+    ];
 
     return [
       if (moodCorrect == false) Text("Modus: ${reference.mood}"),

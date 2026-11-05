@@ -23,6 +23,8 @@ class GrammarTrainerSettings {
   static const List<String> allSubjunctiveKinds =
       GrammarQuestionPicker.subjunctiveKinds;
 
+  static const List<String> allMiVerbKinds = GrammarQuestionPicker.miVerbKinds;
+
   final List<int> enabledSteps;
   final List<String> enabledTypes;
 
@@ -69,6 +71,10 @@ class GrammarTrainerSettings {
   /// Wortart Verb.
   final List<String> enabledSubjunctiveKinds;
 
+  /// Unterauswahl des Themas Verben auf -μι: Formen bestimmen, Formen
+  /// bilden und/oder Sätze.
+  final List<String> enabledMiVerbKinds;
+
   /// Nomen und Verben: Zur vorgelegten Form wird zusätzlich die deutsche
   /// Übersetzung der Grundform gefragt. Die Adjektivsteigerung hat dafür
   /// ihren eigenen Schalter ([askComparisonTranslation]).
@@ -89,6 +95,7 @@ class GrammarTrainerSettings {
     this.enabledMoods = allMoods,
     this.enabledTenses = allTenses,
     this.enabledSubjunctiveKinds = allSubjunctiveKinds,
+    this.enabledMiVerbKinds = allMiVerbKinds,
     this.askLemmaTranslation = false,
   });
 
@@ -142,6 +149,7 @@ class GrammarTrainerSettings {
         enabledMoods: List.of(allMoods),
         enabledTenses: List.of(allTenses),
         enabledSubjunctiveKinds: List.of(allSubjunctiveKinds),
+        enabledMiVerbKinds: List.of(allMiVerbKinds),
       );
     }
 
@@ -160,6 +168,7 @@ class GrammarTrainerSettings {
     final moods = data['enabledMoods'];
     final tenses = data['enabledTenses'];
     final subjunctiveKinds = data['enabledSubjunctiveKinds'];
+    final miVerbKinds = data['enabledMiVerbKinds'];
     final lemmaTranslation = data['askLemmaTranslation'];
 
     final storedTenses = tenses is List
@@ -213,6 +222,13 @@ class GrammarTrainerSettings {
                 .where(allSubjunctiveKinds.contains)
                 .toList()
           : List.of(allSubjunctiveKinds),
+      // Ohne gespeicherte Unterauswahl gelten alle drei Aufgabenarten.
+      enabledMiVerbKinds: miVerbKinds is List
+          ? miVerbKinds
+                .whereType<String>()
+                .where(allMiVerbKinds.contains)
+                .toList()
+          : List.of(allMiVerbKinds),
       askLemmaTranslation: lemmaTranslation is bool ? lemmaTranslation : false,
       // Ohne Übersetzung wird immer die Grundform gefragt.
       askComparisonLemma:
@@ -236,6 +252,7 @@ class GrammarTrainerSettings {
       'enabledMoods': enabledMoods,
       'enabledTenses': enabledTenses,
       'enabledSubjunctiveKinds': enabledSubjunctiveKinds,
+      'enabledMiVerbKinds': enabledMiVerbKinds,
       'askLemmaTranslation': askLemmaTranslation,
     };
   }

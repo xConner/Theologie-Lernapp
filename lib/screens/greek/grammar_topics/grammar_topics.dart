@@ -9,6 +9,7 @@ import 'conjugations_screen.dart';
 import 'declinations_screen.dart';
 import 'imperative_screen.dart';
 import 'infinitive_screen.dart';
+import 'mi_verbs_screen.dart';
 import 'participles_screen.dart';
 import 'prepositions_screen.dart';
 import 'pronouns_screen.dart';
@@ -114,6 +115,14 @@ class GrammarTopics {
           subtitle:
               "Präsens und Aorist, εἰμί – Gebrauch im Haupt- und Nebensatz",
           builder: (_) => const SubjunctiveScreen(),
+        ),
+        GrammarTopic(
+          id: "mi_verbs",
+          title: "Verben auf -μι",
+          subtitle:
+              "δίδωμι, τίθημι, ἵημι, ἵστημι – Präsens, Imperfekt, Aorist, "
+              "Partizipien",
+          builder: (_) => const MiVerbsScreen(),
         ),
         GrammarTopic(
           id: "imperative",

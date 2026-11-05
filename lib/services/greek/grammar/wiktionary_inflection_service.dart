@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 
 import 'grammar_form_analysis.dart';
 import 'greek_future.dart';
+import 'greek_mi_verbs.dart';
 import 'greek_subjunctive.dart';
 import 'verb_paradigm.dart';
 
@@ -42,6 +43,10 @@ class WiktionaryInflectionService {
   /// nicht gecacht.
   static final Map<String, VerbParadigm> _paradigmCache = {};
 
+  /// μι-Verben, deren Paradigma ohne Backend nur aus der Folie besteht: Beim
+  /// nächsten Laden wird das Backend erneut gefragt.
+  static final Set<String> _slideFallbacks = {};
+
   // ---------------------------------------------------------------------------
   // VERBEN
   // ---------------------------------------------------------------------------
@@ -50,7 +55,10 @@ class WiktionaryInflectionService {
   /// und Imperativ von Präsens, Imperfekt und Aorist sowie die Nominative
   /// der Partizipien, aus denen [VerbParadigm] die Deklination bildet.
   /// Ergänzt um das Futur aus [GreekFuture] und den Konjunktiv aus
-  /// [GreekSubjunctive].
+  /// [GreekSubjunctive]. Bei den Verben der μι-Folie gehen deren Tabellen
+  /// vor ([GreekMiVerbs]); ἵημι und ἵστημι kommen nur von der Folie, ohne
+  /// Netzwerk, δίδωμι und τίθημι ergänzt um Imperativ und mediale
+  /// Partizipien des Backends (ohne Netz nur die Folie).
   ///
   /// Das Backend übernimmt:
   /// - Wiktionary-Aufruf
@@ -60,10 +68,41 @@ class WiktionaryInflectionService {
   Future<VerbParadigm?> getVerbParadigm(String lemma) async {
     final cached = _paradigmCache[lemma];
 
-    if (cached != null) {
+    if (cached != null && !_slideFallbacks.contains(lemma)) {
       return cached;
     }
 
+    if (GreekMiVerbs.slideOnly(lemma)) {
+      return _paradigmCache[lemma] = GreekMiVerbs.extend(lemma, null);
+    }
+
+    if (GreekMiVerbs.covers(lemma)) {
+      VerbParadigm? backend;
+
+      try {
+        backend = await _loadVerbParadigm(lemma);
+        _slideFallbacks.remove(lemma);
+      } catch (_) {
+        // Ohne Netz genügt die Folie; die Imperative kommen später dazu.
+        if (cached != null) return cached;
+
+        _slideFallbacks.add(lemma);
+      }
+
+      return _paradigmCache[lemma] = GreekMiVerbs.extend(lemma, backend);
+    }
+
+    final paradigm = await _loadVerbParadigm(lemma);
+
+    if (paradigm != null) {
+      _paradigmCache[lemma] = paradigm;
+    }
+
+    return paradigm;
+  }
+
+  // Tabellen des Backends samt Futur und Konjunktiv; `null` ohne Tabelle.
+  Future<VerbParadigm?> _loadVerbParadigm(String lemma) async {
     // Bestimmte Verben bilden den Aorist über ein anderes Lemma.
     // Beispiel: λέγω → εἶπον
     final aoristLemma = _aoristApiLemmaOverrides[lemma];
@@ -104,14 +143,7 @@ class WiktionaryInflectionService {
     // Futur und Konjunktiv stehen nicht in den Tabellen des Backends: Das
     // Futur wird aus den Futurstämmen der Folien gebildet, der Konjunktiv
     // nach den Paradigmen der Folie aus Grundform und Infinitiv Aorist.
-    final paradigm = GreekSubjunctive.extend(
-      lemma,
-      GreekFuture.extend(lemma, tables),
-    );
-
-    _paradigmCache[lemma] = paradigm;
-
-    return paradigm;
+    return GreekSubjunctive.extend(lemma, GreekFuture.extend(lemma, tables));
   }
 
   /// Das zuvor mit [getVerbParadigm] geladene Paradigma; `null`, solange es
