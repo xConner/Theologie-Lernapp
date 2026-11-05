@@ -404,15 +404,21 @@ def _plain_notes(items, notes: dict[int, str]):
 
 def read_hcf(files: list[Path], *, split: str = "auto", titles: list[str] | None = None,
              bold_heads: bool = False, skip_paragraphs: int = 0,
-             plain_notes: bool = False) -> list[dict]:
+             plain_notes: bool = False, head_pattern: str | None = None) -> list[dict]:
     """Abschnitte aus HCF-Dateien in der angegebenen Reihenfolge.
 
     split: "file" – ein Abschnitt je Datei; "heading" – je Zwischenüberschrift;
     "auto" – je Datei, bei langen Dateien je Zwischenüberschrift.
+    head_pattern: Absätze, die ganz auf diesen regulären Ausdruck passen,
+    gelten als Zwischenüberschrift (Vorlagen, die Überschriften nur als
+    Textzeile setzen, z. B. „LETTER XCVI. (A.D. 408.)“).
     """
     sections = []
     for i, path in enumerate(files):
         file_title, items, notes = _hcf_paragraphs(path, bold_heads)
+        if head_pattern:
+            items = [("h", it[1], it[2]) if it[0] == "p" and re.fullmatch(head_pattern, it[1].strip())
+                     else it for it in items]
         if plain_notes:
             items = _plain_notes(items, notes)
         else:
@@ -662,3 +668,17 @@ def passage_from_chapter_heading(title: str, book: str, v11n: Versification):
         return None
     return Ref(book, chapter, 1, chapter, counts[chapter - 1], "high", title,
                "Kapitelüberschrift des Kommentars")
+
+
+def passage_from_chapter_title(title: str, book: str, v11n: Versification):
+    """„Psalm 22“: Abschnitt über ein ganzes Kapitel, dessen Nummer schon in
+    deutscher (hebräischer) Zählung im Titel steht."""
+    m = re.match(r"^(?:Psalm|Chapter)\s+(\d+)$", title.strip(), re.I)
+    if not m:
+        return None
+    chapter = int(m[1])
+    counts = v11n.german.get(book)
+    if not counts or chapter < 1 or chapter > len(counts):
+        return None
+    return Ref(book, chapter, 1, chapter, counts[chapter - 1], "high", title,
+               "Kapitel laut Überschrift der Vorlage")

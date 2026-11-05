@@ -5,7 +5,15 @@
       "tradition": "West",
       "languages": [
         "la"
-      ]
+      ],
+      "lifeDates": "354–430",
+      "deathYear": 430,
+      "aliases": [
+        "Augustin",
+        "Aurelius Augustinus",
+        "Augustine"
+      ],
+      "note": "In katholischer und lutherischer Kirche einer der wichtigsten Kirchenväter, in der Orthodoxie als Heiliger verehrt, theologisch dort aber zurückhaltender aufgenommen. Die lutherischen Bekenntnisschriften berufen sich oft auf ihn, die Apologie der Augsburger Konfession (Art. IV) besonders auf „Über den Geist und den Buchstaben“. Die Schriften gegen die Pelagianer sind für die Lehre von Sünde und Gnade grundlegend."
     },
     "Ambrosius von Mailand": {
       "tradition": "West",
@@ -19,37 +27,79 @@
       "tradition": "West",
       "languages": [
         "la"
-      ]
+      ],
+      "lifeDates": "um 347–420",
+      "deathYear": 420,
+      "aliases": [
+        "Jerome",
+        "Sophronius Eusebius Hieronymus"
+      ],
+      "note": "Übersetzer der Vulgata. Seine Vorreden unterscheiden die Bücher des hebräischen Kanons von den übrigen Büchern des Alten Testaments; darauf beruht die lutherische (und reformierte) Unterscheidung der Apokryphen."
     },
     "Tertullian": {
       "tradition": "West",
       "languages": [
         "la"
-      ]
+      ],
+      "lifeDates": "um 160–nach 220",
+      "deathYear": 220,
+      "aliases": [
+        "Quintus Septimius Florens Tertullianus"
+      ],
+      "note": "Grenzfall: Der erste große lateinische Theologe prägte Begriffe der Trinitätslehre und Christologie. Er wandte sich später dem Montanismus zu und gilt darum nicht als Heiliger. Aufgenommen sind seine viel benutzten Schriften."
     },
     "Cyprian von Karthago": {
       "tradition": "West",
       "languages": [
         "la"
-      ]
+      ],
+      "lifeDates": "um 200–258",
+      "deathYear": 258,
+      "aliases": [
+        "Cyprianus",
+        "Cyprian"
+      ],
+      "note": "Bischof von Karthago, Märtyrer. „Über die Einheit der Kirche“ ist eine Grundschrift der Lehre von der Kirche und wird in allen drei Kirchen viel angeführt."
     },
     "Gregor der Große": {
       "tradition": "West",
       "languages": [
         "la"
-      ]
+      ],
+      "lifeDates": "um 540–604",
+      "deathYear": 604,
+      "aliases": [
+        "Gregor I.",
+        "Gregory the Great"
+      ],
+      "note": "Bischof von Rom. Die Pastoralregel prägte das Verständnis des Seelsorgeamts im Westen; Buch 2 der Dialoge ist die Lebensbeschreibung Benedikts von Nursia."
     },
     "Leo der Große": {
       "tradition": "West",
       "languages": [
         "la"
-      ]
+      ],
+      "lifeDates": "um 400–461",
+      "deathYear": 461,
+      "aliases": [
+        "Leo I.",
+        "Leo the Great"
+      ],
+      "note": "Bischof von Rom. Sein Lehrbrief an Flavian (Tomus Leonis, Brief 28) wurde vom Konzil von Chalcedon 451 angenommen und ist für die Zwei-Naturen-Lehre grundlegend."
     },
     "Johannes Cassian": {
       "tradition": "West",
       "languages": [
         "la"
-      ]
+      ],
+      "lifeDates": "um 360–um 435",
+      "deathYear": 435,
+      "aliases": [
+        "Cassian",
+        "Johannes Cassianus",
+        "John Cassian"
+      ],
+      "note": "Grenzfall: In Ost und West als Heiliger verehrt und für das Mönchtum grundlegend. Seine Gnadenlehre (Unterredung 13) griff Prosper von Aquitanien als semipelagianisch an; sie steht der lutherischen Lehre entgegen."
     },
     "Laktanz": {
       "tradition": "West",
@@ -69,13 +119,27 @@
       "tradition": "Ost",
       "languages": [
         "grc"
-      ]
+      ],
+      "lifeDates": "um 295–373",
+      "deathYear": 373,
+      "aliases": [
+        "Athanasius der Große",
+        "Athanasius"
+      ],
+      "note": "Verteidiger des Bekenntnisses von Nizäa gegen die Arianer, in allen drei Kirchen hoch geachtet. Sein 39. Osterfestbrief (367, unter den Briefen) enthält das älteste Verzeichnis genau der 27 Bücher des Neuen Testaments. Das „Athanasianische Glaubensbekenntnis“ der Bekenntnisschriften stammt nicht von ihm."
     },
     "Gregor von Nazianz": {
       "tradition": "Ost",
       "languages": [
         "grc"
-      ]
+      ],
+      "lifeDates": "um 329–390",
+      "deathYear": 390,
+      "aliases": [
+        "Gregor der Theologe",
+        "Gregory of Nazianzus"
+      ],
+      "note": "Einer der drei Kappadokier, in der Orthodoxie „der Theologe“. Die fünf Theologischen Reden (Reden 27–31) und die Briefe an Kledonios sind klassische Texte der Trinitätslehre und Christologie."
     },
     "Gregor von Nyssa": {
       "tradition": "Ost",
@@ -99,37 +163,77 @@
       "tradition": "Ost",
       "languages": [
         "grc"
-      ]
+      ],
+      "lifeDates": "um 135–um 200",
+      "deathYear": 200,
+      "aliases": [
+        "Irenaeus",
+        "Irenäus"
+      ],
+      "note": "Bischof von Lyon aus Kleinasien. Hauptzeuge der frühen Kirche gegen die Gnosis: Schrift, Glaubensregel und apostolische Überlieferung. Das griechische Original von „Gegen die Häresien“ ist großenteils nur lateinisch, die „Darlegung“ nur armenisch erhalten."
     },
     "Justin der Märtyrer": {
       "tradition": "Ost",
       "languages": [
         "grc"
-      ]
+      ],
+      "lifeDates": "um 100–um 165",
+      "deathYear": 165,
+      "aliases": [
+        "Justin",
+        "Justinus Martyr"
+      ],
+      "note": "Apologet und Märtyrer in Rom. Die Apologien beschreiben Taufe und Abendmahl der frühen Gemeinde (1. Apologie 61–67). Ihm nur zugeschriebene Schriften (z. B. Mahnrede an die Griechen) sind nicht aufgenommen."
     },
     "Origenes": {
       "tradition": "Ost",
       "languages": [
         "grc"
-      ]
+      ],
+      "lifeDates": "um 185–um 254",
+      "deathYear": 254,
+      "aliases": [
+        "Origen"
+      ],
+      "note": "Grenzfall: Der einflussreichste Bibelausleger der Alten Kirche. Einzelne Lehren (u. a. Präexistenz der Seelen, Allversöhnung) wurden 553 verurteilt. Aufgenommen sind „Gegen Celsus“ und „Von den Prinzipien“, das nur in Rufins geglätteter lateinischer Fassung erhalten ist."
     },
     "Eusebius von Caesarea": {
       "tradition": "Ost",
       "languages": [
         "grc"
-      ]
+      ],
+      "lifeDates": "um 260–339",
+      "deathYear": 339,
+      "aliases": [
+        "Eusebius",
+        "Eusebius of Caesarea"
+      ],
+      "note": "Grenzfall: Der wichtigste Kirchenhistoriker der Alten Kirche wird von allen Kirchen als Quelle benutzt. Wegen seiner Haltung im arianischen Streit gilt er aber weder als Heiliger noch als Kirchenlehrer."
     },
     "Ignatius von Antiochien": {
       "tradition": "Ost",
       "languages": [
         "grc"
-      ]
+      ],
+      "lifeDates": "† um 110",
+      "deathYear": 110,
+      "aliases": [
+        "Ignatius"
+      ],
+      "note": "Apostolischer Vater, Bischof von Antiochien, Märtyrer in Rom. Seine Briefe stehen mit Volltext im Bereich „Apokryphen & außerkanonische Schriften“."
     },
     "Ephräm der Syrer": {
       "tradition": "Ost",
       "languages": [
-        "syc"
-      ]
+        "syr"
+      ],
+      "lifeDates": "um 306–373",
+      "deathYear": 373,
+      "aliases": [
+        "Ephraem",
+        "Ephrem the Syrian"
+      ],
+      "note": "Syrischer Hymnendichter aus Nisibis und Edessa; in der Orthodoxie hoch verehrt, seit 1920 katholischer Kirchenlehrer."
     },
     "Aphrahat": {
       "tradition": "Ost",
@@ -141,7 +245,14 @@
       "tradition": "Ost",
       "languages": [
         "grc"
-      ]
+      ],
+      "lifeDates": "um 650–um 750",
+      "deathYear": 750,
+      "aliases": [
+        "Johannes Damascenus",
+        "John of Damascus"
+      ],
+      "note": "Fasst die Lehre der griechischen Väter zusammen; in der Orthodoxie grundlegend, im Westen seit dem Mittelalter benutzt und von der Konkordienformel angeführt."
     },
     "Bonaventura": {
       "category": "medieval",
@@ -186,6 +297,83 @@
       ],
       "lifeDates": "um 335–nach 394",
       "deathYear": 394
+    },
+    "Hilarius von Poitiers": {
+      "tradition": "West",
+      "languages": [
+        "la"
+      ],
+      "lifeDates": "um 315–367",
+      "deathYear": 367,
+      "aliases": [
+        "Hilary of Poitiers",
+        "Hilarius"
+      ],
+      "note": "Der „Athanasius des Westens“; sein Hauptwerk „Über die Dreieinigkeit“ verteidigt das Nizänum im lateinischen Westen."
+    },
+    "Cyrillus von Jerusalem": {
+      "tradition": "Ost",
+      "languages": [
+        "grc"
+      ],
+      "lifeDates": "um 313–386",
+      "deathYear": 386,
+      "aliases": [
+        "Kyrill von Jerusalem",
+        "Cyril of Jerusalem"
+      ],
+      "note": "Bischof von Jerusalem. Die Taufkatechesen (um 350) erklären das Glaubensbekenntnis; die fünf mystagogischen Katechesen über Taufe, Salbung und Abendmahl werden zum Teil seinem Nachfolger Johannes zugeschrieben."
+    },
+    "Cyrillus von Alexandrien": {
+      "tradition": "Ost",
+      "languages": [
+        "grc"
+      ],
+      "lifeDates": "um 375–444",
+      "deathYear": 444,
+      "aliases": [
+        "Kyrill von Alexandrien",
+        "Cyril of Alexandria"
+      ],
+      "note": "Gegner des Nestorius und leitende Gestalt des Konzils von Ephesus (431). Seine Christologie ist für alle drei Kirchen maßgeblich; die Konkordienformel führt ihn im „Catalogus testimoniorum“ oft an."
+    },
+    "Theodoret von Cyrus": {
+      "tradition": "Ost",
+      "languages": [
+        "grc"
+      ],
+      "lifeDates": "um 393–um 466",
+      "deathYear": 466,
+      "aliases": [
+        "Theodoret",
+        "Theodoret of Cyrrhus"
+      ],
+      "note": "Grenzfall: Seine Schriften gegen Kyrill wurden 553 verurteilt (Drei-Kapitel-Streit); er selbst wurde in Chalcedon 451 als rechtgläubig anerkannt. Aufgenommen sind nur allgemein anerkannte Werke: der „Eranistes“, den auch die Konkordienformel anführt, und die Kirchengeschichte."
+    },
+    "Polykarp von Smyrna": {
+      "tradition": "Ost",
+      "languages": [
+        "grc"
+      ],
+      "lifeDates": "um 69–um 155",
+      "deathYear": 155,
+      "aliases": [
+        "Polycarp"
+      ],
+      "note": "Apostolischer Vater, Bischof von Smyrna, Märtyrer. Sein Brief steht mit Volltext im Bereich „Apokryphen & außerkanonische Schriften“."
+    },
+    "Clemens von Rom": {
+      "tradition": "West",
+      "languages": [
+        "grc"
+      ],
+      "lifeDates": "† um 100",
+      "deathYear": 100,
+      "aliases": [
+        "Clement of Rome",
+        "Clemens Romanus"
+      ],
+      "note": "Apostolischer Vater, Bischof von Rom. Der 1. Clemensbrief steht mit Volltext im Bereich „Apokryphen & außerkanonische Schriften“; der 2. Clemensbrief stammt nicht von ihm."
     }
   }
 }
