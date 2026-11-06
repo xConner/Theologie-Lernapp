@@ -342,10 +342,14 @@ class _HistoryTaskViewState extends State<HistoryTaskView> {
       bindings: {
         const SingleActivator(LogicalKeyboardKey.enter): primaryAction,
         const SingleActivator(LogicalKeyboardKey.numpadEnter): primaryAction,
-        for (var i = 0; i < 4; i++)
-          SingleActivator(LogicalKeyboardKey(0x31 + i)): () {
-            if (t is HistoryChoiceTask && i < t.options.length) choose(i);
-          },
+        // Ziffern 1–4 wählen nur bei Auswahlaufgaben eine Möglichkeit.
+        // Bei der Jahreszahl-Eingabe dürfen sie nicht gebunden sein: Die
+        // Tastenkürzel liegen über dem Textfeld und würden die Ziffern
+        // abfangen, bevor sie im Feld ankommen (Handy-Tastaturen und
+        // Hardware-Tastaturen schicken sie als Tastenereignisse).
+        if (t is HistoryChoiceTask)
+          for (var i = 0; i < t.options.length && i < 4; i++)
+            SingleActivator(LogicalKeyboardKey(0x31 + i)): () => choose(i),
       },
       child: Focus(
         autofocus: t is! HistoryYearTask,
