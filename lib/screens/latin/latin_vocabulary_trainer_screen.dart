@@ -6,8 +6,10 @@ import '../../models/greek/vocabulary/learning_card.dart';
 
 import '../../algorithms/learning_selector.dart';
 import '../../algorithms/review_state.dart';
+import '../../algorithms/trainer_introductions.dart';
 
-import '../../services/latin/vocabulary/latin_vocabulary_loader.dart';
+import '../../services/latin/vocabulary/latin_vocabulary_plan_service.dart';
+import '../../services/latin/vocabulary/latin_vocabulary_plan_state.dart';
 import '../../services/latin/vocabulary/latin_vocabulary_settings_service.dart';
 import '../../services/learning_service.dart';
 import '../../services/quiz_sound_settings.dart';
@@ -21,9 +23,17 @@ import '../../utils/word_type_labels.dart';
 import '../../widgets/self_assessment.dart';
 import '../../widgets/trainer_widgets.dart';
 import 'latin_vocabulary_answer_view.dart';
+import 'plan/latin_vocabulary_introduction.dart';
 
+/// Freier Vokabeltrainer (Endlosmodus). Vokabeln, die noch nie drankamen,
+/// werden wie im Lernplan zuerst vorgestellt und erst einige Fragen später
+/// abgefragt ([TrainerIntroductions]).
 class LatinVocabularyTrainerScreen extends StatefulWidget {
-  const LatinVocabularyTrainerScreen({super.key});
+  /// Lädt Vokabeln, Lernstand und Einführungen; ohne Angabe für den
+  /// angemeldeten Nutzer (bzw. Gastmodus).
+  final LatinVocabularyPlanService? planService;
+
+  const LatinVocabularyTrainerScreen({super.key, this.planService});
 
   @override
   State<LatinVocabularyTrainerScreen> createState() =>
@@ -43,6 +53,16 @@ class _LatinVocabularyTrainerScreenState
   Map<String, LearningCard> cards = {};
 
   LatinVocabularyEntry? current;
+
+  /// Lernplan-Speicher: Einführungen teilen Plan und Trainer.
+  late LatinVocabularyPlanService planService;
+
+  late LatinVocabularyPlanState planState;
+
+  late TrainerIntroductions<LatinVocabularyEntry> introductions;
+
+  /// Die aktuelle Aufgabe ([LatinIntroduceTask]: nur vorstellen).
+  LatinPlanTask? task;
 
   /// Zählt die gestellten Fragen: Jede Frage bekommt eine eigene Abfrage,
   /// auch wenn dieselbe Vokabel erneut gewählt wird.
@@ -76,23 +96,31 @@ class _LatinVocabularyTrainerScreenState
 
   Future<void> load() async {
     // uid == null: Gastmodus, die Services speichern dann lokal.
-    uid = FirebaseAuth.instance.currentUser?.uid;
+    planService =
+        widget.planService ??
+        LatinVocabularyPlanService(uid: FirebaseAuth.instance.currentUser?.uid);
+
+    uid = planService.uid;
 
     try {
-      // Einstellungen, Vokabeln und Lernstand sind voneinander unabhängig.
+      // Einstellungen und Vokabeln samt Lernstand und Einführungen sind
+      // voneinander unabhängig.
       final results = await Future.wait<Object>([
         settingsService.load(uid),
-        LatinVocabularyLoader.load(),
-        learningService.loadLatinCards(uid),
+        planService.load(),
         AnswerMethodPreference.load(AnswerMethodPreference.latinVocabulary),
       ]);
 
-      method = results[3] as AnswerMethod;
+      method = results[2] as AnswerMethod;
 
       settings = results[0] as LatinVocabularySettings;
       enabledTypes = List.of(settings.enabledTypes);
 
-      entries = results[1] as List<LatinVocabularyEntry>;
+      planState = results[1] as LatinVocabularyPlanState;
+
+      introductions = TrainerIntroductions(planState);
+
+      entries = planState.entries;
 
       // Gespeichert ist nur die Abwahl: Neu ergänzte Lektionen sind aktiv.
       enabledLessons = [
@@ -100,7 +128,8 @@ class _LatinVocabularyTrainerScreenState
           if (!settings.disabledLessons.contains(lesson)) lesson,
       ];
 
-      cards = results[2] as Map<String, LearningCard>;
+      // Dieselbe Map wie im Planstand: Antworten zählen dort sofort mit.
+      cards = planState.cards;
     } catch (e) {
       // Keine rohen Firebase-/Laufzeitfehler anzeigen.
       debugPrint("Vokabeltrainer konnte nicht geladen werden: $e");
@@ -133,22 +162,27 @@ class _LatinVocabularyTrainerScreenState
   void nextQuestion() {
     final availableEntries = entries.where(_matchesFilters).toList();
 
-    if (availableEntries.isEmpty) {
-      setState(() => current = null);
+    // Die Filter stehen fest; gewichtet wird nur innerhalb des Pools.
+    final next = introductions.next(
+      pool: availableEntries,
+      select: (pool) => selector.select(
+        candidates: pool,
+        idOf: (entry) => entry.id.toString(),
+        cards: cards,
+        baseWeightOf: (entry) => entry.weight,
+      )!,
+    );
 
-      return;
+    if (next is LatinIntroduceTask) {
+      // Wie in der Lerneinheit des Lernplans: Einführung vormerken.
+      planService.introduce(planState, next.entry);
+    } else if (next != null) {
+      selector.markAsked(next.entry.id.toString());
     }
 
-    // Die Filter stehen fest; gewichtet wird nur innerhalb des Pools.
-    final next = selector.select(
-      candidates: availableEntries,
-      idOf: (entry) => entry.id.toString(),
-      cards: cards,
-      baseWeightOf: (entry) => entry.weight,
-    )!;
-
     setState(() {
-      current = next;
+      task = next;
+      current = next?.entry;
       questionNumber++;
     });
   }
@@ -428,25 +462,73 @@ class _LatinVocabularyTrainerScreenState
             constraints: const BoxConstraints(maxWidth: 500),
             child: Padding(
               padding: const EdgeInsets.all(16),
-              child: LatinVocabularyAnswerView(
-                key: ValueKey("question-$questionNumber"),
-                entry: entry,
-                settings: settings,
-                method: method,
-                onMethodChanged: setMethod,
-                onEvaluated: (correct, {required firstEvaluation}) =>
-                    _evaluated(
-                      entry,
-                      correct,
-                      firstEvaluation: firstEvaluation,
+              child: switch (task) {
+                LatinIntroduceTask() => Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    _NewVocabularyLabel(
+                      text: "Neue Vokabel · Lektion ${entry.lesson}",
                     ),
-                onNext: nextQuestion,
-                mnemonic: _cardOf(entry).mnemonic,
-                onSaveMnemonic: (mnemonic) => _saveMnemonic(entry, mnemonic),
-              ),
+                    LatinVocabularyIntroduction(
+                      key: ValueKey("intro-$questionNumber"),
+                      entry: entry,
+                      mnemonic: _cardOf(entry).mnemonic,
+                      onNext: nextQuestion,
+                    ),
+                  ],
+                ),
+                _ => _buildQuestion(entry),
+              },
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildQuestion(LatinVocabularyEntry entry) {
+    final afterIntroduction = switch (task) {
+      LatinRecallTask(afterIntroduction: true) => true,
+      _ => false,
+    };
+
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        if (afterIntroduction)
+          const _NewVocabularyLabel(text: "Neue Vokabel abfragen"),
+        LatinVocabularyAnswerView(
+          key: ValueKey("question-$questionNumber"),
+          entry: entry,
+          settings: settings,
+          method: method,
+          onMethodChanged: setMethod,
+          onEvaluated: (correct, {required firstEvaluation}) =>
+              _evaluated(entry, correct, firstEvaluation: firstEvaluation),
+          onNext: nextQuestion,
+          mnemonic: _cardOf(entry).mnemonic,
+          onSaveMnemonic: (mnemonic) => _saveMnemonic(entry, mnemonic),
+        ),
+      ],
+    );
+  }
+}
+
+/// Hinweis über der Vokabel, wie die Kopfzeile der Lerneinheit im Lernplan.
+class _NewVocabularyLabel extends StatelessWidget {
+  final String text;
+
+  const _NewVocabularyLabel({required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 20),
+      child: Text(
+        text,
+        key: const ValueKey("latin-trainer-new-label"),
+        textAlign: TextAlign.center,
+        style: TextStyle(color: Theme.of(context).hintColor),
       ),
     );
   }

@@ -12,6 +12,7 @@ import '../../../theme/app_theme.dart';
 import '../../../widgets/self_assessment.dart';
 import '../../../widgets/sound_volume_button.dart';
 import '../../../widgets/trainer_widgets.dart';
+import 'greek_vocabulary_introduction.dart';
 
 /// Eine Lerneinheit des Griechisch-Lernplans: neue Vokabeln des Tages
 /// vorstellen und abfragen, eingeführte wiederholen (siehe
@@ -131,23 +132,10 @@ class _GreekVocabularyPlanSessionScreenState
       IntroduceTask<GreekVocabularyEntry>() => Column(
         children: [
           _header(current),
-          _Lemma(entry: current.entry),
-          const SizedBox(height: 16),
-          _Solution(entry: current.entry),
-          _MnemonicText(text: _mnemonicOf(current.entry)),
-          const SizedBox(height: 24),
-          Text(
-            "Gleich wird die Vokabel abgefragt.",
-            style: TextStyle(color: context.colors.textSecondary, fontSize: 13),
-          ),
-          const SizedBox(height: 8),
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              key: const ValueKey("greek-plan-intro-next"),
-              onPressed: _next,
-              child: const Text("Weiter"),
-            ),
+          GreekVocabularyIntroduction(
+            entry: current.entry,
+            mnemonic: _mnemonicOf(current.entry),
+            onNext: _next,
           ),
         ],
       ),
@@ -155,7 +143,7 @@ class _GreekVocabularyPlanSessionScreenState
         key: ValueKey("greek-plan-task-$taskNumber"),
         children: [
           _header(current),
-          _Lemma(entry: current.entry),
+          GreekVocabularyLemma(entry: current.entry),
           const SizedBox(height: 20),
           SelfAssessmentPanel(
             key: _assessmentKey,
@@ -164,8 +152,8 @@ class _GreekVocabularyPlanSessionScreenState
             onAssess: (a) => _assess(current.entry, a),
             solutionBuilder: (_) => Column(
               children: [
-                _Solution(entry: current.entry),
-                _MnemonicText(text: _mnemonicOf(current.entry)),
+                GreekVocabularySolution(entry: current.entry),
+                GreekVocabularyMnemonicText(text: _mnemonicOf(current.entry)),
               ],
             ),
             hint:
@@ -269,79 +257,6 @@ class _GreekVocabularyPlanSessionScreenState
           ),
         ),
       ],
-    );
-  }
-}
-
-class _Lemma extends StatelessWidget {
-  final GreekVocabularyEntry entry;
-
-  const _Lemma({required this.entry});
-
-  @override
-  Widget build(BuildContext context) {
-    return SelectableText(
-      entry.lemma,
-      key: const ValueKey("greek-plan-lemma"),
-      textAlign: TextAlign.center,
-      style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-    );
-  }
-}
-
-/// Übersetzung und Formen, wie die Lösung im Vokabeltrainer.
-class _Solution extends StatelessWidget {
-  final GreekVocabularyEntry entry;
-
-  const _Solution({required this.entry});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SelectableText(
-          entry.translations.join(", "),
-          key: const ValueKey("greek-plan-translation"),
-          textAlign: TextAlign.center,
-          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-        ),
-        if (entry.article != null ||
-            entry.genitive != null ||
-            entry.aorist != null)
-          const SizedBox(height: 8),
-        if (entry.article != null) Text("Artikel: ${entry.article}"),
-        if (entry.genitive != null) Text("Genitiv: ${entry.genitive}"),
-        if (entry.aorist != null) Text("Aorist: ${entry.aorist}"),
-        if (entry.note != null) ...[
-          const SizedBox(height: 8),
-          Text(
-            entry.note!,
-            textAlign: TextAlign.center,
-            style: TextStyle(color: context.colors.textSecondary),
-          ),
-        ],
-      ],
-    );
-  }
-}
-
-class _MnemonicText extends StatelessWidget {
-  final String? text;
-
-  const _MnemonicText({required this.text});
-
-  @override
-  Widget build(BuildContext context) {
-    final mnemonic = text;
-    if (mnemonic == null || mnemonic.isEmpty) return const SizedBox.shrink();
-
-    return Padding(
-      padding: const EdgeInsets.only(top: 12),
-      child: Text(
-        "Eselsbrücke: $mnemonic",
-        textAlign: TextAlign.center,
-        style: TextStyle(color: context.colors.textSecondary),
-      ),
     );
   }
 }
