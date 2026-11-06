@@ -356,6 +356,12 @@ Repetition).
   `"12,1-25,18"`, `"19,1-29"`; ohne Bereich: Frage zum ganzen Buch),
   `refs` (öffnen den Bibelreader), optional `pericopes`, `memoryVerse`.
   Ungültige Fragen werden beim Laden abgelehnt, doppelte IDs ebenso.
+* `distractors` ist ein **Pool**: Jede Aufgabe zeigt bei `choice`/`multi`
+  höchstens drei davon (`KnowledgeTask.shownDistractors`), jedes Mal neu
+  gezogen und gemischt. Auswahlfragen brauchen mehr als drei Ablenker,
+  damit die falschen Möglichkeiten wechseln; nur sicher falsche, aber
+  verwechselbare Antworten eintragen. Beim Zuordnen (`match`) werden
+  beide Spalten nur gemischt.
 * IDs sind stabil: Lernstände hängen an ihnen. Fragen nie umbenennen,
   nur ergänzen.
 

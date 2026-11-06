@@ -2083,7 +2083,8 @@
       "distractors": [
         "Die deutschen Namen der Lutherbibel: 1. bis 5. Buch Mose",
         "Die hebräischen Namen nach dem Anfangswort, z. B. Berešit",
-        "Die Namen nach den vermuteten Verfassern"
+        "Die Namen nach den vermuteten Verfassern",
+        "Die aramäischen Namen aus den Targumen"
       ],
       "explanation": "Folie 2: In der Lutherbibel heißen sie die „5 Bücher Mose“; „In der Wissenschaft werden die griechisch-lateinischen Begriffe gebraucht.“ Folie 3 gibt dazu die Abkürzungen Gen, Ex, Lev, Num, Dtn.",
       "slides": [
@@ -2098,7 +2099,9 @@
       "distractors": [
         "„Fünf Gesetze“",
         "„Zweites Gesetz“",
-        "„Weisung“"
+        "„Weisung“",
+        "„Fünf Bücher Mose“",
+        "„Fünf Weisungen“"
       ],
       "explanation": "Folie 3: „Pentateuch = wörtlich: Fünf-Gefäß → fünf Rollen“. „Zweites Gesetz“ ist die Bedeutung von Deuteronomium, „Weisung“ die von Tora. Ergänzung: Sitzung 1 gibt das Wort als „das Fünfteilige“ wieder; gemeint sind die fünf Buchrollen.",
       "slides": [
@@ -2115,7 +2118,8 @@
       "distractors": [
         "Nomos („Gesetz“) – in der LXX übersetzt mit Tora („Weisung“)",
         "Miqra („was gelesen wird“) – in der LXX übersetzt mit biblia („Bücher“)",
-        "Tora („Weisung“) – in der LXX übersetzt mit kanon („Richtschnur“)"
+        "Tora („Weisung“) – in der LXX übersetzt mit kanon („Richtschnur“)",
+        "Tora („Gesetz“) – in der LXX übersetzt mit nomos („Weisung“)"
       ],
       "explanation": "Folie 3: „Hebräische Bibel → Tora = „Weisung““ und „LXX übersetzt mit νόμος (nomos) = „Gesetz““.",
       "slides": [
@@ -2133,7 +2137,9 @@
       "distractors": [
         "Er ist nach der Folie der Verfasser aller fünf Bücher",
         "Er kommt erst im Deuteronomium vor",
-        "Er ist nach der Folie der Übersetzer der LXX"
+        "Er ist nach der Folie der Übersetzer der LXX",
+        "Er ist nach der Folie Verfasser des Deuteronomiums, aber nicht der übrigen Bücher",
+        "Er ist nach der Folie nur eine Randfigur"
       ],
       "explanation": "Folie 3: „Mose ist nicht der Verfasser, sondern die Hauptperson“. Ergänzung: Das entspricht der historisch-kritischen Forschung, ist aber nicht unumstritten; die jüdische und kirchliche Tradition sah in Mose den Verfasser (vgl. Mk 12,26; Joh 5,46), konservative Ausleger rechnen mit einem mosaischen Kern.",
       "slides": [
@@ -2147,7 +2153,9 @@
       "distractors": [
         "Auszug",
         "Zahlen",
-        "Zweites Gesetz"
+        "Zweites Gesetz",
+        "Weisung",
+        "Priesterlich"
       ],
       "explanation": "Folie 3: Genesis = Schöpfung (Gen); Exodus = Auszug (aus Ägypten); Numeri = Zahlen (der Israeliten); Deuteronomium = Zweites Gesetz.",
       "slides": [
@@ -2161,7 +2169,9 @@
       "distractors": [
         "Für die Zählung der Israeliten",
         "Für die Gesetzeswiederholung vor dem Einzug ins Land",
-        "Für den Auszug aus Ägypten"
+        "Für den Auszug aus Ägypten",
+        "Für den Stamm Levi als Verfasser des Buches",
+        "Für die Wanderung durch die Wüste"
       ],
       "explanation": "Folie 3: Leviticus = Levitische („priesterliche“) Gesetzgebung → Lev. Die Zählung steckt in Numeri, die Gesetzeswiederholung im Deuteronomium, der Auszug in Exodus.",
       "slides": [
@@ -2175,7 +2185,8 @@
       "distractors": [
         "„Erstes Gesetz“: die Gesetzgebung am Sinai",
         "„Priesterliche Gesetzgebung“ für den Kult",
-        "„Zahlen“: Musterung der Stämme in der Wüste"
+        "„Zahlen“: Musterung der Stämme in der Wüste",
+        "„Zweites Gesetz“: ein neues Gesetz, das die Sinaigesetze aufhebt"
       ],
       "explanation": "Folie 3: Deuteronomium = Zweites Gesetz → Dtn. Folie 6: „Deuteronomium = Gesetzeswiederholung zur Einschärfung“ mit „sozialer Akzentuierung des Gesetzes Israels“.",
       "slides": [
@@ -2190,7 +2201,9 @@
       "distractors": [
         "Von Abraham bis zum Babylonischen Exil",
         "Vom Auszug aus Ägypten bis zur Königszeit",
-        "Von der Schöpfung bis zum Bau des Tempels"
+        "Von der Schöpfung bis zum Bau des Tempels",
+        "Von der Schöpfung bis zum Tod Josefs",
+        "Von Abraham bis zur Landnahme unter Josua"
       ],
       "explanation": "Folie 4: „Erzählstrang von Beginn der Welt bis zum Beginn der Einwanderung der (späteren) Israeliten in ihr Land“.",
       "slides": [
@@ -2204,7 +2217,9 @@
       "distractors": [
         "Die Erschaffung der Welt",
         "Die Verheißung an Abram",
-        "Der Tod des Mose"
+        "Der Tod des Mose",
+        "Der Auszug aus Ägypten",
+        "Die Wüstenwanderung"
       ],
       "explanation": "Folie 4: „Mittelpunkt: Gottes Offenbarung am Sinai“. Folie 6 ergänzt: Der Aufenthalt am Sinai (Ex 19 – Num 10,10) ist der größte geschlossene narrative Raum im Pentateuch.",
       "slides": [
@@ -2219,7 +2234,8 @@
       "distractors": [
         "Mit Gen 1 – die Schöpfung gehört schon zur Führung Israels",
         "Mit Ex 1 – erst in Ägypten wird Israel ein Volk",
-        "Mit Gen 37 – mit der Josephsgeschichte"
+        "Mit Gen 37 – mit der Josephsgeschichte",
+        "Mit Ex 3 – mit der Berufung des Mose"
       ],
       "explanation": "Folie 5: „Beginn mit Gen 12 → Gen 1-11 = Urgeschichte“; die Führung Israels reicht von Abraham bis zur Landnahme Kanaans.",
       "slides": [
@@ -2236,7 +2252,9 @@
       "distractors": [
         "Er endet mit dem Tod des Mose in Dtn 34",
         "Er endet mit der Josephsgeschichte in Gen 50",
-        "Er reicht bis zum Ende der Königsbücher"
+        "Er reicht bis zum Ende der Königsbücher",
+        "Er endet mit dem Bundesschluss am Sinai",
+        "Er endet mit der Geburt Isaaks"
       ],
       "explanation": "Folie 5: „Spannungsbogen über Pentateuch hinaus bis ins Josuabuch“. Ergänzung: Erst im Josuabuch nimmt Israel das verheißene Land in Besitz (vgl. den Erzählbogen aus Sitzung 1).",
       "slides": [
@@ -2250,7 +2268,9 @@
       "distractors": [
         "Warum erwählte Gott sein Volk?",
         "Warum murrte das Volk in der Wüste?",
-        "Wie kam Israel in das Land Kanaan?"
+        "Wie kam Israel in das Land Kanaan?",
+        "Wie kam Israel aus Ägypten heraus?",
+        "Wer ist der Stammvater der zwölf Stämme?"
       ],
       "explanation": "Folie 5: „Josefsgeschichte → Wie kam Israel nach Ägypten? (Gen 37-50)“. Folie 15: Sie erklärt den Beginn des Buches Exodus und leitet zu ihm über.",
       "slides": [
@@ -2268,7 +2288,9 @@
       "distractors": [
         "Gott gibt seinem Volk die Tora",
         "Das Murren des Volkes",
-        "Die Verheißung von Land und Segen"
+        "Die Verheißung von Land und Segen",
+        "Gott straft sein Volk",
+        "Gott schließt den Bund mit Noah"
       ],
       "explanation": "Folie 5: „Auszug aus Ägypten → Gott erwählt sein Volk (Ex 1-15)“. Die Tora gibt Gott am Sinai, das Murren gehört zur Wüstenwanderung, die Verheißung zur Erzelterngeschichte.",
       "slides": [
@@ -2282,7 +2304,9 @@
       "distractors": [
         "Die Erwählung des Volkes",
         "Die erneute Bekanntgabe der Tora",
-        "Der Betrug um den Segen"
+        "Der Betrug um den Segen",
+        "Der Auszug aus Ägypten",
+        "Die Gefährdung der Ahnfrau"
       ],
       "explanation": "Folie 5: „Wüstenwanderung → Motiv des Murrens (Ex 15,22-18,27 und Num 10,11-36,13)“ – also vor und nach dem Aufenthalt am Sinai.",
       "slides": [
@@ -2296,7 +2320,9 @@
       "distractors": [
         "Mose führt das Volk aus Ägypten",
         "Mose segnet Ephraim und Manasse",
-        "Mose empfängt die Tora zum ersten Mal am Sinai"
+        "Mose empfängt die Tora zum ersten Mal am Sinai",
+        "Mose zieht mit dem Volk in das Land Kanaan ein",
+        "Mose setzt Aaron als seinen Nachfolger ein"
       ],
       "explanation": "Folie 5: „Abschiedsrede des Mose → Mose gibt erneut die Tora bekannt (Dtn 1-30)“; danach der Tod des Mose (Dtn 31-34). Ephraim und Manasse segnet Jakob (Gen 48).",
       "slides": [
@@ -2310,7 +2336,9 @@
       "distractors": [
         "Die Wüstenwanderung (Ex 15,22 – Num 36,13)",
         "Die Erzelterngeschichte (Gen 12-36)",
-        "Die Abschiedsrede des Mose (Dtn 1-30)"
+        "Die Abschiedsrede des Mose (Dtn 1-30)",
+        "Die Josephsgeschichte (Gen 37-50)",
+        "Die Urgeschichte (Gen 1-11)"
       ],
       "explanation": "Folie 6: „Größter geschlossener narrativer Raum in Pentateuch = Aufenthalt am Sinai mit Gesetzesüberlieferung in Ex 19 – Num 10,10“.",
       "slides": [
@@ -2325,7 +2353,9 @@
       "distractors": [
         "Die tatsächlich gelebte Rechtspraxis bis ins Detail",
         "Nur die Rechte der Priester",
-        "Die Strafen der Könige gegen fremde Völker"
+        "Die Strafen der Könige gegen fremde Völker",
+        "Die Verträge zwischen Großkönigen und Vasallen",
+        "Das tatsächliche Strafmaß einzelner Gerichtsfälle"
       ],
       "explanation": "Folie 6: „Programmatischer Charakter der Gesetzestexte im Alten Orient → Beschreibung einer Idealität anstelle einer Realität“.",
       "slides": [
@@ -2339,7 +2369,8 @@
       "distractors": [
         "Das Bundesbuch",
         "Das deuteronomische Gesetz",
-        "Die Völkertafel"
+        "Die Völkertafel",
+        "Der Dekalog"
       ],
       "explanation": "Folie 6: das Bundesbuch (Ex 20,22-23,19), das Heiligkeitsgesetz (Lev 17-26), das deuteronomische Gesetz (Dtn 12-25).",
       "slides": [
@@ -2356,7 +2387,8 @@
       "distractors": [
         "Zur Josephsgeschichte, deren zweites Kapitel es ist",
         "Zur Urgeschichte",
-        "Zu keinem Teil – es ist ein späterer Nachtrag ohne Zuordnung"
+        "Zu keinem Teil – es ist ein späterer Nachtrag ohne Zuordnung",
+        "Zur Josephsgeschichte, als Einleitung zu Josephs Zeit in Ägypten"
       ],
       "explanation": "Folie 7: „37-50 Josephsgeschichte → Ohne 38 (Teil der Erzelterngeschichte)“. Folie 5 rechnet die Erzelterngeschichte entsprechend als „Gen 12-36 und 38“; Folie 14 setzt die Zeile zu Gen 38 in eckige Klammern.",
       "slides": [
@@ -2375,7 +2407,9 @@
       "distractors": [
         "Gen 12-25",
         "Gen 27-36",
-        "Gen 37-50"
+        "Gen 37-50",
+        "Gen 21-24",
+        "Gen 25-35"
       ],
       "explanation": "Folie 7: Erzelterngeschichte 12-36 mit 12-25: Abraham, 26(+27): Isaak, 27-36: Jakob. Kapitel 27 (Segen Isaaks an Jakob) zählt also zu beiden.",
       "slides": [
@@ -2389,7 +2423,9 @@
       "distractors": [
         "Sie ist ein Anhang zur Josephsgeschichte",
         "Sie ist die Fortsetzung der Erzelterngeschichte",
-        "Sie ist eine Sammlung von Gesetzen für die Priester"
+        "Sie ist eine Sammlung von Gesetzen für die Priester",
+        "Sie ist der Epilog zur Erzelterngeschichte",
+        "Sie ist die Einleitung zum Buch Exodus"
       ],
       "explanation": "Folie 9: „Prolog zur Vorgeschichte in der Genesis ab Kapitel 12“. Folie 5: Die Führung Israels beginnt mit Gen 12; Gen 1-11 ist die Urgeschichte.",
       "slides": [
@@ -2407,7 +2443,9 @@
       "distractors": [
         "Aus Unterschieden zwischen hebräischem Text und LXX",
         "Aus den Überschriften der Lutherbibel",
-        "Aus den Namen der Bücher in jüdischer Tradition"
+        "Aus den Namen der Bücher in jüdischer Tradition",
+        "Aus archäologischen Funden in Mesopotamien",
+        "Aus der Verseinteilung des Masoretischen Textes"
       ],
       "explanation": "Folie 9: „Unterschiedliche Überlieferungen wegen der Dopplungen und Spannungen – Zwei verschieden Schöpfungsgeschichten – Sintfluterzählung mit inneren Spannungen“. Ergänzung: Diese Folgerung ist in der Forschung verbreitet, aber nicht unumstritten; andere lesen Gen 2 als vertiefende Nahaufnahme der Erschaffung des Menschen und die Flutgeschichte als bewusst komponierte Einheit.",
       "slides": [
@@ -2421,7 +2459,9 @@
       "distractors": [
         "Mit Gen 1,31",
         "Mit Gen 2,3",
-        "Mit Gen 3,24"
+        "Mit Gen 3,24",
+        "Mit Gen 2,4b",
+        "Mit Gen 2,7"
       ],
       "explanation": "Folie 8: „1,1 – 2,4a 1. Schöpfungsbericht“, „2,4b – 3,24 2. Schöpfungsbericht“. Die Grenze teilt Vers 4. Ergänzung: Deine Perikopenliste kennt keine Halbverse; dort endet der „1. Schöpfungsbericht“ mit 2,4, und „Das Paradies“ beginnt mit demselben Vers.",
       "slides": [
@@ -2435,7 +2475,8 @@
       "distractors": [
         "Abram stirbt kinderlos, bevor die Verheißung ergeht",
         "Der Turm zu Babel bleibt unvollendet",
-        "Noah verflucht Kanaan"
+        "Noah verflucht Kanaan",
+        "Sarai ist unfruchtbar – und Abram nimmt sofort Hagar zur Frau"
       ],
       "explanation": "Folie 9 nennt Gen 11,30 den „Cliffhanger zu den Erzeltern“; Folie 13: Die Verheißungen (u. a. Söhne, Nachkommen) sind bei den Erzeltern wichtig, Gen 12 beginnt mit Verheißung und Segen. Ergänzung: Gen 11,30 lautet „Aber Sarai war unfruchtbar und hatte kein Kind.“",
       "slides": [
@@ -2450,7 +2491,9 @@
       "distractors": [
         "Als ein von Anfang an geschlossener Bericht eines einzigen Verfassers",
         "Als Übersetzung einer griechischen Vorlage",
-        "Als Sammlung von Gesetzestexten mit erzählendem Rahmen"
+        "Als Sammlung von Gesetzestexten mit erzählendem Rahmen",
+        "Als nachexilische Erfindung ohne ältere Überlieferungen",
+        "Aus den Annalen der Könige von Juda"
       ],
       "explanation": "Folie 13: „Ursprünglich mal einzelne Geschichten an den unterschiedlichen Kultorten, später zu einem Erzählzusammenhang kombiniert“. Ergänzung: Diese Sicht ist in der Forschung verbreitet, aber nicht unumstritten; andere sehen in den Erzelterngeschichten von Anfang an zusammenhängende Familienüberlieferungen.",
       "slides": [
@@ -2467,7 +2510,9 @@
       "distractors": [
         "Mit einem Bundesschluss mit Bundeszeichen",
         "Mit Gottes Gericht über Sodom",
-        "Mit dem Streit um einen Brunnen"
+        "Mit dem Streit um einen Brunnen",
+        "Mit dem Aufbruch aus Ur in Chaldäa",
+        "Mit der Geburt Isaaks"
       ],
       "explanation": "Folie 13: „Gen 12: Beginn mit Verheißung und Segen“; Folie 10: 12,1-9 „Verheißung an Abram“.",
       "slides": [
@@ -2482,7 +2527,9 @@
       "distractors": [
         "Die erste Verheißung von Land",
         "Die Fürbitte Abrahams",
-        "Die Geburt Isaaks"
+        "Die Geburt Isaaks",
+        "Die Opferung Isaaks",
+        "Die erste Verheißung von Nachkommen"
       ],
       "explanation": "Folie 10: 15 „Gottes Bund mit Abram“, 17 „Gottes Bund mit Abraham (Namenswechsel)“. Folie 13: „Gen 17: erneuter Bundesschluss, diesmal mit Bundeszeichen und Namenswechsel“. Ergänzung: Das Bundeszeichen ist die Beschneidung; Abram wird zu Abraham, Sarai zu Sara (Gen 17,5.15).",
       "slides": [
@@ -2497,7 +2544,9 @@
       "distractors": [
         "Als Zeichen für Gottes Verheißung von Land",
         "Als Beispiel für die Gefährdung der Ahnfrau",
-        "Als Ort von Jakobs Traum"
+        "Als Ort von Jakobs Traum",
+        "Als Zeichen für Gottes Gnade gegenüber den Völkern",
+        "Als Bild für das Murren in der Wüste"
       ],
       "explanation": "Folie 13: „Gen 19: Sodom & Gomorra als Zeichen für Gottes Gerichtswillen“. Vorausgeht in 18,16-33 die Fürbitte Abrahams für Sodom (Folie 10).",
       "slides": [
@@ -2512,7 +2561,9 @@
       "distractors": [
         "Für das Verständnis des Bundeszeichens",
         "Für die Frage, wie Israel nach Ägypten kam",
-        "Für die Gliederung der Genesis durch Genealogien"
+        "Für die Gliederung der Genesis durch Genealogien",
+        "Für das Verständnis des Segens – mit der besonderen Rolle Esaus als Betrüger",
+        "Für das Verständnis der Leviratsehe"
       ],
       "explanation": "Folie 13: „Gen 27 ist wichtig für Verständnis des Segens → besondere Rolle des Jakobs als Betrüger“. Folie 11: 27,1-45 „Segen Isaaks an Jakob“.",
       "slides": [
@@ -2527,7 +2578,9 @@
       "distractors": [
         "Für die Kultorte der Erzeltern",
         "Für die fünf Bücher Mose",
-        "Für die Völker der Völkertafel"
+        "Für die Völker der Völkertafel",
+        "Für die Könige Israels",
+        "Für die zwölf Monate des Jahres"
       ],
       "explanation": "Folie 13: „Jakobs Kinder → Söhne als Stämme“; Folie 12: 29,31 – 30,24 „Jakobs Kinder“, Folie 14: 49,1-28 „Jakobs Segen: Stammessprüche“.",
       "slides": [
@@ -2543,7 +2596,8 @@
       "distractors": [
         "Gottes Bund mit Abram (Gen 15; 17; 22)",
         "Der Verkauf des Erstgeburtsrechts (Gen 25; 27; 33)",
-        "Jakobs Traum (Gen 28; 32; 35)"
+        "Jakobs Traum (Gen 28; 32; 35)",
+        "Die Fürbitte Abrahams (Gen 18; 20; 22)"
       ],
       "explanation": "Folien 10–11: „Gefährdung der Ahnfrau“ bei 12,10ff. und 20 (Sara), „Gefährdung der Ahnfrau Rebekka“ in 26. Ergänzung: Ein Beispiel für die Dopplungen, die Folie 9 für die Urgeschichte nennt; die Szenen spielen in Ägypten beim Pharao (Gen 12), in Gerar bei Abimelech (Gen 20) und mit Isaak und Rebekka wieder in Gerar (Gen 26).",
       "slides": [
@@ -2558,7 +2612,10 @@
       "distractors": [
         "Hagar",
         "Rebekka",
-        "Lea"
+        "Lea",
+        "Sara",
+        "Milka",
+        "Silpa"
       ],
       "explanation": "Folie 11: 25,1-18 „Abrahams 3. Frau Ketura, Abrahams Tod, Stammbaum der Ismaeliter“. Sara und Hagar (Gen 16) gehen voraus; Rebekka ist Isaaks Frau, Lea eine Frau Jakobs.",
       "slides": [
@@ -2572,7 +2629,9 @@
       "distractors": [
         "In Bet-El",
         "In Sichem",
-        "Am Jabbok"
+        "Am Jabbok",
+        "In Beerscheba",
+        "Im Land Morija"
       ],
       "explanation": "Folie 10: 18,1-15 „Die drei Männer bei Abraham in Mamre“. Bet-El (35,1-15), Sichem (33–34) und der Jabbok (32) gehören zur Jakobgeschichte.",
       "slides": [
@@ -2586,7 +2645,9 @@
       "distractors": [
         "In Mamre",
         "In Bet-El",
-        "In Sichem"
+        "In Sichem",
+        "Am Bach Kidron",
+        "In Haran"
       ],
       "explanation": "Folie 12: 32 „Jakobs Rückkehr, Kampf am Jabbok“. Danach Aussöhnung mit Esau und Altarbau in Sichem (33), Blutbad in Sichem (34), Zug nach Bet-El (35,1-15).",
       "slides": [
@@ -2600,7 +2661,9 @@
       "distractors": [
         "Die Fürbitte Abrahams und die drei Männer (Gen 18)",
         "Jakobs Traum und Isaaks Segen (Gen 27–28)",
-        "Benjamins Geburt und Rahels Tod (Gen 35)"
+        "Benjamins Geburt und Rahels Tod (Gen 35)",
+        "Abrahams Begegnung mit Melchisedek (Gen 14)",
+        "Die Bindung Isaaks (Gen 22)"
       ],
       "explanation": "Folie 12: 33 „Aussöhnung mit Esau, Altarbau in Sichem“; 34 „Blutbad in Sichem“.",
       "slides": [
@@ -2614,7 +2677,9 @@
       "distractors": [
         "Gen 25,7-11 – am Ende der Abrahamgeschichte",
         "Gen 27,1-45 – direkt nach dem Segen an Jakob",
-        "Gen 49,29 – 50,14 – zusammen mit Jakobs Tod"
+        "Gen 49,29 – 50,14 – zusammen mit Jakobs Tod",
+        "Gen 26,34-35 – am Ende der Isaakgeschichte",
+        "Gen 28,1-5 – bei Jakobs Aufbruch nach Haran"
       ],
       "explanation": "Folie 12: 35,27-29 „Tod Isaaks“ – als einzige Zeile der Folie im Blau Isaaks (Farben nach Folie 13), die übrigen Zeilen in der Farbe Jakob-Esau. Abrahams Tod steht in 25,1-18, Jakobs Tod in 49,29 – 50,14.",
       "slides": [
@@ -2630,7 +2695,9 @@
       "distractors": [
         "Genealogie (Toledot)",
         "Rechtstext",
-        "Schöpfungsbericht"
+        "Schöpfungsbericht",
+        "Prophetenspruch",
+        "Kultsage eines Heiligtums"
       ],
       "explanation": "Folie 15: „Novelle, Weisheitserzählung“ – eine eigene Erzählform, die eine geschlossene Geschichte abbildet.",
       "slides": [
@@ -2647,7 +2714,9 @@
       "distractors": [
         "Wie ein Betrüger den Segen erlangt",
         "Wie ein Prophet das Gericht über Sodom ankündigt",
-        "Wie Gott durch Bundeszeichen und Namenswechsel einen Bund erneuert"
+        "Wie Gott durch Bundeszeichen und Namenswechsel einen Bund erneuert",
+        "Wie ein Held das Land mit dem Schwert erobert",
+        "Wie der Erstgeborene den Segen empfängt"
       ],
       "explanation": "Folie 15: „Erklärt, wie sich ein paradigmatischer Weiser verhält → durch sein Verhalten widerfährt ihm Gutes“; „Führung Gottes zum Guten“. Ergänzung: Joseph fasst das in Gen 50,20 zusammen: „Ihr gedachtet es böse mit mir zu machen; aber Gott gedachte es gut zu machen.“",
       "slides": [
@@ -2661,7 +2730,9 @@
       "distractors": [
         "Sie leitet von der Urgeschichte zu Abraham über",
         "Sie schließt den Pentateuch mit dem Tod des Mose ab",
-        "Sie bildet die Mitte des Pentateuch am Sinai"
+        "Sie bildet die Mitte des Pentateuch am Sinai",
+        "Sie erklärt, wie Israel zu seinen Gesetzen kam",
+        "Sie leitet zur Landnahme im Josuabuch über"
       ],
       "explanation": "Folie 15: „Erklärt und leitet über zum Beginn des Buches Exodus“; Folie 5: Wie kam Israel nach Ägypten?",
       "slides": [
@@ -2676,7 +2747,9 @@
       "distractors": [
         "Die Beschneidung als Bundeszeichen",
         "Das Erstgeburtsrecht",
-        "Das Bundesbuch"
+        "Das Bundesbuch",
+        "Das Jobeljahr",
+        "Die Brautwerbung durch einen Knecht"
       ],
       "explanation": "Folie 16: „Juda-Tamar-Geschichte – Onan – Leviratsehe – Verknüpfung zum Buch Rut – Stammbaum Jesu“. Ergänzung: Onan entzieht sich der Pflicht, mit Tamar, der Witwe seines Bruders, einen Nachkommen zu zeugen (Gen 38,8-10); die Regel steht in Dtn 25,5-10.",
       "slides": [
@@ -2693,7 +2766,8 @@
       "distractors": [
         "Mit dem Bundesbuch und dem Heiligkeitsgesetz",
         "Mit der Völkertafel und dem Turmbau zu Babel",
-        "Mit dem Auszug aus Ägypten und der Wüstenwanderung"
+        "Mit dem Auszug aus Ägypten und der Wüstenwanderung",
+        "Mit dem Buch Ester und dem Purimfest"
       ],
       "explanation": "Folie 16: „Verknüpfung zum Buch Rut“, „Stammbaum Jesu“. Ergänzung: Rut 4,12 nennt Perez, den Tamar dem Juda gebar, Rut 4,18-22 führt von Perez bis David; Mt 1,3 nennt Tamar im Stammbaum Jesu.",
       "slides": [
@@ -2707,7 +2781,9 @@
       "distractors": [
         "Die verschiedenen Buchnamen in Hebräisch und Griechisch",
         "Die unterschiedliche Kanonisierung in Judentum und Kirche",
-        "Abweichungen zwischen hebräischen Handschriften und der Septuaginta"
+        "Abweichungen zwischen hebräischen Handschriften und der Septuaginta",
+        "Archäologische Funde aus der Zeit der Erzväter",
+        "Die spätere Kapitel- und Verseinteilung"
       ],
       "explanation": "Folie 21: „stilistische und inhaltliche Unterschiede und Spannungen führen zu verschiedenen Erklärungshypothesen“ – Grundschrift-/Ergänzungs-, Urkunden-/Quellen- und Fragmentenhypothese.",
       "slides": [
@@ -2721,7 +2797,8 @@
       "distractors": [
         "Nach der Folie ist sie unverändert der Konsens",
         "Nach der Folie wurde sie um eine fünfte Quelle erweitert",
-        "Nach der Folie gilt sie nur noch für das Deuteronomium"
+        "Nach der Folie gilt sie nur noch für das Deuteronomium",
+        "Nach der Folie wird sie gerade neu begründet"
       ],
       "explanation": "Folie 23: „mittlerweile: Die Hypothese ist in der deutschsprachigen Forschung weitestgehend aufgehoben!“ Ergänzung: Das ist der Forschungsstand nach der Folie und nicht unumstritten; konservative Ausleger halten an der Einheit des Pentateuch und einem mosaischen Ursprung fest.",
       "slides": [
@@ -2738,7 +2815,9 @@
       "distractors": [
         "Nur die Reihenfolge der beiden Quellen",
         "Nur ihr Verhältnis zum Deuteronomium",
-        "Nur, welcher Redaktor sie verbunden hat"
+        "Nur, welcher Redaktor sie verbunden hat",
+        "Nur ihre Sprache",
+        "Nur ihr Verhältnis zur Priesterschrift"
       ],
       "explanation": "Folie 23: „umstritten sind v.a. Alter, Umfang und Charakter von J sowie E → Infragestellung ihrer Existenz“.",
       "slides": [
@@ -2756,7 +2835,9 @@
       "distractors": [
         "Jahwist und Elohist",
         "Jahwist und Priesterschrift",
-        "Elohist und Deuteronomium"
+        "Elohist und Deuteronomium",
+        "Jahwist und Deuteronomium",
+        "Elohist und Priesterschrift"
       ],
       "explanation": "Folie 23: „weitestgehend stabil: P und Dtn“.",
       "slides": [
@@ -2773,7 +2854,9 @@
       "distractors": [
         "Weiterhin in Jahwist und Elohist",
         "In Nord- und Südreichüberlieferung",
-        "In Grundschrift und deuteronomistische Redaktion"
+        "In Grundschrift und deuteronomistische Redaktion",
+        "In Jahwist, Elohist und Deuteronomist",
+        "In Gesetzestexte und Erzählungen"
       ],
       "explanation": "Folie 24: „nP: keine Quellenaufteilung mehr; nur Unterscheidung von vorpriesterschriftlichem und nachpriesterschriftlichem Material“.",
       "slides": [
@@ -2790,7 +2873,9 @@
       "distractors": [
         "Ob sie überhaupt existiert hat",
         "Ob sie älter als der Jahwist ist",
-        "Ob sie die Urgeschichte enthält"
+        "Ob sie die Urgeschichte enthält",
+        "Ob sie aus der Zeit Salomos stammt",
+        "Ob sie ursprünglich griechisch verfasst wurde"
       ],
       "explanation": "Folie 24: „P: umstritten ist Umfang (insbesondere Ende) und literarischer Charakter“.",
       "slides": [
@@ -2807,7 +2892,8 @@
       "distractors": [
         "Ein ursprünglich durchgängiger Erzählfaden von der Schöpfung bis zum Tod des Mose",
         "Eine einzige alte Quelle aus salomonischer Zeit",
-        "Nachträgliche Ergänzungen zur Priesterschrift"
+        "Nachträgliche Ergänzungen zur Priesterschrift",
+        "Mündliche Überlieferungen, die nie aufgeschrieben wurden"
       ],
       "explanation": "Folie 24: „vorpriesterschriftliches Material: kein ursprünglich durchgängiger Erzählfaden, sondern verschiedene Überlieferungsblöcke, die sukzessive miteinander kombiniert wurden“. Ergänzung: Das ist der Forschungsstand nach der Folie und nicht unumstritten; konservative Ausleger halten an der Einheit des Pentateuch und einem mosaischen Ursprung fest.",
       "slides": [
@@ -2824,7 +2910,8 @@
       "distractors": [
         "Sie ist rein priesterschriftlich",
         "Sie ist rein nichtpriesterschriftlich",
-        "Sie stammt aus dem Deuteronomium"
+        "Sie stammt aus dem Deuteronomium",
+        "Sie ist ein später Nachtrag aus der LXX"
       ],
       "explanation": "Folie 26: „Sintfluterzählung (Gen 6-9; [P- und nP-Anteile])“; der 1. Schöpfungsbericht ist mit [P] markiert, ebenso Gen 17.",
       "slides": [

@@ -419,8 +419,18 @@ class OldTestamentQuiz {
     return (options: options, correct: options.indexOf(answer));
   }
 
+  /// Zahl der angezeigten Ablenker einer kuratierten Frage. Hat sie mehr,
+  /// wird bei jeder Abfrage neu gezogen – so wechseln die falschen
+  /// Möglichkeiten, die Reihenfolge ist ohnehin zufällig.
+  static const int shownCuratedDistractors = 3;
+
   OtQuestion? _curated(CuratedQuestion q, Random r) {
-    final mix = _mix(q.answer, q.distractors, r, count: q.distractors.length);
+    final mix = _mix(
+      q.answer,
+      q.distractors,
+      r,
+      count: shownCuratedDistractors,
+    );
     if (mix == null) return null;
 
     return OtChoiceQuestion(

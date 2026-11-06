@@ -118,7 +118,9 @@
      ],
      "distractors": [
       "Erschaffung der Frau aus der Rippe des Mannes",
-      "Vertreibung aus dem Garten Eden"
+      "Vertreibung aus dem Garten Eden",
+      "Erschaffung des Menschen aus Staub vom Erdboden",
+      "Gottesbezeichnung „der HERR“ (JHWH)"
      ],
      "topic": "theme",
      "range": "1,1-3,24"
@@ -133,7 +135,9 @@
      "distractors": [
       "Aus der Rippe eines anderen Geschöpfs",
       "Allein durch Gottes Wort, ohne Stoff",
-      "Aus dem Wasser des Urmeers"
+      "Aus dem Wasser des Urmeers",
+      "Aus dem Licht des ersten Tages",
+      "Aus dem Fleisch der Tiere des Feldes"
      ],
      "topic": "event",
      "range": "2,4-2,25",
@@ -151,7 +155,9 @@
      "distractors": [
       "Die Entstehung der verschiedenen Sprachen",
       "Die Einsetzung des Sabbats",
-      "Die Herkunft des Regenbogens"
+      "Die Herkunft des Regenbogens",
+      "Die Entstehung des Opferkults",
+      "Die Unterscheidung von reinen und unreinen Tieren"
      ],
      "topic": "theme",
      "range": "3",
@@ -190,7 +196,9 @@
      "distractors": [
       "Er errichtet einen Gedenkstein und gießt Öl darauf",
       "Er baut einen Turm, um sich einen Namen zu machen",
-      "Er zieht mit seiner Familie nach Ur in Chaldäa"
+      "Er zieht mit seiner Familie nach Ur in Chaldäa",
+      "Er betet um Regen für die neue Saat",
+      "Er zieht mit seinen Söhnen nach Babel"
      ],
      "topic": "event",
      "range": "8",
@@ -208,7 +216,9 @@
      "distractors": [
       "Die Beschneidung",
       "Den Sabbat",
-      "Die Gesetzestafeln"
+      "Die Gesetzestafeln",
+      "Die Feuersäule",
+      "Den Sternenhimmel"
      ],
      "topic": "theme",
      "range": "9,1-17",
@@ -280,7 +290,9 @@
      ],
      "distractors": [
       "Gen 19",
-      "Gen 34"
+      "Gen 34",
+      "Gen 23",
+      "Gen 37"
      ],
      "topic": "theme",
      "range": "12-36"
@@ -296,7 +308,9 @@
      ],
      "distractors": [
       "Gen 16",
-      "Gen 24"
+      "Gen 24",
+      "Gen 18",
+      "Gen 29"
      ],
      "topic": "theme",
      "range": "12-26"
@@ -312,7 +326,9 @@
      ],
      "distractors": [
       "Gen 34 (Dina)",
-      "Gen 38 (Tamar)"
+      "Gen 38 (Tamar)",
+      "Gen 19 (Lots Töchter)",
+      "Gen 24 (Milka)"
      ],
      "topic": "theme",
      "range": "11-29",
@@ -332,7 +348,9 @@
      "distractors": [
       "Isaak",
       "Jakob",
-      "Ephraim"
+      "Ephraim",
+      "Juda",
+      "Josef"
      ],
      "topic": "theme",
      "range": "12-50",
@@ -439,7 +457,10 @@
      "distractors": [
       "Dan",
       "Gad",
-      "Benjamin"
+      "Benjamin",
+      "Naftali",
+      "Asser",
+      "Josef"
      ],
      "topic": "person",
      "range": "29,31-30,24",
@@ -483,7 +504,8 @@
      "distractors": [
       "Sie ist seine Nichte (Tochter Harans)",
       "Sie ist seine Cousine (Tochter Nahors)",
-      "Sie ist mit ihm nicht verwandt"
+      "Sie ist mit ihm nicht verwandt",
+      "Sie ist seine Tante (Schwester Terachs)"
      ],
      "topic": "person",
      "range": "20",
@@ -501,7 +523,9 @@
      "distractors": [
       "Abrahams Bruder",
       "Der Sohn Nahors und Milkas",
-      "Saras Bruder"
+      "Saras Bruder",
+      "Abrahams Onkel",
+      "Abrahams Sohn mit Hagar"
      ],
      "topic": "person",
      "range": "11,27-32",
@@ -519,7 +543,9 @@
      "distractors": [
       "Tochter Labans und Schwester Leas",
       "Tochter Harans und Schwester Lots",
-      "Tochter Nahors und Milkas"
+      "Tochter Nahors und Milkas",
+      "Tochter Ismaels und Schwester Nebajots",
+      "Tochter Abimelechs, des Königs von Gerar"
      ],
      "topic": "person",
      "range": "24",
@@ -538,7 +564,9 @@
      "distractors": [
       "Dina",
       "Tamar",
-      "Milka"
+      "Milka",
+      "Zippora",
+      "Basemat"
      ],
      "topic": "person",
      "range": "41",
@@ -556,7 +584,9 @@
      "distractors": [
       "Ruben und Simeon",
       "Perez und Serach",
-      "Er und Onan"
+      "Er und Onan",
+      "Ephraim und Benjamin",
+      "Gerschom und Eliëser"
      ],
      "topic": "person",
      "range": "48",
@@ -595,7 +625,9 @@
      "distractors": [
       "Lea und Rahel",
       "Dina und Tamar",
-      "Milka und Jiska"
+      "Milka und Jiska",
+      "Sara und Hagar",
+      "Bilha und Silpa"
      ],
      "topic": "person",
      "range": "19"
@@ -610,7 +642,9 @@
      "distractors": [
       "Edomiter und Ismaeliter",
       "Philister und Kanaaniter",
-      "Midianiter und Amalekiter"
+      "Midianiter und Amalekiter",
+      "Hetiter und Hiwiter",
+      "Ägypter und Kuschiter"
      ],
      "topic": "connection",
      "range": "19,30-38",
@@ -665,7 +699,9 @@
      "distractors": [
       "Für einen Teil der Herde",
       "Für den Segen des Vaters",
-      "Für einen Brunnen in Beerscheba"
+      "Für einen Brunnen in Beerscheba",
+      "Für ein Stück Wildbret",
+      "Für Rahel als Frau"
      ],
      "topic": "event",
      "range": "25,29-34",
@@ -683,7 +719,9 @@
      "distractors": [
       "An Jakobs Rückgabe des Segens",
       "An Isaaks Vermittlung",
-      "An Rebekkas Eingreifen"
+      "An Rebekkas Eingreifen",
+      "An Labans Fürsprache",
+      "An einem Traum, in dem Gott Esau warnt"
      ],
      "topic": "event",
      "range": "33",
@@ -786,7 +824,9 @@
      "distractors": [
       "In Ägypten, im Land Goschen",
       "In Bet-El",
-      "In Sichem"
+      "In Sichem",
+      "Am Jabbok",
+      "In Beerscheba"
      ],
      "topic": "place",
      "range": "49,29-50,14",
@@ -875,7 +915,9 @@
      ],
      "distractors": [
       "Gen 28 (Jakobs Traum)",
-      "Gen 27 (Erstgeburtssegen)"
+      "Gen 27 (Erstgeburtssegen)",
+      "Gen 29 (Hochzeit mit Lea)",
+      "Gen 31 (Flucht vor Laban)"
      ],
      "topic": "event",
      "range": "27-35",
@@ -952,7 +994,9 @@
      "distractors": [
       "Der Bund ist ein Vertrag mit gleichen Pflichten für beide Seiten",
       "Der Bund gilt nur, solange Israel das Gesetz hält",
-      "Der Bund wird jeweils durch ein Opfer der Menschen erkauft"
+      "Der Bund wird jeweils durch ein Opfer der Menschen erkauft",
+      "Der Bund wird nur mit den Priestern geschlossen",
+      "Der Bund verpflichtet die Menschen zuerst zum Halten des Sabbats"
      ],
      "topic": "theme",
      "range": "9-17"
@@ -967,7 +1011,9 @@
      "distractors": [
       "Mit dem Noachbund in Gen 9",
       "Mit dem Bund in Gen 15",
-      "Mit Jakobs Traum in Gen 28"
+      "Mit Jakobs Traum in Gen 28",
+      "Mit dem Bund am Sinai in Ex 24",
+      "Mit Isaaks Segen über Jakob in Gen 27"
      ],
      "topic": "theme",
      "range": "17",

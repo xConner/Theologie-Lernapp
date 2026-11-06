@@ -1066,7 +1066,9 @@
       "distractors": [
         "Die komplette Geschichte Israels abbilden",
         "Die detaillierte Entstehungsgeschichte der Schriften und des Kanons rekonstruieren",
-        "Den hebräischen Text textkritisch herstellen"
+        "Den hebräischen Text textkritisch herstellen",
+        "Die Predigt über alttestamentliche Texte einüben",
+        "Hebräischkenntnisse für die Lektüre der Urtexte vermitteln"
       ],
       "explanation": "Folie 4 nennt als Ziel ein Grundwissen über die Schriften: Aufbau des AT, Gliederung und Inhalte der einzelnen Schriften, zentrale Texte und übergreifende Themen. Ausdrücklich keine Ziele sind die (komplette) Geschichte Israels und die detaillierte Entstehungsgeschichte der Schriften und des Kanons.",
       "slides": [
@@ -1080,7 +1082,8 @@
       "distractors": [
         "Der Aufbau des Alten Testaments",
         "Zentrale Texte und übergreifende Themen",
-        "Gliederung und Inhalte der einzelnen Schriften"
+        "Gliederung und Inhalte der einzelnen Schriften",
+        "Ein Grundwissen über die Schriften des AT"
       ],
       "explanation": "Folie 4: Keine Ziele der Bibelkunde sind die (komplette) Geschichte Israels und die detaillierte Entstehungsgeschichte der Schriften und des Kanons. Ergänzung: Diese Fragen behandelt die Einleitungswissenschaft, in Kiel die Vorlesung „Einführung in das Alte Testament“.",
       "slides": [
@@ -1094,7 +1097,9 @@
       "distractors": [
         "Genesis, Kapitel 1 bis 5 und Kapitel 7 bis 11",
         "Genesis, Kapitel 1: die Verse 5 bis 11",
-        "Genesis, Kapitel 5: Vers 1 und die Verse 7 bis 11"
+        "Genesis, Kapitel 5: Vers 1 und die Verse 7 bis 11",
+        "Genesis, Kapitel 1: die Verse 5, 7 und 11",
+        "Genesis, Kapitel 1 und 5: die Verse 7 bis 11"
       ],
       "explanation": "Folie 7: „Verse: Gen 1,5.7-11“. Vor dem Komma steht das Kapitel, danach die Verse; der Punkt reiht einen weiteren Versabschnitt desselben Kapitels an. Ergänzung: Vers 6 gehört also nicht dazu.",
       "slides": [
@@ -1108,7 +1113,9 @@
       "distractors": [
         "Gen 1,2",
         "Gen 1,1-2",
-        "Gen 12"
+        "Gen 12",
+        "Gen 1.2",
+        "Gen 2,1"
       ],
       "explanation": "Folie 7: „Kapitel: Gen 1; 2“. Das Semikolon trennt die Kapitel. „Gen 1,2“ wäre dagegen Kapitel 1, Vers 2, „Gen 1,1-2“ die Verse 1 und 2 von Kapitel 1.",
       "slides": [
@@ -1122,7 +1129,9 @@
       "distractors": [
         "Exodus, Kapitel 1, die Verse 5 bis 7, und die Kapitel 24 bis 32",
         "Das ganze Buch Exodus außer den Kapiteln 1–5",
-        "Die Kapitel 1 bis 34 des Buches Exodus vollständig"
+        "Die Kapitel 1 bis 34 des Buches Exodus vollständig",
+        "Nur die Kapitel 1–5 und 32–34; die Kapitel 7–24 sind ausgelassen",
+        "Aus Kapitel 1 die Verse 5 und 7 bis 24, dazu die Kapitel 32 bis 34"
       ],
       "explanation": "Folie 7 erläutert: „Ex: nur Kap. 1-5 + 7-24 + 32-34“. Ohne Komma stehen die Zahlen für Kapitel; das Semikolon trennt die Abschnitte.",
       "slides": [
@@ -1136,7 +1145,9 @@
       "distractors": [
         "Die Kapitel 6 bis 10 vollständig",
         "Aus Kapitel 6 die Verse 22–26, dazu die Kapitel 10 bis 12 und 33 bis 36",
-        "Von Kapitel 6, Vers 22, bis Kapitel 10, Vers 36 durchgehend"
+        "Von Kapitel 6, Vers 22, bis Kapitel 10, Vers 36 durchgehend",
+        "Aus Kapitel 6 die Verse 22–26, aus Kapitel 10 die Verse 11–36",
+        "Aus Kapitel 6 die Verse 22–26, aus Kapitel 10 nur die Verse 11, 12, 33 und 36"
       ],
       "explanation": "Folie 7: „Num: nur V. 22-26 (Kap. 6) + V. 11-12 und 33-36 (Kap. 10)“. Das Semikolon beginnt eine neue Kapitelangabe, der Punkt reiht im selben Kapitel weitere Verse an.",
       "slides": [
@@ -1150,7 +1161,9 @@
       "distractors": [
         "Der Ausdruck komme in der Bibel nicht vor",
         "„Testament“ sei keine mögliche Übersetzung von diatheke",
-        "Die Bezeichnung sei erst in der Neuzeit aufgekommen"
+        "Die Bezeichnung sei erst in der Neuzeit aufgekommen",
+        "Die Bezeichnung stamme aus dem Judentum",
+        "„Testament“ meine nur ein Erbe nach dem Tod"
       ],
       "explanation": "Folie 13: „Kritik: alt = veraltet“; danach nennt sie „Erstes Testament“ und „Hebräische Bibel“ als weitere Bezeichnungen. Der Ausdruck selbst geht auf 2 Kor 3,14 zurück (palaia diatheke = vetus testamentum). Ergänzung: Wer am herkömmlichen Begriff festhält, versteht „alt“ nicht als „überholt“, sondern als den Bund, dem der neue folgt.",
       "slides": [
@@ -1168,7 +1181,9 @@
       "distractors": [
         "Nur in der katholischen Kirche",
         "Nur in der Septuaginta-Forschung",
-        "Vor allem in der Lutherbibel"
+        "Vor allem in der Lutherbibel",
+        "Nur in der orthodoxen Kirche",
+        "Vor allem in den Kirchen der Reformation"
       ],
       "explanation": "Folie 13: „Hebräische Bibel“ (im Judentum, international (Hebrew Bible) und interreligiös gebräuchlich). Nur im Judentum gebräuchlich sind nach der Folie „Miqra“ und „Tanach“.",
       "slides": [
@@ -1185,7 +1200,9 @@
       "distractors": [
         "Erstes Testament und Altes Testament",
         "Septuaginta und Vulgata",
-        "Pentateuch und Dodekapropheton"
+        "Pentateuch und Dodekapropheton",
+        "Tora und Talmud",
+        "Mischna und Midrasch"
       ],
       "explanation": "Folie 13: „Miqra“ („was gelesen wird“) und „Tanach“ bzw. TaNaK, das Akronym aus Tora, Nebiim und Ketubim. „Hebräische Bibel“ ist darüber hinaus auch international und interreligiös gebräuchlich.",
       "slides": [
@@ -1203,7 +1220,9 @@
       "distractors": [
         "miqra: „was gelesen wird“",
         "tora: „Weisung“",
-        "ketubim: „Schriften“"
+        "ketubim: „Schriften“",
+        "nebiim: „Propheten“",
+        "berit: „Bund“"
       ],
       "explanation": "Folie 14: κανών (kanon, griech.) = „Richtschnur, Regel“ → קנה (qānæh, hebr.) = „Rohr/Röhre“ (Schilfgrasrohr). Ergänzung: Ein gerades Rohr diente als Messstab; daher die Bedeutung „Richtschnur“.",
       "slides": [
@@ -1220,7 +1239,9 @@
       "distractors": [
         "Seit dem 2. Jh. v. Chr.; vorher wurden keine Schriften gesammelt",
         "Seit der Reformation; vorher galten alle Schriften gleich",
-        "Seit dem 1. Jh. n. Chr.; vorher gab es keinen Streit um einzelne Schriften"
+        "Seit dem 1. Jh. n. Chr.; vorher gab es keinen Streit um einzelne Schriften",
+        "Seit dem 4. Jh. n. Chr.; vorher gab es keine Listen von Schriften",
+        "Seit dem 3. Jh. v. Chr.; vorher gab es bereits Streit um bestimmte Schriften"
       ],
       "explanation": "Folie 14: Verwendung des Begriffs seit dem 4. Jh. n. Chr.; vorher gab es jedoch bereits Listen von Schriften und Streitigkeiten um bestimmte Schriften. Die Sache ist also älter als das Wort.",
       "slides": [
@@ -1237,7 +1258,9 @@
       "distractors": [
         "Nur in der Sprache der Schriften",
         "Nur in den Buchtiteln",
-        "Nur in der Kapitel- und Verseinteilung"
+        "Nur in der Kapitel- und Verseinteilung",
+        "Nur in der Anordnung der Schriften",
+        "Nur in der Übersetzung des Gottesnamens"
       ],
       "explanation": "Folie 15: Verschiedene Traditionen haben unterschiedliche Kanones hervorgebracht, mit Differenzen in Anzahl, Anordnung und Einordnung der Schriften – etwa 39 Schriften im hebräischen Kanon, zusätzliche Bücher in der LXX, Gewichtung gegenüber heilsgeschichtlicher Anordnung.",
       "slides": [
@@ -1251,7 +1274,9 @@
       "distractors": [
         "Weil einige Schriften erst später hinzukamen",
         "Weil die Ketubim nicht mitgezählt wurden",
-        "Weil die Apokryphen abgezogen wurden"
+        "Weil die Apokryphen abgezogen wurden",
+        "Weil die Tora als ein einziges Buch gezählt wurde",
+        "Weil nur die hebräisch erhaltenen Schriften zählten"
       ],
       "explanation": "Folie 15: ursprüngliche Zählung 24 (nach 4. Esra 14) bzw. 22 Schriften (nach Josephus); Hintergrund: Zusammenfassung von Schriften. Ergänzung: Zusammengefasst wurden etwa die zwölf kleinen Propheten zu einem Buch, Samuel, Könige und Chronik zu je einem sowie Esra und Nehemia.",
       "slides": [
@@ -1265,7 +1290,9 @@
       "distractors": [
         "24 nach Josephus, 22 nach 4. Esra 14",
         "24 nach der Septuaginta, 22 nach der Vulgata",
-        "24 nach der Mischna, 22 nach Hieronymus"
+        "24 nach der Mischna, 22 nach Hieronymus",
+        "Beide Zahlen nach Josephus, je nach Zählung der Propheten",
+        "24 nach den Qumranrollen, 22 nach 4. Esra 14"
       ],
       "explanation": "Folie 15: „ursprüngliche Zählung (nach 4. Esra 14) 24 bzw. (nach Josephus) 22 Schriften“. Ergänzung: 4. Esra ist eine jüdische Apokalypse vom Ende des 1. Jh. n. Chr., Flavius Josephus ein jüdischer Geschichtsschreiber desselben Jahrhunderts.",
       "slides": [
@@ -1279,7 +1306,8 @@
       "distractors": [
         "Nur die Tora und die Propheten",
         "Weniger Schriften, weil die Ketubim fehlen",
-        "Dieselben 39 Schriften, nur anders benannt"
+        "Dieselben 39 Schriften, nur anders benannt",
+        "Nur die Bücher, die ursprünglich griechisch verfasst wurden"
       ],
       "explanation": "Folie 15: griechischer Kanon der LXX: 39 Schriften (wie im hebräischen Kanon) + 15 zusätzliche Bücher, heilsgeschichtlich angeordnet. Folie 18 zählt die zusätzlichen Bücher auf (u. a. Judit, Tobit, Makkabäer, Weisheit Salomos, Sirach) und nennt weitere Zusätze in Schriften.",
       "slides": [
@@ -1297,7 +1325,10 @@
       "distractors": [
         "Rut",
         "Ester",
-        "Daniel"
+        "Daniel",
+        "Hiob",
+        "Esra",
+        "Klagelieder"
       ],
       "explanation": "Judit gehört nach Folie 18 zu den zusätzlichen Büchern der LXX (wie Tobit, 1.–4. Makkabäer, Weisheit Salomos, Sirach, Baruch u. a.). Rut, Ester und Daniel stehen in den Ketubim der Hebräischen Bibel; zu Ester und Daniel hat die LXX allerdings Zusätze (Susanna, Bel und der Drache).",
       "slides": [
@@ -1315,7 +1346,8 @@
       "distractors": [
         "Katholisch: 39 Bücher; protestantisch: Umfang der LXX",
         "Beide haben den Umfang der LXX und unterscheiden sich nur in der Anordnung",
-        "Beide haben den Umfang des hebräischen Kanons und unterscheiden sich nur in der Sprache"
+        "Beide haben den Umfang des hebräischen Kanons und unterscheiden sich nur in der Sprache",
+        "Katholisch: Umfang des hebräischen Kanons; protestantisch: Umfang der Vulgata"
       ],
       "explanation": "Folie 16: katholische Kirche: Umfang des griechischen Kanons (LXX); protestantische Kirchen: Umfang des hebräischen Kanons (hebräisches Original!), also 39 Bücher, aber in der Anordnung der LXX.",
       "slides": [
@@ -1332,7 +1364,9 @@
       "distractors": [
         "Weil die Septuaginta erst nach der Reformation entstand",
         "Weil die zusätzlichen Bücher nur lateinisch überliefert sind",
-        "Weil die Reformatoren die Anordnung der LXX ablehnten"
+        "Weil die Reformatoren die Anordnung der LXX ablehnten",
+        "Weil Luther die zusätzlichen Bücher für Fälschungen hielt",
+        "Weil das Konzil von Trient es so festlegte"
       ],
       "explanation": "Folie 16: „Umfang: hebr. Kanon (hebräisches Original!)“; die Anordnung übernehmen die protestantischen Kirchen dagegen von der LXX. Ergänzung: Dahinter steht die reformatorische Rückkehr zu den Ursprungstexten („ad fontes“). Luther überschrieb die Apokryphen als „Bücher, so der Heiligen Schrift nicht gleich gehalten und doch nützlich und gut zu lesen sind“.",
       "slides": [
@@ -1346,7 +1380,9 @@
       "distractors": [
         "Verteilt an ihren Stellen in der Reihenfolge der LXX",
         "Als Anhang nach der Offenbarung",
-        "Am Anfang vor dem Pentateuch"
+        "Am Anfang vor dem Pentateuch",
+        "Gar nicht – die Lutherbibel lässt sie ganz weg",
+        "Gleich nach dem Pentateuch"
       ],
       "explanation": "Folie 16: „“Extra-Bücher“ der Septuaginta: in Lutherbibel z.B. als Apokryphen zwischen AT und NT eingeordnet“. Ergänzung: Manche Ausgaben, etwa die Lutherbibel 1912 in der Bibel der App, enthalten die Apokryphen nicht.",
       "slides": [
@@ -1364,7 +1400,9 @@
       "distractors": [
         "Kohelet",
         "Hoheslied",
-        "Obadja"
+        "Obadja",
+        "Rut",
+        "Klagelieder"
       ],
       "explanation": "Apokryphen der Lutherbibel nach Folie 19: Judit, Weisheit Salomos, Tobit, Jesus Sirach, Baruch, 1.–2. Makkabäer, Zusätze zu Ester und Daniel, Gebet Manasses. Kohelet (Prediger) und Hoheslied stehen bei den Lehrbüchern, Obadja im Zwölfprophetenbuch.",
       "slides": [
@@ -1381,7 +1419,9 @@
       "distractors": [
         "Hosea bis Maleachi",
         "Josua bis 2. Könige",
-        "Jesaja, Jeremia, Daniel"
+        "Jesaja, Jeremia, Daniel",
+        "Samuel, Könige, Chronik",
+        "Jesaja, Hosea, Amos"
       ],
       "explanation": "Folie 17: „Hintere Propheten“ Jes – Mal, darin „große Propheten“ Jes, Jer, Ez und „kleine Propheten“ Hos – Mal. Daniel steht in der Hebräischen Bibel nicht bei den Propheten, sondern in den Ketubim.",
       "slides": [
@@ -1398,7 +1438,9 @@
       "distractors": [
         "Unter den Ketubim",
         "In der Tora",
-        "Unter den Hinteren Propheten"
+        "Unter den Hinteren Propheten",
+        "Unter den Ketubim, zusammen mit der Chronik",
+        "Unter den Festrollen (Megillot)"
       ],
       "explanation": "Folie 17: Die Vorderen Propheten umfassen Jos – 2 Kön, also auch Samuel und Könige. Folie 20 vermerkt bei Josua, Richter, Samuel und Könige entsprechend „(Nebiim)“; in der Lutherbibel stehen sie bei den Geschichtsbüchern.",
       "slides": [
@@ -1416,7 +1458,9 @@
       "distractors": [
         "Passa",
         "Wochenfest",
-        "Laubhüttenfest"
+        "Laubhüttenfest",
+        "Tempelweihfest (Chanukka)",
+        "Neujahrsfest"
       ],
       "explanation": "Megillot nach Folie 17: Rut (Wochenfest), Hohelied (Passa), Kohelet/Prediger (Laubhüttenfest), Klagelieder (Tempelzerstörung), Ester (Purim). Ergänzung: Ester erzählt die Rettung der Juden, an die das Purimfest erinnert (Est 9).",
       "slides": [
@@ -1433,7 +1477,9 @@
       "distractors": [
         "Purim",
         "Dem Passa",
-        "Dem Laubhüttenfest"
+        "Dem Laubhüttenfest",
+        "Dem Wochenfest",
+        "Dem Versöhnungstag"
       ],
       "explanation": "Folie 17: Klagelieder (Tempelzerstörung). Die übrigen Megillot: Rut (Wochenfest), Hohelied (Passa), Kohelet/Prediger (Laubhüttenfest), Ester (Purim).",
       "slides": [
@@ -1450,7 +1496,9 @@
       "distractors": [
         "Tora → Nebiim → Ketubim",
         "Prophetische Bücher → Geschichtsbücher → Lehrbücher",
-        "Pentateuch → Prophetische Bücher → Lehrbücher"
+        "Pentateuch → Prophetische Bücher → Lehrbücher",
+        "Lehrbücher → Geschichtsbücher → Prophetische Bücher",
+        "Geschichtsbücher (mit Pentateuch) → Prophetische Bücher → Lehrbücher"
       ],
       "explanation": "Folien 16 und 20: Die Lutherbibel übernimmt die heilsgeschichtliche Anordnung der LXX: Geschichtsbücher (inklusive Pentateuch) → Lehrbücher → Prophetische Bücher. Tora → Nebiim → Ketubim ist die Anordnung der Hebräischen Bibel (nach Gewichtung).",
       "slides": [
@@ -1466,7 +1514,9 @@
       "distractors": [
         "Josua und Richter",
         "Jesaja und Jeremia",
-        "Rut und Ester"
+        "Rut und Ester",
+        "Klagelieder und Ester",
+        "Daniel und Hiob"
       ],
       "explanation": "Folie 20 kennzeichnet bei den Prophetischen Büchern „Klagelieder Jeremias (Ketubim)“ und „Daniel (Ketubim)“. Josua und Richter stehen in der Hebräischen Bibel unter den Nebiim, in der Lutherbibel bei den Geschichtsbüchern; Rut und Ester gehören zu den Ketubim, stehen in der Lutherbibel aber bei den Geschichtsbüchern.",
       "slides": [
@@ -1484,7 +1534,8 @@
       "distractors": [
         "In der Tora (Weisung)",
         "Unter den Nebiim (Propheten)",
-        "Unter den Apokryphen"
+        "Unter den Apokryphen",
+        "Unter den Vorderen Propheten zwischen Richter und Samuel"
       ],
       "explanation": "Folie 20: „Rut (Ketubim)“. Ebenso stehen Chronik, Esra, Nehemia und Ester in der Hebräischen Bibel unter den Ketubim; Rut gehört dort zu den Megillot (Wochenfest, Folie 17).",
       "slides": [
@@ -1503,7 +1554,9 @@
       "distractors": [
         "Griechisch, teilweise Hebräisch",
         "Aramäisch, teilweise Griechisch",
-        "Hebräisch, teilweise Syrisch"
+        "Hebräisch, teilweise Syrisch",
+        "Hebräisch, teilweise Griechisch",
+        "Ausschließlich Hebräisch"
       ],
       "explanation": "Folie 21: „Sprache des AT bzw. der HB: Hebräisch (und teilweise Aramäisch)“. Griechisch ist die Sprache der Septuaginta und des NT. Ergänzung: Aramäisch sind z. B. Dan 2,4b–7,28 und Esr 4,8–6,18.",
       "slides": [
@@ -1517,7 +1570,9 @@
       "distractors": [
         "Auf dem Codex Aleppo",
         "Auf den Schriftrollen von Qumran",
-        "Auf dem Codex Cairensis"
+        "Auf dem Codex Cairensis",
+        "Auf dem Codex Vaticanus der Septuaginta",
+        "Auf der großen Jesajarolle aus Qumran"
       ],
       "explanation": "Folie 21: Die Biblia Hebraica Stuttgartensia (BHS) und die Biblia Hebraica Quinta (BHQ) basieren auf dem Codex Leningradensis, der ältesten vollständig erhaltenen Handschrift der Hebräischen Bibel. Der Codex Aleppo ist unvollständig, der Codex Cairensis enthält nur die Propheten.",
       "slides": [
@@ -1536,7 +1591,9 @@
       "distractors": [
         "Die griechische Übersetzung der Septuaginta",
         "Die aramäischen Targume",
-        "Den Text der Qumranrollen"
+        "Den Text der Qumranrollen",
+        "Den samaritanischen Pentateuch",
+        "Die lateinische Vulgata"
       ],
       "explanation": "Folie 21: Codex Leningradensis, Codex Aleppo und Codex Cairensis „überliefern den hebr. Konsonantentext, der sich durchgesetzt hat = „Masoretischer Text“ (MT)“. Die Qumranrollen stehen „daneben“ und zeigen Übereinstimmungen und Abweichungen gegenüber dem MT.",
       "slides": [
@@ -1553,7 +1610,9 @@
       "distractors": [
         "Vollständige Abschriften aller biblischen Bücher auf Hebräisch",
         "Ausschließlich griechische Übersetzungen biblischer Bücher",
-        "Mittelalterliche Abschriften des Masoretischen Textes"
+        "Mittelalterliche Abschriften des Masoretischen Textes",
+        "Nur nichtbiblische Schriften der Gemeinschaft von Qumran",
+        "Abschriften biblischer Bücher ausschließlich auf Aramäisch"
       ],
       "explanation": "Folie 21: Schriftrollen von Qumran, 1947 gefunden; Abschriften biblischer und nichtbiblischer Bücher (hebr.; griech.; aram.); z. T. sehr fragmentarisch; Übereinstimmungen und Abweichungen gegenüber dem MT.",
       "slides": [
@@ -1570,7 +1629,9 @@
       "distractors": [
         "Die Targume (aramäisch)",
         "Die Peschitta (syrisch)",
-        "Die Vulgata (lateinisch)"
+        "Die Vulgata (lateinisch)",
+        "Die Vetus Latina (lateinisch)",
+        "Die koptische Übersetzung"
       ],
       "explanation": "Folie 22: Septuaginta ab 3. Jh. v. Chr., frühe Targume ab 2. Jh. v. Chr., Peschitta ab 2. Jh. n. Chr., Vetus Latina ab 2./3. Jh. n. Chr., Vulgata um 400 n. Chr.",
       "slides": [
@@ -1587,7 +1648,9 @@
       "distractors": [
         "Weil fast keine Übersetzung auf den Ursprungssprachen beruht",
         "Weil jede Übersetzung die Kapitel- und Verseinteilung neu festlegt",
-        "Weil alle Übersetzungen aus der Vulgata übersetzen"
+        "Weil alle Übersetzungen aus der Vulgata übersetzen",
+        "Weil Übersetzer immer einer Konfession angehören",
+        "Weil die Texte in den Ursprungssprachen verloren sind"
       ],
       "explanation": "Folie 23: Fast alle Bibelübersetzungen basieren auf den Ursprungssprachen, aber jede verfolgt gewisse Ziele (z. B. bessere Verständlichkeit, gendergerechte Sprache) und ist Produkt von Übersetzungsentscheidungen – und somit in gewisser Weise Interpretation.",
       "slides": [
@@ -1601,7 +1664,9 @@
       "distractors": [
         "Die hebräische bzw. griechische Ursprungssprache",
         "Die Reihenfolge der fünf Bücher Mose",
-        "Die Unterscheidung von Altem und Neuem Testament"
+        "Die Unterscheidung von Altem und Neuem Testament",
+        "Die Zahl der Bücher im hebräischen Kanon",
+        "Der hebräische Konsonantentext"
       ],
       "explanation": "Folie 23: „Kapitel- und Verseinteilung wie auch Zwischenüberschriften sind sekundär“ – sie gehören nicht zum ursprünglichen Text. Ergänzung: Die Kapitel gehen auf Stephan Langton (um 1200) zurück, die heutige Verszählung in Druckausgaben auf das 16. Jahrhundert.",
       "slides": [
@@ -1615,7 +1680,9 @@
       "distractors": [
         "Gute Nachricht und Hoffnung für alle",
         "Vulgata und Septuaginta",
-        "Volxbibel und BasisBibel"
+        "Volxbibel und BasisBibel",
+        "Neue Genfer Übersetzung und Hoffnung für alle",
+        "Gute Nachricht und Volxbibel"
       ],
       "explanation": "Folie 23: „für den wissenschaftlichen Kontext: Elberfelder, Zürcher“. Ergänzung: Beide übersetzen vergleichsweise nah am Wortlaut der Ursprungssprachen.",
       "slides": [
@@ -1629,7 +1696,9 @@
       "distractors": [
         "Bis zur Zerstörung des Zweiten Tempels 70 n. Chr.",
         "Bis zum Untergang des Nordreichs",
-        "Bis zum Sieg der Makkabäer"
+        "Bis zum Sieg der Makkabäer",
+        "Bis zum Tod des Mose",
+        "Bis zur Eroberung Jerusalems 587/6 v. Chr."
       ],
       "explanation": "Folie 24: Der Erzählbogen (erzählte Zeit) reicht von Schöpfung, Urgeschichte und Erzeltern (Gen) bis in die nachexilische Zeit (Esra/Nehemia).",
       "slides": [
@@ -1643,7 +1712,9 @@
       "distractors": [
         "Richter",
         "Numeri",
-        "1. Samuel"
+        "1. Samuel",
+        "Deuteronomium",
+        "Exodus"
       ],
       "explanation": "Folie 24: Inbesitznahme des Landes (Jos), danach die Richterzeit (Ri); Wüstenwanderung und Gesetzgebung umfassen Ex bis Dtn, die Königszeit 1/2 Sam, 1/2 Kön und 1/2 Chr.",
       "slides": [
@@ -1657,7 +1728,9 @@
       "distractors": [
         "Dass die Schriften von Anfang an in einem einheitlichen Stil verfasst wurden",
         "Dass die biblischen Bücher im Tempel aufbewahrt wurden",
-        "Dass die Hebräische Bibel nach dem Vorbild eines Bauwerks gegliedert ist"
+        "Dass die Hebräische Bibel nach dem Vorbild eines Bauwerks gegliedert ist",
+        "Dass die Bibel von einem einzigen Baumeister geplant wurde",
+        "Dass die Texte erst nach dem Bau des Zweiten Tempels verfasst wurden"
       ],
       "explanation": "Folie 25: Eine Schrift gleiche einer über Jahrzehnte, oft Jahrhunderte gewachsenen Kathedrale; zahlreiche Baumeister und Handwerker hätten aus-, um- und angebaut. Daraus folgert die Folie, dass die Texte sukzessive entstanden sind. Ergänzung: Das ist die in der deutschsprachigen Forschung verbreitete Sicht; konservative Forscher rechnen mit einer größeren Nähe vieler Texte zu den Ereignissen und ihren Verfassern.",
       "slides": [
@@ -1671,7 +1744,9 @@
       "distractors": [
         "Alle Texte wurden unmittelbar nach den Ereignissen niedergeschrieben",
         "Alle Texte stammen aus der hellenistischen Zeit",
-        "Jeder Text hat genau einen Verfasser"
+        "Jeder Text hat genau einen Verfasser",
+        "Die meisten Texte stammen aus der Zeit, die sie beschreiben",
+        "Die Texte haben keinen geschichtlichen Wert"
       ],
       "explanation": "Folie 25: Die biblischen Texte sind nach der Folie sukzessive über einen langen Zeitraum entstanden, viele Menschen waren beteiligt – „d.h. die meisten Text(teile) stammen nicht aus der Zeit, die sie beschreiben“. Ergänzung: Diese Einschätzung ist in der Forschung verbreitet, aber nicht unumstritten: Andere rechnen etwa mit einem mosaischen Kern des Pentateuch und mit Prophetenbüchern, die weitgehend auf die Propheten selbst zurückgehen.",
       "slides": [
@@ -1685,7 +1760,9 @@
       "distractors": [
         "Die Übersetzung ins Griechische",
         "Die Funde von Qumran",
-        "Die Einführung der Kapitel- und Verseinteilung"
+        "Die Einführung der Kapitel- und Verseinteilung",
+        "Die Reformation",
+        "Der Bau des Ersten Tempels unter Salomo"
       ],
       "explanation": "Folie 26: „„Katalysator“ für Arbeit an Texten: historische & religiöse Entwicklungen (v.a. Untergang der Reiche; Tempelzerstörung und Exilszeit)“. Das Schaubild führt von einzelnen Überlieferungen über Erzählkreise und größere Zusammenhänge zu den biblischen Schriften.",
       "slides": [
@@ -1702,7 +1779,9 @@
       "distractors": [
         "Ausbildung staatlicher Strukturen in Israel und Juda",
         "Kultreform Josias",
-        "Sanheribs Feldzug gegen Juda und Jerusalem"
+        "Sanheribs Feldzug gegen Juda und Jerusalem",
+        "Den Untergang des Nordreichs Israel",
+        "Den Auszug aus Ägypten unter Mose"
       ],
       "explanation": "Folie 27: 1208 v. Chr. „Israel“ auf Siegesstele des Pharao Merenptah. Ergänzung: Es ist die älteste bekannte außerbiblische Erwähnung des Namens Israel.",
       "slides": [
@@ -1716,7 +1795,9 @@
       "distractors": [
         "Den Untergang des Nordreichs Israel",
         "Die Rückkehrmöglichkeit für die Exulanten",
-        "Die Kultreform Josias"
+        "Die Kultreform Josias",
+        "Die Nennung „Israels“ auf der Merenptah-Stele",
+        "Sanheribs Feldzug gegen Juda und Jerusalem"
       ],
       "explanation": "Folie 27: 9. Jh. v. Chr. Ausbildung staatlicher Strukturen in Israel & Juda. Ergänzung: Die Vorlesung (Einheit 1, Folie 19) nennt für das 10. Jh. die Entstehung der Lokalkönigtümer. Wie bedeutend das Königtum Davids und Salomos im 10. Jh. war, ist umstritten: Die biblische Darstellung und ein Teil der Archäologie rechnen mit einem größeren Reich.",
       "slides": [
@@ -1730,7 +1811,9 @@
       "distractors": [
         "Die Kultreform Josias",
         "Die 1. Eroberung Jerusalems durch die Babylonier",
-        "Die Eroberung Samarias durch die Assyrer"
+        "Die Eroberung Samarias durch die Assyrer",
+        "Die Nennung „Israels“ auf der Merenptah-Stele",
+        "Der Beginn der persischen Herrschaft"
       ],
       "explanation": "Folie 27: 701 v. Chr. Sanheribs Feldzug gegen Juda & Jerusalem; 722/20 die Eroberung Samarias, 622 die Kultreform Josias, 598/7 die 1. Eroberung Jerusalems. Ergänzung: Biblisch berichtet in 2 Kön 18–19 und Jes 36–37.",
       "slides": [
@@ -1744,7 +1827,9 @@
       "distractors": [
         "Sanheribs Feldzug gegen Jerusalem",
         "Den Untergang des Südreichs Juda",
-        "Den Beginn der hellenistischen Zeit"
+        "Den Beginn der hellenistischen Zeit",
+        "Die Eroberung Samarias durch die Assyrer",
+        "Die 1. Eroberung Jerusalems durch die Babylonier"
       ],
       "explanation": "Folie 27: 622 v. Chr. Kultreform Josias. Ergänzung: Biblisch berichtet in 2 Kön 22–23, ausgelöst durch den Fund des Gesetzbuchs im Tempel.",
       "slides": [
@@ -1758,7 +1843,9 @@
       "distractors": [
         "598/7: Untergang des Nordreichs; 587/6: Rückkehr der Exulanten",
         "722/20: 1. Eroberung; 701: 2. Eroberung",
-        "587/6: 1. Eroberung; 539: 2. Eroberung"
+        "587/6: 1. Eroberung; 539: 2. Eroberung",
+        "598/7: 2. Eroberung; 587/6: 1. Eroberung",
+        "598/7: 1. Eroberung und Untergang des Südreichs Juda; 587/6: 2. Eroberung"
       ],
       "explanation": "Folie 27: 598/7 v. Chr. 1. Eroberung Jerusalems durch die Babylonier; 587/6 v. Chr. 2. Eroberung und Untergang des Südreichs Juda; danach das (Babylonische) Exil. 722/20 fiel das Nordreich (Samaria) an die Assyrer.",
       "slides": [
@@ -1775,7 +1862,9 @@
       "distractors": [
         "Die hellenistische Zeit beginnt",
         "Die Makkabäer siegen über die Seleukiden",
-        "Die Exulanten dürfen zurückkehren"
+        "Die Exulanten dürfen zurückkehren",
+        "Die Perser erlauben den Wiederaufbau des Tempels",
+        "Der Zweite Tempel wird zerstört"
       ],
       "explanation": "Folie 27: ab 63 v. Chr. Judäa unter römischer Herrschaft & Autonomie der Hasmonäer beendet. Vorher: 333 Beginn der hellenistischen Zeit, 164 Sieg der Makkabäer und hasmonäisches Königtum.",
       "slides": [

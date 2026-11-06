@@ -258,7 +258,16 @@ sealed class PericopeTask extends StudyTask {
 
 /// Eine inhaltliche Wissensfrage. Die Auswahlmöglichkeiten sind beim
 /// Erstellen gemischt, damit die Anzeige stabil bleibt.
+///
+/// Jede neue Aufgabe zur selben Frage mischt neu: Die Reihenfolge ist
+/// zufällig, und bei Auswahlfragen werden aus dem Pool der Ablenker
+/// ([KnowledgeQuestion.distractors]) jeweils nur [shownDistractors]
+/// gezogen – so erscheinen immer wieder andere falsche Möglichkeiten.
 class KnowledgeTask extends StudyTask {
+  /// Höchstzahl der angezeigten Ablenker bei [KnowledgeFormat.choice] und
+  /// [KnowledgeFormat.multi]; ein größerer Pool wechselt von Mal zu Mal.
+  static const int shownDistractors = 3;
+
   final KnowledgeQuestion question;
 
   /// Auswahl ([KnowledgeFormat.choice], [KnowledgeFormat.multi]) bzw. die
@@ -266,7 +275,15 @@ class KnowledgeTask extends StudyTask {
   /// ([KnowledgeFormat.order]), gemischt.
   final List<String> options;
 
-  const KnowledgeTask(this.question, this.options);
+  /// Reihenfolge der linken Spalte bei [KnowledgeFormat.match] als Indizes
+  /// in [KnowledgeQuestion.pairs]; `null` = Reihenfolge der Daten.
+  final List<int>? pairOrder;
+
+  const KnowledgeTask(this.question, this.options, {this.pairOrder});
+
+  /// Indizes der Paare in Anzeigereihenfolge.
+  List<int> get pairIndices =>
+      pairOrder ?? [for (int i = 0; i < question.pairs.length; i++) i];
 
   factory KnowledgeTask.of(KnowledgeQuestion q, Random random) {
     List<String> shuffled(List<String> values) {
@@ -283,13 +300,23 @@ class KnowledgeTask extends StudyTask {
       return list;
     }
 
-    return KnowledgeTask(q, switch (q.format) {
-      KnowledgeFormat.choice ||
-      KnowledgeFormat.multi => shuffled([...q.correct, ...q.distractors]),
-      KnowledgeFormat.match => shuffled([for (final p in q.pairs) p.right]),
-      KnowledgeFormat.order => shuffled(q.items),
-      KnowledgeFormat.reveal => const [],
-    });
+    List<String> withDistractors() => shuffled([
+      ...q.correct,
+      ...shuffled(q.distractors).take(shownDistractors),
+    ]);
+
+    return KnowledgeTask(
+      q,
+      switch (q.format) {
+        KnowledgeFormat.choice || KnowledgeFormat.multi => withDistractors(),
+        KnowledgeFormat.match => shuffled([for (final p in q.pairs) p.right]),
+        KnowledgeFormat.order => shuffled(q.items),
+        KnowledgeFormat.reveal => const [],
+      },
+      pairOrder: q.format == KnowledgeFormat.match
+          ? ([for (int i = 0; i < q.pairs.length; i++) i]..shuffle(random))
+          : null,
+    );
   }
 
   static bool _same(List<String> a, List<String> b) {

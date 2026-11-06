@@ -13,7 +13,10 @@
    "distractors": [
     "Sonne, Mond und Sterne",
     "Die Pflanzen",
-    "Die Tiere des Feldes"
+    "Die Tiere des Feldes",
+    "Das Himmelsgewölbe",
+    "Die Fische und die Vögel",
+    "Den Menschen"
    ],
    "range": "1",
    "refs": [
@@ -50,7 +53,9 @@
    "distractors": [
     "Ein Feigenbaum und ein Ölbaum",
     "Der Weinstock und die Zeder",
-    "Der Baum des Lebens und ein Feigenbaum"
+    "Der Baum des Lebens und ein Feigenbaum",
+    "Der Baum des Lebens und der Weinstock",
+    "Ein Apfelbaum und der Baum des Lebens"
    ],
    "range": "2",
    "refs": [
@@ -68,7 +73,10 @@
    "distractors": [
     "Gen 1,27",
     "Gen 12,3",
-    "Gen 22,18"
+    "Gen 22,18",
+    "Gen 2,24",
+    "Gen 15,6",
+    "Gen 49,10"
    ],
    "range": "3",
    "refs": [
@@ -87,7 +95,9 @@
    "distractors": [
     "„Er ist auf dem Feld bei den Herden.“",
     "„Meine Strafe ist zu schwer, als dass ich sie tragen könnte.“",
-    "„Siehe, hier bin ich.“"
+    "„Siehe, hier bin ich.“",
+    "„Ich hörte dich im Garten und fürchtete mich.“",
+    "„Die Schlange betrog mich, sodass ich aß.“"
    ],
    "range": "4,1-16",
    "refs": [
@@ -106,7 +116,9 @@
    "distractors": [
     "Es kennzeichnet ihn als Mörder, damit man ihn meidet",
     "Es ist das Zeichen eines Bundes mit seinen Nachkommen",
-    "Es erinnert an das Opfer Abels"
+    "Es erinnert an das Opfer Abels",
+    "Es zeigt, dass Kain zum Priester bestimmt ist",
+    "Es erinnert Kain an seine Schuld, bis er Buße tut"
    ],
    "range": "4,1-16",
    "refs": [
@@ -124,7 +136,9 @@
    "distractors": [
     "Henoch",
     "Lamech",
-    "Enosch"
+    "Enosch",
+    "Jered",
+    "Kenan"
    ],
    "range": "4,25-26",
    "refs": [
@@ -142,7 +156,9 @@
    "distractors": [
     "Metuschelach",
     "Noah",
-    "Lamech"
+    "Lamech",
+    "Elia",
+    "Set"
    ],
    "range": "5",
    "refs": [
@@ -160,7 +176,10 @@
    "distractors": [
     "Adam",
     "Noah",
-    "Jered"
+    "Jered",
+    "Henoch",
+    "Lamech",
+    "Set"
    ],
    "range": "5",
    "refs": [
@@ -179,7 +198,9 @@
    ],
    "distractors": [
     "Kanaan",
-    "Nimrod"
+    "Nimrod",
+    "Kusch",
+    "Elam"
    ],
    "range": "5-10",
    "refs": [
@@ -199,7 +220,9 @@
    "distractors": [
     "Der Turm wird vom Blitz getroffen und stürzt ein",
     "Gott schließt mit den Menschen einen Bund",
-    "Die Bauleute werden in Salzsäulen verwandelt"
+    "Die Bauleute werden in Salzsäulen verwandelt",
+    "Die Stadt wird mit Feuer und Schwefel vernichtet",
+    "Eine Flut zerstört die Stadt"
    ],
    "range": "11,1-9",
    "refs": [
@@ -217,7 +240,9 @@
    "distractors": [
     "Haran",
     "Sichem",
-    "Beerscheba"
+    "Beerscheba",
+    "Babel",
+    "Damaskus"
    ],
    "range": "11,27-32",
    "refs": [
@@ -236,7 +261,10 @@
    "distractors": [
     "99 Jahre",
     "100 Jahre",
-    "40 Jahre"
+    "40 Jahre",
+    "86 Jahre",
+    "65 Jahre",
+    "175 Jahre"
    ],
    "range": "12,1-9",
    "refs": [
@@ -254,7 +282,9 @@
    "distractors": [
     "Ein König von Sodom, den Abram besiegt",
     "Der Knecht Abrahams aus Damaskus",
-    "Der Priester von Midian"
+    "Der Priester von Midian",
+    "Abimelech, der König von Gerar",
+    "Ein Engel, der Abram in Mamre besucht"
    ],
    "range": "14",
    "refs": [
@@ -273,7 +303,9 @@
    "distractors": [
     "Gen 12,4",
     "Gen 17,1",
-    "Gen 22,12"
+    "Gen 22,12",
+    "Gen 15,1",
+    "Gen 18,14"
    ],
    "range": "15",
    "refs": [
@@ -292,7 +324,9 @@
    "distractors": [
     "„Der HERR ist mein Panier“",
     "„Der HERR sieht“ (auf dem Berg)",
-    "„Ich werde sein, der ich sein werde“"
+    "„Ich werde sein, der ich sein werde“",
+    "„Der HERR ist Friede“",
+    "„Gott, der Allmächtige“"
    ],
    "range": "16",
    "refs": [
@@ -311,7 +345,9 @@
    "distractors": [
     "Bei fünfzig",
     "Bei zwanzig",
-    "Bei einem"
+    "Bei einem",
+    "Bei vierzig",
+    "Bei fünfundvierzig"
    ],
    "range": "18,16-33",
    "refs": [
@@ -329,7 +365,9 @@
    "distractors": [
     "Sie bleibt freiwillig in Sodom",
     "Sie stirbt in Zoar an einer Krankheit",
-    "Sie wird von den Männern Sodoms verschleppt"
+    "Sie wird von den Männern Sodoms verschleppt",
+    "Sie wird von Feuer und Schwefel getroffen",
+    "Sie flieht mit den Töchtern ins Gebirge"
    ],
    "range": "19",
    "refs": [
@@ -347,7 +385,9 @@
    "distractors": [
     "Auf den Berg Sinai",
     "Nach Bet-El",
-    "In den Hain Mamre"
+    "In den Hain Mamre",
+    "Nach Beerscheba",
+    "Auf den Berg Karmel"
    ],
    "range": "22,1-19",
    "refs": [
@@ -365,7 +405,9 @@
    "distractors": [
     "Bet-El („Haus Gottes“)",
     "Pnuël („Angesicht Gottes“)",
-    "Beerscheba („Schwurbrunnen“)"
+    "Beerscheba („Schwurbrunnen“)",
+    "Mahanajim („Doppellager“)",
+    "El-Roi („Gott, der mich sieht“)"
    ],
    "range": "22,1-19",
    "refs": [
@@ -383,7 +425,9 @@
    "distractors": [
     "Den Brunnen von Beerscheba",
     "Ein Feld bei Sichem für einen Altar",
-    "Das Land Kanaan für seine Nachkommen"
+    "Das Land Kanaan für seine Nachkommen",
+    "Den Hain Mamre für seine Zelte",
+    "Eine Höhle bei Zoar als Wohnung"
    ],
    "range": "23",
    "refs": [
@@ -402,7 +446,9 @@
    "distractors": [
     "Lot",
     "Ismael",
-    "Isaak selbst"
+    "Isaak selbst",
+    "Seinen Bruder Nahor",
+    "Eine Karawane der Ismaeliter"
    ],
    "range": "24",
    "refs": [
@@ -456,7 +502,9 @@
    "distractors": [
     "Sieben fette und sieben magere Kühe",
     "Einen brennenden Dornbusch",
-    "Garben, die sich vor seiner Garbe verneigen"
+    "Garben, die sich vor seiner Garbe verneigen",
+    "Elf Sterne, die sich vor ihm verneigen",
+    "Einen Mann, der mit ihm bis zum Morgen ringt"
    ],
    "range": "28,10-22",
    "refs": [
@@ -474,7 +522,9 @@
    "distractors": [
     "Er verweigert ihm den vereinbarten Lohn an Schafen",
     "Er gibt ihm Bilha statt Rahel",
-    "Er verlangt nachträglich sieben Jahre für Lea"
+    "Er verlangt nachträglich sieben Jahre für Lea",
+    "Er gibt ihm Silpa statt Rahel",
+    "Er lässt Rahel vor der Hochzeit fliehen"
    ],
    "range": "29,1-30",
    "refs": [
@@ -492,7 +542,9 @@
    "distractors": [
     "7 Jahre",
     "20 Jahre",
-    "40 Jahre"
+    "40 Jahre",
+    "21 Jahre",
+    "12 Jahre"
    ],
    "range": "29,1-30",
    "refs": [
@@ -511,7 +563,9 @@
    "distractors": [
     "Ruben und Juda",
     "Josef und Benjamin",
-    "Dan und Naftali"
+    "Dan und Naftali",
+    "Gad und Asser",
+    "Ruben und Simeon"
    ],
    "range": "34",
    "refs": [
@@ -529,7 +583,9 @@
    "distractors": [
     "Juda",
     "Simeon",
-    "Benjamin"
+    "Benjamin",
+    "Levi",
+    "Dan"
    ],
    "range": "37",
    "refs": [
@@ -547,7 +603,10 @@
    "distractors": [
     "Ruben",
     "Levi",
-    "Issachar"
+    "Issachar",
+    "Simeon",
+    "Benjamin",
+    "Dan"
    ],
    "range": "37",
    "refs": [
@@ -565,7 +624,9 @@
    "distractors": [
     "Sieben Plagen über Ägypten",
     "Den Sturz des Pharao nach sieben Jahren",
-    "Sieben Jahre Krieg mit Kanaan"
+    "Sieben Jahre Krieg mit Kanaan",
+    "Sieben Jahre Hungersnot und danach sieben Jahre Überfluss",
+    "Die Geburt eines Erben nach sieben Jahren"
    ],
    "range": "41",
    "refs": [
@@ -583,7 +644,9 @@
    "distractors": [
     "Gen 37,20",
     "Gen 41,16",
-    "Gen 39,9"
+    "Gen 39,9",
+    "Gen 45,5",
+    "Gen 50,24"
    ],
    "range": "50",
    "refs": [
@@ -602,7 +665,10 @@
    "distractors": [
     "Josef",
     "Ruben",
-    "Levi"
+    "Levi",
+    "Benjamin",
+    "Simeon",
+    "Sebulon"
    ],
    "range": "49,1-28",
    "refs": [
@@ -621,7 +687,9 @@
    "distractors": [
     "40",
     "36",
-    "27"
+    "27",
+    "48",
+    "52"
    ],
    "refs": [
     "Gen 1",
