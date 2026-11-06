@@ -153,10 +153,13 @@ class _KnowledgeTaskViewState extends State<KnowledgeTaskView> {
       if (matched[i] != q.pairs[i].right) ok = false;
     }
 
-    _answer(ok, [
-      for (int i = 0; i < q.pairs.length; i++)
-        "${q.pairs[i].left} – ${matched[i] ?? "?"}",
-    ].join("\n"));
+    _answer(
+      ok,
+      [
+        for (final i in widget.task.pairIndices)
+          "${q.pairs[i].left} – ${matched[i] ?? "?"}",
+      ].join("\n"),
+    );
   }
 
   void _checkOrder() {
@@ -270,7 +273,8 @@ class _KnowledgeTaskViewState extends State<KnowledgeTaskView> {
 
       case KnowledgeFormat.match:
         return [
-          for (int i = 0; i < q.pairs.length; i++)
+          // Linke Spalte in der gemischten Reihenfolge der Aufgabe.
+          for (final i in widget.task.pairIndices)
             Padding(
               padding: const EdgeInsets.only(bottom: 8),
               child: Row(
@@ -409,7 +413,8 @@ class _KnowledgeTaskViewState extends State<KnowledgeTaskView> {
           KnowledgeRefButtons(controller: widget.controller, refs: q.refs),
           if (q.memoryVerse != null)
             KnowledgeNote(
-              text: "Merkvers: ${q.memoryVerse} (unter „Texte auswendig "
+              text:
+                  "Merkvers: ${q.memoryVerse} (unter „Texte auswendig "
                   "lernen“)",
             ),
           const SizedBox(height: 12),
@@ -543,7 +548,11 @@ class KnowledgeAnswerBox extends StatelessWidget {
   final String title;
   final String text;
 
-  const KnowledgeAnswerBox({super.key, required this.title, required this.text});
+  const KnowledgeAnswerBox({
+    super.key,
+    required this.title,
+    required this.text,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -852,8 +861,7 @@ class _ModelAnswerTile extends StatelessWidget {
 }
 
 /// Zeile „n Wissensfragen“ für Abschnitte und Kapitel.
-String knowledgeCountText(LearningProgress progress) =>
-    progress.total == 0
+String knowledgeCountText(LearningProgress progress) => progress.total == 0
     ? ""
     : " · ${progress.total} Wissensfragen"
           "${progress.due > 0 ? " (${progress.due} fällig)" : ""}";

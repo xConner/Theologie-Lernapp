@@ -13,7 +13,9 @@
    "distractors": [
     "Vom Gipfel des Sinai",
     "Aus dem brennenden Dornbusch",
-    "In den Steppen Moabs"
+    "In den Steppen Moabs",
+    "Vom Berg Nebo",
+    "Aus der Wolkensäule am Schilfmeer"
    ],
    "range": "1",
    "refs": [
@@ -68,7 +70,9 @@
    "distractors": [
     "Jitro",
     "Josua",
-    "Aaron selbst"
+    "Aaron selbst",
+    "Eleasar",
+    "Bezalel"
    ],
    "range": "8",
    "refs": [
@@ -86,7 +90,9 @@
    "distractors": [
     "Sie werden zu Hohenpriestern gesalbt",
     "Sie fertigen das Goldene Kalb",
-    "Sie werden wegen Aussatz aus dem Lager gewiesen"
+    "Sie werden wegen Aussatz aus dem Lager gewiesen",
+    "Sie werden von der Erde verschlungen",
+    "Sie tragen die Lade durch den Jordan"
    ],
    "range": "10",
    "refs": [
@@ -104,7 +110,9 @@
    "distractors": [
     "Alle Tiere, die Gras fressen",
     "Tiere, die nicht auf vier Füßen gehen",
-    "Alle Haustiere, auch Schwein und Kamel"
+    "Alle Haustiere, auch Schwein und Kamel",
+    "Tiere, die wiederkäuen, auch wenn ihre Klauen nicht gespalten sind",
+    "Tiere mit gespaltenen Klauen, auch wenn sie nicht wiederkäuen"
    ],
    "range": "11",
    "refs": [
@@ -122,7 +130,9 @@
    "distractors": [
     "Der Älteste der Sippe",
     "Ein Arzt aus dem Lager",
-    "Der Kranke selbst"
+    "Der Kranke selbst",
+    "Mose",
+    "Der Hohepriester allein am Versöhnungstag"
    ],
    "range": "13-14",
    "refs": [
@@ -141,7 +151,9 @@
    "distractors": [
     "Alle Priester",
     "Mose und Aaron gemeinsam",
-    "Die Leviten"
+    "Die Leviten",
+    "Der Hohepriester und seine Söhne",
+    "Jeder, der ein Sündopfer gebracht hat"
    ],
    "range": "16",
    "refs": [
@@ -161,7 +173,9 @@
    "distractors": [
     "Er wird als Brandopfer ganz verbrannt",
     "Er wird dem Hohenpriester als Anteil gegeben",
-    "Er wird am Passa geschlachtet"
+    "Er wird am Passa geschlachtet",
+    "Er wird geschlachtet, und sein Blut wird an den Deckel der Lade gesprengt",
+    "Er wird den Ältesten zum Mahl gegeben"
    ],
    "range": "16",
    "refs": [
@@ -180,7 +194,9 @@
    "distractors": [
     "Weil Blut als Speise den Götzen geweiht ist",
     "Weil es nur den Priestern zusteht",
-    "Weil Blut Aussatz überträgt"
+    "Weil Blut Aussatz überträgt",
+    "Weil Blut unrein macht wie die Berührung eines Toten",
+    "Weil Blut den Ahnen geopfert wird"
    ],
    "range": "17",
    "refs": [
@@ -198,7 +214,9 @@
    "distractors": [
     "Den Zehnten an die Leviten zu geben",
     "Alle sieben Jahre die Schulden zu erlassen",
-    "Fremden kein Land zu verkaufen"
+    "Fremden kein Land zu verkaufen",
+    "Jedes siebte Feld brachliegen zu lassen",
+    "Den Armen die Erstlinge der Ernte zu geben"
    ],
    "range": "19",
    "refs": [
@@ -216,7 +234,9 @@
    "distractors": [
     "Ihn dulden, aber vom Gottesdienst fernhalten",
     "Ihm nach sieben Jahren das Land verweisen",
-    "Ihn wie einen Knecht halten"
+    "Ihn wie einen Knecht halten",
+    "Ihn beschneiden lassen, bevor er im Land wohnen darf",
+    "Ihn vom Zehnten befreien, aber nicht vom Frondienst"
    ],
    "range": "19",
    "refs": [
@@ -234,7 +254,9 @@
    "distractors": [
     "In der Bergpredigt bei den Seligpreisungen",
     "Im Vaterunser",
-    "Bei der Tempelreinigung"
+    "Bei der Tempelreinigung",
+    "In der Versuchungsgeschichte in der Wüste",
+    "In den Einsetzungsworten des Abendmahls"
    ],
    "range": "19",
    "refs": [
@@ -303,7 +325,9 @@
    "distractors": [
     "Alle Sklaven aus fremden Völkern werden frei",
     "Jede Familie zieht nach Jerusalem",
-    "Die Priester werden neu geweiht"
+    "Die Priester werden neu geweiht",
+    "Jeder kehrt zu seinem verkauften Besitz zurück",
+    "Alle Erstgeborenen werden ausgelöst"
    ],
    "range": "25",
    "refs": [
@@ -321,7 +345,9 @@
    "distractors": [
     "Im 40. Jahr wird der Tempel neu geweiht",
     "Im 7. Jahr werden alle Schulden der Fremden erlassen",
-    "Im 50. Jahr wird ein neuer Hohepriester gewählt"
+    "Im 50. Jahr wird ein neuer Hohepriester gewählt",
+    "Im 49. Jahr wird das Land neu verlost",
+    "Im 50. Jahr wird das ganze Volk neu gezählt"
    ],
    "range": "25",
    "refs": [
@@ -339,7 +365,9 @@
    "distractors": [
     "Von der Zahl der dargebrachten Opfer",
     "Von der Treue der Priester allein",
-    "Vom Ausgang der Kriege gegen die Nachbarvölker"
+    "Vom Ausgang der Kriege gegen die Nachbarvölker",
+    "Von der Größe des Heiligtums",
+    "Von der Abstammung aus dem Stamm Levi"
    ],
    "range": "26",
    "refs": [

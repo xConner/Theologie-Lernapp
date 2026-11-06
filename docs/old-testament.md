@@ -134,7 +134,7 @@ Aufgabenarten und „Nur schwierige Inhalte“:
 
 | Art | Aufgabe | Bewertung |
 |---|---|---|
-| Fragen zur Vorlesung | kuratierte Auswahlfragen mit Erklärung und Folie | automatisch |
+| Fragen zur Vorlesung | kuratierte Auswahlfragen mit Erklärung und Folie; je Abfrage drei Ablenker zufällig aus dem Pool der Frage (`shownCuratedDistractors`), Reihenfolge gemischt | automatisch |
 | Fachbegriffe | Erklärung zum Begriff bzw. Begriff zur Erklärung; Ablenker aus anderen Begriffen ohne verwechselbare | automatisch |
 | Bibelstellen | Stelle zu einer eindeutigen Beschreibung (`clue`); erst ab drei Stellen mit Ablenkern | automatisch |
 | Merklisten | Aufzählung aus dem Gedächtnis | Selbstbewertung |

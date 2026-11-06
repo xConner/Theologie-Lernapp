@@ -13,7 +13,9 @@
    "distractors": [
     "„Und Josef starb und alle seine Brüder.“",
     "„Ich bin der Gott deines Vaters, der Gott Abrahams.“",
-    "„Lass mein Volk ziehen!“"
+    "„Lass mein Volk ziehen!“",
+    "„Ich habe das Elend meines Volkes in Ägypten gesehen.“",
+    "„Wer ist der HERR, dass ich auf ihn hören müsste?“"
    ],
    "range": "1",
    "refs": [
@@ -32,7 +34,9 @@
    "distractors": [
     "Mirjam und Zippora",
     "Bilha und Silpa",
-    "Jochebed und Elischeba"
+    "Jochebed und Elischeba",
+    "Lea und Rahel",
+    "Zippora und Hagar"
    ],
    "range": "1",
    "refs": [
@@ -50,7 +54,9 @@
    "distractors": [
     "Seine Schwester Mirjam",
     "Eine der Hebammen",
-    "Die Frau Potifars"
+    "Die Frau Potifars",
+    "Seine Mutter Jochebed",
+    "Zippora, die Tochter Jitros"
    ],
    "range": "2,1-14",
    "refs": [
@@ -69,7 +75,9 @@
    "distractors": [
     "Der Pharao will ihn wegen der Plagen töten",
     "Er sucht eine Frau aus seiner Verwandtschaft",
-    "Gott schickt ihn zu Jitro, um Priester zu werden"
+    "Gott schickt ihn zu Jitro, um Priester zu werden",
+    "Seine Brüder wollen ihn töten",
+    "Er wird wegen Gotteslästerung aus Ägypten verbannt"
    ],
    "range": "2,11-22",
    "refs": [
@@ -87,7 +95,9 @@
    "distractors": [
     "Im Traum in Bet-El",
     "Am Ufer des Schilfmeers",
-    "Im Zelt der Begegnung"
+    "Im Zelt der Begegnung",
+    "Auf dem Berg Nebo",
+    "In einem Traum im Land Goschen"
    ],
    "range": "3",
    "refs": [
@@ -140,7 +150,9 @@
    "distractors": [
     "Mirjam",
     "Elischeba",
-    "Asenat"
+    "Asenat",
+    "Jochebed",
+    "Pua"
    ],
    "range": "2,11-22",
    "refs": [
@@ -158,7 +170,9 @@
    "distractors": [
     "Er lässt das Volk für drei Tage in die Wüste ziehen",
     "Er befiehlt, die neugeborenen Knaben zu töten",
-    "Er bittet Mose, für ihn zu beten"
+    "Er bittet Mose, für ihn zu beten",
+    "Er lässt Mose und Aaron ins Gefängnis werfen",
+    "Er erlaubt nur den Männern, zum Opfer in die Wüste zu ziehen"
    ],
    "range": "5",
    "refs": [
@@ -179,7 +193,9 @@
    ],
    "distractors": [
     "Milch und Honig",
-    "Ein Fasttag bis zum Abend"
+    "Ein Fasttag bis zum Abend",
+    "Ein Becher Wein",
+    "Öl zum Salben der Türen"
    ],
    "range": "12,1-28",
    "refs": [
@@ -197,7 +213,9 @@
    "distractors": [
     "Es reinigt das Haus von Aussatz",
     "Es weiht die Erstgeborenen zu Priestern",
-    "Es zeigt den Ägyptern, wer zum Auszug bereit ist"
+    "Es zeigt den Ägyptern, wer zum Auszug bereit ist",
+    "Es sühnt die Sünden des ganzen Volkes für ein Jahr",
+    "Es verwandelt das Wasser des Nil in Blut"
    ],
    "range": "12",
    "refs": [
@@ -216,7 +234,9 @@
    "distractors": [
     "Durch einen Stern, der vor ihnen herzieht",
     "Durch einen Engel in Menschengestalt, der den Weg zeigt",
-    "Durch die Lade, die die Priester vorantragen"
+    "Durch die Lade, die die Priester vorantragen",
+    "Durch Mirjam, die mit der Pauke vorangeht",
+    "Durch einen Regenbogen am Himmel"
    ],
    "range": "13,17-22",
    "refs": [
@@ -234,7 +254,9 @@
    "distractors": [
     "Israel wird geschlagen und muss nach Ägypten zurück",
     "Mose teilt das Wasser, aber nur Mose und Aaron ziehen hindurch",
-    "Die Ägypter schließen am Ufer Frieden mit Israel"
+    "Die Ägypter schließen am Ufer Frieden mit Israel",
+    "Gott schlägt die Ägypter mit Blindheit, sodass sie Israel verlieren",
+    "Israel überquert den Jordan bei Jericho"
    ],
    "range": "14",
    "refs": [
@@ -252,7 +274,9 @@
    "distractors": [
     "Mose schlägt Wasser aus dem Felsen",
     "Gott gibt zum ersten Mal Manna",
-    "Israel besiegt die Amalekiter"
+    "Israel besiegt die Amalekiter",
+    "Israel findet zwölf Wasserquellen und siebzig Palmen",
+    "Das Volk wird von feurigen Schlangen gebissen"
    ],
    "range": "15,22-27",
    "refs": [
@@ -270,7 +294,9 @@
    "distractors": [
     "Mit Feigen und Granatäpfeln",
     "Mit Fischen aus dem Schilfmeer",
-    "Mit Brot, das Jitro schickt"
+    "Mit Brot, das Jitro schickt",
+    "Mit Fleisch aus den ägyptischen Herden",
+    "Mit Honig aus dem Felsen"
    ],
    "range": "16",
    "refs": [
@@ -289,7 +315,9 @@
    "distractors": [
     "Das Volk betet das Goldene Kalb an",
     "Mose setzt Richter über das Volk ein",
-    "Aaron und Mirjam lehnen sich gegen Mose auf"
+    "Aaron und Mirjam lehnen sich gegen Mose auf",
+    "Mose besiegt die Amalekiter",
+    "Das bittere Wasser wird durch ein Holz süß"
    ],
    "range": "17,1-7",
    "refs": [
@@ -308,7 +336,9 @@
    "distractors": [
     "Von der Zahl der Krieger, die Josua mustert",
     "Von der Lade, die vor dem Heer hergetragen wird",
-    "Vom Schall der Posaunen"
+    "Vom Schall der Posaunen",
+    "Vom Gebet Aarons am Altar",
+    "Vom Stab, den Josua über das Heer ausstreckt"
    ],
    "range": "17,8-16",
    "refs": [
@@ -326,7 +356,9 @@
    "distractors": [
     "Nach Midian zurückzukehren",
     "Dem Pharao Tribut zu zahlen",
-    "Ein Zelt der Begegnung zu bauen"
+    "Ein Zelt der Begegnung zu bauen",
+    "Das Volk zu zählen und nach Stämmen zu ordnen",
+    "Aaron als Sprecher vor dem Volk einzusetzen"
    ],
    "range": "18",
    "refs": [
@@ -344,7 +376,9 @@
    "distractors": [
     "Ein Volk ohne König und ohne Priester",
     "Ein Licht der Völker bis an die Enden der Erde",
-    "Ein Volk von Propheten"
+    "Ein Volk von Propheten",
+    "Ein großes Volk, zahlreich wie die Sterne am Himmel",
+    "Ein Volk von Hirten und Ackerleuten"
    ],
    "range": "19",
    "refs": [
@@ -363,7 +397,9 @@
    "distractors": [
     "Mit dem Gebot, den Sabbat zu heiligen",
     "Mit dem Verbot, fremde Götter zu haben",
-    "Mit einem Fluch über alle, die das Gesetz brechen"
+    "Mit einem Fluch über alle, die das Gesetz brechen",
+    "Mit dem Gebot, Vater und Mutter zu ehren",
+    "Mit dem Ruf „Höre, Israel“"
    ],
    "range": "20,1-21",
    "refs": [
@@ -382,7 +418,9 @@
    "distractors": [
     "Er zerbricht die Tafeln vor dem Volk",
     "Er beschneidet alle Männer",
-    "Er salbt Aaron zum Hohenpriester"
+    "Er salbt Aaron zum Hohenpriester",
+    "Er schlachtet das Passalamm",
+    "Er errichtet einen Gedenkstein und gießt Öl darauf"
    ],
    "range": "24",
    "refs": [
@@ -402,7 +440,9 @@
    ],
    "distractors": [
     "Die eherne Schlange",
-    "Das Goldene Kalb"
+    "Das Goldene Kalb",
+    "Der Stab Aarons",
+    "Das eherne Meer"
    ],
    "range": "25",
    "refs": [
@@ -421,7 +461,9 @@
    "distractors": [
     "Ein Krug mit Wasser aus dem Felsen",
     "Die Gebeine Josefs",
-    "Das Gewand des Hohenpriesters"
+    "Das Gewand des Hohenpriesters",
+    "Das Blut des Passalamms",
+    "Ein Stein vom Gipfel des Sinai"
    ],
    "range": "25",
    "refs": [
@@ -439,7 +481,9 @@
    "distractors": [
     "Josua",
     "Bezalel",
-    "Jitro"
+    "Jitro",
+    "Hur",
+    "Nadab"
    ],
    "range": "32",
    "refs": [
@@ -457,7 +501,9 @@
    "distractors": [
     "Er verlässt das Volk und kehrt nach Midian zurück",
     "Er setzt Aaron als Priester ab",
-    "Er befiehlt Josua, das Lager zu verlassen"
+    "Er befiehlt Josua, das Lager zu verlassen",
+    "Er legt die Tafeln in die Lade und schweigt",
+    "Er bittet Gott, das Volk sofort zu vernichten"
    ],
    "range": "32",
    "refs": [
@@ -475,7 +521,9 @@
    "distractors": [
     "Gott verlegt den Bund auf Moses Nachkommen",
     "Das Volk muss sofort nach Ägypten zurück",
-    "Aaron wird zum Tod verurteilt"
+    "Aaron wird zum Tod verurteilt",
+    "Gott lässt das Volk vierzig Jahre in der Wüste umherziehen",
+    "Mose darf nun doch in das verheißene Land einziehen"
    ],
    "range": "32",
    "refs": [
@@ -493,7 +541,9 @@
    "distractors": [
     "Gottes Angesicht für einen Augenblick",
     "Nichts – Gott zeigt sich nur im Donner",
-    "Einen Engel in Gestalt eines Mannes"
+    "Einen Engel in Gestalt eines Mannes",
+    "Den Thron Gottes, umgeben von Serafim",
+    "Den Engel des HERRN in einer Feuerflamme"
    ],
    "range": "33",
    "refs": [
@@ -511,7 +561,9 @@
    "distractors": [
     "Er ist erblindet und muss geführt werden",
     "Sein Haar ist weiß geworden",
-    "Er kann nicht mehr sprechen, bis Aaron für ihn redet"
+    "Er kann nicht mehr sprechen, bis Aaron für ihn redet",
+    "Er trägt das Gewand des Hohenpriesters",
+    "Sein Stab ist zu einer Schlange geworden"
    ],
    "range": "34",
    "refs": [
@@ -530,7 +582,9 @@
    "distractors": [
     "Mose stirbt auf dem Berg Nebo",
     "Israel bricht vom Sinai nach Kanaan auf und erobert Jericho",
-    "Aaron wird zum Hohenpriester gesalbt"
+    "Aaron wird zum Hohenpriester gesalbt",
+    "Israel feiert das erste Passa in der Wüste",
+    "Gott gibt die Zehn Gebote ein zweites Mal"
    ],
    "range": "40",
    "refs": [
