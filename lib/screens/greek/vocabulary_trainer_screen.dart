@@ -7,8 +7,11 @@ import '../../models/greek/vocabulary/learning_card.dart';
 
 import '../../algorithms/learning_selector.dart';
 import '../../algorithms/review_state.dart';
+import '../../algorithms/trainer_introductions.dart';
+import '../../algorithms/vocabulary_plan.dart';
 
-import '../../services/greek/vocabulary/greek_vocabulary_loader.dart';
+import '../../services/greek/vocabulary/greek_vocabulary_plan_service.dart';
+import '../../services/greek/vocabulary/greek_vocabulary_plan_state.dart';
 import '../../services/greek/vocabulary/vocabulary_answer_checker.dart';
 import '../../services/greek/vocabulary/vocabulary_settings_service.dart';
 import '../../services/learning_service.dart';
@@ -29,9 +32,17 @@ import '../../info/app_info.dart';
 import '../../widgets/info_report.dart';
 import '../../widgets/self_assessment.dart';
 import '../../widgets/trainer_widgets.dart';
+import 'plan/greek_vocabulary_introduction.dart';
 
+/// Freier Vokabeltrainer (Endlosmodus). Vokabeln, die noch nie drankamen,
+/// werden wie im Lernplan zuerst vorgestellt und erst einige Fragen später
+/// abgefragt ([TrainerIntroductions]).
 class VocabularyTrainerScreen extends StatefulWidget {
-  const VocabularyTrainerScreen({super.key});
+  /// Lädt Vokabeln, Lernstand und Einführungen; ohne Angabe für den
+  /// angemeldeten Nutzer (bzw. Gastmodus).
+  final GreekVocabularyPlanService? planService;
+
+  const VocabularyTrainerScreen({super.key, this.planService});
 
   @override
   State<VocabularyTrainerScreen> createState() =>
@@ -42,6 +53,19 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
   List<GreekVocabularyEntry> entries = [];
 
   final LearningService learningService = LearningService();
+
+  /// Lernplan-Speicher: Einführungen teilen Plan und Trainer.
+  late GreekVocabularyPlanService planService;
+
+  late GreekVocabularyPlanState planState;
+
+  late TrainerIntroductions<GreekVocabularyEntry> introductions;
+
+  /// Die aktuelle Vokabel wird vorgestellt, nicht abgefragt.
+  bool introducing = false;
+
+  /// Nach einer Vorstellung: Abfrage der neuen Vokabel.
+  bool afterIntroduction = false;
   final VocabularySettingsService settingsService = VocabularySettingsService();
 
   final LearningSelector selector = LearningSelector();
@@ -117,6 +141,11 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
       // Enter gehört einem geöffneten Info-Blatt bzw. Meldeformular.
       if (infoReportOverlayOpen) return false;
 
+      if (introducing) {
+        finishIntroduction();
+        return true;
+      }
+
       if (method == AnswerMethod.recall && !answered) {
         return _assessmentKey.currentState?.handleEnter() ?? false;
       }
@@ -160,18 +189,22 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
 
   Future<void> load() async {
     // uid == null: Gastmodus, die Services speichern dann lokal.
-    uid = FirebaseAuth.instance.currentUser?.uid;
+    planService =
+        widget.planService ??
+        GreekVocabularyPlanService(uid: FirebaseAuth.instance.currentUser?.uid);
+
+    uid = planService.uid;
 
     try {
-      // Einstellungen, Vokabeln und Lernstand sind voneinander unabhängig.
+      // Einstellungen und Vokabeln samt Lernstand und Einführungen sind
+      // voneinander unabhängig.
       final results = await Future.wait<Object>([
         settingsService.load(uid),
-        GreekVocabularyLoader.load(),
-        learningService.loadCards(uid),
+        planService.load(),
         AnswerMethodPreference.load(AnswerMethodPreference.greekVocabulary),
       ]);
 
-      method = results[3] as AnswerMethod;
+      method = results[2] as AnswerMethod;
 
       final settings = results[0] as VocabularySettings;
 
@@ -183,9 +216,14 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
       enabledTypes = settings.enabledTypes;
       onlyDifficult = settings.onlyDifficult;
 
-      entries = results[1] as List<GreekVocabularyEntry>;
+      planState = results[1] as GreekVocabularyPlanState;
 
-      cards = results[2] as Map<String, LearningCard>;
+      introductions = TrainerIntroductions(planState);
+
+      entries = planState.entries;
+
+      // Dieselbe Map wie im Planstand: Antworten zählen dort sofort mit.
+      cards = planState.cards;
     } catch (e) {
       // Keine rohen Firebase-/Laufzeitfehler anzeigen.
       debugPrint("Vokabeltrainer konnte nicht geladen werden: $e");
@@ -215,21 +253,40 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
 
     final availableEntries = entries.where(_matchesFilters).toList();
 
-    if (availableEntries.isEmpty) {
+    // Die Filter stehen fest; gewichtet wird nur innerhalb des Pools.
+    final task = introductions.next(
+      pool: availableEntries,
+      select: (pool) => selector.select(
+        candidates: pool,
+        idOf: (entry) => entry.id.toString(),
+        cards: cards,
+        baseWeightOf: (entry) => entry.weight,
+      )!,
+    );
+
+    if (task == null) {
       question = null;
+
+      introducing = false;
 
       setState(() {});
 
       return;
     }
 
-    // Die Filter stehen fest; gewichtet wird nur innerhalb des Pools.
-    final next = selector.select(
-      candidates: availableEntries,
-      idOf: (entry) => entry.id.toString(),
-      cards: cards,
-      baseWeightOf: (entry) => entry.weight,
-    )!;
+    final next = task.entry;
+
+    introducing = task is IntroduceTask<GreekVocabularyEntry>;
+
+    afterIntroduction =
+        task is RecallTask<GreekVocabularyEntry> && task.afterIntroduction;
+
+    if (introducing) {
+      // Wie in der Lerneinheit des Lernplans: Einführung vormerken.
+      planService.introduce(planState, next);
+    } else {
+      selector.markAsked(next.id.toString());
+    }
 
     question = VocabularyQuestion(entry: next);
 
@@ -265,10 +322,18 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
 
     Future.delayed(const Duration(milliseconds: 100), () {
       // Im Kopf wird nichts getippt: keine Bildschirmtastatur öffnen.
-      if (mounted && method == AnswerMethod.typing) {
+      if (mounted && method == AnswerMethod.typing && !introducing) {
         translationFocusNode.requestFocus();
       }
     });
+  }
+
+  /// „Weiter“ nach der Vorstellung einer neuen Vokabel: nichts wird
+  /// bewertet, die Abfrage folgt einige Fragen später.
+  void finishIntroduction() {
+    if (!introducing) return;
+
+    nextQuestion();
   }
 
   void setMethod(AnswerMethod value) {
@@ -316,7 +381,7 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
     final q = question;
 
     // Je aufgedeckter Lösung nur eine Bewertung.
-    if (q == null || !revealed || answered) {
+    if (q == null || !revealed || answered || introducing) {
       return;
     }
 
@@ -347,7 +412,7 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
   Future<void> check() async {
     final q = question;
 
-    if (q == null || method != AnswerMethod.typing) {
+    if (q == null || method != AnswerMethod.typing || introducing) {
       return;
     }
 
@@ -715,202 +780,223 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
                   mainAxisSize: MainAxisSize.min,
 
                   children: [
-                    SelectableText(
-                      q.entry.lemma,
-
-                      textAlign: TextAlign.center,
-
-                      style: const TextStyle(
-                        fontSize: 32,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-
-                    const SizedBox(height: 16),
-
-                    AnswerMethodSelector(
-                      method: method,
-                      onChanged: answered || revealed ? null : setMethod,
-                    ),
-
-                    const SizedBox(height: 20),
-
-                    if (method == AnswerMethod.recall) ...[
-                      SelfAssessmentPanel(
-                        key: _assessmentKey,
-                        revealed: revealed,
-                        onReveal: () => setState(() => revealed = true),
-                        onAssess: assess,
-                        solutionBuilder: (_) => _buildSolution(q),
+                    if (introducing) ...[
+                      _NewVocabularyLabel(
+                        text:
+                            "Neue Vokabel · "
+                            "${VocabularySettings.stepLabel(q.entry.step)}",
                       ),
 
-                      if (revealed) ...[
-                        const SizedBox(height: 16),
-
-                        _buildMnemonic(q, card),
-                      ],
+                      GreekVocabularyIntroduction(
+                        key: ValueKey("greek-trainer-intro-${q.entry.id}"),
+                        entry: q.entry,
+                        mnemonic: card.mnemonic ?? q.entry.mnemonic,
+                        onNext: finishIntroduction,
+                      ),
                     ] else ...[
-                      if (q.hasArticleField || q.hasGenitiveField)
-                        Row(
-                          children: [
-                            if (q.hasGenitiveField && includeGenitive)
-                              Expanded(
-                                child: greekField(
-                                  "Genitiv",
-                                  genitiveController,
-                                  genitiveCorrect,
-                                ),
-                              ),
-
-                            if (q.hasArticleField &&
-                                q.hasGenitiveField &&
-                                includeArticle &&
-                                includeGenitive)
-                              const SizedBox(width: 10),
-
-                            if (q.hasArticleField && includeArticle)
-                              Expanded(
-                                child: greekField(
-                                  "Artikel",
-                                  articleController,
-                                  articleCorrect,
-                                ),
-                              ),
-                          ],
+                      if (afterIntroduction)
+                        const _NewVocabularyLabel(
+                          text: "Neue Vokabel abfragen",
                         ),
 
-                      if (q.hasAoristField && includeAorist)
-                        greekField("Aorist", aoristController, aoristCorrect),
+                      SelectableText(
+                        q.entry.lemma,
 
-                      const SizedBox(height: 15),
+                        textAlign: TextAlign.center,
 
-                      TextField(
-                        controller: translationController,
-
-                        enabled: !answered,
-
-                        focusNode: translationFocusNode,
-
-                        //onTap: closeKeyboard,
-                        decoration: InputDecoration(
-                          labelText: "Übersetzung",
-
-                          enabledBorder: answerResultBorder(
-                            context,
-                            translationCorrect,
-                          ),
-
-                          focusedBorder: answerResultBorder(
-                            context,
-                            translationCorrect,
-                          ),
-
-                          disabledBorder: answerResultBorder(
-                            context,
-                            translationCorrect,
-                          ),
-
-                          border: const OutlineInputBorder(),
+                        style: const TextStyle(
+                          fontSize: 32,
+                          fontWeight: FontWeight.bold,
                         ),
+                      ),
+
+                      const SizedBox(height: 16),
+
+                      AnswerMethodSelector(
+                        method: method,
+                        onChanged: answered || revealed ? null : setMethod,
                       ),
 
                       const SizedBox(height: 20),
 
-                      if (showKeyboard && activeController != null)
-                        GreekKeyboard(
-                          controller: activeController!,
-
-                          onChanged: () {
-                            setState(() {});
-                          },
+                      if (method == AnswerMethod.recall) ...[
+                        SelfAssessmentPanel(
+                          key: _assessmentKey,
+                          revealed: revealed,
+                          onReveal: () => setState(() => revealed = true),
+                          onAssess: assess,
+                          solutionBuilder: (_) => _buildSolution(q),
                         ),
 
-                      if (answered)
-                        Column(
-                          children: [
-                            AnswerFeedbackBadge(
-                              correct: correct,
-                              label: correct ? "Richtig" : "Falsch",
+                        if (revealed) ...[
+                          const SizedBox(height: 16),
+
+                          _buildMnemonic(q, card),
+                        ],
+                      ] else ...[
+                        if (q.hasArticleField || q.hasGenitiveField)
+                          Row(
+                            children: [
+                              if (q.hasGenitiveField && includeGenitive)
+                                Expanded(
+                                  child: greekField(
+                                    "Genitiv",
+                                    genitiveController,
+                                    genitiveCorrect,
+                                  ),
+                                ),
+
+                              if (q.hasArticleField &&
+                                  q.hasGenitiveField &&
+                                  includeArticle &&
+                                  includeGenitive)
+                                const SizedBox(width: 10),
+
+                              if (q.hasArticleField && includeArticle)
+                                Expanded(
+                                  child: greekField(
+                                    "Artikel",
+                                    articleController,
+                                    articleCorrect,
+                                  ),
+                                ),
+                            ],
+                          ),
+
+                        if (q.hasAoristField && includeAorist)
+                          greekField("Aorist", aoristController, aoristCorrect),
+
+                        const SizedBox(height: 15),
+
+                        TextField(
+                          controller: translationController,
+
+                          enabled: !answered,
+
+                          focusNode: translationFocusNode,
+
+                          //onTap: closeKeyboard,
+                          decoration: InputDecoration(
+                            labelText: "Übersetzung",
+
+                            enabledBorder: answerResultBorder(
+                              context,
+                              translationCorrect,
                             ),
 
-                            const SizedBox(height: 12),
+                            focusedBorder: answerResultBorder(
+                              context,
+                              translationCorrect,
+                            ),
 
-                            if (!correct ||
-                                !translationComplete ||
-                                (q.entry.article != null && !includeArticle) ||
-                                (q.entry.genitive != null &&
-                                    !includeGenitive) ||
-                                (q.entry.aorist != null && !includeAorist))
-                              Column(
-                                children: [
-                                  Text(
-                                    correct &&
-                                            translationComplete &&
-                                            hasAdditionalInfo
-                                        ? "Zusätzliche Informationen:"
-                                        : "Korrekte Antworten:",
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
+                            disabledBorder: answerResultBorder(
+                              context,
+                              translationCorrect,
+                            ),
+
+                            border: const OutlineInputBorder(),
+                          ),
+                        ),
+
+                        const SizedBox(height: 20),
+
+                        if (showKeyboard && activeController != null)
+                          GreekKeyboard(
+                            controller: activeController!,
+
+                            onChanged: () {
+                              setState(() {});
+                            },
+                          ),
+
+                        if (answered)
+                          Column(
+                            children: [
+                              AnswerFeedbackBadge(
+                                correct: correct,
+                                label: correct ? "Richtig" : "Falsch",
+                              ),
+
+                              const SizedBox(height: 12),
+
+                              if (!correct ||
+                                  !translationComplete ||
+                                  (q.entry.article != null &&
+                                      !includeArticle) ||
+                                  (q.entry.genitive != null &&
+                                      !includeGenitive) ||
+                                  (q.entry.aorist != null && !includeAorist))
+                                Column(
+                                  children: [
+                                    Text(
+                                      correct &&
+                                              translationComplete &&
+                                              hasAdditionalInfo
+                                          ? "Zusätzliche Informationen:"
+                                          : "Korrekte Antworten:",
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
-                                  ),
 
-                                  const SizedBox(height: 8),
+                                    const SizedBox(height: 8),
 
-                                  if (q.entry.article != null &&
-                                      (articleCorrect == false ||
-                                          !includeArticle))
-                                    Text("Artikel: ${q.entry.article}"),
+                                    if (q.entry.article != null &&
+                                        (articleCorrect == false ||
+                                            !includeArticle))
+                                      Text("Artikel: ${q.entry.article}"),
 
-                                  if (q.entry.genitive != null &&
-                                      (genitiveCorrect == false ||
-                                          !includeGenitive))
-                                    Text("Genitiv: ${q.entry.genitive}"),
+                                    if (q.entry.genitive != null &&
+                                        (genitiveCorrect == false ||
+                                            !includeGenitive))
+                                      Text("Genitiv: ${q.entry.genitive}"),
 
-                                  if (q.entry.aorist != null &&
-                                      (aoristCorrect == false ||
-                                          !includeAorist))
-                                    Text("Aorist: ${q.entry.aorist}"),
+                                    if (q.entry.aorist != null &&
+                                        (aoristCorrect == false ||
+                                            !includeAorist))
+                                      Text("Aorist: ${q.entry.aorist}"),
 
-                                  if (translationCorrect == false ||
-                                      !translationComplete)
-                                    // Nur der Übersetzungstext selbst ist
-                                    // auswähl- und kopierbar, nicht das Label.
-                                    Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        const Text("Übersetzung: "),
+                                    if (translationCorrect == false ||
+                                        !translationComplete)
+                                      // Nur der Übersetzungstext selbst ist
+                                      // auswähl- und kopierbar, nicht das Label.
+                                      Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          const Text("Übersetzung: "),
 
-                                        Flexible(
-                                          child: SelectableText(
-                                            q.entry.translations.join(", "),
-                                            key: const Key(
-                                              "vocabulary_translation_text",
+                                          Flexible(
+                                            child: SelectableText(
+                                              q.entry.translations.join(", "),
+                                              key: const Key(
+                                                "vocabulary_translation_text",
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                ],
-                              ),
-                            const SizedBox(height: 16),
+                                        ],
+                                      ),
+                                  ],
+                                ),
+                              const SizedBox(height: 16),
 
-                            _buildMnemonic(q, card),
-                          ],
+                              _buildMnemonic(q, card),
+                            ],
+                          ),
+
+                        const SizedBox(height: 20),
+
+                        SizedBox(
+                          width: double.infinity,
+
+                          child: ElevatedButton(
+                            onPressed: answered ? nextQuestion : check,
+
+                            child: Text(answered ? "Weiter" : "Prüfen"),
+                          ),
                         ),
-
-                      const SizedBox(height: 20),
-
-                      SizedBox(
-                        width: double.infinity,
-
-                        child: ElevatedButton(
-                          onPressed: answered ? nextQuestion : check,
-
-                          child: Text(answered ? "Weiter" : "Prüfen"),
-                        ),
-                      ),
+                      ],
                     ],
 
                     InfoReportFooter(
@@ -1019,6 +1105,26 @@ class _VocabularyTrainerScreenState extends State<VocabularyTrainerScreen> {
         disabledBorder: answerResultBorder(context, correct),
 
         border: const OutlineInputBorder(),
+      ),
+    );
+  }
+}
+
+/// Hinweis über der Vokabel, wie die Kopfzeile der Lerneinheit im Lernplan.
+class _NewVocabularyLabel extends StatelessWidget {
+  final String text;
+
+  const _NewVocabularyLabel({required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 20),
+      child: Text(
+        text,
+        key: const ValueKey("greek-trainer-new-label"),
+        textAlign: TextAlign.center,
+        style: TextStyle(color: Theme.of(context).hintColor),
       ),
     );
   }
